@@ -1,6 +1,6 @@
 # Okta Management SDK for Golang
 [![Build Status](https://img.shields.io/travis/okta/okta-sdk-golang/master.svg)](https://travis-ci.org/okta/okta-sdk-golang)
-[![License](https://img.shields.io/badge/License-Apache%202.0-yellow.svg)](https://opensource.org/licenses/Apache-2.0)
+[![License](https://img.shields.io/github/license/okta/okta-sdk-golang.svg)](https://opensource.org/licenses/Apache-2.0)
 [![Support](https://img.shields.io/badge/support-Developer%20Forum-blue.svg)](https://devforum.okta.com/)
 
 ## :warning: :construction: Alpha Preview :construction: :warning:
