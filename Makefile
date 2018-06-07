@@ -25,8 +25,7 @@ build:
 
 pull-spec:
 	@echo "$(COLOR_OKTA)Pulling in latest spec...$(COLOR_NONE)"
-	rm -fr openapi/
-	mkdir openapi/
+	rm openapi/spec.json
 	git clone https://github.com/okta/openapi spec-raw
 	cp spec-raw/dist/spec.json openapi/spec.json
 	rm -fr spec-raw
