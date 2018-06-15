@@ -2,18 +2,6 @@
 
 
 [[projects]]
-  name = "github.com/InVisionApp/conjungo"
-  packages = ["."]
-  revision = "cf08399f4b9568f1d39c5401023cc084abcde71d"
-  version = "v1.0.0"
-
-[[projects]]
-  name = "github.com/Sirupsen/logrus"
-  packages = ["."]
-  revision = "c155da19408a8799da419ed3eeb0cb5db0ad5dbc"
-  version = "v1.0.5"
-
-[[projects]]
   name = "github.com/go-yaml/yaml"
   packages = ["."]
   revision = "5420a8b6744d3b0345ab293f6fcba19c978f1183"
@@ -25,24 +13,9 @@
   revision = "f611eb38b3875cc3bd991ca91c51d06446afa14c"
   version = "v1.3.0"
 
-[[projects]]
-  branch = "master"
-  name = "golang.org/x/crypto"
-  packages = ["ssh/terminal"]
-  revision = "37a17fe027db43f76fd88b056ddf588563fc8722"
-
-[[projects]]
-  branch = "master"
-  name = "golang.org/x/sys"
-  packages = [
-    "unix",
-    "windows"
-  ]
-  revision = "8883426083c04a2627e6e59d84d5f6fb63d16c91"
-
 [solve-meta]
   analyzer-name = "dep"
   analyzer-version = 1
-  inputs-digest = "9a79a66f63cbf5e695507e70833d052c347a92efc9818c4bdc446a3cfa323a64"
+  inputs-digest = "80ce2f766fdb823f290555d94430b5bc32629f1ce012c0414beff6be4dddacf3"
   solver-name = "gps-cdcl"
   solver-version = 1
