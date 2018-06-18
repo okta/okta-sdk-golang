@@ -9,7 +9,7 @@ This library is under development and is currently in 0.0.x version series.  Bre
 Need help? [Okta Developer Forum].
 
 ## Configuration
-Parsing the configuration will happen from 5 different ways. The following is the order the SDK looks for configuration items and builds on top of all the defaults.
+Configuration details are pulled from 5 different sources. The following is the order the SDK looks for configuration items and builds on top of all the defaults.
 
 1. Default configuration.
 2. okta.yaml file from ~/.okta directory.
