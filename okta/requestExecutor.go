@@ -68,6 +68,7 @@ func (re *RequestExecutor) doRequest(method string, url string, body io.Reader) 
 	}
 	req.Header.Add("Authorization", "SSWS " + re.config.Okta.Client.Token)
 	req.Header.Add("User-Agent", "okta-sdk-golang/0.0.0-development") //TODO: create a User-Agent object to fill and create this on build.
+	req.Header.Add("Accept", "application/json")
 
 	resp, err := re.httpClient.Do(req)
 	if (err != nil ) {
