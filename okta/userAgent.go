@@ -24,11 +24,13 @@ type UserAgent struct {
 	osName string
 
 	osVersion string
+
+	config *Config
 }
 
-func NewUserAgent() UserAgent {
+func NewUserAgent(config *Config) UserAgent {
 	ua := UserAgent{}
-
+	ua.config = config
 	ua.goVersion = runtime.Version()
 	ua.osName = runtime.GOOS
 	ua.osVersion = runtime.GOARCH
@@ -38,5 +40,13 @@ func NewUserAgent() UserAgent {
 }
 
 func (ua UserAgent) String() string {
-	return runtime.GOOS
+	userAgentString := "okta-sdk-golang/"+Version+" "
+	userAgentString += "golang/"+ua.goVersion+" "
+	userAgentString += ua.osName+"/"+ua.osVersion+" "
+
+	if ua.config.UserAgentExtra != "" {
+		userAgentString += ua.config.UserAgentExtra+" "
+	}
+
+	return userAgentString
 }
