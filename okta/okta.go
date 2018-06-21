@@ -16,22 +16,29 @@
 
 package okta
 
-import (
-	"net/http"
-)
-
 type Client struct {
 	config *Config
-	httpClient *http.Client
+
+	requestExecutor *RequestExecutor
+
+	common service
+
+	User *UserService
 }
 
-func NewClient(config *Config) Client {
+type service struct {
+	client *Client
+}
+
+func NewClient(config *Config) *Client {
 	if config == nil {
 		config = NewConfig()
 	}
-	c := Client{}
+	c := &Client{}
+	c.common.client = c
 	c.config = config
-
+	c.requestExecutor = NewRequestExecutor(nil, config)
+	c.User = (*UserService)(&c.common)
 	return c
 }
 
