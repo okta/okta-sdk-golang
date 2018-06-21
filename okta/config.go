@@ -45,6 +45,7 @@ type Config struct {
 
 		} `yaml:"client"`
 	} `yaml:"okta"`
+	UserAgentExtra string
 }
 
 func NewConfig() *Config {
@@ -53,7 +54,8 @@ func NewConfig() *Config {
 	c.WithCache(true).
 	WithCacheTtl(300).
 	WithCacheTti(300).
-	WithConnectionTimeout(30)
+	WithConnectionTimeout(30).
+	WithUserAgentExtra("")
 
 	c = readConfigFromSystem(c)
 	c = readConfigFromApplication(c)
@@ -126,6 +128,11 @@ func (c *Config) WithOrgUrl(url string) *Config{
 
 func (c *Config) WithToken(token string) *Config{
 	c.Okta.Client.Token = token
+	return c
+}
+
+func (c *Config) WithUserAgentExtra(s string) *Config{
+	c.UserAgentExtra = s
 	return c
 }
 
