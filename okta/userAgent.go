@@ -16,34 +16,37 @@
 
 package okta
 
-const Version = "0.0.0-Develop"
+import "runtime"
 
-type Client struct {
+type UserAgent struct {
+	goVersion string
+
+	osName string
+
+	osVersion string
+
 	config *Config
-
-	requestExecutor *RequestExecutor
-
-	common service
-
-	User *UserService
 }
 
-type service struct {
-	client *Client
+func NewUserAgent(config *Config) UserAgent {
+	ua := UserAgent{}
+	ua.config = config
+	ua.goVersion = runtime.Version()
+	ua.osName = runtime.GOOS
+	ua.osVersion = runtime.GOARCH
+
+	return ua
+
 }
 
-func NewClient(config *Config) *Client {
-	if config == nil {
-		config = NewConfig()
+func (ua UserAgent) String() string {
+	userAgentString := "okta-sdk-golang/"+Version+" "
+	userAgentString += "golang/"+ua.goVersion+" "
+	userAgentString += ua.osName+"/"+ua.osVersion+" "
+
+	if ua.config.UserAgentExtra != "" {
+		userAgentString += ua.config.UserAgentExtra+" "
 	}
-	c := &Client{}
-	c.common.client = c
-	c.config = config
-	c.requestExecutor = NewRequestExecutor(nil, config)
-	c.User = (*UserService)(&c.common)
-	return c
-}
 
-func (c *Client) GetConfig() *Config {
-	return c.config
+	return userAgentString
 }
