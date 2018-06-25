@@ -1884,7 +1884,7 @@
             "type": "boolean"
           },
           {
-            "default": false,
+            "default": "false",
             "description": "With activate=true, set nextLogin to \"changePassword\" to have the password be EXPIRED, so user must change it the next time they log in.",
             "in": "query",
             "name": "nextLogin",
