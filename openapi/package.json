@@ -1,0 +1,16 @@
+{
+  "name": "okta-sdk-golang-openapi",
+  "private": true,
+  "version": "0.1.0",
+  "scripts": {
+    "generator": "okta-sdk-generator -t generator -o ../"
+  },
+  "devDependencies": {
+    "@okta/openapi": "^0.13.0",
+    "lodash": "^4.17.4",
+    "lodash-inflection": "^1.5.0"
+  },
+  "dependencies": {
+    "json-stable-stringify": "^1.0.1"
+  }
+}
