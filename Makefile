@@ -21,7 +21,7 @@ help:
 
 build:
 	@echo "$(COLOR_OKTA)Building SDK...$(COLOR_NONE)"
-	@echo "TODO"
+	cd openapi && yarn generator
 
 pull-spec:
 	@echo "$(COLOR_OKTA)Pulling in latest spec...$(COLOR_NONE)"

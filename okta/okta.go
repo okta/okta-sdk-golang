@@ -23,12 +23,13 @@ type Client struct {
 
 	requestExecutor *RequestExecutor
 
-	common service
+	resource resource
 
-	User *UserService
+	Application *ApplicationResource
+
 }
 
-type service struct {
+type resource struct {
 	client *Client
 }
 
@@ -36,14 +37,21 @@ func NewClient(config *Config) *Client {
 	if config == nil {
 		config = NewConfig()
 	}
+
 	c := &Client{}
-	c.common.client = c
 	c.config = config
 	c.requestExecutor = NewRequestExecutor(nil, config)
-	c.User = (*UserService)(&c.common)
+
+	c.resource.client = c
+
+	c.Application = (*ApplicationResource)(&c.resource)
 	return c
 }
 
 func (c *Client) GetConfig() *Config {
 	return c.config
+}
+
+func (c *Client) GetRequestExecutor() *RequestExecutor {
+	return c.requestExecutor
 }
