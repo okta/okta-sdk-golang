@@ -1,0 +1,63 @@
+{{> partials.copyHeader }}
+
+package okta
+
+{{> model.imports this}}
+{{#each models as |model|}}
+{{#if (eq model.tags.[0] ../buildingTag)}}
+{{#if (gt model.methods.length 0)}}
+type {{model.modelName}}Resource resource
+{{/if}}
+
+type {{model.modelName}} struct {
+{{#each model.properties as |property|}}
+	{{structProp property.propertyName}} {{getType property}} `json:"{{property.propertyName}}, omitempty"`
+{{/each}}
+}
+
+{{> struct.withProp this }}
+
+{{#each model.methods as |method|}}
+func (m *{{../this.modelName}}Resource) {{capitalize alias}}({{operationArgumentBuilder this.operation}}) {{this.operation.responseModel}} {
+	{{#if (eq this.operation.method "get")}}
+	{{#if (eq this.operation.responseModel undefined)}}
+	_, err := m.client.requestExecutor.{{capitalize this.operation.method}}("{{{getPath this.operation}}}")
+	{{else}}
+	resp, err := m.client.requestExecutor.{{capitalize this.operation.method}}("{{{getPath this.operation}}}")
+	{{/if}}
+	{{else if (eq this.operation.method "delete")}}
+	_, err := m.client.requestExecutor.{{capitalize this.operation.method}}("{{{getPath this.operation}}}")
+	{{else}}
+	{{#if (ne this.operation.bodyModel undefined)}}
+	iobytes, err := json.Marshal(body)
+	if err != nil  {
+		fmt.Printf("error: %v", err)
+	}
+	resp, err := m.client.requestExecutor.{{capitalize this.operation.method}}("{{{getPath this.operation}}}", bytes.NewReader(iobytes))
+	{{else}}
+	{{#if (eq this.operation.responseModel undefined)}}
+	_, err := m.client.requestExecutor.{{capitalize this.operation.method}}("{{{getPath this.operation}}}", nil)
+	{{else}}
+	resp, err := m.client.requestExecutor.{{capitalize this.operation.method}}("{{{getPath this.operation}}}", nil)
+	{{/if}}
+	{{/if}}
+	{{/if}}
+	if err != nil  {
+		fmt.Printf("error: %v", err)
+	}
+	{{#if (ne this.operation.responseModel undefined)}}
+
+	r := {{this.operation.responseModel}}{}
+
+	json.Unmarshal(resp, &r)
+
+	return r
+	{{/if}}
+}
+
+{{/each}}
+{{/if}}
+{{/each}}
+
+
+

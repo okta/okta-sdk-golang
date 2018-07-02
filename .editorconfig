@@ -12,6 +12,10 @@ trim_trailing_whitespace = true
 indent_style = tab
 indent_size = 8
 
+[*.go.hbs]
+indent_style = tab
+indent_size = 8
+
 [Makefile]
 indent_style = tab
 indent_size = 4
