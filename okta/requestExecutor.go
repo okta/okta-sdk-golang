@@ -24,7 +24,7 @@ import (
 
 type RequestExecutor struct {
 	httpClient *http.Client
-	config *Config
+	config     *Config
 }
 
 func NewRequestExecutor(httpClient *http.Client, config *Config) *RequestExecutor {
@@ -32,22 +32,22 @@ func NewRequestExecutor(httpClient *http.Client, config *Config) *RequestExecuto
 	re.httpClient = httpClient
 	re.config = config
 
-	if (httpClient == nil) {
+	if httpClient == nil {
 		re.httpClient = &http.Client{}
 	}
 
 	return &re
 }
 
-func (re *RequestExecutor) Get(url string) ([]byte, error){
+func (re *RequestExecutor) Get(url string) ([]byte, error) {
 	return re.doRequest("GET", url, nil)
 }
 
-func (re *RequestExecutor) Post(url string, body  io.Reader) ([]byte, error) {
+func (re *RequestExecutor) Post(url string, body io.Reader) ([]byte, error) {
 	return re.doRequest("POST", url, body)
 }
 
-func (re *RequestExecutor) Put(url string, body  io.Reader) ([]byte, error) {
+func (re *RequestExecutor) Put(url string, body io.Reader) ([]byte, error) {
 	return re.doRequest("PUT", url, body)
 }
 
@@ -59,25 +59,25 @@ func (re *RequestExecutor) doRequest(method string, url string, body io.Reader) 
 	url = re.config.Okta.Client.OrgUrl + "api/v1" + url
 
 	req, err := http.NewRequest(method, url, body)
-	if (err != nil ) {
+	if err != nil {
 		return nil, err
 	}
 
-	if (method == "POST" && body != nil) {
+	if method == "POST" && body != nil {
 		req.Header.Add("Content-Type", "application/json")
 	}
-	req.Header.Add("Authorization", "SSWS " + re.config.Okta.Client.Token)
+	req.Header.Add("Authorization", "SSWS "+re.config.Okta.Client.Token)
 	req.Header.Add("User-Agent", NewUserAgent(re.config).String())
 	req.Header.Add("Accept", "application/json")
 
 	resp, err := re.httpClient.Do(req)
-	if (err != nil ) {
+	if err != nil {
 		return nil, err
 	}
 
 	defer resp.Body.Close()
 	bodyBytes, err := ioutil.ReadAll(resp.Body)
-	if (err != nil ) {
+	if err != nil {
 		return nil, err
 	}
 

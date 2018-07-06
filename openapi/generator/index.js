@@ -53,7 +53,7 @@ function lowercaseFirstLetter(string) {
   return string.charAt(0).toLowerCase() + string.slice(1);
 }
 
-function capitalize(string) {
+function ucFirst(string) {
   return string.charAt(0).toUpperCase() + string.slice(1);
 }
 
@@ -66,7 +66,7 @@ function structProp(prop) {
   return prop;
 }
 
-function getModelImports(models, tag) {
+function getImports(operations, models, tag) {
   let imports = [];
 
   imports.push("fmt");
@@ -85,6 +85,22 @@ function getModelImports(models, tag) {
     }
   }
 
+  for (let operation of operations) {
+    if (operation.tags[0] == tag) {
+      if (operation.responseModel !== undefined) {
+        imports.push("fmt");
+        imports.push("encoding/json");
+      }
+
+      if (operation.bodyModel !== undefined) {
+        if(tag == "Group") {
+          // console.log(operation.operationId, operation.bodyModel);
+        }
+        imports.push("bytes")
+      }
+    }
+  }
+
   return [...new Set(imports)];
 }
 
@@ -94,7 +110,7 @@ function operationArgumentBuilder(operation) {
   operation.pathParams.map((arg) => args.push(arg.name + " " + arg.type));
 
   if ((operation.method === 'post' || operation.method === 'put') && operation.bodyModel) {
-    args.push(`body ` + capitalize(_.camelCase(operation.bodyModel)));
+    args.push(`body ` + ucFirst(_.camelCase(operation.bodyModel)));
   }
 
   // if (operation.queryParams.length) {
@@ -113,6 +129,13 @@ function getPath(operation) {
   return `${path}`;
 }
 
+function returnType(operation) {
+  if ( operation.responseModel !== undefined ) {
+    return " *" + operation.responseModel + " ";
+  }
+  return " ";
+}
+
 function log(item) {
   console.log(item);
 }
@@ -122,48 +145,29 @@ function log(item) {
 golang.process = ({ spec, operations, models, handlebars }) => {
 
   golang.spec = spec;
-  const buildableTags = ["Application", "Group", "Log", "Session", "User", "UserFactor"];
   const templates = [];
 
-
-  for (let tag of buildableTags) {
-    let imports = [];
-    imports = getModelImports(models, tag);
-
+  for (let model of models) {
+    if(model.modelName == "Application") {
+      // console.log(model);
+    }
     templates.push({
       src: 'templates/model.go.hbs',
-      dest: 'okta/'+lowercaseFirstLetter(tag)+'.go',
+      dest: 'okta/' + lowercaseFirstLetter(model.modelName) + '.go',
       context: {
-        "models": models,
-        "buildingTag": tag,
-        "imports": imports
+        "model": model
       }
     });
   }
-  // for (let model of models) {
-  //   let imports = [];
-  //
-  //   imports = getModelImports(model);
-
-    // templates.push({
-    //   src: 'templates/model.go.hbs',
-    //   dest: modelFilename,
-    //   context: {
-    //     "model": model,
-    //     "imports": imports
-    //   }
-    // });
-
-
-  // }
 
   handlebars.registerHelper({
     getType,
     structProp,
     log,
-    capitalize,
+    ucFirst,
     operationArgumentBuilder,
-    getPath
+    getPath,
+    returnType
   });
 
   handlebars.registerPartial('partials.copyHeader', fs.readFileSync('generator/templates/partials/copyHeader.hbs', 'utf8'));
