@@ -11,8 +11,9 @@ help:
 	@echo "$(COLOR_OK)  make [command]$(COLOR_NONE)"
 	@echo ""
 	@echo "$(COLOR_WARNING)Available commands:$(COLOR_NONE)"
-	@echo "$(COLOR_OK)  build                   Build the Okta Golang SDK$(COLOR_NONE)"
-	@echo "$(COLOR_OK)  help                    Shows this help$(COLOR_NONE)"
+	@echo "$(COLOR_OK)  build                   Clean and build the Okta Golang SDK generated files$(COLOR_NONE)"
+	@echo "$(COLOR_OK)  clean-files             Deletes all generated files$(COLOR_NONE)"
+	@echo "$(COLOR_OK)  generate-files          Generates files based around spec$(COLOR_NONE)"
 	@echo "$(COLOR_OK)  pull-spec               Pull down the most recent released version of the spec$(COLOR_NONE)"
 	@echo "$(COLOR_WARNING)test$(COLOR_NONE)"
 	@echo "$(COLOR_OK)  test:all                Run all tests$(COLOR_NONE)"
@@ -21,6 +22,15 @@ help:
 
 build:
 	@echo "$(COLOR_OKTA)Building SDK...$(COLOR_NONE)"
+	$(MAKE) clean-files
+	$(MAKE) generate-files
+
+clean-files:
+	@echo "$(COLOR_OKTA)Cleaning Up Old Generated Files...$(COLOR_NONE)"
+	cd openapi && yarn cleanFiles
+
+generate-files:
+	@echo "$(COLOR_OKTA)Generating SDK Files...$(COLOR_NONE)"
 	cd openapi && yarn generator
 
 pull-spec:
