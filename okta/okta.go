@@ -26,7 +26,6 @@ type Client struct {
 	resource resource
 
 	Application *ApplicationResource
-
 }
 
 type resource struct {

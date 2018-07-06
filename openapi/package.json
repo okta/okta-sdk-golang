@@ -3,7 +3,8 @@
   "private": true,
   "version": "0.1.0",
   "scripts": {
-    "generator": "okta-sdk-generator -t generator -o ../"
+    "generator": "okta-sdk-generator -t generator -o ../",
+    "cleanFiles": " node ./generator/cleanFiles.js"
   },
   "devDependencies": {
     "@okta/openapi": "^0.13.0",
