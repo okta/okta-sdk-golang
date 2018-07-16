@@ -66,42 +66,36 @@ function structProp(prop) {
   return prop;
 }
 
-function getImports(operations, models, tag) {
+function getImports(object) {
   let imports = [];
 
-  imports.push("fmt");
-  imports.push("encoding/json");
-
-  for (let model of models) {
-    if (model.tags[0] == tag) {
-      if (model.properties !== undefined) {
-        for (let property of model.properties) {
-          switch (property.commonType) {
-            case 'dateTime' :
-              imports.push("time");
-          }
-        }
+  if (object.model.properties !== undefined) {
+    for (let property of object.model.properties) {
+      switch (property.commonType) {
+        case 'dateTime' :
+          imports.push("time");
       }
     }
   }
-
-  for (let operation of operations) {
-    if (operation.tags[0] == tag) {
-      if (operation.responseModel !== undefined) {
+  if(object.model.modelName == "Application") {
+    // console.log(object.model.methods);
+  }
+  if (object.model.methods !== undefined) {
+    for (let method of object.model.methods) {
+      if (method.responseModel !== undefined) {
         imports.push("fmt");
         imports.push("encoding/json");
       }
 
-      if (operation.bodyModel !== undefined) {
-        if(tag == "Group") {
-          // console.log(operation.operationId, operation.bodyModel);
-        }
+      if (method.bodyModel !== undefined) {
         imports.push("bytes")
       }
     }
   }
 
-  return [...new Set(imports)];
+  imports = [...new Set(imports)];
+
+  return imports;
 }
 
 function operationArgumentBuilder(operation) {
@@ -167,12 +161,14 @@ golang.process = ({ spec, operations, models, handlebars }) => {
     ucFirst,
     operationArgumentBuilder,
     getPath,
-    returnType
+    returnType,
+    getImports
   });
 
   handlebars.registerPartial('partials.copyHeader', fs.readFileSync('generator/templates/partials/copyHeader.hbs', 'utf8'));
   handlebars.registerPartial('struct.withProp', fs.readFileSync('generator/templates/struct/withProp.go.hbs', 'utf8'));
   handlebars.registerPartial('model.imports', fs.readFileSync('generator/templates/model/imports.go.hbs', 'utf8'));
+  handlebars.registerPartial('model.defaultMethod', fs.readFileSync('generator/templates/model/defaultMethod.go.hbs', 'utf8'));
 
   fs.writeFile("generator/createdFiles.json", JSON.stringify(templates), function(error) {
     console.log(error);
