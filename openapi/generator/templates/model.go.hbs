@@ -2,6 +2,8 @@
 
 package okta
 
+{{> model.imports this}}
+
 {{#if (gt model.methods.length 0)}}
 type {{model.modelName}}Resource resource
 
@@ -22,80 +24,14 @@ func (m *{{../model.modelName}}) With{{structProp this.propertyName}}(v {{getTyp
 {{/unless}}
 {{/each}}
 {{#each model.crud as |crud|}}
-func (m *{{../model.modelName}}Resource) {{crud.operation.operationId}}({{operationArgumentBuilder this.operation}}){{returnType this.operation}}{
-	{{#if (eq this.operation.method "get")}}
-	{{#if (eq this.operation.responseModel undefined)}}
-	_, err := m.client.requestExecutor.{{capitalize this.operation.method}}("{{{getPath this.operation}}}")
-	{{else}}
-	resp, err := m.client.requestExecutor.{{capitalize this.operation.method}}("{{{getPath this.operation}}}")
-	{{/if}}
-	{{else if (eq this.operation.method "delete")}}
-	_, err := m.client.requestExecutor.{{capitalize this.operation.method}}("{{{getPath this.operation}}}")
-	{{else}}
-	{{#if (ne this.operation.bodyModel undefined)}}
-	iobytes, err := json.Marshal(body)
-	if err != nil  {
-		fmt.Printf("error: %v", err)
-	}
-	resp, err := m.client.requestExecutor.{{capitalize this.operation.method}}("{{{getPath this.operation}}}", bytes.NewReader(iobytes))
-	{{else}}
-	{{#if (eq this.operation.responseModel undefined)}}
-	_, err := m.client.requestExecutor.{{capitalize this.operation.method}}("{{{getPath this.operation}}}", nil)
-	{{else}}
-	resp, err := m.client.requestExecutor.{{capitalize this.operation.method}}("{{{getPath this.operation}}}", nil)
-	{{/if}}
-	{{/if}}
-	{{/if}}
-	if err != nil  {
-		fmt.Printf("error: %v", err)
-	}
-	{{#if (ne this.operation.responseModel undefined)}}
-
-	r := {{this.operation.responseModel}}{}
-
-	json.Unmarshal(resp, &r)
-
-	return r
-	{{/if}}
+func (m *{{../model.modelName}}Resource) {{this.operation.operationId}}({{operationArgumentBuilder this.operation}}) {{returnType this.operation}}{
+	{{> model.defaultMethod this}}
 }
 
 {{/each}}
 
 {{#each model.methods as |method|}}
 func (m *{{../model.modelName}}Resource) {{this.operation.operationId}}({{operationArgumentBuilder this.operation}}) {{returnType this.operation}}{
-	{{#if (eq this.operation.method "get")}}
-	{{#if (eq this.operation.responseModel undefined)}}
-	_, err := m.client.requestExecutor.{{capitalize this.operation.method}}("{{{getPath this.operation}}}")
-	{{else}}
-	resp, err := m.client.requestExecutor.{{capitalize this.operation.method}}("{{{getPath this.operation}}}")
-	{{/if}}
-	{{else if (eq this.operation.method "delete")}}
-	_, err := m.client.requestExecutor.{{capitalize this.operation.method}}("{{{getPath this.operation}}}")
-	{{else}}
-	{{#if (ne this.operation.bodyModel undefined)}}
-	iobytes, err := json.Marshal(body)
-	if err != nil  {
-		fmt.Printf("error: %v", err)
-	}
-	resp, err := m.client.requestExecutor.{{capitalize this.operation.method}}("{{{getPath this.operation}}}", bytes.NewReader(iobytes))
-	{{else}}
-	{{#if (eq this.operation.responseModel undefined)}}
-	_, err := m.client.requestExecutor.{{capitalize this.operation.method}}("{{{getPath this.operation}}}", nil)
-	{{else}}
-	resp, err := m.client.requestExecutor.{{capitalize this.operation.method}}("{{{getPath this.operation}}}", nil)
-	{{/if}}
-	{{/if}}
-	{{/if}}
-	if err != nil  {
-		fmt.Printf("error: %v", err)
-	}
-	{{#if (ne this.operation.responseModel undefined)}}
-
-	r := {{this.operation.responseModel}}{}
-
-	json.Unmarshal(resp, &r)
-
-	return r
-	{{/if}}
+	{{> model.defaultMethod this}}
 }
 {{/each}}
