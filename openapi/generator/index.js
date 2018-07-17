@@ -30,7 +30,7 @@ function getType(obj) {
       return String.raw`bool`;
     case 'hash' :
     case 'array' :
-      return String.raw`map[string]interface{}`;
+      return String.raw`[]string`;
     case 'enum' :
     case '':
     case 'null' :
