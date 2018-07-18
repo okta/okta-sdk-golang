@@ -82,18 +82,19 @@ function getImports(object) {
   }
   if (object.model.methods !== undefined) {
     for (let method of object.model.methods) {
-      if (method.responseModel !== undefined) {
+      console.log(method);
+      if (method.operation.responseModel !== undefined) {
         imports.push("fmt");
         imports.push("encoding/json");
       }
 
-      if (method.bodyModel !== undefined) {
+      if (method.operation.bodyModel !== undefined) {
         imports.push("bytes")
       }
     }
   }
 
-  imports = [...new Set(imports)];
+  imports = [...new Set(imports)].sort();
 
   return imports;
 }
