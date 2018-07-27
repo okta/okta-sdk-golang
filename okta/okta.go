@@ -25,7 +25,7 @@ type Client struct {
 
 	resource resource
 
-	Application *ApplicationResource
+	User *UserResource
 }
 
 type resource struct {
@@ -43,7 +43,7 @@ func NewClient(config *Config) *Client {
 
 	c.resource.client = c
 
-	c.Application = (*ApplicationResource)(&c.resource)
+	c.User = (*UserResource)(&c.resource)
 	return c
 }
 
