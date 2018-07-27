@@ -17,6 +17,7 @@
 package okta
 
 import (
+	"encoding/json"
 	"io"
 	"io/ioutil"
 	"net/http"
@@ -56,7 +57,7 @@ func (re *RequestExecutor) Delete(url string) ([]byte, error) {
 }
 
 func (re *RequestExecutor) doRequest(method string, url string, body io.Reader) ([]byte, error) {
-	url = re.config.Okta.Client.OrgUrl + "api/v1" + url
+	url = re.config.Okta.Client.OrgUrl +  url
 
 	req, err := http.NewRequest(method, url, body)
 	if err != nil {
@@ -79,6 +80,12 @@ func (re *RequestExecutor) doRequest(method string, url string, body io.Reader) 
 	bodyBytes, err := ioutil.ReadAll(resp.Body)
 	if err != nil {
 		return nil, err
+	}
+
+	e := new(Error)
+	json.Unmarshal(bodyBytes, &e)
+	if e.ErrorId != "" {
+		return nil, e
 	}
 
 	return bodyBytes, nil

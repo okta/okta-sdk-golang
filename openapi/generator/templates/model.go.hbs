@@ -4,19 +4,19 @@ package okta
 
 {{> model.imports this}}
 
-{{#if (gt model.methods.length 0)}}
+{{#if (or (gt model.methods.length 0) (gt model.crud.length 0))}}
 type {{model.modelName}}Resource resource
 
 {{/if}}
 type {{model.modelName}} struct {
 	{{#each model.properties as |property|}}
-	{{structProp this.propertyName}} {{getType this}} `json:"{{this.propertyName}}, omitempty"`
+	{{structProp this.propertyName}} {{getType this "*"}} `json:"{{this.propertyName}},omitempty"`
 	{{/each}}
 }
 
 {{#each model.properties as |property|}}
 {{#unless readOnly}}
-func (m *{{../model.modelName}}) With{{structProp this.propertyName}}(v {{getType this}}) *{{../model.modelName}} {
+func (m *{{../model.modelName}}) With{{structProp this.propertyName}}(v {{getType this "*"}}) *{{../model.modelName}} {
 	m.{{structProp this.propertyName}} = v
 	return m
 }
@@ -24,14 +24,14 @@ func (m *{{../model.modelName}}) With{{structProp this.propertyName}}(v {{getTyp
 {{/unless}}
 {{/each}}
 {{#each model.crud as |crud|}}
-func (m *{{../model.modelName}}Resource) {{this.operation.operationId}}({{operationArgumentBuilder this.operation}}) {{returnType this.operation}}{
+func (m *{{../model.modelName}}Resource) {{ucFirst this.operation.operationId}}({{operationArgumentBuilder this.operation}}) {{returnType this.operation}}{
 	{{> model.defaultMethod this}}
 }
 
 {{/each}}
 
 {{#each model.methods as |method|}}
-func (m *{{../model.modelName}}Resource) {{this.operation.operationId}}({{operationArgumentBuilder this.operation}}) {{returnType this.operation}}{
+func (m *{{../model.modelName}}Resource) {{ucFirst this.operation.operationId}}({{operationArgumentBuilder this.operation}}) {{returnType this.operation}}{
 	{{> model.defaultMethod this}}
 }
 {{/each}}

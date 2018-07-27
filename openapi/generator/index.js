@@ -20,10 +20,10 @@ const fs = require('fs');
 
 const golang = module.exports;
 
-function getType(obj) {
+function getType(obj, prefix="") {
   switch(obj.commonType) {
     case 'dateTime' :
-      return String.raw`time.Time`;
+      return String.raw`*time.Time`;
     case 'integer' :
       return String.raw`int64`;
     case 'boolean' :
@@ -42,6 +42,9 @@ function getType(obj) {
       if(obj.model == undefined) {
         return String.raw`string`;
       } else {
+        if(prefix !== null || prefix != "") {
+          return prefix + obj.model;
+        }
         return obj.model;
       }
     default:
@@ -77,19 +80,30 @@ function getImports(object) {
       }
     }
   }
-  if(object.model.modelName == "Application") {
-    // console.log(object.model.methods);
-  }
+
   if (object.model.methods !== undefined) {
     for (let method of object.model.methods) {
-      if (method.responseModel !== undefined) {
-        imports.push("fmt");
+      if (method.operation.responseModel !== undefined) {
         imports.push("encoding/json");
       }
 
-      if (method.bodyModel !== undefined) {
+      if (method.operation.bodyModel !== undefined) {
         imports.push("bytes")
       }
+    }
+  }
+
+  if (object.model.crud !== undefined) {
+    for (let method of object.model.crud) {
+      if (method.operation.responseModel !== undefined) {
+        imports.push("encoding/json");
+      }
+
+      if (method.operation.bodyModel !== undefined) {
+        imports.push("bytes")
+      }
+
+
     }
   }
 
@@ -125,13 +139,13 @@ function getPath(operation) {
 
 function returnType(operation) {
   if ( operation.responseModel !== undefined ) {
-    return " *" + operation.responseModel + " ";
+    return " (*" + operation.responseModel + ", error) ";
   }
-  return " ";
+  return "error ";
 }
 
 function log(item) {
-  console.log(item);
+    console.log(item);
 }
 
 
