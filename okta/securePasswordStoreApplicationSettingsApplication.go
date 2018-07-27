@@ -1,0 +1,81 @@
+/*
+* Copyright 2018 - Present Okta, Inc.
+*
+* Licensed under the Apache License, Version 2.0 (the "License");
+* you may not use this file except in compliance with the License.
+* You may obtain a copy of the License at
+*
+*      http://www.apache.org/licenses/LICENSE-2.0
+*
+* Unless required by applicable law or agreed to in writing, software
+* distributed under the License is distributed on an "AS IS" BASIS,
+* WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+* See the License for the specific language governing permissions and
+* limitations under the License.
+*/
+
+// AUTO-GENERATED!  DO NOT EDIT FILE DIRECTLY
+
+package okta
+
+import (
+)
+
+type SecurePasswordStoreApplicationSettingsApplication struct {
+	OptionalField1 string `json:"optionalField1,omitempty"`
+	OptionalField1Value string `json:"optionalField1Value,omitempty"`
+	OptionalField2 string `json:"optionalField2,omitempty"`
+	OptionalField2Value string `json:"optionalField2Value,omitempty"`
+	OptionalField3 string `json:"optionalField3,omitempty"`
+	OptionalField3Value string `json:"optionalField3Value,omitempty"`
+	PasswordField string `json:"passwordField,omitempty"`
+	Url string `json:"url,omitempty"`
+	UsernameField string `json:"usernameField,omitempty"`
+}
+
+func (m *SecurePasswordStoreApplicationSettingsApplication) WithOptionalField1(v string) *SecurePasswordStoreApplicationSettingsApplication {
+	m.OptionalField1 = v
+	return m
+}
+
+func (m *SecurePasswordStoreApplicationSettingsApplication) WithOptionalField1Value(v string) *SecurePasswordStoreApplicationSettingsApplication {
+	m.OptionalField1Value = v
+	return m
+}
+
+func (m *SecurePasswordStoreApplicationSettingsApplication) WithOptionalField2(v string) *SecurePasswordStoreApplicationSettingsApplication {
+	m.OptionalField2 = v
+	return m
+}
+
+func (m *SecurePasswordStoreApplicationSettingsApplication) WithOptionalField2Value(v string) *SecurePasswordStoreApplicationSettingsApplication {
+	m.OptionalField2Value = v
+	return m
+}
+
+func (m *SecurePasswordStoreApplicationSettingsApplication) WithOptionalField3(v string) *SecurePasswordStoreApplicationSettingsApplication {
+	m.OptionalField3 = v
+	return m
+}
+
+func (m *SecurePasswordStoreApplicationSettingsApplication) WithOptionalField3Value(v string) *SecurePasswordStoreApplicationSettingsApplication {
+	m.OptionalField3Value = v
+	return m
+}
+
+func (m *SecurePasswordStoreApplicationSettingsApplication) WithPasswordField(v string) *SecurePasswordStoreApplicationSettingsApplication {
+	m.PasswordField = v
+	return m
+}
+
+func (m *SecurePasswordStoreApplicationSettingsApplication) WithUrl(v string) *SecurePasswordStoreApplicationSettingsApplication {
+	m.Url = v
+	return m
+}
+
+func (m *SecurePasswordStoreApplicationSettingsApplication) WithUsernameField(v string) *SecurePasswordStoreApplicationSettingsApplication {
+	m.UsernameField = v
+	return m
+}
+
+

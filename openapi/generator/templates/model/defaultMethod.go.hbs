@@ -10,7 +10,11 @@ _, err := m.client.requestExecutor.{{capitalize this.operation.method}}("{{{getP
 {{#if (ne this.operation.bodyModel undefined)}}
 iobytes, err := json.Marshal(body)
 if err != nil  {
-	fmt.Printf("error: %v", err)
+{{#if (eq this.operation.method "delete")}}
+	return err
+{{else}}
+	return nil, err
+{{/if}}
 }
 resp, err := m.client.requestExecutor.{{capitalize this.operation.method}}("{{{getPath this.operation}}}", bytes.NewReader(iobytes))
 {{else}}
@@ -22,7 +26,11 @@ resp, err := m.client.requestExecutor.{{capitalize this.operation.method}}("{{{g
 {{/if}}
 {{/if}}
 if err != nil  {
-	fmt.Printf("error: %v", err)
+{{#if (eq this.operation.responseModel undefined)}}
+	return err
+{{else}}
+	return nil, err
+{{/if}}
 }
 {{#if (ne this.operation.responseModel undefined)}}
 
@@ -30,5 +38,7 @@ r := {{this.operation.responseModel}}{}
 
 json.Unmarshal(resp, &r)
 
-return r
+return &r, nil
+{{else}}
+return nil
 {{/if}}
