@@ -15,5 +15,3 @@
  */
 
 package query
-
-type Query
