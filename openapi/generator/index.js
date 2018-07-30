@@ -151,14 +151,10 @@ function log(item) {
 
 
 golang.process = ({ spec, operations, models, handlebars }) => {
-
   golang.spec = spec;
   const templates = [];
 
   for (let model of models) {
-    if(model.modelName == "Application") {
-      // console.log(model);
-    }
     templates.push({
       src: 'templates/model.go.hbs',
       dest: 'okta/' + lowercaseFirstLetter(model.modelName) + '.go',

@@ -22,8 +22,9 @@ help:
 
 build:
 	@echo "$(COLOR_OKTA)Building SDK...$(COLOR_NONE)"
-	$(MAKE) clean-files
-	$(MAKE) generate-files
+	make clean-files
+	make generate-files
+	make test:all
 
 clean-files:
 	@echo "$(COLOR_OKTA)Cleaning Up Old Generated Files...$(COLOR_NONE)"
@@ -40,13 +41,17 @@ pull-spec:
 	cp spec-raw/dist/spec.json openapi/spec.json
 	rm -fr spec-raw
 
+test:
+	make test:all
+
 test\:all:
 	@echo "$(COLOR_OKTA)Running all tests...$(COLOR_NONE)"
-	@echo "TODO"
+	make test:unit
+	make test:integration
 
 test\:integration:
 	@echo "$(COLOR_OKTA)Running integration tests...$(COLOR_NONE)"
-	@echo "TODO"
+	go test ./tests/integration
 
 test\:unit:
 	@echo "$(COLOR_OK)Running unit tests...$(COLOR_NONE)"
