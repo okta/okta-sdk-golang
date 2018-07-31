@@ -20,6 +20,7 @@ package okta
 
 import (
 	"time"
+	"github.com/okta/okta-sdk-golang/okta/query"
 	"encoding/json"
 	"bytes"
 )
@@ -63,12 +64,12 @@ func (m *AppUser) WithScope(v string) *AppUser {
 	return m
 }
 
-func (m *AppUserResource) UpdateApplicationUser(appId string, userId string, body AppUser)  (*AppUser, error) {
+func (m *AppUserResource) UpdateApplicationUser(appId string, userId string, body AppUser, qp *query.Params)  (*AppUser, error) {
 	iobytes, err := json.Marshal(body)
 	if err != nil  {
 		return nil, err
 	}
-	resp, err := m.client.requestExecutor.Post("/api/v1/apps/"+appId+"/users/"+userId+"", bytes.NewReader(iobytes))
+	resp, err := m.client.requestExecutor.Post("/api/v1/apps/"+appId+"/users/"+userId+"", bytes.NewReader(iobytes), qp)
 	if err != nil  {
 		return nil, err
 	}
@@ -80,8 +81,8 @@ func (m *AppUserResource) UpdateApplicationUser(appId string, userId string, bod
 	return &r, nil
 }
 
-func (m *AppUserResource) DeleteApplicationUser(appId string, userId string) error {
-	_, err := m.client.requestExecutor.Delete("/api/v1/apps/"+appId+"/users/"+userId+"")
+func (m *AppUserResource) DeleteApplicationUser(appId string, userId string, qp *query.Params) error {
+	_, err := m.client.requestExecutor.Delete("/api/v1/apps/"+appId+"/users/"+userId+"", qp)
 	if err != nil  {
 		return err
 	}

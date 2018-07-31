@@ -20,6 +20,7 @@ package okta
 
 import (
 	"time"
+	"github.com/okta/okta-sdk-golang/okta/query"
 	"encoding/json"
 )
 
@@ -39,8 +40,8 @@ type Session struct {
 	UserId string `json:"userId,omitempty"`
 }
 
-func (m *SessionResource) GetSession(sessionId string)  (*Session, error) {
-	resp, err := m.client.requestExecutor.Get("/api/v1/sessions/"+sessionId+"")
+func (m *SessionResource) GetSession(sessionId string, qp *query.Params)  (*Session, error) {
+	resp, err := m.client.requestExecutor.Get("/api/v1/sessions/"+sessionId+"", qp)
 	if err != nil  {
 		return nil, err
 	}
@@ -52,8 +53,8 @@ func (m *SessionResource) GetSession(sessionId string)  (*Session, error) {
 	return &r, nil
 }
 
-func (m *SessionResource) EndSession(sessionId string) error {
-	_, err := m.client.requestExecutor.Delete("/api/v1/sessions/"+sessionId+"")
+func (m *SessionResource) EndSession(sessionId string, qp *query.Params) error {
+	_, err := m.client.requestExecutor.Delete("/api/v1/sessions/"+sessionId+"", qp)
 	if err != nil  {
 		return err
 	}
@@ -61,8 +62,8 @@ func (m *SessionResource) EndSession(sessionId string) error {
 }
 
 
-func (m *SessionResource) RefreshSession(sessionId string)  (*Session, error) {
-	resp, err := m.client.requestExecutor.Post("/api/v1/sessions/"+sessionId+"/lifecycle/refresh", nil)
+func (m *SessionResource) RefreshSession(sessionId string, qp *query.Params)  (*Session, error) {
+	resp, err := m.client.requestExecutor.Post("/api/v1/sessions/"+sessionId+"/lifecycle/refresh", nil, qp)
 	if err != nil  {
 		return nil, err
 	}

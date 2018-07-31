@@ -20,6 +20,7 @@ package okta
 
 import (
 	"time"
+	"github.com/okta/okta-sdk-golang/okta/query"
 	"encoding/json"
 	"bytes"
 )
@@ -43,12 +44,12 @@ func (m *Group) WithProfile(v *GroupProfile) *Group {
 	return m
 }
 
-func (m *GroupResource) UpdateGroup(groupId string, body Group)  (*Group, error) {
+func (m *GroupResource) UpdateGroup(groupId string, body Group, qp *query.Params)  (*Group, error) {
 	iobytes, err := json.Marshal(body)
 	if err != nil  {
 		return nil, err
 	}
-	resp, err := m.client.requestExecutor.Put("/api/v1/groups/"+groupId+"", bytes.NewReader(iobytes))
+	resp, err := m.client.requestExecutor.Put("/api/v1/groups/"+groupId+"", bytes.NewReader(iobytes), qp)
 	if err != nil  {
 		return nil, err
 	}
@@ -60,8 +61,8 @@ func (m *GroupResource) UpdateGroup(groupId string, body Group)  (*Group, error)
 	return &r, nil
 }
 
-func (m *GroupResource) DeleteGroup(groupId string) error {
-	_, err := m.client.requestExecutor.Delete("/api/v1/groups/"+groupId+"")
+func (m *GroupResource) DeleteGroup(groupId string, qp *query.Params) error {
+	_, err := m.client.requestExecutor.Delete("/api/v1/groups/"+groupId+"", qp)
 	if err != nil  {
 		return err
 	}
@@ -69,15 +70,15 @@ func (m *GroupResource) DeleteGroup(groupId string) error {
 }
 
 
-func (m *GroupResource) RemoveGroupUser(groupId string, userId string) error {
-	_, err := m.client.requestExecutor.Delete("/api/v1/groups/"+groupId+"/users/"+userId+"")
+func (m *GroupResource) RemoveGroupUser(groupId string, userId string, qp *query.Params) error {
+	_, err := m.client.requestExecutor.Delete("/api/v1/groups/"+groupId+"/users/"+userId+"", qp)
 	if err != nil  {
 		return err
 	}
 	return nil
 }
-func (m *GroupResource) ListGroupUsers(groupId string)  (*User, error) {
-	resp, err := m.client.requestExecutor.Get("/api/v1/groups/"+groupId+"/users")
+func (m *GroupResource) ListGroupUsers(groupId string, qp *query.Params)  (*User, error) {
+	resp, err := m.client.requestExecutor.Get("/api/v1/groups/"+groupId+"/users", qp)
 	if err != nil  {
 		return nil, err
 	}

@@ -19,6 +19,7 @@
 package okta
 
 import (
+	"github.com/okta/okta-sdk-golang/okta/query"
 	"encoding/json"
 	"bytes"
 )
@@ -87,8 +88,8 @@ func (m *Factor) WithVerify(v *VerifyFactorRequest) *Factor {
 	return m
 }
 
-func (m *FactorResource) DeleteFactor(userId string, factorId string) error {
-	_, err := m.client.requestExecutor.Delete("/api/v1/users/"+userId+"/factors/"+factorId+"")
+func (m *FactorResource) DeleteFactor(userId string, factorId string, qp *query.Params) error {
+	_, err := m.client.requestExecutor.Delete("/api/v1/users/"+userId+"/factors/"+factorId+"", qp)
 	if err != nil  {
 		return err
 	}
@@ -96,12 +97,12 @@ func (m *FactorResource) DeleteFactor(userId string, factorId string) error {
 }
 
 
-func (m *FactorResource) ActivateFactor(userId string, factorId string, body VerifyFactorRequest)  (*Factor, error) {
+func (m *FactorResource) ActivateFactor(userId string, factorId string, body VerifyFactorRequest, qp *query.Params)  (*Factor, error) {
 	iobytes, err := json.Marshal(body)
 	if err != nil  {
 		return nil, err
 	}
-	resp, err := m.client.requestExecutor.Post("/api/v1/users/"+userId+"/factors/"+factorId+"/lifecycle/activate", bytes.NewReader(iobytes))
+	resp, err := m.client.requestExecutor.Post("/api/v1/users/"+userId+"/factors/"+factorId+"/lifecycle/activate", bytes.NewReader(iobytes), qp)
 	if err != nil  {
 		return nil, err
 	}
@@ -112,12 +113,12 @@ func (m *FactorResource) ActivateFactor(userId string, factorId string, body Ver
 	
 	return &r, nil
 }
-func (m *FactorResource) VerifyFactor(userId string, factorId string, body VerifyFactorRequest)  (*VerifyFactorResponse, error) {
+func (m *FactorResource) VerifyFactor(userId string, factorId string, body VerifyFactorRequest, qp *query.Params)  (*VerifyFactorResponse, error) {
 	iobytes, err := json.Marshal(body)
 	if err != nil  {
 		return nil, err
 	}
-	resp, err := m.client.requestExecutor.Post("/api/v1/users/"+userId+"/factors/"+factorId+"/verify", bytes.NewReader(iobytes))
+	resp, err := m.client.requestExecutor.Post("/api/v1/users/"+userId+"/factors/"+factorId+"/verify", bytes.NewReader(iobytes), qp)
 	if err != nil  {
 		return nil, err
 	}

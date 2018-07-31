@@ -20,6 +20,7 @@ package okta
 
 import (
 	"time"
+	"github.com/okta/okta-sdk-golang/okta/query"
 	"encoding/json"
 	"bytes"
 )
@@ -84,8 +85,8 @@ func (m *Application) WithVisibility(v *ApplicationVisibility) *Application {
 	return m
 }
 
-func (m *ApplicationResource) GetApplication(appId string)  (*Application, error) {
-	resp, err := m.client.requestExecutor.Get("/api/v1/apps/"+appId+"")
+func (m *ApplicationResource) GetApplication(appId string, qp *query.Params)  (*Application, error) {
+	resp, err := m.client.requestExecutor.Get("/api/v1/apps/"+appId+"", qp)
 	if err != nil  {
 		return nil, err
 	}
@@ -97,12 +98,12 @@ func (m *ApplicationResource) GetApplication(appId string)  (*Application, error
 	return &r, nil
 }
 
-func (m *ApplicationResource) UpdateApplication(appId string, body Application)  (*Application, error) {
+func (m *ApplicationResource) UpdateApplication(appId string, body Application, qp *query.Params)  (*Application, error) {
 	iobytes, err := json.Marshal(body)
 	if err != nil  {
 		return nil, err
 	}
-	resp, err := m.client.requestExecutor.Put("/api/v1/apps/"+appId+"", bytes.NewReader(iobytes))
+	resp, err := m.client.requestExecutor.Put("/api/v1/apps/"+appId+"", bytes.NewReader(iobytes), qp)
 	if err != nil  {
 		return nil, err
 	}
@@ -114,8 +115,8 @@ func (m *ApplicationResource) UpdateApplication(appId string, body Application) 
 	return &r, nil
 }
 
-func (m *ApplicationResource) DeleteApplication(appId string) error {
-	_, err := m.client.requestExecutor.Delete("/api/v1/apps/"+appId+"")
+func (m *ApplicationResource) DeleteApplication(appId string, qp *query.Params) error {
+	_, err := m.client.requestExecutor.Delete("/api/v1/apps/"+appId+"", qp)
 	if err != nil  {
 		return err
 	}
@@ -123,22 +124,22 @@ func (m *ApplicationResource) DeleteApplication(appId string) error {
 }
 
 
-func (m *ApplicationResource) ActivateApplication(appId string) error {
-	_, err := m.client.requestExecutor.Post("/api/v1/apps/"+appId+"/lifecycle/activate", nil)
+func (m *ApplicationResource) ActivateApplication(appId string, qp *query.Params) error {
+	_, err := m.client.requestExecutor.Post("/api/v1/apps/"+appId+"/lifecycle/activate", nil, qp)
 	if err != nil  {
 		return err
 	}
 	return nil
 }
-func (m *ApplicationResource) DeactivateApplication(appId string) error {
-	_, err := m.client.requestExecutor.Post("/api/v1/apps/"+appId+"/lifecycle/deactivate", nil)
+func (m *ApplicationResource) DeactivateApplication(appId string, qp *query.Params) error {
+	_, err := m.client.requestExecutor.Post("/api/v1/apps/"+appId+"/lifecycle/deactivate", nil, qp)
 	if err != nil  {
 		return err
 	}
 	return nil
 }
-func (m *ApplicationResource) ListApplicationUsers(appId string)  (*AppUser, error) {
-	resp, err := m.client.requestExecutor.Get("/api/v1/apps/"+appId+"/users")
+func (m *ApplicationResource) ListApplicationUsers(appId string, qp *query.Params)  (*AppUser, error) {
+	resp, err := m.client.requestExecutor.Get("/api/v1/apps/"+appId+"/users", qp)
 	if err != nil  {
 		return nil, err
 	}
@@ -149,12 +150,12 @@ func (m *ApplicationResource) ListApplicationUsers(appId string)  (*AppUser, err
 	
 	return &r, nil
 }
-func (m *ApplicationResource) AssignUserToApplication(appId string, body AppUser)  (*AppUser, error) {
+func (m *ApplicationResource) AssignUserToApplication(appId string, body AppUser, qp *query.Params)  (*AppUser, error) {
 	iobytes, err := json.Marshal(body)
 	if err != nil  {
 		return nil, err
 	}
-	resp, err := m.client.requestExecutor.Post("/api/v1/apps/"+appId+"/users", bytes.NewReader(iobytes))
+	resp, err := m.client.requestExecutor.Post("/api/v1/apps/"+appId+"/users", bytes.NewReader(iobytes), qp)
 	if err != nil  {
 		return nil, err
 	}
@@ -165,8 +166,8 @@ func (m *ApplicationResource) AssignUserToApplication(appId string, body AppUser
 	
 	return &r, nil
 }
-func (m *ApplicationResource) GetApplicationUser(appId string, userId string)  (*AppUser, error) {
-	resp, err := m.client.requestExecutor.Get("/api/v1/apps/"+appId+"/users/"+userId+"")
+func (m *ApplicationResource) GetApplicationUser(appId string, userId string, qp *query.Params)  (*AppUser, error) {
+	resp, err := m.client.requestExecutor.Get("/api/v1/apps/"+appId+"/users/"+userId+"", qp)
 	if err != nil  {
 		return nil, err
 	}
@@ -177,12 +178,12 @@ func (m *ApplicationResource) GetApplicationUser(appId string, userId string)  (
 	
 	return &r, nil
 }
-func (m *ApplicationResource) CreateApplicationGroupAssignment(appId string, groupId string, body ApplicationGroupAssignment)  (*ApplicationGroupAssignment, error) {
+func (m *ApplicationResource) CreateApplicationGroupAssignment(appId string, groupId string, body ApplicationGroupAssignment, qp *query.Params)  (*ApplicationGroupAssignment, error) {
 	iobytes, err := json.Marshal(body)
 	if err != nil  {
 		return nil, err
 	}
-	resp, err := m.client.requestExecutor.Put("/api/v1/apps/"+appId+"/groups/"+groupId+"", bytes.NewReader(iobytes))
+	resp, err := m.client.requestExecutor.Put("/api/v1/apps/"+appId+"/groups/"+groupId+"", bytes.NewReader(iobytes), qp)
 	if err != nil  {
 		return nil, err
 	}
@@ -193,8 +194,8 @@ func (m *ApplicationResource) CreateApplicationGroupAssignment(appId string, gro
 	
 	return &r, nil
 }
-func (m *ApplicationResource) GetApplicationGroupAssignment(appId string, groupId string)  (*ApplicationGroupAssignment, error) {
-	resp, err := m.client.requestExecutor.Get("/api/v1/apps/"+appId+"/groups/"+groupId+"")
+func (m *ApplicationResource) GetApplicationGroupAssignment(appId string, groupId string, qp *query.Params)  (*ApplicationGroupAssignment, error) {
+	resp, err := m.client.requestExecutor.Get("/api/v1/apps/"+appId+"/groups/"+groupId+"", qp)
 	if err != nil  {
 		return nil, err
 	}
@@ -205,8 +206,8 @@ func (m *ApplicationResource) GetApplicationGroupAssignment(appId string, groupI
 	
 	return &r, nil
 }
-func (m *ApplicationResource) CloneApplicationKey(appId string, keyId string)  (*JsonWebKey, error) {
-	resp, err := m.client.requestExecutor.Post("/api/v1/apps/"+appId+"/credentials/keys/"+keyId+"/clone", nil)
+func (m *ApplicationResource) CloneApplicationKey(appId string, keyId string, qp *query.Params)  (*JsonWebKey, error) {
+	resp, err := m.client.requestExecutor.Post("/api/v1/apps/"+appId+"/credentials/keys/"+keyId+"/clone", nil, qp)
 	if err != nil  {
 		return nil, err
 	}
@@ -217,8 +218,8 @@ func (m *ApplicationResource) CloneApplicationKey(appId string, keyId string)  (
 	
 	return &r, nil
 }
-func (m *ApplicationResource) GetApplicationKey(appId string, keyId string)  (*JsonWebKey, error) {
-	resp, err := m.client.requestExecutor.Get("/api/v1/apps/"+appId+"/credentials/keys/"+keyId+"")
+func (m *ApplicationResource) GetApplicationKey(appId string, keyId string, qp *query.Params)  (*JsonWebKey, error) {
+	resp, err := m.client.requestExecutor.Get("/api/v1/apps/"+appId+"/credentials/keys/"+keyId+"", qp)
 	if err != nil  {
 		return nil, err
 	}
@@ -229,8 +230,8 @@ func (m *ApplicationResource) GetApplicationKey(appId string, keyId string)  (*J
 	
 	return &r, nil
 }
-func (m *ApplicationResource) ListApplicationGroupAssignments(appId string)  (*ApplicationGroupAssignment, error) {
-	resp, err := m.client.requestExecutor.Get("/api/v1/apps/"+appId+"/groups")
+func (m *ApplicationResource) ListApplicationGroupAssignments(appId string, qp *query.Params)  (*ApplicationGroupAssignment, error) {
+	resp, err := m.client.requestExecutor.Get("/api/v1/apps/"+appId+"/groups", qp)
 	if err != nil  {
 		return nil, err
 	}
@@ -241,8 +242,8 @@ func (m *ApplicationResource) ListApplicationGroupAssignments(appId string)  (*A
 	
 	return &r, nil
 }
-func (m *ApplicationResource) ListApplicationKeys(appId string)  (*JsonWebKey, error) {
-	resp, err := m.client.requestExecutor.Get("/api/v1/apps/"+appId+"/credentials/keys")
+func (m *ApplicationResource) ListApplicationKeys(appId string, qp *query.Params)  (*JsonWebKey, error) {
+	resp, err := m.client.requestExecutor.Get("/api/v1/apps/"+appId+"/credentials/keys", qp)
 	if err != nil  {
 		return nil, err
 	}
