@@ -20,6 +20,7 @@ package okta
 
 import (
 	"time"
+	"github.com/okta/okta-sdk-golang/okta/query"
 	"encoding/json"
 	"bytes"
 )
@@ -57,12 +58,12 @@ func (m *GroupRule) WithType(v string) *GroupRule {
 	return m
 }
 
-func (m *GroupRuleResource) UpdateRule(ruleId string, body GroupRule)  (*GroupRule, error) {
+func (m *GroupRuleResource) UpdateRule(ruleId string, body GroupRule, qp *query.Params)  (*GroupRule, error) {
 	iobytes, err := json.Marshal(body)
 	if err != nil  {
 		return nil, err
 	}
-	resp, err := m.client.requestExecutor.Put("/api/v1/groups/rules/"+ruleId+"", bytes.NewReader(iobytes))
+	resp, err := m.client.requestExecutor.Put("/api/v1/groups/rules/"+ruleId+"", bytes.NewReader(iobytes), qp)
 	if err != nil  {
 		return nil, err
 	}
@@ -74,8 +75,8 @@ func (m *GroupRuleResource) UpdateRule(ruleId string, body GroupRule)  (*GroupRu
 	return &r, nil
 }
 
-func (m *GroupRuleResource) DeleteRule(ruleId string) error {
-	_, err := m.client.requestExecutor.Delete("/api/v1/groups/rules/"+ruleId+"")
+func (m *GroupRuleResource) DeleteRule(ruleId string, qp *query.Params) error {
+	_, err := m.client.requestExecutor.Delete("/api/v1/groups/rules/"+ruleId+"", qp)
 	if err != nil  {
 		return err
 	}
@@ -83,15 +84,15 @@ func (m *GroupRuleResource) DeleteRule(ruleId string) error {
 }
 
 
-func (m *GroupRuleResource) ActivateRule(ruleId string) error {
-	_, err := m.client.requestExecutor.Post("/api/v1/groups/rules/"+ruleId+"/lifecycle/activate", nil)
+func (m *GroupRuleResource) ActivateRule(ruleId string, qp *query.Params) error {
+	_, err := m.client.requestExecutor.Post("/api/v1/groups/rules/"+ruleId+"/lifecycle/activate", nil, qp)
 	if err != nil  {
 		return err
 	}
 	return nil
 }
-func (m *GroupRuleResource) DeactivateRule(ruleId string) error {
-	_, err := m.client.requestExecutor.Post("/api/v1/groups/rules/"+ruleId+"/lifecycle/deactivate", nil)
+func (m *GroupRuleResource) DeactivateRule(ruleId string, qp *query.Params) error {
+	_, err := m.client.requestExecutor.Post("/api/v1/groups/rules/"+ruleId+"/lifecycle/deactivate", nil, qp)
 	if err != nil  {
 		return err
 	}

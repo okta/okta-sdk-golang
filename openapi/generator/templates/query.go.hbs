@@ -1,0 +1,71 @@
+{{> partials.copyHeader }}
+
+package query
+
+import (
+	"encoding/json"
+	"strconv"
+)
+
+type Params struct {
+{{#each queryOptions as |query|}}
+	{{#if (eq query.type "bool")}}
+	{{structProp query.name}} *{{query.type}} `json:"{{query.name}},omitempty"`
+	{{else}}
+	{{structProp query.name}} {{query.type}} `json:"{{query.name}},omitempty"`
+	{{/if}}
+{{/each}}
+}
+
+func NewQueryParams(paramOpt ...ParamOptions) *Params {
+	p := &Params{}
+
+	for _, par := range paramOpt {
+		par(p)
+	}
+
+	return p
+}
+
+type ParamOptions func(*Params)
+
+{{#each queryOptions as |query|}}
+func With{{structProp query.name}}({{query.name}} {{query.type}}) ParamOptions {
+	return func(p *Params) {
+		{{#if (eq query.type "bool")}}
+		b := new(bool)
+		*b = {{query.name}}
+		p.{{structProp query.name}} = b
+		{{else}}
+		p.{{structProp query.name}} = {{query.name}}
+		{{/if}}
+	}
+}
+{{/each}}
+
+func (p *Params) String() string {
+	s, _ := json.Marshal(p)
+
+	m := map[string]interface{}{}
+	qs := "?"
+	i := 1
+
+	json.Unmarshal(s, &m)
+
+	for key, value := range m {
+		qs = qs + string(key) + "="
+		switch v := value.(type) {
+		case bool:
+			qs = qs + strconv.FormatBool(v)
+		default:
+			qs = qs + value.(string)
+		}
+		if i < len(m) {
+			qs = qs + "&"
+		}
+		i++
+	}
+
+	return qs
+}
+
