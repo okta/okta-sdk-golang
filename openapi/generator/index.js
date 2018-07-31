@@ -83,6 +83,7 @@ function getImports(object) {
 
   if (object.model.methods !== undefined) {
     for (let method of object.model.methods) {
+      imports.push("github.com/okta/okta-sdk-golang/okta/query")
       if (method.operation.responseModel !== undefined) {
         imports.push("encoding/json");
       }
@@ -95,6 +96,7 @@ function getImports(object) {
 
   if (object.model.crud !== undefined) {
     for (let method of object.model.crud) {
+      imports.push("github.com/okta/okta-sdk-golang/okta/query")
       if (method.operation.responseModel !== undefined) {
         imports.push("encoding/json");
       }
@@ -102,8 +104,6 @@ function getImports(object) {
       if (method.operation.bodyModel !== undefined) {
         imports.push("bytes")
       }
-
-
     }
   }
 
@@ -122,7 +122,7 @@ function operationArgumentBuilder(operation) {
   }
 
   // if (operation.queryParams.length) {
-  //   args.push('queryParameters');
+    args.push('qp *query.Params');
   // }
 
   return args.join(', ');
@@ -153,6 +153,32 @@ function log(item) {
 golang.process = ({ spec, operations, models, handlebars }) => {
   golang.spec = spec;
   const templates = [];
+  const queryOptionsTemp = [];
+  const queryOptions = [];
+
+  for (let operation of operations) {
+    for (let param of operation.queryParams) {
+      queryOptionsTemp[param.name] = param.type;
+    }
+  }
+
+  for (let key in queryOptionsTemp) {
+    if (queryOptionsTemp[key] === "boolean") {
+      queryOptionsTemp[key] = "bool";
+    }
+    if (queryOptionsTemp[key] === "integer") {
+      queryOptionsTemp[key] = "int64";
+    }
+    queryOptions.push({name: key, type: queryOptionsTemp[key]});
+  }
+
+  templates.push({
+    src: 'templates/query.go.hbs',
+    dest: 'okta/query/query.go',
+    context: {
+      "queryOptions": queryOptions
+    }
+  });
 
   for (let model of models) {
     templates.push({

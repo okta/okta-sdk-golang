@@ -21,6 +21,8 @@ import (
 	"io"
 	"io/ioutil"
 	"net/http"
+
+	"github.com/okta/okta-sdk-golang/okta/query"
 )
 
 type RequestExecutor struct {
@@ -40,24 +42,27 @@ func NewRequestExecutor(httpClient *http.Client, config *Config) *RequestExecuto
 	return &re
 }
 
-func (re *RequestExecutor) Get(url string) ([]byte, error) {
-	return re.doRequest("GET", url, nil)
+func (re *RequestExecutor) Get(url string, qp *query.Params) ([]byte, error) {
+	return re.doRequest("GET", url, nil, qp)
 }
 
-func (re *RequestExecutor) Post(url string, body io.Reader) ([]byte, error) {
-	return re.doRequest("POST", url, body)
+func (re *RequestExecutor) Post(url string, body io.Reader, qp *query.Params) ([]byte, error) {
+	return re.doRequest("POST", url, body, qp)
 }
 
-func (re *RequestExecutor) Put(url string, body io.Reader) ([]byte, error) {
-	return re.doRequest("PUT", url, body)
+func (re *RequestExecutor) Put(url string, body io.Reader, qp *query.Params) ([]byte, error) {
+	return re.doRequest("PUT", url, body, qp)
 }
 
-func (re *RequestExecutor) Delete(url string) ([]byte, error) {
-	return re.doRequest("DELETE", url, nil)
+func (re *RequestExecutor) Delete(url string, qp *query.Params) ([]byte, error) {
+	return re.doRequest("DELETE", url, nil, qp)
 }
 
-func (re *RequestExecutor) doRequest(method string, url string, body io.Reader) ([]byte, error) {
-	url = re.config.Okta.Client.OrgUrl +  url
+func (re *RequestExecutor) doRequest(method string, url string, body io.Reader, qp *query.Params) ([]byte, error) {
+	url = re.config.Okta.Client.OrgUrl + url
+	if &qp != nil {
+		url = url + qp.String()
+	}
 
 	req, err := http.NewRequest(method, url, body)
 	if err != nil {

@@ -1,11 +1,11 @@
 {{#if (eq this.operation.method "get")}}
 {{#if (eq this.operation.responseModel undefined)}}
-_, err := m.client.requestExecutor.{{capitalize this.operation.method}}("{{{getPath this.operation}}}")
+_, err := m.client.requestExecutor.{{capitalize this.operation.method}}("{{{getPath this.operation}}}", qp)
 {{else}}
-resp, err := m.client.requestExecutor.{{capitalize this.operation.method}}("{{{getPath this.operation}}}")
+resp, err := m.client.requestExecutor.{{capitalize this.operation.method}}("{{{getPath this.operation}}}", qp)
 {{/if}}
 {{else if (eq this.operation.method "delete")}}
-_, err := m.client.requestExecutor.{{capitalize this.operation.method}}("{{{getPath this.operation}}}")
+_, err := m.client.requestExecutor.{{capitalize this.operation.method}}("{{{getPath this.operation}}}", qp)
 {{else}}
 {{#if (ne this.operation.bodyModel undefined)}}
 iobytes, err := json.Marshal(body)
@@ -16,12 +16,12 @@ if err != nil  {
 	return nil, err
 {{/if}}
 }
-resp, err := m.client.requestExecutor.{{capitalize this.operation.method}}("{{{getPath this.operation}}}", bytes.NewReader(iobytes))
+resp, err := m.client.requestExecutor.{{capitalize this.operation.method}}("{{{getPath this.operation}}}", bytes.NewReader(iobytes), qp)
 {{else}}
 {{#if (eq this.operation.responseModel undefined)}}
-_, err := m.client.requestExecutor.{{capitalize this.operation.method}}("{{{getPath this.operation}}}", nil)
+_, err := m.client.requestExecutor.{{capitalize this.operation.method}}("{{{getPath this.operation}}}", nil, qp)
 {{else}}
-resp, err := m.client.requestExecutor.{{capitalize this.operation.method}}("{{{getPath this.operation}}}", nil)
+resp, err := m.client.requestExecutor.{{capitalize this.operation.method}}("{{{getPath this.operation}}}", nil, qp)
 {{/if}}
 {{/if}}
 {{/if}}
