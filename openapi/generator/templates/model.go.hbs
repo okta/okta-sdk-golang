@@ -24,14 +24,9 @@ func (m *{{../model.modelName}}) With{{structProp this.propertyName}}(v {{getTyp
 {{/unless}}
 {{/each}}
 {{#each model.crud as |crud|}}
-func (m *{{../model.modelName}}Resource) {{ucFirst this.operation.operationId}}({{operationArgumentBuilder this.operation}}) {{returnType this.operation}}{
-	{{> model.defaultMethod this}}
-}
-
+{{> model.defaultMethod self=this model=../model}}
 {{/each}}
 
 {{#each model.methods as |method|}}
-func (m *{{../model.modelName}}Resource) {{ucFirst this.operation.operationId}}({{operationArgumentBuilder this.operation}}) {{returnType this.operation}}{
-	{{> model.defaultMethod this}}
-}
+	{{> model.defaultMethod  self=this model=../model}}
 {{/each}}
