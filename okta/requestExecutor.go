@@ -24,8 +24,6 @@ import (
 	"io/ioutil"
 	"net/http"
 	"net/url"
-
-	"github.com/okta/okta-sdk-golang/okta/query"
 )
 
 type RequestExecutor struct {
@@ -44,62 +42,6 @@ func NewRequestExecutor(httpClient *http.Client, config *Config) *RequestExecuto
 	}
 
 	return &re
-}
-
-func (re *RequestExecutor) Get(url string, qp *query.Params) ([]byte, error) {
-	return re.doRequest("GET", url, nil, qp)
-}
-
-func (re *RequestExecutor) Post(url string, body io.Reader, qp *query.Params) ([]byte, error) {
-	return re.doRequest("POST", url, body, qp)
-}
-
-func (re *RequestExecutor) Put(url string, body io.Reader, qp *query.Params) ([]byte, error) {
-	return re.doRequest("PUT", url, body, qp)
-}
-
-func (re *RequestExecutor) Delete(url string, qp *query.Params) ([]byte, error) {
-	return re.doRequest("DELETE", url, nil, qp)
-}
-
-func (re *RequestExecutor) doRequest(method string, url string, body io.Reader, qp *query.Params) ([]byte, error) {
-	url = re.config.Okta.Client.OrgUrl + url
-	if &qp != nil {
-		url = url + qp.String()
-	}
-
-	req, err := http.NewRequest(method, url, body)
-	if err != nil {
-		return nil, err
-	}
-
-	if method == "POST" && body != nil {
-		req.Header.Add("Content-Type", "application/json")
-	}
-	req.Header.Add("Authorization", "SSWS "+re.config.Okta.Client.Token)
-	req.Header.Add("User-Agent", NewUserAgent(re.config).String())
-	req.Header.Add("Accept", "application/json")
-
-	resp, err := re.httpClient.Do(req)
-	if err != nil {
-		return nil, err
-	}
-
-	defer resp.Body.Close()
-	bodyBytes, err := ioutil.ReadAll(resp.Body)
-	//fmt.Printf("%+v", string(bodyBytes))
-	if err != nil {
-		return nil, err
-	}
-
-	e := new(Error)
-	json.Unmarshal(bodyBytes, &e)
-	fmt.Printf("%+v", e)
-	if e.ErrorId != "" {
-		return nil, e
-	}
-	fmt.Printf("%+v", string(bodyBytes))
-	return bodyBytes, nil
 }
 
 func (re *RequestExecutor) NewRequest(method string, url string, body interface{}) (*http.Request, error) {
