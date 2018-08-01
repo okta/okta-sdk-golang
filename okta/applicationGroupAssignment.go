@@ -21,6 +21,7 @@ package okta
 import (
 	"time"
 	"github.com/okta/okta-sdk-golang/okta/query"
+	"fmt"
 )
 
 type ApplicationGroupAssignmentResource resource
@@ -44,12 +45,21 @@ func (m *ApplicationGroupAssignment) WithProfile(v []string) *ApplicationGroupAs
 	return m
 }
 
-func (m *ApplicationGroupAssignmentResource) DeleteApplicationGroupAssignment(appId string, groupId string, qp *query.Params) error {
-	_, err := m.client.requestExecutor.Delete("/api/v1/apps/"+appId+"/groups/"+groupId+"", qp)
-	if err != nil  {
-		return err
+func (m *ApplicationGroupAssignmentResource) DeleteApplicationGroupAssignment(appId string, groupId string, qp *query.Params)  (*Response, error) {
+	url := fmt.Sprintf("/api/v1/apps/%v/groups/%v", appId, groupId)
+	if &qp != nil {
+		url = url + qp.String()
 	}
-	return nil
-}
+	req, err := m.client.requestExecutor.NewRequest("DELETE", url, nil)
+	if err != nil {
+		return nil, err
+	}
 
+
+	resp, err := m.client.requestExecutor.Do(req, nil)
+	if err != nil {
+		return resp, err
+	}
+	return resp, nil
+}
 

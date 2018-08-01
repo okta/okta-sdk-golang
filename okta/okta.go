@@ -16,6 +16,12 @@
 
 package okta
 
+import (
+	"fmt"
+
+	"github.com/okta/okta-sdk-golang/okta/query"
+)
+
 const Version = "0.0.0-Develop"
 
 type Client struct {
@@ -53,4 +59,25 @@ func (c *Client) GetConfig() *Config {
 
 func (c *Client) GetRequestExecutor() *RequestExecutor {
 	return c.requestExecutor
+}
+
+func (m *UserResource) ListUsers(qp *query.Params) ([]*User, *Response, error) {
+	url := fmt.Sprintf("api/v1/users/")
+	if &qp != nil {
+		url = url + qp.String()
+	}
+	req, err := m.client.requestExecutor.NewRequest("GET", url, nil)
+
+	if err != nil {
+		return nil, nil, err
+	}
+
+	var users []*User
+	resp, err := m.client.requestExecutor.Do(req, &users)
+	if err != nil {
+		return nil, resp, err
+	}
+
+	return users, resp, err
+
 }

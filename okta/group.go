@@ -21,8 +21,7 @@ package okta
 import (
 	"time"
 	"github.com/okta/okta-sdk-golang/okta/query"
-	"encoding/json"
-	"bytes"
+	"fmt"
 )
 
 type GroupResource resource
@@ -44,48 +43,74 @@ func (m *Group) WithProfile(v *GroupProfile) *Group {
 	return m
 }
 
-func (m *GroupResource) UpdateGroup(groupId string, body Group, qp *query.Params)  (*Group, error) {
-	iobytes, err := json.Marshal(body)
-	if err != nil  {
-		return nil, err
+func (m *GroupResource) UpdateGroup(groupId string, body Group, qp *query.Params)  (*Group, *Response, error) {
+	url := fmt.Sprintf("/api/v1/groups/%v", groupId)
+	if &qp != nil {
+		url = url + qp.String()
 	}
-	resp, err := m.client.requestExecutor.Put("/api/v1/groups/"+groupId+"", bytes.NewReader(iobytes), qp)
-	if err != nil  {
-		return nil, err
+	req, err := m.client.requestExecutor.NewRequest("PUT", url, body)
+	if err != nil {
+		return nil, nil, err
 	}
-	
-	r := Group{}
-	
-	json.Unmarshal(resp, &r)
-	
-	return &r, nil
-}
-
-func (m *GroupResource) DeleteGroup(groupId string, qp *query.Params) error {
-	_, err := m.client.requestExecutor.Delete("/api/v1/groups/"+groupId+"", qp)
-	if err != nil  {
-		return err
-	}
-	return nil
-}
 
 
-func (m *GroupResource) RemoveGroupUser(groupId string, userId string, qp *query.Params) error {
-	_, err := m.client.requestExecutor.Delete("/api/v1/groups/"+groupId+"/users/"+userId+"", qp)
-	if err != nil  {
-		return err
+	var group *Group
+	resp, err := m.client.requestExecutor.Do(req, &group)
+	if err != nil {
+		return nil, resp, err
 	}
-	return nil
+	return group, resp, nil
 }
-func (m *GroupResource) ListGroupUsers(groupId string, qp *query.Params)  (*User, error) {
-	resp, err := m.client.requestExecutor.Get("/api/v1/groups/"+groupId+"/users", qp)
-	if err != nil  {
+func (m *GroupResource) DeleteGroup(groupId string, qp *query.Params)  (*Response, error) {
+	url := fmt.Sprintf("/api/v1/groups/%v", groupId)
+	if &qp != nil {
+		url = url + qp.String()
+	}
+	req, err := m.client.requestExecutor.NewRequest("DELETE", url, nil)
+	if err != nil {
 		return nil, err
 	}
-	
-	r := User{}
-	
-	json.Unmarshal(resp, &r)
-	
-	return &r, nil
+
+
+	resp, err := m.client.requestExecutor.Do(req, nil)
+	if err != nil {
+		return resp, err
+	}
+	return resp, nil
 }
+
+	func (m *GroupResource) RemoveGroupUser(groupId string, userId string, qp *query.Params)  (*Response, error) {
+		url := fmt.Sprintf("/api/v1/groups/%v/users/%v", groupId, userId)
+		if &qp != nil {
+			url = url + qp.String()
+		}
+		req, err := m.client.requestExecutor.NewRequest("DELETE", url, nil)
+		if err != nil {
+			return nil, err
+		}
+	
+	
+		resp, err := m.client.requestExecutor.Do(req, nil)
+		if err != nil {
+			return resp, err
+		}
+		return resp, nil
+	}
+	func (m *GroupResource) ListGroupUsers(groupId string, qp *query.Params)  (*User, *Response, error) {
+		url := fmt.Sprintf("/api/v1/groups/%v/users", groupId)
+		if &qp != nil {
+			url = url + qp.String()
+		}
+		req, err := m.client.requestExecutor.NewRequest("GET", url, nil)
+		if err != nil {
+			return nil, nil, err
+		}
+	
+	
+		var user *User
+		resp, err := m.client.requestExecutor.Do(req, &user)
+		if err != nil {
+			return nil, resp, err
+		}
+		return user, resp, nil
+	}

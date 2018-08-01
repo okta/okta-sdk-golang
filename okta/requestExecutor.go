@@ -17,10 +17,13 @@
 package okta
 
 import (
+	"bytes"
 	"encoding/json"
+	"fmt"
 	"io"
 	"io/ioutil"
 	"net/http"
+	"net/url"
 
 	"github.com/okta/okta-sdk-golang/okta/query"
 )
@@ -28,6 +31,7 @@ import (
 type RequestExecutor struct {
 	httpClient *http.Client
 	config     *Config
+	BaseUrl    *url.URL
 }
 
 func NewRequestExecutor(httpClient *http.Client, config *Config) *RequestExecutor {
@@ -83,15 +87,102 @@ func (re *RequestExecutor) doRequest(method string, url string, body io.Reader, 
 
 	defer resp.Body.Close()
 	bodyBytes, err := ioutil.ReadAll(resp.Body)
+	//fmt.Printf("%+v", string(bodyBytes))
 	if err != nil {
 		return nil, err
 	}
 
 	e := new(Error)
 	json.Unmarshal(bodyBytes, &e)
+	fmt.Printf("%+v", e)
 	if e.ErrorId != "" {
 		return nil, e
 	}
-
+	fmt.Printf("%+v", string(bodyBytes))
 	return bodyBytes, nil
+}
+
+func (re *RequestExecutor) NewRequest(method string, url string, body interface{}) (*http.Request, error) {
+	var buff io.ReadWriter
+	if body != nil {
+		buff = new(bytes.Buffer)
+		encoder := json.NewEncoder(buff)
+		encoder.SetEscapeHTML(false)
+		err := encoder.Encode(body)
+		if err != nil {
+			return nil, err
+		}
+	}
+	url = re.config.Okta.Client.OrgUrl + url
+
+	req, err := http.NewRequest(method, url, buff)
+
+	if err != nil {
+		return nil, err
+	}
+	req.Header.Add("Authorization", "SSWS "+re.config.Okta.Client.Token)
+	req.Header.Add("User-Agent", NewUserAgent(re.config).String())
+	req.Header.Add("Accept", "application/json")
+
+	if body != nil {
+		req.Header.Set("Content-Type", "application/json")
+	}
+	fmt.Printf("%+v\n", req)
+	return req, nil
+}
+
+func (re *RequestExecutor) Do(req *http.Request, v interface{}) (*Response, error) {
+	resp, err := re.httpClient.Do(req)
+	if err != nil {
+		return nil, err
+	}
+	defer resp.Body.Close()
+	response := newResponse(resp)
+
+	err = CheckResponseForError(resp)
+	if err != nil {
+		return response, err
+	}
+
+	if v != nil {
+		if w, ok := v.(io.Writer); ok {
+			io.Copy(w, resp.Body)
+		} else {
+			decErr := json.NewDecoder(resp.Body).Decode(v)
+			if decErr == io.EOF {
+				decErr = nil
+			}
+			if decErr != nil {
+				err = decErr
+			}
+		}
+	}
+
+	return response, nil
+}
+
+type Response struct {
+	*http.Response
+}
+
+func newResponse(r *http.Response) *Response {
+	response := &Response{Response: r}
+	return response
+}
+
+func CheckResponseForError(resp *http.Response) error {
+	statusCode := resp.StatusCode
+	if statusCode >= 200 && statusCode <= 299 {
+		return nil
+	}
+
+	bodyBytes, err := ioutil.ReadAll(resp.Body)
+	if err != nil {
+		return err
+	}
+
+	e := new(Error)
+	json.Unmarshal(bodyBytes, &e)
+	return e
+
 }

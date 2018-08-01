@@ -1,44 +1,36 @@
-{{#if (eq this.operation.method "get")}}
-{{#if (eq this.operation.responseModel undefined)}}
-_, err := m.client.requestExecutor.{{capitalize this.operation.method}}("{{{getPath this.operation}}}", qp)
-{{else}}
-resp, err := m.client.requestExecutor.{{capitalize this.operation.method}}("{{{getPath this.operation}}}", qp)
-{{/if}}
-{{else if (eq this.operation.method "delete")}}
-_, err := m.client.requestExecutor.{{capitalize this.operation.method}}("{{{getPath this.operation}}}", qp)
-{{else}}
-{{#if (ne this.operation.bodyModel undefined)}}
-iobytes, err := json.Marshal(body)
-if err != nil  {
-{{#if (eq this.operation.method "delete")}}
-	return err
-{{else}}
-	return nil, err
-{{/if}}
+func (m *{{model.modelName}}Resource) {{ucFirst self.operation.operationId}}({{operationArgumentBuilder self.operation}}) {{returnType self.operation}}{
+	url := fmt.Sprintf({{{getPath self.operation}}}, {{getPathParams self.operation}})
+	if &qp != nil {
+		url = url + qp.String()
+	}
+	{{#if (ne self.operation.bodyModel undefined)}}
+	req, err := m.client.requestExecutor.NewRequest("{{strToUpper self.operation.method}}", url, body)
+	{{else}}
+	req, err := m.client.requestExecutor.NewRequest("{{strToUpper self.operation.method}}", url, nil)
+	{{/if}}
+	{{#if (ne self.operation.responseModel undefined)}}
+	if err != nil {
+		return nil, nil, err
+	}
+	{{else}}
+	if err != nil {
+		return nil, err
+	}
+	{{/if}}
+
+
+	{{#if (ne self.operation.responseModel undefined)}}
+	var {{lowercaseFirstLetter self.operation.responseModel}} *{{self.operation.responseModel}}
+	resp, err := m.client.requestExecutor.Do(req, &{{lowercaseFirstLetter self.operation.responseModel}})
+	if err != nil {
+		return nil, resp, err
+	}
+	return {{lowercaseFirstLetter self.operation.responseModel}}, resp, nil
+	{{else}}
+	resp, err := m.client.requestExecutor.Do(req, nil)
+	if err != nil {
+		return resp, err
+	}
+	return resp, nil
+	{{/if}}
 }
-resp, err := m.client.requestExecutor.{{capitalize this.operation.method}}("{{{getPath this.operation}}}", bytes.NewReader(iobytes), qp)
-{{else}}
-{{#if (eq this.operation.responseModel undefined)}}
-_, err := m.client.requestExecutor.{{capitalize this.operation.method}}("{{{getPath this.operation}}}", nil, qp)
-{{else}}
-resp, err := m.client.requestExecutor.{{capitalize this.operation.method}}("{{{getPath this.operation}}}", nil, qp)
-{{/if}}
-{{/if}}
-{{/if}}
-if err != nil  {
-{{#if (eq this.operation.responseModel undefined)}}
-	return err
-{{else}}
-	return nil, err
-{{/if}}
-}
-{{#if (ne this.operation.responseModel undefined)}}
-
-r := {{this.operation.responseModel}}{}
-
-json.Unmarshal(resp, &r)
-
-return &r, nil
-{{else}}
-return nil
-{{/if}}

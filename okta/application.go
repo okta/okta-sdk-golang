@@ -21,8 +21,7 @@ package okta
 import (
 	"time"
 	"github.com/okta/okta-sdk-golang/okta/query"
-	"encoding/json"
-	"bytes"
+	"fmt"
 )
 
 type ApplicationResource resource
@@ -85,172 +84,253 @@ func (m *Application) WithVisibility(v *ApplicationVisibility) *Application {
 	return m
 }
 
-func (m *ApplicationResource) GetApplication(appId string, qp *query.Params)  (*Application, error) {
-	resp, err := m.client.requestExecutor.Get("/api/v1/apps/"+appId+"", qp)
-	if err != nil  {
-		return nil, err
+func (m *ApplicationResource) GetApplication(appId string, qp *query.Params)  (*Application, *Response, error) {
+	url := fmt.Sprintf("/api/v1/apps/%v", appId)
+	if &qp != nil {
+		url = url + qp.String()
 	}
-	
-	r := Application{}
-	
-	json.Unmarshal(resp, &r)
-	
-	return &r, nil
-}
-
-func (m *ApplicationResource) UpdateApplication(appId string, body Application, qp *query.Params)  (*Application, error) {
-	iobytes, err := json.Marshal(body)
-	if err != nil  {
-		return nil, err
+	req, err := m.client.requestExecutor.NewRequest("GET", url, nil)
+	if err != nil {
+		return nil, nil, err
 	}
-	resp, err := m.client.requestExecutor.Put("/api/v1/apps/"+appId+"", bytes.NewReader(iobytes), qp)
-	if err != nil  {
-		return nil, err
-	}
-	
-	r := Application{}
-	
-	json.Unmarshal(resp, &r)
-	
-	return &r, nil
-}
-
-func (m *ApplicationResource) DeleteApplication(appId string, qp *query.Params) error {
-	_, err := m.client.requestExecutor.Delete("/api/v1/apps/"+appId+"", qp)
-	if err != nil  {
-		return err
-	}
-	return nil
-}
 
 
-func (m *ApplicationResource) ActivateApplication(appId string, qp *query.Params) error {
-	_, err := m.client.requestExecutor.Post("/api/v1/apps/"+appId+"/lifecycle/activate", nil, qp)
-	if err != nil  {
-		return err
+	var application *Application
+	resp, err := m.client.requestExecutor.Do(req, &application)
+	if err != nil {
+		return nil, resp, err
 	}
-	return nil
+	return application, resp, nil
 }
-func (m *ApplicationResource) DeactivateApplication(appId string, qp *query.Params) error {
-	_, err := m.client.requestExecutor.Post("/api/v1/apps/"+appId+"/lifecycle/deactivate", nil, qp)
-	if err != nil  {
-		return err
+func (m *ApplicationResource) UpdateApplication(appId string, body Application, qp *query.Params)  (*Application, *Response, error) {
+	url := fmt.Sprintf("/api/v1/apps/%v", appId)
+	if &qp != nil {
+		url = url + qp.String()
 	}
-	return nil
+	req, err := m.client.requestExecutor.NewRequest("PUT", url, body)
+	if err != nil {
+		return nil, nil, err
+	}
+
+
+	var application *Application
+	resp, err := m.client.requestExecutor.Do(req, &application)
+	if err != nil {
+		return nil, resp, err
+	}
+	return application, resp, nil
 }
-func (m *ApplicationResource) ListApplicationUsers(appId string, qp *query.Params)  (*AppUser, error) {
-	resp, err := m.client.requestExecutor.Get("/api/v1/apps/"+appId+"/users", qp)
-	if err != nil  {
+func (m *ApplicationResource) DeleteApplication(appId string, qp *query.Params)  (*Response, error) {
+	url := fmt.Sprintf("/api/v1/apps/%v", appId)
+	if &qp != nil {
+		url = url + qp.String()
+	}
+	req, err := m.client.requestExecutor.NewRequest("DELETE", url, nil)
+	if err != nil {
 		return nil, err
 	}
-	
-	r := AppUser{}
-	
-	json.Unmarshal(resp, &r)
-	
-	return &r, nil
+
+
+	resp, err := m.client.requestExecutor.Do(req, nil)
+	if err != nil {
+		return resp, err
+	}
+	return resp, nil
 }
-func (m *ApplicationResource) AssignUserToApplication(appId string, body AppUser, qp *query.Params)  (*AppUser, error) {
-	iobytes, err := json.Marshal(body)
-	if err != nil  {
-		return nil, err
+
+	func (m *ApplicationResource) ActivateApplication(appId string, qp *query.Params)  (*Response, error) {
+		url := fmt.Sprintf("/api/v1/apps/%v/lifecycle/activate", appId)
+		if &qp != nil {
+			url = url + qp.String()
+		}
+		req, err := m.client.requestExecutor.NewRequest("POST", url, nil)
+		if err != nil {
+			return nil, err
+		}
+	
+	
+		resp, err := m.client.requestExecutor.Do(req, nil)
+		if err != nil {
+			return resp, err
+		}
+		return resp, nil
 	}
-	resp, err := m.client.requestExecutor.Post("/api/v1/apps/"+appId+"/users", bytes.NewReader(iobytes), qp)
-	if err != nil  {
-		return nil, err
+	func (m *ApplicationResource) DeactivateApplication(appId string, qp *query.Params)  (*Response, error) {
+		url := fmt.Sprintf("/api/v1/apps/%v/lifecycle/deactivate", appId)
+		if &qp != nil {
+			url = url + qp.String()
+		}
+		req, err := m.client.requestExecutor.NewRequest("POST", url, nil)
+		if err != nil {
+			return nil, err
+		}
+	
+	
+		resp, err := m.client.requestExecutor.Do(req, nil)
+		if err != nil {
+			return resp, err
+		}
+		return resp, nil
 	}
+	func (m *ApplicationResource) ListApplicationUsers(appId string, qp *query.Params)  (*AppUser, *Response, error) {
+		url := fmt.Sprintf("/api/v1/apps/%v/users", appId)
+		if &qp != nil {
+			url = url + qp.String()
+		}
+		req, err := m.client.requestExecutor.NewRequest("GET", url, nil)
+		if err != nil {
+			return nil, nil, err
+		}
 	
-	r := AppUser{}
 	
-	json.Unmarshal(resp, &r)
-	
-	return &r, nil
-}
-func (m *ApplicationResource) GetApplicationUser(appId string, userId string, qp *query.Params)  (*AppUser, error) {
-	resp, err := m.client.requestExecutor.Get("/api/v1/apps/"+appId+"/users/"+userId+"", qp)
-	if err != nil  {
-		return nil, err
+		var appUser *AppUser
+		resp, err := m.client.requestExecutor.Do(req, &appUser)
+		if err != nil {
+			return nil, resp, err
+		}
+		return appUser, resp, nil
 	}
+	func (m *ApplicationResource) AssignUserToApplication(appId string, body AppUser, qp *query.Params)  (*AppUser, *Response, error) {
+		url := fmt.Sprintf("/api/v1/apps/%v/users", appId)
+		if &qp != nil {
+			url = url + qp.String()
+		}
+		req, err := m.client.requestExecutor.NewRequest("POST", url, body)
+		if err != nil {
+			return nil, nil, err
+		}
 	
-	r := AppUser{}
 	
-	json.Unmarshal(resp, &r)
-	
-	return &r, nil
-}
-func (m *ApplicationResource) CreateApplicationGroupAssignment(appId string, groupId string, body ApplicationGroupAssignment, qp *query.Params)  (*ApplicationGroupAssignment, error) {
-	iobytes, err := json.Marshal(body)
-	if err != nil  {
-		return nil, err
+		var appUser *AppUser
+		resp, err := m.client.requestExecutor.Do(req, &appUser)
+		if err != nil {
+			return nil, resp, err
+		}
+		return appUser, resp, nil
 	}
-	resp, err := m.client.requestExecutor.Put("/api/v1/apps/"+appId+"/groups/"+groupId+"", bytes.NewReader(iobytes), qp)
-	if err != nil  {
-		return nil, err
+	func (m *ApplicationResource) GetApplicationUser(appId string, userId string, qp *query.Params)  (*AppUser, *Response, error) {
+		url := fmt.Sprintf("/api/v1/apps/%v/users/%v", appId, userId)
+		if &qp != nil {
+			url = url + qp.String()
+		}
+		req, err := m.client.requestExecutor.NewRequest("GET", url, nil)
+		if err != nil {
+			return nil, nil, err
+		}
+	
+	
+		var appUser *AppUser
+		resp, err := m.client.requestExecutor.Do(req, &appUser)
+		if err != nil {
+			return nil, resp, err
+		}
+		return appUser, resp, nil
 	}
+	func (m *ApplicationResource) CreateApplicationGroupAssignment(appId string, groupId string, body ApplicationGroupAssignment, qp *query.Params)  (*ApplicationGroupAssignment, *Response, error) {
+		url := fmt.Sprintf("/api/v1/apps/%v/groups/%v", appId, groupId)
+		if &qp != nil {
+			url = url + qp.String()
+		}
+		req, err := m.client.requestExecutor.NewRequest("PUT", url, body)
+		if err != nil {
+			return nil, nil, err
+		}
 	
-	r := ApplicationGroupAssignment{}
 	
-	json.Unmarshal(resp, &r)
-	
-	return &r, nil
-}
-func (m *ApplicationResource) GetApplicationGroupAssignment(appId string, groupId string, qp *query.Params)  (*ApplicationGroupAssignment, error) {
-	resp, err := m.client.requestExecutor.Get("/api/v1/apps/"+appId+"/groups/"+groupId+"", qp)
-	if err != nil  {
-		return nil, err
+		var applicationGroupAssignment *ApplicationGroupAssignment
+		resp, err := m.client.requestExecutor.Do(req, &applicationGroupAssignment)
+		if err != nil {
+			return nil, resp, err
+		}
+		return applicationGroupAssignment, resp, nil
 	}
+	func (m *ApplicationResource) GetApplicationGroupAssignment(appId string, groupId string, qp *query.Params)  (*ApplicationGroupAssignment, *Response, error) {
+		url := fmt.Sprintf("/api/v1/apps/%v/groups/%v", appId, groupId)
+		if &qp != nil {
+			url = url + qp.String()
+		}
+		req, err := m.client.requestExecutor.NewRequest("GET", url, nil)
+		if err != nil {
+			return nil, nil, err
+		}
 	
-	r := ApplicationGroupAssignment{}
 	
-	json.Unmarshal(resp, &r)
-	
-	return &r, nil
-}
-func (m *ApplicationResource) CloneApplicationKey(appId string, keyId string, qp *query.Params)  (*JsonWebKey, error) {
-	resp, err := m.client.requestExecutor.Post("/api/v1/apps/"+appId+"/credentials/keys/"+keyId+"/clone", nil, qp)
-	if err != nil  {
-		return nil, err
+		var applicationGroupAssignment *ApplicationGroupAssignment
+		resp, err := m.client.requestExecutor.Do(req, &applicationGroupAssignment)
+		if err != nil {
+			return nil, resp, err
+		}
+		return applicationGroupAssignment, resp, nil
 	}
+	func (m *ApplicationResource) CloneApplicationKey(appId string, keyId string, qp *query.Params)  (*JsonWebKey, *Response, error) {
+		url := fmt.Sprintf("/api/v1/apps/%v/credentials/keys/%v/clone", appId, keyId)
+		if &qp != nil {
+			url = url + qp.String()
+		}
+		req, err := m.client.requestExecutor.NewRequest("POST", url, nil)
+		if err != nil {
+			return nil, nil, err
+		}
 	
-	r := JsonWebKey{}
 	
-	json.Unmarshal(resp, &r)
-	
-	return &r, nil
-}
-func (m *ApplicationResource) GetApplicationKey(appId string, keyId string, qp *query.Params)  (*JsonWebKey, error) {
-	resp, err := m.client.requestExecutor.Get("/api/v1/apps/"+appId+"/credentials/keys/"+keyId+"", qp)
-	if err != nil  {
-		return nil, err
+		var jsonWebKey *JsonWebKey
+		resp, err := m.client.requestExecutor.Do(req, &jsonWebKey)
+		if err != nil {
+			return nil, resp, err
+		}
+		return jsonWebKey, resp, nil
 	}
+	func (m *ApplicationResource) GetApplicationKey(appId string, keyId string, qp *query.Params)  (*JsonWebKey, *Response, error) {
+		url := fmt.Sprintf("/api/v1/apps/%v/credentials/keys/%v", appId, keyId)
+		if &qp != nil {
+			url = url + qp.String()
+		}
+		req, err := m.client.requestExecutor.NewRequest("GET", url, nil)
+		if err != nil {
+			return nil, nil, err
+		}
 	
-	r := JsonWebKey{}
 	
-	json.Unmarshal(resp, &r)
-	
-	return &r, nil
-}
-func (m *ApplicationResource) ListApplicationGroupAssignments(appId string, qp *query.Params)  (*ApplicationGroupAssignment, error) {
-	resp, err := m.client.requestExecutor.Get("/api/v1/apps/"+appId+"/groups", qp)
-	if err != nil  {
-		return nil, err
+		var jsonWebKey *JsonWebKey
+		resp, err := m.client.requestExecutor.Do(req, &jsonWebKey)
+		if err != nil {
+			return nil, resp, err
+		}
+		return jsonWebKey, resp, nil
 	}
+	func (m *ApplicationResource) ListApplicationGroupAssignments(appId string, qp *query.Params)  (*ApplicationGroupAssignment, *Response, error) {
+		url := fmt.Sprintf("/api/v1/apps/%v/groups", appId)
+		if &qp != nil {
+			url = url + qp.String()
+		}
+		req, err := m.client.requestExecutor.NewRequest("GET", url, nil)
+		if err != nil {
+			return nil, nil, err
+		}
 	
-	r := ApplicationGroupAssignment{}
 	
-	json.Unmarshal(resp, &r)
-	
-	return &r, nil
-}
-func (m *ApplicationResource) ListApplicationKeys(appId string, qp *query.Params)  (*JsonWebKey, error) {
-	resp, err := m.client.requestExecutor.Get("/api/v1/apps/"+appId+"/credentials/keys", qp)
-	if err != nil  {
-		return nil, err
+		var applicationGroupAssignment *ApplicationGroupAssignment
+		resp, err := m.client.requestExecutor.Do(req, &applicationGroupAssignment)
+		if err != nil {
+			return nil, resp, err
+		}
+		return applicationGroupAssignment, resp, nil
 	}
+	func (m *ApplicationResource) ListApplicationKeys(appId string, qp *query.Params)  (*JsonWebKey, *Response, error) {
+		url := fmt.Sprintf("/api/v1/apps/%v/credentials/keys", appId)
+		if &qp != nil {
+			url = url + qp.String()
+		}
+		req, err := m.client.requestExecutor.NewRequest("GET", url, nil)
+		if err != nil {
+			return nil, nil, err
+		}
 	
-	r := JsonWebKey{}
 	
-	json.Unmarshal(resp, &r)
-	
-	return &r, nil
-}
+		var jsonWebKey *JsonWebKey
+		resp, err := m.client.requestExecutor.Do(req, &jsonWebKey)
+		if err != nil {
+			return nil, resp, err
+		}
+		return jsonWebKey, resp, nil
+	}

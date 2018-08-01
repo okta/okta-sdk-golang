@@ -60,6 +60,10 @@ function ucFirst(string) {
   return string.charAt(0).toUpperCase() + string.slice(1);
 }
 
+function strToUpper(string) {
+  return string.toUpperCase(string)
+}
+
 function structProp(prop) {
   prop = prop.replace(/#/g,"");
   prop = prop.replace(/(\_\w)/g, function(m){return m[1].toUpperCase();});
@@ -84,12 +88,13 @@ function getImports(object) {
   if (object.model.methods !== undefined) {
     for (let method of object.model.methods) {
       imports.push("github.com/okta/okta-sdk-golang/okta/query")
+      imports.push("fmt");
       if (method.operation.responseModel !== undefined) {
-        imports.push("encoding/json");
+        imports.push("fmt");
       }
 
       if (method.operation.bodyModel !== undefined) {
-        imports.push("bytes")
+        imports.push("fmt")
       }
     }
   }
@@ -97,12 +102,13 @@ function getImports(object) {
   if (object.model.crud !== undefined) {
     for (let method of object.model.crud) {
       imports.push("github.com/okta/okta-sdk-golang/okta/query")
+      imports.push("fmt");
       if (method.operation.responseModel !== undefined) {
-        imports.push("encoding/json");
+        imports.push("fmt");
       }
 
       if (method.operation.bodyModel !== undefined) {
-        imports.push("bytes")
+        imports.push("fmt")
       }
     }
   }
@@ -131,17 +137,25 @@ function operationArgumentBuilder(operation) {
 function getPath(operation) {
   let path = operation.path;
   for (let param of operation.pathParams) {
-    path = path.replace(`{${param.name}}`, String.raw`"+${param.name}+"`);
+    path = path.replace(`{${param.name}}`, String.raw`%v`);
   }
 
-  return `${path}`;
+  return `"${path}"`;
+}
+
+function getPathParams(operation) {
+  const args = []
+  for (let param of operation.pathParams) {
+    args.push(param.name)
+  }
+  return args.join(', ');
 }
 
 function returnType(operation) {
   if ( operation.responseModel !== undefined ) {
-    return " (*" + operation.responseModel + ", error) ";
+    return " (*" + operation.responseModel + ", *Response, error) ";
   }
-  return "error ";
+  return " (*Response, error) ";
 }
 
 function log(item) {
@@ -197,8 +211,11 @@ golang.process = ({ spec, operations, models, handlebars }) => {
     ucFirst,
     operationArgumentBuilder,
     getPath,
+    getPathParams,
     returnType,
-    getImports
+    getImports,
+    strToUpper,
+    lowercaseFirstLetter
   });
 
   handlebars.registerPartial('partials.copyHeader', fs.readFileSync('generator/templates/partials/copyHeader.hbs', 'utf8'));
