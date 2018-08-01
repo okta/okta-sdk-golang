@@ -17,6 +17,7 @@
 package integration
 
 import (
+	"fmt"
 	"testing"
 
 	"github.com/okta/okta-sdk-golang/okta/query"
@@ -38,30 +39,74 @@ func Test_can_get_a_user(t *testing.T) {
 		WithEmail("john-get-user@example.com").
 		WithLogin("john-get-user@example.com")
 	u := new(okta.User).WithCredentials(uc).WithProfile(profile)
-	qp := query.NewQueryParams(query.WithSendEmail(false))
+	qp := query.NewQueryParams(query.WithActivate(false))
 
-	user, err := client.User.CreateUser(*u, qp)
+	user, _, err := client.User.CreateUser(*u, qp)
 	require.NoError(t, err, "Creating an user should not error")
 
 	// Get the user by ID → GET /api/v1/users/{{userId}}
-	ubid, err := client.User.GetUser(user.Id, nil)
+	ubid, _, err := client.User.GetUser(user.Id, nil)
 	require.NoError(t, err, "Getting a user by id should not error")
 	assert.Equal(t, user.Id, ubid.Id, "Could not find user by Id")
 
 	// Get the user by login name → GET /api/v1/users/{{login}}
-	ubln, err := client.User.GetUser(user.Profile.Login, nil)
+	ubln, _, err := client.User.GetUser(user.Profile.Login, nil)
 	require.NoError(t, err, "Getting a user by login should not error")
 	assert.Equal(t, user.Id, ubln.Id, "Could not find user by Login")
 
 	// Deactivate the user → POST /api/v1/users/{{userId}}/lifecycle/deactivate
-	err = client.User.DeactivateUser(user.Id, nil)
+	_, err = client.User.DeactivateUser(user.Id, nil)
 	require.NoError(t, err, "Should not error when deactivating")
 
 	// Delete the user → DELETE /api/v1/users/{{userId}}
-	err = client.User.DeactivateOrDeleteUser(user.Id, nil)
+	_, err = client.User.DeactivateOrDeleteUser(user.Id, nil)
 	require.NoError(t, err, "Should not error when deleting")
 
 	// Verify that the user is deleted by calling get on user (Exception thrown with 404 error message) → GET /api/v1/users/{{userId}}
-	_, err = client.User.GetUser(user.Id, nil)
+	_, _, err = client.User.GetUser(user.Id, nil)
 	require.Error(t, err, "User should not exist, but does")
+}
+
+func Test_can_activate_a_user(t *testing.T) {
+	client := tests.NewClient()
+	//Create user with credentials → POST /api/v1/users?activate=false
+	p := new(okta.PasswordCredential).WithValue("Abcd1234")
+	uc := new(okta.UserCredentials).WithPassword(p)
+	profile := new(okta.UserProfile).
+		WithFirstName("John").
+		WithLastName("Activate").
+		WithEmail("john-activate@example.com").
+		WithLogin("john-activate@example.com")
+	u := new(okta.User).WithCredentials(uc).WithProfile(profile)
+	qp := query.NewQueryParams(query.WithActivate(false))
+
+	user, _, err := client.User.CreateUser(*u, qp)
+	require.NoError(t, err, "Creating an user should not error")
+
+	// Activate the user → POST /api/v1/users/{{userId}}/lifecycle/activate?sendEmail=false
+	token, _, err := client.User.ActivateUser(user.Id, query.NewQueryParams(query.WithSendEmail(false)))
+	require.NoError(t, err, "Could not activate the user")
+	assert.NotEmpty(t, token, "Token was not provided")
+	assert.IsType(t, &okta.UserActivationToken{}, token, "Activation did not return correct type")
+
+	// Verify that the user is in the list of ACTIVE users with query parameter → GET /api/v1/users?filter=status eq "ACTIVE"
+	filter := query.NewQueryParams(query.WithFilter("status eq \"ACTIVE\""))
+	users, _, err := client.User.ListUsers(filter)
+	require.NoError(t, err, "Could not get active users")
+	found := false
+	for _, u := range users {
+		fmt.Printf("%+v\n", u)
+		if user.Id == u.Id {
+			found = true
+		}
+	}
+	assert.True(t, found, "The user was not found")
+
+	// Deactivate the user → POST /api/v1/users/{{userId}}/lifecycle/deactivate
+	_, err = client.User.DeactivateUser(user.Id, nil)
+	require.NoError(t, err, "Should not error when deactivating")
+
+	// Delete the user → DELETE /api/v1/users/{{userId}}
+	_, err = client.User.DeactivateOrDeleteUser(user.Id, nil)
+	require.NoError(t, err, "Should not error when deleting")
 }

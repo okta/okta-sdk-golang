@@ -20,8 +20,7 @@ package okta
 
 import (
 	"github.com/okta/okta-sdk-golang/okta/query"
-	"encoding/json"
-	"bytes"
+	"fmt"
 )
 
 type FactorResource resource
@@ -88,44 +87,57 @@ func (m *Factor) WithVerify(v *VerifyFactorRequest) *Factor {
 	return m
 }
 
-func (m *FactorResource) DeleteFactor(userId string, factorId string, qp *query.Params) error {
-	_, err := m.client.requestExecutor.Delete("/api/v1/users/"+userId+"/factors/"+factorId+"", qp)
-	if err != nil  {
-		return err
+func (m *FactorResource) DeleteFactor(userId string, factorId string, qp *query.Params)  (*Response, error) {
+	url := fmt.Sprintf("/api/v1/users/%v/factors/%v", userId, factorId)
+	if &qp != nil {
+		url = url + qp.String()
 	}
-	return nil
-}
+	req, err := m.client.requestExecutor.NewRequest("DELETE", url, nil)
+	if err != nil {
+		return nil, err
+	}
 
 
-func (m *FactorResource) ActivateFactor(userId string, factorId string, body VerifyFactorRequest, qp *query.Params)  (*Factor, error) {
-	iobytes, err := json.Marshal(body)
-	if err != nil  {
-		return nil, err
+	resp, err := m.client.requestExecutor.Do(req, nil)
+	if err != nil {
+		return resp, err
 	}
-	resp, err := m.client.requestExecutor.Post("/api/v1/users/"+userId+"/factors/"+factorId+"/lifecycle/activate", bytes.NewReader(iobytes), qp)
-	if err != nil  {
-		return nil, err
-	}
-	
-	r := Factor{}
-	
-	json.Unmarshal(resp, &r)
-	
-	return &r, nil
+	return resp, nil
 }
-func (m *FactorResource) VerifyFactor(userId string, factorId string, body VerifyFactorRequest, qp *query.Params)  (*VerifyFactorResponse, error) {
-	iobytes, err := json.Marshal(body)
-	if err != nil  {
-		return nil, err
+
+	func (m *FactorResource) ActivateFactor(userId string, factorId string, body VerifyFactorRequest, qp *query.Params)  (*Factor, *Response, error) {
+		url := fmt.Sprintf("/api/v1/users/%v/factors/%v/lifecycle/activate", userId, factorId)
+		if &qp != nil {
+			url = url + qp.String()
+		}
+		req, err := m.client.requestExecutor.NewRequest("POST", url, body)
+		if err != nil {
+			return nil, nil, err
+		}
+	
+	
+		var factor *Factor
+		resp, err := m.client.requestExecutor.Do(req, &factor)
+		if err != nil {
+			return nil, resp, err
+		}
+		return factor, resp, nil
 	}
-	resp, err := m.client.requestExecutor.Post("/api/v1/users/"+userId+"/factors/"+factorId+"/verify", bytes.NewReader(iobytes), qp)
-	if err != nil  {
-		return nil, err
+	func (m *FactorResource) VerifyFactor(userId string, factorId string, body VerifyFactorRequest, qp *query.Params)  (*VerifyFactorResponse, *Response, error) {
+		url := fmt.Sprintf("/api/v1/users/%v/factors/%v/verify", userId, factorId)
+		if &qp != nil {
+			url = url + qp.String()
+		}
+		req, err := m.client.requestExecutor.NewRequest("POST", url, body)
+		if err != nil {
+			return nil, nil, err
+		}
+	
+	
+		var verifyFactorResponse *VerifyFactorResponse
+		resp, err := m.client.requestExecutor.Do(req, &verifyFactorResponse)
+		if err != nil {
+			return nil, resp, err
+		}
+		return verifyFactorResponse, resp, nil
 	}
-	
-	r := VerifyFactorResponse{}
-	
-	json.Unmarshal(resp, &r)
-	
-	return &r, nil
-}

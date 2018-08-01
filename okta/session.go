@@ -21,7 +21,7 @@ package okta
 import (
 	"time"
 	"github.com/okta/okta-sdk-golang/okta/query"
-	"encoding/json"
+	"fmt"
 )
 
 type SessionResource resource
@@ -40,37 +40,57 @@ type Session struct {
 	UserId string `json:"userId,omitempty"`
 }
 
-func (m *SessionResource) GetSession(sessionId string, qp *query.Params)  (*Session, error) {
-	resp, err := m.client.requestExecutor.Get("/api/v1/sessions/"+sessionId+"", qp)
-	if err != nil  {
+func (m *SessionResource) GetSession(sessionId string, qp *query.Params)  (*Session, *Response, error) {
+	url := fmt.Sprintf("/api/v1/sessions/%v", sessionId)
+	if &qp != nil {
+		url = url + qp.String()
+	}
+	req, err := m.client.requestExecutor.NewRequest("GET", url, nil)
+	if err != nil {
+		return nil, nil, err
+	}
+
+
+	var session *Session
+	resp, err := m.client.requestExecutor.Do(req, &session)
+	if err != nil {
+		return nil, resp, err
+	}
+	return session, resp, nil
+}
+func (m *SessionResource) EndSession(sessionId string, qp *query.Params)  (*Response, error) {
+	url := fmt.Sprintf("/api/v1/sessions/%v", sessionId)
+	if &qp != nil {
+		url = url + qp.String()
+	}
+	req, err := m.client.requestExecutor.NewRequest("DELETE", url, nil)
+	if err != nil {
 		return nil, err
 	}
-	
-	r := Session{}
-	
-	json.Unmarshal(resp, &r)
-	
-	return &r, nil
-}
 
-func (m *SessionResource) EndSession(sessionId string, qp *query.Params) error {
-	_, err := m.client.requestExecutor.Delete("/api/v1/sessions/"+sessionId+"", qp)
-	if err != nil  {
-		return err
+
+	resp, err := m.client.requestExecutor.Do(req, nil)
+	if err != nil {
+		return resp, err
 	}
-	return nil
+	return resp, nil
 }
 
-
-func (m *SessionResource) RefreshSession(sessionId string, qp *query.Params)  (*Session, error) {
-	resp, err := m.client.requestExecutor.Post("/api/v1/sessions/"+sessionId+"/lifecycle/refresh", nil, qp)
-	if err != nil  {
-		return nil, err
+	func (m *SessionResource) RefreshSession(sessionId string, qp *query.Params)  (*Session, *Response, error) {
+		url := fmt.Sprintf("/api/v1/sessions/%v/lifecycle/refresh", sessionId)
+		if &qp != nil {
+			url = url + qp.String()
+		}
+		req, err := m.client.requestExecutor.NewRequest("POST", url, nil)
+		if err != nil {
+			return nil, nil, err
+		}
+	
+	
+		var session *Session
+		resp, err := m.client.requestExecutor.Do(req, &session)
+		if err != nil {
+			return nil, resp, err
+		}
+		return session, resp, nil
 	}
-	
-	r := Session{}
-	
-	json.Unmarshal(resp, &r)
-	
-	return &r, nil
-}

@@ -12,7 +12,7 @@
 * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 * See the License for the specific language governing permissions and
 * limitations under the License.
-*/
+ */
 
 // AUTO-GENERATED!  DO NOT EDIT FILE DIRECTLY
 
@@ -20,32 +20,33 @@ package query
 
 import (
 	"encoding/json"
+	"net/url"
 	"strconv"
 )
 
 type Params struct {
-	Q string `json:"q,omitempty"`
-	After string `json:"after,omitempty"`
-	Limit int64 `json:"limit,omitempty"`
-	Filter string `json:"filter,omitempty"`
-	Expand string `json:"expand,omitempty"`
-	IncludeNonDeleted *bool `json:"includeNonDeleted,omitempty"`
-	Activate *bool `json:"activate,omitempty"`
-	TargetAid string `json:"targetAid,omitempty"`
-	QueryScope string `json:"query_scope,omitempty"`
-	RemoveUsers *bool `json:"removeUsers,omitempty"`
-	Until string `json:"until,omitempty"`
-	Since string `json:"since,omitempty"`
-	SortOrder string `json:"sortOrder,omitempty"`
-	Format string `json:"format,omitempty"`
-	Search string `json:"search,omitempty"`
-	Provider string `json:"provider,omitempty"`
-	ShowAll *bool `json:"showAll,omitempty"`
-	SendEmail *bool `json:"sendEmail,omitempty"`
-	UpdatePhone *bool `json:"updatePhone,omitempty"`
-	TemplateId string `json:"templateId,omitempty"`
-	TempPassword *bool `json:"tempPassword,omitempty"`
-	OauthTokens *bool `json:"oauthTokens,omitempty"`
+	Q                 string `json:"q,omitempty"`
+	After             string `json:"after,omitempty"`
+	Limit             int64  `json:"limit,omitempty"`
+	Filter            string `json:"filter,omitempty"`
+	Expand            string `json:"expand,omitempty"`
+	IncludeNonDeleted *bool  `json:"includeNonDeleted,omitempty"`
+	Activate          *bool  `json:"activate,omitempty"`
+	TargetAid         string `json:"targetAid,omitempty"`
+	QueryScope        string `json:"query_scope,omitempty"`
+	RemoveUsers       *bool  `json:"removeUsers,omitempty"`
+	Until             string `json:"until,omitempty"`
+	Since             string `json:"since,omitempty"`
+	SortOrder         string `json:"sortOrder,omitempty"`
+	Format            string `json:"format,omitempty"`
+	Search            string `json:"search,omitempty"`
+	Provider          string `json:"provider,omitempty"`
+	ShowAll           *bool  `json:"showAll,omitempty"`
+	SendEmail         *bool  `json:"sendEmail,omitempty"`
+	UpdatePhone       *bool  `json:"updatePhone,omitempty"`
+	TemplateId        string `json:"templateId,omitempty"`
+	TempPassword      *bool  `json:"tempPassword,omitempty"`
+	OauthTokens       *bool  `json:"oauthTokens,omitempty"`
 }
 
 func NewQueryParams(paramOpt ...ParamOptions) *Params {
@@ -202,7 +203,7 @@ func (p *Params) String() string {
 		case bool:
 			qs = qs + strconv.FormatBool(v)
 		default:
-			qs = qs + value.(string)
+			qs = qs + url.QueryEscape(value.(string))
 		}
 		if i < len(m) {
 			qs = qs + "&"
@@ -212,4 +213,3 @@ func (p *Params) String() string {
 
 	return qs
 }
-
