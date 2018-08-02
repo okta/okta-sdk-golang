@@ -232,15 +232,49 @@ func Test_can_change_users_password(t *testing.T) {
 	npr := new(okta.ChangePasswordRequest).WithOldPassword(op).WithNewPassword(np)
 	_, _, err = client.User.ChangePassword(user.Id, *npr, nil)
 	require.NoError(t, err, "Could not change password")
-	if err != nil {
-		fmt.Printf("%+v\n", err)
-	}
 
 	// Get the user and verify that 'passwordChanged' field has increased → GET /api/v1/users/{{userId}}/
 	ubid, _, err := client.User.GetUser(user.Id, nil)
 	require.NoError(t, err, "Getting a user by login should not error")
 	assert.Equal(t, user.Id, ubid.Id, "Could not find user by Login")
 	assert.True(t, ubid.PasswordChanged.After(*user.PasswordChanged), "Appears that password change did not happen")
+
+	// Deactivate the user → POST /api/v1/users/{{userId}}/lifecycle/deactivate
+	_, err = client.User.DeactivateUser(user.Id, nil)
+	require.NoError(t, err, "Should not error when deactivating")
+
+	// Delete the user → DELETE /api/v1/users/{{userId}}
+	_, err = client.User.DeactivateOrDeleteUser(user.Id, nil)
+	require.NoError(t, err, "Should not error when deleting")
+
+	// Verify that the user is deleted by calling get on user (Exception thrown with 404 error message) → GET /api/v1/users/{{userId}}
+	_, _, err = client.User.GetUser(user.Id, nil)
+	require.Error(t, err, "User should not exist, but does")
+}
+
+func Test_can_get_reset_password_link_for_user(t *testing.T) {
+	client := tests.NewClient()
+	// Create user with credentials → POST /api/v1/users?activate=true
+	p := new(okta.PasswordCredential).WithValue("Abcd1234")
+	uc := new(okta.UserCredentials).WithPassword(p)
+	profile := okta.UserProfile{}
+	profile["firstName"] = "John"
+	profile["lastName"] = "Get-Reset-Password-Url"
+	profile["email"] = "john-get-reset-password-url@example.com"
+	profile["login"] = "john-get-reset-password-url@example.com"
+	u := new(okta.User).WithCredentials(uc).WithProfile(&profile)
+	qp := query.NewQueryParams(query.WithActivate(true))
+
+	user, _, err := client.User.CreateUser(*u, qp)
+	require.NoError(t, err, "Creating an user should not error")
+
+	// Reset the user password → POST /api/v1/users/{{userId}}/lifecycle/reset_password?sendEmail=false
+	rpt, _, err := client.User.ResetPassword(user.Id, query.NewQueryParams(query.WithSendEmail(false)))
+	require.NoError(t, err, "Could not reset password")
+
+	// Verify that the response returned contains the reset password link
+	assert.IsType(t, &okta.ResetPasswordToken{}, rpt)
+	assert.NotEmpty(t, rpt.ResetPasswordUrl, "Reset Password is not set")
 
 	// Deactivate the user → POST /api/v1/users/{{userId}}/lifecycle/deactivate
 	_, err = client.User.DeactivateUser(user.Id, nil)
