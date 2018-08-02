@@ -19,6 +19,7 @@ package integration
 import (
 	"fmt"
 	"testing"
+	"time"
 
 	"github.com/okta/okta-sdk-golang/okta/query"
 
@@ -204,4 +205,52 @@ func Test_can_suspend_a_user(t *testing.T) {
 	// Delete the user → DELETE /api/v1/users/{{userId}}
 	_, err = client.User.DeactivateOrDeleteUser(user.Id, nil)
 	require.NoError(t, err, "Should not error when deleting")
+}
+
+func Test_can_change_users_password(t *testing.T) {
+	client := tests.NewClient()
+	// Create user with credentials → POST /api/v1/users?activate=true
+	p := new(okta.PasswordCredential).WithValue("Abcd1234")
+	uc := new(okta.UserCredentials).WithPassword(p)
+	profile := okta.UserProfile{}
+	profile["firstName"] = "John"
+	profile["lastName"] = "Change-Password"
+	profile["email"] = "john-change-password@example.com"
+	profile["login"] = "john-change-password@example.com"
+	u := new(okta.User).WithCredentials(uc).WithProfile(&profile)
+	qp := query.NewQueryParams(query.WithActivate(true))
+
+	user, _, err := client.User.CreateUser(*u, qp)
+	require.NoError(t, err, "Creating an user should not error")
+
+	//Sleep 1 second to make sure time has passed for password chagned timestamps
+	time.Sleep(1 * time.Second)
+
+	// Change the password to '1234Abcd' → POST /api/v1/users/{{userId}}/credentials/change_password
+	op := new(okta.PasswordCredential).WithValue("Abcd1234")
+	np := new(okta.PasswordCredential).WithValue("1234Abcd")
+	npr := new(okta.ChangePasswordRequest).WithOldPassword(op).WithNewPassword(np)
+	_, _, err = client.User.ChangePassword(user.Id, *npr, nil)
+	require.NoError(t, err, "Could not change password")
+	if err != nil {
+		fmt.Printf("%+v\n", err)
+	}
+
+	// Get the user and verify that 'passwordChanged' field has increased → GET /api/v1/users/{{userId}}/
+	ubid, _, err := client.User.GetUser(user.Id, nil)
+	require.NoError(t, err, "Getting a user by login should not error")
+	assert.Equal(t, user.Id, ubid.Id, "Could not find user by Login")
+	assert.True(t, ubid.PasswordChanged.After(*user.PasswordChanged), "Appears that password change did not happen")
+
+	// Deactivate the user → POST /api/v1/users/{{userId}}/lifecycle/deactivate
+	_, err = client.User.DeactivateUser(user.Id, nil)
+	require.NoError(t, err, "Should not error when deactivating")
+
+	// Delete the user → DELETE /api/v1/users/{{userId}}
+	_, err = client.User.DeactivateOrDeleteUser(user.Id, nil)
+	require.NoError(t, err, "Should not error when deleting")
+
+	// Verify that the user is deleted by calling get on user (Exception thrown with 404 error message) → GET /api/v1/users/{{userId}}
+	_, _, err = client.User.GetUser(user.Id, nil)
+	require.Error(t, err, "User should not exist, but does")
 }
