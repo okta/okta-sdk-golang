@@ -128,9 +128,17 @@ func Test_can_update_user_profile(t *testing.T) {
 	require.NoError(t, err, "Creating an user should not error")
 
 	// Update the user's profile by adding a nickname → PUT /api/v1/users/{{userId}}
+	newProfile := *user.Profile
+	newProfile["nickName"] = "Batman"
+	updatedUser := new(okta.User).WithProfile(&newProfile)
+	_, _, err = client.User.UpdateUser(user.Id, *updatedUser, nil)
+	require.NoError(t, err, "Could not update the user")
 
 	// Verify that user profile is updated by calling get on the user → GET /api/v1/users/{{userId}}
-
+	tmpUser, _, err := client.User.GetUser(user.Id, nil)
+	require.NoError(t, err, "User was not available to get")
+	tmpProfile := *tmpUser.Profile
+	assert.Equal(t, "Batman", tmpProfile["nickName"])
 	// Deactivate the user → POST /api/v1/users/{{userId}}/lifecycle/deactivate
 	_, err = client.User.DeactivateUser(user.Id, nil)
 	require.NoError(t, err, "Should not error when deactivating")
