@@ -147,3 +147,61 @@ func Test_can_update_user_profile(t *testing.T) {
 	_, err = client.User.DeactivateOrDeleteUser(user.Id, nil)
 	require.NoError(t, err, "Should not error when deleting")
 }
+
+func Test_can_suspend_a_user(t *testing.T) {
+	client := tests.NewClient()
+	//Create user with credentials → POST /api/v1/users?activate=true
+	p := new(okta.PasswordCredential).WithValue("Abcd1234")
+	uc := new(okta.UserCredentials).WithPassword(p)
+	profile := okta.UserProfile{}
+	profile["firstName"] = "John"
+	profile["lastName"] = "Suspend"
+	profile["email"] = "john-suspend@example.com"
+	profile["login"] = "john-suspend@example.com"
+	u := new(okta.User).WithCredentials(uc).WithProfile(&profile)
+	qp := query.NewQueryParams(query.WithActivate(true))
+
+	user, _, err := client.User.CreateUser(*u, qp)
+	require.NoError(t, err, "Creating an user should not error")
+
+	// Suspend the user → POST /api/v1/users/{{userId}}/lifecycle/suspend
+	_, err = client.User.SuspendUser(user.Id, nil)
+	require.NoError(t, err, "Could not suspend the user")
+
+	// Verify that user is in the list of suspended users → GET /api/v1/users?filter=status eq "SUSPENDED"
+	filter := query.NewQueryParams(query.WithFilter("status eq \"SUSPENDED\""))
+	users, _, err := client.User.ListUsers(filter)
+	require.NoError(t, err, "Could not get suspended users")
+	found := false
+	for _, u := range users {
+		fmt.Printf("%+v\n", u)
+		if user.Id == u.Id {
+			found = true
+		}
+	}
+	assert.True(t, found, "The user was not found")
+
+	// Unsuspend the user →  POST /api/v1/users/{{userId}}/lifecycle/unsuspend
+	_, err = client.User.UnsuspendUser(user.Id, nil)
+	require.NoError(t, err, "Could not unsuspend the user")
+
+	// Verify that user is in the list of active users → GET /api/v1/users?filter=status eq "ACTIVE"
+	filter = query.NewQueryParams(query.WithFilter("status eq \"ACTIVE\""))
+	users, _, err = client.User.ListUsers(filter)
+	require.NoError(t, err, "Could not get active users")
+	found = false
+	for _, u := range users {
+		fmt.Printf("%+v\n", u)
+		if user.Id == u.Id {
+			found = true
+		}
+	}
+
+	// Deactivate the user → POST /api/v1/users/{{userId}}/lifecycle/deactivate
+	_, err = client.User.DeactivateUser(user.Id, nil)
+	require.NoError(t, err, "Should not error when deactivating")
+
+	// Delete the user → DELETE /api/v1/users/{{userId}}
+	_, err = client.User.DeactivateOrDeleteUser(user.Id, nil)
+	require.NoError(t, err, "Should not error when deleting")
+}
