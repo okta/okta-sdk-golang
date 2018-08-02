@@ -288,3 +288,40 @@ func Test_can_get_reset_password_link_for_user(t *testing.T) {
 	_, _, err = client.User.GetUser(user.Id, nil)
 	require.Error(t, err, "User should not exist, but does")
 }
+
+func Test_can_expire_a_users_password_and_get_a_temp_one(t *testing.T) {
+	client := tests.NewClient()
+	// Create a user with credentials, activated by default → POST /api/v1/users?activate=true
+	p := new(okta.PasswordCredential).WithValue("Abcd1234")
+	uc := new(okta.UserCredentials).WithPassword(p)
+	profile := okta.UserProfile{}
+	profile["firstName"] = "John"
+	profile["lastName"] = "Get-Reset-Password-Url"
+	profile["email"] = "john-get-reset-password-url@example.com"
+	profile["login"] = "john-get-reset-password-url@example.com"
+	u := new(okta.User).WithCredentials(uc).WithProfile(&profile)
+	qp := query.NewQueryParams(query.WithActivate(true))
+
+	user, _, err := client.User.CreateUser(*u, qp)
+	require.NoError(t, err, "Creating an user should not error")
+
+	// Expire the user password → POST /api/v1/users/{{userId}}/lifecycle/expire_password?tempPassword=true
+	ep, _, err := client.User.ExpirePassword(user.Id, query.NewQueryParams(query.WithTempPassword(true)))
+	require.NoError(t, err, "Could not reset password")
+
+	// Verify that the returned response contains a temporary password
+	assert.IsType(t, &okta.TempPassword{}, ep)
+	assert.NotEmpty(t, ep.TempPassword, "Temp Password not provided")
+
+	// Deactivate the user → POST /api/v1/users/{{userId}}/lifecycle/deactivate
+	_, err = client.User.DeactivateUser(user.Id, nil)
+	require.NoError(t, err, "Should not error when deactivating")
+
+	// Delete the user → DELETE /api/v1/users/{{userId}}
+	_, err = client.User.DeactivateOrDeleteUser(user.Id, nil)
+	require.NoError(t, err, "Should not error when deleting")
+
+	// Verify that the user is deleted by calling get on user (Exception thrown with 404 error message) → GET /api/v1/users/{{userId}}
+	_, _, err = client.User.GetUser(user.Id, nil)
+	require.Error(t, err, "User should not exist, but does")
+}
