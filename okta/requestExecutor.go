@@ -19,7 +19,6 @@ package okta
 import (
 	"bytes"
 	"encoding/json"
-	"fmt"
 	"io"
 	"io/ioutil"
 	"net/http"
@@ -69,12 +68,13 @@ func (re *RequestExecutor) NewRequest(method string, url string, body interface{
 	if body != nil {
 		req.Header.Set("Content-Type", "application/json")
 	}
-	fmt.Printf("%+v\n", req)
+
 	return req, nil
 }
 
 func (re *RequestExecutor) Do(req *http.Request, v interface{}) (*Response, error) {
 	resp, err := re.httpClient.Do(req)
+
 	if err != nil {
 		return nil, err
 	}
