@@ -18,46 +18,4 @@
 
 package okta
 
-import (
-)
-
-type UserProfile struct {
-	Email string `json:"email,omitempty"`
-	FirstName string `json:"firstName,omitempty"`
-	LastName string `json:"lastName,omitempty"`
-	Login string `json:"login,omitempty"`
-	MobilePhone string `json:"mobilePhone,omitempty"`
-	SecondEmail string `json:"secondEmail,omitempty"`
-}
-
-func (m *UserProfile) WithEmail(v string) *UserProfile {
-	m.Email = v
-	return m
-}
-
-func (m *UserProfile) WithFirstName(v string) *UserProfile {
-	m.FirstName = v
-	return m
-}
-
-func (m *UserProfile) WithLastName(v string) *UserProfile {
-	m.LastName = v
-	return m
-}
-
-func (m *UserProfile) WithLogin(v string) *UserProfile {
-	m.Login = v
-	return m
-}
-
-func (m *UserProfile) WithMobilePhone(v string) *UserProfile {
-	m.MobilePhone = v
-	return m
-}
-
-func (m *UserProfile) WithSecondEmail(v string) *UserProfile {
-	m.SecondEmail = v
-	return m
-}
-
-
+type UserProfile map[string]interface{}

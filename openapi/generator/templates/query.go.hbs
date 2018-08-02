@@ -4,6 +4,7 @@ package query
 
 import (
 	"encoding/json"
+	"net/url"
 	"strconv"
 )
 
@@ -58,7 +59,7 @@ func (p *Params) String() string {
 		case bool:
 			qs = qs + strconv.FormatBool(v)
 		default:
-			qs = qs + value.(string)
+			qs = qs + url.QueryEscape(value.(string))
 		}
 		if i < len(m) {
 			qs = qs + "&"

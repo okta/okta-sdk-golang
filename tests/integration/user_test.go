@@ -33,12 +33,12 @@ func Test_can_get_a_user(t *testing.T) {
 	// Create user with credentials → POST /api/v1/users?activate=false
 	p := new(okta.PasswordCredential).WithValue("Abcd1234")
 	uc := new(okta.UserCredentials).WithPassword(p)
-	profile := new(okta.UserProfile).
-		WithFirstName("John").
-		WithLastName("Get-User").
-		WithEmail("john-get-user@example.com").
-		WithLogin("john-get-user@example.com")
-	u := new(okta.User).WithCredentials(uc).WithProfile(profile)
+	profile := okta.UserProfile{}
+	profile["firstName"] = "John"
+	profile["lastName"] = "Get-User"
+	profile["email"] = "john-get-user@example.com"
+	profile["login"] = "john-get-user@example.com"
+	u := new(okta.User).WithCredentials(uc).WithProfile(&profile)
 	qp := query.NewQueryParams(query.WithActivate(false))
 
 	user, _, err := client.User.CreateUser(*u, qp)
@@ -50,7 +50,7 @@ func Test_can_get_a_user(t *testing.T) {
 	assert.Equal(t, user.Id, ubid.Id, "Could not find user by Id")
 
 	// Get the user by login name → GET /api/v1/users/{{login}}
-	ubln, _, err := client.User.GetUser(user.Profile.Login, nil)
+	ubln, _, err := client.User.GetUser(profile["login"].(string), nil)
 	require.NoError(t, err, "Getting a user by login should not error")
 	assert.Equal(t, user.Id, ubln.Id, "Could not find user by Login")
 
@@ -72,12 +72,12 @@ func Test_can_activate_a_user(t *testing.T) {
 	//Create user with credentials → POST /api/v1/users?activate=false
 	p := new(okta.PasswordCredential).WithValue("Abcd1234")
 	uc := new(okta.UserCredentials).WithPassword(p)
-	profile := new(okta.UserProfile).
-		WithFirstName("John").
-		WithLastName("Activate").
-		WithEmail("john-activate@example.com").
-		WithLogin("john-activate@example.com")
-	u := new(okta.User).WithCredentials(uc).WithProfile(profile)
+	profile := okta.UserProfile{}
+	profile["firstName"] = "John"
+	profile["lastName"] = "Activate"
+	profile["email"] = "john-activate@example.com"
+	profile["login"] = "john-activate@example.com"
+	u := new(okta.User).WithCredentials(uc).WithProfile(&profile)
 	qp := query.NewQueryParams(query.WithActivate(false))
 
 	user, _, err := client.User.CreateUser(*u, qp)
@@ -101,6 +101,35 @@ func Test_can_activate_a_user(t *testing.T) {
 		}
 	}
 	assert.True(t, found, "The user was not found")
+
+	// Deactivate the user → POST /api/v1/users/{{userId}}/lifecycle/deactivate
+	_, err = client.User.DeactivateUser(user.Id, nil)
+	require.NoError(t, err, "Should not error when deactivating")
+
+	// Delete the user → DELETE /api/v1/users/{{userId}}
+	_, err = client.User.DeactivateOrDeleteUser(user.Id, nil)
+	require.NoError(t, err, "Should not error when deleting")
+}
+
+func Test_can_update_user_profile(t *testing.T) {
+	client := tests.NewClient()
+	// Create user with credentials → POST /api/v1/users?activate=false
+	p := new(okta.PasswordCredential).WithValue("Abcd1234")
+	uc := new(okta.UserCredentials).WithPassword(p)
+	profile := okta.UserProfile{}
+	profile["firstName"] = "John"
+	profile["lastName"] = "Profile-Update"
+	profile["email"] = "john-profile-update@example.com"
+	profile["login"] = "john-profile-update@example.com"
+	u := new(okta.User).WithCredentials(uc).WithProfile(&profile)
+	qp := query.NewQueryParams(query.WithActivate(false))
+
+	user, _, err := client.User.CreateUser(*u, qp)
+	require.NoError(t, err, "Creating an user should not error")
+
+	// Update the user's profile by adding a nickname → PUT /api/v1/users/{{userId}}
+
+	// Verify that user profile is updated by calling get on the user → GET /api/v1/users/{{userId}}
 
 	// Deactivate the user → POST /api/v1/users/{{userId}}/lifecycle/deactivate
 	_, err = client.User.DeactivateUser(user.Id, nil)

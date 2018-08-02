@@ -2,6 +2,9 @@
 
 package okta
 
+{{#if (eq model.modelName "UserProfile")}}
+type UserProfile map[string]interface{}
+{{else}}
 {{> model.imports this}}
 
 {{#if (or (gt model.methods.length 0) (gt model.crud.length 0))}}
@@ -30,3 +33,4 @@ func (m *{{../model.modelName}}) With{{structProp this.propertyName}}(v {{getTyp
 {{#each model.methods as |method|}}
 	{{> model.defaultMethod  self=this model=../model}}
 {{/each}}
+{{/if}}
