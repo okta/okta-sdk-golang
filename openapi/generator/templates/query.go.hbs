@@ -48,7 +48,7 @@ func (p *Params) String() string {
 	s, _ := json.Marshal(p)
 
 	m := map[string]interface{}{}
-	qs := "?"
+	qs := ""
 	i := 1
 
 	json.Unmarshal(s, &m)
@@ -67,6 +67,9 @@ func (p *Params) String() string {
 		i++
 	}
 
+	if qs != "" {
+		qs = "?" + qs
+	}
 	return qs
 }
 
