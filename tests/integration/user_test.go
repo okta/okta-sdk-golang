@@ -18,6 +18,7 @@ package integration
 
 import (
 	"fmt"
+	"net/http"
 	"testing"
 	"time"
 
@@ -380,4 +381,67 @@ func Test_can_change_user_recovery_question(t *testing.T) {
 	// Verify that the user is deleted by calling get on user (Exception thrown with 404 error message) → GET /api/v1/users/{{userId}}
 	_, _, err = client.User.GetUser(user.Id, nil)
 	require.Error(t, err, "User should not exist, but does")
+}
+
+func Test_can_assign_a_user_to_a_role(t *testing.T) {
+	client := tests.NewClient()
+	// Create a user with credentials, activated by default → POST /api/v1/users?activate=true
+	p := new(okta.PasswordCredential).WithValue("Abcd1234")
+	uc := new(okta.UserCredentials).WithPassword(p)
+	profile := okta.UserProfile{}
+	profile["firstName"] = "John"
+	profile["lastName"] = "Role"
+	profile["email"] = "john-role@example.com"
+	profile["login"] = "john-role@example.com"
+	u := new(okta.User).WithCredentials(uc).WithProfile(&profile)
+	qp := query.NewQueryParams(query.WithActivate(true))
+
+	user, _, err := client.User.CreateUser(*u, qp)
+	require.NoError(t, err, "Creating an user should not error")
+
+	// Add 'USER_ADMIN' role to the user → POST /api/v1/users/{{userId}}/roles (Body → { type: 'USER_ADMIN'  })
+	r := new(okta.Role).WithType("USER_ADMIN")
+	_, _, err = client.User.AddRoleToUser(user.Id, *r, nil)
+	require.NoError(t, err, "Should not have had an error when adding role to user")
+
+	// List roles for the user and verify added role → GET /api/v1/users/{{userId}}/roles
+	roles, _, err := client.User.ListAssignedRoles(user.Id, nil)
+	found := false
+	roleId := ""
+	for _, role := range roles {
+		if role.Type == "USER_ADMIN" {
+			found = true
+			roleId = role.Id
+		}
+	}
+	assert.True(t, found, "Could not verify USER_ADMIN was added to the user")
+
+	// Remove role for the user → DELETE /api/v1/users/{{userId}}//roles/{{roleId}}/
+	_, err = client.User.RemoveRoleFromUser(user.Id, roleId, nil)
+	require.NoError(t, err, "Should not have had an error when removing role to user")
+
+	// List roles for user and verify role was removed → GET /api/v1/users/{{userId}}/roles
+	roles, _, err = client.User.ListAssignedRoles(user.Id, nil)
+	found = false
+	roleId = ""
+	for _, role := range roles {
+		if role.Type == "USER_ADMIN" {
+			found = true
+			roleId = role.Id
+		}
+	}
+	assert.False(t, found, "Could not verify USER_ADMIN was removed to the user")
+
+	// Deactivate the user → POST /api/v1/users/{{userId}}/lifecycle/deactivate
+	_, err = client.User.DeactivateUser(user.Id, nil)
+	require.NoError(t, err, "Should not error when deactivating")
+
+	// Delete the user → DELETE /api/v1/users/{{userId}}
+	_, err = client.User.DeactivateOrDeleteUser(user.Id, nil)
+	require.NoError(t, err, "Should not error when deleting")
+
+	// Verify that the user is deleted by calling get on user (Exception thrown with 404 error message) → GET /api/v1/users/{{userId}}
+	_, resp, err := client.User.GetUser(user.Id, nil)
+	require.Error(t, err, "User should not exist, but does")
+	assert.Equal(t, http.StatusNotFound, resp.StatusCode, "Should not have been able to find user")
 }

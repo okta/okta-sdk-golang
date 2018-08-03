@@ -96,7 +96,7 @@ func (m *GroupResource) DeleteGroup(groupId string, qp *query.Params)  (*Respons
 		}
 		return resp, nil
 	}
-	func (m *GroupResource) ListGroupUsers(groupId string, qp *query.Params)  (*User, *Response, error) {
+	func (m *GroupResource) ListGroupUsers(groupId string, qp *query.Params)  ([]*User, *Response, error) {
 		url := fmt.Sprintf("/api/v1/groups/%v/users", groupId)
 		if &qp != nil {
 			url = url + qp.String()
@@ -107,7 +107,7 @@ func (m *GroupResource) DeleteGroup(groupId string, qp *query.Params)  (*Respons
 		}
 	
 	
-		var user *User
+		var user []*User
 		resp, err := m.client.requestExecutor.Do(req, &user)
 		if err != nil {
 			return nil, resp, err

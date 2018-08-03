@@ -153,6 +153,9 @@ function getPathParams(operation) {
 
 function returnType(operation) {
   if ( operation.responseModel !== undefined ) {
+    if ( operation.isArray !== undefined && operation.isArray === true) {
+      return " ([]*" + operation.responseModel + ", *Response, error) ";
+    }
     return " (*" + operation.responseModel + ", *Response, error) ";
   }
   return " (*Response, error) ";
@@ -195,6 +198,9 @@ golang.process = ({ spec, operations, models, handlebars }) => {
   });
 
   for (let model of models) {
+    if(model.modelName == "User") {
+      // console.log(model.methods);
+    }
     templates.push({
       src: 'templates/model.go.hbs',
       dest: 'okta/' + lowercaseFirstLetter(model.modelName) + '.go',
