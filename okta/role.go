@@ -12,7 +12,7 @@
 * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 * See the License for the specific language governing permissions and
 * limitations under the License.
- */
+*/
 
 // AUTO-GENERATED!  DO NOT EDIT FILE DIRECTLY
 
@@ -23,14 +23,14 @@ import (
 )
 
 type Role struct {
-	Embedded    []string   `json:"_embedded,omitempty"`
-	Created     *time.Time `json:"created,omitempty"`
-	Description string     `json:"description,omitempty"`
-	Id          string     `json:"id,omitempty"`
-	Label       string     `json:"label,omitempty"`
+	Embedded []string `json:"_embedded,omitempty"`
+	Created *time.Time `json:"created,omitempty"`
+	Description string `json:"description,omitempty"`
+	Id string `json:"id,omitempty"`
+	Label string `json:"label,omitempty"`
 	LastUpdated *time.Time `json:"lastUpdated,omitempty"`
-	Status      string     `json:"status,omitempty"`
-	Type        string     `json:"type,omitempty"`
+	Status string `json:"status,omitempty"`
+	Type string `json:"type,omitempty"`
 }
 
 func (m *Role) WithDescription(v string) *Role {
@@ -42,3 +42,4 @@ func (m *Role) WithType(v string) *Role {
 	m.Type = v
 	return m
 }
+

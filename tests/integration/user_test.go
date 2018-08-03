@@ -17,7 +17,6 @@
 package integration
 
 import (
-	"fmt"
 	"net/http"
 	"testing"
 	"time"
@@ -93,11 +92,10 @@ func Test_can_activate_a_user(t *testing.T) {
 
 	// Verify that the user is in the list of ACTIVE users with query parameter → GET /api/v1/users?filter=status eq "ACTIVE"
 	filter := query.NewQueryParams(query.WithFilter("status eq \"ACTIVE\""))
-	users, _, err := client.User.ListUsers(filter)
+	users, _, err := client.ListUsers(filter)
 	require.NoError(t, err, "Could not get active users")
 	found := false
 	for _, u := range users {
-		fmt.Printf("%+v\n", u)
 		if user.Id == u.Id {
 			found = true
 		}
@@ -172,11 +170,10 @@ func Test_can_suspend_a_user(t *testing.T) {
 
 	// Verify that user is in the list of suspended users → GET /api/v1/users?filter=status eq "SUSPENDED"
 	filter := query.NewQueryParams(query.WithFilter("status eq \"SUSPENDED\""))
-	users, _, err := client.User.ListUsers(filter)
+	users, _, err := client.ListUsers(filter)
 	require.NoError(t, err, "Could not get suspended users")
 	found := false
 	for _, u := range users {
-		fmt.Printf("%+v\n", u)
 		if user.Id == u.Id {
 			found = true
 		}
@@ -189,11 +186,10 @@ func Test_can_suspend_a_user(t *testing.T) {
 
 	// Verify that user is in the list of active users → GET /api/v1/users?filter=status eq "ACTIVE"
 	filter = query.NewQueryParams(query.WithFilter("status eq \"ACTIVE\""))
-	users, _, err = client.User.ListUsers(filter)
+	users, _, err = client.ListUsers(filter)
 	require.NoError(t, err, "Could not get active users")
 	found = false
 	for _, u := range users {
-		fmt.Printf("%+v\n", u)
 		if user.Id == u.Id {
 			found = true
 		}
@@ -444,4 +440,75 @@ func Test_can_assign_a_user_to_a_role(t *testing.T) {
 	_, resp, err := client.User.GetUser(user.Id, nil)
 	require.Error(t, err, "User should not exist, but does")
 	assert.Equal(t, http.StatusNotFound, resp.StatusCode, "Should not have been able to find user")
+}
+
+func Test_user_group_target_role(t *testing.T) {
+	client := tests.NewClient()
+	// Create a user with credentials, activated by default → POST /api/v1/users?activate=true
+	p := new(okta.PasswordCredential).WithValue("Abcd1234")
+	uc := new(okta.UserCredentials).WithPassword(p)
+	profile := okta.UserProfile{}
+	profile["firstName"] = "John"
+	profile["lastName"] = "Group-Target"
+	profile["email"] = "john-group-target@example.com"
+	profile["login"] = "john-group-target@example.com"
+	u := new(okta.User).WithCredentials(uc).WithProfile(&profile)
+	qp := query.NewQueryParams(query.WithActivate(true))
+
+	user, _, err := client.User.CreateUser(*u, qp)
+	require.NoError(t, err, "Creating an user should not error")
+
+	// Create a new group → POST /api/v1/groups
+	gp := new(okta.GroupProfile).
+		WithName("Group-Target Test Group")
+	g := new(okta.Group).
+		WithProfile(gp)
+	group, _, err := client.CreateGroup(*g, nil)
+	require.NoError(t, err, "Creating an group should not error")
+
+	// Add 'USER_ADMIN' role to the user → POST /api/v1/users/{{userId}}/roles (Body → { type: 'USER_ADMIN'  })
+	r := new(okta.Role).WithType("USER_ADMIN")
+	r, _, err = client.User.AddRoleToUser(user.Id, *r, nil)
+	require.NoError(t, err, "Should not have had an error when adding role to user")
+
+	// Add Group Target to 'USER_ADMIN' role → PUT /api/v1/users/{{userId}}/roles/{{roleId}}/targets/groups/{{groupId}}
+	resp, err := client.User.AddGroupTargetToRole(user.Id, r.Id, group.Id, nil)
+	require.NoError(t, err, "Should not have had an error when adding group target to role")
+
+	// List Group Targets for role → GET  /api/v1/users/{{userId}}/roles/{{roleId}}/targets/groups
+	groups, _, err := client.User.ListGroupTargetsForRole(user.Id, r.Id, nil)
+	found := false
+	for _, tmpgroup := range groups {
+		if tmpgroup.Id == group.Id {
+			found = true
+		}
+	}
+	assert.True(t, found, "Could not verify group target")
+
+	//Remove Group Target from Admin User Role and verify removed → DELETE /api/v1/users/{{userId}}/roles/{{roleId}}/targets/groups/{{groupId}}
+	gp = new(okta.GroupProfile).
+		WithName("TMP - Group-Target Test Group")
+	g = new(okta.Group).
+		WithProfile(gp)
+	newgroup, _, err := client.CreateGroup(*g, nil)
+	_, err = client.User.AddGroupTargetToRole(user.Id, r.Id, newgroup.Id, nil)
+	_, err = client.User.RemoveGroupTargetFromRole(user.Id, r.Id, group.Id, nil)
+	require.NoError(t, err, "Should not have had an error when removing group target to role")
+
+	// Deactivate the user → POST /api/v1/users/{{userId}}/lifecycle/deactivate
+	_, err = client.User.DeactivateUser(user.Id, nil)
+	require.NoError(t, err, "Should not error when deactivating")
+
+	// Delete the user → DELETE /api/v1/users/{{userId}}
+	_, err = client.User.DeactivateOrDeleteUser(user.Id, nil)
+	require.NoError(t, err, "Should not error when deleting")
+
+	// Verify that the user is deleted by calling get on user (Exception thrown with 404 error message) → GET /api/v1/users/{{userId}}
+	_, resp, err = client.User.GetUser(user.Id, nil)
+	require.Error(t, err, "User should not exist, but does")
+	assert.Equal(t, http.StatusNotFound, resp.StatusCode, "Should not have been able to find user")
+
+	// Delete the group → DELETE /api/v1/groups/{{groupId}}
+	client.DeleteGroup(group.Id, nil)
+	client.DeleteGroup(newgroup.Id, nil)
 }

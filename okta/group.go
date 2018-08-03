@@ -79,38 +79,38 @@ func (m *GroupResource) DeleteGroup(groupId string, qp *query.Params)  (*Respons
 	return resp, nil
 }
 
-	func (m *GroupResource) RemoveGroupUser(groupId string, userId string, qp *query.Params)  (*Response, error) {
-		url := fmt.Sprintf("/api/v1/groups/%v/users/%v", groupId, userId)
-		if &qp != nil {
-			url = url + qp.String()
-		}
-		req, err := m.client.requestExecutor.NewRequest("DELETE", url, nil)
-		if err != nil {
-			return nil, err
-		}
-	
-	
-		resp, err := m.client.requestExecutor.Do(req, nil)
-		if err != nil {
-			return resp, err
-		}
-		return resp, nil
+func (m *GroupResource) RemoveGroupUser(groupId string, userId string, qp *query.Params)  (*Response, error) {
+	url := fmt.Sprintf("/api/v1/groups/%v/users/%v", groupId, userId)
+	if &qp != nil {
+		url = url + qp.String()
 	}
-	func (m *GroupResource) ListGroupUsers(groupId string, qp *query.Params)  ([]*User, *Response, error) {
-		url := fmt.Sprintf("/api/v1/groups/%v/users", groupId)
-		if &qp != nil {
-			url = url + qp.String()
-		}
-		req, err := m.client.requestExecutor.NewRequest("GET", url, nil)
-		if err != nil {
-			return nil, nil, err
-		}
-	
-	
-		var user []*User
-		resp, err := m.client.requestExecutor.Do(req, &user)
-		if err != nil {
-			return nil, resp, err
-		}
-		return user, resp, nil
+	req, err := m.client.requestExecutor.NewRequest("DELETE", url, nil)
+	if err != nil {
+		return nil, err
 	}
+
+
+	resp, err := m.client.requestExecutor.Do(req, nil)
+	if err != nil {
+		return resp, err
+	}
+	return resp, nil
+}
+func (m *GroupResource) ListGroupUsers(groupId string, qp *query.Params)  ([]*User, *Response, error) {
+	url := fmt.Sprintf("/api/v1/groups/%v/users", groupId)
+	if &qp != nil {
+		url = url + qp.String()
+	}
+	req, err := m.client.requestExecutor.NewRequest("GET", url, nil)
+	if err != nil {
+		return nil, nil, err
+	}
+
+
+	var user []*User
+	resp, err := m.client.requestExecutor.Do(req, &user)
+	if err != nil {
+		return nil, resp, err
+	}
+	return user, resp, nil
+}
