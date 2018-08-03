@@ -161,6 +161,39 @@ function returnType(operation) {
   return " (*Response, error) ";
 }
 
+function getClientTags(operations) {
+  let tags = []
+  for (let operation of operations) {
+
+    tags.push(operation.tags[0]);
+  }
+
+  tags = [...new Set(tags)];
+
+  return tags;
+
+}
+
+function getClientTagResources(operations) {
+  let tags = getClientTags(operations);
+  let tagResources = []
+  for (let tag of tags) {
+    if (tag === "UserFactor") tag = "Factor";
+    tagResources.push(structProp(tag) + " *" + structProp(tag) + "Resource")
+  }
+  return tagResources.join("\n\t");
+}
+
+function getNewClientTagProps(operations) {
+  let tags = getClientTags(operations);
+  let tagResources = []
+  for (let tag of tags) {
+    if (tag === "UserFactor") tag = "Factor";
+    tagResources.push("c." + structProp(tag) + " = (*" + structProp(tag) + "Resource)(&c.resource)")
+  }
+  return tagResources.join("\n\t");
+}
+
 function log(item) {
     console.log(item);
 }
@@ -172,6 +205,7 @@ golang.process = ({ spec, operations, models, handlebars }) => {
   const templates = [];
   const queryOptionsTemp = [];
   const queryOptions = [];
+
 
   for (let operation of operations) {
     for (let param of operation.queryParams) {
@@ -197,10 +231,17 @@ golang.process = ({ spec, operations, models, handlebars }) => {
     }
   });
 
-  for (let model of models) {
-    if(model.modelName == "User") {
-      // console.log(model.methods);
+  templates.push({
+    src: 'templates/okta.go.hbs',
+    dest: 'okta/okta.go',
+    context: {
+      "operations": operations,
+      "models": models
     }
+  });
+
+  for (let model of models) {
+
     templates.push({
       src: 'templates/model.go.hbs',
       dest: 'okta/' + lowercaseFirstLetter(model.modelName) + '.go',
@@ -221,13 +262,16 @@ golang.process = ({ spec, operations, models, handlebars }) => {
     returnType,
     getImports,
     strToUpper,
-    lowercaseFirstLetter
+    lowercaseFirstLetter,
+    getClientTagResources,
+    getNewClientTagProps
   });
 
   handlebars.registerPartial('partials.copyHeader', fs.readFileSync('generator/templates/partials/copyHeader.hbs', 'utf8'));
   handlebars.registerPartial('struct.withProp', fs.readFileSync('generator/templates/struct/withProp.go.hbs', 'utf8'));
   handlebars.registerPartial('model.imports', fs.readFileSync('generator/templates/model/imports.go.hbs', 'utf8'));
   handlebars.registerPartial('model.defaultMethod', fs.readFileSync('generator/templates/model/defaultMethod.go.hbs', 'utf8'));
+  handlebars.registerPartial('model.defaultOperation', fs.readFileSync('generator/templates/model/defaultOperation.go.hbs', 'utf8'));
 
   fs.writeFile("generator/createdFiles.json", JSON.stringify(templates), function(error) {
     console.log(error);
