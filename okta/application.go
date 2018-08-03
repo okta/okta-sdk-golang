@@ -172,7 +172,7 @@ func (m *ApplicationResource) DeleteApplication(appId string, qp *query.Params) 
 		}
 		return resp, nil
 	}
-	func (m *ApplicationResource) ListApplicationUsers(appId string, qp *query.Params)  (*AppUser, *Response, error) {
+	func (m *ApplicationResource) ListApplicationUsers(appId string, qp *query.Params)  ([]*AppUser, *Response, error) {
 		url := fmt.Sprintf("/api/v1/apps/%v/users", appId)
 		if &qp != nil {
 			url = url + qp.String()
@@ -183,7 +183,7 @@ func (m *ApplicationResource) DeleteApplication(appId string, qp *query.Params) 
 		}
 	
 	
-		var appUser *AppUser
+		var appUser []*AppUser
 		resp, err := m.client.requestExecutor.Do(req, &appUser)
 		if err != nil {
 			return nil, resp, err
@@ -298,7 +298,7 @@ func (m *ApplicationResource) DeleteApplication(appId string, qp *query.Params) 
 		}
 		return jsonWebKey, resp, nil
 	}
-	func (m *ApplicationResource) ListApplicationGroupAssignments(appId string, qp *query.Params)  (*ApplicationGroupAssignment, *Response, error) {
+	func (m *ApplicationResource) ListApplicationGroupAssignments(appId string, qp *query.Params)  ([]*ApplicationGroupAssignment, *Response, error) {
 		url := fmt.Sprintf("/api/v1/apps/%v/groups", appId)
 		if &qp != nil {
 			url = url + qp.String()
@@ -309,14 +309,14 @@ func (m *ApplicationResource) DeleteApplication(appId string, qp *query.Params) 
 		}
 	
 	
-		var applicationGroupAssignment *ApplicationGroupAssignment
+		var applicationGroupAssignment []*ApplicationGroupAssignment
 		resp, err := m.client.requestExecutor.Do(req, &applicationGroupAssignment)
 		if err != nil {
 			return nil, resp, err
 		}
 		return applicationGroupAssignment, resp, nil
 	}
-	func (m *ApplicationResource) ListApplicationKeys(appId string, qp *query.Params)  (*JsonWebKey, *Response, error) {
+	func (m *ApplicationResource) ListApplicationKeys(appId string, qp *query.Params)  ([]*JsonWebKey, *Response, error) {
 		url := fmt.Sprintf("/api/v1/apps/%v/credentials/keys", appId)
 		if &qp != nil {
 			url = url + qp.String()
@@ -327,7 +327,7 @@ func (m *ApplicationResource) DeleteApplication(appId string, qp *query.Params) 
 		}
 	
 	
-		var jsonWebKey *JsonWebKey
+		var jsonWebKey []*JsonWebKey
 		resp, err := m.client.requestExecutor.Do(req, &jsonWebKey)
 		if err != nil {
 			return nil, resp, err
