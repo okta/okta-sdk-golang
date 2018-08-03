@@ -20,7 +20,11 @@ func (m *{{model.modelName}}Resource) {{ucFirst self.operation.operationId}}({{o
 
 
 	{{#if (ne self.operation.responseModel undefined)}}
+	{{#if (ne self.operation.isArray undefined)}}
+	var {{lowercaseFirstLetter self.operation.responseModel}} []*{{self.operation.responseModel}}
+	{{else}}
 	var {{lowercaseFirstLetter self.operation.responseModel}} *{{self.operation.responseModel}}
+	{{/if}}
 	resp, err := m.client.requestExecutor.Do(req, &{{lowercaseFirstLetter self.operation.responseModel}})
 	if err != nil {
 		return nil, resp, err
