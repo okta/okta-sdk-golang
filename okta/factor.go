@@ -105,39 +105,39 @@ func (m *FactorResource) DeleteFactor(userId string, factorId string, qp *query.
 	return resp, nil
 }
 
-	func (m *FactorResource) ActivateFactor(userId string, factorId string, body VerifyFactorRequest, qp *query.Params)  (*Factor, *Response, error) {
-		url := fmt.Sprintf("/api/v1/users/%v/factors/%v/lifecycle/activate", userId, factorId)
-		if &qp != nil {
-			url = url + qp.String()
-		}
-		req, err := m.client.requestExecutor.NewRequest("POST", url, body)
-		if err != nil {
-			return nil, nil, err
-		}
-	
-	
-		var factor *Factor
-		resp, err := m.client.requestExecutor.Do(req, &factor)
-		if err != nil {
-			return nil, resp, err
-		}
-		return factor, resp, nil
+func (m *FactorResource) ActivateFactor(userId string, factorId string, body VerifyFactorRequest, qp *query.Params)  (*Factor, *Response, error) {
+	url := fmt.Sprintf("/api/v1/users/%v/factors/%v/lifecycle/activate", userId, factorId)
+	if &qp != nil {
+		url = url + qp.String()
 	}
-	func (m *FactorResource) VerifyFactor(userId string, factorId string, body VerifyFactorRequest, qp *query.Params)  (*VerifyFactorResponse, *Response, error) {
-		url := fmt.Sprintf("/api/v1/users/%v/factors/%v/verify", userId, factorId)
-		if &qp != nil {
-			url = url + qp.String()
-		}
-		req, err := m.client.requestExecutor.NewRequest("POST", url, body)
-		if err != nil {
-			return nil, nil, err
-		}
-	
-	
-		var verifyFactorResponse *VerifyFactorResponse
-		resp, err := m.client.requestExecutor.Do(req, &verifyFactorResponse)
-		if err != nil {
-			return nil, resp, err
-		}
-		return verifyFactorResponse, resp, nil
+	req, err := m.client.requestExecutor.NewRequest("POST", url, body)
+	if err != nil {
+		return nil, nil, err
 	}
+
+
+	var factor *Factor
+	resp, err := m.client.requestExecutor.Do(req, &factor)
+	if err != nil {
+		return nil, resp, err
+	}
+	return factor, resp, nil
+}
+func (m *FactorResource) VerifyFactor(userId string, factorId string, body VerifyFactorRequest, qp *query.Params)  (*VerifyFactorResponse, *Response, error) {
+	url := fmt.Sprintf("/api/v1/users/%v/factors/%v/verify", userId, factorId)
+	if &qp != nil {
+		url = url + qp.String()
+	}
+	req, err := m.client.requestExecutor.NewRequest("POST", url, body)
+	if err != nil {
+		return nil, nil, err
+	}
+
+
+	var verifyFactorResponse *VerifyFactorResponse
+	resp, err := m.client.requestExecutor.Do(req, &verifyFactorResponse)
+	if err != nil {
+		return nil, resp, err
+	}
+	return verifyFactorResponse, resp, nil
+}

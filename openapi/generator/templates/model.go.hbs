@@ -25,12 +25,18 @@ func (m *{{../model.modelName}}) With{{structProp this.propertyName}}(v {{getTyp
 }
 
 {{/unless}}
+{{#if (and (eq this.propertyName "type") (eq ../model.modelName "Role"))}}
+func (m *{{../model.modelName}}) With{{structProp this.propertyName}}(v {{getType this "*"}}) *{{../model.modelName}} {
+	m.{{structProp this.propertyName}} = v
+	return m
+}
+{{/if}}
 {{/each}}
 {{#each model.crud as |crud|}}
-{{> model.defaultMethod self=this model=../model}}
+{{> model.defaultMethod operation=this.operation modelName=../model.modelName}}
 {{/each}}
 
 {{#each model.methods as |method|}}
-	{{> model.defaultMethod  self=this model=../model}}
+{{> model.defaultMethod  operation=this.operation modelName=../model.modelName}}
 {{/each}}
 {{/if}}

@@ -1,0 +1,51 @@
+{{> partials.copyHeader }}
+
+package okta
+
+import (
+	"fmt"
+	"github.com/okta/okta-sdk-golang/okta/query"
+)
+
+const Version = "0.0.0-Develop"
+
+type Client struct {
+	config *Config
+
+	requestExecutor *RequestExecutor
+
+	resource resource
+
+	{{getClientTagResources operations}}
+}
+
+type resource struct {
+	client *Client
+}
+
+func NewClient(config *Config) *Client {
+	if config == nil {
+		config = NewConfig()
+	}
+
+	c := &Client{}
+	c.config = config
+	c.requestExecutor = NewRequestExecutor(nil, config)
+
+	c.resource.client = c
+
+	{{{getNewClientTagProps operations}}}
+	return c
+}
+
+func (c *Client) GetConfig() *Config {
+	return c.config
+}
+
+func (c *Client) GetRequestExecutor() *RequestExecutor {
+	return c.requestExecutor
+}
+
+{{#each operations as |operation|}}
+{{> model.defaultOperation  operation=operation}}
+{{/each}}

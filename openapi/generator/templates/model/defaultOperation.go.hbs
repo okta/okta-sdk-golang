@@ -1,13 +1,12 @@
-func (m *{{modelName}}Resource) {{ucFirst operation.operationId}}({{operationArgumentBuilder operation}}) {{returnType
-	operation}}{
+func (c *Client) {{ucFirst operation.operationId}}({{operationArgumentBuilder operation}}) {{returnType operation}}{
 	url := fmt.Sprintf({{{getPath operation}}}, {{getPathParams operation}})
 	if &qp != nil {
 		url = url + qp.String()
 	}
 	{{#if (ne operation.bodyModel undefined)}}
-	req, err := m.client.requestExecutor.NewRequest("{{strToUpper operation.method}}", url, body)
+	req, err := c.requestExecutor.NewRequest("{{strToUpper operation.method}}", url, body)
 	{{else}}
-	req, err := m.client.requestExecutor.NewRequest("{{strToUpper operation.method}}", url, nil)
+	req, err := c.requestExecutor.NewRequest("{{strToUpper operation.method}}", url, nil)
 	{{/if}}
 	{{#if (ne operation.responseModel undefined)}}
 	if err != nil {
@@ -26,13 +25,13 @@ func (m *{{modelName}}Resource) {{ucFirst operation.operationId}}({{operationArg
 	{{else}}
 	var {{lowercaseFirstLetter operation.responseModel}} *{{operation.responseModel}}
 	{{/if}}
-	resp, err := m.client.requestExecutor.Do(req, &{{lowercaseFirstLetter operation.responseModel}})
+	resp, err := c.requestExecutor.Do(req, &{{lowercaseFirstLetter operation.responseModel}})
 	if err != nil {
 		return nil, resp, err
 	}
 	return {{lowercaseFirstLetter operation.responseModel}}, resp, nil
 	{{else}}
-	resp, err := m.client.requestExecutor.Do(req, nil)
+	resp, err := c.requestExecutor.Do(req, nil)
 	if err != nil {
 		return resp, err
 	}
