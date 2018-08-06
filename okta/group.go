@@ -40,7 +40,7 @@ type Group struct {
 
 func (m *GroupResource) UpdateGroup(groupId string, body Group, qp *query.Params)  (*Group, *Response, error) {
 	url := fmt.Sprintf("/api/v1/groups/%v", groupId)
-	if &qp != nil {
+	if qp != nil {
 		url = url + qp.String()
 	}
 	req, err := m.client.requestExecutor.NewRequest("PUT", url, body)
@@ -58,7 +58,7 @@ func (m *GroupResource) UpdateGroup(groupId string, body Group, qp *query.Params
 }
 func (m *GroupResource) DeleteGroup(groupId string, qp *query.Params)  (*Response, error) {
 	url := fmt.Sprintf("/api/v1/groups/%v", groupId)
-	if &qp != nil {
+	if qp != nil {
 		url = url + qp.String()
 	}
 	req, err := m.client.requestExecutor.NewRequest("DELETE", url, nil)
@@ -76,7 +76,7 @@ func (m *GroupResource) DeleteGroup(groupId string, qp *query.Params)  (*Respons
 
 func (m *GroupResource) RemoveGroupUser(groupId string, userId string, qp *query.Params)  (*Response, error) {
 	url := fmt.Sprintf("/api/v1/groups/%v/users/%v", groupId, userId)
-	if &qp != nil {
+	if qp != nil {
 		url = url + qp.String()
 	}
 	req, err := m.client.requestExecutor.NewRequest("DELETE", url, nil)
@@ -93,7 +93,7 @@ func (m *GroupResource) RemoveGroupUser(groupId string, userId string, qp *query
 }
 func (m *GroupResource) ListGroupUsers(groupId string, qp *query.Params)  ([]*User, *Response, error) {
 	url := fmt.Sprintf("/api/v1/groups/%v/users", groupId)
-	if &qp != nil {
+	if qp != nil {
 		url = url + qp.String()
 	}
 	req, err := m.client.requestExecutor.NewRequest("GET", url, nil)

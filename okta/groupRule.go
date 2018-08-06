@@ -39,7 +39,7 @@ type GroupRule struct {
 
 func (m *GroupRuleResource) UpdateRule(ruleId string, body GroupRule, qp *query.Params)  (*GroupRule, *Response, error) {
 	url := fmt.Sprintf("/api/v1/groups/rules/%v", ruleId)
-	if &qp != nil {
+	if qp != nil {
 		url = url + qp.String()
 	}
 	req, err := m.client.requestExecutor.NewRequest("PUT", url, body)
@@ -57,7 +57,7 @@ func (m *GroupRuleResource) UpdateRule(ruleId string, body GroupRule, qp *query.
 }
 func (m *GroupRuleResource) DeleteRule(ruleId string, qp *query.Params)  (*Response, error) {
 	url := fmt.Sprintf("/api/v1/groups/rules/%v", ruleId)
-	if &qp != nil {
+	if qp != nil {
 		url = url + qp.String()
 	}
 	req, err := m.client.requestExecutor.NewRequest("DELETE", url, nil)
@@ -75,7 +75,7 @@ func (m *GroupRuleResource) DeleteRule(ruleId string, qp *query.Params)  (*Respo
 
 func (m *GroupRuleResource) ActivateRule(ruleId string, qp *query.Params)  (*Response, error) {
 	url := fmt.Sprintf("/api/v1/groups/rules/%v/lifecycle/activate", ruleId)
-	if &qp != nil {
+	if qp != nil {
 		url = url + qp.String()
 	}
 	req, err := m.client.requestExecutor.NewRequest("POST", url, nil)
@@ -92,7 +92,7 @@ func (m *GroupRuleResource) ActivateRule(ruleId string, qp *query.Params)  (*Res
 }
 func (m *GroupRuleResource) DeactivateRule(ruleId string, qp *query.Params)  (*Response, error) {
 	url := fmt.Sprintf("/api/v1/groups/rules/%v/lifecycle/deactivate", ruleId)
-	if &qp != nil {
+	if qp != nil {
 		url = url + qp.String()
 	}
 	req, err := m.client.requestExecutor.NewRequest("POST", url, nil)
