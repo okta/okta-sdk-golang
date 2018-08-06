@@ -17,21 +17,6 @@ type {{model.modelName}} struct {
 	{{/each}}
 }
 
-{{#each model.properties as |property|}}
-{{#unless readOnly}}
-func (m *{{../model.modelName}}) With{{structProp this.propertyName}}(v {{getType this "*"}}) *{{../model.modelName}} {
-	m.{{structProp this.propertyName}} = v
-	return m
-}
-
-{{/unless}}
-{{#if (and (eq this.propertyName "type") (eq ../model.modelName "Role"))}}
-func (m *{{../model.modelName}}) With{{structProp this.propertyName}}(v {{getType this "*"}}) *{{../model.modelName}} {
-	m.{{structProp this.propertyName}} = v
-	return m
-}
-{{/if}}
-{{/each}}
 {{#each model.crud as |crud|}}
 {{> model.defaultMethod operation=this.operation modelName=../model.modelName}}
 {{/each}}

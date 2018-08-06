@@ -25,9 +25,4 @@ type PushFactor struct {
 	Profile *PushFactorProfile `json:"profile,omitempty"`
 }
 
-func (m *PushFactor) WithProfile(v *PushFactorProfile) *PushFactor {
-	m.Profile = v
-	return m
-}
-
 

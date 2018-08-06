@@ -44,46 +44,6 @@ type Application struct {
 	Visibility *ApplicationVisibility `json:"visibility,omitempty"`
 }
 
-func (m *Application) WithAccessibility(v *ApplicationAccessibility) *Application {
-	m.Accessibility = v
-	return m
-}
-
-func (m *Application) WithCredentials(v *ApplicationCredentials) *Application {
-	m.Credentials = v
-	return m
-}
-
-func (m *Application) WithFeatures(v []string) *Application {
-	m.Features = v
-	return m
-}
-
-func (m *Application) WithLabel(v string) *Application {
-	m.Label = v
-	return m
-}
-
-func (m *Application) WithLicensing(v *ApplicationLicensing) *Application {
-	m.Licensing = v
-	return m
-}
-
-func (m *Application) WithSettings(v *ApplicationSettings) *Application {
-	m.Settings = v
-	return m
-}
-
-func (m *Application) WithSignOnMode(v string) *Application {
-	m.SignOnMode = v
-	return m
-}
-
-func (m *Application) WithVisibility(v *ApplicationVisibility) *Application {
-	m.Visibility = v
-	return m
-}
-
 func (m *ApplicationResource) GetApplication(appId string, qp *query.Params)  (*Application, *Response, error) {
 	url := fmt.Sprintf("/api/v1/apps/%v", appId)
 	if &qp != nil {

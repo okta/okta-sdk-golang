@@ -27,19 +27,4 @@ type SecurityQuestionFactorProfile struct {
 	QuestionText string `json:"questionText,omitempty"`
 }
 
-func (m *SecurityQuestionFactorProfile) WithAnswer(v string) *SecurityQuestionFactorProfile {
-	m.Answer = v
-	return m
-}
-
-func (m *SecurityQuestionFactorProfile) WithQuestion(v string) *SecurityQuestionFactorProfile {
-	m.Question = v
-	return m
-}
-
-func (m *SecurityQuestionFactorProfile) WithQuestionText(v string) *SecurityQuestionFactorProfile {
-	m.QuestionText = v
-	return m
-}
-
 

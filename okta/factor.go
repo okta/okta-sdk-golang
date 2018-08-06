@@ -42,51 +42,6 @@ type Factor struct {
 	Verify *VerifyFactorRequest `json:"verify,omitempty"`
 }
 
-func (m *Factor) WithDevice(v string) *Factor {
-	m.Device = v
-	return m
-}
-
-func (m *Factor) WithFactorType(v string) *Factor {
-	m.FactorType = v
-	return m
-}
-
-func (m *Factor) WithMfaStateTokenId(v string) *Factor {
-	m.MfaStateTokenId = v
-	return m
-}
-
-func (m *Factor) WithProfile(v *FactorProfile) *Factor {
-	m.Profile = v
-	return m
-}
-
-func (m *Factor) WithProvider(v string) *Factor {
-	m.Provider = v
-	return m
-}
-
-func (m *Factor) WithRechallengeExistingFactor(v bool) *Factor {
-	m.RechallengeExistingFactor = v
-	return m
-}
-
-func (m *Factor) WithSessionId(v string) *Factor {
-	m.SessionId = v
-	return m
-}
-
-func (m *Factor) WithUserId(v string) *Factor {
-	m.UserId = v
-	return m
-}
-
-func (m *Factor) WithVerify(v *VerifyFactorRequest) *Factor {
-	m.Verify = v
-	return m
-}
-
 func (m *FactorResource) DeleteFactor(userId string, factorId string, qp *query.Params)  (*Response, error) {
 	url := fmt.Sprintf("/api/v1/users/%v/factors/%v", userId, factorId)
 	if &qp != nil {

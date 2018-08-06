@@ -25,9 +25,4 @@ type SamlApplication struct {
 	Settings *SamlApplicationSettings `json:"settings,omitempty"`
 }
 
-func (m *SamlApplication) WithSettings(v *SamlApplicationSettings) *SamlApplication {
-	m.Settings = v
-	return m
-}
-
 

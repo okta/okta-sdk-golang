@@ -26,14 +26,4 @@ type BasicApplicationSettingsApplication struct {
 	Url string `json:"url,omitempty"`
 }
 
-func (m *BasicApplicationSettingsApplication) WithAuthURL(v string) *BasicApplicationSettingsApplication {
-	m.AuthURL = v
-	return m
-}
-
-func (m *BasicApplicationSettingsApplication) WithUrl(v string) *BasicApplicationSettingsApplication {
-	m.Url = v
-	return m
-}
-
 

@@ -37,26 +37,6 @@ type GroupRule struct {
 	Type string `json:"type,omitempty"`
 }
 
-func (m *GroupRule) WithActions(v *GroupRuleAction) *GroupRule {
-	m.Actions = v
-	return m
-}
-
-func (m *GroupRule) WithConditions(v *GroupRuleConditions) *GroupRule {
-	m.Conditions = v
-	return m
-}
-
-func (m *GroupRule) WithName(v string) *GroupRule {
-	m.Name = v
-	return m
-}
-
-func (m *GroupRule) WithType(v string) *GroupRule {
-	m.Type = v
-	return m
-}
-
 func (m *GroupRuleResource) UpdateRule(ruleId string, body GroupRule, qp *query.Params)  (*GroupRule, *Response, error) {
 	url := fmt.Sprintf("/api/v1/groups/rules/%v", ruleId)
 	if &qp != nil {

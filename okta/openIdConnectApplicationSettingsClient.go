@@ -33,49 +33,4 @@ type OpenIdConnectApplicationSettingsClient struct {
 	TosUri string `json:"tos_uri,omitempty"`
 }
 
-func (m *OpenIdConnectApplicationSettingsClient) WithApplicationType(v string) *OpenIdConnectApplicationSettingsClient {
-	m.ApplicationType = v
-	return m
-}
-
-func (m *OpenIdConnectApplicationSettingsClient) WithClientUri(v string) *OpenIdConnectApplicationSettingsClient {
-	m.ClientUri = v
-	return m
-}
-
-func (m *OpenIdConnectApplicationSettingsClient) WithConsentMethod(v string) *OpenIdConnectApplicationSettingsClient {
-	m.ConsentMethod = v
-	return m
-}
-
-func (m *OpenIdConnectApplicationSettingsClient) WithGrantTypes(v []string) *OpenIdConnectApplicationSettingsClient {
-	m.GrantTypes = v
-	return m
-}
-
-func (m *OpenIdConnectApplicationSettingsClient) WithLogoUri(v string) *OpenIdConnectApplicationSettingsClient {
-	m.LogoUri = v
-	return m
-}
-
-func (m *OpenIdConnectApplicationSettingsClient) WithPolicyUri(v string) *OpenIdConnectApplicationSettingsClient {
-	m.PolicyUri = v
-	return m
-}
-
-func (m *OpenIdConnectApplicationSettingsClient) WithRedirectUris(v []string) *OpenIdConnectApplicationSettingsClient {
-	m.RedirectUris = v
-	return m
-}
-
-func (m *OpenIdConnectApplicationSettingsClient) WithResponseTypes(v []string) *OpenIdConnectApplicationSettingsClient {
-	m.ResponseTypes = v
-	return m
-}
-
-func (m *OpenIdConnectApplicationSettingsClient) WithTosUri(v string) *OpenIdConnectApplicationSettingsClient {
-	m.TosUri = v
-	return m
-}
-
 

@@ -25,9 +25,4 @@ type HardwareFactor struct {
 	Profile *HardwareFactorProfile `json:"profile,omitempty"`
 }
 
-func (m *HardwareFactor) WithProfile(v *HardwareFactorProfile) *HardwareFactor {
-	m.Profile = v
-	return m
-}
-
 

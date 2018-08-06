@@ -26,14 +26,4 @@ type AutoLoginApplicationSettingsSignOn struct {
 	RedirectUrl string `json:"redirectUrl,omitempty"`
 }
 
-func (m *AutoLoginApplicationSettingsSignOn) WithLoginUrl(v string) *AutoLoginApplicationSettingsSignOn {
-	m.LoginUrl = v
-	return m
-}
-
-func (m *AutoLoginApplicationSettingsSignOn) WithRedirectUrl(v string) *AutoLoginApplicationSettingsSignOn {
-	m.RedirectUrl = v
-	return m
-}
-
 

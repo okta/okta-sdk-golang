@@ -33,13 +33,4 @@ type Role struct {
 	Type string `json:"type,omitempty"`
 }
 
-func (m *Role) WithDescription(v string) *Role {
-	m.Description = v
-	return m
-}
-
-func (m *Role) WithType(v string) *Role {
-	m.Type = v
-	return m
-}
 

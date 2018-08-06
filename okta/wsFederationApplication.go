@@ -26,14 +26,4 @@ type WsFederationApplication struct {
 	Settings *WsFederationApplicationSettings `json:"settings,omitempty"`
 }
 
-func (m *WsFederationApplication) WithName(v string) *WsFederationApplication {
-	m.Name = v
-	return m
-}
-
-func (m *WsFederationApplication) WithSettings(v *WsFederationApplicationSettings) *WsFederationApplication {
-	m.Settings = v
-	return m
-}
-
 

@@ -26,14 +26,4 @@ type ChangePasswordRequest struct {
 	OldPassword *PasswordCredential `json:"oldPassword,omitempty"`
 }
 
-func (m *ChangePasswordRequest) WithNewPassword(v *PasswordCredential) *ChangePasswordRequest {
-	m.NewPassword = v
-	return m
-}
-
-func (m *ChangePasswordRequest) WithOldPassword(v *PasswordCredential) *ChangePasswordRequest {
-	m.OldPassword = v
-	return m
-}
-
 

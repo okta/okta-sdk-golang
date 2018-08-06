@@ -25,9 +25,4 @@ type SmsFactor struct {
 	Profile *SmsFactorProfile `json:"profile,omitempty"`
 }
 
-func (m *SmsFactor) WithProfile(v *SmsFactorProfile) *SmsFactor {
-	m.Profile = v
-	return m
-}
-
 

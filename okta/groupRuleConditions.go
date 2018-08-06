@@ -26,14 +26,4 @@ type GroupRuleConditions struct {
 	People *GroupRulePeopleCondition `json:"people,omitempty"`
 }
 
-func (m *GroupRuleConditions) WithExpression(v *GroupRuleExpression) *GroupRuleConditions {
-	m.Expression = v
-	return m
-}
-
-func (m *GroupRuleConditions) WithPeople(v *GroupRulePeopleCondition) *GroupRuleConditions {
-	m.People = v
-	return m
-}
-
 

@@ -27,19 +27,4 @@ type UserCredentials struct {
 	RecoveryQuestion *RecoveryQuestionCredential `json:"recovery_question,omitempty"`
 }
 
-func (m *UserCredentials) WithPassword(v *PasswordCredential) *UserCredentials {
-	m.Password = v
-	return m
-}
-
-func (m *UserCredentials) WithProvider(v *AuthenticationProvider) *UserCredentials {
-	m.Provider = v
-	return m
-}
-
-func (m *UserCredentials) WithRecoveryQuestion(v *RecoveryQuestionCredential) *UserCredentials {
-	m.RecoveryQuestion = v
-	return m
-}
-
 

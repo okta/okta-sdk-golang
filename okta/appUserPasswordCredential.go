@@ -25,9 +25,4 @@ type AppUserPasswordCredential struct {
 	Value string `json:"value,omitempty"`
 }
 
-func (m *AppUserPasswordCredential) WithValue(v string) *AppUserPasswordCredential {
-	m.Value = v
-	return m
-}
-
 

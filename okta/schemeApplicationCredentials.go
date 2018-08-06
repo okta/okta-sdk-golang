@@ -29,29 +29,4 @@ type SchemeApplicationCredentials struct {
 	UserName string `json:"userName,omitempty"`
 }
 
-func (m *SchemeApplicationCredentials) WithPassword(v *PasswordCredential) *SchemeApplicationCredentials {
-	m.Password = v
-	return m
-}
-
-func (m *SchemeApplicationCredentials) WithRevealPassword(v bool) *SchemeApplicationCredentials {
-	m.RevealPassword = v
-	return m
-}
-
-func (m *SchemeApplicationCredentials) WithScheme(v string) *SchemeApplicationCredentials {
-	m.Scheme = v
-	return m
-}
-
-func (m *SchemeApplicationCredentials) WithSigning(v *ApplicationCredentialsSigning) *SchemeApplicationCredentials {
-	m.Signing = v
-	return m
-}
-
-func (m *SchemeApplicationCredentials) WithUserName(v string) *SchemeApplicationCredentials {
-	m.UserName = v
-	return m
-}
-
 

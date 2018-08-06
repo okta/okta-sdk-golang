@@ -25,9 +25,4 @@ type TotpFactorProfile struct {
 	CredentialId string `json:"credentialId,omitempty"`
 }
 
-func (m *TotpFactorProfile) WithCredentialId(v string) *TotpFactorProfile {
-	m.CredentialId = v
-	return m
-}
-
 

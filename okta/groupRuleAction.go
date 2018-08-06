@@ -25,9 +25,4 @@ type GroupRuleAction struct {
 	AssignUserToGroups *GroupRuleGroupAssignment `json:"assignUserToGroups,omitempty"`
 }
 
-func (m *GroupRuleAction) WithAssignUserToGroups(v *GroupRuleGroupAssignment) *GroupRuleAction {
-	m.AssignUserToGroups = v
-	return m
-}
-
 

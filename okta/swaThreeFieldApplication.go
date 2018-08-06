@@ -26,14 +26,4 @@ type SwaThreeFieldApplication struct {
 	Settings *SwaThreeFieldApplicationSettings `json:"settings,omitempty"`
 }
 
-func (m *SwaThreeFieldApplication) WithName(v string) *SwaThreeFieldApplication {
-	m.Name = v
-	return m
-}
-
-func (m *SwaThreeFieldApplication) WithSettings(v *SwaThreeFieldApplicationSettings) *SwaThreeFieldApplication {
-	m.Settings = v
-	return m
-}
-
 

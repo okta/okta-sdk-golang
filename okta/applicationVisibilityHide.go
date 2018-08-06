@@ -26,14 +26,4 @@ type ApplicationVisibilityHide struct {
 	Web bool `json:"web,omitempty"`
 }
 
-func (m *ApplicationVisibilityHide) WithIOS(v bool) *ApplicationVisibilityHide {
-	m.IOS = v
-	return m
-}
-
-func (m *ApplicationVisibilityHide) WithWeb(v bool) *ApplicationVisibilityHide {
-	m.Web = v
-	return m
-}
-
 

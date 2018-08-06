@@ -26,14 +26,4 @@ type GroupRuleExpression struct {
 	Value string `json:"value,omitempty"`
 }
 
-func (m *GroupRuleExpression) WithType(v string) *GroupRuleExpression {
-	m.Type = v
-	return m
-}
-
-func (m *GroupRuleExpression) WithValue(v string) *GroupRuleExpression {
-	m.Value = v
-	return m
-}
-
 

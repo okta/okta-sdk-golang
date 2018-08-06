@@ -27,19 +27,4 @@ type OpenIdConnectApplication struct {
 	Settings *OpenIdConnectApplicationSettings `json:"settings,omitempty"`
 }
 
-func (m *OpenIdConnectApplication) WithCredentials(v *OAuthApplicationCredentials) *OpenIdConnectApplication {
-	m.Credentials = v
-	return m
-}
-
-func (m *OpenIdConnectApplication) WithName(v string) *OpenIdConnectApplication {
-	m.Name = v
-	return m
-}
-
-func (m *OpenIdConnectApplication) WithSettings(v *OpenIdConnectApplicationSettings) *OpenIdConnectApplication {
-	m.Settings = v
-	return m
-}
-
 

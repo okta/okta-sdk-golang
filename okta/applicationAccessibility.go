@@ -27,19 +27,4 @@ type ApplicationAccessibility struct {
 	SelfService bool `json:"selfService,omitempty"`
 }
 
-func (m *ApplicationAccessibility) WithErrorRedirectUrl(v string) *ApplicationAccessibility {
-	m.ErrorRedirectUrl = v
-	return m
-}
-
-func (m *ApplicationAccessibility) WithLoginRedirectUrl(v string) *ApplicationAccessibility {
-	m.LoginRedirectUrl = v
-	return m
-}
-
-func (m *ApplicationAccessibility) WithSelfService(v bool) *ApplicationAccessibility {
-	m.SelfService = v
-	return m
-}
-
 

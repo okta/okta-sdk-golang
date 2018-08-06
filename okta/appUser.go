@@ -43,26 +43,6 @@ type AppUser struct {
 	SyncState string `json:"syncState,omitempty"`
 }
 
-func (m *AppUser) WithCredentials(v *AppUserCredentials) *AppUser {
-	m.Credentials = v
-	return m
-}
-
-func (m *AppUser) WithId(v string) *AppUser {
-	m.Id = v
-	return m
-}
-
-func (m *AppUser) WithProfile(v []string) *AppUser {
-	m.Profile = v
-	return m
-}
-
-func (m *AppUser) WithScope(v string) *AppUser {
-	m.Scope = v
-	return m
-}
-
 func (m *AppUserResource) UpdateApplicationUser(appId string, userId string, body AppUser, qp *query.Params)  (*AppUser, *Response, error) {
 	url := fmt.Sprintf("/api/v1/apps/%v/users/%v", appId, userId)
 	if &qp != nil {
