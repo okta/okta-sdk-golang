@@ -45,7 +45,7 @@ type AppUser struct {
 
 func (m *AppUserResource) UpdateApplicationUser(appId string, userId string, body AppUser, qp *query.Params)  (*AppUser, *Response, error) {
 	url := fmt.Sprintf("/api/v1/apps/%v/users/%v", appId, userId)
-	if &qp != nil {
+	if qp != nil {
 		url = url + qp.String()
 	}
 	req, err := m.client.requestExecutor.NewRequest("POST", url, body)
@@ -63,7 +63,7 @@ func (m *AppUserResource) UpdateApplicationUser(appId string, userId string, bod
 }
 func (m *AppUserResource) DeleteApplicationUser(appId string, userId string, qp *query.Params)  (*Response, error) {
 	url := fmt.Sprintf("/api/v1/apps/%v/users/%v", appId, userId)
-	if &qp != nil {
+	if qp != nil {
 		url = url + qp.String()
 	}
 	req, err := m.client.requestExecutor.NewRequest("DELETE", url, nil)

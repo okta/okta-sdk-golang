@@ -1,7 +1,7 @@
 func (m *{{modelName}}Resource) {{ucFirst operation.operationId}}({{operationArgumentBuilder operation}}) {{returnType
 	operation}}{
 	url := fmt.Sprintf({{{getPath operation}}}, {{getPathParams operation}})
-	if &qp != nil {
+	if qp != nil {
 		url = url + qp.String()
 	}
 	{{#if (ne operation.bodyModel undefined)}}

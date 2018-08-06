@@ -37,7 +37,7 @@ type ApplicationGroupAssignment struct {
 
 func (m *ApplicationGroupAssignmentResource) DeleteApplicationGroupAssignment(appId string, groupId string, qp *query.Params)  (*Response, error) {
 	url := fmt.Sprintf("/api/v1/apps/%v/groups/%v", appId, groupId)
-	if &qp != nil {
+	if qp != nil {
 		url = url + qp.String()
 	}
 	req, err := m.client.requestExecutor.NewRequest("DELETE", url, nil)
