@@ -25,9 +25,4 @@ type SecurityQuestionFactor struct {
 	Profile *SecurityQuestionFactorProfile `json:"profile,omitempty"`
 }
 
-func (m *SecurityQuestionFactor) WithProfile(v *SecurityQuestionFactorProfile) *SecurityQuestionFactor {
-	m.Profile = v
-	return m
-}
-
 

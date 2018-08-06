@@ -25,9 +25,4 @@ type SamlApplicationSettings struct {
 	SignOn *SamlApplicationSettingsSignOn `json:"signOn,omitempty"`
 }
 
-func (m *SamlApplicationSettings) WithSignOn(v *SamlApplicationSettingsSignOn) *SamlApplicationSettings {
-	m.SignOn = v
-	return m
-}
-
 

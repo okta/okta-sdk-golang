@@ -26,14 +26,4 @@ type RecoveryQuestionCredential struct {
 	Question string `json:"question,omitempty"`
 }
 
-func (m *RecoveryQuestionCredential) WithAnswer(v string) *RecoveryQuestionCredential {
-	m.Answer = v
-	return m
-}
-
-func (m *RecoveryQuestionCredential) WithQuestion(v string) *RecoveryQuestionCredential {
-	m.Question = v
-	return m
-}
-
 

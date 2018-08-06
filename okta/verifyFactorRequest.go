@@ -28,24 +28,4 @@ type VerifyFactorRequest struct {
 	PassCode string `json:"passCode,omitempty"`
 }
 
-func (m *VerifyFactorRequest) WithActivationToken(v string) *VerifyFactorRequest {
-	m.ActivationToken = v
-	return m
-}
-
-func (m *VerifyFactorRequest) WithAnswer(v string) *VerifyFactorRequest {
-	m.Answer = v
-	return m
-}
-
-func (m *VerifyFactorRequest) WithNextPassCode(v string) *VerifyFactorRequest {
-	m.NextPassCode = v
-	return m
-}
-
-func (m *VerifyFactorRequest) WithPassCode(v string) *VerifyFactorRequest {
-	m.PassCode = v
-	return m
-}
-
 

@@ -28,24 +28,4 @@ type SamlAttributeStatement struct {
 	Values []string `json:"values,omitempty"`
 }
 
-func (m *SamlAttributeStatement) WithName(v string) *SamlAttributeStatement {
-	m.Name = v
-	return m
-}
-
-func (m *SamlAttributeStatement) WithNamespace(v string) *SamlAttributeStatement {
-	m.Namespace = v
-	return m
-}
-
-func (m *SamlAttributeStatement) WithType(v string) *SamlAttributeStatement {
-	m.Type = v
-	return m
-}
-
-func (m *SamlAttributeStatement) WithValues(v []string) *SamlAttributeStatement {
-	m.Values = v
-	return m
-}
-
 

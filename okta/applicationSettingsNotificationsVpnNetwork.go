@@ -27,19 +27,4 @@ type ApplicationSettingsNotificationsVpnNetwork struct {
 	Include []string `json:"include,omitempty"`
 }
 
-func (m *ApplicationSettingsNotificationsVpnNetwork) WithConnection(v string) *ApplicationSettingsNotificationsVpnNetwork {
-	m.Connection = v
-	return m
-}
-
-func (m *ApplicationSettingsNotificationsVpnNetwork) WithExclude(v []string) *ApplicationSettingsNotificationsVpnNetwork {
-	m.Exclude = v
-	return m
-}
-
-func (m *ApplicationSettingsNotificationsVpnNetwork) WithInclude(v []string) *ApplicationSettingsNotificationsVpnNetwork {
-	m.Include = v
-	return m
-}
-
 

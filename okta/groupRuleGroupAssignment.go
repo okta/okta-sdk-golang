@@ -25,9 +25,4 @@ type GroupRuleGroupAssignment struct {
 	GroupIds []string `json:"groupIds,omitempty"`
 }
 
-func (m *GroupRuleGroupAssignment) WithGroupIds(v []string) *GroupRuleGroupAssignment {
-	m.GroupIds = v
-	return m
-}
-
 

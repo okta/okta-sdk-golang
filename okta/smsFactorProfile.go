@@ -25,9 +25,4 @@ type SmsFactorProfile struct {
 	PhoneNumber string `json:"phoneNumber,omitempty"`
 }
 
-func (m *SmsFactorProfile) WithPhoneNumber(v string) *SmsFactorProfile {
-	m.PhoneNumber = v
-	return m
-}
-
 

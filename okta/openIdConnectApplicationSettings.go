@@ -25,9 +25,4 @@ type OpenIdConnectApplicationSettings struct {
 	OauthClient *OpenIdConnectApplicationSettingsClient `json:"oauthClient,omitempty"`
 }
 
-func (m *OpenIdConnectApplicationSettings) WithOauthClient(v *OpenIdConnectApplicationSettingsClient) *OpenIdConnectApplicationSettings {
-	m.OauthClient = v
-	return m
-}
-
 

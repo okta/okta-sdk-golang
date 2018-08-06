@@ -31,39 +31,4 @@ type SwaThreeFieldApplicationSettingsApplication struct {
 	UserNameSelector string `json:"userNameSelector,omitempty"`
 }
 
-func (m *SwaThreeFieldApplicationSettingsApplication) WithButtonSelector(v string) *SwaThreeFieldApplicationSettingsApplication {
-	m.ButtonSelector = v
-	return m
-}
-
-func (m *SwaThreeFieldApplicationSettingsApplication) WithExtraFieldSelector(v string) *SwaThreeFieldApplicationSettingsApplication {
-	m.ExtraFieldSelector = v
-	return m
-}
-
-func (m *SwaThreeFieldApplicationSettingsApplication) WithExtraFieldValue(v string) *SwaThreeFieldApplicationSettingsApplication {
-	m.ExtraFieldValue = v
-	return m
-}
-
-func (m *SwaThreeFieldApplicationSettingsApplication) WithLoginUrlRegex(v string) *SwaThreeFieldApplicationSettingsApplication {
-	m.LoginUrlRegex = v
-	return m
-}
-
-func (m *SwaThreeFieldApplicationSettingsApplication) WithPasswordSelector(v string) *SwaThreeFieldApplicationSettingsApplication {
-	m.PasswordSelector = v
-	return m
-}
-
-func (m *SwaThreeFieldApplicationSettingsApplication) WithTargetUrl(v string) *SwaThreeFieldApplicationSettingsApplication {
-	m.TargetUrl = v
-	return m
-}
-
-func (m *SwaThreeFieldApplicationSettingsApplication) WithUserNameSelector(v string) *SwaThreeFieldApplicationSettingsApplication {
-	m.UserNameSelector = v
-	return m
-}
-
 

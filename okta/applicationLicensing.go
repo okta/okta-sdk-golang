@@ -25,9 +25,4 @@ type ApplicationLicensing struct {
 	SeatCount int64 `json:"seatCount,omitempty"`
 }
 
-func (m *ApplicationLicensing) WithSeatCount(v int64) *ApplicationLicensing {
-	m.SeatCount = v
-	return m
-}
-
 

@@ -26,14 +26,4 @@ type BookmarkApplication struct {
 	Settings *BookmarkApplicationSettings `json:"settings,omitempty"`
 }
 
-func (m *BookmarkApplication) WithName(v string) *BookmarkApplication {
-	m.Name = v
-	return m
-}
-
-func (m *BookmarkApplication) WithSettings(v *BookmarkApplicationSettings) *BookmarkApplication {
-	m.Settings = v
-	return m
-}
-
 

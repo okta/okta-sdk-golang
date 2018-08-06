@@ -26,14 +26,4 @@ type ApplicationSettings struct {
 	Notifications *ApplicationSettingsNotifications `json:"notifications,omitempty"`
 }
 
-func (m *ApplicationSettings) WithApp(v *ApplicationSettingsApplication) *ApplicationSettings {
-	m.App = v
-	return m
-}
-
-func (m *ApplicationSettings) WithNotifications(v *ApplicationSettingsNotifications) *ApplicationSettings {
-	m.Notifications = v
-	return m
-}
-
 

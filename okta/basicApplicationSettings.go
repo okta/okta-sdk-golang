@@ -25,9 +25,4 @@ type BasicApplicationSettings struct {
 	App *BasicApplicationSettingsApplication `json:"app,omitempty"`
 }
 
-func (m *BasicApplicationSettings) WithApp(v *BasicApplicationSettingsApplication) *BasicApplicationSettings {
-	m.App = v
-	return m
-}
-
 

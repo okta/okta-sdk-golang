@@ -27,19 +27,4 @@ type ApplicationVisibility struct {
 	Hide *ApplicationVisibilityHide `json:"hide,omitempty"`
 }
 
-func (m *ApplicationVisibility) WithAppLinks(v []string) *ApplicationVisibility {
-	m.AppLinks = v
-	return m
-}
-
-func (m *ApplicationVisibility) WithAutoSubmitToolbar(v bool) *ApplicationVisibility {
-	m.AutoSubmitToolbar = v
-	return m
-}
-
-func (m *ApplicationVisibility) WithHide(v *ApplicationVisibilityHide) *ApplicationVisibility {
-	m.Hide = v
-	return m
-}
-
 

@@ -25,9 +25,4 @@ type WebFactorProfile struct {
 	CredentialId string `json:"credentialId,omitempty"`
 }
 
-func (m *WebFactorProfile) WithCredentialId(v string) *WebFactorProfile {
-	m.CredentialId = v
-	return m
-}
-
 

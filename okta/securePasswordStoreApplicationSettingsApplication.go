@@ -33,49 +33,4 @@ type SecurePasswordStoreApplicationSettingsApplication struct {
 	UsernameField string `json:"usernameField,omitempty"`
 }
 
-func (m *SecurePasswordStoreApplicationSettingsApplication) WithOptionalField1(v string) *SecurePasswordStoreApplicationSettingsApplication {
-	m.OptionalField1 = v
-	return m
-}
-
-func (m *SecurePasswordStoreApplicationSettingsApplication) WithOptionalField1Value(v string) *SecurePasswordStoreApplicationSettingsApplication {
-	m.OptionalField1Value = v
-	return m
-}
-
-func (m *SecurePasswordStoreApplicationSettingsApplication) WithOptionalField2(v string) *SecurePasswordStoreApplicationSettingsApplication {
-	m.OptionalField2 = v
-	return m
-}
-
-func (m *SecurePasswordStoreApplicationSettingsApplication) WithOptionalField2Value(v string) *SecurePasswordStoreApplicationSettingsApplication {
-	m.OptionalField2Value = v
-	return m
-}
-
-func (m *SecurePasswordStoreApplicationSettingsApplication) WithOptionalField3(v string) *SecurePasswordStoreApplicationSettingsApplication {
-	m.OptionalField3 = v
-	return m
-}
-
-func (m *SecurePasswordStoreApplicationSettingsApplication) WithOptionalField3Value(v string) *SecurePasswordStoreApplicationSettingsApplication {
-	m.OptionalField3Value = v
-	return m
-}
-
-func (m *SecurePasswordStoreApplicationSettingsApplication) WithPasswordField(v string) *SecurePasswordStoreApplicationSettingsApplication {
-	m.PasswordField = v
-	return m
-}
-
-func (m *SecurePasswordStoreApplicationSettingsApplication) WithUrl(v string) *SecurePasswordStoreApplicationSettingsApplication {
-	m.Url = v
-	return m
-}
-
-func (m *SecurePasswordStoreApplicationSettingsApplication) WithUsernameField(v string) *SecurePasswordStoreApplicationSettingsApplication {
-	m.UsernameField = v
-	return m
-}
-
 

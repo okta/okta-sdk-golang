@@ -27,19 +27,4 @@ type ApplicationCredentialsUsernameTemplate struct {
 	Type string `json:"type,omitempty"`
 }
 
-func (m *ApplicationCredentialsUsernameTemplate) WithSuffix(v string) *ApplicationCredentialsUsernameTemplate {
-	m.Suffix = v
-	return m
-}
-
-func (m *ApplicationCredentialsUsernameTemplate) WithTemplate(v string) *ApplicationCredentialsUsernameTemplate {
-	m.Template = v
-	return m
-}
-
-func (m *ApplicationCredentialsUsernameTemplate) WithType(v string) *ApplicationCredentialsUsernameTemplate {
-	m.Type = v
-	return m
-}
-
 

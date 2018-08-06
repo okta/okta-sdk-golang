@@ -27,19 +27,4 @@ type BasicAuthApplication struct {
 	Settings *BasicApplicationSettings `json:"settings,omitempty"`
 }
 
-func (m *BasicAuthApplication) WithCredentials(v *SchemeApplicationCredentials) *BasicAuthApplication {
-	m.Credentials = v
-	return m
-}
-
-func (m *BasicAuthApplication) WithName(v string) *BasicAuthApplication {
-	m.Name = v
-	return m
-}
-
-func (m *BasicAuthApplication) WithSettings(v *BasicApplicationSettings) *BasicAuthApplication {
-	m.Settings = v
-	return m
-}
-
 

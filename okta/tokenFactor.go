@@ -25,9 +25,4 @@ type TokenFactor struct {
 	Profile *TokenFactorProfile `json:"profile,omitempty"`
 }
 
-func (m *TokenFactor) WithProfile(v *TokenFactorProfile) *TokenFactor {
-	m.Profile = v
-	return m
-}
-
 

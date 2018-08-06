@@ -25,9 +25,4 @@ type AutoLoginApplicationSettings struct {
 	SignOn *AutoLoginApplicationSettingsSignOn `json:"signOn,omitempty"`
 }
 
-func (m *AutoLoginApplicationSettings) WithSignOn(v *AutoLoginApplicationSettingsSignOn) *AutoLoginApplicationSettings {
-	m.SignOn = v
-	return m
-}
-
 

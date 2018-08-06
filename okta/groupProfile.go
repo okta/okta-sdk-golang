@@ -26,14 +26,4 @@ type GroupProfile struct {
 	Name string `json:"name,omitempty"`
 }
 
-func (m *GroupProfile) WithDescription(v string) *GroupProfile {
-	m.Description = v
-	return m
-}
-
-func (m *GroupProfile) WithName(v string) *GroupProfile {
-	m.Name = v
-	return m
-}
-
 

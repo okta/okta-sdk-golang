@@ -26,14 +26,4 @@ type GroupRuleGroupCondition struct {
 	Include []string `json:"include,omitempty"`
 }
 
-func (m *GroupRuleGroupCondition) WithExclude(v []string) *GroupRuleGroupCondition {
-	m.Exclude = v
-	return m
-}
-
-func (m *GroupRuleGroupCondition) WithInclude(v []string) *GroupRuleGroupCondition {
-	m.Include = v
-	return m
-}
-
 

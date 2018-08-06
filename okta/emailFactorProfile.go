@@ -25,9 +25,4 @@ type EmailFactorProfile struct {
 	Email string `json:"email,omitempty"`
 }
 
-func (m *EmailFactorProfile) WithEmail(v string) *EmailFactorProfile {
-	m.Email = v
-	return m
-}
-
 

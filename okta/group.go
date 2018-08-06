@@ -38,11 +38,6 @@ type Group struct {
 	Type string `json:"type,omitempty"`
 }
 
-func (m *Group) WithProfile(v *GroupProfile) *Group {
-	m.Profile = v
-	return m
-}
-
 func (m *GroupResource) UpdateGroup(groupId string, body Group, qp *query.Params)  (*Group, *Response, error) {
 	url := fmt.Sprintf("/api/v1/groups/%v", groupId)
 	if &qp != nil {

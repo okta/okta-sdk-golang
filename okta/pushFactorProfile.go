@@ -29,19 +29,4 @@ type PushFactorProfile struct {
 	Version string `json:"version,omitempty"`
 }
 
-func (m *PushFactorProfile) WithCredentialId(v string) *PushFactorProfile {
-	m.CredentialId = v
-	return m
-}
-
-func (m *PushFactorProfile) WithName(v string) *PushFactorProfile {
-	m.Name = v
-	return m
-}
-
-func (m *PushFactorProfile) WithVersion(v string) *PushFactorProfile {
-	m.Version = v
-	return m
-}
-
 
