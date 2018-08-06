@@ -72,7 +72,7 @@ func (c *Client) GetRequestExecutor() *RequestExecutor {
 
 func (c *Client) ListApplications(qp *query.Params)  ([]*Application, *Response, error) {
 	url := fmt.Sprintf("/api/v1/apps", )
-	if &qp != nil {
+	if qp != nil {
 		url = url + qp.String()
 	}
 	req, err := c.requestExecutor.NewRequest("GET", url, nil)
@@ -90,7 +90,7 @@ func (c *Client) ListApplications(qp *query.Params)  ([]*Application, *Response,
 }
 func (c *Client) CreateApplication(body Application, qp *query.Params)  (*Application, *Response, error) {
 	url := fmt.Sprintf("/api/v1/apps", )
-	if &qp != nil {
+	if qp != nil {
 		url = url + qp.String()
 	}
 	req, err := c.requestExecutor.NewRequest("POST", url, body)
@@ -108,7 +108,7 @@ func (c *Client) CreateApplication(body Application, qp *query.Params)  (*Applic
 }
 func (c *Client) DeleteApplication(appId string, qp *query.Params)  (*Response, error) {
 	url := fmt.Sprintf("/api/v1/apps/%v", appId)
-	if &qp != nil {
+	if qp != nil {
 		url = url + qp.String()
 	}
 	req, err := c.requestExecutor.NewRequest("DELETE", url, nil)
@@ -125,7 +125,7 @@ func (c *Client) DeleteApplication(appId string, qp *query.Params)  (*Response, 
 }
 func (c *Client) GetApplication(appId string, qp *query.Params)  (*Application, *Response, error) {
 	url := fmt.Sprintf("/api/v1/apps/%v", appId)
-	if &qp != nil {
+	if qp != nil {
 		url = url + qp.String()
 	}
 	req, err := c.requestExecutor.NewRequest("GET", url, nil)
@@ -143,7 +143,7 @@ func (c *Client) GetApplication(appId string, qp *query.Params)  (*Application, 
 }
 func (c *Client) UpdateApplication(appId string, body Application, qp *query.Params)  (*Application, *Response, error) {
 	url := fmt.Sprintf("/api/v1/apps/%v", appId)
-	if &qp != nil {
+	if qp != nil {
 		url = url + qp.String()
 	}
 	req, err := c.requestExecutor.NewRequest("PUT", url, body)
@@ -161,7 +161,7 @@ func (c *Client) UpdateApplication(appId string, body Application, qp *query.Par
 }
 func (c *Client) ListApplicationKeys(appId string, qp *query.Params)  ([]*JsonWebKey, *Response, error) {
 	url := fmt.Sprintf("/api/v1/apps/%v/credentials/keys", appId)
-	if &qp != nil {
+	if qp != nil {
 		url = url + qp.String()
 	}
 	req, err := c.requestExecutor.NewRequest("GET", url, nil)
@@ -179,7 +179,7 @@ func (c *Client) ListApplicationKeys(appId string, qp *query.Params)  ([]*JsonWe
 }
 func (c *Client) GetApplicationKey(appId string, keyId string, qp *query.Params)  (*JsonWebKey, *Response, error) {
 	url := fmt.Sprintf("/api/v1/apps/%v/credentials/keys/%v", appId, keyId)
-	if &qp != nil {
+	if qp != nil {
 		url = url + qp.String()
 	}
 	req, err := c.requestExecutor.NewRequest("GET", url, nil)
@@ -197,7 +197,7 @@ func (c *Client) GetApplicationKey(appId string, keyId string, qp *query.Params)
 }
 func (c *Client) CloneApplicationKey(appId string, keyId string, qp *query.Params)  (*JsonWebKey, *Response, error) {
 	url := fmt.Sprintf("/api/v1/apps/%v/credentials/keys/%v/clone", appId, keyId)
-	if &qp != nil {
+	if qp != nil {
 		url = url + qp.String()
 	}
 	req, err := c.requestExecutor.NewRequest("POST", url, nil)
@@ -215,7 +215,7 @@ func (c *Client) CloneApplicationKey(appId string, keyId string, qp *query.Param
 }
 func (c *Client) ListApplicationGroupAssignments(appId string, qp *query.Params)  ([]*ApplicationGroupAssignment, *Response, error) {
 	url := fmt.Sprintf("/api/v1/apps/%v/groups", appId)
-	if &qp != nil {
+	if qp != nil {
 		url = url + qp.String()
 	}
 	req, err := c.requestExecutor.NewRequest("GET", url, nil)
@@ -233,7 +233,7 @@ func (c *Client) ListApplicationGroupAssignments(appId string, qp *query.Params)
 }
 func (c *Client) DeleteApplicationGroupAssignment(appId string, groupId string, qp *query.Params)  (*Response, error) {
 	url := fmt.Sprintf("/api/v1/apps/%v/groups/%v", appId, groupId)
-	if &qp != nil {
+	if qp != nil {
 		url = url + qp.String()
 	}
 	req, err := c.requestExecutor.NewRequest("DELETE", url, nil)
@@ -250,7 +250,7 @@ func (c *Client) DeleteApplicationGroupAssignment(appId string, groupId string, 
 }
 func (c *Client) GetApplicationGroupAssignment(appId string, groupId string, qp *query.Params)  (*ApplicationGroupAssignment, *Response, error) {
 	url := fmt.Sprintf("/api/v1/apps/%v/groups/%v", appId, groupId)
-	if &qp != nil {
+	if qp != nil {
 		url = url + qp.String()
 	}
 	req, err := c.requestExecutor.NewRequest("GET", url, nil)
@@ -268,7 +268,7 @@ func (c *Client) GetApplicationGroupAssignment(appId string, groupId string, qp 
 }
 func (c *Client) CreateApplicationGroupAssignment(appId string, groupId string, body ApplicationGroupAssignment, qp *query.Params)  (*ApplicationGroupAssignment, *Response, error) {
 	url := fmt.Sprintf("/api/v1/apps/%v/groups/%v", appId, groupId)
-	if &qp != nil {
+	if qp != nil {
 		url = url + qp.String()
 	}
 	req, err := c.requestExecutor.NewRequest("PUT", url, body)
@@ -286,7 +286,7 @@ func (c *Client) CreateApplicationGroupAssignment(appId string, groupId string, 
 }
 func (c *Client) ActivateApplication(appId string, qp *query.Params)  (*Response, error) {
 	url := fmt.Sprintf("/api/v1/apps/%v/lifecycle/activate", appId)
-	if &qp != nil {
+	if qp != nil {
 		url = url + qp.String()
 	}
 	req, err := c.requestExecutor.NewRequest("POST", url, nil)
@@ -303,7 +303,7 @@ func (c *Client) ActivateApplication(appId string, qp *query.Params)  (*Response
 }
 func (c *Client) DeactivateApplication(appId string, qp *query.Params)  (*Response, error) {
 	url := fmt.Sprintf("/api/v1/apps/%v/lifecycle/deactivate", appId)
-	if &qp != nil {
+	if qp != nil {
 		url = url + qp.String()
 	}
 	req, err := c.requestExecutor.NewRequest("POST", url, nil)
@@ -320,7 +320,7 @@ func (c *Client) DeactivateApplication(appId string, qp *query.Params)  (*Respon
 }
 func (c *Client) ListApplicationUsers(appId string, qp *query.Params)  ([]*AppUser, *Response, error) {
 	url := fmt.Sprintf("/api/v1/apps/%v/users", appId)
-	if &qp != nil {
+	if qp != nil {
 		url = url + qp.String()
 	}
 	req, err := c.requestExecutor.NewRequest("GET", url, nil)
@@ -338,7 +338,7 @@ func (c *Client) ListApplicationUsers(appId string, qp *query.Params)  ([]*AppUs
 }
 func (c *Client) AssignUserToApplication(appId string, body AppUser, qp *query.Params)  (*AppUser, *Response, error) {
 	url := fmt.Sprintf("/api/v1/apps/%v/users", appId)
-	if &qp != nil {
+	if qp != nil {
 		url = url + qp.String()
 	}
 	req, err := c.requestExecutor.NewRequest("POST", url, body)
@@ -356,7 +356,7 @@ func (c *Client) AssignUserToApplication(appId string, body AppUser, qp *query.P
 }
 func (c *Client) DeleteApplicationUser(appId string, userId string, qp *query.Params)  (*Response, error) {
 	url := fmt.Sprintf("/api/v1/apps/%v/users/%v", appId, userId)
-	if &qp != nil {
+	if qp != nil {
 		url = url + qp.String()
 	}
 	req, err := c.requestExecutor.NewRequest("DELETE", url, nil)
@@ -373,7 +373,7 @@ func (c *Client) DeleteApplicationUser(appId string, userId string, qp *query.Pa
 }
 func (c *Client) GetApplicationUser(appId string, userId string, qp *query.Params)  (*AppUser, *Response, error) {
 	url := fmt.Sprintf("/api/v1/apps/%v/users/%v", appId, userId)
-	if &qp != nil {
+	if qp != nil {
 		url = url + qp.String()
 	}
 	req, err := c.requestExecutor.NewRequest("GET", url, nil)
@@ -391,7 +391,7 @@ func (c *Client) GetApplicationUser(appId string, userId string, qp *query.Param
 }
 func (c *Client) UpdateApplicationUser(appId string, userId string, body AppUser, qp *query.Params)  (*AppUser, *Response, error) {
 	url := fmt.Sprintf("/api/v1/apps/%v/users/%v", appId, userId)
-	if &qp != nil {
+	if qp != nil {
 		url = url + qp.String()
 	}
 	req, err := c.requestExecutor.NewRequest("POST", url, body)
@@ -409,7 +409,7 @@ func (c *Client) UpdateApplicationUser(appId string, userId string, body AppUser
 }
 func (c *Client) ListGroups(qp *query.Params)  ([]*Group, *Response, error) {
 	url := fmt.Sprintf("/api/v1/groups", )
-	if &qp != nil {
+	if qp != nil {
 		url = url + qp.String()
 	}
 	req, err := c.requestExecutor.NewRequest("GET", url, nil)
@@ -427,7 +427,7 @@ func (c *Client) ListGroups(qp *query.Params)  ([]*Group, *Response, error) {
 }
 func (c *Client) CreateGroup(body Group, qp *query.Params)  (*Group, *Response, error) {
 	url := fmt.Sprintf("/api/v1/groups", )
-	if &qp != nil {
+	if qp != nil {
 		url = url + qp.String()
 	}
 	req, err := c.requestExecutor.NewRequest("POST", url, body)
@@ -445,7 +445,7 @@ func (c *Client) CreateGroup(body Group, qp *query.Params)  (*Group, *Response, 
 }
 func (c *Client) ListRules(qp *query.Params)  ([]*GroupRule, *Response, error) {
 	url := fmt.Sprintf("/api/v1/groups/rules", )
-	if &qp != nil {
+	if qp != nil {
 		url = url + qp.String()
 	}
 	req, err := c.requestExecutor.NewRequest("GET", url, nil)
@@ -463,7 +463,7 @@ func (c *Client) ListRules(qp *query.Params)  ([]*GroupRule, *Response, error) {
 }
 func (c *Client) CreateRule(body GroupRule, qp *query.Params)  (*GroupRule, *Response, error) {
 	url := fmt.Sprintf("/api/v1/groups/rules", )
-	if &qp != nil {
+	if qp != nil {
 		url = url + qp.String()
 	}
 	req, err := c.requestExecutor.NewRequest("POST", url, body)
@@ -481,7 +481,7 @@ func (c *Client) CreateRule(body GroupRule, qp *query.Params)  (*GroupRule, *Res
 }
 func (c *Client) DeleteRule(ruleId string, qp *query.Params)  (*Response, error) {
 	url := fmt.Sprintf("/api/v1/groups/rules/%v", ruleId)
-	if &qp != nil {
+	if qp != nil {
 		url = url + qp.String()
 	}
 	req, err := c.requestExecutor.NewRequest("DELETE", url, nil)
@@ -498,7 +498,7 @@ func (c *Client) DeleteRule(ruleId string, qp *query.Params)  (*Response, error)
 }
 func (c *Client) GetRule(ruleId string, qp *query.Params)  (*GroupRule, *Response, error) {
 	url := fmt.Sprintf("/api/v1/groups/rules/%v", ruleId)
-	if &qp != nil {
+	if qp != nil {
 		url = url + qp.String()
 	}
 	req, err := c.requestExecutor.NewRequest("GET", url, nil)
@@ -516,7 +516,7 @@ func (c *Client) GetRule(ruleId string, qp *query.Params)  (*GroupRule, *Respons
 }
 func (c *Client) UpdateRule(ruleId string, body GroupRule, qp *query.Params)  (*GroupRule, *Response, error) {
 	url := fmt.Sprintf("/api/v1/groups/rules/%v", ruleId)
-	if &qp != nil {
+	if qp != nil {
 		url = url + qp.String()
 	}
 	req, err := c.requestExecutor.NewRequest("PUT", url, body)
@@ -534,7 +534,7 @@ func (c *Client) UpdateRule(ruleId string, body GroupRule, qp *query.Params)  (*
 }
 func (c *Client) ActivateRule(ruleId string, qp *query.Params)  (*Response, error) {
 	url := fmt.Sprintf("/api/v1/groups/rules/%v/lifecycle/activate", ruleId)
-	if &qp != nil {
+	if qp != nil {
 		url = url + qp.String()
 	}
 	req, err := c.requestExecutor.NewRequest("POST", url, nil)
@@ -551,7 +551,7 @@ func (c *Client) ActivateRule(ruleId string, qp *query.Params)  (*Response, erro
 }
 func (c *Client) DeactivateRule(ruleId string, qp *query.Params)  (*Response, error) {
 	url := fmt.Sprintf("/api/v1/groups/rules/%v/lifecycle/deactivate", ruleId)
-	if &qp != nil {
+	if qp != nil {
 		url = url + qp.String()
 	}
 	req, err := c.requestExecutor.NewRequest("POST", url, nil)
@@ -568,7 +568,7 @@ func (c *Client) DeactivateRule(ruleId string, qp *query.Params)  (*Response, er
 }
 func (c *Client) DeleteGroup(groupId string, qp *query.Params)  (*Response, error) {
 	url := fmt.Sprintf("/api/v1/groups/%v", groupId)
-	if &qp != nil {
+	if qp != nil {
 		url = url + qp.String()
 	}
 	req, err := c.requestExecutor.NewRequest("DELETE", url, nil)
@@ -585,7 +585,7 @@ func (c *Client) DeleteGroup(groupId string, qp *query.Params)  (*Response, erro
 }
 func (c *Client) GetGroup(groupId string, qp *query.Params)  (*Group, *Response, error) {
 	url := fmt.Sprintf("/api/v1/groups/%v", groupId)
-	if &qp != nil {
+	if qp != nil {
 		url = url + qp.String()
 	}
 	req, err := c.requestExecutor.NewRequest("GET", url, nil)
@@ -603,7 +603,7 @@ func (c *Client) GetGroup(groupId string, qp *query.Params)  (*Group, *Response,
 }
 func (c *Client) UpdateGroup(groupId string, body Group, qp *query.Params)  (*Group, *Response, error) {
 	url := fmt.Sprintf("/api/v1/groups/%v", groupId)
-	if &qp != nil {
+	if qp != nil {
 		url = url + qp.String()
 	}
 	req, err := c.requestExecutor.NewRequest("PUT", url, body)
@@ -621,7 +621,7 @@ func (c *Client) UpdateGroup(groupId string, body Group, qp *query.Params)  (*Gr
 }
 func (c *Client) ListGroupUsers(groupId string, qp *query.Params)  ([]*User, *Response, error) {
 	url := fmt.Sprintf("/api/v1/groups/%v/users", groupId)
-	if &qp != nil {
+	if qp != nil {
 		url = url + qp.String()
 	}
 	req, err := c.requestExecutor.NewRequest("GET", url, nil)
@@ -639,7 +639,7 @@ func (c *Client) ListGroupUsers(groupId string, qp *query.Params)  ([]*User, *Re
 }
 func (c *Client) RemoveGroupUser(groupId string, userId string, qp *query.Params)  (*Response, error) {
 	url := fmt.Sprintf("/api/v1/groups/%v/users/%v", groupId, userId)
-	if &qp != nil {
+	if qp != nil {
 		url = url + qp.String()
 	}
 	req, err := c.requestExecutor.NewRequest("DELETE", url, nil)
@@ -656,7 +656,7 @@ func (c *Client) RemoveGroupUser(groupId string, userId string, qp *query.Params
 }
 func (c *Client) AddUserToGroup(groupId string, userId string, qp *query.Params)  (*Response, error) {
 	url := fmt.Sprintf("/api/v1/groups/%v/users/%v", groupId, userId)
-	if &qp != nil {
+	if qp != nil {
 		url = url + qp.String()
 	}
 	req, err := c.requestExecutor.NewRequest("PUT", url, nil)
@@ -673,7 +673,7 @@ func (c *Client) AddUserToGroup(groupId string, userId string, qp *query.Params)
 }
 func (c *Client) GetLogs(qp *query.Params)  ([]*LogEvent, *Response, error) {
 	url := fmt.Sprintf("/api/v1/logs", )
-	if &qp != nil {
+	if qp != nil {
 		url = url + qp.String()
 	}
 	req, err := c.requestExecutor.NewRequest("GET", url, nil)
@@ -691,7 +691,7 @@ func (c *Client) GetLogs(qp *query.Params)  ([]*LogEvent, *Response, error) {
 }
 func (c *Client) CreateSession(body CreateSessionRequest, qp *query.Params)  (*Session, *Response, error) {
 	url := fmt.Sprintf("/api/v1/sessions", )
-	if &qp != nil {
+	if qp != nil {
 		url = url + qp.String()
 	}
 	req, err := c.requestExecutor.NewRequest("POST", url, body)
@@ -709,7 +709,7 @@ func (c *Client) CreateSession(body CreateSessionRequest, qp *query.Params)  (*S
 }
 func (c *Client) EndSession(sessionId string, qp *query.Params)  (*Response, error) {
 	url := fmt.Sprintf("/api/v1/sessions/%v", sessionId)
-	if &qp != nil {
+	if qp != nil {
 		url = url + qp.String()
 	}
 	req, err := c.requestExecutor.NewRequest("DELETE", url, nil)
@@ -726,7 +726,7 @@ func (c *Client) EndSession(sessionId string, qp *query.Params)  (*Response, err
 }
 func (c *Client) GetSession(sessionId string, qp *query.Params)  (*Session, *Response, error) {
 	url := fmt.Sprintf("/api/v1/sessions/%v", sessionId)
-	if &qp != nil {
+	if qp != nil {
 		url = url + qp.String()
 	}
 	req, err := c.requestExecutor.NewRequest("GET", url, nil)
@@ -744,7 +744,7 @@ func (c *Client) GetSession(sessionId string, qp *query.Params)  (*Session, *Res
 }
 func (c *Client) RefreshSession(sessionId string, qp *query.Params)  (*Session, *Response, error) {
 	url := fmt.Sprintf("/api/v1/sessions/%v/lifecycle/refresh", sessionId)
-	if &qp != nil {
+	if qp != nil {
 		url = url + qp.String()
 	}
 	req, err := c.requestExecutor.NewRequest("POST", url, nil)
@@ -762,7 +762,7 @@ func (c *Client) RefreshSession(sessionId string, qp *query.Params)  (*Session, 
 }
 func (c *Client) ListUsers(qp *query.Params)  ([]*User, *Response, error) {
 	url := fmt.Sprintf("/api/v1/users", )
-	if &qp != nil {
+	if qp != nil {
 		url = url + qp.String()
 	}
 	req, err := c.requestExecutor.NewRequest("GET", url, nil)
@@ -780,7 +780,7 @@ func (c *Client) ListUsers(qp *query.Params)  ([]*User, *Response, error) {
 }
 func (c *Client) CreateUser(body User, qp *query.Params)  (*User, *Response, error) {
 	url := fmt.Sprintf("/api/v1/users", )
-	if &qp != nil {
+	if qp != nil {
 		url = url + qp.String()
 	}
 	req, err := c.requestExecutor.NewRequest("POST", url, body)
@@ -798,7 +798,7 @@ func (c *Client) CreateUser(body User, qp *query.Params)  (*User, *Response, err
 }
 func (c *Client) DeactivateOrDeleteUser(userId string, qp *query.Params)  (*Response, error) {
 	url := fmt.Sprintf("/api/v1/users/%v", userId)
-	if &qp != nil {
+	if qp != nil {
 		url = url + qp.String()
 	}
 	req, err := c.requestExecutor.NewRequest("DELETE", url, nil)
@@ -815,7 +815,7 @@ func (c *Client) DeactivateOrDeleteUser(userId string, qp *query.Params)  (*Resp
 }
 func (c *Client) GetUser(userId string, qp *query.Params)  (*User, *Response, error) {
 	url := fmt.Sprintf("/api/v1/users/%v", userId)
-	if &qp != nil {
+	if qp != nil {
 		url = url + qp.String()
 	}
 	req, err := c.requestExecutor.NewRequest("GET", url, nil)
@@ -833,7 +833,7 @@ func (c *Client) GetUser(userId string, qp *query.Params)  (*User, *Response, er
 }
 func (c *Client) UpdateUser(userId string, body User, qp *query.Params)  (*User, *Response, error) {
 	url := fmt.Sprintf("/api/v1/users/%v", userId)
-	if &qp != nil {
+	if qp != nil {
 		url = url + qp.String()
 	}
 	req, err := c.requestExecutor.NewRequest("PUT", url, body)
@@ -851,7 +851,7 @@ func (c *Client) UpdateUser(userId string, body User, qp *query.Params)  (*User,
 }
 func (c *Client) ListAppLinks(userId string, qp *query.Params)  ([]*AppLink, *Response, error) {
 	url := fmt.Sprintf("/api/v1/users/%v/appLinks", userId)
-	if &qp != nil {
+	if qp != nil {
 		url = url + qp.String()
 	}
 	req, err := c.requestExecutor.NewRequest("GET", url, nil)
@@ -869,7 +869,7 @@ func (c *Client) ListAppLinks(userId string, qp *query.Params)  ([]*AppLink, *Re
 }
 func (c *Client) ChangePassword(userId string, body ChangePasswordRequest, qp *query.Params)  (*UserCredentials, *Response, error) {
 	url := fmt.Sprintf("/api/v1/users/%v/credentials/change_password", userId)
-	if &qp != nil {
+	if qp != nil {
 		url = url + qp.String()
 	}
 	req, err := c.requestExecutor.NewRequest("POST", url, body)
@@ -887,7 +887,7 @@ func (c *Client) ChangePassword(userId string, body ChangePasswordRequest, qp *q
 }
 func (c *Client) ChangeRecoveryQuestion(userId string, body UserCredentials, qp *query.Params)  (*UserCredentials, *Response, error) {
 	url := fmt.Sprintf("/api/v1/users/%v/credentials/change_recovery_question", userId)
-	if &qp != nil {
+	if qp != nil {
 		url = url + qp.String()
 	}
 	req, err := c.requestExecutor.NewRequest("POST", url, body)
@@ -905,7 +905,7 @@ func (c *Client) ChangeRecoveryQuestion(userId string, body UserCredentials, qp 
 }
 func (c *Client) ForgotPassword(userId string, body UserCredentials, qp *query.Params)  (*ForgotPasswordResponse, *Response, error) {
 	url := fmt.Sprintf("/api/v1/users/%v/credentials/forgot_password", userId)
-	if &qp != nil {
+	if qp != nil {
 		url = url + qp.String()
 	}
 	req, err := c.requestExecutor.NewRequest("POST", url, body)
@@ -923,7 +923,7 @@ func (c *Client) ForgotPassword(userId string, body UserCredentials, qp *query.P
 }
 func (c *Client) ListFactors(userId string, qp *query.Params)  ([]*Factor, *Response, error) {
 	url := fmt.Sprintf("/api/v1/users/%v/factors", userId)
-	if &qp != nil {
+	if qp != nil {
 		url = url + qp.String()
 	}
 	req, err := c.requestExecutor.NewRequest("GET", url, nil)
@@ -941,7 +941,7 @@ func (c *Client) ListFactors(userId string, qp *query.Params)  ([]*Factor, *Resp
 }
 func (c *Client) AddFactor(userId string, body Factor, qp *query.Params)  (*Factor, *Response, error) {
 	url := fmt.Sprintf("/api/v1/users/%v/factors", userId)
-	if &qp != nil {
+	if qp != nil {
 		url = url + qp.String()
 	}
 	req, err := c.requestExecutor.NewRequest("POST", url, body)
@@ -959,7 +959,7 @@ func (c *Client) AddFactor(userId string, body Factor, qp *query.Params)  (*Fact
 }
 func (c *Client) ListSupportedFactors(userId string, qp *query.Params)  ([]*Factor, *Response, error) {
 	url := fmt.Sprintf("/api/v1/users/%v/factors/catalog", userId)
-	if &qp != nil {
+	if qp != nil {
 		url = url + qp.String()
 	}
 	req, err := c.requestExecutor.NewRequest("GET", url, nil)
@@ -977,7 +977,7 @@ func (c *Client) ListSupportedFactors(userId string, qp *query.Params)  ([]*Fact
 }
 func (c *Client) ListSupportedSecurityQuestions(userId string, qp *query.Params)  ([]*SecurityQuestion, *Response, error) {
 	url := fmt.Sprintf("/api/v1/users/%v/factors/questions", userId)
-	if &qp != nil {
+	if qp != nil {
 		url = url + qp.String()
 	}
 	req, err := c.requestExecutor.NewRequest("GET", url, nil)
@@ -995,7 +995,7 @@ func (c *Client) ListSupportedSecurityQuestions(userId string, qp *query.Params)
 }
 func (c *Client) DeleteFactor(userId string, factorId string, qp *query.Params)  (*Response, error) {
 	url := fmt.Sprintf("/api/v1/users/%v/factors/%v", userId, factorId)
-	if &qp != nil {
+	if qp != nil {
 		url = url + qp.String()
 	}
 	req, err := c.requestExecutor.NewRequest("DELETE", url, nil)
@@ -1012,7 +1012,7 @@ func (c *Client) DeleteFactor(userId string, factorId string, qp *query.Params) 
 }
 func (c *Client) GetFactor(userId string, factorId string, qp *query.Params)  (*Factor, *Response, error) {
 	url := fmt.Sprintf("/api/v1/users/%v/factors/%v", userId, factorId)
-	if &qp != nil {
+	if qp != nil {
 		url = url + qp.String()
 	}
 	req, err := c.requestExecutor.NewRequest("GET", url, nil)
@@ -1030,7 +1030,7 @@ func (c *Client) GetFactor(userId string, factorId string, qp *query.Params)  (*
 }
 func (c *Client) ActivateFactor(userId string, factorId string, body VerifyFactorRequest, qp *query.Params)  (*Factor, *Response, error) {
 	url := fmt.Sprintf("/api/v1/users/%v/factors/%v/lifecycle/activate", userId, factorId)
-	if &qp != nil {
+	if qp != nil {
 		url = url + qp.String()
 	}
 	req, err := c.requestExecutor.NewRequest("POST", url, body)
@@ -1048,7 +1048,7 @@ func (c *Client) ActivateFactor(userId string, factorId string, body VerifyFacto
 }
 func (c *Client) VerifyFactor(userId string, factorId string, body VerifyFactorRequest, qp *query.Params)  (*VerifyFactorResponse, *Response, error) {
 	url := fmt.Sprintf("/api/v1/users/%v/factors/%v/verify", userId, factorId)
-	if &qp != nil {
+	if qp != nil {
 		url = url + qp.String()
 	}
 	req, err := c.requestExecutor.NewRequest("POST", url, body)
@@ -1066,7 +1066,7 @@ func (c *Client) VerifyFactor(userId string, factorId string, body VerifyFactorR
 }
 func (c *Client) ListUserGroups(userId string, qp *query.Params)  ([]*Group, *Response, error) {
 	url := fmt.Sprintf("/api/v1/users/%v/groups", userId)
-	if &qp != nil {
+	if qp != nil {
 		url = url + qp.String()
 	}
 	req, err := c.requestExecutor.NewRequest("GET", url, nil)
@@ -1084,7 +1084,7 @@ func (c *Client) ListUserGroups(userId string, qp *query.Params)  ([]*Group, *Re
 }
 func (c *Client) ActivateUser(userId string, qp *query.Params)  (*UserActivationToken, *Response, error) {
 	url := fmt.Sprintf("/api/v1/users/%v/lifecycle/activate", userId)
-	if &qp != nil {
+	if qp != nil {
 		url = url + qp.String()
 	}
 	req, err := c.requestExecutor.NewRequest("POST", url, nil)
@@ -1102,7 +1102,7 @@ func (c *Client) ActivateUser(userId string, qp *query.Params)  (*UserActivation
 }
 func (c *Client) DeactivateUser(userId string, qp *query.Params)  (*Response, error) {
 	url := fmt.Sprintf("/api/v1/users/%v/lifecycle/deactivate", userId)
-	if &qp != nil {
+	if qp != nil {
 		url = url + qp.String()
 	}
 	req, err := c.requestExecutor.NewRequest("POST", url, nil)
@@ -1119,7 +1119,7 @@ func (c *Client) DeactivateUser(userId string, qp *query.Params)  (*Response, er
 }
 func (c *Client) ExpirePassword(userId string, qp *query.Params)  (*TempPassword, *Response, error) {
 	url := fmt.Sprintf("/api/v1/users/%v/lifecycle/expire_password", userId)
-	if &qp != nil {
+	if qp != nil {
 		url = url + qp.String()
 	}
 	req, err := c.requestExecutor.NewRequest("POST", url, nil)
@@ -1137,7 +1137,7 @@ func (c *Client) ExpirePassword(userId string, qp *query.Params)  (*TempPassword
 }
 func (c *Client) ResetAllFactors(userId string, qp *query.Params)  (*Response, error) {
 	url := fmt.Sprintf("/api/v1/users/%v/lifecycle/reset_factors", userId)
-	if &qp != nil {
+	if qp != nil {
 		url = url + qp.String()
 	}
 	req, err := c.requestExecutor.NewRequest("POST", url, nil)
@@ -1154,7 +1154,7 @@ func (c *Client) ResetAllFactors(userId string, qp *query.Params)  (*Response, e
 }
 func (c *Client) ResetPassword(userId string, qp *query.Params)  (*ResetPasswordToken, *Response, error) {
 	url := fmt.Sprintf("/api/v1/users/%v/lifecycle/reset_password", userId)
-	if &qp != nil {
+	if qp != nil {
 		url = url + qp.String()
 	}
 	req, err := c.requestExecutor.NewRequest("POST", url, nil)
@@ -1172,7 +1172,7 @@ func (c *Client) ResetPassword(userId string, qp *query.Params)  (*ResetPassword
 }
 func (c *Client) SuspendUser(userId string, qp *query.Params)  (*Response, error) {
 	url := fmt.Sprintf("/api/v1/users/%v/lifecycle/suspend", userId)
-	if &qp != nil {
+	if qp != nil {
 		url = url + qp.String()
 	}
 	req, err := c.requestExecutor.NewRequest("POST", url, nil)
@@ -1189,7 +1189,7 @@ func (c *Client) SuspendUser(userId string, qp *query.Params)  (*Response, error
 }
 func (c *Client) UnlockUser(userId string, qp *query.Params)  (*Response, error) {
 	url := fmt.Sprintf("/api/v1/users/%v/lifecycle/unlock", userId)
-	if &qp != nil {
+	if qp != nil {
 		url = url + qp.String()
 	}
 	req, err := c.requestExecutor.NewRequest("POST", url, nil)
@@ -1206,7 +1206,7 @@ func (c *Client) UnlockUser(userId string, qp *query.Params)  (*Response, error)
 }
 func (c *Client) UnsuspendUser(userId string, qp *query.Params)  (*Response, error) {
 	url := fmt.Sprintf("/api/v1/users/%v/lifecycle/unsuspend", userId)
-	if &qp != nil {
+	if qp != nil {
 		url = url + qp.String()
 	}
 	req, err := c.requestExecutor.NewRequest("POST", url, nil)
@@ -1223,7 +1223,7 @@ func (c *Client) UnsuspendUser(userId string, qp *query.Params)  (*Response, err
 }
 func (c *Client) ListAssignedRoles(userId string, qp *query.Params)  ([]*Role, *Response, error) {
 	url := fmt.Sprintf("/api/v1/users/%v/roles", userId)
-	if &qp != nil {
+	if qp != nil {
 		url = url + qp.String()
 	}
 	req, err := c.requestExecutor.NewRequest("GET", url, nil)
@@ -1241,7 +1241,7 @@ func (c *Client) ListAssignedRoles(userId string, qp *query.Params)  ([]*Role, *
 }
 func (c *Client) AddRoleToUser(userId string, body Role, qp *query.Params)  (*Role, *Response, error) {
 	url := fmt.Sprintf("/api/v1/users/%v/roles", userId)
-	if &qp != nil {
+	if qp != nil {
 		url = url + qp.String()
 	}
 	req, err := c.requestExecutor.NewRequest("POST", url, body)
@@ -1259,7 +1259,7 @@ func (c *Client) AddRoleToUser(userId string, body Role, qp *query.Params)  (*Ro
 }
 func (c *Client) RemoveRoleFromUser(userId string, roleId string, qp *query.Params)  (*Response, error) {
 	url := fmt.Sprintf("/api/v1/users/%v/roles/%v", userId, roleId)
-	if &qp != nil {
+	if qp != nil {
 		url = url + qp.String()
 	}
 	req, err := c.requestExecutor.NewRequest("DELETE", url, nil)
@@ -1276,7 +1276,7 @@ func (c *Client) RemoveRoleFromUser(userId string, roleId string, qp *query.Para
 }
 func (c *Client) ListGroupTargetsForRole(userId string, roleId string, qp *query.Params)  ([]*Group, *Response, error) {
 	url := fmt.Sprintf("/api/v1/users/%v/roles/%v/targets/groups", userId, roleId)
-	if &qp != nil {
+	if qp != nil {
 		url = url + qp.String()
 	}
 	req, err := c.requestExecutor.NewRequest("GET", url, nil)
@@ -1294,7 +1294,7 @@ func (c *Client) ListGroupTargetsForRole(userId string, roleId string, qp *query
 }
 func (c *Client) RemoveGroupTargetFromRole(userId string, roleId string, groupId string, qp *query.Params)  (*Response, error) {
 	url := fmt.Sprintf("/api/v1/users/%v/roles/%v/targets/groups/%v", userId, roleId, groupId)
-	if &qp != nil {
+	if qp != nil {
 		url = url + qp.String()
 	}
 	req, err := c.requestExecutor.NewRequest("DELETE", url, nil)
@@ -1311,7 +1311,7 @@ func (c *Client) RemoveGroupTargetFromRole(userId string, roleId string, groupId
 }
 func (c *Client) AddGroupTargetToRole(userId string, roleId string, groupId string, qp *query.Params)  (*Response, error) {
 	url := fmt.Sprintf("/api/v1/users/%v/roles/%v/targets/groups/%v", userId, roleId, groupId)
-	if &qp != nil {
+	if qp != nil {
 		url = url + qp.String()
 	}
 	req, err := c.requestExecutor.NewRequest("PUT", url, nil)
@@ -1328,7 +1328,7 @@ func (c *Client) AddGroupTargetToRole(userId string, roleId string, groupId stri
 }
 func (c *Client) EndAllUserSessions(userId string, qp *query.Params)  (*Response, error) {
 	url := fmt.Sprintf("/api/v1/users/%v/sessions", userId)
-	if &qp != nil {
+	if qp != nil {
 		url = url + qp.String()
 	}
 	req, err := c.requestExecutor.NewRequest("DELETE", url, nil)

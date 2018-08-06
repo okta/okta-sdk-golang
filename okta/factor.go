@@ -44,7 +44,7 @@ type Factor struct {
 
 func (m *FactorResource) DeleteFactor(userId string, factorId string, qp *query.Params)  (*Response, error) {
 	url := fmt.Sprintf("/api/v1/users/%v/factors/%v", userId, factorId)
-	if &qp != nil {
+	if qp != nil {
 		url = url + qp.String()
 	}
 	req, err := m.client.requestExecutor.NewRequest("DELETE", url, nil)
@@ -62,7 +62,7 @@ func (m *FactorResource) DeleteFactor(userId string, factorId string, qp *query.
 
 func (m *FactorResource) ActivateFactor(userId string, factorId string, body VerifyFactorRequest, qp *query.Params)  (*Factor, *Response, error) {
 	url := fmt.Sprintf("/api/v1/users/%v/factors/%v/lifecycle/activate", userId, factorId)
-	if &qp != nil {
+	if qp != nil {
 		url = url + qp.String()
 	}
 	req, err := m.client.requestExecutor.NewRequest("POST", url, body)
@@ -80,7 +80,7 @@ func (m *FactorResource) ActivateFactor(userId string, factorId string, body Ver
 }
 func (m *FactorResource) VerifyFactor(userId string, factorId string, body VerifyFactorRequest, qp *query.Params)  (*VerifyFactorResponse, *Response, error) {
 	url := fmt.Sprintf("/api/v1/users/%v/factors/%v/verify", userId, factorId)
-	if &qp != nil {
+	if qp != nil {
 		url = url + qp.String()
 	}
 	req, err := m.client.requestExecutor.NewRequest("POST", url, body)
