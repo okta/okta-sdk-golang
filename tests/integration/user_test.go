@@ -32,14 +32,21 @@ import (
 func Test_can_get_a_user(t *testing.T) {
 	client := tests.NewClient()
 	// Create user with credentials → POST /api/v1/users?activate=false
-	p := new(okta.PasswordCredential).WithValue("Abcd1234")
-	uc := new(okta.UserCredentials).WithPassword(p)
+	p := &okta.PasswordCredential{
+		Value: "Abcd1234",
+	}
+	uc := &okta.UserCredentials{
+		Password: p,
+	}
 	profile := okta.UserProfile{}
 	profile["firstName"] = "John"
 	profile["lastName"] = "Get-User"
 	profile["email"] = "john-get-user@example.com"
 	profile["login"] = "john-get-user@example.com"
-	u := new(okta.User).WithCredentials(uc).WithProfile(&profile)
+	u := &okta.User{
+		Credentials: uc,
+		Profile:     &profile,
+	}
 	qp := query.NewQueryParams(query.WithActivate(false))
 
 	user, _, err := client.User.CreateUser(*u, qp)
@@ -71,14 +78,21 @@ func Test_can_get_a_user(t *testing.T) {
 func Test_can_activate_a_user(t *testing.T) {
 	client := tests.NewClient()
 	//Create user with credentials → POST /api/v1/users?activate=false
-	p := new(okta.PasswordCredential).WithValue("Abcd1234")
-	uc := new(okta.UserCredentials).WithPassword(p)
+	p := &okta.PasswordCredential{
+		Value: "Abcd1234",
+	}
+	uc := &okta.UserCredentials{
+		Password: p,
+	}
 	profile := okta.UserProfile{}
 	profile["firstName"] = "John"
 	profile["lastName"] = "Activate"
 	profile["email"] = "john-activate@example.com"
 	profile["login"] = "john-activate@example.com"
-	u := new(okta.User).WithCredentials(uc).WithProfile(&profile)
+	u := &okta.User{
+		Credentials: uc,
+		Profile:     &profile,
+	}
 	qp := query.NewQueryParams(query.WithActivate(false))
 
 	user, _, err := client.User.CreateUser(*u, qp)
@@ -114,14 +128,21 @@ func Test_can_activate_a_user(t *testing.T) {
 func Test_can_update_user_profile(t *testing.T) {
 	client := tests.NewClient()
 	// Create user with credentials → POST /api/v1/users?activate=false
-	p := new(okta.PasswordCredential).WithValue("Abcd1234")
-	uc := new(okta.UserCredentials).WithPassword(p)
+	p := &okta.PasswordCredential{
+		Value: "Abcd1234",
+	}
+	uc := &okta.UserCredentials{
+		Password: p,
+	}
 	profile := okta.UserProfile{}
 	profile["firstName"] = "John"
 	profile["lastName"] = "Profile-Update"
 	profile["email"] = "john-profile-update@example.com"
 	profile["login"] = "john-profile-update@example.com"
-	u := new(okta.User).WithCredentials(uc).WithProfile(&profile)
+	u := &okta.User{
+		Credentials: uc,
+		Profile:     &profile,
+	}
 	qp := query.NewQueryParams(query.WithActivate(false))
 
 	user, _, err := client.User.CreateUser(*u, qp)
@@ -130,7 +151,9 @@ func Test_can_update_user_profile(t *testing.T) {
 	// Update the user's profile by adding a nickname → PUT /api/v1/users/{{userId}}
 	newProfile := *user.Profile
 	newProfile["nickName"] = "Batman"
-	updatedUser := new(okta.User).WithProfile(&newProfile)
+	updatedUser := &okta.User{
+		Profile: &newProfile,
+	}
 	_, _, err = client.User.UpdateUser(user.Id, *updatedUser, nil)
 	require.NoError(t, err, "Could not update the user")
 
@@ -151,14 +174,21 @@ func Test_can_update_user_profile(t *testing.T) {
 func Test_can_suspend_a_user(t *testing.T) {
 	client := tests.NewClient()
 	//Create user with credentials → POST /api/v1/users?activate=true
-	p := new(okta.PasswordCredential).WithValue("Abcd1234")
-	uc := new(okta.UserCredentials).WithPassword(p)
+	p := &okta.PasswordCredential{
+		Value: "Abcd1234",
+	}
+	uc := &okta.UserCredentials{
+		Password: p,
+	}
 	profile := okta.UserProfile{}
 	profile["firstName"] = "John"
 	profile["lastName"] = "Suspend"
 	profile["email"] = "john-suspend@example.com"
 	profile["login"] = "john-suspend@example.com"
-	u := new(okta.User).WithCredentials(uc).WithProfile(&profile)
+	u := &okta.User{
+		Credentials: uc,
+		Profile:     &profile,
+	}
 	qp := query.NewQueryParams(query.WithActivate(true))
 
 	user, _, err := client.User.CreateUser(*u, qp)
@@ -207,14 +237,21 @@ func Test_can_suspend_a_user(t *testing.T) {
 func Test_can_change_users_password(t *testing.T) {
 	client := tests.NewClient()
 	// Create user with credentials → POST /api/v1/users?activate=true
-	p := new(okta.PasswordCredential).WithValue("Abcd1234")
-	uc := new(okta.UserCredentials).WithPassword(p)
+	p := &okta.PasswordCredential{
+		Value: "Abcd1234",
+	}
+	uc := &okta.UserCredentials{
+		Password: p,
+	}
 	profile := okta.UserProfile{}
 	profile["firstName"] = "John"
 	profile["lastName"] = "Change-Password"
 	profile["email"] = "john-change-password@example.com"
 	profile["login"] = "john-change-password@example.com"
-	u := new(okta.User).WithCredentials(uc).WithProfile(&profile)
+	u := &okta.User{
+		Credentials: uc,
+		Profile:     &profile,
+	}
 	qp := query.NewQueryParams(query.WithActivate(true))
 
 	user, _, err := client.User.CreateUser(*u, qp)
@@ -224,9 +261,16 @@ func Test_can_change_users_password(t *testing.T) {
 	time.Sleep(1 * time.Second)
 
 	// Change the password to '1234Abcd' → POST /api/v1/users/{{userId}}/credentials/change_password
-	op := new(okta.PasswordCredential).WithValue("Abcd1234")
-	np := new(okta.PasswordCredential).WithValue("1234Abcd")
-	npr := new(okta.ChangePasswordRequest).WithOldPassword(op).WithNewPassword(np)
+	op := &okta.PasswordCredential{
+		Value: "Abcd1234",
+	}
+	np := &okta.PasswordCredential{
+		Value: "1234Abcd",
+	}
+	npr := &okta.ChangePasswordRequest{
+		OldPassword: op,
+		NewPassword: np,
+	}
 	_, _, err = client.User.ChangePassword(user.Id, *npr, nil)
 	require.NoError(t, err, "Could not change password")
 
@@ -252,14 +296,21 @@ func Test_can_change_users_password(t *testing.T) {
 func Test_can_get_reset_password_link_for_user(t *testing.T) {
 	client := tests.NewClient()
 	// Create user with credentials → POST /api/v1/users?activate=true
-	p := new(okta.PasswordCredential).WithValue("Abcd1234")
-	uc := new(okta.UserCredentials).WithPassword(p)
+	p := &okta.PasswordCredential{
+		Value: "Abcd1234",
+	}
+	uc := &okta.UserCredentials{
+		Password: p,
+	}
 	profile := okta.UserProfile{}
 	profile["firstName"] = "John"
 	profile["lastName"] = "Get-Reset-Password-Url"
 	profile["email"] = "john-get-reset-password-url@example.com"
 	profile["login"] = "john-get-reset-password-url@example.com"
-	u := new(okta.User).WithCredentials(uc).WithProfile(&profile)
+	u := &okta.User{
+		Credentials: uc,
+		Profile:     &profile,
+	}
 	qp := query.NewQueryParams(query.WithActivate(true))
 
 	user, _, err := client.User.CreateUser(*u, qp)
@@ -289,14 +340,21 @@ func Test_can_get_reset_password_link_for_user(t *testing.T) {
 func Test_can_expire_a_users_password_and_get_a_temp_one(t *testing.T) {
 	client := tests.NewClient()
 	// Create a user with credentials, activated by default → POST /api/v1/users?activate=true
-	p := new(okta.PasswordCredential).WithValue("Abcd1234")
-	uc := new(okta.UserCredentials).WithPassword(p)
+	p := &okta.PasswordCredential{
+		Value: "Abcd1234",
+	}
+	uc := &okta.UserCredentials{
+		Password: p,
+	}
 	profile := okta.UserProfile{}
 	profile["firstName"] = "John"
 	profile["lastName"] = "Expire-Password"
 	profile["email"] = "john-expire-password@example.com"
 	profile["login"] = "john-expire-password@example.com"
-	u := new(okta.User).WithCredentials(uc).WithProfile(&profile)
+	u := &okta.User{
+		Credentials: uc,
+		Profile:     &profile,
+	}
 	qp := query.NewQueryParams(query.WithActivate(true))
 
 	user, _, err := client.User.CreateUser(*u, qp)
@@ -326,37 +384,53 @@ func Test_can_expire_a_users_password_and_get_a_temp_one(t *testing.T) {
 func Test_can_change_user_recovery_question(t *testing.T) {
 	client := tests.NewClient()
 	// Create a user with credentials, activated by default → POST /api/v1/users?activate=true
-	p := new(okta.PasswordCredential).WithValue("Abcd1234")
-	uc := new(okta.UserCredentials).WithPassword(p)
+	p := &okta.PasswordCredential{
+		Value: "Abcd1234",
+	}
+	uc := &okta.UserCredentials{
+		Password: p,
+	}
 	profile := okta.UserProfile{}
 	profile["firstName"] = "John"
 	profile["lastName"] = "Change-Recovery-Question"
 	profile["email"] = "john-change-recovery-question@example.com"
 	profile["login"] = "john-change-recovery-question@example.com"
-	u := new(okta.User).WithCredentials(uc).WithProfile(&profile)
+	u := &okta.User{
+		Credentials: uc,
+		Profile:     &profile,
+	}
 	qp := query.NewQueryParams(query.WithActivate(true))
 
 	user, _, err := client.User.CreateUser(*u, qp)
 	require.NoError(t, err, "Creating an user should not error")
 
 	// Update the user's recovery question → POST /api/v1/users/{{userId}}/credentials/change_recovery_question
-	nucp := new(okta.PasswordCredential).WithValue("Abcd1234")
-	nucrq := new(okta.RecoveryQuestionCredential).
-		WithQuestion("How many roads must a man walk down?").
-		WithAnswer("forty two")
-	nuc := new(okta.UserCredentials).
-		WithPassword(nucp).
-		WithRecoveryQuestion(nucrq)
+	nucp := &okta.PasswordCredential{
+		Value: "Abcd1234",
+	}
+	nucrq := &okta.RecoveryQuestionCredential{
+		Question: "How many roads must a man walk down?",
+		Answer:   "forty two",
+	}
+	nuc := &okta.UserCredentials{
+		Password:         nucp,
+		RecoveryQuestion: nucrq,
+	}
 	tmpuc, _, err := client.User.ChangeRecoveryQuestion(user.Id, *nuc, nil)
 	require.NoError(t, err, "Could not change recovery question")
 	assert.IsType(t, &okta.UserCredentials{}, tmpuc)
 
 	// Update the user's password using updated recovery question credentials passing the body below → POST /api/v1/users/{{userId}}/credentials/forgot_password
-	np := new(okta.PasswordCredential).WithValue("1234Abcd")
-	rq := new(okta.RecoveryQuestionCredential).WithAnswer("forty two")
-	ucfp := new(okta.UserCredentials).
-		WithPassword(np).
-		WithRecoveryQuestion(rq)
+	np := &okta.PasswordCredential{
+		Value: "1234Abcd",
+	}
+	rq := &okta.RecoveryQuestionCredential{
+		Answer: "forty two",
+	}
+	ucfp := &okta.UserCredentials{
+		Password:         np,
+		RecoveryQuestion: rq,
+	}
 	_, _, err = client.User.ForgotPassword(user.Id, *ucfp, nil)
 	require.NoError(t, err, "Could not change password with recovery question")
 
@@ -382,21 +456,30 @@ func Test_can_change_user_recovery_question(t *testing.T) {
 func Test_can_assign_a_user_to_a_role(t *testing.T) {
 	client := tests.NewClient()
 	// Create a user with credentials, activated by default → POST /api/v1/users?activate=true
-	p := new(okta.PasswordCredential).WithValue("Abcd1234")
-	uc := new(okta.UserCredentials).WithPassword(p)
+	p := &okta.PasswordCredential{
+		Value: "Abcd1234",
+	}
+	uc := &okta.UserCredentials{
+		Password: p,
+	}
 	profile := okta.UserProfile{}
 	profile["firstName"] = "John"
 	profile["lastName"] = "Role"
 	profile["email"] = "john-role@example.com"
 	profile["login"] = "john-role@example.com"
-	u := new(okta.User).WithCredentials(uc).WithProfile(&profile)
+	u := &okta.User{
+		Credentials: uc,
+		Profile:     &profile,
+	}
 	qp := query.NewQueryParams(query.WithActivate(true))
 
 	user, _, err := client.User.CreateUser(*u, qp)
 	require.NoError(t, err, "Creating an user should not error")
 
 	// Add 'USER_ADMIN' role to the user → POST /api/v1/users/{{userId}}/roles (Body → { type: 'USER_ADMIN'  })
-	r := new(okta.Role).WithType("USER_ADMIN")
+	r := &okta.Role{
+		Type: "USER_ADMIN",
+	}
 	_, _, err = client.User.AddRoleToUser(user.Id, *r, nil)
 	require.NoError(t, err, "Should not have had an error when adding role to user")
 
@@ -445,29 +528,40 @@ func Test_can_assign_a_user_to_a_role(t *testing.T) {
 func Test_user_group_target_role(t *testing.T) {
 	client := tests.NewClient()
 	// Create a user with credentials, activated by default → POST /api/v1/users?activate=true
-	p := new(okta.PasswordCredential).WithValue("Abcd1234")
-	uc := new(okta.UserCredentials).WithPassword(p)
+	p := &okta.PasswordCredential{
+		Value: "Abcd1234",
+	}
+	uc := &okta.UserCredentials{
+		Password: p,
+	}
 	profile := okta.UserProfile{}
 	profile["firstName"] = "John"
 	profile["lastName"] = "Group-Target"
 	profile["email"] = "john-group-target@example.com"
 	profile["login"] = "john-group-target@example.com"
-	u := new(okta.User).WithCredentials(uc).WithProfile(&profile)
+	u := &okta.User{
+		Credentials: uc,
+		Profile:     &profile,
+	}
 	qp := query.NewQueryParams(query.WithActivate(true))
 
 	user, _, err := client.User.CreateUser(*u, qp)
 	require.NoError(t, err, "Creating an user should not error")
 
 	// Create a new group → POST /api/v1/groups
-	gp := new(okta.GroupProfile).
-		WithName("Group-Target Test Group")
-	g := new(okta.Group).
-		WithProfile(gp)
+	gp := &okta.GroupProfile{
+		Name: "Group-Target Test Group",
+	}
+	g := &okta.Group{
+		Profile: gp,
+	}
 	group, _, err := client.CreateGroup(*g, nil)
 	require.NoError(t, err, "Creating an group should not error")
 
 	// Add 'USER_ADMIN' role to the user → POST /api/v1/users/{{userId}}/roles (Body → { type: 'USER_ADMIN'  })
-	r := new(okta.Role).WithType("USER_ADMIN")
+	r := &okta.Role{
+		Type: "USER_ADMIN",
+	}
 	r, _, err = client.User.AddRoleToUser(user.Id, *r, nil)
 	require.NoError(t, err, "Should not have had an error when adding role to user")
 
@@ -486,10 +580,12 @@ func Test_user_group_target_role(t *testing.T) {
 	assert.True(t, found, "Could not verify group target")
 
 	//Remove Group Target from Admin User Role and verify removed → DELETE /api/v1/users/{{userId}}/roles/{{roleId}}/targets/groups/{{groupId}}
-	gp = new(okta.GroupProfile).
-		WithName("TMP - Group-Target Test Group")
-	g = new(okta.Group).
-		WithProfile(gp)
+	gp = &okta.GroupProfile{
+		Name: "TMP - Group-Target Test Group",
+	}
+	g = &okta.Group{
+		Profile: gp,
+	}
 	newgroup, _, err := client.CreateGroup(*g, nil)
 	_, err = client.User.AddGroupTargetToRole(user.Id, r.Id, newgroup.Id, nil)
 	_, err = client.User.RemoveGroupTargetFromRole(user.Id, r.Id, group.Id, nil)

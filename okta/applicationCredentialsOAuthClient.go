@@ -28,24 +28,4 @@ type ApplicationCredentialsOAuthClient struct {
 	TokenEndpointAuthMethod string `json:"token_endpoint_auth_method,omitempty"`
 }
 
-func (m *ApplicationCredentialsOAuthClient) WithAutoKeyRotation(v bool) *ApplicationCredentialsOAuthClient {
-	m.AutoKeyRotation = v
-	return m
-}
-
-func (m *ApplicationCredentialsOAuthClient) WithClientId(v string) *ApplicationCredentialsOAuthClient {
-	m.ClientId = v
-	return m
-}
-
-func (m *ApplicationCredentialsOAuthClient) WithClientSecret(v string) *ApplicationCredentialsOAuthClient {
-	m.ClientSecret = v
-	return m
-}
-
-func (m *ApplicationCredentialsOAuthClient) WithTokenEndpointAuthMethod(v string) *ApplicationCredentialsOAuthClient {
-	m.TokenEndpointAuthMethod = v
-	return m
-}
-
 

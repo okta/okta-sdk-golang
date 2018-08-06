@@ -26,14 +26,4 @@ type AppUserCredentials struct {
 	UserName string `json:"userName,omitempty"`
 }
 
-func (m *AppUserCredentials) WithPassword(v *AppUserPasswordCredential) *AppUserCredentials {
-	m.Password = v
-	return m
-}
-
-func (m *AppUserCredentials) WithUserName(v string) *AppUserCredentials {
-	m.UserName = v
-	return m
-}
-
 

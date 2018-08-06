@@ -25,9 +25,4 @@ type BrowserPluginApplication struct {
 	Credentials *SchemeApplicationCredentials `json:"credentials,omitempty"`
 }
 
-func (m *BrowserPluginApplication) WithCredentials(v *SchemeApplicationCredentials) *BrowserPluginApplication {
-	m.Credentials = v
-	return m
-}
-
 

@@ -35,16 +35,6 @@ type ApplicationGroupAssignment struct {
 	Profile []string `json:"profile,omitempty"`
 }
 
-func (m *ApplicationGroupAssignment) WithPriority(v int64) *ApplicationGroupAssignment {
-	m.Priority = v
-	return m
-}
-
-func (m *ApplicationGroupAssignment) WithProfile(v []string) *ApplicationGroupAssignment {
-	m.Profile = v
-	return m
-}
-
 func (m *ApplicationGroupAssignmentResource) DeleteApplicationGroupAssignment(appId string, groupId string, qp *query.Params)  (*Response, error) {
 	url := fmt.Sprintf("/api/v1/apps/%v/groups/%v", appId, groupId)
 	if &qp != nil {

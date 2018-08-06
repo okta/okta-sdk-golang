@@ -29,14 +29,4 @@ type ApplicationCredentialsSigning struct {
 	RotationMode string `json:"rotationMode,omitempty"`
 }
 
-func (m *ApplicationCredentialsSigning) WithKid(v string) *ApplicationCredentialsSigning {
-	m.Kid = v
-	return m
-}
-
-func (m *ApplicationCredentialsSigning) WithRotationMode(v string) *ApplicationCredentialsSigning {
-	m.RotationMode = v
-	return m
-}
-
 

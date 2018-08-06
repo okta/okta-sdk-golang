@@ -25,9 +25,4 @@ type HardwareFactorProfile struct {
 	CredentialId string `json:"credentialId,omitempty"`
 }
 
-func (m *HardwareFactorProfile) WithCredentialId(v string) *HardwareFactorProfile {
-	m.CredentialId = v
-	return m
-}
-
 

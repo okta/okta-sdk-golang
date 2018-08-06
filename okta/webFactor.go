@@ -25,9 +25,4 @@ type WebFactor struct {
 	Profile *WebFactorProfile `json:"profile,omitempty"`
 }
 
-func (m *WebFactor) WithProfile(v *WebFactorProfile) *WebFactor {
-	m.Profile = v
-	return m
-}
-
 

@@ -25,9 +25,4 @@ type OAuthApplicationCredentials struct {
 	OauthClient *ApplicationCredentialsOAuthClient `json:"oauthClient,omitempty"`
 }
 
-func (m *OAuthApplicationCredentials) WithOauthClient(v *ApplicationCredentialsOAuthClient) *OAuthApplicationCredentials {
-	m.OauthClient = v
-	return m
-}
-
 

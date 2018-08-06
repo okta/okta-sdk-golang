@@ -25,9 +25,4 @@ type SwaApplicationSettings struct {
 	App *SwaApplicationSettingsApplication `json:"app,omitempty"`
 }
 
-func (m *SwaApplicationSettings) WithApp(v *SwaApplicationSettingsApplication) *SwaApplicationSettings {
-	m.App = v
-	return m
-}
-
 

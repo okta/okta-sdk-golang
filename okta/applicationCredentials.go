@@ -26,14 +26,4 @@ type ApplicationCredentials struct {
 	UserNameTemplate *ApplicationCredentialsUsernameTemplate `json:"userNameTemplate,omitempty"`
 }
 
-func (m *ApplicationCredentials) WithSigning(v *ApplicationCredentialsSigning) *ApplicationCredentials {
-	m.Signing = v
-	return m
-}
-
-func (m *ApplicationCredentials) WithUserNameTemplate(v *ApplicationCredentialsUsernameTemplate) *ApplicationCredentials {
-	m.UserNameTemplate = v
-	return m
-}
-
 

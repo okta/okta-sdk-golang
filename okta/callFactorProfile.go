@@ -26,14 +26,4 @@ type CallFactorProfile struct {
 	PhoneNumber string `json:"phoneNumber,omitempty"`
 }
 
-func (m *CallFactorProfile) WithPhoneExtension(v string) *CallFactorProfile {
-	m.PhoneExtension = v
-	return m
-}
-
-func (m *CallFactorProfile) WithPhoneNumber(v string) *CallFactorProfile {
-	m.PhoneNumber = v
-	return m
-}
-
 

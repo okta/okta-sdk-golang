@@ -25,9 +25,4 @@ type ApplicationSettingsNotifications struct {
 	Vpn *ApplicationSettingsNotificationsVpn `json:"vpn,omitempty"`
 }
 
-func (m *ApplicationSettingsNotifications) WithVpn(v *ApplicationSettingsNotificationsVpn) *ApplicationSettingsNotifications {
-	m.Vpn = v
-	return m
-}
-
 

@@ -27,19 +27,4 @@ type SecurityQuestion struct {
 	QuestionText string `json:"questionText,omitempty"`
 }
 
-func (m *SecurityQuestion) WithAnswer(v string) *SecurityQuestion {
-	m.Answer = v
-	return m
-}
-
-func (m *SecurityQuestion) WithQuestion(v string) *SecurityQuestion {
-	m.Question = v
-	return m
-}
-
-func (m *SecurityQuestion) WithQuestionText(v string) *SecurityQuestion {
-	m.QuestionText = v
-	return m
-}
-
 

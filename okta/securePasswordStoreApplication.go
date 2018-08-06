@@ -27,19 +27,4 @@ type SecurePasswordStoreApplication struct {
 	Settings *SecurePasswordStoreApplicationSettings `json:"settings,omitempty"`
 }
 
-func (m *SecurePasswordStoreApplication) WithCredentials(v *SchemeApplicationCredentials) *SecurePasswordStoreApplication {
-	m.Credentials = v
-	return m
-}
-
-func (m *SecurePasswordStoreApplication) WithName(v string) *SecurePasswordStoreApplication {
-	m.Name = v
-	return m
-}
-
-func (m *SecurePasswordStoreApplication) WithSettings(v *SecurePasswordStoreApplicationSettings) *SecurePasswordStoreApplication {
-	m.Settings = v
-	return m
-}
-
 

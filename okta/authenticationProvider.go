@@ -26,14 +26,4 @@ type AuthenticationProvider struct {
 	Type string `json:"type,omitempty"`
 }
 
-func (m *AuthenticationProvider) WithName(v string) *AuthenticationProvider {
-	m.Name = v
-	return m
-}
-
-func (m *AuthenticationProvider) WithType(v string) *AuthenticationProvider {
-	m.Type = v
-	return m
-}
-
 

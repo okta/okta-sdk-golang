@@ -26,14 +26,4 @@ type AutoLoginApplication struct {
 	Settings *AutoLoginApplicationSettings `json:"settings,omitempty"`
 }
 
-func (m *AutoLoginApplication) WithCredentials(v *SchemeApplicationCredentials) *AutoLoginApplication {
-	m.Credentials = v
-	return m
-}
-
-func (m *AutoLoginApplication) WithSettings(v *AutoLoginApplicationSettings) *AutoLoginApplication {
-	m.Settings = v
-	return m
-}
-
 

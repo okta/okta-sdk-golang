@@ -25,9 +25,4 @@ type WsFederationApplicationSettings struct {
 	App *WsFederationApplicationSettingsApplication `json:"app,omitempty"`
 }
 
-func (m *WsFederationApplicationSettings) WithApp(v *WsFederationApplicationSettingsApplication) *WsFederationApplicationSettings {
-	m.App = v
-	return m
-}
-
 

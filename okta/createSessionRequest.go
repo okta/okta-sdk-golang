@@ -25,9 +25,4 @@ type CreateSessionRequest struct {
 	SessionToken string `json:"sessionToken,omitempty"`
 }
 
-func (m *CreateSessionRequest) WithSessionToken(v string) *CreateSessionRequest {
-	m.SessionToken = v
-	return m
-}
-
 

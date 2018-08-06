@@ -29,29 +29,4 @@ type SwaApplicationSettingsApplication struct {
 	UsernameField string `json:"usernameField,omitempty"`
 }
 
-func (m *SwaApplicationSettingsApplication) WithButtonField(v string) *SwaApplicationSettingsApplication {
-	m.ButtonField = v
-	return m
-}
-
-func (m *SwaApplicationSettingsApplication) WithLoginUrlRegex(v string) *SwaApplicationSettingsApplication {
-	m.LoginUrlRegex = v
-	return m
-}
-
-func (m *SwaApplicationSettingsApplication) WithPasswordField(v string) *SwaApplicationSettingsApplication {
-	m.PasswordField = v
-	return m
-}
-
-func (m *SwaApplicationSettingsApplication) WithUrl(v string) *SwaApplicationSettingsApplication {
-	m.Url = v
-	return m
-}
-
-func (m *SwaApplicationSettingsApplication) WithUsernameField(v string) *SwaApplicationSettingsApplication {
-	m.UsernameField = v
-	return m
-}
-
 

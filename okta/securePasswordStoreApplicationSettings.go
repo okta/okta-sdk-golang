@@ -25,9 +25,4 @@ type SecurePasswordStoreApplicationSettings struct {
 	App *SecurePasswordStoreApplicationSettingsApplication `json:"app,omitempty"`
 }
 
-func (m *SecurePasswordStoreApplicationSettings) WithApp(v *SecurePasswordStoreApplicationSettingsApplication) *SecurePasswordStoreApplicationSettings {
-	m.App = v
-	return m
-}
-
 

@@ -26,14 +26,4 @@ type BookmarkApplicationSettingsApplication struct {
 	Url string `json:"url,omitempty"`
 }
 
-func (m *BookmarkApplicationSettingsApplication) WithRequestIntegration(v bool) *BookmarkApplicationSettingsApplication {
-	m.RequestIntegration = v
-	return m
-}
-
-func (m *BookmarkApplicationSettingsApplication) WithUrl(v string) *BookmarkApplicationSettingsApplication {
-	m.Url = v
-	return m
-}
-
 

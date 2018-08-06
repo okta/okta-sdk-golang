@@ -25,9 +25,4 @@ type CallFactor struct {
 	Profile *CallFactorProfile `json:"profile,omitempty"`
 }
 
-func (m *CallFactor) WithProfile(v *CallFactorProfile) *CallFactor {
-	m.Profile = v
-	return m
-}
-
 
