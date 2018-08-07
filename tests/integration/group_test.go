@@ -19,6 +19,7 @@ package integration
 import (
 	"net/http"
 	"testing"
+	"time"
 
 	"github.com/okta/okta-sdk-golang/okta/query"
 
@@ -208,125 +209,148 @@ func Test_group_user_operations(t *testing.T) {
 	require.NoError(t, err, "Should not error when deleting a group")
 }
 
-//func Test_group_rule_operations(t *testing.T) {
-//	client := tests.NewClient()
-//	// Create a user with credentials, activated by default → POST /api/v1/users?activate=true
-//	p := new(okta.PasswordCredential).WithValue("Abcd1234")
-//	uc := new(okta.UserCredentials).WithPassword(p)
-//	profile := okta.UserProfile{}
-//	profile["firstName"] = "John"
-//	profile["lastName"] = "With-Group-Rule"
-//	profile["email"] = "john-with-group-rule@example.com"
-//	profile["login"] = "john-with-group-rule@example.com"
-//	u := new(okta.User).WithCredentials(uc).WithProfile(&profile)
-//	qp := query.NewQueryParams(query.WithActivate(true))
-//
-//	user, _, err := client.CreateUser(*u, qp)
-//	require.NoError(t, err, "Creating an user should not error")
-//	assert.IsType(t, &okta.User{}, user)
-//
-//	// Create a new group → POST /api/v1/groups
-//	gp := new(okta.GroupProfile).
-//		WithName("Group-Member-Rule API Test Group")
-//	g := new(okta.Group).
-//		WithProfile(gp)
-//	group, _, err := client.CreateGroup(*g, nil)
-//	require.NoError(t, err, "Should not error when creating a group")
-//	assert.IsType(t, &okta.Group{}, group)
-//
-//	// Create a group rule and verify rule executes → POST /api/v1/groups/rules
-//	// The rule below adds the user created in step 1 to the group created in step 2 upon rule execution/activation
-//	grce := new(okta.GroupRuleExpression).
-//		WithType("urn:okta:expression:1.0").
-//		WithValue("user.lastName==\"${createdUser.profile.lastName}\"")
-//	grcp := new(okta.GroupRulePeopleCondition).
-//		WithUsers(new(okta.GroupRuleUserCondition)).
-//		WithGroups(new(okta.GroupRuleGroupCondition))
-//	grc := new(okta.GroupRuleConditions).
-//		WithExpression(grce).
-//		WithPeople(grcp)
-//
-//	grga := new(okta.GroupRuleGroupAssignment).
-//		WithGroupIds([]string{group.Id})
-//	gra := new(okta.GroupRuleAction).
-//		WithAssignUserToGroups(grga)
-//	gr := new(okta.GroupRule).
-//		WithActions(gra).
-//		WithConditions(grc).
-//		WithType("group_rule").
-//		WithName("Test group rule")
-//	groupRule, _, err := client.CreateRule(*gr, nil)
-//	require.NoError(t, err, "Should not error when creating a group Rule")
-//	assert.IsType(t, &okta.GroupRule{}, groupRule)
-//
-//	// Activate the above rule and verify that user is added to the group → POST /api/v1/groups/rules/{{ruleId}}/lifecycle/activate
-//	_, err = client.ActivateRule(groupRule.Id, nil)
-//	require.NoError(t, err, "Should not error when activating rule")
-//
-//	time.Sleep(2 * time.Second)
-//	users, _, err := client.ListGroupUsers(group.Id, nil)
-//	found := false
-//	for _, tmpuser := range users {
-//		if tmpuser.Id == user.Id {
-//			found = true
-//		}
-//	}
-//	assert.True(t, found, "Group rule execution did not happen")
-//
-//	// List the group rules and validate the above rule is present → POST /api/v1/groups/rules
-//	groupRules, _, err := client.ListRules(nil)
-//	require.NoError(t, err, "Error should not happen when listing rules")
-//	found = false
-//	for _, tmpRules := range groupRules {
-//		if tmpRules.Id == groupRule.Id {
-//			found = true
-//		}
-//	}
-//	assert.True(t, found, "Group rule execution did not happen")
-//
-//	// Deactivate the rule  → POST /api/v1/groups/rules/{{ruleId}}/lifecycle/deactivate
-//	_, err = client.DeactivateRule(groupRule.Id, nil)
-//	require.NoError(t, err, "Error should not happen when deactivating rule")
-//
-//	// Update the rule (Rule can only be updated when it's deactivated) → POST /api/v1/groups/rules/{{ruleId}}
-//	grce = new(okta.GroupRuleExpression).
-//		WithValue("user.lastName==\"incorrect\"")
-//	grc = new(okta.GroupRuleConditions).
-//		WithExpression(grce)
-//	gr = new(okta.GroupRule).
-//		WithName("Test group rule updated")
-//	newGroupRule, _, err := client.UpdateRule(groupRule.Id, *gr, nil)
-//	require.NoError(t, err, "Should not error when updating rule")
-//
-//	// Activate the updated rule and verify that the user is removed from the group →  POST /api/v1/groups/rules/{{ruleId}}/lifecycle/activate
-//	_, err = client.ActivateRule(newGroupRule.Id, nil)
-//	require.NoError(t, err, "Should not error when activating the group rule")
-//	time.Sleep(2 * time.Second)
-//	users, _, err = client.ListGroupUsers(group.Id, nil)
-//	found = false
-//	for _, tmpuser := range users {
-//		if tmpuser.Id == user.Id {
-//			found = true
-//		}
-//	}
-//	assert.False(t, found, "Group rule execution did not happen to remove user")
-//
-//	// Deactivate the user, group and group rule → POST /api/v1/users/{{userId}}/lifecycle/deactivate
-//	_, err = client.DeactivateRule(newGroupRule.Id, nil)
-//	require.NoError(t, err, "should not error when deactivating rule")
-//
-//	_, err = client.DeactivateUser(user.Id, nil)
-//	require.NoError(t, err, "should not error when deactivating user")
-//
-//	// Delete the user → DELETE /api/v1/users/{{userId}}
-//	_, err = client.DeactivateOrDeleteUser(user.Id, nil)
-//	require.NoError(t, err, "Should not error when deleting user")
-//
-//	// Delete the group → DELETE /api/v1/groups/{{groupId}}
-//	_, err = client.DeleteGroup(group.Id, nil)
-//	require.NoError(t, err, "Should not error when deleting Group")
-//
-//	// Delete the group rule → DELETE /api/v1/groups/rules/{{ruleId}}
-//	_, err = client.DeleteRule(groupRule.Id, nil)
-//	require.NoError(t, err, "Should not error when deleting Rule")
-//}
+func Test_group_rule_operations(t *testing.T) {
+	client := tests.NewClient()
+	// Create a user with credentials, activated by default → POST /api/v1/users?activate=true
+	p := &okta.PasswordCredential{
+		Value: "Abcd1234",
+	}
+	uc := &okta.UserCredentials{
+		Password: p,
+	}
+	profile := okta.UserProfile{}
+	profile["firstName"] = "John"
+	profile["lastName"] = "With-Group-Rule"
+	profile["email"] = "john-with-group-rule@example.com"
+	profile["login"] = "john-with-group-rule@example.com"
+	u := &okta.User{
+		Credentials: uc,
+		Profile:     &profile,
+	}
+	qp := query.NewQueryParams(query.WithActivate(true))
+
+	user, _, err := client.CreateUser(*u, qp)
+	require.NoError(t, err, "Creating an user should not error")
+	assert.IsType(t, &okta.User{}, user)
+
+	// Create a new group → POST /api/v1/groups
+	gp := &okta.GroupProfile{
+		Name: "Group-Member-Rule API Test Group",
+	}
+	g := &okta.Group{
+		Profile: gp,
+	}
+	group, _, err := client.CreateGroup(*g, nil)
+	require.NoError(t, err, "Should not error when creating a group")
+	assert.IsType(t, &okta.Group{}, group)
+
+	// Create a group rule and verify rule executes → POST /api/v1/groups/rules
+	// The rule below adds the user created in step 1 to the group created in step 2 upon rule execution/activation
+	lastName := profile["lastName"].(string)
+	grce := &okta.GroupRuleExpression{
+		Type:  "urn:okta:expression:1.0",
+		Value: "user.lastName==\"" + lastName + "\"",
+	}
+	grc := &okta.GroupRuleConditions{
+		Expression: grce,
+	}
+	grga := &okta.GroupRuleGroupAssignment{
+		GroupIds: []string{group.Id},
+	}
+	gra := &okta.GroupRuleAction{
+		AssignUserToGroups: grga,
+	}
+	gr := &okta.GroupRule{
+		Actions:    gra,
+		Conditions: grc,
+		Type:       "group_rule",
+		Name:       "Test group rule",
+	}
+	groupRule, _, err := client.CreateRule(*gr, nil)
+	require.NoError(t, err, "Should not error when creating a group Rule")
+	assert.IsType(t, &okta.GroupRule{}, groupRule)
+
+	// Activate the above rule and verify that user is added to the group → POST /api/v1/groups/rules/{{ruleId}}/lifecycle/activate
+	_, err = client.ActivateRule(groupRule.Id, nil)
+	require.NoError(t, err, "Should not error when activating rule")
+
+	time.Sleep(2 * time.Second)
+	users, _, err := client.ListGroupUsers(group.Id, nil)
+	found := false
+	for _, tmpuser := range users {
+		if tmpuser.Id == user.Id {
+			found = true
+		}
+	}
+	assert.True(t, found, "Group rule execution did not happen")
+
+	// List the group rules and validate the above rule is present → POST /api/v1/groups/rules
+	groupRules, _, err := client.ListRules(nil)
+	require.NoError(t, err, "Error should not happen when listing rules")
+	found = false
+	for _, tmpRules := range groupRules {
+		if tmpRules.Id == groupRule.Id {
+			found = true
+		}
+	}
+	assert.True(t, found, "Group rule execution did not happen")
+
+	// Deactivate the rule  → POST /api/v1/groups/rules/{{ruleId}}/lifecycle/deactivate
+	_, err = client.DeactivateRule(groupRule.Id, nil)
+	require.NoError(t, err, "Error should not happen when deactivating rule")
+
+	// Update the rule (Rule can only be updated when it's deactivated) → POST /api/v1/groups/rules/{{ruleId}}
+	grce = &okta.GroupRuleExpression{
+		Type:  "urn:okta:expression:1.0",
+		Value: "user.lastName==\"Incorrect\"",
+	}
+	grc = &okta.GroupRuleConditions{
+		Expression: grce,
+	}
+	grga = &okta.GroupRuleGroupAssignment{
+		GroupIds: []string{group.Id},
+	}
+	gra = &okta.GroupRuleAction{
+		AssignUserToGroups: grga,
+	}
+	gr = &okta.GroupRule{
+		Actions:    gra,
+		Conditions: grc,
+		Type:       "group_rule",
+		Name:       "Test group rule Updated",
+	}
+	newGroupRule, _, err := client.UpdateRule(groupRule.Id, *gr, nil)
+	require.NoError(t, err, "Should not error when updating rule")
+
+	// Activate the updated rule and verify that the user is removed from the group →  POST /api/v1/groups/rules/{{ruleId}}/lifecycle/activate
+	_, err = client.ActivateRule(newGroupRule.Id, nil)
+	require.NoError(t, err, "Should not error when activating the group rule")
+	time.Sleep(2 * time.Second)
+	users, _, err = client.ListGroupUsers(group.Id, nil)
+	found = false
+	for _, tmpuser := range users {
+		if tmpuser.Id == user.Id {
+			found = true
+		}
+	}
+	assert.False(t, found, "Group rule execution did not happen to remove user")
+
+	// Deactivate the user, group and group rule → POST /api/v1/users/{{userId}}/lifecycle/deactivate
+	_, err = client.DeactivateRule(newGroupRule.Id, nil)
+	require.NoError(t, err, "should not error when deactivating rule")
+
+	_, err = client.DeactivateUser(user.Id, nil)
+	require.NoError(t, err, "should not error when deactivating user")
+
+	// Delete the user → DELETE /api/v1/users/{{userId}}
+	_, err = client.DeactivateOrDeleteUser(user.Id, nil)
+	require.NoError(t, err, "Should not error when deleting user")
+
+	// Delete the group → DELETE /api/v1/groups/{{groupId}}
+	_, err = client.DeleteGroup(group.Id, nil)
+	require.NoError(t, err, "Should not error when deleting Group")
+
+	// Delete the group rule → DELETE /api/v1/groups/rules/{{ruleId}}
+	_, err = client.DeleteRule(groupRule.Id, nil)
+	require.NoError(t, err, "Should not error when deleting Rule")
+}
