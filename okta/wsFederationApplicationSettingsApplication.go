@@ -12,28 +12,25 @@
 * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 * See the License for the specific language governing permissions and
 * limitations under the License.
-*/
+ */
 
 // AUTO-GENERATED!  DO NOT EDIT FILE DIRECTLY
 
 package okta
 
-import (
-)
+import ()
 
 type WsFederationApplicationSettingsApplication struct {
-	AttributeStatements string `json:"attributeStatements,omitempty"`
-	AudienceRestriction string `json:"audienceRestriction,omitempty"`
+	AttributeStatements  string `json:"attributeStatements,omitempty"`
+	AudienceRestriction  string `json:"audienceRestriction,omitempty"`
 	AuthnContextClassRef string `json:"authnContextClassRef,omitempty"`
-	GroupFilter string `json:"groupFilter,omitempty"`
-	GroupName string `json:"groupName,omitempty"`
-	GroupValueFormat string `json:"groupValueFormat,omitempty"`
-	NameIDFormat string `json:"nameIDFormat,omitempty"`
-	Realm string `json:"realm,omitempty"`
-	SiteURL string `json:"siteURL,omitempty"`
-	UsernameAttribute string `json:"usernameAttribute,omitempty"`
-	WReplyOverride bool `json:"wReplyOverride,omitempty"`
-	WReplyURL string `json:"wReplyURL,omitempty"`
+	GroupFilter          string `json:"groupFilter,omitempty"`
+	GroupName            string `json:"groupName,omitempty"`
+	GroupValueFormat     string `json:"groupValueFormat,omitempty"`
+	NameIDFormat         string `json:"nameIDFormat,omitempty"`
+	Realm                string `json:"realm,omitempty"`
+	SiteURL              string `json:"siteURL,omitempty"`
+	UsernameAttribute    string `json:"usernameAttribute,omitempty"`
+	WReplyOverride       bool   `json:"wReplyOverride,omitempty"`
+	WReplyURL            string `json:"wReplyURL,omitempty"`
 }
-
-

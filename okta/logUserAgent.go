@@ -12,19 +12,16 @@
 * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 * See the License for the specific language governing permissions and
 * limitations under the License.
-*/
+ */
 
 // AUTO-GENERATED!  DO NOT EDIT FILE DIRECTLY
 
 package okta
 
-import (
-)
+import ()
 
 type LogUserAgent struct {
-	Browser string `json:"browser,omitempty"`
-	Os string `json:"os,omitempty"`
+	Browser      string `json:"browser,omitempty"`
+	Os           string `json:"os,omitempty"`
 	RawUserAgent string `json:"rawUserAgent,omitempty"`
 }
-
-

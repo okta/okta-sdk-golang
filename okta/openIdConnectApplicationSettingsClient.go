@@ -12,25 +12,22 @@
 * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 * See the License for the specific language governing permissions and
 * limitations under the License.
-*/
+ */
 
 // AUTO-GENERATED!  DO NOT EDIT FILE DIRECTLY
 
 package okta
 
-import (
-)
+import ()
 
 type OpenIdConnectApplicationSettingsClient struct {
-	ApplicationType string `json:"application_type,omitempty"`
-	ClientUri string `json:"client_uri,omitempty"`
-	ConsentMethod string `json:"consent_method,omitempty"`
-	GrantTypes []string `json:"grant_types,omitempty"`
-	LogoUri string `json:"logo_uri,omitempty"`
-	PolicyUri string `json:"policy_uri,omitempty"`
-	RedirectUris []string `json:"redirect_uris,omitempty"`
-	ResponseTypes []string `json:"response_types,omitempty"`
-	TosUri string `json:"tos_uri,omitempty"`
+	ApplicationType string   `json:"application_type,omitempty"`
+	ClientUri       string   `json:"client_uri,omitempty"`
+	ConsentMethod   string   `json:"consent_method,omitempty"`
+	GrantTypes      []string `json:"grant_types,omitempty"`
+	LogoUri         string   `json:"logo_uri,omitempty"`
+	PolicyUri       string   `json:"policy_uri,omitempty"`
+	RedirectUris    []string `json:"redirect_uris,omitempty"`
+	ResponseTypes   []string `json:"response_types,omitempty"`
+	TosUri          string   `json:"tos_uri,omitempty"`
 }
-
-

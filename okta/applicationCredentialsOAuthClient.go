@@ -12,20 +12,17 @@
 * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 * See the License for the specific language governing permissions and
 * limitations under the License.
-*/
+ */
 
 // AUTO-GENERATED!  DO NOT EDIT FILE DIRECTLY
 
 package okta
 
-import (
-)
+import ()
 
 type ApplicationCredentialsOAuthClient struct {
-	AutoKeyRotation bool `json:"autoKeyRotation,omitempty"`
-	ClientId string `json:"client_id,omitempty"`
-	ClientSecret string `json:"client_secret,omitempty"`
+	AutoKeyRotation         bool   `json:"autoKeyRotation,omitempty"`
+	ClientId                string `json:"client_id,omitempty"`
+	ClientSecret            string `json:"client_secret,omitempty"`
 	TokenEndpointAuthMethod string `json:"token_endpoint_auth_method,omitempty"`
 }
-
-

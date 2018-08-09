@@ -12,25 +12,22 @@
 * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 * See the License for the specific language governing permissions and
 * limitations under the License.
-*/
+ */
 
 // AUTO-GENERATED!  DO NOT EDIT FILE DIRECTLY
 
 package okta
 
-import (
-)
+import ()
 
 type SecurePasswordStoreApplicationSettingsApplication struct {
-	OptionalField1 string `json:"optionalField1,omitempty"`
+	OptionalField1      string `json:"optionalField1,omitempty"`
 	OptionalField1Value string `json:"optionalField1Value,omitempty"`
-	OptionalField2 string `json:"optionalField2,omitempty"`
+	OptionalField2      string `json:"optionalField2,omitempty"`
 	OptionalField2Value string `json:"optionalField2Value,omitempty"`
-	OptionalField3 string `json:"optionalField3,omitempty"`
+	OptionalField3      string `json:"optionalField3,omitempty"`
 	OptionalField3Value string `json:"optionalField3Value,omitempty"`
-	PasswordField string `json:"passwordField,omitempty"`
-	Url string `json:"url,omitempty"`
-	UsernameField string `json:"usernameField,omitempty"`
+	PasswordField       string `json:"passwordField,omitempty"`
+	Url                 string `json:"url,omitempty"`
+	UsernameField       string `json:"usernameField,omitempty"`
 }
-
-

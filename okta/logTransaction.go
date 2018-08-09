@@ -12,19 +12,16 @@
 * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 * See the License for the specific language governing permissions and
 * limitations under the License.
-*/
+ */
 
 // AUTO-GENERATED!  DO NOT EDIT FILE DIRECTLY
 
 package okta
 
-import (
-)
+import ()
 
 type LogTransaction struct {
 	Detail []string `json:"detail,omitempty"`
-	Id string `json:"id,omitempty"`
-	Type string `json:"type,omitempty"`
+	Id     string   `json:"id,omitempty"`
+	Type   string   `json:"type,omitempty"`
 }
-
-

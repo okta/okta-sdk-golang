@@ -12,21 +12,18 @@
 * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 * See the License for the specific language governing permissions and
 * limitations under the License.
-*/
+ */
 
 // AUTO-GENERATED!  DO NOT EDIT FILE DIRECTLY
 
 package okta
 
-import (
-)
+import ()
 
 type SwaApplicationSettingsApplication struct {
-	ButtonField string `json:"buttonField,omitempty"`
+	ButtonField   string `json:"buttonField,omitempty"`
 	LoginUrlRegex string `json:"loginUrlRegex,omitempty"`
 	PasswordField string `json:"passwordField,omitempty"`
-	Url string `json:"url,omitempty"`
+	Url           string `json:"url,omitempty"`
 	UsernameField string `json:"usernameField,omitempty"`
 }
-
-
