@@ -1,0 +1,98 @@
+/*
+* Copyright 2018 - Present Okta, Inc.
+*
+* Licensed under the Apache License, Version 2.0 (the "License");
+* you may not use this file except in compliance with the License.
+* You may obtain a copy of the License at
+*
+*      http://www.apache.org/licenses/LICENSE-2.0
+*
+* Unless required by applicable law or agreed to in writing, software
+* distributed under the License is distributed on an "AS IS" BASIS,
+* WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+* See the License for the specific language governing permissions and
+* limitations under the License.
+*/
+
+// AUTO-GENERATED!  DO NOT EDIT FILE DIRECTLY
+
+package okta
+
+import (
+	"github.com/okta/okta-sdk-golang/okta/query"
+	"fmt"
+)
+
+type FactorResource resource
+
+type Factor struct {
+	Embedded []string `json:"_embedded,omitempty"`
+	Links []string `json:"_links,omitempty"`
+	Device string `json:"device,omitempty"`
+	DeviceType string `json:"deviceType,omitempty"`
+	FactorType string `json:"factorType,omitempty"`
+	Id string `json:"id,omitempty"`
+	MfaStateTokenId string `json:"mfaStateTokenId,omitempty"`
+	Profile *FactorProfile `json:"profile,omitempty"`
+	Provider string `json:"provider,omitempty"`
+	RechallengeExistingFactor bool `json:"rechallengeExistingFactor,omitempty"`
+	SessionId string `json:"sessionId,omitempty"`
+	Status string `json:"status,omitempty"`
+	UserId string `json:"userId,omitempty"`
+	Verify *VerifyFactorRequest `json:"verify,omitempty"`
+}
+
+func (m *FactorResource) DeleteFactor(userId string, factorId string, qp *query.Params)  (*Response, error) {
+	url := fmt.Sprintf("/api/v1/users/%v/factors/%v", userId, factorId)
+	if qp != nil {
+		url = url + qp.String()
+	}
+	req, err := m.client.requestExecutor.NewRequest("DELETE", url, nil)
+	if err != nil {
+		return nil, err
+	}
+
+
+	resp, err := m.client.requestExecutor.Do(req, nil)
+	if err != nil {
+		return resp, err
+	}
+	return resp, nil
+}
+
+func (m *FactorResource) ActivateFactor(userId string, factorId string, body VerifyFactorRequest, qp *query.Params)  (*Factor, *Response, error) {
+	url := fmt.Sprintf("/api/v1/users/%v/factors/%v/lifecycle/activate", userId, factorId)
+	if qp != nil {
+		url = url + qp.String()
+	}
+	req, err := m.client.requestExecutor.NewRequest("POST", url, body)
+	if err != nil {
+		return nil, nil, err
+	}
+
+
+	var factor *Factor
+	resp, err := m.client.requestExecutor.Do(req, &factor)
+	if err != nil {
+		return nil, resp, err
+	}
+	return factor, resp, nil
+}
+func (m *FactorResource) VerifyFactor(userId string, factorId string, body VerifyFactorRequest, qp *query.Params)  (*VerifyFactorResponse, *Response, error) {
+	url := fmt.Sprintf("/api/v1/users/%v/factors/%v/verify", userId, factorId)
+	if qp != nil {
+		url = url + qp.String()
+	}
+	req, err := m.client.requestExecutor.NewRequest("POST", url, body)
+	if err != nil {
+		return nil, nil, err
+	}
+
+
+	var verifyFactorResponse *VerifyFactorResponse
+	resp, err := m.client.requestExecutor.Do(req, &verifyFactorResponse)
+	if err != nil {
+		return nil, resp, err
+	}
+	return verifyFactorResponse, resp, nil
+}

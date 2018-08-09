@@ -1,0 +1,27 @@
+{{> partials.copyHeader }}
+
+package okta
+
+{{#if (eq model.modelName "UserProfile")}}
+type UserProfile map[string]interface{}
+{{else}}
+{{> model.imports this}}
+
+{{#if (or (gt model.methods.length 0) (gt model.crud.length 0))}}
+type {{model.modelName}}Resource resource
+
+{{/if}}
+type {{model.modelName}} struct {
+	{{#each model.properties as |property|}}
+	{{structProp this.propertyName}} {{getType this "*"}} `json:"{{this.propertyName}},omitempty"`
+	{{/each}}
+}
+
+{{#each model.crud as |crud|}}
+{{> model.defaultMethod operation=this.operation modelName=../model.modelName}}
+{{/each}}
+
+{{#each model.methods as |method|}}
+{{> model.defaultMethod  operation=this.operation modelName=../model.modelName}}
+{{/each}}
+{{/if}}
