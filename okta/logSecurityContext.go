@@ -12,21 +12,18 @@
 * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 * See the License for the specific language governing permissions and
 * limitations under the License.
-*/
+ */
 
 // AUTO-GENERATED!  DO NOT EDIT FILE DIRECTLY
 
 package okta
 
-import (
-)
+import ()
 
 type LogSecurityContext struct {
-	AsNumber int64 `json:"asNumber,omitempty"`
-	AsOrg string `json:"asOrg,omitempty"`
-	Domain string `json:"domain,omitempty"`
-	IsProxy bool `json:"isProxy,omitempty"`
-	Isp string `json:"isp,omitempty"`
+	AsNumber int64  `json:"asNumber,omitempty"`
+	AsOrg    string `json:"asOrg,omitempty"`
+	Domain   string `json:"domain,omitempty"`
+	IsProxy  bool   `json:"isProxy,omitempty"`
+	Isp      string `json:"isp,omitempty"`
 }
-
-

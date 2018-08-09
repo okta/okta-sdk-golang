@@ -12,30 +12,30 @@
 * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 * See the License for the specific language governing permissions and
 * limitations under the License.
-*/
+ */
 
 // AUTO-GENERATED!  DO NOT EDIT FILE DIRECTLY
 
 package okta
 
 import (
-	"time"
-	"github.com/okta/okta-sdk-golang/okta/query"
 	"fmt"
+	"github.com/okta/okta-sdk-golang/okta/query"
+	"time"
 )
 
 type ApplicationGroupAssignmentResource resource
 
 type ApplicationGroupAssignment struct {
-	Embedded []string `json:"_embedded,omitempty"`
-	Links []string `json:"_links,omitempty"`
-	Id string `json:"id,omitempty"`
+	Embedded    []string   `json:"_embedded,omitempty"`
+	Links       []string   `json:"_links,omitempty"`
+	Id          string     `json:"id,omitempty"`
 	LastUpdated *time.Time `json:"lastUpdated,omitempty"`
-	Priority int64 `json:"priority,omitempty"`
-	Profile []string `json:"profile,omitempty"`
+	Priority    int64      `json:"priority,omitempty"`
+	Profile     []string   `json:"profile,omitempty"`
 }
 
-func (m *ApplicationGroupAssignmentResource) DeleteApplicationGroupAssignment(appId string, groupId string, qp *query.Params)  (*Response, error) {
+func (m *ApplicationGroupAssignmentResource) DeleteApplicationGroupAssignment(appId string, groupId string, qp *query.Params) (*Response, error) {
 	url := fmt.Sprintf("/api/v1/apps/%v/groups/%v", appId, groupId)
 	if qp != nil {
 		url = url + qp.String()
@@ -45,11 +45,9 @@ func (m *ApplicationGroupAssignmentResource) DeleteApplicationGroupAssignment(ap
 		return nil, err
 	}
 
-
 	resp, err := m.client.requestExecutor.Do(req, nil)
 	if err != nil {
 		return resp, err
 	}
 	return resp, nil
 }
-

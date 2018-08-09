@@ -12,21 +12,18 @@
 * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 * See the License for the specific language governing permissions and
 * limitations under the License.
-*/
+ */
 
 // AUTO-GENERATED!  DO NOT EDIT FILE DIRECTLY
 
 package okta
 
-import (
-)
+import ()
 
 type SchemeApplicationCredentials struct {
-	Password *PasswordCredential `json:"password,omitempty"`
-	RevealPassword bool `json:"revealPassword,omitempty"`
-	Scheme string `json:"scheme,omitempty"`
-	Signing *ApplicationCredentialsSigning `json:"signing,omitempty"`
-	UserName string `json:"userName,omitempty"`
+	Password       *PasswordCredential            `json:"password,omitempty"`
+	RevealPassword bool                           `json:"revealPassword,omitempty"`
+	Scheme         string                         `json:"scheme,omitempty"`
+	Signing        *ApplicationCredentialsSigning `json:"signing,omitempty"`
+	UserName       string                         `json:"userName,omitempty"`
 }
-
-

@@ -12,23 +12,20 @@
 * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 * See the License for the specific language governing permissions and
 * limitations under the License.
-*/
+ */
 
 // AUTO-GENERATED!  DO NOT EDIT FILE DIRECTLY
 
 package okta
 
-import (
-)
+import ()
 
 type LogAuthenticationContext struct {
-	AuthenticationProvider string `json:"authenticationProvider,omitempty"`
-	AuthenticationStep int64 `json:"authenticationStep,omitempty"`
-	CredentialProvider []string `json:"credentialProvider,omitempty"`
-	CredentialType []string `json:"credentialType,omitempty"`
-	ExternalSessionId string `json:"externalSessionId,omitempty"`
-	Interface string `json:"interface,omitempty"`
-	Issuer *LogIssuer `json:"issuer,omitempty"`
+	AuthenticationProvider string     `json:"authenticationProvider,omitempty"`
+	AuthenticationStep     int64      `json:"authenticationStep,omitempty"`
+	CredentialProvider     []string   `json:"credentialProvider,omitempty"`
+	CredentialType         []string   `json:"credentialType,omitempty"`
+	ExternalSessionId      string     `json:"externalSessionId,omitempty"`
+	Interface              string     `json:"interface,omitempty"`
+	Issuer                 *LogIssuer `json:"issuer,omitempty"`
 }
-
-

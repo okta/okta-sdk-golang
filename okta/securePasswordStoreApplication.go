@@ -12,19 +12,16 @@
 * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 * See the License for the specific language governing permissions and
 * limitations under the License.
-*/
+ */
 
 // AUTO-GENERATED!  DO NOT EDIT FILE DIRECTLY
 
 package okta
 
-import (
-)
+import ()
 
 type SecurePasswordStoreApplication struct {
-	Credentials *SchemeApplicationCredentials `json:"credentials,omitempty"`
-	Name string `json:"name,omitempty"`
-	Settings *SecurePasswordStoreApplicationSettings `json:"settings,omitempty"`
+	Credentials *SchemeApplicationCredentials           `json:"credentials,omitempty"`
+	Name        string                                  `json:"name,omitempty"`
+	Settings    *SecurePasswordStoreApplicationSettings `json:"settings,omitempty"`
 }
-
-

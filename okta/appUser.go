@@ -12,38 +12,38 @@
 * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 * See the License for the specific language governing permissions and
 * limitations under the License.
-*/
+ */
 
 // AUTO-GENERATED!  DO NOT EDIT FILE DIRECTLY
 
 package okta
 
 import (
-	"time"
-	"github.com/okta/okta-sdk-golang/okta/query"
 	"fmt"
+	"github.com/okta/okta-sdk-golang/okta/query"
+	"time"
 )
 
 type AppUserResource resource
 
 type AppUser struct {
-	Embedded []string `json:"_embedded,omitempty"`
-	Links []string `json:"_links,omitempty"`
-	Created *time.Time `json:"created,omitempty"`
-	Credentials *AppUserCredentials `json:"credentials,omitempty"`
-	ExternalId string `json:"externalId,omitempty"`
-	Id string `json:"id,omitempty"`
-	LastSync *time.Time `json:"lastSync,omitempty"`
-	LastUpdated *time.Time `json:"lastUpdated,omitempty"`
-	PasswordChanged *time.Time `json:"passwordChanged,omitempty"`
-	Profile []string `json:"profile,omitempty"`
-	Scope string `json:"scope,omitempty"`
-	Status string `json:"status,omitempty"`
-	StatusChanged *time.Time `json:"statusChanged,omitempty"`
-	SyncState string `json:"syncState,omitempty"`
+	Embedded        []string            `json:"_embedded,omitempty"`
+	Links           []string            `json:"_links,omitempty"`
+	Created         *time.Time          `json:"created,omitempty"`
+	Credentials     *AppUserCredentials `json:"credentials,omitempty"`
+	ExternalId      string              `json:"externalId,omitempty"`
+	Id              string              `json:"id,omitempty"`
+	LastSync        *time.Time          `json:"lastSync,omitempty"`
+	LastUpdated     *time.Time          `json:"lastUpdated,omitempty"`
+	PasswordChanged *time.Time          `json:"passwordChanged,omitempty"`
+	Profile         []string            `json:"profile,omitempty"`
+	Scope           string              `json:"scope,omitempty"`
+	Status          string              `json:"status,omitempty"`
+	StatusChanged   *time.Time          `json:"statusChanged,omitempty"`
+	SyncState       string              `json:"syncState,omitempty"`
 }
 
-func (m *AppUserResource) UpdateApplicationUser(appId string, userId string, body AppUser, qp *query.Params)  (*AppUser, *Response, error) {
+func (m *AppUserResource) UpdateApplicationUser(appId string, userId string, body AppUser, qp *query.Params) (*AppUser, *Response, error) {
 	url := fmt.Sprintf("/api/v1/apps/%v/users/%v", appId, userId)
 	if qp != nil {
 		url = url + qp.String()
@@ -53,7 +53,6 @@ func (m *AppUserResource) UpdateApplicationUser(appId string, userId string, bod
 		return nil, nil, err
 	}
 
-
 	var appUser *AppUser
 	resp, err := m.client.requestExecutor.Do(req, &appUser)
 	if err != nil {
@@ -61,7 +60,7 @@ func (m *AppUserResource) UpdateApplicationUser(appId string, userId string, bod
 	}
 	return appUser, resp, nil
 }
-func (m *AppUserResource) DeleteApplicationUser(appId string, userId string, qp *query.Params)  (*Response, error) {
+func (m *AppUserResource) DeleteApplicationUser(appId string, userId string, qp *query.Params) (*Response, error) {
 	url := fmt.Sprintf("/api/v1/apps/%v/users/%v", appId, userId)
 	if qp != nil {
 		url = url + qp.String()
@@ -71,11 +70,9 @@ func (m *AppUserResource) DeleteApplicationUser(appId string, userId string, qp 
 		return nil, err
 	}
 
-
 	resp, err := m.client.requestExecutor.Do(req, nil)
 	if err != nil {
 		return resp, err
 	}
 	return resp, nil
 }
-

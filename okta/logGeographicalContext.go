@@ -12,21 +12,18 @@
 * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 * See the License for the specific language governing permissions and
 * limitations under the License.
-*/
+ */
 
 // AUTO-GENERATED!  DO NOT EDIT FILE DIRECTLY
 
 package okta
 
-import (
-)
+import ()
 
 type LogGeographicalContext struct {
-	City string `json:"city,omitempty"`
-	Country string `json:"country,omitempty"`
+	City        string          `json:"city,omitempty"`
+	Country     string          `json:"country,omitempty"`
 	Geolocation *LogGeolocation `json:"geolocation,omitempty"`
-	PostalCode string `json:"postalCode,omitempty"`
-	State string `json:"state,omitempty"`
+	PostalCode  string          `json:"postalCode,omitempty"`
+	State       string          `json:"state,omitempty"`
 }
-
-

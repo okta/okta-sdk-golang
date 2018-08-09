@@ -12,32 +12,32 @@
 * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 * See the License for the specific language governing permissions and
 * limitations under the License.
-*/
+ */
 
 // AUTO-GENERATED!  DO NOT EDIT FILE DIRECTLY
 
 package okta
 
 import (
-	"time"
-	"github.com/okta/okta-sdk-golang/okta/query"
 	"fmt"
+	"github.com/okta/okta-sdk-golang/okta/query"
+	"time"
 )
 
 type GroupRuleResource resource
 
 type GroupRule struct {
-	Actions *GroupRuleAction `json:"actions,omitempty"`
-	Conditions *GroupRuleConditions `json:"conditions,omitempty"`
-	Created *time.Time `json:"created,omitempty"`
-	Id string `json:"id,omitempty"`
-	LastUpdated *time.Time `json:"lastUpdated,omitempty"`
-	Name string `json:"name,omitempty"`
-	Status string `json:"status,omitempty"`
-	Type string `json:"type,omitempty"`
+	Actions     *GroupRuleAction     `json:"actions,omitempty"`
+	Conditions  *GroupRuleConditions `json:"conditions,omitempty"`
+	Created     *time.Time           `json:"created,omitempty"`
+	Id          string               `json:"id,omitempty"`
+	LastUpdated *time.Time           `json:"lastUpdated,omitempty"`
+	Name        string               `json:"name,omitempty"`
+	Status      string               `json:"status,omitempty"`
+	Type        string               `json:"type,omitempty"`
 }
 
-func (m *GroupRuleResource) UpdateRule(ruleId string, body GroupRule, qp *query.Params)  (*GroupRule, *Response, error) {
+func (m *GroupRuleResource) UpdateRule(ruleId string, body GroupRule, qp *query.Params) (*GroupRule, *Response, error) {
 	url := fmt.Sprintf("/api/v1/groups/rules/%v", ruleId)
 	if qp != nil {
 		url = url + qp.String()
@@ -47,7 +47,6 @@ func (m *GroupRuleResource) UpdateRule(ruleId string, body GroupRule, qp *query.
 		return nil, nil, err
 	}
 
-
 	var groupRule *GroupRule
 	resp, err := m.client.requestExecutor.Do(req, &groupRule)
 	if err != nil {
@@ -55,7 +54,7 @@ func (m *GroupRuleResource) UpdateRule(ruleId string, body GroupRule, qp *query.
 	}
 	return groupRule, resp, nil
 }
-func (m *GroupRuleResource) DeleteRule(ruleId string, qp *query.Params)  (*Response, error) {
+func (m *GroupRuleResource) DeleteRule(ruleId string, qp *query.Params) (*Response, error) {
 	url := fmt.Sprintf("/api/v1/groups/rules/%v", ruleId)
 	if qp != nil {
 		url = url + qp.String()
@@ -65,7 +64,6 @@ func (m *GroupRuleResource) DeleteRule(ruleId string, qp *query.Params)  (*Respo
 		return nil, err
 	}
 
-
 	resp, err := m.client.requestExecutor.Do(req, nil)
 	if err != nil {
 		return resp, err
@@ -73,7 +71,7 @@ func (m *GroupRuleResource) DeleteRule(ruleId string, qp *query.Params)  (*Respo
 	return resp, nil
 }
 
-func (m *GroupRuleResource) ActivateRule(ruleId string, qp *query.Params)  (*Response, error) {
+func (m *GroupRuleResource) ActivateRule(ruleId string, qp *query.Params) (*Response, error) {
 	url := fmt.Sprintf("/api/v1/groups/rules/%v/lifecycle/activate", ruleId)
 	if qp != nil {
 		url = url + qp.String()
@@ -83,14 +81,13 @@ func (m *GroupRuleResource) ActivateRule(ruleId string, qp *query.Params)  (*Res
 		return nil, err
 	}
 
-
 	resp, err := m.client.requestExecutor.Do(req, nil)
 	if err != nil {
 		return resp, err
 	}
 	return resp, nil
 }
-func (m *GroupRuleResource) DeactivateRule(ruleId string, qp *query.Params)  (*Response, error) {
+func (m *GroupRuleResource) DeactivateRule(ruleId string, qp *query.Params) (*Response, error) {
 	url := fmt.Sprintf("/api/v1/groups/rules/%v/lifecycle/deactivate", ruleId)
 	if qp != nil {
 		url = url + qp.String()
@@ -99,7 +96,6 @@ func (m *GroupRuleResource) DeactivateRule(ruleId string, qp *query.Params)  (*R
 	if err != nil {
 		return nil, err
 	}
-
 
 	resp, err := m.client.requestExecutor.Do(req, nil)
 	if err != nil {

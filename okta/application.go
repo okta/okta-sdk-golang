@@ -12,39 +12,39 @@
 * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 * See the License for the specific language governing permissions and
 * limitations under the License.
-*/
+ */
 
 // AUTO-GENERATED!  DO NOT EDIT FILE DIRECTLY
 
 package okta
 
 import (
-	"time"
-	"github.com/okta/okta-sdk-golang/okta/query"
 	"fmt"
+	"github.com/okta/okta-sdk-golang/okta/query"
+	"time"
 )
 
 type ApplicationResource resource
 
 type Application struct {
-	Embedded []string `json:"_embedded,omitempty"`
-	Links []string `json:"_links,omitempty"`
+	Embedded      []string                  `json:"_embedded,omitempty"`
+	Links         []string                  `json:"_links,omitempty"`
 	Accessibility *ApplicationAccessibility `json:"accessibility,omitempty"`
-	Created *time.Time `json:"created,omitempty"`
-	Credentials *ApplicationCredentials `json:"credentials,omitempty"`
-	Features []string `json:"features,omitempty"`
-	Id string `json:"id,omitempty"`
-	Label string `json:"label,omitempty"`
-	LastUpdated *time.Time `json:"lastUpdated,omitempty"`
-	Licensing *ApplicationLicensing `json:"licensing,omitempty"`
-	Name string `json:"name,omitempty"`
-	Settings *ApplicationSettings `json:"settings,omitempty"`
-	SignOnMode string `json:"signOnMode,omitempty"`
-	Status string `json:"status,omitempty"`
-	Visibility *ApplicationVisibility `json:"visibility,omitempty"`
+	Created       *time.Time                `json:"created,omitempty"`
+	Credentials   *ApplicationCredentials   `json:"credentials,omitempty"`
+	Features      []string                  `json:"features,omitempty"`
+	Id            string                    `json:"id,omitempty"`
+	Label         string                    `json:"label,omitempty"`
+	LastUpdated   *time.Time                `json:"lastUpdated,omitempty"`
+	Licensing     *ApplicationLicensing     `json:"licensing,omitempty"`
+	Name          string                    `json:"name,omitempty"`
+	Settings      *ApplicationSettings      `json:"settings,omitempty"`
+	SignOnMode    string                    `json:"signOnMode,omitempty"`
+	Status        string                    `json:"status,omitempty"`
+	Visibility    *ApplicationVisibility    `json:"visibility,omitempty"`
 }
 
-func (m *ApplicationResource) GetApplication(appId string, qp *query.Params)  (*Application, *Response, error) {
+func (m *ApplicationResource) GetApplication(appId string, qp *query.Params) (*Application, *Response, error) {
 	url := fmt.Sprintf("/api/v1/apps/%v", appId)
 	if qp != nil {
 		url = url + qp.String()
@@ -54,7 +54,6 @@ func (m *ApplicationResource) GetApplication(appId string, qp *query.Params)  (*
 		return nil, nil, err
 	}
 
-
 	var application *Application
 	resp, err := m.client.requestExecutor.Do(req, &application)
 	if err != nil {
@@ -62,7 +61,7 @@ func (m *ApplicationResource) GetApplication(appId string, qp *query.Params)  (*
 	}
 	return application, resp, nil
 }
-func (m *ApplicationResource) UpdateApplication(appId string, body Application, qp *query.Params)  (*Application, *Response, error) {
+func (m *ApplicationResource) UpdateApplication(appId string, body Application, qp *query.Params) (*Application, *Response, error) {
 	url := fmt.Sprintf("/api/v1/apps/%v", appId)
 	if qp != nil {
 		url = url + qp.String()
@@ -72,7 +71,6 @@ func (m *ApplicationResource) UpdateApplication(appId string, body Application, 
 		return nil, nil, err
 	}
 
-
 	var application *Application
 	resp, err := m.client.requestExecutor.Do(req, &application)
 	if err != nil {
@@ -80,7 +78,7 @@ func (m *ApplicationResource) UpdateApplication(appId string, body Application, 
 	}
 	return application, resp, nil
 }
-func (m *ApplicationResource) DeleteApplication(appId string, qp *query.Params)  (*Response, error) {
+func (m *ApplicationResource) DeleteApplication(appId string, qp *query.Params) (*Response, error) {
 	url := fmt.Sprintf("/api/v1/apps/%v", appId)
 	if qp != nil {
 		url = url + qp.String()
@@ -90,7 +88,6 @@ func (m *ApplicationResource) DeleteApplication(appId string, qp *query.Params) 
 		return nil, err
 	}
 
-
 	resp, err := m.client.requestExecutor.Do(req, nil)
 	if err != nil {
 		return resp, err
@@ -98,7 +95,7 @@ func (m *ApplicationResource) DeleteApplication(appId string, qp *query.Params) 
 	return resp, nil
 }
 
-func (m *ApplicationResource) ActivateApplication(appId string, qp *query.Params)  (*Response, error) {
+func (m *ApplicationResource) ActivateApplication(appId string, qp *query.Params) (*Response, error) {
 	url := fmt.Sprintf("/api/v1/apps/%v/lifecycle/activate", appId)
 	if qp != nil {
 		url = url + qp.String()
@@ -108,14 +105,13 @@ func (m *ApplicationResource) ActivateApplication(appId string, qp *query.Params
 		return nil, err
 	}
 
-
 	resp, err := m.client.requestExecutor.Do(req, nil)
 	if err != nil {
 		return resp, err
 	}
 	return resp, nil
 }
-func (m *ApplicationResource) DeactivateApplication(appId string, qp *query.Params)  (*Response, error) {
+func (m *ApplicationResource) DeactivateApplication(appId string, qp *query.Params) (*Response, error) {
 	url := fmt.Sprintf("/api/v1/apps/%v/lifecycle/deactivate", appId)
 	if qp != nil {
 		url = url + qp.String()
@@ -125,14 +121,13 @@ func (m *ApplicationResource) DeactivateApplication(appId string, qp *query.Para
 		return nil, err
 	}
 
-
 	resp, err := m.client.requestExecutor.Do(req, nil)
 	if err != nil {
 		return resp, err
 	}
 	return resp, nil
 }
-func (m *ApplicationResource) ListApplicationUsers(appId string, qp *query.Params)  ([]*AppUser, *Response, error) {
+func (m *ApplicationResource) ListApplicationUsers(appId string, qp *query.Params) ([]*AppUser, *Response, error) {
 	url := fmt.Sprintf("/api/v1/apps/%v/users", appId)
 	if qp != nil {
 		url = url + qp.String()
@@ -142,7 +137,6 @@ func (m *ApplicationResource) ListApplicationUsers(appId string, qp *query.Param
 		return nil, nil, err
 	}
 
-
 	var appUser []*AppUser
 	resp, err := m.client.requestExecutor.Do(req, &appUser)
 	if err != nil {
@@ -150,7 +144,7 @@ func (m *ApplicationResource) ListApplicationUsers(appId string, qp *query.Param
 	}
 	return appUser, resp, nil
 }
-func (m *ApplicationResource) AssignUserToApplication(appId string, body AppUser, qp *query.Params)  (*AppUser, *Response, error) {
+func (m *ApplicationResource) AssignUserToApplication(appId string, body AppUser, qp *query.Params) (*AppUser, *Response, error) {
 	url := fmt.Sprintf("/api/v1/apps/%v/users", appId)
 	if qp != nil {
 		url = url + qp.String()
@@ -160,7 +154,6 @@ func (m *ApplicationResource) AssignUserToApplication(appId string, body AppUser
 		return nil, nil, err
 	}
 
-
 	var appUser *AppUser
 	resp, err := m.client.requestExecutor.Do(req, &appUser)
 	if err != nil {
@@ -168,7 +161,7 @@ func (m *ApplicationResource) AssignUserToApplication(appId string, body AppUser
 	}
 	return appUser, resp, nil
 }
-func (m *ApplicationResource) GetApplicationUser(appId string, userId string, qp *query.Params)  (*AppUser, *Response, error) {
+func (m *ApplicationResource) GetApplicationUser(appId string, userId string, qp *query.Params) (*AppUser, *Response, error) {
 	url := fmt.Sprintf("/api/v1/apps/%v/users/%v", appId, userId)
 	if qp != nil {
 		url = url + qp.String()
@@ -178,7 +171,6 @@ func (m *ApplicationResource) GetApplicationUser(appId string, userId string, qp
 		return nil, nil, err
 	}
 
-
 	var appUser *AppUser
 	resp, err := m.client.requestExecutor.Do(req, &appUser)
 	if err != nil {
@@ -186,7 +178,7 @@ func (m *ApplicationResource) GetApplicationUser(appId string, userId string, qp
 	}
 	return appUser, resp, nil
 }
-func (m *ApplicationResource) CreateApplicationGroupAssignment(appId string, groupId string, body ApplicationGroupAssignment, qp *query.Params)  (*ApplicationGroupAssignment, *Response, error) {
+func (m *ApplicationResource) CreateApplicationGroupAssignment(appId string, groupId string, body ApplicationGroupAssignment, qp *query.Params) (*ApplicationGroupAssignment, *Response, error) {
 	url := fmt.Sprintf("/api/v1/apps/%v/groups/%v", appId, groupId)
 	if qp != nil {
 		url = url + qp.String()
@@ -196,7 +188,6 @@ func (m *ApplicationResource) CreateApplicationGroupAssignment(appId string, gro
 		return nil, nil, err
 	}
 
-
 	var applicationGroupAssignment *ApplicationGroupAssignment
 	resp, err := m.client.requestExecutor.Do(req, &applicationGroupAssignment)
 	if err != nil {
@@ -204,7 +195,7 @@ func (m *ApplicationResource) CreateApplicationGroupAssignment(appId string, gro
 	}
 	return applicationGroupAssignment, resp, nil
 }
-func (m *ApplicationResource) GetApplicationGroupAssignment(appId string, groupId string, qp *query.Params)  (*ApplicationGroupAssignment, *Response, error) {
+func (m *ApplicationResource) GetApplicationGroupAssignment(appId string, groupId string, qp *query.Params) (*ApplicationGroupAssignment, *Response, error) {
 	url := fmt.Sprintf("/api/v1/apps/%v/groups/%v", appId, groupId)
 	if qp != nil {
 		url = url + qp.String()
@@ -214,7 +205,6 @@ func (m *ApplicationResource) GetApplicationGroupAssignment(appId string, groupI
 		return nil, nil, err
 	}
 
-
 	var applicationGroupAssignment *ApplicationGroupAssignment
 	resp, err := m.client.requestExecutor.Do(req, &applicationGroupAssignment)
 	if err != nil {
@@ -222,7 +212,7 @@ func (m *ApplicationResource) GetApplicationGroupAssignment(appId string, groupI
 	}
 	return applicationGroupAssignment, resp, nil
 }
-func (m *ApplicationResource) CloneApplicationKey(appId string, keyId string, qp *query.Params)  (*JsonWebKey, *Response, error) {
+func (m *ApplicationResource) CloneApplicationKey(appId string, keyId string, qp *query.Params) (*JsonWebKey, *Response, error) {
 	url := fmt.Sprintf("/api/v1/apps/%v/credentials/keys/%v/clone", appId, keyId)
 	if qp != nil {
 		url = url + qp.String()
@@ -232,7 +222,6 @@ func (m *ApplicationResource) CloneApplicationKey(appId string, keyId string, qp
 		return nil, nil, err
 	}
 
-
 	var jsonWebKey *JsonWebKey
 	resp, err := m.client.requestExecutor.Do(req, &jsonWebKey)
 	if err != nil {
@@ -240,7 +229,7 @@ func (m *ApplicationResource) CloneApplicationKey(appId string, keyId string, qp
 	}
 	return jsonWebKey, resp, nil
 }
-func (m *ApplicationResource) GetApplicationKey(appId string, keyId string, qp *query.Params)  (*JsonWebKey, *Response, error) {
+func (m *ApplicationResource) GetApplicationKey(appId string, keyId string, qp *query.Params) (*JsonWebKey, *Response, error) {
 	url := fmt.Sprintf("/api/v1/apps/%v/credentials/keys/%v", appId, keyId)
 	if qp != nil {
 		url = url + qp.String()
@@ -250,7 +239,6 @@ func (m *ApplicationResource) GetApplicationKey(appId string, keyId string, qp *
 		return nil, nil, err
 	}
 
-
 	var jsonWebKey *JsonWebKey
 	resp, err := m.client.requestExecutor.Do(req, &jsonWebKey)
 	if err != nil {
@@ -258,7 +246,7 @@ func (m *ApplicationResource) GetApplicationKey(appId string, keyId string, qp *
 	}
 	return jsonWebKey, resp, nil
 }
-func (m *ApplicationResource) ListApplicationGroupAssignments(appId string, qp *query.Params)  ([]*ApplicationGroupAssignment, *Response, error) {
+func (m *ApplicationResource) ListApplicationGroupAssignments(appId string, qp *query.Params) ([]*ApplicationGroupAssignment, *Response, error) {
 	url := fmt.Sprintf("/api/v1/apps/%v/groups", appId)
 	if qp != nil {
 		url = url + qp.String()
@@ -268,7 +256,6 @@ func (m *ApplicationResource) ListApplicationGroupAssignments(appId string, qp *
 		return nil, nil, err
 	}
 
-
 	var applicationGroupAssignment []*ApplicationGroupAssignment
 	resp, err := m.client.requestExecutor.Do(req, &applicationGroupAssignment)
 	if err != nil {
@@ -276,7 +263,7 @@ func (m *ApplicationResource) ListApplicationGroupAssignments(appId string, qp *
 	}
 	return applicationGroupAssignment, resp, nil
 }
-func (m *ApplicationResource) ListApplicationKeys(appId string, qp *query.Params)  ([]*JsonWebKey, *Response, error) {
+func (m *ApplicationResource) ListApplicationKeys(appId string, qp *query.Params) ([]*JsonWebKey, *Response, error) {
 	url := fmt.Sprintf("/api/v1/apps/%v/credentials/keys", appId)
 	if qp != nil {
 		url = url + qp.String()
@@ -285,7 +272,6 @@ func (m *ApplicationResource) ListApplicationKeys(appId string, qp *query.Params
 	if err != nil {
 		return nil, nil, err
 	}
-
 
 	var jsonWebKey []*JsonWebKey
 	resp, err := m.client.requestExecutor.Do(req, &jsonWebKey)
