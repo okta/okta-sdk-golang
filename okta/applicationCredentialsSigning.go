@@ -12,7 +12,7 @@
 * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 * See the License for the specific language governing permissions and
 * limitations under the License.
-*/
+ */
 
 // AUTO-GENERATED!  DO NOT EDIT FILE DIRECTLY
 
@@ -23,10 +23,8 @@ import (
 )
 
 type ApplicationCredentialsSigning struct {
-	Kid string `json:"kid,omitempty"`
-	LastRotated *time.Time `json:"lastRotated,omitempty"`
+	Kid          string     `json:"kid,omitempty"`
+	LastRotated  *time.Time `json:"lastRotated,omitempty"`
 	NextRotation *time.Time `json:"nextRotation,omitempty"`
-	RotationMode string `json:"rotationMode,omitempty"`
+	RotationMode string     `json:"rotationMode,omitempty"`
 }
-
-

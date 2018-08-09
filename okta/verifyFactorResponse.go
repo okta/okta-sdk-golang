@@ -12,7 +12,7 @@
 * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 * See the License for the specific language governing permissions and
 * limitations under the License.
-*/
+ */
 
 // AUTO-GENERATED!  DO NOT EDIT FILE DIRECTLY
 
@@ -23,11 +23,9 @@ import (
 )
 
 type VerifyFactorResponse struct {
-	Embedded []string `json:"_embedded,omitempty"`
-	Links []string `json:"_links,omitempty"`
-	ExpiresAt *time.Time `json:"expiresAt,omitempty"`
-	FactorResult string `json:"factorResult,omitempty"`
-	FactorResultMessage string `json:"factorResultMessage,omitempty"`
+	Embedded            []string   `json:"_embedded,omitempty"`
+	Links               []string   `json:"_links,omitempty"`
+	ExpiresAt           *time.Time `json:"expiresAt,omitempty"`
+	FactorResult        string     `json:"factorResult,omitempty"`
+	FactorResultMessage string     `json:"factorResultMessage,omitempty"`
 }
-
-

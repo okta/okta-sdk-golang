@@ -12,23 +12,20 @@
 * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 * See the License for the specific language governing permissions and
 * limitations under the License.
-*/
+ */
 
 // AUTO-GENERATED!  DO NOT EDIT FILE DIRECTLY
 
 package okta
 
-import (
-)
+import ()
 
 type SwaThreeFieldApplicationSettingsApplication struct {
-	ButtonSelector string `json:"buttonSelector,omitempty"`
+	ButtonSelector     string `json:"buttonSelector,omitempty"`
 	ExtraFieldSelector string `json:"extraFieldSelector,omitempty"`
-	ExtraFieldValue string `json:"extraFieldValue,omitempty"`
-	LoginUrlRegex string `json:"loginUrlRegex,omitempty"`
-	PasswordSelector string `json:"passwordSelector,omitempty"`
-	TargetUrl string `json:"targetUrl,omitempty"`
-	UserNameSelector string `json:"userNameSelector,omitempty"`
+	ExtraFieldValue    string `json:"extraFieldValue,omitempty"`
+	LoginUrlRegex      string `json:"loginUrlRegex,omitempty"`
+	PasswordSelector   string `json:"passwordSelector,omitempty"`
+	TargetUrl          string `json:"targetUrl,omitempty"`
+	UserNameSelector   string `json:"userNameSelector,omitempty"`
 }
-
-

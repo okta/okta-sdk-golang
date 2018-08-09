@@ -12,26 +12,23 @@
 * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 * See the License for the specific language governing permissions and
 * limitations under the License.
-*/
+ */
 
 // AUTO-GENERATED!  DO NOT EDIT FILE DIRECTLY
 
 package okta
 
-import (
-)
+import ()
 
 type AppLink struct {
-	AppAssignmentId string `json:"appAssignmentId,omitempty"`
-	AppInstanceId string `json:"appInstanceId,omitempty"`
-	AppName string `json:"appName,omitempty"`
-	CredentialsSetup bool `json:"credentialsSetup,omitempty"`
-	Hidden bool `json:"hidden,omitempty"`
-	Id string `json:"id,omitempty"`
-	Label string `json:"label,omitempty"`
-	LinkUrl string `json:"linkUrl,omitempty"`
-	LogoUrl string `json:"logoUrl,omitempty"`
-	SortOrder int64 `json:"sortOrder,omitempty"`
+	AppAssignmentId  string `json:"appAssignmentId,omitempty"`
+	AppInstanceId    string `json:"appInstanceId,omitempty"`
+	AppName          string `json:"appName,omitempty"`
+	CredentialsSetup bool   `json:"credentialsSetup,omitempty"`
+	Hidden           bool   `json:"hidden,omitempty"`
+	Id               string `json:"id,omitempty"`
+	Label            string `json:"label,omitempty"`
+	LinkUrl          string `json:"linkUrl,omitempty"`
+	LogoUrl          string `json:"logoUrl,omitempty"`
+	SortOrder        int64  `json:"sortOrder,omitempty"`
 }
-
-

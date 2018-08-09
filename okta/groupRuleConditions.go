@@ -12,18 +12,15 @@
 * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 * See the License for the specific language governing permissions and
 * limitations under the License.
-*/
+ */
 
 // AUTO-GENERATED!  DO NOT EDIT FILE DIRECTLY
 
 package okta
 
-import (
-)
+import ()
 
 type GroupRuleConditions struct {
-	Expression *GroupRuleExpression `json:"expression,omitempty"`
-	People *GroupRulePeopleCondition `json:"people,omitempty"`
+	Expression *GroupRuleExpression      `json:"expression,omitempty"`
+	People     *GroupRulePeopleCondition `json:"people,omitempty"`
 }
-
-

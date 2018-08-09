@@ -12,35 +12,35 @@
 * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 * See the License for the specific language governing permissions and
 * limitations under the License.
-*/
+ */
 
 // AUTO-GENERATED!  DO NOT EDIT FILE DIRECTLY
 
 package okta
 
 import (
-	"time"
-	"github.com/okta/okta-sdk-golang/okta/query"
 	"fmt"
+	"github.com/okta/okta-sdk-golang/okta/query"
+	"time"
 )
 
 type SessionResource resource
 
 type Session struct {
-	Links []string `json:"_links,omitempty"`
-	Amr []string `json:"amr,omitempty"`
-	CreatedAt *time.Time `json:"createdAt,omitempty"`
-	ExpiresAt *time.Time `json:"expiresAt,omitempty"`
-	Id string `json:"id,omitempty"`
-	Idp *SessionIdentityProvider `json:"idp,omitempty"`
-	LastFactorVerification *time.Time `json:"lastFactorVerification,omitempty"`
-	LastPasswordVerification *time.Time `json:"lastPasswordVerification,omitempty"`
-	Login string `json:"login,omitempty"`
-	Status string `json:"status,omitempty"`
-	UserId string `json:"userId,omitempty"`
+	Links                    []string                 `json:"_links,omitempty"`
+	Amr                      []string                 `json:"amr,omitempty"`
+	CreatedAt                *time.Time               `json:"createdAt,omitempty"`
+	ExpiresAt                *time.Time               `json:"expiresAt,omitempty"`
+	Id                       string                   `json:"id,omitempty"`
+	Idp                      *SessionIdentityProvider `json:"idp,omitempty"`
+	LastFactorVerification   *time.Time               `json:"lastFactorVerification,omitempty"`
+	LastPasswordVerification *time.Time               `json:"lastPasswordVerification,omitempty"`
+	Login                    string                   `json:"login,omitempty"`
+	Status                   string                   `json:"status,omitempty"`
+	UserId                   string                   `json:"userId,omitempty"`
 }
 
-func (m *SessionResource) GetSession(sessionId string, qp *query.Params)  (*Session, *Response, error) {
+func (m *SessionResource) GetSession(sessionId string, qp *query.Params) (*Session, *Response, error) {
 	url := fmt.Sprintf("/api/v1/sessions/%v", sessionId)
 	if qp != nil {
 		url = url + qp.String()
@@ -50,7 +50,6 @@ func (m *SessionResource) GetSession(sessionId string, qp *query.Params)  (*Sess
 		return nil, nil, err
 	}
 
-
 	var session *Session
 	resp, err := m.client.requestExecutor.Do(req, &session)
 	if err != nil {
@@ -58,7 +57,7 @@ func (m *SessionResource) GetSession(sessionId string, qp *query.Params)  (*Sess
 	}
 	return session, resp, nil
 }
-func (m *SessionResource) EndSession(sessionId string, qp *query.Params)  (*Response, error) {
+func (m *SessionResource) EndSession(sessionId string, qp *query.Params) (*Response, error) {
 	url := fmt.Sprintf("/api/v1/sessions/%v", sessionId)
 	if qp != nil {
 		url = url + qp.String()
@@ -68,7 +67,6 @@ func (m *SessionResource) EndSession(sessionId string, qp *query.Params)  (*Resp
 		return nil, err
 	}
 
-
 	resp, err := m.client.requestExecutor.Do(req, nil)
 	if err != nil {
 		return resp, err
@@ -76,7 +74,7 @@ func (m *SessionResource) EndSession(sessionId string, qp *query.Params)  (*Resp
 	return resp, nil
 }
 
-func (m *SessionResource) RefreshSession(sessionId string, qp *query.Params)  (*Session, *Response, error) {
+func (m *SessionResource) RefreshSession(sessionId string, qp *query.Params) (*Session, *Response, error) {
 	url := fmt.Sprintf("/api/v1/sessions/%v/lifecycle/refresh", sessionId)
 	if qp != nil {
 		url = url + qp.String()
@@ -85,7 +83,6 @@ func (m *SessionResource) RefreshSession(sessionId string, qp *query.Params)  (*
 	if err != nil {
 		return nil, nil, err
 	}
-
 
 	var session *Session
 	resp, err := m.client.requestExecutor.Do(req, &session)

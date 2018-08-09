@@ -12,22 +12,19 @@
 * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 * See the License for the specific language governing permissions and
 * limitations under the License.
-*/
+ */
 
 // AUTO-GENERATED!  DO NOT EDIT FILE DIRECTLY
 
 package okta
 
-import (
-)
+import ()
 
 type LogClient struct {
-	Device string `json:"device,omitempty"`
+	Device              string                  `json:"device,omitempty"`
 	GeographicalContext *LogGeographicalContext `json:"geographicalContext,omitempty"`
-	Id string `json:"id,omitempty"`
-	IpAddress string `json:"ipAddress,omitempty"`
-	UserAgent *LogUserAgent `json:"userAgent,omitempty"`
-	Zone string `json:"zone,omitempty"`
+	Id                  string                  `json:"id,omitempty"`
+	IpAddress           string                  `json:"ipAddress,omitempty"`
+	UserAgent           *LogUserAgent           `json:"userAgent,omitempty"`
+	Zone                string                  `json:"zone,omitempty"`
 }
-
-

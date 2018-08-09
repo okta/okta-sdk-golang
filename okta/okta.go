@@ -12,7 +12,7 @@
 * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 * See the License for the specific language governing permissions and
 * limitations under the License.
-*/
+ */
 
 // AUTO-GENERATED!  DO NOT EDIT FILE DIRECTLY
 
@@ -33,10 +33,10 @@ type Client struct {
 	resource resource
 
 	Application *ApplicationResource
-	Group *GroupResource
-	Session *SessionResource
-	User *UserResource
-	Factor *FactorResource
+	Group       *GroupResource
+	Session     *SessionResource
+	User        *UserResource
+	Factor      *FactorResource
 }
 
 type resource struct {
@@ -70,8 +70,8 @@ func (c *Client) GetRequestExecutor() *RequestExecutor {
 	return c.requestExecutor
 }
 
-func (c *Client) ListApplications(qp *query.Params)  ([]*Application, *Response, error) {
-	url := fmt.Sprintf("/api/v1/apps", )
+func (c *Client) ListApplications(qp *query.Params) ([]*Application, *Response, error) {
+	url := fmt.Sprintf("/api/v1/apps")
 	if qp != nil {
 		url = url + qp.String()
 	}
@@ -80,7 +80,6 @@ func (c *Client) ListApplications(qp *query.Params)  ([]*Application, *Response,
 		return nil, nil, err
 	}
 
-
 	var application []*Application
 	resp, err := c.requestExecutor.Do(req, &application)
 	if err != nil {
@@ -88,8 +87,8 @@ func (c *Client) ListApplications(qp *query.Params)  ([]*Application, *Response,
 	}
 	return application, resp, nil
 }
-func (c *Client) CreateApplication(body Application, qp *query.Params)  (*Application, *Response, error) {
-	url := fmt.Sprintf("/api/v1/apps", )
+func (c *Client) CreateApplication(body Application, qp *query.Params) (*Application, *Response, error) {
+	url := fmt.Sprintf("/api/v1/apps")
 	if qp != nil {
 		url = url + qp.String()
 	}
@@ -98,7 +97,6 @@ func (c *Client) CreateApplication(body Application, qp *query.Params)  (*Applic
 		return nil, nil, err
 	}
 
-
 	var application *Application
 	resp, err := c.requestExecutor.Do(req, &application)
 	if err != nil {
@@ -106,7 +104,7 @@ func (c *Client) CreateApplication(body Application, qp *query.Params)  (*Applic
 	}
 	return application, resp, nil
 }
-func (c *Client) DeleteApplication(appId string, qp *query.Params)  (*Response, error) {
+func (c *Client) DeleteApplication(appId string, qp *query.Params) (*Response, error) {
 	url := fmt.Sprintf("/api/v1/apps/%v", appId)
 	if qp != nil {
 		url = url + qp.String()
@@ -116,14 +114,13 @@ func (c *Client) DeleteApplication(appId string, qp *query.Params)  (*Response, 
 		return nil, err
 	}
 
-
 	resp, err := c.requestExecutor.Do(req, nil)
 	if err != nil {
 		return resp, err
 	}
 	return resp, nil
 }
-func (c *Client) GetApplication(appId string, qp *query.Params)  (*Application, *Response, error) {
+func (c *Client) GetApplication(appId string, qp *query.Params) (*Application, *Response, error) {
 	url := fmt.Sprintf("/api/v1/apps/%v", appId)
 	if qp != nil {
 		url = url + qp.String()
@@ -133,7 +130,6 @@ func (c *Client) GetApplication(appId string, qp *query.Params)  (*Application, 
 		return nil, nil, err
 	}
 
-
 	var application *Application
 	resp, err := c.requestExecutor.Do(req, &application)
 	if err != nil {
@@ -141,7 +137,7 @@ func (c *Client) GetApplication(appId string, qp *query.Params)  (*Application, 
 	}
 	return application, resp, nil
 }
-func (c *Client) UpdateApplication(appId string, body Application, qp *query.Params)  (*Application, *Response, error) {
+func (c *Client) UpdateApplication(appId string, body Application, qp *query.Params) (*Application, *Response, error) {
 	url := fmt.Sprintf("/api/v1/apps/%v", appId)
 	if qp != nil {
 		url = url + qp.String()
@@ -151,7 +147,6 @@ func (c *Client) UpdateApplication(appId string, body Application, qp *query.Par
 		return nil, nil, err
 	}
 
-
 	var application *Application
 	resp, err := c.requestExecutor.Do(req, &application)
 	if err != nil {
@@ -159,7 +154,7 @@ func (c *Client) UpdateApplication(appId string, body Application, qp *query.Par
 	}
 	return application, resp, nil
 }
-func (c *Client) ListApplicationKeys(appId string, qp *query.Params)  ([]*JsonWebKey, *Response, error) {
+func (c *Client) ListApplicationKeys(appId string, qp *query.Params) ([]*JsonWebKey, *Response, error) {
 	url := fmt.Sprintf("/api/v1/apps/%v/credentials/keys", appId)
 	if qp != nil {
 		url = url + qp.String()
@@ -169,7 +164,6 @@ func (c *Client) ListApplicationKeys(appId string, qp *query.Params)  ([]*JsonWe
 		return nil, nil, err
 	}
 
-
 	var jsonWebKey []*JsonWebKey
 	resp, err := c.requestExecutor.Do(req, &jsonWebKey)
 	if err != nil {
@@ -177,7 +171,7 @@ func (c *Client) ListApplicationKeys(appId string, qp *query.Params)  ([]*JsonWe
 	}
 	return jsonWebKey, resp, nil
 }
-func (c *Client) GetApplicationKey(appId string, keyId string, qp *query.Params)  (*JsonWebKey, *Response, error) {
+func (c *Client) GetApplicationKey(appId string, keyId string, qp *query.Params) (*JsonWebKey, *Response, error) {
 	url := fmt.Sprintf("/api/v1/apps/%v/credentials/keys/%v", appId, keyId)
 	if qp != nil {
 		url = url + qp.String()
@@ -187,7 +181,6 @@ func (c *Client) GetApplicationKey(appId string, keyId string, qp *query.Params)
 		return nil, nil, err
 	}
 
-
 	var jsonWebKey *JsonWebKey
 	resp, err := c.requestExecutor.Do(req, &jsonWebKey)
 	if err != nil {
@@ -195,7 +188,7 @@ func (c *Client) GetApplicationKey(appId string, keyId string, qp *query.Params)
 	}
 	return jsonWebKey, resp, nil
 }
-func (c *Client) CloneApplicationKey(appId string, keyId string, qp *query.Params)  (*JsonWebKey, *Response, error) {
+func (c *Client) CloneApplicationKey(appId string, keyId string, qp *query.Params) (*JsonWebKey, *Response, error) {
 	url := fmt.Sprintf("/api/v1/apps/%v/credentials/keys/%v/clone", appId, keyId)
 	if qp != nil {
 		url = url + qp.String()
@@ -205,7 +198,6 @@ func (c *Client) CloneApplicationKey(appId string, keyId string, qp *query.Param
 		return nil, nil, err
 	}
 
-
 	var jsonWebKey *JsonWebKey
 	resp, err := c.requestExecutor.Do(req, &jsonWebKey)
 	if err != nil {
@@ -213,7 +205,7 @@ func (c *Client) CloneApplicationKey(appId string, keyId string, qp *query.Param
 	}
 	return jsonWebKey, resp, nil
 }
-func (c *Client) ListApplicationGroupAssignments(appId string, qp *query.Params)  ([]*ApplicationGroupAssignment, *Response, error) {
+func (c *Client) ListApplicationGroupAssignments(appId string, qp *query.Params) ([]*ApplicationGroupAssignment, *Response, error) {
 	url := fmt.Sprintf("/api/v1/apps/%v/groups", appId)
 	if qp != nil {
 		url = url + qp.String()
@@ -223,7 +215,6 @@ func (c *Client) ListApplicationGroupAssignments(appId string, qp *query.Params)
 		return nil, nil, err
 	}
 
-
 	var applicationGroupAssignment []*ApplicationGroupAssignment
 	resp, err := c.requestExecutor.Do(req, &applicationGroupAssignment)
 	if err != nil {
@@ -231,7 +222,7 @@ func (c *Client) ListApplicationGroupAssignments(appId string, qp *query.Params)
 	}
 	return applicationGroupAssignment, resp, nil
 }
-func (c *Client) DeleteApplicationGroupAssignment(appId string, groupId string, qp *query.Params)  (*Response, error) {
+func (c *Client) DeleteApplicationGroupAssignment(appId string, groupId string, qp *query.Params) (*Response, error) {
 	url := fmt.Sprintf("/api/v1/apps/%v/groups/%v", appId, groupId)
 	if qp != nil {
 		url = url + qp.String()
@@ -241,14 +232,13 @@ func (c *Client) DeleteApplicationGroupAssignment(appId string, groupId string, 
 		return nil, err
 	}
 
-
 	resp, err := c.requestExecutor.Do(req, nil)
 	if err != nil {
 		return resp, err
 	}
 	return resp, nil
 }
-func (c *Client) GetApplicationGroupAssignment(appId string, groupId string, qp *query.Params)  (*ApplicationGroupAssignment, *Response, error) {
+func (c *Client) GetApplicationGroupAssignment(appId string, groupId string, qp *query.Params) (*ApplicationGroupAssignment, *Response, error) {
 	url := fmt.Sprintf("/api/v1/apps/%v/groups/%v", appId, groupId)
 	if qp != nil {
 		url = url + qp.String()
@@ -258,7 +248,6 @@ func (c *Client) GetApplicationGroupAssignment(appId string, groupId string, qp 
 		return nil, nil, err
 	}
 
-
 	var applicationGroupAssignment *ApplicationGroupAssignment
 	resp, err := c.requestExecutor.Do(req, &applicationGroupAssignment)
 	if err != nil {
@@ -266,7 +255,7 @@ func (c *Client) GetApplicationGroupAssignment(appId string, groupId string, qp 
 	}
 	return applicationGroupAssignment, resp, nil
 }
-func (c *Client) CreateApplicationGroupAssignment(appId string, groupId string, body ApplicationGroupAssignment, qp *query.Params)  (*ApplicationGroupAssignment, *Response, error) {
+func (c *Client) CreateApplicationGroupAssignment(appId string, groupId string, body ApplicationGroupAssignment, qp *query.Params) (*ApplicationGroupAssignment, *Response, error) {
 	url := fmt.Sprintf("/api/v1/apps/%v/groups/%v", appId, groupId)
 	if qp != nil {
 		url = url + qp.String()
@@ -276,7 +265,6 @@ func (c *Client) CreateApplicationGroupAssignment(appId string, groupId string, 
 		return nil, nil, err
 	}
 
-
 	var applicationGroupAssignment *ApplicationGroupAssignment
 	resp, err := c.requestExecutor.Do(req, &applicationGroupAssignment)
 	if err != nil {
@@ -284,7 +272,7 @@ func (c *Client) CreateApplicationGroupAssignment(appId string, groupId string, 
 	}
 	return applicationGroupAssignment, resp, nil
 }
-func (c *Client) ActivateApplication(appId string, qp *query.Params)  (*Response, error) {
+func (c *Client) ActivateApplication(appId string, qp *query.Params) (*Response, error) {
 	url := fmt.Sprintf("/api/v1/apps/%v/lifecycle/activate", appId)
 	if qp != nil {
 		url = url + qp.String()
@@ -294,14 +282,13 @@ func (c *Client) ActivateApplication(appId string, qp *query.Params)  (*Response
 		return nil, err
 	}
 
-
 	resp, err := c.requestExecutor.Do(req, nil)
 	if err != nil {
 		return resp, err
 	}
 	return resp, nil
 }
-func (c *Client) DeactivateApplication(appId string, qp *query.Params)  (*Response, error) {
+func (c *Client) DeactivateApplication(appId string, qp *query.Params) (*Response, error) {
 	url := fmt.Sprintf("/api/v1/apps/%v/lifecycle/deactivate", appId)
 	if qp != nil {
 		url = url + qp.String()
@@ -311,14 +298,13 @@ func (c *Client) DeactivateApplication(appId string, qp *query.Params)  (*Respon
 		return nil, err
 	}
 
-
 	resp, err := c.requestExecutor.Do(req, nil)
 	if err != nil {
 		return resp, err
 	}
 	return resp, nil
 }
-func (c *Client) ListApplicationUsers(appId string, qp *query.Params)  ([]*AppUser, *Response, error) {
+func (c *Client) ListApplicationUsers(appId string, qp *query.Params) ([]*AppUser, *Response, error) {
 	url := fmt.Sprintf("/api/v1/apps/%v/users", appId)
 	if qp != nil {
 		url = url + qp.String()
@@ -327,7 +313,6 @@ func (c *Client) ListApplicationUsers(appId string, qp *query.Params)  ([]*AppUs
 	if err != nil {
 		return nil, nil, err
 	}
-
 
 	var appUser []*AppUser
 	resp, err := c.requestExecutor.Do(req, &appUser)
@@ -336,7 +321,7 @@ func (c *Client) ListApplicationUsers(appId string, qp *query.Params)  ([]*AppUs
 	}
 	return appUser, resp, nil
 }
-func (c *Client) AssignUserToApplication(appId string, body AppUser, qp *query.Params)  (*AppUser, *Response, error) {
+func (c *Client) AssignUserToApplication(appId string, body AppUser, qp *query.Params) (*AppUser, *Response, error) {
 	url := fmt.Sprintf("/api/v1/apps/%v/users", appId)
 	if qp != nil {
 		url = url + qp.String()
@@ -346,7 +331,6 @@ func (c *Client) AssignUserToApplication(appId string, body AppUser, qp *query.P
 		return nil, nil, err
 	}
 
-
 	var appUser *AppUser
 	resp, err := c.requestExecutor.Do(req, &appUser)
 	if err != nil {
@@ -354,7 +338,7 @@ func (c *Client) AssignUserToApplication(appId string, body AppUser, qp *query.P
 	}
 	return appUser, resp, nil
 }
-func (c *Client) DeleteApplicationUser(appId string, userId string, qp *query.Params)  (*Response, error) {
+func (c *Client) DeleteApplicationUser(appId string, userId string, qp *query.Params) (*Response, error) {
 	url := fmt.Sprintf("/api/v1/apps/%v/users/%v", appId, userId)
 	if qp != nil {
 		url = url + qp.String()
@@ -364,14 +348,13 @@ func (c *Client) DeleteApplicationUser(appId string, userId string, qp *query.Pa
 		return nil, err
 	}
 
-
 	resp, err := c.requestExecutor.Do(req, nil)
 	if err != nil {
 		return resp, err
 	}
 	return resp, nil
 }
-func (c *Client) GetApplicationUser(appId string, userId string, qp *query.Params)  (*AppUser, *Response, error) {
+func (c *Client) GetApplicationUser(appId string, userId string, qp *query.Params) (*AppUser, *Response, error) {
 	url := fmt.Sprintf("/api/v1/apps/%v/users/%v", appId, userId)
 	if qp != nil {
 		url = url + qp.String()
@@ -381,7 +364,6 @@ func (c *Client) GetApplicationUser(appId string, userId string, qp *query.Param
 		return nil, nil, err
 	}
 
-
 	var appUser *AppUser
 	resp, err := c.requestExecutor.Do(req, &appUser)
 	if err != nil {
@@ -389,7 +371,7 @@ func (c *Client) GetApplicationUser(appId string, userId string, qp *query.Param
 	}
 	return appUser, resp, nil
 }
-func (c *Client) UpdateApplicationUser(appId string, userId string, body AppUser, qp *query.Params)  (*AppUser, *Response, error) {
+func (c *Client) UpdateApplicationUser(appId string, userId string, body AppUser, qp *query.Params) (*AppUser, *Response, error) {
 	url := fmt.Sprintf("/api/v1/apps/%v/users/%v", appId, userId)
 	if qp != nil {
 		url = url + qp.String()
@@ -399,7 +381,6 @@ func (c *Client) UpdateApplicationUser(appId string, userId string, body AppUser
 		return nil, nil, err
 	}
 
-
 	var appUser *AppUser
 	resp, err := c.requestExecutor.Do(req, &appUser)
 	if err != nil {
@@ -407,8 +388,8 @@ func (c *Client) UpdateApplicationUser(appId string, userId string, body AppUser
 	}
 	return appUser, resp, nil
 }
-func (c *Client) ListGroups(qp *query.Params)  ([]*Group, *Response, error) {
-	url := fmt.Sprintf("/api/v1/groups", )
+func (c *Client) ListGroups(qp *query.Params) ([]*Group, *Response, error) {
+	url := fmt.Sprintf("/api/v1/groups")
 	if qp != nil {
 		url = url + qp.String()
 	}
@@ -416,7 +397,6 @@ func (c *Client) ListGroups(qp *query.Params)  ([]*Group, *Response, error) {
 	if err != nil {
 		return nil, nil, err
 	}
-
 
 	var group []*Group
 	resp, err := c.requestExecutor.Do(req, &group)
@@ -425,8 +405,8 @@ func (c *Client) ListGroups(qp *query.Params)  ([]*Group, *Response, error) {
 	}
 	return group, resp, nil
 }
-func (c *Client) CreateGroup(body Group, qp *query.Params)  (*Group, *Response, error) {
-	url := fmt.Sprintf("/api/v1/groups", )
+func (c *Client) CreateGroup(body Group, qp *query.Params) (*Group, *Response, error) {
+	url := fmt.Sprintf("/api/v1/groups")
 	if qp != nil {
 		url = url + qp.String()
 	}
@@ -434,7 +414,6 @@ func (c *Client) CreateGroup(body Group, qp *query.Params)  (*Group, *Response, 
 	if err != nil {
 		return nil, nil, err
 	}
-
 
 	var group *Group
 	resp, err := c.requestExecutor.Do(req, &group)
@@ -443,8 +422,8 @@ func (c *Client) CreateGroup(body Group, qp *query.Params)  (*Group, *Response, 
 	}
 	return group, resp, nil
 }
-func (c *Client) ListRules(qp *query.Params)  ([]*GroupRule, *Response, error) {
-	url := fmt.Sprintf("/api/v1/groups/rules", )
+func (c *Client) ListRules(qp *query.Params) ([]*GroupRule, *Response, error) {
+	url := fmt.Sprintf("/api/v1/groups/rules")
 	if qp != nil {
 		url = url + qp.String()
 	}
@@ -453,7 +432,6 @@ func (c *Client) ListRules(qp *query.Params)  ([]*GroupRule, *Response, error) {
 		return nil, nil, err
 	}
 
-
 	var groupRule []*GroupRule
 	resp, err := c.requestExecutor.Do(req, &groupRule)
 	if err != nil {
@@ -461,8 +439,8 @@ func (c *Client) ListRules(qp *query.Params)  ([]*GroupRule, *Response, error) {
 	}
 	return groupRule, resp, nil
 }
-func (c *Client) CreateRule(body GroupRule, qp *query.Params)  (*GroupRule, *Response, error) {
-	url := fmt.Sprintf("/api/v1/groups/rules", )
+func (c *Client) CreateRule(body GroupRule, qp *query.Params) (*GroupRule, *Response, error) {
+	url := fmt.Sprintf("/api/v1/groups/rules")
 	if qp != nil {
 		url = url + qp.String()
 	}
@@ -471,7 +449,6 @@ func (c *Client) CreateRule(body GroupRule, qp *query.Params)  (*GroupRule, *Res
 		return nil, nil, err
 	}
 
-
 	var groupRule *GroupRule
 	resp, err := c.requestExecutor.Do(req, &groupRule)
 	if err != nil {
@@ -479,7 +456,7 @@ func (c *Client) CreateRule(body GroupRule, qp *query.Params)  (*GroupRule, *Res
 	}
 	return groupRule, resp, nil
 }
-func (c *Client) DeleteRule(ruleId string, qp *query.Params)  (*Response, error) {
+func (c *Client) DeleteRule(ruleId string, qp *query.Params) (*Response, error) {
 	url := fmt.Sprintf("/api/v1/groups/rules/%v", ruleId)
 	if qp != nil {
 		url = url + qp.String()
@@ -489,14 +466,13 @@ func (c *Client) DeleteRule(ruleId string, qp *query.Params)  (*Response, error)
 		return nil, err
 	}
 
-
 	resp, err := c.requestExecutor.Do(req, nil)
 	if err != nil {
 		return resp, err
 	}
 	return resp, nil
 }
-func (c *Client) GetRule(ruleId string, qp *query.Params)  (*GroupRule, *Response, error) {
+func (c *Client) GetRule(ruleId string, qp *query.Params) (*GroupRule, *Response, error) {
 	url := fmt.Sprintf("/api/v1/groups/rules/%v", ruleId)
 	if qp != nil {
 		url = url + qp.String()
@@ -506,7 +482,6 @@ func (c *Client) GetRule(ruleId string, qp *query.Params)  (*GroupRule, *Respons
 		return nil, nil, err
 	}
 
-
 	var groupRule *GroupRule
 	resp, err := c.requestExecutor.Do(req, &groupRule)
 	if err != nil {
@@ -514,7 +489,7 @@ func (c *Client) GetRule(ruleId string, qp *query.Params)  (*GroupRule, *Respons
 	}
 	return groupRule, resp, nil
 }
-func (c *Client) UpdateRule(ruleId string, body GroupRule, qp *query.Params)  (*GroupRule, *Response, error) {
+func (c *Client) UpdateRule(ruleId string, body GroupRule, qp *query.Params) (*GroupRule, *Response, error) {
 	url := fmt.Sprintf("/api/v1/groups/rules/%v", ruleId)
 	if qp != nil {
 		url = url + qp.String()
@@ -524,7 +499,6 @@ func (c *Client) UpdateRule(ruleId string, body GroupRule, qp *query.Params)  (*
 		return nil, nil, err
 	}
 
-
 	var groupRule *GroupRule
 	resp, err := c.requestExecutor.Do(req, &groupRule)
 	if err != nil {
@@ -532,7 +506,7 @@ func (c *Client) UpdateRule(ruleId string, body GroupRule, qp *query.Params)  (*
 	}
 	return groupRule, resp, nil
 }
-func (c *Client) ActivateRule(ruleId string, qp *query.Params)  (*Response, error) {
+func (c *Client) ActivateRule(ruleId string, qp *query.Params) (*Response, error) {
 	url := fmt.Sprintf("/api/v1/groups/rules/%v/lifecycle/activate", ruleId)
 	if qp != nil {
 		url = url + qp.String()
@@ -542,14 +516,13 @@ func (c *Client) ActivateRule(ruleId string, qp *query.Params)  (*Response, erro
 		return nil, err
 	}
 
-
 	resp, err := c.requestExecutor.Do(req, nil)
 	if err != nil {
 		return resp, err
 	}
 	return resp, nil
 }
-func (c *Client) DeactivateRule(ruleId string, qp *query.Params)  (*Response, error) {
+func (c *Client) DeactivateRule(ruleId string, qp *query.Params) (*Response, error) {
 	url := fmt.Sprintf("/api/v1/groups/rules/%v/lifecycle/deactivate", ruleId)
 	if qp != nil {
 		url = url + qp.String()
@@ -559,14 +532,13 @@ func (c *Client) DeactivateRule(ruleId string, qp *query.Params)  (*Response, er
 		return nil, err
 	}
 
-
 	resp, err := c.requestExecutor.Do(req, nil)
 	if err != nil {
 		return resp, err
 	}
 	return resp, nil
 }
-func (c *Client) DeleteGroup(groupId string, qp *query.Params)  (*Response, error) {
+func (c *Client) DeleteGroup(groupId string, qp *query.Params) (*Response, error) {
 	url := fmt.Sprintf("/api/v1/groups/%v", groupId)
 	if qp != nil {
 		url = url + qp.String()
@@ -576,14 +548,13 @@ func (c *Client) DeleteGroup(groupId string, qp *query.Params)  (*Response, erro
 		return nil, err
 	}
 
-
 	resp, err := c.requestExecutor.Do(req, nil)
 	if err != nil {
 		return resp, err
 	}
 	return resp, nil
 }
-func (c *Client) GetGroup(groupId string, qp *query.Params)  (*Group, *Response, error) {
+func (c *Client) GetGroup(groupId string, qp *query.Params) (*Group, *Response, error) {
 	url := fmt.Sprintf("/api/v1/groups/%v", groupId)
 	if qp != nil {
 		url = url + qp.String()
@@ -593,7 +564,6 @@ func (c *Client) GetGroup(groupId string, qp *query.Params)  (*Group, *Response,
 		return nil, nil, err
 	}
 
-
 	var group *Group
 	resp, err := c.requestExecutor.Do(req, &group)
 	if err != nil {
@@ -601,7 +571,7 @@ func (c *Client) GetGroup(groupId string, qp *query.Params)  (*Group, *Response,
 	}
 	return group, resp, nil
 }
-func (c *Client) UpdateGroup(groupId string, body Group, qp *query.Params)  (*Group, *Response, error) {
+func (c *Client) UpdateGroup(groupId string, body Group, qp *query.Params) (*Group, *Response, error) {
 	url := fmt.Sprintf("/api/v1/groups/%v", groupId)
 	if qp != nil {
 		url = url + qp.String()
@@ -611,7 +581,6 @@ func (c *Client) UpdateGroup(groupId string, body Group, qp *query.Params)  (*Gr
 		return nil, nil, err
 	}
 
-
 	var group *Group
 	resp, err := c.requestExecutor.Do(req, &group)
 	if err != nil {
@@ -619,7 +588,7 @@ func (c *Client) UpdateGroup(groupId string, body Group, qp *query.Params)  (*Gr
 	}
 	return group, resp, nil
 }
-func (c *Client) ListGroupUsers(groupId string, qp *query.Params)  ([]*User, *Response, error) {
+func (c *Client) ListGroupUsers(groupId string, qp *query.Params) ([]*User, *Response, error) {
 	url := fmt.Sprintf("/api/v1/groups/%v/users", groupId)
 	if qp != nil {
 		url = url + qp.String()
@@ -629,7 +598,6 @@ func (c *Client) ListGroupUsers(groupId string, qp *query.Params)  ([]*User, *Re
 		return nil, nil, err
 	}
 
-
 	var user []*User
 	resp, err := c.requestExecutor.Do(req, &user)
 	if err != nil {
@@ -637,7 +605,7 @@ func (c *Client) ListGroupUsers(groupId string, qp *query.Params)  ([]*User, *Re
 	}
 	return user, resp, nil
 }
-func (c *Client) RemoveGroupUser(groupId string, userId string, qp *query.Params)  (*Response, error) {
+func (c *Client) RemoveGroupUser(groupId string, userId string, qp *query.Params) (*Response, error) {
 	url := fmt.Sprintf("/api/v1/groups/%v/users/%v", groupId, userId)
 	if qp != nil {
 		url = url + qp.String()
@@ -647,14 +615,13 @@ func (c *Client) RemoveGroupUser(groupId string, userId string, qp *query.Params
 		return nil, err
 	}
 
-
 	resp, err := c.requestExecutor.Do(req, nil)
 	if err != nil {
 		return resp, err
 	}
 	return resp, nil
 }
-func (c *Client) AddUserToGroup(groupId string, userId string, qp *query.Params)  (*Response, error) {
+func (c *Client) AddUserToGroup(groupId string, userId string, qp *query.Params) (*Response, error) {
 	url := fmt.Sprintf("/api/v1/groups/%v/users/%v", groupId, userId)
 	if qp != nil {
 		url = url + qp.String()
@@ -664,15 +631,14 @@ func (c *Client) AddUserToGroup(groupId string, userId string, qp *query.Params)
 		return nil, err
 	}
 
-
 	resp, err := c.requestExecutor.Do(req, nil)
 	if err != nil {
 		return resp, err
 	}
 	return resp, nil
 }
-func (c *Client) GetLogs(qp *query.Params)  ([]*LogEvent, *Response, error) {
-	url := fmt.Sprintf("/api/v1/logs", )
+func (c *Client) GetLogs(qp *query.Params) ([]*LogEvent, *Response, error) {
+	url := fmt.Sprintf("/api/v1/logs")
 	if qp != nil {
 		url = url + qp.String()
 	}
@@ -681,7 +647,6 @@ func (c *Client) GetLogs(qp *query.Params)  ([]*LogEvent, *Response, error) {
 		return nil, nil, err
 	}
 
-
 	var logEvent []*LogEvent
 	resp, err := c.requestExecutor.Do(req, &logEvent)
 	if err != nil {
@@ -689,8 +654,8 @@ func (c *Client) GetLogs(qp *query.Params)  ([]*LogEvent, *Response, error) {
 	}
 	return logEvent, resp, nil
 }
-func (c *Client) CreateSession(body CreateSessionRequest, qp *query.Params)  (*Session, *Response, error) {
-	url := fmt.Sprintf("/api/v1/sessions", )
+func (c *Client) CreateSession(body CreateSessionRequest, qp *query.Params) (*Session, *Response, error) {
+	url := fmt.Sprintf("/api/v1/sessions")
 	if qp != nil {
 		url = url + qp.String()
 	}
@@ -699,7 +664,6 @@ func (c *Client) CreateSession(body CreateSessionRequest, qp *query.Params)  (*S
 		return nil, nil, err
 	}
 
-
 	var session *Session
 	resp, err := c.requestExecutor.Do(req, &session)
 	if err != nil {
@@ -707,7 +671,7 @@ func (c *Client) CreateSession(body CreateSessionRequest, qp *query.Params)  (*S
 	}
 	return session, resp, nil
 }
-func (c *Client) EndSession(sessionId string, qp *query.Params)  (*Response, error) {
+func (c *Client) EndSession(sessionId string, qp *query.Params) (*Response, error) {
 	url := fmt.Sprintf("/api/v1/sessions/%v", sessionId)
 	if qp != nil {
 		url = url + qp.String()
@@ -717,14 +681,13 @@ func (c *Client) EndSession(sessionId string, qp *query.Params)  (*Response, err
 		return nil, err
 	}
 
-
 	resp, err := c.requestExecutor.Do(req, nil)
 	if err != nil {
 		return resp, err
 	}
 	return resp, nil
 }
-func (c *Client) GetSession(sessionId string, qp *query.Params)  (*Session, *Response, error) {
+func (c *Client) GetSession(sessionId string, qp *query.Params) (*Session, *Response, error) {
 	url := fmt.Sprintf("/api/v1/sessions/%v", sessionId)
 	if qp != nil {
 		url = url + qp.String()
@@ -734,7 +697,6 @@ func (c *Client) GetSession(sessionId string, qp *query.Params)  (*Session, *Res
 		return nil, nil, err
 	}
 
-
 	var session *Session
 	resp, err := c.requestExecutor.Do(req, &session)
 	if err != nil {
@@ -742,7 +704,7 @@ func (c *Client) GetSession(sessionId string, qp *query.Params)  (*Session, *Res
 	}
 	return session, resp, nil
 }
-func (c *Client) RefreshSession(sessionId string, qp *query.Params)  (*Session, *Response, error) {
+func (c *Client) RefreshSession(sessionId string, qp *query.Params) (*Session, *Response, error) {
 	url := fmt.Sprintf("/api/v1/sessions/%v/lifecycle/refresh", sessionId)
 	if qp != nil {
 		url = url + qp.String()
@@ -752,7 +714,6 @@ func (c *Client) RefreshSession(sessionId string, qp *query.Params)  (*Session, 
 		return nil, nil, err
 	}
 
-
 	var session *Session
 	resp, err := c.requestExecutor.Do(req, &session)
 	if err != nil {
@@ -760,8 +721,8 @@ func (c *Client) RefreshSession(sessionId string, qp *query.Params)  (*Session, 
 	}
 	return session, resp, nil
 }
-func (c *Client) ListUsers(qp *query.Params)  ([]*User, *Response, error) {
-	url := fmt.Sprintf("/api/v1/users", )
+func (c *Client) ListUsers(qp *query.Params) ([]*User, *Response, error) {
+	url := fmt.Sprintf("/api/v1/users")
 	if qp != nil {
 		url = url + qp.String()
 	}
@@ -770,7 +731,6 @@ func (c *Client) ListUsers(qp *query.Params)  ([]*User, *Response, error) {
 		return nil, nil, err
 	}
 
-
 	var user []*User
 	resp, err := c.requestExecutor.Do(req, &user)
 	if err != nil {
@@ -778,8 +738,8 @@ func (c *Client) ListUsers(qp *query.Params)  ([]*User, *Response, error) {
 	}
 	return user, resp, nil
 }
-func (c *Client) CreateUser(body User, qp *query.Params)  (*User, *Response, error) {
-	url := fmt.Sprintf("/api/v1/users", )
+func (c *Client) CreateUser(body User, qp *query.Params) (*User, *Response, error) {
+	url := fmt.Sprintf("/api/v1/users")
 	if qp != nil {
 		url = url + qp.String()
 	}
@@ -788,7 +748,6 @@ func (c *Client) CreateUser(body User, qp *query.Params)  (*User, *Response, err
 		return nil, nil, err
 	}
 
-
 	var user *User
 	resp, err := c.requestExecutor.Do(req, &user)
 	if err != nil {
@@ -796,7 +755,7 @@ func (c *Client) CreateUser(body User, qp *query.Params)  (*User, *Response, err
 	}
 	return user, resp, nil
 }
-func (c *Client) DeactivateOrDeleteUser(userId string, qp *query.Params)  (*Response, error) {
+func (c *Client) DeactivateOrDeleteUser(userId string, qp *query.Params) (*Response, error) {
 	url := fmt.Sprintf("/api/v1/users/%v", userId)
 	if qp != nil {
 		url = url + qp.String()
@@ -806,14 +765,13 @@ func (c *Client) DeactivateOrDeleteUser(userId string, qp *query.Params)  (*Resp
 		return nil, err
 	}
 
-
 	resp, err := c.requestExecutor.Do(req, nil)
 	if err != nil {
 		return resp, err
 	}
 	return resp, nil
 }
-func (c *Client) GetUser(userId string, qp *query.Params)  (*User, *Response, error) {
+func (c *Client) GetUser(userId string, qp *query.Params) (*User, *Response, error) {
 	url := fmt.Sprintf("/api/v1/users/%v", userId)
 	if qp != nil {
 		url = url + qp.String()
@@ -823,7 +781,6 @@ func (c *Client) GetUser(userId string, qp *query.Params)  (*User, *Response, er
 		return nil, nil, err
 	}
 
-
 	var user *User
 	resp, err := c.requestExecutor.Do(req, &user)
 	if err != nil {
@@ -831,7 +788,7 @@ func (c *Client) GetUser(userId string, qp *query.Params)  (*User, *Response, er
 	}
 	return user, resp, nil
 }
-func (c *Client) UpdateUser(userId string, body User, qp *query.Params)  (*User, *Response, error) {
+func (c *Client) UpdateUser(userId string, body User, qp *query.Params) (*User, *Response, error) {
 	url := fmt.Sprintf("/api/v1/users/%v", userId)
 	if qp != nil {
 		url = url + qp.String()
@@ -841,7 +798,6 @@ func (c *Client) UpdateUser(userId string, body User, qp *query.Params)  (*User,
 		return nil, nil, err
 	}
 
-
 	var user *User
 	resp, err := c.requestExecutor.Do(req, &user)
 	if err != nil {
@@ -849,7 +805,7 @@ func (c *Client) UpdateUser(userId string, body User, qp *query.Params)  (*User,
 	}
 	return user, resp, nil
 }
-func (c *Client) ListAppLinks(userId string, qp *query.Params)  ([]*AppLink, *Response, error) {
+func (c *Client) ListAppLinks(userId string, qp *query.Params) ([]*AppLink, *Response, error) {
 	url := fmt.Sprintf("/api/v1/users/%v/appLinks", userId)
 	if qp != nil {
 		url = url + qp.String()
@@ -859,7 +815,6 @@ func (c *Client) ListAppLinks(userId string, qp *query.Params)  ([]*AppLink, *Re
 		return nil, nil, err
 	}
 
-
 	var appLink []*AppLink
 	resp, err := c.requestExecutor.Do(req, &appLink)
 	if err != nil {
@@ -867,7 +822,7 @@ func (c *Client) ListAppLinks(userId string, qp *query.Params)  ([]*AppLink, *Re
 	}
 	return appLink, resp, nil
 }
-func (c *Client) ChangePassword(userId string, body ChangePasswordRequest, qp *query.Params)  (*UserCredentials, *Response, error) {
+func (c *Client) ChangePassword(userId string, body ChangePasswordRequest, qp *query.Params) (*UserCredentials, *Response, error) {
 	url := fmt.Sprintf("/api/v1/users/%v/credentials/change_password", userId)
 	if qp != nil {
 		url = url + qp.String()
@@ -877,7 +832,6 @@ func (c *Client) ChangePassword(userId string, body ChangePasswordRequest, qp *q
 		return nil, nil, err
 	}
 
-
 	var userCredentials *UserCredentials
 	resp, err := c.requestExecutor.Do(req, &userCredentials)
 	if err != nil {
@@ -885,7 +839,7 @@ func (c *Client) ChangePassword(userId string, body ChangePasswordRequest, qp *q
 	}
 	return userCredentials, resp, nil
 }
-func (c *Client) ChangeRecoveryQuestion(userId string, body UserCredentials, qp *query.Params)  (*UserCredentials, *Response, error) {
+func (c *Client) ChangeRecoveryQuestion(userId string, body UserCredentials, qp *query.Params) (*UserCredentials, *Response, error) {
 	url := fmt.Sprintf("/api/v1/users/%v/credentials/change_recovery_question", userId)
 	if qp != nil {
 		url = url + qp.String()
@@ -895,7 +849,6 @@ func (c *Client) ChangeRecoveryQuestion(userId string, body UserCredentials, qp 
 		return nil, nil, err
 	}
 
-
 	var userCredentials *UserCredentials
 	resp, err := c.requestExecutor.Do(req, &userCredentials)
 	if err != nil {
@@ -903,7 +856,7 @@ func (c *Client) ChangeRecoveryQuestion(userId string, body UserCredentials, qp 
 	}
 	return userCredentials, resp, nil
 }
-func (c *Client) ForgotPassword(userId string, body UserCredentials, qp *query.Params)  (*ForgotPasswordResponse, *Response, error) {
+func (c *Client) ForgotPassword(userId string, body UserCredentials, qp *query.Params) (*ForgotPasswordResponse, *Response, error) {
 	url := fmt.Sprintf("/api/v1/users/%v/credentials/forgot_password", userId)
 	if qp != nil {
 		url = url + qp.String()
@@ -913,7 +866,6 @@ func (c *Client) ForgotPassword(userId string, body UserCredentials, qp *query.P
 		return nil, nil, err
 	}
 
-
 	var forgotPasswordResponse *ForgotPasswordResponse
 	resp, err := c.requestExecutor.Do(req, &forgotPasswordResponse)
 	if err != nil {
@@ -921,7 +873,7 @@ func (c *Client) ForgotPassword(userId string, body UserCredentials, qp *query.P
 	}
 	return forgotPasswordResponse, resp, nil
 }
-func (c *Client) ListFactors(userId string, qp *query.Params)  ([]*Factor, *Response, error) {
+func (c *Client) ListFactors(userId string, qp *query.Params) ([]*Factor, *Response, error) {
 	url := fmt.Sprintf("/api/v1/users/%v/factors", userId)
 	if qp != nil {
 		url = url + qp.String()
@@ -931,7 +883,6 @@ func (c *Client) ListFactors(userId string, qp *query.Params)  ([]*Factor, *Resp
 		return nil, nil, err
 	}
 
-
 	var factor []*Factor
 	resp, err := c.requestExecutor.Do(req, &factor)
 	if err != nil {
@@ -939,7 +890,7 @@ func (c *Client) ListFactors(userId string, qp *query.Params)  ([]*Factor, *Resp
 	}
 	return factor, resp, nil
 }
-func (c *Client) AddFactor(userId string, body Factor, qp *query.Params)  (*Factor, *Response, error) {
+func (c *Client) AddFactor(userId string, body Factor, qp *query.Params) (*Factor, *Response, error) {
 	url := fmt.Sprintf("/api/v1/users/%v/factors", userId)
 	if qp != nil {
 		url = url + qp.String()
@@ -949,7 +900,6 @@ func (c *Client) AddFactor(userId string, body Factor, qp *query.Params)  (*Fact
 		return nil, nil, err
 	}
 
-
 	var factor *Factor
 	resp, err := c.requestExecutor.Do(req, &factor)
 	if err != nil {
@@ -957,7 +907,7 @@ func (c *Client) AddFactor(userId string, body Factor, qp *query.Params)  (*Fact
 	}
 	return factor, resp, nil
 }
-func (c *Client) ListSupportedFactors(userId string, qp *query.Params)  ([]*Factor, *Response, error) {
+func (c *Client) ListSupportedFactors(userId string, qp *query.Params) ([]*Factor, *Response, error) {
 	url := fmt.Sprintf("/api/v1/users/%v/factors/catalog", userId)
 	if qp != nil {
 		url = url + qp.String()
@@ -967,7 +917,6 @@ func (c *Client) ListSupportedFactors(userId string, qp *query.Params)  ([]*Fact
 		return nil, nil, err
 	}
 
-
 	var factor []*Factor
 	resp, err := c.requestExecutor.Do(req, &factor)
 	if err != nil {
@@ -975,7 +924,7 @@ func (c *Client) ListSupportedFactors(userId string, qp *query.Params)  ([]*Fact
 	}
 	return factor, resp, nil
 }
-func (c *Client) ListSupportedSecurityQuestions(userId string, qp *query.Params)  ([]*SecurityQuestion, *Response, error) {
+func (c *Client) ListSupportedSecurityQuestions(userId string, qp *query.Params) ([]*SecurityQuestion, *Response, error) {
 	url := fmt.Sprintf("/api/v1/users/%v/factors/questions", userId)
 	if qp != nil {
 		url = url + qp.String()
@@ -985,7 +934,6 @@ func (c *Client) ListSupportedSecurityQuestions(userId string, qp *query.Params)
 		return nil, nil, err
 	}
 
-
 	var securityQuestion []*SecurityQuestion
 	resp, err := c.requestExecutor.Do(req, &securityQuestion)
 	if err != nil {
@@ -993,7 +941,7 @@ func (c *Client) ListSupportedSecurityQuestions(userId string, qp *query.Params)
 	}
 	return securityQuestion, resp, nil
 }
-func (c *Client) DeleteFactor(userId string, factorId string, qp *query.Params)  (*Response, error) {
+func (c *Client) DeleteFactor(userId string, factorId string, qp *query.Params) (*Response, error) {
 	url := fmt.Sprintf("/api/v1/users/%v/factors/%v", userId, factorId)
 	if qp != nil {
 		url = url + qp.String()
@@ -1003,14 +951,13 @@ func (c *Client) DeleteFactor(userId string, factorId string, qp *query.Params) 
 		return nil, err
 	}
 
-
 	resp, err := c.requestExecutor.Do(req, nil)
 	if err != nil {
 		return resp, err
 	}
 	return resp, nil
 }
-func (c *Client) GetFactor(userId string, factorId string, qp *query.Params)  (*Factor, *Response, error) {
+func (c *Client) GetFactor(userId string, factorId string, qp *query.Params) (*Factor, *Response, error) {
 	url := fmt.Sprintf("/api/v1/users/%v/factors/%v", userId, factorId)
 	if qp != nil {
 		url = url + qp.String()
@@ -1020,7 +967,6 @@ func (c *Client) GetFactor(userId string, factorId string, qp *query.Params)  (*
 		return nil, nil, err
 	}
 
-
 	var factor *Factor
 	resp, err := c.requestExecutor.Do(req, &factor)
 	if err != nil {
@@ -1028,7 +974,7 @@ func (c *Client) GetFactor(userId string, factorId string, qp *query.Params)  (*
 	}
 	return factor, resp, nil
 }
-func (c *Client) ActivateFactor(userId string, factorId string, body VerifyFactorRequest, qp *query.Params)  (*Factor, *Response, error) {
+func (c *Client) ActivateFactor(userId string, factorId string, body VerifyFactorRequest, qp *query.Params) (*Factor, *Response, error) {
 	url := fmt.Sprintf("/api/v1/users/%v/factors/%v/lifecycle/activate", userId, factorId)
 	if qp != nil {
 		url = url + qp.String()
@@ -1038,7 +984,6 @@ func (c *Client) ActivateFactor(userId string, factorId string, body VerifyFacto
 		return nil, nil, err
 	}
 
-
 	var factor *Factor
 	resp, err := c.requestExecutor.Do(req, &factor)
 	if err != nil {
@@ -1046,7 +991,7 @@ func (c *Client) ActivateFactor(userId string, factorId string, body VerifyFacto
 	}
 	return factor, resp, nil
 }
-func (c *Client) VerifyFactor(userId string, factorId string, body VerifyFactorRequest, qp *query.Params)  (*VerifyFactorResponse, *Response, error) {
+func (c *Client) VerifyFactor(userId string, factorId string, body VerifyFactorRequest, qp *query.Params) (*VerifyFactorResponse, *Response, error) {
 	url := fmt.Sprintf("/api/v1/users/%v/factors/%v/verify", userId, factorId)
 	if qp != nil {
 		url = url + qp.String()
@@ -1056,7 +1001,6 @@ func (c *Client) VerifyFactor(userId string, factorId string, body VerifyFactorR
 		return nil, nil, err
 	}
 
-
 	var verifyFactorResponse *VerifyFactorResponse
 	resp, err := c.requestExecutor.Do(req, &verifyFactorResponse)
 	if err != nil {
@@ -1064,7 +1008,7 @@ func (c *Client) VerifyFactor(userId string, factorId string, body VerifyFactorR
 	}
 	return verifyFactorResponse, resp, nil
 }
-func (c *Client) ListUserGroups(userId string, qp *query.Params)  ([]*Group, *Response, error) {
+func (c *Client) ListUserGroups(userId string, qp *query.Params) ([]*Group, *Response, error) {
 	url := fmt.Sprintf("/api/v1/users/%v/groups", userId)
 	if qp != nil {
 		url = url + qp.String()
@@ -1074,7 +1018,6 @@ func (c *Client) ListUserGroups(userId string, qp *query.Params)  ([]*Group, *Re
 		return nil, nil, err
 	}
 
-
 	var group []*Group
 	resp, err := c.requestExecutor.Do(req, &group)
 	if err != nil {
@@ -1082,7 +1025,7 @@ func (c *Client) ListUserGroups(userId string, qp *query.Params)  ([]*Group, *Re
 	}
 	return group, resp, nil
 }
-func (c *Client) ActivateUser(userId string, qp *query.Params)  (*UserActivationToken, *Response, error) {
+func (c *Client) ActivateUser(userId string, qp *query.Params) (*UserActivationToken, *Response, error) {
 	url := fmt.Sprintf("/api/v1/users/%v/lifecycle/activate", userId)
 	if qp != nil {
 		url = url + qp.String()
@@ -1092,7 +1035,6 @@ func (c *Client) ActivateUser(userId string, qp *query.Params)  (*UserActivation
 		return nil, nil, err
 	}
 
-
 	var userActivationToken *UserActivationToken
 	resp, err := c.requestExecutor.Do(req, &userActivationToken)
 	if err != nil {
@@ -1100,7 +1042,7 @@ func (c *Client) ActivateUser(userId string, qp *query.Params)  (*UserActivation
 	}
 	return userActivationToken, resp, nil
 }
-func (c *Client) DeactivateUser(userId string, qp *query.Params)  (*Response, error) {
+func (c *Client) DeactivateUser(userId string, qp *query.Params) (*Response, error) {
 	url := fmt.Sprintf("/api/v1/users/%v/lifecycle/deactivate", userId)
 	if qp != nil {
 		url = url + qp.String()
@@ -1110,14 +1052,13 @@ func (c *Client) DeactivateUser(userId string, qp *query.Params)  (*Response, er
 		return nil, err
 	}
 
-
 	resp, err := c.requestExecutor.Do(req, nil)
 	if err != nil {
 		return resp, err
 	}
 	return resp, nil
 }
-func (c *Client) ExpirePassword(userId string, qp *query.Params)  (*TempPassword, *Response, error) {
+func (c *Client) ExpirePassword(userId string, qp *query.Params) (*TempPassword, *Response, error) {
 	url := fmt.Sprintf("/api/v1/users/%v/lifecycle/expire_password", userId)
 	if qp != nil {
 		url = url + qp.String()
@@ -1127,7 +1068,6 @@ func (c *Client) ExpirePassword(userId string, qp *query.Params)  (*TempPassword
 		return nil, nil, err
 	}
 
-
 	var tempPassword *TempPassword
 	resp, err := c.requestExecutor.Do(req, &tempPassword)
 	if err != nil {
@@ -1135,7 +1075,7 @@ func (c *Client) ExpirePassword(userId string, qp *query.Params)  (*TempPassword
 	}
 	return tempPassword, resp, nil
 }
-func (c *Client) ResetAllFactors(userId string, qp *query.Params)  (*Response, error) {
+func (c *Client) ResetAllFactors(userId string, qp *query.Params) (*Response, error) {
 	url := fmt.Sprintf("/api/v1/users/%v/lifecycle/reset_factors", userId)
 	if qp != nil {
 		url = url + qp.String()
@@ -1145,14 +1085,13 @@ func (c *Client) ResetAllFactors(userId string, qp *query.Params)  (*Response, e
 		return nil, err
 	}
 
-
 	resp, err := c.requestExecutor.Do(req, nil)
 	if err != nil {
 		return resp, err
 	}
 	return resp, nil
 }
-func (c *Client) ResetPassword(userId string, qp *query.Params)  (*ResetPasswordToken, *Response, error) {
+func (c *Client) ResetPassword(userId string, qp *query.Params) (*ResetPasswordToken, *Response, error) {
 	url := fmt.Sprintf("/api/v1/users/%v/lifecycle/reset_password", userId)
 	if qp != nil {
 		url = url + qp.String()
@@ -1162,7 +1101,6 @@ func (c *Client) ResetPassword(userId string, qp *query.Params)  (*ResetPassword
 		return nil, nil, err
 	}
 
-
 	var resetPasswordToken *ResetPasswordToken
 	resp, err := c.requestExecutor.Do(req, &resetPasswordToken)
 	if err != nil {
@@ -1170,7 +1108,7 @@ func (c *Client) ResetPassword(userId string, qp *query.Params)  (*ResetPassword
 	}
 	return resetPasswordToken, resp, nil
 }
-func (c *Client) SuspendUser(userId string, qp *query.Params)  (*Response, error) {
+func (c *Client) SuspendUser(userId string, qp *query.Params) (*Response, error) {
 	url := fmt.Sprintf("/api/v1/users/%v/lifecycle/suspend", userId)
 	if qp != nil {
 		url = url + qp.String()
@@ -1180,14 +1118,13 @@ func (c *Client) SuspendUser(userId string, qp *query.Params)  (*Response, error
 		return nil, err
 	}
 
-
 	resp, err := c.requestExecutor.Do(req, nil)
 	if err != nil {
 		return resp, err
 	}
 	return resp, nil
 }
-func (c *Client) UnlockUser(userId string, qp *query.Params)  (*Response, error) {
+func (c *Client) UnlockUser(userId string, qp *query.Params) (*Response, error) {
 	url := fmt.Sprintf("/api/v1/users/%v/lifecycle/unlock", userId)
 	if qp != nil {
 		url = url + qp.String()
@@ -1197,14 +1134,13 @@ func (c *Client) UnlockUser(userId string, qp *query.Params)  (*Response, error)
 		return nil, err
 	}
 
-
 	resp, err := c.requestExecutor.Do(req, nil)
 	if err != nil {
 		return resp, err
 	}
 	return resp, nil
 }
-func (c *Client) UnsuspendUser(userId string, qp *query.Params)  (*Response, error) {
+func (c *Client) UnsuspendUser(userId string, qp *query.Params) (*Response, error) {
 	url := fmt.Sprintf("/api/v1/users/%v/lifecycle/unsuspend", userId)
 	if qp != nil {
 		url = url + qp.String()
@@ -1214,14 +1150,13 @@ func (c *Client) UnsuspendUser(userId string, qp *query.Params)  (*Response, err
 		return nil, err
 	}
 
-
 	resp, err := c.requestExecutor.Do(req, nil)
 	if err != nil {
 		return resp, err
 	}
 	return resp, nil
 }
-func (c *Client) ListAssignedRoles(userId string, qp *query.Params)  ([]*Role, *Response, error) {
+func (c *Client) ListAssignedRoles(userId string, qp *query.Params) ([]*Role, *Response, error) {
 	url := fmt.Sprintf("/api/v1/users/%v/roles", userId)
 	if qp != nil {
 		url = url + qp.String()
@@ -1231,7 +1166,6 @@ func (c *Client) ListAssignedRoles(userId string, qp *query.Params)  ([]*Role, *
 		return nil, nil, err
 	}
 
-
 	var role []*Role
 	resp, err := c.requestExecutor.Do(req, &role)
 	if err != nil {
@@ -1239,7 +1173,7 @@ func (c *Client) ListAssignedRoles(userId string, qp *query.Params)  ([]*Role, *
 	}
 	return role, resp, nil
 }
-func (c *Client) AddRoleToUser(userId string, body Role, qp *query.Params)  (*Role, *Response, error) {
+func (c *Client) AddRoleToUser(userId string, body Role, qp *query.Params) (*Role, *Response, error) {
 	url := fmt.Sprintf("/api/v1/users/%v/roles", userId)
 	if qp != nil {
 		url = url + qp.String()
@@ -1249,7 +1183,6 @@ func (c *Client) AddRoleToUser(userId string, body Role, qp *query.Params)  (*Ro
 		return nil, nil, err
 	}
 
-
 	var role *Role
 	resp, err := c.requestExecutor.Do(req, &role)
 	if err != nil {
@@ -1257,7 +1190,7 @@ func (c *Client) AddRoleToUser(userId string, body Role, qp *query.Params)  (*Ro
 	}
 	return role, resp, nil
 }
-func (c *Client) RemoveRoleFromUser(userId string, roleId string, qp *query.Params)  (*Response, error) {
+func (c *Client) RemoveRoleFromUser(userId string, roleId string, qp *query.Params) (*Response, error) {
 	url := fmt.Sprintf("/api/v1/users/%v/roles/%v", userId, roleId)
 	if qp != nil {
 		url = url + qp.String()
@@ -1267,14 +1200,13 @@ func (c *Client) RemoveRoleFromUser(userId string, roleId string, qp *query.Para
 		return nil, err
 	}
 
-
 	resp, err := c.requestExecutor.Do(req, nil)
 	if err != nil {
 		return resp, err
 	}
 	return resp, nil
 }
-func (c *Client) ListGroupTargetsForRole(userId string, roleId string, qp *query.Params)  ([]*Group, *Response, error) {
+func (c *Client) ListGroupTargetsForRole(userId string, roleId string, qp *query.Params) ([]*Group, *Response, error) {
 	url := fmt.Sprintf("/api/v1/users/%v/roles/%v/targets/groups", userId, roleId)
 	if qp != nil {
 		url = url + qp.String()
@@ -1284,7 +1216,6 @@ func (c *Client) ListGroupTargetsForRole(userId string, roleId string, qp *query
 		return nil, nil, err
 	}
 
-
 	var group []*Group
 	resp, err := c.requestExecutor.Do(req, &group)
 	if err != nil {
@@ -1292,7 +1223,7 @@ func (c *Client) ListGroupTargetsForRole(userId string, roleId string, qp *query
 	}
 	return group, resp, nil
 }
-func (c *Client) RemoveGroupTargetFromRole(userId string, roleId string, groupId string, qp *query.Params)  (*Response, error) {
+func (c *Client) RemoveGroupTargetFromRole(userId string, roleId string, groupId string, qp *query.Params) (*Response, error) {
 	url := fmt.Sprintf("/api/v1/users/%v/roles/%v/targets/groups/%v", userId, roleId, groupId)
 	if qp != nil {
 		url = url + qp.String()
@@ -1302,14 +1233,13 @@ func (c *Client) RemoveGroupTargetFromRole(userId string, roleId string, groupId
 		return nil, err
 	}
 
-
 	resp, err := c.requestExecutor.Do(req, nil)
 	if err != nil {
 		return resp, err
 	}
 	return resp, nil
 }
-func (c *Client) AddGroupTargetToRole(userId string, roleId string, groupId string, qp *query.Params)  (*Response, error) {
+func (c *Client) AddGroupTargetToRole(userId string, roleId string, groupId string, qp *query.Params) (*Response, error) {
 	url := fmt.Sprintf("/api/v1/users/%v/roles/%v/targets/groups/%v", userId, roleId, groupId)
 	if qp != nil {
 		url = url + qp.String()
@@ -1319,14 +1249,13 @@ func (c *Client) AddGroupTargetToRole(userId string, roleId string, groupId stri
 		return nil, err
 	}
 
-
 	resp, err := c.requestExecutor.Do(req, nil)
 	if err != nil {
 		return resp, err
 	}
 	return resp, nil
 }
-func (c *Client) EndAllUserSessions(userId string, qp *query.Params)  (*Response, error) {
+func (c *Client) EndAllUserSessions(userId string, qp *query.Params) (*Response, error) {
 	url := fmt.Sprintf("/api/v1/users/%v/sessions", userId)
 	if qp != nil {
 		url = url + qp.String()
@@ -1335,7 +1264,6 @@ func (c *Client) EndAllUserSessions(userId string, qp *query.Params)  (*Response
 	if err != nil {
 		return nil, err
 	}
-
 
 	resp, err := c.requestExecutor.Do(req, nil)
 	if err != nil {

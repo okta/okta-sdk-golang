@@ -12,19 +12,16 @@
 * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 * See the License for the specific language governing permissions and
 * limitations under the License.
-*/
+ */
 
 // AUTO-GENERATED!  DO NOT EDIT FILE DIRECTLY
 
 package okta
 
-import (
-)
+import ()
 
 type ApplicationSettingsNotificationsVpnNetwork struct {
-	Connection string `json:"connection,omitempty"`
-	Exclude []string `json:"exclude,omitempty"`
-	Include []string `json:"include,omitempty"`
+	Connection string   `json:"connection,omitempty"`
+	Exclude    []string `json:"exclude,omitempty"`
+	Include    []string `json:"include,omitempty"`
 }
-
-
