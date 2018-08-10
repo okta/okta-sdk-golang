@@ -20,6 +20,8 @@ package okta
 
 import (
 	"fmt"
+
+	"github.com/okta/okta-sdk-golang/okta/cache"
 	"github.com/okta/okta-sdk-golang/okta/query"
 )
 
@@ -48,9 +50,11 @@ func NewClient(config *Config) *Client {
 		config = NewConfig()
 	}
 
+	gocache := cache.NewGoCache(*config)
+
 	c := &Client{}
 	c.config = config
-	c.requestExecutor = NewRequestExecutor(nil, config)
+	c.requestExecutor = NewRequestExecutor(nil, gocache, config)
 
 	c.resource.client = c
 
