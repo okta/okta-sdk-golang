@@ -23,18 +23,22 @@ import (
 	"io/ioutil"
 	"net/http"
 	"net/url"
+
+	"github.com/okta/okta-sdk-golang/okta/cache"
 )
 
 type RequestExecutor struct {
 	httpClient *http.Client
 	config     *Config
 	BaseUrl    *url.URL
+	cache      cache.Cache
 }
 
-func NewRequestExecutor(httpClient *http.Client, config *Config) *RequestExecutor {
+func NewRequestExecutor(httpClient *http.Client, cache cache.Cache, config *Config) *RequestExecutor {
 	re := RequestExecutor{}
 	re.httpClient = httpClient
 	re.config = config
+	re.cache = cache
 
 	if httpClient == nil {
 		re.httpClient = &http.Client{}
