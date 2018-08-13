@@ -16,11 +16,23 @@
 
 package cache
 
+import "strings"
+
 type Cache interface {
 	Get(key string) interface{}
 	Set(key string, value interface{})
 	Delete(key string)
 	Clear()
 	Has(key string) bool
-	CreateKey(uri string) string
+}
+
+func CreateCacheKey(uri string) string {
+	s := uri
+	s = strings.Replace(s, "/", "_", -1)
+	s = strings.Replace(s, ".", "_", -1)
+	s = strings.Replace(s, "-", "_", -1)
+	s = strings.Replace(s, "@", "_", -1)
+	s = strings.Replace(s, "+", "_", -1)
+	s = strings.Replace(s, ":", "_", -1)
+	return s
 }
