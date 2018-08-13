@@ -77,30 +77,28 @@ func (re *RequestExecutor) NewRequest(method string, url string, body interface{
 }
 
 func (re *RequestExecutor) Do(req *http.Request, v interface{}) (*Response, error) {
-	resp, err := re.httpClient.Do(req)
+	cacheKey := cache.CreateCacheKey(req.RequestURI)
 
-	if err != nil {
-		return nil, err
-	}
-	defer resp.Body.Close()
-	response := newResponse(resp)
+	resp := re.cache.Get(cacheKey).(*Response)
+	if resp == nil {
+		resp, err := re.httpClient.Do(req)
+		if err != nil {
+			return nil, err
+		}
+		defer resp.Body.Close()
+		response := newResponse(resp)
 
-	err = CheckResponseForError(resp)
-	if err != nil {
-		return response, err
+		err = CheckResponseForError(resp)
+		if err != nil {
+			return response, err
+		}
+
+		re.cache.Set(cacheKey, resp)
 	}
 
 	if v != nil {
 		if w, ok := v.(io.Writer); ok {
 			io.Copy(w, resp.Body)
-		} else {
-			decErr := json.NewDecoder(resp.Body).Decode(v)
-			if decErr == io.EOF {
-				decErr = nil
-			}
-			if decErr != nil {
-				err = decErr
-			}
 		}
 	}
 
