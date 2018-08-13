@@ -17,7 +17,6 @@
 package cache
 
 import (
-	"strings"
 	"time"
 
 	"github.com/okta/okta-sdk-golang/okta"
@@ -65,15 +64,4 @@ func (c GoCache) Clear() {
 func (c GoCache) Has(key string) bool {
 	_, found := c.RootLibrary.Get(key)
 	return found
-}
-
-func (c GoCache) CreateKey(uri string) string {
-	s := uri
-	s = strings.Replace(s, "/", "_", -1)
-	s = strings.Replace(s, ".", "_", -1)
-	s = strings.Replace(s, "-", "_", -1)
-	s = strings.Replace(s, "@", "_", -1)
-	s = strings.Replace(s, "+", "_", -1)
-	s = strings.Replace(s, ":", "_", -1)
-	return s
 }
