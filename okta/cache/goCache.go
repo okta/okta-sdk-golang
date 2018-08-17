@@ -17,40 +17,41 @@
 package cache
 
 import (
+	"net/http"
 	"time"
 
-	"github.com/okta/okta-sdk-golang/okta"
 	patrickmnGoCache "github.com/patrickmn/go-cache"
 )
 
 type GoCache struct {
-	Config      *okta.Config
+	Ttl         int32
+	Tti         int32
 	RootLibrary *patrickmnGoCache.Cache
 }
 
-func NewGoCache(config okta.Config) GoCache {
-	c := patrickmnGoCache.New(time.Duration(config.Okta.Client.Cache.DefaultTtl),
-		time.Duration(config.Okta.Client.Cache.DefaultTti))
+func NewGoCache(ttl int32, tti int32) GoCache {
+	c := patrickmnGoCache.New(time.Duration(ttl), time.Duration(tti))
 
 	gc := GoCache{
-		Config:      &config,
+		Ttl:         ttl,
+		Tti:         tti,
 		RootLibrary: c,
 	}
 
 	return gc
 }
 
-func (c GoCache) Get(key string) interface{} {
+func (c GoCache) Get(key string) *http.Response {
 	item, found := c.RootLibrary.Get(key)
 	if found {
-		return item
+		return item.(*http.Response)
 	}
 
 	return nil
 }
 
-func (c GoCache) Set(key string, value interface{}) {
-	c.RootLibrary.Set(key, value, time.Duration(c.Config.Okta.Client.Cache.DefaultTtl))
+func (c GoCache) Set(key string, value *http.Response) {
+	c.RootLibrary.Set(key, value, time.Duration(c.Ttl))
 }
 
 func (c GoCache) Delete(key string) {

@@ -27,8 +27,8 @@ import (
 type AppUserResource resource
 
 type AppUser struct {
-	Embedded        []string            `json:"_embedded,omitempty"`
-	Links           []string            `json:"_links,omitempty"`
+	Embedded        interface{}         `json:"_embedded,omitempty"`
+	Links           interface{}         `json:"_links,omitempty"`
 	Created         *time.Time          `json:"created,omitempty"`
 	Credentials     *AppUserCredentials `json:"credentials,omitempty"`
 	ExternalId      string              `json:"externalId,omitempty"`
@@ -36,7 +36,7 @@ type AppUser struct {
 	LastSync        *time.Time          `json:"lastSync,omitempty"`
 	LastUpdated     *time.Time          `json:"lastUpdated,omitempty"`
 	PasswordChanged *time.Time          `json:"passwordChanged,omitempty"`
-	Profile         []string            `json:"profile,omitempty"`
+	Profile         interface{}         `json:"profile,omitempty"`
 	Scope           string              `json:"scope,omitempty"`
 	Status          string              `json:"status,omitempty"`
 	StatusChanged   *time.Time          `json:"statusChanged,omitempty"`

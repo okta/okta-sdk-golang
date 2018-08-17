@@ -27,8 +27,8 @@ import (
 type UserResource resource
 
 type User struct {
-	Embedded              []string         `json:"_embedded,omitempty"`
-	Links                 []string         `json:"_links,omitempty"`
+	Embedded              interface{}      `json:"_embedded,omitempty"`
+	Links                 interface{}      `json:"_links,omitempty"`
 	Activated             *time.Time       `json:"activated,omitempty"`
 	Created               *time.Time       `json:"created,omitempty"`
 	Credentials           *UserCredentials `json:"credentials,omitempty"`

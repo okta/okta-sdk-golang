@@ -26,8 +26,8 @@ import (
 type FactorResource resource
 
 type Factor struct {
-	Embedded                  []string             `json:"_embedded,omitempty"`
-	Links                     []string             `json:"_links,omitempty"`
+	Embedded                  interface{}          `json:"_embedded,omitempty"`
+	Links                     interface{}          `json:"_links,omitempty"`
 	Device                    string               `json:"device,omitempty"`
 	DeviceType                string               `json:"deviceType,omitempty"`
 	FactorType                string               `json:"factorType,omitempty"`
