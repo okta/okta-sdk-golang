@@ -21,7 +21,7 @@ package okta
 import ()
 
 type LogTransaction struct {
-	Detail []string `json:"detail,omitempty"`
-	Id     string   `json:"id,omitempty"`
-	Type   string   `json:"type,omitempty"`
+	Detail interface{} `json:"detail,omitempty"`
+	Id     string      `json:"id,omitempty"`
+	Type   string      `json:"type,omitempty"`
 }

@@ -21,7 +21,7 @@ package okta
 import ()
 
 type ApplicationVisibility struct {
-	AppLinks          []string                   `json:"appLinks,omitempty"`
+	AppLinks          interface{}                `json:"appLinks,omitempty"`
 	AutoSubmitToolbar bool                       `json:"autoSubmitToolbar,omitempty"`
 	Hide              *ApplicationVisibilityHide `json:"hide,omitempty"`
 }

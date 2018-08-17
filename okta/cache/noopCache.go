@@ -16,26 +16,31 @@
 
 package cache
 
-import (
-	"net/http"
-	"strings"
-)
+import "net/http"
 
-type Cache interface {
-	Get(key string) *http.Response
-	Set(key string, value *http.Response)
-	Delete(key string)
-	Clear()
-	Has(key string) bool
+type NoOpCache struct {
 }
 
-func CreateCacheKey(req *http.Request) string {
-	s := req.URL.Host + req.URL.Path
-	s = strings.Replace(s, "/", "_", -1)
-	s = strings.Replace(s, ".", "_", -1)
-	s = strings.Replace(s, "-", "_", -1)
-	s = strings.Replace(s, "@", "_", -1)
-	s = strings.Replace(s, "+", "_", -1)
-	s = strings.Replace(s, ":", "_", -1)
-	return s
+func NewNoOpCache() NoOpCache {
+	return NoOpCache{}
+}
+
+func (c NoOpCache) Get(key string) *http.Response {
+	return nil
+}
+
+func (c NoOpCache) Set(key string, value *http.Response) {
+
+}
+
+func (c NoOpCache) Delete(key string) {
+
+}
+
+func (c NoOpCache) Clear() {
+
+}
+
+func (c NoOpCache) Has(key string) bool {
+	return false
 }

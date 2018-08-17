@@ -50,11 +50,15 @@ func NewClient(config *Config) *Client {
 		config = NewConfig()
 	}
 
-	gocache := cache.NewGoCache(*config)
+	var oktaCache cache.Cache
+	oktaCache = cache.NewGoCache(config.Okta.Client.Cache.DefaultTtl, config.Okta.Client.Cache.DefaultTti)
+	if config.Okta.Client.Cache.Enabled == false {
+		oktaCache = cache.NewNoOpCache()
+	}
 
 	c := &Client{}
 	c.config = config
-	c.requestExecutor = NewRequestExecutor(nil, gocache, config)
+	c.requestExecutor = NewRequestExecutor(nil, oktaCache, config)
 
 	c.resource.client = c
 

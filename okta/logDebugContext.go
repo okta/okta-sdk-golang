@@ -21,5 +21,5 @@ package okta
 import ()
 
 type LogDebugContext struct {
-	DebugData []string `json:"debugData,omitempty"`
+	DebugData interface{} `json:"debugData,omitempty"`
 }

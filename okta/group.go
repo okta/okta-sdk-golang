@@ -27,8 +27,8 @@ import (
 type GroupResource resource
 
 type Group struct {
-	Embedded              []string      `json:"_embedded,omitempty"`
-	Links                 []string      `json:"_links,omitempty"`
+	Embedded              interface{}   `json:"_embedded,omitempty"`
+	Links                 interface{}   `json:"_links,omitempty"`
 	Created               *time.Time    `json:"created,omitempty"`
 	Id                    string        `json:"id,omitempty"`
 	LastMembershipUpdated *time.Time    `json:"lastMembershipUpdated,omitempty"`
