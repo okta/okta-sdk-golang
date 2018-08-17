@@ -19,7 +19,7 @@ package tests
 import "github.com/okta/okta-sdk-golang/okta"
 
 func NewClient() *okta.Client {
-	config := okta.NewConfig().WithCache(false)
+	config := okta.NewConfig()
 	client := okta.NewClient(config)
 
 	return client
