@@ -51,7 +51,7 @@ func NewClient(config *Config) *Client {
 	}
 
 	var oktaCache cache.Cache
-	oktaCache = cache.NewGoCache(config.Okta.Client.Cache.DefaultTtl, config.Okta.Client.Cache.DefaultTti)
+	oktaCache = cache.NewMapCache(config.Okta.Client.Cache.DefaultTtl, config.Okta.Client.Cache.DefaultTti)
 	if config.Okta.Client.Cache.Enabled == false {
 		oktaCache = cache.NewNoOpCache()
 	}
