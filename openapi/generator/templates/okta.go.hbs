@@ -4,6 +4,8 @@ package okta
 
 import (
 	"fmt"
+
+	"github.com/okta/okta-sdk-golang/okta/cache"
 	"github.com/okta/okta-sdk-golang/okta/query"
 )
 
@@ -28,9 +30,15 @@ func NewClient(config *Config) *Client {
 		config = NewConfig()
 	}
 
+	var oktaCache cache.Cache
+	oktaCache = cache.NewGoCache(config.Okta.Client.Cache.DefaultTtl, config.Okta.Client.Cache.DefaultTti)
+	if config.Okta.Client.Cache.Enabled == false {
+		oktaCache = cache.NewNoOpCache()
+	}
+
 	c := &Client{}
 	c.config = config
-	c.requestExecutor = NewRequestExecutor(nil, config)
+	c.requestExecutor = NewRequestExecutor(nil, oktaCache, config)
 
 	c.resource.client = c
 

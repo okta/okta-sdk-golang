@@ -29,6 +29,7 @@ function getType(obj, prefix="") {
     case 'boolean' :
       return String.raw`bool`;
     case 'hash' :
+      return String.raw`interface{}`;
     case 'array' :
       return String.raw`[]string`;
     case 'enum' :

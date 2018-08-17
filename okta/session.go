@@ -27,7 +27,7 @@ import (
 type SessionResource resource
 
 type Session struct {
-	Links                    []string                 `json:"_links,omitempty"`
+	Links                    interface{}              `json:"_links,omitempty"`
 	Amr                      []string                 `json:"amr,omitempty"`
 	CreatedAt                *time.Time               `json:"createdAt,omitempty"`
 	ExpiresAt                *time.Time               `json:"expiresAt,omitempty"`

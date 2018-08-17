@@ -27,12 +27,12 @@ import (
 type ApplicationGroupAssignmentResource resource
 
 type ApplicationGroupAssignment struct {
-	Embedded    []string   `json:"_embedded,omitempty"`
-	Links       []string   `json:"_links,omitempty"`
-	Id          string     `json:"id,omitempty"`
-	LastUpdated *time.Time `json:"lastUpdated,omitempty"`
-	Priority    int64      `json:"priority,omitempty"`
-	Profile     []string   `json:"profile,omitempty"`
+	Embedded    interface{} `json:"_embedded,omitempty"`
+	Links       interface{} `json:"_links,omitempty"`
+	Id          string      `json:"id,omitempty"`
+	LastUpdated *time.Time  `json:"lastUpdated,omitempty"`
+	Priority    int64       `json:"priority,omitempty"`
+	Profile     interface{} `json:"profile,omitempty"`
 }
 
 func (m *ApplicationGroupAssignmentResource) DeleteApplicationGroupAssignment(appId string, groupId string, qp *query.Params) (*Response, error) {

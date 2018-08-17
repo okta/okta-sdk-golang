@@ -23,9 +23,9 @@ import (
 )
 
 type VerifyFactorResponse struct {
-	Embedded            []string   `json:"_embedded,omitempty"`
-	Links               []string   `json:"_links,omitempty"`
-	ExpiresAt           *time.Time `json:"expiresAt,omitempty"`
-	FactorResult        string     `json:"factorResult,omitempty"`
-	FactorResultMessage string     `json:"factorResultMessage,omitempty"`
+	Embedded            interface{} `json:"_embedded,omitempty"`
+	Links               interface{} `json:"_links,omitempty"`
+	ExpiresAt           *time.Time  `json:"expiresAt,omitempty"`
+	FactorResult        string      `json:"factorResult,omitempty"`
+	FactorResultMessage string      `json:"factorResultMessage,omitempty"`
 }

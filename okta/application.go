@@ -27,8 +27,8 @@ import (
 type ApplicationResource resource
 
 type Application struct {
-	Embedded      []string                  `json:"_embedded,omitempty"`
-	Links         []string                  `json:"_links,omitempty"`
+	Embedded      interface{}               `json:"_embedded,omitempty"`
+	Links         interface{}               `json:"_links,omitempty"`
 	Accessibility *ApplicationAccessibility `json:"accessibility,omitempty"`
 	Created       *time.Time                `json:"created,omitempty"`
 	Credentials   *ApplicationCredentials   `json:"credentials,omitempty"`
