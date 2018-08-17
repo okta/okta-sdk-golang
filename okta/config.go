@@ -18,11 +18,11 @@ package okta
 
 import (
 	"fmt"
+	"io/ioutil"
+	"os/user"
+
 	"github.com/go-yaml/yaml"
 	"github.com/kelseyhightower/envconfig"
-	"io/ioutil"
-	"log"
-	"os/user"
 )
 
 type Config struct {
@@ -67,7 +67,6 @@ func (c *Config) ReadConfigFromFile(location string) *Config {
 	yamlConfig, err := ioutil.ReadFile(location)
 
 	if err != nil {
-		log.Printf("Reading configuration from file failed. %s", err.Error())
 		return c
 	}
 
