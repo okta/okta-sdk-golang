@@ -77,34 +77,33 @@ func (re *RequestExecutor) NewRequest(method string, url string, body interface{
 }
 
 func (re *RequestExecutor) Do(req *http.Request, v interface{}) (*Response, error) {
+	cacheKey := cache.CreateCacheKey(req)
+	inCache := re.cache.Has(cacheKey)
 
-	resp, err := re.httpClient.Do(req)
-	if err != nil {
-		return nil, err
-	}
-	defer resp.Body.Close()
-	response := newResponse(resp)
-
-	err = CheckResponseForError(resp)
-	if err != nil {
-		return response, err
-	}
-
-	if v != nil {
-		if w, ok := v.(io.Writer); ok {
-			io.Copy(w, resp.Body)
-		} else {
-			decodeError := json.NewDecoder(resp.Body).Decode(v)
-			if decodeError == io.EOF {
-				decodeError = nil // ignore EOF errors caused by empty response body
-			}
-			if decodeError != nil {
-				return response, decodeError
-			}
+	if inCache == false {
+		resp, err := re.httpClient.Do(req)
+		if err != nil {
+			return nil, err
 		}
+		defer resp.Body.Close()
+
+		respBody, err := ioutil.ReadAll(resp.Body)
+		if err != nil {
+			return nil, err
+		}
+
+		origResp := ioutil.NopCloser(bytes.NewBuffer(respBody))
+		resp.Body = origResp
+
+		re.cache.Set(cacheKey, resp)
+
+		return buildResponse(resp, v)
+
 	}
 
-	return response, nil
+	resp := re.cache.Get(cacheKey)
+	return buildResponse(resp, v)
+
 }
 
 type Response struct {
@@ -131,4 +130,28 @@ func CheckResponseForError(resp *http.Response) error {
 	json.Unmarshal(bodyBytes, &e)
 	return e
 
+}
+
+func buildResponse(resp *http.Response, v interface{}) (*Response, error) {
+	response := newResponse(resp)
+
+	err := CheckResponseForError(resp)
+	if err != nil {
+		return response, err
+	}
+
+	if v != nil {
+		if w, ok := v.(io.Writer); ok {
+			io.Copy(w, resp.Body)
+		} else {
+			decodeError := json.NewDecoder(resp.Body).Decode(v)
+			if decodeError == io.EOF {
+				decodeError = nil // ignore EOF errors caused by empty response body
+			}
+			if decodeError != nil {
+				err = decodeError
+			}
+		}
+	}
+	return response, err
 }
