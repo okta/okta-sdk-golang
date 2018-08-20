@@ -29,16 +29,19 @@ import (
 
 func Test_cache_key_can_be_created_from_request_object(t *testing.T) {
 	var buff io.ReadWriter
-	request, _ := http.NewRequest("GET", "https://okta.com/sample/cache-key/test+test@test.com?with=a&query=string", buff)
+	request, _ := http.NewRequest("GET", "https://example.com/sample/cache-key/test+test@test."+
+		"com?with=a&query=string",
+		buff)
 
 	cacheKey := cache.CreateCacheKey(request)
 
-	assert.Equal(t, "okta_com_sample_cache_key_test_test_test_com", cacheKey, "The cache key was not created correctly.")
+	assert.Equal(t, "example_com_sample_cache_key_test_test_test_com", cacheKey,
+		"The cache key was not created correctly.")
 }
 
 func Test_an_item_can_be_stored_in_cache(t *testing.T) {
 	var buff io.ReadWriter
-	url := "https://okta.com/sample/cache-key/"
+	url := "https://example.com/sample/cache-key/"
 	request, _ := http.NewRequest("GET", url, buff)
 
 	cacheKey := cache.CreateCacheKey(request)
@@ -65,7 +68,7 @@ func Test_an_item_can_be_stored_in_cache(t *testing.T) {
 
 func Test_an_item_can_be_deleted_from_cache(t *testing.T) {
 	var buff io.ReadWriter
-	url := "https://okta.com/sample/cache-key/delete"
+	url := "https://example.com/sample/cache-key/delete"
 	request, _ := http.NewRequest("GET", url, buff)
 
 	cacheKey := cache.CreateCacheKey(request)
@@ -90,7 +93,7 @@ func Test_an_item_can_be_deleted_from_cache(t *testing.T) {
 
 func Test_cache_can_be_cleared(t *testing.T) {
 	var buff io.ReadWriter
-	url := "https://okta.com/sample/cache-key/clear"
+	url := "https://example.com/sample/cache-key/clear"
 	request, _ := http.NewRequest("GET", url, buff)
 
 	cacheKey := cache.CreateCacheKey(request)

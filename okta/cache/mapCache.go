@@ -26,7 +26,7 @@ type MapCache struct {
 	cache map[string]*http.Response
 }
 
-func NewMapCache(ttl int32, tti int32) MapCache {
+func NewMapCache(ttl int32, tti int32) Cache {
 	return MapCache{
 		ttl:   ttl,
 		tti:   tti,
