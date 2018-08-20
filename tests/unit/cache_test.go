@@ -19,6 +19,7 @@ package unit
 import (
 	"io"
 	"net/http"
+	"net/http/httptest"
 	"testing"
 
 	"github.com/okta/okta-sdk-golang/okta/cache"
@@ -36,6 +37,28 @@ func Test_cache_key_can_be_created_from_request_object(t *testing.T) {
 }
 
 func Test_an_item_can_be_stored_in_cache(t *testing.T) {
-	//client := okta.NewClient(okta.NewConfig().WithOrgUrl("https://okta.com"))
+	var buff io.ReadWriter
+	url := "https://okta.com/sample/cache-key/"
+	request, _ := http.NewRequest("GET", url, buff)
+
+	cacheKey := cache.CreateCacheKey(request)
+
+	myCache := cache.NewMapCache(30, 30)
+
+	found := myCache.Has(cacheKey)
+	assert.False(t, found, "item already existed in cache")
+
+	record := httptest.NewRecorder()
+	record.WriteString("test Item")
+	result := record.Result()
+
+	myCache.Set(cacheKey, result)
+
+	found = myCache.Has(cacheKey)
+	assert.True(t, found, "item does not exist in cache")
+
+	pulledFromCache := myCache.Get(cacheKey)
+
+	assert.Equal(t, result, pulledFromCache, "Item pulled from cache was not the same")
 
 }
