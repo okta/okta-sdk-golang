@@ -78,12 +78,12 @@ func (re *RequestExecutor) NewRequest(method string, url string, body interface{
 
 func (re *RequestExecutor) Do(req *http.Request, v interface{}) (*Response, error) {
 	cacheKey := cache.CreateCacheKey(req)
-	if req.Method != "GET" {
+	if req.Method != http.MethodGet {
 		re.cache.Delete(cacheKey)
 	}
 	inCache := re.cache.Has(cacheKey)
 
-	if inCache == false {
+	if !inCache {
 		resp, err := re.httpClient.Do(req)
 		if err != nil {
 			return nil, err
@@ -98,7 +98,7 @@ func (re *RequestExecutor) Do(req *http.Request, v interface{}) (*Response, erro
 		origResp := ioutil.NopCloser(bytes.NewBuffer(respBody))
 		resp.Body = origResp
 
-		if req.Method == "POST" {
+		if req.Method == http.MethodGet {
 			re.cache.Set(cacheKey, resp)
 		}
 
@@ -146,17 +146,14 @@ func buildResponse(resp *http.Response, v interface{}) (*Response, error) {
 	}
 
 	if v != nil {
-		if w, ok := v.(io.Writer); ok {
-			io.Copy(w, resp.Body)
-		} else {
-			decodeError := json.NewDecoder(resp.Body).Decode(v)
-			if decodeError == io.EOF {
-				decodeError = nil // ignore EOF errors caused by empty response body
-			}
-			if decodeError != nil {
-				err = decodeError
-			}
+		decodeError := json.NewDecoder(resp.Body).Decode(v)
+		if decodeError == io.EOF {
+			decodeError = nil // ignore EOF errors caused by empty response body
 		}
+		if decodeError != nil {
+			err = decodeError
+		}
+
 	}
 	return response, err
 }

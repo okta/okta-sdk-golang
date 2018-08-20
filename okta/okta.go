@@ -51,9 +51,11 @@ func NewClient(config *Config) *Client {
 	}
 
 	var oktaCache cache.Cache
-	oktaCache = cache.NewMapCache(config.Okta.Client.Cache.DefaultTtl, config.Okta.Client.Cache.DefaultTti)
-	if config.Okta.Client.Cache.Enabled == false {
+
+	if !config.Okta.Client.Cache.Enabled {
 		oktaCache = cache.NewNoOpCache()
+	} else {
+		oktaCache = cache.NewMapCache(config.Okta.Client.Cache.DefaultTtl, config.Okta.Client.Cache.DefaultTti)
 	}
 
 	c := &Client{}
