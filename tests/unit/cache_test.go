@@ -17,9 +17,9 @@
 package unit
 
 import (
+	"io"
+	"net/http"
 	"testing"
-
-	"github.com/okta/okta-sdk-golang/okta"
 
 	"github.com/okta/okta-sdk-golang/okta/cache"
 
@@ -27,11 +27,15 @@ import (
 )
 
 func Test_cache_key_can_be_created_from_request_object(t *testing.T) {
-	client := okta.NewClient(okta.NewConfig().WithOrgUrl("https://okta.com"))
-	request, _ := client.GetRequestExecutor().NewRequest("GET",
-		"/sample/cache-key/test+test@test.com?with=a&query=string", nil)
+	var buff io.ReadWriter
+	request, _ := http.NewRequest("GET", "https://okta.com/sample/cache-key/test+test@test.com?with=a&query=string", buff)
 
 	cacheKey := cache.CreateCacheKey(request)
 
 	assert.Equal(t, "okta_com_sample_cache_key_test_test_test_com", cacheKey, "The cache key was not created correctly.")
+}
+
+func Test_an_item_can_be_stored_in_cache(t *testing.T) {
+	//client := okta.NewClient(okta.NewConfig().WithOrgUrl("https://okta.com"))
+
 }
