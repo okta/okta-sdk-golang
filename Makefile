@@ -57,4 +57,4 @@ test\:integration:
 
 test\:unit:
 	@echo "$(COLOR_OK)Running unit tests...$(COLOR_NONE)"
-	@echo "TODO"
+	go test ./tests/unit
