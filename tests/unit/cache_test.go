@@ -62,3 +62,52 @@ func Test_an_item_can_be_stored_in_cache(t *testing.T) {
 	assert.Equal(t, result, pulledFromCache, "Item pulled from cache was not the same")
 
 }
+
+func Test_an_item_can_be_deleted_from_cache(t *testing.T) {
+	var buff io.ReadWriter
+	url := "https://okta.com/sample/cache-key/delete"
+	request, _ := http.NewRequest("GET", url, buff)
+
+	cacheKey := cache.CreateCacheKey(request)
+
+	myCache := cache.NewMapCache(30, 30)
+
+	record := httptest.NewRecorder()
+	record.WriteString("test Item")
+	result := record.Result()
+
+	myCache.Set(cacheKey, result)
+
+	found := myCache.Has(cacheKey)
+	assert.True(t, found, "item does not exist in cache")
+
+	myCache.Delete(cacheKey)
+
+	found = myCache.Has(cacheKey)
+	assert.False(t, found, "item was not deleted from cache")
+
+}
+
+func Test_cache_can_be_cleared(t *testing.T) {
+	var buff io.ReadWriter
+	url := "https://okta.com/sample/cache-key/clear"
+	request, _ := http.NewRequest("GET", url, buff)
+
+	cacheKey := cache.CreateCacheKey(request)
+
+	myCache := cache.NewMapCache(30, 30)
+
+	record := httptest.NewRecorder()
+	record.WriteString("test Item")
+	result := record.Result()
+
+	myCache.Set(cacheKey, result)
+
+	found := myCache.Has(cacheKey)
+	assert.True(t, found, "item does not exist in cache")
+
+	myCache.Clear()
+
+	found = myCache.Has(cacheKey)
+	assert.False(t, found, "cache was not cleared")
+}

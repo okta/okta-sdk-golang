@@ -48,7 +48,9 @@ func (c MapCache) Delete(key string) {
 }
 
 func (c MapCache) Clear() {
-	c.cache = make(map[string]*http.Response)
+	for k := range c.cache {
+		delete(c.cache, k)
+	}
 }
 
 func (c MapCache) Has(key string) bool {
