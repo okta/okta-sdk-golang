@@ -78,6 +78,9 @@ func (re *RequestExecutor) NewRequest(method string, url string, body interface{
 
 func (re *RequestExecutor) Do(req *http.Request, v interface{}) (*Response, error) {
 	cacheKey := cache.CreateCacheKey(req)
+	if req.Method != "GET" {
+		re.cache.Delete(cacheKey)
+	}
 	inCache := re.cache.Has(cacheKey)
 
 	if inCache == false {
@@ -95,14 +98,16 @@ func (re *RequestExecutor) Do(req *http.Request, v interface{}) (*Response, erro
 		origResp := ioutil.NopCloser(bytes.NewBuffer(respBody))
 		resp.Body = origResp
 
-		re.cache.Set(cacheKey, resp)
+		if req.Method == "POST" {
+			re.cache.Set(cacheKey, resp)
+		}
 
-		return buildResponse(resp, v)
+		return buildResponse(resp, &v)
 
 	}
 
 	resp := re.cache.Get(cacheKey)
-	return buildResponse(resp, v)
+	return buildResponse(resp, &v)
 
 }
 

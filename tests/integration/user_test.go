@@ -57,11 +57,6 @@ func Test_can_get_a_user(t *testing.T) {
 	require.NoError(t, err, "Getting a user by id should not error")
 	assert.Equal(t, user.Id, ubid.Id, "Could not find user by Id")
 
-	// Get the user by ID → GET /api/v1/users/{{userId}}
-	ubid, _, err = client.User.GetUser(user.Id, nil)
-	require.NoError(t, err, "Getting a user by id should not error")
-	assert.Equal(t, user.Id, ubid.Id, "Could not find user by Id")
-
 	// Get the user by login name → GET /api/v1/users/{{login}}
 	ubln, _, err := client.User.GetUser(profile["login"].(string), nil)
 	require.NoError(t, err, "Getting a user by login should not error")
