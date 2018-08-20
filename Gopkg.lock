@@ -20,12 +20,6 @@
   version = "v1.3.0"
 
 [[projects]]
-  name = "github.com/patrickmn/go-cache"
-  packages = ["."]
-  revision = "a3647f8e31d79543b2d0f0ae2fe5c379d72cedc0"
-  version = "v2.1.0"
-
-[[projects]]
   name = "github.com/pmezard/go-difflib"
   packages = ["difflib"]
   revision = "792786c7400a136282c1664665ae0a8db921c6c2"
@@ -43,6 +37,6 @@
 [solve-meta]
   analyzer-name = "dep"
   analyzer-version = 1
-  inputs-digest = "216b5151a6e9730e048f0b696f7f78bfae2346a4e3d92595fa82d3807dc12be8"
+  inputs-digest = "7b746d1026c64d5a73d75fc01e3e1602e9589c3ecedee6027946b038f2db9f28"
   solver-name = "gps-cdcl"
   solver-version = 1
