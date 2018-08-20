@@ -21,7 +21,7 @@ import "net/http"
 type NoOpCache struct {
 }
 
-func NewNoOpCache() NoOpCache {
+func NewNoOpCache() Cache {
 	return NoOpCache{}
 }
 
