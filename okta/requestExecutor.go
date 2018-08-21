@@ -23,6 +23,7 @@ import (
 	"io/ioutil"
 	"net/http"
 	"net/url"
+	"reflect"
 
 	"github.com/okta/okta-sdk-golang/okta/cache"
 )
@@ -98,7 +99,7 @@ func (re *RequestExecutor) Do(req *http.Request, v interface{}) (*Response, erro
 		origResp := ioutil.NopCloser(bytes.NewBuffer(respBody))
 		resp.Body = origResp
 
-		if req.Method == http.MethodGet {
+		if req.Method == http.MethodGet && reflect.TypeOf(v).Kind() != reflect.Slice {
 			re.cache.Set(cacheKey, resp)
 		}
 
