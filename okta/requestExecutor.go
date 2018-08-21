@@ -24,6 +24,7 @@ import (
 	"net/http"
 	"net/url"
 	"reflect"
+	"time"
 
 	"github.com/okta/okta-sdk-golang/okta/cache"
 )
@@ -42,7 +43,10 @@ func NewRequestExecutor(httpClient *http.Client, cache cache.Cache, config *Conf
 	re.cache = cache
 
 	if httpClient == nil {
-		re.httpClient = &http.Client{}
+		tr := &http.Transport{
+			IdleConnTimeout: 30 * time.Second,
+		}
+		re.httpClient = &http.Client{Transport: tr}
 	}
 
 	return &re
@@ -123,7 +127,7 @@ func newResponse(r *http.Response) *Response {
 
 func CheckResponseForError(resp *http.Response) error {
 	statusCode := resp.StatusCode
-	if statusCode >= http.StatusOK && statusCode < http.StatusMultipleChoices {
+	if statusCode >= http.StatusOK && statusCode < http.StatusBadRequest {
 		return nil
 	}
 
