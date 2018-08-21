@@ -24,17 +24,17 @@ import (
 )
 
 type GoCache struct {
-	Ttl         int32
-	Tti         int32
+	Ttl         time.Duration
+	Tti         time.Duration
 	RootLibrary *patrickmnGoCache.Cache
 }
 
 func NewGoCache(ttl int32, tti int32) GoCache {
-	c := patrickmnGoCache.New(time.Duration(ttl), time.Duration(tti))
+	c := patrickmnGoCache.New(time.Duration(ttl)*time.Second, time.Duration(tti)*time.Second)
 
 	gc := GoCache{
-		Ttl:         ttl,
-		Tti:         tti,
+		Ttl:         time.Duration(ttl) * time.Second,
+		Tti:         time.Duration(tti) * time.Second,
 		RootLibrary: c,
 	}
 
@@ -51,7 +51,7 @@ func (c GoCache) Get(key string) *http.Response {
 }
 
 func (c GoCache) Set(key string, value *http.Response) {
-	c.RootLibrary.Set(key, value, time.Duration(c.Ttl))
+	c.RootLibrary.Set(key, value, c.Ttl)
 }
 
 func (c GoCache) Delete(key string) {

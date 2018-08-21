@@ -18,7 +18,6 @@ package cache
 
 import (
 	"net/http"
-	"strings"
 )
 
 type Cache interface {
@@ -30,12 +29,6 @@ type Cache interface {
 }
 
 func CreateCacheKey(req *http.Request) string {
-	s := req.URL.Host + req.URL.Path
-	s = strings.Replace(s, "/", "_", -1)
-	s = strings.Replace(s, ".", "_", -1)
-	s = strings.Replace(s, "-", "_", -1)
-	s = strings.Replace(s, "@", "_", -1)
-	s = strings.Replace(s, "+", "_", -1)
-	s = strings.Replace(s, ":", "_", -1)
+	s := req.URL.Host + req.URL.RequestURI()
 	return s
 }
