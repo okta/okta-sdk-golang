@@ -35,7 +35,7 @@ func Test_cache_key_can_be_created_from_request_object(t *testing.T) {
 
 	cacheKey := cache.CreateCacheKey(request)
 
-	assert.Equal(t, "example.com/sample/cache-key/test+test@test.com?with=a&query=string", cacheKey,
+	assert.Equal(t, "https://example.com/sample/cache-key/test+test@test.com?with=a&query=string", cacheKey,
 		"The cache key was not created correctly.")
 }
 
