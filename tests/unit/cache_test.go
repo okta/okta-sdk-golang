@@ -35,7 +35,7 @@ func Test_cache_key_can_be_created_from_request_object(t *testing.T) {
 
 	cacheKey := cache.CreateCacheKey(request)
 
-	assert.Equal(t, "example_com_sample_cache_key_test_test_test_com", cacheKey,
+	assert.Equal(t, "example.com/sample/cache-key/test+test@test.com?with=a&query=string", cacheKey,
 		"The cache key was not created correctly.")
 }
 
@@ -46,7 +46,7 @@ func Test_an_item_can_be_stored_in_cache(t *testing.T) {
 
 	cacheKey := cache.CreateCacheKey(request)
 
-	myCache := cache.NewMapCache(30, 30)
+	myCache := cache.NewGoCache(30, 30)
 
 	found := myCache.Has(cacheKey)
 	assert.False(t, found, "item already existed in cache")
@@ -73,7 +73,7 @@ func Test_an_item_can_be_deleted_from_cache(t *testing.T) {
 
 	cacheKey := cache.CreateCacheKey(request)
 
-	myCache := cache.NewMapCache(30, 30)
+	myCache := cache.NewGoCache(30, 30)
 
 	record := httptest.NewRecorder()
 	record.WriteString("test Item")
@@ -98,7 +98,7 @@ func Test_cache_can_be_cleared(t *testing.T) {
 
 	cacheKey := cache.CreateCacheKey(request)
 
-	myCache := cache.NewMapCache(30, 30)
+	myCache := cache.NewGoCache(30, 30)
 
 	record := httptest.NewRecorder()
 	record.WriteString("test Item")

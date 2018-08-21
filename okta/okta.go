@@ -57,7 +57,8 @@ func NewClient(config *Config, httpClient *http.Client, cacheManager cache.Cache
 		oktaCache = cache.NewNoOpCache()
 	} else {
 		if cacheManager == nil {
-			oktaCache = cache.NewMapCache(config.Okta.Client.Cache.DefaultTtl, config.Okta.Client.Cache.DefaultTti)
+			oktaCache = cache.NewGoCache(config.Okta.Client.Cache.DefaultTtl,
+				config.Okta.Client.Cache.DefaultTti)
 		} else {
 			oktaCache = cacheManager
 		}
