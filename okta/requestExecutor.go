@@ -149,7 +149,7 @@ func buildResponse(resp *http.Response, v interface{}) (*Response, error) {
 	if v != nil {
 		decodeError := json.NewDecoder(resp.Body).Decode(v)
 		if decodeError == io.EOF {
-			decodeError = nil // ignore EOF errors caused by empty response body
+			decodeError = nil
 		}
 		if decodeError != nil {
 			err = decodeError
