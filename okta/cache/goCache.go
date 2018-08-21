@@ -1,0 +1,68 @@
+/*
+ * Copyright 2018 - Present Okta, Inc.
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *      http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+
+package cache
+
+import (
+	"net/http"
+	"time"
+
+	patrickmnGoCache "github.com/patrickmn/go-cache"
+)
+
+type GoCache struct {
+	Ttl         int32
+	Tti         int32
+	RootLibrary *patrickmnGoCache.Cache
+}
+
+func NewGoCache(ttl int32, tti int32) GoCache {
+	c := patrickmnGoCache.New(time.Duration(ttl), time.Duration(tti))
+
+	gc := GoCache{
+		Ttl:         ttl,
+		Tti:         tti,
+		RootLibrary: c,
+	}
+
+	return gc
+}
+
+func (c GoCache) Get(key string) *http.Response {
+	item, found := c.RootLibrary.Get(key)
+	if found {
+		return item.(*http.Response)
+	}
+
+	return nil
+}
+
+func (c GoCache) Set(key string, value *http.Response) {
+	c.RootLibrary.Set(key, value, time.Duration(c.Ttl))
+}
+
+func (c GoCache) Delete(key string) {
+	c.RootLibrary.Delete(key)
+}
+
+func (c GoCache) Clear() {
+	c.RootLibrary.Flush()
+}
+
+func (c GoCache) Has(key string) bool {
+	_, found := c.RootLibrary.Get(key)
+	return found
+}

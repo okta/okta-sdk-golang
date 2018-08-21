@@ -22,7 +22,7 @@ import (
 
 func NewClient() *okta.Client {
 	config := okta.NewConfig().WithCache(false)
-	client := okta.NewClient(config)
+	client := okta.NewClient(config, nil, nil)
 
 	return client
 }

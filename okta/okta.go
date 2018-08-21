@@ -20,6 +20,7 @@ package okta
 
 import (
 	"fmt"
+	"net/http"
 
 	"github.com/okta/okta-sdk-golang/okta/cache"
 	"github.com/okta/okta-sdk-golang/okta/query"
@@ -45,7 +46,7 @@ type resource struct {
 	client *Client
 }
 
-func NewClient(config *Config) *Client {
+func NewClient(config *Config, httpClient *http.Client, cacheManager cache.Cache) *Client {
 	if config == nil {
 		config = NewConfig()
 	}
@@ -55,12 +56,16 @@ func NewClient(config *Config) *Client {
 	if !config.Okta.Client.Cache.Enabled {
 		oktaCache = cache.NewNoOpCache()
 	} else {
-		oktaCache = cache.NewMapCache(config.Okta.Client.Cache.DefaultTtl, config.Okta.Client.Cache.DefaultTti)
+		if cacheManager == nil {
+			oktaCache = cache.NewMapCache(config.Okta.Client.Cache.DefaultTtl, config.Okta.Client.Cache.DefaultTti)
+		} else {
+			oktaCache = cacheManager
+		}
 	}
 
 	c := &Client{}
 	c.config = config
-	c.requestExecutor = NewRequestExecutor(nil, oktaCache, config)
+	c.requestExecutor = NewRequestExecutor(httpClient, oktaCache, config)
 
 	c.resource.client = c
 
