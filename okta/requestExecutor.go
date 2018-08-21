@@ -123,7 +123,7 @@ func newResponse(r *http.Response) *Response {
 
 func CheckResponseForError(resp *http.Response) error {
 	statusCode := resp.StatusCode
-	if statusCode >= 200 && statusCode <= 299 {
+	if statusCode >= http.StatusOK && statusCode < http.StatusMultipleChoices {
 		return nil
 	}
 
