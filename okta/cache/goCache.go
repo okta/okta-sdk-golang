@@ -44,7 +44,8 @@ func NewGoCache(ttl int32, tti int32) GoCache {
 func (c GoCache) Get(key string) *http.Response {
 	item, found := c.rootLibrary.Get(key)
 	if found {
-		return item.(*http.Response)
+		itemCopy := CopyResponse(item.(*http.Response))
+		return itemCopy
 	}
 
 	return nil
