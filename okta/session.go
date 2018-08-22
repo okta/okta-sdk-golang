@@ -73,7 +73,23 @@ func (m *SessionResource) EndSession(sessionId string, qp *query.Params) (*Respo
 	}
 	return resp, nil
 }
+func (m *SessionResource) CreateSession(body CreateSessionRequest, qp *query.Params) (*Session, *Response, error) {
+	url := fmt.Sprintf("/api/v1/sessions")
+	if qp != nil {
+		url = url + qp.String()
+	}
+	req, err := m.client.requestExecutor.NewRequest("POST", url, body)
+	if err != nil {
+		return nil, nil, err
+	}
 
+	var session *Session
+	resp, err := m.client.requestExecutor.Do(req, &session)
+	if err != nil {
+		return nil, resp, err
+	}
+	return session, resp, nil
+}
 func (m *SessionResource) RefreshSession(sessionId string, qp *query.Params) (*Session, *Response, error) {
 	url := fmt.Sprintf("/api/v1/sessions/%v/lifecycle/refresh", sessionId)
 	if qp != nil {
