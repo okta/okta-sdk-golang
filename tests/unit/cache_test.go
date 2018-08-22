@@ -66,7 +66,7 @@ func Test_an_item_can_be_stored_in_cache(t *testing.T) {
 
 	assert.NotEqual(t, result, pulledFromCache, "Item pulled from cache was not a copy")
 	cachedBody, _ := ioutil.ReadAll(pulledFromCache.Body)
-	assert.Equal(t, toCache, string(cachedBody), "Item pulled from cache was not a copy")
+	assert.Equal(t, toCache, string(cachedBody), "Item pulled from cache was not correct")
 
 }
 
