@@ -24,25 +24,25 @@ import (
 )
 
 type GoCache struct {
-	Ttl         time.Duration
-	Tti         time.Duration
-	RootLibrary *patrickmnGoCache.Cache
+	ttl         time.Duration
+	tti         time.Duration
+	rootLibrary *patrickmnGoCache.Cache
 }
 
 func NewGoCache(ttl int32, tti int32) GoCache {
 	c := patrickmnGoCache.New(time.Duration(ttl)*time.Second, time.Duration(tti)*time.Second)
 
 	gc := GoCache{
-		Ttl:         time.Duration(ttl) * time.Second,
-		Tti:         time.Duration(tti) * time.Second,
-		RootLibrary: c,
+		ttl:         time.Duration(ttl) * time.Second,
+		tti:         time.Duration(tti) * time.Second,
+		rootLibrary: c,
 	}
 
 	return gc
 }
 
 func (c GoCache) Get(key string) *http.Response {
-	item, found := c.RootLibrary.Get(key)
+	item, found := c.rootLibrary.Get(key)
 	if found {
 		return item.(*http.Response)
 	}
@@ -51,18 +51,18 @@ func (c GoCache) Get(key string) *http.Response {
 }
 
 func (c GoCache) Set(key string, value *http.Response) {
-	c.RootLibrary.Set(key, value, c.Ttl)
+	c.rootLibrary.Set(key, value, c.ttl)
 }
 
 func (c GoCache) Delete(key string) {
-	c.RootLibrary.Delete(key)
+	c.rootLibrary.Delete(key)
 }
 
 func (c GoCache) Clear() {
-	c.RootLibrary.Flush()
+	c.rootLibrary.Flush()
 }
 
 func (c GoCache) Has(key string) bool {
-	_, found := c.RootLibrary.Get(key)
+	_, found := c.rootLibrary.Get(key)
 	return found
 }
