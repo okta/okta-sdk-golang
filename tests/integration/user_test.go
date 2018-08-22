@@ -106,7 +106,7 @@ func Test_can_activate_a_user(t *testing.T) {
 
 	// Verify that the user is in the list of ACTIVE users with query parameter → GET /api/v1/users?filter=status eq "ACTIVE"
 	filter := query.NewQueryParams(query.WithFilter("status eq \"ACTIVE\""))
-	users, _, err := client.ListUsers(filter)
+	users, _, err := client.User.ListUsers(filter)
 	require.NoError(t, err, "Could not get active users")
 	found := false
 	for _, u := range users {
@@ -200,7 +200,7 @@ func Test_can_suspend_a_user(t *testing.T) {
 
 	// Verify that user is in the list of suspended users → GET /api/v1/users?filter=status eq "SUSPENDED"
 	filter := query.NewQueryParams(query.WithFilter("status eq \"SUSPENDED\""))
-	users, _, err := client.ListUsers(filter)
+	users, _, err := client.User.ListUsers(filter)
 	require.NoError(t, err, "Could not get suspended users")
 	found := false
 	for _, u := range users {
@@ -216,7 +216,7 @@ func Test_can_suspend_a_user(t *testing.T) {
 
 	// Verify that user is in the list of active users → GET /api/v1/users?filter=status eq "ACTIVE"
 	filter = query.NewQueryParams(query.WithFilter("status eq \"ACTIVE\""))
-	users, _, err = client.ListUsers(filter)
+	users, _, err = client.User.ListUsers(filter)
 	require.NoError(t, err, "Could not get active users")
 	found = false
 	for _, u := range users {
@@ -555,7 +555,7 @@ func Test_user_group_target_role(t *testing.T) {
 	g := &okta.Group{
 		Profile: gp,
 	}
-	group, _, err := client.CreateGroup(*g, nil)
+	group, _, err := client.Group.CreateGroup(*g, nil)
 	require.NoError(t, err, "Creating an group should not error")
 
 	// Add 'USER_ADMIN' role to the user → POST /api/v1/users/{{userId}}/roles (Body → { type: 'USER_ADMIN'  })
@@ -586,7 +586,7 @@ func Test_user_group_target_role(t *testing.T) {
 	g = &okta.Group{
 		Profile: gp,
 	}
-	newgroup, _, err := client.CreateGroup(*g, nil)
+	newgroup, _, err := client.Group.CreateGroup(*g, nil)
 	_, err = client.User.AddGroupTargetToRole(user.Id, r.Id, newgroup.Id, nil)
 	_, err = client.User.RemoveGroupTargetFromRole(user.Id, r.Id, group.Id, nil)
 	require.NoError(t, err, "Should not have had an error when removing group target to role")
@@ -605,6 +605,6 @@ func Test_user_group_target_role(t *testing.T) {
 	assert.Equal(t, http.StatusNotFound, resp.StatusCode, "Should not have been able to find user")
 
 	// Delete the group → DELETE /api/v1/groups/{{groupId}}
-	client.DeleteGroup(group.Id, nil)
-	client.DeleteGroup(newgroup.Id, nil)
+	client.Group.DeleteGroup(group.Id, nil)
+	client.Group.DeleteGroup(newgroup.Id, nil)
 }
