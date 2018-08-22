@@ -70,36 +70,3 @@ func (m *GroupRuleResource) DeleteRule(ruleId string, qp *query.Params) (*Respon
 	}
 	return resp, nil
 }
-
-func (m *GroupRuleResource) ActivateRule(ruleId string, qp *query.Params) (*Response, error) {
-	url := fmt.Sprintf("/api/v1/groups/rules/%v/lifecycle/activate", ruleId)
-	if qp != nil {
-		url = url + qp.String()
-	}
-	req, err := m.client.requestExecutor.NewRequest("POST", url, nil)
-	if err != nil {
-		return nil, err
-	}
-
-	resp, err := m.client.requestExecutor.Do(req, nil)
-	if err != nil {
-		return resp, err
-	}
-	return resp, nil
-}
-func (m *GroupRuleResource) DeactivateRule(ruleId string, qp *query.Params) (*Response, error) {
-	url := fmt.Sprintf("/api/v1/groups/rules/%v/lifecycle/deactivate", ruleId)
-	if qp != nil {
-		url = url + qp.String()
-	}
-	req, err := m.client.requestExecutor.NewRequest("POST", url, nil)
-	if err != nil {
-		return nil, err
-	}
-
-	resp, err := m.client.requestExecutor.Do(req, nil)
-	if err != nil {
-		return resp, err
-	}
-	return resp, nil
-}

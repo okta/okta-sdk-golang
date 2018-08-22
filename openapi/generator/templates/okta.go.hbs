@@ -3,10 +3,9 @@
 package okta
 
 import (
-	"fmt"
+	"net/http"
 
 	"github.com/okta/okta-sdk-golang/okta/cache"
-	"github.com/okta/okta-sdk-golang/okta/query"
 )
 
 const Version = "0.1.0"
@@ -25,7 +24,7 @@ type resource struct {
 	client *Client
 }
 
-func NewClient(config *Config) *Client {
+func NewClient(config *Config, httpClient *http.Client, cacheManager cache.Cache) *Client {
 	if config == nil {
 		config = NewConfig()
 	}
@@ -60,7 +59,3 @@ func (c *Client) GetConfig() *Config {
 func (c *Client) GetRequestExecutor() *RequestExecutor {
 	return c.requestExecutor
 }
-
-{{#each operations as |operation|}}
-{{> model.defaultOperation  operation=operation}}
-{{/each}}

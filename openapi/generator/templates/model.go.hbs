@@ -17,11 +17,7 @@ type {{model.modelName}} struct {
 	{{/each}}
 }
 
-{{#each model.crud as |crud|}}
-{{> model.defaultMethod operation=this.operation modelName=../model.modelName}}
-{{/each}}
-
-{{#each model.methods as |method|}}
-{{> model.defaultMethod  operation=this.operation modelName=../model.modelName}}
+{{#each operations as |operation|}}
+{{> model.defaultMethod  operation=operation modelName=../model.modelName}}
 {{/each}}
 {{/if}}

@@ -242,11 +242,27 @@ golang.process = ({ spec, operations, models, handlebars }) => {
   });
 
   for (let model of models) {
+    let modelOperations = {}
+
+    if(model.crud != undefined) {
+      for (let modelCrud of model.crud) {
+        modelOperations[modelCrud.operation.operationId] = modelCrud.operation;
+      }
+    }
+
+    for (let operation of operations) {
+      if (operation.tags[0] == model.modelName) {
+        modelOperations[operation.operationId] = operation;
+      }
+    }
+
+
 
     templates.push({
       src: 'templates/model.go.hbs',
       dest: 'okta/' + lowercaseFirstLetter(model.modelName) + '.go',
       context: {
+        "operations": modelOperations,
         "model": model
       }
     });
