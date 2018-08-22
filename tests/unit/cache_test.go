@@ -18,6 +18,7 @@ package unit
 
 import (
 	"io"
+	"io/ioutil"
 	"net/http"
 	"net/http/httptest"
 	"testing"
@@ -51,8 +52,9 @@ func Test_an_item_can_be_stored_in_cache(t *testing.T) {
 	found := myCache.Has(cacheKey)
 	assert.False(t, found, "item already existed in cache")
 
+	toCache := "test Item"
 	record := httptest.NewRecorder()
-	record.WriteString("test Item")
+	record.WriteString(toCache)
 	result := record.Result()
 
 	myCache.Set(cacheKey, result)
@@ -62,7 +64,9 @@ func Test_an_item_can_be_stored_in_cache(t *testing.T) {
 
 	pulledFromCache := myCache.Get(cacheKey)
 
-	assert.Equal(t, result, pulledFromCache, "Item pulled from cache was not the same")
+	assert.NotEqual(t, result, pulledFromCache, "Item pulled from cache was not a copy")
+	cachedBody, _ := ioutil.ReadAll(pulledFromCache.Body)
+	assert.Equal(t, toCache, string(cachedBody), "Item pulled from cache was not a copy")
 
 }
 
