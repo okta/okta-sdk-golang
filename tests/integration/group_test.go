@@ -274,7 +274,7 @@ func Test_group_rule_operations(t *testing.T) {
 	_, err = client.Group.ActivateRule(groupRule.Id, nil)
 	require.NoError(t, err, "Should not error when activating rule")
 
-	time.Sleep(2 * time.Second)
+	time.Sleep(4 * time.Second)
 	users, _, err := client.Group.ListGroupUsers(group.Id, nil)
 	found := false
 	for _, tmpuser := range users {
