@@ -40,7 +40,7 @@ This library uses semantic versioning and follows Okta's [library version policy
 
 | Version | Status                    |
 | ------- | ------------------------- |
-| 0.x  | :heavy_check_mark: Beta Release               |
+| 0.x  |  Beta Release               |
 
 The latest release can always be found on the [releases page][github-releases].
 
@@ -53,8 +53,7 @@ If you run into problems using the SDK, you can
 
 ## Getting started
 
-Follow these steps to install the Okta Golang SDK in your project:
-- Run `go get github.com/okta/okta-sdk-golang`
+To install the Okta Golang SDK in your project, run `go get github.com/okta/okta-sdk-golang`
 
 You'll also need
 
