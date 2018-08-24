@@ -251,7 +251,12 @@ golang.process = ({ spec, operations, models, handlebars }) => {
     }
 
     for (let operation of operations) {
-      if (operation.tags[0] == model.modelName) {
+      let currentTag = operation.tags[0];
+
+      if(currentTag == "UserFactor") {
+        currentTag = "Factor";
+      }
+      if (currentTag == model.modelName) {
         modelOperations[operation.operationId] = operation;
       }
     }
