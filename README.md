@@ -70,6 +70,45 @@ client := okta.NewClient(config, nil, nil)
 
 Hard-coding the Okta domain and API token works for quick tests, but for real projects you should use a more secure way of storing these values (such as environment variables). This library supports a few different configuration sources, covered in the [configuration reference](#configuration-reference) section.
 
+### Extending the Client
+When calling `okta.NewClient()` we allow for you to pass custom instances of `http.Client` and `cache.Cache`.
+
+```
+myClient := &http.Client{}
+
+myCache := NewCustomCacheDriver()
+
+config := okta.NewConfig().WithOrgUrl("{yourOktaDomain}").WithToken("{apiToken}")
+client := okta.NewClient(config, myClient, myCache)
+```
+
+
+### Extending or Creating New Cache Manager
+You can create a custom cache driver by implementing `cache.Cache`
+
+```
+type CustomCacheDriver struct {
+}
+
+func NewCustomCacheDriver() Cache {
+	return CustomCacheDriver{}
+}
+
+func (c CustomCacheDriver) Get(key string) *http.Response {
+	return nil
+}
+
+func (c CustomCacheDriver) Set(key string, value *http.Response) {}
+
+func (c CustomCacheDriver) Delete(key string) {}
+
+func (c CustomCacheDriver) Clear() {}
+
+func (c CustomCacheDriver) Has(key string) bool {
+	return false
+}
+```
+
 ## Usage guide
 
 These examples will help you understand how to use this library. You can also browse the full [API reference documentation][sdkapiref].
