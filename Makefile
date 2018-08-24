@@ -53,8 +53,8 @@ test\:all:
 
 test\:integration:
 	@echo "$(COLOR_OKTA)Running integration tests...$(COLOR_NONE)"
-	go test ./tests/integration
+	go test ./tests/integration -test.v
 
 test\:unit:
 	@echo "$(COLOR_OK)Running unit tests...$(COLOR_NONE)"
-	go test ./tests/unit
+	go test ./tests/unit -test.v
