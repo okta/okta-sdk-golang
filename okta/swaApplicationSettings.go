@@ -21,5 +21,6 @@ package okta
 import ()
 
 type SwaApplicationSettings struct {
-	App *SwaApplicationSettingsApplication `json:"app,omitempty"`
+	App           *SwaApplicationSettingsApplication `json:"app,omitempty"`
+	Notifications *ApplicationSettingsNotifications  `json:"notifications,omitempty"`
 }

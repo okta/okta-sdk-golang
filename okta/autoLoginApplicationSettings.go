@@ -21,5 +21,7 @@ package okta
 import ()
 
 type AutoLoginApplicationSettings struct {
-	SignOn *AutoLoginApplicationSettingsSignOn `json:"signOn,omitempty"`
+	App           *ApplicationSettingsApplication     `json:"app,omitempty"`
+	Notifications *ApplicationSettingsNotifications   `json:"notifications,omitempty"`
+	SignOn        *AutoLoginApplicationSettingsSignOn `json:"signOn,omitempty"`
 }

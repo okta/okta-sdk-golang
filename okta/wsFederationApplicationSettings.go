@@ -21,5 +21,6 @@ package okta
 import ()
 
 type WsFederationApplicationSettings struct {
-	App *WsFederationApplicationSettingsApplication `json:"app,omitempty"`
+	App           *WsFederationApplicationSettingsApplication `json:"app,omitempty"`
+	Notifications *ApplicationSettingsNotifications           `json:"notifications,omitempty"`
 }

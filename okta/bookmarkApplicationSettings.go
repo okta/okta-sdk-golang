@@ -21,5 +21,6 @@ package okta
 import ()
 
 type BookmarkApplicationSettings struct {
-	App *BookmarkApplicationSettingsApplication `json:"app,omitempty"`
+	App           *BookmarkApplicationSettingsApplication `json:"app,omitempty"`
+	Notifications *ApplicationSettingsNotifications       `json:"notifications,omitempty"`
 }
