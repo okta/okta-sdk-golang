@@ -12,9 +12,7 @@ type {{model.modelName}}Resource resource
 
 {{/if}}
 type {{model.modelName}} struct {
-	{{#each model.properties as |property|}}
-	{{structProp this.propertyName}} {{getType this "*"}} `json:"{{this.propertyName}},omitempty"`
-	{{/each}}
+	{{{buildModelProperties model}}}
 }
 
 {{#each operations as |operation|}}

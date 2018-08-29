@@ -21,5 +21,7 @@ package okta
 import ()
 
 type OAuthApplicationCredentials struct {
-	OauthClient *ApplicationCredentialsOAuthClient `json:"oauthClient,omitempty"`
+	Signing          *ApplicationCredentialsSigning          `json:"signing,omitempty"`
+	UserNameTemplate *ApplicationCredentialsUsernameTemplate `json:"userNameTemplate,omitempty"`
+	OauthClient      *ApplicationCredentialsOAuthClient      `json:"oauthClient,omitempty"`
 }

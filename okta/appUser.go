@@ -20,7 +20,6 @@ package okta
 
 import (
 	"fmt"
-	"github.com/okta/okta-sdk-golang/okta/query"
 	"time"
 )
 
@@ -43,11 +42,8 @@ type AppUser struct {
 	SyncState       string              `json:"syncState,omitempty"`
 }
 
-func (m *AppUserResource) UpdateApplicationUser(appId string, userId string, body AppUser, qp *query.Params) (*AppUser, *Response, error) {
+func (m *AppUserResource) UpdateApplicationUser(appId string, userId string, body AppUser) (*AppUser, *Response, error) {
 	url := fmt.Sprintf("/api/v1/apps/%v/users/%v", appId, userId)
-	if qp != nil {
-		url = url + qp.String()
-	}
 	req, err := m.client.requestExecutor.NewRequest("POST", url, body)
 	if err != nil {
 		return nil, nil, err
@@ -60,11 +56,8 @@ func (m *AppUserResource) UpdateApplicationUser(appId string, userId string, bod
 	}
 	return appUser, resp, nil
 }
-func (m *AppUserResource) DeleteApplicationUser(appId string, userId string, qp *query.Params) (*Response, error) {
+func (m *AppUserResource) DeleteApplicationUser(appId string, userId string) (*Response, error) {
 	url := fmt.Sprintf("/api/v1/apps/%v/users/%v", appId, userId)
-	if qp != nil {
-		url = url + qp.String()
-	}
 	req, err := m.client.requestExecutor.NewRequest("DELETE", url, nil)
 	if err != nil {
 		return nil, err

@@ -37,11 +37,8 @@ type GroupRule struct {
 	Type        string               `json:"type,omitempty"`
 }
 
-func (m *GroupRuleResource) UpdateRule(ruleId string, body GroupRule, qp *query.Params) (*GroupRule, *Response, error) {
+func (m *GroupRuleResource) UpdateRule(ruleId string, body GroupRule) (*GroupRule, *Response, error) {
 	url := fmt.Sprintf("/api/v1/groups/rules/%v", ruleId)
-	if qp != nil {
-		url = url + qp.String()
-	}
 	req, err := m.client.requestExecutor.NewRequest("PUT", url, body)
 	if err != nil {
 		return nil, nil, err

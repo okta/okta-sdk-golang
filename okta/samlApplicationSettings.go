@@ -21,5 +21,7 @@ package okta
 import ()
 
 type SamlApplicationSettings struct {
-	SignOn *SamlApplicationSettingsSignOn `json:"signOn,omitempty"`
+	App           *ApplicationSettingsApplication   `json:"app,omitempty"`
+	Notifications *ApplicationSettingsNotifications `json:"notifications,omitempty"`
+	SignOn        *SamlApplicationSettingsSignOn    `json:"signOn,omitempty"`
 }
