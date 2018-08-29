@@ -85,10 +85,21 @@ function getImports(object) {
       }
     }
   }
+  if (object.model.parent !== undefined) {
+    for (let property of object.model.parent.properties) {
+      switch (property.commonType) {
+        case 'dateTime' :
+          imports.push("time");
+      }
+    }
+  }
+
 
   if (object.model.methods !== undefined) {
     for (let method of object.model.methods) {
-      imports.push("github.com/okta/okta-sdk-golang/okta/query")
+      if(method.operation.queryParams.length) {
+        imports.push("github.com/okta/okta-sdk-golang/okta/query")
+      }
       imports.push("fmt");
       if (method.operation.responseModel !== undefined) {
         imports.push("fmt");
@@ -102,7 +113,9 @@ function getImports(object) {
 
   if (object.model.crud !== undefined) {
     for (let method of object.model.crud) {
-      imports.push("github.com/okta/okta-sdk-golang/okta/query")
+      if(method.operation.queryParams.length) {
+        imports.push("github.com/okta/okta-sdk-golang/okta/query")
+      }
       imports.push("fmt");
       if (method.operation.responseModel !== undefined) {
         imports.push("fmt");
@@ -125,12 +138,18 @@ function operationArgumentBuilder(operation) {
   operation.pathParams.map((arg) => args.push(arg.name + " " + arg.type));
 
   if ((operation.method === 'post' || operation.method === 'put') && operation.bodyModel) {
-    args.push(`body ` + ucFirst(_.camelCase(operation.bodyModel)));
+    let bodyModel = ucFirst(_.camelCase(operation.bodyModel));
+
+    if(bodyModel === "Application") {
+      bodyModel = "interface{}";
+    }
+
+    args.push(`body ` + bodyModel);
   }
 
-  // if (operation.queryParams.length) {
+  if (operation.queryParams.length) {
     args.push('qp *query.Params');
-  // }
+  }
 
   return args.join(', ');
 }
@@ -195,6 +214,30 @@ function getNewClientTagProps(operations) {
   return tagResources.join("\n\t");
 }
 
+function buildModelProperties(model) {
+  const properties = {};
+  const finalProps = [];
+
+  if(model.parent !== undefined) {
+    for (let parentProperty of model.parent.properties) {
+      properties[parentProperty.propertyName] = parentProperty;
+    }
+  }
+
+  if(model.properties !== undefined) {
+    for (let modelProperty of model.properties) {
+      properties[modelProperty.propertyName] = modelProperty;
+    }
+  }
+
+  for (let propKey in properties) {
+    finalProps.push( structProp(properties[propKey].propertyName) + " " + getType(properties[propKey], "*") + " `json:\""+properties[propKey].propertyName+",omitempty\"`" );
+
+  }
+
+  return finalProps.join("\n\t");
+}
+
 function log(item) {
     console.log(item);
 }
@@ -206,7 +249,11 @@ golang.process = ({ spec, operations, models, handlebars }) => {
   const templates = [];
   const queryOptionsTemp = [];
   const queryOptions = [];
+  const modelsByName = [];
 
+  for (let model of models) {
+    modelsByName[model.modelName] = model
+  }
 
   for (let operation of operations) {
     for (let param of operation.queryParams) {
@@ -242,6 +289,14 @@ golang.process = ({ spec, operations, models, handlebars }) => {
   });
 
   for (let model of models) {
+
+    if(model.extends !== undefined) {
+      model.parent = modelsByName[model.extends];
+    }
+
+    if(model.modelName === "BookmarkApplication") {
+      // console.log(model);
+    }
     let modelOperations = {}
 
     if(model.crud != undefined) {
@@ -251,7 +306,9 @@ golang.process = ({ spec, operations, models, handlebars }) => {
     }
 
     for (let operation of operations) {
-      if (operation.tags[0] == model.modelName) {
+      let tag = operation.tags[0];
+      if (tag === "UserFactor" ) tag = "Factor";
+      if (tag == model.modelName) {
         modelOperations[operation.operationId] = operation;
       }
     }
@@ -281,7 +338,8 @@ golang.process = ({ spec, operations, models, handlebars }) => {
     strToUpper,
     lowercaseFirstLetter,
     getClientTagResources,
-    getNewClientTagProps
+    getNewClientTagProps,
+    buildModelProperties
   });
 
   handlebars.registerPartial('partials.copyHeader', fs.readFileSync('generator/templates/partials/copyHeader.hbs', 'utf8'));

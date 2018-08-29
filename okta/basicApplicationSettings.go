@@ -21,5 +21,6 @@ package okta
 import ()
 
 type BasicApplicationSettings struct {
-	App *BasicApplicationSettingsApplication `json:"app,omitempty"`
+	App           *BasicApplicationSettingsApplication `json:"app,omitempty"`
+	Notifications *ApplicationSettingsNotifications    `json:"notifications,omitempty"`
 }

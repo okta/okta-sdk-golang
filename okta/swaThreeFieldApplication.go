@@ -21,6 +21,7 @@ package okta
 import ()
 
 type SwaThreeFieldApplication struct {
-	Name     string                            `json:"name,omitempty"`
-	Settings *SwaThreeFieldApplicationSettings `json:"settings,omitempty"`
+	Credentials *SchemeApplicationCredentials     `json:"credentials,omitempty"`
+	Name        string                            `json:"name,omitempty"`
+	Settings    *SwaThreeFieldApplicationSettings `json:"settings,omitempty"`
 }
