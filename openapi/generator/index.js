@@ -27,7 +27,7 @@ function getType(obj, prefix="") {
     case 'integer' :
       return String.raw`int64`;
     case 'boolean' :
-      return String.raw`bool`;
+      return String.raw`*bool`;
     case 'hash' :
       return String.raw`interface{}`;
     case 'array' :
@@ -90,6 +90,15 @@ function getImports(object) {
       switch (property.commonType) {
         case 'dateTime' :
           imports.push("time");
+      }
+    }
+
+    if (object.model.parent.parent !== undefined) {
+      for (let property of object.model.parent.parent.properties) {
+        switch (property.commonType) {
+          case 'dateTime' :
+            imports.push("time");
+        }
       }
     }
   }
@@ -173,10 +182,14 @@ function getPathParams(operation) {
 
 function returnType(operation) {
   if ( operation.responseModel !== undefined ) {
-    if ( operation.isArray !== undefined && operation.isArray === true) {
-      return " ([]*" + operation.responseModel + ", *Response, error) ";
+    let responseModel = "*" +operation.responseModel
+    if ( responseModel === "*Application" ) {
+      responseModel = "interface{}"
     }
-    return " (*" + operation.responseModel + ", *Response, error) ";
+    if ( operation.isArray !== undefined && operation.isArray === true) {
+      return " ([]" + responseModel + ", *Response, error) ";
+    }
+    return " (" + responseModel + ", *Response, error) ";
   }
   return " (*Response, error) ";
 }
@@ -221,6 +234,11 @@ function buildModelProperties(model) {
   if(model.parent !== undefined) {
     for (let parentProperty of model.parent.properties) {
       properties[parentProperty.propertyName] = parentProperty;
+    }
+    if(model.parent.parent !== undefined) {
+      for (let parentProperty of model.parent.parent.properties) {
+        properties[parentProperty.propertyName] = parentProperty;
+      }
     }
   }
 
@@ -292,11 +310,21 @@ golang.process = ({ spec, operations, models, handlebars }) => {
 
     if(model.extends !== undefined) {
       model.parent = modelsByName[model.extends];
+
+      if(model.parent.resolutionStrategy !== undefined && model.parent.parent == undefined) {
+        for (let value in model.parent.resolutionStrategy.valueToModelMapping) {
+          if (model.parent.resolutionStrategy.valueToModelMapping[value] === model.modelName) {
+            model.resolution = {fieldName: model.parent.resolutionStrategy.propertyName, fieldValue: value};
+          }
+        }
+      }
+
+      if(model.parent.parent !== undefined && model.parent.parent.resolutionStrategy !== undefined) {
+        model.resolution = model.parent.resolution;
+      }
     }
 
-    if(model.modelName === "BookmarkApplication") {
-      // console.log(model);
-    }
+
     let modelOperations = {}
 
     if(model.crud != undefined) {

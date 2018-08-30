@@ -24,3 +24,11 @@ type BookmarkApplicationSettings struct {
 	App           *BookmarkApplicationSettingsApplication `json:"app,omitempty"`
 	Notifications *ApplicationSettingsNotifications       `json:"notifications,omitempty"`
 }
+
+func NewBookmarkApplicationSettings() *BookmarkApplicationSettings {
+	return &BookmarkApplicationSettings{}
+}
+
+func (a *BookmarkApplicationSettings) IsAppInstance() bool {
+	return true
+}

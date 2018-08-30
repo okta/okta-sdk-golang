@@ -24,8 +24,8 @@ type AppLink struct {
 	AppAssignmentId  string `json:"appAssignmentId,omitempty"`
 	AppInstanceId    string `json:"appInstanceId,omitempty"`
 	AppName          string `json:"appName,omitempty"`
-	CredentialsSetup bool   `json:"credentialsSetup,omitempty"`
-	Hidden           bool   `json:"hidden,omitempty"`
+	CredentialsSetup *bool  `json:"credentialsSetup,omitempty"`
+	Hidden           *bool  `json:"hidden,omitempty"`
 	Id               string `json:"id,omitempty"`
 	Label            string `json:"label,omitempty"`
 	LinkUrl          string `json:"linkUrl,omitempty"`

@@ -30,7 +30,7 @@ type WebFactor struct {
 	MfaStateTokenId           string               `json:"mfaStateTokenId,omitempty"`
 	Profile                   *WebFactorProfile    `json:"profile,omitempty"`
 	Provider                  string               `json:"provider,omitempty"`
-	RechallengeExistingFactor bool                 `json:"rechallengeExistingFactor,omitempty"`
+	RechallengeExistingFactor *bool                `json:"rechallengeExistingFactor,omitempty"`
 	SessionId                 string               `json:"sessionId,omitempty"`
 	Status                    string               `json:"status,omitempty"`
 	UserId                    string               `json:"userId,omitempty"`

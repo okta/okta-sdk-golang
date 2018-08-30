@@ -22,3 +22,11 @@ import ()
 
 type ApplicationCredentialsScheme struct {
 }
+
+func NewApplicationCredentialsScheme() *ApplicationCredentialsScheme {
+	return &ApplicationCredentialsScheme{}
+}
+
+func (a *ApplicationCredentialsScheme) IsAppInstance() bool {
+	return true
+}

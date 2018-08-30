@@ -39,3 +39,13 @@ type AutoLoginApplication struct {
 	Status        string                        `json:"status,omitempty"`
 	Visibility    *ApplicationVisibility        `json:"visibility,omitempty"`
 }
+
+func NewAutoLoginApplication() *AutoLoginApplication {
+	return &AutoLoginApplication{
+		SignOnMode: "AUTO_LOGIN",
+	}
+}
+
+func (a *AutoLoginApplication) IsAppInstance() bool {
+	return true
+}

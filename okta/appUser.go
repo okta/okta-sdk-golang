@@ -42,6 +42,14 @@ type AppUser struct {
 	SyncState       string              `json:"syncState,omitempty"`
 }
 
+func NewAppUser() *AppUser {
+	return &AppUser{}
+}
+
+func (a *AppUser) IsAppInstance() bool {
+	return true
+}
+
 func (m *AppUserResource) UpdateApplicationUser(appId string, userId string, body AppUser) (*AppUser, *Response, error) {
 	url := fmt.Sprintf("/api/v1/apps/%v/users/%v", appId, userId)
 	req, err := m.client.requestExecutor.NewRequest("POST", url, body)

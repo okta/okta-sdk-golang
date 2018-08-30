@@ -24,6 +24,10 @@ import (
 	"time"
 )
 
+type App interface {
+	IsAppInstance() bool
+}
+
 type ApplicationResource resource
 
 type Application struct {
@@ -44,7 +48,15 @@ type Application struct {
 	Visibility    *ApplicationVisibility    `json:"visibility,omitempty"`
 }
 
-func (m *ApplicationResource) GetApplication(appId string, qp *query.Params) (*Application, *Response, error) {
+func NewApplication() *Application {
+	return &Application{}
+}
+
+func (a *Application) IsAppInstance() bool {
+	return true
+}
+
+func (m *ApplicationResource) GetApplication(appId string, qp *query.Params) (interface{}, *Response, error) {
 	url := fmt.Sprintf("/api/v1/apps/%v", appId)
 	if qp != nil {
 		url = url + qp.String()
@@ -54,21 +66,21 @@ func (m *ApplicationResource) GetApplication(appId string, qp *query.Params) (*A
 		return nil, nil, err
 	}
 
-	var application *Application
+	application := body
 	resp, err := m.client.requestExecutor.Do(req, &application)
 	if err != nil {
 		return nil, resp, err
 	}
 	return application, resp, nil
 }
-func (m *ApplicationResource) UpdateApplication(appId string, body interface{}) (*Application, *Response, error) {
+func (m *ApplicationResource) UpdateApplication(appId string, body interface{}) (interface{}, *Response, error) {
 	url := fmt.Sprintf("/api/v1/apps/%v", appId)
 	req, err := m.client.requestExecutor.NewRequest("PUT", url, body)
 	if err != nil {
 		return nil, nil, err
 	}
 
-	var application *Application
+	application := body
 	resp, err := m.client.requestExecutor.Do(req, &application)
 	if err != nil {
 		return nil, resp, err
@@ -88,7 +100,7 @@ func (m *ApplicationResource) DeleteApplication(appId string) (*Response, error)
 	}
 	return resp, nil
 }
-func (m *ApplicationResource) ListApplications(qp *query.Params) ([]*Application, *Response, error) {
+func (m *ApplicationResource) ListApplications(qp *query.Params) ([]interface{}, *Response, error) {
 	url := fmt.Sprintf("/api/v1/apps")
 	if qp != nil {
 		url = url + qp.String()
@@ -98,14 +110,14 @@ func (m *ApplicationResource) ListApplications(qp *query.Params) ([]*Application
 		return nil, nil, err
 	}
 
-	var application []*Application
+	var application []Application
 	resp, err := m.client.requestExecutor.Do(req, &application)
 	if err != nil {
 		return nil, resp, err
 	}
 	return application, resp, nil
 }
-func (m *ApplicationResource) CreateApplication(body interface{}, qp *query.Params) (*Application, *Response, error) {
+func (m *ApplicationResource) CreateApplication(body interface{}, qp *query.Params) (interface{}, *Response, error) {
 	url := fmt.Sprintf("/api/v1/apps")
 	if qp != nil {
 		url = url + qp.String()
@@ -115,7 +127,7 @@ func (m *ApplicationResource) CreateApplication(body interface{}, qp *query.Para
 		return nil, nil, err
 	}
 
-	var application *Application
+	application := body
 	resp, err := m.client.requestExecutor.Do(req, &application)
 	if err != nil {
 		return nil, resp, err

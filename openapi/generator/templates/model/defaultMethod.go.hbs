@@ -24,9 +24,17 @@ func (m *{{modelName}}Resource) {{ucFirst operation.operationId}}({{operationArg
 
 	{{#if (ne operation.responseModel undefined)}}
 	{{#if (ne operation.isArray undefined)}}
+	{{#if (eq operation.responseModel "Application")}}
+	var {{lowercaseFirstLetter operation.responseModel}} []{{operation.responseModel}}
+	{{else}}
 	var {{lowercaseFirstLetter operation.responseModel}} []*{{operation.responseModel}}
+	{{/if}}
+	{{else}}
+	{{#if (eq operation.responseModel "Application")}}
+	{{lowercaseFirstLetter operation.responseModel}} := body
 	{{else}}
 	var {{lowercaseFirstLetter operation.responseModel}} *{{operation.responseModel}}
+	{{/if}}
 	{{/if}}
 	resp, err := m.client.requestExecutor.Do(req, &{{lowercaseFirstLetter operation.responseModel}})
 	if err != nil {

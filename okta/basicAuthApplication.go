@@ -39,3 +39,14 @@ type BasicAuthApplication struct {
 	Status        string                        `json:"status,omitempty"`
 	Visibility    *ApplicationVisibility        `json:"visibility,omitempty"`
 }
+
+func NewBasicAuthApplication() *BasicAuthApplication {
+	return &BasicAuthApplication{
+		Name:       "template_basic_auth",
+		SignOnMode: "BASIC_AUTH",
+	}
+}
+
+func (a *BasicAuthApplication) IsAppInstance() bool {
+	return true
+}

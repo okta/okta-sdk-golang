@@ -39,3 +39,14 @@ type SecurePasswordStoreApplication struct {
 	Status        string                                  `json:"status,omitempty"`
 	Visibility    *ApplicationVisibility                  `json:"visibility,omitempty"`
 }
+
+func NewSecurePasswordStoreApplication() *SecurePasswordStoreApplication {
+	return &SecurePasswordStoreApplication{
+		Name:       "template_sps",
+		SignOnMode: "SECURE_PASSWORD_STORE",
+	}
+}
+
+func (a *SecurePasswordStoreApplication) IsAppInstance() bool {
+	return true
+}

@@ -25,3 +25,11 @@ type AutoLoginApplicationSettings struct {
 	Notifications *ApplicationSettingsNotifications   `json:"notifications,omitempty"`
 	SignOn        *AutoLoginApplicationSettingsSignOn `json:"signOn,omitempty"`
 }
+
+func NewAutoLoginApplicationSettings() *AutoLoginApplicationSettings {
+	return &AutoLoginApplicationSettings{}
+}
+
+func (a *AutoLoginApplicationSettings) IsAppInstance() bool {
+	return true
+}
