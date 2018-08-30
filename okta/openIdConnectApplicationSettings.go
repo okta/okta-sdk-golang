@@ -25,3 +25,11 @@ type OpenIdConnectApplicationSettings struct {
 	Notifications *ApplicationSettingsNotifications       `json:"notifications,omitempty"`
 	OauthClient   *OpenIdConnectApplicationSettingsClient `json:"oauthClient,omitempty"`
 }
+
+func NewOpenIdConnectApplicationSettings() *OpenIdConnectApplicationSettings {
+	return &OpenIdConnectApplicationSettings{}
+}
+
+func (a *OpenIdConnectApplicationSettings) IsAppInstance() bool {
+	return true
+}

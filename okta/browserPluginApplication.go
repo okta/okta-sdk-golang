@@ -39,3 +39,13 @@ type BrowserPluginApplication struct {
 	Status        string                        `json:"status,omitempty"`
 	Visibility    *ApplicationVisibility        `json:"visibility,omitempty"`
 }
+
+func NewBrowserPluginApplication() *BrowserPluginApplication {
+	return &BrowserPluginApplication{
+		SignOnMode: "BROWSER_PLUGIN",
+	}
+}
+
+func (a *BrowserPluginApplication) IsAppInstance() bool {
+	return true
+}

@@ -24,6 +24,6 @@ type LogSecurityContext struct {
 	AsNumber int64  `json:"asNumber,omitempty"`
 	AsOrg    string `json:"asOrg,omitempty"`
 	Domain   string `json:"domain,omitempty"`
-	IsProxy  bool   `json:"isProxy,omitempty"`
+	IsProxy  *bool  `json:"isProxy,omitempty"`
 	Isp      string `json:"isp,omitempty"`
 }

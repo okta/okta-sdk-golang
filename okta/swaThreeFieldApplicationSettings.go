@@ -24,3 +24,11 @@ type SwaThreeFieldApplicationSettings struct {
 	App           *SwaThreeFieldApplicationSettingsApplication `json:"app,omitempty"`
 	Notifications *ApplicationSettingsNotifications            `json:"notifications,omitempty"`
 }
+
+func NewSwaThreeFieldApplicationSettings() *SwaThreeFieldApplicationSettings {
+	return &SwaThreeFieldApplicationSettings{}
+}
+
+func (a *SwaThreeFieldApplicationSettings) IsAppInstance() bool {
+	return true
+}

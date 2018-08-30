@@ -24,3 +24,11 @@ type SecurePasswordStoreApplicationSettings struct {
 	App           *SecurePasswordStoreApplicationSettingsApplication `json:"app,omitempty"`
 	Notifications *ApplicationSettingsNotifications                  `json:"notifications,omitempty"`
 }
+
+func NewSecurePasswordStoreApplicationSettings() *SecurePasswordStoreApplicationSettings {
+	return &SecurePasswordStoreApplicationSettings{}
+}
+
+func (a *SecurePasswordStoreApplicationSettings) IsAppInstance() bool {
+	return true
+}

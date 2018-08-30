@@ -39,3 +39,14 @@ type WsFederationApplication struct {
 	Status        string                           `json:"status,omitempty"`
 	Visibility    *ApplicationVisibility           `json:"visibility,omitempty"`
 }
+
+func NewWsFederationApplication() *WsFederationApplication {
+	return &WsFederationApplication{
+		Name:       "template_wsfed",
+		SignOnMode: "WS_FEDERATION",
+	}
+}
+
+func (a *WsFederationApplication) IsAppInstance() bool {
+	return true
+}

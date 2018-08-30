@@ -28,3 +28,11 @@ type ApplicationCredentialsSigning struct {
 	NextRotation *time.Time `json:"nextRotation,omitempty"`
 	RotationMode string     `json:"rotationMode,omitempty"`
 }
+
+func NewApplicationCredentialsSigning() *ApplicationCredentialsSigning {
+	return &ApplicationCredentialsSigning{}
+}
+
+func (a *ApplicationCredentialsSigning) IsAppInstance() bool {
+	return true
+}

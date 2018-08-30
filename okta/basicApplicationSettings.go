@@ -24,3 +24,11 @@ type BasicApplicationSettings struct {
 	App           *BasicApplicationSettingsApplication `json:"app,omitempty"`
 	Notifications *ApplicationSettingsNotifications    `json:"notifications,omitempty"`
 }
+
+func NewBasicApplicationSettings() *BasicApplicationSettings {
+	return &BasicApplicationSettings{}
+}
+
+func (a *BasicApplicationSettings) IsAppInstance() bool {
+	return true
+}

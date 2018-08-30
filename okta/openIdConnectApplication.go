@@ -39,3 +39,14 @@ type OpenIdConnectApplication struct {
 	Status        string                            `json:"status,omitempty"`
 	Visibility    *ApplicationVisibility            `json:"visibility,omitempty"`
 }
+
+func NewOpenIdConnectApplication() *OpenIdConnectApplication {
+	return &OpenIdConnectApplication{
+		Name:       "oidc_client",
+		SignOnMode: "OPENID_CONNECT",
+	}
+}
+
+func (a *OpenIdConnectApplication) IsAppInstance() bool {
+	return true
+}

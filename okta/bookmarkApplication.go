@@ -39,3 +39,14 @@ type BookmarkApplication struct {
 	Status        string                       `json:"status,omitempty"`
 	Visibility    *ApplicationVisibility       `json:"visibility,omitempty"`
 }
+
+func NewBookmarkApplication() *BookmarkApplication {
+	return &BookmarkApplication{
+		Name:       "bookmark",
+		SignOnMode: "BOOKMARK",
+	}
+}
+
+func (a *BookmarkApplication) IsAppInstance() bool {
+	return true
+}

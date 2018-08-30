@@ -7,6 +7,12 @@ type UserProfile map[string]interface{}
 {{else}}
 {{> model.imports this}}
 
+{{#if (eq model.modelName "Application")}}
+type App interface {
+	IsAppInstance() bool
+}
+
+{{/if}}
 {{#if (or (gt model.methods.length 0) (gt model.crud.length 0))}}
 type {{model.modelName}}Resource resource
 
@@ -14,7 +20,25 @@ type {{model.modelName}}Resource resource
 type {{model.modelName}} struct {
 	{{{buildModelProperties model}}}
 }
+{{#if ( eq model.tags.[0] "Application" ) }}
+func New{{model.modelName}}() *{{model.modelName}} {
+	return &{{model.modelName}}{
+		{{#each model.properties as |prop|}}
+		{{#if (ne prop.default undefined) }}
+		{{structProp prop.propertyName}}: "{{prop.default}}",
+		{{/if}}
+		{{/each}}
+		{{#if (ne model.resolution undefined) }}
+		{{structProp model.resolution.fieldName}}: "{{model.resolution.fieldValue}}",
+		{{/if}}
+	}
+}
 
+func (a *{{model.modelName}}) IsAppInstance() bool {
+	return true
+}
+
+{{/if}}
 {{#each operations as |operation|}}
 {{> model.defaultMethod  operation=operation modelName=../model.modelName}}
 {{/each}}

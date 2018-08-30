@@ -39,3 +39,13 @@ type SamlApplication struct {
 	Status        string                    `json:"status,omitempty"`
 	Visibility    *ApplicationVisibility    `json:"visibility,omitempty"`
 }
+
+func NewSamlApplication() *SamlApplication {
+	return &SamlApplication{
+		SignOnMode: "SAML_2_0",
+	}
+}
+
+func (a *SamlApplication) IsAppInstance() bool {
+	return true
+}

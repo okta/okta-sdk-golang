@@ -24,3 +24,11 @@ type SwaApplicationSettings struct {
 	App           *SwaApplicationSettingsApplication `json:"app,omitempty"`
 	Notifications *ApplicationSettingsNotifications  `json:"notifications,omitempty"`
 }
+
+func NewSwaApplicationSettings() *SwaApplicationSettings {
+	return &SwaApplicationSettings{}
+}
+
+func (a *SwaApplicationSettings) IsAppInstance() bool {
+	return true
+}
