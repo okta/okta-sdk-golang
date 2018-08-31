@@ -27,6 +27,6 @@ func NewOpenIdConnectApplicationType() *OpenIdConnectApplicationType {
 	return &OpenIdConnectApplicationType{}
 }
 
-func (a *OpenIdConnectApplicationType) IsAppInstance() bool {
+func (a *OpenIdConnectApplicationType) IsApplicationInstance() bool {
 	return true
 }

@@ -29,6 +29,6 @@ func NewBookmarkApplicationSettings() *BookmarkApplicationSettings {
 	return &BookmarkApplicationSettings{}
 }
 
-func (a *BookmarkApplicationSettings) IsAppInstance() bool {
+func (a *BookmarkApplicationSettings) IsApplicationInstance() bool {
 	return true
 }

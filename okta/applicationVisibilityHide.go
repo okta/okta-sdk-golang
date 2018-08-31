@@ -29,6 +29,6 @@ func NewApplicationVisibilityHide() *ApplicationVisibilityHide {
 	return &ApplicationVisibilityHide{}
 }
 
-func (a *ApplicationVisibilityHide) IsAppInstance() bool {
+func (a *ApplicationVisibilityHide) IsApplicationInstance() bool {
 	return true
 }

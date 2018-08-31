@@ -30,6 +30,6 @@ func NewOAuthApplicationCredentials() *OAuthApplicationCredentials {
 	return &OAuthApplicationCredentials{}
 }
 
-func (a *OAuthApplicationCredentials) IsAppInstance() bool {
+func (a *OAuthApplicationCredentials) IsApplicationInstance() bool {
 	return true
 }

@@ -36,3 +36,13 @@ type WebFactor struct {
 	UserId                    string               `json:"userId,omitempty"`
 	Verify                    *VerifyFactorRequest `json:"verify,omitempty"`
 }
+
+func NewWebFactor() *WebFactor {
+	return &WebFactor{
+		FactorType: "web",
+	}
+}
+
+func (a *WebFactor) IsUserFactorInstance() bool {
+	return true
+}

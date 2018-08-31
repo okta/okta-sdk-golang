@@ -36,3 +36,13 @@ type HardwareFactor struct {
 	UserId                    string                 `json:"userId,omitempty"`
 	Verify                    *VerifyFactorRequest   `json:"verify,omitempty"`
 }
+
+func NewHardwareFactor() *HardwareFactor {
+	return &HardwareFactor{
+		FactorType: "token:hardware",
+	}
+}
+
+func (a *HardwareFactor) IsUserFactorInstance() bool {
+	return true
+}

@@ -27,6 +27,6 @@ func NewOAuthGrantType() *OAuthGrantType {
 	return &OAuthGrantType{}
 }
 
-func (a *OAuthGrantType) IsAppInstance() bool {
+func (a *OAuthGrantType) IsApplicationInstance() bool {
 	return true
 }

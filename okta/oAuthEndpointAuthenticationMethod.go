@@ -27,6 +27,6 @@ func NewOAuthEndpointAuthenticationMethod() *OAuthEndpointAuthenticationMethod {
 	return &OAuthEndpointAuthenticationMethod{}
 }
 
-func (a *OAuthEndpointAuthenticationMethod) IsAppInstance() bool {
+func (a *OAuthEndpointAuthenticationMethod) IsApplicationInstance() bool {
 	return true
 }

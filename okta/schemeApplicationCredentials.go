@@ -33,6 +33,6 @@ func NewSchemeApplicationCredentials() *SchemeApplicationCredentials {
 	return &SchemeApplicationCredentials{}
 }
 
-func (a *SchemeApplicationCredentials) IsAppInstance() bool {
+func (a *SchemeApplicationCredentials) IsApplicationInstance() bool {
 	return true
 }

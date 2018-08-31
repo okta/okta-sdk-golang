@@ -47,6 +47,6 @@ func NewBookmarkApplication() *BookmarkApplication {
 	}
 }
 
-func (a *BookmarkApplication) IsAppInstance() bool {
+func (a *BookmarkApplication) IsApplicationInstance() bool {
 	return true
 }

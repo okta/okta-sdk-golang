@@ -30,6 +30,6 @@ func NewApplicationCredentialsUsernameTemplate() *ApplicationCredentialsUsername
 	return &ApplicationCredentialsUsernameTemplate{}
 }
 
-func (a *ApplicationCredentialsUsernameTemplate) IsAppInstance() bool {
+func (a *ApplicationCredentialsUsernameTemplate) IsApplicationInstance() bool {
 	return true
 }

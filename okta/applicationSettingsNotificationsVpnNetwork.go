@@ -30,6 +30,6 @@ func NewApplicationSettingsNotificationsVpnNetwork() *ApplicationSettingsNotific
 	return &ApplicationSettingsNotificationsVpnNetwork{}
 }
 
-func (a *ApplicationSettingsNotificationsVpnNetwork) IsAppInstance() bool {
+func (a *ApplicationSettingsNotificationsVpnNetwork) IsApplicationInstance() bool {
 	return true
 }

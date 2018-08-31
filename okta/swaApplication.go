@@ -47,6 +47,6 @@ func NewSwaApplication() *SwaApplication {
 	}
 }
 
-func (a *SwaApplication) IsAppInstance() bool {
+func (a *SwaApplication) IsApplicationInstance() bool {
 	return true
 }

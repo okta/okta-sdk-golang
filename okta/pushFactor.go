@@ -36,3 +36,13 @@ type PushFactor struct {
 	UserId                    string               `json:"userId,omitempty"`
 	Verify                    *VerifyFactorRequest `json:"verify,omitempty"`
 }
+
+func NewPushFactor() *PushFactor {
+	return &PushFactor{
+		FactorType: "push",
+	}
+}
+
+func (a *PushFactor) IsUserFactorInstance() bool {
+	return true
+}

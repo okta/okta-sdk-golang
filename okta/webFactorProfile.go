@@ -23,3 +23,11 @@ import ()
 type WebFactorProfile struct {
 	CredentialId string `json:"credentialId,omitempty"`
 }
+
+func NewWebFactorProfile() *WebFactorProfile {
+	return &WebFactorProfile{}
+}
+
+func (a *WebFactorProfile) IsUserFactorInstance() bool {
+	return true
+}

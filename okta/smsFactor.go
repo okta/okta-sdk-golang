@@ -36,3 +36,13 @@ type SmsFactor struct {
 	UserId                    string               `json:"userId,omitempty"`
 	Verify                    *VerifyFactorRequest `json:"verify,omitempty"`
 }
+
+func NewSmsFactor() *SmsFactor {
+	return &SmsFactor{
+		FactorType: "sms",
+	}
+}
+
+func (a *SmsFactor) IsUserFactorInstance() bool {
+	return true
+}

@@ -44,6 +44,6 @@ func NewJsonWebKey() *JsonWebKey {
 	return &JsonWebKey{}
 }
 
-func (a *JsonWebKey) IsAppInstance() bool {
+func (a *JsonWebKey) IsApplicationInstance() bool {
 	return true
 }

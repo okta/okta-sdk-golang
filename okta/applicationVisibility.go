@@ -30,6 +30,6 @@ func NewApplicationVisibility() *ApplicationVisibility {
 	return &ApplicationVisibility{}
 }
 
-func (a *ApplicationVisibility) IsAppInstance() bool {
+func (a *ApplicationVisibility) IsApplicationInstance() bool {
 	return true
 }

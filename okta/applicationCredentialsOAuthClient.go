@@ -31,6 +31,6 @@ func NewApplicationCredentialsOAuthClient() *ApplicationCredentialsOAuthClient {
 	return &ApplicationCredentialsOAuthClient{}
 }
 
-func (a *ApplicationCredentialsOAuthClient) IsAppInstance() bool {
+func (a *ApplicationCredentialsOAuthClient) IsApplicationInstance() bool {
 	return true
 }

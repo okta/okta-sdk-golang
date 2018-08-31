@@ -156,6 +156,14 @@ function operationArgumentBuilder(operation) {
     args.push(`body ` + bodyModel);
   }
 
+  if(operation.operationId === "getApplication") {
+    args.push(`appInstance App`);
+  }
+
+  if(operation.operationId === "getFactor") {
+    args.push(`factorInstance UserFactor`);
+  }
+
   if (operation.queryParams.length) {
     args.push('qp *query.Params');
   }
@@ -186,6 +194,9 @@ function returnType(operation) {
     if ( responseModel === "*Application" ) {
       responseModel = "interface{}"
     }
+    if ( responseModel === "*Factor" ) {
+      responseModel = "interface{}"
+    }
     if ( operation.isArray !== undefined && operation.isArray === true) {
       return " ([]" + responseModel + ", *Response, error) ";
     }
@@ -204,6 +215,13 @@ function getClientTags(operations) {
   tags = [...new Set(tags)];
 
   return tags;
+
+}
+
+function responseModelInterface(operationId) {
+ return operationId ===  "listApplications" ||
+    operationId === "listSupportedFactors" ||
+    operationId === "listFactors";
 
 }
 
@@ -367,7 +385,8 @@ golang.process = ({ spec, operations, models, handlebars }) => {
     lowercaseFirstLetter,
     getClientTagResources,
     getNewClientTagProps,
-    buildModelProperties
+    buildModelProperties,
+    responseModelInterface
   });
 
   handlebars.registerPartial('partials.copyHeader', fs.readFileSync('generator/templates/partials/copyHeader.hbs', 'utf8'));

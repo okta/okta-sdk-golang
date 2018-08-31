@@ -28,6 +28,6 @@ func NewApplicationSettingsNotifications() *ApplicationSettingsNotifications {
 	return &ApplicationSettingsNotifications{}
 }
 
-func (a *ApplicationSettingsNotifications) IsAppInstance() bool {
+func (a *ApplicationSettingsNotifications) IsApplicationInstance() bool {
 	return true
 }

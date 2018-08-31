@@ -30,6 +30,6 @@ func NewApplicationAccessibility() *ApplicationAccessibility {
 	return &ApplicationAccessibility{}
 }
 
-func (a *ApplicationAccessibility) IsAppInstance() bool {
+func (a *ApplicationAccessibility) IsApplicationInstance() bool {
 	return true
 }

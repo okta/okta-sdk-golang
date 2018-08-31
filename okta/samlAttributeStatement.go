@@ -31,6 +31,6 @@ func NewSamlAttributeStatement() *SamlAttributeStatement {
 	return &SamlAttributeStatement{}
 }
 
-func (a *SamlAttributeStatement) IsAppInstance() bool {
+func (a *SamlAttributeStatement) IsApplicationInstance() bool {
 	return true
 }

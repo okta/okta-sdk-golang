@@ -36,3 +36,13 @@ type EmailFactor struct {
 	UserId                    string               `json:"userId,omitempty"`
 	Verify                    *VerifyFactorRequest `json:"verify,omitempty"`
 }
+
+func NewEmailFactor() *EmailFactor {
+	return &EmailFactor{
+		FactorType: "email",
+	}
+}
+
+func (a *EmailFactor) IsUserFactorInstance() bool {
+	return true
+}

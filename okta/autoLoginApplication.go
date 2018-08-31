@@ -46,6 +46,6 @@ func NewAutoLoginApplication() *AutoLoginApplication {
 	}
 }
 
-func (a *AutoLoginApplication) IsAppInstance() bool {
+func (a *AutoLoginApplication) IsApplicationInstance() bool {
 	return true
 }

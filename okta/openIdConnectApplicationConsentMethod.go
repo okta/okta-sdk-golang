@@ -27,6 +27,6 @@ func NewOpenIdConnectApplicationConsentMethod() *OpenIdConnectApplicationConsent
 	return &OpenIdConnectApplicationConsentMethod{}
 }
 
-func (a *OpenIdConnectApplicationConsentMethod) IsAppInstance() bool {
+func (a *OpenIdConnectApplicationConsentMethod) IsApplicationInstance() bool {
 	return true
 }

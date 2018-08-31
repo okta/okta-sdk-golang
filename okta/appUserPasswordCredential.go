@@ -28,6 +28,6 @@ func NewAppUserPasswordCredential() *AppUserPasswordCredential {
 	return &AppUserPasswordCredential{}
 }
 
-func (a *AppUserPasswordCredential) IsAppInstance() bool {
+func (a *AppUserPasswordCredential) IsApplicationInstance() bool {
 	return true
 }

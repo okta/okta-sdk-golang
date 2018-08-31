@@ -20,13 +20,12 @@ package okta
 
 import (
 	"fmt"
-	"time"
-
 	"github.com/okta/okta-sdk-golang/okta/query"
+	"time"
 )
 
 type App interface {
-	IsAppInstance() bool
+	IsApplicationInstance() bool
 }
 
 type ApplicationResource resource
@@ -53,41 +52,41 @@ func NewApplication() *Application {
 	return &Application{}
 }
 
-func (a *Application) IsAppInstance() bool {
+func (a *Application) IsApplicationInstance() bool {
 	return true
 }
 
-//func (m *ApplicationResource) GetApplication(appId string, qp *query.Params) (App, *Response, error) {
-//	url := fmt.Sprintf("/api/v1/apps/%v", appId)
-//	if qp != nil {
-//		url = url + qp.String()
-//	}
-//	req, err := m.client.requestExecutor.NewRequest("GET", url, nil)
-//	if err != nil {
-//		return nil, nil, err
-//	}
-//
-//	var application *Application
-//	resp, err := m.client.requestExecutor.Do(req, &application)
-//	if err != nil {
-//		return nil, resp, err
-//	}
-//	return application, resp, nil
-//}
-//func (m *ApplicationResource) UpdateApplication(appId string, body interface{}) (App, *Response, error) {
-//	url := fmt.Sprintf("/api/v1/apps/%v", appId)
-//	req, err := m.client.requestExecutor.NewRequest("PUT", url, body)
-//	if err != nil {
-//		return nil, nil, err
-//	}
-//
-//	var application *Application
-//	resp, err := m.client.requestExecutor.Do(req, &application)
-//	if err != nil {
-//		return nil, resp, err
-//	}
-//	return application, resp, nil
-//}
+func (m *ApplicationResource) GetApplication(appId string, appInstance App, qp *query.Params) (interface{}, *Response, error) {
+	url := fmt.Sprintf("/api/v1/apps/%v", appId)
+	if qp != nil {
+		url = url + qp.String()
+	}
+	req, err := m.client.requestExecutor.NewRequest("GET", url, nil)
+	if err != nil {
+		return nil, nil, err
+	}
+
+	application := appInstance
+	resp, err := m.client.requestExecutor.Do(req, &application)
+	if err != nil {
+		return nil, resp, err
+	}
+	return application, resp, nil
+}
+func (m *ApplicationResource) UpdateApplication(appId string, body interface{}) (interface{}, *Response, error) {
+	url := fmt.Sprintf("/api/v1/apps/%v", appId)
+	req, err := m.client.requestExecutor.NewRequest("PUT", url, body)
+	if err != nil {
+		return nil, nil, err
+	}
+
+	application := body
+	resp, err := m.client.requestExecutor.Do(req, &application)
+	if err != nil {
+		return nil, resp, err
+	}
+	return application, resp, nil
+}
 func (m *ApplicationResource) DeleteApplication(appId string) (*Response, error) {
 	url := fmt.Sprintf("/api/v1/apps/%v", appId)
 	req, err := m.client.requestExecutor.NewRequest("DELETE", url, nil)
@@ -101,24 +100,23 @@ func (m *ApplicationResource) DeleteApplication(appId string) (*Response, error)
 	}
 	return resp, nil
 }
+func (m *ApplicationResource) ListApplications(qp *query.Params) ([]interface{}, *Response, error) {
+	url := fmt.Sprintf("/api/v1/apps")
+	if qp != nil {
+		url = url + qp.String()
+	}
+	req, err := m.client.requestExecutor.NewRequest("GET", url, nil)
+	if err != nil {
+		return nil, nil, err
+	}
 
-//func (m *ApplicationResource) ListApplications(qp *query.Params) ([]interface{}, *Response, error) {
-//	url := fmt.Sprintf("/api/v1/apps")
-//	if qp != nil {
-//		url = url + qp.String()
-//	}
-//	req, err := m.client.requestExecutor.NewRequest("GET", url, nil)
-//	if err != nil {
-//		return nil, nil, err
-//	}
-//
-//	var application []interface{}
-//	resp, err := m.client.requestExecutor.Do(req, &application)
-//	if err != nil {
-//		return nil, resp, err
-//	}
-//	return application, resp, nil
-//}
+	var application []interface{}
+	resp, err := m.client.requestExecutor.Do(req, &application)
+	if err != nil {
+		return nil, resp, err
+	}
+	return application, resp, nil
+}
 func (m *ApplicationResource) CreateApplication(body interface{}, qp *query.Params) (interface{}, *Response, error) {
 	url := fmt.Sprintf("/api/v1/apps")
 	if qp != nil {
@@ -136,126 +134,125 @@ func (m *ApplicationResource) CreateApplication(body interface{}, qp *query.Para
 	}
 	return application, resp, nil
 }
+func (m *ApplicationResource) ListApplicationKeys(appId string) ([]*JsonWebKey, *Response, error) {
+	url := fmt.Sprintf("/api/v1/apps/%v/credentials/keys", appId)
+	req, err := m.client.requestExecutor.NewRequest("GET", url, nil)
+	if err != nil {
+		return nil, nil, err
+	}
 
-//func (m *ApplicationResource) ListApplicationKeys(appId string) ([]*JsonWebKey, *Response, error) {
-//	url := fmt.Sprintf("/api/v1/apps/%v/credentials/keys", appId)
-//	req, err := m.client.requestExecutor.NewRequest("GET", url, nil)
-//	if err != nil {
-//		return nil, nil, err
-//	}
-//
-//	var jsonWebKey []*JsonWebKey
-//	resp, err := m.client.requestExecutor.Do(req, &jsonWebKey)
-//	if err != nil {
-//		return nil, resp, err
-//	}
-//	return jsonWebKey, resp, nil
-//}
-//func (m *ApplicationResource) GetApplicationKey(appId string, keyId string) (*JsonWebKey, *Response, error) {
-//	url := fmt.Sprintf("/api/v1/apps/%v/credentials/keys/%v", appId, keyId)
-//	req, err := m.client.requestExecutor.NewRequest("GET", url, nil)
-//	if err != nil {
-//		return nil, nil, err
-//	}
-//
-//	var jsonWebKey *JsonWebKey
-//	resp, err := m.client.requestExecutor.Do(req, &jsonWebKey)
-//	if err != nil {
-//		return nil, resp, err
-//	}
-//	return jsonWebKey, resp, nil
-//}
-//func (m *ApplicationResource) CloneApplicationKey(appId string, keyId string, qp *query.Params) (*JsonWebKey, *Response, error) {
-//	url := fmt.Sprintf("/api/v1/apps/%v/credentials/keys/%v/clone", appId, keyId)
-//	if qp != nil {
-//		url = url + qp.String()
-//	}
-//	req, err := m.client.requestExecutor.NewRequest("POST", url, nil)
-//	if err != nil {
-//		return nil, nil, err
-//	}
-//
-//	var jsonWebKey *JsonWebKey
-//	resp, err := m.client.requestExecutor.Do(req, &jsonWebKey)
-//	if err != nil {
-//		return nil, resp, err
-//	}
-//	return jsonWebKey, resp, nil
-//}
-//func (m *ApplicationResource) ListApplicationGroupAssignments(appId string, qp *query.Params) ([]*ApplicationGroupAssignment, *Response, error) {
-//	url := fmt.Sprintf("/api/v1/apps/%v/groups", appId)
-//	if qp != nil {
-//		url = url + qp.String()
-//	}
-//	req, err := m.client.requestExecutor.NewRequest("GET", url, nil)
-//	if err != nil {
-//		return nil, nil, err
-//	}
-//
-//	var applicationGroupAssignment []*ApplicationGroupAssignment
-//	resp, err := m.client.requestExecutor.Do(req, &applicationGroupAssignment)
-//	if err != nil {
-//		return nil, resp, err
-//	}
-//	return applicationGroupAssignment, resp, nil
-//}
-//func (m *ApplicationResource) DeleteApplicationGroupAssignment(appId string, groupId string) (*Response, error) {
-//	url := fmt.Sprintf("/api/v1/apps/%v/groups/%v", appId, groupId)
-//	req, err := m.client.requestExecutor.NewRequest("DELETE", url, nil)
-//	if err != nil {
-//		return nil, err
-//	}
-//
-//	resp, err := m.client.requestExecutor.Do(req, nil)
-//	if err != nil {
-//		return resp, err
-//	}
-//	return resp, nil
-//}
-//func (m *ApplicationResource) GetApplicationGroupAssignment(appId string, groupId string, qp *query.Params) (*ApplicationGroupAssignment, *Response, error) {
-//	url := fmt.Sprintf("/api/v1/apps/%v/groups/%v", appId, groupId)
-//	if qp != nil {
-//		url = url + qp.String()
-//	}
-//	req, err := m.client.requestExecutor.NewRequest("GET", url, nil)
-//	if err != nil {
-//		return nil, nil, err
-//	}
-//
-//	var applicationGroupAssignment *ApplicationGroupAssignment
-//	resp, err := m.client.requestExecutor.Do(req, &applicationGroupAssignment)
-//	if err != nil {
-//		return nil, resp, err
-//	}
-//	return applicationGroupAssignment, resp, nil
-//}
-//func (m *ApplicationResource) CreateApplicationGroupAssignment(appId string, groupId string, body ApplicationGroupAssignment) (*ApplicationGroupAssignment, *Response, error) {
-//	url := fmt.Sprintf("/api/v1/apps/%v/groups/%v", appId, groupId)
-//	req, err := m.client.requestExecutor.NewRequest("PUT", url, body)
-//	if err != nil {
-//		return nil, nil, err
-//	}
-//
-//	var applicationGroupAssignment *ApplicationGroupAssignment
-//	resp, err := m.client.requestExecutor.Do(req, &applicationGroupAssignment)
-//	if err != nil {
-//		return nil, resp, err
-//	}
-//	return applicationGroupAssignment, resp, nil
-//}
-//func (m *ApplicationResource) ActivateApplication(appId string) (*Response, error) {
-//	url := fmt.Sprintf("/api/v1/apps/%v/lifecycle/activate", appId)
-//	req, err := m.client.requestExecutor.NewRequest("POST", url, nil)
-//	if err != nil {
-//		return nil, err
-//	}
-//
-//	resp, err := m.client.requestExecutor.Do(req, nil)
-//	if err != nil {
-//		return resp, err
-//	}
-//	return resp, nil
-//}
+	var jsonWebKey []*JsonWebKey
+	resp, err := m.client.requestExecutor.Do(req, &jsonWebKey)
+	if err != nil {
+		return nil, resp, err
+	}
+	return jsonWebKey, resp, nil
+}
+func (m *ApplicationResource) GetApplicationKey(appId string, keyId string) (*JsonWebKey, *Response, error) {
+	url := fmt.Sprintf("/api/v1/apps/%v/credentials/keys/%v", appId, keyId)
+	req, err := m.client.requestExecutor.NewRequest("GET", url, nil)
+	if err != nil {
+		return nil, nil, err
+	}
+
+	var jsonWebKey *JsonWebKey
+	resp, err := m.client.requestExecutor.Do(req, &jsonWebKey)
+	if err != nil {
+		return nil, resp, err
+	}
+	return jsonWebKey, resp, nil
+}
+func (m *ApplicationResource) CloneApplicationKey(appId string, keyId string, qp *query.Params) (*JsonWebKey, *Response, error) {
+	url := fmt.Sprintf("/api/v1/apps/%v/credentials/keys/%v/clone", appId, keyId)
+	if qp != nil {
+		url = url + qp.String()
+	}
+	req, err := m.client.requestExecutor.NewRequest("POST", url, nil)
+	if err != nil {
+		return nil, nil, err
+	}
+
+	var jsonWebKey *JsonWebKey
+	resp, err := m.client.requestExecutor.Do(req, &jsonWebKey)
+	if err != nil {
+		return nil, resp, err
+	}
+	return jsonWebKey, resp, nil
+}
+func (m *ApplicationResource) ListApplicationGroupAssignments(appId string, qp *query.Params) ([]*ApplicationGroupAssignment, *Response, error) {
+	url := fmt.Sprintf("/api/v1/apps/%v/groups", appId)
+	if qp != nil {
+		url = url + qp.String()
+	}
+	req, err := m.client.requestExecutor.NewRequest("GET", url, nil)
+	if err != nil {
+		return nil, nil, err
+	}
+
+	var applicationGroupAssignment []*ApplicationGroupAssignment
+	resp, err := m.client.requestExecutor.Do(req, &applicationGroupAssignment)
+	if err != nil {
+		return nil, resp, err
+	}
+	return applicationGroupAssignment, resp, nil
+}
+func (m *ApplicationResource) DeleteApplicationGroupAssignment(appId string, groupId string) (*Response, error) {
+	url := fmt.Sprintf("/api/v1/apps/%v/groups/%v", appId, groupId)
+	req, err := m.client.requestExecutor.NewRequest("DELETE", url, nil)
+	if err != nil {
+		return nil, err
+	}
+
+	resp, err := m.client.requestExecutor.Do(req, nil)
+	if err != nil {
+		return resp, err
+	}
+	return resp, nil
+}
+func (m *ApplicationResource) GetApplicationGroupAssignment(appId string, groupId string, qp *query.Params) (*ApplicationGroupAssignment, *Response, error) {
+	url := fmt.Sprintf("/api/v1/apps/%v/groups/%v", appId, groupId)
+	if qp != nil {
+		url = url + qp.String()
+	}
+	req, err := m.client.requestExecutor.NewRequest("GET", url, nil)
+	if err != nil {
+		return nil, nil, err
+	}
+
+	var applicationGroupAssignment *ApplicationGroupAssignment
+	resp, err := m.client.requestExecutor.Do(req, &applicationGroupAssignment)
+	if err != nil {
+		return nil, resp, err
+	}
+	return applicationGroupAssignment, resp, nil
+}
+func (m *ApplicationResource) CreateApplicationGroupAssignment(appId string, groupId string, body ApplicationGroupAssignment) (*ApplicationGroupAssignment, *Response, error) {
+	url := fmt.Sprintf("/api/v1/apps/%v/groups/%v", appId, groupId)
+	req, err := m.client.requestExecutor.NewRequest("PUT", url, body)
+	if err != nil {
+		return nil, nil, err
+	}
+
+	var applicationGroupAssignment *ApplicationGroupAssignment
+	resp, err := m.client.requestExecutor.Do(req, &applicationGroupAssignment)
+	if err != nil {
+		return nil, resp, err
+	}
+	return applicationGroupAssignment, resp, nil
+}
+func (m *ApplicationResource) ActivateApplication(appId string) (*Response, error) {
+	url := fmt.Sprintf("/api/v1/apps/%v/lifecycle/activate", appId)
+	req, err := m.client.requestExecutor.NewRequest("POST", url, nil)
+	if err != nil {
+		return nil, err
+	}
+
+	resp, err := m.client.requestExecutor.Do(req, nil)
+	if err != nil {
+		return resp, err
+	}
+	return resp, nil
+}
 func (m *ApplicationResource) DeactivateApplication(appId string) (*Response, error) {
 	url := fmt.Sprintf("/api/v1/apps/%v/lifecycle/deactivate", appId)
 	req, err := m.client.requestExecutor.NewRequest("POST", url, nil)
@@ -269,96 +266,95 @@ func (m *ApplicationResource) DeactivateApplication(appId string) (*Response, er
 	}
 	return resp, nil
 }
+func (m *ApplicationResource) ListApplicationUsers(appId string, qp *query.Params) ([]*AppUser, *Response, error) {
+	url := fmt.Sprintf("/api/v1/apps/%v/users", appId)
+	if qp != nil {
+		url = url + qp.String()
+	}
+	req, err := m.client.requestExecutor.NewRequest("GET", url, nil)
+	if err != nil {
+		return nil, nil, err
+	}
 
-//func (m *ApplicationResource) ListApplicationUsers(appId string, qp *query.Params) ([]*AppUser, *Response, error) {
-//	url := fmt.Sprintf("/api/v1/apps/%v/users", appId)
-//	if qp != nil {
-//		url = url + qp.String()
-//	}
-//	req, err := m.client.requestExecutor.NewRequest("GET", url, nil)
-//	if err != nil {
-//		return nil, nil, err
-//	}
-//
-//	var appUser []*AppUser
-//	resp, err := m.client.requestExecutor.Do(req, &appUser)
-//	if err != nil {
-//		return nil, resp, err
-//	}
-//	return appUser, resp, nil
-//}
-//func (m *ApplicationResource) AssignUserToApplication(appId string, body AppUser) (*AppUser, *Response, error) {
-//	url := fmt.Sprintf("/api/v1/apps/%v/users", appId)
-//	req, err := m.client.requestExecutor.NewRequest("POST", url, body)
-//	if err != nil {
-//		return nil, nil, err
-//	}
-//
-//	var appUser *AppUser
-//	resp, err := m.client.requestExecutor.Do(req, &appUser)
-//	if err != nil {
-//		return nil, resp, err
-//	}
-//	return appUser, resp, nil
-//}
-//func (m *ApplicationResource) DeleteApplicationUser(appId string, userId string) (*Response, error) {
-//	url := fmt.Sprintf("/api/v1/apps/%v/users/%v", appId, userId)
-//	req, err := m.client.requestExecutor.NewRequest("DELETE", url, nil)
-//	if err != nil {
-//		return nil, err
-//	}
-//
-//	resp, err := m.client.requestExecutor.Do(req, nil)
-//	if err != nil {
-//		return resp, err
-//	}
-//	return resp, nil
-//}
-//func (m *ApplicationResource) GetApplicationUser(appId string, userId string, qp *query.Params) (*AppUser, *Response, error) {
-//	url := fmt.Sprintf("/api/v1/apps/%v/users/%v", appId, userId)
-//	if qp != nil {
-//		url = url + qp.String()
-//	}
-//	req, err := m.client.requestExecutor.NewRequest("GET", url, nil)
-//	if err != nil {
-//		return nil, nil, err
-//	}
-//
-//	var appUser *AppUser
-//	resp, err := m.client.requestExecutor.Do(req, &appUser)
-//	if err != nil {
-//		return nil, resp, err
-//	}
-//	return appUser, resp, nil
-//}
-//func (m *ApplicationResource) UpdateApplicationUser(appId string, userId string, body AppUser) (*AppUser, *Response, error) {
-//	url := fmt.Sprintf("/api/v1/apps/%v/users/%v", appId, userId)
-//	req, err := m.client.requestExecutor.NewRequest("POST", url, body)
-//	if err != nil {
-//		return nil, nil, err
-//	}
-//
-//	var appUser *AppUser
-//	resp, err := m.client.requestExecutor.Do(req, &appUser)
-//	if err != nil {
-//		return nil, resp, err
-//	}
-//	return appUser, resp, nil
-//}
-//func (m *ApplicationResource) GetLogs(qp *query.Params) ([]*LogEvent, *Response, error) {
-//	url := fmt.Sprintf("/api/v1/logs")
-//	if qp != nil {
-//		url = url + qp.String()
-//	}
-//	req, err := m.client.requestExecutor.NewRequest("GET", url, nil)
-//	if err != nil {
-//		return nil, nil, err
-//	}
-//
-//	var logEvent []*LogEvent
-//	resp, err := m.client.requestExecutor.Do(req, &logEvent)
-//	if err != nil {
-//		return nil, resp, err
-//	}
-//	return logEvent, resp, nil
-//}
+	var appUser []*AppUser
+	resp, err := m.client.requestExecutor.Do(req, &appUser)
+	if err != nil {
+		return nil, resp, err
+	}
+	return appUser, resp, nil
+}
+func (m *ApplicationResource) AssignUserToApplication(appId string, body AppUser) (*AppUser, *Response, error) {
+	url := fmt.Sprintf("/api/v1/apps/%v/users", appId)
+	req, err := m.client.requestExecutor.NewRequest("POST", url, body)
+	if err != nil {
+		return nil, nil, err
+	}
+
+	var appUser *AppUser
+	resp, err := m.client.requestExecutor.Do(req, &appUser)
+	if err != nil {
+		return nil, resp, err
+	}
+	return appUser, resp, nil
+}
+func (m *ApplicationResource) DeleteApplicationUser(appId string, userId string) (*Response, error) {
+	url := fmt.Sprintf("/api/v1/apps/%v/users/%v", appId, userId)
+	req, err := m.client.requestExecutor.NewRequest("DELETE", url, nil)
+	if err != nil {
+		return nil, err
+	}
+
+	resp, err := m.client.requestExecutor.Do(req, nil)
+	if err != nil {
+		return resp, err
+	}
+	return resp, nil
+}
+func (m *ApplicationResource) GetApplicationUser(appId string, userId string, qp *query.Params) (*AppUser, *Response, error) {
+	url := fmt.Sprintf("/api/v1/apps/%v/users/%v", appId, userId)
+	if qp != nil {
+		url = url + qp.String()
+	}
+	req, err := m.client.requestExecutor.NewRequest("GET", url, nil)
+	if err != nil {
+		return nil, nil, err
+	}
+
+	var appUser *AppUser
+	resp, err := m.client.requestExecutor.Do(req, &appUser)
+	if err != nil {
+		return nil, resp, err
+	}
+	return appUser, resp, nil
+}
+func (m *ApplicationResource) UpdateApplicationUser(appId string, userId string, body AppUser) (*AppUser, *Response, error) {
+	url := fmt.Sprintf("/api/v1/apps/%v/users/%v", appId, userId)
+	req, err := m.client.requestExecutor.NewRequest("POST", url, body)
+	if err != nil {
+		return nil, nil, err
+	}
+
+	var appUser *AppUser
+	resp, err := m.client.requestExecutor.Do(req, &appUser)
+	if err != nil {
+		return nil, resp, err
+	}
+	return appUser, resp, nil
+}
+func (m *ApplicationResource) GetLogs(qp *query.Params) ([]*LogEvent, *Response, error) {
+	url := fmt.Sprintf("/api/v1/logs")
+	if qp != nil {
+		url = url + qp.String()
+	}
+	req, err := m.client.requestExecutor.NewRequest("GET", url, nil)
+	if err != nil {
+		return nil, nil, err
+	}
+
+	var logEvent []*LogEvent
+	resp, err := m.client.requestExecutor.Do(req, &logEvent)
+	if err != nil {
+		return nil, resp, err
+	}
+	return logEvent, resp, nil
+}

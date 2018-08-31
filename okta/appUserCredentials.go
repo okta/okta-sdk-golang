@@ -29,6 +29,6 @@ func NewAppUserCredentials() *AppUserCredentials {
 	return &AppUserCredentials{}
 }
 
-func (a *AppUserCredentials) IsAppInstance() bool {
+func (a *AppUserCredentials) IsApplicationInstance() bool {
 	return true
 }
