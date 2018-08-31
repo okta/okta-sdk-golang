@@ -47,6 +47,6 @@ func NewOpenIdConnectApplication() *OpenIdConnectApplication {
 	}
 }
 
-func (a *OpenIdConnectApplication) IsAppInstance() bool {
+func (a *OpenIdConnectApplication) IsApplicationInstance() bool {
 	return true
 }

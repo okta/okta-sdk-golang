@@ -27,6 +27,6 @@ func NewApplicationSignOnMode() *ApplicationSignOnMode {
 	return &ApplicationSignOnMode{}
 }
 
-func (a *ApplicationSignOnMode) IsAppInstance() bool {
+func (a *ApplicationSignOnMode) IsApplicationInstance() bool {
 	return true
 }

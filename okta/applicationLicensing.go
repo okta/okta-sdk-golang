@@ -28,6 +28,6 @@ func NewApplicationLicensing() *ApplicationLicensing {
 	return &ApplicationLicensing{}
 }
 
-func (a *ApplicationLicensing) IsAppInstance() bool {
+func (a *ApplicationLicensing) IsApplicationInstance() bool {
 	return true
 }

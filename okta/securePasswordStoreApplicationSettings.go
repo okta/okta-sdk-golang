@@ -29,6 +29,6 @@ func NewSecurePasswordStoreApplicationSettings() *SecurePasswordStoreApplication
 	return &SecurePasswordStoreApplicationSettings{}
 }
 
-func (a *SecurePasswordStoreApplicationSettings) IsAppInstance() bool {
+func (a *SecurePasswordStoreApplicationSettings) IsApplicationInstance() bool {
 	return true
 }

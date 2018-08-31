@@ -32,6 +32,6 @@ func NewSwaApplicationSettingsApplication() *SwaApplicationSettingsApplication {
 	return &SwaApplicationSettingsApplication{}
 }
 
-func (a *SwaApplicationSettingsApplication) IsAppInstance() bool {
+func (a *SwaApplicationSettingsApplication) IsApplicationInstance() bool {
 	return true
 }

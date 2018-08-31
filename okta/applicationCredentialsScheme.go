@@ -27,6 +27,6 @@ func NewApplicationCredentialsScheme() *ApplicationCredentialsScheme {
 	return &ApplicationCredentialsScheme{}
 }
 
-func (a *ApplicationCredentialsScheme) IsAppInstance() bool {
+func (a *ApplicationCredentialsScheme) IsApplicationInstance() bool {
 	return true
 }

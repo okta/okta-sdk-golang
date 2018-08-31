@@ -36,6 +36,6 @@ func NewOpenIdConnectApplicationSettingsClient() *OpenIdConnectApplicationSettin
 	return &OpenIdConnectApplicationSettingsClient{}
 }
 
-func (a *OpenIdConnectApplicationSettingsClient) IsAppInstance() bool {
+func (a *OpenIdConnectApplicationSettingsClient) IsApplicationInstance() bool {
 	return true
 }

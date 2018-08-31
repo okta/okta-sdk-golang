@@ -25,7 +25,7 @@ import (
 )
 
 type App interface {
-	IsAppInstance() bool
+	IsApplicationInstance() bool
 }
 
 type ApplicationResource resource
@@ -52,11 +52,11 @@ func NewApplication() *Application {
 	return &Application{}
 }
 
-func (a *Application) IsAppInstance() bool {
+func (a *Application) IsApplicationInstance() bool {
 	return true
 }
 
-func (m *ApplicationResource) GetApplication(appId string, qp *query.Params) (interface{}, *Response, error) {
+func (m *ApplicationResource) GetApplication(appId string, appInstance App, qp *query.Params) (interface{}, *Response, error) {
 	url := fmt.Sprintf("/api/v1/apps/%v", appId)
 	if qp != nil {
 		url = url + qp.String()
@@ -66,7 +66,7 @@ func (m *ApplicationResource) GetApplication(appId string, qp *query.Params) (in
 		return nil, nil, err
 	}
 
-	application := body
+	application := appInstance
 	resp, err := m.client.requestExecutor.Do(req, &application)
 	if err != nil {
 		return nil, resp, err
@@ -110,7 +110,7 @@ func (m *ApplicationResource) ListApplications(qp *query.Params) ([]interface{},
 		return nil, nil, err
 	}
 
-	var application []Application
+	var application []interface{}
 	resp, err := m.client.requestExecutor.Do(req, &application)
 	if err != nil {
 		return nil, resp, err

@@ -30,6 +30,6 @@ func NewAutoLoginApplicationSettings() *AutoLoginApplicationSettings {
 	return &AutoLoginApplicationSettings{}
 }
 
-func (a *AutoLoginApplicationSettings) IsAppInstance() bool {
+func (a *AutoLoginApplicationSettings) IsApplicationInstance() bool {
 	return true
 }

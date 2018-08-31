@@ -39,6 +39,6 @@ func NewWsFederationApplicationSettingsApplication() *WsFederationApplicationSet
 	return &WsFederationApplicationSettingsApplication{}
 }
 
-func (a *WsFederationApplicationSettingsApplication) IsAppInstance() bool {
+func (a *WsFederationApplicationSettingsApplication) IsApplicationInstance() bool {
 	return true
 }

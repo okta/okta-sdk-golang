@@ -23,3 +23,11 @@ import ()
 type HardwareFactorProfile struct {
 	CredentialId string `json:"credentialId,omitempty"`
 }
+
+func NewHardwareFactorProfile() *HardwareFactorProfile {
+	return &HardwareFactorProfile{}
+}
+
+func (a *HardwareFactorProfile) IsUserFactorInstance() bool {
+	return true
+}

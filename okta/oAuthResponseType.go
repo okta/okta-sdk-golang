@@ -27,6 +27,6 @@ func NewOAuthResponseType() *OAuthResponseType {
 	return &OAuthResponseType{}
 }
 
-func (a *OAuthResponseType) IsAppInstance() bool {
+func (a *OAuthResponseType) IsApplicationInstance() bool {
 	return true
 }

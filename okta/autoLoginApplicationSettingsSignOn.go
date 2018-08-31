@@ -29,6 +29,6 @@ func NewAutoLoginApplicationSettingsSignOn() *AutoLoginApplicationSettingsSignOn
 	return &AutoLoginApplicationSettingsSignOn{}
 }
 
-func (a *AutoLoginApplicationSettingsSignOn) IsAppInstance() bool {
+func (a *AutoLoginApplicationSettingsSignOn) IsApplicationInstance() bool {
 	return true
 }

@@ -46,6 +46,6 @@ func NewBrowserPluginApplication() *BrowserPluginApplication {
 	}
 }
 
-func (a *BrowserPluginApplication) IsAppInstance() bool {
+func (a *BrowserPluginApplication) IsApplicationInstance() bool {
 	return true
 }

@@ -47,6 +47,6 @@ func NewWsFederationApplication() *WsFederationApplication {
 	}
 }
 
-func (a *WsFederationApplication) IsAppInstance() bool {
+func (a *WsFederationApplication) IsApplicationInstance() bool {
 	return true
 }

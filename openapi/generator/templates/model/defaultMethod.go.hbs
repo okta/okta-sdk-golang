@@ -24,14 +24,20 @@ func (m *{{modelName}}Resource) {{ucFirst operation.operationId}}({{operationArg
 
 	{{#if (ne operation.responseModel undefined)}}
 	{{#if (ne operation.isArray undefined)}}
-	{{#if (eq operation.responseModel "Application")}}
-	var {{lowercaseFirstLetter operation.responseModel}} []{{operation.responseModel}}
+	{{#if (responseModelInterface operation.operationId) }}
+	var {{lowercaseFirstLetter operation.responseModel}} []interface{}
 	{{else}}
 	var {{lowercaseFirstLetter operation.responseModel}} []*{{operation.responseModel}}
 	{{/if}}
 	{{else}}
 	{{#if (eq operation.responseModel "Application")}}
+	{{#if (eq operation.operationId "getApplication")}}
+	{{lowercaseFirstLetter operation.responseModel}} := appInstance
+	{{else if (eq operation.operationId "getFactor")}}
+	{{lowercaseFirstLetter operation.responseModel}} := appInstance
+	{{else}}
 	{{lowercaseFirstLetter operation.responseModel}} := body
+	{{/if}}
 	{{else}}
 	var {{lowercaseFirstLetter operation.responseModel}} *{{operation.responseModel}}
 	{{/if}}

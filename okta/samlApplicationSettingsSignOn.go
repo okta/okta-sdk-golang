@@ -48,6 +48,6 @@ func NewSamlApplicationSettingsSignOn() *SamlApplicationSettingsSignOn {
 	return &SamlApplicationSettingsSignOn{}
 }
 
-func (a *SamlApplicationSettingsSignOn) IsAppInstance() bool {
+func (a *SamlApplicationSettingsSignOn) IsApplicationInstance() bool {
 	return true
 }

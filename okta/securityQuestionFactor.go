@@ -36,3 +36,13 @@ type SecurityQuestionFactor struct {
 	UserId                    string                         `json:"userId,omitempty"`
 	Verify                    *VerifyFactorRequest           `json:"verify,omitempty"`
 }
+
+func NewSecurityQuestionFactor() *SecurityQuestionFactor {
+	return &SecurityQuestionFactor{
+		FactorType: "question",
+	}
+}
+
+func (a *SecurityQuestionFactor) IsUserFactorInstance() bool {
+	return true
+}

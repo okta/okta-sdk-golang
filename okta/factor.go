@@ -23,6 +23,10 @@ import (
 	"github.com/okta/okta-sdk-golang/okta/query"
 )
 
+type UserFactor interface {
+	IsUserFactorInstance() bool
+}
+
 type FactorResource resource
 
 type Factor struct {
@@ -42,6 +46,14 @@ type Factor struct {
 	Verify                    *VerifyFactorRequest `json:"verify,omitempty"`
 }
 
+func NewFactor() *Factor {
+	return &Factor{}
+}
+
+func (a *Factor) IsUserFactorInstance() bool {
+	return true
+}
+
 func (m *FactorResource) DeleteFactor(userId string, factorId string) (*Response, error) {
 	url := fmt.Sprintf("/api/v1/users/%v/factors/%v", userId, factorId)
 	req, err := m.client.requestExecutor.NewRequest("DELETE", url, nil)
@@ -55,21 +67,21 @@ func (m *FactorResource) DeleteFactor(userId string, factorId string) (*Response
 	}
 	return resp, nil
 }
-func (m *FactorResource) ListFactors(userId string) ([]*Factor, *Response, error) {
+func (m *FactorResource) ListFactors(userId string) ([]interface{}, *Response, error) {
 	url := fmt.Sprintf("/api/v1/users/%v/factors", userId)
 	req, err := m.client.requestExecutor.NewRequest("GET", url, nil)
 	if err != nil {
 		return nil, nil, err
 	}
 
-	var factor []*Factor
+	var factor []interface{}
 	resp, err := m.client.requestExecutor.Do(req, &factor)
 	if err != nil {
 		return nil, resp, err
 	}
 	return factor, resp, nil
 }
-func (m *FactorResource) AddFactor(userId string, body Factor, qp *query.Params) (*Factor, *Response, error) {
+func (m *FactorResource) AddFactor(userId string, body Factor, qp *query.Params) (interface{}, *Response, error) {
 	url := fmt.Sprintf("/api/v1/users/%v/factors", userId)
 	if qp != nil {
 		url = url + qp.String()
@@ -86,14 +98,14 @@ func (m *FactorResource) AddFactor(userId string, body Factor, qp *query.Params)
 	}
 	return factor, resp, nil
 }
-func (m *FactorResource) ListSupportedFactors(userId string) ([]*Factor, *Response, error) {
+func (m *FactorResource) ListSupportedFactors(userId string) ([]interface{}, *Response, error) {
 	url := fmt.Sprintf("/api/v1/users/%v/factors/catalog", userId)
 	req, err := m.client.requestExecutor.NewRequest("GET", url, nil)
 	if err != nil {
 		return nil, nil, err
 	}
 
-	var factor []*Factor
+	var factor []interface{}
 	resp, err := m.client.requestExecutor.Do(req, &factor)
 	if err != nil {
 		return nil, resp, err
@@ -114,7 +126,7 @@ func (m *FactorResource) ListSupportedSecurityQuestions(userId string) ([]*Secur
 	}
 	return securityQuestion, resp, nil
 }
-func (m *FactorResource) GetFactor(userId string, factorId string) (*Factor, *Response, error) {
+func (m *FactorResource) GetFactor(userId string, factorId string, factorInstance UserFactor) (interface{}, *Response, error) {
 	url := fmt.Sprintf("/api/v1/users/%v/factors/%v", userId, factorId)
 	req, err := m.client.requestExecutor.NewRequest("GET", url, nil)
 	if err != nil {
@@ -128,7 +140,7 @@ func (m *FactorResource) GetFactor(userId string, factorId string) (*Factor, *Re
 	}
 	return factor, resp, nil
 }
-func (m *FactorResource) ActivateFactor(userId string, factorId string, body VerifyFactorRequest) (*Factor, *Response, error) {
+func (m *FactorResource) ActivateFactor(userId string, factorId string, body VerifyFactorRequest) (interface{}, *Response, error) {
 	url := fmt.Sprintf("/api/v1/users/%v/factors/%v/lifecycle/activate", userId, factorId)
 	req, err := m.client.requestExecutor.NewRequest("POST", url, body)
 	if err != nil {

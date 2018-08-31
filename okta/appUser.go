@@ -46,7 +46,7 @@ func NewAppUser() *AppUser {
 	return &AppUser{}
 }
 
-func (a *AppUser) IsAppInstance() bool {
+func (a *AppUser) IsApplicationInstance() bool {
 	return true
 }
 

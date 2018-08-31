@@ -29,6 +29,6 @@ func NewBasicApplicationSettings() *BasicApplicationSettings {
 	return &BasicApplicationSettings{}
 }
 
-func (a *BasicApplicationSettings) IsAppInstance() bool {
+func (a *BasicApplicationSettings) IsApplicationInstance() bool {
 	return true
 }

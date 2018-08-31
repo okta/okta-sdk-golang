@@ -47,6 +47,6 @@ func NewSwaThreeFieldApplication() *SwaThreeFieldApplication {
 	}
 }
 
-func (a *SwaThreeFieldApplication) IsAppInstance() bool {
+func (a *SwaThreeFieldApplication) IsApplicationInstance() bool {
 	return true
 }

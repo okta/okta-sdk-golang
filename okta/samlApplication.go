@@ -46,6 +46,6 @@ func NewSamlApplication() *SamlApplication {
 	}
 }
 
-func (a *SamlApplication) IsAppInstance() bool {
+func (a *SamlApplication) IsApplicationInstance() bool {
 	return true
 }

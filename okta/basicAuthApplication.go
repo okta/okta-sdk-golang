@@ -47,6 +47,6 @@ func NewBasicAuthApplication() *BasicAuthApplication {
 	}
 }
 
-func (a *BasicAuthApplication) IsAppInstance() bool {
+func (a *BasicAuthApplication) IsApplicationInstance() bool {
 	return true
 }

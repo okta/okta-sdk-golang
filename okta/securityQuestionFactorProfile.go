@@ -25,3 +25,11 @@ type SecurityQuestionFactorProfile struct {
 	Question     string `json:"question,omitempty"`
 	QuestionText string `json:"questionText,omitempty"`
 }
+
+func NewSecurityQuestionFactorProfile() *SecurityQuestionFactorProfile {
+	return &SecurityQuestionFactorProfile{}
+}
+
+func (a *SecurityQuestionFactorProfile) IsUserFactorInstance() bool {
+	return true
+}

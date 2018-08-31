@@ -36,3 +36,13 @@ type TotpFactor struct {
 	UserId                    string               `json:"userId,omitempty"`
 	Verify                    *VerifyFactorRequest `json:"verify,omitempty"`
 }
+
+func NewTotpFactor() *TotpFactor {
+	return &TotpFactor{
+		FactorType: "token:software:totp",
+	}
+}
+
+func (a *TotpFactor) IsUserFactorInstance() bool {
+	return true
+}

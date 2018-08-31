@@ -9,7 +9,14 @@ type UserProfile map[string]interface{}
 
 {{#if (eq model.modelName "Application")}}
 type App interface {
-	IsAppInstance() bool
+	IsApplicationInstance() bool
+}
+
+{{/if}}
+
+{{#if (eq model.modelName "Factor")}}
+type UserFactor interface {
+	IsUserFactorInstance() bool
 }
 
 {{/if}}
@@ -20,7 +27,7 @@ type {{model.modelName}}Resource resource
 type {{model.modelName}} struct {
 	{{{buildModelProperties model}}}
 }
-{{#if ( eq model.tags.[0] "Application" ) }}
+{{#if (or ( eq model.tags.[0] "Application" ) ( eq model.tags.[0] "UserFactor") ) }}
 func New{{model.modelName}}() *{{model.modelName}} {
 	return &{{model.modelName}}{
 		{{#each model.properties as |prop|}}
@@ -34,7 +41,7 @@ func New{{model.modelName}}() *{{model.modelName}} {
 	}
 }
 
-func (a *{{model.modelName}}) IsAppInstance() bool {
+func (a *{{model.modelName}}) Is{{model.tags.[0]}}Instance() bool {
 	return true
 }
 

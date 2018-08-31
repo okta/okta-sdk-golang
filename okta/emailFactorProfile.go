@@ -23,3 +23,11 @@ import ()
 type EmailFactorProfile struct {
 	Email string `json:"email,omitempty"`
 }
+
+func NewEmailFactorProfile() *EmailFactorProfile {
+	return &EmailFactorProfile{}
+}
+
+func (a *EmailFactorProfile) IsUserFactorInstance() bool {
+	return true
+}

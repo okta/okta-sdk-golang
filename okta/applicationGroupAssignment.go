@@ -38,7 +38,7 @@ func NewApplicationGroupAssignment() *ApplicationGroupAssignment {
 	return &ApplicationGroupAssignment{}
 }
 
-func (a *ApplicationGroupAssignment) IsAppInstance() bool {
+func (a *ApplicationGroupAssignment) IsApplicationInstance() bool {
 	return true
 }
 

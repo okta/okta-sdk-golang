@@ -33,6 +33,6 @@ func NewApplicationCredentialsSigning() *ApplicationCredentialsSigning {
 	return &ApplicationCredentialsSigning{}
 }
 
-func (a *ApplicationCredentialsSigning) IsAppInstance() bool {
+func (a *ApplicationCredentialsSigning) IsApplicationInstance() bool {
 	return true
 }

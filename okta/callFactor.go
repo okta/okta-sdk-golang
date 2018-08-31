@@ -36,3 +36,13 @@ type CallFactor struct {
 	UserId                    string               `json:"userId,omitempty"`
 	Verify                    *VerifyFactorRequest `json:"verify,omitempty"`
 }
+
+func NewCallFactor() *CallFactor {
+	return &CallFactor{
+		FactorType: "call",
+	}
+}
+
+func (a *CallFactor) IsUserFactorInstance() bool {
+	return true
+}

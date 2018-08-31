@@ -27,6 +27,6 @@ func NewApplicationSettingsApplication() *ApplicationSettingsApplication {
 	return &ApplicationSettingsApplication{}
 }
 
-func (a *ApplicationSettingsApplication) IsAppInstance() bool {
+func (a *ApplicationSettingsApplication) IsApplicationInstance() bool {
 	return true
 }
