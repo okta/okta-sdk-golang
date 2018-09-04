@@ -37,8 +37,6 @@ func (m *{{modelName}}Resource) {{ucFirst operation.operationId}}({{operationArg
 	{{#if (eq operation.responseModel "Application")}}
 	{{#if (eq operation.operationId "getApplication")}}
 	{{lowercaseFirstLetter operation.responseModel}} := appInstance
-	{{else if (eq operation.operationId "getFactor")}}
-	{{lowercaseFirstLetter operation.responseModel}} := appInstance
 	{{else}}
 	{{lowercaseFirstLetter operation.responseModel}} := body
 	{{/if}}
