@@ -25,7 +25,11 @@ func (m *{{modelName}}Resource) {{ucFirst operation.operationId}}({{operationArg
 	{{#if (ne operation.responseModel undefined)}}
 	{{#if (ne operation.isArray undefined)}}
 	{{#if (responseModelInterface operation.operationId) }}
+	{{#if (eq operation.operationId "listApplications") }}
+	var {{lowercaseFirstLetter operation.responseModel}} []App
+	{{else}}
 	var {{lowercaseFirstLetter operation.responseModel}} []interface{}
+	{{/if}}
 	{{else}}
 	var {{lowercaseFirstLetter operation.responseModel}} []*{{operation.responseModel}}
 	{{/if}}
