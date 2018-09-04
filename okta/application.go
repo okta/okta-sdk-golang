@@ -100,7 +100,7 @@ func (m *ApplicationResource) DeleteApplication(appId string) (*Response, error)
 	}
 	return resp, nil
 }
-func (m *ApplicationResource) ListApplications(qp *query.Params) ([]interface{}, *Response, error) {
+func (m *ApplicationResource) ListApplications(qp *query.Params) ([]App, *Response, error) {
 	url := fmt.Sprintf("/api/v1/apps")
 	if qp != nil {
 		url = url + qp.String()
@@ -110,7 +110,7 @@ func (m *ApplicationResource) ListApplications(qp *query.Params) ([]interface{},
 		return nil, nil, err
 	}
 
-	var application []interface{}
+	var application []App
 	resp, err := m.client.requestExecutor.Do(req, &application)
 	if err != nil {
 		return nil, resp, err
