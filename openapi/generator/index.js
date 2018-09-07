@@ -150,7 +150,11 @@ function operationArgumentBuilder(operation) {
     let bodyModel = ucFirst(_.camelCase(operation.bodyModel));
 
     if(bodyModel === "Application") {
-      bodyModel = "interface{}";
+      bodyModel = "App";
+    }
+
+    if(bodyModel === "Factor") {
+      bodyModel = "UserFactor";
     }
 
     args.push(`body ` + bodyModel);
@@ -199,7 +203,11 @@ function returnType(operation) {
       }
     }
     if ( responseModel === "*Factor" ) {
-      responseModel = "interface{}"
+      if ( operation.operationId === "listFactors") {
+        responseModel = "UserFactor"
+      } else {
+        responseModel = "interface{}"
+      }
     }
     if ( operation.isArray !== undefined && operation.isArray === true) {
       return " ([]" + responseModel + ", *Response, error) ";

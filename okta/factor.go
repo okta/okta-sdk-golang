@@ -67,21 +67,21 @@ func (m *FactorResource) DeleteFactor(userId string, factorId string) (*Response
 	}
 	return resp, nil
 }
-func (m *FactorResource) ListFactors(userId string) ([]interface{}, *Response, error) {
+func (m *FactorResource) ListFactors(userId string) ([]UserFactor, *Response, error) {
 	url := fmt.Sprintf("/api/v1/users/%v/factors", userId)
 	req, err := m.client.requestExecutor.NewRequest("GET", url, nil)
 	if err != nil {
 		return nil, nil, err
 	}
 
-	var factor []interface{}
+	var factor []UserFactor
 	resp, err := m.client.requestExecutor.Do(req, &factor)
 	if err != nil {
 		return nil, resp, err
 	}
 	return factor, resp, nil
 }
-func (m *FactorResource) AddFactor(userId string, body Factor, qp *query.Params) (interface{}, *Response, error) {
+func (m *FactorResource) AddFactor(userId string, body UserFactor, qp *query.Params) (interface{}, *Response, error) {
 	url := fmt.Sprintf("/api/v1/users/%v/factors", userId)
 	if qp != nil {
 		url = url + qp.String()
@@ -91,7 +91,7 @@ func (m *FactorResource) AddFactor(userId string, body Factor, qp *query.Params)
 		return nil, nil, err
 	}
 
-	var factor *Factor
+	factor := body
 	resp, err := m.client.requestExecutor.Do(req, &factor)
 	if err != nil {
 		return nil, resp, err
@@ -133,7 +133,7 @@ func (m *FactorResource) GetFactor(userId string, factorId string, factorInstanc
 		return nil, nil, err
 	}
 
-	var factor *Factor
+	factor := factorInstance
 	resp, err := m.client.requestExecutor.Do(req, &factor)
 	if err != nil {
 		return nil, resp, err
@@ -147,7 +147,7 @@ func (m *FactorResource) ActivateFactor(userId string, factorId string, body Ver
 		return nil, nil, err
 	}
 
-	var factor *Factor
+	factor := body
 	resp, err := m.client.requestExecutor.Do(req, &factor)
 	if err != nil {
 		return nil, resp, err
