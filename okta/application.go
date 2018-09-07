@@ -73,7 +73,7 @@ func (m *ApplicationResource) GetApplication(appId string, appInstance App, qp *
 	}
 	return application, resp, nil
 }
-func (m *ApplicationResource) UpdateApplication(appId string, body interface{}) (interface{}, *Response, error) {
+func (m *ApplicationResource) UpdateApplication(appId string, body App) (interface{}, *Response, error) {
 	url := fmt.Sprintf("/api/v1/apps/%v", appId)
 	req, err := m.client.requestExecutor.NewRequest("PUT", url, body)
 	if err != nil {
@@ -117,7 +117,7 @@ func (m *ApplicationResource) ListApplications(qp *query.Params) ([]App, *Respon
 	}
 	return application, resp, nil
 }
-func (m *ApplicationResource) CreateApplication(body interface{}, qp *query.Params) (interface{}, *Response, error) {
+func (m *ApplicationResource) CreateApplication(body App, qp *query.Params) (interface{}, *Response, error) {
 	url := fmt.Sprintf("/api/v1/apps")
 	if qp != nil {
 		url = url + qp.String()
