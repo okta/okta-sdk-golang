@@ -227,13 +227,12 @@ client := okta.NewClient(config, nil, nil)
 resp, err := client.Group.AddUserToGroup(group.Id, user.Id, nil)
 ```
 
-> Factors and Applications are currently not fully functioning.  The SDK will be able to read factors and applications from the API, but they are not set to the correct types yet.  This is coming soon.
 ### List a User's enrolled Factors
 ```
 config := okta.NewConfig()
 client := okta.NewClient(config, nil, nil)
 
-factors, resp, err := client.Factor.ListFactors(group.Id, user.Id, nil)
+allowedFactors, resp, err := client.Factor.ListSupportedFactors(user.Id)
 ```
 
 ### Enroll a User in a new Factor
@@ -241,13 +240,13 @@ factors, resp, err := client.Factor.ListFactors(group.Id, user.Id, nil)
 config := okta.NewConfig()
 client := okta.NewClient(config, nil, nil)
 
-factorProfile := okta.SmsFactorProfile{
-  PhoneNumber: "5551234567",
-}
-factor := okta.SmsFactor{
-  Profile: &factorProfile,
-}
-factor, resp, err := client.Factor.AddFactor(user.Id, factor, nil)
+factorProfile := okta.NewSmsFactorProfile()
+factorProfile.PhoneNumber = "5551234567"
+
+factor := okta.NewSmsFactor()
+factor.Profile = factorProfile
+
+addedFactor, resp, err := client.Factor.AddFactor(user.Id, factor, nil)
 ```
 
 ### Activate a Factor
@@ -275,6 +274,16 @@ config := okta.NewConfig()
 client := okta.NewClient(config, nil, nil)
 
 applications, resp, err := client.Application.ListApplications(nil)
+
+//applicaitons will need to be cast from the interface into its concrete form before you can use it.
+for _, a := range applications {
+		if a.(*okta.Application).Name == "bookmark" {
+			if a.(*okta.Application).Id == app2.(okta.BookmarkApplication).Id {
+				application :=  *a.(*okta.BookmarkApplication) //This will cast it to a Bookmark Application
+			}
+		}
+		// continue for each type you want to work with.
+	}
 ```
 
 ### Get an Application
@@ -282,7 +291,11 @@ applications, resp, err := client.Application.ListApplications(nil)
 config := okta.NewConfig()
 client := okta.NewClient(config, nil, nil)
 
-application, resp, err := client.Applicaiton.GetApplication(applicationId, nil)
+//Getting a Basic Auth Application
+application, resp, err = client.Application.GetApplication(appId, okta.NewBasicAuthApplication(), nil)
+
+//To use the application, you must cast it to the type.
+app := application.(*okta.BasicAuthApplication)
 ```
 
 ### Create a SWA Application
@@ -290,20 +303,20 @@ application, resp, err := client.Applicaiton.GetApplication(applicationId, nil)
 config := okta.NewConfig()
 client := okta.NewClient(config, nil, nil)
 
-swaAppSettingsApp := okta.SwaApplicationSettingsApplication{
-    ButtonField:   "btn-login",
-    PasswordField: "txtbox-password",
-    UsernameField: "txtbox-username",
-    Url:           "https://example.com/login.html",
-    LoginUrlRegex: "REGEX_EXPRESSION",
-}
-swaAppSettings := okta.SwaApplicationSettings{
-    App: &swaAppSettingsApp,
-}
-swaApp := okta.SwaApplication{
-    Name:     "Test App",
-    Settings: &swaAppSettings,
-}
+swaAppSettingsApp := newSwaApplicationSettingsApplication()
+swaAppSettingsApp.ButtonField = "btn-login"
+swaAppSettingsApp.PasswordField = "txtbox-password"
+swaAppSettingsApp.UsernameField = "txtbox-username"
+swaAppSettingsApp.Url = "https://example.com/login.html"
+swaAppSettingsApp.LoginUrlRegex = "REGEX_EXPRESSION"
+
+swaAppSettings := newSwaApplicationSettings()
+swaAppSettings.App = &swaAppSettingsApp
+
+swaApp := newSwaApplication()
+swaApp.Label = "Test App"
+swaApp.Settings = &swaAppSettings
+
 application, resp, err := client.Application.CreateApplication(swaApp, nil)
 ```
 
