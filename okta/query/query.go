@@ -19,7 +19,6 @@
 package query
 
 import (
-	"encoding/json"
 	"net/url"
 	"strconv"
 )
@@ -189,30 +188,77 @@ func WithOauthTokens(oauthTokens bool) ParamOptions {
 }
 
 func (p *Params) String() string {
-	s, _ := json.Marshal(p)
+	qs := url.Values{}
 
-	m := map[string]interface{}{}
-	qs := ""
-	i := 1
-
-	json.Unmarshal(s, &m)
-
-	for key, value := range m {
-		qs = qs + string(key) + "="
-		switch v := value.(type) {
-		case bool:
-			qs = qs + strconv.FormatBool(v)
-		default:
-			qs = qs + url.QueryEscape(value.(string))
-		}
-		if i < len(m) {
-			qs = qs + "&"
-		}
-		i++
+	if (p.Q != "") {
+		qs.Add(`q`, p.Q)
+	}
+	if (p.After != "") {
+		qs.Add(`after`, p.After)
+	}
+	if (p.Limit != 0) {
+		qs.Add(`limit`, strconv.FormatInt(p.Limit, 10))
+	}
+	if (p.Filter != "") {
+		qs.Add(`filter`, p.Filter)
+	}
+	if (p.Expand != "") {
+		qs.Add(`expand`, p.Expand)
+	}
+	if (p.IncludeNonDeleted != nil) {
+		qs.Add(`includeNonDeleted`, strconv.FormatBool(*p.IncludeNonDeleted))
+	}
+	if (p.Activate != nil) {
+		qs.Add(`activate`, strconv.FormatBool(*p.Activate))
+	}
+	if (p.TargetAid != "") {
+		qs.Add(`targetAid`, p.TargetAid)
+	}
+	if (p.QueryScope != "") {
+		qs.Add(`query_scope`, p.QueryScope)
+	}
+	if (p.RemoveUsers != nil) {
+		qs.Add(`removeUsers`, strconv.FormatBool(*p.RemoveUsers))
+	}
+	if (p.Until != "") {
+		qs.Add(`until`, p.Until)
+	}
+	if (p.Since != "") {
+		qs.Add(`since`, p.Since)
+	}
+	if (p.SortOrder != "") {
+		qs.Add(`sortOrder`, p.SortOrder)
+	}
+	if (p.Format != "") {
+		qs.Add(`format`, p.Format)
+	}
+	if (p.Search != "") {
+		qs.Add(`search`, p.Search)
+	}
+	if (p.Provider != "") {
+		qs.Add(`provider`, p.Provider)
+	}
+	if (p.ShowAll != nil) {
+		qs.Add(`showAll`, strconv.FormatBool(*p.ShowAll))
+	}
+	if (p.SendEmail != nil) {
+		qs.Add(`sendEmail`, strconv.FormatBool(*p.SendEmail))
+	}
+	if (p.UpdatePhone != nil) {
+		qs.Add(`updatePhone`, strconv.FormatBool(*p.UpdatePhone))
+	}
+	if (p.TemplateId != "") {
+		qs.Add(`templateId`, p.TemplateId)
+	}
+	if (p.TempPassword != nil) {
+		qs.Add(`tempPassword`, strconv.FormatBool(*p.TempPassword))
+	}
+	if (p.OauthTokens != nil) {
+		qs.Add(`oauthTokens`, strconv.FormatBool(*p.OauthTokens))
 	}
 
-	if qs != "" {
-		qs = "?" + qs
+	if len(qs) != 0 {
+		return "?" + qs.Encode()
 	}
-	return qs
+	return ""
 }
