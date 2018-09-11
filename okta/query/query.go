@@ -202,8 +202,6 @@ func (p *Params) String() string {
 		switch v := value.(type) {
 		case bool:
 			qs = qs + strconv.FormatBool(v)
-		case float64:
-			qs = qs + strconv.Itoa(int(v))
 		default:
 			qs = qs + url.QueryEscape(value.(string))
 		}
