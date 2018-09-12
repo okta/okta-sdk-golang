@@ -20,6 +20,7 @@ import (
 	"fmt"
 	"io/ioutil"
 	"os/user"
+	"regexp"
 
 	"github.com/go-yaml/yaml"
 	"github.com/kelseyhightower/envconfig"
@@ -120,7 +121,11 @@ func (c *Config) WithProxyPassword(pass string) *Config {
 }
 
 func (c *Config) WithOrgUrl(url string) *Config {
+	// Remove / if it is there to ensure URL consistency. See issue #14.
+	rx := regexp.MustCompile("/+?$")
+	url = rx.ReplaceAllString(url, "")
 	c.Okta.Client.OrgUrl = url
+
 	return c
 }
 
