@@ -13,7 +13,6 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
 package unit
 
 import (
@@ -25,15 +24,16 @@ import (
 
 func Test_WithOrgUrl_removes_backslash(t *testing.T) {
 	config := okta.NewConfig().WithOrgUrl("http://test.b.com/")
+	_ = okta.NewClient(config, nil, nil)
 	assert.Equal(t, "http://test.b.com", config.Okta.Client.OrgUrl)
 }
-
 func Test_WithOrgUrl_handles_properly_formatted_url(t *testing.T) {
 	config := okta.NewConfig().WithOrgUrl("http://test.b.com")
+	_ = okta.NewClient(config, nil, nil)
 	assert.Equal(t, "http://test.b.com", config.Okta.Client.OrgUrl)
 }
-
 func Test_WithOrgUrl_handles_empty_string(t *testing.T) {
 	config := okta.NewConfig().WithOrgUrl("")
+	_ = okta.NewClient(config, nil, nil)
 	assert.Equal(t, "", config.Okta.Client.OrgUrl)
 }
