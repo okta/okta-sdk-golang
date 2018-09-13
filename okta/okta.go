@@ -20,6 +20,7 @@ package okta
 
 import (
 	"net/http"
+	"regexp"
 
 	"github.com/okta/okta-sdk-golang/okta/cache"
 )
@@ -63,6 +64,9 @@ func NewClient(config *Config, httpClient *http.Client, cacheManager cache.Cache
 
 	c := &Client{}
 	c.config = config
+	// Remove / if it is there to ensure URL consistency. See issue #14.
+	rx := regexp.MustCompile("/+?$")
+	c.config.Okta.Client.OrgUrl = rx.ReplaceAllString(c.config.Okta.Client.OrgUrl, "")
 	c.requestExecutor = NewRequestExecutor(nil, oktaCache, config)
 
 	c.resource.client = c
