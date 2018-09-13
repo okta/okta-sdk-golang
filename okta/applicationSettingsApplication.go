@@ -22,3 +22,11 @@ import ()
 
 type ApplicationSettingsApplication struct {
 }
+
+func NewApplicationSettingsApplication() *ApplicationSettingsApplication {
+	return &ApplicationSettingsApplication{}
+}
+
+func (a *ApplicationSettingsApplication) IsApplicationInstance() bool {
+	return true
+}

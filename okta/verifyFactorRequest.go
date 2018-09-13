@@ -26,3 +26,11 @@ type VerifyFactorRequest struct {
 	NextPassCode    string `json:"nextPassCode,omitempty"`
 	PassCode        string `json:"passCode,omitempty"`
 }
+
+func NewVerifyFactorRequest() *VerifyFactorRequest {
+	return &VerifyFactorRequest{}
+}
+
+func (a *VerifyFactorRequest) IsUserFactorInstance() bool {
+	return true
+}

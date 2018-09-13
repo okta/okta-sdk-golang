@@ -1,9 +1,11 @@
 func (m *{{modelName}}Resource) {{ucFirst operation.operationId}}({{operationArgumentBuilder operation}}) {{returnType
 	operation}}{
 	url := fmt.Sprintf({{{getPath operation}}}, {{getPathParams operation}})
+	{{#if operation.queryParams.length}}
 	if qp != nil {
 		url = url + qp.String()
 	}
+	{{/if}}
 	{{#if (ne operation.bodyModel undefined)}}
 	req, err := m.client.requestExecutor.NewRequest("{{strToUpper operation.method}}", url, body)
 	{{else}}
@@ -22,9 +24,29 @@ func (m *{{modelName}}Resource) {{ucFirst operation.operationId}}({{operationArg
 
 	{{#if (ne operation.responseModel undefined)}}
 	{{#if (ne operation.isArray undefined)}}
+	{{#if (responseModelInterface operation.operationId) }}
+	{{#if (eq operation.operationId "listApplications") }}
+	var {{lowercaseFirstLetter operation.responseModel}} []App
+	{{else if (eq operation.operationId "listFactors") }}
+	var {{lowercaseFirstLetter operation.responseModel}} []UserFactor
+	{{else}}
+	var {{lowercaseFirstLetter operation.responseModel}} []interface{}
+	{{/if}}
+	{{else}}
 	var {{lowercaseFirstLetter operation.responseModel}} []*{{operation.responseModel}}
+	{{/if}}
+	{{else}}
+	{{#if (or (eq operation.responseModel "Application") (eq operation.responseModel "Factor"))}}
+	{{#if (eq operation.operationId "getApplication")}}
+	{{lowercaseFirstLetter operation.responseModel}} := appInstance
+	{{else if (eq operation.operationId "getFactor")}}
+	{{lowercaseFirstLetter operation.responseModel}} := factorInstance
+	{{else}}
+	{{lowercaseFirstLetter operation.responseModel}} := body
+	{{/if}}
 	{{else}}
 	var {{lowercaseFirstLetter operation.responseModel}} *{{operation.responseModel}}
+	{{/if}}
 	{{/if}}
 	resp, err := m.client.requestExecutor.Do(req, &{{lowercaseFirstLetter operation.responseModel}})
 	if err != nil {

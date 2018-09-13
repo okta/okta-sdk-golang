@@ -22,3 +22,11 @@ import ()
 
 type FactorStatus struct {
 }
+
+func NewFactorStatus() *FactorStatus {
+	return &FactorStatus{}
+}
+
+func (a *FactorStatus) IsUserFactorInstance() bool {
+	return true
+}

@@ -23,3 +23,11 @@ import ()
 type SmsFactorProfile struct {
 	PhoneNumber string `json:"phoneNumber,omitempty"`
 }
+
+func NewSmsFactorProfile() *SmsFactorProfile {
+	return &SmsFactorProfile{}
+}
+
+func (a *SmsFactorProfile) IsUserFactorInstance() bool {
+	return true
+}

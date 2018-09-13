@@ -22,6 +22,14 @@ import ()
 
 type ApplicationVisibility struct {
 	AppLinks          interface{}                `json:"appLinks,omitempty"`
-	AutoSubmitToolbar bool                       `json:"autoSubmitToolbar,omitempty"`
+	AutoSubmitToolbar *bool                      `json:"autoSubmitToolbar,omitempty"`
 	Hide              *ApplicationVisibilityHide `json:"hide,omitempty"`
+}
+
+func NewApplicationVisibility() *ApplicationVisibility {
+	return &ApplicationVisibility{}
+}
+
+func (a *ApplicationVisibility) IsApplicationInstance() bool {
+	return true
 }

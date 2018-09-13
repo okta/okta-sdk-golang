@@ -21,8 +21,16 @@ package okta
 import ()
 
 type ApplicationCredentialsOAuthClient struct {
-	AutoKeyRotation         bool   `json:"autoKeyRotation,omitempty"`
+	AutoKeyRotation         *bool  `json:"autoKeyRotation,omitempty"`
 	ClientId                string `json:"client_id,omitempty"`
 	ClientSecret            string `json:"client_secret,omitempty"`
 	TokenEndpointAuthMethod string `json:"token_endpoint_auth_method,omitempty"`
+}
+
+func NewApplicationCredentialsOAuthClient() *ApplicationCredentialsOAuthClient {
+	return &ApplicationCredentialsOAuthClient{}
+}
+
+func (a *ApplicationCredentialsOAuthClient) IsApplicationInstance() bool {
+	return true
 }

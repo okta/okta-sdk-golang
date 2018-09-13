@@ -23,5 +23,13 @@ import ()
 type ApplicationAccessibility struct {
 	ErrorRedirectUrl string `json:"errorRedirectUrl,omitempty"`
 	LoginRedirectUrl string `json:"loginRedirectUrl,omitempty"`
-	SelfService      bool   `json:"selfService,omitempty"`
+	SelfService      *bool  `json:"selfService,omitempty"`
+}
+
+func NewApplicationAccessibility() *ApplicationAccessibility {
+	return &ApplicationAccessibility{}
+}
+
+func (a *ApplicationAccessibility) IsApplicationInstance() bool {
+	return true
 }

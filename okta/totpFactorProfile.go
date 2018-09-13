@@ -23,3 +23,11 @@ import ()
 type TotpFactorProfile struct {
 	CredentialId string `json:"credentialId,omitempty"`
 }
+
+func NewTotpFactorProfile() *TotpFactorProfile {
+	return &TotpFactorProfile{}
+}
+
+func (a *TotpFactorProfile) IsUserFactorInstance() bool {
+	return true
+}

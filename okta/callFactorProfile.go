@@ -24,3 +24,11 @@ type CallFactorProfile struct {
 	PhoneExtension string `json:"phoneExtension,omitempty"`
 	PhoneNumber    string `json:"phoneNumber,omitempty"`
 }
+
+func NewCallFactorProfile() *CallFactorProfile {
+	return &CallFactorProfile{}
+}
+
+func (a *CallFactorProfile) IsUserFactorInstance() bool {
+	return true
+}

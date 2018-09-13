@@ -31,3 +31,11 @@ type OpenIdConnectApplicationSettingsClient struct {
 	ResponseTypes   []string `json:"response_types,omitempty"`
 	TosUri          string   `json:"tos_uri,omitempty"`
 }
+
+func NewOpenIdConnectApplicationSettingsClient() *OpenIdConnectApplicationSettingsClient {
+	return &OpenIdConnectApplicationSettingsClient{}
+}
+
+func (a *OpenIdConnectApplicationSettingsClient) IsApplicationInstance() bool {
+	return true
+}

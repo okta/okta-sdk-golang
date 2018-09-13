@@ -21,5 +21,14 @@ package okta
 import ()
 
 type SwaApplicationSettings struct {
-	App *SwaApplicationSettingsApplication `json:"app,omitempty"`
+	App           *SwaApplicationSettingsApplication `json:"app,omitempty"`
+	Notifications *ApplicationSettingsNotifications  `json:"notifications,omitempty"`
+}
+
+func NewSwaApplicationSettings() *SwaApplicationSettings {
+	return &SwaApplicationSettings{}
+}
+
+func (a *SwaApplicationSettings) IsApplicationInstance() bool {
+	return true
 }

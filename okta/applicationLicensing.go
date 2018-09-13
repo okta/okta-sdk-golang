@@ -23,3 +23,11 @@ import ()
 type ApplicationLicensing struct {
 	SeatCount int64 `json:"seatCount,omitempty"`
 }
+
+func NewApplicationLicensing() *ApplicationLicensing {
+	return &ApplicationLicensing{}
+}
+
+func (a *ApplicationLicensing) IsApplicationInstance() bool {
+	return true
+}

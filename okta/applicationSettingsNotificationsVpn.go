@@ -25,3 +25,11 @@ type ApplicationSettingsNotificationsVpn struct {
 	Message string                                      `json:"message,omitempty"`
 	Network *ApplicationSettingsNotificationsVpnNetwork `json:"network,omitempty"`
 }
+
+func NewApplicationSettingsNotificationsVpn() *ApplicationSettingsNotificationsVpn {
+	return &ApplicationSettingsNotificationsVpn{}
+}
+
+func (a *ApplicationSettingsNotificationsVpn) IsApplicationInstance() bool {
+	return true
+}

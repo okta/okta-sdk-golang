@@ -24,3 +24,11 @@ type ApplicationSettings struct {
 	App           *ApplicationSettingsApplication   `json:"app,omitempty"`
 	Notifications *ApplicationSettingsNotifications `json:"notifications,omitempty"`
 }
+
+func NewApplicationSettings() *ApplicationSettings {
+	return &ApplicationSettings{}
+}
+
+func (a *ApplicationSettings) IsApplicationInstance() bool {
+	return true
+}

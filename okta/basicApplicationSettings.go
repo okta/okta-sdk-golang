@@ -21,5 +21,14 @@ package okta
 import ()
 
 type BasicApplicationSettings struct {
-	App *BasicApplicationSettingsApplication `json:"app,omitempty"`
+	App           *BasicApplicationSettingsApplication `json:"app,omitempty"`
+	Notifications *ApplicationSettingsNotifications    `json:"notifications,omitempty"`
+}
+
+func NewBasicApplicationSettings() *BasicApplicationSettings {
+	return &BasicApplicationSettings{}
+}
+
+func (a *BasicApplicationSettings) IsApplicationInstance() bool {
+	return true
 }

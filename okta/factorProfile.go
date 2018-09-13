@@ -22,3 +22,11 @@ import ()
 
 type FactorProfile struct {
 }
+
+func NewFactorProfile() *FactorProfile {
+	return &FactorProfile{}
+}
+
+func (a *FactorProfile) IsUserFactorInstance() bool {
+	return true
+}

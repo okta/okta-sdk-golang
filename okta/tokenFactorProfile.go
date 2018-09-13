@@ -23,3 +23,11 @@ import ()
 type TokenFactorProfile struct {
 	CredentialId string `json:"credentialId,omitempty"`
 }
+
+func NewTokenFactorProfile() *TokenFactorProfile {
+	return &TokenFactorProfile{}
+}
+
+func (a *TokenFactorProfile) IsUserFactorInstance() bool {
+	return true
+}

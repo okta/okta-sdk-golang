@@ -27,3 +27,11 @@ type PushFactorProfile struct {
 	Platform     string `json:"platform,omitempty"`
 	Version      string `json:"version,omitempty"`
 }
+
+func NewPushFactorProfile() *PushFactorProfile {
+	return &PushFactorProfile{}
+}
+
+func (a *PushFactorProfile) IsUserFactorInstance() bool {
+	return true
+}
