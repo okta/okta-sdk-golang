@@ -17,11 +17,15 @@
 package okta
 
 type Error struct {
-	ErrorCode    string   `json:"errorCode,omitempty"`
+	ErrorCode    string       `json:"errorCode,omitempty"`
+	ErrorSummary string       `json:"errorSummary,omitempty"`
+	ErrorLink    string       `json:"errorLink,omitempty"`
+	ErrorId      string       `json:"errorId,omitempty"`
+	ErrorCauses  []ErrorCause `json:"errorCauses,omitempty"`
+}
+
+type ErrorCause struct {
 	ErrorSummary string   `json:"errorSummary,omitempty"`
-	ErrorLink    string   `json:"errorLink,omitempty"`
-	ErrorId      string   `json:"errorId,omitempty"`
-	ErrorCauses  []string `json:"errorCauses,omitempty"`
 }
 
 func (e *Error) Error() string {
