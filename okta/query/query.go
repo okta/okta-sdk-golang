@@ -190,70 +190,70 @@ func WithOauthTokens(oauthTokens bool) ParamOptions {
 func (p *Params) String() string {
 	qs := url.Values{}
 
-	if (p.Q != "") {
+	if p.Q != "" {
 		qs.Add(`q`, p.Q)
 	}
-	if (p.After != "") {
+	if p.After != "" {
 		qs.Add(`after`, p.After)
 	}
-	if (p.Limit != 0) {
+	if p.Limit != 0 {
 		qs.Add(`limit`, strconv.FormatInt(p.Limit, 10))
 	}
-	if (p.Filter != "") {
+	if p.Filter != "" {
 		qs.Add(`filter`, p.Filter)
 	}
-	if (p.Expand != "") {
+	if p.Expand != "" {
 		qs.Add(`expand`, p.Expand)
 	}
-	if (p.IncludeNonDeleted != nil) {
+	if p.IncludeNonDeleted != nil {
 		qs.Add(`includeNonDeleted`, strconv.FormatBool(*p.IncludeNonDeleted))
 	}
-	if (p.Activate != nil) {
+	if p.Activate != nil {
 		qs.Add(`activate`, strconv.FormatBool(*p.Activate))
 	}
-	if (p.TargetAid != "") {
+	if p.TargetAid != "" {
 		qs.Add(`targetAid`, p.TargetAid)
 	}
-	if (p.QueryScope != "") {
+	if p.QueryScope != "" {
 		qs.Add(`query_scope`, p.QueryScope)
 	}
-	if (p.RemoveUsers != nil) {
+	if p.RemoveUsers != nil {
 		qs.Add(`removeUsers`, strconv.FormatBool(*p.RemoveUsers))
 	}
-	if (p.Until != "") {
+	if p.Until != "" {
 		qs.Add(`until`, p.Until)
 	}
-	if (p.Since != "") {
+	if p.Since != "" {
 		qs.Add(`since`, p.Since)
 	}
-	if (p.SortOrder != "") {
+	if p.SortOrder != "" {
 		qs.Add(`sortOrder`, p.SortOrder)
 	}
-	if (p.Format != "") {
+	if p.Format != "" {
 		qs.Add(`format`, p.Format)
 	}
-	if (p.Search != "") {
+	if p.Search != "" {
 		qs.Add(`search`, p.Search)
 	}
-	if (p.Provider != "") {
+	if p.Provider != "" {
 		qs.Add(`provider`, p.Provider)
 	}
-	if (p.ShowAll != nil) {
+	if p.ShowAll != nil {
 		qs.Add(`showAll`, strconv.FormatBool(*p.ShowAll))
 	}
-	if (p.SendEmail != nil) {
+	if p.SendEmail != nil {
 		qs.Add(`sendEmail`, strconv.FormatBool(*p.SendEmail))
 	}
-	if (p.UpdatePhone != nil) {
+	if p.UpdatePhone != nil {
 		qs.Add(`updatePhone`, strconv.FormatBool(*p.UpdatePhone))
 	}
-	if (p.TemplateId != "") {
+	if p.TemplateId != "" {
 		qs.Add(`templateId`, p.TemplateId)
 	}
-	if (p.TempPassword != nil) {
+	if p.TempPassword != nil {
 		qs.Add(`tempPassword`, strconv.FormatBool(*p.TempPassword))
 	}
-	if (p.OauthTokens != nil) {
+	if p.OauthTokens != nil {
 		qs.Add(`oauthTokens`, strconv.FormatBool(*p.OauthTokens))
 	}
 

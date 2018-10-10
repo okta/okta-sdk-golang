@@ -6177,7 +6177,7 @@
         "passwordSelector": {
           "type": "string"
         },
-        "targetUrl": {
+        "targetURL": {
           "type": "string"
         },
         "userNameSelector": {
