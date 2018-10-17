@@ -48,15 +48,15 @@ func (p *Params) String() string {
 
 {{#each queryOptions as |query|}}
 	{{#if (eq query.type "bool")}}
-	if (p.{{structProp query.name}} != nil) {
+	if p.{{structProp query.name}} != nil {
 		qs.Add(`{{query.name}}`, strconv.FormatBool(*p.{{structProp query.name}}))
 	}
 	{{else if (eq query.type "int64")}}
-	if (p.{{structProp query.name}} != 0) {
+	if p.{{structProp query.name}} != 0 {
 		qs.Add(`{{query.name}}`, strconv.FormatInt(p.{{structProp query.name}}, 10))
 	}
 	{{else if (eq query.type "string")}}
-	if (p.{{structProp query.name}} != "") {
+	if p.{{structProp query.name}} != "" {
 		qs.Add(`{{query.name}}`, p.{{structProp query.name}})
 	}
 	{{else}}
