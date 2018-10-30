@@ -62,7 +62,7 @@ You'll also need
 Construct a client instance by passing it your Okta domain name and API token:
 
 ```
-config := okta.NewConfig().WithOrgUrl("{yourOktaDomain}").WithToken("{apiToken}")
+config := okta.NewConfig().WithOrgUrl("https://{yourOktaDomain}").WithToken("{apiToken}")
 client := okta.NewClient(config, nil, nil)
 ```
 
