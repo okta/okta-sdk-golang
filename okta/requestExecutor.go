@@ -91,7 +91,7 @@ func (re *RequestExecutor) Do(req *http.Request, v interface{}) (*Response, erro
 	inCache := re.cache.Has(cacheKey)
 
 	if !inCache {
-		resp, err := re.doWithRetries(req)
+		resp, err := re.doWithRetries(req, 0)
 
 		if err != nil {
 			return nil, err
@@ -119,14 +119,7 @@ func (re *RequestExecutor) Do(req *http.Request, v interface{}) (*Response, erro
 
 }
 
-func (re *RequestExecutor) doWithRetries(req *http.Request) (*http.Response, error) {
-	retryCount := 0
-	resp, err := re.do(req, retryCount)
-
-	return resp, err
-}
-
-func (re *RequestExecutor) do(req *http.Request, retryCount int) (*http.Response, error) {
+func (re *RequestExecutor) doWithRetries(req *http.Request, retryCount int) (*http.Response, error) {
 	resp, err := re.httpClient.Do(req)
 	maxRetries := int(re.config.MaxRetries)
 	bo := re.config.BackoffEnabled
@@ -137,7 +130,7 @@ func (re *RequestExecutor) do(req *http.Request, retryCount int) (*http.Response
 			Backoff(time.Duration(1<<uint(retryCount)) * time.Second)
 		}
 		retryCount++
-		resp, err = re.do(req, retryCount)
+		resp, err = re.doWithRetries(req, retryCount)
 	}
 
 	return resp, err
