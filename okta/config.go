@@ -26,7 +26,8 @@ import (
 )
 
 type Config struct {
-	Okta struct {
+	MaxRetries int32 `yaml:"maxRetries" envconfig:"OKTA_MAX_RETRIES"`
+	Okta       struct {
 		Client struct {
 			Cache struct {
 				Enabled    bool  `yaml:"enabled" envconfig:"OKTA_CLIENT_CACHE_ENABLED"`
@@ -44,6 +45,7 @@ type Config struct {
 			Token             string `yaml:"token" envconfig:"OKTA_CLIENT_TOKEN"`
 		} `yaml:"client"`
 	} `yaml:"okta"`
+	BackoffEnabled bool `yaml:"withBackoff" envconfig:"OKTA_BACK_OFF_ENABLED"`
 	UserAgentExtra string
 }
 
@@ -126,6 +128,16 @@ func (c *Config) WithOrgUrl(url string) *Config {
 
 func (c *Config) WithToken(token string) *Config {
 	c.Okta.Client.Token = token
+	return c
+}
+
+func (c *Config) WithBackoff(backoff bool) *Config {
+	c.BackoffEnabled = backoff
+	return c
+}
+
+func (c *Config) WithRetries(retries int32) *Config {
+	c.MaxRetries = retries
 	return c
 }
 

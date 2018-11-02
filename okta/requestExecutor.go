@@ -36,6 +36,8 @@ type RequestExecutor struct {
 	cache      cache.Cache
 }
 
+var Backoff = time.Sleep
+
 func NewRequestExecutor(httpClient *http.Client, cache cache.Cache, config *Config) *RequestExecutor {
 	re := RequestExecutor{}
 	re.httpClient = httpClient
@@ -89,7 +91,8 @@ func (re *RequestExecutor) Do(req *http.Request, v interface{}) (*Response, erro
 	inCache := re.cache.Has(cacheKey)
 
 	if !inCache {
-		resp, err := re.httpClient.Do(req)
+		resp, err := re.doWithRetries(req)
+
 		if err != nil {
 			return nil, err
 		}
@@ -114,6 +117,30 @@ func (re *RequestExecutor) Do(req *http.Request, v interface{}) (*Response, erro
 	resp := re.cache.Get(cacheKey)
 	return buildResponse(resp, &v)
 
+}
+
+func (re *RequestExecutor) doWithRetries(req *http.Request) (*http.Response, error) {
+	retryCount := 0
+	resp, err := re.do(req, retryCount)
+
+	return resp, err
+}
+
+func (re *RequestExecutor) do(req *http.Request, retryCount int) (*http.Response, error) {
+	resp, err := re.httpClient.Do(req)
+	maxRetries := int(re.config.MaxRetries)
+	bo := re.config.BackoffEnabled
+
+	if (err != nil || (resp.StatusCode == http.StatusTooManyRequests && bo)) && retryCount < maxRetries {
+		// Using an exponential back off method with no jitter for simplicity.
+		if bo {
+			Backoff(time.Duration(1<<uint(retryCount)) * time.Second)
+		}
+		retryCount++
+		resp, err = re.do(req, retryCount)
+	}
+
+	return resp, err
 }
 
 type Response struct {
