@@ -26,8 +26,9 @@ import (
 )
 
 type Config struct {
-	MaxRetries int32 `yaml:"maxRetries" envconfig:"OKTA_MAX_RETRIES"`
-	Okta       struct {
+	BackoffEnabled bool  `yaml:"withBackoff" envconfig:"OKTA_BACK_OFF_ENABLED"`
+	MaxRetries     int32 `yaml:"maxRetries" envconfig:"OKTA_MAX_RETRIES"`
+	Okta           struct {
 		Client struct {
 			Cache struct {
 				Enabled    bool  `yaml:"enabled" envconfig:"OKTA_CLIENT_CACHE_ENABLED"`
@@ -45,7 +46,6 @@ type Config struct {
 			Token             string `yaml:"token" envconfig:"OKTA_CLIENT_TOKEN"`
 		} `yaml:"client"`
 	} `yaml:"okta"`
-	BackoffEnabled bool `yaml:"withBackoff" envconfig:"OKTA_BACK_OFF_ENABLED"`
 	UserAgentExtra string
 }
 
