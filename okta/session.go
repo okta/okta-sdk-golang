@@ -39,7 +39,7 @@ type Session struct {
 	UserId                   string                   `json:"userId,omitempty"`
 }
 
-func (m *SessionResource) GetSession(sessionId string) (*Session, *Response, error) {
+func (m *SessionResource) Get(sessionId string) (*Session, *Response, error) {
 	url := fmt.Sprintf("/api/v1/sessions/%v", sessionId)
 	req, err := m.client.requestExecutor.NewRequest("GET", url, nil)
 	if err != nil {
@@ -53,7 +53,7 @@ func (m *SessionResource) GetSession(sessionId string) (*Session, *Response, err
 	}
 	return session, resp, nil
 }
-func (m *SessionResource) EndSession(sessionId string) (*Response, error) {
+func (m *SessionResource) End(sessionId string) (*Response, error) {
 	url := fmt.Sprintf("/api/v1/sessions/%v", sessionId)
 	req, err := m.client.requestExecutor.NewRequest("DELETE", url, nil)
 	if err != nil {
@@ -66,7 +66,7 @@ func (m *SessionResource) EndSession(sessionId string) (*Response, error) {
 	}
 	return resp, nil
 }
-func (m *SessionResource) CreateSession(body CreateSessionRequest) (*Session, *Response, error) {
+func (m *SessionResource) Create(body CreateSessionRequest) (*Session, *Response, error) {
 	url := fmt.Sprintf("/api/v1/sessions")
 	req, err := m.client.requestExecutor.NewRequest("POST", url, body)
 	if err != nil {
@@ -80,7 +80,7 @@ func (m *SessionResource) CreateSession(body CreateSessionRequest) (*Session, *R
 	}
 	return session, resp, nil
 }
-func (m *SessionResource) RefreshSession(sessionId string) (*Session, *Response, error) {
+func (m *SessionResource) Refresh(sessionId string) (*Session, *Response, error) {
 	url := fmt.Sprintf("/api/v1/sessions/%v/lifecycle/refresh", sessionId)
 	req, err := m.client.requestExecutor.NewRequest("POST", url, nil)
 	if err != nil {

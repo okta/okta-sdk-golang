@@ -27,14 +27,16 @@ import (
 type GroupRuleResource resource
 
 type GroupRule struct {
-	Actions     *GroupRuleAction     `json:"actions,omitempty"`
-	Conditions  *GroupRuleConditions `json:"conditions,omitempty"`
-	Created     *time.Time           `json:"created,omitempty"`
-	Id          string               `json:"id,omitempty"`
-	LastUpdated *time.Time           `json:"lastUpdated,omitempty"`
-	Name        string               `json:"name,omitempty"`
-	Status      string               `json:"status,omitempty"`
-	Type        string               `json:"type,omitempty"`
+	Embedded       interface{}          `json:"_embedded,omitempty"`
+	Actions        *GroupRuleAction     `json:"actions,omitempty"`
+	AllGroupsValid *bool                `json:"allGroupsValid,omitempty"`
+	Conditions     *GroupRuleConditions `json:"conditions,omitempty"`
+	Created        *time.Time           `json:"created,omitempty"`
+	Id             string               `json:"id,omitempty"`
+	LastUpdated    *time.Time           `json:"lastUpdated,omitempty"`
+	Name           string               `json:"name,omitempty"`
+	Status         string               `json:"status,omitempty"`
+	Type           string               `json:"type,omitempty"`
 }
 
 func (m *GroupRuleResource) UpdateRule(ruleId string, body GroupRule) (*GroupRule, *Response, error) {

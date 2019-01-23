@@ -42,7 +42,7 @@ func (a *ApplicationGroupAssignment) IsApplicationInstance() bool {
 	return true
 }
 
-func (m *ApplicationGroupAssignmentResource) DeleteApplicationGroupAssignment(appId string, groupId string) (*Response, error) {
+func (m *ApplicationGroupAssignmentResource) Delete(appId string, groupId string) (*Response, error) {
 	url := fmt.Sprintf("/api/v1/apps/%v/groups/%v", appId, groupId)
 	req, err := m.client.requestExecutor.NewRequest("DELETE", url, nil)
 	if err != nil {

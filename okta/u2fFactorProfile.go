@@ -20,17 +20,13 @@ package okta
 
 import ()
 
-type OpenIdConnectApplicationSettings struct {
-	App                *ApplicationSettingsApplication         `json:"app,omitempty"`
-	ImplicitAssignment *bool                                   `json:"implicitAssignment,omitempty"`
-	Notifications      *ApplicationSettingsNotifications       `json:"notifications,omitempty"`
-	OauthClient        *OpenIdConnectApplicationSettingsClient `json:"oauthClient,omitempty"`
+type U2fFactorProfile struct {
 }
 
-func NewOpenIdConnectApplicationSettings() *OpenIdConnectApplicationSettings {
-	return &OpenIdConnectApplicationSettings{}
+func NewU2fFactorProfile() *U2fFactorProfile {
+	return &U2fFactorProfile{}
 }
 
-func (a *OpenIdConnectApplicationSettings) IsApplicationInstance() bool {
+func (a *U2fFactorProfile) IsUserFactorInstance() bool {
 	return true
 }

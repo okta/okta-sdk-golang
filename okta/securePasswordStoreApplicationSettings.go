@@ -21,8 +21,9 @@ package okta
 import ()
 
 type SecurePasswordStoreApplicationSettings struct {
-	App           *SecurePasswordStoreApplicationSettingsApplication `json:"app,omitempty"`
-	Notifications *ApplicationSettingsNotifications                  `json:"notifications,omitempty"`
+	App                *SecurePasswordStoreApplicationSettingsApplication `json:"app,omitempty"`
+	ImplicitAssignment *bool                                              `json:"implicitAssignment,omitempty"`
+	Notifications      *ApplicationSettingsNotifications                  `json:"notifications,omitempty"`
 }
 
 func NewSecurePasswordStoreApplicationSettings() *SecurePasswordStoreApplicationSettings {

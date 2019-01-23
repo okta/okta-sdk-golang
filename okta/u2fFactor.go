@@ -20,7 +20,7 @@ package okta
 
 import ()
 
-type CallFactor struct {
+type U2fFactor struct {
 	Embedded                  interface{}          `json:"_embedded,omitempty"`
 	Links                     interface{}          `json:"_links,omitempty"`
 	Device                    string               `json:"device,omitempty"`
@@ -28,7 +28,7 @@ type CallFactor struct {
 	FactorType                string               `json:"factorType,omitempty"`
 	Id                        string               `json:"id,omitempty"`
 	MfaStateTokenId           string               `json:"mfaStateTokenId,omitempty"`
-	Profile                   *CallFactorProfile   `json:"profile,omitempty"`
+	Profile                   *U2fFactorProfile    `json:"profile,omitempty"`
 	Provider                  string               `json:"provider,omitempty"`
 	RechallengeExistingFactor *bool                `json:"rechallengeExistingFactor,omitempty"`
 	SessionId                 string               `json:"sessionId,omitempty"`
@@ -38,12 +38,12 @@ type CallFactor struct {
 	Verify                    *VerifyFactorRequest `json:"verify,omitempty"`
 }
 
-func NewCallFactor() *CallFactor {
-	return &CallFactor{
-		FactorType: "call",
+func NewU2fFactor() *U2fFactor {
+	return &U2fFactor{
+		FactorType: "u2f",
 	}
 }
 
-func (a *CallFactor) IsUserFactorInstance() bool {
+func (a *U2fFactor) IsUserFactorInstance() bool {
 	return true
 }

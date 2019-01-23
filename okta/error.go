@@ -25,7 +25,7 @@ type Error struct {
 }
 
 type ErrorCause struct {
-	ErrorSummary string   `json:"errorSummary,omitempty"`
+	ErrorSummary string `json:"errorSummary,omitempty"`
 }
 
 func (e *Error) Error() string {

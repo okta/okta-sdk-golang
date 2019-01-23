@@ -38,7 +38,7 @@ type Group struct {
 	Type                  string        `json:"type,omitempty"`
 }
 
-func (m *GroupResource) UpdateGroup(groupId string, body Group) (*Group, *Response, error) {
+func (m *GroupResource) Update(groupId string, body Group) (*Group, *Response, error) {
 	url := fmt.Sprintf("/api/v1/groups/%v", groupId)
 	req, err := m.client.requestExecutor.NewRequest("PUT", url, body)
 	if err != nil {
@@ -52,7 +52,7 @@ func (m *GroupResource) UpdateGroup(groupId string, body Group) (*Group, *Respon
 	}
 	return group, resp, nil
 }
-func (m *GroupResource) DeleteGroup(groupId string) (*Response, error) {
+func (m *GroupResource) Delete(groupId string) (*Response, error) {
 	url := fmt.Sprintf("/api/v1/groups/%v", groupId)
 	req, err := m.client.requestExecutor.NewRequest("DELETE", url, nil)
 	if err != nil {
@@ -65,7 +65,7 @@ func (m *GroupResource) DeleteGroup(groupId string) (*Response, error) {
 	}
 	return resp, nil
 }
-func (m *GroupResource) ListGroups(qp *query.Params) ([]*Group, *Response, error) {
+func (m *GroupResource) List(qp *query.Params) ([]*Group, *Response, error) {
 	url := fmt.Sprintf("/api/v1/groups")
 	if qp != nil {
 		url = url + qp.String()
@@ -82,7 +82,7 @@ func (m *GroupResource) ListGroups(qp *query.Params) ([]*Group, *Response, error
 	}
 	return group, resp, nil
 }
-func (m *GroupResource) CreateGroup(body Group) (*Group, *Response, error) {
+func (m *GroupResource) Create(body Group) (*Group, *Response, error) {
 	url := fmt.Sprintf("/api/v1/groups")
 	req, err := m.client.requestExecutor.NewRequest("POST", url, body)
 	if err != nil {
@@ -143,8 +143,11 @@ func (m *GroupResource) DeleteRule(ruleId string, qp *query.Params) (*Response, 
 	}
 	return resp, nil
 }
-func (m *GroupResource) GetRule(ruleId string) (*GroupRule, *Response, error) {
+func (m *GroupResource) GetRule(ruleId string, qp *query.Params) (*GroupRule, *Response, error) {
 	url := fmt.Sprintf("/api/v1/groups/rules/%v", ruleId)
+	if qp != nil {
+		url = url + qp.String()
+	}
 	req, err := m.client.requestExecutor.NewRequest("GET", url, nil)
 	if err != nil {
 		return nil, nil, err
@@ -197,7 +200,7 @@ func (m *GroupResource) DeactivateRule(ruleId string) (*Response, error) {
 	}
 	return resp, nil
 }
-func (m *GroupResource) GetGroup(groupId string, qp *query.Params) (*Group, *Response, error) {
+func (m *GroupResource) Get(groupId string, qp *query.Params) (*Group, *Response, error) {
 	url := fmt.Sprintf("/api/v1/groups/%v", groupId)
 	if qp != nil {
 		url = url + qp.String()
@@ -214,7 +217,7 @@ func (m *GroupResource) GetGroup(groupId string, qp *query.Params) (*Group, *Res
 	}
 	return group, resp, nil
 }
-func (m *GroupResource) ListGroupUsers(groupId string, qp *query.Params) ([]*User, *Response, error) {
+func (m *GroupResource) ListUsers(groupId string, qp *query.Params) ([]*User, *Response, error) {
 	url := fmt.Sprintf("/api/v1/groups/%v/users", groupId)
 	if qp != nil {
 		url = url + qp.String()
@@ -231,7 +234,7 @@ func (m *GroupResource) ListGroupUsers(groupId string, qp *query.Params) ([]*Use
 	}
 	return user, resp, nil
 }
-func (m *GroupResource) RemoveGroupUser(groupId string, userId string) (*Response, error) {
+func (m *GroupResource) RemoveUser(groupId string, userId string) (*Response, error) {
 	url := fmt.Sprintf("/api/v1/groups/%v/users/%v", groupId, userId)
 	req, err := m.client.requestExecutor.NewRequest("DELETE", url, nil)
 	if err != nil {
@@ -244,7 +247,7 @@ func (m *GroupResource) RemoveGroupUser(groupId string, userId string) (*Respons
 	}
 	return resp, nil
 }
-func (m *GroupResource) AddUserToGroup(groupId string, userId string) (*Response, error) {
+func (m *GroupResource) AddUser(groupId string, userId string) (*Response, error) {
 	url := fmt.Sprintf("/api/v1/groups/%v/users/%v", groupId, userId)
 	req, err := m.client.requestExecutor.NewRequest("PUT", url, nil)
 	if err != nil {

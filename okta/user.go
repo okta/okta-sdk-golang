@@ -42,7 +42,7 @@ type User struct {
 	TransitioningToStatus string           `json:"transitioningToStatus,omitempty"`
 }
 
-func (m *UserResource) CreateUser(body User, qp *query.Params) (*User, *Response, error) {
+func (m *UserResource) Create(body User, qp *query.Params) (*User, *Response, error) {
 	url := fmt.Sprintf("/api/v1/users")
 	if qp != nil {
 		url = url + qp.String()
@@ -59,7 +59,7 @@ func (m *UserResource) CreateUser(body User, qp *query.Params) (*User, *Response
 	}
 	return user, resp, nil
 }
-func (m *UserResource) GetUser(userId string) (*User, *Response, error) {
+func (m *UserResource) Get(userId string) (*User, *Response, error) {
 	url := fmt.Sprintf("/api/v1/users/%v", userId)
 	req, err := m.client.requestExecutor.NewRequest("GET", url, nil)
 	if err != nil {
@@ -73,7 +73,7 @@ func (m *UserResource) GetUser(userId string) (*User, *Response, error) {
 	}
 	return user, resp, nil
 }
-func (m *UserResource) UpdateUser(userId string, body User) (*User, *Response, error) {
+func (m *UserResource) Update(userId string, body User) (*User, *Response, error) {
 	url := fmt.Sprintf("/api/v1/users/%v", userId)
 	req, err := m.client.requestExecutor.NewRequest("PUT", url, body)
 	if err != nil {
@@ -87,7 +87,7 @@ func (m *UserResource) UpdateUser(userId string, body User) (*User, *Response, e
 	}
 	return user, resp, nil
 }
-func (m *UserResource) DeactivateOrDeleteUser(userId string) (*Response, error) {
+func (m *UserResource) DeactivateOrDelete(userId string) (*Response, error) {
 	url := fmt.Sprintf("/api/v1/users/%v", userId)
 	req, err := m.client.requestExecutor.NewRequest("DELETE", url, nil)
 	if err != nil {
@@ -100,7 +100,7 @@ func (m *UserResource) DeactivateOrDeleteUser(userId string) (*Response, error) 
 	}
 	return resp, nil
 }
-func (m *UserResource) ListUsers(qp *query.Params) ([]*User, *Response, error) {
+func (m *UserResource) List(qp *query.Params) ([]*User, *Response, error) {
 	url := fmt.Sprintf("/api/v1/users")
 	if qp != nil {
 		url = url + qp.String()
@@ -179,7 +179,7 @@ func (m *UserResource) ForgotPassword(userId string, body UserCredentials, qp *q
 	}
 	return forgotPasswordResponse, resp, nil
 }
-func (m *UserResource) ListUserGroups(userId string, qp *query.Params) ([]*Group, *Response, error) {
+func (m *UserResource) ListGroups(userId string, qp *query.Params) ([]*Group, *Response, error) {
 	url := fmt.Sprintf("/api/v1/users/%v/groups", userId)
 	if qp != nil {
 		url = url + qp.String()
@@ -196,7 +196,7 @@ func (m *UserResource) ListUserGroups(userId string, qp *query.Params) ([]*Group
 	}
 	return group, resp, nil
 }
-func (m *UserResource) ActivateUser(userId string, qp *query.Params) (*UserActivationToken, *Response, error) {
+func (m *UserResource) Activate(userId string, qp *query.Params) (*UserActivationToken, *Response, error) {
 	url := fmt.Sprintf("/api/v1/users/%v/lifecycle/activate", userId)
 	if qp != nil {
 		url = url + qp.String()
@@ -213,7 +213,7 @@ func (m *UserResource) ActivateUser(userId string, qp *query.Params) (*UserActiv
 	}
 	return userActivationToken, resp, nil
 }
-func (m *UserResource) DeactivateUser(userId string) (*Response, error) {
+func (m *UserResource) Deactivate(userId string) (*Response, error) {
 	url := fmt.Sprintf("/api/v1/users/%v/lifecycle/deactivate", userId)
 	req, err := m.client.requestExecutor.NewRequest("POST", url, nil)
 	if err != nil {
@@ -273,7 +273,7 @@ func (m *UserResource) ResetPassword(userId string, qp *query.Params) (*ResetPas
 	}
 	return resetPasswordToken, resp, nil
 }
-func (m *UserResource) SuspendUser(userId string) (*Response, error) {
+func (m *UserResource) Suspend(userId string) (*Response, error) {
 	url := fmt.Sprintf("/api/v1/users/%v/lifecycle/suspend", userId)
 	req, err := m.client.requestExecutor.NewRequest("POST", url, nil)
 	if err != nil {
@@ -286,7 +286,7 @@ func (m *UserResource) SuspendUser(userId string) (*Response, error) {
 	}
 	return resp, nil
 }
-func (m *UserResource) UnlockUser(userId string) (*Response, error) {
+func (m *UserResource) Unlock(userId string) (*Response, error) {
 	url := fmt.Sprintf("/api/v1/users/%v/lifecycle/unlock", userId)
 	req, err := m.client.requestExecutor.NewRequest("POST", url, nil)
 	if err != nil {
@@ -299,7 +299,7 @@ func (m *UserResource) UnlockUser(userId string) (*Response, error) {
 	}
 	return resp, nil
 }
-func (m *UserResource) UnsuspendUser(userId string) (*Response, error) {
+func (m *UserResource) Unsuspend(userId string) (*Response, error) {
 	url := fmt.Sprintf("/api/v1/users/%v/lifecycle/unsuspend", userId)
 	req, err := m.client.requestExecutor.NewRequest("POST", url, nil)
 	if err != nil {
@@ -329,7 +329,7 @@ func (m *UserResource) ListAssignedRoles(userId string, qp *query.Params) ([]*Ro
 	}
 	return role, resp, nil
 }
-func (m *UserResource) AddRoleToUser(userId string, body Role) (*Role, *Response, error) {
+func (m *UserResource) AddRole(userId string, body Role) (*Role, *Response, error) {
 	url := fmt.Sprintf("/api/v1/users/%v/roles", userId)
 	req, err := m.client.requestExecutor.NewRequest("POST", url, body)
 	if err != nil {
@@ -343,7 +343,7 @@ func (m *UserResource) AddRoleToUser(userId string, body Role) (*Role, *Response
 	}
 	return role, resp, nil
 }
-func (m *UserResource) RemoveRoleFromUser(userId string, roleId string) (*Response, error) {
+func (m *UserResource) RemoveRole(userId string, roleId string) (*Response, error) {
 	url := fmt.Sprintf("/api/v1/users/%v/roles/%v", userId, roleId)
 	req, err := m.client.requestExecutor.NewRequest("DELETE", url, nil)
 	if err != nil {
@@ -399,7 +399,7 @@ func (m *UserResource) AddGroupTargetToRole(userId string, roleId string, groupI
 	}
 	return resp, nil
 }
-func (m *UserResource) EndAllUserSessions(userId string, qp *query.Params) (*Response, error) {
+func (m *UserResource) EndAllSessions(userId string, qp *query.Params) (*Response, error) {
 	url := fmt.Sprintf("/api/v1/users/%v/sessions", userId)
 	if qp != nil {
 		url = url + qp.String()
