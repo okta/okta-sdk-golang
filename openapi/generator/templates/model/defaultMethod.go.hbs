@@ -1,4 +1,4 @@
-func (m *{{modelName}}Resource) {{ucFirst operation.operationId}}({{operationArgumentBuilder operation}}) {{returnType
+func (m *{{modelName}}Resource) {{getMethodName modelName operation.operationId}}({{operationArgumentBuilder operation}}) {{returnType
 	operation}}{
 	url := fmt.Sprintf({{{getPath operation}}}, {{getPathParams operation}})
 	{{#if operation.queryParams.length}}

@@ -65,6 +65,11 @@ function strToUpper(string) {
   return string.toUpperCase(string)
 }
 
+function getMethodName(modelName, string) {
+  var regex = new RegExp("(?:(To|From))?" + modelName + "s?")
+  return ucFirst(string.replace(regex, ""))
+}
+
 function structProp(prop) {
   prop = prop.replace(/#/g,"");
   prop = prop.replace(/(\_\w)/g, function(m){return m[1].toUpperCase();});
@@ -391,6 +396,7 @@ golang.process = ({ spec, operations, models, handlebars }) => {
     operationArgumentBuilder,
     getPath,
     getPathParams,
+    getMethodName,
     returnType,
     getImports,
     strToUpper,
