@@ -46,10 +46,10 @@ func Test_exercise_factor_lifecycle(t *testing.T) {
 	}
 	qp := query.NewQueryParams(query.WithActivate(false))
 
-	user, _, err := client.User.CreateUser(*u, qp)
+	user, _, err := client.User.Create(*u, qp)
 	require.NoError(t, err, "Creating an user should not error")
 
-	allowedFactors, _, err := client.Factor.ListSupportedFactors(user.Id)
+	allowedFactors, _, err := client.Factor.ListSupported(user.Id)
 	continueTesting := false
 	for _, f := range allowedFactors {
 		if f.(map[string]interface{})["factorType"] == "sms" {
@@ -58,7 +58,7 @@ func Test_exercise_factor_lifecycle(t *testing.T) {
 	}
 
 	if continueTesting {
-		factors, _, err := client.Factor.ListFactors(user.Id)
+		factors, _, err := client.Factor.List(user.Id)
 		require.NoError(t, err, "Should not error when listing factors")
 
 		assert.Empty(t, factors, "Factors list should be empty")
@@ -69,18 +69,18 @@ func Test_exercise_factor_lifecycle(t *testing.T) {
 		factor := okta.NewSmsFactor()
 		factor.Profile = factorProfile
 
-		addedFactor, _, err := client.Factor.AddFactor(user.Id, factor, nil)
+		addedFactor, _, err := client.Factor.Add(user.Id, factor, nil)
 		require.NoError(t, err, "Adding factor should not error")
 		assert.IsType(t, okta.NewSmsFactor(), addedFactor)
 
-		foundFactor, _, err := client.Factor.GetFactor(user.Id, addedFactor.(*okta.SmsFactor).Id, okta.NewSmsFactor())
+		foundFactor, _, err := client.Factor.Get(user.Id, addedFactor.(*okta.SmsFactor).Id, okta.NewSmsFactor())
 		require.NoError(t, err, "Getting the factor should not error")
 
-		client.Factor.DeleteFactor(user.Id, foundFactor.(*okta.SmsFactor).Id)
+		client.Factor.Delete(user.Id, foundFactor.(*okta.SmsFactor).Id)
 	} else {
 		t.Skip("Skipping exercise factor lifecycle testing. SMS factor was not enabled")
 	}
 
-	client.User.DeactivateUser(user.Id)
-	client.User.DeactivateOrDeleteUser(user.Id)
+	client.User.Deactivate(user.Id)
+	client.User.DeactivateOrDelete(user.Id)
 }
