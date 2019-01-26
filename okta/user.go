@@ -26,6 +26,11 @@ import (
 
 type UserResource resource
 
+
+type UserCreateOptions struct {
+	GroupIds []string `json:"groupIds,omitempty"`
+}
+
 type User struct {
 	Embedded              interface{}      `json:"_embedded,omitempty"`
 	Links                 interface{}      `json:"_links,omitempty"`
@@ -42,7 +47,20 @@ type User struct {
 	TransitioningToStatus string           `json:"transitioningToStatus,omitempty"`
 }
 
+type newUserRequest struct {
+	User
+	UserCreateOptions
+}
+
 func (m *UserResource) CreateUser(body User, qp *query.Params) (*User, *Response, error) {
+	return m.createUser(newUserRequest{body, UserCreateOptions{}}, qp)
+}
+
+func (m *UserResource) CreateUserWithOptions(body User, options UserCreateOptions, qp *query.Params) (*User, *Response, error) {
+	return m.createUser(newUserRequest{body, options}, qp)
+}
+
+func (m *UserResource) createUser(body newUserRequest, qp *query.Params) (*User, *Response, error) {
 	url := fmt.Sprintf("/api/v1/users")
 	if qp != nil {
 		url = url + qp.String()
