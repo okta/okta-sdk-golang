@@ -123,12 +123,14 @@ client := okta.NewClient(config, nil, nil)
 user, resp, err := client.User.GetUser(user.Id, nil)
 ```
 
-### List all Users
+### List Users
 ```
 config := okta.NewConfig()
 client := okta.NewClient(config, nil, nil)
 users, resp, err := client.User.ListUsers()
 ```
+
+Returns a page of users (see [Pagination](https://developer.okta.com/docs/api/getting_started/design_principles/#pagination)). To retrieve a large number of users, you'll need to loop and add paging parameters.
 
 ### Filter or search for Users
 ```
@@ -364,10 +366,10 @@ return authServer, resp, nil
 
 This library looks for configuration in the following sources:
 
-0. An `okta.yaml` file in a `.okta` folder in the current user's home directory (`~/.okta/okta.yaml` or `%userprofile\.okta\okta.yaml`)
-0. An `okta.yaml` file in a `.okta` folder in the application or project's root directory
-0. Environment variables
-0. Configuration explicitly passed to the constructor (see the example in [Getting started](#getting-started))
+1. An `okta.yaml` file in a `.okta` folder in the current user's home directory (`~/.okta/okta.yaml` or `%userprofile\.okta\okta.yaml`)
+2. An `okta.yaml` file in a `.okta` folder in the application or project's root directory
+3. Environment variables
+4. Configuration explicitly passed to the constructor (see the example in [Getting started](#getting-started))
 
 Higher numbers win. In other words, configuration passed via the constructor will override configuration found in environment variables, which will override configuration in `okta.yaml` (if any), and so on.
 
