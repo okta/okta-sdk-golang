@@ -21,7 +21,6 @@ import (
 	"io/ioutil"
 	"os/user"
 
-	"github.com/go-yaml/yaml"
 	"github.com/kelseyhightower/envconfig"
 )
 
