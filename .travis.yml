@@ -6,5 +6,6 @@ go:
   - tip
 
 script:
+  - go mod download
   - make test
 
