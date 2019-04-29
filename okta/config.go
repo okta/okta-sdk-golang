@@ -22,6 +22,7 @@ import (
 	"os/user"
 
 	"github.com/kelseyhightower/envconfig"
+	yaml "gopkg.in/yaml.v2"
 )
 
 type Config struct {
