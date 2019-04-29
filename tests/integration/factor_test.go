@@ -29,6 +29,12 @@ import (
 func Test_exercise_factor_lifecycle(t *testing.T) {
 	client := tests.NewClient()
 
+	user, _, err := client.User.GetUser("john-factor-lifecycle@example.com")
+	if user != nil {
+		client.User.DeactivateUser(user.Id)
+		client.User.DeactivateOrDeleteUser(user.Id)
+	}
+
 	p := &okta.PasswordCredential{
 		Value: "Abcd1234",
 	}
@@ -46,10 +52,10 @@ func Test_exercise_factor_lifecycle(t *testing.T) {
 	}
 	qp := query.NewQueryParams(query.WithActivate(false))
 
-	user, _, err := client.User.CreateUser(*u, qp)
+	user, _, err = client.User.CreateUser(*u, qp)
 	require.NoError(t, err, "Creating an user should not error")
 
-	allowedFactors, _, err := client.Factor.ListSupportedFactors(user.Id)
+	allowedFactors, _, _ := client.Factor.ListSupportedFactors(user.Id)
 	continueTesting := false
 	for _, f := range allowedFactors {
 		if f.(map[string]interface{})["factorType"] == "sms" {
@@ -58,8 +64,8 @@ func Test_exercise_factor_lifecycle(t *testing.T) {
 	}
 
 	if continueTesting {
-		factors, _, err := client.Factor.ListFactors(user.Id)
-		require.NoError(t, err, "Should not error when listing factors")
+		factors, _, listFactorsError := client.Factor.ListFactors(user.Id)
+		require.NoError(t, listFactorsError, "Should not error when listing factors")
 
 		assert.Empty(t, factors, "Factors list should be empty")
 
@@ -69,7 +75,8 @@ func Test_exercise_factor_lifecycle(t *testing.T) {
 		factor := okta.NewSmsFactor()
 		factor.Profile = factorProfile
 
-		addedFactor, _, err := client.Factor.AddFactor(user.Id, factor, nil)
+		addedFactor, resp, err := client.Factor.AddFactor(user.Id, factor, nil)
+		require.NotEmpty(t, resp, "Response should not be empty")
 		require.NoError(t, err, "Adding factor should not error")
 		assert.IsType(t, okta.NewSmsFactor(), addedFactor)
 

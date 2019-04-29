@@ -1,3 +1,2 @@
-/vendor/bin/
-/vendor/pkg/
-/vendor/src/
+/vendor
+!/vendor/github.com/patrickmn
