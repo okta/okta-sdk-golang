@@ -52,7 +52,7 @@ If you run into problems using the SDK, you can
 
 ## Getting started
 
-To install the Okta Golang SDK in your project, run `go get github.com/okta/okta-sdk-golang`
+To install the Okta Golang SDK in your project, run `go get github.com/okta/okta-sdk-golang/okta`
 
 You'll also need
 
