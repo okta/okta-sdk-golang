@@ -300,7 +300,7 @@ func Test_can_add_and_remove_application_users(t *testing.T) {
 	appUserList, _, _ = client.Application.ListApplicationUsers(appId, nil)
 	assert.NotEmpty(t, appUserList, "App Users should not be empty")
 
-	client.Application.DeleteApplicationUser(appId, appUser.Id)
+	client.Application.DeleteApplicationUser(appId, appUser.Id, nil)
 	appUserList, _, _ = client.Application.ListApplicationUsers(appId, nil)
 	assert.Empty(t, appUserList, "App Users should be empty after deleting")
 
@@ -309,6 +309,6 @@ func Test_can_add_and_remove_application_users(t *testing.T) {
 
 	require.NoError(t, err, "Deleting an application should not error")
 
-	client.User.DeactivateUser(user.Id)
-	client.User.DeactivateOrDeleteUser(user.Id)
+	client.User.DeactivateUser(user.Id, nil)
+	client.User.DeactivateOrDeleteUser(user.Id, nil)
 }

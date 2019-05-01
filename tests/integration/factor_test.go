@@ -31,8 +31,8 @@ func Test_exercise_factor_lifecycle(t *testing.T) {
 
 	user, _, err := client.User.GetUser("john-factor-lifecycle@example.com")
 	if user != nil {
-		client.User.DeactivateUser(user.Id)
-		client.User.DeactivateOrDeleteUser(user.Id)
+		client.User.DeactivateUser(user.Id, nil)
+		client.User.DeactivateOrDeleteUser(user.Id, nil)
 	}
 
 	p := &okta.PasswordCredential{
@@ -88,6 +88,6 @@ func Test_exercise_factor_lifecycle(t *testing.T) {
 		t.Skip("Skipping exercise factor lifecycle testing. SMS factor was not enabled")
 	}
 
-	client.User.DeactivateUser(user.Id)
-	client.User.DeactivateOrDeleteUser(user.Id)
+	client.User.DeactivateUser(user.Id, nil)
+	client.User.DeactivateOrDeleteUser(user.Id, nil)
 }

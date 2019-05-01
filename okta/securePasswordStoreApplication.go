@@ -34,6 +34,7 @@ type SecurePasswordStoreApplication struct {
 	LastUpdated   *time.Time                              `json:"lastUpdated,omitempty"`
 	Licensing     *ApplicationLicensing                   `json:"licensing,omitempty"`
 	Name          string                                  `json:"name,omitempty"`
+	Profile       interface{}                             `json:"profile,omitempty"`
 	Settings      *SecurePasswordStoreApplicationSettings `json:"settings,omitempty"`
 	SignOnMode    string                                  `json:"signOnMode,omitempty"`
 	Status        string                                  `json:"status,omitempty"`

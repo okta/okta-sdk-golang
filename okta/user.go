@@ -87,8 +87,11 @@ func (m *UserResource) UpdateUser(userId string, body User) (*User, *Response, e
 	}
 	return user, resp, nil
 }
-func (m *UserResource) DeactivateOrDeleteUser(userId string) (*Response, error) {
+func (m *UserResource) DeactivateOrDeleteUser(userId string, qp *query.Params) (*Response, error) {
 	url := fmt.Sprintf("/api/v1/users/%v", userId)
+	if qp != nil {
+		url = url + qp.String()
+	}
 	req, err := m.client.requestExecutor.NewRequest("DELETE", url, nil)
 	if err != nil {
 		return nil, err
@@ -213,8 +216,11 @@ func (m *UserResource) ActivateUser(userId string, qp *query.Params) (*UserActiv
 	}
 	return userActivationToken, resp, nil
 }
-func (m *UserResource) DeactivateUser(userId string) (*Response, error) {
+func (m *UserResource) DeactivateUser(userId string, qp *query.Params) (*Response, error) {
 	url := fmt.Sprintf("/api/v1/users/%v/lifecycle/deactivate", userId)
+	if qp != nil {
+		url = url + qp.String()
+	}
 	req, err := m.client.requestExecutor.NewRequest("POST", url, nil)
 	if err != nil {
 		return nil, err

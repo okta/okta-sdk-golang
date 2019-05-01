@@ -35,6 +35,8 @@ type Client struct {
 
 	Application *ApplicationResource
 	Group       *GroupResource
+	LogEvent    *LogEventResource
+	Policy      *PolicyResource
 	Session     *SessionResource
 	User        *UserResource
 	Factor      *FactorResource
@@ -69,6 +71,8 @@ func NewClient(config *Config, httpClient *http.Client, cacheManager cache.Cache
 
 	c.Application = (*ApplicationResource)(&c.resource)
 	c.Group = (*GroupResource)(&c.resource)
+	c.LogEvent = (*LogEventResource)(&c.resource)
+	c.Policy = (*PolicyResource)(&c.resource)
 	c.Session = (*SessionResource)(&c.resource)
 	c.User = (*UserResource)(&c.resource)
 	c.Factor = (*FactorResource)(&c.resource)

@@ -20,7 +20,6 @@ package okta
 
 import (
 	"fmt"
-
 	"github.com/okta/okta-sdk-golang/okta/query"
 )
 
@@ -43,6 +42,7 @@ type Factor struct {
 	RechallengeExistingFactor *bool                `json:"rechallengeExistingFactor,omitempty"`
 	SessionId                 string               `json:"sessionId,omitempty"`
 	Status                    string               `json:"status,omitempty"`
+	TokenLifetimeSeconds      int64                `json:"tokenLifetimeSeconds,omitempty"`
 	UserId                    string               `json:"userId,omitempty"`
 	Verify                    *VerifyFactorRequest `json:"verify,omitempty"`
 }

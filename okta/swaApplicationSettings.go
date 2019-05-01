@@ -21,8 +21,9 @@ package okta
 import ()
 
 type SwaApplicationSettings struct {
-	App           *SwaApplicationSettingsApplication `json:"app,omitempty"`
-	Notifications *ApplicationSettingsNotifications  `json:"notifications,omitempty"`
+	App                *SwaApplicationSettingsApplication `json:"app,omitempty"`
+	ImplicitAssignment *bool                              `json:"implicitAssignment,omitempty"`
+	Notifications      *ApplicationSettingsNotifications  `json:"notifications,omitempty"`
 }
 
 func NewSwaApplicationSettings() *SwaApplicationSettings {

@@ -21,8 +21,9 @@ package okta
 import ()
 
 type WsFederationApplicationSettings struct {
-	App           *WsFederationApplicationSettingsApplication `json:"app,omitempty"`
-	Notifications *ApplicationSettingsNotifications           `json:"notifications,omitempty"`
+	App                *WsFederationApplicationSettingsApplication `json:"app,omitempty"`
+	ImplicitAssignment *bool                                       `json:"implicitAssignment,omitempty"`
+	Notifications      *ApplicationSettingsNotifications           `json:"notifications,omitempty"`
 }
 
 func NewWsFederationApplicationSettings() *WsFederationApplicationSettings {

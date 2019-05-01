@@ -42,6 +42,7 @@ type Application struct {
 	LastUpdated   *time.Time                `json:"lastUpdated,omitempty"`
 	Licensing     *ApplicationLicensing     `json:"licensing,omitempty"`
 	Name          string                    `json:"name,omitempty"`
+	Profile       interface{}               `json:"profile,omitempty"`
 	Settings      *ApplicationSettings      `json:"settings,omitempty"`
 	SignOnMode    string                    `json:"signOnMode,omitempty"`
 	Status        string                    `json:"status,omitempty"`
@@ -297,8 +298,11 @@ func (m *ApplicationResource) AssignUserToApplication(appId string, body AppUser
 	}
 	return appUser, resp, nil
 }
-func (m *ApplicationResource) DeleteApplicationUser(appId string, userId string) (*Response, error) {
+func (m *ApplicationResource) DeleteApplicationUser(appId string, userId string, qp *query.Params) (*Response, error) {
 	url := fmt.Sprintf("/api/v1/apps/%v/users/%v", appId, userId)
+	if qp != nil {
+		url = url + qp.String()
+	}
 	req, err := m.client.requestExecutor.NewRequest("DELETE", url, nil)
 	if err != nil {
 		return nil, err
@@ -340,21 +344,4 @@ func (m *ApplicationResource) UpdateApplicationUser(appId string, userId string,
 		return nil, resp, err
 	}
 	return appUser, resp, nil
-}
-func (m *ApplicationResource) GetLogs(qp *query.Params) ([]*LogEvent, *Response, error) {
-	url := fmt.Sprintf("/api/v1/logs")
-	if qp != nil {
-		url = url + qp.String()
-	}
-	req, err := m.client.requestExecutor.NewRequest("GET", url, nil)
-	if err != nil {
-		return nil, nil, err
-	}
-
-	var logEvent []*LogEvent
-	resp, err := m.client.requestExecutor.Do(req, &logEvent)
-	if err != nil {
-		return nil, resp, err
-	}
-	return logEvent, resp, nil
 }
