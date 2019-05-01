@@ -19,8 +19,12 @@
 package okta
 
 import (
+	"fmt"
+	"github.com/okta/okta-sdk-golang/okta/query"
 	"time"
 )
+
+type LogEventResource resource
 
 type LogEvent struct {
 	Actor                 *LogActor                 `json:"actor,omitempty"`
@@ -39,4 +43,22 @@ type LogEvent struct {
 	Transaction           *LogTransaction           `json:"transaction,omitempty"`
 	Uuid                  string                    `json:"uuid,omitempty"`
 	Version               string                    `json:"version,omitempty"`
+}
+
+func (m *LogEventResource) GetLogs(qp *query.Params) ([]*LogEvent, *Response, error) {
+	url := fmt.Sprintf("/api/v1/logs")
+	if qp != nil {
+		url = url + qp.String()
+	}
+	req, err := m.client.requestExecutor.NewRequest("GET", url, nil)
+	if err != nil {
+		return nil, nil, err
+	}
+
+	var logEvent []*LogEvent
+	resp, err := m.client.requestExecutor.Do(req, &logEvent)
+	if err != nil {
+		return nil, resp, err
+	}
+	return logEvent, resp, nil
 }

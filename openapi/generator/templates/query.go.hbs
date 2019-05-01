@@ -30,14 +30,14 @@ func NewQueryParams(paramOpt ...ParamOptions) *Params {
 type ParamOptions func(*Params)
 
 {{#each queryOptions as |query|}}
-func With{{structProp query.name}}({{query.name}} {{query.type}}) ParamOptions {
+func With{{structProp query.name}}(query{{structProp query.name}} {{query.type}}) ParamOptions {
 	return func(p *Params) {
 		{{#if (eq query.type "bool")}}
 		b := new(bool)
-		*b = {{query.name}}
+		*b = query{{structProp query.name}}
 		p.{{structProp query.name}} = b
 		{{else}}
-		p.{{structProp query.name}} = {{query.name}}
+		p.{{structProp query.name}} = query{{structProp query.name}}
 		{{/if}}
 	}
 }

@@ -21,10 +21,11 @@ package okta
 import ()
 
 type VerifyFactorRequest struct {
-	ActivationToken string `json:"activationToken,omitempty"`
-	Answer          string `json:"answer,omitempty"`
-	NextPassCode    string `json:"nextPassCode,omitempty"`
-	PassCode        string `json:"passCode,omitempty"`
+	ActivationToken      string `json:"activationToken,omitempty"`
+	Answer               string `json:"answer,omitempty"`
+	NextPassCode         string `json:"nextPassCode,omitempty"`
+	PassCode             string `json:"passCode,omitempty"`
+	TokenLifetimeSeconds int64  `json:"tokenLifetimeSeconds,omitempty"`
 }
 
 func NewVerifyFactorRequest() *VerifyFactorRequest {

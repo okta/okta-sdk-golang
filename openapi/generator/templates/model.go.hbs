@@ -20,7 +20,7 @@ type UserFactor interface {
 }
 
 {{/if}}
-{{#if (or (gt model.methods.length 0) (gt model.crud.length 0))}}
+{{#if (or (or (gt model.methods.length 0) (gt model.crud.length 0)) (eq model.modelName "LogEvent"))}}
 type {{model.modelName}}Resource resource
 
 {{/if}}

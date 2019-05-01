@@ -20,6 +20,7 @@ package okta
 
 import (
 	"fmt"
+	"github.com/okta/okta-sdk-golang/okta/query"
 	"time"
 )
 
@@ -64,8 +65,11 @@ func (m *AppUserResource) UpdateApplicationUser(appId string, userId string, bod
 	}
 	return appUser, resp, nil
 }
-func (m *AppUserResource) DeleteApplicationUser(appId string, userId string) (*Response, error) {
+func (m *AppUserResource) DeleteApplicationUser(appId string, userId string, qp *query.Params) (*Response, error) {
 	url := fmt.Sprintf("/api/v1/apps/%v/users/%v", appId, userId)
+	if qp != nil {
+		url = url + qp.String()
+	}
 	req, err := m.client.requestExecutor.NewRequest("DELETE", url, nil)
 	if err != nil {
 		return nil, err

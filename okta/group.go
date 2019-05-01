@@ -143,8 +143,11 @@ func (m *GroupResource) DeleteRule(ruleId string, qp *query.Params) (*Response, 
 	}
 	return resp, nil
 }
-func (m *GroupResource) GetRule(ruleId string) (*GroupRule, *Response, error) {
+func (m *GroupResource) GetRule(ruleId string, qp *query.Params) (*GroupRule, *Response, error) {
 	url := fmt.Sprintf("/api/v1/groups/rules/%v", ruleId)
+	if qp != nil {
+		url = url + qp.String()
+	}
 	req, err := m.client.requestExecutor.NewRequest("GET", url, nil)
 	if err != nil {
 		return nil, nil, err

@@ -21,9 +21,10 @@ package okta
 import ()
 
 type SamlApplicationSettings struct {
-	App           *ApplicationSettingsApplication   `json:"app,omitempty"`
-	Notifications *ApplicationSettingsNotifications `json:"notifications,omitempty"`
-	SignOn        *SamlApplicationSettingsSignOn    `json:"signOn,omitempty"`
+	App                *ApplicationSettingsApplication   `json:"app,omitempty"`
+	ImplicitAssignment *bool                             `json:"implicitAssignment,omitempty"`
+	Notifications      *ApplicationSettingsNotifications `json:"notifications,omitempty"`
+	SignOn             *SamlApplicationSettingsSignOn    `json:"signOn,omitempty"`
 }
 
 func NewSamlApplicationSettings() *SamlApplicationSettings {

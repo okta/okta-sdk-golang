@@ -197,11 +197,11 @@ func Test_group_user_operations(t *testing.T) {
 	assert.True(t, found, "Could not find user in group")
 
 	// Deactivate the user → POST /api/v1/users/{{userId}}/lifecycle/deactivate
-	_, err = client.User.DeactivateUser(user.Id)
+	_, err = client.User.DeactivateUser(user.Id, nil)
 	require.NoError(t, err, "Should not error when deactivating")
 
 	// Delete the user → DELETE /api/v1/users/{{userId}}
-	_, err = client.User.DeactivateOrDeleteUser(user.Id)
+	_, err = client.User.DeactivateOrDeleteUser(user.Id, nil)
 	require.NoError(t, err, "Should not error when deleting")
 
 	// Delete the group →  DELETE /api/v1/groups/{{groupId}}
@@ -339,11 +339,11 @@ func Test_group_rule_operations(t *testing.T) {
 	_, err = client.Group.DeactivateRule(newGroupRule.Id)
 	require.NoError(t, err, "should not error when deactivating rule")
 
-	_, err = client.User.DeactivateUser(user.Id)
+	_, err = client.User.DeactivateUser(user.Id, nil)
 	require.NoError(t, err, "should not error when deactivating user")
 
 	// Delete the user → DELETE /api/v1/users/{{userId}}
-	_, err = client.User.DeactivateOrDeleteUser(user.Id)
+	_, err = client.User.DeactivateOrDeleteUser(user.Id, nil)
 	require.NoError(t, err, "Should not error when deleting user")
 
 	// Delete the group → DELETE /api/v1/groups/{{groupId}}

@@ -136,6 +136,11 @@ function getImports(object) {
     }
   }
 
+  if (object.model.modelName === "LogEvent") {
+    imports.push("github.com/okta/okta-sdk-golang/okta/query")
+    imports.push("fmt")
+  }
+
   imports = [...new Set(imports)];
 
   return imports;
@@ -242,6 +247,7 @@ function getClientTagResources(operations) {
   let tagResources = []
   for (let tag of tags) {
     if (tag === "UserFactor") tag = "Factor";
+    if (tag === "Log") tag = "LogEvent";
     tagResources.push(structProp(tag) + " *" + structProp(tag) + "Resource")
   }
   return tagResources.join("\n\t");
@@ -252,6 +258,7 @@ function getNewClientTagProps(operations) {
   let tagResources = []
   for (let tag of tags) {
     if (tag === "UserFactor") tag = "Factor";
+    if (tag === "Log") tag = "LogEvent";
     tagResources.push("c." + structProp(tag) + " = (*" + structProp(tag) + "Resource)(&c.resource)")
   }
   return tagResources.join("\n\t");
@@ -366,6 +373,7 @@ golang.process = ({ spec, operations, models, handlebars }) => {
     for (let operation of operations) {
       let tag = operation.tags[0];
       if (tag === "UserFactor" ) tag = "Factor";
+      if (tag === "Log" ) tag = "LogEvent";
       if (tag == model.modelName) {
         modelOperations[operation.operationId] = operation;
       }
