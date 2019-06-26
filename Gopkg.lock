@@ -2,47 +2,82 @@
 
 
 [[projects]]
+  digest = "1:a2c1d0e43bd3baaa071d1b9ed72c27d78169b2b269f71c105ac4ba34b1be4a39"
   name = "github.com/davecgh/go-spew"
   packages = ["spew"]
+  pruneopts = "UT"
   revision = "346938d642f2ec3594ed81d874461961cd0faa76"
   version = "v1.1.0"
 
 [[projects]]
+  digest = "1:342378ac4dcb378a5448dd723f0784ae519383532f5e70ade24132c4c8693202"
   name = "github.com/go-yaml/yaml"
   packages = ["."]
+  pruneopts = "UT"
   revision = "5420a8b6744d3b0345ab293f6fcba19c978f1183"
   version = "v2.2.1"
 
 [[projects]]
+  digest = "1:edbef42561faa44c19129b68d1e109fbc1647f63239250391eadc8d0e7c9f669"
   name = "github.com/kelseyhightower/envconfig"
   packages = ["."]
+  pruneopts = "UT"
   revision = "f611eb38b3875cc3bd991ca91c51d06446afa14c"
   version = "v1.3.0"
 
 [[projects]]
+  digest = "1:19f4a64e2d87ae4667daf867e74fff925a0f80538f8d1b65b531fad9b3010b2d"
+  name = "github.com/okta/okta-sdk-golang"
+  packages = [
+    "okta",
+    "okta/cache",
+    "okta/query",
+    "tests",
+  ]
+  pruneopts = "UT"
+  revision = "2395a5f0ddc8840b41566277432f0589f2570108"
+  version = "v0.1.0"
+
+[[projects]]
+  digest = "1:808cdddf087fb64baeae67b8dfaee2069034d9704923a3cb8bd96a995421a625"
   name = "github.com/patrickmn/go-cache"
   packages = ["."]
+  pruneopts = "UT"
   revision = "a3647f8e31d79543b2d0f0ae2fe5c379d72cedc0"
   version = "v2.1.0"
 
 [[projects]]
+  digest = "1:0028cb19b2e4c3112225cd871870f2d9cf49b9b4276531f03438a88e94be86fe"
   name = "github.com/pmezard/go-difflib"
   packages = ["difflib"]
+  pruneopts = "UT"
   revision = "792786c7400a136282c1664665ae0a8db921c6c2"
   version = "v1.0.0"
 
 [[projects]]
+  digest = "1:c40d65817cdd41fac9aa7af8bed56927bb2d6d47e4fea566a74880f5c2b1c41e"
   name = "github.com/stretchr/testify"
   packages = [
     "assert",
-    "require"
+    "require",
   ]
+  pruneopts = "UT"
   revision = "f35b8ab0b5a2cef36673838d662e249dd9c94686"
   version = "v1.2.2"
 
 [solve-meta]
   analyzer-name = "dep"
   analyzer-version = 1
-  inputs-digest = "216b5151a6e9730e048f0b696f7f78bfae2346a4e3d92595fa82d3807dc12be8"
+  input-imports = [
+    "github.com/go-yaml/yaml",
+    "github.com/kelseyhightower/envconfig",
+    "github.com/okta/okta-sdk-golang/okta",
+    "github.com/okta/okta-sdk-golang/okta/cache",
+    "github.com/okta/okta-sdk-golang/okta/query",
+    "github.com/okta/okta-sdk-golang/tests",
+    "github.com/patrickmn/go-cache",
+    "github.com/stretchr/testify/assert",
+    "github.com/stretchr/testify/require",
+  ]
   solver-name = "gps-cdcl"
   solver-version = 1

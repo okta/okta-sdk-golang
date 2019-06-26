@@ -20,8 +20,9 @@ package okta
 
 import (
 	"fmt"
-	"github.com/okta/okta-sdk-golang/okta/query"
 	"time"
+
+	"github.com/okta/okta-sdk-golang/okta/query"
 )
 
 type UserResource resource
@@ -213,6 +214,23 @@ func (m *UserResource) ListUserGroups(userId string, qp *query.Params) ([]*Group
 }
 func (m *UserResource) ActivateUser(userId string, qp *query.Params) (*UserActivationToken, *Response, error) {
 	url := fmt.Sprintf("/api/v1/users/%v/lifecycle/activate", userId)
+	if qp != nil {
+		url = url + qp.String()
+	}
+	req, err := m.client.requestExecutor.NewRequest("POST", url, nil)
+	if err != nil {
+		return nil, nil, err
+	}
+
+	var userActivationToken *UserActivationToken
+	resp, err := m.client.requestExecutor.Do(req, &userActivationToken)
+	if err != nil {
+		return nil, resp, err
+	}
+	return userActivationToken, resp, nil
+}
+func (m *UserResource) ReactivateUser(userId string, qp *query.Params) (*UserActivationToken, *Response, error) {
+	url := fmt.Sprintf("/api/v1/users/%v/lifecycle/reactivate", userId)
 	if qp != nil {
 		url = url + qp.String()
 	}
