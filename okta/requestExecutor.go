@@ -151,7 +151,15 @@ func buildResponse(resp *http.Response, v interface{}) (*Response, error) {
 	}
 
 	if v != nil {
-		decodeError := json.NewDecoder(resp.Body).Decode(v)
+		respBody, err := ioutil.ReadAll(resp.Body)
+		if err != nil {
+			return nil, err
+		}
+
+		origResp := ioutil.NopCloser(bytes.NewBuffer(respBody))
+		response.Body = origResp
+
+		decodeError := json.NewDecoder(bytes.NewBuffer(respBody)).Decode(v)
 		if decodeError == io.EOF {
 			decodeError = nil
 		}
