@@ -73,8 +73,11 @@ func (m *UserResource) GetUser(userId string) (*User, *Response, error) {
 	}
 	return user, resp, nil
 }
-func (m *UserResource) UpdateUser(userId string, body User) (*User, *Response, error) {
+func (m *UserResource) UpdateUser(userId string, body User, qp *query.Params) (*User, *Response, error) {
 	url := fmt.Sprintf("/api/v1/users/%v", userId)
+	if qp != nil {
+		url = url + qp.String()
+	}
 	req, err := m.client.requestExecutor.NewRequest("PUT", url, body)
 	if err != nil {
 		return nil, nil, err
@@ -137,8 +140,11 @@ func (m *UserResource) ListAppLinks(userId string, qp *query.Params) ([]*AppLink
 	}
 	return appLink, resp, nil
 }
-func (m *UserResource) ChangePassword(userId string, body ChangePasswordRequest) (*UserCredentials, *Response, error) {
+func (m *UserResource) ChangePassword(userId string, body ChangePasswordRequest, qp *query.Params) (*UserCredentials, *Response, error) {
 	url := fmt.Sprintf("/api/v1/users/%v/credentials/change_password", userId)
+	if qp != nil {
+		url = url + qp.String()
+	}
 	req, err := m.client.requestExecutor.NewRequest("POST", url, body)
 	if err != nil {
 		return nil, nil, err
@@ -335,19 +341,18 @@ func (m *UserResource) ListAssignedRoles(userId string, qp *query.Params) ([]*Ro
 	}
 	return role, resp, nil
 }
-func (m *UserResource) AddRoleToUser(userId string, body Role) (*Role, *Response, error) {
+func (m *UserResource) AddRoleToUser(userId string, body Role) (*Response, error) {
 	url := fmt.Sprintf("/api/v1/users/%v/roles", userId)
 	req, err := m.client.requestExecutor.NewRequest("POST", url, body)
 	if err != nil {
-		return nil, nil, err
+		return nil, err
 	}
 
-	var role *Role
-	resp, err := m.client.requestExecutor.Do(req, &role)
+	resp, err := m.client.requestExecutor.Do(req, nil)
 	if err != nil {
-		return nil, resp, err
+		return resp, err
 	}
-	return role, resp, nil
+	return resp, nil
 }
 func (m *UserResource) RemoveRoleFromUser(userId string, roleId string) (*Response, error) {
 	url := fmt.Sprintf("/api/v1/users/%v/roles/%v", userId, roleId)

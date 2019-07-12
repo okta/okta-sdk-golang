@@ -23,6 +23,7 @@ import ()
 type WsFederationApplicationSettings struct {
 	App                *WsFederationApplicationSettingsApplication `json:"app,omitempty"`
 	ImplicitAssignment *bool                                       `json:"implicitAssignment,omitempty"`
+	InlineHookId       string                                      `json:"inlineHookId,omitempty"`
 	Notifications      *ApplicationSettingsNotifications           `json:"notifications,omitempty"`
 }
 
