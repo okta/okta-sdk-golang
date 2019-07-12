@@ -45,6 +45,7 @@ type Params struct {
 	Search               string `json:"search,omitempty"`
 	Provider             string `json:"provider,omitempty"`
 	NextLogin            string `json:"nextLogin,omitempty"`
+	Strict               *bool  `json:"strict,omitempty"`
 	ShowAll              *bool  `json:"showAll,omitempty"`
 	UpdatePhone          *bool  `json:"updatePhone,omitempty"`
 	TemplateId           string `json:"templateId,omitempty"`
@@ -178,6 +179,13 @@ func WithNextLogin(queryNextLogin string) ParamOptions {
 		p.NextLogin = queryNextLogin
 	}
 }
+func WithStrict(queryStrict bool) ParamOptions {
+	return func(p *Params) {
+		b := new(bool)
+		*b = queryStrict
+		p.Strict = b
+	}
+}
 func WithShowAll(queryShowAll bool) ParamOptions {
 	return func(p *Params) {
 		b := new(bool)
@@ -282,6 +290,9 @@ func (p *Params) String() string {
 	}
 	if p.NextLogin != "" {
 		qs.Add(`nextLogin`, p.NextLogin)
+	}
+	if p.Strict != nil {
+		qs.Add(`strict`, strconv.FormatBool(*p.Strict))
 	}
 	if p.ShowAll != nil {
 		qs.Add(`showAll`, strconv.FormatBool(*p.ShowAll))

@@ -23,6 +23,7 @@ import ()
 type SamlApplicationSettings struct {
 	App                *ApplicationSettingsApplication   `json:"app,omitempty"`
 	ImplicitAssignment *bool                             `json:"implicitAssignment,omitempty"`
+	InlineHookId       string                            `json:"inlineHookId,omitempty"`
 	Notifications      *ApplicationSettingsNotifications `json:"notifications,omitempty"`
 	SignOn             *SamlApplicationSettingsSignOn    `json:"signOn,omitempty"`
 }
