@@ -480,7 +480,7 @@ func Test_can_assign_a_user_to_a_role(t *testing.T) {
 	r := &okta.Role{
 		Type: "USER_ADMIN",
 	}
-	_, err = client.User.AddRoleToUser(user.Id, *r)
+	r, _, err = client.User.AddRoleToUser(user.Id, *r)
 	require.NoError(t, err, "Should not have had an error when adding role to user")
 
 	// List roles for the user and verify added role → GET /api/v1/users/{{userId}}/roles
@@ -562,7 +562,7 @@ func Test_user_group_target_role(t *testing.T) {
 	r := &okta.Role{
 		Type: "USER_ADMIN",
 	}
-	_, err = client.User.AddRoleToUser(user.Id, *r)
+	r, _, err = client.User.AddRoleToUser(user.Id, *r)
 	require.NoError(t, err, "Should not have had an error when adding role to user")
 
 	// Add Group Target to 'USER_ADMIN' role → PUT /api/v1/users/{{userId}}/roles/{{roleId}}/targets/groups/{{groupId}}
