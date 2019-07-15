@@ -341,18 +341,19 @@ func (m *UserResource) ListAssignedRoles(userId string, qp *query.Params) ([]*Ro
 	}
 	return role, resp, nil
 }
-func (m *UserResource) AddRoleToUser(userId string, body Role) (*Response, error) {
+func (m *UserResource) AddRoleToUser(userId string, body Role) (*Role, *Response, error) {
 	url := fmt.Sprintf("/api/v1/users/%v/roles", userId)
 	req, err := m.client.requestExecutor.NewRequest("POST", url, body)
 	if err != nil {
-		return nil, err
+		return nil, nil, err
 	}
 
-	resp, err := m.client.requestExecutor.Do(req, nil)
+	var role *Role
+	resp, err := m.client.requestExecutor.Do(req, &role)
 	if err != nil {
-		return resp, err
+		return nil, resp, err
 	}
-	return resp, nil
+	return role, resp, nil
 }
 func (m *UserResource) RemoveRoleFromUser(userId string, roleId string) (*Response, error) {
 	url := fmt.Sprintf("/api/v1/users/%v/roles/%v", userId, roleId)
