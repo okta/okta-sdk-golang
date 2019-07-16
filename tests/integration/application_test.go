@@ -312,3 +312,56 @@ func Test_can_add_and_remove_application_users(t *testing.T) {
 	client.User.DeactivateUser(user.Id, nil)
 	client.User.DeactivateOrDeleteUser(user.Id, nil)
 }
+
+func Test_can_set_application_settings_during_creation(t *testing.T) {
+	client := tests.NewClient()
+
+	basicApplicationSettingsApplication := okta.NewBasicApplicationSettingsApplication()
+	basicApplicationSettingsApplication.AuthURL = "https://example.com/auth.html"
+	basicApplicationSettingsApplication.Url = "https://example.com/auth.html"
+
+	basicApplicationSettings := okta.NewBasicApplicationSettings()
+	basicApplicationSettings.App = basicApplicationSettingsApplication
+
+	basicApplication := okta.NewBasicAuthApplication()
+	basicApplication.Settings = basicApplicationSettings
+
+	assert.Empty(t, basicApplication.Id)
+	application, _, err := client.Application.CreateApplication(basicApplication, nil)
+	require.NoError(t, err, "Creating an application should not error")
+
+	assert.IsType(t, okta.BasicApplicationSettingsApplication{}, *application.(*okta.BasicAuthApplication).Settings.App, "The returned type of application settings application was not correct type")
+	assert.Equal(t, "https://example.com/auth.html", application.(*okta.BasicAuthApplication).Settings.App.Url)
+}
+
+func Test_can_set_application_settings_during_update(t *testing.T) {
+	client := tests.NewClient()
+
+	basicApplicationSettingsApplication := okta.NewBasicApplicationSettingsApplication()
+	basicApplicationSettingsApplication.AuthURL = "https://example.com/auth.html"
+	basicApplicationSettingsApplication.Url = "https://example.com/auth.html"
+
+	basicApplicationSettings := okta.NewBasicApplicationSettings()
+	basicApplicationSettings.App = basicApplicationSettingsApplication
+
+	basicApplication := okta.NewBasicAuthApplication()
+	basicApplication.Settings = basicApplicationSettings
+
+	assert.Empty(t, basicApplication.Id)
+	application, _, err := client.Application.CreateApplication(basicApplication, nil)
+	require.NoError(t, err, "Creating an application should not error")
+
+	appId := application.(*okta.BasicAuthApplication).Id
+
+	myApp, _, err := client.Application.GetApplication(appId, okta.NewBasicAuthApplication(), nil)
+	app := myApp.(*okta.BasicAuthApplication)
+	myAppId := app.Id
+	myAppSettingsApp := app.Settings.App
+
+	myAppSettingsApp.Url = "https://okta.com/auth"
+
+	_, _, _ = client.Application.UpdateApplication(myAppId, app)
+
+	updatedApp, _, err := client.Application.GetApplication(appId, okta.NewBasicAuthApplication(), nil)
+	assert.Equal(t, "https://okta.com/auth", updatedApp.(*okta.BasicAuthApplication).Settings.App.Url, "The URL was not updated'")
+}
