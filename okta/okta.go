@@ -63,7 +63,7 @@ func NewClient(config *Config, httpClient *http.Client, cacheManager cache.Cache
 
 	c := &Client{}
 	c.config = config
-	c.requestExecutor = NewRequestExecutor(nil, oktaCache, config)
+	c.requestExecutor = NewRequestExecutor(httpClient, oktaCache, config)
 
 	c.resource.client = c
 
