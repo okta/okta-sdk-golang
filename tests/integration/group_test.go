@@ -30,7 +30,7 @@ import (
 )
 
 func Test_can_get_a_group(t *testing.T) {
-	client := tests.NewClient()
+	client, _ := tests.NewClient()
 	// Create a new group → POST /api/v1/groups
 	gp := &okta.GroupProfile{
 		Name: "Get Test Group",
@@ -59,7 +59,7 @@ func Test_can_get_a_group(t *testing.T) {
 }
 
 func Test_can_list_groups(t *testing.T) {
-	client := tests.NewClient()
+	client, _ := tests.NewClient()
 	// Create a new group → POST /api/v1/groups
 	gp := &okta.GroupProfile{
 		Name: "List Test Group",
@@ -88,7 +88,7 @@ func Test_can_list_groups(t *testing.T) {
 }
 
 func Test_can_search_for_a_group(t *testing.T) {
-	client := tests.NewClient()
+	client, _ := tests.NewClient()
 	// Create a new group → POST /api/v1/groups
 	gp := &okta.GroupProfile{
 		Name: "Search Test Group",
@@ -118,7 +118,7 @@ func Test_can_search_for_a_group(t *testing.T) {
 }
 
 func Test_can_update_a_group(t *testing.T) {
-	client := tests.NewClient()
+	client, _ := tests.NewClient()
 	// Create a new group → POST /api/v1/groups
 	gp := &okta.GroupProfile{
 		Name: "Update Test Group",
@@ -147,7 +147,7 @@ func Test_can_update_a_group(t *testing.T) {
 }
 
 func Test_group_user_operations(t *testing.T) {
-	client := tests.NewClient()
+	client, _ := tests.NewClient()
 	// Create a user with credentials → POST /api/v1/users?activate=false
 	p := &okta.PasswordCredential{
 		Value: "Abcd1234",
@@ -210,7 +210,7 @@ func Test_group_user_operations(t *testing.T) {
 }
 
 func Test_group_rule_operations(t *testing.T) {
-	client := tests.NewClient()
+	client, _ := tests.NewClient()
 	// Create a user with credentials, activated by default → POST /api/v1/users?activate=true
 	p := &okta.PasswordCredential{
 		Value: "Abcd1234",
