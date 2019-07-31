@@ -17,12 +17,11 @@
 package tests
 
 import (
+	"context"
+
 	"github.com/okta/okta-sdk-golang/okta"
 )
 
-func NewClient() *okta.Client {
-	config := okta.NewConfig().WithCache(false)
-	client := okta.NewClient(config, nil, nil)
-
-	return client
+func NewClient(conf ...okta.ConfigSetter) (*okta.Client, error) {
+	return okta.NewClient(context.Background(), conf...)
 }

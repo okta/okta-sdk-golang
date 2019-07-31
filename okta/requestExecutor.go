@@ -31,12 +31,12 @@ import (
 
 type RequestExecutor struct {
 	httpClient *http.Client
-	config     *Config
+	config     *config
 	BaseUrl    *url.URL
 	cache      cache.Cache
 }
 
-func NewRequestExecutor(httpClient *http.Client, cache cache.Cache, config *Config) *RequestExecutor {
+func NewRequestExecutor(httpClient *http.Client, cache cache.Cache, config *config) *RequestExecutor {
 	re := RequestExecutor{}
 	re.httpClient = httpClient
 	re.config = config

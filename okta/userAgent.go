@@ -25,10 +25,10 @@ type UserAgent struct {
 
 	osVersion string
 
-	config *Config
+	config *config
 }
 
-func NewUserAgent(config *Config) UserAgent {
+func NewUserAgent(config *config) UserAgent {
 	ua := UserAgent{}
 	ua.config = config
 	ua.goVersion = runtime.Version()
