@@ -53,7 +53,7 @@ func validateApiToken(c *config) error {
 		return errors.New("your Okta API token is missing. You can generate one in the Okta Developer Console. Follow these instructions: https://bit.ly/get-okta-api-token")
 	}
 
-	if strings.Contains(c.Okta.Client.Token, "{apitoken}") {
+	if strings.Contains(c.Okta.Client.Token, "{apiToken}") {
 		return errors.New("replace {apiToken} with your Okta API token. You can generate one in the Okta Developer Console. Follow these instructions: https://bit.ly/get-okta-api-token")
 	}
 	return nil
