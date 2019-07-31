@@ -205,7 +205,7 @@ func Test_list_application_allows_casting_to_correct_type(t *testing.T) {
 	require.NoError(t, err, "Deleting an application should not error")
 }
 
-func Test_can_activate_and_deactivate_application(t *testing.T) {
+func Test_can_activate_application(t *testing.T) {
 	client, _ := tests.NewClient()
 
 	basicApplicationSettingsApplication := okta.NewBasicApplicationSettingsApplication()
@@ -225,12 +225,38 @@ func Test_can_activate_and_deactivate_application(t *testing.T) {
 
 	assert.Equal(t, "INACTIVE", application.(*okta.BasicAuthApplication).Status, "Application is not inactive")
 
-	client.Application.ActivateApplication(appId)
+	_, err = client.Application.ActivateApplication(appId)
 	require.NoError(t, err, "Activationg an application should not error")
 	application, _, _ = client.Application.GetApplication(appId, okta.NewBasicAuthApplication(), nil)
 	assert.Equal(t, "ACTIVE", application.(*okta.BasicAuthApplication).Status, "Application is not inactive")
 
 	client.Application.DeactivateApplication(appId)
+	_, err = client.Application.DeleteApplication(appId)
+
+	require.NoError(t, err, "Deleting an application should not error")
+}
+
+func Test_can_deactivate_application(t *testing.T) {
+	client, _ := tests.NewClient()
+
+	basicApplicationSettingsApplication := okta.NewBasicApplicationSettingsApplication()
+	basicApplicationSettingsApplication.AuthURL = "https://example.com/auth.html"
+	basicApplicationSettingsApplication.Url = "https://example.com/auth.html"
+
+	basicApplicationSettings := okta.NewBasicApplicationSettings()
+	basicApplicationSettings.App = basicApplicationSettingsApplication
+
+	basicApplication := okta.NewBasicAuthApplication()
+	basicApplication.Settings = basicApplicationSettings
+
+	application, _, err := client.Application.CreateApplication(basicApplication, query.NewQueryParams(query.WithActivate(true)))
+	require.NoError(t, err, "Creating an application should not error")
+
+	appId := application.(*okta.BasicAuthApplication).Id
+
+	assert.Equal(t, "ACTIVE", application.(*okta.BasicAuthApplication).Status, "Application is not inactive")
+
+	_, err = client.Application.DeactivateApplication(appId)
 	require.NoError(t, err, "Deactivating an application should not error")
 	application, _, err = client.Application.GetApplication(appId, okta.NewBasicAuthApplication(), nil)
 	assert.Equal(t, "INACTIVE", application.(*okta.BasicAuthApplication).Status, "Application is not inactive")
