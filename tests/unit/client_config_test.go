@@ -75,6 +75,6 @@ func Test_panic_when_api_token_is_empty(t *testing.T) {
 
 func Test_panic_when_api_token_contains_placeholder(t *testing.T) {
 	assert.Panics(t, func() {
-		_, _ = tests.NewClient(okta.WithToken(""))
+		_, _ = tests.NewClient(okta.WithToken("{apiToken}"))
 	}, "Does not panic when api token contains {apiToken}")
 }
