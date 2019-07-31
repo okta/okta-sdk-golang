@@ -30,7 +30,7 @@ import (
 )
 
 func Test_can_get_a_user(t *testing.T) {
-	client := tests.NewClient()
+	client, _ := tests.NewClient()
 	// Create user with credentials → POST /api/v1/users?activate=false
 	p := &okta.PasswordCredential{
 		Value: "Abcd1234",
@@ -76,7 +76,7 @@ func Test_can_get_a_user(t *testing.T) {
 }
 
 func Test_can_activate_a_user(t *testing.T) {
-	client := tests.NewClient()
+	client, _ := tests.NewClient()
 	//Create user with credentials → POST /api/v1/users?activate=false
 	p := &okta.PasswordCredential{
 		Value: "Abcd1234",
@@ -126,7 +126,7 @@ func Test_can_activate_a_user(t *testing.T) {
 }
 
 func Test_can_update_user_profile(t *testing.T) {
-	client := tests.NewClient()
+	client, _ := tests.NewClient()
 	// Create user with credentials → POST /api/v1/users?activate=false
 	p := &okta.PasswordCredential{
 		Value: "Abcd1234",
@@ -172,7 +172,7 @@ func Test_can_update_user_profile(t *testing.T) {
 }
 
 func Test_can_suspend_a_user(t *testing.T) {
-	client := tests.NewClient()
+	client, _ := tests.NewClient()
 	//Create user with credentials → POST /api/v1/users?activate=true
 	p := &okta.PasswordCredential{
 		Value: "Abcd1234",
@@ -235,7 +235,7 @@ func Test_can_suspend_a_user(t *testing.T) {
 }
 
 func Test_can_change_users_password(t *testing.T) {
-	client := tests.NewClient()
+	client, _ := tests.NewClient()
 	// Create user with credentials → POST /api/v1/users?activate=true
 	p := &okta.PasswordCredential{
 		Value: "Abcd1234",
@@ -294,7 +294,7 @@ func Test_can_change_users_password(t *testing.T) {
 }
 
 func Test_can_get_reset_password_link_for_user(t *testing.T) {
-	client := tests.NewClient()
+	client, _ := tests.NewClient()
 	// Create user with credentials → POST /api/v1/users?activate=true
 	p := &okta.PasswordCredential{
 		Value: "Abcd1234",
@@ -338,7 +338,7 @@ func Test_can_get_reset_password_link_for_user(t *testing.T) {
 }
 
 func Test_can_expire_a_users_password_and_get_a_temp_one(t *testing.T) {
-	client := tests.NewClient()
+	client, _ := tests.NewClient()
 	// Create a user with credentials, activated by default → POST /api/v1/users?activate=true
 	p := &okta.PasswordCredential{
 		Value: "Abcd1234",
@@ -382,7 +382,7 @@ func Test_can_expire_a_users_password_and_get_a_temp_one(t *testing.T) {
 }
 
 func Test_can_change_user_recovery_question(t *testing.T) {
-	client := tests.NewClient()
+	client, _ := tests.NewClient()
 	// Create a user with credentials, activated by default → POST /api/v1/users?activate=true
 	p := &okta.PasswordCredential{
 		Value: "Abcd1234",
@@ -454,7 +454,7 @@ func Test_can_change_user_recovery_question(t *testing.T) {
 }
 
 func Test_can_assign_a_user_to_a_role(t *testing.T) {
-	client := tests.NewClient()
+	client, _ := tests.NewClient()
 	// Create a user with credentials, activated by default → POST /api/v1/users?activate=true
 	p := &okta.PasswordCredential{
 		Value: "Abcd1234",
@@ -526,7 +526,7 @@ func Test_can_assign_a_user_to_a_role(t *testing.T) {
 }
 
 func Test_user_group_target_role(t *testing.T) {
-	client := tests.NewClient()
+	client, _ := tests.NewClient()
 	// Create a user with credentials, activated by default → POST /api/v1/users?activate=true
 	p := &okta.PasswordCredential{
 		Value: "Abcd1234",

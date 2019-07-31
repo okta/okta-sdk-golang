@@ -30,7 +30,7 @@ import (
 )
 
 func Test_can_get_applicaiton_by_id(t *testing.T) {
-	client := tests.NewClient()
+	client, _ := tests.NewClient()
 
 	basicApplicationSettingsApplication := okta.NewBasicApplicationSettingsApplication()
 	basicApplicationSettingsApplication.AuthURL = "https://example.com/auth.html"
@@ -59,7 +59,7 @@ func Test_can_get_applicaiton_by_id(t *testing.T) {
 }
 
 func Test_can_update_application(t *testing.T) {
-	client := tests.NewClient()
+	client, _ := tests.NewClient()
 
 	basicApplicationSettingsApplication := okta.NewBasicApplicationSettingsApplication()
 	basicApplicationSettingsApplication.AuthURL = "https://example.com/auth.html"
@@ -98,7 +98,7 @@ func Test_can_update_application(t *testing.T) {
 }
 
 func Test_can_create_a_bookmark_application(t *testing.T) {
-	client := tests.NewClient()
+	client, _ := tests.NewClient()
 
 	bookmarkApplicationSettingsApplication := okta.NewBookmarkApplicationSettingsApplication()
 	bookmarkApplicationSettingsApplication.RequestIntegration = new(bool)
@@ -123,7 +123,7 @@ func Test_can_create_a_bookmark_application(t *testing.T) {
 }
 
 func Test_can_create_a_basic_authentication_application(t *testing.T) {
-	client := tests.NewClient()
+	client, _ := tests.NewClient()
 
 	basicApplicationSettingsApplication := okta.NewBasicApplicationSettingsApplication()
 	basicApplicationSettingsApplication.AuthURL = "https://example.com/auth.html"
@@ -150,7 +150,7 @@ func Test_can_create_a_basic_authentication_application(t *testing.T) {
 }
 
 func Test_list_application_allows_casting_to_correct_type(t *testing.T) {
-	client := tests.NewClient()
+	client, _ := tests.NewClient()
 
 	basicApplicationSettingsApplication := okta.NewBasicApplicationSettingsApplication()
 	basicApplicationSettingsApplication.AuthURL = "https://example.com/auth.html"
@@ -206,7 +206,7 @@ func Test_list_application_allows_casting_to_correct_type(t *testing.T) {
 }
 
 func Test_can_activate_and_deactivate_application(t *testing.T) {
-	client := tests.NewClient()
+	client, _ := tests.NewClient()
 
 	basicApplicationSettingsApplication := okta.NewBasicApplicationSettingsApplication()
 	basicApplicationSettingsApplication.AuthURL = "https://example.com/auth.html"
@@ -241,7 +241,7 @@ func Test_can_activate_and_deactivate_application(t *testing.T) {
 }
 
 func Test_can_add_and_remove_application_users(t *testing.T) {
-	client := tests.NewClient()
+	client, _ := tests.NewClient()
 
 	basicApplicationSettingsApplication := okta.NewBasicApplicationSettingsApplication()
 	basicApplicationSettingsApplication.AuthURL = "https://example.com/auth.html"
@@ -314,7 +314,7 @@ func Test_can_add_and_remove_application_users(t *testing.T) {
 }
 
 func Test_can_set_application_settings_during_creation(t *testing.T) {
-	client := tests.NewClient()
+	client, _ := tests.NewClient()
 
 	basicApplicationSettingsApplication := okta.NewBasicApplicationSettingsApplication()
 	basicApplicationSettingsApplication.AuthURL = "https://example.com/auth.html"
@@ -335,7 +335,7 @@ func Test_can_set_application_settings_during_creation(t *testing.T) {
 }
 
 func Test_can_set_application_settings_during_update(t *testing.T) {
-	client := tests.NewClient()
+	client, _ := tests.NewClient()
 
 	basicApplicationSettingsApplication := okta.NewBasicApplicationSettingsApplication()
 	basicApplicationSettingsApplication.AuthURL = "https://example.com/auth.html"

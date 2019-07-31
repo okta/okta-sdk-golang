@@ -27,7 +27,7 @@ import (
 )
 
 func Test_exercise_factor_lifecycle(t *testing.T) {
-	client := tests.NewClient()
+	client, _ := tests.NewClient()
 
 	user, _, err := client.User.GetUser("john-factor-lifecycle@example.com")
 	if user != nil {
