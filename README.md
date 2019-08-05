@@ -254,7 +254,7 @@ client := okta.NewClient(context, okta.WithOrgUrl("https://{yourOktaDomain}"), o
 
 applications, resp, err := client.Application.ListApplications(nil)
 
-//applicaitons will need to be cast from the interface into its concrete form before you can use it.
+//applications will need to be cast from the interface into its concrete form before you can use it.
 for _, a := range applications {
 		if a.(*okta.Application).Name == "bookmark" {
 			if a.(*okta.Application).Id == app2.(okta.BookmarkApplication).Id {
