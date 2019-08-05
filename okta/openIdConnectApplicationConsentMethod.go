@@ -22,3 +22,11 @@ import ()
 
 type OpenIdConnectApplicationConsentMethod struct {
 }
+
+func NewOpenIdConnectApplicationConsentMethod() *OpenIdConnectApplicationConsentMethod {
+	return &OpenIdConnectApplicationConsentMethod{}
+}
+
+func (a *OpenIdConnectApplicationConsentMethod) IsApplicationInstance() bool {
+	return true
+}

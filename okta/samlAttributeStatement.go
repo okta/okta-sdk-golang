@@ -26,3 +26,11 @@ type SamlAttributeStatement struct {
 	Type      string   `json:"type,omitempty"`
 	Values    []string `json:"values,omitempty"`
 }
+
+func NewSamlAttributeStatement() *SamlAttributeStatement {
+	return &SamlAttributeStatement{}
+}
+
+func (a *SamlAttributeStatement) IsApplicationInstance() bool {
+	return true
+}

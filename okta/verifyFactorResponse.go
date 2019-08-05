@@ -29,3 +29,11 @@ type VerifyFactorResponse struct {
 	FactorResult        string      `json:"factorResult,omitempty"`
 	FactorResultMessage string      `json:"factorResultMessage,omitempty"`
 }
+
+func NewVerifyFactorResponse() *VerifyFactorResponse {
+	return &VerifyFactorResponse{}
+}
+
+func (a *VerifyFactorResponse) IsUserFactorInstance() bool {
+	return true
+}

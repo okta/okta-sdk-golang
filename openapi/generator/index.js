@@ -27,7 +27,7 @@ function getType(obj, prefix="") {
     case 'integer' :
       return String.raw`int64`;
     case 'boolean' :
-      return String.raw`bool`;
+      return String.raw`*bool`;
     case 'hash' :
       return String.raw`interface{}`;
     case 'array' :
@@ -85,10 +85,30 @@ function getImports(object) {
       }
     }
   }
+  if (object.model.parent !== undefined) {
+    for (let property of object.model.parent.properties) {
+      switch (property.commonType) {
+        case 'dateTime' :
+          imports.push("time");
+      }
+    }
+
+    if (object.model.parent.parent !== undefined) {
+      for (let property of object.model.parent.parent.properties) {
+        switch (property.commonType) {
+          case 'dateTime' :
+            imports.push("time");
+        }
+      }
+    }
+  }
+
 
   if (object.model.methods !== undefined) {
     for (let method of object.model.methods) {
-      imports.push("github.com/okta/okta-sdk-golang/okta/query")
+      if(method.operation.queryParams.length) {
+        imports.push("github.com/okta/okta-sdk-golang/okta/query")
+      }
       imports.push("fmt");
       if (method.operation.responseModel !== undefined) {
         imports.push("fmt");
@@ -102,7 +122,9 @@ function getImports(object) {
 
   if (object.model.crud !== undefined) {
     for (let method of object.model.crud) {
-      imports.push("github.com/okta/okta-sdk-golang/okta/query")
+      if(method.operation.queryParams.length) {
+        imports.push("github.com/okta/okta-sdk-golang/okta/query")
+      }
       imports.push("fmt");
       if (method.operation.responseModel !== undefined) {
         imports.push("fmt");
@@ -112,6 +134,11 @@ function getImports(object) {
         imports.push("fmt")
       }
     }
+  }
+
+  if (object.model.modelName === "LogEvent") {
+    imports.push("github.com/okta/okta-sdk-golang/okta/query")
+    imports.push("fmt")
   }
 
   imports = [...new Set(imports)];
@@ -125,12 +152,30 @@ function operationArgumentBuilder(operation) {
   operation.pathParams.map((arg) => args.push(arg.name + " " + arg.type));
 
   if ((operation.method === 'post' || operation.method === 'put') && operation.bodyModel) {
-    args.push(`body ` + ucFirst(_.camelCase(operation.bodyModel)));
+    let bodyModel = ucFirst(_.camelCase(operation.bodyModel));
+
+    if(bodyModel === "Application") {
+      bodyModel = "App";
+    }
+
+    if(bodyModel === "Factor") {
+      bodyModel = "UserFactor";
+    }
+
+    args.push(`body ` + bodyModel);
   }
 
-  // if (operation.queryParams.length) {
+  if(operation.operationId === "getApplication") {
+    args.push(`appInstance App`);
+  }
+
+  if(operation.operationId === "getFactor") {
+    args.push(`factorInstance UserFactor`);
+  }
+
+  if (operation.queryParams.length) {
     args.push('qp *query.Params');
-  // }
+  }
 
   return args.join(', ');
 }
@@ -154,10 +199,25 @@ function getPathParams(operation) {
 
 function returnType(operation) {
   if ( operation.responseModel !== undefined ) {
-    if ( operation.isArray !== undefined && operation.isArray === true) {
-      return " ([]*" + operation.responseModel + ", *Response, error) ";
+    let responseModel = "*" +operation.responseModel
+    if ( responseModel === "*Application" ) {
+      if ( operation.operationId === "listApplications") {
+        responseModel = "App"
+      } else {
+        responseModel = "interface{}"
+      }
     }
-    return " (*" + operation.responseModel + ", *Response, error) ";
+    if ( responseModel === "*Factor" ) {
+      if ( operation.operationId === "listFactors") {
+        responseModel = "UserFactor"
+      } else {
+        responseModel = "interface{}"
+      }
+    }
+    if ( operation.isArray !== undefined && operation.isArray === true) {
+      return " ([]" + responseModel + ", *Response, error) ";
+    }
+    return " (" + responseModel + ", *Response, error) ";
   }
   return " (*Response, error) ";
 }
@@ -175,11 +235,19 @@ function getClientTags(operations) {
 
 }
 
+function responseModelInterface(operationId) {
+ return operationId ===  "listApplications" ||
+    operationId === "listSupportedFactors" ||
+    operationId === "listFactors";
+
+}
+
 function getClientTagResources(operations) {
   let tags = getClientTags(operations);
   let tagResources = []
   for (let tag of tags) {
     if (tag === "UserFactor") tag = "Factor";
+    if (tag === "Log") tag = "LogEvent";
     tagResources.push(structProp(tag) + " *" + structProp(tag) + "Resource")
   }
   return tagResources.join("\n\t");
@@ -190,9 +258,39 @@ function getNewClientTagProps(operations) {
   let tagResources = []
   for (let tag of tags) {
     if (tag === "UserFactor") tag = "Factor";
+    if (tag === "Log") tag = "LogEvent";
     tagResources.push("c." + structProp(tag) + " = (*" + structProp(tag) + "Resource)(&c.resource)")
   }
   return tagResources.join("\n\t");
+}
+
+function buildModelProperties(model) {
+  const properties = {};
+  const finalProps = [];
+
+  if(model.parent !== undefined) {
+    for (let parentProperty of model.parent.properties) {
+      properties[parentProperty.propertyName] = parentProperty;
+    }
+    if(model.parent.parent !== undefined) {
+      for (let parentProperty of model.parent.parent.properties) {
+        properties[parentProperty.propertyName] = parentProperty;
+      }
+    }
+  }
+
+  if(model.properties !== undefined) {
+    for (let modelProperty of model.properties) {
+      properties[modelProperty.propertyName] = modelProperty;
+    }
+  }
+
+  for (let propKey in properties) {
+    finalProps.push( structProp(properties[propKey].propertyName) + " " + getType(properties[propKey], "*") + " `json:\""+properties[propKey].propertyName+",omitempty\"`" );
+
+  }
+
+  return finalProps.join("\n\t");
 }
 
 function log(item) {
@@ -206,7 +304,11 @@ golang.process = ({ spec, operations, models, handlebars }) => {
   const templates = [];
   const queryOptionsTemp = [];
   const queryOptions = [];
+  const modelsByName = [];
 
+  for (let model of models) {
+    modelsByName[model.modelName] = model
+  }
 
   for (let operation of operations) {
     for (let param of operation.queryParams) {
@@ -242,6 +344,24 @@ golang.process = ({ spec, operations, models, handlebars }) => {
   });
 
   for (let model of models) {
+
+    if(model.extends !== undefined) {
+      model.parent = modelsByName[model.extends];
+
+      if(model.parent.resolutionStrategy !== undefined && model.parent.parent == undefined) {
+        for (let value in model.parent.resolutionStrategy.valueToModelMapping) {
+          if (model.parent.resolutionStrategy.valueToModelMapping[value] === model.modelName) {
+            model.resolution = {fieldName: model.parent.resolutionStrategy.propertyName, fieldValue: value};
+          }
+        }
+      }
+
+      if(model.parent.parent !== undefined && model.parent.parent.resolutionStrategy !== undefined) {
+        model.resolution = model.parent.resolution;
+      }
+    }
+
+
     let modelOperations = {}
 
     if(model.crud != undefined) {
@@ -251,12 +371,10 @@ golang.process = ({ spec, operations, models, handlebars }) => {
     }
 
     for (let operation of operations) {
-      let currentTag = operation.tags[0];
-
-      if(currentTag == "UserFactor") {
-        currentTag = "Factor";
-      }
-      if (currentTag == model.modelName) {
+      let tag = operation.tags[0];
+      if (tag === "UserFactor" ) tag = "Factor";
+      if (tag === "Log" ) tag = "LogEvent";
+      if (tag == model.modelName) {
         modelOperations[operation.operationId] = operation;
       }
     }
@@ -286,7 +404,9 @@ golang.process = ({ spec, operations, models, handlebars }) => {
     strToUpper,
     lowercaseFirstLetter,
     getClientTagResources,
-    getNewClientTagProps
+    getNewClientTagProps,
+    buildModelProperties,
+    responseModelInterface
   });
 
   handlebars.registerPartial('partials.copyHeader', fs.readFileSync('generator/templates/partials/copyHeader.hbs', 'utf8'));

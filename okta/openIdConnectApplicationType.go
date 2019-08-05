@@ -22,3 +22,11 @@ import ()
 
 type OpenIdConnectApplicationType struct {
 }
+
+func NewOpenIdConnectApplicationType() *OpenIdConnectApplicationType {
+	return &OpenIdConnectApplicationType{}
+}
+
+func (a *OpenIdConnectApplicationType) IsApplicationInstance() bool {
+	return true
+}

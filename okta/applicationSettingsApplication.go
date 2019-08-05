@@ -20,5 +20,12 @@ package okta
 
 import ()
 
-type ApplicationSettingsApplication struct {
+type ApplicationSettingsApplication map[string]interface{}
+
+func NewApplicationSettingsApplication() *ApplicationSettingsApplication {
+	return &ApplicationSettingsApplication{}
+}
+
+func (a *ApplicationSettingsApplication) IsApplicationInstance() bool {
+	return true
 }

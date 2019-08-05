@@ -6,9 +6,6 @@
 [![API Reference](https://img.shields.io/badge/docs-reference-lightgrey.svg)][sdkapiref]
 
 # Okta Golang management SDK
-
-> :warning: Beta alert! This library is in beta. See [release status](#release-status) for more information.
-
 * [Release status](#release-status)
 * [Need help?](#need-help)
 * [Getting started](#getting-started)
@@ -35,11 +32,10 @@ You can learn more on the [Okta + Golang](lang-landing) page in our documentatio
 
 This library uses semantic versioning and follows Okta's [library version policy](https://developer.okta.com/code/library-versions/).
 
-:warning: Beta alert! This library is in beta. Breaking changes may be introduced at minor versions in the 0.x range. Please lock your dependency to a specific version until this library reaches 1.x.
-
 | Version | Status                    |
 | ------- | ------------------------- |
-| 0.x  |  Beta Release               |
+| 0.x     |  ⚠️ Beta Release (Retired)|
+| 1.x     |  ✔️ Release               |
 
 The latest release can always be found on the [releases page][github-releases].
 
@@ -52,7 +48,7 @@ If you run into problems using the SDK, you can
 
 ## Getting started
 
-To install the Okta Golang SDK in your project, run `go get github.com/okta/okta-sdk-golang`
+To install the Okta Golang SDK in your project, run `go get github.com/okta/okta-sdk-golang/okta`
 
 You'll also need
 
@@ -62,8 +58,7 @@ You'll also need
 Construct a client instance by passing it your Okta domain name and API token:
 
 ```
-config := okta.NewConfig().WithOrgUrl("{yourOktaDomain}").WithToken("{apiToken}")
-client := okta.NewClient(config, nil, nil)
+client := okta.NewClient(context, okta.WithOrgUrl("https://{yourOktaDomain}"), okta.WithToken("{apiToken}"))
 ```
 
 Hard-coding the Okta domain and API token works for quick tests, but for real projects you should use a more secure way of storing these values (such as environment variables). This library supports a few different configuration sources, covered in the [configuration reference](#configuration-reference) section.
@@ -76,8 +71,7 @@ myClient := &http.Client{}
 
 myCache := NewCustomCacheDriver()
 
-config := okta.NewConfig().WithOrgUrl("{yourOktaDomain}").WithToken("{apiToken}")
-client := okta.NewClient(config, myClient, myCache)
+client := okta.NewClient(context, okta.WithOrgUrl("https://{yourOktaDomain}"), okta.WithToken("{apiToken}"), okta.WithHttpClient(myClient), okta.WithCacheManager(myCache))
 ```
 
 
@@ -118,22 +112,19 @@ This library should only be used with the Okta management API. To call the [Auth
 
 ### Get a User
 ```
-config := okta.NewConfig()
-client := okta.NewClient(config, nil, nil)
+client := okta.NewClient(context, okta.WithOrgUrl("https://{yourOktaDomain}"), okta.WithToken("{apiToken}"))
 user, resp, err := client.User.GetUser(user.Id, nil)
 ```
 
 ### List all Users
 ```
-config := okta.NewConfig()
-client := okta.NewClient(config, nil, nil)
+client := okta.NewClient(context, okta.WithOrgUrl("https://{yourOktaDomain}"), okta.WithToken("{apiToken}"))
 users, resp, err := client.User.ListUsers()
 ```
 
 ### Filter or search for Users
 ```
-config := okta.NewConfig()
-client := okta.NewClient(config, nil, nil)
+client := okta.NewClient(context, okta.WithOrgUrl("https://{yourOktaDomain}"), okta.WithToken("{apiToken}"))
 
 filter := query.NewQueryParams(query.WithFilter("status eq \"ACTIVE\""))
 
@@ -142,8 +133,7 @@ users, resp, err := client.User.ListUsers(filter)
 
 ### Create a User
 ```
-config := okta.NewConfig()
-client := okta.NewClient(config, nil, nil)
+client := okta.NewClient(context, okta.WithOrgUrl("https://{yourOktaDomain}"), okta.WithToken("{apiToken}"))
 
 p := &okta.PasswordCredential{
 		Value: "Abcd1234",
@@ -166,8 +156,7 @@ user, resp, err := client.User.CreateUser(*u, nil)
 
 ### Update a User
 ```
-config := okta.NewConfig()
-client := okta.NewClient(config, nil, nil)
+client := okta.NewClient(context, okta.WithOrgUrl("https://{yourOktaDomain}"), okta.WithToken("{apiToken}"))
 
 newProfile := *user.Profile
 newProfile["nickName"] = "Batman"
@@ -180,8 +169,7 @@ user, resp, err := client.User.UpdateUser(user.Id, *updatedUser, nil)
 ### Get and set custom attributes
 Custom attributes must first be defined in the Okta profile editor. Then, you can work with custom attributes on a user:
 ```
-config := okta.NewConfig()
-client := okta.NewClient(config, nil, nil)
+client := okta.NewClient(context, okta.WithOrgUrl("https://{yourOktaDomain}"), okta.WithToken("{apiToken}"))
 user, resp, err := client.User.GetUser(user.Id, nil)
 
 nickName = user.Profile["nickName"]
@@ -190,8 +178,7 @@ nickName = user.Profile["nickName"]
 ### Remove a User
 You must first deactivate the user, and then you can delete the user.
 ```
-config := okta.NewConfig()
-client := okta.NewClient(config, nil, nil)
+client := okta.NewClient(context, okta.WithOrgUrl("https://{yourOktaDomain}"), okta.WithToken("{apiToken}"))
 resp, err := client.User.DeactivateUser(user.Id, nil)
 
 resp, err := client.User.DeactivateOrDeleteUser(user.Id, nil)
@@ -199,16 +186,14 @@ resp, err := client.User.DeactivateOrDeleteUser(user.Id, nil)
 
 ### List a User's Groups
 ```
-config := okta.NewConfig()
-client := okta.NewClient(config, nil, nil)
+client := okta.NewClient(context, okta.WithOrgUrl("https://{yourOktaDomain}"), okta.WithToken("{apiToken}"))
 
 groups, resp, err := client.User.ListUserGroups(user.Id, nil)
 ```
 
 ### Create a Group
 ```
-config := okta.NewConfig()
-client := okta.NewClient(config, nil, nil)
+client := okta.NewClient(context, okta.WithOrgUrl("https://{yourOktaDomain}"), okta.WithToken("{apiToken}"))
 
 gp := &okta.GroupProfile{
   Name: "Get Test Group",
@@ -221,47 +206,41 @@ group, resp, err := client.Group.CreateGroup(*g, nil)
 
 ### Add a User to a Group
 ```
-config := okta.NewConfig()
-client := okta.NewClient(config, nil, nil)
+client := okta.NewClient(context, okta.WithOrgUrl("https://{yourOktaDomain}"), okta.WithToken("{apiToken}"))
 
 resp, err := client.Group.AddUserToGroup(group.Id, user.Id, nil)
 ```
 
-> Factors and Applications are currently not fully functioning.  The SDK will be able to read factors and applications from the API, but they are not set to the correct types yet.  This is coming soon.
 ### List a User's enrolled Factors
 ```
-config := okta.NewConfig()
-client := okta.NewClient(config, nil, nil)
+client := okta.NewClient(context, okta.WithOrgUrl("https://{yourOktaDomain}"), okta.WithToken("{apiToken}"))
 
-factors, resp, err := client.Factor.ListFactors(group.Id, user.Id, nil)
+allowedFactors, resp, err := client.Factor.ListSupportedFactors(user.Id)
 ```
 
 ### Enroll a User in a new Factor
 ```
-config := okta.NewConfig()
-client := okta.NewClient(config, nil, nil)
+client := okta.NewClient(context, okta.WithOrgUrl("https://{yourOktaDomain}"), okta.WithToken("{apiToken}"))
 
-factorProfile := okta.SmsFactorProfile{
-  PhoneNumber: "5551234567",
-}
-factor := okta.SmsFactor{
-  Profile: &factorProfile,
-}
-factor, resp, err := client.Factor.AddFactor(user.Id, factor, nil)
+factorProfile := okta.NewSmsFactorProfile()
+factorProfile.PhoneNumber = "5551234567"
+
+factor := okta.NewSmsFactor()
+factor.Profile = factorProfile
+
+addedFactor, resp, err := client.Factor.AddFactor(user.Id, factor, nil)
 ```
 
 ### Activate a Factor
 ```
-config := okta.NewConfig()
-client := okta.NewClient(config, nil, nil)
+client := okta.NewClient(context, okta.WithOrgUrl("https://{yourOktaDomain}"), okta.WithToken("{apiToken}"))
 
 factor, resp, err := client.Factor.ActivateFactor(user.Id, factor.Id, nil)
 ```
 
 ### Verify a Factor
 ```
-config := okta.NewConfig()
-client := okta.NewClient(config, nil, nil)
+client := okta.NewClient(context, okta.WithOrgUrl("https://{yourOktaDomain}"), okta.WithToken("{apiToken}"))
 
 verifyFactorRequest := okta.VerifyFactorRequest{
   PassCode: "123456"
@@ -271,47 +250,57 @@ verifyFactorResp, resp, err := client.Factor.VerifyFactor(user.Id, factor.Id, ve
 
 ### List all Applications
 ```
-config := okta.NewConfig()
-client := okta.NewClient(config, nil, nil)
+client := okta.NewClient(context, okta.WithOrgUrl("https://{yourOktaDomain}"), okta.WithToken("{apiToken}"))
 
 applications, resp, err := client.Application.ListApplications(nil)
+
+//applications will need to be cast from the interface into its concrete form before you can use it.
+for _, a := range applications {
+		if a.(*okta.Application).Name == "bookmark" {
+			if a.(*okta.Application).Id == app2.(okta.BookmarkApplication).Id {
+				application :=  *a.(*okta.BookmarkApplication) //This will cast it to a Bookmark Application
+			}
+		}
+		// continue for each type you want to work with.
+	}
 ```
 
 ### Get an Application
 ```
-config := okta.NewConfig()
-client := okta.NewClient(config, nil, nil)
+client := okta.NewClient(context, okta.WithOrgUrl("https://{yourOktaDomain}"), okta.WithToken("{apiToken}"))
 
-application, resp, err := client.Applicaiton.GetApplication(applicationId, nil)
+//Getting a Basic Auth Application
+application, resp, err = client.Application.GetApplication(appId, okta.NewBasicAuthApplication(), nil)
+
+//To use the application, you must cast it to the type.
+app := application.(*okta.BasicAuthApplication)
 ```
 
 ### Create a SWA Application
 ```
-config := okta.NewConfig()
-client := okta.NewClient(config, nil, nil)
+client := okta.NewClient(context, okta.WithOrgUrl("https://{yourOktaDomain}"), okta.WithToken("{apiToken}"))
 
-swaAppSettingsApp := okta.SwaApplicationSettingsApplication{
-    ButtonField:   "btn-login",
-    PasswordField: "txtbox-password",
-    UsernameField: "txtbox-username",
-    Url:           "https://example.com/login.html",
-    LoginUrlRegex: "REGEX_EXPRESSION",
-}
-swaAppSettings := okta.SwaApplicationSettings{
-    App: &swaAppSettingsApp,
-}
-swaApp := okta.SwaApplication{
-    Name:     "Test App",
-    Settings: &swaAppSettings,
-}
+swaAppSettingsApp := newSwaApplicationSettingsApplication()
+swaAppSettingsApp.ButtonField = "btn-login"
+swaAppSettingsApp.PasswordField = "txtbox-password"
+swaAppSettingsApp.UsernameField = "txtbox-username"
+swaAppSettingsApp.Url = "https://example.com/login.html"
+swaAppSettingsApp.LoginUrlRegex = "REGEX_EXPRESSION"
+
+swaAppSettings := newSwaApplicationSettings()
+swaAppSettings.App = &swaAppSettingsApp
+
+swaApp := newSwaApplication()
+swaApp.Label = "Test App"
+swaApp.Settings = &swaAppSettings
+
 application, resp, err := client.Application.CreateApplication(swaApp, nil)
 ```
 
 ### Call other API endpoints
 Not every API endpoint is represented by a method in this library. You can call any Okta management API endpoint using this generic syntax:
 ```
-config := okta.NewConfig()
-client := okta.NewClient(config, nil, nil)
+client := okta.NewClient(context, okta.WithOrgUrl("https://{yourOktaDomain}"), okta.WithToken("{apiToken}"))
 
 url := "https://golang.oktapreview.com/api/v1/authorizationServers
 

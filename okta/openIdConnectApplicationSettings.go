@@ -21,5 +21,17 @@ package okta
 import ()
 
 type OpenIdConnectApplicationSettings struct {
-	OauthClient *OpenIdConnectApplicationSettingsClient `json:"oauthClient,omitempty"`
+	App                *ApplicationSettingsApplication         `json:"app,omitempty"`
+	ImplicitAssignment *bool                                   `json:"implicitAssignment,omitempty"`
+	InlineHookId       string                                  `json:"inlineHookId,omitempty"`
+	Notifications      *ApplicationSettingsNotifications       `json:"notifications,omitempty"`
+	OauthClient        *OpenIdConnectApplicationSettingsClient `json:"oauthClient,omitempty"`
+}
+
+func NewOpenIdConnectApplicationSettings() *OpenIdConnectApplicationSettings {
+	return &OpenIdConnectApplicationSettings{}
+}
+
+func (a *OpenIdConnectApplicationSettings) IsApplicationInstance() bool {
+	return true
 }

@@ -23,3 +23,11 @@ import ()
 type AppUserPasswordCredential struct {
 	Value string `json:"value,omitempty"`
 }
+
+func NewAppUserPasswordCredential() *AppUserPasswordCredential {
+	return &AppUserPasswordCredential{}
+}
+
+func (a *AppUserPasswordCredential) IsApplicationInstance() bool {
+	return true
+}

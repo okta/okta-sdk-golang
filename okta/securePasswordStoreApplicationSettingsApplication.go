@@ -31,3 +31,11 @@ type SecurePasswordStoreApplicationSettingsApplication struct {
 	Url                 string `json:"url,omitempty"`
 	UsernameField       string `json:"usernameField,omitempty"`
 }
+
+func NewSecurePasswordStoreApplicationSettingsApplication() *SecurePasswordStoreApplicationSettingsApplication {
+	return &SecurePasswordStoreApplicationSettingsApplication{}
+}
+
+func (a *SecurePasswordStoreApplicationSettingsApplication) IsApplicationInstance() bool {
+	return true
+}

@@ -18,9 +18,36 @@
 
 package okta
 
-import ()
+import (
+	"time"
+)
 
 type WsFederationApplication struct {
-	Name     string                           `json:"name,omitempty"`
-	Settings *WsFederationApplicationSettings `json:"settings,omitempty"`
+	Embedded      interface{}                      `json:"_embedded,omitempty"`
+	Links         interface{}                      `json:"_links,omitempty"`
+	Accessibility *ApplicationAccessibility        `json:"accessibility,omitempty"`
+	Created       *time.Time                       `json:"created,omitempty"`
+	Credentials   *ApplicationCredentials          `json:"credentials,omitempty"`
+	Features      []string                         `json:"features,omitempty"`
+	Id            string                           `json:"id,omitempty"`
+	Label         string                           `json:"label,omitempty"`
+	LastUpdated   *time.Time                       `json:"lastUpdated,omitempty"`
+	Licensing     *ApplicationLicensing            `json:"licensing,omitempty"`
+	Name          string                           `json:"name,omitempty"`
+	Profile       interface{}                      `json:"profile,omitempty"`
+	Settings      *WsFederationApplicationSettings `json:"settings,omitempty"`
+	SignOnMode    string                           `json:"signOnMode,omitempty"`
+	Status        string                           `json:"status,omitempty"`
+	Visibility    *ApplicationVisibility           `json:"visibility,omitempty"`
+}
+
+func NewWsFederationApplication() *WsFederationApplication {
+	return &WsFederationApplication{
+		Name:       "template_wsfed",
+		SignOnMode: "WS_FEDERATION",
+	}
+}
+
+func (a *WsFederationApplication) IsApplicationInstance() bool {
+	return true
 }

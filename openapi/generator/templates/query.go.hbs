@@ -3,7 +3,6 @@
 package query
 
 import (
-	"encoding/json"
 	"net/url"
 	"strconv"
 )
@@ -31,45 +30,43 @@ func NewQueryParams(paramOpt ...ParamOptions) *Params {
 type ParamOptions func(*Params)
 
 {{#each queryOptions as |query|}}
-func With{{structProp query.name}}({{query.name}} {{query.type}}) ParamOptions {
+func With{{structProp query.name}}(query{{structProp query.name}} {{query.type}}) ParamOptions {
 	return func(p *Params) {
 		{{#if (eq query.type "bool")}}
 		b := new(bool)
-		*b = {{query.name}}
+		*b = query{{structProp query.name}}
 		p.{{structProp query.name}} = b
 		{{else}}
-		p.{{structProp query.name}} = {{query.name}}
+		p.{{structProp query.name}} = query{{structProp query.name}}
 		{{/if}}
 	}
 }
 {{/each}}
 
 func (p *Params) String() string {
-	s, _ := json.Marshal(p)
+	qs := url.Values{}
 
-	m := map[string]interface{}{}
-	qs := ""
-	i := 1
-
-	json.Unmarshal(s, &m)
-
-	for key, value := range m {
-		qs = qs + string(key) + "="
-		switch v := value.(type) {
-		case bool:
-			qs = qs + strconv.FormatBool(v)
-		default:
-			qs = qs + url.QueryEscape(value.(string))
-		}
-		if i < len(m) {
-			qs = qs + "&"
-		}
-		i++
+{{#each queryOptions as |query|}}
+	{{#if (eq query.type "bool")}}
+	if (p.{{structProp query.name}} != nil) {
+		qs.Add(`{{query.name}}`, strconv.FormatBool(*p.{{structProp query.name}}))
 	}
-
-	if qs != "" {
-		qs = "?" + qs
+	{{else if (eq query.type "int64")}}
+	if (p.{{structProp query.name}} != 0) {
+		qs.Add(`{{query.name}}`, strconv.FormatInt(p.{{structProp query.name}}, 10))
 	}
-	return qs
+	{{else if (eq query.type "string")}}
+	if (p.{{structProp query.name}} != "") {
+		qs.Add(`{{query.name}}`, p.{{structProp query.name}})
+	}
+	{{else}}
+	{{log "query.go.hbs: unknown type for Params.String()" level="error"}}
+	{{/if}}
+{{/each}}
+
+	if len(qs) != 0 {
+		return "?" + qs.Encode()
+	}
+	return ""
 }
 

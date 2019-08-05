@@ -30,7 +30,7 @@ import (
 )
 
 func Test_can_get_a_user(t *testing.T) {
-	client := tests.NewClient()
+	client, _ := tests.NewClient()
 	// Create user with credentials → POST /api/v1/users?activate=false
 	p := &okta.PasswordCredential{
 		Value: "Abcd1234",
@@ -53,12 +53,12 @@ func Test_can_get_a_user(t *testing.T) {
 	require.NoError(t, err, "Creating an user should not error")
 
 	// Get the user by ID → GET /api/v1/users/{{userId}}
-	ubid, _, err := client.User.GetUser(user.Id, nil)
+	ubid, _, err := client.User.GetUser(user.Id)
 	require.NoError(t, err, "Getting a user by id should not error")
 	assert.Equal(t, user.Id, ubid.Id, "Could not find user by Id")
 
 	// Get the user by login name → GET /api/v1/users/{{login}}
-	ubln, _, err := client.User.GetUser(profile["login"].(string), nil)
+	ubln, _, err := client.User.GetUser(profile["login"].(string))
 	require.NoError(t, err, "Getting a user by login should not error")
 	assert.Equal(t, user.Id, ubln.Id, "Could not find user by Login")
 
@@ -71,12 +71,12 @@ func Test_can_get_a_user(t *testing.T) {
 	require.NoError(t, err, "Should not error when deleting")
 
 	// Verify that the user is deleted by calling get on user (Exception thrown with 404 error message) → GET /api/v1/users/{{userId}}
-	_, _, err = client.User.GetUser(user.Id, nil)
+	_, _, err = client.User.GetUser(user.Id)
 	require.Error(t, err, "User should not exist, but does")
 }
 
 func Test_can_activate_a_user(t *testing.T) {
-	client := tests.NewClient()
+	client, _ := tests.NewClient()
 	//Create user with credentials → POST /api/v1/users?activate=false
 	p := &okta.PasswordCredential{
 		Value: "Abcd1234",
@@ -126,7 +126,7 @@ func Test_can_activate_a_user(t *testing.T) {
 }
 
 func Test_can_update_user_profile(t *testing.T) {
-	client := tests.NewClient()
+	client, _ := tests.NewClient()
 	// Create user with credentials → POST /api/v1/users?activate=false
 	p := &okta.PasswordCredential{
 		Value: "Abcd1234",
@@ -158,7 +158,7 @@ func Test_can_update_user_profile(t *testing.T) {
 	require.NoError(t, err, "Could not update the user")
 
 	// Verify that user profile is updated by calling get on the user → GET /api/v1/users/{{userId}}
-	tmpUser, _, err := client.User.GetUser(user.Id, nil)
+	tmpUser, _, err := client.User.GetUser(user.Id)
 	require.NoError(t, err, "User was not available to get")
 	tmpProfile := *tmpUser.Profile
 	assert.Equal(t, "Batman", tmpProfile["nickName"])
@@ -172,7 +172,7 @@ func Test_can_update_user_profile(t *testing.T) {
 }
 
 func Test_can_suspend_a_user(t *testing.T) {
-	client := tests.NewClient()
+	client, _ := tests.NewClient()
 	//Create user with credentials → POST /api/v1/users?activate=true
 	p := &okta.PasswordCredential{
 		Value: "Abcd1234",
@@ -195,7 +195,7 @@ func Test_can_suspend_a_user(t *testing.T) {
 	require.NoError(t, err, "Creating an user should not error")
 
 	// Suspend the user → POST /api/v1/users/{{userId}}/lifecycle/suspend
-	_, err = client.User.SuspendUser(user.Id, nil)
+	_, err = client.User.SuspendUser(user.Id)
 	require.NoError(t, err, "Could not suspend the user")
 
 	// Verify that user is in the list of suspended users → GET /api/v1/users?filter=status eq "SUSPENDED"
@@ -211,7 +211,7 @@ func Test_can_suspend_a_user(t *testing.T) {
 	assert.True(t, found, "The user was not found")
 
 	// Unsuspend the user →  POST /api/v1/users/{{userId}}/lifecycle/unsuspend
-	_, err = client.User.UnsuspendUser(user.Id, nil)
+	_, err = client.User.UnsuspendUser(user.Id)
 	require.NoError(t, err, "Could not unsuspend the user")
 
 	// Verify that user is in the list of active users → GET /api/v1/users?filter=status eq "ACTIVE"
@@ -235,7 +235,7 @@ func Test_can_suspend_a_user(t *testing.T) {
 }
 
 func Test_can_change_users_password(t *testing.T) {
-	client := tests.NewClient()
+	client, _ := tests.NewClient()
 	// Create user with credentials → POST /api/v1/users?activate=true
 	p := &okta.PasswordCredential{
 		Value: "Abcd1234",
@@ -275,7 +275,7 @@ func Test_can_change_users_password(t *testing.T) {
 	require.NoError(t, err, "Could not change password")
 
 	// Get the user and verify that 'passwordChanged' field has increased → GET /api/v1/users/{{userId}}/
-	ubid, _, err := client.User.GetUser(user.Id, nil)
+	ubid, _, err := client.User.GetUser(user.Id)
 	require.NoError(t, err, "Getting a user by login should not error")
 	assert.Equal(t, user.Id, ubid.Id, "Could not find user by Login")
 	assert.True(t, ubid.PasswordChanged.After(*user.PasswordChanged), "Appears that password change did not happen")
@@ -289,12 +289,12 @@ func Test_can_change_users_password(t *testing.T) {
 	require.NoError(t, err, "Should not error when deleting")
 
 	// Verify that the user is deleted by calling get on user (Exception thrown with 404 error message) → GET /api/v1/users/{{userId}}
-	_, _, err = client.User.GetUser(user.Id, nil)
+	_, _, err = client.User.GetUser(user.Id)
 	require.Error(t, err, "User should not exist, but does")
 }
 
 func Test_can_get_reset_password_link_for_user(t *testing.T) {
-	client := tests.NewClient()
+	client, _ := tests.NewClient()
 	// Create user with credentials → POST /api/v1/users?activate=true
 	p := &okta.PasswordCredential{
 		Value: "Abcd1234",
@@ -333,12 +333,12 @@ func Test_can_get_reset_password_link_for_user(t *testing.T) {
 	require.NoError(t, err, "Should not error when deleting")
 
 	// Verify that the user is deleted by calling get on user (Exception thrown with 404 error message) → GET /api/v1/users/{{userId}}
-	_, _, err = client.User.GetUser(user.Id, nil)
+	_, _, err = client.User.GetUser(user.Id)
 	require.Error(t, err, "User should not exist, but does")
 }
 
 func Test_can_expire_a_users_password_and_get_a_temp_one(t *testing.T) {
-	client := tests.NewClient()
+	client, _ := tests.NewClient()
 	// Create a user with credentials, activated by default → POST /api/v1/users?activate=true
 	p := &okta.PasswordCredential{
 		Value: "Abcd1234",
@@ -377,12 +377,12 @@ func Test_can_expire_a_users_password_and_get_a_temp_one(t *testing.T) {
 	require.NoError(t, err, "Should not error when deleting")
 
 	// Verify that the user is deleted by calling get on user (Exception thrown with 404 error message) → GET /api/v1/users/{{userId}}
-	_, _, err = client.User.GetUser(user.Id, nil)
+	_, _, err = client.User.GetUser(user.Id)
 	require.Error(t, err, "User should not exist, but does")
 }
 
 func Test_can_change_user_recovery_question(t *testing.T) {
-	client := tests.NewClient()
+	client, _ := tests.NewClient()
 	// Create a user with credentials, activated by default → POST /api/v1/users?activate=true
 	p := &okta.PasswordCredential{
 		Value: "Abcd1234",
@@ -416,7 +416,7 @@ func Test_can_change_user_recovery_question(t *testing.T) {
 		Password:         nucp,
 		RecoveryQuestion: nucrq,
 	}
-	tmpuc, _, err := client.User.ChangeRecoveryQuestion(user.Id, *nuc, nil)
+	tmpuc, _, err := client.User.ChangeRecoveryQuestion(user.Id, *nuc)
 	require.NoError(t, err, "Could not change recovery question")
 	assert.IsType(t, &okta.UserCredentials{}, tmpuc)
 
@@ -435,7 +435,7 @@ func Test_can_change_user_recovery_question(t *testing.T) {
 	require.NoError(t, err, "Could not change password with recovery question")
 
 	// Get the user and verify that 'passwordChanged' field has increased → GET /api/v1/users/{{userId}}
-	ubid, _, err := client.User.GetUser(user.Id, nil)
+	ubid, _, err := client.User.GetUser(user.Id)
 	require.NoError(t, err, "Getting a user by login should not error")
 	assert.Equal(t, user.Id, ubid.Id, "Could not find user by Login")
 	assert.True(t, ubid.PasswordChanged.After(*user.PasswordChanged), "Appears that password change did not happen")
@@ -449,12 +449,12 @@ func Test_can_change_user_recovery_question(t *testing.T) {
 	require.NoError(t, err, "Should not error when deleting")
 
 	// Verify that the user is deleted by calling get on user (Exception thrown with 404 error message) → GET /api/v1/users/{{userId}}
-	_, _, err = client.User.GetUser(user.Id, nil)
+	_, _, err = client.User.GetUser(user.Id)
 	require.Error(t, err, "User should not exist, but does")
 }
 
 func Test_can_assign_a_user_to_a_role(t *testing.T) {
-	client := tests.NewClient()
+	client, _ := tests.NewClient()
 	// Create a user with credentials, activated by default → POST /api/v1/users?activate=true
 	p := &okta.PasswordCredential{
 		Value: "Abcd1234",
@@ -480,7 +480,7 @@ func Test_can_assign_a_user_to_a_role(t *testing.T) {
 	r := &okta.Role{
 		Type: "USER_ADMIN",
 	}
-	_, _, err = client.User.AddRoleToUser(user.Id, *r, nil)
+	r, _, err = client.User.AddRoleToUser(user.Id, *r)
 	require.NoError(t, err, "Should not have had an error when adding role to user")
 
 	// List roles for the user and verify added role → GET /api/v1/users/{{userId}}/roles
@@ -496,7 +496,7 @@ func Test_can_assign_a_user_to_a_role(t *testing.T) {
 	assert.True(t, found, "Could not verify USER_ADMIN was added to the user")
 
 	// Remove role for the user → DELETE /api/v1/users/{{userId}}//roles/{{roleId}}/
-	_, err = client.User.RemoveRoleFromUser(user.Id, roleId, nil)
+	_, err = client.User.RemoveRoleFromUser(user.Id, roleId)
 	require.NoError(t, err, "Should not have had an error when removing role to user")
 
 	// List roles for user and verify role was removed → GET /api/v1/users/{{userId}}/roles
@@ -520,13 +520,13 @@ func Test_can_assign_a_user_to_a_role(t *testing.T) {
 	require.NoError(t, err, "Should not error when deleting")
 
 	// Verify that the user is deleted by calling get on user (Exception thrown with 404 error message) → GET /api/v1/users/{{userId}}
-	_, resp, err := client.User.GetUser(user.Id, nil)
+	_, resp, err := client.User.GetUser(user.Id)
 	require.Error(t, err, "User should not exist, but does")
 	assert.Equal(t, http.StatusNotFound, resp.StatusCode, "Should not have been able to find user")
 }
 
 func Test_user_group_target_role(t *testing.T) {
-	client := tests.NewClient()
+	client, _ := tests.NewClient()
 	// Create a user with credentials, activated by default → POST /api/v1/users?activate=true
 	p := &okta.PasswordCredential{
 		Value: "Abcd1234",
@@ -555,18 +555,18 @@ func Test_user_group_target_role(t *testing.T) {
 	g := &okta.Group{
 		Profile: gp,
 	}
-	group, _, err := client.Group.CreateGroup(*g, nil)
+	group, _, err := client.Group.CreateGroup(*g)
 	require.NoError(t, err, "Creating an group should not error")
 
 	// Add 'USER_ADMIN' role to the user → POST /api/v1/users/{{userId}}/roles (Body → { type: 'USER_ADMIN'  })
 	r := &okta.Role{
 		Type: "USER_ADMIN",
 	}
-	r, _, err = client.User.AddRoleToUser(user.Id, *r, nil)
+	r, _, err = client.User.AddRoleToUser(user.Id, *r)
 	require.NoError(t, err, "Should not have had an error when adding role to user")
 
 	// Add Group Target to 'USER_ADMIN' role → PUT /api/v1/users/{{userId}}/roles/{{roleId}}/targets/groups/{{groupId}}
-	resp, err := client.User.AddGroupTargetToRole(user.Id, r.Id, group.Id, nil)
+	resp, err := client.User.AddGroupTargetToRole(user.Id, r.Id, group.Id)
 	require.NoError(t, err, "Should not have had an error when adding group target to role")
 
 	// List Group Targets for role → GET  /api/v1/users/{{userId}}/roles/{{roleId}}/targets/groups
@@ -586,9 +586,9 @@ func Test_user_group_target_role(t *testing.T) {
 	g = &okta.Group{
 		Profile: gp,
 	}
-	newgroup, _, err := client.Group.CreateGroup(*g, nil)
-	_, err = client.User.AddGroupTargetToRole(user.Id, r.Id, newgroup.Id, nil)
-	_, err = client.User.RemoveGroupTargetFromRole(user.Id, r.Id, group.Id, nil)
+	newgroup, _, err := client.Group.CreateGroup(*g)
+	_, err = client.User.AddGroupTargetToRole(user.Id, r.Id, newgroup.Id)
+	_, err = client.User.RemoveGroupTargetFromRole(user.Id, r.Id, group.Id)
 	require.NoError(t, err, "Should not have had an error when removing group target to role")
 
 	// Deactivate the user → POST /api/v1/users/{{userId}}/lifecycle/deactivate
@@ -600,11 +600,11 @@ func Test_user_group_target_role(t *testing.T) {
 	require.NoError(t, err, "Should not error when deleting")
 
 	// Verify that the user is deleted by calling get on user (Exception thrown with 404 error message) → GET /api/v1/users/{{userId}}
-	_, resp, err = client.User.GetUser(user.Id, nil)
+	_, resp, err = client.User.GetUser(user.Id)
 	require.Error(t, err, "User should not exist, but does")
 	assert.Equal(t, http.StatusNotFound, resp.StatusCode, "Should not have been able to find user")
 
 	// Delete the group → DELETE /api/v1/groups/{{groupId}}
-	client.Group.DeleteGroup(group.Id, nil)
-	client.Group.DeleteGroup(newgroup.Id, nil)
+	client.Group.DeleteGroup(group.Id)
+	client.Group.DeleteGroup(newgroup.Id)
 }

@@ -21,5 +21,16 @@ package okta
 import ()
 
 type SwaThreeFieldApplicationSettings struct {
-	App *SwaThreeFieldApplicationSettingsApplication `json:"app,omitempty"`
+	App                *SwaThreeFieldApplicationSettingsApplication `json:"app,omitempty"`
+	ImplicitAssignment *bool                                        `json:"implicitAssignment,omitempty"`
+	InlineHookId       string                                       `json:"inlineHookId,omitempty"`
+	Notifications      *ApplicationSettingsNotifications            `json:"notifications,omitempty"`
+}
+
+func NewSwaThreeFieldApplicationSettings() *SwaThreeFieldApplicationSettings {
+	return &SwaThreeFieldApplicationSettings{}
+}
+
+func (a *SwaThreeFieldApplicationSettings) IsApplicationInstance() bool {
+	return true
 }

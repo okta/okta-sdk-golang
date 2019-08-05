@@ -30,7 +30,7 @@ import (
 )
 
 func Test_can_get_a_group(t *testing.T) {
-	client := tests.NewClient()
+	client, _ := tests.NewClient()
 	// Create a new group → POST /api/v1/groups
 	gp := &okta.GroupProfile{
 		Name: "Get Test Group",
@@ -38,7 +38,7 @@ func Test_can_get_a_group(t *testing.T) {
 	g := &okta.Group{
 		Profile: gp,
 	}
-	group, _, err := client.Group.CreateGroup(*g, nil)
+	group, _, err := client.Group.CreateGroup(*g)
 	require.NoError(t, err, "Should not error when creating a group")
 	assert.IsType(t, &okta.Group{}, group)
 
@@ -48,7 +48,7 @@ func Test_can_get_a_group(t *testing.T) {
 	assert.Equal(t, group.Id, foundGroup.Id, "Group that was found was not correct")
 
 	// Delete the group → DELETE /api/v1/groups/{{groupId}}
-	_, err = client.Group.DeleteGroup(group.Id, nil)
+	_, err = client.Group.DeleteGroup(group.Id)
 	require.NoError(t, err, "Should not error when deleting a group")
 
 	// Verify that the group is deleted by calling get on group (Exception thrown with 404 error message) → GET /api/v1/groups/{{groupId}}
@@ -59,7 +59,7 @@ func Test_can_get_a_group(t *testing.T) {
 }
 
 func Test_can_list_groups(t *testing.T) {
-	client := tests.NewClient()
+	client, _ := tests.NewClient()
 	// Create a new group → POST /api/v1/groups
 	gp := &okta.GroupProfile{
 		Name: "List Test Group",
@@ -67,7 +67,7 @@ func Test_can_list_groups(t *testing.T) {
 	g := &okta.Group{
 		Profile: gp,
 	}
-	group, _, err := client.Group.CreateGroup(*g, nil)
+	group, _, err := client.Group.CreateGroup(*g)
 	require.NoError(t, err, "Should not error when creating a group")
 	assert.IsType(t, &okta.Group{}, group)
 
@@ -83,12 +83,12 @@ func Test_can_list_groups(t *testing.T) {
 	assert.True(t, found, "Could not find group from list")
 
 	// Delete the group → DELETE /api/v1/groups/{{groupId}}
-	_, err = client.Group.DeleteGroup(group.Id, nil)
+	_, err = client.Group.DeleteGroup(group.Id)
 	require.NoError(t, err, "Should not error when deleting a group")
 }
 
 func Test_can_search_for_a_group(t *testing.T) {
-	client := tests.NewClient()
+	client, _ := tests.NewClient()
 	// Create a new group → POST /api/v1/groups
 	gp := &okta.GroupProfile{
 		Name: "Search Test Group",
@@ -96,7 +96,7 @@ func Test_can_search_for_a_group(t *testing.T) {
 	g := &okta.Group{
 		Profile: gp,
 	}
-	group, _, err := client.Group.CreateGroup(*g, nil)
+	group, _, err := client.Group.CreateGroup(*g)
 	require.NoError(t, err, "Should not error when creating a group")
 	assert.IsType(t, &okta.Group{}, group)
 
@@ -113,12 +113,12 @@ func Test_can_search_for_a_group(t *testing.T) {
 	assert.True(t, found, "Could not find group from list")
 
 	// Delete the group → DELETE /api/v1/groups/{{groupId}}
-	_, err = client.Group.DeleteGroup(group.Id, nil)
+	_, err = client.Group.DeleteGroup(group.Id)
 	require.NoError(t, err, "Should not error when deleting a group")
 }
 
 func Test_can_update_a_group(t *testing.T) {
-	client := tests.NewClient()
+	client, _ := tests.NewClient()
 	// Create a new group → POST /api/v1/groups
 	gp := &okta.GroupProfile{
 		Name: "Update Test Group",
@@ -126,7 +126,7 @@ func Test_can_update_a_group(t *testing.T) {
 	g := &okta.Group{
 		Profile: gp,
 	}
-	group, _, err := client.Group.CreateGroup(*g, nil)
+	group, _, err := client.Group.CreateGroup(*g)
 	require.NoError(t, err, "Should not error when creating a group")
 	assert.IsType(t, &okta.Group{}, group)
 
@@ -134,7 +134,7 @@ func Test_can_update_a_group(t *testing.T) {
 	ngp := &okta.GroupProfile{
 		Name: "Updated Name",
 	}
-	client.Group.UpdateGroup(group.Id, okta.Group{Profile: ngp}, nil)
+	client.Group.UpdateGroup(group.Id, okta.Group{Profile: ngp})
 
 	// Verify that group profile is updated by calling get on the group and verifying the profile → GET /api/v1/groups/{{groupId}}
 	updatedGroup, _, err := client.Group.GetGroup(group.Id, nil)
@@ -142,12 +142,12 @@ func Test_can_update_a_group(t *testing.T) {
 	assert.Equal(t, "Updated Name", updatedGroup.Profile.Name, "The group was not updated")
 
 	// Delete the group → DELETE /api/v1/groups/{{groupId}}
-	_, err = client.Group.DeleteGroup(group.Id, nil)
+	_, err = client.Group.DeleteGroup(group.Id)
 	require.NoError(t, err, "Should not error when deleting a group")
 }
 
 func Test_group_user_operations(t *testing.T) {
-	client := tests.NewClient()
+	client, _ := tests.NewClient()
 	// Create a user with credentials → POST /api/v1/users?activate=false
 	p := &okta.PasswordCredential{
 		Value: "Abcd1234",
@@ -178,12 +178,12 @@ func Test_group_user_operations(t *testing.T) {
 		Profile: gp,
 	}
 
-	group, _, err := client.Group.CreateGroup(*g, nil)
+	group, _, err := client.Group.CreateGroup(*g)
 	require.NoError(t, err, "Should not error when creating a group")
 	assert.IsType(t, &okta.Group{}, group)
 
 	// Add user to the group  → POST /api/v1/groups/{{groupId}}/users/{{userId}}
-	_, err = client.Group.AddUserToGroup(group.Id, user.Id, nil)
+	_, err = client.Group.AddUserToGroup(group.Id, user.Id)
 	require.NoError(t, err, "Should not error when adding user to group")
 
 	// Validate user present in group → GET /api/v1/groups/{{groupId}}/users
@@ -205,12 +205,12 @@ func Test_group_user_operations(t *testing.T) {
 	require.NoError(t, err, "Should not error when deleting")
 
 	// Delete the group →  DELETE /api/v1/groups/{{groupId}}
-	_, err = client.Group.DeleteGroup(group.Id, nil)
+	_, err = client.Group.DeleteGroup(group.Id)
 	require.NoError(t, err, "Should not error when deleting a group")
 }
 
 func Test_group_rule_operations(t *testing.T) {
-	client := tests.NewClient()
+	client, _ := tests.NewClient()
 	// Create a user with credentials, activated by default → POST /api/v1/users?activate=true
 	p := &okta.PasswordCredential{
 		Value: "Abcd1234",
@@ -240,7 +240,7 @@ func Test_group_rule_operations(t *testing.T) {
 	g := &okta.Group{
 		Profile: gp,
 	}
-	group, _, err := client.Group.CreateGroup(*g, nil)
+	group, _, err := client.Group.CreateGroup(*g)
 	require.NoError(t, err, "Should not error when creating a group")
 	assert.IsType(t, &okta.Group{}, group)
 
@@ -266,12 +266,12 @@ func Test_group_rule_operations(t *testing.T) {
 		Type:       "group_rule",
 		Name:       "Test group rule",
 	}
-	groupRule, _, err := client.Group.CreateRule(*gr, nil)
+	groupRule, _, err := client.Group.CreateRule(*gr)
 	require.NoError(t, err, "Should not error when creating a group Rule")
 	assert.IsType(t, &okta.GroupRule{}, groupRule)
 
 	// Activate the above rule and verify that user is added to the group → POST /api/v1/groups/rules/{{ruleId}}/lifecycle/activate
-	_, err = client.Group.ActivateRule(groupRule.Id, nil)
+	_, err = client.Group.ActivateRule(groupRule.Id)
 	require.NoError(t, err, "Should not error when activating rule")
 
 	time.Sleep(4 * time.Second)
@@ -296,7 +296,7 @@ func Test_group_rule_operations(t *testing.T) {
 	assert.True(t, found, "Group rule execution did not happen")
 
 	// Deactivate the rule  → POST /api/v1/groups/rules/{{ruleId}}/lifecycle/deactivate
-	_, err = client.Group.DeactivateRule(groupRule.Id, nil)
+	_, err = client.Group.DeactivateRule(groupRule.Id)
 	require.NoError(t, err, "Error should not happen when deactivating rule")
 
 	// Update the rule (Rule can only be updated when it's deactivated) → POST /api/v1/groups/rules/{{ruleId}}
@@ -319,11 +319,11 @@ func Test_group_rule_operations(t *testing.T) {
 		Type:       "group_rule",
 		Name:       "Test group rule Updated",
 	}
-	newGroupRule, _, err := client.Group.UpdateRule(groupRule.Id, *gr, nil)
+	newGroupRule, _, err := client.Group.UpdateRule(groupRule.Id, *gr)
 	require.NoError(t, err, "Should not error when updating rule")
 
 	// Activate the updated rule and verify that the user is removed from the group →  POST /api/v1/groups/rules/{{ruleId}}/lifecycle/activate
-	_, err = client.Group.ActivateRule(newGroupRule.Id, nil)
+	_, err = client.Group.ActivateRule(newGroupRule.Id)
 	require.NoError(t, err, "Should not error when activating the group rule")
 	time.Sleep(2 * time.Second)
 	users, _, err = client.Group.ListGroupUsers(group.Id, nil)
@@ -336,7 +336,7 @@ func Test_group_rule_operations(t *testing.T) {
 	assert.False(t, found, "Group rule execution did not happen to remove user")
 
 	// Deactivate the user, group and group rule → POST /api/v1/users/{{userId}}/lifecycle/deactivate
-	_, err = client.Group.DeactivateRule(newGroupRule.Id, nil)
+	_, err = client.Group.DeactivateRule(newGroupRule.Id)
 	require.NoError(t, err, "should not error when deactivating rule")
 
 	_, err = client.User.DeactivateUser(user.Id, nil)
@@ -347,7 +347,7 @@ func Test_group_rule_operations(t *testing.T) {
 	require.NoError(t, err, "Should not error when deleting user")
 
 	// Delete the group → DELETE /api/v1/groups/{{groupId}}
-	_, err = client.Group.DeleteGroup(group.Id, nil)
+	_, err = client.Group.DeleteGroup(group.Id)
 	require.NoError(t, err, "Should not error when deleting Group")
 
 	// Delete the group rule → DELETE /api/v1/groups/rules/{{ruleId}}

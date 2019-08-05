@@ -21,5 +21,16 @@ package okta
 import ()
 
 type WsFederationApplicationSettings struct {
-	App *WsFederationApplicationSettingsApplication `json:"app,omitempty"`
+	App                *WsFederationApplicationSettingsApplication `json:"app,omitempty"`
+	ImplicitAssignment *bool                                       `json:"implicitAssignment,omitempty"`
+	InlineHookId       string                                      `json:"inlineHookId,omitempty"`
+	Notifications      *ApplicationSettingsNotifications           `json:"notifications,omitempty"`
+}
+
+func NewWsFederationApplicationSettings() *WsFederationApplicationSettings {
+	return &WsFederationApplicationSettings{}
+}
+
+func (a *WsFederationApplicationSettings) IsApplicationInstance() bool {
+	return true
 }

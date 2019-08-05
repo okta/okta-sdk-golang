@@ -7,16 +7,49 @@ type UserProfile map[string]interface{}
 {{else}}
 {{> model.imports this}}
 
-{{#if (or (gt model.methods.length 0) (gt model.crud.length 0))}}
+{{#if (eq model.modelName "Application")}}
+type App interface {
+	IsApplicationInstance() bool
+}
+
+{{/if}}
+
+{{#if (eq model.modelName "Factor")}}
+type UserFactor interface {
+	IsUserFactorInstance() bool
+}
+
+{{/if}}
+{{#if (or (or (gt model.methods.length 0) (gt model.crud.length 0)) (eq model.modelName "LogEvent"))}}
 type {{model.modelName}}Resource resource
 
 {{/if}}
+{{#if (eq model.modelName "ApplicationSettingsApplication")}}
+type {{model.modelName}} map[string]interface{}
+{{else}}
 type {{model.modelName}} struct {
-	{{#each model.properties as |property|}}
-	{{structProp this.propertyName}} {{getType this "*"}} `json:"{{this.propertyName}},omitempty"`
-	{{/each}}
+	{{{buildModelProperties model}}}
+}
+{{/if}}
+{{#if (or ( eq model.tags.[0] "Application" ) ( eq model.tags.[0] "UserFactor") ) }}
+func New{{model.modelName}}() *{{model.modelName}} {
+	return &{{model.modelName}}{
+		{{#each model.properties as |prop|}}
+		{{#if (ne prop.default undefined) }}
+		{{structProp prop.propertyName}}: "{{prop.default}}",
+		{{/if}}
+		{{/each}}
+		{{#if (ne model.resolution undefined) }}
+		{{structProp model.resolution.fieldName}}: "{{model.resolution.fieldValue}}",
+		{{/if}}
+	}
 }
 
+func (a *{{model.modelName}}) Is{{model.tags.[0]}}Instance() bool {
+	return true
+}
+
+{{/if}}
 {{#each operations as |operation|}}
 {{> model.defaultMethod  operation=operation modelName=../model.modelName}}
 {{/each}}

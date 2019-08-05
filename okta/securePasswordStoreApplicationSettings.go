@@ -21,5 +21,16 @@ package okta
 import ()
 
 type SecurePasswordStoreApplicationSettings struct {
-	App *SecurePasswordStoreApplicationSettingsApplication `json:"app,omitempty"`
+	App                *SecurePasswordStoreApplicationSettingsApplication `json:"app,omitempty"`
+	ImplicitAssignment *bool                                              `json:"implicitAssignment,omitempty"`
+	InlineHookId       string                                             `json:"inlineHookId,omitempty"`
+	Notifications      *ApplicationSettingsNotifications                  `json:"notifications,omitempty"`
+}
+
+func NewSecurePasswordStoreApplicationSettings() *SecurePasswordStoreApplicationSettings {
+	return &SecurePasswordStoreApplicationSettings{}
+}
+
+func (a *SecurePasswordStoreApplicationSettings) IsApplicationInstance() bool {
+	return true
 }

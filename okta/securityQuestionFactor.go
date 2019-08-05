@@ -21,5 +21,29 @@ package okta
 import ()
 
 type SecurityQuestionFactor struct {
-	Profile *SecurityQuestionFactorProfile `json:"profile,omitempty"`
+	Embedded                  interface{}                    `json:"_embedded,omitempty"`
+	Links                     interface{}                    `json:"_links,omitempty"`
+	Device                    string                         `json:"device,omitempty"`
+	DeviceType                string                         `json:"deviceType,omitempty"`
+	FactorType                string                         `json:"factorType,omitempty"`
+	Id                        string                         `json:"id,omitempty"`
+	MfaStateTokenId           string                         `json:"mfaStateTokenId,omitempty"`
+	Profile                   *SecurityQuestionFactorProfile `json:"profile,omitempty"`
+	Provider                  string                         `json:"provider,omitempty"`
+	RechallengeExistingFactor *bool                          `json:"rechallengeExistingFactor,omitempty"`
+	SessionId                 string                         `json:"sessionId,omitempty"`
+	Status                    string                         `json:"status,omitempty"`
+	TokenLifetimeSeconds      int64                          `json:"tokenLifetimeSeconds,omitempty"`
+	UserId                    string                         `json:"userId,omitempty"`
+	Verify                    *VerifyFactorRequest           `json:"verify,omitempty"`
+}
+
+func NewSecurityQuestionFactor() *SecurityQuestionFactor {
+	return &SecurityQuestionFactor{
+		FactorType: "question",
+	}
+}
+
+func (a *SecurityQuestionFactor) IsUserFactorInstance() bool {
+	return true
 }

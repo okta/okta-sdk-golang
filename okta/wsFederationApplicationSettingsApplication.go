@@ -31,6 +31,14 @@ type WsFederationApplicationSettingsApplication struct {
 	Realm                string `json:"realm,omitempty"`
 	SiteURL              string `json:"siteURL,omitempty"`
 	UsernameAttribute    string `json:"usernameAttribute,omitempty"`
-	WReplyOverride       bool   `json:"wReplyOverride,omitempty"`
+	WReplyOverride       *bool  `json:"wReplyOverride,omitempty"`
 	WReplyURL            string `json:"wReplyURL,omitempty"`
+}
+
+func NewWsFederationApplicationSettingsApplication() *WsFederationApplicationSettingsApplication {
+	return &WsFederationApplicationSettingsApplication{}
+}
+
+func (a *WsFederationApplicationSettingsApplication) IsApplicationInstance() bool {
+	return true
 }

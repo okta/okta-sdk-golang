@@ -24,3 +24,11 @@ type ApplicationCredentials struct {
 	Signing          *ApplicationCredentialsSigning          `json:"signing,omitempty"`
 	UserNameTemplate *ApplicationCredentialsUsernameTemplate `json:"userNameTemplate,omitempty"`
 }
+
+func NewApplicationCredentials() *ApplicationCredentials {
+	return &ApplicationCredentials{}
+}
+
+func (a *ApplicationCredentials) IsApplicationInstance() bool {
+	return true
+}

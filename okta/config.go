@@ -17,15 +17,12 @@
 package okta
 
 import (
-	"fmt"
-	"io/ioutil"
-	"os/user"
+	"net/http"
 
-	"github.com/go-yaml/yaml"
-	"github.com/kelseyhightower/envconfig"
+	"github.com/okta/okta-sdk-golang/okta/cache"
 )
 
-type Config struct {
+type config struct {
 	Okta struct {
 		Client struct {
 			Cache struct {
@@ -43,118 +40,97 @@ type Config struct {
 			OrgUrl            string `yaml:"orgUrl" envconfig:"OKTA_CLIENT_ORGURL"`
 			Token             string `yaml:"token" envconfig:"OKTA_CLIENT_TOKEN"`
 		} `yaml:"client"`
+		Testing struct {
+			DisableHttpsCheck bool `yaml:"disableHttpsCheck" envconfig:"OKTA_TESTING_DISABLE_HTTPS_CHECK"`
+		} `yaml:"testing"`
 	} `yaml:"okta"`
 	UserAgentExtra string
+	HttpClient     http.Client
+	CacheManager   cache.Cache
 }
 
-func NewConfig() *Config {
-	c := Config{}
+type ConfigSetter func(*config)
 
-	c.WithCache(true).
-		WithCacheTtl(300).
-		WithCacheTti(300).
-		WithConnectionTimeout(30).
-		WithUserAgentExtra("")
-
-	c = readConfigFromSystem(c)
-	c = readConfigFromApplication(c)
-	c = readConfigFromEnvironment(c)
-
-	return &c
-}
-
-func (c *Config) ReadConfigFromFile(location string) *Config {
-	yamlConfig, err := ioutil.ReadFile(location)
-
-	if err != nil {
-		return c
+func WithCache(cache bool) ConfigSetter {
+	return func(c *config) {
+		c.Okta.Client.Cache.Enabled = cache
 	}
+}
 
-	conf := Config{}
-	err = yaml.Unmarshal(yamlConfig, &conf)
-	if err != nil {
-		return c
+func WithCacheManager(cacheManager cache.Cache) ConfigSetter {
+	return func(c *config) {
+		c.CacheManager = cacheManager
 	}
-
-	return &conf
 }
 
-func (c *Config) WithCache(cache bool) *Config {
-	c.Okta.Client.Cache.Enabled = cache
-	return c
-}
-
-func (c *Config) WithCacheTtl(i int32) *Config {
-	c.Okta.Client.Cache.DefaultTtl = i
-	return c
-}
-
-func (c *Config) WithCacheTti(i int32) *Config {
-	c.Okta.Client.Cache.DefaultTti = i
-	return c
-}
-
-func (c *Config) WithConnectionTimeout(i int32) *Config {
-	c.Okta.Client.ConnectionTimeout = i
-	return c
-}
-
-func (c *Config) WithProxyPort(i int32) *Config {
-	c.Okta.Client.Proxy.Port = i
-	return c
-}
-
-func (c *Config) WithProxyHost(host string) *Config {
-	c.Okta.Client.Proxy.Host = host
-	return c
-}
-
-func (c *Config) WithProxyUsername(username string) *Config {
-	c.Okta.Client.Proxy.Username = username
-	return c
-}
-
-func (c *Config) WithProxyPassword(pass string) *Config {
-	c.Okta.Client.Proxy.Password = pass
-	return c
-}
-
-func (c *Config) WithOrgUrl(url string) *Config {
-	c.Okta.Client.OrgUrl = url
-	return c
-}
-
-func (c *Config) WithToken(token string) *Config {
-	c.Okta.Client.Token = token
-	return c
-}
-
-func (c *Config) WithUserAgentExtra(s string) *Config {
-	c.UserAgentExtra = s
-	return c
-}
-
-func readConfigFromSystem(c Config) Config {
-	currUser, err := user.Current()
-	if err != nil {
-		return c
+func WithCacheTtl(i int32) ConfigSetter {
+	return func(c *config) {
+		c.Okta.Client.Cache.DefaultTtl = i
 	}
-	if currUser.HomeDir == "" {
-		return c
-	}
-
-	return *c.ReadConfigFromFile(currUser.HomeDir + "/.okta/okta.yaml")
 }
 
-func readConfigFromApplication(c Config) Config {
-	return *c.ReadConfigFromFile(".okta.yaml")
+func WithCacheTti(i int32) ConfigSetter {
+	return func(c *config) {
+		c.Okta.Client.Cache.DefaultTti = i
+	}
 }
 
-func readConfigFromEnvironment(c Config) Config {
-	err := envconfig.Process("okta", &c)
-	if err != nil {
-		fmt.Println("error parsing")
-		return c
+func WithConnectionTimeout(i int32) ConfigSetter {
+	return func(c *config) {
+		c.Okta.Client.ConnectionTimeout = i
 	}
-	return c
+}
+
+func WithProxyPort(i int32) ConfigSetter {
+	return func(c *config) {
+		c.Okta.Client.Proxy.Port = i
+	}
+}
+
+func WithProxyHost(host string) ConfigSetter {
+	return func(c *config) {
+		c.Okta.Client.Proxy.Host = host
+	}
+}
+
+func WithProxyUsername(username string) ConfigSetter {
+	return func(c *config) {
+		c.Okta.Client.Proxy.Username = username
+	}
+}
+
+func WithProxyPassword(pass string) ConfigSetter {
+	return func(c *config) {
+		c.Okta.Client.Proxy.Password = pass
+	}
+}
+
+func WithOrgUrl(url string) ConfigSetter {
+	return func(c *config) {
+		c.Okta.Client.OrgUrl = url
+	}
+}
+
+func WithToken(token string) ConfigSetter {
+	return func(c *config) {
+		c.Okta.Client.Token = token
+	}
+}
+
+func WithUserAgentExtra(userAgent string) ConfigSetter {
+	return func(c *config) {
+		c.UserAgentExtra = userAgent
+	}
+}
+
+func WithHttpClient(httpClient http.Client) ConfigSetter {
+	return func(c *config) {
+		c.HttpClient = httpClient
+	}
+}
+
+func WithTestingDisableHttpsCheck(httpsCheck bool) ConfigSetter {
+	return func(c *config) {
+		c.Okta.Testing.DisableHttpsCheck = httpsCheck
+	}
 }

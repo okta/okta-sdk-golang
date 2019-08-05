@@ -22,3 +22,11 @@ import ()
 
 type OAuthGrantType struct {
 }
+
+func NewOAuthGrantType() *OAuthGrantType {
+	return &OAuthGrantType{}
+}
+
+func (a *OAuthGrantType) IsApplicationInstance() bool {
+	return true
+}

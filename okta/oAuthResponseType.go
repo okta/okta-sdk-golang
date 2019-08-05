@@ -22,3 +22,11 @@ import ()
 
 type OAuthResponseType struct {
 }
+
+func NewOAuthResponseType() *OAuthResponseType {
+	return &OAuthResponseType{}
+}
+
+func (a *OAuthResponseType) IsApplicationInstance() bool {
+	return true
+}
