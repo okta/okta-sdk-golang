@@ -6,9 +6,6 @@
 [![API Reference](https://img.shields.io/badge/docs-reference-lightgrey.svg)][sdkapiref]
 
 # Okta Golang management SDK
-
-> :warning: Beta alert! This library is in beta. See [release status](#release-status) for more information.
-
 * [Release status](#release-status)
 * [Need help?](#need-help)
 * [Getting started](#getting-started)
@@ -35,11 +32,10 @@ You can learn more on the [Okta + Golang](lang-landing) page in our documentatio
 
 This library uses semantic versioning and follows Okta's [library version policy](https://developer.okta.com/code/library-versions/).
 
-:warning: Beta alert! This library is in beta. Breaking changes may be introduced at minor versions in the 0.x range. Please lock your dependency to a specific version until this library reaches 1.x.
-
 | Version | Status                    |
 | ------- | ------------------------- |
-| 0.x  |  Beta Release               |
+| 0.x     |  ⚠️ Beta Release (Retired)|
+| 1.x     |  ✔️ Release               |
 
 The latest release can always be found on the [releases page][github-releases].
 
