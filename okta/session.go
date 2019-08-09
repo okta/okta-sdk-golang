@@ -26,17 +26,17 @@ import (
 type SessionResource resource
 
 type Session struct {
-	Links                    interface{}              `json:"_links,omitempty"`
-	Amr                      []string                 `json:"amr,omitempty"`
-	CreatedAt                *time.Time               `json:"createdAt,omitempty"`
-	ExpiresAt                *time.Time               `json:"expiresAt,omitempty"`
-	Id                       string                   `json:"id,omitempty"`
-	Idp                      *SessionIdentityProvider `json:"idp,omitempty"`
-	LastFactorVerification   *time.Time               `json:"lastFactorVerification,omitempty"`
-	LastPasswordVerification *time.Time               `json:"lastPasswordVerification,omitempty"`
-	Login                    string                   `json:"login,omitempty"`
-	Status                   string                   `json:"status,omitempty"`
-	UserId                   string                   `json:"userId,omitempty"`
+	Links                    interface{}                    `json:"_links,omitempty"`
+	Amr                      []*SessionAuthenticationMethod `json:"amr,omitempty"`
+	CreatedAt                *time.Time                     `json:"createdAt,omitempty"`
+	ExpiresAt                *time.Time                     `json:"expiresAt,omitempty"`
+	Id                       string                         `json:"id,omitempty"`
+	Idp                      *SessionIdentityProvider       `json:"idp,omitempty"`
+	LastFactorVerification   *time.Time                     `json:"lastFactorVerification,omitempty"`
+	LastPasswordVerification *time.Time                     `json:"lastPasswordVerification,omitempty"`
+	Login                    string                         `json:"login,omitempty"`
+	Status                   string                         `json:"status,omitempty"`
+	UserId                   string                         `json:"userId,omitempty"`
 }
 
 func (m *SessionResource) GetSession(sessionId string) (*Session, *Response, error) {

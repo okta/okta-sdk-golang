@@ -31,7 +31,11 @@ function getType(obj, prefix="") {
     case 'hash' :
       return String.raw`interface{}`;
     case 'array' :
-      return String.raw`[]string`;
+        if(obj.model == undefined || obj.model === "string") {
+          return String.raw`[]string`;
+        } else {
+          return String.raw`[]` + prefix + obj.model;
+        }
     case 'enum' :
     case '':
     case 'null' :
