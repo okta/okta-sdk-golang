@@ -70,7 +70,7 @@ func Test_exercise_factor_lifecycle(t *testing.T) {
 		assert.Empty(t, factors, "Factors list should be empty")
 
 		factorProfile := okta.NewSmsFactorProfile()
-		factorProfile.PhoneNumber = "15055550006"
+		factorProfile.PhoneNumber = "16284001133"
 
 		factor := okta.NewSmsFactor()
 		factor.Profile = factorProfile

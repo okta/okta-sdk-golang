@@ -39,7 +39,7 @@ type LogEvent struct {
 	Request               *LogRequest               `json:"request,omitempty"`
 	SecurityContext       *LogSecurityContext       `json:"securityContext,omitempty"`
 	Severity              string                    `json:"severity,omitempty"`
-	Target                []string                  `json:"target,omitempty"`
+	Target                []*LogTarget              `json:"target,omitempty"`
 	Transaction           *LogTransaction           `json:"transaction,omitempty"`
 	Uuid                  string                    `json:"uuid,omitempty"`
 	Version               string                    `json:"version,omitempty"`

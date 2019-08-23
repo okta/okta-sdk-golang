@@ -21,5 +21,5 @@ package okta
 import ()
 
 type LogRequest struct {
-	IpChain []string `json:"ipChain,omitempty"`
+	IpChain []*LogIpAddress `json:"ipChain,omitempty"`
 }

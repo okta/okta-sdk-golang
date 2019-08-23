@@ -21,15 +21,16 @@ package okta
 import ()
 
 type OpenIdConnectApplicationSettingsClient struct {
-	ApplicationType string   `json:"application_type,omitempty"`
-	ClientUri       string   `json:"client_uri,omitempty"`
-	ConsentMethod   string   `json:"consent_method,omitempty"`
-	GrantTypes      []string `json:"grant_types,omitempty"`
-	LogoUri         string   `json:"logo_uri,omitempty"`
-	PolicyUri       string   `json:"policy_uri,omitempty"`
-	RedirectUris    []string `json:"redirect_uris,omitempty"`
-	ResponseTypes   []string `json:"response_types,omitempty"`
-	TosUri          string   `json:"tos_uri,omitempty"`
+	ApplicationType        string               `json:"application_type,omitempty"`
+	ClientUri              string               `json:"client_uri,omitempty"`
+	ConsentMethod          string               `json:"consent_method,omitempty"`
+	GrantTypes             []*OAuthGrantType    `json:"grant_types,omitempty"`
+	LogoUri                string               `json:"logo_uri,omitempty"`
+	PolicyUri              string               `json:"policy_uri,omitempty"`
+	PostLogoutRedirectUris []string             `json:"post_logout_redirect_uris,omitempty"`
+	RedirectUris           []string             `json:"redirect_uris,omitempty"`
+	ResponseTypes          []*OAuthResponseType `json:"response_types,omitempty"`
+	TosUri                 string               `json:"tos_uri,omitempty"`
 }
 
 func NewOpenIdConnectApplicationSettingsClient() *OpenIdConnectApplicationSettingsClient {
