@@ -18,12 +18,17 @@ package okta
 
 import (
 	"net/http"
+	"time"
 
 	"github.com/okta/okta-sdk-golang/okta/cache"
 )
 
 type config struct {
-	Okta struct {
+	BackoffEnabled bool          `yaml:"withBackoff" envconfig:"OKTA_BACK_OFF_ENABLED"`
+	MaxRetries     int32         `yaml:"maxRetries" envconfig:"OKTA_MAX_RETRIES"`
+	MinWait        time.Duration `yaml:"minWait"`
+	MaxWait        time.Duration `yaml:"maxWait"`
+	Okta           struct {
 		Client struct {
 			Cache struct {
 				Enabled    bool  `yaml:"enabled" envconfig:"OKTA_CLIENT_CACHE_ENABLED"`
@@ -132,5 +137,29 @@ func WithHttpClient(httpClient http.Client) ConfigSetter {
 func WithTestingDisableHttpsCheck(httpsCheck bool) ConfigSetter {
 	return func(c *config) {
 		c.Okta.Testing.DisableHttpsCheck = httpsCheck
+	}
+}
+
+func WithBackoff(backoff bool) ConfigSetter {
+	return func(c *config) {
+		c.BackoffEnabled = backoff
+	}
+}
+
+func WithMinWait(wait time.Duration) ConfigSetter {
+	return func(c *config) {
+		c.MinWait = wait
+	}
+}
+
+func WithMaxWait(wait time.Duration) ConfigSetter {
+	return func(c *config) {
+		c.MaxWait = wait
+	}
+}
+
+func WithRetries(retries int32) ConfigSetter {
+	return func(c *config) {
+		c.MaxRetries = retries
 	}
 }
