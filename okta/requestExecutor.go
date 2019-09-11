@@ -19,11 +19,13 @@ package okta
 import (
 	"bytes"
 	"encoding/json"
+	"errors"
 	"io"
 	"io/ioutil"
 	"net/http"
 	"net/url"
 	"reflect"
+	"strconv"
 	"time"
 
 	"github.com/okta/okta-sdk-golang/okta/cache"
@@ -82,6 +84,8 @@ func (re *RequestExecutor) NewRequest(method string, url string, body interface{
 }
 
 func (re *RequestExecutor) Do(req *http.Request, v interface{}) (*Response, error) {
+	retryCount := int32(0)
+	requestStart := time.Now().Unix()
 	cacheKey := cache.CreateCacheKey(req)
 	if req.Method != http.MethodGet {
 		re.cache.Delete(cacheKey)
@@ -89,31 +93,77 @@ func (re *RequestExecutor) Do(req *http.Request, v interface{}) (*Response, erro
 	inCache := re.cache.Has(cacheKey)
 
 	if !inCache {
-		resp, err := re.httpClient.Do(req)
-		if err != nil {
-			return nil, err
+
+		for {
+			iterationStartTime := time.Now().Unix()
+			if (iterationStartTime - requestStart) >= int64(re.config.Okta.Client.RequestTimeout) {
+				return nil, errors.New("reached the max request time")
+			}
+
+			resp, err := re.httpDo(req)
+
+			if err != nil {
+				return nil, err
+			}
+
+			if resp.StatusCode >= 200 && resp.StatusCode <= 299 {
+
+				if re.config.Okta.Client.RateLimit.MaxRetries > 0 {
+
+				}
+
+				respBody, err := ioutil.ReadAll(resp.Body)
+				if err != nil {
+					return nil, err
+				}
+
+				origResp := ioutil.NopCloser(bytes.NewBuffer(respBody))
+				resp.Body = origResp
+
+				if req.Method == http.MethodGet && reflect.TypeOf(v).Kind() != reflect.Slice && (resp.StatusCode >= 200 && resp.StatusCode <= 299) {
+					re.cache.Set(cacheKey, resp)
+				}
+
+				return buildResponse(resp, &v)
+			}
+
+			if retryCount > re.config.Okta.Client.RateLimit.MaxRetries {
+				return nil, errors.New("reached the max number of 429 retries")
+			}
+
+			retryCount++
+
+			err = re.pauseBeforeRetry(retryCount, resp)
+			if err != nil {
+				return nil, err
+			}
 		}
-		defer resp.Body.Close()
-
-		respBody, err := ioutil.ReadAll(resp.Body)
-		if err != nil {
-			return nil, err
-		}
-
-		origResp := ioutil.NopCloser(bytes.NewBuffer(respBody))
-		resp.Body = origResp
-
-		if req.Method == http.MethodGet && reflect.TypeOf(v).Kind() != reflect.Slice {
-			re.cache.Set(cacheKey, resp)
-		}
-
-		return buildResponse(resp, &v)
 
 	}
 
 	resp := re.cache.Get(cacheKey)
 	return buildResponse(resp, &v)
 
+}
+
+func (re *RequestExecutor) httpDo(request *http.Request) (*http.Response, error) {
+	resp, err := re.httpClient.Do(request)
+	return resp, err
+}
+
+func (re *RequestExecutor) pauseBeforeRetry(retryCount int32, response *http.Response) error {
+	if response.StatusCode == http.StatusTooManyRequests {
+		resetLimit, _ := strconv.Atoi(response.Header.Get("X-Rate-Limit-Reset"))
+		requestDate, _ := time.Parse("Mon, 02 Jan 2006 15:04:05 Z", response.Header.Get("Date"))
+		requestDateUnix := requestDate.Unix()
+
+		backoffSeconds := int64(resetLimit) - requestDateUnix + 1
+		time.Sleep(time.Duration(backoffSeconds) * time.Second)
+
+		return nil
+	}
+
+	return nil
 }
 
 type Response struct {

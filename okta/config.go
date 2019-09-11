@@ -36,9 +36,13 @@ type config struct {
 				Username string `yaml:"username" envconfig:"OKTA_CLIENT_PROXY_USERNAME"`
 				Password string `yaml:"password" envconfig:"OKTA_CLIENT_PROXY_PASSWORD"`
 			} `yaml:"proxy"`
-			ConnectionTimeout int32  `yaml:"connectionTimeout" envconfig:"OKTA_CLIENT_CONNECTION_TIMEOUT"`
-			OrgUrl            string `yaml:"orgUrl" envconfig:"OKTA_CLIENT_ORGURL"`
-			Token             string `yaml:"token" envconfig:"OKTA_CLIENT_TOKEN"`
+			ConnectionTimeout int32 `yaml:"connectionTimeout" envconfig:"OKTA_CLIENT_CONNECTION_TIMEOUT"`
+			RequestTimeout    int32 `yaml:"requestTimeout" envconfig:"OKTA_CLIENT_REQUEST_TIMEOUT"`
+			RateLimit         struct {
+				MaxRetries int32 `yaml:"maxRetries" envconfig:"OKTA_CLIENT_RATE_LIMIT_MAX_RETRIES"`
+			} `yaml:"rateLimit"`
+			OrgUrl string `yaml:"orgUrl" envconfig:"OKTA_CLIENT_ORGURL"`
+			Token  string `yaml:"token" envconfig:"OKTA_CLIENT_TOKEN"`
 		} `yaml:"client"`
 		Testing struct {
 			DisableHttpsCheck bool `yaml:"disableHttpsCheck" envconfig:"OKTA_TESTING_DISABLE_HTTPS_CHECK"`
@@ -132,5 +136,17 @@ func WithHttpClient(httpClient http.Client) ConfigSetter {
 func WithTestingDisableHttpsCheck(httpsCheck bool) ConfigSetter {
 	return func(c *config) {
 		c.Okta.Testing.DisableHttpsCheck = httpsCheck
+	}
+}
+
+func WithRequestTimeout(requestTimeout int32) ConfigSetter {
+	return func(c *config) {
+		c.Okta.Client.RequestTimeout = requestTimeout
+	}
+}
+
+func WithRateLimitMaxRetries(maxRetries int32) ConfigSetter {
+	return func(c *config) {
+		c.Okta.Client.RateLimit.MaxRetries = maxRetries
 	}
 }
