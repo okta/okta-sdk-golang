@@ -46,7 +46,9 @@ func Test_429_Will_Automatically_Retry(t *testing.T) {
 		),
 	)
 
-	_, resp, _ := client.User.ListUsers(nil)
+	_, resp, err := client.User.ListUsers(nil)
+	fmt.Printf("%+v\n", err)
+	require.Nil(t, err, "Error should have been nil")
 	require.NotNil(t, resp, "Response was nil")
 
 	httpmock.GetTotalCallCount()
@@ -58,7 +60,7 @@ func Test_Will_Stop_Retrying_Based_On_Max_Retry_Configuration(t *testing.T) {
 	httpmock.Activate()
 	defer httpmock.DeactivateAndReset()
 
-	client, _ := tests.NewClient(okta.WithRateLimitMaxRetries(1))
+	client, _ := tests.NewClient(okta.WithRequestTimeout(0), okta.WithRateLimitMaxRetries(1))
 
 	httpmock.RegisterResponder("GET", "/api/v1/users",
 		tests.MockResponse(
@@ -106,7 +108,7 @@ func Mock429Response() *http.Response {
 	zulu := time.Now().In(loc)
 	header := http.Header{}
 	header.Add("X-Okta-Now", strconv.FormatInt(zulu.Unix(), 10))
-	header.Add("X-Rate-Limit-Reset", strconv.FormatInt(time.Now().Unix()+5, 10))
+	header.Add("X-Rate-Limit-Reset", strconv.FormatInt(time.Now().Unix()+1, 10))
 	header.Add("X-Okta-Request-id", "a-request-id")
 	header.Add("Date", zulu.Format("Mon, 02 Jan 2006 15:04:05 Z"))
 

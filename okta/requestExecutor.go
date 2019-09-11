@@ -84,8 +84,7 @@ func (re *RequestExecutor) NewRequest(method string, url string, body interface{
 }
 
 func (re *RequestExecutor) Do(req *http.Request, v interface{}) (*Response, error) {
-	retryCount := int32(0)
-	requestStart := time.Now().Unix()
+	requestStarted := time.Now().Unix()
 	cacheKey := cache.CreateCacheKey(req)
 	if req.Method != http.MethodGet {
 		re.cache.Delete(cacheKey)
@@ -94,51 +93,22 @@ func (re *RequestExecutor) Do(req *http.Request, v interface{}) (*Response, erro
 
 	if !inCache {
 
-		for {
-			iterationStartTime := time.Now().Unix()
-			if (iterationStartTime - requestStart) >= int64(re.config.Okta.Client.RequestTimeout) {
-				return nil, errors.New("reached the max request time")
-			}
+		resp, err := re.doWithRetries(req, 0, requestStarted)
 
-			resp, err := re.httpDo(req)
-
-			if err != nil {
-				return nil, err
-			}
-
-			if resp.StatusCode >= 200 && resp.StatusCode <= 299 {
-
-				if re.config.Okta.Client.RateLimit.MaxRetries > 0 {
-
-				}
-
-				respBody, err := ioutil.ReadAll(resp.Body)
-				if err != nil {
-					return nil, err
-				}
-
-				origResp := ioutil.NopCloser(bytes.NewBuffer(respBody))
-				resp.Body = origResp
-
-				if req.Method == http.MethodGet && reflect.TypeOf(v).Kind() != reflect.Slice && (resp.StatusCode >= 200 && resp.StatusCode <= 299) {
-					re.cache.Set(cacheKey, resp)
-				}
-
-				return buildResponse(resp, &v)
-			}
-
-			if retryCount > re.config.Okta.Client.RateLimit.MaxRetries {
-				return nil, errors.New("reached the max number of 429 retries")
-			}
-
-			retryCount++
-
-			err = re.pauseBeforeRetry(retryCount, resp)
-			if err != nil {
-				return nil, err
-			}
+		if err != nil {
+			return nil, err
 		}
-
+		defer resp.Body.Close()
+		respBody, err := ioutil.ReadAll(resp.Body)
+		if err != nil {
+			return nil, err
+		}
+		origResp := ioutil.NopCloser(bytes.NewBuffer(respBody))
+		resp.Body = origResp
+		if resp.StatusCode >= 200 && resp.StatusCode <= 299 && req.Method == http.MethodGet && reflect.TypeOf(v).Kind() != reflect.Slice {
+			re.cache.Set(cacheKey, resp)
+		}
+		return buildResponse(resp, &v)
 	}
 
 	resp := re.cache.Get(cacheKey)
@@ -146,12 +116,50 @@ func (re *RequestExecutor) Do(req *http.Request, v interface{}) (*Response, erro
 
 }
 
-func (re *RequestExecutor) httpDo(request *http.Request) (*http.Response, error) {
-	resp, err := re.httpClient.Do(request)
+func (re *RequestExecutor) doWithRetries(req *http.Request, retryCount int32, requestStarted int64) (*http.Response, error) {
+	iterationStart := time.Now().Unix()
+	resp, err := re.httpClient.Do(req)
+	maxRetries := re.config.Okta.Client.RateLimit.MaxRetries
+
+	if (iterationStart - requestStarted) >= int64(re.config.Okta.Client.RequestTimeout) {
+		return nil, errors.New("reached the max request time")
+	}
+	if (err != nil || tooManyRequests(resp)) && retryCount < maxRetries {
+		if resp != nil {
+			err := tryDrainBody(resp.Body)
+			if err != nil {
+				return nil, err
+			}
+		}
+
+		if tooManyRequests(resp) {
+			err := backoffPause(retryCount, resp)
+			if err != nil {
+				return nil, err
+			}
+		}
+		retryCount++
+
+		resp, err = re.doWithRetries(req, retryCount, requestStarted)
+	}
+
 	return resp, err
 }
 
-func (re *RequestExecutor) pauseBeforeRetry(retryCount int32, response *http.Response) error {
+func tooManyRequests(resp *http.Response) bool {
+	return resp != nil && resp.StatusCode == http.StatusTooManyRequests
+}
+
+func tryDrainBody(body io.ReadCloser) error {
+	defer body.Close()
+	_, err := io.Copy(ioutil.Discard, io.LimitReader(body, 4096))
+	if err != nil {
+		return err
+	}
+	return nil
+}
+
+func backoffPause(retryCount int32, response *http.Response) error {
 	if response.StatusCode == http.StatusTooManyRequests {
 		resetLimit, _ := strconv.Atoi(response.Header.Get("X-Rate-Limit-Reset"))
 		requestDate, _ := time.Parse("Mon, 02 Jan 2006 15:04:05 Z", response.Header.Get("Date"))
