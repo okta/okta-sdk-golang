@@ -20,6 +20,7 @@ import (
 	"bytes"
 	"encoding/json"
 	"errors"
+	"fmt"
 	"io"
 	"io/ioutil"
 	"net/http"
@@ -93,7 +94,7 @@ func (re *RequestExecutor) Do(req *http.Request, v interface{}) (*Response, erro
 
 	if !inCache {
 
-		resp, err := re.doWithRetries(req, 0, requestStarted)
+		resp, err := re.doWithRetries(req, 0, requestStarted, nil)
 
 		if err != nil {
 			return nil, err
@@ -116,7 +117,7 @@ func (re *RequestExecutor) Do(req *http.Request, v interface{}) (*Response, erro
 
 }
 
-func (re *RequestExecutor) doWithRetries(req *http.Request, retryCount int32, requestStarted int64) (*http.Response, error) {
+func (re *RequestExecutor) doWithRetries(req *http.Request, retryCount int32, requestStarted int64, lastResponse *http.Response) (*http.Response, error) {
 	iterationStart := time.Now().Unix()
 	maxRetries := re.config.Okta.Client.RateLimit.MaxRetries
 	requestTimeout := int64(re.config.Okta.Client.RequestTimeout)
@@ -127,7 +128,7 @@ func (re *RequestExecutor) doWithRetries(req *http.Request, retryCount int32, re
 	}
 
 	if requestTimeout > 0 && (iterationStart-requestStarted) >= requestTimeout {
-		return nil, errors.New("reached the max request time")
+		return lastResponse, errors.New("reached the max request time")
 	}
 
 	resp, err := re.httpClient.Do(req)
@@ -148,7 +149,10 @@ func (re *RequestExecutor) doWithRetries(req *http.Request, retryCount int32, re
 		}
 		retryCount++
 
-		resp, err = re.doWithRetries(req, retryCount, requestStarted)
+		req.Header.Add("X-Okta-Retry-For", resp.Header.Get("X-Okta-Request-Id"))
+		req.Header.Add("X-Okta-Retry-Count", fmt.Sprint(retryCount))
+
+		resp, err = re.doWithRetries(req, retryCount, requestStarted, resp)
 	}
 
 	return resp, err
