@@ -17,7 +17,6 @@
 package unit
 
 import (
-	"fmt"
 	"net/http"
 	"strconv"
 	"testing"
@@ -37,8 +36,6 @@ func Test_429_Will_Automatically_Retry(t *testing.T) {
 
 	client, _ := tests.NewClient(okta.WithCache(false))
 
-	fmt.Printf("%+v\r", client.GetConfig())
-
 	httpmock.RegisterResponder("GET", "/api/v1/users",
 		tests.MockResponse(
 			Mock429Response(),
@@ -47,7 +44,6 @@ func Test_429_Will_Automatically_Retry(t *testing.T) {
 	)
 
 	_, resp, err := client.User.ListUsers(nil)
-	fmt.Printf("%+v\n", err)
 	require.Nil(t, err, "Error should have been nil")
 	require.NotNil(t, resp, "Response was nil")
 

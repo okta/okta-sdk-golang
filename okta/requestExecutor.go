@@ -118,12 +118,20 @@ func (re *RequestExecutor) Do(req *http.Request, v interface{}) (*Response, erro
 
 func (re *RequestExecutor) doWithRetries(req *http.Request, retryCount int32, requestStarted int64) (*http.Response, error) {
 	iterationStart := time.Now().Unix()
-	resp, err := re.httpClient.Do(req)
 	maxRetries := re.config.Okta.Client.RateLimit.MaxRetries
+	requestTimeout := int64(re.config.Okta.Client.RequestTimeout)
 
-	if (iterationStart - requestStarted) >= int64(re.config.Okta.Client.RequestTimeout) {
+	if req.Body != nil {
+		bodyBytes, _ := ioutil.ReadAll(req.Body)
+		req.Body = ioutil.NopCloser(bytes.NewBuffer(bodyBytes))
+	}
+
+	if requestTimeout > 0 && (iterationStart-requestStarted) >= requestTimeout {
 		return nil, errors.New("reached the max request time")
 	}
+
+	resp, err := re.httpClient.Do(req)
+
 	if (err != nil || tooManyRequests(resp)) && retryCount < maxRetries {
 		if resp != nil {
 			err := tryDrainBody(resp.Body)
