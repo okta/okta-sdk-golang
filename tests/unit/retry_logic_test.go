@@ -99,12 +99,37 @@ func Test_Will_Handle_Backoff_Strategy_For_429(t *testing.T) {
 	require.Equal(t, 1, info["GET /api/v1/users"], "should have thrown error before first retry to /api/v1/users due to request timeout")
 }
 
+func Test_with_multiple_x_rate_limit_request_times_still_retries(t *testing.T) {
+	backoff := okta.Get429BackoffTime(Mock429ResponseMultipleHeaders())
+
+	require.Equal(t, int64(11), backoff, "Backoff time should handle the correct header")
+}
+
 func Mock429Response() *http.Response {
 	loc, _ := time.LoadLocation("UTC")
 	zulu := time.Now().In(loc)
 	header := http.Header{}
 	header.Add("X-Okta-Now", strconv.FormatInt(zulu.Unix(), 10))
 	header.Add("X-Rate-Limit-Reset", strconv.FormatInt(time.Now().Unix()+1, 10))
+	header.Add("X-Okta-Request-id", "a-request-id")
+	header.Add("Date", zulu.Format("Mon, 02 Jan 2006 15:04:05 Z"))
+
+	return &http.Response{
+		Status:        strconv.Itoa(429),
+		StatusCode:    429,
+		Body:          httpmock.NewRespBodyFromString(""),
+		Header:        header,
+		ContentLength: -1,
+	}
+}
+
+func Mock429ResponseMultipleHeaders() *http.Response {
+	loc, _ := time.LoadLocation("UTC")
+	zulu := time.Now().In(loc)
+	header := http.Header{}
+	header.Add("X-Okta-Now", strconv.FormatInt(zulu.Unix(), 10))
+	header.Add("X-Rate-Limit-Reset", strconv.FormatInt(time.Now().Unix()+20, 10))
+	header.Add("X-Rate-Limit-Reset", strconv.FormatInt(time.Now().Unix()+10, 10))
 	header.Add("X-Okta-Request-id", "a-request-id")
 	header.Add("Date", zulu.Format("Mon, 02 Jan 2006 15:04:05 Z"))
 

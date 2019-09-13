@@ -26,6 +26,7 @@ import (
 	"net/http"
 	"net/url"
 	"reflect"
+	"sort"
 	"strconv"
 	"time"
 
@@ -173,17 +174,33 @@ func tryDrainBody(body io.ReadCloser) error {
 
 func backoffPause(retryCount int32, response *http.Response) error {
 	if response.StatusCode == http.StatusTooManyRequests {
-		resetLimit, _ := strconv.Atoi(response.Header.Get("X-Rate-Limit-Reset"))
-		requestDate, _ := time.Parse("Mon, 02 Jan 2006 15:04:05 Z", response.Header.Get("Date"))
-		requestDateUnix := requestDate.Unix()
-
-		backoffSeconds := int64(resetLimit) - requestDateUnix + 1
+		backoffSeconds := Get429BackoffTime(response)
 		time.Sleep(time.Duration(backoffSeconds) * time.Second)
 
 		return nil
 	}
 
 	return nil
+}
+
+func Get429BackoffTime(response *http.Response) int64 {
+	rawHeader := response.Header
+	var limitResetMap []int
+	for k, v := range rawHeader {
+		if k == "X-Rate-Limit-Reset" {
+			for _, time := range v {
+				timestamp, _ := strconv.Atoi(time)
+				limitResetMap = append(limitResetMap, timestamp)
+			}
+		}
+	}
+
+	sort.Ints(limitResetMap)
+
+	requestDate, _ := time.Parse("Mon, 02 Jan 2006 15:04:05 Z", response.Header.Get("Date"))
+	requestDateUnix := requestDate.Unix()
+	backoffSeconds := int64(limitResetMap[0]) - requestDateUnix + 1
+	return backoffSeconds
 }
 
 type Response struct {
