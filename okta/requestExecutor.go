@@ -142,6 +142,12 @@ func (re *RequestExecutor) doWithRetries(req *http.Request, retryCount int32, re
 			}
 		}
 
+		retryLimitReset := resp.Header.Get("X-Rate-Limit-Reset")
+		date := resp.Header.Get("Date")
+		if retryLimitReset == "" || date == "" {
+			return resp, errors.New("a 429 response must include the x-retry-limit-reset and date headers")
+		}
+
 		if tooManyRequests(resp) {
 			err := backoffPause(retryCount, resp)
 			if err != nil {
@@ -184,15 +190,11 @@ func backoffPause(retryCount int32, response *http.Response) error {
 }
 
 func Get429BackoffTime(response *http.Response) int64 {
-	rawHeader := response.Header
 	var limitResetMap []int
-	for k, v := range rawHeader {
-		if k == "X-Rate-Limit-Reset" {
-			for _, time := range v {
-				timestamp, _ := strconv.Atoi(time)
-				limitResetMap = append(limitResetMap, timestamp)
-			}
-		}
+
+	for _, time := range response.Header["X-Rate-Limit-Reset"] {
+		timestamp, _ := strconv.Atoi(time)
+		limitResetMap = append(limitResetMap, timestamp)
 	}
 
 	sort.Ints(limitResetMap)

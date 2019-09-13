@@ -99,6 +99,46 @@ func Test_Will_Handle_Backoff_Strategy_For_429(t *testing.T) {
 	require.Equal(t, 1, info["GET /api/v1/users"], "should have thrown error before first retry to /api/v1/users due to request timeout")
 }
 
+func Test_a_429_with_x_reset_header_throws_error(t *testing.T) {
+	httpmock.Activate()
+	defer httpmock.DeactivateAndReset()
+
+	client, _ := tests.NewClient()
+
+	httpmock.RegisterResponder("GET", "/api/v1/users",
+		tests.MockResponse(
+			Mock429ResponseNoResetHeader(),
+		),
+	)
+
+	_, _, err := client.User.ListUsers(nil)
+
+	require.NotNil(t, err, "error should not be nil. It should let user know the reset header is required")
+}
+
+func Test_a_429_with_no_date_header_throws_error(t *testing.T) {
+	httpmock.Activate()
+	defer httpmock.DeactivateAndReset()
+
+	client, _ := tests.NewClient()
+
+	httpmock.RegisterResponder("GET", "/api/v1/users",
+		tests.MockResponse(
+			Mock429ResponseNoDateHeader(),
+		),
+	)
+
+	_, _, err := client.User.ListUsers(nil)
+
+	require.NotNil(t, err, "error should not be nil. It should let user know the date header is required")
+}
+
+func Test_gets_the_correct_backoff_time(t *testing.T) {
+	backoff := okta.Get429BackoffTime(Mock429Response())
+
+	require.Equal(t, int64(2), backoff, "backoff time should have only been 1 second")
+}
+
 func Test_with_multiple_x_rate_limit_request_times_still_retries(t *testing.T) {
 	backoff := okta.Get429BackoffTime(Mock429ResponseMultipleHeaders())
 
@@ -113,6 +153,40 @@ func Mock429Response() *http.Response {
 	header.Add("X-Rate-Limit-Reset", strconv.FormatInt(time.Now().Unix()+1, 10))
 	header.Add("X-Okta-Request-id", "a-request-id")
 	header.Add("Date", zulu.Format("Mon, 02 Jan 2006 15:04:05 Z"))
+
+	return &http.Response{
+		Status:        strconv.Itoa(429),
+		StatusCode:    429,
+		Body:          httpmock.NewRespBodyFromString(""),
+		Header:        header,
+		ContentLength: -1,
+	}
+}
+
+func Mock429ResponseNoResetHeader() *http.Response {
+	loc, _ := time.LoadLocation("UTC")
+	zulu := time.Now().In(loc)
+	header := http.Header{}
+	header.Add("X-Okta-Now", strconv.FormatInt(zulu.Unix(), 10))
+	header.Add("X-Okta-Request-id", "a-request-id")
+	header.Add("Date", zulu.Format("Mon, 02 Jan 2006 15:04:05 Z"))
+
+	return &http.Response{
+		Status:        strconv.Itoa(429),
+		StatusCode:    429,
+		Body:          httpmock.NewRespBodyFromString(""),
+		Header:        header,
+		ContentLength: -1,
+	}
+}
+
+func Mock429ResponseNoDateHeader() *http.Response {
+	loc, _ := time.LoadLocation("UTC")
+	zulu := time.Now().In(loc)
+	header := http.Header{}
+	header.Add("X-Okta-Now", strconv.FormatInt(zulu.Unix(), 10))
+	header.Add("X-Rate-Limit-Reset", strconv.FormatInt(time.Now().Unix()+1, 10))
+	header.Add("X-Okta-Request-id", "a-request-id")
 
 	return &http.Response{
 		Status:        strconv.Itoa(429),
