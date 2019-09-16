@@ -115,8 +115,10 @@ func setConfigDefaults(c *config) {
 		WithCache(true),
 		WithCacheTtl(300),
 		WithCacheTti(300),
-		WithUserAgentExtra(""))
-	WithTestingDisableHttpsCheck(false)
+		WithUserAgentExtra(""),
+		WithTestingDisableHttpsCheck(false),
+		WithRequestTimeout(0),
+		WithRateLimitMaxRetries(2))
 
 	for _, confSetter := range conf {
 		confSetter(c)
