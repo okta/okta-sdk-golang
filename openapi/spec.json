@@ -3309,6 +3309,51 @@
         ]
       }
     },
+    "/api/v1/users/{userId}/lifecycle/reactivate": {
+      "post": {
+        "consumes": [
+          "application/json"
+        ],
+        "description": "Reactivates a user.  This operation can only be performed on users with a `PROVISIONED` status.  This operation restarts the activation workflow if for some reason the user activation was not completed when using the activationToken from Activate User.  The user will have a status of `ACTIVE` when the activation process is complete.",
+        "operationId": "reactivateUser",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "userId",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "default": true,
+            "description": "Sends an activation email to the user if true",
+            "in": "query",
+            "name": "sendEmail",
+            "required": true,
+            "type": "boolean"
+          }
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "schema": {
+              "$ref": "#/definitions/UserActivationToken"
+            }
+          }
+        },
+        "security": [
+          {
+            "api_token": []
+          }
+        ],
+        "summary": "Reactivate User",
+        "tags": [
+          "User"
+        ]
+      }
+    },
     "/api/v1/users/{userId}/lifecycle/deactivate": {
       "post": {
         "consumes": [
@@ -8038,6 +8083,16 @@
             }
           ],
           "operationId": "activateUser"
+        },
+        {
+          "alias": "reactivate",
+          "arguments": [
+            {
+              "dest": "userId",
+              "src": "id"
+            }
+          ],
+          "operationId": "reactivateUser"
         },
         {
           "alias": "deactivate",
