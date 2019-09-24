@@ -97,8 +97,8 @@ Now that the `feature_x` branch has been pushed to your GitHub repository, you c
 
 To initiate the pull request, do the following:
 
-1. In your browser, navigate to your forked repository: [https://github.com/YOUR_ACCOUNT/okta-sdk-golang](https://github
-.com/YOUR_ACCOUNT/okta-sdk-golang)
+1. In your browser, navigate to your forked repository: 
+[https://github.com/YOUR_ACCOUNT/okta-sdk-golang](https://github.com/YOUR_ACCOUNT/okta-sdk-golang)
 2. Click the new button called '**Compare & pull request**' that showed up just above the main area in your forked repository
 3. Validate the pull request will be into the upstream `master` and will be from your `feature_x` branch
 4. Enter a detailed description of the work you have done and then click '**Send pull request**'

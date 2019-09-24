@@ -394,7 +394,7 @@ In most cases, you won't need to build the SDK from source. If you want to build
 
 ## Contributing
 
-We're happy to accept contributions and PRs! Please see the [contribution guide](contributing.md) to understand how to structure a contribution.
+We're happy to accept contributions and PRs! Please see the [contribution guide](CONTRIBUTING.md) to understand how to structure a contribution.
 
 
 [devforum]: https://devforum.okta.com/
