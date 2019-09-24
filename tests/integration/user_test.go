@@ -125,6 +125,56 @@ func Test_can_activate_a_user(t *testing.T) {
 	require.NoError(t, err, "Should not error when deleting")
 }
 
+func Test_can_reactivate_a_user(t *testing.T) {
+	client, _ := tests.NewClient()
+	//Create user with credentials → POST /api/v1/users?activate=true
+	p := &okta.PasswordCredential{
+		Value: "Abcd1234",
+	}
+	uc := &okta.UserCredentials{
+		Password: p,
+	}
+	profile := okta.UserProfile{}
+	profile["firstName"] = "John"
+	profile["lastName"] = "Reactivate"
+	profile["email"] = "john-reactivate@example.com"
+	profile["login"] = "john-reactivate@example.com"
+	u := &okta.User{
+		Credentials: uc,
+		Profile:     &profile,
+	}
+	qp := query.NewQueryParams(query.WithActivate(true))
+
+	user, _, err := client.User.CreateUser(*u, qp)
+	require.NoError(t, err, "Creating an user should not error")
+
+	// Rectivate the user → POST /api/v1/users/{{userId}}/lifecycle/reactivate?sendEmail=false
+	token, _, err := client.User.ReactivateUser(user.Id, query.NewQueryParams(query.WithSendEmail(false)))
+	require.NoError(t, err, "Could not reactivate the user")
+	assert.NotEmpty(t, token, "Token was not provided")
+	assert.IsType(t, &okta.UserActivationToken{}, token, "Activation did not return correct type")
+
+	// Verify that the user is in the list of ACTIVE users with query parameter → GET /api/v1/users?filter=status eq "ACTIVE"
+	filter := query.NewQueryParams(query.WithFilter("status eq \"ACTIVE\""))
+	users, _, err := client.User.ListUsers(filter)
+	require.NoError(t, err, "Could not get active users")
+	found := false
+	for _, u := range users {
+		if user.Id == u.Id {
+			found = true
+		}
+	}
+	assert.True(t, found, "The user was not found")
+
+	// Deactivate the user → POST /api/v1/users/{{userId}}/lifecycle/deactivate
+	_, err = client.User.DeactivateUser(user.Id, nil)
+	require.NoError(t, err, "Should not error when deactivating")
+
+	// Delete the user → DELETE /api/v1/users/{{userId}}
+	_, err = client.User.DeactivateOrDeleteUser(user.Id, nil)
+	require.NoError(t, err, "Should not error when deleting")
+}
+
 func Test_can_update_user_profile(t *testing.T) {
 	client, _ := tests.NewClient()
 	// Create user with credentials → POST /api/v1/users?activate=false
