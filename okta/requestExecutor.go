@@ -140,12 +140,12 @@ func (re *RequestExecutor) doWithRetries(req *http.Request, retryCount int32, re
 			if err != nil {
 				return nil, err
 			}
-		}
-
-		retryLimitReset := resp.Header.Get("X-Rate-Limit-Reset")
-		date := resp.Header.Get("Date")
-		if retryLimitReset == "" || date == "" {
-			return resp, errors.New("a 429 response must include the x-retry-limit-reset and date headers")
+			
+			retryLimitReset := resp.Header.Get("X-Rate-Limit-Reset")
+			date := resp.Header.Get("Date")
+			if retryLimitReset == "" || date == "" {
+				return resp, errors.New("a 429 response must include the x-retry-limit-reset and date headers")
+			}
 		}
 
 		if tooManyRequests(resp) {
