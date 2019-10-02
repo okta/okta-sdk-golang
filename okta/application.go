@@ -20,8 +20,9 @@ package okta
 
 import (
 	"fmt"
-	"github.com/okta/okta-sdk-golang/okta/query"
 	"time"
+
+	"github.com/okta/okta-sdk-golang/okta/query"
 )
 
 type App interface {
@@ -101,7 +102,9 @@ func (m *ApplicationResource) DeleteApplication(appId string) (*Response, error)
 	}
 	return resp, nil
 }
-func (m *ApplicationResource) ListApplications(qp *query.Params) ([]App, *Response, error) {
+
+//TODO: User a generic for the application type that allows type assertion and re-casting
+func (m *ApplicationResource) ListApplications(qp *query.Params) ([]*SamlApplication, *Response, error) {
 	url := fmt.Sprintf("/api/v1/apps")
 	if qp != nil {
 		url = url + qp.String()
@@ -111,7 +114,8 @@ func (m *ApplicationResource) ListApplications(qp *query.Params) ([]App, *Respon
 		return nil, nil, err
 	}
 
-	var application []App
+	// use map[string]interface{} then marshal and unmarshal based on Type?
+	var application []*SamlApplication
 	resp, err := m.client.requestExecutor.Do(req, &application)
 	if err != nil {
 		return nil, resp, err

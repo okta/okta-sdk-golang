@@ -199,7 +199,10 @@ func Get429BackoffTime(response *http.Response) int64 {
 
 	sort.Ints(limitResetMap)
 
-	requestDate, _ := time.Parse("Mon, 02 Jan 2006 15:04:05 Z", response.Header.Get("Date"))
+	requestDate, parseErr := time.Parse("Mon, 02 Jan 2006 15:04:05 Z", response.Header.Get("Date"))
+	if parseErr != nil {
+		requestDate = time.Now().UTC()
+	}
 	requestDateUnix := requestDate.Unix()
 	backoffSeconds := int64(limitResetMap[0]) - requestDateUnix + 1
 	return backoffSeconds
