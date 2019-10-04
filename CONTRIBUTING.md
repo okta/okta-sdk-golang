@@ -59,7 +59,7 @@ Rebase `feature_x` to include updates from `upstream/master`
 ------------------------------------------------------------
 
 It is important that you maintain an up-to-date `master` branch in your local repository.  This is done by rebasing in
- the code changes from `upstream/master` (the official Okta Java SDK project repository) into your local repository.
+ the code changes from `upstream/master` (the official Okta Go SDK project repository) into your local repository.
  You will want to do this before you start working on a feature as well as right before you submit your changes as a pull request.  I recommend you do this process periodically while you work to make sure you are working off the most recent project code.
 
 This process will do the following:
