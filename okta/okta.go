@@ -24,8 +24,6 @@ import (
 	"io/ioutil"
 	"os/user"
 
-	"github.com/okta/okta-sdk-golang/okta/cache"
-
 	"github.com/go-yaml/yaml"
 	"github.com/kelseyhightower/envconfig"
 )
@@ -53,39 +51,26 @@ type resource struct {
 }
 
 func NewClient(ctx context.Context, conf ...ConfigSetter) (*Client, error) {
-	config := &config{}
-
-	setConfigDefaults(config)
-	config = readConfigFromSystem(*config)
-	config = readConfigFromApplication(*config)
-	config = readConfigFromEnvironment(*config)
-
-	for _, confSetter := range conf {
-		confSetter(config)
+	config, err := NewConfig(conf...)
+	if err != nil {
+		return nil, err
 	}
 
-	var oktaCache cache.Cache
-	if !config.Okta.Client.Cache.Enabled {
-		oktaCache = cache.NewNoOpCache()
-	} else {
-		if config.CacheManager == nil {
-			oktaCache = cache.NewGoCache(config.Okta.Client.Cache.DefaultTtl,
-				config.Okta.Client.Cache.DefaultTti)
-		} else {
-			oktaCache = config.CacheManager
-		}
+	cache, err := NewCache(config)
+	if err != nil {
+		return nil, err
 	}
 
-	config.CacheManager = oktaCache
+	config.CacheManager = cache
 
-	config, err := validateConfig(config)
+	config, err = ValidateConfig(config)
 	if err != nil {
 		panic(err)
 	}
 
 	c := &Client{}
 	c.config = config
-	c.requestExecutor = NewRequestExecutor(&config.HttpClient, oktaCache, config)
+	c.requestExecutor = NewRequestExecutor(&config.HttpClient, cache, config)
 
 	c.resource.client = c
 

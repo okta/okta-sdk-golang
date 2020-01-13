@@ -53,6 +53,31 @@ type config struct {
 	CacheManager   cache.Cache
 }
 
+func NewConfig(conf ...ConfigSetter) (*config, error) {
+	config := &config{}
+
+	setConfigDefaults(config)
+	config = readConfigFromSystem(*config)
+	config = readConfigFromApplication(*config)
+	config = readConfigFromEnvironment(*config)
+
+	for _, confSetter := range conf {
+		confSetter(config)
+	}
+	return config, nil
+}
+
+func NewCache(config *config) (cache.Cache, error) {
+	if !config.Okta.Client.Cache.Enabled {
+		return cache.NewNoOpCache(), nil
+	}
+	if config.CacheManager != nil {
+		return config.CacheManager, nil
+	}
+	return cache.NewGoCache(config.Okta.Client.Cache.DefaultTtl,
+		config.Okta.Client.Cache.DefaultTti), nil
+}
+
 type ConfigSetter func(*config)
 
 func WithCache(cache bool) ConfigSetter {
