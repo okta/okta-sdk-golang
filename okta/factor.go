@@ -19,12 +19,64 @@
 package okta
 
 import (
+	"encoding/json"
 	"fmt"
 	"github.com/okta/okta-sdk-golang/okta/query"
 )
 
 type UserFactor interface {
 	IsUserFactorInstance() bool
+}
+
+type UserFactors []UserFactor
+
+func (uf *UserFactors) UnmarshalJSON(data []byte) error {
+	rawFactors := []json.RawMessage{}
+	if err := json.Unmarshal(data, &rawFactors); err != nil {
+		return err
+	}
+
+	factors := make([]map[string]interface{}, len(rawFactors))
+	if err := json.Unmarshal(data, &factors); err != nil {
+		return err
+	}
+
+	for i, f := range factors {
+		var factor UserFactor
+
+		switch ft := f["factorType"]; ft {
+		case "call":
+			factor = new(CallFactor)
+		case "email":
+			factor = new(EmailFactor)
+		case "push":
+			factor = new(PushFactor)
+		case "question":
+			factor = new(SecurityQuestionFactor)
+		case "sms":
+			factor = new(SmsFactor)
+		case "token":
+			factor = new(TokenFactor)
+		case "token:hardware":
+			factor = new(HardwareFactor)
+		case "token:software:totp":
+			factor = new(TotpFactor)
+		case "u2f":
+			factor = new(U2fFactor)
+		case "web":
+			factor = new(WebFactor)
+		default:
+			return fmt.Errorf("unknown factor type %q", ft)
+		}
+
+		if err := json.Unmarshal(rawFactors[i], factor); err != nil {
+			return err
+		}
+
+		*uf = append(*uf, factor)
+	}
+
+	return nil
 }
 
 type FactorResource resource
@@ -75,7 +127,7 @@ func (m *FactorResource) ListFactors(userId string) ([]UserFactor, *Response, er
 		return nil, nil, err
 	}
 
-	var factor []UserFactor
+	var factor UserFactors
 	resp, err := m.client.requestExecutor.Do(req, &factor)
 	if err != nil {
 		return nil, resp, err

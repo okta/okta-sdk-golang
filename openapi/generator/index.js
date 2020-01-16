@@ -145,6 +145,10 @@ function getImports(object) {
     imports.push("fmt")
   }
 
+  if (object.model.modelName === "Factor") {
+    imports.push("encoding/json")
+  }
+
   imports = [...new Set(imports)];
 
   return imports;

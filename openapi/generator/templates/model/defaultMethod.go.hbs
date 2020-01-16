@@ -28,7 +28,7 @@ func (m *{{modelName}}Resource) {{ucFirst operation.operationId}}({{operationArg
 	{{#if (eq operation.operationId "listApplications") }}
 	var {{lowercaseFirstLetter operation.responseModel}} []App
 	{{else if (eq operation.operationId "listFactors") }}
-	var {{lowercaseFirstLetter operation.responseModel}} []UserFactor
+	var {{lowercaseFirstLetter operation.responseModel}} UserFactors
 	{{else}}
 	var {{lowercaseFirstLetter operation.responseModel}} []interface{}
 	{{/if}}
