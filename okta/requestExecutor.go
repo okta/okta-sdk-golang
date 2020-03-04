@@ -27,6 +27,7 @@ import (
 	"io/ioutil"
 	"net/http"
 	"net/url"
+	nUrl "net/url"
 	"reflect"
 	"sort"
 	"strconv"
@@ -136,12 +137,14 @@ func (re *RequestExecutor) NewRequest(method string, url string, body interface{
 			}
 
 			var tokenRequestBuff io.ReadWriter
+			query := nUrl.Values{}
 			tokenRequestUrl := re.config.Okta.Client.OrgUrl + "/oauth2/v1/token"
-			tokenRequestUrl += "?grant_type=client_credentials"
-			tokenRequestUrl += "&scope=" + strings.Join(re.config.Okta.Client.Scopes, " ")
-			tokenRequestUrl += "&client_assertion_type=urn:ietf:params:oauth:client-assertion-type:jwt-bearer"
-			tokenRequestUrl += "&client_assertion=" + clientAssertion
 
+			query.Add("grant_type", "client_credentials")
+			query.Add("scope", strings.Join(re.config.Okta.Client.Scopes, " "))
+			query.Add("client_assertion_type", "urn:ietf:params:oauth:client-assertion-type:jwt-bearer")
+			query.Add("client_assertion", clientAssertion)
+			tokenRequestUrl += "?" + query.Encode()
 			tokenRequest, err := http.NewRequest("POST", tokenRequestUrl, tokenRequestBuff)
 			if err != nil {
 				return nil, err
