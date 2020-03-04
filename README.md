@@ -400,7 +400,7 @@ When you use OAuth 2.0 the full YAML configuration looks like:
 okta:
   client:
     connectionTimeout: 30 # seconds
-    oktaDomain: "https://{yourOktaDomain}"
+    orgUrl: "https://{yourOktaDomain}"
     proxy:
       port: null
       host: null
@@ -408,7 +408,9 @@ okta:
       password: null
     authorizationMode: "PrivateKey"
     clientId: "{yourClientId}"
-    scopes: scope.1 scope.2
+    scopes:
+      - scope.1
+      - scope.2
     privateKey: |
         -----BEGIN RSA PRIVATE KEY-----
         MIIEogIBAAKCAQEAl4F5CrP6Wu2kKwH1Z+CNBdo0iteHhVRIXeHdeoqIB1iXvuv4
