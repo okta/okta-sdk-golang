@@ -408,7 +408,7 @@ okta:
       password: null
     authorizationMode: "PrivateKey"
     clientId: "{yourClientId}"
-    Scopes: scope.1 scope.2
+    scopes: scope.1 scope.2
     privateKey: |
         -----BEGIN RSA PRIVATE KEY-----
         MIIEogIBAAKCAQEAl4F5CrP6Wu2kKwH1Z+CNBdo0iteHhVRIXeHdeoqIB1iXvuv4
