@@ -63,6 +63,23 @@ client := okta.NewClient(context, okta.WithOrgUrl("https://{yourOktaDomain}"), o
 
 Hard-coding the Okta domain and API token works for quick tests, but for real projects you should use a more secure way of storing these values (such as environment variables). This library supports a few different configuration sources, covered in the [configuration reference](#configuration-reference) section.
 
+### OAuth 2.0
+
+Okta allows you to interact with Okta APIs using scoped OAuth 2.0 access tokens. Each access token enables the bearer to perform specific actions on specific Okta endpoints, with that ability controlled by which scopes the access token contains.
+
+This SDK supports this feature only for service-to-service applications. Check out [our guides](https://developer.okta.com/docs/guides/implement-oauth-for-okta/overview/) to learn more about how to register a new service application using a private and public key pair.
+
+When using this approach you won't need an API Token because the SDK will request an access token for you. In order to use OAuth 2.0, construct a client instance by passing the following parameters:
+
+```
+client, _ := okta.NewClient(context,
+  okta.WithAuthorizationMode("PrivateKey"),
+  okta.WithClientId("{{clientId}}),
+  okta.WithScopes(([]string{"okta.users.manage"})),
+  okta.WithPrivateKey({{PEM PRIVATE KEY BLOCK}})
+)
+```
+
 ### Extending the Client
 When calling `okta.NewClient()` we allow for you to pass custom instances of `http.Client` and `cache.Cache`.
 
@@ -354,7 +371,7 @@ return authServer, resp, nil
 This library looks for configuration in the following sources:
 
 0. An `okta.yaml` file in a `.okta` folder in the current user's home directory (`~/.okta/okta.yaml` or `%userprofile\.okta\okta.yaml`)
-0. An `okta.yaml` file in a `.okta` folder in the application or project's root directory
+0. A `.okta.yaml` file in the application or project's root directory
 0. Environment variables
 0. Configuration explicitly passed to the constructor (see the example in [Getting started](#getting-started))
 
@@ -362,7 +379,7 @@ Higher numbers win. In other words, configuration passed via the constructor wil
 
 ### YAML configuration
 
-The full YAML configuration looks like:
+When you use an API Token instead of OAuth 2.0 the full YAML configuration looks like:
 
 ```yaml
 okta:
@@ -375,6 +392,34 @@ okta:
       username: null
       password: null
     token: {apiToken}
+```
+
+When you use OAuth 2.0 the full YAML configuration looks like:
+
+```yaml
+okta:
+  client:
+    connectionTimeout: 30 # seconds
+    orgUrl: "https://{yourOktaDomain}"
+    proxy:
+      port: null
+      host: null
+      username: null
+      password: null
+    authorizationMode: "PrivateKey"
+    clientId: "{yourClientId}"
+    scopes:
+      - scope.1
+      - scope.2
+    privateKey: |
+        -----BEGIN RSA PRIVATE KEY-----
+        MIIEogIBAAKCAQEAl4F5CrP6Wu2kKwH1Z+CNBdo0iteHhVRIXeHdeoqIB1iXvuv4
+        THQdM5PIlot6XmeV1KUKuzw2ewDeb5zcasA4QHPcSVh2+KzbttPQ+RUXCUAr5t+r
+        0r6gBc5Dy1IPjCFsqsPJXFwqe3RzUb...
+        -----END RSA PRIVATE KEY-----
+    requestTimeout: 0 # seconds
+    rateLimit:
+      maxRetries: 4
 ```
 
 ### Environment variables

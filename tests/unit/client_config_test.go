@@ -78,3 +78,21 @@ func Test_panic_when_api_token_contains_placeholder(t *testing.T) {
 		_, _ = tests.NewClient(okta.WithToken("{apiToken}"))
 	}, "Does not panic when api token contains {apiToken}")
 }
+
+func Test_panic_when_authorization_mode_is_not_valid(t *testing.T) {
+	assert.Panics(t, func() {
+		_, _ = tests.NewClient(okta.WithAuthorizationMode("invalid"))
+	}, "Does not panic when authorization mode is invalid")
+}
+
+func Test_does_not_panic_when_authorization_mode_is_valid(t *testing.T) {
+	assert.NotPanics(t, func() {
+		_, _ = tests.NewClient(okta.WithAuthorizationMode("SSWS"))
+	}, "Should not panic when authorization mode is SSWS")
+}
+
+func Test_will_panic_if_private_key_authorization_type_with_missing_properties(t *testing.T) {
+	assert.Panics(t, func() {
+		_, _ = tests.NewClient(okta.WithAuthorizationMode("PrivateKey"), okta.WithClientId(""))
+	}, "Does not panic if private key selected with no other required options")
+}

@@ -18,19 +18,25 @@ package okta
 
 import (
 	"bytes"
+	"crypto/x509"
 	"encoding/json"
+	"encoding/pem"
 	"errors"
 	"fmt"
 	"io"
 	"io/ioutil"
 	"net/http"
 	"net/url"
+	nUrl "net/url"
 	"reflect"
 	"sort"
 	"strconv"
+	"strings"
 	"time"
 
 	"github.com/okta/okta-sdk-golang/okta/cache"
+	"github.com/square/go-jose/jwt"
+	"gopkg.in/square/go-jose.v2"
 )
 
 type RequestExecutor struct {
@@ -38,6 +44,22 @@ type RequestExecutor struct {
 	config     *config
 	BaseUrl    *url.URL
 	cache      cache.Cache
+}
+
+type ClientAssertionClaims struct {
+	Issuer   string           `json:"iss,omitempty"`
+	Subject  string           `json:"sub,omitempty"`
+	Audience string           `json:"aud,omitempty"`
+	Expiry   *jwt.NumericDate `json:"exp,omitempty"`
+	IssuedAt *jwt.NumericDate `json:"iat,omitempty"`
+	ID       string           `json:"jti,omitempty"`
+}
+
+type RequestAccessToken struct {
+	TokenType   string `json:"token_type,omitempty"`
+	ExpireIn    int    `json:"expire_in,omitempty"`
+	AccessToken string `json:"access_token,omitempty"`
+	Scope       string `json:"scope,omitempty"`
 }
 
 func NewRequestExecutor(httpClient *http.Client, cache cache.Cache, config *config) *RequestExecutor {
@@ -74,7 +96,85 @@ func (re *RequestExecutor) NewRequest(method string, url string, body interface{
 	if err != nil {
 		return nil, err
 	}
-	req.Header.Add("Authorization", "SSWS "+re.config.Okta.Client.Token)
+
+	if re.config.Okta.Client.AuthorizationMode == "SSWS" {
+		req.Header.Add("Authorization", "SSWS "+re.config.Okta.Client.Token)
+	}
+
+	if re.config.Okta.Client.AuthorizationMode == "PrivateKey" {
+		if re.cache.Has("OKTA_ACCESS_TOKEN") {
+			token := re.cache.GetString("OKTA_ACCESS_TOKEN")
+			req.Header.Add("Authorization", "Bearer "+token)
+		} else {
+			priv := []byte(re.config.Okta.Client.PrivateKey)
+
+			privPem, _ := pem.Decode(priv)
+			if privPem.Type != "RSA PRIVATE KEY" {
+				return nil, fmt.Errorf("RSA private key is of the wrong type")
+			}
+
+			parsedKey, err := x509.ParsePKCS1PrivateKey(privPem.Bytes)
+			if err != nil {
+				return nil, err
+			}
+
+			signer, err := jose.NewSigner(jose.SigningKey{Algorithm: jose.RS256, Key: parsedKey}, nil)
+			if err != nil {
+				return nil, err
+			}
+
+			claims := ClientAssertionClaims{
+				Subject:  re.config.Okta.Client.ClientId,
+				IssuedAt: jwt.NewNumericDate(time.Now()),
+				Expiry:   jwt.NewNumericDate(time.Now().Add(time.Hour * time.Duration(1))),
+				Issuer:   re.config.Okta.Client.ClientId,
+				Audience: re.config.Okta.Client.OrgUrl + "/oauth2/v1/token",
+			}
+			jwtBuilder := jwt.Signed(signer).Claims(claims)
+			clientAssertion, err := jwtBuilder.CompactSerialize()
+			if err != nil {
+				return nil, err
+			}
+
+			var tokenRequestBuff io.ReadWriter
+			query := nUrl.Values{}
+			tokenRequestUrl := re.config.Okta.Client.OrgUrl + "/oauth2/v1/token"
+
+			query.Add("grant_type", "client_credentials")
+			query.Add("scope", strings.Join(re.config.Okta.Client.Scopes, " "))
+			query.Add("client_assertion_type", "urn:ietf:params:oauth:client-assertion-type:jwt-bearer")
+			query.Add("client_assertion", clientAssertion)
+			tokenRequestUrl += "?" + query.Encode()
+			tokenRequest, err := http.NewRequest("POST", tokenRequestUrl, tokenRequestBuff)
+			if err != nil {
+				return nil, err
+			}
+
+			tokenRequest.Header.Add("Accept", "application/json")
+			tokenRequest.Header.Add("Content-Type", "application/x-www-form-urlencoded")
+
+			tokenResponse, err := re.httpClient.Do(tokenRequest)
+			if err != nil {
+				return nil, err
+			}
+
+			respBody, err := ioutil.ReadAll(tokenResponse.Body)
+			if err != nil {
+				return nil, err
+			}
+			origResp := ioutil.NopCloser(bytes.NewBuffer(respBody))
+			tokenResponse.Body = origResp
+			var accessToken *RequestAccessToken
+			_, err = buildResponse(tokenResponse, &accessToken)
+			if err != nil {
+				return nil, err
+			}
+			req.Header.Add("Authorization", "Bearer "+accessToken.AccessToken)
+
+			re.cache.SetString("OKTA_ACCESS_TOKEN", accessToken.AccessToken)
+		}
+
+	}
 	req.Header.Add("User-Agent", NewUserAgent(re.config).String())
 	req.Header.Add("Accept", "application/json")
 

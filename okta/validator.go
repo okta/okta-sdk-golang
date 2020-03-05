@@ -13,7 +13,14 @@ func validateConfig(c *config) (*config, error) {
 		return nil, err
 	}
 
-	err = validateApiToken(c)
+	if c.Okta.Client.AuthorizationMode == "SSWS" {
+		err = validateApiToken(c)
+		if err != nil {
+			return nil, err
+		}
+	}
+
+	err = validateAuthorization(c)
 	if err != nil {
 		return nil, err
 	}
@@ -56,5 +63,21 @@ func validateApiToken(c *config) error {
 	if strings.Contains(c.Okta.Client.Token, "{apiToken}") {
 		return errors.New("replace {apiToken} with your Okta API token. You can generate one in the Okta Developer Console. Follow these instructions: https://bit.ly/get-okta-api-token")
 	}
+	return nil
+}
+
+func validateAuthorization(c *config) error {
+	if c.Okta.Client.AuthorizationMode != "SSWS" &&
+		c.Okta.Client.AuthorizationMode != "PrivateKey" {
+		return errors.New("the AuthorizaitonMode config option must be one of [SSWS, PrivateKey]. You provided the SDK with " + c.Okta.Client.AuthorizationMode)
+	}
+
+	if c.Okta.Client.AuthorizationMode == "PrivateKey" &&
+		(c.Okta.Client.ClientId == "" ||
+			c.Okta.Client.Scopes == nil ||
+			c.Okta.Client.PrivateKey == "") {
+		return errors.New("when using AuthorizationMode 'PrivateKey', you must supply 'ClientId', 'Scopes', and 'PrivateKey'")
+	}
+
 	return nil
 }
