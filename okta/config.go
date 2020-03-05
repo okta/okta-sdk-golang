@@ -41,8 +41,12 @@ type config struct {
 			RateLimit         struct {
 				MaxRetries int32 `yaml:"maxRetries" envconfig:"OKTA_CLIENT_RATE_LIMIT_MAX_RETRIES"`
 			} `yaml:"rateLimit"`
-			OrgUrl string `yaml:"orgUrl" envconfig:"OKTA_CLIENT_ORGURL"`
-			Token  string `yaml:"token" envconfig:"OKTA_CLIENT_TOKEN"`
+			OrgUrl            string   `yaml:"orgUrl" envconfig:"OKTA_CLIENT_ORGURL"`
+			Token             string   `yaml:"token" envconfig:"OKTA_CLIENT_TOKEN"`
+			AuthorizationMode string   `yaml:"authorizationMode" envconfig:"OKTA_CLIENT_AUTHORIZATIONMODE"`
+			ClientId          string   `yaml:"clientId" envconfig:"OKTA_CLIENT_CLIENTID"`
+			Scopes            []string `yaml:"scopes" envconfig:"OKTA_CLIENT_SCOPES"`
+			PrivateKey        string   `yaml:"privateKey" envconfig:"OKTA_CLIENT_PRIVATEKEY"`
 		} `yaml:"client"`
 		Testing struct {
 			DisableHttpsCheck bool `yaml:"disableHttpsCheck" envconfig:"OKTA_TESTING_DISABLE_HTTPS_CHECK"`
@@ -148,5 +152,29 @@ func WithRequestTimeout(requestTimeout int32) ConfigSetter {
 func WithRateLimitMaxRetries(maxRetries int32) ConfigSetter {
 	return func(c *config) {
 		c.Okta.Client.RateLimit.MaxRetries = maxRetries
+	}
+}
+
+func WithAuthorizationMode(authzMode string) ConfigSetter {
+	return func(c *config) {
+		c.Okta.Client.AuthorizationMode = authzMode
+	}
+}
+
+func WithClientId(clientId string) ConfigSetter {
+	return func(c *config) {
+		c.Okta.Client.ClientId = clientId
+	}
+}
+
+func WithScopes(scopes []string) ConfigSetter {
+	return func(c *config) {
+		c.Okta.Client.Scopes = scopes
+	}
+}
+
+func WithPrivateKey(privateKey string) ConfigSetter {
+	return func(c *config) {
+		c.Okta.Client.PrivateKey = privateKey
 	}
 }
