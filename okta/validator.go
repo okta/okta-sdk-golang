@@ -13,9 +13,11 @@ func validateConfig(c *config) (*config, error) {
 		return nil, err
 	}
 
-	err = validateApiToken(c)
-	if err != nil {
-		return nil, err
+	if c.Okta.Client.AuthorizationMode == "SSWS" {
+		err = validateApiToken(c)
+		if err != nil {
+			return nil, err
+		}
 	}
 
 	err = validateAuthorization(c)

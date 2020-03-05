@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package unit
+package integration
 
 import (
 	"io"
