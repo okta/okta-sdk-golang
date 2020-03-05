@@ -358,6 +358,12 @@ func Test_can_set_application_settings_during_creation(t *testing.T) {
 
 	assert.IsType(t, okta.BasicApplicationSettingsApplication{}, *application.(*okta.BasicAuthApplication).Settings.App, "The returned type of application settings application was not correct type")
 	assert.Equal(t, "https://example.com/auth.html", application.(*okta.BasicAuthApplication).Settings.App.Url)
+
+	appId := application.(*okta.BasicAuthApplication).Id
+	client.Application.DeactivateApplication(appId)
+	_, err = client.Application.DeleteApplication(appId)
+
+	require.NoError(t, err, "Deleting an application should not error")
 }
 
 func Test_can_set_application_settings_during_update(t *testing.T) {
@@ -390,4 +396,9 @@ func Test_can_set_application_settings_during_update(t *testing.T) {
 
 	updatedApp, _, err := client.Application.GetApplication(appId, okta.NewBasicAuthApplication(), nil)
 	assert.Equal(t, "https://okta.com/auth", updatedApp.(*okta.BasicAuthApplication).Settings.App.Url, "The URL was not updated'")
+
+	client.Application.DeactivateApplication(appId)
+	_, err = client.Application.DeleteApplication(appId)
+
+	require.NoError(t, err, "Deleting an application should not error")
 }

@@ -126,20 +126,20 @@ func setConfigDefaults(c *config) {
 	}
 }
 
-func readConfigFromFile(location string) (*config, error) {
+func readConfigFromFile(location string, c *config) (*config, error) {
 	yamlConfig, err := ioutil.ReadFile(location)
 
 	if err != nil {
 		return nil, err
 	}
 
-	conf := config{}
-	err = yaml.Unmarshal(yamlConfig, &conf)
+	// conf := config{}
+	err = yaml.Unmarshal(yamlConfig, c)
 	if err != nil {
 		return nil, err
 	}
 
-	return &conf, err
+	return c, err
 }
 
 func readConfigFromSystem(c config) *config {
@@ -151,7 +151,7 @@ func readConfigFromSystem(c config) *config {
 		return &c
 	}
 
-	conf, err := readConfigFromFile(currUser.HomeDir + "/.okta/okta.yaml")
+	conf, err := readConfigFromFile(currUser.HomeDir+"/.okta/okta.yaml", &c)
 
 	if err != nil {
 		return &c
@@ -161,7 +161,7 @@ func readConfigFromSystem(c config) *config {
 }
 
 func readConfigFromApplication(c config) *config {
-	conf, err := readConfigFromFile(".okta.yaml")
+	conf, err := readConfigFromFile(".okta.yaml", &c)
 
 	if err != nil {
 		return &c

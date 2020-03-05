@@ -93,6 +93,6 @@ func Test_does_not_panic_when_authorization_mode_is_valid(t *testing.T) {
 
 func Test_will_panic_if_private_key_authorization_type_with_missing_properties(t *testing.T) {
 	assert.Panics(t, func() {
-		_, _ = tests.NewClient(okta.WithAuthorizationMode("PrivateKey"))
+		_, _ = tests.NewClient(okta.WithAuthorizationMode("PrivateKey"), okta.WithClientId(""))
 	}, "Does not panic if private key selected with no other required options")
 }
