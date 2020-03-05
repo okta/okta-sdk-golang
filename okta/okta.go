@@ -30,7 +30,7 @@ import (
 	"github.com/kelseyhightower/envconfig"
 )
 
-const Version = "0.1.0"
+const Version = "1.1.0"
 
 type Client struct {
 	config *config
