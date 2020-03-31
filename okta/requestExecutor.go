@@ -36,7 +36,7 @@ import (
 
 	"github.com/okta/okta-sdk-golang/okta/cache"
 	"github.com/square/go-jose/jwt"
-	"gopkg.in/square/go-jose.v2"
+	"github.com/square/go-jose/v3"
 )
 
 type RequestExecutor struct {

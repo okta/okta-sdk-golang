@@ -23,8 +23,8 @@ import ()
 type LogAuthenticationContext struct {
 	AuthenticationProvider string                   `json:"authenticationProvider,omitempty"`
 	AuthenticationStep     int64                    `json:"authenticationStep,omitempty"`
-	CredentialProvider     []*LogCredentialProvider `json:"credentialProvider,omitempty"`
-	CredentialType         []*LogCredentialType     `json:"credentialType,omitempty"`
+	CredentialProvider     string `json:"credentialProvider,omitempty"`
+	CredentialType         string     `json:"credentialType,omitempty"`
 	ExternalSessionId      string                   `json:"externalSessionId,omitempty"`
 	Interface              string                   `json:"interface,omitempty"`
 	Issuer                 *LogIssuer               `json:"issuer,omitempty"`
