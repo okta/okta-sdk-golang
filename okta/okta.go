@@ -118,28 +118,27 @@ func setConfigDefaults(c *config) {
 		WithUserAgentExtra(""),
 		WithTestingDisableHttpsCheck(false),
 		WithRequestTimeout(0),
-		WithRateLimitMaxRetries(2),
-		WithAuthorizationMode("SSWS"))
+		WithRateLimitMaxRetries(2))
 
 	for _, confSetter := range conf {
 		confSetter(c)
 	}
 }
 
-func readConfigFromFile(location string, c *config) (*config, error) {
+func readConfigFromFile(location string) (*config, error) {
 	yamlConfig, err := ioutil.ReadFile(location)
 
 	if err != nil {
 		return nil, err
 	}
 
-	// conf := config{}
-	err = yaml.Unmarshal(yamlConfig, c)
+	conf := config{}
+	err = yaml.Unmarshal(yamlConfig, &conf)
 	if err != nil {
 		return nil, err
 	}
 
-	return c, err
+	return &conf, err
 }
 
 func readConfigFromSystem(c config) *config {
@@ -151,7 +150,7 @@ func readConfigFromSystem(c config) *config {
 		return &c
 	}
 
-	conf, err := readConfigFromFile(currUser.HomeDir+"/.okta/okta.yaml", &c)
+	conf, err := readConfigFromFile(currUser.HomeDir + "/.okta/okta.yaml")
 
 	if err != nil {
 		return &c
@@ -161,7 +160,7 @@ func readConfigFromSystem(c config) *config {
 }
 
 func readConfigFromApplication(c config) *config {
-	conf, err := readConfigFromFile(".okta.yaml", &c)
+	conf, err := readConfigFromFile(".okta.yaml")
 
 	if err != nil {
 		return &c
