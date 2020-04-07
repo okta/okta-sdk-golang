@@ -19,9 +19,9 @@ package unit
 import (
 	"testing"
 
-	"github.com/okta/okta-sdk-golang/okta"
+	"github.com/okta/okta-sdk-golang/okta.v2"
 
-	"github.com/okta/okta-sdk-golang/tests"
+	"github.com/okta/okta-sdk-golang/tests.v2"
 	"github.com/stretchr/testify/assert"
 )
 
