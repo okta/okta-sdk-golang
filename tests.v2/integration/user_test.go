@@ -21,10 +21,10 @@ import (
 	"testing"
 	"time"
 
-	"github.com/okta/okta-sdk-golang/okta/query"
+	"github.com/okta/okta-sdk-golang/okta.v2/query"
 
-	"github.com/okta/okta-sdk-golang/okta"
-	"github.com/okta/okta-sdk-golang/tests"
+	"github.com/okta/okta-sdk-golang/okta.v2"
+	"github.com/okta/okta-sdk-golang/tests.v2"
 	"github.com/stretchr/testify/assert"
 	"github.com/stretchr/testify/require"
 )
@@ -43,7 +43,7 @@ func Test_can_get_a_user(t *testing.T) {
 	profile["lastName"] = "Get-User"
 	profile["email"] = "john-get-user@example.com"
 	profile["login"] = "john-get-user@example.com"
-	u := &okta.User{
+	u := &okta.CreateUserRequest{
 		Credentials: uc,
 		Profile:     &profile,
 	}
@@ -89,7 +89,7 @@ func Test_can_activate_a_user(t *testing.T) {
 	profile["lastName"] = "Activate"
 	profile["email"] = "john-activate@example.com"
 	profile["login"] = "john-activate@example.com"
-	u := &okta.User{
+	u := &okta.CreateUserRequest{
 		Credentials: uc,
 		Profile:     &profile,
 	}
@@ -139,7 +139,7 @@ func Test_can_update_user_profile(t *testing.T) {
 	profile["lastName"] = "Profile-Update"
 	profile["email"] = "john-profile-update@example.com"
 	profile["login"] = "john-profile-update@example.com"
-	u := &okta.User{
+	u := &okta.CreateUserRequest{
 		Credentials: uc,
 		Profile:     &profile,
 	}
@@ -185,7 +185,7 @@ func Test_can_suspend_a_user(t *testing.T) {
 	profile["lastName"] = "Suspend"
 	profile["email"] = "john-suspend@example.com"
 	profile["login"] = "john-suspend@example.com"
-	u := &okta.User{
+	u := &okta.CreateUserRequest{
 		Credentials: uc,
 		Profile:     &profile,
 	}
@@ -248,7 +248,7 @@ func Test_can_change_users_password(t *testing.T) {
 	profile["lastName"] = "Change-Password"
 	profile["email"] = "john-change-password@example.com"
 	profile["login"] = "john-change-password@example.com"
-	u := &okta.User{
+	u := &okta.CreateUserRequest{
 		Credentials: uc,
 		Profile:     &profile,
 	}
@@ -307,7 +307,7 @@ func Test_can_get_reset_password_link_for_user(t *testing.T) {
 	profile["lastName"] = "Get-Reset-Password-Url"
 	profile["email"] = "john-get-reset-password-url@example.com"
 	profile["login"] = "john-get-reset-password-url@example.com"
-	u := &okta.User{
+	u := &okta.CreateUserRequest{
 		Credentials: uc,
 		Profile:     &profile,
 	}
@@ -351,7 +351,7 @@ func Test_can_expire_a_users_password_and_get_a_temp_one(t *testing.T) {
 	profile["lastName"] = "Expire-Password"
 	profile["email"] = "john-expire-password@example.com"
 	profile["login"] = "john-expire-password@example.com"
-	u := &okta.User{
+	u := &okta.CreateUserRequest{
 		Credentials: uc,
 		Profile:     &profile,
 	}
@@ -361,7 +361,7 @@ func Test_can_expire_a_users_password_and_get_a_temp_one(t *testing.T) {
 	require.NoError(t, err, "Creating an user should not error")
 
 	// Expire the user password → POST /api/v1/users/{{userId}}/lifecycle/expire_password?tempPassword=true
-	ep, _, err := client.User.ExpirePassword(user.Id, query.NewQueryParams(query.WithTempPassword(true)))
+	ep, _, err := client.User.ExpirePasswordAndGetTemporaryPassword(user.Id)
 	require.NoError(t, err, "Could not reset password")
 
 	// Verify that the returned response contains a temporary password
@@ -395,7 +395,7 @@ func Test_can_change_user_recovery_question(t *testing.T) {
 	profile["lastName"] = "Change-Recovery-Question"
 	profile["email"] = "john-change-recovery-question@example.com"
 	profile["login"] = "john-change-recovery-question@example.com"
-	u := &okta.User{
+	u := &okta.CreateUserRequest{
 		Credentials: uc,
 		Profile:     &profile,
 	}
@@ -431,7 +431,7 @@ func Test_can_change_user_recovery_question(t *testing.T) {
 		Password:         np,
 		RecoveryQuestion: rq,
 	}
-	_, _, err = client.User.ForgotPassword(user.Id, *ucfp, nil)
+	_, _, err = client.User.ForgotPasswordSetNewPassword(user.Id, *ucfp, nil)
 	require.NoError(t, err, "Could not change password with recovery question")
 
 	// Get the user and verify that 'passwordChanged' field has increased → GET /api/v1/users/{{userId}}
@@ -467,7 +467,7 @@ func Test_can_assign_a_user_to_a_role(t *testing.T) {
 	profile["lastName"] = "Role"
 	profile["email"] = "john-role@example.com"
 	profile["login"] = "john-role@example.com"
-	u := &okta.User{
+	u := &okta.CreateUserRequest{
 		Credentials: uc,
 		Profile:     &profile,
 	}
@@ -477,14 +477,14 @@ func Test_can_assign_a_user_to_a_role(t *testing.T) {
 	require.NoError(t, err, "Creating an user should not error")
 
 	// Add 'USER_ADMIN' role to the user → POST /api/v1/users/{{userId}}/roles (Body → { type: 'USER_ADMIN'  })
-	r := &okta.Role{
+	arr := &okta.AssignRoleRequest{
 		Type: "USER_ADMIN",
 	}
-	r, _, err = client.User.AddRoleToUser(user.Id, *r)
+	_, _, err = client.User.AssignRoleToUser(user.Id, *arr, nil)
 	require.NoError(t, err, "Should not have had an error when adding role to user")
 
 	// List roles for the user and verify added role → GET /api/v1/users/{{userId}}/roles
-	roles, _, err := client.User.ListAssignedRoles(user.Id, nil)
+	roles, _, err := client.User.ListAssignedRolesForUser(user.Id, nil)
 	found := false
 	roleId := ""
 	for _, role := range roles {
@@ -500,7 +500,7 @@ func Test_can_assign_a_user_to_a_role(t *testing.T) {
 	require.NoError(t, err, "Should not have had an error when removing role to user")
 
 	// List roles for user and verify role was removed → GET /api/v1/users/{{userId}}/roles
-	roles, _, err = client.User.ListAssignedRoles(user.Id, nil)
+	roles, _, err = client.User.ListAssignedRolesForUser(user.Id, nil)
 	found = false
 	roleId = ""
 	for _, role := range roles {
@@ -539,7 +539,7 @@ func Test_user_group_target_role(t *testing.T) {
 	profile["lastName"] = "Group-Target"
 	profile["email"] = "john-group-target@example.com"
 	profile["login"] = "john-group-target@example.com"
-	u := &okta.User{
+	u := &okta.CreateUserRequest{
 		Credentials: uc,
 		Profile:     &profile,
 	}
@@ -559,10 +559,10 @@ func Test_user_group_target_role(t *testing.T) {
 	require.NoError(t, err, "Creating an group should not error")
 
 	// Add 'USER_ADMIN' role to the user → POST /api/v1/users/{{userId}}/roles (Body → { type: 'USER_ADMIN'  })
-	r := &okta.Role{
+	arr := &okta.AssignRoleRequest{
 		Type: "USER_ADMIN",
 	}
-	r, _, err = client.User.AddRoleToUser(user.Id, *r)
+	r, _, err := client.User.AssignRoleToUser(user.Id, *arr, nil)
 	require.NoError(t, err, "Should not have had an error when adding role to user")
 
 	// Add Group Target to 'USER_ADMIN' role → PUT /api/v1/users/{{userId}}/roles/{{roleId}}/targets/groups/{{groupId}}
