@@ -20,8 +20,9 @@ package okta
 
 import (
 	"fmt"
-	"github.com/okta/okta-sdk-golang/okta/query"
 	"time"
+
+	"github.com/okta/okta-sdk-golang/okta/query"
 )
 
 type App interface {
