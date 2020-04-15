@@ -35,8 +35,8 @@ import (
 	"time"
 
 	"github.com/okta/okta-sdk-golang/okta/cache"
-	"github.com/square/go-jose/jwt"
 	"gopkg.in/square/go-jose.v2"
+	"gopkg.in/square/go-jose.v2/jwt"
 )
 
 type RequestExecutor struct {
