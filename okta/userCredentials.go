@@ -21,7 +21,6 @@ package okta
 import ()
 
 type UserCredentials struct {
-	Emails           []*EmailAddress             `json:"emails,omitempty"`
 	Password         *PasswordCredential         `json:"password,omitempty"`
 	Provider         *AuthenticationProvider     `json:"provider,omitempty"`
 	RecoveryQuestion *RecoveryQuestionCredential `json:"recovery_question,omitempty"`

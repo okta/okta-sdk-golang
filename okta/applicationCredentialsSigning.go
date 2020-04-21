@@ -27,6 +27,7 @@ type ApplicationCredentialsSigning struct {
 	LastRotated  *time.Time `json:"lastRotated,omitempty"`
 	NextRotation *time.Time `json:"nextRotation,omitempty"`
 	RotationMode string     `json:"rotationMode,omitempty"`
+	Use          string     `json:"use,omitempty"`
 }
 
 func NewApplicationCredentialsSigning() *ApplicationCredentialsSigning {

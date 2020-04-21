@@ -20,9 +20,9 @@ import (
 	"io"
 	"testing"
 
-	"github.com/okta/okta-sdk-golang/okta"
-	"github.com/okta/okta-sdk-golang/okta/query"
-	"github.com/okta/okta-sdk-golang/tests"
+	"github.com/okta/okta-sdk-golang/v2/okta"
+	"github.com/okta/okta-sdk-golang/v2/okta/query"
+	"github.com/okta/okta-sdk-golang/v2/tests"
 	"github.com/stretchr/testify/assert"
 	"github.com/stretchr/testify/require"
 )
@@ -52,7 +52,7 @@ func Test_private_key_request_can_create_a_user(t *testing.T) {
 	profile["lastName"] = "Private_Key"
 	profile["email"] = "john-private-key@example.com"
 	profile["login"] = "john-private-key@example.com"
-	u := &okta.User{
+	u := &okta.CreateUserRequest{
 		Credentials: uc,
 		Profile:     &profile,
 	}
