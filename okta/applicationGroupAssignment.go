@@ -42,9 +42,11 @@ func (a *ApplicationGroupAssignment) IsApplicationInstance() bool {
 	return true
 }
 
+// Removes a group assignment from an application.
 func (m *ApplicationGroupAssignmentResource) DeleteApplicationGroupAssignment(appId string, groupId string) (*Response, error) {
 	url := fmt.Sprintf("/api/v1/apps/%v/groups/%v", appId, groupId)
-	req, err := m.client.requestExecutor.NewRequest("DELETE", url, nil)
+
+	req, err := m.client.requestExecutor.WithAccept("application/json").WithContentType("application/json").NewRequest("DELETE", url, nil)
 	if err != nil {
 		return nil, err
 	}
@@ -53,5 +55,6 @@ func (m *ApplicationGroupAssignmentResource) DeleteApplicationGroupAssignment(ap
 	if err != nil {
 		return resp, err
 	}
+
 	return resp, nil
 }

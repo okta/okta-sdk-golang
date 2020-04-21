@@ -35,23 +35,30 @@ type PolicyRule struct {
 	Type        string     `json:"type,omitempty"`
 }
 
+// Updates a policy rule.
 func (m *PolicyRuleResource) UpdatePolicyRule(policyId string, ruleId string, body PolicyRule) (*PolicyRule, *Response, error) {
 	url := fmt.Sprintf("/api/v1/policies/%v/rules/%v", policyId, ruleId)
-	req, err := m.client.requestExecutor.NewRequest("PUT", url, body)
+
+	req, err := m.client.requestExecutor.WithAccept("application/json").WithContentType("application/json").NewRequest("PUT", url, body)
 	if err != nil {
 		return nil, nil, err
 	}
 
 	var policyRule *PolicyRule
+
 	resp, err := m.client.requestExecutor.Do(req, &policyRule)
 	if err != nil {
 		return nil, resp, err
 	}
+
 	return policyRule, resp, nil
 }
+
+// Removes a policy rule.
 func (m *PolicyRuleResource) DeletePolicyRule(policyId string, ruleId string) (*Response, error) {
 	url := fmt.Sprintf("/api/v1/policies/%v/rules/%v", policyId, ruleId)
-	req, err := m.client.requestExecutor.NewRequest("DELETE", url, nil)
+
+	req, err := m.client.requestExecutor.WithAccept("application/json").WithContentType("application/json").NewRequest("DELETE", url, nil)
 	if err != nil {
 		return nil, err
 	}
@@ -60,5 +67,6 @@ func (m *PolicyRuleResource) DeletePolicyRule(policyId string, ruleId string) (*
 	if err != nil {
 		return resp, err
 	}
+
 	return resp, nil
 }

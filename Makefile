@@ -28,38 +28,15 @@ build:
 
 clean-files:
 	@echo "$(COLOR_OKTA)Cleaning Up Old Generated Files...$(COLOR_NONE)"
-	cd openapi.v2 && yarn cleanFiles
-
-generate-files:
-	@echo "$(COLOR_OKTA)Generating SDK Files...$(COLOR_NONE)"
-	cd openapi.v2 && yarn generator
-	@echo "$(COLOR_OK)Running Go Fmt on generated files...$(COLOR_NONE)"
-	gofmt -w ./okta.v2
-
-buildv1:
-	@echo "$(COLOR_OKTA)Building SDK...$(COLOR_NONE)"
-	make clean-filesv1
-	make generate-filesv1
-	make testv1:all
-
-clean-filesv1:
-	@echo "$(COLOR_OKTA)Cleaning Up Old Generated Files...$(COLOR_NONE)"
 	cd openapi && yarn cleanFiles
 
-generate-filesv1:
+generate-files:
 	@echo "$(COLOR_OKTA)Generating SDK Files...$(COLOR_NONE)"
 	cd openapi && yarn generator
 	@echo "$(COLOR_OK)Running Go Fmt on generated files...$(COLOR_NONE)"
 	gofmt -w ./okta
 
 pull-spec:
-	@echo "$(COLOR_OKTA)Pulling in latest spec...$(COLOR_NONE)"
-	rm openapi.v2/spec.json
-	git clone https://github.com/okta/openapi spec-raw
-	cp spec-raw/dist/spec.json openapi/spec.json
-	rm -fr spec-raw
-
-pull-specv1:
 	@echo "$(COLOR_OKTA)Pulling in latest spec...$(COLOR_NONE)"
 	rm openapi/spec.json
 	git clone https://github.com/okta/openapi spec-raw
@@ -77,25 +54,8 @@ test\:all:
 
 test\:integration:
 	@echo "$(COLOR_OKTA)Running integration tests...$(COLOR_NONE)"
-	go test ./tests.v2/integration -test.v
-
-test\:unit:
-	@echo "$(COLOR_OK)Running unit tests...$(COLOR_NONE)"
-	go test ./tests.v2/unit -test.v
-
-
-testv1:
-	make test:all
-
-testv1\:all:
-	@echo "$(COLOR_OKTA)Running all tests...$(COLOR_NONE)"
-	make testv1:unit
-	make testv1:integration
-
-testv1\:integration:
-	@echo "$(COLOR_OKTA)Running integration tests...$(COLOR_NONE)"
 	go test ./tests/integration -test.v
 
-testv1\:unit:
+test\:unit:
 	@echo "$(COLOR_OK)Running unit tests...$(COLOR_NONE)"
 	go test ./tests/unit -test.v

@@ -20,8 +20,7 @@ package okta
 
 import ()
 
-type PasswordCredential struct {
-	Hash  *PasswordCredentialHash `json:"hash,omitempty"`
-	Hook  *PasswordCredentialHook `json:"hook,omitempty"`
-	Value string                  `json:"value,omitempty"`
+type PolicyAccountLink struct {
+	Action string                   `json:"action,omitempty"`
+	Filter *PolicyAccountLinkFilter `json:"filter,omitempty"`
 }

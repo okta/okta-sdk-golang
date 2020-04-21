@@ -20,7 +20,7 @@ package okta
 
 import (
 	"fmt"
-	"github.com/okta/okta-sdk-golang/okta/query"
+	"github.com/okta/okta-sdk-golang/v2/okta/query"
 	"time"
 )
 
@@ -51,26 +51,33 @@ func (a *AppUser) IsApplicationInstance() bool {
 	return true
 }
 
+// Updates a user&#x27;s profile for an application
 func (m *AppUserResource) UpdateApplicationUser(appId string, userId string, body AppUser) (*AppUser, *Response, error) {
 	url := fmt.Sprintf("/api/v1/apps/%v/users/%v", appId, userId)
-	req, err := m.client.requestExecutor.NewRequest("POST", url, body)
+
+	req, err := m.client.requestExecutor.WithAccept("application/json").WithContentType("application/json").NewRequest("POST", url, body)
 	if err != nil {
 		return nil, nil, err
 	}
 
 	var appUser *AppUser
+
 	resp, err := m.client.requestExecutor.Do(req, &appUser)
 	if err != nil {
 		return nil, resp, err
 	}
+
 	return appUser, resp, nil
 }
+
+// Removes an assignment for a user from an application.
 func (m *AppUserResource) DeleteApplicationUser(appId string, userId string, qp *query.Params) (*Response, error) {
 	url := fmt.Sprintf("/api/v1/apps/%v/users/%v", appId, userId)
 	if qp != nil {
 		url = url + qp.String()
 	}
-	req, err := m.client.requestExecutor.NewRequest("DELETE", url, nil)
+
+	req, err := m.client.requestExecutor.WithAccept("application/json").WithContentType("application/json").NewRequest("DELETE", url, nil)
 	if err != nil {
 		return nil, err
 	}
@@ -79,5 +86,6 @@ func (m *AppUserResource) DeleteApplicationUser(appId string, userId string, qp 
 	if err != nil {
 		return resp, err
 	}
+
 	return resp, nil
 }

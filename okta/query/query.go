@@ -32,25 +32,30 @@ type Params struct {
 	IncludeNonDeleted    *bool  `json:"includeNonDeleted,omitempty"`
 	Activate             *bool  `json:"activate,omitempty"`
 	TargetAid            string `json:"targetAid,omitempty"`
+	Kid                  string `json:"kid,omitempty"`
 	QueryScope           string `json:"query_scope,omitempty"`
 	SendEmail            *bool  `json:"sendEmail,omitempty"`
-	RemoveUsers          *bool  `json:"removeUsers,omitempty"`
-	ManagedBy            string `json:"managedBy,omitempty"`
+	Cursor               string `json:"cursor,omitempty"`
+	Mode                 string `json:"mode,omitempty"`
+	Search               string `json:"search,omitempty"`
+	DisableNotifications string `json:"disableNotifications,omitempty"`
+	Type                 string `json:"type,omitempty"`
+	ValidityYears        int64  `json:"validityYears,omitempty"`
+	TargetIdpId          string `json:"targetIdpId,omitempty"`
 	Until                string `json:"until,omitempty"`
 	Since                string `json:"since,omitempty"`
 	SortOrder            string `json:"sortOrder,omitempty"`
-	Type                 string `json:"type,omitempty"`
 	Status               string `json:"status,omitempty"`
-	Format               string `json:"format,omitempty"`
-	Search               string `json:"search,omitempty"`
-	Provider             string `json:"provider,omitempty"`
+	TemplateType         string `json:"templateType,omitempty"`
+	SortBy               string `json:"sortBy,omitempty"`
+	Provider             *bool  `json:"provider,omitempty"`
 	NextLogin            string `json:"nextLogin,omitempty"`
+	KeepCurrent          *bool  `json:"keepCurrent,omitempty"`
 	Strict               *bool  `json:"strict,omitempty"`
-	ShowAll              *bool  `json:"showAll,omitempty"`
 	UpdatePhone          *bool  `json:"updatePhone,omitempty"`
 	TemplateId           string `json:"templateId,omitempty"`
 	TokenLifetimeSeconds int64  `json:"tokenLifetimeSeconds,omitempty"`
-	TempPassword         *bool  `json:"tempPassword,omitempty"`
+	ScopeId              string `json:"scopeId,omitempty"`
 	OauthTokens          *bool  `json:"oauthTokens,omitempty"`
 }
 
@@ -110,6 +115,11 @@ func WithTargetAid(queryTargetAid string) ParamOptions {
 		p.TargetAid = queryTargetAid
 	}
 }
+func WithKid(queryKid string) ParamOptions {
+	return func(p *Params) {
+		p.Kid = queryKid
+	}
+}
 func WithQueryScope(queryQueryScope string) ParamOptions {
 	return func(p *Params) {
 		p.QueryScope = queryQueryScope
@@ -122,16 +132,39 @@ func WithSendEmail(querySendEmail bool) ParamOptions {
 		p.SendEmail = b
 	}
 }
-func WithRemoveUsers(queryRemoveUsers bool) ParamOptions {
+func WithCursor(queryCursor string) ParamOptions {
 	return func(p *Params) {
-		b := new(bool)
-		*b = queryRemoveUsers
-		p.RemoveUsers = b
+		p.Cursor = queryCursor
 	}
 }
-func WithManagedBy(queryManagedBy string) ParamOptions {
+func WithMode(queryMode string) ParamOptions {
 	return func(p *Params) {
-		p.ManagedBy = queryManagedBy
+		p.Mode = queryMode
+	}
+}
+func WithSearch(querySearch string) ParamOptions {
+	return func(p *Params) {
+		p.Search = querySearch
+	}
+}
+func WithDisableNotifications(queryDisableNotifications string) ParamOptions {
+	return func(p *Params) {
+		p.DisableNotifications = queryDisableNotifications
+	}
+}
+func WithType(queryType string) ParamOptions {
+	return func(p *Params) {
+		p.Type = queryType
+	}
+}
+func WithValidityYears(queryValidityYears int64) ParamOptions {
+	return func(p *Params) {
+		p.ValidityYears = queryValidityYears
+	}
+}
+func WithTargetIdpId(queryTargetIdpId string) ParamOptions {
+	return func(p *Params) {
+		p.TargetIdpId = queryTargetIdpId
 	}
 }
 func WithUntil(queryUntil string) ParamOptions {
@@ -149,29 +182,26 @@ func WithSortOrder(querySortOrder string) ParamOptions {
 		p.SortOrder = querySortOrder
 	}
 }
-func WithType(queryType string) ParamOptions {
-	return func(p *Params) {
-		p.Type = queryType
-	}
-}
 func WithStatus(queryStatus string) ParamOptions {
 	return func(p *Params) {
 		p.Status = queryStatus
 	}
 }
-func WithFormat(queryFormat string) ParamOptions {
+func WithTemplateType(queryTemplateType string) ParamOptions {
 	return func(p *Params) {
-		p.Format = queryFormat
+		p.TemplateType = queryTemplateType
 	}
 }
-func WithSearch(querySearch string) ParamOptions {
+func WithSortBy(querySortBy string) ParamOptions {
 	return func(p *Params) {
-		p.Search = querySearch
+		p.SortBy = querySortBy
 	}
 }
-func WithProvider(queryProvider string) ParamOptions {
+func WithProvider(queryProvider bool) ParamOptions {
 	return func(p *Params) {
-		p.Provider = queryProvider
+		b := new(bool)
+		*b = queryProvider
+		p.Provider = b
 	}
 }
 func WithNextLogin(queryNextLogin string) ParamOptions {
@@ -179,18 +209,18 @@ func WithNextLogin(queryNextLogin string) ParamOptions {
 		p.NextLogin = queryNextLogin
 	}
 }
+func WithKeepCurrent(queryKeepCurrent bool) ParamOptions {
+	return func(p *Params) {
+		b := new(bool)
+		*b = queryKeepCurrent
+		p.KeepCurrent = b
+	}
+}
 func WithStrict(queryStrict bool) ParamOptions {
 	return func(p *Params) {
 		b := new(bool)
 		*b = queryStrict
 		p.Strict = b
-	}
-}
-func WithShowAll(queryShowAll bool) ParamOptions {
-	return func(p *Params) {
-		b := new(bool)
-		*b = queryShowAll
-		p.ShowAll = b
 	}
 }
 func WithUpdatePhone(queryUpdatePhone bool) ParamOptions {
@@ -210,11 +240,9 @@ func WithTokenLifetimeSeconds(queryTokenLifetimeSeconds int64) ParamOptions {
 		p.TokenLifetimeSeconds = queryTokenLifetimeSeconds
 	}
 }
-func WithTempPassword(queryTempPassword bool) ParamOptions {
+func WithScopeId(queryScopeId string) ParamOptions {
 	return func(p *Params) {
-		b := new(bool)
-		*b = queryTempPassword
-		p.TempPassword = b
+		p.ScopeId = queryScopeId
 	}
 }
 func WithOauthTokens(queryOauthTokens bool) ParamOptions {
@@ -252,17 +280,35 @@ func (p *Params) String() string {
 	if p.TargetAid != "" {
 		qs.Add(`targetAid`, p.TargetAid)
 	}
+	if p.Kid != "" {
+		qs.Add(`kid`, p.Kid)
+	}
 	if p.QueryScope != "" {
 		qs.Add(`query_scope`, p.QueryScope)
 	}
 	if p.SendEmail != nil {
 		qs.Add(`sendEmail`, strconv.FormatBool(*p.SendEmail))
 	}
-	if p.RemoveUsers != nil {
-		qs.Add(`removeUsers`, strconv.FormatBool(*p.RemoveUsers))
+	if p.Cursor != "" {
+		qs.Add(`cursor`, p.Cursor)
 	}
-	if p.ManagedBy != "" {
-		qs.Add(`managedBy`, p.ManagedBy)
+	if p.Mode != "" {
+		qs.Add(`mode`, p.Mode)
+	}
+	if p.Search != "" {
+		qs.Add(`search`, p.Search)
+	}
+	if p.DisableNotifications != "" {
+		qs.Add(`disableNotifications`, p.DisableNotifications)
+	}
+	if p.Type != "" {
+		qs.Add(`type`, p.Type)
+	}
+	if p.ValidityYears != 0 {
+		qs.Add(`validityYears`, strconv.FormatInt(p.ValidityYears, 10))
+	}
+	if p.TargetIdpId != "" {
+		qs.Add(`targetIdpId`, p.TargetIdpId)
 	}
 	if p.Until != "" {
 		qs.Add(`until`, p.Until)
@@ -273,29 +319,26 @@ func (p *Params) String() string {
 	if p.SortOrder != "" {
 		qs.Add(`sortOrder`, p.SortOrder)
 	}
-	if p.Type != "" {
-		qs.Add(`type`, p.Type)
-	}
 	if p.Status != "" {
 		qs.Add(`status`, p.Status)
 	}
-	if p.Format != "" {
-		qs.Add(`format`, p.Format)
+	if p.TemplateType != "" {
+		qs.Add(`templateType`, p.TemplateType)
 	}
-	if p.Search != "" {
-		qs.Add(`search`, p.Search)
+	if p.SortBy != "" {
+		qs.Add(`sortBy`, p.SortBy)
 	}
-	if p.Provider != "" {
-		qs.Add(`provider`, p.Provider)
+	if p.Provider != nil {
+		qs.Add(`provider`, strconv.FormatBool(*p.Provider))
 	}
 	if p.NextLogin != "" {
 		qs.Add(`nextLogin`, p.NextLogin)
 	}
+	if p.KeepCurrent != nil {
+		qs.Add(`keepCurrent`, strconv.FormatBool(*p.KeepCurrent))
+	}
 	if p.Strict != nil {
 		qs.Add(`strict`, strconv.FormatBool(*p.Strict))
-	}
-	if p.ShowAll != nil {
-		qs.Add(`showAll`, strconv.FormatBool(*p.ShowAll))
 	}
 	if p.UpdatePhone != nil {
 		qs.Add(`updatePhone`, strconv.FormatBool(*p.UpdatePhone))
@@ -306,8 +349,8 @@ func (p *Params) String() string {
 	if p.TokenLifetimeSeconds != 0 {
 		qs.Add(`tokenLifetimeSeconds`, strconv.FormatInt(p.TokenLifetimeSeconds, 10))
 	}
-	if p.TempPassword != nil {
-		qs.Add(`tempPassword`, strconv.FormatBool(*p.TempPassword))
+	if p.ScopeId != "" {
+		qs.Add(`scopeId`, p.ScopeId)
 	}
 	if p.OauthTokens != nil {
 		qs.Add(`oauthTokens`, strconv.FormatBool(*p.OauthTokens))
