@@ -17,10 +17,7 @@
 package integration
 
 import (
-	"crypto/rand"
-	"encoding/pem"
 	"fmt"
-	"math/big"
 	"strings"
 	"testing"
 
@@ -433,46 +430,6 @@ func Test_can_create_csr_for_application(t *testing.T) {
 	require.NoError(t, err, "Creating an application CSR should not error")
 
 	assert.IsType(t, &okta.CSR{}, csrs, "did not return a `okta.CSR` object")
-
-	client.Application.DeactivateApplication(application.Id)
-	_, err = client.Application.DeleteApplication(application.Id)
-
-	require.NoError(t, err, "Deleting an application should not error")
-}
-
-func Test_can_publish_pkix_base64_for_application(t *testing.T) {
-	client, _ := tests.NewClient()
-
-	application := create_application(t)
-
-	subject := okta.CSRMetadataSubject{
-		CountryName:            "US",
-		StateOrProvinceName:    "California",
-		LocalityName:           "San Francisco",
-		OrganizationName:       "Okta, Inc",
-		OrganizationalUnitName: "Dev",
-		CommonName:             "SP Issuer",
-	}
-
-	subjectAltNames := okta.CSRMetadataSubjectAltNames{
-		DnsNames: []string{"dev.okta.com"},
-	}
-
-	oktaCsr := okta.CSRMetadata{
-		Subject:         &subject,
-		SubjectAltNames: &subjectAltNames,
-	}
-
-	csrs, _, err := client.Application.GenerateCsrForApplication(application.Id, oktaCsr)
-	require.NoError(t, err, "Creating an application CSR should not error")
-
-	csr := pem.EncodeToMemory(&pem.Block{
-		Type: "CERTIFICATE REQUEST", Bytes: []byte(csrs.Csr),
-	})
-
-	serial, err = rand.Int(rand.Reader, (&big.Int{}).Exp(big.NewInt(2), big.NewInt(159), nil))
-
-	fmt.Printf("%+v\n", csr)
 
 	client.Application.DeactivateApplication(application.Id)
 	_, err = client.Application.DeleteApplication(application.Id)
