@@ -29,10 +29,10 @@ type TotpUserFactor struct {
 	FactorType  string                 `json:"factorType,omitempty"`
 	Id          string                 `json:"id,omitempty"`
 	LastUpdated *time.Time             `json:"lastUpdated,omitempty"`
-	Profile     *TotpUserFactorProfile `json:"profile,omitempty"`
 	Provider    string                 `json:"provider,omitempty"`
 	Status      string                 `json:"status,omitempty"`
 	Verify      *VerifyFactorRequest   `json:"verify,omitempty"`
+	Profile     *TotpUserFactorProfile `json:"profile,omitempty"`
 }
 
 func NewTotpUserFactor() *TotpUserFactor {

@@ -29,10 +29,10 @@ type EmailUserFactor struct {
 	FactorType  string                  `json:"factorType,omitempty"`
 	Id          string                  `json:"id,omitempty"`
 	LastUpdated *time.Time              `json:"lastUpdated,omitempty"`
-	Profile     *EmailUserFactorProfile `json:"profile,omitempty"`
 	Provider    string                  `json:"provider,omitempty"`
 	Status      string                  `json:"status,omitempty"`
 	Verify      *VerifyFactorRequest    `json:"verify,omitempty"`
+	Profile     *EmailUserFactorProfile `json:"profile,omitempty"`
 }
 
 func NewEmailUserFactor() *EmailUserFactor {

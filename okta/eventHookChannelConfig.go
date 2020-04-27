@@ -23,5 +23,5 @@ import ()
 type EventHookChannelConfig struct {
 	AuthScheme *EventHookChannelConfigAuthScheme `json:"authScheme,omitempty"`
 	Headers    []*EventHookChannelConfigHeader   `json:"headers,omitempty"`
-	Url        string                            `json:"url,omitempty"`
+	Uri        string                            `json:"uri,omitempty"`
 }
