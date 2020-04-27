@@ -17,7 +17,10 @@
 package integration
 
 import (
+	"crypto/rand"
+	"encoding/pem"
 	"fmt"
+	"math/big"
 	"strings"
 	"testing"
 
@@ -30,54 +33,6 @@ import (
 
 	"github.com/okta/okta-sdk-golang/v2/tests"
 )
-
-const myCApem = `-----BEGIN CERTIFICATE-----
-MIIDGjCCAgICCQCf0kZljlDWgTANBgkqhkiG9w0BAQsFADBPMQswCQYDVQQGEwJV
-UzENMAsGA1UECAwET2hpbzETMBEGA1UEBwwKU3ByaW5nYm9ybzENMAsGA1UECgwE
-U2VsZjENMAsGA1UECwwEU2VsZjAeFw0yMDAzMTkxNjI1MzZaFw0yNTAzMTgxNjI1
-MzZaME8xCzAJBgNVBAYTAlVTMQ0wCwYDVQQIDARPaGlvMRMwEQYDVQQHDApTcHJp
-bmdib3JvMQ0wCwYDVQQKDARTZWxmMQ0wCwYDVQQLDARTZWxmMIIBIjANBgkqhkiG
-9w0BAQEFAAOCAQ8AMIIBCgKCAQEA8DC7b9I93e4jZWYZ/601sAYPDg4g+dXZBPv9
-qo4N0D19bMx1LsRSk7b8BKCtmJW/Oej70Mh8hTR2Vfkgc6ex/Pmt5pIMnwwpU6Uq
-BpjmYOw7jGUxutLSXVsf8tGt+76HquqpIyGwo9aZA4ZdVsC/h4IZFcD/qeeJ7asG
-9jyHMvXHK9eEc8RURBKiPU3kEak6/bmf+6XPp8GcNn+N0pLhjlVjLv0TxojrkjRU
-ONTuDN5yMaIru7DYnAx15AiwqS52HEsSXYXqb4oYE1B5sePaytTUyVchdyTSpo6d
-d84+kVxM+5FGwKq9z1WOm83KQ3pJnBSE/puHf2yzrkBSZzjeZwIDAQABMA0GCSqG
-SIb3DQEBCwUAA4IBAQCmRcoZvRgJMeOneQXQBu+weqyyzov8mbHn4aw7DDdzgwh7
-YgoOdMT5I4Q0W/ct9yskvm6OQVtRao8n+1HHrgzsVw6B1cIaEpCLrNXoeD28eglf
-ZUofH0ZOxEavZt2p4qRADCG0MnPY3re10YY1i19fFOIvM5aSc0W4Ep0QG4gnjlHb
-2hBWj88kPWK+ECvaI9fDiwURfOVmTp2KgVmGCtMZf2WFDDuFOuCE9MrqLSXoUyJX
-lCQEpomZRF6bwBBz2Ca0iQVoSM9C80wXAyP9naeGLRdnrXVo99KL6HYSti3iD2yO
-YqGxQq1rRjEgipWQ3qhjV+7l57Na0BYaFX1+HFnJ
------END CERTIFICATE-----`
-
-const myCAkey = `-----BEGIN RSA PRIVATE KEY-----
-MIIEpQIBAAKCAQEA8DC7b9I93e4jZWYZ/601sAYPDg4g+dXZBPv9qo4N0D19bMx1
-LsRSk7b8BKCtmJW/Oej70Mh8hTR2Vfkgc6ex/Pmt5pIMnwwpU6UqBpjmYOw7jGUx
-utLSXVsf8tGt+76HquqpIyGwo9aZA4ZdVsC/h4IZFcD/qeeJ7asG9jyHMvXHK9eE
-c8RURBKiPU3kEak6/bmf+6XPp8GcNn+N0pLhjlVjLv0TxojrkjRUONTuDN5yMaIr
-u7DYnAx15AiwqS52HEsSXYXqb4oYE1B5sePaytTUyVchdyTSpo6dd84+kVxM+5FG
-wKq9z1WOm83KQ3pJnBSE/puHf2yzrkBSZzjeZwIDAQABAoIBAQDt/Ns7qO10AIlB
-5zDLjSwtBVPVcVprMeCed7CYVbiKJOMp8kwJ0qyfgCelzi8ziOy4zIj2DjCTK7A0
-72ugLQDGz/3m/79RuBMatgQ2FTnvvyIhsgLcQhf+OFQnnGrvjZGPYIPGM5N6Qx/J
-xlClrMYZ1mZUj67DApA/1b5ILSEo80LCE+2KwHzXcv1xySV5G1lsdr/GDaQYjZlw
-mZGNevY9r94REhe2240zu+gq9YHA2TJgrjjViSGsupPY3EE8vYMYWv/N1h8sLFkD
-ntehUX32nK75Wq3NaB0OjBBreGtC52/wQwG2EOV3KRcw8WxqPhQzHYSO73aWlqbh
-v97WGqGBAoGBAPpdTUhO1OEHpH8aCEqP8Sm2Q7hKK0W3ua9++4jEWHGcnvRYvECJ
-OYyiHxzdMadyy8MvZKI7dWDQiqxEcwpm7rbJCJXzOjy+hdbJvV5myeHlwvzfaWe7
-FR3t4XtC/kBtidm/hkhRkqlC3U1UJ9nDiCkbfNkrakJlbRY5+coTZW3vAoGBAPWY
-zZprNiFMc9um86IjsuKaP8SSXDColsmO6dmRQQOjOFuYN0QMwlBGbnyvQZTrRgwq
-s8UYJY0323tEgBGUynSWOVbRV0PWoOM1G0cx1aFv/Mj43xhJlXvMmrgUi4bxIPBZ
-lUiTy32CaiHT5glekWdde6qDqtyO7Gr9maKDOQ8JAoGBAJLGoikS9iBaz6goBdZY
-nsSacwcWjFnaBQUKx8H9gfBRJqsPXoXjLRbycJUGZDbLyQNLxI6LlxvEBphJpLvj
-bm1AXEU0i97SvzoVmWw/jHlfrrl67JuAhTe/nuIZe18gGKHMc5fwIrASYBUWkipL
-RIb882uJ1UjJl3NhV7yNNHiHAoGBAITTIz9EhH31zyMYY+No0zJioeI6FcnrI8HW
-nPqh6DuDZtOCu0D+dYjczpx4XEuiArxJy/foW0bI0tcT8P+RLP1o0ZH2ne9+gHzh
-F+OlPBiXbGt0zZNhGItf2L19vwg4GMxkZqxd4kv64FNzOpIOpyz0DhHmK94lHg+v
-IAwYVB+hAoGAbfEb0nrWg2S4euP2KrZ2jnEzOgR7RLm3QYuxV+0UQQ4lSoGE6thq
-Nd9jmO2rvpK47rjR2Db7p3/E/xfp27x/RMi5KvGF5l6E1xsXXrMCR2M6ghWdqv/C
-wjcsLCBxDJreGsTbPeET2Sae6pVvSkKdMJVIwyTMZxyKOukerA9X1g4=
------END RSA PRIVATE KEY-----`
 
 func Test_can_get_applicaiton_by_id(t *testing.T) {
 	client, _ := tests.NewClient()
@@ -478,6 +433,46 @@ func Test_can_create_csr_for_application(t *testing.T) {
 	require.NoError(t, err, "Creating an application CSR should not error")
 
 	assert.IsType(t, &okta.CSR{}, csrs, "did not return a `okta.CSR` object")
+
+	client.Application.DeactivateApplication(application.Id)
+	_, err = client.Application.DeleteApplication(application.Id)
+
+	require.NoError(t, err, "Deleting an application should not error")
+}
+
+func Test_can_publish_pkix_base64_for_application(t *testing.T) {
+	client, _ := tests.NewClient()
+
+	application := create_application(t)
+
+	subject := okta.CSRMetadataSubject{
+		CountryName:            "US",
+		StateOrProvinceName:    "California",
+		LocalityName:           "San Francisco",
+		OrganizationName:       "Okta, Inc",
+		OrganizationalUnitName: "Dev",
+		CommonName:             "SP Issuer",
+	}
+
+	subjectAltNames := okta.CSRMetadataSubjectAltNames{
+		DnsNames: []string{"dev.okta.com"},
+	}
+
+	oktaCsr := okta.CSRMetadata{
+		Subject:         &subject,
+		SubjectAltNames: &subjectAltNames,
+	}
+
+	csrs, _, err := client.Application.GenerateCsrForApplication(application.Id, oktaCsr)
+	require.NoError(t, err, "Creating an application CSR should not error")
+
+	csr := pem.EncodeToMemory(&pem.Block{
+		Type: "CERTIFICATE REQUEST", Bytes: []byte(csrs.Csr),
+	})
+
+	serial, err = rand.Int(rand.Reader, (&big.Int{}).Exp(big.NewInt(2), big.NewInt(159), nil))
+
+	fmt.Printf("%+v\n", csr)
 
 	client.Application.DeactivateApplication(application.Id)
 	_, err = client.Application.DeleteApplication(application.Id)
