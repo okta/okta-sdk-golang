@@ -29,10 +29,10 @@ type U2fUserFactor struct {
 	FactorType  string                `json:"factorType,omitempty"`
 	Id          string                `json:"id,omitempty"`
 	LastUpdated *time.Time            `json:"lastUpdated,omitempty"`
-	Profile     *U2fUserFactorProfile `json:"profile,omitempty"`
 	Provider    string                `json:"provider,omitempty"`
 	Status      string                `json:"status,omitempty"`
 	Verify      *VerifyFactorRequest  `json:"verify,omitempty"`
+	Profile     *U2fUserFactorProfile `json:"profile,omitempty"`
 }
 
 func NewU2fUserFactor() *U2fUserFactor {
