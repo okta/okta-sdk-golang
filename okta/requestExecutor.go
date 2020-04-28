@@ -18,6 +18,7 @@ package okta
 
 import (
 	"bytes"
+	"context"
 	"crypto/x509"
 	"encoding/json"
 	"encoding/pem"
@@ -212,7 +213,7 @@ func (re *RequestExecutor) WithContentType(contentTypeHeader string) *RequestExe
 	return re
 }
 
-func (re *RequestExecutor) Do(req *http.Request, v interface{}) (*Response, error) {
+func (re *RequestExecutor) Do(ctx context.Context, req *http.Request, v interface{}) (*Response, error) {
 	requestStarted := time.Now().Unix()
 	cacheKey := cache.CreateCacheKey(req)
 	if req.Method != http.MethodGet {
@@ -222,7 +223,7 @@ func (re *RequestExecutor) Do(req *http.Request, v interface{}) (*Response, erro
 
 	if !inCache {
 
-		resp, err := re.doWithRetries(req, 0, requestStarted, nil)
+		resp, err := re.doWithRetries(ctx, req, 0, requestStarted, nil)
 
 		if err != nil {
 			return nil, err
@@ -245,7 +246,7 @@ func (re *RequestExecutor) Do(req *http.Request, v interface{}) (*Response, erro
 
 }
 
-func (re *RequestExecutor) doWithRetries(req *http.Request, retryCount int32, requestStarted int64, lastResponse *http.Response) (*http.Response, error) {
+func (re *RequestExecutor) doWithRetries(ctx context.Context, req *http.Request, retryCount int32, requestStarted int64, lastResponse *http.Response) (*http.Response, error) {
 	iterationStart := time.Now().Unix()
 	maxRetries := re.config.Okta.Client.RateLimit.MaxRetries
 	requestTimeout := int64(re.config.Okta.Client.RequestTimeout)
@@ -259,6 +260,7 @@ func (re *RequestExecutor) doWithRetries(req *http.Request, retryCount int32, re
 		return lastResponse, errors.New("reached the max request time")
 	}
 
+	req = req.WithContext(ctx)
 	resp, err := re.httpClient.Do(req)
 
 	if (err != nil || tooManyRequests(resp)) && retryCount < maxRetries {
@@ -276,7 +278,7 @@ func (re *RequestExecutor) doWithRetries(req *http.Request, retryCount int32, re
 		}
 
 		if tooManyRequests(resp) {
-			err := backoffPause(retryCount, resp)
+			err := backoffPause(ctx, retryCount, resp)
 			if err != nil {
 				return nil, err
 			}
@@ -286,7 +288,7 @@ func (re *RequestExecutor) doWithRetries(req *http.Request, retryCount int32, re
 		req.Header.Add("X-Okta-Retry-For", resp.Header.Get("X-Okta-Request-Id"))
 		req.Header.Add("X-Okta-Retry-Count", fmt.Sprint(retryCount))
 
-		resp, err = re.doWithRetries(req, retryCount, requestStarted, resp)
+		resp, err = re.doWithRetries(ctx, req, retryCount, requestStarted, resp)
 	}
 
 	return resp, err
@@ -305,9 +307,9 @@ func tryDrainBody(body io.ReadCloser) error {
 	return nil
 }
 
-func backoffPause(retryCount int32, response *http.Response) error {
+func backoffPause(ctx context.Context, retryCount int32, response *http.Response) error {
 	if response.StatusCode == http.StatusTooManyRequests {
-		backoffSeconds := Get429BackoffTime(response)
+		backoffSeconds := Get429BackoffTime(ctx, response)
 		time.Sleep(time.Duration(backoffSeconds) * time.Second)
 
 		return nil
@@ -316,7 +318,7 @@ func backoffPause(retryCount int32, response *http.Response) error {
 	return nil
 }
 
-func Get429BackoffTime(response *http.Response) int64 {
+func Get429BackoffTime(ctx context.Context, response *http.Response) int64 {
 	var limitResetMap []int
 
 	for _, time := range response.Header["X-Rate-Limit-Reset"] {

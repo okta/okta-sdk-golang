@@ -17,6 +17,7 @@
 package integration
 
 import (
+	"context"
 	"testing"
 	"time"
 
@@ -32,16 +33,16 @@ func Test_create_an_event_hook(t *testing.T) {
 
 	eventHookRequest := createEventHookRequestObject("Create an event hook")
 
-	eventHook, response, err := client.EventHook.CreateEventHook(eventHookRequest)
+	eventHook, response, err := client.EventHook.CreateEventHook(context.TODO(), eventHookRequest)
 
 	require.NoError(t, err, "creating an event hook should not error")
 	tests.Assert_response(t, response, "POST", "/api/v1/eventHooks")
 
 	assert_event_hook_model(t, eventHook)
 
-	_, _, err = client.EventHook.DeactivateEventHook(eventHook.Id)
+	_, _, err = client.EventHook.DeactivateEventHook(context.TODO(), eventHook.Id)
 	require.NoError(t, err, "deactivating an event hook should not error")
-	_, err = client.EventHook.DeleteEventHook(eventHook.Id)
+	_, err = client.EventHook.DeleteEventHook(context.TODO(), eventHook.Id)
 	require.NoError(t, err, "deleting an event hook should not error")
 
 }
@@ -51,12 +52,12 @@ func Test_get_an_event_hook(t *testing.T) {
 
 	eventHookRequest := createEventHookRequestObject("get an event hook")
 
-	eventHook, response, err := client.EventHook.CreateEventHook(eventHookRequest)
+	eventHook, response, err := client.EventHook.CreateEventHook(context.TODO(), eventHookRequest)
 
 	require.NoError(t, err, "creating an event hook should not error")
 	tests.Assert_response(t, response, "POST", "/api/v1/eventHooks")
 
-	foundEventHook, response, err := client.EventHook.GetEventHook(eventHook.Id)
+	foundEventHook, response, err := client.EventHook.GetEventHook(context.TODO(), eventHook.Id)
 
 	require.NoError(t, err, "get an event hook should not error")
 	tests.Assert_response(t, response, "GET", "/api/v1/eventHooks/"+eventHook.Id)
@@ -64,9 +65,9 @@ func Test_get_an_event_hook(t *testing.T) {
 	assert_event_hook_model(t, foundEventHook)
 	require.Equal(t, eventHook.Id, foundEventHook.Id, "did not find the same event hook from id")
 
-	_, _, err = client.EventHook.DeactivateEventHook(eventHook.Id)
+	_, _, err = client.EventHook.DeactivateEventHook(context.TODO(), eventHook.Id)
 	require.NoError(t, err, "deactivating an event hook should not error")
-	_, err = client.EventHook.DeleteEventHook(eventHook.Id)
+	_, err = client.EventHook.DeleteEventHook(context.TODO(), eventHook.Id)
 	require.NoError(t, err, "deleting an event hook should not error")
 
 }
@@ -76,20 +77,20 @@ func Test_update_an_event_hook(t *testing.T) {
 
 	eventHookRequest := createEventHookRequestObject("Create an event hook")
 
-	eventHook, response, err := client.EventHook.CreateEventHook(eventHookRequest)
+	eventHook, response, err := client.EventHook.CreateEventHook(context.TODO(), eventHookRequest)
 
 	require.NoError(t, err, "creating an event hook should not error")
 	tests.Assert_response(t, response, "POST", "/api/v1/eventHooks")
 
 	eventHook.Name = "GO SDK: Updated Event Hook"
-	updatedEventHook, response, err := client.EventHook.UpdateEventHook(eventHook.Id, *eventHook)
+	updatedEventHook, response, err := client.EventHook.UpdateEventHook(context.TODO(), eventHook.Id, *eventHook)
 
 	assert_event_hook_model(t, updatedEventHook)
 	require.Equal(t, eventHook.Name, updatedEventHook.Name, "update of event hook did not work")
 
-	_, _, err = client.EventHook.DeactivateEventHook(eventHook.Id)
+	_, _, err = client.EventHook.DeactivateEventHook(context.TODO(), eventHook.Id)
 	require.NoError(t, err, "deactivating an event hook should not error")
-	_, err = client.EventHook.DeleteEventHook(eventHook.Id)
+	_, err = client.EventHook.DeleteEventHook(context.TODO(), eventHook.Id)
 	require.NoError(t, err, "deleting an event hook should not error")
 
 }
@@ -99,7 +100,7 @@ func Test_deactivate_and_delete_an_event_hook(t *testing.T) {
 
 	eventHookRequest := createEventHookRequestObject("deactivate and delete an event hook")
 
-	eventHook, response, err := client.EventHook.CreateEventHook(eventHookRequest)
+	eventHook, response, err := client.EventHook.CreateEventHook(context.TODO(), eventHookRequest)
 
 	require.NoError(t, err, "creating an event hook should not error")
 	tests.Assert_response(t, response, "POST", "/api/v1/eventHooks")
@@ -107,16 +108,16 @@ func Test_deactivate_and_delete_an_event_hook(t *testing.T) {
 	assert_event_hook_model(t, eventHook)
 	require.Equal(t, "ACTIVE", eventHook.Status, "event hook was not active")
 
-	_, response, err = client.EventHook.DeactivateEventHook(eventHook.Id)
+	_, response, err = client.EventHook.DeactivateEventHook(context.TODO(), eventHook.Id)
 	require.NoError(t, err, "deactivating an event hook should not error")
 	tests.Assert_response(t, response, "POST", "/api/v1/eventHooks/"+eventHook.Id+"/lifecycle/deactivate")
 
-	foundEventHook, _, err := client.EventHook.GetEventHook(eventHook.Id)
+	foundEventHook, _, err := client.EventHook.GetEventHook(context.TODO(), eventHook.Id)
 
 	require.NoError(t, err, "get an event hook should not error")
 	require.Equal(t, "INACTIVE", foundEventHook.Status, "event hook was not inactive after deactivate")
 
-	response, err = client.EventHook.DeleteEventHook(eventHook.Id)
+	response, err = client.EventHook.DeleteEventHook(context.TODO(), eventHook.Id)
 	require.NoError(t, err, "deleting an event hook should not error")
 	tests.Assert_response(t, response, "DELETE", "/api/v1/eventHooks/"+eventHook.Id)
 
@@ -127,7 +128,7 @@ func Test_activate_an_event_hook(t *testing.T) {
 
 	eventHookRequest := createEventHookRequestObject("activate an event hook")
 
-	eventHook, response, err := client.EventHook.CreateEventHook(eventHookRequest)
+	eventHook, response, err := client.EventHook.CreateEventHook(context.TODO(), eventHookRequest)
 
 	require.NoError(t, err, "creating an event hook should not error")
 	tests.Assert_response(t, response, "POST", "/api/v1/eventHooks")
@@ -135,19 +136,19 @@ func Test_activate_an_event_hook(t *testing.T) {
 	assert_event_hook_model(t, eventHook)
 	require.Equal(t, "ACTIVE", eventHook.Status, "event hook was not active")
 
-	eventHook, response, err = client.EventHook.DeactivateEventHook(eventHook.Id)
+	eventHook, response, err = client.EventHook.DeactivateEventHook(context.TODO(), eventHook.Id)
 	require.NoError(t, err, "deactivating an event hook should not error")
 	tests.Assert_response(t, response, "POST", "/api/v1/eventHooks/"+eventHook.Id+"/lifecycle/deactivate")
 	require.Equal(t, "INACTIVE", eventHook.Status, "event hook was not active")
 
-	eventHook, response, err = client.EventHook.ActivateEventHook(eventHook.Id)
+	eventHook, response, err = client.EventHook.ActivateEventHook(context.TODO(), eventHook.Id)
 	require.NoError(t, err, "activating an event hook should not error")
 	tests.Assert_response(t, response, "POST", "/api/v1/eventHooks/"+eventHook.Id+"/lifecycle/activate")
 	require.Equal(t, "ACTIVE", eventHook.Status, "event hook was not active")
 
-	_, _, err = client.EventHook.DeactivateEventHook(eventHook.Id)
+	_, _, err = client.EventHook.DeactivateEventHook(context.TODO(), eventHook.Id)
 	require.NoError(t, err, "deactivating an event hook should not error")
-	response, err = client.EventHook.DeleteEventHook(eventHook.Id)
+	response, err = client.EventHook.DeleteEventHook(context.TODO(), eventHook.Id)
 	require.NoError(t, err, "deleting an event hook should not error")
 
 }
@@ -157,12 +158,12 @@ func Test_list_event_hooks(t *testing.T) {
 
 	eventHookRequest := createEventHookRequestObject("List event hooks")
 
-	eventHook, response, err := client.EventHook.CreateEventHook(eventHookRequest)
+	eventHook, response, err := client.EventHook.CreateEventHook(context.TODO(), eventHookRequest)
 
 	require.NoError(t, err, "creating an event hook should not error")
 	tests.Assert_response(t, response, "POST", "/api/v1/eventHooks")
 
-	eventHookList, response, err := client.EventHook.ListEventHooks()
+	eventHookList, response, err := client.EventHook.ListEventHooks(context.TODO())
 	assert.IsType(t, []*okta.EventHook{}, eventHookList, "did not return a list of eventHook objects")
 
 	found := false
@@ -174,9 +175,9 @@ func Test_list_event_hooks(t *testing.T) {
 
 	assert.True(t, found, "did not find the eventHook in the list")
 
-	_, _, err = client.EventHook.DeactivateEventHook(eventHook.Id)
+	_, _, err = client.EventHook.DeactivateEventHook(context.TODO(), eventHook.Id)
 	require.NoError(t, err, "deactivating an event hook should not error")
-	_, err = client.EventHook.DeleteEventHook(eventHook.Id)
+	_, err = client.EventHook.DeleteEventHook(context.TODO(), eventHook.Id)
 	require.NoError(t, err, "deleting an event hook should not error")
 
 }
@@ -186,12 +187,12 @@ func Test_verify_an_event_hook(t *testing.T) {
 
 	eventHookRequest := createEventHookRequestObject("Verify an event hook")
 
-	eventHook, response, err := client.EventHook.CreateEventHook(eventHookRequest)
+	eventHook, response, err := client.EventHook.CreateEventHook(context.TODO(), eventHookRequest)
 
 	require.NoError(t, err, "creating an event hook should not error")
 	tests.Assert_response(t, response, "POST", "/api/v1/eventHooks")
 
-	_, response, err = client.EventHook.VerifyEventHook(eventHook.Id)
+	_, response, err = client.EventHook.VerifyEventHook(context.TODO(), eventHook.Id)
 
 	// We expect this call to error.  Our test is just making sure we have the correct endpoint.
 	// To fully test this, we have to have an acutal endpoint that will respond to event hooks.
@@ -199,9 +200,9 @@ func Test_verify_an_event_hook(t *testing.T) {
 	require.Equal(t, 400, response.StatusCode, "Should have errored with a 400 status code")
 	tests.Assert_response(t, response, "POST", "/api/v1/eventHooks/"+eventHook.Id+"/lifecycle/verify")
 
-	_, _, err = client.EventHook.DeactivateEventHook(eventHook.Id)
+	_, _, err = client.EventHook.DeactivateEventHook(context.TODO(), eventHook.Id)
 	require.NoError(t, err, "deactivating an event hook should not error")
-	_, err = client.EventHook.DeleteEventHook(eventHook.Id)
+	_, err = client.EventHook.DeleteEventHook(context.TODO(), eventHook.Id)
 	require.NoError(t, err, "deleting an event hook should not error")
 
 }
@@ -209,22 +210,21 @@ func Test_verify_an_event_hook(t *testing.T) {
 func createEventHookRequestObject(name string) okta.EventHook {
 	eventHookEvent := okta.EventSubscriptions{
 		Type: "EVENT_TYPE",
-		Items: []string {
+		Items: []string{
 			"user.lifecycle.create",
 			"user.lifecycle.activate",
 		},
 	}
 
 	eventHookChannelConfigHeader := okta.EventHookChannelConfigHeader{
-		Key: "X-Other-Header",
+		Key:   "X-Other-Header",
 		Value: "some-other-value",
 	}
 
 	eventHookChannelConfigAuthScheme := okta.EventHookChannelConfigAuthScheme{
-		Type: "HEADER",
-		Key: "Authorization",
+		Type:  "HEADER",
+		Key:   "Authorization",
 		Value: "MyApiKey",
-
 	}
 
 	eventHookChannelConfig := okta.EventHookChannelConfig{
@@ -236,14 +236,14 @@ func createEventHookRequestObject(name string) okta.EventHook {
 	}
 
 	eventHookChannel := okta.EventHookChannel{
-		Type: "HTTP",
+		Type:    "HTTP",
 		Version: "1.0.0",
-		Config: &eventHookChannelConfig,
+		Config:  &eventHookChannelConfig,
 	}
 
 	eventHookRequest := okta.EventHook{
-		Name: "GO SDK: " + name,
-		Events: &eventHookEvent,
+		Name:    "GO SDK: " + name,
+		Events:  &eventHookEvent,
 		Channel: &eventHookChannel,
 	}
 

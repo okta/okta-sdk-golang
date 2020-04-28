@@ -138,6 +138,7 @@ function getImports(object) {
     for (let operation in object.operations) {
       if(object.operations[operation].queryParams.length) {
         imports.push("github.com/okta/okta-sdk-golang/v2/okta/query")
+        imports.push("context");
       }
     }
   }
@@ -149,6 +150,7 @@ function getImports(object) {
         imports.push("github.com/okta/okta-sdk-golang/v2/okta/query")
       }
       imports.push("fmt");
+      imports.push("context");
       if (method.operation.responseModel !== undefined) {
         imports.push("fmt");
       }
@@ -165,6 +167,7 @@ function getImports(object) {
         imports.push("github.com/okta/okta-sdk-golang/v2/okta/query")
       }
       imports.push("fmt");
+      imports.push("context");
       if (method.operation.responseModel !== undefined) {
         imports.push("fmt");
       }
@@ -186,6 +189,8 @@ function getImports(object) {
 
 function operationArgumentBuilder(operation) {
   const args = [];
+
+  args.push("ctx context.Context");
 
   operation.pathParams.map((arg) => args.push(arg.name + " " + arg.type));
 

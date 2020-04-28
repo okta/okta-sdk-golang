@@ -19,6 +19,7 @@
 package okta
 
 import (
+	"context"
 	"fmt"
 	"time"
 )
@@ -36,7 +37,7 @@ type PolicyRule struct {
 }
 
 // Updates a policy rule.
-func (m *PolicyRuleResource) UpdatePolicyRule(policyId string, ruleId string, body PolicyRule) (*PolicyRule, *Response, error) {
+func (m *PolicyRuleResource) UpdatePolicyRule(ctx context.Context, policyId string, ruleId string, body PolicyRule) (*PolicyRule, *Response, error) {
 	url := fmt.Sprintf("/api/v1/policies/%v/rules/%v", policyId, ruleId)
 
 	req, err := m.client.requestExecutor.WithAccept("application/json").WithContentType("application/json").NewRequest("PUT", url, body)
@@ -46,7 +47,7 @@ func (m *PolicyRuleResource) UpdatePolicyRule(policyId string, ruleId string, bo
 
 	var policyRule *PolicyRule
 
-	resp, err := m.client.requestExecutor.Do(req, &policyRule)
+	resp, err := m.client.requestExecutor.Do(ctx, req, &policyRule)
 	if err != nil {
 		return nil, resp, err
 	}
@@ -55,7 +56,7 @@ func (m *PolicyRuleResource) UpdatePolicyRule(policyId string, ruleId string, bo
 }
 
 // Removes a policy rule.
-func (m *PolicyRuleResource) DeletePolicyRule(policyId string, ruleId string) (*Response, error) {
+func (m *PolicyRuleResource) DeletePolicyRule(ctx context.Context, policyId string, ruleId string) (*Response, error) {
 	url := fmt.Sprintf("/api/v1/policies/%v/rules/%v", policyId, ruleId)
 
 	req, err := m.client.requestExecutor.WithAccept("application/json").WithContentType("application/json").NewRequest("DELETE", url, nil)
@@ -63,7 +64,7 @@ func (m *PolicyRuleResource) DeletePolicyRule(policyId string, ruleId string) (*
 		return nil, err
 	}
 
-	resp, err := m.client.requestExecutor.Do(req, nil)
+	resp, err := m.client.requestExecutor.Do(ctx, req, nil)
 	if err != nil {
 		return resp, err
 	}

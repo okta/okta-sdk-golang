@@ -17,6 +17,7 @@
 package integration
 
 import (
+	"context"
 	"net/http"
 	"testing"
 	"time"
@@ -49,29 +50,29 @@ func Test_can_get_a_user(t *testing.T) {
 	}
 	qp := query.NewQueryParams(query.WithActivate(false))
 
-	user, _, err := client.User.CreateUser(*u, qp)
+	user, _, err := client.User.CreateUser(context.TODO(), *u, qp)
 	require.NoError(t, err, "Creating an user should not error")
 
 	// Get the user by ID → GET /api/v1/users/{{userId}}
-	ubid, _, err := client.User.GetUser(user.Id)
+	ubid, _, err := client.User.GetUser(context.TODO(), user.Id)
 	require.NoError(t, err, "Getting a user by id should not error")
 	assert.Equal(t, user.Id, ubid.Id, "Could not find user by Id")
 
 	// Get the user by login name → GET /api/v1/users/{{login}}
-	ubln, _, err := client.User.GetUser(profile["login"].(string))
+	ubln, _, err := client.User.GetUser(context.TODO(), profile["login"].(string))
 	require.NoError(t, err, "Getting a user by login should not error")
 	assert.Equal(t, user.Id, ubln.Id, "Could not find user by Login")
 
 	// Deactivate the user → POST /api/v1/users/{{userId}}/lifecycle/deactivate
-	_, err = client.User.DeactivateUser(user.Id, nil)
+	_, err = client.User.DeactivateUser(context.TODO(), user.Id, nil)
 	require.NoError(t, err, "Should not error when deactivating")
 
 	// Delete the user → DELETE /api/v1/users/{{userId}}
-	_, err = client.User.DeactivateOrDeleteUser(user.Id, nil)
+	_, err = client.User.DeactivateOrDeleteUser(context.TODO(), user.Id, nil)
 	require.NoError(t, err, "Should not error when deleting")
 
 	// Verify that the user is deleted by calling get on user (Exception thrown with 404 error message) → GET /api/v1/users/{{userId}}
-	_, _, err = client.User.GetUser(user.Id)
+	_, _, err = client.User.GetUser(context.TODO(), user.Id)
 	require.Error(t, err, "User should not exist, but does")
 }
 
@@ -95,18 +96,18 @@ func Test_can_activate_a_user(t *testing.T) {
 	}
 	qp := query.NewQueryParams(query.WithActivate(false))
 
-	user, _, err := client.User.CreateUser(*u, qp)
+	user, _, err := client.User.CreateUser(context.TODO(), *u, qp)
 	require.NoError(t, err, "Creating an user should not error")
 
 	// Activate the user → POST /api/v1/users/{{userId}}/lifecycle/activate?sendEmail=false
-	token, _, err := client.User.ActivateUser(user.Id, query.NewQueryParams(query.WithSendEmail(false)))
+	token, _, err := client.User.ActivateUser(context.TODO(), user.Id, query.NewQueryParams(query.WithSendEmail(false)))
 	require.NoError(t, err, "Could not activate the user")
 	assert.NotEmpty(t, token, "Token was not provided")
 	assert.IsType(t, &okta.UserActivationToken{}, token, "Activation did not return correct type")
 
 	// Verify that the user is in the list of ACTIVE users with query parameter → GET /api/v1/users?filter=status eq "ACTIVE"
 	filter := query.NewQueryParams(query.WithFilter("status eq \"ACTIVE\""))
-	users, _, err := client.User.ListUsers(filter)
+	users, _, err := client.User.ListUsers(context.TODO(), filter)
 	require.NoError(t, err, "Could not get active users")
 	found := false
 	for _, u := range users {
@@ -117,11 +118,11 @@ func Test_can_activate_a_user(t *testing.T) {
 	assert.True(t, found, "The user was not found")
 
 	// Deactivate the user → POST /api/v1/users/{{userId}}/lifecycle/deactivate
-	_, err = client.User.DeactivateUser(user.Id, nil)
+	_, err = client.User.DeactivateUser(context.TODO(), user.Id, nil)
 	require.NoError(t, err, "Should not error when deactivating")
 
 	// Delete the user → DELETE /api/v1/users/{{userId}}
-	_, err = client.User.DeactivateOrDeleteUser(user.Id, nil)
+	_, err = client.User.DeactivateOrDeleteUser(context.TODO(), user.Id, nil)
 	require.NoError(t, err, "Should not error when deleting")
 }
 
@@ -145,7 +146,7 @@ func Test_can_update_user_profile(t *testing.T) {
 	}
 	qp := query.NewQueryParams(query.WithActivate(false))
 
-	user, _, err := client.User.CreateUser(*u, qp)
+	user, _, err := client.User.CreateUser(context.TODO(), *u, qp)
 	require.NoError(t, err, "Creating an user should not error")
 
 	// Update the user's profile by adding a nickname → PUT /api/v1/users/{{userId}}
@@ -154,20 +155,20 @@ func Test_can_update_user_profile(t *testing.T) {
 	updatedUser := &okta.User{
 		Profile: &newProfile,
 	}
-	_, _, err = client.User.UpdateUser(user.Id, *updatedUser, nil)
+	_, _, err = client.User.UpdateUser(context.TODO(), user.Id, *updatedUser, nil)
 	require.NoError(t, err, "Could not update the user")
 
 	// Verify that user profile is updated by calling get on the user → GET /api/v1/users/{{userId}}
-	tmpUser, _, err := client.User.GetUser(user.Id)
+	tmpUser, _, err := client.User.GetUser(context.TODO(), user.Id)
 	require.NoError(t, err, "User was not available to get")
 	tmpProfile := *tmpUser.Profile
 	assert.Equal(t, "Batman", tmpProfile["nickName"])
 	// Deactivate the user → POST /api/v1/users/{{userId}}/lifecycle/deactivate
-	_, err = client.User.DeactivateUser(user.Id, nil)
+	_, err = client.User.DeactivateUser(context.TODO(), user.Id, nil)
 	require.NoError(t, err, "Should not error when deactivating")
 
 	// Delete the user → DELETE /api/v1/users/{{userId}}
-	_, err = client.User.DeactivateOrDeleteUser(user.Id, nil)
+	_, err = client.User.DeactivateOrDeleteUser(context.TODO(), user.Id, nil)
 	require.NoError(t, err, "Should not error when deleting")
 }
 
@@ -191,16 +192,16 @@ func Test_can_suspend_a_user(t *testing.T) {
 	}
 	qp := query.NewQueryParams(query.WithActivate(true))
 
-	user, _, err := client.User.CreateUser(*u, qp)
+	user, _, err := client.User.CreateUser(context.TODO(), *u, qp)
 	require.NoError(t, err, "Creating an user should not error")
 
 	// Suspend the user → POST /api/v1/users/{{userId}}/lifecycle/suspend
-	_, err = client.User.SuspendUser(user.Id)
+	_, err = client.User.SuspendUser(context.TODO(), user.Id)
 	require.NoError(t, err, "Could not suspend the user")
 
 	// Verify that user is in the list of suspended users → GET /api/v1/users?filter=status eq "SUSPENDED"
 	filter := query.NewQueryParams(query.WithFilter("status eq \"SUSPENDED\""))
-	users, _, err := client.User.ListUsers(filter)
+	users, _, err := client.User.ListUsers(context.TODO(), filter)
 	require.NoError(t, err, "Could not get suspended users")
 	found := false
 	for _, u := range users {
@@ -211,12 +212,12 @@ func Test_can_suspend_a_user(t *testing.T) {
 	assert.True(t, found, "The user was not found")
 
 	// Unsuspend the user →  POST /api/v1/users/{{userId}}/lifecycle/unsuspend
-	_, err = client.User.UnsuspendUser(user.Id)
+	_, err = client.User.UnsuspendUser(context.TODO(), user.Id)
 	require.NoError(t, err, "Could not unsuspend the user")
 
 	// Verify that user is in the list of active users → GET /api/v1/users?filter=status eq "ACTIVE"
 	filter = query.NewQueryParams(query.WithFilter("status eq \"ACTIVE\""))
-	users, _, err = client.User.ListUsers(filter)
+	users, _, err = client.User.ListUsers(context.TODO(), filter)
 	require.NoError(t, err, "Could not get active users")
 	found = false
 	for _, u := range users {
@@ -226,11 +227,11 @@ func Test_can_suspend_a_user(t *testing.T) {
 	}
 
 	// Deactivate the user → POST /api/v1/users/{{userId}}/lifecycle/deactivate
-	_, err = client.User.DeactivateUser(user.Id, nil)
+	_, err = client.User.DeactivateUser(context.TODO(), user.Id, nil)
 	require.NoError(t, err, "Should not error when deactivating")
 
 	// Delete the user → DELETE /api/v1/users/{{userId}}
-	_, err = client.User.DeactivateOrDeleteUser(user.Id, nil)
+	_, err = client.User.DeactivateOrDeleteUser(context.TODO(), user.Id, nil)
 	require.NoError(t, err, "Should not error when deleting")
 }
 
@@ -254,7 +255,7 @@ func Test_can_change_users_password(t *testing.T) {
 	}
 	qp := query.NewQueryParams(query.WithActivate(true))
 
-	user, _, err := client.User.CreateUser(*u, qp)
+	user, _, err := client.User.CreateUser(context.TODO(), *u, qp)
 	require.NoError(t, err, "Creating an user should not error")
 
 	//Sleep 1 second to make sure time has passed for password chagned timestamps
@@ -271,25 +272,25 @@ func Test_can_change_users_password(t *testing.T) {
 		OldPassword: op,
 		NewPassword: np,
 	}
-	_, _, err = client.User.ChangePassword(user.Id, *npr, nil)
+	_, _, err = client.User.ChangePassword(context.TODO(), user.Id, *npr, nil)
 	require.NoError(t, err, "Could not change password")
 
 	// Get the user and verify that 'passwordChanged' field has increased → GET /api/v1/users/{{userId}}/
-	ubid, _, err := client.User.GetUser(user.Id)
+	ubid, _, err := client.User.GetUser(context.TODO(), user.Id)
 	require.NoError(t, err, "Getting a user by login should not error")
 	assert.Equal(t, user.Id, ubid.Id, "Could not find user by Login")
 	assert.True(t, ubid.PasswordChanged.After(*user.PasswordChanged), "Appears that password change did not happen")
 
 	// Deactivate the user → POST /api/v1/users/{{userId}}/lifecycle/deactivate
-	_, err = client.User.DeactivateUser(user.Id, nil)
+	_, err = client.User.DeactivateUser(context.TODO(), user.Id, nil)
 	require.NoError(t, err, "Should not error when deactivating")
 
 	// Delete the user → DELETE /api/v1/users/{{userId}}
-	_, err = client.User.DeactivateOrDeleteUser(user.Id, nil)
+	_, err = client.User.DeactivateOrDeleteUser(context.TODO(), user.Id, nil)
 	require.NoError(t, err, "Should not error when deleting")
 
 	// Verify that the user is deleted by calling get on user (Exception thrown with 404 error message) → GET /api/v1/users/{{userId}}
-	_, _, err = client.User.GetUser(user.Id)
+	_, _, err = client.User.GetUser(context.TODO(), user.Id)
 	require.Error(t, err, "User should not exist, but does")
 }
 
@@ -313,11 +314,11 @@ func Test_can_get_reset_password_link_for_user(t *testing.T) {
 	}
 	qp := query.NewQueryParams(query.WithActivate(true))
 
-	user, _, err := client.User.CreateUser(*u, qp)
+	user, _, err := client.User.CreateUser(context.TODO(), *u, qp)
 	require.NoError(t, err, "Creating an user should not error")
 
 	// Reset the user password → POST /api/v1/users/{{userId}}/lifecycle/reset_password?sendEmail=false
-	rpt, _, err := client.User.ResetPassword(user.Id, query.NewQueryParams(query.WithSendEmail(false)))
+	rpt, _, err := client.User.ResetPassword(context.TODO(), user.Id, query.NewQueryParams(query.WithSendEmail(false)))
 	require.NoError(t, err, "Could not reset password")
 
 	// Verify that the response returned contains the reset password link
@@ -325,15 +326,15 @@ func Test_can_get_reset_password_link_for_user(t *testing.T) {
 	assert.NotEmpty(t, rpt.ResetPasswordUrl, "Reset Password is not set")
 
 	// Deactivate the user → POST /api/v1/users/{{userId}}/lifecycle/deactivate
-	_, err = client.User.DeactivateUser(user.Id, nil)
+	_, err = client.User.DeactivateUser(context.TODO(), user.Id, nil)
 	require.NoError(t, err, "Should not error when deactivating")
 
 	// Delete the user → DELETE /api/v1/users/{{userId}}
-	_, err = client.User.DeactivateOrDeleteUser(user.Id, nil)
+	_, err = client.User.DeactivateOrDeleteUser(context.TODO(), user.Id, nil)
 	require.NoError(t, err, "Should not error when deleting")
 
 	// Verify that the user is deleted by calling get on user (Exception thrown with 404 error message) → GET /api/v1/users/{{userId}}
-	_, _, err = client.User.GetUser(user.Id)
+	_, _, err = client.User.GetUser(context.TODO(), user.Id)
 	require.Error(t, err, "User should not exist, but does")
 }
 
@@ -357,11 +358,11 @@ func Test_can_expire_a_users_password_and_get_a_temp_one(t *testing.T) {
 	}
 	qp := query.NewQueryParams(query.WithActivate(true))
 
-	user, _, err := client.User.CreateUser(*u, qp)
+	user, _, err := client.User.CreateUser(context.TODO(), *u, qp)
 	require.NoError(t, err, "Creating an user should not error")
 
 	// Expire the user password → POST /api/v1/users/{{userId}}/lifecycle/expire_password?tempPassword=true
-	ep, _, err := client.User.ExpirePasswordAndGetTemporaryPassword(user.Id)
+	ep, _, err := client.User.ExpirePasswordAndGetTemporaryPassword(context.TODO(), user.Id)
 	require.NoError(t, err, "Could not reset password")
 
 	// Verify that the returned response contains a temporary password
@@ -369,15 +370,15 @@ func Test_can_expire_a_users_password_and_get_a_temp_one(t *testing.T) {
 	assert.NotEmpty(t, ep.TempPassword, "Temp Password not provided")
 
 	// Deactivate the user → POST /api/v1/users/{{userId}}/lifecycle/deactivate
-	_, err = client.User.DeactivateUser(user.Id, nil)
+	_, err = client.User.DeactivateUser(context.TODO(), user.Id, nil)
 	require.NoError(t, err, "Should not error when deactivating")
 
 	// Delete the user → DELETE /api/v1/users/{{userId}}
-	_, err = client.User.DeactivateOrDeleteUser(user.Id, nil)
+	_, err = client.User.DeactivateOrDeleteUser(context.TODO(), user.Id, nil)
 	require.NoError(t, err, "Should not error when deleting")
 
 	// Verify that the user is deleted by calling get on user (Exception thrown with 404 error message) → GET /api/v1/users/{{userId}}
-	_, _, err = client.User.GetUser(user.Id)
+	_, _, err = client.User.GetUser(context.TODO(), user.Id)
 	require.Error(t, err, "User should not exist, but does")
 }
 
@@ -401,7 +402,7 @@ func Test_can_change_user_recovery_question(t *testing.T) {
 	}
 	qp := query.NewQueryParams(query.WithActivate(true))
 
-	user, _, err := client.User.CreateUser(*u, qp)
+	user, _, err := client.User.CreateUser(context.TODO(), *u, qp)
 	require.NoError(t, err, "Creating an user should not error")
 
 	// Update the user's recovery question → POST /api/v1/users/{{userId}}/credentials/change_recovery_question
@@ -416,7 +417,7 @@ func Test_can_change_user_recovery_question(t *testing.T) {
 		Password:         nucp,
 		RecoveryQuestion: nucrq,
 	}
-	tmpuc, _, err := client.User.ChangeRecoveryQuestion(user.Id, *nuc)
+	tmpuc, _, err := client.User.ChangeRecoveryQuestion(context.TODO(), user.Id, *nuc)
 	require.NoError(t, err, "Could not change recovery question")
 	assert.IsType(t, &okta.UserCredentials{}, tmpuc)
 
@@ -431,25 +432,25 @@ func Test_can_change_user_recovery_question(t *testing.T) {
 		Password:         np,
 		RecoveryQuestion: rq,
 	}
-	_, _, err = client.User.ForgotPasswordSetNewPassword(user.Id, *ucfp, nil)
+	_, _, err = client.User.ForgotPasswordSetNewPassword(context.TODO(), user.Id, *ucfp, nil)
 	require.NoError(t, err, "Could not change password with recovery question")
 
 	// Get the user and verify that 'passwordChanged' field has increased → GET /api/v1/users/{{userId}}
-	ubid, _, err := client.User.GetUser(user.Id)
+	ubid, _, err := client.User.GetUser(context.TODO(), user.Id)
 	require.NoError(t, err, "Getting a user by login should not error")
 	assert.Equal(t, user.Id, ubid.Id, "Could not find user by Login")
 	assert.True(t, ubid.PasswordChanged.After(*user.PasswordChanged), "Appears that password change did not happen")
 
 	// Deactivate the user → POST /api/v1/users/{{userId}}/lifecycle/deactivate
-	_, err = client.User.DeactivateUser(user.Id, nil)
+	_, err = client.User.DeactivateUser(context.TODO(), user.Id, nil)
 	require.NoError(t, err, "Should not error when deactivating")
 
 	// Delete the user → DELETE /api/v1/users/{{userId}}
-	_, err = client.User.DeactivateOrDeleteUser(user.Id, nil)
+	_, err = client.User.DeactivateOrDeleteUser(context.TODO(), user.Id, nil)
 	require.NoError(t, err, "Should not error when deleting")
 
 	// Verify that the user is deleted by calling get on user (Exception thrown with 404 error message) → GET /api/v1/users/{{userId}}
-	_, _, err = client.User.GetUser(user.Id)
+	_, _, err = client.User.GetUser(context.TODO(), user.Id)
 	require.Error(t, err, "User should not exist, but does")
 }
 
@@ -473,18 +474,18 @@ func Test_can_assign_a_user_to_a_role(t *testing.T) {
 	}
 	qp := query.NewQueryParams(query.WithActivate(true))
 
-	user, _, err := client.User.CreateUser(*u, qp)
+	user, _, err := client.User.CreateUser(context.TODO(), *u, qp)
 	require.NoError(t, err, "Creating an user should not error")
 
 	// Add 'USER_ADMIN' role to the user → POST /api/v1/users/{{userId}}/roles (Body → { type: 'USER_ADMIN'  })
 	arr := &okta.AssignRoleRequest{
 		Type: "USER_ADMIN",
 	}
-	_, _, err = client.User.AssignRoleToUser(user.Id, *arr, nil)
+	_, _, err = client.User.AssignRoleToUser(context.TODO(), user.Id, *arr, nil)
 	require.NoError(t, err, "Should not have had an error when adding role to user")
 
 	// List roles for the user and verify added role → GET /api/v1/users/{{userId}}/roles
-	roles, _, err := client.User.ListAssignedRolesForUser(user.Id, nil)
+	roles, _, err := client.User.ListAssignedRolesForUser(context.TODO(), user.Id, nil)
 	found := false
 	roleId := ""
 	for _, role := range roles {
@@ -496,11 +497,11 @@ func Test_can_assign_a_user_to_a_role(t *testing.T) {
 	assert.True(t, found, "Could not verify USER_ADMIN was added to the user")
 
 	// Remove role for the user → DELETE /api/v1/users/{{userId}}//roles/{{roleId}}/
-	_, err = client.User.RemoveRoleFromUser(user.Id, roleId)
+	_, err = client.User.RemoveRoleFromUser(context.TODO(), user.Id, roleId)
 	require.NoError(t, err, "Should not have had an error when removing role to user")
 
 	// List roles for user and verify role was removed → GET /api/v1/users/{{userId}}/roles
-	roles, _, err = client.User.ListAssignedRolesForUser(user.Id, nil)
+	roles, _, err = client.User.ListAssignedRolesForUser(context.TODO(), user.Id, nil)
 	found = false
 	roleId = ""
 	for _, role := range roles {
@@ -512,15 +513,15 @@ func Test_can_assign_a_user_to_a_role(t *testing.T) {
 	assert.False(t, found, "Could not verify USER_ADMIN was removed to the user")
 
 	// Deactivate the user → POST /api/v1/users/{{userId}}/lifecycle/deactivate
-	_, err = client.User.DeactivateUser(user.Id, nil)
+	_, err = client.User.DeactivateUser(context.TODO(), user.Id, nil)
 	require.NoError(t, err, "Should not error when deactivating")
 
 	// Delete the user → DELETE /api/v1/users/{{userId}}
-	_, err = client.User.DeactivateOrDeleteUser(user.Id, nil)
+	_, err = client.User.DeactivateOrDeleteUser(context.TODO(), user.Id, nil)
 	require.NoError(t, err, "Should not error when deleting")
 
 	// Verify that the user is deleted by calling get on user (Exception thrown with 404 error message) → GET /api/v1/users/{{userId}}
-	_, resp, err := client.User.GetUser(user.Id)
+	_, resp, err := client.User.GetUser(context.TODO(), user.Id)
 	require.Error(t, err, "User should not exist, but does")
 	assert.Equal(t, http.StatusNotFound, resp.StatusCode, "Should not have been able to find user")
 }
@@ -545,7 +546,7 @@ func Test_user_group_target_role(t *testing.T) {
 	}
 	qp := query.NewQueryParams(query.WithActivate(true))
 
-	user, _, err := client.User.CreateUser(*u, qp)
+	user, _, err := client.User.CreateUser(context.TODO(), *u, qp)
 	require.NoError(t, err, "Creating an user should not error")
 
 	// Create a new group → POST /api/v1/groups
@@ -555,22 +556,22 @@ func Test_user_group_target_role(t *testing.T) {
 	g := &okta.Group{
 		Profile: gp,
 	}
-	group, _, err := client.Group.CreateGroup(*g)
+	group, _, err := client.Group.CreateGroup(context.TODO(), *g)
 	require.NoError(t, err, "Creating an group should not error")
 
 	// Add 'USER_ADMIN' role to the user → POST /api/v1/users/{{userId}}/roles (Body → { type: 'USER_ADMIN'  })
 	arr := &okta.AssignRoleRequest{
 		Type: "USER_ADMIN",
 	}
-	r, _, err := client.User.AssignRoleToUser(user.Id, *arr, nil)
+	r, _, err := client.User.AssignRoleToUser(context.TODO(), user.Id, *arr, nil)
 	require.NoError(t, err, "Should not have had an error when adding role to user")
 
 	// Add Group Target to 'USER_ADMIN' role → PUT /api/v1/users/{{userId}}/roles/{{roleId}}/targets/groups/{{groupId}}
-	resp, err := client.User.AddGroupTargetToRole(user.Id, r.Id, group.Id)
+	resp, err := client.User.AddGroupTargetToRole(context.TODO(), user.Id, r.Id, group.Id)
 	require.NoError(t, err, "Should not have had an error when adding group target to role")
 
 	// List Group Targets for role → GET  /api/v1/users/{{userId}}/roles/{{roleId}}/targets/groups
-	groups, _, err := client.User.ListGroupTargetsForRole(user.Id, r.Id, nil)
+	groups, _, err := client.User.ListGroupTargetsForRole(context.TODO(), user.Id, r.Id, nil)
 	found := false
 	for _, tmpgroup := range groups {
 		if tmpgroup.Id == group.Id {
@@ -586,25 +587,25 @@ func Test_user_group_target_role(t *testing.T) {
 	g = &okta.Group{
 		Profile: gp,
 	}
-	newgroup, _, err := client.Group.CreateGroup(*g)
-	_, err = client.User.AddGroupTargetToRole(user.Id, r.Id, newgroup.Id)
-	_, err = client.User.RemoveGroupTargetFromRole(user.Id, r.Id, group.Id)
+	newgroup, _, err := client.Group.CreateGroup(context.TODO(), *g)
+	_, err = client.User.AddGroupTargetToRole(context.TODO(), user.Id, r.Id, newgroup.Id)
+	_, err = client.User.RemoveGroupTargetFromRole(context.TODO(), user.Id, r.Id, group.Id)
 	require.NoError(t, err, "Should not have had an error when removing group target to role")
 
 	// Deactivate the user → POST /api/v1/users/{{userId}}/lifecycle/deactivate
-	_, err = client.User.DeactivateUser(user.Id, nil)
+	_, err = client.User.DeactivateUser(context.TODO(), user.Id, nil)
 	require.NoError(t, err, "Should not error when deactivating")
 
 	// Delete the user → DELETE /api/v1/users/{{userId}}
-	_, err = client.User.DeactivateOrDeleteUser(user.Id, nil)
+	_, err = client.User.DeactivateOrDeleteUser(context.TODO(), user.Id, nil)
 	require.NoError(t, err, "Should not error when deleting")
 
 	// Verify that the user is deleted by calling get on user (Exception thrown with 404 error message) → GET /api/v1/users/{{userId}}
-	_, resp, err = client.User.GetUser(user.Id)
+	_, resp, err = client.User.GetUser(context.TODO(), user.Id)
 	require.Error(t, err, "User should not exist, but does")
 	assert.Equal(t, http.StatusNotFound, resp.StatusCode, "Should not have been able to find user")
 
 	// Delete the group → DELETE /api/v1/groups/{{groupId}}
-	client.Group.DeleteGroup(group.Id)
-	client.Group.DeleteGroup(newgroup.Id)
+	client.Group.DeleteGroup(context.TODO(), group.Id)
+	client.Group.DeleteGroup(context.TODO(), newgroup.Id)
 }
