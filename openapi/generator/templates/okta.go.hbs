@@ -3,7 +3,6 @@
 package okta
 
 import (
-	"context"
 	"fmt"
 	"io/ioutil"
 	"os/user"
@@ -14,7 +13,7 @@ import (
 	"github.com/kelseyhightower/envconfig"
 )
 
-const Version = "2.0.0-rc.1"
+const Version = "2.0.0-rc.3"
 
 type Client struct {
 	config *config
@@ -30,7 +29,7 @@ type resource struct {
 	client *Client
 }
 
-func NewClient(ctx context.Context, conf ...ConfigSetter) (*Client, error) {
+func NewClient(conf ...ConfigSetter) (*Client, error) {
 	config := &config{}
 
 	setConfigDefaults(config)
