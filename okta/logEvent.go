@@ -19,6 +19,7 @@
 package okta
 
 import (
+	"context"
 	"fmt"
 	"github.com/okta/okta-sdk-golang/v2/okta/query"
 	"time"
@@ -46,7 +47,7 @@ type LogEvent struct {
 }
 
 // The Okta System Log API provides read access to your organization’s system log. This API provides more functionality than the Events API
-func (m *LogEventResource) GetLogs(qp *query.Params) ([]*LogEvent, *Response, error) {
+func (m *LogEventResource) GetLogs(ctx context.Context, qp *query.Params) ([]*LogEvent, *Response, error) {
 	url := fmt.Sprintf("/api/v1/logs")
 	if qp != nil {
 		url = url + qp.String()
@@ -59,7 +60,7 @@ func (m *LogEventResource) GetLogs(qp *query.Params) ([]*LogEvent, *Response, er
 
 	var logEvent []*LogEvent
 
-	resp, err := m.client.requestExecutor.Do(req, &logEvent)
+	resp, err := m.client.requestExecutor.Do(ctx, req, &logEvent)
 	if err != nil {
 		return nil, resp, err
 	}

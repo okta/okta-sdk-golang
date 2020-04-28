@@ -19,6 +19,7 @@
 package okta
 
 import (
+	"context"
 	"fmt"
 	"time"
 )
@@ -43,7 +44,7 @@ func (a *ApplicationGroupAssignment) IsApplicationInstance() bool {
 }
 
 // Removes a group assignment from an application.
-func (m *ApplicationGroupAssignmentResource) DeleteApplicationGroupAssignment(appId string, groupId string) (*Response, error) {
+func (m *ApplicationGroupAssignmentResource) DeleteApplicationGroupAssignment(ctx context.Context, appId string, groupId string) (*Response, error) {
 	url := fmt.Sprintf("/api/v1/apps/%v/groups/%v", appId, groupId)
 
 	req, err := m.client.requestExecutor.WithAccept("application/json").WithContentType("application/json").NewRequest("DELETE", url, nil)
@@ -51,7 +52,7 @@ func (m *ApplicationGroupAssignmentResource) DeleteApplicationGroupAssignment(ap
 		return nil, err
 	}
 
-	resp, err := m.client.requestExecutor.Do(req, nil)
+	resp, err := m.client.requestExecutor.Do(ctx, req, nil)
 	if err != nil {
 		return resp, err
 	}

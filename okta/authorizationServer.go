@@ -19,6 +19,7 @@
 package okta
 
 import (
+	"context"
 	"fmt"
 	"github.com/okta/okta-sdk-golang/v2/okta/query"
 	"time"
@@ -40,7 +41,7 @@ type AuthorizationServer struct {
 	Status      string                          `json:"status,omitempty"`
 }
 
-func (m *AuthorizationServerResource) CreateAuthorizationServer(body AuthorizationServer) (*AuthorizationServer, *Response, error) {
+func (m *AuthorizationServerResource) CreateAuthorizationServer(ctx context.Context, body AuthorizationServer) (*AuthorizationServer, *Response, error) {
 	url := fmt.Sprintf("/api/v1/authorizationServers")
 
 	req, err := m.client.requestExecutor.WithAccept("application/json").WithContentType("application/json").NewRequest("POST", url, body)
@@ -50,7 +51,7 @@ func (m *AuthorizationServerResource) CreateAuthorizationServer(body Authorizati
 
 	var authorizationServer *AuthorizationServer
 
-	resp, err := m.client.requestExecutor.Do(req, &authorizationServer)
+	resp, err := m.client.requestExecutor.Do(ctx, req, &authorizationServer)
 	if err != nil {
 		return nil, resp, err
 	}
@@ -58,7 +59,7 @@ func (m *AuthorizationServerResource) CreateAuthorizationServer(body Authorizati
 	return authorizationServer, resp, nil
 }
 
-func (m *AuthorizationServerResource) GetAuthorizationServer(authServerId string) (*AuthorizationServer, *Response, error) {
+func (m *AuthorizationServerResource) GetAuthorizationServer(ctx context.Context, authServerId string) (*AuthorizationServer, *Response, error) {
 	url := fmt.Sprintf("/api/v1/authorizationServers/%v", authServerId)
 
 	req, err := m.client.requestExecutor.WithAccept("application/json").WithContentType("application/json").NewRequest("GET", url, nil)
@@ -68,7 +69,7 @@ func (m *AuthorizationServerResource) GetAuthorizationServer(authServerId string
 
 	var authorizationServer *AuthorizationServer
 
-	resp, err := m.client.requestExecutor.Do(req, &authorizationServer)
+	resp, err := m.client.requestExecutor.Do(ctx, req, &authorizationServer)
 	if err != nil {
 		return nil, resp, err
 	}
@@ -76,7 +77,7 @@ func (m *AuthorizationServerResource) GetAuthorizationServer(authServerId string
 	return authorizationServer, resp, nil
 }
 
-func (m *AuthorizationServerResource) UpdateAuthorizationServer(authServerId string, body AuthorizationServer) (*AuthorizationServer, *Response, error) {
+func (m *AuthorizationServerResource) UpdateAuthorizationServer(ctx context.Context, authServerId string, body AuthorizationServer) (*AuthorizationServer, *Response, error) {
 	url := fmt.Sprintf("/api/v1/authorizationServers/%v", authServerId)
 
 	req, err := m.client.requestExecutor.WithAccept("application/json").WithContentType("application/json").NewRequest("PUT", url, body)
@@ -86,7 +87,7 @@ func (m *AuthorizationServerResource) UpdateAuthorizationServer(authServerId str
 
 	var authorizationServer *AuthorizationServer
 
-	resp, err := m.client.requestExecutor.Do(req, &authorizationServer)
+	resp, err := m.client.requestExecutor.Do(ctx, req, &authorizationServer)
 	if err != nil {
 		return nil, resp, err
 	}
@@ -94,7 +95,7 @@ func (m *AuthorizationServerResource) UpdateAuthorizationServer(authServerId str
 	return authorizationServer, resp, nil
 }
 
-func (m *AuthorizationServerResource) DeleteAuthorizationServer(authServerId string) (*Response, error) {
+func (m *AuthorizationServerResource) DeleteAuthorizationServer(ctx context.Context, authServerId string) (*Response, error) {
 	url := fmt.Sprintf("/api/v1/authorizationServers/%v", authServerId)
 
 	req, err := m.client.requestExecutor.WithAccept("application/json").WithContentType("application/json").NewRequest("DELETE", url, nil)
@@ -102,7 +103,7 @@ func (m *AuthorizationServerResource) DeleteAuthorizationServer(authServerId str
 		return nil, err
 	}
 
-	resp, err := m.client.requestExecutor.Do(req, nil)
+	resp, err := m.client.requestExecutor.Do(ctx, req, nil)
 	if err != nil {
 		return resp, err
 	}
@@ -110,7 +111,7 @@ func (m *AuthorizationServerResource) DeleteAuthorizationServer(authServerId str
 	return resp, nil
 }
 
-func (m *AuthorizationServerResource) ListAuthorizationServers(qp *query.Params) ([]*AuthorizationServer, *Response, error) {
+func (m *AuthorizationServerResource) ListAuthorizationServers(ctx context.Context, qp *query.Params) ([]*AuthorizationServer, *Response, error) {
 	url := fmt.Sprintf("/api/v1/authorizationServers")
 	if qp != nil {
 		url = url + qp.String()
@@ -123,7 +124,7 @@ func (m *AuthorizationServerResource) ListAuthorizationServers(qp *query.Params)
 
 	var authorizationServer []*AuthorizationServer
 
-	resp, err := m.client.requestExecutor.Do(req, &authorizationServer)
+	resp, err := m.client.requestExecutor.Do(ctx, req, &authorizationServer)
 	if err != nil {
 		return nil, resp, err
 	}
@@ -131,7 +132,7 @@ func (m *AuthorizationServerResource) ListAuthorizationServers(qp *query.Params)
 	return authorizationServer, resp, nil
 }
 
-func (m *AuthorizationServerResource) ListOAuth2Claims(authServerId string) ([]*OAuth2Claim, *Response, error) {
+func (m *AuthorizationServerResource) ListOAuth2Claims(ctx context.Context, authServerId string) ([]*OAuth2Claim, *Response, error) {
 	url := fmt.Sprintf("/api/v1/authorizationServers/%v/claims", authServerId)
 
 	req, err := m.client.requestExecutor.WithAccept("application/json").WithContentType("application/json").NewRequest("GET", url, nil)
@@ -141,7 +142,7 @@ func (m *AuthorizationServerResource) ListOAuth2Claims(authServerId string) ([]*
 
 	var oAuth2Claim []*OAuth2Claim
 
-	resp, err := m.client.requestExecutor.Do(req, &oAuth2Claim)
+	resp, err := m.client.requestExecutor.Do(ctx, req, &oAuth2Claim)
 	if err != nil {
 		return nil, resp, err
 	}
@@ -149,7 +150,7 @@ func (m *AuthorizationServerResource) ListOAuth2Claims(authServerId string) ([]*
 	return oAuth2Claim, resp, nil
 }
 
-func (m *AuthorizationServerResource) CreateOAuth2Claim(authServerId string, body OAuth2Claim) (*OAuth2Claim, *Response, error) {
+func (m *AuthorizationServerResource) CreateOAuth2Claim(ctx context.Context, authServerId string, body OAuth2Claim) (*OAuth2Claim, *Response, error) {
 	url := fmt.Sprintf("/api/v1/authorizationServers/%v/claims", authServerId)
 
 	req, err := m.client.requestExecutor.WithAccept("application/json").WithContentType("application/json").NewRequest("POST", url, body)
@@ -159,7 +160,7 @@ func (m *AuthorizationServerResource) CreateOAuth2Claim(authServerId string, bod
 
 	var oAuth2Claim *OAuth2Claim
 
-	resp, err := m.client.requestExecutor.Do(req, &oAuth2Claim)
+	resp, err := m.client.requestExecutor.Do(ctx, req, &oAuth2Claim)
 	if err != nil {
 		return nil, resp, err
 	}
@@ -167,7 +168,7 @@ func (m *AuthorizationServerResource) CreateOAuth2Claim(authServerId string, bod
 	return oAuth2Claim, resp, nil
 }
 
-func (m *AuthorizationServerResource) DeleteOAuth2Claim(authServerId string, claimId string) (*Response, error) {
+func (m *AuthorizationServerResource) DeleteOAuth2Claim(ctx context.Context, authServerId string, claimId string) (*Response, error) {
 	url := fmt.Sprintf("/api/v1/authorizationServers/%v/claims/%v", authServerId, claimId)
 
 	req, err := m.client.requestExecutor.WithAccept("application/json").WithContentType("application/json").NewRequest("DELETE", url, nil)
@@ -175,7 +176,7 @@ func (m *AuthorizationServerResource) DeleteOAuth2Claim(authServerId string, cla
 		return nil, err
 	}
 
-	resp, err := m.client.requestExecutor.Do(req, nil)
+	resp, err := m.client.requestExecutor.Do(ctx, req, nil)
 	if err != nil {
 		return resp, err
 	}
@@ -183,7 +184,7 @@ func (m *AuthorizationServerResource) DeleteOAuth2Claim(authServerId string, cla
 	return resp, nil
 }
 
-func (m *AuthorizationServerResource) GetOAuth2Claim(authServerId string, claimId string) (*OAuth2Claim, *Response, error) {
+func (m *AuthorizationServerResource) GetOAuth2Claim(ctx context.Context, authServerId string, claimId string) (*OAuth2Claim, *Response, error) {
 	url := fmt.Sprintf("/api/v1/authorizationServers/%v/claims/%v", authServerId, claimId)
 
 	req, err := m.client.requestExecutor.WithAccept("application/json").WithContentType("application/json").NewRequest("GET", url, nil)
@@ -193,7 +194,7 @@ func (m *AuthorizationServerResource) GetOAuth2Claim(authServerId string, claimI
 
 	var oAuth2Claim *OAuth2Claim
 
-	resp, err := m.client.requestExecutor.Do(req, &oAuth2Claim)
+	resp, err := m.client.requestExecutor.Do(ctx, req, &oAuth2Claim)
 	if err != nil {
 		return nil, resp, err
 	}
@@ -201,7 +202,7 @@ func (m *AuthorizationServerResource) GetOAuth2Claim(authServerId string, claimI
 	return oAuth2Claim, resp, nil
 }
 
-func (m *AuthorizationServerResource) UpdateOAuth2Claim(authServerId string, claimId string, body OAuth2Claim) (*OAuth2Claim, *Response, error) {
+func (m *AuthorizationServerResource) UpdateOAuth2Claim(ctx context.Context, authServerId string, claimId string, body OAuth2Claim) (*OAuth2Claim, *Response, error) {
 	url := fmt.Sprintf("/api/v1/authorizationServers/%v/claims/%v", authServerId, claimId)
 
 	req, err := m.client.requestExecutor.WithAccept("application/json").WithContentType("application/json").NewRequest("PUT", url, body)
@@ -211,7 +212,7 @@ func (m *AuthorizationServerResource) UpdateOAuth2Claim(authServerId string, cla
 
 	var oAuth2Claim *OAuth2Claim
 
-	resp, err := m.client.requestExecutor.Do(req, &oAuth2Claim)
+	resp, err := m.client.requestExecutor.Do(ctx, req, &oAuth2Claim)
 	if err != nil {
 		return nil, resp, err
 	}
@@ -219,7 +220,7 @@ func (m *AuthorizationServerResource) UpdateOAuth2Claim(authServerId string, cla
 	return oAuth2Claim, resp, nil
 }
 
-func (m *AuthorizationServerResource) ListOAuth2ClientsForAuthorizationServer(authServerId string) ([]*OAuth2Client, *Response, error) {
+func (m *AuthorizationServerResource) ListOAuth2ClientsForAuthorizationServer(ctx context.Context, authServerId string) ([]*OAuth2Client, *Response, error) {
 	url := fmt.Sprintf("/api/v1/authorizationServers/%v/clients", authServerId)
 
 	req, err := m.client.requestExecutor.WithAccept("application/json").WithContentType("application/json").NewRequest("GET", url, nil)
@@ -229,7 +230,7 @@ func (m *AuthorizationServerResource) ListOAuth2ClientsForAuthorizationServer(au
 
 	var oAuth2Client []*OAuth2Client
 
-	resp, err := m.client.requestExecutor.Do(req, &oAuth2Client)
+	resp, err := m.client.requestExecutor.Do(ctx, req, &oAuth2Client)
 	if err != nil {
 		return nil, resp, err
 	}
@@ -237,7 +238,7 @@ func (m *AuthorizationServerResource) ListOAuth2ClientsForAuthorizationServer(au
 	return oAuth2Client, resp, nil
 }
 
-func (m *AuthorizationServerResource) RevokeRefreshTokensForAuthorizationServerAndClient(authServerId string, clientId string) (*Response, error) {
+func (m *AuthorizationServerResource) RevokeRefreshTokensForAuthorizationServerAndClient(ctx context.Context, authServerId string, clientId string) (*Response, error) {
 	url := fmt.Sprintf("/api/v1/authorizationServers/%v/clients/%v/tokens", authServerId, clientId)
 
 	req, err := m.client.requestExecutor.WithAccept("application/json").WithContentType("application/json").NewRequest("DELETE", url, nil)
@@ -245,7 +246,7 @@ func (m *AuthorizationServerResource) RevokeRefreshTokensForAuthorizationServerA
 		return nil, err
 	}
 
-	resp, err := m.client.requestExecutor.Do(req, nil)
+	resp, err := m.client.requestExecutor.Do(ctx, req, nil)
 	if err != nil {
 		return resp, err
 	}
@@ -253,7 +254,7 @@ func (m *AuthorizationServerResource) RevokeRefreshTokensForAuthorizationServerA
 	return resp, nil
 }
 
-func (m *AuthorizationServerResource) ListRefreshTokensForAuthorizationServerAndClient(authServerId string, clientId string, qp *query.Params) ([]*OAuth2RefreshToken, *Response, error) {
+func (m *AuthorizationServerResource) ListRefreshTokensForAuthorizationServerAndClient(ctx context.Context, authServerId string, clientId string, qp *query.Params) ([]*OAuth2RefreshToken, *Response, error) {
 	url := fmt.Sprintf("/api/v1/authorizationServers/%v/clients/%v/tokens", authServerId, clientId)
 	if qp != nil {
 		url = url + qp.String()
@@ -266,7 +267,7 @@ func (m *AuthorizationServerResource) ListRefreshTokensForAuthorizationServerAnd
 
 	var oAuth2RefreshToken []*OAuth2RefreshToken
 
-	resp, err := m.client.requestExecutor.Do(req, &oAuth2RefreshToken)
+	resp, err := m.client.requestExecutor.Do(ctx, req, &oAuth2RefreshToken)
 	if err != nil {
 		return nil, resp, err
 	}
@@ -274,7 +275,7 @@ func (m *AuthorizationServerResource) ListRefreshTokensForAuthorizationServerAnd
 	return oAuth2RefreshToken, resp, nil
 }
 
-func (m *AuthorizationServerResource) RevokeRefreshTokenForAuthorizationServerAndClient(authServerId string, clientId string, tokenId string) (*Response, error) {
+func (m *AuthorizationServerResource) RevokeRefreshTokenForAuthorizationServerAndClient(ctx context.Context, authServerId string, clientId string, tokenId string) (*Response, error) {
 	url := fmt.Sprintf("/api/v1/authorizationServers/%v/clients/%v/tokens/%v", authServerId, clientId, tokenId)
 
 	req, err := m.client.requestExecutor.WithAccept("application/json").WithContentType("application/json").NewRequest("DELETE", url, nil)
@@ -282,7 +283,7 @@ func (m *AuthorizationServerResource) RevokeRefreshTokenForAuthorizationServerAn
 		return nil, err
 	}
 
-	resp, err := m.client.requestExecutor.Do(req, nil)
+	resp, err := m.client.requestExecutor.Do(ctx, req, nil)
 	if err != nil {
 		return resp, err
 	}
@@ -290,7 +291,7 @@ func (m *AuthorizationServerResource) RevokeRefreshTokenForAuthorizationServerAn
 	return resp, nil
 }
 
-func (m *AuthorizationServerResource) GetRefreshTokenForAuthorizationServerAndClient(authServerId string, clientId string, tokenId string, qp *query.Params) (*OAuth2RefreshToken, *Response, error) {
+func (m *AuthorizationServerResource) GetRefreshTokenForAuthorizationServerAndClient(ctx context.Context, authServerId string, clientId string, tokenId string, qp *query.Params) (*OAuth2RefreshToken, *Response, error) {
 	url := fmt.Sprintf("/api/v1/authorizationServers/%v/clients/%v/tokens/%v", authServerId, clientId, tokenId)
 	if qp != nil {
 		url = url + qp.String()
@@ -303,7 +304,7 @@ func (m *AuthorizationServerResource) GetRefreshTokenForAuthorizationServerAndCl
 
 	var oAuth2RefreshToken *OAuth2RefreshToken
 
-	resp, err := m.client.requestExecutor.Do(req, &oAuth2RefreshToken)
+	resp, err := m.client.requestExecutor.Do(ctx, req, &oAuth2RefreshToken)
 	if err != nil {
 		return nil, resp, err
 	}
@@ -311,7 +312,7 @@ func (m *AuthorizationServerResource) GetRefreshTokenForAuthorizationServerAndCl
 	return oAuth2RefreshToken, resp, nil
 }
 
-func (m *AuthorizationServerResource) ListAuthorizationServerKeys(authServerId string) ([]*JsonWebKey, *Response, error) {
+func (m *AuthorizationServerResource) ListAuthorizationServerKeys(ctx context.Context, authServerId string) ([]*JsonWebKey, *Response, error) {
 	url := fmt.Sprintf("/api/v1/authorizationServers/%v/credentials/keys", authServerId)
 
 	req, err := m.client.requestExecutor.WithAccept("application/json").WithContentType("application/json").NewRequest("GET", url, nil)
@@ -321,7 +322,7 @@ func (m *AuthorizationServerResource) ListAuthorizationServerKeys(authServerId s
 
 	var jsonWebKey []*JsonWebKey
 
-	resp, err := m.client.requestExecutor.Do(req, &jsonWebKey)
+	resp, err := m.client.requestExecutor.Do(ctx, req, &jsonWebKey)
 	if err != nil {
 		return nil, resp, err
 	}
@@ -329,7 +330,7 @@ func (m *AuthorizationServerResource) ListAuthorizationServerKeys(authServerId s
 	return jsonWebKey, resp, nil
 }
 
-func (m *AuthorizationServerResource) RotateAuthorizationServerKeys(authServerId string, body JwkUse) ([]*JsonWebKey, *Response, error) {
+func (m *AuthorizationServerResource) RotateAuthorizationServerKeys(ctx context.Context, authServerId string, body JwkUse) ([]*JsonWebKey, *Response, error) {
 	url := fmt.Sprintf("/api/v1/authorizationServers/%v/credentials/lifecycle/keyRotate", authServerId)
 
 	req, err := m.client.requestExecutor.WithAccept("application/json").WithContentType("application/json").NewRequest("POST", url, body)
@@ -339,7 +340,7 @@ func (m *AuthorizationServerResource) RotateAuthorizationServerKeys(authServerId
 
 	var jsonWebKey []*JsonWebKey
 
-	resp, err := m.client.requestExecutor.Do(req, &jsonWebKey)
+	resp, err := m.client.requestExecutor.Do(ctx, req, &jsonWebKey)
 	if err != nil {
 		return nil, resp, err
 	}
@@ -347,7 +348,7 @@ func (m *AuthorizationServerResource) RotateAuthorizationServerKeys(authServerId
 	return jsonWebKey, resp, nil
 }
 
-func (m *AuthorizationServerResource) ActivateAuthorizationServer(authServerId string) (*Response, error) {
+func (m *AuthorizationServerResource) ActivateAuthorizationServer(ctx context.Context, authServerId string) (*Response, error) {
 	url := fmt.Sprintf("/api/v1/authorizationServers/%v/lifecycle/activate", authServerId)
 
 	req, err := m.client.requestExecutor.WithAccept("application/json").WithContentType("application/json").NewRequest("POST", url, nil)
@@ -355,7 +356,7 @@ func (m *AuthorizationServerResource) ActivateAuthorizationServer(authServerId s
 		return nil, err
 	}
 
-	resp, err := m.client.requestExecutor.Do(req, nil)
+	resp, err := m.client.requestExecutor.Do(ctx, req, nil)
 	if err != nil {
 		return resp, err
 	}
@@ -363,7 +364,7 @@ func (m *AuthorizationServerResource) ActivateAuthorizationServer(authServerId s
 	return resp, nil
 }
 
-func (m *AuthorizationServerResource) DeactivateAuthorizationServer(authServerId string) (*Response, error) {
+func (m *AuthorizationServerResource) DeactivateAuthorizationServer(ctx context.Context, authServerId string) (*Response, error) {
 	url := fmt.Sprintf("/api/v1/authorizationServers/%v/lifecycle/deactivate", authServerId)
 
 	req, err := m.client.requestExecutor.WithAccept("application/json").WithContentType("application/json").NewRequest("POST", url, nil)
@@ -371,7 +372,7 @@ func (m *AuthorizationServerResource) DeactivateAuthorizationServer(authServerId
 		return nil, err
 	}
 
-	resp, err := m.client.requestExecutor.Do(req, nil)
+	resp, err := m.client.requestExecutor.Do(ctx, req, nil)
 	if err != nil {
 		return resp, err
 	}
@@ -379,7 +380,7 @@ func (m *AuthorizationServerResource) DeactivateAuthorizationServer(authServerId
 	return resp, nil
 }
 
-func (m *AuthorizationServerResource) ListAuthorizationServerPolicies(authServerId string) ([]*Policy, *Response, error) {
+func (m *AuthorizationServerResource) ListAuthorizationServerPolicies(ctx context.Context, authServerId string) ([]*Policy, *Response, error) {
 	url := fmt.Sprintf("/api/v1/authorizationServers/%v/policies", authServerId)
 
 	req, err := m.client.requestExecutor.WithAccept("application/json").WithContentType("application/json").NewRequest("GET", url, nil)
@@ -389,7 +390,7 @@ func (m *AuthorizationServerResource) ListAuthorizationServerPolicies(authServer
 
 	var policy []*Policy
 
-	resp, err := m.client.requestExecutor.Do(req, &policy)
+	resp, err := m.client.requestExecutor.Do(ctx, req, &policy)
 	if err != nil {
 		return nil, resp, err
 	}
@@ -397,7 +398,7 @@ func (m *AuthorizationServerResource) ListAuthorizationServerPolicies(authServer
 	return policy, resp, nil
 }
 
-func (m *AuthorizationServerResource) CreateAuthorizationServerPolicy(authServerId string, body Policy) (*Policy, *Response, error) {
+func (m *AuthorizationServerResource) CreateAuthorizationServerPolicy(ctx context.Context, authServerId string, body Policy) (*Policy, *Response, error) {
 	url := fmt.Sprintf("/api/v1/authorizationServers/%v/policies", authServerId)
 
 	req, err := m.client.requestExecutor.WithAccept("application/json").WithContentType("application/json").NewRequest("POST", url, body)
@@ -407,7 +408,7 @@ func (m *AuthorizationServerResource) CreateAuthorizationServerPolicy(authServer
 
 	var policy *Policy
 
-	resp, err := m.client.requestExecutor.Do(req, &policy)
+	resp, err := m.client.requestExecutor.Do(ctx, req, &policy)
 	if err != nil {
 		return nil, resp, err
 	}
@@ -415,7 +416,7 @@ func (m *AuthorizationServerResource) CreateAuthorizationServerPolicy(authServer
 	return policy, resp, nil
 }
 
-func (m *AuthorizationServerResource) DeleteAuthorizationServerPolicy(authServerId string, policyId string) (*Response, error) {
+func (m *AuthorizationServerResource) DeleteAuthorizationServerPolicy(ctx context.Context, authServerId string, policyId string) (*Response, error) {
 	url := fmt.Sprintf("/api/v1/authorizationServers/%v/policies/%v", authServerId, policyId)
 
 	req, err := m.client.requestExecutor.WithAccept("application/json").WithContentType("application/json").NewRequest("DELETE", url, nil)
@@ -423,7 +424,7 @@ func (m *AuthorizationServerResource) DeleteAuthorizationServerPolicy(authServer
 		return nil, err
 	}
 
-	resp, err := m.client.requestExecutor.Do(req, nil)
+	resp, err := m.client.requestExecutor.Do(ctx, req, nil)
 	if err != nil {
 		return resp, err
 	}
@@ -431,7 +432,7 @@ func (m *AuthorizationServerResource) DeleteAuthorizationServerPolicy(authServer
 	return resp, nil
 }
 
-func (m *AuthorizationServerResource) GetAuthorizationServerPolicy(authServerId string, policyId string) (*Policy, *Response, error) {
+func (m *AuthorizationServerResource) GetAuthorizationServerPolicy(ctx context.Context, authServerId string, policyId string) (*Policy, *Response, error) {
 	url := fmt.Sprintf("/api/v1/authorizationServers/%v/policies/%v", authServerId, policyId)
 
 	req, err := m.client.requestExecutor.WithAccept("application/json").WithContentType("application/json").NewRequest("GET", url, nil)
@@ -441,7 +442,7 @@ func (m *AuthorizationServerResource) GetAuthorizationServerPolicy(authServerId 
 
 	var policy *Policy
 
-	resp, err := m.client.requestExecutor.Do(req, &policy)
+	resp, err := m.client.requestExecutor.Do(ctx, req, &policy)
 	if err != nil {
 		return nil, resp, err
 	}
@@ -449,7 +450,7 @@ func (m *AuthorizationServerResource) GetAuthorizationServerPolicy(authServerId 
 	return policy, resp, nil
 }
 
-func (m *AuthorizationServerResource) UpdateAuthorizationServerPolicy(authServerId string, policyId string, body Policy) (*Policy, *Response, error) {
+func (m *AuthorizationServerResource) UpdateAuthorizationServerPolicy(ctx context.Context, authServerId string, policyId string, body Policy) (*Policy, *Response, error) {
 	url := fmt.Sprintf("/api/v1/authorizationServers/%v/policies/%v", authServerId, policyId)
 
 	req, err := m.client.requestExecutor.WithAccept("application/json").WithContentType("application/json").NewRequest("PUT", url, body)
@@ -459,7 +460,7 @@ func (m *AuthorizationServerResource) UpdateAuthorizationServerPolicy(authServer
 
 	var policy *Policy
 
-	resp, err := m.client.requestExecutor.Do(req, &policy)
+	resp, err := m.client.requestExecutor.Do(ctx, req, &policy)
 	if err != nil {
 		return nil, resp, err
 	}
@@ -467,7 +468,7 @@ func (m *AuthorizationServerResource) UpdateAuthorizationServerPolicy(authServer
 	return policy, resp, nil
 }
 
-func (m *AuthorizationServerResource) ListOAuth2Scopes(authServerId string, qp *query.Params) ([]*OAuth2Scope, *Response, error) {
+func (m *AuthorizationServerResource) ListOAuth2Scopes(ctx context.Context, authServerId string, qp *query.Params) ([]*OAuth2Scope, *Response, error) {
 	url := fmt.Sprintf("/api/v1/authorizationServers/%v/scopes", authServerId)
 	if qp != nil {
 		url = url + qp.String()
@@ -480,7 +481,7 @@ func (m *AuthorizationServerResource) ListOAuth2Scopes(authServerId string, qp *
 
 	var oAuth2Scope []*OAuth2Scope
 
-	resp, err := m.client.requestExecutor.Do(req, &oAuth2Scope)
+	resp, err := m.client.requestExecutor.Do(ctx, req, &oAuth2Scope)
 	if err != nil {
 		return nil, resp, err
 	}
@@ -488,7 +489,7 @@ func (m *AuthorizationServerResource) ListOAuth2Scopes(authServerId string, qp *
 	return oAuth2Scope, resp, nil
 }
 
-func (m *AuthorizationServerResource) CreateOAuth2Scope(authServerId string, body OAuth2Scope) (*OAuth2Scope, *Response, error) {
+func (m *AuthorizationServerResource) CreateOAuth2Scope(ctx context.Context, authServerId string, body OAuth2Scope) (*OAuth2Scope, *Response, error) {
 	url := fmt.Sprintf("/api/v1/authorizationServers/%v/scopes", authServerId)
 
 	req, err := m.client.requestExecutor.WithAccept("application/json").WithContentType("application/json").NewRequest("POST", url, body)
@@ -498,7 +499,7 @@ func (m *AuthorizationServerResource) CreateOAuth2Scope(authServerId string, bod
 
 	var oAuth2Scope *OAuth2Scope
 
-	resp, err := m.client.requestExecutor.Do(req, &oAuth2Scope)
+	resp, err := m.client.requestExecutor.Do(ctx, req, &oAuth2Scope)
 	if err != nil {
 		return nil, resp, err
 	}
@@ -506,7 +507,7 @@ func (m *AuthorizationServerResource) CreateOAuth2Scope(authServerId string, bod
 	return oAuth2Scope, resp, nil
 }
 
-func (m *AuthorizationServerResource) DeleteOAuth2Scope(authServerId string, scopeId string) (*Response, error) {
+func (m *AuthorizationServerResource) DeleteOAuth2Scope(ctx context.Context, authServerId string, scopeId string) (*Response, error) {
 	url := fmt.Sprintf("/api/v1/authorizationServers/%v/scopes/%v", authServerId, scopeId)
 
 	req, err := m.client.requestExecutor.WithAccept("application/json").WithContentType("application/json").NewRequest("DELETE", url, nil)
@@ -514,7 +515,7 @@ func (m *AuthorizationServerResource) DeleteOAuth2Scope(authServerId string, sco
 		return nil, err
 	}
 
-	resp, err := m.client.requestExecutor.Do(req, nil)
+	resp, err := m.client.requestExecutor.Do(ctx, req, nil)
 	if err != nil {
 		return resp, err
 	}
@@ -522,7 +523,7 @@ func (m *AuthorizationServerResource) DeleteOAuth2Scope(authServerId string, sco
 	return resp, nil
 }
 
-func (m *AuthorizationServerResource) GetOAuth2Scope(authServerId string, scopeId string) (*OAuth2Scope, *Response, error) {
+func (m *AuthorizationServerResource) GetOAuth2Scope(ctx context.Context, authServerId string, scopeId string) (*OAuth2Scope, *Response, error) {
 	url := fmt.Sprintf("/api/v1/authorizationServers/%v/scopes/%v", authServerId, scopeId)
 
 	req, err := m.client.requestExecutor.WithAccept("application/json").WithContentType("application/json").NewRequest("GET", url, nil)
@@ -532,7 +533,7 @@ func (m *AuthorizationServerResource) GetOAuth2Scope(authServerId string, scopeI
 
 	var oAuth2Scope *OAuth2Scope
 
-	resp, err := m.client.requestExecutor.Do(req, &oAuth2Scope)
+	resp, err := m.client.requestExecutor.Do(ctx, req, &oAuth2Scope)
 	if err != nil {
 		return nil, resp, err
 	}
@@ -540,7 +541,7 @@ func (m *AuthorizationServerResource) GetOAuth2Scope(authServerId string, scopeI
 	return oAuth2Scope, resp, nil
 }
 
-func (m *AuthorizationServerResource) UpdateOAuth2Scope(authServerId string, scopeId string, body OAuth2Scope) (*OAuth2Scope, *Response, error) {
+func (m *AuthorizationServerResource) UpdateOAuth2Scope(ctx context.Context, authServerId string, scopeId string, body OAuth2Scope) (*OAuth2Scope, *Response, error) {
 	url := fmt.Sprintf("/api/v1/authorizationServers/%v/scopes/%v", authServerId, scopeId)
 
 	req, err := m.client.requestExecutor.WithAccept("application/json").WithContentType("application/json").NewRequest("PUT", url, body)
@@ -550,7 +551,7 @@ func (m *AuthorizationServerResource) UpdateOAuth2Scope(authServerId string, sco
 
 	var oAuth2Scope *OAuth2Scope
 
-	resp, err := m.client.requestExecutor.Do(req, &oAuth2Scope)
+	resp, err := m.client.requestExecutor.Do(ctx, req, &oAuth2Scope)
 	if err != nil {
 		return nil, resp, err
 	}

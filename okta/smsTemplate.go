@@ -19,6 +19,7 @@
 package okta
 
 import (
+	"context"
 	"fmt"
 	"github.com/okta/okta-sdk-golang/v2/okta/query"
 	"time"
@@ -37,7 +38,7 @@ type SmsTemplate struct {
 }
 
 // Adds a new custom SMS template to your organization.
-func (m *SmsTemplateResource) CreateSmsTemplate(body SmsTemplate) (*SmsTemplate, *Response, error) {
+func (m *SmsTemplateResource) CreateSmsTemplate(ctx context.Context, body SmsTemplate) (*SmsTemplate, *Response, error) {
 	url := fmt.Sprintf("/api/v1/templates/sms")
 
 	req, err := m.client.requestExecutor.WithAccept("application/json").WithContentType("application/json").NewRequest("POST", url, body)
@@ -47,7 +48,7 @@ func (m *SmsTemplateResource) CreateSmsTemplate(body SmsTemplate) (*SmsTemplate,
 
 	var smsTemplate *SmsTemplate
 
-	resp, err := m.client.requestExecutor.Do(req, &smsTemplate)
+	resp, err := m.client.requestExecutor.Do(ctx, req, &smsTemplate)
 	if err != nil {
 		return nil, resp, err
 	}
@@ -56,7 +57,7 @@ func (m *SmsTemplateResource) CreateSmsTemplate(body SmsTemplate) (*SmsTemplate,
 }
 
 // Fetches a specific template by &#x60;id&#x60;
-func (m *SmsTemplateResource) GetSmsTemplate(templateId string) (*SmsTemplate, *Response, error) {
+func (m *SmsTemplateResource) GetSmsTemplate(ctx context.Context, templateId string) (*SmsTemplate, *Response, error) {
 	url := fmt.Sprintf("/api/v1/templates/sms/%v", templateId)
 
 	req, err := m.client.requestExecutor.WithAccept("application/json").WithContentType("application/json").NewRequest("GET", url, nil)
@@ -66,7 +67,7 @@ func (m *SmsTemplateResource) GetSmsTemplate(templateId string) (*SmsTemplate, *
 
 	var smsTemplate *SmsTemplate
 
-	resp, err := m.client.requestExecutor.Do(req, &smsTemplate)
+	resp, err := m.client.requestExecutor.Do(ctx, req, &smsTemplate)
 	if err != nil {
 		return nil, resp, err
 	}
@@ -75,7 +76,7 @@ func (m *SmsTemplateResource) GetSmsTemplate(templateId string) (*SmsTemplate, *
 }
 
 // Updates the SMS template.
-func (m *SmsTemplateResource) UpdateSmsTemplate(templateId string, body SmsTemplate) (*SmsTemplate, *Response, error) {
+func (m *SmsTemplateResource) UpdateSmsTemplate(ctx context.Context, templateId string, body SmsTemplate) (*SmsTemplate, *Response, error) {
 	url := fmt.Sprintf("/api/v1/templates/sms/%v", templateId)
 
 	req, err := m.client.requestExecutor.WithAccept("application/json").WithContentType("application/json").NewRequest("PUT", url, body)
@@ -85,7 +86,7 @@ func (m *SmsTemplateResource) UpdateSmsTemplate(templateId string, body SmsTempl
 
 	var smsTemplate *SmsTemplate
 
-	resp, err := m.client.requestExecutor.Do(req, &smsTemplate)
+	resp, err := m.client.requestExecutor.Do(ctx, req, &smsTemplate)
 	if err != nil {
 		return nil, resp, err
 	}
@@ -94,7 +95,7 @@ func (m *SmsTemplateResource) UpdateSmsTemplate(templateId string, body SmsTempl
 }
 
 // Removes an SMS template.
-func (m *SmsTemplateResource) DeleteSmsTemplate(templateId string) (*Response, error) {
+func (m *SmsTemplateResource) DeleteSmsTemplate(ctx context.Context, templateId string) (*Response, error) {
 	url := fmt.Sprintf("/api/v1/templates/sms/%v", templateId)
 
 	req, err := m.client.requestExecutor.WithAccept("application/json").WithContentType("application/json").NewRequest("DELETE", url, nil)
@@ -102,7 +103,7 @@ func (m *SmsTemplateResource) DeleteSmsTemplate(templateId string) (*Response, e
 		return nil, err
 	}
 
-	resp, err := m.client.requestExecutor.Do(req, nil)
+	resp, err := m.client.requestExecutor.Do(ctx, req, nil)
 	if err != nil {
 		return resp, err
 	}
@@ -111,7 +112,7 @@ func (m *SmsTemplateResource) DeleteSmsTemplate(templateId string) (*Response, e
 }
 
 // Enumerates custom SMS templates in your organization. A subset of templates can be returned that match a template type.
-func (m *SmsTemplateResource) ListSmsTemplates(qp *query.Params) ([]*SmsTemplate, *Response, error) {
+func (m *SmsTemplateResource) ListSmsTemplates(ctx context.Context, qp *query.Params) ([]*SmsTemplate, *Response, error) {
 	url := fmt.Sprintf("/api/v1/templates/sms")
 	if qp != nil {
 		url = url + qp.String()
@@ -124,7 +125,7 @@ func (m *SmsTemplateResource) ListSmsTemplates(qp *query.Params) ([]*SmsTemplate
 
 	var smsTemplate []*SmsTemplate
 
-	resp, err := m.client.requestExecutor.Do(req, &smsTemplate)
+	resp, err := m.client.requestExecutor.Do(ctx, req, &smsTemplate)
 	if err != nil {
 		return nil, resp, err
 	}
@@ -133,7 +134,7 @@ func (m *SmsTemplateResource) ListSmsTemplates(qp *query.Params) ([]*SmsTemplate
 }
 
 // Updates only some of the SMS template properties:
-func (m *SmsTemplateResource) PartialUpdateSmsTemplate(templateId string, body SmsTemplate) (*SmsTemplate, *Response, error) {
+func (m *SmsTemplateResource) PartialUpdateSmsTemplate(ctx context.Context, templateId string, body SmsTemplate) (*SmsTemplate, *Response, error) {
 	url := fmt.Sprintf("/api/v1/templates/sms/%v", templateId)
 
 	req, err := m.client.requestExecutor.WithAccept("application/json").WithContentType("application/json").NewRequest("POST", url, body)
@@ -143,7 +144,7 @@ func (m *SmsTemplateResource) PartialUpdateSmsTemplate(templateId string, body S
 
 	var smsTemplate *SmsTemplate
 
-	resp, err := m.client.requestExecutor.Do(req, &smsTemplate)
+	resp, err := m.client.requestExecutor.Do(ctx, req, &smsTemplate)
 	if err != nil {
 		return nil, resp, err
 	}

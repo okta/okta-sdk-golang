@@ -19,6 +19,7 @@
 package okta
 
 import (
+	"context"
 	"fmt"
 	"github.com/okta/okta-sdk-golang/v2/okta/query"
 	"time"
@@ -52,7 +53,7 @@ func (a *AppUser) IsApplicationInstance() bool {
 }
 
 // Updates a user&#x27;s profile for an application
-func (m *AppUserResource) UpdateApplicationUser(appId string, userId string, body AppUser) (*AppUser, *Response, error) {
+func (m *AppUserResource) UpdateApplicationUser(ctx context.Context, appId string, userId string, body AppUser) (*AppUser, *Response, error) {
 	url := fmt.Sprintf("/api/v1/apps/%v/users/%v", appId, userId)
 
 	req, err := m.client.requestExecutor.WithAccept("application/json").WithContentType("application/json").NewRequest("POST", url, body)
@@ -62,7 +63,7 @@ func (m *AppUserResource) UpdateApplicationUser(appId string, userId string, bod
 
 	var appUser *AppUser
 
-	resp, err := m.client.requestExecutor.Do(req, &appUser)
+	resp, err := m.client.requestExecutor.Do(ctx, req, &appUser)
 	if err != nil {
 		return nil, resp, err
 	}
@@ -71,7 +72,7 @@ func (m *AppUserResource) UpdateApplicationUser(appId string, userId string, bod
 }
 
 // Removes an assignment for a user from an application.
-func (m *AppUserResource) DeleteApplicationUser(appId string, userId string, qp *query.Params) (*Response, error) {
+func (m *AppUserResource) DeleteApplicationUser(ctx context.Context, appId string, userId string, qp *query.Params) (*Response, error) {
 	url := fmt.Sprintf("/api/v1/apps/%v/users/%v", appId, userId)
 	if qp != nil {
 		url = url + qp.String()
@@ -82,7 +83,7 @@ func (m *AppUserResource) DeleteApplicationUser(appId string, userId string, qp 
 		return nil, err
 	}
 
-	resp, err := m.client.requestExecutor.Do(req, nil)
+	resp, err := m.client.requestExecutor.Do(ctx, req, nil)
 	if err != nil {
 		return resp, err
 	}

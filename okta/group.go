@@ -19,6 +19,7 @@
 package okta
 
 import (
+	"context"
 	"fmt"
 	"github.com/okta/okta-sdk-golang/v2/okta/query"
 	"time"
@@ -39,7 +40,7 @@ type Group struct {
 }
 
 // Updates the profile for a group with &#x60;OKTA_GROUP&#x60; type from your organization.
-func (m *GroupResource) UpdateGroup(groupId string, body Group) (*Group, *Response, error) {
+func (m *GroupResource) UpdateGroup(ctx context.Context, groupId string, body Group) (*Group, *Response, error) {
 	url := fmt.Sprintf("/api/v1/groups/%v", groupId)
 
 	req, err := m.client.requestExecutor.WithAccept("application/json").WithContentType("application/json").NewRequest("PUT", url, body)
@@ -49,7 +50,7 @@ func (m *GroupResource) UpdateGroup(groupId string, body Group) (*Group, *Respon
 
 	var group *Group
 
-	resp, err := m.client.requestExecutor.Do(req, &group)
+	resp, err := m.client.requestExecutor.Do(ctx, req, &group)
 	if err != nil {
 		return nil, resp, err
 	}
@@ -58,7 +59,7 @@ func (m *GroupResource) UpdateGroup(groupId string, body Group) (*Group, *Respon
 }
 
 // Removes a group with &#x60;OKTA_GROUP&#x60; type from your organization.
-func (m *GroupResource) DeleteGroup(groupId string) (*Response, error) {
+func (m *GroupResource) DeleteGroup(ctx context.Context, groupId string) (*Response, error) {
 	url := fmt.Sprintf("/api/v1/groups/%v", groupId)
 
 	req, err := m.client.requestExecutor.WithAccept("application/json").WithContentType("application/json").NewRequest("DELETE", url, nil)
@@ -66,7 +67,7 @@ func (m *GroupResource) DeleteGroup(groupId string) (*Response, error) {
 		return nil, err
 	}
 
-	resp, err := m.client.requestExecutor.Do(req, nil)
+	resp, err := m.client.requestExecutor.Do(ctx, req, nil)
 	if err != nil {
 		return resp, err
 	}
@@ -75,7 +76,7 @@ func (m *GroupResource) DeleteGroup(groupId string) (*Response, error) {
 }
 
 // Enumerates groups in your organization with pagination. A subset of groups can be returned that match a supported filter expression or query.
-func (m *GroupResource) ListGroups(qp *query.Params) ([]*Group, *Response, error) {
+func (m *GroupResource) ListGroups(ctx context.Context, qp *query.Params) ([]*Group, *Response, error) {
 	url := fmt.Sprintf("/api/v1/groups")
 	if qp != nil {
 		url = url + qp.String()
@@ -88,7 +89,7 @@ func (m *GroupResource) ListGroups(qp *query.Params) ([]*Group, *Response, error
 
 	var group []*Group
 
-	resp, err := m.client.requestExecutor.Do(req, &group)
+	resp, err := m.client.requestExecutor.Do(ctx, req, &group)
 	if err != nil {
 		return nil, resp, err
 	}
@@ -97,7 +98,7 @@ func (m *GroupResource) ListGroups(qp *query.Params) ([]*Group, *Response, error
 }
 
 // Adds a new group with &#x60;OKTA_GROUP&#x60; type to your organization.
-func (m *GroupResource) CreateGroup(body Group) (*Group, *Response, error) {
+func (m *GroupResource) CreateGroup(ctx context.Context, body Group) (*Group, *Response, error) {
 	url := fmt.Sprintf("/api/v1/groups")
 
 	req, err := m.client.requestExecutor.WithAccept("application/json").WithContentType("application/json").NewRequest("POST", url, body)
@@ -107,7 +108,7 @@ func (m *GroupResource) CreateGroup(body Group) (*Group, *Response, error) {
 
 	var group *Group
 
-	resp, err := m.client.requestExecutor.Do(req, &group)
+	resp, err := m.client.requestExecutor.Do(ctx, req, &group)
 	if err != nil {
 		return nil, resp, err
 	}
@@ -116,7 +117,7 @@ func (m *GroupResource) CreateGroup(body Group) (*Group, *Response, error) {
 }
 
 // Lists all group rules for your organization.
-func (m *GroupResource) ListGroupRules(qp *query.Params) ([]*GroupRule, *Response, error) {
+func (m *GroupResource) ListGroupRules(ctx context.Context, qp *query.Params) ([]*GroupRule, *Response, error) {
 	url := fmt.Sprintf("/api/v1/groups/rules")
 	if qp != nil {
 		url = url + qp.String()
@@ -129,7 +130,7 @@ func (m *GroupResource) ListGroupRules(qp *query.Params) ([]*GroupRule, *Respons
 
 	var groupRule []*GroupRule
 
-	resp, err := m.client.requestExecutor.Do(req, &groupRule)
+	resp, err := m.client.requestExecutor.Do(ctx, req, &groupRule)
 	if err != nil {
 		return nil, resp, err
 	}
@@ -138,7 +139,7 @@ func (m *GroupResource) ListGroupRules(qp *query.Params) ([]*GroupRule, *Respons
 }
 
 // Creates a group rule to dynamically add users to the specified group if they match the condition
-func (m *GroupResource) CreateGroupRule(body GroupRule) (*GroupRule, *Response, error) {
+func (m *GroupResource) CreateGroupRule(ctx context.Context, body GroupRule) (*GroupRule, *Response, error) {
 	url := fmt.Sprintf("/api/v1/groups/rules")
 
 	req, err := m.client.requestExecutor.WithAccept("application/json").WithContentType("application/json").NewRequest("POST", url, body)
@@ -148,7 +149,7 @@ func (m *GroupResource) CreateGroupRule(body GroupRule) (*GroupRule, *Response, 
 
 	var groupRule *GroupRule
 
-	resp, err := m.client.requestExecutor.Do(req, &groupRule)
+	resp, err := m.client.requestExecutor.Do(ctx, req, &groupRule)
 	if err != nil {
 		return nil, resp, err
 	}
@@ -157,7 +158,7 @@ func (m *GroupResource) CreateGroupRule(body GroupRule) (*GroupRule, *Response, 
 }
 
 // Removes a specific group rule by id from your organization
-func (m *GroupResource) DeleteGroupRule(ruleId string) (*Response, error) {
+func (m *GroupResource) DeleteGroupRule(ctx context.Context, ruleId string) (*Response, error) {
 	url := fmt.Sprintf("/api/v1/groups/rules/%v", ruleId)
 
 	req, err := m.client.requestExecutor.WithAccept("application/json").WithContentType("application/json").NewRequest("DELETE", url, nil)
@@ -165,7 +166,7 @@ func (m *GroupResource) DeleteGroupRule(ruleId string) (*Response, error) {
 		return nil, err
 	}
 
-	resp, err := m.client.requestExecutor.Do(req, nil)
+	resp, err := m.client.requestExecutor.Do(ctx, req, nil)
 	if err != nil {
 		return resp, err
 	}
@@ -174,7 +175,7 @@ func (m *GroupResource) DeleteGroupRule(ruleId string) (*Response, error) {
 }
 
 // Fetches a specific group rule by id from your organization
-func (m *GroupResource) GetGroupRule(ruleId string, qp *query.Params) (*GroupRule, *Response, error) {
+func (m *GroupResource) GetGroupRule(ctx context.Context, ruleId string, qp *query.Params) (*GroupRule, *Response, error) {
 	url := fmt.Sprintf("/api/v1/groups/rules/%v", ruleId)
 	if qp != nil {
 		url = url + qp.String()
@@ -187,7 +188,7 @@ func (m *GroupResource) GetGroupRule(ruleId string, qp *query.Params) (*GroupRul
 
 	var groupRule *GroupRule
 
-	resp, err := m.client.requestExecutor.Do(req, &groupRule)
+	resp, err := m.client.requestExecutor.Do(ctx, req, &groupRule)
 	if err != nil {
 		return nil, resp, err
 	}
@@ -196,7 +197,7 @@ func (m *GroupResource) GetGroupRule(ruleId string, qp *query.Params) (*GroupRul
 }
 
 // Updates a group rule. Only &#x60;INACTIVE&#x60; rules can be updated.
-func (m *GroupResource) UpdateGroupRule(ruleId string, body GroupRule) (*GroupRule, *Response, error) {
+func (m *GroupResource) UpdateGroupRule(ctx context.Context, ruleId string, body GroupRule) (*GroupRule, *Response, error) {
 	url := fmt.Sprintf("/api/v1/groups/rules/%v", ruleId)
 
 	req, err := m.client.requestExecutor.WithAccept("application/json").WithContentType("application/json").NewRequest("PUT", url, body)
@@ -206,7 +207,7 @@ func (m *GroupResource) UpdateGroupRule(ruleId string, body GroupRule) (*GroupRu
 
 	var groupRule *GroupRule
 
-	resp, err := m.client.requestExecutor.Do(req, &groupRule)
+	resp, err := m.client.requestExecutor.Do(ctx, req, &groupRule)
 	if err != nil {
 		return nil, resp, err
 	}
@@ -215,7 +216,7 @@ func (m *GroupResource) UpdateGroupRule(ruleId string, body GroupRule) (*GroupRu
 }
 
 // Activates a specific group rule by id from your organization
-func (m *GroupResource) ActivateGroupRule(ruleId string) (*Response, error) {
+func (m *GroupResource) ActivateGroupRule(ctx context.Context, ruleId string) (*Response, error) {
 	url := fmt.Sprintf("/api/v1/groups/rules/%v/lifecycle/activate", ruleId)
 
 	req, err := m.client.requestExecutor.WithAccept("application/json").WithContentType("application/json").NewRequest("POST", url, nil)
@@ -223,7 +224,7 @@ func (m *GroupResource) ActivateGroupRule(ruleId string) (*Response, error) {
 		return nil, err
 	}
 
-	resp, err := m.client.requestExecutor.Do(req, nil)
+	resp, err := m.client.requestExecutor.Do(ctx, req, nil)
 	if err != nil {
 		return resp, err
 	}
@@ -232,7 +233,7 @@ func (m *GroupResource) ActivateGroupRule(ruleId string) (*Response, error) {
 }
 
 // Deactivates a specific group rule by id from your organization
-func (m *GroupResource) DeactivateGroupRule(ruleId string) (*Response, error) {
+func (m *GroupResource) DeactivateGroupRule(ctx context.Context, ruleId string) (*Response, error) {
 	url := fmt.Sprintf("/api/v1/groups/rules/%v/lifecycle/deactivate", ruleId)
 
 	req, err := m.client.requestExecutor.WithAccept("application/json").WithContentType("application/json").NewRequest("POST", url, nil)
@@ -240,7 +241,7 @@ func (m *GroupResource) DeactivateGroupRule(ruleId string) (*Response, error) {
 		return nil, err
 	}
 
-	resp, err := m.client.requestExecutor.Do(req, nil)
+	resp, err := m.client.requestExecutor.Do(ctx, req, nil)
 	if err != nil {
 		return resp, err
 	}
@@ -249,7 +250,7 @@ func (m *GroupResource) DeactivateGroupRule(ruleId string) (*Response, error) {
 }
 
 // Lists all group rules for your organization.
-func (m *GroupResource) GetGroup(groupId string) (*Group, *Response, error) {
+func (m *GroupResource) GetGroup(ctx context.Context, groupId string) (*Group, *Response, error) {
 	url := fmt.Sprintf("/api/v1/groups/%v", groupId)
 
 	req, err := m.client.requestExecutor.WithAccept("application/json").WithContentType("application/json").NewRequest("GET", url, nil)
@@ -259,7 +260,7 @@ func (m *GroupResource) GetGroup(groupId string) (*Group, *Response, error) {
 
 	var group *Group
 
-	resp, err := m.client.requestExecutor.Do(req, &group)
+	resp, err := m.client.requestExecutor.Do(ctx, req, &group)
 	if err != nil {
 		return nil, resp, err
 	}
@@ -268,7 +269,7 @@ func (m *GroupResource) GetGroup(groupId string) (*Group, *Response, error) {
 }
 
 // Enumerates all applications that are assigned to a group.
-func (m *GroupResource) ListAssignedApplicationsForGroup(groupId string, qp *query.Params) ([]App, *Response, error) {
+func (m *GroupResource) ListAssignedApplicationsForGroup(ctx context.Context, groupId string, qp *query.Params) ([]App, *Response, error) {
 	url := fmt.Sprintf("/api/v1/groups/%v/apps", groupId)
 	if qp != nil {
 		url = url + qp.String()
@@ -281,7 +282,7 @@ func (m *GroupResource) ListAssignedApplicationsForGroup(groupId string, qp *que
 
 	var application []Application
 
-	resp, err := m.client.requestExecutor.Do(req, &application)
+	resp, err := m.client.requestExecutor.Do(ctx, req, &application)
 	if err != nil {
 		return nil, resp, err
 	}
@@ -294,7 +295,7 @@ func (m *GroupResource) ListAssignedApplicationsForGroup(groupId string, qp *que
 
 }
 
-func (m *GroupResource) ListGroupAssignedRoles(groupId string, qp *query.Params) ([]*Role, *Response, error) {
+func (m *GroupResource) ListGroupAssignedRoles(ctx context.Context, groupId string, qp *query.Params) ([]*Role, *Response, error) {
 	url := fmt.Sprintf("/api/v1/groups/%v/roles", groupId)
 	if qp != nil {
 		url = url + qp.String()
@@ -307,7 +308,7 @@ func (m *GroupResource) ListGroupAssignedRoles(groupId string, qp *query.Params)
 
 	var role []*Role
 
-	resp, err := m.client.requestExecutor.Do(req, &role)
+	resp, err := m.client.requestExecutor.Do(ctx, req, &role)
 	if err != nil {
 		return nil, resp, err
 	}
@@ -316,7 +317,7 @@ func (m *GroupResource) ListGroupAssignedRoles(groupId string, qp *query.Params)
 }
 
 // Assigns a Role to a Group
-func (m *GroupResource) AssignRoleToGroup(groupId string, body AssignRoleRequest, qp *query.Params) (*Role, *Response, error) {
+func (m *GroupResource) AssignRoleToGroup(ctx context.Context, groupId string, body AssignRoleRequest, qp *query.Params) (*Role, *Response, error) {
 	url := fmt.Sprintf("/api/v1/groups/%v/roles", groupId)
 	if qp != nil {
 		url = url + qp.String()
@@ -329,7 +330,7 @@ func (m *GroupResource) AssignRoleToGroup(groupId string, body AssignRoleRequest
 
 	var role *Role
 
-	resp, err := m.client.requestExecutor.Do(req, &role)
+	resp, err := m.client.requestExecutor.Do(ctx, req, &role)
 	if err != nil {
 		return nil, resp, err
 	}
@@ -338,7 +339,7 @@ func (m *GroupResource) AssignRoleToGroup(groupId string, body AssignRoleRequest
 }
 
 // Unassigns a Role from a Group
-func (m *GroupResource) RemoveRoleFromGroup(groupId string, roleId string) (*Response, error) {
+func (m *GroupResource) RemoveRoleFromGroup(ctx context.Context, groupId string, roleId string) (*Response, error) {
 	url := fmt.Sprintf("/api/v1/groups/%v/roles/%v", groupId, roleId)
 
 	req, err := m.client.requestExecutor.WithAccept("application/json").WithContentType("application/json").NewRequest("DELETE", url, nil)
@@ -346,7 +347,7 @@ func (m *GroupResource) RemoveRoleFromGroup(groupId string, roleId string) (*Res
 		return nil, err
 	}
 
-	resp, err := m.client.requestExecutor.Do(req, nil)
+	resp, err := m.client.requestExecutor.Do(ctx, req, nil)
 	if err != nil {
 		return resp, err
 	}
@@ -354,7 +355,7 @@ func (m *GroupResource) RemoveRoleFromGroup(groupId string, roleId string) (*Res
 	return resp, nil
 }
 
-func (m *GroupResource) GetRole(groupId string, roleId string) (*Role, *Response, error) {
+func (m *GroupResource) GetRole(ctx context.Context, groupId string, roleId string) (*Role, *Response, error) {
 	url := fmt.Sprintf("/api/v1/groups/%v/roles/%v", groupId, roleId)
 
 	req, err := m.client.requestExecutor.WithAccept("application/json").WithContentType("application/json").NewRequest("GET", url, nil)
@@ -364,7 +365,7 @@ func (m *GroupResource) GetRole(groupId string, roleId string) (*Role, *Response
 
 	var role *Role
 
-	resp, err := m.client.requestExecutor.Do(req, &role)
+	resp, err := m.client.requestExecutor.Do(ctx, req, &role)
 	if err != nil {
 		return nil, resp, err
 	}
@@ -373,7 +374,7 @@ func (m *GroupResource) GetRole(groupId string, roleId string) (*Role, *Response
 }
 
 // Lists all App targets for an &#x60;APP_ADMIN&#x60; Role assigned to a Group. This methods return list may include full Applications or Instances. The response for an instance will have an &#x60;ID&#x60; value, while Application will not have an ID.
-func (m *GroupResource) ListApplicationTargetsForApplicationAdministratorRoleForGroup(groupId string, roleId string, qp *query.Params) ([]App, *Response, error) {
+func (m *GroupResource) ListApplicationTargetsForApplicationAdministratorRoleForGroup(ctx context.Context, groupId string, roleId string, qp *query.Params) ([]App, *Response, error) {
 	url := fmt.Sprintf("/api/v1/groups/%v/roles/%v/targets/catalog/apps", groupId, roleId)
 	if qp != nil {
 		url = url + qp.String()
@@ -386,7 +387,7 @@ func (m *GroupResource) ListApplicationTargetsForApplicationAdministratorRoleFor
 
 	var application []Application
 
-	resp, err := m.client.requestExecutor.Do(req, &application)
+	resp, err := m.client.requestExecutor.Do(ctx, req, &application)
 	if err != nil {
 		return nil, resp, err
 	}
@@ -399,7 +400,7 @@ func (m *GroupResource) ListApplicationTargetsForApplicationAdministratorRoleFor
 
 }
 
-func (m *GroupResource) RemoveApplicationTargetFromApplicationAdministratorRoleGivenToGroup(groupId string, roleId string, appName string) (*Response, error) {
+func (m *GroupResource) RemoveApplicationTargetFromApplicationAdministratorRoleGivenToGroup(ctx context.Context, groupId string, roleId string, appName string) (*Response, error) {
 	url := fmt.Sprintf("/api/v1/groups/%v/roles/%v/targets/catalog/apps/%v", groupId, roleId, appName)
 
 	req, err := m.client.requestExecutor.WithAccept("application/json").WithContentType("application/json").NewRequest("DELETE", url, nil)
@@ -407,7 +408,7 @@ func (m *GroupResource) RemoveApplicationTargetFromApplicationAdministratorRoleG
 		return nil, err
 	}
 
-	resp, err := m.client.requestExecutor.Do(req, nil)
+	resp, err := m.client.requestExecutor.Do(ctx, req, nil)
 	if err != nil {
 		return resp, err
 	}
@@ -415,7 +416,7 @@ func (m *GroupResource) RemoveApplicationTargetFromApplicationAdministratorRoleG
 	return resp, nil
 }
 
-func (m *GroupResource) AddApplicationTargetToAdminRoleGivenToGroup(groupId string, roleId string, appName string) (*Response, error) {
+func (m *GroupResource) AddApplicationTargetToAdminRoleGivenToGroup(ctx context.Context, groupId string, roleId string, appName string) (*Response, error) {
 	url := fmt.Sprintf("/api/v1/groups/%v/roles/%v/targets/catalog/apps/%v", groupId, roleId, appName)
 
 	req, err := m.client.requestExecutor.WithAccept("application/json").WithContentType("application/json").NewRequest("PUT", url, nil)
@@ -423,7 +424,7 @@ func (m *GroupResource) AddApplicationTargetToAdminRoleGivenToGroup(groupId stri
 		return nil, err
 	}
 
-	resp, err := m.client.requestExecutor.Do(req, nil)
+	resp, err := m.client.requestExecutor.Do(ctx, req, nil)
 	if err != nil {
 		return resp, err
 	}
@@ -432,7 +433,7 @@ func (m *GroupResource) AddApplicationTargetToAdminRoleGivenToGroup(groupId stri
 }
 
 // Remove App Instance Target to App Administrator Role given to a Group
-func (m *GroupResource) RemoveApplicationTargetFromAdministratorRoleGivenToGroup(groupId string, roleId string, appName string, applicationId string) (*Response, error) {
+func (m *GroupResource) RemoveApplicationTargetFromAdministratorRoleGivenToGroup(ctx context.Context, groupId string, roleId string, appName string, applicationId string) (*Response, error) {
 	url := fmt.Sprintf("/api/v1/groups/%v/roles/%v/targets/catalog/apps/%v/%v", groupId, roleId, appName, applicationId)
 
 	req, err := m.client.requestExecutor.WithAccept("application/json").WithContentType("application/json").NewRequest("DELETE", url, nil)
@@ -440,7 +441,7 @@ func (m *GroupResource) RemoveApplicationTargetFromAdministratorRoleGivenToGroup
 		return nil, err
 	}
 
-	resp, err := m.client.requestExecutor.Do(req, nil)
+	resp, err := m.client.requestExecutor.Do(ctx, req, nil)
 	if err != nil {
 		return resp, err
 	}
@@ -449,7 +450,7 @@ func (m *GroupResource) RemoveApplicationTargetFromAdministratorRoleGivenToGroup
 }
 
 // Add App Instance Target to App Administrator Role given to a Group
-func (m *GroupResource) AddApplicationInstanceTargetToAppAdminRoleGivenToGroup(groupId string, roleId string, appName string, applicationId string) (*Response, error) {
+func (m *GroupResource) AddApplicationInstanceTargetToAppAdminRoleGivenToGroup(ctx context.Context, groupId string, roleId string, appName string, applicationId string) (*Response, error) {
 	url := fmt.Sprintf("/api/v1/groups/%v/roles/%v/targets/catalog/apps/%v/%v", groupId, roleId, appName, applicationId)
 
 	req, err := m.client.requestExecutor.WithAccept("application/json").WithContentType("application/json").NewRequest("PUT", url, nil)
@@ -457,7 +458,7 @@ func (m *GroupResource) AddApplicationInstanceTargetToAppAdminRoleGivenToGroup(g
 		return nil, err
 	}
 
-	resp, err := m.client.requestExecutor.Do(req, nil)
+	resp, err := m.client.requestExecutor.Do(ctx, req, nil)
 	if err != nil {
 		return resp, err
 	}
@@ -465,7 +466,7 @@ func (m *GroupResource) AddApplicationInstanceTargetToAppAdminRoleGivenToGroup(g
 	return resp, nil
 }
 
-func (m *GroupResource) ListGroupTargetsForGroupRole(groupId string, roleId string, qp *query.Params) ([]*Group, *Response, error) {
+func (m *GroupResource) ListGroupTargetsForGroupRole(ctx context.Context, groupId string, roleId string, qp *query.Params) ([]*Group, *Response, error) {
 	url := fmt.Sprintf("/api/v1/groups/%v/roles/%v/targets/groups", groupId, roleId)
 	if qp != nil {
 		url = url + qp.String()
@@ -478,7 +479,7 @@ func (m *GroupResource) ListGroupTargetsForGroupRole(groupId string, roleId stri
 
 	var group []*Group
 
-	resp, err := m.client.requestExecutor.Do(req, &group)
+	resp, err := m.client.requestExecutor.Do(ctx, req, &group)
 	if err != nil {
 		return nil, resp, err
 	}
@@ -487,7 +488,7 @@ func (m *GroupResource) ListGroupTargetsForGroupRole(groupId string, roleId stri
 }
 
 //
-func (m *GroupResource) RemoveGroupTargetFromGroupAdministratorRoleGivenToGroup(groupId string, roleId string, targetGroupId string) (*Response, error) {
+func (m *GroupResource) RemoveGroupTargetFromGroupAdministratorRoleGivenToGroup(ctx context.Context, groupId string, roleId string, targetGroupId string) (*Response, error) {
 	url := fmt.Sprintf("/api/v1/groups/%v/roles/%v/targets/groups/%v", groupId, roleId, targetGroupId)
 
 	req, err := m.client.requestExecutor.WithAccept("application/json").WithContentType("application/json").NewRequest("DELETE", url, nil)
@@ -495,7 +496,7 @@ func (m *GroupResource) RemoveGroupTargetFromGroupAdministratorRoleGivenToGroup(
 		return nil, err
 	}
 
-	resp, err := m.client.requestExecutor.Do(req, nil)
+	resp, err := m.client.requestExecutor.Do(ctx, req, nil)
 	if err != nil {
 		return resp, err
 	}
@@ -504,7 +505,7 @@ func (m *GroupResource) RemoveGroupTargetFromGroupAdministratorRoleGivenToGroup(
 }
 
 //
-func (m *GroupResource) AddGroupTargetToGroupAdministratorRoleForGroup(groupId string, roleId string, targetGroupId string) (*Response, error) {
+func (m *GroupResource) AddGroupTargetToGroupAdministratorRoleForGroup(ctx context.Context, groupId string, roleId string, targetGroupId string) (*Response, error) {
 	url := fmt.Sprintf("/api/v1/groups/%v/roles/%v/targets/groups/%v", groupId, roleId, targetGroupId)
 
 	req, err := m.client.requestExecutor.WithAccept("application/json").WithContentType("application/json").NewRequest("PUT", url, nil)
@@ -512,7 +513,7 @@ func (m *GroupResource) AddGroupTargetToGroupAdministratorRoleForGroup(groupId s
 		return nil, err
 	}
 
-	resp, err := m.client.requestExecutor.Do(req, nil)
+	resp, err := m.client.requestExecutor.Do(ctx, req, nil)
 	if err != nil {
 		return resp, err
 	}
@@ -521,7 +522,7 @@ func (m *GroupResource) AddGroupTargetToGroupAdministratorRoleForGroup(groupId s
 }
 
 // Enumerates all users that are a member of a group.
-func (m *GroupResource) ListGroupUsers(groupId string, qp *query.Params) ([]*User, *Response, error) {
+func (m *GroupResource) ListGroupUsers(ctx context.Context, groupId string, qp *query.Params) ([]*User, *Response, error) {
 	url := fmt.Sprintf("/api/v1/groups/%v/users", groupId)
 	if qp != nil {
 		url = url + qp.String()
@@ -534,7 +535,7 @@ func (m *GroupResource) ListGroupUsers(groupId string, qp *query.Params) ([]*Use
 
 	var user []*User
 
-	resp, err := m.client.requestExecutor.Do(req, &user)
+	resp, err := m.client.requestExecutor.Do(ctx, req, &user)
 	if err != nil {
 		return nil, resp, err
 	}
@@ -543,7 +544,7 @@ func (m *GroupResource) ListGroupUsers(groupId string, qp *query.Params) ([]*Use
 }
 
 // Removes a user from a group with &#x27;OKTA_GROUP&#x27; type.
-func (m *GroupResource) RemoveUserFromGroup(groupId string, userId string) (*Response, error) {
+func (m *GroupResource) RemoveUserFromGroup(ctx context.Context, groupId string, userId string) (*Response, error) {
 	url := fmt.Sprintf("/api/v1/groups/%v/users/%v", groupId, userId)
 
 	req, err := m.client.requestExecutor.WithAccept("application/json").WithContentType("application/json").NewRequest("DELETE", url, nil)
@@ -551,7 +552,7 @@ func (m *GroupResource) RemoveUserFromGroup(groupId string, userId string) (*Res
 		return nil, err
 	}
 
-	resp, err := m.client.requestExecutor.Do(req, nil)
+	resp, err := m.client.requestExecutor.Do(ctx, req, nil)
 	if err != nil {
 		return resp, err
 	}
@@ -560,7 +561,7 @@ func (m *GroupResource) RemoveUserFromGroup(groupId string, userId string) (*Res
 }
 
 // Adds a user to a group with &#x27;OKTA_GROUP&#x27; type.
-func (m *GroupResource) AddUserToGroup(groupId string, userId string) (*Response, error) {
+func (m *GroupResource) AddUserToGroup(ctx context.Context, groupId string, userId string) (*Response, error) {
 	url := fmt.Sprintf("/api/v1/groups/%v/users/%v", groupId, userId)
 
 	req, err := m.client.requestExecutor.WithAccept("application/json").WithContentType("application/json").NewRequest("PUT", url, nil)
@@ -568,7 +569,7 @@ func (m *GroupResource) AddUserToGroup(groupId string, userId string) (*Response
 		return nil, err
 	}
 
-	resp, err := m.client.requestExecutor.Do(req, nil)
+	resp, err := m.client.requestExecutor.Do(ctx, req, nil)
 	if err != nil {
 		return resp, err
 	}

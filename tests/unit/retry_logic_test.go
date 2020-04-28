@@ -17,6 +17,7 @@
 package unit
 
 import (
+	"context"
 	"net/http"
 	"strconv"
 	"testing"
@@ -43,7 +44,7 @@ func Test_429_Will_Automatically_Retry(t *testing.T) {
 		),
 	)
 
-	_, resp, err := client.User.ListUsers(nil)
+	_, resp, err := client.User.ListUsers(context.TODO(), nil)
 	require.Nil(t, err, "Error should have been nil")
 	require.NotNil(t, resp, "Response was nil")
 
@@ -65,7 +66,7 @@ func Test_Will_Stop_Retrying_Based_On_Max_Retry_Configuration(t *testing.T) {
 		),
 	)
 
-	_, _, err := client.User.ListUsers(nil)
+	_, _, err := client.User.ListUsers(context.TODO(), nil)
 	require.NotNil(t, err, "error was nil, but should have told the user they reached their max retry limit")
 
 	httpmock.GetTotalCallCount()
@@ -90,7 +91,7 @@ func Test_Will_Handle_Backoff_Strategy_For_429(t *testing.T) {
 		),
 	)
 
-	_, _, err := client.User.ListUsers(nil)
+	_, _, err := client.User.ListUsers(context.TODO(), nil)
 	require.NotNil(t, err, "error was nil, but should have told the user they reached their max retry limit")
 
 	httpmock.GetTotalCallCount()
@@ -111,7 +112,7 @@ func Test_a_429_with_x_reset_header_throws_error(t *testing.T) {
 		),
 	)
 
-	_, _, err := client.User.ListUsers(nil)
+	_, _, err := client.User.ListUsers(context.TODO(), nil)
 
 	require.NotNil(t, err, "error should not be nil. It should let user know the reset header is required")
 }
@@ -128,19 +129,19 @@ func Test_a_429_with_no_date_header_throws_error(t *testing.T) {
 		),
 	)
 
-	_, _, err := client.User.ListUsers(nil)
+	_, _, err := client.User.ListUsers(context.TODO(), nil)
 
 	require.NotNil(t, err, "error should not be nil. It should let user know the date header is required")
 }
 
 func Test_gets_the_correct_backoff_time(t *testing.T) {
-	backoff := okta.Get429BackoffTime(Mock429Response())
+	backoff := okta.Get429BackoffTime(context.TODO(), Mock429Response())
 
 	require.Equal(t, int64(2), backoff, "backoff time should have only been 1 second")
 }
 
 func Test_with_multiple_x_rate_limit_request_times_still_retries(t *testing.T) {
-	backoff := okta.Get429BackoffTime(Mock429ResponseMultipleHeaders())
+	backoff := okta.Get429BackoffTime(context.TODO(), Mock429ResponseMultipleHeaders())
 
 	require.Equal(t, int64(11), backoff, "Backoff time should handle the correct header")
 }

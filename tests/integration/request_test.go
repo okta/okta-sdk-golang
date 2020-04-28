@@ -17,6 +17,7 @@
 package integration
 
 import (
+	"context"
 	"io"
 	"testing"
 
@@ -59,17 +60,17 @@ func Test_private_key_request_can_create_a_user(t *testing.T) {
 
 	qp := query.NewQueryParams(query.WithActivate(false))
 
-	user, _, err := client.User.CreateUser(*u, qp)
+	user, _, err := client.User.CreateUser(context.TODO(), *u, qp)
 	require.NoError(t, err, "Creating an user should not error")
 	assert.NotEmpty(t, user.Id, "appears the user was not created")
 	tempProfile := *user.Profile
 	assert.Equal(t, "john-private-key@example.com", tempProfile["email"], "did not get the correct user")
 
 	// Deactivate the user → POST /api/v1/users/{{userId}}/lifecycle/deactivate
-	_, err = client.User.DeactivateUser(user.Id, nil)
+	_, err = client.User.DeactivateUser(context.TODO(), user.Id, nil)
 	require.NoError(t, err, "Should not error when deactivating")
 
 	// Delete the user → DELETE /api/v1/users/{{userId}}
-	_, err = client.User.DeactivateOrDeleteUser(user.Id, nil)
+	_, err = client.User.DeactivateOrDeleteUser(context.TODO(), user.Id, nil)
 	require.NoError(t, err, "Should not error when deleting")
 }

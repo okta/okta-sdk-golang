@@ -19,6 +19,7 @@
 package okta
 
 import (
+	"context"
 	"fmt"
 	"time"
 )
@@ -37,7 +38,7 @@ type GroupRule struct {
 }
 
 // Updates a group rule. Only &#x60;INACTIVE&#x60; rules can be updated.
-func (m *GroupRuleResource) UpdateGroupRule(ruleId string, body GroupRule) (*GroupRule, *Response, error) {
+func (m *GroupRuleResource) UpdateGroupRule(ctx context.Context, ruleId string, body GroupRule) (*GroupRule, *Response, error) {
 	url := fmt.Sprintf("/api/v1/groups/rules/%v", ruleId)
 
 	req, err := m.client.requestExecutor.WithAccept("application/json").WithContentType("application/json").NewRequest("PUT", url, body)
@@ -47,7 +48,7 @@ func (m *GroupRuleResource) UpdateGroupRule(ruleId string, body GroupRule) (*Gro
 
 	var groupRule *GroupRule
 
-	resp, err := m.client.requestExecutor.Do(req, &groupRule)
+	resp, err := m.client.requestExecutor.Do(ctx, req, &groupRule)
 	if err != nil {
 		return nil, resp, err
 	}
@@ -56,7 +57,7 @@ func (m *GroupRuleResource) UpdateGroupRule(ruleId string, body GroupRule) (*Gro
 }
 
 // Removes a specific group rule by id from your organization
-func (m *GroupRuleResource) DeleteGroupRule(ruleId string) (*Response, error) {
+func (m *GroupRuleResource) DeleteGroupRule(ctx context.Context, ruleId string) (*Response, error) {
 	url := fmt.Sprintf("/api/v1/groups/rules/%v", ruleId)
 
 	req, err := m.client.requestExecutor.WithAccept("application/json").WithContentType("application/json").NewRequest("DELETE", url, nil)
@@ -64,7 +65,7 @@ func (m *GroupRuleResource) DeleteGroupRule(ruleId string) (*Response, error) {
 		return nil, err
 	}
 
-	resp, err := m.client.requestExecutor.Do(req, nil)
+	resp, err := m.client.requestExecutor.Do(ctx, req, nil)
 	if err != nil {
 		return resp, err
 	}

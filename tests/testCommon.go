@@ -17,7 +17,6 @@
 package tests
 
 import (
-	"context"
 	"fmt"
 	"net/http"
 	"testing"
@@ -30,7 +29,7 @@ import (
 )
 
 func NewClient(conf ...okta.ConfigSetter) (*okta.Client, error) {
-	return okta.NewClient(context.Background(), conf...)
+	return okta.NewClient(conf...)
 }
 
 func MockResponse(responses ...*http.Response) httpmock.Responder {

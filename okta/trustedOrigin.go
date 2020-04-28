@@ -19,6 +19,7 @@
 package okta
 
 import (
+	"context"
 	"fmt"
 	"github.com/okta/okta-sdk-golang/v2/okta/query"
 	"time"
@@ -39,7 +40,7 @@ type TrustedOrigin struct {
 	Status        string      `json:"status,omitempty"`
 }
 
-func (m *TrustedOriginResource) CreateOrigin(body TrustedOrigin) (*TrustedOrigin, *Response, error) {
+func (m *TrustedOriginResource) CreateOrigin(ctx context.Context, body TrustedOrigin) (*TrustedOrigin, *Response, error) {
 	url := fmt.Sprintf("/api/v1/trustedOrigins")
 
 	req, err := m.client.requestExecutor.WithAccept("application/json").WithContentType("application/json").NewRequest("POST", url, body)
@@ -49,7 +50,7 @@ func (m *TrustedOriginResource) CreateOrigin(body TrustedOrigin) (*TrustedOrigin
 
 	var trustedOrigin *TrustedOrigin
 
-	resp, err := m.client.requestExecutor.Do(req, &trustedOrigin)
+	resp, err := m.client.requestExecutor.Do(ctx, req, &trustedOrigin)
 	if err != nil {
 		return nil, resp, err
 	}
@@ -57,7 +58,7 @@ func (m *TrustedOriginResource) CreateOrigin(body TrustedOrigin) (*TrustedOrigin
 	return trustedOrigin, resp, nil
 }
 
-func (m *TrustedOriginResource) GetOrigin(trustedOriginId string) (*TrustedOrigin, *Response, error) {
+func (m *TrustedOriginResource) GetOrigin(ctx context.Context, trustedOriginId string) (*TrustedOrigin, *Response, error) {
 	url := fmt.Sprintf("/api/v1/trustedOrigins/%v", trustedOriginId)
 
 	req, err := m.client.requestExecutor.WithAccept("application/json").WithContentType("application/json").NewRequest("GET", url, nil)
@@ -67,7 +68,7 @@ func (m *TrustedOriginResource) GetOrigin(trustedOriginId string) (*TrustedOrigi
 
 	var trustedOrigin *TrustedOrigin
 
-	resp, err := m.client.requestExecutor.Do(req, &trustedOrigin)
+	resp, err := m.client.requestExecutor.Do(ctx, req, &trustedOrigin)
 	if err != nil {
 		return nil, resp, err
 	}
@@ -75,7 +76,7 @@ func (m *TrustedOriginResource) GetOrigin(trustedOriginId string) (*TrustedOrigi
 	return trustedOrigin, resp, nil
 }
 
-func (m *TrustedOriginResource) UpdateOrigin(trustedOriginId string, body TrustedOrigin) (*TrustedOrigin, *Response, error) {
+func (m *TrustedOriginResource) UpdateOrigin(ctx context.Context, trustedOriginId string, body TrustedOrigin) (*TrustedOrigin, *Response, error) {
 	url := fmt.Sprintf("/api/v1/trustedOrigins/%v", trustedOriginId)
 
 	req, err := m.client.requestExecutor.WithAccept("application/json").WithContentType("application/json").NewRequest("PUT", url, body)
@@ -85,7 +86,7 @@ func (m *TrustedOriginResource) UpdateOrigin(trustedOriginId string, body Truste
 
 	var trustedOrigin *TrustedOrigin
 
-	resp, err := m.client.requestExecutor.Do(req, &trustedOrigin)
+	resp, err := m.client.requestExecutor.Do(ctx, req, &trustedOrigin)
 	if err != nil {
 		return nil, resp, err
 	}
@@ -93,7 +94,7 @@ func (m *TrustedOriginResource) UpdateOrigin(trustedOriginId string, body Truste
 	return trustedOrigin, resp, nil
 }
 
-func (m *TrustedOriginResource) DeleteOrigin(trustedOriginId string) (*Response, error) {
+func (m *TrustedOriginResource) DeleteOrigin(ctx context.Context, trustedOriginId string) (*Response, error) {
 	url := fmt.Sprintf("/api/v1/trustedOrigins/%v", trustedOriginId)
 
 	req, err := m.client.requestExecutor.WithAccept("application/json").WithContentType("application/json").NewRequest("DELETE", url, nil)
@@ -101,7 +102,7 @@ func (m *TrustedOriginResource) DeleteOrigin(trustedOriginId string) (*Response,
 		return nil, err
 	}
 
-	resp, err := m.client.requestExecutor.Do(req, nil)
+	resp, err := m.client.requestExecutor.Do(ctx, req, nil)
 	if err != nil {
 		return resp, err
 	}
@@ -109,7 +110,7 @@ func (m *TrustedOriginResource) DeleteOrigin(trustedOriginId string) (*Response,
 	return resp, nil
 }
 
-func (m *TrustedOriginResource) ListOrigins(qp *query.Params) ([]*TrustedOrigin, *Response, error) {
+func (m *TrustedOriginResource) ListOrigins(ctx context.Context, qp *query.Params) ([]*TrustedOrigin, *Response, error) {
 	url := fmt.Sprintf("/api/v1/trustedOrigins")
 	if qp != nil {
 		url = url + qp.String()
@@ -122,7 +123,7 @@ func (m *TrustedOriginResource) ListOrigins(qp *query.Params) ([]*TrustedOrigin,
 
 	var trustedOrigin []*TrustedOrigin
 
-	resp, err := m.client.requestExecutor.Do(req, &trustedOrigin)
+	resp, err := m.client.requestExecutor.Do(ctx, req, &trustedOrigin)
 	if err != nil {
 		return nil, resp, err
 	}
@@ -130,7 +131,7 @@ func (m *TrustedOriginResource) ListOrigins(qp *query.Params) ([]*TrustedOrigin,
 	return trustedOrigin, resp, nil
 }
 
-func (m *TrustedOriginResource) ActivateOrigin(trustedOriginId string) (*TrustedOrigin, *Response, error) {
+func (m *TrustedOriginResource) ActivateOrigin(ctx context.Context, trustedOriginId string) (*TrustedOrigin, *Response, error) {
 	url := fmt.Sprintf("/api/v1/trustedOrigins/%v/lifecycle/activate", trustedOriginId)
 
 	req, err := m.client.requestExecutor.WithAccept("application/json").WithContentType("application/json").NewRequest("POST", url, nil)
@@ -140,7 +141,7 @@ func (m *TrustedOriginResource) ActivateOrigin(trustedOriginId string) (*Trusted
 
 	var trustedOrigin *TrustedOrigin
 
-	resp, err := m.client.requestExecutor.Do(req, &trustedOrigin)
+	resp, err := m.client.requestExecutor.Do(ctx, req, &trustedOrigin)
 	if err != nil {
 		return nil, resp, err
 	}
@@ -148,7 +149,7 @@ func (m *TrustedOriginResource) ActivateOrigin(trustedOriginId string) (*Trusted
 	return trustedOrigin, resp, nil
 }
 
-func (m *TrustedOriginResource) DeactivateOrigin(trustedOriginId string) (*TrustedOrigin, *Response, error) {
+func (m *TrustedOriginResource) DeactivateOrigin(ctx context.Context, trustedOriginId string) (*TrustedOrigin, *Response, error) {
 	url := fmt.Sprintf("/api/v1/trustedOrigins/%v/lifecycle/deactivate", trustedOriginId)
 
 	req, err := m.client.requestExecutor.WithAccept("application/json").WithContentType("application/json").NewRequest("POST", url, nil)
@@ -158,7 +159,7 @@ func (m *TrustedOriginResource) DeactivateOrigin(trustedOriginId string) (*Trust
 
 	var trustedOrigin *TrustedOrigin
 
-	resp, err := m.client.requestExecutor.Do(req, &trustedOrigin)
+	resp, err := m.client.requestExecutor.Do(ctx, req, &trustedOrigin)
 	if err != nil {
 		return nil, resp, err
 	}

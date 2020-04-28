@@ -19,7 +19,6 @@
 package okta
 
 import (
-	"context"
 	"fmt"
 	"io/ioutil"
 	"os/user"
@@ -61,7 +60,7 @@ type resource struct {
 	client *Client
 }
 
-func NewClient(ctx context.Context, conf ...ConfigSetter) (*Client, error) {
+func NewClient(conf ...ConfigSetter) (*Client, error) {
 	config := &config{}
 
 	setConfigDefaults(config)

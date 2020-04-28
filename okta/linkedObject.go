@@ -19,6 +19,7 @@
 package okta
 
 import (
+	"context"
 	"fmt"
 )
 
@@ -30,7 +31,7 @@ type LinkedObject struct {
 	Primary    *LinkedObjectDetails `json:"primary,omitempty"`
 }
 
-func (m *LinkedObjectResource) AddLinkedObjectDefinition(body LinkedObject) (*LinkedObject, *Response, error) {
+func (m *LinkedObjectResource) AddLinkedObjectDefinition(ctx context.Context, body LinkedObject) (*LinkedObject, *Response, error) {
 	url := fmt.Sprintf("/api/v1/meta/schemas/user/linkedObjects")
 
 	req, err := m.client.requestExecutor.WithAccept("application/json").WithContentType("application/json").NewRequest("POST", url, body)
@@ -40,7 +41,7 @@ func (m *LinkedObjectResource) AddLinkedObjectDefinition(body LinkedObject) (*Li
 
 	var linkedObject *LinkedObject
 
-	resp, err := m.client.requestExecutor.Do(req, &linkedObject)
+	resp, err := m.client.requestExecutor.Do(ctx, req, &linkedObject)
 	if err != nil {
 		return nil, resp, err
 	}
@@ -48,7 +49,7 @@ func (m *LinkedObjectResource) AddLinkedObjectDefinition(body LinkedObject) (*Li
 	return linkedObject, resp, nil
 }
 
-func (m *LinkedObjectResource) GetLinkedObjectDefinition(linkedObjectName string) (*LinkedObject, *Response, error) {
+func (m *LinkedObjectResource) GetLinkedObjectDefinition(ctx context.Context, linkedObjectName string) (*LinkedObject, *Response, error) {
 	url := fmt.Sprintf("/api/v1/meta/schemas/user/linkedObjects/%v", linkedObjectName)
 
 	req, err := m.client.requestExecutor.WithAccept("application/json").WithContentType("application/json").NewRequest("GET", url, nil)
@@ -58,7 +59,7 @@ func (m *LinkedObjectResource) GetLinkedObjectDefinition(linkedObjectName string
 
 	var linkedObject *LinkedObject
 
-	resp, err := m.client.requestExecutor.Do(req, &linkedObject)
+	resp, err := m.client.requestExecutor.Do(ctx, req, &linkedObject)
 	if err != nil {
 		return nil, resp, err
 	}
@@ -66,7 +67,7 @@ func (m *LinkedObjectResource) GetLinkedObjectDefinition(linkedObjectName string
 	return linkedObject, resp, nil
 }
 
-func (m *LinkedObjectResource) DeleteLinkedObjectDefinition(linkedObjectName string) (*Response, error) {
+func (m *LinkedObjectResource) DeleteLinkedObjectDefinition(ctx context.Context, linkedObjectName string) (*Response, error) {
 	url := fmt.Sprintf("/api/v1/meta/schemas/user/linkedObjects/%v", linkedObjectName)
 
 	req, err := m.client.requestExecutor.WithAccept("application/json").WithContentType("application/json").NewRequest("DELETE", url, nil)
@@ -74,7 +75,7 @@ func (m *LinkedObjectResource) DeleteLinkedObjectDefinition(linkedObjectName str
 		return nil, err
 	}
 
-	resp, err := m.client.requestExecutor.Do(req, nil)
+	resp, err := m.client.requestExecutor.Do(ctx, req, nil)
 	if err != nil {
 		return resp, err
 	}
@@ -82,7 +83,7 @@ func (m *LinkedObjectResource) DeleteLinkedObjectDefinition(linkedObjectName str
 	return resp, nil
 }
 
-func (m *LinkedObjectResource) ListLinkedObjectDefinitions() ([]*LinkedObject, *Response, error) {
+func (m *LinkedObjectResource) ListLinkedObjectDefinitions(ctx context.Context) ([]*LinkedObject, *Response, error) {
 	url := fmt.Sprintf("/api/v1/meta/schemas/user/linkedObjects")
 
 	req, err := m.client.requestExecutor.WithAccept("application/json").WithContentType("application/json").NewRequest("GET", url, nil)
@@ -92,7 +93,7 @@ func (m *LinkedObjectResource) ListLinkedObjectDefinitions() ([]*LinkedObject, *
 
 	var linkedObject []*LinkedObject
 
-	resp, err := m.client.requestExecutor.Do(req, &linkedObject)
+	resp, err := m.client.requestExecutor.Do(ctx, req, &linkedObject)
 	if err != nil {
 		return nil, resp, err
 	}
