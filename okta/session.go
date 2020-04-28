@@ -19,6 +19,7 @@
 package okta
 
 import (
+	"context"
 	"fmt"
 	"time"
 )
@@ -40,7 +41,7 @@ type Session struct {
 }
 
 // Get details about a session.
-func (m *SessionResource) GetSession(sessionId string) (*Session, *Response, error) {
+func (m *SessionResource) GetSession(ctx context.Context, sessionId string) (*Session, *Response, error) {
 	url := fmt.Sprintf("/api/v1/sessions/%v", sessionId)
 
 	req, err := m.client.requestExecutor.WithAccept("application/json").WithContentType("application/json").NewRequest("GET", url, nil)
@@ -50,7 +51,7 @@ func (m *SessionResource) GetSession(sessionId string) (*Session, *Response, err
 
 	var session *Session
 
-	resp, err := m.client.requestExecutor.Do(req, &session)
+	resp, err := m.client.requestExecutor.Do(ctx, req, &session)
 	if err != nil {
 		return nil, resp, err
 	}
@@ -59,7 +60,7 @@ func (m *SessionResource) GetSession(sessionId string) (*Session, *Response, err
 }
 
 //
-func (m *SessionResource) EndSession(sessionId string) (*Response, error) {
+func (m *SessionResource) EndSession(ctx context.Context, sessionId string) (*Response, error) {
 	url := fmt.Sprintf("/api/v1/sessions/%v", sessionId)
 
 	req, err := m.client.requestExecutor.WithAccept("application/json").WithContentType("application/json").NewRequest("DELETE", url, nil)
@@ -67,7 +68,7 @@ func (m *SessionResource) EndSession(sessionId string) (*Response, error) {
 		return nil, err
 	}
 
-	resp, err := m.client.requestExecutor.Do(req, nil)
+	resp, err := m.client.requestExecutor.Do(ctx, req, nil)
 	if err != nil {
 		return resp, err
 	}
@@ -76,7 +77,7 @@ func (m *SessionResource) EndSession(sessionId string) (*Response, error) {
 }
 
 // Creates a new session for a user with a valid session token. Use this API if, for example, you want to set the session cookie yourself instead of allowing Okta to set it, or want to hold the session ID in order to delete a session via the API instead of visiting the logout URL.
-func (m *SessionResource) CreateSession(body CreateSessionRequest) (*Session, *Response, error) {
+func (m *SessionResource) CreateSession(ctx context.Context, body CreateSessionRequest) (*Session, *Response, error) {
 	url := fmt.Sprintf("/api/v1/sessions")
 
 	req, err := m.client.requestExecutor.WithAccept("application/json").WithContentType("application/json").NewRequest("POST", url, body)
@@ -86,7 +87,7 @@ func (m *SessionResource) CreateSession(body CreateSessionRequest) (*Session, *R
 
 	var session *Session
 
-	resp, err := m.client.requestExecutor.Do(req, &session)
+	resp, err := m.client.requestExecutor.Do(ctx, req, &session)
 	if err != nil {
 		return nil, resp, err
 	}
@@ -95,7 +96,7 @@ func (m *SessionResource) CreateSession(body CreateSessionRequest) (*Session, *R
 }
 
 //
-func (m *SessionResource) RefreshSession(sessionId string) (*Session, *Response, error) {
+func (m *SessionResource) RefreshSession(ctx context.Context, sessionId string) (*Session, *Response, error) {
 	url := fmt.Sprintf("/api/v1/sessions/%v/lifecycle/refresh", sessionId)
 
 	req, err := m.client.requestExecutor.WithAccept("application/json").WithContentType("application/json").NewRequest("POST", url, nil)
@@ -105,7 +106,7 @@ func (m *SessionResource) RefreshSession(sessionId string) (*Session, *Response,
 
 	var session *Session
 
-	resp, err := m.client.requestExecutor.Do(req, &session)
+	resp, err := m.client.requestExecutor.Do(ctx, req, &session)
 	if err != nil {
 		return nil, resp, err
 	}

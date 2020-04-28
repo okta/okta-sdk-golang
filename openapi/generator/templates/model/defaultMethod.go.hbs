@@ -54,7 +54,7 @@ func (m *{{modelName}}Resource) {{ucFirst operation.operationId}}({{operationArg
 	{{/if}}
 	{{/if}}
 
-	resp, err := m.client.requestExecutor.Do(req, &{{lowercaseFirstLetter operation.responseModel}})
+	resp, err := m.client.requestExecutor.Do(ctx, req, &{{lowercaseFirstLetter operation.responseModel}})
 	if err != nil {
 		{{#if (ne operation.responseModel undefined)}}
 		return nil, resp, err
@@ -81,7 +81,7 @@ func (m *{{modelName}}Resource) {{ucFirst operation.operationId}}({{operationArg
 	{{/if}}
 	{{else}}
 
-	resp, err := m.client.requestExecutor.Do(req, nil)
+	resp, err := m.client.requestExecutor.Do(ctx, req, nil)
 	if err != nil {
 		{{#if (ne operation.responseModel undefined)}}
 		return nil, resp, err

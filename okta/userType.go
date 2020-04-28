@@ -19,6 +19,7 @@
 package okta
 
 import (
+	"context"
 	"fmt"
 	"time"
 )
@@ -39,7 +40,7 @@ type UserType struct {
 }
 
 // Updates an existing User Type
-func (m *UserTypeResource) UpdateUserType(typeId string, body UserType) (*UserType, *Response, error) {
+func (m *UserTypeResource) UpdateUserType(ctx context.Context, typeId string, body UserType) (*UserType, *Response, error) {
 	url := fmt.Sprintf("/api/v1/meta/types/user/%v", typeId)
 
 	req, err := m.client.requestExecutor.WithAccept("application/json").WithContentType("application/json").NewRequest("POST", url, body)
@@ -49,7 +50,7 @@ func (m *UserTypeResource) UpdateUserType(typeId string, body UserType) (*UserTy
 
 	var userType *UserType
 
-	resp, err := m.client.requestExecutor.Do(req, &userType)
+	resp, err := m.client.requestExecutor.Do(ctx, req, &userType)
 	if err != nil {
 		return nil, resp, err
 	}
@@ -58,7 +59,7 @@ func (m *UserTypeResource) UpdateUserType(typeId string, body UserType) (*UserTy
 }
 
 // Fetches a User Type by ID. The special identifier &#x60;default&#x60; may be used to fetch the default User Type.
-func (m *UserTypeResource) GetUserType(typeId string) (*UserType, *Response, error) {
+func (m *UserTypeResource) GetUserType(ctx context.Context, typeId string) (*UserType, *Response, error) {
 	url := fmt.Sprintf("/api/v1/meta/types/user/%v", typeId)
 
 	req, err := m.client.requestExecutor.WithAccept("application/json").WithContentType("application/json").NewRequest("GET", url, nil)
@@ -68,7 +69,7 @@ func (m *UserTypeResource) GetUserType(typeId string) (*UserType, *Response, err
 
 	var userType *UserType
 
-	resp, err := m.client.requestExecutor.Do(req, &userType)
+	resp, err := m.client.requestExecutor.Do(ctx, req, &userType)
 	if err != nil {
 		return nil, resp, err
 	}
@@ -77,7 +78,7 @@ func (m *UserTypeResource) GetUserType(typeId string) (*UserType, *Response, err
 }
 
 // Deletes a User Type permanently. This operation is not permitted for the default type, nor for any User Type that has existing users
-func (m *UserTypeResource) DeleteUserType(typeId string) (*Response, error) {
+func (m *UserTypeResource) DeleteUserType(ctx context.Context, typeId string) (*Response, error) {
 	url := fmt.Sprintf("/api/v1/meta/types/user/%v", typeId)
 
 	req, err := m.client.requestExecutor.WithAccept("application/json").WithContentType("application/json").NewRequest("DELETE", url, nil)
@@ -85,7 +86,7 @@ func (m *UserTypeResource) DeleteUserType(typeId string) (*Response, error) {
 		return nil, err
 	}
 
-	resp, err := m.client.requestExecutor.Do(req, nil)
+	resp, err := m.client.requestExecutor.Do(ctx, req, nil)
 	if err != nil {
 		return resp, err
 	}
@@ -94,7 +95,7 @@ func (m *UserTypeResource) DeleteUserType(typeId string) (*Response, error) {
 }
 
 // Fetches all User Types in your org
-func (m *UserTypeResource) ListUserTypes() ([]*UserType, *Response, error) {
+func (m *UserTypeResource) ListUserTypes(ctx context.Context) ([]*UserType, *Response, error) {
 	url := fmt.Sprintf("/api/v1/meta/types/user")
 
 	req, err := m.client.requestExecutor.WithAccept("application/json").WithContentType("application/json").NewRequest("GET", url, nil)
@@ -104,7 +105,7 @@ func (m *UserTypeResource) ListUserTypes() ([]*UserType, *Response, error) {
 
 	var userType []*UserType
 
-	resp, err := m.client.requestExecutor.Do(req, &userType)
+	resp, err := m.client.requestExecutor.Do(ctx, req, &userType)
 	if err != nil {
 		return nil, resp, err
 	}
@@ -113,7 +114,7 @@ func (m *UserTypeResource) ListUserTypes() ([]*UserType, *Response, error) {
 }
 
 // Creates a new User Type. A default User Type is automatically created along with your org, and you may add another 9 User Types for a maximum of 10.
-func (m *UserTypeResource) CreateUserType(body UserType) (*UserType, *Response, error) {
+func (m *UserTypeResource) CreateUserType(ctx context.Context, body UserType) (*UserType, *Response, error) {
 	url := fmt.Sprintf("/api/v1/meta/types/user")
 
 	req, err := m.client.requestExecutor.WithAccept("application/json").WithContentType("application/json").NewRequest("POST", url, body)
@@ -123,7 +124,7 @@ func (m *UserTypeResource) CreateUserType(body UserType) (*UserType, *Response, 
 
 	var userType *UserType
 
-	resp, err := m.client.requestExecutor.Do(req, &userType)
+	resp, err := m.client.requestExecutor.Do(ctx, req, &userType)
 	if err != nil {
 		return nil, resp, err
 	}
@@ -132,7 +133,7 @@ func (m *UserTypeResource) CreateUserType(body UserType) (*UserType, *Response, 
 }
 
 // Replace an existing User Type
-func (m *UserTypeResource) ReplaceUserType(typeId string, body UserType) (*UserType, *Response, error) {
+func (m *UserTypeResource) ReplaceUserType(ctx context.Context, typeId string, body UserType) (*UserType, *Response, error) {
 	url := fmt.Sprintf("/api/v1/meta/types/user/%v", typeId)
 
 	req, err := m.client.requestExecutor.WithAccept("application/json").WithContentType("application/json").NewRequest("PUT", url, body)
@@ -142,7 +143,7 @@ func (m *UserTypeResource) ReplaceUserType(typeId string, body UserType) (*UserT
 
 	var userType *UserType
 
-	resp, err := m.client.requestExecutor.Do(req, &userType)
+	resp, err := m.client.requestExecutor.Do(ctx, req, &userType)
 	if err != nil {
 		return nil, resp, err
 	}

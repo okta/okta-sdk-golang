@@ -19,6 +19,7 @@
 package okta
 
 import (
+	"context"
 	"fmt"
 	"time"
 )
@@ -38,7 +39,7 @@ type EventHook struct {
 	VerificationStatus string              `json:"verificationStatus,omitempty"`
 }
 
-func (m *EventHookResource) CreateEventHook(body EventHook) (*EventHook, *Response, error) {
+func (m *EventHookResource) CreateEventHook(ctx context.Context, body EventHook) (*EventHook, *Response, error) {
 	url := fmt.Sprintf("/api/v1/eventHooks")
 
 	req, err := m.client.requestExecutor.WithAccept("application/json").WithContentType("application/json").NewRequest("POST", url, body)
@@ -48,7 +49,7 @@ func (m *EventHookResource) CreateEventHook(body EventHook) (*EventHook, *Respon
 
 	var eventHook *EventHook
 
-	resp, err := m.client.requestExecutor.Do(req, &eventHook)
+	resp, err := m.client.requestExecutor.Do(ctx, req, &eventHook)
 	if err != nil {
 		return nil, resp, err
 	}
@@ -56,7 +57,7 @@ func (m *EventHookResource) CreateEventHook(body EventHook) (*EventHook, *Respon
 	return eventHook, resp, nil
 }
 
-func (m *EventHookResource) GetEventHook(eventHookId string) (*EventHook, *Response, error) {
+func (m *EventHookResource) GetEventHook(ctx context.Context, eventHookId string) (*EventHook, *Response, error) {
 	url := fmt.Sprintf("/api/v1/eventHooks/%v", eventHookId)
 
 	req, err := m.client.requestExecutor.WithAccept("application/json").WithContentType("application/json").NewRequest("GET", url, nil)
@@ -66,7 +67,7 @@ func (m *EventHookResource) GetEventHook(eventHookId string) (*EventHook, *Respo
 
 	var eventHook *EventHook
 
-	resp, err := m.client.requestExecutor.Do(req, &eventHook)
+	resp, err := m.client.requestExecutor.Do(ctx, req, &eventHook)
 	if err != nil {
 		return nil, resp, err
 	}
@@ -74,7 +75,7 @@ func (m *EventHookResource) GetEventHook(eventHookId string) (*EventHook, *Respo
 	return eventHook, resp, nil
 }
 
-func (m *EventHookResource) UpdateEventHook(eventHookId string, body EventHook) (*EventHook, *Response, error) {
+func (m *EventHookResource) UpdateEventHook(ctx context.Context, eventHookId string, body EventHook) (*EventHook, *Response, error) {
 	url := fmt.Sprintf("/api/v1/eventHooks/%v", eventHookId)
 
 	req, err := m.client.requestExecutor.WithAccept("application/json").WithContentType("application/json").NewRequest("PUT", url, body)
@@ -84,7 +85,7 @@ func (m *EventHookResource) UpdateEventHook(eventHookId string, body EventHook) 
 
 	var eventHook *EventHook
 
-	resp, err := m.client.requestExecutor.Do(req, &eventHook)
+	resp, err := m.client.requestExecutor.Do(ctx, req, &eventHook)
 	if err != nil {
 		return nil, resp, err
 	}
@@ -92,7 +93,7 @@ func (m *EventHookResource) UpdateEventHook(eventHookId string, body EventHook) 
 	return eventHook, resp, nil
 }
 
-func (m *EventHookResource) DeleteEventHook(eventHookId string) (*Response, error) {
+func (m *EventHookResource) DeleteEventHook(ctx context.Context, eventHookId string) (*Response, error) {
 	url := fmt.Sprintf("/api/v1/eventHooks/%v", eventHookId)
 
 	req, err := m.client.requestExecutor.WithAccept("application/json").WithContentType("application/json").NewRequest("DELETE", url, nil)
@@ -100,7 +101,7 @@ func (m *EventHookResource) DeleteEventHook(eventHookId string) (*Response, erro
 		return nil, err
 	}
 
-	resp, err := m.client.requestExecutor.Do(req, nil)
+	resp, err := m.client.requestExecutor.Do(ctx, req, nil)
 	if err != nil {
 		return resp, err
 	}
@@ -108,7 +109,7 @@ func (m *EventHookResource) DeleteEventHook(eventHookId string) (*Response, erro
 	return resp, nil
 }
 
-func (m *EventHookResource) ListEventHooks() ([]*EventHook, *Response, error) {
+func (m *EventHookResource) ListEventHooks(ctx context.Context) ([]*EventHook, *Response, error) {
 	url := fmt.Sprintf("/api/v1/eventHooks")
 
 	req, err := m.client.requestExecutor.WithAccept("application/json").WithContentType("application/json").NewRequest("GET", url, nil)
@@ -118,7 +119,7 @@ func (m *EventHookResource) ListEventHooks() ([]*EventHook, *Response, error) {
 
 	var eventHook []*EventHook
 
-	resp, err := m.client.requestExecutor.Do(req, &eventHook)
+	resp, err := m.client.requestExecutor.Do(ctx, req, &eventHook)
 	if err != nil {
 		return nil, resp, err
 	}
@@ -126,7 +127,7 @@ func (m *EventHookResource) ListEventHooks() ([]*EventHook, *Response, error) {
 	return eventHook, resp, nil
 }
 
-func (m *EventHookResource) ActivateEventHook(eventHookId string) (*EventHook, *Response, error) {
+func (m *EventHookResource) ActivateEventHook(ctx context.Context, eventHookId string) (*EventHook, *Response, error) {
 	url := fmt.Sprintf("/api/v1/eventHooks/%v/lifecycle/activate", eventHookId)
 
 	req, err := m.client.requestExecutor.WithAccept("application/json").WithContentType("application/json").NewRequest("POST", url, nil)
@@ -136,7 +137,7 @@ func (m *EventHookResource) ActivateEventHook(eventHookId string) (*EventHook, *
 
 	var eventHook *EventHook
 
-	resp, err := m.client.requestExecutor.Do(req, &eventHook)
+	resp, err := m.client.requestExecutor.Do(ctx, req, &eventHook)
 	if err != nil {
 		return nil, resp, err
 	}
@@ -144,7 +145,7 @@ func (m *EventHookResource) ActivateEventHook(eventHookId string) (*EventHook, *
 	return eventHook, resp, nil
 }
 
-func (m *EventHookResource) DeactivateEventHook(eventHookId string) (*EventHook, *Response, error) {
+func (m *EventHookResource) DeactivateEventHook(ctx context.Context, eventHookId string) (*EventHook, *Response, error) {
 	url := fmt.Sprintf("/api/v1/eventHooks/%v/lifecycle/deactivate", eventHookId)
 
 	req, err := m.client.requestExecutor.WithAccept("application/json").WithContentType("application/json").NewRequest("POST", url, nil)
@@ -154,7 +155,7 @@ func (m *EventHookResource) DeactivateEventHook(eventHookId string) (*EventHook,
 
 	var eventHook *EventHook
 
-	resp, err := m.client.requestExecutor.Do(req, &eventHook)
+	resp, err := m.client.requestExecutor.Do(ctx, req, &eventHook)
 	if err != nil {
 		return nil, resp, err
 	}
@@ -162,7 +163,7 @@ func (m *EventHookResource) DeactivateEventHook(eventHookId string) (*EventHook,
 	return eventHook, resp, nil
 }
 
-func (m *EventHookResource) VerifyEventHook(eventHookId string) (*EventHook, *Response, error) {
+func (m *EventHookResource) VerifyEventHook(ctx context.Context, eventHookId string) (*EventHook, *Response, error) {
 	url := fmt.Sprintf("/api/v1/eventHooks/%v/lifecycle/verify", eventHookId)
 
 	req, err := m.client.requestExecutor.WithAccept("application/json").WithContentType("application/json").NewRequest("POST", url, nil)
@@ -172,7 +173,7 @@ func (m *EventHookResource) VerifyEventHook(eventHookId string) (*EventHook, *Re
 
 	var eventHook *EventHook
 
-	resp, err := m.client.requestExecutor.Do(req, &eventHook)
+	resp, err := m.client.requestExecutor.Do(ctx, req, &eventHook)
 	if err != nil {
 		return nil, resp, err
 	}

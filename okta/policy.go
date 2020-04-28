@@ -19,6 +19,7 @@
 package okta
 
 import (
+	"context"
 	"fmt"
 	"github.com/okta/okta-sdk-golang/v2/okta/query"
 	"time"
@@ -42,7 +43,7 @@ type Policy struct {
 }
 
 // Gets a policy.
-func (m *PolicyResource) GetPolicy(policyId string, qp *query.Params) (*Policy, *Response, error) {
+func (m *PolicyResource) GetPolicy(ctx context.Context, policyId string, qp *query.Params) (*Policy, *Response, error) {
 	url := fmt.Sprintf("/api/v1/policies/%v", policyId)
 	if qp != nil {
 		url = url + qp.String()
@@ -55,7 +56,7 @@ func (m *PolicyResource) GetPolicy(policyId string, qp *query.Params) (*Policy, 
 
 	var policy *Policy
 
-	resp, err := m.client.requestExecutor.Do(req, &policy)
+	resp, err := m.client.requestExecutor.Do(ctx, req, &policy)
 	if err != nil {
 		return nil, resp, err
 	}
@@ -64,7 +65,7 @@ func (m *PolicyResource) GetPolicy(policyId string, qp *query.Params) (*Policy, 
 }
 
 // Updates a policy.
-func (m *PolicyResource) UpdatePolicy(policyId string, body Policy) (*Policy, *Response, error) {
+func (m *PolicyResource) UpdatePolicy(ctx context.Context, policyId string, body Policy) (*Policy, *Response, error) {
 	url := fmt.Sprintf("/api/v1/policies/%v", policyId)
 
 	req, err := m.client.requestExecutor.WithAccept("application/json").WithContentType("application/json").NewRequest("PUT", url, body)
@@ -74,7 +75,7 @@ func (m *PolicyResource) UpdatePolicy(policyId string, body Policy) (*Policy, *R
 
 	var policy *Policy
 
-	resp, err := m.client.requestExecutor.Do(req, &policy)
+	resp, err := m.client.requestExecutor.Do(ctx, req, &policy)
 	if err != nil {
 		return nil, resp, err
 	}
@@ -83,7 +84,7 @@ func (m *PolicyResource) UpdatePolicy(policyId string, body Policy) (*Policy, *R
 }
 
 // Removes a policy.
-func (m *PolicyResource) DeletePolicy(policyId string) (*Response, error) {
+func (m *PolicyResource) DeletePolicy(ctx context.Context, policyId string) (*Response, error) {
 	url := fmt.Sprintf("/api/v1/policies/%v", policyId)
 
 	req, err := m.client.requestExecutor.WithAccept("application/json").WithContentType("application/json").NewRequest("DELETE", url, nil)
@@ -91,7 +92,7 @@ func (m *PolicyResource) DeletePolicy(policyId string) (*Response, error) {
 		return nil, err
 	}
 
-	resp, err := m.client.requestExecutor.Do(req, nil)
+	resp, err := m.client.requestExecutor.Do(ctx, req, nil)
 	if err != nil {
 		return resp, err
 	}
@@ -100,7 +101,7 @@ func (m *PolicyResource) DeletePolicy(policyId string) (*Response, error) {
 }
 
 // Gets all policies with the specified type.
-func (m *PolicyResource) ListPolicies(qp *query.Params) ([]*Policy, *Response, error) {
+func (m *PolicyResource) ListPolicies(ctx context.Context, qp *query.Params) ([]*Policy, *Response, error) {
 	url := fmt.Sprintf("/api/v1/policies")
 	if qp != nil {
 		url = url + qp.String()
@@ -113,7 +114,7 @@ func (m *PolicyResource) ListPolicies(qp *query.Params) ([]*Policy, *Response, e
 
 	var policy []*Policy
 
-	resp, err := m.client.requestExecutor.Do(req, &policy)
+	resp, err := m.client.requestExecutor.Do(ctx, req, &policy)
 	if err != nil {
 		return nil, resp, err
 	}
@@ -122,7 +123,7 @@ func (m *PolicyResource) ListPolicies(qp *query.Params) ([]*Policy, *Response, e
 }
 
 // Creates a policy.
-func (m *PolicyResource) CreatePolicy(body Policy, qp *query.Params) (*Policy, *Response, error) {
+func (m *PolicyResource) CreatePolicy(ctx context.Context, body Policy, qp *query.Params) (*Policy, *Response, error) {
 	url := fmt.Sprintf("/api/v1/policies")
 	if qp != nil {
 		url = url + qp.String()
@@ -135,7 +136,7 @@ func (m *PolicyResource) CreatePolicy(body Policy, qp *query.Params) (*Policy, *
 
 	var policy *Policy
 
-	resp, err := m.client.requestExecutor.Do(req, &policy)
+	resp, err := m.client.requestExecutor.Do(ctx, req, &policy)
 	if err != nil {
 		return nil, resp, err
 	}
@@ -144,7 +145,7 @@ func (m *PolicyResource) CreatePolicy(body Policy, qp *query.Params) (*Policy, *
 }
 
 // Activates a policy.
-func (m *PolicyResource) ActivatePolicy(policyId string) (*Response, error) {
+func (m *PolicyResource) ActivatePolicy(ctx context.Context, policyId string) (*Response, error) {
 	url := fmt.Sprintf("/api/v1/policies/%v/lifecycle/activate", policyId)
 
 	req, err := m.client.requestExecutor.WithAccept("application/json").WithContentType("application/json").NewRequest("POST", url, nil)
@@ -152,7 +153,7 @@ func (m *PolicyResource) ActivatePolicy(policyId string) (*Response, error) {
 		return nil, err
 	}
 
-	resp, err := m.client.requestExecutor.Do(req, nil)
+	resp, err := m.client.requestExecutor.Do(ctx, req, nil)
 	if err != nil {
 		return resp, err
 	}
@@ -161,7 +162,7 @@ func (m *PolicyResource) ActivatePolicy(policyId string) (*Response, error) {
 }
 
 // Deactivates a policy.
-func (m *PolicyResource) DeactivatePolicy(policyId string) (*Response, error) {
+func (m *PolicyResource) DeactivatePolicy(ctx context.Context, policyId string) (*Response, error) {
 	url := fmt.Sprintf("/api/v1/policies/%v/lifecycle/deactivate", policyId)
 
 	req, err := m.client.requestExecutor.WithAccept("application/json").WithContentType("application/json").NewRequest("POST", url, nil)
@@ -169,7 +170,7 @@ func (m *PolicyResource) DeactivatePolicy(policyId string) (*Response, error) {
 		return nil, err
 	}
 
-	resp, err := m.client.requestExecutor.Do(req, nil)
+	resp, err := m.client.requestExecutor.Do(ctx, req, nil)
 	if err != nil {
 		return resp, err
 	}
@@ -178,7 +179,7 @@ func (m *PolicyResource) DeactivatePolicy(policyId string) (*Response, error) {
 }
 
 // Enumerates all policy rules.
-func (m *PolicyResource) ListPolicyRules(policyId string) ([]*PolicyRule, *Response, error) {
+func (m *PolicyResource) ListPolicyRules(ctx context.Context, policyId string) ([]*PolicyRule, *Response, error) {
 	url := fmt.Sprintf("/api/v1/policies/%v/rules", policyId)
 
 	req, err := m.client.requestExecutor.WithAccept("application/json").WithContentType("application/json").NewRequest("GET", url, nil)
@@ -188,7 +189,7 @@ func (m *PolicyResource) ListPolicyRules(policyId string) ([]*PolicyRule, *Respo
 
 	var policyRule []*PolicyRule
 
-	resp, err := m.client.requestExecutor.Do(req, &policyRule)
+	resp, err := m.client.requestExecutor.Do(ctx, req, &policyRule)
 	if err != nil {
 		return nil, resp, err
 	}
@@ -197,7 +198,7 @@ func (m *PolicyResource) ListPolicyRules(policyId string) ([]*PolicyRule, *Respo
 }
 
 // Creates a policy rule.
-func (m *PolicyResource) CreatePolicyRule(policyId string, body PolicyRule) (*PolicyRule, *Response, error) {
+func (m *PolicyResource) CreatePolicyRule(ctx context.Context, policyId string, body PolicyRule) (*PolicyRule, *Response, error) {
 	url := fmt.Sprintf("/api/v1/policies/%v/rules", policyId)
 
 	req, err := m.client.requestExecutor.WithAccept("application/json").WithContentType("application/json").NewRequest("POST", url, body)
@@ -207,7 +208,7 @@ func (m *PolicyResource) CreatePolicyRule(policyId string, body PolicyRule) (*Po
 
 	var policyRule *PolicyRule
 
-	resp, err := m.client.requestExecutor.Do(req, &policyRule)
+	resp, err := m.client.requestExecutor.Do(ctx, req, &policyRule)
 	if err != nil {
 		return nil, resp, err
 	}
@@ -216,7 +217,7 @@ func (m *PolicyResource) CreatePolicyRule(policyId string, body PolicyRule) (*Po
 }
 
 // Removes a policy rule.
-func (m *PolicyResource) DeletePolicyRule(policyId string, ruleId string) (*Response, error) {
+func (m *PolicyResource) DeletePolicyRule(ctx context.Context, policyId string, ruleId string) (*Response, error) {
 	url := fmt.Sprintf("/api/v1/policies/%v/rules/%v", policyId, ruleId)
 
 	req, err := m.client.requestExecutor.WithAccept("application/json").WithContentType("application/json").NewRequest("DELETE", url, nil)
@@ -224,7 +225,7 @@ func (m *PolicyResource) DeletePolicyRule(policyId string, ruleId string) (*Resp
 		return nil, err
 	}
 
-	resp, err := m.client.requestExecutor.Do(req, nil)
+	resp, err := m.client.requestExecutor.Do(ctx, req, nil)
 	if err != nil {
 		return resp, err
 	}
@@ -233,7 +234,7 @@ func (m *PolicyResource) DeletePolicyRule(policyId string, ruleId string) (*Resp
 }
 
 // Gets a policy rule.
-func (m *PolicyResource) GetPolicyRule(policyId string, ruleId string) (*PolicyRule, *Response, error) {
+func (m *PolicyResource) GetPolicyRule(ctx context.Context, policyId string, ruleId string) (*PolicyRule, *Response, error) {
 	url := fmt.Sprintf("/api/v1/policies/%v/rules/%v", policyId, ruleId)
 
 	req, err := m.client.requestExecutor.WithAccept("application/json").WithContentType("application/json").NewRequest("GET", url, nil)
@@ -243,7 +244,7 @@ func (m *PolicyResource) GetPolicyRule(policyId string, ruleId string) (*PolicyR
 
 	var policyRule *PolicyRule
 
-	resp, err := m.client.requestExecutor.Do(req, &policyRule)
+	resp, err := m.client.requestExecutor.Do(ctx, req, &policyRule)
 	if err != nil {
 		return nil, resp, err
 	}
@@ -252,7 +253,7 @@ func (m *PolicyResource) GetPolicyRule(policyId string, ruleId string) (*PolicyR
 }
 
 // Updates a policy rule.
-func (m *PolicyResource) UpdatePolicyRule(policyId string, ruleId string, body PolicyRule) (*PolicyRule, *Response, error) {
+func (m *PolicyResource) UpdatePolicyRule(ctx context.Context, policyId string, ruleId string, body PolicyRule) (*PolicyRule, *Response, error) {
 	url := fmt.Sprintf("/api/v1/policies/%v/rules/%v", policyId, ruleId)
 
 	req, err := m.client.requestExecutor.WithAccept("application/json").WithContentType("application/json").NewRequest("PUT", url, body)
@@ -262,7 +263,7 @@ func (m *PolicyResource) UpdatePolicyRule(policyId string, ruleId string, body P
 
 	var policyRule *PolicyRule
 
-	resp, err := m.client.requestExecutor.Do(req, &policyRule)
+	resp, err := m.client.requestExecutor.Do(ctx, req, &policyRule)
 	if err != nil {
 		return nil, resp, err
 	}
@@ -271,7 +272,7 @@ func (m *PolicyResource) UpdatePolicyRule(policyId string, ruleId string, body P
 }
 
 // Activates a policy rule.
-func (m *PolicyResource) ActivatePolicyRule(policyId string, ruleId string) (*Response, error) {
+func (m *PolicyResource) ActivatePolicyRule(ctx context.Context, policyId string, ruleId string) (*Response, error) {
 	url := fmt.Sprintf("/api/v1/policies/%v/rules/%v/lifecycle/activate", policyId, ruleId)
 
 	req, err := m.client.requestExecutor.WithAccept("application/json").WithContentType("application/json").NewRequest("POST", url, nil)
@@ -279,7 +280,7 @@ func (m *PolicyResource) ActivatePolicyRule(policyId string, ruleId string) (*Re
 		return nil, err
 	}
 
-	resp, err := m.client.requestExecutor.Do(req, nil)
+	resp, err := m.client.requestExecutor.Do(ctx, req, nil)
 	if err != nil {
 		return resp, err
 	}
@@ -288,7 +289,7 @@ func (m *PolicyResource) ActivatePolicyRule(policyId string, ruleId string) (*Re
 }
 
 // Deactivates a policy rule.
-func (m *PolicyResource) DeactivatePolicyRule(policyId string, ruleId string) (*Response, error) {
+func (m *PolicyResource) DeactivatePolicyRule(ctx context.Context, policyId string, ruleId string) (*Response, error) {
 	url := fmt.Sprintf("/api/v1/policies/%v/rules/%v/lifecycle/deactivate", policyId, ruleId)
 
 	req, err := m.client.requestExecutor.WithAccept("application/json").WithContentType("application/json").NewRequest("POST", url, nil)
@@ -296,7 +297,7 @@ func (m *PolicyResource) DeactivatePolicyRule(policyId string, ruleId string) (*
 		return nil, err
 	}
 
-	resp, err := m.client.requestExecutor.Do(req, nil)
+	resp, err := m.client.requestExecutor.Do(ctx, req, nil)
 	if err != nil {
 		return resp, err
 	}

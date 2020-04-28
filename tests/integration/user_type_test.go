@@ -17,6 +17,7 @@
 package integration
 
 import (
+	"context"
 	"testing"
 	"time"
 
@@ -35,13 +36,13 @@ func Test_can_create_user_type(t *testing.T) {
 		Name:        "userTypeName",
 	}
 
-	userType, response, err := client.UserType.CreateUserType(ut)
+	userType, response, err := client.UserType.CreateUserType(context.TODO(), ut)
 	require.NoError(t, err, "creating a user type should not error")
 	tests.Assert_response(t, response, "POST", "/api/v1/meta/types/user")
 
 	assert_user_type_model(t, userType)
 
-	_, err = client.UserType.DeleteUserType(userType.Id)
+	_, err = client.UserType.DeleteUserType(context.TODO(), userType.Id)
 	require.NoError(t, err, "deleting a user type should not error")
 
 }
@@ -49,7 +50,7 @@ func Test_can_create_user_type(t *testing.T) {
 func Test_can_list_user_types(t *testing.T) {
 	client, _ := tests.NewClient()
 
-	userTypes, response, err := client.UserType.ListUserTypes()
+	userTypes, response, err := client.UserType.ListUserTypes(context.TODO())
 	require.NoError(t, err, "creating a user type should not error")
 	tests.Assert_response(t, response, "GET", "/api/v1/meta/types/user")
 

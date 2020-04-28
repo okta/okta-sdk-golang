@@ -25,13 +25,13 @@ func (c *Client) {{ucFirst operation.operationId}}({{operationArgumentBuilder op
 	{{else}}
 	var {{lowercaseFirstLetter operation.responseModel}} *{{operation.responseModel}}
 	{{/if}}
-	resp, err := c.requestExecutor.Do(req, &{{lowercaseFirstLetter operation.responseModel}})
+	resp, err := c.requestExecutor.Do(ctx, req, &{{lowercaseFirstLetter operation.responseModel}})
 	if err != nil {
 		return nil, resp, err
 	}
 	return {{lowercaseFirstLetter operation.responseModel}}, resp, nil
 	{{else}}
-	resp, err := c.requestExecutor.Do(req, nil)
+	resp, err := c.requestExecutor.Do(ctx, req, nil)
 	if err != nil {
 		return resp, err
 	}

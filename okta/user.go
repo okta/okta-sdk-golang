@@ -19,6 +19,7 @@
 package okta
 
 import (
+	"context"
 	"fmt"
 	"github.com/okta/okta-sdk-golang/v2/okta/query"
 	"time"
@@ -44,7 +45,7 @@ type User struct {
 }
 
 // Creates a new user in your Okta organization with or without credentials.
-func (m *UserResource) CreateUser(body CreateUserRequest, qp *query.Params) (*User, *Response, error) {
+func (m *UserResource) CreateUser(ctx context.Context, body CreateUserRequest, qp *query.Params) (*User, *Response, error) {
 	url := fmt.Sprintf("/api/v1/users")
 	if qp != nil {
 		url = url + qp.String()
@@ -57,7 +58,7 @@ func (m *UserResource) CreateUser(body CreateUserRequest, qp *query.Params) (*Us
 
 	var user *User
 
-	resp, err := m.client.requestExecutor.Do(req, &user)
+	resp, err := m.client.requestExecutor.Do(ctx, req, &user)
 	if err != nil {
 		return nil, resp, err
 	}
@@ -66,7 +67,7 @@ func (m *UserResource) CreateUser(body CreateUserRequest, qp *query.Params) (*Us
 }
 
 // Fetches a user from your Okta organization.
-func (m *UserResource) GetUser(userId string) (*User, *Response, error) {
+func (m *UserResource) GetUser(ctx context.Context, userId string) (*User, *Response, error) {
 	url := fmt.Sprintf("/api/v1/users/%v", userId)
 
 	req, err := m.client.requestExecutor.WithAccept("application/json").WithContentType("application/json").NewRequest("GET", url, nil)
@@ -76,7 +77,7 @@ func (m *UserResource) GetUser(userId string) (*User, *Response, error) {
 
 	var user *User
 
-	resp, err := m.client.requestExecutor.Do(req, &user)
+	resp, err := m.client.requestExecutor.Do(ctx, req, &user)
 	if err != nil {
 		return nil, resp, err
 	}
@@ -85,7 +86,7 @@ func (m *UserResource) GetUser(userId string) (*User, *Response, error) {
 }
 
 // Update a user&#x27;s profile and/or credentials using strict-update semantics.
-func (m *UserResource) UpdateUser(userId string, body User, qp *query.Params) (*User, *Response, error) {
+func (m *UserResource) UpdateUser(ctx context.Context, userId string, body User, qp *query.Params) (*User, *Response, error) {
 	url := fmt.Sprintf("/api/v1/users/%v", userId)
 	if qp != nil {
 		url = url + qp.String()
@@ -98,7 +99,7 @@ func (m *UserResource) UpdateUser(userId string, body User, qp *query.Params) (*
 
 	var user *User
 
-	resp, err := m.client.requestExecutor.Do(req, &user)
+	resp, err := m.client.requestExecutor.Do(ctx, req, &user)
 	if err != nil {
 		return nil, resp, err
 	}
@@ -107,7 +108,7 @@ func (m *UserResource) UpdateUser(userId string, body User, qp *query.Params) (*
 }
 
 // Deletes a user permanently.  This operation can only be performed on users that have a &#x60;DEPROVISIONED&#x60; status.  **This action cannot be recovered!**
-func (m *UserResource) DeactivateOrDeleteUser(userId string, qp *query.Params) (*Response, error) {
+func (m *UserResource) DeactivateOrDeleteUser(ctx context.Context, userId string, qp *query.Params) (*Response, error) {
 	url := fmt.Sprintf("/api/v1/users/%v", userId)
 	if qp != nil {
 		url = url + qp.String()
@@ -118,7 +119,7 @@ func (m *UserResource) DeactivateOrDeleteUser(userId string, qp *query.Params) (
 		return nil, err
 	}
 
-	resp, err := m.client.requestExecutor.Do(req, nil)
+	resp, err := m.client.requestExecutor.Do(ctx, req, nil)
 	if err != nil {
 		return resp, err
 	}
@@ -127,7 +128,7 @@ func (m *UserResource) DeactivateOrDeleteUser(userId string, qp *query.Params) (
 }
 
 // Lists users in your organization with pagination in most cases.  A subset of users can be returned that match a supported filter expression or search criteria.
-func (m *UserResource) ListUsers(qp *query.Params) ([]*User, *Response, error) {
+func (m *UserResource) ListUsers(ctx context.Context, qp *query.Params) ([]*User, *Response, error) {
 	url := fmt.Sprintf("/api/v1/users")
 	if qp != nil {
 		url = url + qp.String()
@@ -140,7 +141,7 @@ func (m *UserResource) ListUsers(qp *query.Params) ([]*User, *Response, error) {
 
 	var user []*User
 
-	resp, err := m.client.requestExecutor.Do(req, &user)
+	resp, err := m.client.requestExecutor.Do(ctx, req, &user)
 	if err != nil {
 		return nil, resp, err
 	}
@@ -149,7 +150,7 @@ func (m *UserResource) ListUsers(qp *query.Params) ([]*User, *Response, error) {
 }
 
 // Clears Okta sessions for the currently logged in user. By default, the current session remains active. Use this method in a browser-based application.
-func (m *UserResource) ClearCurrentUserSessions(qp *query.Params) (*Response, error) {
+func (m *UserResource) ClearCurrentUserSessions(ctx context.Context, qp *query.Params) (*Response, error) {
 	url := fmt.Sprintf("/api/v1/users/me/lifecycle/delete_sessions")
 	if qp != nil {
 		url = url + qp.String()
@@ -160,7 +161,7 @@ func (m *UserResource) ClearCurrentUserSessions(qp *query.Params) (*Response, er
 		return nil, err
 	}
 
-	resp, err := m.client.requestExecutor.Do(req, nil)
+	resp, err := m.client.requestExecutor.Do(ctx, req, nil)
 	if err != nil {
 		return resp, err
 	}
@@ -168,7 +169,7 @@ func (m *UserResource) ClearCurrentUserSessions(qp *query.Params) (*Response, er
 	return resp, nil
 }
 
-func (m *UserResource) SetLinkedObjectForUser(associatedUserId string, primaryRelationshipName string, primaryUserId string) (*Response, error) {
+func (m *UserResource) SetLinkedObjectForUser(ctx context.Context, associatedUserId string, primaryRelationshipName string, primaryUserId string) (*Response, error) {
 	url := fmt.Sprintf("/api/v1/users/%v/linkedObjects/%v/%v", associatedUserId, primaryRelationshipName, primaryUserId)
 
 	req, err := m.client.requestExecutor.WithAccept("").WithContentType("application/json").NewRequest("PUT", url, nil)
@@ -176,7 +177,7 @@ func (m *UserResource) SetLinkedObjectForUser(associatedUserId string, primaryRe
 		return nil, err
 	}
 
-	resp, err := m.client.requestExecutor.Do(req, nil)
+	resp, err := m.client.requestExecutor.Do(ctx, req, nil)
 	if err != nil {
 		return resp, err
 	}
@@ -185,7 +186,7 @@ func (m *UserResource) SetLinkedObjectForUser(associatedUserId string, primaryRe
 }
 
 // Fetch a user by &#x60;id&#x60;, &#x60;login&#x60;, or &#x60;login shortname&#x60; if the short name is unambiguous.
-func (m *UserResource) PartialUpdateUser(userId string, body User, qp *query.Params) (*User, *Response, error) {
+func (m *UserResource) PartialUpdateUser(ctx context.Context, userId string, body User, qp *query.Params) (*User, *Response, error) {
 	url := fmt.Sprintf("/api/v1/users/%v", userId)
 	if qp != nil {
 		url = url + qp.String()
@@ -198,7 +199,7 @@ func (m *UserResource) PartialUpdateUser(userId string, body User, qp *query.Par
 
 	var user *User
 
-	resp, err := m.client.requestExecutor.Do(req, &user)
+	resp, err := m.client.requestExecutor.Do(ctx, req, &user)
 	if err != nil {
 		return nil, resp, err
 	}
@@ -207,7 +208,7 @@ func (m *UserResource) PartialUpdateUser(userId string, body User, qp *query.Par
 }
 
 // Fetches appLinks for all direct or indirect (via group membership) assigned applications.
-func (m *UserResource) ListAppLinks(userId string) ([]*AppLink, *Response, error) {
+func (m *UserResource) ListAppLinks(ctx context.Context, userId string) ([]*AppLink, *Response, error) {
 	url := fmt.Sprintf("/api/v1/users/%v/appLinks", userId)
 
 	req, err := m.client.requestExecutor.WithAccept("application/json").WithContentType("application/json").NewRequest("GET", url, nil)
@@ -217,7 +218,7 @@ func (m *UserResource) ListAppLinks(userId string) ([]*AppLink, *Response, error
 
 	var appLink []*AppLink
 
-	resp, err := m.client.requestExecutor.Do(req, &appLink)
+	resp, err := m.client.requestExecutor.Do(ctx, req, &appLink)
 	if err != nil {
 		return nil, resp, err
 	}
@@ -226,7 +227,7 @@ func (m *UserResource) ListAppLinks(userId string) ([]*AppLink, *Response, error
 }
 
 // Lists all client resources for which the specified user has grants or tokens.
-func (m *UserResource) ListUserClients(userId string) ([]*OAuth2Client, *Response, error) {
+func (m *UserResource) ListUserClients(ctx context.Context, userId string) ([]*OAuth2Client, *Response, error) {
 	url := fmt.Sprintf("/api/v1/users/%v/clients", userId)
 
 	req, err := m.client.requestExecutor.WithAccept("application/json").WithContentType("application/json").NewRequest("GET", url, nil)
@@ -236,7 +237,7 @@ func (m *UserResource) ListUserClients(userId string) ([]*OAuth2Client, *Respons
 
 	var oAuth2Client []*OAuth2Client
 
-	resp, err := m.client.requestExecutor.Do(req, &oAuth2Client)
+	resp, err := m.client.requestExecutor.Do(ctx, req, &oAuth2Client)
 	if err != nil {
 		return nil, resp, err
 	}
@@ -245,7 +246,7 @@ func (m *UserResource) ListUserClients(userId string) ([]*OAuth2Client, *Respons
 }
 
 // Revokes all grants for the specified user and client
-func (m *UserResource) RevokeGrantsForUserAndClient(userId string, clientId string) (*Response, error) {
+func (m *UserResource) RevokeGrantsForUserAndClient(ctx context.Context, userId string, clientId string) (*Response, error) {
 	url := fmt.Sprintf("/api/v1/users/%v/clients/%v/grants", userId, clientId)
 
 	req, err := m.client.requestExecutor.WithAccept("application/json").WithContentType("application/json").NewRequest("DELETE", url, nil)
@@ -253,7 +254,7 @@ func (m *UserResource) RevokeGrantsForUserAndClient(userId string, clientId stri
 		return nil, err
 	}
 
-	resp, err := m.client.requestExecutor.Do(req, nil)
+	resp, err := m.client.requestExecutor.Do(ctx, req, nil)
 	if err != nil {
 		return resp, err
 	}
@@ -262,7 +263,7 @@ func (m *UserResource) RevokeGrantsForUserAndClient(userId string, clientId stri
 }
 
 // Lists all grants for a specified user and client
-func (m *UserResource) ListGrantsForUserAndClient(userId string, clientId string, qp *query.Params) ([]*OAuth2ScopeConsentGrant, *Response, error) {
+func (m *UserResource) ListGrantsForUserAndClient(ctx context.Context, userId string, clientId string, qp *query.Params) ([]*OAuth2ScopeConsentGrant, *Response, error) {
 	url := fmt.Sprintf("/api/v1/users/%v/clients/%v/grants", userId, clientId)
 	if qp != nil {
 		url = url + qp.String()
@@ -275,7 +276,7 @@ func (m *UserResource) ListGrantsForUserAndClient(userId string, clientId string
 
 	var oAuth2ScopeConsentGrant []*OAuth2ScopeConsentGrant
 
-	resp, err := m.client.requestExecutor.Do(req, &oAuth2ScopeConsentGrant)
+	resp, err := m.client.requestExecutor.Do(ctx, req, &oAuth2ScopeConsentGrant)
 	if err != nil {
 		return nil, resp, err
 	}
@@ -284,7 +285,7 @@ func (m *UserResource) ListGrantsForUserAndClient(userId string, clientId string
 }
 
 // Revokes all refresh tokens issued for the specified User and Client.
-func (m *UserResource) RevokeTokensForUserAndClient(userId string, clientId string) (*Response, error) {
+func (m *UserResource) RevokeTokensForUserAndClient(ctx context.Context, userId string, clientId string) (*Response, error) {
 	url := fmt.Sprintf("/api/v1/users/%v/clients/%v/tokens", userId, clientId)
 
 	req, err := m.client.requestExecutor.WithAccept("application/json").WithContentType("application/json").NewRequest("DELETE", url, nil)
@@ -292,7 +293,7 @@ func (m *UserResource) RevokeTokensForUserAndClient(userId string, clientId stri
 		return nil, err
 	}
 
-	resp, err := m.client.requestExecutor.Do(req, nil)
+	resp, err := m.client.requestExecutor.Do(ctx, req, nil)
 	if err != nil {
 		return resp, err
 	}
@@ -301,7 +302,7 @@ func (m *UserResource) RevokeTokensForUserAndClient(userId string, clientId stri
 }
 
 // Lists all refresh tokens issued for the specified User and Client.
-func (m *UserResource) ListRefreshTokensForUserAndClient(userId string, clientId string, qp *query.Params) ([]*OAuth2RefreshToken, *Response, error) {
+func (m *UserResource) ListRefreshTokensForUserAndClient(ctx context.Context, userId string, clientId string, qp *query.Params) ([]*OAuth2RefreshToken, *Response, error) {
 	url := fmt.Sprintf("/api/v1/users/%v/clients/%v/tokens", userId, clientId)
 	if qp != nil {
 		url = url + qp.String()
@@ -314,7 +315,7 @@ func (m *UserResource) ListRefreshTokensForUserAndClient(userId string, clientId
 
 	var oAuth2RefreshToken []*OAuth2RefreshToken
 
-	resp, err := m.client.requestExecutor.Do(req, &oAuth2RefreshToken)
+	resp, err := m.client.requestExecutor.Do(ctx, req, &oAuth2RefreshToken)
 	if err != nil {
 		return nil, resp, err
 	}
@@ -323,7 +324,7 @@ func (m *UserResource) ListRefreshTokensForUserAndClient(userId string, clientId
 }
 
 // Revokes the specified refresh token.
-func (m *UserResource) RevokeTokenForUserAndClient(userId string, clientId string, tokenId string) (*Response, error) {
+func (m *UserResource) RevokeTokenForUserAndClient(ctx context.Context, userId string, clientId string, tokenId string) (*Response, error) {
 	url := fmt.Sprintf("/api/v1/users/%v/clients/%v/tokens/%v", userId, clientId, tokenId)
 
 	req, err := m.client.requestExecutor.WithAccept("application/json").WithContentType("application/json").NewRequest("DELETE", url, nil)
@@ -331,7 +332,7 @@ func (m *UserResource) RevokeTokenForUserAndClient(userId string, clientId strin
 		return nil, err
 	}
 
-	resp, err := m.client.requestExecutor.Do(req, nil)
+	resp, err := m.client.requestExecutor.Do(ctx, req, nil)
 	if err != nil {
 		return resp, err
 	}
@@ -340,7 +341,7 @@ func (m *UserResource) RevokeTokenForUserAndClient(userId string, clientId strin
 }
 
 // Gets a refresh token issued for the specified User and Client.
-func (m *UserResource) GetRefreshTokenForUserAndClient(userId string, clientId string, tokenId string, qp *query.Params) (*OAuth2RefreshToken, *Response, error) {
+func (m *UserResource) GetRefreshTokenForUserAndClient(ctx context.Context, userId string, clientId string, tokenId string, qp *query.Params) (*OAuth2RefreshToken, *Response, error) {
 	url := fmt.Sprintf("/api/v1/users/%v/clients/%v/tokens/%v", userId, clientId, tokenId)
 	if qp != nil {
 		url = url + qp.String()
@@ -353,7 +354,7 @@ func (m *UserResource) GetRefreshTokenForUserAndClient(userId string, clientId s
 
 	var oAuth2RefreshToken *OAuth2RefreshToken
 
-	resp, err := m.client.requestExecutor.Do(req, &oAuth2RefreshToken)
+	resp, err := m.client.requestExecutor.Do(ctx, req, &oAuth2RefreshToken)
 	if err != nil {
 		return nil, resp, err
 	}
@@ -362,7 +363,7 @@ func (m *UserResource) GetRefreshTokenForUserAndClient(userId string, clientId s
 }
 
 // Changes a user&#x27;s password by validating the user&#x27;s current password. This operation can only be performed on users in &#x60;STAGED&#x60;, &#x60;ACTIVE&#x60;, &#x60;PASSWORD_EXPIRED&#x60;, or &#x60;RECOVERY&#x60; status that have a valid password credential
-func (m *UserResource) ChangePassword(userId string, body ChangePasswordRequest, qp *query.Params) (*UserCredentials, *Response, error) {
+func (m *UserResource) ChangePassword(ctx context.Context, userId string, body ChangePasswordRequest, qp *query.Params) (*UserCredentials, *Response, error) {
 	url := fmt.Sprintf("/api/v1/users/%v/credentials/change_password", userId)
 	if qp != nil {
 		url = url + qp.String()
@@ -375,7 +376,7 @@ func (m *UserResource) ChangePassword(userId string, body ChangePasswordRequest,
 
 	var userCredentials *UserCredentials
 
-	resp, err := m.client.requestExecutor.Do(req, &userCredentials)
+	resp, err := m.client.requestExecutor.Do(ctx, req, &userCredentials)
 	if err != nil {
 		return nil, resp, err
 	}
@@ -384,7 +385,7 @@ func (m *UserResource) ChangePassword(userId string, body ChangePasswordRequest,
 }
 
 // Changes a user&#x27;s recovery question &amp; answer credential by validating the user&#x27;s current password.  This operation can only be performed on users in **STAGED**, **ACTIVE** or **RECOVERY** &#x60;status&#x60; that have a valid password credential
-func (m *UserResource) ChangeRecoveryQuestion(userId string, body UserCredentials) (*UserCredentials, *Response, error) {
+func (m *UserResource) ChangeRecoveryQuestion(ctx context.Context, userId string, body UserCredentials) (*UserCredentials, *Response, error) {
 	url := fmt.Sprintf("/api/v1/users/%v/credentials/change_recovery_question", userId)
 
 	req, err := m.client.requestExecutor.WithAccept("application/json").WithContentType("application/json").NewRequest("POST", url, body)
@@ -394,7 +395,7 @@ func (m *UserResource) ChangeRecoveryQuestion(userId string, body UserCredential
 
 	var userCredentials *UserCredentials
 
-	resp, err := m.client.requestExecutor.Do(req, &userCredentials)
+	resp, err := m.client.requestExecutor.Do(ctx, req, &userCredentials)
 	if err != nil {
 		return nil, resp, err
 	}
@@ -403,7 +404,7 @@ func (m *UserResource) ChangeRecoveryQuestion(userId string, body UserCredential
 }
 
 // Generates a one-time token (OTT) that can be used to reset a user&#x27;s password
-func (m *UserResource) ForgotPasswordGenerateOneTimeToken(userId string, qp *query.Params) (*ForgotPasswordResponse, *Response, error) {
+func (m *UserResource) ForgotPasswordGenerateOneTimeToken(ctx context.Context, userId string, qp *query.Params) (*ForgotPasswordResponse, *Response, error) {
 	url := fmt.Sprintf("/api/v1/users/%v/credentials/forgot_password", userId)
 	if qp != nil {
 		url = url + qp.String()
@@ -416,7 +417,7 @@ func (m *UserResource) ForgotPasswordGenerateOneTimeToken(userId string, qp *que
 
 	var forgotPasswordResponse *ForgotPasswordResponse
 
-	resp, err := m.client.requestExecutor.Do(req, &forgotPasswordResponse)
+	resp, err := m.client.requestExecutor.Do(ctx, req, &forgotPasswordResponse)
 	if err != nil {
 		return nil, resp, err
 	}
@@ -425,7 +426,7 @@ func (m *UserResource) ForgotPasswordGenerateOneTimeToken(userId string, qp *que
 }
 
 // Sets a new password for a user by validating the user&#x27;s answer to their current recovery question
-func (m *UserResource) ForgotPasswordSetNewPassword(userId string, body UserCredentials, qp *query.Params) (*ForgotPasswordResponse, *Response, error) {
+func (m *UserResource) ForgotPasswordSetNewPassword(ctx context.Context, userId string, body UserCredentials, qp *query.Params) (*ForgotPasswordResponse, *Response, error) {
 	url := fmt.Sprintf("/api/v1/users/%v/credentials/forgot_password", userId)
 	if qp != nil {
 		url = url + qp.String()
@@ -438,7 +439,7 @@ func (m *UserResource) ForgotPasswordSetNewPassword(userId string, body UserCred
 
 	var forgotPasswordResponse *ForgotPasswordResponse
 
-	resp, err := m.client.requestExecutor.Do(req, &forgotPasswordResponse)
+	resp, err := m.client.requestExecutor.Do(ctx, req, &forgotPasswordResponse)
 	if err != nil {
 		return nil, resp, err
 	}
@@ -447,7 +448,7 @@ func (m *UserResource) ForgotPasswordSetNewPassword(userId string, body UserCred
 }
 
 // Revokes all grants for a specified user
-func (m *UserResource) RevokeUserGrants(userId string) (*Response, error) {
+func (m *UserResource) RevokeUserGrants(ctx context.Context, userId string) (*Response, error) {
 	url := fmt.Sprintf("/api/v1/users/%v/grants", userId)
 
 	req, err := m.client.requestExecutor.WithAccept("application/json").WithContentType("application/json").NewRequest("DELETE", url, nil)
@@ -455,7 +456,7 @@ func (m *UserResource) RevokeUserGrants(userId string) (*Response, error) {
 		return nil, err
 	}
 
-	resp, err := m.client.requestExecutor.Do(req, nil)
+	resp, err := m.client.requestExecutor.Do(ctx, req, nil)
 	if err != nil {
 		return resp, err
 	}
@@ -464,7 +465,7 @@ func (m *UserResource) RevokeUserGrants(userId string) (*Response, error) {
 }
 
 // Lists all grants for the specified user
-func (m *UserResource) ListUserGrants(userId string, qp *query.Params) ([]*OAuth2ScopeConsentGrant, *Response, error) {
+func (m *UserResource) ListUserGrants(ctx context.Context, userId string, qp *query.Params) ([]*OAuth2ScopeConsentGrant, *Response, error) {
 	url := fmt.Sprintf("/api/v1/users/%v/grants", userId)
 	if qp != nil {
 		url = url + qp.String()
@@ -477,7 +478,7 @@ func (m *UserResource) ListUserGrants(userId string, qp *query.Params) ([]*OAuth
 
 	var oAuth2ScopeConsentGrant []*OAuth2ScopeConsentGrant
 
-	resp, err := m.client.requestExecutor.Do(req, &oAuth2ScopeConsentGrant)
+	resp, err := m.client.requestExecutor.Do(ctx, req, &oAuth2ScopeConsentGrant)
 	if err != nil {
 		return nil, resp, err
 	}
@@ -486,7 +487,7 @@ func (m *UserResource) ListUserGrants(userId string, qp *query.Params) ([]*OAuth
 }
 
 // Revokes one grant for a specified user
-func (m *UserResource) RevokeUserGrant(userId string, grantId string) (*Response, error) {
+func (m *UserResource) RevokeUserGrant(ctx context.Context, userId string, grantId string) (*Response, error) {
 	url := fmt.Sprintf("/api/v1/users/%v/grants/%v", userId, grantId)
 
 	req, err := m.client.requestExecutor.WithAccept("application/json").WithContentType("application/json").NewRequest("DELETE", url, nil)
@@ -494,7 +495,7 @@ func (m *UserResource) RevokeUserGrant(userId string, grantId string) (*Response
 		return nil, err
 	}
 
-	resp, err := m.client.requestExecutor.Do(req, nil)
+	resp, err := m.client.requestExecutor.Do(ctx, req, nil)
 	if err != nil {
 		return resp, err
 	}
@@ -503,7 +504,7 @@ func (m *UserResource) RevokeUserGrant(userId string, grantId string) (*Response
 }
 
 // Gets a grant for the specified user
-func (m *UserResource) GetUserGrant(userId string, grantId string, qp *query.Params) (*OAuth2ScopeConsentGrant, *Response, error) {
+func (m *UserResource) GetUserGrant(ctx context.Context, userId string, grantId string, qp *query.Params) (*OAuth2ScopeConsentGrant, *Response, error) {
 	url := fmt.Sprintf("/api/v1/users/%v/grants/%v", userId, grantId)
 	if qp != nil {
 		url = url + qp.String()
@@ -516,7 +517,7 @@ func (m *UserResource) GetUserGrant(userId string, grantId string, qp *query.Par
 
 	var oAuth2ScopeConsentGrant *OAuth2ScopeConsentGrant
 
-	resp, err := m.client.requestExecutor.Do(req, &oAuth2ScopeConsentGrant)
+	resp, err := m.client.requestExecutor.Do(ctx, req, &oAuth2ScopeConsentGrant)
 	if err != nil {
 		return nil, resp, err
 	}
@@ -525,7 +526,7 @@ func (m *UserResource) GetUserGrant(userId string, grantId string, qp *query.Par
 }
 
 // Fetches the groups of which the user is a member.
-func (m *UserResource) ListUserGroups(userId string) ([]*Group, *Response, error) {
+func (m *UserResource) ListUserGroups(ctx context.Context, userId string) ([]*Group, *Response, error) {
 	url := fmt.Sprintf("/api/v1/users/%v/groups", userId)
 
 	req, err := m.client.requestExecutor.WithAccept("application/json").WithContentType("application/json").NewRequest("GET", url, nil)
@@ -535,7 +536,7 @@ func (m *UserResource) ListUserGroups(userId string) ([]*Group, *Response, error
 
 	var group []*Group
 
-	resp, err := m.client.requestExecutor.Do(req, &group)
+	resp, err := m.client.requestExecutor.Do(ctx, req, &group)
 	if err != nil {
 		return nil, resp, err
 	}
@@ -544,7 +545,7 @@ func (m *UserResource) ListUserGroups(userId string) ([]*Group, *Response, error
 }
 
 // Lists the IdPs associated with the user.
-func (m *UserResource) ListUserIdentityProviders(userId string) ([]*IdentityProvider, *Response, error) {
+func (m *UserResource) ListUserIdentityProviders(ctx context.Context, userId string) ([]*IdentityProvider, *Response, error) {
 	url := fmt.Sprintf("/api/v1/users/%v/idps", userId)
 
 	req, err := m.client.requestExecutor.WithAccept("application/json").WithContentType("application/json").NewRequest("GET", url, nil)
@@ -554,7 +555,7 @@ func (m *UserResource) ListUserIdentityProviders(userId string) ([]*IdentityProv
 
 	var identityProvider []*IdentityProvider
 
-	resp, err := m.client.requestExecutor.Do(req, &identityProvider)
+	resp, err := m.client.requestExecutor.Do(ctx, req, &identityProvider)
 	if err != nil {
 		return nil, resp, err
 	}
@@ -563,7 +564,7 @@ func (m *UserResource) ListUserIdentityProviders(userId string) ([]*IdentityProv
 }
 
 // Activates a user.  This operation can only be performed on users with a &#x60;STAGED&#x60; status.  Activation of a user is an asynchronous operation.  The user will have the &#x60;transitioningToStatus&#x60; property with a value of &#x60;ACTIVE&#x60; during activation to indicate that the user hasn&#x27;t completed the asynchronous operation.  The user will have a status of &#x60;ACTIVE&#x60; when the activation process is complete.
-func (m *UserResource) ActivateUser(userId string, qp *query.Params) (*UserActivationToken, *Response, error) {
+func (m *UserResource) ActivateUser(ctx context.Context, userId string, qp *query.Params) (*UserActivationToken, *Response, error) {
 	url := fmt.Sprintf("/api/v1/users/%v/lifecycle/activate", userId)
 	if qp != nil {
 		url = url + qp.String()
@@ -576,7 +577,7 @@ func (m *UserResource) ActivateUser(userId string, qp *query.Params) (*UserActiv
 
 	var userActivationToken *UserActivationToken
 
-	resp, err := m.client.requestExecutor.Do(req, &userActivationToken)
+	resp, err := m.client.requestExecutor.Do(ctx, req, &userActivationToken)
 	if err != nil {
 		return nil, resp, err
 	}
@@ -585,7 +586,7 @@ func (m *UserResource) ActivateUser(userId string, qp *query.Params) (*UserActiv
 }
 
 // Deactivates a user.  This operation can only be performed on users that do not have a &#x60;DEPROVISIONED&#x60; status.  Deactivation of a user is an asynchronous operation.  The user will have the &#x60;transitioningToStatus&#x60; property with a value of &#x60;DEPROVISIONED&#x60; during deactivation to indicate that the user hasn&#x27;t completed the asynchronous operation.  The user will have a status of &#x60;DEPROVISIONED&#x60; when the deactivation process is complete.
-func (m *UserResource) DeactivateUser(userId string, qp *query.Params) (*Response, error) {
+func (m *UserResource) DeactivateUser(ctx context.Context, userId string, qp *query.Params) (*Response, error) {
 	url := fmt.Sprintf("/api/v1/users/%v/lifecycle/deactivate", userId)
 	if qp != nil {
 		url = url + qp.String()
@@ -596,7 +597,7 @@ func (m *UserResource) DeactivateUser(userId string, qp *query.Params) (*Respons
 		return nil, err
 	}
 
-	resp, err := m.client.requestExecutor.Do(req, nil)
+	resp, err := m.client.requestExecutor.Do(ctx, req, nil)
 	if err != nil {
 		return resp, err
 	}
@@ -605,7 +606,7 @@ func (m *UserResource) DeactivateUser(userId string, qp *query.Params) (*Respons
 }
 
 // This operation transitions the user to the status of &#x60;PASSWORD_EXPIRED&#x60; so that the user is required to change their password at their next login.
-func (m *UserResource) ExpirePassword(userId string) (*User, *Response, error) {
+func (m *UserResource) ExpirePassword(ctx context.Context, userId string) (*User, *Response, error) {
 	url := fmt.Sprintf("/api/v1/users/%v/lifecycle/expire_password?tempPassword=false", userId)
 
 	req, err := m.client.requestExecutor.WithAccept("application/json").WithContentType("application/json").NewRequest("POST", url, nil)
@@ -615,7 +616,7 @@ func (m *UserResource) ExpirePassword(userId string) (*User, *Response, error) {
 
 	var user *User
 
-	resp, err := m.client.requestExecutor.Do(req, &user)
+	resp, err := m.client.requestExecutor.Do(ctx, req, &user)
 	if err != nil {
 		return nil, resp, err
 	}
@@ -624,7 +625,7 @@ func (m *UserResource) ExpirePassword(userId string) (*User, *Response, error) {
 }
 
 // This operation transitions the user to the status of &#x60;PASSWORD_EXPIRED&#x60; and the user&#x27;s password is reset to a temporary password that is returned.
-func (m *UserResource) ExpirePasswordAndGetTemporaryPassword(userId string) (*TempPassword, *Response, error) {
+func (m *UserResource) ExpirePasswordAndGetTemporaryPassword(ctx context.Context, userId string) (*TempPassword, *Response, error) {
 	url := fmt.Sprintf("/api/v1/users/%v/lifecycle/expire_password?tempPassword=true", userId)
 
 	req, err := m.client.requestExecutor.WithAccept("application/json").WithContentType("application/json").NewRequest("POST", url, nil)
@@ -634,7 +635,7 @@ func (m *UserResource) ExpirePasswordAndGetTemporaryPassword(userId string) (*Te
 
 	var tempPassword *TempPassword
 
-	resp, err := m.client.requestExecutor.Do(req, &tempPassword)
+	resp, err := m.client.requestExecutor.Do(ctx, req, &tempPassword)
 	if err != nil {
 		return nil, resp, err
 	}
@@ -643,7 +644,7 @@ func (m *UserResource) ExpirePasswordAndGetTemporaryPassword(userId string) (*Te
 }
 
 // Reactivates a user.  This operation can only be performed on users with a &#x60;PROVISIONED&#x60; status.  This operation restarts the activation workflow if for some reason the user activation was not completed when using the activationToken from [Activate User](#activate-user).
-func (m *UserResource) ReactivateUser(userId string, qp *query.Params) (*UserActivationToken, *Response, error) {
+func (m *UserResource) ReactivateUser(ctx context.Context, userId string, qp *query.Params) (*UserActivationToken, *Response, error) {
 	url := fmt.Sprintf("/api/v1/users/%v/lifecycle/reactivate", userId)
 	if qp != nil {
 		url = url + qp.String()
@@ -656,7 +657,7 @@ func (m *UserResource) ReactivateUser(userId string, qp *query.Params) (*UserAct
 
 	var userActivationToken *UserActivationToken
 
-	resp, err := m.client.requestExecutor.Do(req, &userActivationToken)
+	resp, err := m.client.requestExecutor.Do(ctx, req, &userActivationToken)
 	if err != nil {
 		return nil, resp, err
 	}
@@ -665,7 +666,7 @@ func (m *UserResource) ReactivateUser(userId string, qp *query.Params) (*UserAct
 }
 
 // This operation resets all factors for the specified user. All MFA factor enrollments returned to the unenrolled state. The user&#x27;s status remains ACTIVE. This link is present only if the user is currently enrolled in one or more MFA factors.
-func (m *UserResource) ResetFactors(userId string) (*Response, error) {
+func (m *UserResource) ResetFactors(ctx context.Context, userId string) (*Response, error) {
 	url := fmt.Sprintf("/api/v1/users/%v/lifecycle/reset_factors", userId)
 
 	req, err := m.client.requestExecutor.WithAccept("application/json").WithContentType("application/json").NewRequest("POST", url, nil)
@@ -673,7 +674,7 @@ func (m *UserResource) ResetFactors(userId string) (*Response, error) {
 		return nil, err
 	}
 
-	resp, err := m.client.requestExecutor.Do(req, nil)
+	resp, err := m.client.requestExecutor.Do(ctx, req, nil)
 	if err != nil {
 		return resp, err
 	}
@@ -682,7 +683,7 @@ func (m *UserResource) ResetFactors(userId string) (*Response, error) {
 }
 
 // Generates a one-time token (OTT) that can be used to reset a user&#x27;s password.  The OTT link can be automatically emailed to the user or returned to the API caller and distributed using a custom flow.
-func (m *UserResource) ResetPassword(userId string, qp *query.Params) (*ResetPasswordToken, *Response, error) {
+func (m *UserResource) ResetPassword(ctx context.Context, userId string, qp *query.Params) (*ResetPasswordToken, *Response, error) {
 	url := fmt.Sprintf("/api/v1/users/%v/lifecycle/reset_password", userId)
 	if qp != nil {
 		url = url + qp.String()
@@ -695,7 +696,7 @@ func (m *UserResource) ResetPassword(userId string, qp *query.Params) (*ResetPas
 
 	var resetPasswordToken *ResetPasswordToken
 
-	resp, err := m.client.requestExecutor.Do(req, &resetPasswordToken)
+	resp, err := m.client.requestExecutor.Do(ctx, req, &resetPasswordToken)
 	if err != nil {
 		return nil, resp, err
 	}
@@ -704,7 +705,7 @@ func (m *UserResource) ResetPassword(userId string, qp *query.Params) (*ResetPas
 }
 
 // Suspends a user.  This operation can only be performed on users with an &#x60;ACTIVE&#x60; status.  The user will have a status of &#x60;SUSPENDED&#x60; when the process is complete.
-func (m *UserResource) SuspendUser(userId string) (*Response, error) {
+func (m *UserResource) SuspendUser(ctx context.Context, userId string) (*Response, error) {
 	url := fmt.Sprintf("/api/v1/users/%v/lifecycle/suspend", userId)
 
 	req, err := m.client.requestExecutor.WithAccept("application/json").WithContentType("application/json").NewRequest("POST", url, nil)
@@ -712,7 +713,7 @@ func (m *UserResource) SuspendUser(userId string) (*Response, error) {
 		return nil, err
 	}
 
-	resp, err := m.client.requestExecutor.Do(req, nil)
+	resp, err := m.client.requestExecutor.Do(ctx, req, nil)
 	if err != nil {
 		return resp, err
 	}
@@ -721,7 +722,7 @@ func (m *UserResource) SuspendUser(userId string) (*Response, error) {
 }
 
 // Unlocks a user with a &#x60;LOCKED_OUT&#x60; status and returns them to &#x60;ACTIVE&#x60; status.  Users will be able to login with their current password.
-func (m *UserResource) UnlockUser(userId string) (*Response, error) {
+func (m *UserResource) UnlockUser(ctx context.Context, userId string) (*Response, error) {
 	url := fmt.Sprintf("/api/v1/users/%v/lifecycle/unlock", userId)
 
 	req, err := m.client.requestExecutor.WithAccept("application/json").WithContentType("application/json").NewRequest("POST", url, nil)
@@ -729,7 +730,7 @@ func (m *UserResource) UnlockUser(userId string) (*Response, error) {
 		return nil, err
 	}
 
-	resp, err := m.client.requestExecutor.Do(req, nil)
+	resp, err := m.client.requestExecutor.Do(ctx, req, nil)
 	if err != nil {
 		return resp, err
 	}
@@ -738,7 +739,7 @@ func (m *UserResource) UnlockUser(userId string) (*Response, error) {
 }
 
 // Unsuspends a user and returns them to the &#x60;ACTIVE&#x60; state.  This operation can only be performed on users that have a &#x60;SUSPENDED&#x60; status.
-func (m *UserResource) UnsuspendUser(userId string) (*Response, error) {
+func (m *UserResource) UnsuspendUser(ctx context.Context, userId string) (*Response, error) {
 	url := fmt.Sprintf("/api/v1/users/%v/lifecycle/unsuspend", userId)
 
 	req, err := m.client.requestExecutor.WithAccept("application/json").WithContentType("application/json").NewRequest("POST", url, nil)
@@ -746,7 +747,7 @@ func (m *UserResource) UnsuspendUser(userId string) (*Response, error) {
 		return nil, err
 	}
 
-	resp, err := m.client.requestExecutor.Do(req, nil)
+	resp, err := m.client.requestExecutor.Do(ctx, req, nil)
 	if err != nil {
 		return resp, err
 	}
@@ -755,7 +756,7 @@ func (m *UserResource) UnsuspendUser(userId string) (*Response, error) {
 }
 
 // Delete linked objects for a user, relationshipName can be ONLY a primary relationship name
-func (m *UserResource) RemoveLinkedObjectForUser(userId string, relationshipName string) (*Response, error) {
+func (m *UserResource) RemoveLinkedObjectForUser(ctx context.Context, userId string, relationshipName string) (*Response, error) {
 	url := fmt.Sprintf("/api/v1/users/%v/linkedObjects/%v", userId, relationshipName)
 
 	req, err := m.client.requestExecutor.WithAccept("application/json").WithContentType("application/json").NewRequest("DELETE", url, nil)
@@ -763,7 +764,7 @@ func (m *UserResource) RemoveLinkedObjectForUser(userId string, relationshipName
 		return nil, err
 	}
 
-	resp, err := m.client.requestExecutor.Do(req, nil)
+	resp, err := m.client.requestExecutor.Do(ctx, req, nil)
 	if err != nil {
 		return resp, err
 	}
@@ -772,7 +773,7 @@ func (m *UserResource) RemoveLinkedObjectForUser(userId string, relationshipName
 }
 
 // Get linked objects for a user, relationshipName can be a primary or associated relationship name
-func (m *UserResource) GetLinkedObjectsForUser(userId string, relationshipName string, qp *query.Params) ([]*ResponseLinks, *Response, error) {
+func (m *UserResource) GetLinkedObjectsForUser(ctx context.Context, userId string, relationshipName string, qp *query.Params) ([]*ResponseLinks, *Response, error) {
 	url := fmt.Sprintf("/api/v1/users/%v/linkedObjects/%v", userId, relationshipName)
 	if qp != nil {
 		url = url + qp.String()
@@ -785,7 +786,7 @@ func (m *UserResource) GetLinkedObjectsForUser(userId string, relationshipName s
 
 	var responseLinks []*ResponseLinks
 
-	resp, err := m.client.requestExecutor.Do(req, &responseLinks)
+	resp, err := m.client.requestExecutor.Do(ctx, req, &responseLinks)
 	if err != nil {
 		return nil, resp, err
 	}
@@ -794,7 +795,7 @@ func (m *UserResource) GetLinkedObjectsForUser(userId string, relationshipName s
 }
 
 // Lists all roles assigned to a user.
-func (m *UserResource) ListAssignedRolesForUser(userId string, qp *query.Params) ([]*Role, *Response, error) {
+func (m *UserResource) ListAssignedRolesForUser(ctx context.Context, userId string, qp *query.Params) ([]*Role, *Response, error) {
 	url := fmt.Sprintf("/api/v1/users/%v/roles", userId)
 	if qp != nil {
 		url = url + qp.String()
@@ -807,7 +808,7 @@ func (m *UserResource) ListAssignedRolesForUser(userId string, qp *query.Params)
 
 	var role []*Role
 
-	resp, err := m.client.requestExecutor.Do(req, &role)
+	resp, err := m.client.requestExecutor.Do(ctx, req, &role)
 	if err != nil {
 		return nil, resp, err
 	}
@@ -816,7 +817,7 @@ func (m *UserResource) ListAssignedRolesForUser(userId string, qp *query.Params)
 }
 
 // Assigns a role to a user.
-func (m *UserResource) AssignRoleToUser(userId string, body AssignRoleRequest, qp *query.Params) (*Role, *Response, error) {
+func (m *UserResource) AssignRoleToUser(ctx context.Context, userId string, body AssignRoleRequest, qp *query.Params) (*Role, *Response, error) {
 	url := fmt.Sprintf("/api/v1/users/%v/roles", userId)
 	if qp != nil {
 		url = url + qp.String()
@@ -829,7 +830,7 @@ func (m *UserResource) AssignRoleToUser(userId string, body AssignRoleRequest, q
 
 	var role *Role
 
-	resp, err := m.client.requestExecutor.Do(req, &role)
+	resp, err := m.client.requestExecutor.Do(ctx, req, &role)
 	if err != nil {
 		return nil, resp, err
 	}
@@ -838,7 +839,7 @@ func (m *UserResource) AssignRoleToUser(userId string, body AssignRoleRequest, q
 }
 
 // Unassigns a role from a user.
-func (m *UserResource) RemoveRoleFromUser(userId string, roleId string) (*Response, error) {
+func (m *UserResource) RemoveRoleFromUser(ctx context.Context, userId string, roleId string) (*Response, error) {
 	url := fmt.Sprintf("/api/v1/users/%v/roles/%v", userId, roleId)
 
 	req, err := m.client.requestExecutor.WithAccept("application/json").WithContentType("application/json").NewRequest("DELETE", url, nil)
@@ -846,7 +847,7 @@ func (m *UserResource) RemoveRoleFromUser(userId string, roleId string) (*Respon
 		return nil, err
 	}
 
-	resp, err := m.client.requestExecutor.Do(req, nil)
+	resp, err := m.client.requestExecutor.Do(ctx, req, nil)
 	if err != nil {
 		return resp, err
 	}
@@ -855,7 +856,7 @@ func (m *UserResource) RemoveRoleFromUser(userId string, roleId string) (*Respon
 }
 
 // Lists all App targets for an &#x60;APP_ADMIN&#x60; Role assigned to a User. This methods return list may include full Applications or Instances. The response for an instance will have an &#x60;ID&#x60; value, while Application will not have an ID.
-func (m *UserResource) ListApplicationTargetsForApplicationAdministratorRoleForUser(userId string, roleId string, qp *query.Params) ([]App, *Response, error) {
+func (m *UserResource) ListApplicationTargetsForApplicationAdministratorRoleForUser(ctx context.Context, userId string, roleId string, qp *query.Params) ([]App, *Response, error) {
 	url := fmt.Sprintf("/api/v1/users/%v/roles/%v/targets/catalog/apps", userId, roleId)
 	if qp != nil {
 		url = url + qp.String()
@@ -868,7 +869,7 @@ func (m *UserResource) ListApplicationTargetsForApplicationAdministratorRoleForU
 
 	var application []Application
 
-	resp, err := m.client.requestExecutor.Do(req, &application)
+	resp, err := m.client.requestExecutor.Do(ctx, req, &application)
 	if err != nil {
 		return nil, resp, err
 	}
@@ -881,7 +882,7 @@ func (m *UserResource) ListApplicationTargetsForApplicationAdministratorRoleForU
 
 }
 
-func (m *UserResource) AddAllAppsAsTargetToRole(userId string, roleId string) (*Response, error) {
+func (m *UserResource) AddAllAppsAsTargetToRole(ctx context.Context, userId string, roleId string) (*Response, error) {
 	url := fmt.Sprintf("/api/v1/users/%v/roles/%v/targets/catalog/apps", userId, roleId)
 
 	req, err := m.client.requestExecutor.WithAccept("application/json").WithContentType("application/json").NewRequest("PUT", url, nil)
@@ -889,7 +890,7 @@ func (m *UserResource) AddAllAppsAsTargetToRole(userId string, roleId string) (*
 		return nil, err
 	}
 
-	resp, err := m.client.requestExecutor.Do(req, nil)
+	resp, err := m.client.requestExecutor.Do(ctx, req, nil)
 	if err != nil {
 		return resp, err
 	}
@@ -897,7 +898,7 @@ func (m *UserResource) AddAllAppsAsTargetToRole(userId string, roleId string) (*
 	return resp, nil
 }
 
-func (m *UserResource) RemoveApplicationTargetFromApplicationAdministratorRoleForUser(userId string, roleId string, appName string) (*Response, error) {
+func (m *UserResource) RemoveApplicationTargetFromApplicationAdministratorRoleForUser(ctx context.Context, userId string, roleId string, appName string) (*Response, error) {
 	url := fmt.Sprintf("/api/v1/users/%v/roles/%v/targets/catalog/apps/%v", userId, roleId, appName)
 
 	req, err := m.client.requestExecutor.WithAccept("application/json").WithContentType("application/json").NewRequest("DELETE", url, nil)
@@ -905,7 +906,7 @@ func (m *UserResource) RemoveApplicationTargetFromApplicationAdministratorRoleFo
 		return nil, err
 	}
 
-	resp, err := m.client.requestExecutor.Do(req, nil)
+	resp, err := m.client.requestExecutor.Do(ctx, req, nil)
 	if err != nil {
 		return resp, err
 	}
@@ -913,7 +914,7 @@ func (m *UserResource) RemoveApplicationTargetFromApplicationAdministratorRoleFo
 	return resp, nil
 }
 
-func (m *UserResource) AddApplicationTargetToAdminRoleForUser(userId string, roleId string, appName string) (*Response, error) {
+func (m *UserResource) AddApplicationTargetToAdminRoleForUser(ctx context.Context, userId string, roleId string, appName string) (*Response, error) {
 	url := fmt.Sprintf("/api/v1/users/%v/roles/%v/targets/catalog/apps/%v", userId, roleId, appName)
 
 	req, err := m.client.requestExecutor.WithAccept("application/json").WithContentType("application/json").NewRequest("PUT", url, nil)
@@ -921,7 +922,7 @@ func (m *UserResource) AddApplicationTargetToAdminRoleForUser(userId string, rol
 		return nil, err
 	}
 
-	resp, err := m.client.requestExecutor.Do(req, nil)
+	resp, err := m.client.requestExecutor.Do(ctx, req, nil)
 	if err != nil {
 		return resp, err
 	}
@@ -930,7 +931,7 @@ func (m *UserResource) AddApplicationTargetToAdminRoleForUser(userId string, rol
 }
 
 // Remove App Instance Target to App Administrator Role given to a User
-func (m *UserResource) RemoveApplicationTargetFromAdministratorRoleForUser(userId string, roleId string, appName string, applicationId string) (*Response, error) {
+func (m *UserResource) RemoveApplicationTargetFromAdministratorRoleForUser(ctx context.Context, userId string, roleId string, appName string, applicationId string) (*Response, error) {
 	url := fmt.Sprintf("/api/v1/users/%v/roles/%v/targets/catalog/apps/%v/%v", userId, roleId, appName, applicationId)
 
 	req, err := m.client.requestExecutor.WithAccept("application/json").WithContentType("application/json").NewRequest("DELETE", url, nil)
@@ -938,7 +939,7 @@ func (m *UserResource) RemoveApplicationTargetFromAdministratorRoleForUser(userI
 		return nil, err
 	}
 
-	resp, err := m.client.requestExecutor.Do(req, nil)
+	resp, err := m.client.requestExecutor.Do(ctx, req, nil)
 	if err != nil {
 		return resp, err
 	}
@@ -947,7 +948,7 @@ func (m *UserResource) RemoveApplicationTargetFromAdministratorRoleForUser(userI
 }
 
 // Add App Instance Target to App Administrator Role given to a User
-func (m *UserResource) AddApplicationTargetToAppAdminRoleForUser(userId string, roleId string, appName string, applicationId string) (*Response, error) {
+func (m *UserResource) AddApplicationTargetToAppAdminRoleForUser(ctx context.Context, userId string, roleId string, appName string, applicationId string) (*Response, error) {
 	url := fmt.Sprintf("/api/v1/users/%v/roles/%v/targets/catalog/apps/%v/%v", userId, roleId, appName, applicationId)
 
 	req, err := m.client.requestExecutor.WithAccept("application/json").WithContentType("application/json").NewRequest("PUT", url, nil)
@@ -955,7 +956,7 @@ func (m *UserResource) AddApplicationTargetToAppAdminRoleForUser(userId string, 
 		return nil, err
 	}
 
-	resp, err := m.client.requestExecutor.Do(req, nil)
+	resp, err := m.client.requestExecutor.Do(ctx, req, nil)
 	if err != nil {
 		return resp, err
 	}
@@ -963,7 +964,7 @@ func (m *UserResource) AddApplicationTargetToAppAdminRoleForUser(userId string, 
 	return resp, nil
 }
 
-func (m *UserResource) ListGroupTargetsForRole(userId string, roleId string, qp *query.Params) ([]*Group, *Response, error) {
+func (m *UserResource) ListGroupTargetsForRole(ctx context.Context, userId string, roleId string, qp *query.Params) ([]*Group, *Response, error) {
 	url := fmt.Sprintf("/api/v1/users/%v/roles/%v/targets/groups", userId, roleId)
 	if qp != nil {
 		url = url + qp.String()
@@ -976,7 +977,7 @@ func (m *UserResource) ListGroupTargetsForRole(userId string, roleId string, qp 
 
 	var group []*Group
 
-	resp, err := m.client.requestExecutor.Do(req, &group)
+	resp, err := m.client.requestExecutor.Do(ctx, req, &group)
 	if err != nil {
 		return nil, resp, err
 	}
@@ -984,7 +985,7 @@ func (m *UserResource) ListGroupTargetsForRole(userId string, roleId string, qp 
 	return group, resp, nil
 }
 
-func (m *UserResource) RemoveGroupTargetFromRole(userId string, roleId string, groupId string) (*Response, error) {
+func (m *UserResource) RemoveGroupTargetFromRole(ctx context.Context, userId string, roleId string, groupId string) (*Response, error) {
 	url := fmt.Sprintf("/api/v1/users/%v/roles/%v/targets/groups/%v", userId, roleId, groupId)
 
 	req, err := m.client.requestExecutor.WithAccept("application/json").WithContentType("application/json").NewRequest("DELETE", url, nil)
@@ -992,7 +993,7 @@ func (m *UserResource) RemoveGroupTargetFromRole(userId string, roleId string, g
 		return nil, err
 	}
 
-	resp, err := m.client.requestExecutor.Do(req, nil)
+	resp, err := m.client.requestExecutor.Do(ctx, req, nil)
 	if err != nil {
 		return resp, err
 	}
@@ -1000,7 +1001,7 @@ func (m *UserResource) RemoveGroupTargetFromRole(userId string, roleId string, g
 	return resp, nil
 }
 
-func (m *UserResource) AddGroupTargetToRole(userId string, roleId string, groupId string) (*Response, error) {
+func (m *UserResource) AddGroupTargetToRole(ctx context.Context, userId string, roleId string, groupId string) (*Response, error) {
 	url := fmt.Sprintf("/api/v1/users/%v/roles/%v/targets/groups/%v", userId, roleId, groupId)
 
 	req, err := m.client.requestExecutor.WithAccept("application/json").WithContentType("application/json").NewRequest("PUT", url, nil)
@@ -1008,7 +1009,7 @@ func (m *UserResource) AddGroupTargetToRole(userId string, roleId string, groupI
 		return nil, err
 	}
 
-	resp, err := m.client.requestExecutor.Do(req, nil)
+	resp, err := m.client.requestExecutor.Do(ctx, req, nil)
 	if err != nil {
 		return resp, err
 	}
@@ -1017,7 +1018,7 @@ func (m *UserResource) AddGroupTargetToRole(userId string, roleId string, groupI
 }
 
 // Removes all active identity provider sessions. This forces the user to authenticate on the next operation. Optionally revokes OpenID Connect and OAuth refresh and access tokens issued to the user.
-func (m *UserResource) ClearUserSessions(userId string, qp *query.Params) (*Response, error) {
+func (m *UserResource) ClearUserSessions(ctx context.Context, userId string, qp *query.Params) (*Response, error) {
 	url := fmt.Sprintf("/api/v1/users/%v/sessions", userId)
 	if qp != nil {
 		url = url + qp.String()
@@ -1028,7 +1029,7 @@ func (m *UserResource) ClearUserSessions(userId string, qp *query.Params) (*Resp
 		return nil, err
 	}
 
-	resp, err := m.client.requestExecutor.Do(req, nil)
+	resp, err := m.client.requestExecutor.Do(ctx, req, nil)
 	if err != nil {
 		return resp, err
 	}

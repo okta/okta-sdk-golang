@@ -19,6 +19,7 @@
 package okta
 
 import (
+	"context"
 	"fmt"
 	"github.com/okta/okta-sdk-golang/v2/okta/query"
 )
@@ -35,7 +36,7 @@ type Feature struct {
 	Type        string        `json:"type,omitempty"`
 }
 
-func (m *FeatureResource) GetFeature(featureId string) (*Feature, *Response, error) {
+func (m *FeatureResource) GetFeature(ctx context.Context, featureId string) (*Feature, *Response, error) {
 	url := fmt.Sprintf("/api/v1/features/%v", featureId)
 
 	req, err := m.client.requestExecutor.WithAccept("application/json").WithContentType("application/json").NewRequest("GET", url, nil)
@@ -45,7 +46,7 @@ func (m *FeatureResource) GetFeature(featureId string) (*Feature, *Response, err
 
 	var feature *Feature
 
-	resp, err := m.client.requestExecutor.Do(req, &feature)
+	resp, err := m.client.requestExecutor.Do(ctx, req, &feature)
 	if err != nil {
 		return nil, resp, err
 	}
@@ -53,7 +54,7 @@ func (m *FeatureResource) GetFeature(featureId string) (*Feature, *Response, err
 	return feature, resp, nil
 }
 
-func (m *FeatureResource) ListFeatures() ([]*Feature, *Response, error) {
+func (m *FeatureResource) ListFeatures(ctx context.Context) ([]*Feature, *Response, error) {
 	url := fmt.Sprintf("/api/v1/features")
 
 	req, err := m.client.requestExecutor.WithAccept("application/json").WithContentType("application/json").NewRequest("GET", url, nil)
@@ -63,7 +64,7 @@ func (m *FeatureResource) ListFeatures() ([]*Feature, *Response, error) {
 
 	var feature []*Feature
 
-	resp, err := m.client.requestExecutor.Do(req, &feature)
+	resp, err := m.client.requestExecutor.Do(ctx, req, &feature)
 	if err != nil {
 		return nil, resp, err
 	}
@@ -71,7 +72,7 @@ func (m *FeatureResource) ListFeatures() ([]*Feature, *Response, error) {
 	return feature, resp, nil
 }
 
-func (m *FeatureResource) ListFeatureDependencies(featureId string) ([]*Feature, *Response, error) {
+func (m *FeatureResource) ListFeatureDependencies(ctx context.Context, featureId string) ([]*Feature, *Response, error) {
 	url := fmt.Sprintf("/api/v1/features/%v/dependencies", featureId)
 
 	req, err := m.client.requestExecutor.WithAccept("application/json").WithContentType("application/json").NewRequest("GET", url, nil)
@@ -81,7 +82,7 @@ func (m *FeatureResource) ListFeatureDependencies(featureId string) ([]*Feature,
 
 	var feature []*Feature
 
-	resp, err := m.client.requestExecutor.Do(req, &feature)
+	resp, err := m.client.requestExecutor.Do(ctx, req, &feature)
 	if err != nil {
 		return nil, resp, err
 	}
@@ -89,7 +90,7 @@ func (m *FeatureResource) ListFeatureDependencies(featureId string) ([]*Feature,
 	return feature, resp, nil
 }
 
-func (m *FeatureResource) ListFeatureDependents(featureId string) ([]*Feature, *Response, error) {
+func (m *FeatureResource) ListFeatureDependents(ctx context.Context, featureId string) ([]*Feature, *Response, error) {
 	url := fmt.Sprintf("/api/v1/features/%v/dependents", featureId)
 
 	req, err := m.client.requestExecutor.WithAccept("application/json").WithContentType("application/json").NewRequest("GET", url, nil)
@@ -99,7 +100,7 @@ func (m *FeatureResource) ListFeatureDependents(featureId string) ([]*Feature, *
 
 	var feature []*Feature
 
-	resp, err := m.client.requestExecutor.Do(req, &feature)
+	resp, err := m.client.requestExecutor.Do(ctx, req, &feature)
 	if err != nil {
 		return nil, resp, err
 	}
@@ -107,7 +108,7 @@ func (m *FeatureResource) ListFeatureDependents(featureId string) ([]*Feature, *
 	return feature, resp, nil
 }
 
-func (m *FeatureResource) UpdateFeatureLifecycle(featureId string, lifecycle string, qp *query.Params) (*Feature, *Response, error) {
+func (m *FeatureResource) UpdateFeatureLifecycle(ctx context.Context, featureId string, lifecycle string, qp *query.Params) (*Feature, *Response, error) {
 	url := fmt.Sprintf("/api/v1/features/%v/%v", featureId, lifecycle)
 	if qp != nil {
 		url = url + qp.String()
@@ -120,7 +121,7 @@ func (m *FeatureResource) UpdateFeatureLifecycle(featureId string, lifecycle str
 
 	var feature *Feature
 
-	resp, err := m.client.requestExecutor.Do(req, &feature)
+	resp, err := m.client.requestExecutor.Do(ctx, req, &feature)
 	if err != nil {
 		return nil, resp, err
 	}
