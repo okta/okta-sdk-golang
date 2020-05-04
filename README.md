@@ -52,7 +52,7 @@ If you run into problems using the SDK, you can
 To install the Okta Golang SDK in your project:
 
 Version 2.x
-run `go get github.com/okta/okta-sdk-golang/okta.v2`
+run `go get github.com/okta/okta-sdk-golang/v2/okta`
 
 Version 1.x (Deprecated)
 run `go get github.com/okta/okta-sdk-golang/okta`
@@ -69,6 +69,18 @@ client := okta.NewClient(context, okta.WithOrgUrl("https://{yourOktaDomain}"), o
 ```
 
 Hard-coding the Okta domain and API token works for quick tests, but for real projects you should use a more secure way of storing these values (such as environment variables). This library supports a few different configuration sources, covered in the [configuration reference](#configuration-reference) section.
+
+## Upgrading to 2.0.x
+The main purpose of this version is to include all documented, application/json endpoints
+to the SDK. During this update we have made many changes to method names, as well as method signatures.
+
+### Context
+Every method that calls the API now has the ability to pass `context.Context` to it as the first parameter. If you do not have a context or do not know which context to use, you can pass `context.TODO()` to the methods.
+
+### Method changes
+We have spent time during this update making sure we become a little more uniform with naming of methods. This will require you to update some of your calls to the SDK with the new names.
+
+All methods now specify the `Accept` and `Content-Type` headers when creating a new request. This allows for future use of the SDK to handle multiple `Accept` types.
 
 ### OAuth 2.0
 

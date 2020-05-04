@@ -2,7 +2,6 @@ module github.com/okta/okta-sdk-golang/v2
 
 require (
 	github.com/go-yaml/yaml v2.1.0+incompatible
-	github.com/google/uuid v1.1.1
 	github.com/jarcoal/httpmock v1.0.5
 	github.com/kelseyhightower/envconfig v1.4.0
 	github.com/okta/okta-sdk-golang v1.1.0
