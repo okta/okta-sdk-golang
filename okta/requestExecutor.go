@@ -361,6 +361,19 @@ func CheckResponseForError(resp *http.Response) error {
 }
 
 func buildResponse(resp *http.Response, v interface{}) (*Response, error) {
+	ct := resp.Header.Get("Content-Type")
+
+	if strings.Contains(ct, "application/xml") {
+		return buildXmlResponse(resp, v)
+	} else if strings.Contains(ct, "application/json") {
+		return buildJsonResponse(resp, v)
+	} else {
+		return nil, errors.New("could not build a response for type: " + ct)
+	}
+
+}
+
+func buildJsonResponse(resp *http.Response, v interface{}) (*Response, error) {
 	response := newResponse(resp)
 
 	err := CheckResponseForError(resp)
@@ -378,5 +391,22 @@ func buildResponse(resp *http.Response, v interface{}) (*Response, error) {
 		}
 
 	}
+	return response, nil
+}
+
+func buildXmlResponse(resp *http.Response, v interface{}) (*Response, error) {
+	response := newResponse(resp)
+
+	err := CheckResponseForError(resp)
+	if err != nil {
+		return response, err
+	}
+
+	out, err := ioutil.ReadAll(resp.Body)
+	if err != nil {
+		return response, err
+	}
+	v = string(out)
+
 	return response, nil
 }

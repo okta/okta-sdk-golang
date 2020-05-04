@@ -438,6 +438,19 @@ func Test_can_create_csr_for_application(t *testing.T) {
 	require.NoError(t, err, "Deleting an application should not error")
 }
 
+func Test_can_preview_saml_metadata(t *testing.T) {
+	delete_all_apps(t)
+	client, _ := tests.NewClient()
+
+	application := create_application(t)
+
+	str, _, err := client.Application.PreviewSamlMetadataForApplication(context.TODO(), application.Id, nil)
+	require.NoError(t, err, "Creating an application CSR should not error")
+
+	fmt.Printf("%+v\n", str)
+
+}
+
 func create_application(t *testing.T) *okta.BasicAuthApplication {
 	client, _ := tests.NewClient()
 	basicApplicationSettingsApplication := okta.NewBasicApplicationSettingsApplication()
