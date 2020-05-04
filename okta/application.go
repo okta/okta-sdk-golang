@@ -21,8 +21,9 @@ package okta
 import (
 	"context"
 	"fmt"
-	"github.com/okta/okta-sdk-golang/v2/okta/query"
 	"time"
+
+	"github.com/okta/okta-sdk-golang/v2/okta/query"
 )
 
 type App interface {
@@ -582,7 +583,7 @@ func (m *ApplicationResource) DeactivateApplication(ctx context.Context, appId s
 }
 
 // Previews SAML metadata based on a specific key credential for an application
-func (m *ApplicationResource) PreviewSamlMetadataForApplication(ctx context.Context, appId string, qp *query.Params) (*Response, error) {
+func (m *ApplicationResource) PreviewSamlMetadataForApplication(ctx context.Context, appId string, qp *query.Params) (*string, *Response, error) {
 	url := fmt.Sprintf("/api/v1/apps/%v/sso/saml/metadata", appId)
 	if qp != nil {
 		url = url + qp.String()
@@ -590,15 +591,16 @@ func (m *ApplicationResource) PreviewSamlMetadataForApplication(ctx context.Cont
 
 	req, err := m.client.requestExecutor.WithAccept("application/xml").WithContentType("application/json").NewRequest("GET", url, nil)
 	if err != nil {
-		return nil, err
+		return nil, nil, err
 	}
 
-	resp, err := m.client.requestExecutor.Do(ctx, req, nil)
+	var samlXml *string
+	resp, err := m.client.requestExecutor.Do(ctx, req, &samlXml)
 	if err != nil {
-		return resp, err
+		return nil, resp, err
 	}
 
-	return resp, nil
+	return samlXml, resp, nil
 }
 
 // Revokes all tokens for the specified application
