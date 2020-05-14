@@ -1,4 +1,7 @@
-v2.0.0-rc.5
+# Changelog
+Running changelog of releases since `2.0.0-rc.4`
+
+## v2.0.0-rc.5
 - Remove `PreviewSamlMetadataForApplication` method from `ApplicationResource`
 - `Kid` Query Param removed
 - `KeepCurrent` Query Param removed
@@ -16,8 +19,6 @@ v2.0.0-rc.5
 - `NextPassCode` property (type string) added to `VerifyFactorRequest` struct
 
 
-
-
-v2.0.0-rc.4
+## v2.0.0-rc.4
 - Updated Resource Executor to handle nil pointer dereference (#125, fix suggested by @johanbrandhorst)
 - Updates JWT Signer Package issues (#121, fix suggested by @Jmainguy)
