@@ -31,8 +31,8 @@ type Params struct {
 	Expand               string `json:"expand,omitempty"`
 	IncludeNonDeleted    *bool  `json:"includeNonDeleted,omitempty"`
 	Activate             *bool  `json:"activate,omitempty"`
+	ValidityYears        int64  `json:"validityYears,omitempty"`
 	TargetAid            string `json:"targetAid,omitempty"`
-	Kid                  string `json:"kid,omitempty"`
 	QueryScope           string `json:"query_scope,omitempty"`
 	SendEmail            *bool  `json:"sendEmail,omitempty"`
 	Cursor               string `json:"cursor,omitempty"`
@@ -40,7 +40,6 @@ type Params struct {
 	Search               string `json:"search,omitempty"`
 	DisableNotifications string `json:"disableNotifications,omitempty"`
 	Type                 string `json:"type,omitempty"`
-	ValidityYears        int64  `json:"validityYears,omitempty"`
 	TargetIdpId          string `json:"targetIdpId,omitempty"`
 	Until                string `json:"until,omitempty"`
 	Since                string `json:"since,omitempty"`
@@ -50,7 +49,6 @@ type Params struct {
 	SortBy               string `json:"sortBy,omitempty"`
 	Provider             *bool  `json:"provider,omitempty"`
 	NextLogin            string `json:"nextLogin,omitempty"`
-	KeepCurrent          *bool  `json:"keepCurrent,omitempty"`
 	Strict               *bool  `json:"strict,omitempty"`
 	UpdatePhone          *bool  `json:"updatePhone,omitempty"`
 	TemplateId           string `json:"templateId,omitempty"`
@@ -110,14 +108,14 @@ func WithActivate(queryActivate bool) ParamOptions {
 		p.Activate = b
 	}
 }
+func WithValidityYears(queryValidityYears int64) ParamOptions {
+	return func(p *Params) {
+		p.ValidityYears = queryValidityYears
+	}
+}
 func WithTargetAid(queryTargetAid string) ParamOptions {
 	return func(p *Params) {
 		p.TargetAid = queryTargetAid
-	}
-}
-func WithKid(queryKid string) ParamOptions {
-	return func(p *Params) {
-		p.Kid = queryKid
 	}
 }
 func WithQueryScope(queryQueryScope string) ParamOptions {
@@ -155,11 +153,6 @@ func WithDisableNotifications(queryDisableNotifications string) ParamOptions {
 func WithType(queryType string) ParamOptions {
 	return func(p *Params) {
 		p.Type = queryType
-	}
-}
-func WithValidityYears(queryValidityYears int64) ParamOptions {
-	return func(p *Params) {
-		p.ValidityYears = queryValidityYears
 	}
 }
 func WithTargetIdpId(queryTargetIdpId string) ParamOptions {
@@ -207,13 +200,6 @@ func WithProvider(queryProvider bool) ParamOptions {
 func WithNextLogin(queryNextLogin string) ParamOptions {
 	return func(p *Params) {
 		p.NextLogin = queryNextLogin
-	}
-}
-func WithKeepCurrent(queryKeepCurrent bool) ParamOptions {
-	return func(p *Params) {
-		b := new(bool)
-		*b = queryKeepCurrent
-		p.KeepCurrent = b
 	}
 }
 func WithStrict(queryStrict bool) ParamOptions {
@@ -277,11 +263,11 @@ func (p *Params) String() string {
 	if p.Activate != nil {
 		qs.Add(`activate`, strconv.FormatBool(*p.Activate))
 	}
+	if p.ValidityYears != 0 {
+		qs.Add(`validityYears`, strconv.FormatInt(p.ValidityYears, 10))
+	}
 	if p.TargetAid != "" {
 		qs.Add(`targetAid`, p.TargetAid)
-	}
-	if p.Kid != "" {
-		qs.Add(`kid`, p.Kid)
 	}
 	if p.QueryScope != "" {
 		qs.Add(`query_scope`, p.QueryScope)
@@ -303,9 +289,6 @@ func (p *Params) String() string {
 	}
 	if p.Type != "" {
 		qs.Add(`type`, p.Type)
-	}
-	if p.ValidityYears != 0 {
-		qs.Add(`validityYears`, strconv.FormatInt(p.ValidityYears, 10))
 	}
 	if p.TargetIdpId != "" {
 		qs.Add(`targetIdpId`, p.TargetIdpId)
@@ -333,9 +316,6 @@ func (p *Params) String() string {
 	}
 	if p.NextLogin != "" {
 		qs.Add(`nextLogin`, p.NextLogin)
-	}
-	if p.KeepCurrent != nil {
-		qs.Add(`keepCurrent`, strconv.FormatBool(*p.KeepCurrent))
 	}
 	if p.Strict != nil {
 		qs.Add(`strict`, strconv.FormatBool(*p.Strict))

@@ -21,9 +21,8 @@ package okta
 import (
 	"context"
 	"fmt"
-	"time"
-
 	"github.com/okta/okta-sdk-golang/v2/okta/query"
+	"time"
 )
 
 type App interface {
@@ -347,7 +346,29 @@ func (m *ApplicationResource) ListApplicationKeys(ctx context.Context, appId str
 	return jsonWebKey, resp, nil
 }
 
-// Gets a specific [application key credential](#application-key-credential-model) by &#x60;kid&#x60;
+// Generates a new X.509 certificate for an application key credential
+func (m *ApplicationResource) GenerateApplicationKey(ctx context.Context, appId string, qp *query.Params) (*JsonWebKey, *Response, error) {
+	url := fmt.Sprintf("/api/v1/apps/%v/credentials/keys/generate", appId)
+	if qp != nil {
+		url = url + qp.String()
+	}
+
+	req, err := m.client.requestExecutor.WithAccept("application/json").WithContentType("application/json").NewRequest("POST", url, nil)
+	if err != nil {
+		return nil, nil, err
+	}
+
+	var jsonWebKey *JsonWebKey
+
+	resp, err := m.client.requestExecutor.Do(ctx, req, &jsonWebKey)
+	if err != nil {
+		return nil, resp, err
+	}
+
+	return jsonWebKey, resp, nil
+}
+
+// Gets a specific application key credential by kid
 func (m *ApplicationResource) GetApplicationKey(ctx context.Context, appId string, keyId string) (*JsonWebKey, *Response, error) {
 	url := fmt.Sprintf("/api/v1/apps/%v/credentials/keys/%v", appId, keyId)
 
@@ -580,27 +601,6 @@ func (m *ApplicationResource) DeactivateApplication(ctx context.Context, appId s
 	}
 
 	return resp, nil
-}
-
-// Previews SAML metadata based on a specific key credential for an application
-func (m *ApplicationResource) PreviewSamlMetadataForApplication(ctx context.Context, appId string, qp *query.Params) (*string, *Response, error) {
-	url := fmt.Sprintf("/api/v1/apps/%v/sso/saml/metadata", appId)
-	if qp != nil {
-		url = url + qp.String()
-	}
-
-	req, err := m.client.requestExecutor.WithAccept("application/xml").WithContentType("application/json").NewRequest("GET", url, nil)
-	if err != nil {
-		return nil, nil, err
-	}
-
-	var samlXml *string
-	resp, err := m.client.requestExecutor.Do(ctx, req, &samlXml)
-	if err != nil {
-		return nil, resp, err
-	}
-
-	return samlXml, resp, nil
 }
 
 // Revokes all tokens for the specified application
