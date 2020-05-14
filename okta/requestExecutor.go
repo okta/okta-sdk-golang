@@ -269,26 +269,26 @@ func (re *RequestExecutor) doWithRetries(ctx context.Context, req *http.Request,
 			if err != nil {
 				return nil, err
 			}
-		}
 
-		retryLimitReset := resp.Header.Get("X-Rate-Limit-Reset")
-		date := resp.Header.Get("Date")
-		if retryLimitReset == "" || date == "" {
-			return resp, errors.New("a 429 response must include the x-retry-limit-reset and date headers")
-		}
-
-		if tooManyRequests(resp) {
-			err := backoffPause(ctx, retryCount, resp)
-			if err != nil {
-				return nil, err
+			retryLimitReset := resp.Header.Get("X-Rate-Limit-Reset")
+			date := resp.Header.Get("Date")
+			if retryLimitReset == "" || date == "" {
+				return resp, errors.New("a 429 response must include the x-retry-limit-reset and date headers")
 			}
+
+			if tooManyRequests(resp) {
+				err := backoffPause(ctx, retryCount, resp)
+				if err != nil {
+					return nil, err
+				}
+			}
+			retryCount++
+
+			req.Header.Add("X-Okta-Retry-For", resp.Header.Get("X-Okta-Request-Id"))
+			req.Header.Add("X-Okta-Retry-Count", fmt.Sprint(retryCount))
+
+			resp, err = re.doWithRetries(ctx, req, retryCount, requestStarted, resp)
 		}
-		retryCount++
-
-		req.Header.Add("X-Okta-Retry-For", resp.Header.Get("X-Okta-Request-Id"))
-		req.Header.Add("X-Okta-Retry-Count", fmt.Sprint(retryCount))
-
-		resp, err = re.doWithRetries(ctx, req, retryCount, requestStarted, resp)
 	}
 
 	return resp, err
