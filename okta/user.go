@@ -149,30 +149,10 @@ func (m *UserResource) ListUsers(ctx context.Context, qp *query.Params) ([]*User
 	return user, resp, nil
 }
 
-// Clears Okta sessions for the currently logged in user. By default, the current session remains active. Use this method in a browser-based application.
-func (m *UserResource) ClearCurrentUserSessions(ctx context.Context, qp *query.Params) (*Response, error) {
-	url := fmt.Sprintf("/api/v1/users/me/lifecycle/delete_sessions")
-	if qp != nil {
-		url = url + qp.String()
-	}
-
-	req, err := m.client.requestExecutor.WithAccept("application/json").WithContentType("application/json").NewRequest("POST", url, nil)
-	if err != nil {
-		return nil, err
-	}
-
-	resp, err := m.client.requestExecutor.Do(ctx, req, nil)
-	if err != nil {
-		return resp, err
-	}
-
-	return resp, nil
-}
-
 func (m *UserResource) SetLinkedObjectForUser(ctx context.Context, associatedUserId string, primaryRelationshipName string, primaryUserId string) (*Response, error) {
 	url := fmt.Sprintf("/api/v1/users/%v/linkedObjects/%v/%v", associatedUserId, primaryRelationshipName, primaryUserId)
 
-	req, err := m.client.requestExecutor.WithAccept("").WithContentType("application/json").NewRequest("PUT", url, nil)
+	req, err := m.client.requestExecutor.WithAccept("application/json").WithContentType("application/json").NewRequest("PUT", url, nil)
 	if err != nil {
 		return nil, err
 	}
@@ -563,7 +543,7 @@ func (m *UserResource) ListUserIdentityProviders(ctx context.Context, userId str
 	return identityProvider, resp, nil
 }
 
-// Activates a user.  This operation can only be performed on users with a &#x60;STAGED&#x60; status.  Activation of a user is an asynchronous operation.  The user will have the &#x60;transitioningToStatus&#x60; property with a value of &#x60;ACTIVE&#x60; during activation to indicate that the user hasn&#x27;t completed the asynchronous operation.  The user will have a status of &#x60;ACTIVE&#x60; when the activation process is complete.
+// Activates a user.  This operation can only be performed on users with a &#x60;STAGED&#x60; status.  Activation of a user is an asynchronous operation. The user will have the &#x60;transitioningToStatus&#x60; property with a value of &#x60;ACTIVE&#x60; during activation to indicate that the user hasn&#x27;t completed the asynchronous operation.  The user will have a status of &#x60;ACTIVE&#x60; when the activation process is complete.
 func (m *UserResource) ActivateUser(ctx context.Context, userId string, qp *query.Params) (*UserActivationToken, *Response, error) {
 	url := fmt.Sprintf("/api/v1/users/%v/lifecycle/activate", userId)
 	if qp != nil {

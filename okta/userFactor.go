@@ -177,7 +177,7 @@ func (m *UserFactorResource) GetFactor(ctx context.Context, userId string, facto
 }
 
 // The &#x60;sms&#x60; and &#x60;token:software:totp&#x60; factor types require activation to complete the enrollment process.
-func (m *UserFactorResource) ActivateFactor(ctx context.Context, userId string, factorId string, body VerifyFactorRequest, factorInstance Factor) (Factor, *Response, error) {
+func (m *UserFactorResource) ActivateFactor(ctx context.Context, userId string, factorId string, body ActivateFactorRequest, factorInstance Factor) (Factor, *Response, error) {
 	url := fmt.Sprintf("/api/v1/users/%v/factors/%v/lifecycle/activate", userId, factorId)
 
 	req, err := m.client.requestExecutor.WithAccept("application/json").WithContentType("application/json").NewRequest("POST", url, body)

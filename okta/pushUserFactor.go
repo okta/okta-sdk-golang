@@ -23,16 +23,18 @@ import (
 )
 
 type PushUserFactor struct {
-	Embedded    interface{}            `json:"_embedded,omitempty"`
-	Links       interface{}            `json:"_links,omitempty"`
-	Created     *time.Time             `json:"created,omitempty"`
-	FactorType  string                 `json:"factorType,omitempty"`
-	Id          string                 `json:"id,omitempty"`
-	LastUpdated *time.Time             `json:"lastUpdated,omitempty"`
-	Provider    string                 `json:"provider,omitempty"`
-	Status      string                 `json:"status,omitempty"`
-	Verify      *VerifyFactorRequest   `json:"verify,omitempty"`
-	Profile     *PushUserFactorProfile `json:"profile,omitempty"`
+	Embedded     interface{}            `json:"_embedded,omitempty"`
+	Links        interface{}            `json:"_links,omitempty"`
+	Created      *time.Time             `json:"created,omitempty"`
+	FactorType   string                 `json:"factorType,omitempty"`
+	Id           string                 `json:"id,omitempty"`
+	LastUpdated  *time.Time             `json:"lastUpdated,omitempty"`
+	Provider     string                 `json:"provider,omitempty"`
+	Status       string                 `json:"status,omitempty"`
+	Verify       *VerifyFactorRequest   `json:"verify,omitempty"`
+	ExpiresAt    *time.Time             `json:"expiresAt,omitempty"`
+	FactorResult string                 `json:"factorResult,omitempty"`
+	Profile      *PushUserFactorProfile `json:"profile,omitempty"`
 }
 
 func NewPushUserFactor() *PushUserFactor {
