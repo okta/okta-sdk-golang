@@ -60,10 +60,11 @@ func Test_can_get_a_group(t *testing.T) {
 }
 
 func Test_can_list_groups(t *testing.T) {
+	uuid := tests.GenUUID()
 	ctx, client, _ := tests.NewClient(context.TODO())
 	// Create a new group → POST /api/v1/groups
 	gp := &okta.GroupProfile{
-		Name: "List Test Group",
+		Name: "Go SDK - List Test Group" + uuid,
 	}
 	g := &okta.Group{
 		Profile: gp,
@@ -89,10 +90,11 @@ func Test_can_list_groups(t *testing.T) {
 }
 
 func Test_can_search_for_a_group(t *testing.T) {
+	uuid := tests.GenUUID()
 	ctx, client, _ := tests.NewClient(context.TODO())
 	// Create a new group → POST /api/v1/groups
 	gp := &okta.GroupProfile{
-		Name: "Search Test Group",
+		Name: "Go SDK - Search Test Group" + uuid,
 	}
 	g := &okta.Group{
 		Profile: gp,
@@ -102,7 +104,7 @@ func Test_can_search_for_a_group(t *testing.T) {
 	assert.IsType(t, &okta.Group{}, group)
 
 	// Search the group by name with query parameter → GET /api/v1/groups?q=Search
-	groupList, _, err := client.Group.ListGroups(ctx, query.NewQueryParams(query.WithQ("Search Test Group")))
+	groupList, _, err := client.Group.ListGroups(ctx, query.NewQueryParams(query.WithQ("Go SDK - Search Test Group" + uuid)))
 	assert.Len(t, groupList, 1, "Did not find correct amount of groups")
 	require.NoError(t, err, "Listing groups should not error")
 	found := false
@@ -119,10 +121,11 @@ func Test_can_search_for_a_group(t *testing.T) {
 }
 
 func Test_can_update_a_group(t *testing.T) {
+	uuid := tests.GenUUID()
 	ctx, client, _ := tests.NewClient(context.TODO())
 	// Create a new group → POST /api/v1/groups
 	gp := &okta.GroupProfile{
-		Name: "Update Test Group",
+		Name: "Go SDK - Update Test Group" + uuid,
 	}
 	g := &okta.Group{
 		Profile: gp,
@@ -133,14 +136,14 @@ func Test_can_update_a_group(t *testing.T) {
 
 	// Update the group name and description → PUT /api/v1/groups/{{groupId}}
 	ngp := &okta.GroupProfile{
-		Name: "Updated Name",
+		Name: "Go SDK - Updated Name" + uuid,
 	}
 	client.Group.UpdateGroup(ctx, group.Id, okta.Group{Profile: ngp})
 
 	// Verify that group profile is updated by calling get on the group and verifying the profile → GET /api/v1/groups/{{groupId}}
 	updatedGroup, _, err := client.Group.GetGroup(ctx, group.Id)
 	require.NoError(t, err, "Should not error when getting updated group")
-	assert.Equal(t, "Updated Name", updatedGroup.Profile.Name, "The group was not updated")
+	assert.Equal(t, "Go SDK - Updated Name"+uuid, updatedGroup.Profile.Name, "The group was not updated")
 
 	// Delete the group → DELETE /api/v1/groups/{{groupId}}
 	_, err = client.Group.DeleteGroup(ctx, group.Id)
@@ -148,6 +151,7 @@ func Test_can_update_a_group(t *testing.T) {
 }
 
 func Test_group_user_operations(t *testing.T) {
+	uuid := tests.GenUUID()
 	ctx, client, _ := tests.NewClient(context.TODO())
 	// Create a user with credentials → POST /api/v1/users?activate=false
 	p := &okta.PasswordCredential{
@@ -159,8 +163,8 @@ func Test_group_user_operations(t *testing.T) {
 	profile := okta.UserProfile{}
 	profile["firstName"] = "John"
 	profile["lastName"] = "With-Group"
-	profile["email"] = "john-with-group@example.com"
-	profile["login"] = "john-with-group@example.com"
+	profile["email"] = "john-with-group" + uuid + "@example.com"
+	profile["login"] = "john-with-group" + uuid + "@example.com"
 	u := &okta.CreateUserRequest{
 		Credentials: uc,
 		Profile:     &profile,
@@ -173,7 +177,7 @@ func Test_group_user_operations(t *testing.T) {
 
 	// Create a new group → POST /api/v1/groups
 	gp := &okta.GroupProfile{
-		Name: "Group-Member API Test Group",
+		Name: "Go SDK - Group-Member API Test Group" + uuid,
 	}
 	g := &okta.Group{
 		Profile: gp,
@@ -211,6 +215,7 @@ func Test_group_user_operations(t *testing.T) {
 }
 
 func Test_group_rule_operations(t *testing.T) {
+	uuid := tests.GenUUID()
 	ctx, client, _ := tests.NewClient(context.TODO(), okta.WithCache(false))
 	// Create a user with credentials, activated by default → POST /api/v1/users?activate=true
 	p := &okta.PasswordCredential{
@@ -236,7 +241,7 @@ func Test_group_rule_operations(t *testing.T) {
 
 	// Create a new group → POST /api/v1/groups
 	gp := &okta.GroupProfile{
-		Name: "Group-Member-Rule API Test Group",
+		Name: "Go SDK - Group-Member-Rule API Test Group" + uuid,
 	}
 	g := &okta.Group{
 		Profile: gp,
@@ -265,7 +270,7 @@ func Test_group_rule_operations(t *testing.T) {
 		Actions:    gra,
 		Conditions: grc,
 		Type:       "group_rule",
-		Name:       "Test group rule",
+		Name:       "Go SDK Rule" + uuid,
 	}
 	groupRule, _, err := client.Group.CreateGroupRule(ctx, *gr)
 	require.NoError(t, err, "Should not error when creating a group Rule")
@@ -318,7 +323,7 @@ func Test_group_rule_operations(t *testing.T) {
 		Actions:    gra,
 		Conditions: grc,
 		Type:       "group_rule",
-		Name:       "Test group rule Updated",
+		Name:       "Updated" + uuid,
 	}
 	newGroupRule, _, err := client.Group.UpdateGroupRule(ctx, groupRule.Id, *gr)
 	require.NoError(t, err, "Should not error when updating rule")
