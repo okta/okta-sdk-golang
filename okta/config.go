@@ -17,7 +17,10 @@
 package okta
 
 import (
+	"io/ioutil"
+	"log"
 	"net/http"
+	"os"
 
 	"github.com/okta/okta-sdk-golang/okta/cache"
 )
@@ -175,6 +178,23 @@ func WithScopes(scopes []string) ConfigSetter {
 
 func WithPrivateKey(privateKey string) ConfigSetter {
 	return func(c *config) {
-		c.Okta.Client.PrivateKey = privateKey
+		if fileExists(privateKey) {
+			content, err := ioutil.ReadFile(privateKey)
+			if err != nil {
+				log.Fatal(err)
+			}
+
+			c.Okta.Client.PrivateKey = string(content)
+		} else {
+			c.Okta.Client.PrivateKey = privateKey
+		}
 	}
+}
+
+func fileExists(filename string) bool {
+	info, err := os.Stat(filename)
+	if os.IsNotExist(err) {
+		return false
+	}
+	return !info.IsDir()
 }
