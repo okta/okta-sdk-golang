@@ -1,6 +1,5 @@
 [<img src="https://devforum.okta.com/uploads/oktadev/original/1X/bf54a16b5fda189e4ad2706fb57cbb7a1e5b8deb.png" align="right" width="256px"/>](https://devforum.okta.com/)
 [![Build Status](https://img.shields.io/travis/okta/okta-sdk-golang.svg?logo=travis)](https://travis-ci.org/okta/okta-sdk-golang)
-![Beta Release](https://img.shields.io/badge/Beta-Unstable-yellow.svg)
 [![License](https://img.shields.io/github/license/okta/okta-sdk-golang.svg)](https://opensource.org/licenses/Apache-2.0)
 [![Support](https://img.shields.io/badge/support-Developer%20Forum-blue.svg)][devforum]
 [![API Reference](https://img.shields.io/badge/docs-reference-lightgrey.svg)][sdkapiref]
@@ -51,10 +50,10 @@ If you run into problems using the SDK, you can
 
 To install the Okta Golang SDK in your project:
 
-Version 2.x
+Version 2.x (Pre-Release)
 run `go get github.com/okta/okta-sdk-golang/v2/okta`
 
-Version 1.x (Deprecated)
+Version 1.x (Release)
 run `go get github.com/okta/okta-sdk-golang/okta`
 
 You'll also need
