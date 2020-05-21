@@ -385,6 +385,15 @@ if err != nil {
 return authServer, resp, nil
 ```
 
+### Access Request Executor
+If you need to gain access to the request executor, we have provided a method off the `Client` to do so.
+
+```go
+re := client.GetRequestExecutor()
+```
+
+Doing this will provide you with the ability to create your own requests for the Okta API and call the `Do` method that handles all of the headers for you based on the configuration.
+
 ## Configuration reference
 
 This library looks for configuration in the following sources:
