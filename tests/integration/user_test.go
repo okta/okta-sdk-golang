@@ -633,7 +633,7 @@ func Test_can_get_user_with_cache_enabled(t *testing.T) {
 	createdUser, _, err := client.User.CreateUser(context.TODO(), *u, qp)
 	require.NoError(t, err, "Creating an user should not error")
 
-	for i := 0; i < 2; i++ {
+	for i := 0; i < 50; i++ {
 		user, resp, err := client.User.GetUser(context.TODO(), "john-test-cache@example.com")
 		assert.NoError(t, err, "Should not error when getting user")
 		assert.NotNil(t, user, "user should not be nil")
