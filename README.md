@@ -136,6 +136,20 @@ func (c CustomCacheDriver) Has(key string) bool {
 }
 ```
 
+### Refreshing Cache for Specific Call
+If you have an issue where you do a `GET`, then a `DELETE`, and then re-issue a `GET` to the original endpoint, you may have an issue with the cache returning with the deleted resource. An example of this is listing applicaiton users, delete and application user, and them listing them again.
+
+You can solve this by running `client.GetRequestExecutor().RefreshNext()` before your second `ListApplicationUsers` call, which will tell the call to delete the cache for this endpoint and make a new call.
+
+```go
+appUserList, _, _ = client.Application.ListApplicationUsers(context.TODO(), appId, nil)
+
+client.Application.DeleteApplicationUser(context.TODO(), appId, appUser.Id, nil)
+
+client.GetRequestExecutor().RefreshNext()
+appUserList, _, _ = client.Application.ListApplicationUsers(context.TODO(), appId, nil)
+```
+
 ## Usage guide
 
 These examples will help you understand how to use this library. You can also browse the full [API reference documentation][sdkapiref].

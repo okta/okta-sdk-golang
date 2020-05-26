@@ -328,6 +328,7 @@ func Test_can_add_and_remove_application_users(t *testing.T) {
 	assert.NotEmpty(t, appUserList, "App Users should not be empty")
 
 	client.Application.DeleteApplicationUser(context.TODO(), appId, appUser.Id, nil)
+	client.GetRequestExecutor().RefreshNext()
 	appUserList, _, _ = client.Application.ListApplicationUsers(context.TODO(), appId, nil)
 	assert.Empty(t, appUserList, "App Users should be empty after deleting")
 

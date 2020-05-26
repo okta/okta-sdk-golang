@@ -48,6 +48,7 @@ type RequestExecutor struct {
 	binary            bool
 	headerAccept      string
 	headerContentType string
+	freshCache        bool
 }
 
 type ClientAssertionClaims struct {
@@ -213,6 +214,11 @@ func (re *RequestExecutor) WithContentType(contentTypeHeader string) *RequestExe
 	return re
 }
 
+func (re *RequestExecutor) RefreshNext() *RequestExecutor {
+	re.freshCache = true
+	return re
+}
+
 func (re *RequestExecutor) Do(ctx context.Context, req *http.Request, v interface{}) (*Response, error) {
 	requestStarted := time.Now().Unix()
 	cacheKey := cache.CreateCacheKey(req)
@@ -220,6 +226,11 @@ func (re *RequestExecutor) Do(ctx context.Context, req *http.Request, v interfac
 		re.cache.Delete(cacheKey)
 	}
 	inCache := re.cache.Has(cacheKey)
+	if re.freshCache {
+		re.cache.Delete(cacheKey)
+		inCache = false
+		re.freshCache = false
+	}
 
 	if !inCache {
 
