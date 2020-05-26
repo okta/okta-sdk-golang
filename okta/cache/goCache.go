@@ -30,7 +30,6 @@ type GoCache struct {
 	ttl         time.Duration
 	tti         time.Duration
 	rootLibrary *patrickmnGoCache.Cache
-	blah        string
 }
 
 func NewGoCache(ttl int32, tti int32) GoCache {
@@ -40,7 +39,6 @@ func NewGoCache(ttl int32, tti int32) GoCache {
 		ttl:         time.Duration(ttl) * time.Second,
 		tti:         time.Duration(tti) * time.Second,
 		rootLibrary: c,
-		blah:        "HELLO",
 	}
 
 	return gc
