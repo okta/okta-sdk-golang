@@ -19,7 +19,6 @@ package cache
 import (
 	"bufio"
 	"bytes"
-	"log"
 	"net/http"
 	"net/http/httputil"
 	"time"
@@ -59,10 +58,8 @@ func (c GoCache) Get(key string) *http.Response {
 }
 
 func (c GoCache) Set(key string, value *http.Response) {
-	cacheableResponse, err := httputil.DumpResponse(value, true)
-	if err != nil {
-		log.Fatal(err)
-	}
+	cacheableResponse, _ := httputil.DumpResponse(value, true)
+
 	c.rootLibrary.Set(key, cacheableResponse, c.ttl)
 }
 
