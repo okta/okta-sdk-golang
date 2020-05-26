@@ -609,3 +609,42 @@ func Test_user_group_target_role(t *testing.T) {
 	client.Group.DeleteGroup(context.TODO(), group.Id)
 	client.Group.DeleteGroup(context.TODO(), newgroup.Id)
 }
+
+func Test_can_get_user_with_cache_enabled(t *testing.T) {
+	client, _ := tests.NewClient()
+
+	p := &okta.PasswordCredential{
+		Value: "Abcd1234",
+	}
+	uc := &okta.UserCredentials{
+		Password: p,
+	}
+	profile := okta.UserProfile{}
+	profile["firstName"] = "John"
+	profile["lastName"] = "Test-Cache"
+	profile["email"] = "john-test-cache@example.com"
+	profile["login"] = "john-test-cache@example.com"
+	u := &okta.CreateUserRequest{
+		Credentials: uc,
+		Profile:     &profile,
+	}
+	qp := query.NewQueryParams(query.WithActivate(true))
+
+	createdUser, _, err := client.User.CreateUser(context.TODO(), *u, qp)
+	require.NoError(t, err, "Creating an user should not error")
+
+	for i := 0; i < 2; i++ {
+		user, resp, err := client.User.GetUser(context.TODO(), "john-test-cache@example.com")
+		assert.NoError(t, err, "Should not error when getting user")
+		assert.NotNil(t, user, "user should not be nil")
+		assert.NotNil(t, resp, "resp should not be nil")
+	}
+
+	// Deactivate the user → POST /api/v1/users/{{userId}}/lifecycle/deactivate
+	_, err = client.User.DeactivateUser(context.TODO(), createdUser.Id, nil)
+	require.NoError(t, err, "Should not error when deactivating")
+
+	// Delete the user → DELETE /api/v1/users/{{userId}}
+	_, err = client.User.DeactivateOrDeleteUser(context.TODO(), createdUser.Id, nil)
+	require.NoError(t, err, "Should not error when deleting")
+}
