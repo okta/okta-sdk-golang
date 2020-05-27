@@ -48,6 +48,7 @@ type RequestExecutor struct {
 	binary            bool
 	headerAccept      string
 	headerContentType string
+	freshCache        bool
 }
 
 type ClientAssertionClaims struct {
@@ -213,6 +214,11 @@ func (re *RequestExecutor) WithContentType(contentTypeHeader string) *RequestExe
 	return re
 }
 
+func (re *RequestExecutor) RefreshNext() *RequestExecutor {
+	re.freshCache = true
+	return re
+}
+
 func (re *RequestExecutor) Do(ctx context.Context, req *http.Request, v interface{}) (*Response, error) {
 	requestStarted := time.Now().Unix()
 	cacheKey := cache.CreateCacheKey(req)
@@ -220,6 +226,11 @@ func (re *RequestExecutor) Do(ctx context.Context, req *http.Request, v interfac
 		re.cache.Delete(cacheKey)
 	}
 	inCache := re.cache.Has(cacheKey)
+	if re.freshCache {
+		re.cache.Delete(cacheKey)
+		inCache = false
+		re.freshCache = false
+	}
 
 	if !inCache {
 
@@ -228,13 +239,6 @@ func (re *RequestExecutor) Do(ctx context.Context, req *http.Request, v interfac
 		if err != nil {
 			return nil, err
 		}
-		defer resp.Body.Close()
-		respBody, err := ioutil.ReadAll(resp.Body)
-		if err != nil {
-			return nil, err
-		}
-		origResp := ioutil.NopCloser(bytes.NewBuffer(respBody))
-		resp.Body = origResp
 		if resp.StatusCode >= 200 && resp.StatusCode <= 299 && req.Method == http.MethodGet && v != nil && reflect.TypeOf(v).Kind() != reflect.Slice {
 			re.cache.Set(cacheKey, resp)
 		}
@@ -367,6 +371,8 @@ func buildResponse(resp *http.Response, v interface{}) (*Response, error) {
 		return buildXmlResponse(resp, v)
 	} else if strings.Contains(ct, "application/json") {
 		return buildJsonResponse(resp, v)
+	} else if ct == "" {
+		return buildJsonResponse(resp, v)
 	} else {
 		return nil, errors.New("could not build a response for type: " + ct)
 	}
@@ -382,6 +388,14 @@ func buildJsonResponse(resp *http.Response, v interface{}) (*Response, error) {
 	}
 
 	if v != nil {
+		respBody, err := ioutil.ReadAll(resp.Body)
+		if err != nil {
+			return nil, err
+		}
+
+		origResp := ioutil.NopCloser(bytes.NewBuffer(respBody))
+		response.Body = origResp
+
 		decodeError := json.NewDecoder(resp.Body).Decode(v)
 		if decodeError == io.EOF {
 			decodeError = nil

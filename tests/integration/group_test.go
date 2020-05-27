@@ -211,7 +211,7 @@ func Test_group_user_operations(t *testing.T) {
 }
 
 func Test_group_rule_operations(t *testing.T) {
-	client, _ := tests.NewClient()
+	client, _ := tests.NewClient(okta.WithCache(false))
 	// Create a user with credentials, activated by default → POST /api/v1/users?activate=true
 	p := &okta.PasswordCredential{
 		Value: "Abcd1234",
@@ -275,7 +275,7 @@ func Test_group_rule_operations(t *testing.T) {
 	_, err = client.Group.ActivateGroupRule(context.TODO(), groupRule.Id)
 	require.NoError(t, err, "Should not error when activating rule")
 
-	time.Sleep(6 * time.Second)
+	time.Sleep(15 * time.Second)
 	users, _, err := client.Group.ListGroupUsers(context.TODO(), group.Id, nil)
 	found := false
 	for _, tmpuser := range users {
@@ -326,7 +326,7 @@ func Test_group_rule_operations(t *testing.T) {
 	// Activate the updated rule and verify that the user is removed from the group →  POST /api/v1/groups/rules/{{ruleId}}/lifecycle/activate
 	_, err = client.Group.ActivateGroupRule(context.TODO(), newGroupRule.Id)
 	require.NoError(t, err, "Should not error when activating the group rule")
-	time.Sleep(2 * time.Second)
+	time.Sleep(5 * time.Second)
 	users, _, err = client.Group.ListGroupUsers(context.TODO(), group.Id, nil)
 	found = false
 	for _, tmpuser := range users {

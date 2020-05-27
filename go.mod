@@ -8,6 +8,7 @@ require (
 	github.com/okta/okta-sdk-golang v1.1.0
 	github.com/patrickmn/go-cache v0.0.0-20180815053127-5633e0862627
 	github.com/stretchr/testify v1.5.1
+	golang.org/x/tools v0.0.0-20200521155704-91d71f6c2f04 // indirect
 	gopkg.in/square/go-jose.v2 v2.5.1
 
 )
