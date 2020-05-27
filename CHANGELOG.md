@@ -18,6 +18,7 @@ Running changelog of releases since `2.0.0-rc.4`
 - `UserFactorResource` method `ActivateFactor` now takes `ActivateFactorRequest` as the `body` param instead of `VerifyFactorRequest`
 - `NextPassCode` property (type string) added to `VerifyFactorRequest` struct
 - Update Readme to show how to access `RequestExecutor` (Fixes #83)
+- Fixes Cache EOF (Fixes #103 and Fixes #36)
 
 ## v2.0.0-rc.4
 - Updated Resource Executor to handle nil pointer dereference (#125, fix suggested by @johanbrandhorst)
