@@ -20,13 +20,4 @@ package okta
 
 import ()
 
-type FactorType struct {
-}
-
-func NewFactorType() *FactorType {
-	return &FactorType{}
-}
-
-func (a *FactorType) IsUserFactorInstance() bool {
-	return true
-}
+type FactorType string

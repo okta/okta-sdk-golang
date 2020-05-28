@@ -20,5 +20,4 @@ package okta
 
 import ()
 
-type OAuth2ScopeConsentGrantSource struct {
-}
+type OAuth2ScopeConsentGrantSource string

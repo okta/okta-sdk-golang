@@ -20,5 +20,4 @@ package okta
 
 import ()
 
-type SessionStatus struct {
-}
+type SessionStatus string

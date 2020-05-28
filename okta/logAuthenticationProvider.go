@@ -20,5 +20,4 @@ package okta
 
 import ()
 
-type LogAuthenticationProvider struct {
-}
+type LogAuthenticationProvider string

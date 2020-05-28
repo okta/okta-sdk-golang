@@ -20,5 +20,4 @@ package okta
 
 import ()
 
-type UserStatus struct {
-}
+type UserStatus string

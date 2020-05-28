@@ -20,5 +20,4 @@ package okta
 
 import ()
 
-type GroupRuleStatus struct {
-}
+type GroupRuleStatus string

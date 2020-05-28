@@ -20,5 +20,4 @@ package okta
 
 import ()
 
-type SmsTemplateType struct {
-}
+type SmsTemplateType string

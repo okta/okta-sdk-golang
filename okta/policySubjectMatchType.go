@@ -20,5 +20,4 @@ package okta
 
 import ()
 
-type PolicySubjectMatchType struct {
-}
+type PolicySubjectMatchType string

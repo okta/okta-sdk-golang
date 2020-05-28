@@ -20,5 +20,4 @@ package okta
 
 import ()
 
-type SessionAuthenticationMethod struct {
-}
+type SessionAuthenticationMethod string

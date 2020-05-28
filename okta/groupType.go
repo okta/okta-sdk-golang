@@ -20,5 +20,4 @@ package okta
 
 import ()
 
-type GroupType struct {
-}
+type GroupType string
