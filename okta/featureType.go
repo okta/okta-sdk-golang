@@ -20,5 +20,4 @@ package okta
 
 import ()
 
-type FeatureType struct {
-}
+type FeatureType string

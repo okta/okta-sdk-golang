@@ -20,5 +20,4 @@ package okta
 
 import ()
 
-type EnabledStatus struct {
-}
+type EnabledStatus string

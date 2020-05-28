@@ -20,5 +20,4 @@ package okta
 
 import ()
 
-type RoleType struct {
-}
+type RoleType string

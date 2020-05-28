@@ -20,5 +20,4 @@ package okta
 
 import ()
 
-type RoleAssignmentType struct {
-}
+type RoleAssignmentType string

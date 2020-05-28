@@ -113,3 +113,34 @@ func MockValidResponse() *http.Response {
 		ContentLength: -1,
 	}
 }
+
+func MockSessionCreateResponse() *http.Response {
+	header := http.Header{}
+	header.Add("X-Okta-Request-id", "another-request-id")
+	header.Add("Content-Type", "application/json")
+	header.Add("Accept", "application/json")
+	header.Add("Date", time.Now().Add(time.Duration(time.Second*10)).Format(time.RFC3339))
+
+	return &http.Response{
+		Status:     strconv.Itoa(200),
+		StatusCode: 200,
+		Body: httpmock.NewRespBodyFromString(`{
+			"id": "101W_juydrDRByB7fUdRyE2JQ",
+			"login": "user@example.com",
+			"userId": "00ubgaSARVOQDIOXMORI",
+			"expiresAt": "2015-08-30T18:41:35.818Z",
+			"status": "ACTIVE",
+			"lastPasswordVerification": "2015-08-30T18:41:35.818Z",
+			"lastFactorVerification": null,
+			"amr": [
+			  "pwd"
+			],
+			"idp": {
+			  "id": "00oi5cpnylv792IcF0g3",
+			  "type": "OKTA"
+			},
+			"mfaActive": false}`),
+		Header:        header,
+		ContentLength: -1,
+	}
+}

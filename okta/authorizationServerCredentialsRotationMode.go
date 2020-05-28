@@ -20,5 +20,4 @@ package okta
 
 import ()
 
-type AuthorizationServerCredentialsRotationMode struct {
-}
+type AuthorizationServerCredentialsRotationMode string

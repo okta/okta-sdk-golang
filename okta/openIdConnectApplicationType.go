@@ -20,13 +20,4 @@ package okta
 
 import ()
 
-type OpenIdConnectApplicationType struct {
-}
-
-func NewOpenIdConnectApplicationType() *OpenIdConnectApplicationType {
-	return &OpenIdConnectApplicationType{}
-}
-
-func (a *OpenIdConnectApplicationType) IsApplicationInstance() bool {
-	return true
-}
+type OpenIdConnectApplicationType string

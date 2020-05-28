@@ -27,11 +27,15 @@ type {{model.modelName}}Resource resource
 {{/if}}
 {{#if (eq model.modelName "ApplicationSettingsApplication")}}
 type {{model.modelName}} map[string]interface{}
+{{else if model.enum}}
+type {{model.modelName}} string
 {{else}}
 type {{model.modelName}} struct {
 	{{{buildModelProperties model}}}
 }
 {{/if}}
+{{#if model.enum}}
+{{else}}
 {{#if (or ( eq model.tags.[0] "Application" ) ( eq model.tags.[0] "UserFactor") ) }}
 func New{{model.modelName}}() *{{model.modelName}} {
 	return &{{model.modelName}}{
@@ -50,6 +54,7 @@ func (a *{{model.modelName}}) Is{{model.tags.[0]}}Instance() bool {
 	return true
 }
 
+{{/if}}
 {{/if}}
 {{#each operations as |operation|}}
 {{> model.defaultMethod  operation=operation alias=alias modelName=../model.modelName}}

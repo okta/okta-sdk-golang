@@ -20,5 +20,4 @@ package okta
 
 import ()
 
-type FeatureStageState struct {
-}
+type FeatureStageState string

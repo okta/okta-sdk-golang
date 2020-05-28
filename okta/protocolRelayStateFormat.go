@@ -20,5 +20,4 @@ package okta
 
 import ()
 
-type ProtocolRelayStateFormat struct {
-}
+type ProtocolRelayStateFormat string

@@ -20,5 +20,4 @@ package okta
 
 import ()
 
-type ScopeType struct {
-}
+type ScopeType string

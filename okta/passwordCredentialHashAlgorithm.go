@@ -20,5 +20,4 @@ package okta
 
 import ()
 
-type PasswordCredentialHashAlgorithm struct {
-}
+type PasswordCredentialHashAlgorithm string

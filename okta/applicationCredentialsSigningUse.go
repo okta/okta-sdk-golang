@@ -20,5 +20,4 @@ package okta
 
 import ()
 
-type ApplicationCredentialsSigningUse struct {
-}
+type ApplicationCredentialsSigningUse string

@@ -20,5 +20,4 @@ package okta
 
 import ()
 
-type LinkedObjectDetailsType struct {
-}
+type LinkedObjectDetailsType string

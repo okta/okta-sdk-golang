@@ -20,5 +20,4 @@ package okta
 
 import ()
 
-type LogSeverity struct {
-}
+type LogSeverity string

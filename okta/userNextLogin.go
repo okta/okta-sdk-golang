@@ -20,5 +20,4 @@ package okta
 
 import ()
 
-type UserNextLogin struct {
-}
+type UserNextLogin string

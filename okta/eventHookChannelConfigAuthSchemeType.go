@@ -20,5 +20,4 @@ package okta
 
 import ()
 
-type EventHookChannelConfigAuthSchemeType struct {
-}
+type EventHookChannelConfigAuthSchemeType string
