@@ -28,9 +28,9 @@ import (
 )
 
 func Test_can_list_all_features_for_organization(t *testing.T) {
-	client, _ := tests.NewClient()
+	ctx, client, _ := tests.NewClient(context.TODO())
 
-	features, response, err := client.Feature.ListFeatures(context.TODO())
+	features, response, err := client.Feature.ListFeatures(ctx)
 
 	require.NoError(t, err, "listing features must not error")
 	require.IsType(t, &okta.Response{}, response, "did not return `*okta.Response` type as second variable")
@@ -50,13 +50,13 @@ func Test_can_list_all_features_for_organization(t *testing.T) {
 }
 
 func Test_can_get_a_feature(t *testing.T) {
-	client, _ := tests.NewClient()
+	ctx, client, _ := tests.NewClient(context.TODO())
 
-	features, _, err := client.Feature.ListFeatures(context.TODO())
+	features, _, err := client.Feature.ListFeatures(ctx)
 	require.NoError(t, err, "listing features must not error")
 
 	firstFeatureId := features[0].Id
-	feature, response, err := client.Feature.GetFeature(context.TODO(), firstFeatureId)
+	feature, response, err := client.Feature.GetFeature(ctx, firstFeatureId)
 
 	require.NoError(t, err, "getting a feature must not error")
 	require.IsType(t, &okta.Response{}, response, "did not return `*okta.Response` type as second variable")
@@ -76,13 +76,13 @@ func Test_can_get_a_feature(t *testing.T) {
 }
 
 func Test_can_get_feature_dependencies(t *testing.T) {
-	client, _ := tests.NewClient()
+	ctx, client, _ := tests.NewClient(context.TODO())
 
-	features, _, err := client.Feature.ListFeatures(context.TODO())
+	features, _, err := client.Feature.ListFeatures(ctx)
 	require.NoError(t, err, "listing features must not error")
 
 	firstFeatureId := features[0].Id
-	featureDependencies, response, err := client.Feature.ListFeatureDependencies(context.TODO(), firstFeatureId)
+	featureDependencies, response, err := client.Feature.ListFeatureDependencies(ctx, firstFeatureId)
 
 	require.NoError(t, err, "getting a features dependencies must not error")
 	require.IsType(t, &okta.Response{}, response, "did not return `*okta.Response` type as second variable")
@@ -93,13 +93,13 @@ func Test_can_get_feature_dependencies(t *testing.T) {
 }
 
 func Test_can_get_feature_dependants(t *testing.T) {
-	client, _ := tests.NewClient()
+	ctx, client, _ := tests.NewClient(context.TODO())
 
-	features, _, err := client.Feature.ListFeatures(context.TODO())
+	features, _, err := client.Feature.ListFeatures(ctx)
 	require.NoError(t, err, "listing features must not error")
 
 	firstFeatureId := features[0].Id
-	featureDependants, response, err := client.Feature.ListFeatureDependents(context.TODO(), firstFeatureId)
+	featureDependants, response, err := client.Feature.ListFeatureDependents(ctx, firstFeatureId)
 
 	require.NoError(t, err, "getting a features dependants must not error")
 	require.IsType(t, &okta.Response{}, response, "did not return `*okta.Response` type as second variable")
@@ -110,9 +110,9 @@ func Test_can_get_feature_dependants(t *testing.T) {
 }
 
 func Test_can_update_a_feature_lifecycle(t *testing.T) {
-	client, _ := tests.NewClient()
+	ctx, client, _ := tests.NewClient(context.TODO())
 
-	features, _, err := client.Feature.ListFeatures(context.TODO())
+	features, _, err := client.Feature.ListFeatures(ctx)
 	require.NoError(t, err, "listing features must not error")
 
 	firstFeatureId := features[0].Id
@@ -121,7 +121,7 @@ func Test_can_update_a_feature_lifecycle(t *testing.T) {
 	if origStatus == "DISABLED" {
 		statusTo = "enable"
 	}
-	statusChange, response, err := client.Feature.UpdateFeatureLifecycle(context.TODO(), firstFeatureId, statusTo, nil)
+	statusChange, response, err := client.Feature.UpdateFeatureLifecycle(ctx, firstFeatureId, statusTo, nil)
 
 	require.NoError(t, err, "updating feature status should not error")
 	require.IsType(t, &okta.Response{}, response, "did not return `*okta.Response` type as second variable")
@@ -134,7 +134,7 @@ func Test_can_update_a_feature_lifecycle(t *testing.T) {
 	if origStatus == "DISABLED" {
 		toOrigStatus = "disable"
 	}
-	updatedStatusChange, response, err := client.Feature.UpdateFeatureLifecycle(context.TODO(), firstFeatureId, toOrigStatus, nil)
+	updatedStatusChange, response, err := client.Feature.UpdateFeatureLifecycle(ctx, firstFeatureId, toOrigStatus, nil)
 	require.NoError(t, err, "updating feature status should not error")
 	assert.Equal(t, origStatus, updatedStatusChange.Status, "did not change the status back")
 	assert.Equal(t, "/api/v1/features/"+firstFeatureId+"/"+toOrigStatus, response.Response.Request.URL.Path, "path for request was incorrect")

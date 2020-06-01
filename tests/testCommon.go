@@ -17,6 +17,7 @@
 package tests
 
 import (
+	"context"
 	"fmt"
 	"net/http"
 	"testing"
@@ -28,8 +29,8 @@ import (
 	"github.com/okta/okta-sdk-golang/v2/okta"
 )
 
-func NewClient(conf ...okta.ConfigSetter) (*okta.Client, error) {
-	return okta.NewClient(conf...)
+func NewClient(ctx context.Context, conf ...okta.ConfigSetter) (context.Context, *okta.Client, error) {
+	return okta.NewClient(ctx, conf...)
 }
 
 func MockResponse(responses ...*http.Response) httpmock.Responder {

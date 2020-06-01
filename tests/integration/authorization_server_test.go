@@ -29,7 +29,7 @@ import (
 )
 
 func Test_can_create_an_authorizaiton_server(t *testing.T) {
-	client, _ := tests.NewClient()
+	ctx, client, _ := tests.NewClient(context.TODO())
 
 	as := okta.AuthorizationServer{
 		Name:        "Sample Authorizaiton Server - Golang",
@@ -37,17 +37,17 @@ func Test_can_create_an_authorizaiton_server(t *testing.T) {
 		Audiences:   []string{"api://default"},
 	}
 
-	authorizationServer, response, err := client.AuthorizationServer.CreateAuthorizationServer(context.TODO(), as)
+	authorizationServer, response, err := client.AuthorizationServer.CreateAuthorizationServer(ctx, as)
 	require.NoError(t, err, "creating an authorizaiton server should not error")
 	tests.Assert_response(t, response, "POST", "/api/v1/authorizationServers")
 
 	assert_authorization_server_model(t, authorizationServer)
 
-	_, err = client.AuthorizationServer.DeleteAuthorizationServer(context.TODO(), authorizationServer.Id)
+	_, err = client.AuthorizationServer.DeleteAuthorizationServer(ctx, authorizationServer.Id)
 }
 
 func Test_can_get_an_authorizaiton_server(t *testing.T) {
-	client, _ := tests.NewClient()
+	ctx, client, _ := tests.NewClient(context.TODO())
 
 	as := okta.AuthorizationServer{
 		Name:        "Sample Authorizaiton Server - Golang",
@@ -55,11 +55,11 @@ func Test_can_get_an_authorizaiton_server(t *testing.T) {
 		Audiences:   []string{"api://default"},
 	}
 
-	authorizationServer, response, err := client.AuthorizationServer.CreateAuthorizationServer(context.TODO(), as)
+	authorizationServer, response, err := client.AuthorizationServer.CreateAuthorizationServer(ctx, as)
 	require.NoError(t, err, "creating an authorizaiton server should not error")
 	tests.Assert_response(t, response, "POST", "/api/v1/authorizationServers")
 
-	authorizationServer, response, err = client.AuthorizationServer.GetAuthorizationServer(context.TODO(), authorizationServer.Id)
+	authorizationServer, response, err = client.AuthorizationServer.GetAuthorizationServer(ctx, authorizationServer.Id)
 	require.NoError(t, err, "getting an authorizaiton server should not error")
 	tests.Assert_response(t, response, "GET", "/api/v1/authorizationServers/"+authorizationServer.Id)
 
@@ -68,11 +68,11 @@ func Test_can_get_an_authorizaiton_server(t *testing.T) {
 	assert.Equal(t, as.Name, authorizationServer.Name, "did not return the same authorization server name")
 	assert.Equal(t, as.Description, authorizationServer.Description, "did not return the same authorization server description")
 
-	_, err = client.AuthorizationServer.DeleteAuthorizationServer(context.TODO(), authorizationServer.Id)
+	_, err = client.AuthorizationServer.DeleteAuthorizationServer(ctx, authorizationServer.Id)
 }
 
 func Test_can_update_an_authorizaiton_server(t *testing.T) {
-	client, _ := tests.NewClient()
+	ctx, client, _ := tests.NewClient(context.TODO())
 
 	as := okta.AuthorizationServer{
 		Name:        "Sample Authorizaiton Server - Golang",
@@ -80,11 +80,11 @@ func Test_can_update_an_authorizaiton_server(t *testing.T) {
 		Audiences:   []string{"api://default"},
 	}
 
-	authorizationServer, response, err := client.AuthorizationServer.CreateAuthorizationServer(context.TODO(), as)
+	authorizationServer, response, err := client.AuthorizationServer.CreateAuthorizationServer(ctx, as)
 	require.NoError(t, err, "creating an authorizaiton server should not error")
 	tests.Assert_response(t, response, "POST", "/api/v1/authorizationServers")
 
-	authorizationServer, response, err = client.AuthorizationServer.GetAuthorizationServer(context.TODO(), authorizationServer.Id)
+	authorizationServer, response, err = client.AuthorizationServer.GetAuthorizationServer(ctx, authorizationServer.Id)
 	require.NoError(t, err, "getting an authorizaiton server should not error")
 	tests.Assert_response(t, response, "GET", "/api/v1/authorizationServers/"+authorizationServer.Id)
 
@@ -98,7 +98,7 @@ func Test_can_update_an_authorizaiton_server(t *testing.T) {
 	authorizationServer.Name = updatedName
 	authorizationServer.Description = updatedDescription
 
-	authorizationServer, response, err = client.AuthorizationServer.UpdateAuthorizationServer(context.TODO(), authorizationServer.Id, *authorizationServer)
+	authorizationServer, response, err = client.AuthorizationServer.UpdateAuthorizationServer(ctx, authorizationServer.Id, *authorizationServer)
 	require.NoError(t, err, "getting an authorizaiton server should not error")
 	tests.Assert_response(t, response, "PUT", "/api/v1/authorizationServers/"+authorizationServer.Id)
 
@@ -107,11 +107,11 @@ func Test_can_update_an_authorizaiton_server(t *testing.T) {
 	assert.Equal(t, updatedName, authorizationServer.Name, "did not return the same authorization server name")
 	assert.Equal(t, updatedDescription, authorizationServer.Description, "did not return the same authorization server description")
 
-	_, err = client.AuthorizationServer.DeleteAuthorizationServer(context.TODO(), authorizationServer.Id)
+	_, err = client.AuthorizationServer.DeleteAuthorizationServer(ctx, authorizationServer.Id)
 }
 
 func Test_can_delete_an_authorizaiton_server(t *testing.T) {
-	client, _ := tests.NewClient()
+	ctx, client, _ := tests.NewClient(context.TODO())
 
 	as := okta.AuthorizationServer{
 		Name:        "Sample Authorizaiton Server - Golang",
@@ -119,11 +119,11 @@ func Test_can_delete_an_authorizaiton_server(t *testing.T) {
 		Audiences:   []string{"api://default"},
 	}
 
-	authorizationServer, response, err := client.AuthorizationServer.CreateAuthorizationServer(context.TODO(), as)
+	authorizationServer, response, err := client.AuthorizationServer.CreateAuthorizationServer(ctx, as)
 	require.NoError(t, err, "creating an authorizaiton server should not error")
 	tests.Assert_response(t, response, "POST", "/api/v1/authorizationServers")
 
-	authorizationServer, response, err = client.AuthorizationServer.GetAuthorizationServer(context.TODO(), authorizationServer.Id)
+	authorizationServer, response, err = client.AuthorizationServer.GetAuthorizationServer(ctx, authorizationServer.Id)
 	require.NoError(t, err, "getting an authorizaiton server should not error")
 	tests.Assert_response(t, response, "GET", "/api/v1/authorizationServers/"+authorizationServer.Id)
 
@@ -132,16 +132,16 @@ func Test_can_delete_an_authorizaiton_server(t *testing.T) {
 	assert.Equal(t, as.Name, authorizationServer.Name, "did not return the same authorization server name")
 	assert.Equal(t, as.Description, authorizationServer.Description, "did not return the same authorization server description")
 
-	response, err = client.AuthorizationServer.DeleteAuthorizationServer(context.TODO(), authorizationServer.Id)
+	response, err = client.AuthorizationServer.DeleteAuthorizationServer(ctx, authorizationServer.Id)
 	assert.Equal(t, http.StatusNoContent, response.StatusCode, "did not return a 204 status code during delete")
 
-	authorizationServer, response, err = client.AuthorizationServer.GetAuthorizationServer(context.TODO(), authorizationServer.Id)
+	authorizationServer, response, err = client.AuthorizationServer.GetAuthorizationServer(ctx, authorizationServer.Id)
 	assert.Error(t, err, "Finding an authorization server by id should have reported an error")
 	assert.Equal(t, http.StatusNotFound, response.StatusCode, "Should have resulted in a 404 when finding a deleted authorization server")
 }
 
 func Test_can_list_authorizaiton_servers(t *testing.T) {
-	client, _ := tests.NewClient()
+	ctx, client, _ := tests.NewClient(context.TODO())
 
 	as := okta.AuthorizationServer{
 		Name:        "Sample Authorizaiton Server - Golang",
@@ -149,11 +149,11 @@ func Test_can_list_authorizaiton_servers(t *testing.T) {
 		Audiences:   []string{"api://default"},
 	}
 
-	authorizationServer, response, err := client.AuthorizationServer.CreateAuthorizationServer(context.TODO(), as)
+	authorizationServer, response, err := client.AuthorizationServer.CreateAuthorizationServer(ctx, as)
 	require.NoError(t, err, "creating an authorizaiton server should not error")
 	tests.Assert_response(t, response, "POST", "/api/v1/authorizationServers")
 
-	authorizationServerList, response, err := client.AuthorizationServer.ListAuthorizationServers(context.TODO(), nil)
+	authorizationServerList, response, err := client.AuthorizationServer.ListAuthorizationServers(ctx, nil)
 	require.NoError(t, err, "list authorizaiton servers should not error")
 	tests.Assert_response(t, response, "GET", "/api/v1/authorizationServers")
 
@@ -166,11 +166,11 @@ func Test_can_list_authorizaiton_servers(t *testing.T) {
 	}
 	assert.True(t, found, "Could not find authorization from list")
 
-	_, err = client.AuthorizationServer.DeleteAuthorizationServer(context.TODO(), authorizationServer.Id)
+	_, err = client.AuthorizationServer.DeleteAuthorizationServer(ctx, authorizationServer.Id)
 }
 
 func Test_can_activate_an_authorizaiton_server(t *testing.T) {
-	client, _ := tests.NewClient()
+	ctx, client, _ := tests.NewClient(context.TODO())
 
 	as := okta.AuthorizationServer{
 		Name:        "Sample Authorizaiton Server - Golang",
@@ -178,26 +178,26 @@ func Test_can_activate_an_authorizaiton_server(t *testing.T) {
 		Audiences:   []string{"api://default"},
 	}
 
-	authorizationServer, response, err := client.AuthorizationServer.CreateAuthorizationServer(context.TODO(), as)
+	authorizationServer, response, err := client.AuthorizationServer.CreateAuthorizationServer(ctx, as)
 	require.NoError(t, err, "creating an authorizaiton server should not error")
 	tests.Assert_response(t, response, "POST", "/api/v1/authorizationServers")
 	assert.Equal(t, "ACTIVE", authorizationServer.Status, "should have active status after creating")
 
-	response, err = client.AuthorizationServer.DeactivateAuthorizationServer(context.TODO(), authorizationServer.Id)
+	response, err = client.AuthorizationServer.DeactivateAuthorizationServer(ctx, authorizationServer.Id)
 	require.NoError(t, err, "deactivating an authorizaiton server should not error")
 	tests.Assert_response(t, response, "POST", "/api/v1/authorizationServers/"+authorizationServer.Id+"/lifecycle/deactivate")
 
-	authorizationServer, _, _ = client.AuthorizationServer.GetAuthorizationServer(context.TODO(), authorizationServer.Id)
+	authorizationServer, _, _ = client.AuthorizationServer.GetAuthorizationServer(ctx, authorizationServer.Id)
 	assert.Equal(t, "INACTIVE", authorizationServer.Status, "should have inactive status after deactivating")
 
-	response, err = client.AuthorizationServer.ActivateAuthorizationServer(context.TODO(), authorizationServer.Id)
+	response, err = client.AuthorizationServer.ActivateAuthorizationServer(ctx, authorizationServer.Id)
 	require.NoError(t, err, "activating an authorizaiton server should not error")
 	tests.Assert_response(t, response, "POST", "/api/v1/authorizationServers/"+authorizationServer.Id+"/lifecycle/activate")
 
 	// authorizationServer, response, _ = client.AuthorizationServer.GetAuthorizationServer(authorizationServer.Id)
 	// assert.Equal(t, "ACTIVE", authorizationServer.Status, "should have active status after activating")
 
-	_, err = client.AuthorizationServer.DeleteAuthorizationServer(context.TODO(), authorizationServer.Id)
+	_, err = client.AuthorizationServer.DeleteAuthorizationServer(ctx, authorizationServer.Id)
 }
 
 func assert_authorization_server_model(t *testing.T, authorizationServer *okta.AuthorizationServer) {

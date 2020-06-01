@@ -28,7 +28,7 @@ import (
 )
 
 func Test_can_add_an_admin_role_to_user(t *testing.T) {
-	client, _ := tests.NewClient()
+	ctx, client, _ := tests.NewClient(context.TODO())
 	p := &okta.PasswordCredential{
 		Value: "Abcd1234",
 	}
@@ -45,12 +45,12 @@ func Test_can_add_an_admin_role_to_user(t *testing.T) {
 		Profile:     &profile,
 	}
 
-	user, _, err := client.User.CreateUser(context.TODO(), *u, nil)
+	user, _, err := client.User.CreateUser(ctx, *u, nil)
 	require.NoError(t, err, "Creating an user should not error")
 	role := okta.AssignRoleRequest{
 		Type: "SUPER_ADMIN",
 	}
-	createdRole, response, err := client.User.AssignRoleToUser(context.TODO(), user.Id, role, nil)
+	createdRole, response, err := client.User.AssignRoleToUser(ctx, user.Id, role, nil)
 	require.NoError(t, err, "adding role to user must not error")
 	require.IsType(t, &okta.Response{}, response, "did not return `*okta.Response` type as second variable")
 	require.IsType(t, &okta.Role{}, createdRole, "did not return `*okta.Role` as first variable")
@@ -64,27 +64,27 @@ func Test_can_add_an_admin_role_to_user(t *testing.T) {
 	assert.NotEmpty(t, createdRole.Created, "created should not be empty")
 	assert.NotEmpty(t, createdRole.LastUpdated, "lastUpdated should not be empty")
 
-	_, err = client.User.DeactivateUser(context.TODO(), user.Id, nil)
+	_, err = client.User.DeactivateUser(ctx, user.Id, nil)
 	require.NoError(t, err, "Should not error when deactivating")
 
-	_, err = client.User.DeactivateOrDeleteUser(context.TODO(), user.Id, nil)
+	_, err = client.User.DeactivateOrDeleteUser(ctx, user.Id, nil)
 	require.NoError(t, err, "Should not error when deleting")
 }
 
 func Test_can_add_an_admin_role_to_group(t *testing.T) {
-	client, _ := tests.NewClient()
+	ctx, client, _ := tests.NewClient(context.TODO())
 	gp := &okta.GroupProfile{
 		Name: "Assign Admin Role To Group",
 	}
 	g := &okta.Group{
 		Profile: gp,
 	}
-	group, _, err := client.Group.CreateGroup(context.TODO(), *g)
+	group, _, err := client.Group.CreateGroup(ctx, *g)
 	require.NoError(t, err, "Should not error when creating a group")
 	role := okta.AssignRoleRequest{
 		Type: "ORG_ADMIN",
 	}
-	createdRole, response, err := client.Group.AssignRoleToGroup(context.TODO(), group.Id, role, nil)
+	createdRole, response, err := client.Group.AssignRoleToGroup(ctx, group.Id, role, nil)
 	require.NoError(t, err, "adding role to user must not error")
 	require.IsType(t, &okta.Response{}, response, "did not return `*okta.Response` type as second variable")
 	require.IsType(t, &okta.Role{}, createdRole, "did not return `*okta.Role` as first variable")
@@ -98,12 +98,12 @@ func Test_can_add_an_admin_role_to_group(t *testing.T) {
 	assert.NotEmpty(t, createdRole.Created, "created should not be empty")
 	assert.NotEmpty(t, createdRole.LastUpdated, "lastUpdated should not be empty")
 
-	_, err = client.Group.DeleteGroup(context.TODO(), group.Id)
+	_, err = client.Group.DeleteGroup(ctx, group.Id)
 	require.NoError(t, err, "Should not error when deleting a group")
 }
 
 func Test_can_remove_an_admin_role_to_user(t *testing.T) {
-	client, _ := tests.NewClient()
+	ctx, client, _ := tests.NewClient(context.TODO())
 	p := &okta.PasswordCredential{
 		Value: "Abcd1234",
 	}
@@ -120,61 +120,61 @@ func Test_can_remove_an_admin_role_to_user(t *testing.T) {
 		Profile:     &profile,
 	}
 
-	user, _, err := client.User.CreateUser(context.TODO(), *u, nil)
+	user, _, err := client.User.CreateUser(ctx, *u, nil)
 	require.NoError(t, err, "Creating an user should not error")
 	role := okta.AssignRoleRequest{
 		Type: "SUPER_ADMIN",
 	}
-	createdRole, response, err := client.User.AssignRoleToUser(context.TODO(), user.Id, role, nil)
+	createdRole, response, err := client.User.AssignRoleToUser(ctx, user.Id, role, nil)
 	require.NoError(t, err, "adding role to user must not error")
 	require.IsType(t, &okta.Response{}, response, "did not return `*okta.Response` type as second variable")
 	require.IsType(t, &okta.Role{}, createdRole, "did not return `*okta.Role` as first variable")
 	assert.Equal(t, "POST", response.Response.Request.Method, "did not make a get request")
 	assert.Equal(t, "/api/v1/users/"+user.Id+"/roles", response.Response.Request.URL.Path, "path for request was incorrect")
 
-	response, err = client.User.RemoveRoleFromUser(context.TODO(), user.Id, createdRole.Id)
+	response, err = client.User.RemoveRoleFromUser(ctx, user.Id, createdRole.Id)
 	require.NoError(t, err, "removing role from user must not error")
 	require.IsType(t, &okta.Response{}, response, "did not return `*okta.Response` type as second variable")
 	assert.Equal(t, 204, response.StatusCode, "did not return a 204")
 
-	_, err = client.User.DeactivateUser(context.TODO(), user.Id, nil)
+	_, err = client.User.DeactivateUser(ctx, user.Id, nil)
 	require.NoError(t, err, "Should not error when deactivating")
 
-	_, err = client.User.DeactivateOrDeleteUser(context.TODO(), user.Id, nil)
+	_, err = client.User.DeactivateOrDeleteUser(ctx, user.Id, nil)
 	require.NoError(t, err, "Should not error when deleting")
 }
 
 func Test_can_remove_an_admin_role_to_group(t *testing.T) {
-	client, _ := tests.NewClient()
+	ctx, client, _ := tests.NewClient(context.TODO())
 	gp := &okta.GroupProfile{
 		Name: "Assign Admin Role To Group",
 	}
 	g := &okta.Group{
 		Profile: gp,
 	}
-	group, _, err := client.Group.CreateGroup(context.TODO(), *g)
+	group, _, err := client.Group.CreateGroup(ctx, *g)
 	require.NoError(t, err, "Should not error when creating a group")
 	role := okta.AssignRoleRequest{
 		Type: "ORG_ADMIN",
 	}
-	createdRole, response, err := client.Group.AssignRoleToGroup(context.TODO(), group.Id, role, nil)
+	createdRole, response, err := client.Group.AssignRoleToGroup(ctx, group.Id, role, nil)
 	require.NoError(t, err, "adding role to user must not error")
 	require.IsType(t, &okta.Response{}, response, "did not return `*okta.Response` type as second variable")
 	require.IsType(t, &okta.Role{}, createdRole, "did not return `*okta.Role` as first variable")
 	assert.Equal(t, "POST", response.Response.Request.Method, "did not make a get request")
 	assert.Equal(t, "/api/v1/groups/"+group.Id+"/roles", response.Response.Request.URL.Path, "path for request was incorrect")
 
-	response, err = client.Group.RemoveRoleFromGroup(context.TODO(), group.Id, createdRole.Id)
+	response, err = client.Group.RemoveRoleFromGroup(ctx, group.Id, createdRole.Id)
 	require.NoError(t, err, "removing role from group must not error")
 	require.IsType(t, &okta.Response{}, response, "did not return `*okta.Response` type as second variable")
 	assert.Equal(t, 204, response.StatusCode, "did not return a 204")
 
-	_, err = client.Group.DeleteGroup(context.TODO(), group.Id)
+	_, err = client.Group.DeleteGroup(ctx, group.Id)
 	require.NoError(t, err, "Should not error when deleting a group")
 }
 
 func Test_can_list_roles_assigned_to_a_user(t *testing.T) {
-	client, _ := tests.NewClient()
+	ctx, client, _ := tests.NewClient(context.TODO())
 	p := &okta.PasswordCredential{
 		Value: "Abcd1234",
 	}
@@ -191,17 +191,17 @@ func Test_can_list_roles_assigned_to_a_user(t *testing.T) {
 		Profile:     &profile,
 	}
 
-	user, _, err := client.User.CreateUser(context.TODO(), *u, nil)
+	user, _, err := client.User.CreateUser(ctx, *u, nil)
 	require.NoError(t, err, "Creating an user should not error")
 
 	role := okta.AssignRoleRequest{
 		Type: "SUPER_ADMIN",
 	}
 
-	_, response, err := client.User.AssignRoleToUser(context.TODO(), user.Id, role, nil)
+	_, response, err := client.User.AssignRoleToUser(ctx, user.Id, role, nil)
 	require.NoError(t, err, "adding role to user must not error")
 
-	roles, response, err := client.User.ListAssignedRolesForUser(context.TODO(), user.Id, nil)
+	roles, response, err := client.User.ListAssignedRolesForUser(ctx, user.Id, nil)
 
 	require.NoError(t, err, "listing adnimistrator roles must not error")
 	require.IsType(t, &okta.Response{}, response, "did not return `*okta.Response` type as second variable")
@@ -219,31 +219,31 @@ func Test_can_list_roles_assigned_to_a_user(t *testing.T) {
 	assert.NotEmpty(t, roles[0].LastUpdated, "lastUpdated should not be empty")
 	assert.NotEmpty(t, roles[0].AssignmentType, "assignmentType should not be empty")
 
-	_, err = client.User.DeactivateUser(context.TODO(), user.Id, nil)
+	_, err = client.User.DeactivateUser(ctx, user.Id, nil)
 	require.NoError(t, err, "Should not error when deactivating")
 
-	_, err = client.User.DeactivateOrDeleteUser(context.TODO(), user.Id, nil)
+	_, err = client.User.DeactivateOrDeleteUser(ctx, user.Id, nil)
 	require.NoError(t, err, "Should not error when deleting")
 
 }
 
 func Test_can_list_roles_assigned_to_a_group(t *testing.T) {
-	client, _ := tests.NewClient()
+	ctx, client, _ := tests.NewClient(context.TODO())
 	gp := &okta.GroupProfile{
 		Name: "Assign Admin Role To Group",
 	}
 	g := &okta.Group{
 		Profile: gp,
 	}
-	group, _, err := client.Group.CreateGroup(context.TODO(), *g)
+	group, _, err := client.Group.CreateGroup(ctx, *g)
 	require.NoError(t, err, "Should not error when creating a group")
 	role := okta.AssignRoleRequest{
 		Type: "ORG_ADMIN",
 	}
-	_, response, err := client.Group.AssignRoleToGroup(context.TODO(), group.Id, role, nil)
+	_, response, err := client.Group.AssignRoleToGroup(ctx, group.Id, role, nil)
 	require.NoError(t, err, "adding role to user must not error")
 
-	roles, response, err := client.Group.ListGroupAssignedRoles(context.TODO(), group.Id, nil)
+	roles, response, err := client.Group.ListGroupAssignedRoles(ctx, group.Id, nil)
 
 	require.NoError(t, err, "listing adnimistrator roles must not error")
 	require.IsType(t, &okta.Response{}, response, "did not return `*okta.Response` type as second variable")
@@ -261,13 +261,13 @@ func Test_can_list_roles_assigned_to_a_group(t *testing.T) {
 	assert.NotEmpty(t, roles[0].LastUpdated, "lastUpdated should not be empty")
 	assert.NotEmpty(t, roles[0].AssignmentType, "assignmentType should not be empty")
 
-	_, err = client.Group.DeleteGroup(context.TODO(), group.Id)
+	_, err = client.Group.DeleteGroup(ctx, group.Id)
 	require.NoError(t, err, "Should not error when deleting a group")
 
 }
 
 func Test_can_add_group_targets_for_the_group_administrator_role_given_to_a_user(t *testing.T) {
-	client, _ := tests.NewClient()
+	ctx, client, _ := tests.NewClient(context.TODO())
 	p := &okta.PasswordCredential{
 		Value: "Abcd1234",
 	}
@@ -284,7 +284,7 @@ func Test_can_add_group_targets_for_the_group_administrator_role_given_to_a_user
 		Profile:     &profile,
 	}
 
-	user, _, err := client.User.CreateUser(context.TODO(), *u, nil)
+	user, _, err := client.User.CreateUser(ctx, *u, nil)
 	require.NoError(t, err, "Creating an user should not error")
 
 	role := okta.AssignRoleRequest{
@@ -297,30 +297,30 @@ func Test_can_add_group_targets_for_the_group_administrator_role_given_to_a_user
 	g := &okta.Group{
 		Profile: gp,
 	}
-	group, _, err := client.Group.CreateGroup(context.TODO(), *g)
+	group, _, err := client.Group.CreateGroup(ctx, *g)
 	require.NoError(t, err, "Should not error when creating a group")
 
-	addedRole, response, err := client.User.AssignRoleToUser(context.TODO(), user.Id, role, nil)
+	addedRole, response, err := client.User.AssignRoleToUser(ctx, user.Id, role, nil)
 	require.NoError(t, err, "adding role to user must not error")
 
-	response, err = client.User.AddGroupTargetToRole(context.TODO(), user.Id, addedRole.Id, group.Id)
+	response, err = client.User.AddGroupTargetToRole(ctx, user.Id, addedRole.Id, group.Id)
 	require.NoError(t, err, "list group assignments must not error")
 	require.IsType(t, &okta.Response{}, response, "did not return `*okta.Response` type as second variable")
 	assert.Equal(t, "PUT", response.Response.Request.Method, "did not make a get request")
 	assert.Equal(t, "/api/v1/users/"+user.Id+"/roles/"+addedRole.Id+"/targets/groups/"+group.Id, response.Response.Request.URL.Path, "path for request was incorrect")
 
-	_, err = client.User.DeactivateUser(context.TODO(), user.Id, nil)
+	_, err = client.User.DeactivateUser(ctx, user.Id, nil)
 	require.NoError(t, err, "Should not error when deactivating")
 
-	_, err = client.User.DeactivateOrDeleteUser(context.TODO(), user.Id, nil)
+	_, err = client.User.DeactivateOrDeleteUser(ctx, user.Id, nil)
 	require.NoError(t, err, "Should not error when deleting")
 
-	_, err = client.Group.DeleteGroup(context.TODO(), group.Id)
+	_, err = client.Group.DeleteGroup(ctx, group.Id)
 	require.NoError(t, err, "Should not error when deleting a group")
 }
 
 func Test_can_add_group_targets_for_the_group_administrator_role_given_to_a_group(t *testing.T) {
-	client, _ := tests.NewClient()
+	ctx, client, _ := tests.NewClient(context.TODO())
 
 	role := okta.AssignRoleRequest{
 		Type: "USER_ADMIN",
@@ -332,24 +332,24 @@ func Test_can_add_group_targets_for_the_group_administrator_role_given_to_a_grou
 	g := &okta.Group{
 		Profile: gp,
 	}
-	group, _, err := client.Group.CreateGroup(context.TODO(), *g)
+	group, _, err := client.Group.CreateGroup(ctx, *g)
 	require.NoError(t, err, "Should not error when creating a group")
 
-	addedRole, response, err := client.Group.AssignRoleToGroup(context.TODO(), group.Id, role, nil)
+	addedRole, response, err := client.Group.AssignRoleToGroup(ctx, group.Id, role, nil)
 	require.NoError(t, err, "adding role to user must not error")
 
-	response, err = client.Group.AddGroupTargetToGroupAdministratorRoleForGroup(context.TODO(), group.Id, addedRole.Id, group.Id)
+	response, err = client.Group.AddGroupTargetToGroupAdministratorRoleForGroup(ctx, group.Id, addedRole.Id, group.Id)
 	require.NoError(t, err, "list group assignments must not error")
 	require.IsType(t, &okta.Response{}, response, "did not return `*okta.Response` type as second variable")
 	assert.Equal(t, "PUT", response.Response.Request.Method, "did not make a get request")
 	assert.Equal(t, "/api/v1/groups/"+group.Id+"/roles/"+addedRole.Id+"/targets/groups/"+group.Id, response.Response.Request.URL.Path, "path for request was incorrect")
 
-	_, err = client.Group.DeleteGroup(context.TODO(), group.Id)
+	_, err = client.Group.DeleteGroup(ctx, group.Id)
 	require.NoError(t, err, "Should not error when deleting a group")
 }
 
 func Test_can_list_group_targets_for_the_group_administrator_role_given_to_a_user(t *testing.T) {
-	client, _ := tests.NewClient()
+	ctx, client, _ := tests.NewClient(context.TODO())
 	p := &okta.PasswordCredential{
 		Value: "Abcd1234",
 	}
@@ -366,7 +366,7 @@ func Test_can_list_group_targets_for_the_group_administrator_role_given_to_a_use
 		Profile:     &profile,
 	}
 
-	user, _, err := client.User.CreateUser(context.TODO(), *u, nil)
+	user, _, err := client.User.CreateUser(ctx, *u, nil)
 	require.NoError(t, err, "Creating an user should not error")
 
 	role := okta.AssignRoleRequest{
@@ -379,19 +379,19 @@ func Test_can_list_group_targets_for_the_group_administrator_role_given_to_a_use
 	g := &okta.Group{
 		Profile: gp,
 	}
-	group, _, err := client.Group.CreateGroup(context.TODO(), *g)
+	group, _, err := client.Group.CreateGroup(ctx, *g)
 	require.NoError(t, err, "Should not error when creating a group")
 
-	addedRole, response, err := client.User.AssignRoleToUser(context.TODO(), user.Id, role, nil)
+	addedRole, response, err := client.User.AssignRoleToUser(ctx, user.Id, role, nil)
 	require.NoError(t, err, "adding role to user must not error")
 
-	response, err = client.User.AddGroupTargetToRole(context.TODO(), user.Id, addedRole.Id, group.Id)
+	response, err = client.User.AddGroupTargetToRole(ctx, user.Id, addedRole.Id, group.Id)
 	require.NoError(t, err, "list group assignments must not error")
 	require.IsType(t, &okta.Response{}, response, "did not return `*okta.Response` type as second variable")
 	assert.Equal(t, "PUT", response.Response.Request.Method, "did not make a get request")
 	assert.Equal(t, "/api/v1/users/"+user.Id+"/roles/"+addedRole.Id+"/targets/groups/"+group.Id, response.Response.Request.URL.Path, "path for request was incorrect")
 
-	listRoles, response, err := client.User.ListGroupTargetsForRole(context.TODO(), user.Id, addedRole.Id, nil)
+	listRoles, response, err := client.User.ListGroupTargetsForRole(ctx, user.Id, addedRole.Id, nil)
 	require.NoError(t, err, "list group assignments must not error")
 	require.IsType(t, &okta.Response{}, response, "did not return `*okta.Response` type as second variable")
 	require.IsType(t, []*okta.Group{}, listRoles, "did not return `[]*okta.Group` type as first variable")
@@ -403,18 +403,18 @@ func Test_can_list_group_targets_for_the_group_administrator_role_given_to_a_use
 	assert.NotEmpty(t, listRoles[0].Profile, "profile should not be empty")
 	assert.IsType(t, &okta.GroupProfile{}, listRoles[0].Profile, "profile should be instance of *okta.GroupProfile")
 
-	_, err = client.User.DeactivateUser(context.TODO(), user.Id, nil)
+	_, err = client.User.DeactivateUser(ctx, user.Id, nil)
 	require.NoError(t, err, "Should not error when deactivating")
 
-	_, err = client.User.DeactivateOrDeleteUser(context.TODO(), user.Id, nil)
+	_, err = client.User.DeactivateOrDeleteUser(ctx, user.Id, nil)
 	require.NoError(t, err, "Should not error when deleting")
 
-	_, err = client.Group.DeleteGroup(context.TODO(), group.Id)
+	_, err = client.Group.DeleteGroup(ctx, group.Id)
 	require.NoError(t, err, "Should not error when deleting a group")
 }
 
 func Test_can_list_group_targets_for_the_group_administrator_role_given_to_a_group(t *testing.T) {
-	client, _ := tests.NewClient()
+	ctx, client, _ := tests.NewClient(context.TODO())
 
 	role := okta.AssignRoleRequest{
 		Type: "USER_ADMIN",
@@ -426,19 +426,19 @@ func Test_can_list_group_targets_for_the_group_administrator_role_given_to_a_gro
 	g := &okta.Group{
 		Profile: gp,
 	}
-	group, _, err := client.Group.CreateGroup(context.TODO(), *g)
+	group, _, err := client.Group.CreateGroup(ctx, *g)
 	require.NoError(t, err, "Should not error when creating a group")
 
-	addedRole, response, err := client.Group.AssignRoleToGroup(context.TODO(), group.Id, role, nil)
+	addedRole, response, err := client.Group.AssignRoleToGroup(ctx, group.Id, role, nil)
 	require.NoError(t, err, "adding role to user must not error")
 
-	response, err = client.Group.AddGroupTargetToGroupAdministratorRoleForGroup(context.TODO(), group.Id, addedRole.Id, group.Id)
+	response, err = client.Group.AddGroupTargetToGroupAdministratorRoleForGroup(ctx, group.Id, addedRole.Id, group.Id)
 	require.NoError(t, err, "list group assignments must not error")
 	require.IsType(t, &okta.Response{}, response, "did not return `*okta.Response` type as second variable")
 	assert.Equal(t, "PUT", response.Response.Request.Method, "did not make a get request")
 	assert.Equal(t, "/api/v1/groups/"+group.Id+"/roles/"+addedRole.Id+"/targets/groups/"+group.Id, response.Response.Request.URL.Path, "path for request was incorrect")
 
-	listRoles, response, err := client.Group.ListGroupTargetsForGroupRole(context.TODO(), group.Id, addedRole.Id, nil)
+	listRoles, response, err := client.Group.ListGroupTargetsForGroupRole(ctx, group.Id, addedRole.Id, nil)
 	require.NoError(t, err, "list group assignments must not error")
 	require.IsType(t, &okta.Response{}, response, "did not return `*okta.Response` type as second variable")
 	require.IsType(t, []*okta.Group{}, listRoles, "did not return `[]*okta.Group` type as first variable")
@@ -450,6 +450,6 @@ func Test_can_list_group_targets_for_the_group_administrator_role_given_to_a_gro
 	assert.NotEmpty(t, listRoles[0].Profile, "profile should not be empty")
 	assert.IsType(t, &okta.GroupProfile{}, listRoles[0].Profile, "profile should be instance of *okta.GroupProfile")
 
-	_, err = client.Group.DeleteGroup(context.TODO(), group.Id)
+	_, err = client.Group.DeleteGroup(ctx, group.Id)
 	require.NoError(t, err, "Should not error when deleting a group")
 }
