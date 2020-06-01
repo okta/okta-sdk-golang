@@ -20,7 +20,7 @@ Running changelog of releases since `2.0.0-rc.4`
 - Update Readme to show how to access `RequestExecutor` (Fixes #83)
 - Fixes Cache EOF (Fixes #103 and Fixes #36)
 - Update all enum objects to `type string` (Fixes #95)
-- Implament Pagination
+- Implement Pagination
 
 ## v2.0.0-rc.4
 - Updated Resource Executor to handle nil pointer dereference (#125, fix suggested by @johanbrandhorst)
