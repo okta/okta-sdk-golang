@@ -32,7 +32,7 @@ func Test_429_Will_Automatically_Retry(t *testing.T) {
 	httpmock.Activate()
 	defer httpmock.DeactivateAndReset()
 
-	client, _ := tests.NewClient(okta.WithCache(false))
+	ctx, client, _ := tests.NewClient(context.TODO(), okta.WithCache(false))
 
 	httpmock.RegisterResponder("GET", "/api/v1/users",
 		tests.MockResponse(
@@ -41,7 +41,7 @@ func Test_429_Will_Automatically_Retry(t *testing.T) {
 		),
 	)
 
-	_, resp, err := client.User.ListUsers(context.TODO(), nil)
+	_, resp, err := client.User.ListUsers(ctx, nil)
 	require.Nil(t, err, "Error should have been nil")
 	require.NotNil(t, resp, "Response was nil")
 
@@ -54,7 +54,7 @@ func Test_Will_Stop_Retrying_Based_On_Max_Retry_Configuration(t *testing.T) {
 	httpmock.Activate()
 	defer httpmock.DeactivateAndReset()
 
-	client, _ := tests.NewClient(okta.WithRequestTimeout(0), okta.WithRateLimitMaxRetries(1))
+	ctx, client, _ := tests.NewClient(context.TODO(), okta.WithRequestTimeout(0), okta.WithRateLimitMaxRetries(1))
 
 	httpmock.RegisterResponder("GET", "/api/v1/users",
 		tests.MockResponse(
@@ -63,7 +63,7 @@ func Test_Will_Stop_Retrying_Based_On_Max_Retry_Configuration(t *testing.T) {
 		),
 	)
 
-	_, _, err := client.User.ListUsers(context.TODO(), nil)
+	_, _, err := client.User.ListUsers(ctx, nil)
 	require.NotNil(t, err, "error was nil, but should have told the user they reached their max retry limit")
 
 	httpmock.GetTotalCallCount()
@@ -77,7 +77,7 @@ func Test_Will_Handle_Backoff_Strategy_For_429(t *testing.T) {
 	httpmock.Activate()
 	defer httpmock.DeactivateAndReset()
 
-	client, _ := tests.NewClient(okta.WithRequestTimeout(1), okta.WithRateLimitMaxRetries(3))
+	ctx, client, _ := tests.NewClient(context.TODO(), okta.WithRequestTimeout(1), okta.WithRateLimitMaxRetries(3))
 
 	httpmock.RegisterResponder("GET", "/api/v1/users",
 		tests.MockResponse(
@@ -88,7 +88,7 @@ func Test_Will_Handle_Backoff_Strategy_For_429(t *testing.T) {
 		),
 	)
 
-	_, _, err := client.User.ListUsers(context.TODO(), nil)
+	_, _, err := client.User.ListUsers(ctx, nil)
 	require.NotNil(t, err, "error was nil, but should have told the user they reached their max retry limit")
 
 	httpmock.GetTotalCallCount()
@@ -101,7 +101,7 @@ func Test_a_429_with_x_reset_header_throws_error(t *testing.T) {
 	httpmock.Activate()
 	defer httpmock.DeactivateAndReset()
 
-	client, _ := tests.NewClient()
+	ctx, client, _ := tests.NewClient(context.TODO())
 
 	httpmock.RegisterResponder("GET", "/api/v1/users",
 		tests.MockResponse(
@@ -109,7 +109,7 @@ func Test_a_429_with_x_reset_header_throws_error(t *testing.T) {
 		),
 	)
 
-	_, _, err := client.User.ListUsers(context.TODO(), nil)
+	_, _, err := client.User.ListUsers(ctx, nil)
 
 	require.NotNil(t, err, "error should not be nil. It should let user know the reset header is required")
 }
@@ -118,7 +118,7 @@ func Test_a_429_with_no_date_header_throws_error(t *testing.T) {
 	httpmock.Activate()
 	defer httpmock.DeactivateAndReset()
 
-	client, _ := tests.NewClient()
+	ctx, client, _ := tests.NewClient(context.TODO())
 
 	httpmock.RegisterResponder("GET", "/api/v1/users",
 		tests.MockResponse(
@@ -126,7 +126,7 @@ func Test_a_429_with_no_date_header_throws_error(t *testing.T) {
 		),
 	)
 
-	_, _, err := client.User.ListUsers(context.TODO(), nil)
+	_, _, err := client.User.ListUsers(ctx, nil)
 
 	require.NotNil(t, err, "error should not be nil. It should let user know the date header is required")
 }

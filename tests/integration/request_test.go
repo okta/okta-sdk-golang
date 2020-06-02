@@ -31,7 +31,7 @@ import (
 func Test_private_key_request_contains_bearer_token(t *testing.T) {
 	var buff io.ReadWriter
 
-	client, _ := tests.NewClient(okta.WithAuthorizationMode("PrivateKey"), okta.WithScopes(([]string{"okta.users.manage"})))
+	_, client, _ := tests.NewClient(context.TODO(), okta.WithAuthorizationMode("PrivateKey"), okta.WithScopes(([]string{"okta.users.manage"})))
 
 	request, _ := client.GetRequestExecutor().NewRequest("GET", "https://example.com/", buff)
 
@@ -40,7 +40,7 @@ func Test_private_key_request_contains_bearer_token(t *testing.T) {
 }
 
 func Test_private_key_request_can_create_a_user(t *testing.T) {
-	client, _ := tests.NewClient(okta.WithAuthorizationMode("PrivateKey"), okta.WithScopes(([]string{"okta.users.manage"})))
+	ctx, client, _ := tests.NewClient(context.TODO(), okta.WithAuthorizationMode("PrivateKey"), okta.WithScopes(([]string{"okta.users.manage"})))
 
 	p := &okta.PasswordCredential{
 		Value: "Abcd1234",
@@ -60,17 +60,17 @@ func Test_private_key_request_can_create_a_user(t *testing.T) {
 
 	qp := query.NewQueryParams(query.WithActivate(false))
 
-	user, _, err := client.User.CreateUser(context.TODO(), *u, qp)
+	user, _, err := client.User.CreateUser(ctx, *u, qp)
 	require.NoError(t, err, "Creating an user should not error")
 	assert.NotEmpty(t, user.Id, "appears the user was not created")
 	tempProfile := *user.Profile
 	assert.Equal(t, "john-private-key@example.com", tempProfile["email"], "did not get the correct user")
 
 	// Deactivate the user → POST /api/v1/users/{{userId}}/lifecycle/deactivate
-	_, err = client.User.DeactivateUser(context.TODO(), user.Id, nil)
+	_, err = client.User.DeactivateUser(ctx, user.Id, nil)
 	require.NoError(t, err, "Should not error when deactivating")
 
 	// Delete the user → DELETE /api/v1/users/{{userId}}
-	_, err = client.User.DeactivateOrDeleteUser(context.TODO(), user.Id, nil)
+	_, err = client.User.DeactivateOrDeleteUser(ctx, user.Id, nil)
 	require.NoError(t, err, "Should not error when deleting")
 }

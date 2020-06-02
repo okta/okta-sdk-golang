@@ -150,6 +150,20 @@ client.GetRequestExecutor().RefreshNext()
 appUserList, _, _ = client.Application.ListApplicationUsers(context.TODO(), appId, nil)
 ```
 
+### Pagination
+If your request comes back with more than the default or set limit, you can request the next page.
+
+Exmaple of listing users 1 at a time:
+```go
+query := query.NewQueryParams(query.WithLimit(1))
+users, resp, err := client.User.ListUsers(ctx, query)
+// Do something with your users until you run out of users to iterate.
+if resp.HasNextPage() {
+  var nextUserSet []*okta.User
+  resp, err = resp.Next(ctx, &nextUserSet)
+}
+```
+
 ## Usage guide
 
 These examples will help you understand how to use this library. You can also browse the full [API reference documentation][sdkapiref].
