@@ -362,19 +362,26 @@ func (r *Response) HasNextPage() bool {
 
 func newResponse(r *http.Response) *Response {
 	response := &Response{Response: r}
-	for _, link := range r.Header.Values("Link") {
-		splitLinkHeader := strings.Split(link, ";")
-		rawLink := strings.TrimRight(strings.TrimLeft(splitLinkHeader[0], "<"), ">")
-		rawUrl, _ := url.Parse(rawLink)
-		rawUrl.Scheme = ""
-		rawUrl.Host = ""
+	links := r.Header["Link"]
 
-		if strings.Contains(link, `rel="self"`) {
-			response.Self = rawUrl.String()
-		}
+	if len(links) > 0 {
+		for _, link := range links {
+			splitLinkHeader := strings.Split(link, ";")
+			if len(splitLinkHeader) < 2 {
+				continue
+			}
+			rawLink := strings.TrimRight(strings.TrimLeft(splitLinkHeader[0], "<"), ">")
+			rawUrl, _ := url.Parse(rawLink)
+			rawUrl.Scheme = ""
+			rawUrl.Host = ""
 
-		if strings.Contains(link, `rel="next"`) {
-			response.NextPage = rawUrl.String()
+			if strings.Contains(link, `rel="self"`) {
+				response.Self = rawUrl.String()
+			}
+
+			if strings.Contains(link, `rel="next"`) {
+				response.NextPage = rawUrl.String()
+			}
 		}
 	}
 

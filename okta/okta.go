@@ -35,7 +35,6 @@ const Version = "2.0.0-rc.5"
 type Client struct {
 	config *config
 
-	RequestExecutor *RequestExecutor
 	requestExecutor *RequestExecutor
 
 	resource resource
@@ -99,7 +98,6 @@ func NewClient(ctx context.Context, conf ...ConfigSetter) (context.Context, *Cli
 	c := &Client{}
 	c.config = config
 	c.requestExecutor = NewRequestExecutor(&config.HttpClient, oktaCache, config)
-	c.RequestExecutor = NewRequestExecutor(&config.HttpClient, oktaCache, config)
 
 	c.resource.client = c
 
