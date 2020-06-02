@@ -340,10 +340,51 @@ func Get429BackoffTime(ctx context.Context, response *http.Response) int64 {
 
 type Response struct {
 	*http.Response
+	Self     string
+	NextPage string
+}
+
+func (r *Response) Next(ctx context.Context, v interface{}) (*Response, error) {
+	client, _ := ClientFromContext(ctx)
+
+	req, err := client.requestExecutor.WithAccept("application/json").WithContentType("application/json").NewRequest("GET", r.NextPage, nil)
+	if err != nil {
+		return nil, err
+	}
+
+	return client.requestExecutor.Do(ctx, req, v)
+
+}
+
+func (r *Response) HasNextPage() bool {
+	return r.NextPage != ""
 }
 
 func newResponse(r *http.Response) *Response {
 	response := &Response{Response: r}
+	links := r.Header["Link"]
+
+	if len(links) > 0 {
+		for _, link := range links {
+			splitLinkHeader := strings.Split(link, ";")
+			if len(splitLinkHeader) < 2 {
+				continue
+			}
+			rawLink := strings.TrimRight(strings.TrimLeft(splitLinkHeader[0], "<"), ">")
+			rawUrl, _ := url.Parse(rawLink)
+			rawUrl.Scheme = ""
+			rawUrl.Host = ""
+
+			if strings.Contains(link, `rel="self"`) {
+				response.Self = rawUrl.String()
+			}
+
+			if strings.Contains(link, `rel="next"`) {
+				response.NextPage = rawUrl.String()
+			}
+		}
+	}
+
 	return response
 }
 

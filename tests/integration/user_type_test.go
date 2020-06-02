@@ -28,7 +28,7 @@ import (
 )
 
 func Test_can_create_user_type(t *testing.T) {
-	client, _ := tests.NewClient()
+	ctx, client, _ := tests.NewClient(context.TODO())
 
 	ut := okta.UserType{
 		Description: "My Custom User Type",
@@ -36,21 +36,21 @@ func Test_can_create_user_type(t *testing.T) {
 		Name:        "userTypeName",
 	}
 
-	userType, response, err := client.UserType.CreateUserType(context.TODO(), ut)
+	userType, response, err := client.UserType.CreateUserType(ctx, ut)
 	require.NoError(t, err, "creating a user type should not error")
 	tests.Assert_response(t, response, "POST", "/api/v1/meta/types/user")
 
 	assert_user_type_model(t, userType)
 
-	_, err = client.UserType.DeleteUserType(context.TODO(), userType.Id)
+	_, err = client.UserType.DeleteUserType(ctx, userType.Id)
 	require.NoError(t, err, "deleting a user type should not error")
 
 }
 
 func Test_can_list_user_types(t *testing.T) {
-	client, _ := tests.NewClient()
+	ctx, client, _ := tests.NewClient(context.TODO())
 
-	userTypes, response, err := client.UserType.ListUserTypes(context.TODO())
+	userTypes, response, err := client.UserType.ListUserTypes(ctx)
 	require.NoError(t, err, "creating a user type should not error")
 	tests.Assert_response(t, response, "GET", "/api/v1/meta/types/user")
 

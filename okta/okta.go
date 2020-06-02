@@ -19,6 +19,7 @@
 package okta
 
 import (
+	"context"
 	"fmt"
 	"io/ioutil"
 	"os/user"
@@ -60,7 +61,10 @@ type resource struct {
 	client *Client
 }
 
-func NewClient(conf ...ConfigSetter) (*Client, error) {
+type clientContextKey struct {
+}
+
+func NewClient(ctx context.Context, conf ...ConfigSetter) (context.Context, *Client, error) {
 	config := &config{}
 
 	setConfigDefaults(config)
@@ -113,7 +117,15 @@ func NewClient(conf ...ConfigSetter) (*Client, error) {
 	c.TrustedOrigin = (*TrustedOriginResource)(&c.resource)
 	c.User = (*UserResource)(&c.resource)
 	c.UserFactor = (*UserFactorResource)(&c.resource)
-	return c, nil
+
+	contextReturn := context.WithValue(ctx, clientContextKey{}, c)
+
+	return contextReturn, c, nil
+}
+
+func ClientFromContext(ctx context.Context) (*Client, bool) {
+	u, ok := ctx.Value(clientContextKey{}).(*Client)
+	return u, ok
 }
 
 func (c *Client) GetConfig() *config {

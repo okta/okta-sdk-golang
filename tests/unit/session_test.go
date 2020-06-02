@@ -32,7 +32,7 @@ func Test_Create_Session(t *testing.T) {
 	httpmock.Activate()
 	defer httpmock.DeactivateAndReset()
 
-	client, _ := tests.NewClient(okta.WithCache(false))
+	ctx, client, _ := tests.NewClient(context.TODO(), okta.WithCache(false))
 
 	httpmock.RegisterResponder("POST", "/api/v1/sessions",
 		tests.MockResponse(
@@ -44,7 +44,7 @@ func Test_Create_Session(t *testing.T) {
 		SessionToken: "abc123",
 	}
 
-	_, resp, err := client.Session.CreateSession(context.TODO(), csr)
+	_, resp, err := client.Session.CreateSession(ctx, csr)
 	require.Nil(t, err, "Error should have been nil")
 	require.NotNil(t, resp, "Response was nil")
 
