@@ -2,7 +2,7 @@
 Running changelog of releases since `2.0.0-rc.4`
 
 ## v2.0.0
-- Official Release of v2 Okta Golang SDK
+- Official Release of v2 Okta Golang SDK (June 4, 2020)
 
 ## v2.0.0-rc.5
 - Remove `PreviewSamlMetadataForApplication` method from `ApplicationResource`
