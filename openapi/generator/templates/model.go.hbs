@@ -3,7 +3,7 @@
 package okta
 
 {{#if (eq model.modelName "UserProfile")}}
-type UserProfile map[string]interface{}
+type {{model.modelName}} map[string]interface{}
 {{else}}
 {{> model.imports this}}
 
@@ -14,8 +14,9 @@ type App interface {
 
 {{/if}}
 
-{{#if (eq model.modelName "Factor")}}
-type UserFactor interface {
+{{#if (eq model.modelName "UserFactor")}}
+{{log model.modelName }}
+type Factor interface {
 	IsUserFactorInstance() bool
 }
 
@@ -26,11 +27,15 @@ type {{model.modelName}}Resource resource
 {{/if}}
 {{#if (eq model.modelName "ApplicationSettingsApplication")}}
 type {{model.modelName}} map[string]interface{}
+{{else if model.enum}}
+type {{model.modelName}} string
 {{else}}
 type {{model.modelName}} struct {
 	{{{buildModelProperties model}}}
 }
 {{/if}}
+{{#if model.enum}}
+{{else}}
 {{#if (or ( eq model.tags.[0] "Application" ) ( eq model.tags.[0] "UserFactor") ) }}
 func New{{model.modelName}}() *{{model.modelName}} {
 	return &{{model.modelName}}{
@@ -50,7 +55,8 @@ func (a *{{model.modelName}}) Is{{model.tags.[0]}}Instance() bool {
 }
 
 {{/if}}
+{{/if}}
 {{#each operations as |operation|}}
-{{> model.defaultMethod  operation=operation modelName=../model.modelName}}
+{{> model.defaultMethod  operation=operation alias=alias modelName=../model.modelName}}
 {{/each}}
 {{/if}}

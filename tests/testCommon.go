@@ -20,14 +20,17 @@ import (
 	"context"
 	"fmt"
 	"net/http"
+	"testing"
 
 	"github.com/jarcoal/httpmock"
+	"github.com/stretchr/testify/assert"
+	"github.com/stretchr/testify/require"
 
-	"github.com/okta/okta-sdk-golang/okta"
+	"github.com/okta/okta-sdk-golang/v2/okta"
 )
 
-func NewClient(conf ...okta.ConfigSetter) (*okta.Client, error) {
-	return okta.NewClient(context.Background(), conf...)
+func NewClient(ctx context.Context, conf ...okta.ConfigSetter) (context.Context, *okta.Client, error) {
+	return okta.NewClient(ctx, conf...)
 }
 
 func MockResponse(responses ...*http.Response) httpmock.Responder {
@@ -42,4 +45,10 @@ func MockResponse(responses ...*http.Response) httpmock.Responder {
 
 		return nil, fmt.Errorf("no response found for call %v to %s", count, req.URL.Path)
 	}
+}
+
+func Assert_response(t *testing.T, response *okta.Response, requestMethod string, requestPath string) {
+	require.IsType(t, &okta.Response{}, response, "did not return `*okta.Response` type as second variable")
+	assert.Equal(t, requestMethod, response.Response.Request.Method, "did not make a requestMethod request")
+	assert.Equal(t, requestPath, response.Response.Request.URL.Path, "path for request was incorrect")
 }

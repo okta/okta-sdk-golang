@@ -40,6 +40,7 @@ function getType(obj, prefix="") {
     case '':
     case 'null' :
     case 'password' :
+    case 'binary' :
       return String.raw`string`;
     case 'double':
       return String.raw`float64`;
@@ -57,12 +58,38 @@ function getType(obj, prefix="") {
   }
 }
 
-function lowercaseFirstLetter(string) {
-  return string.charAt(0).toLowerCase() + string.slice(1);
+function lowercaseFirstLetter(text) {
+  // Only works for standard english characters
+  const isSingleCap = /^[A-Z][^A-Z]/;
+  const isAllCap = /^[A-Z]*$/;
+  const isMultiCap = /^[A-Z]{2,}/;
+  if(text.match(isSingleCap)) {
+    return text.charAt(0).toLowerCase() + text.slice(1);
+  } else if(text.match(isAllCap)) {
+    return text.toLowerCase();
+  } else if(text.match(isMultiCap)) {
+    return text.replace(/^([A-Z]*)([A-Z])/, function(match, leading, keep, offset, remaining) {
+      return leading.toLowerCase() + keep;
+    });
+  } else {
+    return text;
+  }
 }
 
-function ucFirst(string) {
-  return string.charAt(0).toUpperCase() + string.slice(1);
+function ucFirst(text) {
+	switch(text) {
+  	case 'csr':
+    	return 'CSR';
+    case 'csrMetadata':
+    	return 'CSRMetadata';
+    case 'csrMetadataSubject':
+    	return 'CSRMetadataSubject';
+    case 'csrMetadataSubjectAltNames':
+    	return 'CSRMetadataSubjectAllNames';
+  	default:
+      return text.charAt(0).toUpperCase() + text.slice(1);
+  }
+
 }
 
 function strToUpper(string) {
@@ -107,13 +134,23 @@ function getImports(object) {
     }
   }
 
+  if (object.operations !== undefined) {
+    for (let operation in object.operations) {
+      if(object.operations[operation].queryParams.length) {
+        imports.push("github.com/okta/okta-sdk-golang/v2/okta/query")
+        imports.push("context");
+      }
+    }
+  }
 
   if (object.model.methods !== undefined) {
     for (let method of object.model.methods) {
+
       if(method.operation.queryParams.length) {
-        imports.push("github.com/okta/okta-sdk-golang/okta/query")
+        imports.push("github.com/okta/okta-sdk-golang/v2/okta/query")
       }
       imports.push("fmt");
+      imports.push("context");
       if (method.operation.responseModel !== undefined) {
         imports.push("fmt");
       }
@@ -127,9 +164,10 @@ function getImports(object) {
   if (object.model.crud !== undefined) {
     for (let method of object.model.crud) {
       if(method.operation.queryParams.length) {
-        imports.push("github.com/okta/okta-sdk-golang/okta/query")
+        imports.push("github.com/okta/okta-sdk-golang/v2/okta/query")
       }
       imports.push("fmt");
+      imports.push("context");
       if (method.operation.responseModel !== undefined) {
         imports.push("fmt");
       }
@@ -141,7 +179,6 @@ function getImports(object) {
   }
 
   if (object.model.modelName === "LogEvent") {
-    imports.push("github.com/okta/okta-sdk-golang/okta/query")
     imports.push("fmt")
   }
 
@@ -153,6 +190,8 @@ function getImports(object) {
 function operationArgumentBuilder(operation) {
   const args = [];
 
+  args.push("ctx context.Context");
+
   operation.pathParams.map((arg) => args.push(arg.name + " " + arg.type));
 
   if ((operation.method === 'post' || operation.method === 'put') && operation.bodyModel) {
@@ -162,8 +201,12 @@ function operationArgumentBuilder(operation) {
       bodyModel = "App";
     }
 
-    if(bodyModel === "Factor") {
-      bodyModel = "UserFactor";
+    if(bodyModel === "UserFactor") {
+      bodyModel = "Factor";
+    }
+
+    if(bodyModel === "String") {
+      bodyModel = "string";
     }
 
     args.push(`body ` + bodyModel);
@@ -173,8 +216,10 @@ function operationArgumentBuilder(operation) {
     args.push(`appInstance App`);
   }
 
-  if(operation.operationId === "getFactor") {
-    args.push(`factorInstance UserFactor`);
+  if(operation.operationId === "getFactor" ||
+      operation.operationId === "activateFactor" ||
+      operation.operationId === "verifyFactor") {
+    args.push(`factorInstance Factor`);
   }
 
   if (operation.queryParams.length) {
@@ -205,15 +250,15 @@ function returnType(operation) {
   if ( operation.responseModel !== undefined ) {
     let responseModel = "*" +operation.responseModel
     if ( responseModel === "*Application" ) {
-      if ( operation.operationId === "listApplications") {
+      if ( applicationModelInterface ) {
         responseModel = "App"
       } else {
         responseModel = "interface{}"
       }
     }
-    if ( responseModel === "*Factor" ) {
-      if ( operation.operationId === "listFactors") {
-        responseModel = "UserFactor"
+    if ( responseModel === "*UserFactor" ) {
+      if ( factorModelInterface ) {
+        responseModel = "Factor"
       } else {
         responseModel = "interface{}"
       }
@@ -223,6 +268,7 @@ function returnType(operation) {
     }
     return " (" + responseModel + ", *Response, error) ";
   }
+
   return " (*Response, error) ";
 }
 
@@ -240,17 +286,44 @@ function getClientTags(operations) {
 }
 
 function responseModelInterface(operationId) {
- return operationId ===  "listApplications" ||
-    operationId === "listSupportedFactors" ||
-    operationId === "listFactors";
+  return operationId === "listFactors" ||
+         operationId === "listSupportedFactors" ||
+         operationId === "listApplications" ||
+         operationId === "listAppTargetsForRole" ||
+         operationId === "listApplicationTargetsForApplicationAdministratorRoleForGroup" ||
+         operationId === "listApplicationTargetsForApplicationAdministratorRoleForUser" ||
+         operationId === "listAssignedApplicationsForGroup" ||
+         operationId === "listAssignedApplicationsForUser";
+ }
 
+ function applicationModelInterface(operationId) {
+  return operationId === "listApplications" ||
+         operationId === "listAppTargetsForRole" ||
+         operationId === "listApplicationTargetsForApplicationAdministratorRoleForGroup" ||
+         operationId === "listApplicationTargetsForApplicationAdministratorRoleForUser" ||
+         operationId === "listAssignedApplicationsForGroup" ||
+         operationId === "listAssignedApplicationsForUser";
+}
+
+function factorModelInterface(operationId) {
+  return operationId === "listFactors" ||
+         operationId === "listSupportedFactors";
+}
+
+function factorInstanceOperation(operationId) {
+  return operationId === "getFactor" ||
+         operationId === "activateFactor" ||
+         operationId === "verifyFactor";
 }
 
 function getClientTagResources(operations) {
   let tags = getClientTags(operations);
   let tagResources = []
   for (let tag of tags) {
-    if (tag === "UserFactor") tag = "Factor";
+    if (tag === "AuthServer") tag = "AuthorizationServer";
+    if (tag === "Template") tag = "SmsTemplate";
+    if (tag === "Idp") tag = "IdpTrust";
+    if (tag === "UserFactor") tag = "UserFactor";
     if (tag === "Log") tag = "LogEvent";
     tagResources.push(structProp(tag) + " *" + structProp(tag) + "Resource")
   }
@@ -261,7 +334,10 @@ function getNewClientTagProps(operations) {
   let tags = getClientTags(operations);
   let tagResources = []
   for (let tag of tags) {
-    if (tag === "UserFactor") tag = "Factor";
+    if (tag === "AuthServer") tag = "AuthorizationServer";
+    if (tag === "Template") tag = "SmsTemplate";
+    if (tag === "Idp") tag = "IdpTrust";
+    if (tag === "UserFactor") tag = "UserFactor";
     if (tag === "Log") tag = "LogEvent";
     tagResources.push("c." + structProp(tag) + " = (*" + structProp(tag) + "Resource)(&c.resource)")
   }
@@ -354,6 +430,7 @@ golang.process = ({ spec, operations, models, handlebars }) => {
 
       if(model.parent.resolutionStrategy !== undefined && model.parent.parent == undefined) {
         for (let value in model.parent.resolutionStrategy.valueToModelMapping) {
+          if(model.modelName)
           if (model.parent.resolutionStrategy.valueToModelMapping[value] === model.modelName) {
             model.resolution = {fieldName: model.parent.resolutionStrategy.propertyName, fieldValue: value};
           }
@@ -376,14 +453,15 @@ golang.process = ({ spec, operations, models, handlebars }) => {
 
     for (let operation of operations) {
       let tag = operation.tags[0];
-      if (tag === "UserFactor" ) tag = "Factor";
+      if (tag === "AuthServer") tag = "AuthorizationServer";
+      if (tag === "Template") tag = "SmsTemplate";
+      if (tag === "Idp") tag = "IdpTrust";
+      if (tag === "UserFactor" ) tag = "UserFactor";
       if (tag === "Log" ) tag = "LogEvent";
       if (tag == model.modelName) {
         modelOperations[operation.operationId] = operation;
       }
     }
-
-
 
     templates.push({
       src: 'templates/model.go.hbs',
@@ -410,7 +488,10 @@ golang.process = ({ spec, operations, models, handlebars }) => {
     getClientTagResources,
     getNewClientTagProps,
     buildModelProperties,
-    responseModelInterface
+    responseModelInterface,
+    applicationModelInterface,
+    factorModelInterface,
+    factorInstanceOperation
   });
 
   handlebars.registerPartial('partials.copyHeader', fs.readFileSync('generator/templates/partials/copyHeader.hbs', 'utf8'));

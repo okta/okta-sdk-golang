@@ -2,9 +2,10 @@
 # yarn lockfile v1
 
 
-"@okta/openapi@^1.0.0":
-  version "1.11.1"
-  resolved "https://registry.yarnpkg.com/@okta/openapi/-/openapi-1.11.1.tgz#09869f74c90f1ac5dd85bf216245aad302932f2b"
+"@okta/openapi@^1.11.2":
+  version "1.11.2"
+  resolved "https://registry.yarnpkg.com/@okta/openapi/-/openapi-1.11.2.tgz#3898061abd7f3891725dc58b2f7b969ca75d804c"
+  integrity sha512-sQ1katXkeXHg9X9yzf672XUE0gi5RXCf9e92wi86mc8C1So50cM2mF5WWxr1wLEp+Fkznn8I/0pd8Sa5RgPVIw==
   dependencies:
     commander "2.9.0"
     fs-extra "3.0.1"

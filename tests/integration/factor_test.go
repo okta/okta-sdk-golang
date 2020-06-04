@@ -17,22 +17,23 @@
 package integration
 
 import (
+	"context"
 	"testing"
 
-	"github.com/okta/okta-sdk-golang/okta"
-	"github.com/okta/okta-sdk-golang/okta/query"
-	"github.com/okta/okta-sdk-golang/tests"
+	"github.com/okta/okta-sdk-golang/v2/okta"
+	"github.com/okta/okta-sdk-golang/v2/okta/query"
+	"github.com/okta/okta-sdk-golang/v2/tests"
 	"github.com/stretchr/testify/assert"
 	"github.com/stretchr/testify/require"
 )
 
 func Test_exercise_factor_lifecycle(t *testing.T) {
-	client, _ := tests.NewClient()
+	ctx, client, _ := tests.NewClient(context.TODO())
 
-	user, _, err := client.User.GetUser("john-factor-lifecycle@example.com")
+	user, _, err := client.User.GetUser(ctx, "john-factor-lifecycle@example.com")
 	if user != nil {
-		client.User.DeactivateUser(user.Id, nil)
-		client.User.DeactivateOrDeleteUser(user.Id, nil)
+		client.User.DeactivateUser(ctx, user.Id, nil)
+		client.User.DeactivateOrDeleteUser(ctx, user.Id, nil)
 	}
 
 	p := &okta.PasswordCredential{
@@ -46,48 +47,48 @@ func Test_exercise_factor_lifecycle(t *testing.T) {
 	profile["lastName"] = "Factor-Lifecycle"
 	profile["email"] = "john-factor-lifecycle@example.com"
 	profile["login"] = "john-factor-lifecycle@example.com"
-	u := &okta.User{
+	u := &okta.CreateUserRequest{
 		Credentials: uc,
 		Profile:     &profile,
 	}
 	qp := query.NewQueryParams(query.WithActivate(false))
 
-	user, _, err = client.User.CreateUser(*u, qp)
+	user, _, err = client.User.CreateUser(ctx, *u, qp)
 	require.NoError(t, err, "Creating an user should not error")
 
-	allowedFactors, _, _ := client.Factor.ListSupportedFactors(user.Id)
+	allowedFactors, _, _ := client.UserFactor.ListSupportedFactors(ctx, user.Id)
 	continueTesting := false
 	for _, f := range allowedFactors {
-		if f.(map[string]interface{})["factorType"] == "sms" {
+		if f.(*okta.UserFactor).FactorType == "sms" {
 			continueTesting = true
 		}
 	}
 
 	if continueTesting {
-		factors, _, listFactorsError := client.Factor.ListFactors(user.Id)
+		factors, _, listFactorsError := client.UserFactor.ListFactors(ctx, user.Id)
 		require.NoError(t, listFactorsError, "Should not error when listing factors")
 
 		assert.Empty(t, factors, "Factors list should be empty")
 
-		factorProfile := okta.NewSmsFactorProfile()
+		factorProfile := okta.NewSmsUserFactorProfile()
 		factorProfile.PhoneNumber = "16284001133"
 
-		factor := okta.NewSmsFactor()
+		factor := okta.NewSmsUserFactor()
 		factor.Profile = factorProfile
 
-		addedFactor, resp, err := client.Factor.AddFactor(user.Id, factor, nil)
+		addedFactor, resp, err := client.UserFactor.EnrollFactor(ctx, user.Id, factor, nil)
 		require.NotEmpty(t, resp, "Response should not be empty")
 		require.NoError(t, err, "Adding factor should not error")
-		assert.IsType(t, okta.NewSmsFactor(), addedFactor)
+		assert.IsType(t, okta.NewUserFactor(), addedFactor)
 
-		foundFactor, _, err := client.Factor.GetFactor(user.Id, addedFactor.(*okta.SmsFactor).Id, okta.NewSmsFactor())
+		foundFactor, _, err := client.UserFactor.GetFactor(ctx, user.Id, addedFactor.(*okta.UserFactor).Id, okta.NewSmsUserFactor())
 		require.NoError(t, err, "Getting the factor should not error")
 
-		client.Factor.DeleteFactor(user.Id, foundFactor.(*okta.SmsFactor).Id)
+		client.UserFactor.DeleteFactor(ctx, user.Id, foundFactor.(*okta.UserFactor).Id)
 	} else {
 		t.Skip("Skipping exercise factor lifecycle testing. SMS factor was not enabled")
 	}
 
-	client.User.DeactivateUser(user.Id, nil)
-	client.User.DeactivateOrDeleteUser(user.Id, nil)
+	client.User.DeactivateUser(ctx, user.Id, nil)
+	client.User.DeactivateOrDeleteUser(ctx, user.Id, nil)
 }

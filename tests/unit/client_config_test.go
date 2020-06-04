@@ -17,82 +17,83 @@
 package unit
 
 import (
+	"context"
 	"testing"
 
-	"github.com/okta/okta-sdk-golang/okta"
+	"github.com/okta/okta-sdk-golang/v2/okta"
 
-	"github.com/okta/okta-sdk-golang/tests"
+	"github.com/okta/okta-sdk-golang/v2/tests"
 	"github.com/stretchr/testify/assert"
 )
 
 func Test_panic_on_empty_url(t *testing.T) {
 	assert.Panics(t, func() {
-		_, _ = tests.NewClient(okta.WithOrgUrl(""))
+		_, _, _ = tests.NewClient(context.TODO(), okta.WithOrgUrl(""))
 	}, "Does not panic when org url is missing")
 }
 
 func Test_panic_when_url_contains_yourOktaDomain(t *testing.T) {
 	assert.Panics(t, func() {
-		_, _ = tests.NewClient(okta.WithOrgUrl("https://{yourOktaDomain}"))
+		_, _, _ = tests.NewClient(context.TODO(), okta.WithOrgUrl("https://{yourOktaDomain}"))
 	}, "Does not panic when org url contains {yourOktaDomain}")
 }
 
 func Test_panic_when_url_contains_admin_okta_com(t *testing.T) {
 	assert.Panics(t, func() {
-		_, _ = tests.NewClient(okta.WithOrgUrl("https://test-admin.okta.com"))
+		_, _, _ = tests.NewClient(context.TODO(), okta.WithOrgUrl("https://test-admin.okta.com"))
 	}, "Does not panic when org url contains test-admin.okta.com")
 }
 
 func Test_panic_when_url_contains_admin_oktapreview_com(t *testing.T) {
 	assert.Panics(t, func() {
-		_, _ = tests.NewClient(okta.WithOrgUrl("https://test-admin.oktapreview.com"))
+		_, _, _ = tests.NewClient(context.TODO(), okta.WithOrgUrl("https://test-admin.oktapreview.com"))
 	}, "Does not panic when org url contains test-admin.oktapreview.com")
 }
 
 func Test_panic_when_url_contains_admin_okta_emea_com(t *testing.T) {
 	assert.Panics(t, func() {
-		_, _ = tests.NewClient(okta.WithOrgUrl("https://test-admin.okta-emea.com"))
+		_, _, _ = tests.NewClient(context.TODO(), okta.WithOrgUrl("https://test-admin.okta-emea.com"))
 	}, "Does not panic when org url contains test-admin.okta-emea.com")
 }
 
 func Test_panic_when_url_contains_com_com(t *testing.T) {
 	assert.Panics(t, func() {
-		_, _ = tests.NewClient(okta.WithOrgUrl("https://test.okta.com.com"))
+		_, _, _ = tests.NewClient(context.TODO(), okta.WithOrgUrl("https://test.okta.com.com"))
 	}, "Does not panic when org url contains .com.com")
 }
 
 func Test_panic_when_url_does_not_begin_with_https(t *testing.T) {
 	assert.Panics(t, func() {
-		_, _ = tests.NewClient(okta.WithTestingDisableHttpsCheck(false), okta.WithOrgUrl("http://test.okta.com"))
+		_, _, _ = tests.NewClient(context.TODO(), okta.WithTestingDisableHttpsCheck(false), okta.WithOrgUrl("http://test.okta.com"))
 	}, "Does not panic when url contains only http")
 }
 
 func Test_panic_when_api_token_is_empty(t *testing.T) {
 	assert.Panics(t, func() {
-		_, _ = tests.NewClient(okta.WithToken(""))
+		_, _, _ = tests.NewClient(context.TODO(), okta.WithToken(""))
 	}, "Does not panic when api token is empty")
 }
 
 func Test_panic_when_api_token_contains_placeholder(t *testing.T) {
 	assert.Panics(t, func() {
-		_, _ = tests.NewClient(okta.WithToken("{apiToken}"))
+		_, _, _ = tests.NewClient(context.TODO(), okta.WithToken("{apiToken}"))
 	}, "Does not panic when api token contains {apiToken}")
 }
 
 func Test_panic_when_authorization_mode_is_not_valid(t *testing.T) {
 	assert.Panics(t, func() {
-		_, _ = tests.NewClient(okta.WithAuthorizationMode("invalid"))
+		_, _, _ = tests.NewClient(context.TODO(), okta.WithAuthorizationMode("invalid"))
 	}, "Does not panic when authorization mode is invalid")
 }
 
 func Test_does_not_panic_when_authorization_mode_is_valid(t *testing.T) {
 	assert.NotPanics(t, func() {
-		_, _ = tests.NewClient(okta.WithAuthorizationMode("SSWS"))
+		_, _, _ = tests.NewClient(context.TODO(), okta.WithAuthorizationMode("SSWS"))
 	}, "Should not panic when authorization mode is SSWS")
 }
 
 func Test_will_panic_if_private_key_authorization_type_with_missing_properties(t *testing.T) {
 	assert.Panics(t, func() {
-		_, _ = tests.NewClient(okta.WithAuthorizationMode("PrivateKey"), okta.WithClientId(""))
+		_, _, _ = tests.NewClient(context.TODO(), okta.WithAuthorizationMode("PrivateKey"), okta.WithClientId(""))
 	}, "Does not panic if private key selected with no other required options")
 }

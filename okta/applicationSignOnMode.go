@@ -20,13 +20,4 @@ package okta
 
 import ()
 
-type ApplicationSignOnMode struct {
-}
-
-func NewApplicationSignOnMode() *ApplicationSignOnMode {
-	return &ApplicationSignOnMode{}
-}
-
-func (a *ApplicationSignOnMode) IsApplicationInstance() bool {
-	return true
-}
+type ApplicationSignOnMode string

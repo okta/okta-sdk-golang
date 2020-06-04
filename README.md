@@ -1,6 +1,5 @@
 [<img src="https://devforum.okta.com/uploads/oktadev/original/1X/bf54a16b5fda189e4ad2706fb57cbb7a1e5b8deb.png" align="right" width="256px"/>](https://devforum.okta.com/)
 [![Build Status](https://img.shields.io/travis/okta/okta-sdk-golang.svg?logo=travis)](https://travis-ci.org/okta/okta-sdk-golang)
-![Beta Release](https://img.shields.io/badge/Beta-Unstable-yellow.svg)
 [![License](https://img.shields.io/github/license/okta/okta-sdk-golang.svg)](https://opensource.org/licenses/Apache-2.0)
 [![Support](https://img.shields.io/badge/support-Developer%20Forum-blue.svg)][devforum]
 [![API Reference](https://img.shields.io/badge/docs-reference-lightgrey.svg)][sdkapiref]
@@ -51,10 +50,10 @@ If you run into problems using the SDK, you can
 
 To install the Okta Golang SDK in your project:
 
-Version 2.x
-run `go get github.com/okta/okta-sdk-golang/okta.v2`
+Version 2.x (Pre-Release)
+run `go get github.com/okta/okta-sdk-golang/v2/okta`
 
-Version 1.x (Deprecated)
+Version 1.x (Release)
 run `go get github.com/okta/okta-sdk-golang/okta`
 
 You'll also need
@@ -69,6 +68,18 @@ client := okta.NewClient(context, okta.WithOrgUrl("https://{yourOktaDomain}"), o
 ```
 
 Hard-coding the Okta domain and API token works for quick tests, but for real projects you should use a more secure way of storing these values (such as environment variables). This library supports a few different configuration sources, covered in the [configuration reference](#configuration-reference) section.
+
+## Upgrading to 2.0.x
+The main purpose of this version is to include all documented, application/json endpoints
+to the SDK. During this update we have made many changes to method names, as well as method signatures.
+
+### Context
+Every method that calls the API now has the ability to pass `context.Context` to it as the first parameter. If you do not have a context or do not know which context to use, you can pass `context.TODO()` to the methods.
+
+### Method changes
+We have spent time during this update making sure we become a little more uniform with naming of methods. This will require you to update some of your calls to the SDK with the new names.
+
+All methods now specify the `Accept` and `Content-Type` headers when creating a new request. This allows for future use of the SDK to handle multiple `Accept` types.
 
 ### OAuth 2.0
 
@@ -122,6 +133,34 @@ func (c CustomCacheDriver) Clear() {}
 
 func (c CustomCacheDriver) Has(key string) bool {
 	return false
+}
+```
+
+### Refreshing Cache for Specific Call
+If you have an issue where you do a `GET`, then a `DELETE`, and then re-issue a `GET` to the original endpoint, you may have an issue with the cache returning with the deleted resource. An example of this is listing applicaiton users, delete and application user, and them listing them again.
+
+You can solve this by running `client.GetRequestExecutor().RefreshNext()` before your second `ListApplicationUsers` call, which will tell the call to delete the cache for this endpoint and make a new call.
+
+```go
+appUserList, _, _ = client.Application.ListApplicationUsers(context.TODO(), appId, nil)
+
+client.Application.DeleteApplicationUser(context.TODO(), appId, appUser.Id, nil)
+
+client.GetRequestExecutor().RefreshNext()
+appUserList, _, _ = client.Application.ListApplicationUsers(context.TODO(), appId, nil)
+```
+
+### Pagination
+If your request comes back with more than the default or set limit, you can request the next page.
+
+Exmaple of listing users 1 at a time:
+```go
+query := query.NewQueryParams(query.WithLimit(1))
+users, resp, err := client.User.ListUsers(ctx, query)
+// Do something with your users until you run out of users to iterate.
+if resp.HasNextPage() {
+  var nextUserSet []*okta.User
+  resp, err = resp.Next(ctx, &nextUserSet)
 }
 ```
 
@@ -373,6 +412,15 @@ if err != nil {
 return authServer, resp, nil
 ```
 
+### Access Request Executor
+If you need to gain access to the request executor, we have provided a method off the `Client` to do so.
+
+```go
+re := client.GetRequestExecutor()
+```
+
+Doing this will provide you with the ability to create your own requests for the Okta API and call the `Do` method that handles all of the headers for you based on the configuration.
+
 ## Configuration reference
 
 This library looks for configuration in the following sources:
@@ -446,11 +494,11 @@ In most cases, you won't need to build the SDK from source. If you want to build
 
 ## Contributing
 
-We're happy to accept contributions and PRs! Please see the [contribution guide](contributing.md) to understand how to structure a contribution.
+We're happy to accept contributions and PRs! Please see the [contribution guide](/okta/okta-sdk-golang/blob/master/CONTRIBUTING.md) to understand how to structure a contribution.
 
 
 [devforum]: https://devforum.okta.com/
 [sdkapiref]: https://godoc.org/github.com/okta/okta-sdk-golang/okta
-[lang-landing]: https://developer.okta.com/code/golang/
-[github-issues]: /issues
-[github-releases]: /releases
+[lang-landing]: https://developer.okta.com/code/go/
+[github-issues]: /okta/okta-sdk-golang/issues
+[github-releases]: /okta/okta-sdk-golang/releases

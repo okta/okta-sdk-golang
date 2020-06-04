@@ -24,13 +24,13 @@ import (
 	"io/ioutil"
 	"os/user"
 
-	"github.com/okta/okta-sdk-golang/okta/cache"
+	"github.com/okta/okta-sdk-golang/v2/okta/cache"
 
 	"github.com/go-yaml/yaml"
 	"github.com/kelseyhightower/envconfig"
 )
 
-const Version = "1.1.0"
+const Version = "2.0.0-rc.5"
 
 type Client struct {
 	config *config
@@ -39,20 +39,32 @@ type Client struct {
 
 	resource resource
 
-	Application *ApplicationResource
-	Group       *GroupResource
-	LogEvent    *LogEventResource
-	Policy      *PolicyResource
-	Session     *SessionResource
-	User        *UserResource
-	Factor      *FactorResource
+	Application         *ApplicationResource
+	AuthorizationServer *AuthorizationServerResource
+	EventHook           *EventHookResource
+	Feature             *FeatureResource
+	Group               *GroupResource
+	IdentityProvider    *IdentityProviderResource
+	InlineHook          *InlineHookResource
+	LogEvent            *LogEventResource
+	LinkedObject        *LinkedObjectResource
+	UserType            *UserTypeResource
+	Policy              *PolicyResource
+	Session             *SessionResource
+	SmsTemplate         *SmsTemplateResource
+	TrustedOrigin       *TrustedOriginResource
+	User                *UserResource
+	UserFactor          *UserFactorResource
 }
 
 type resource struct {
 	client *Client
 }
 
-func NewClient(ctx context.Context, conf ...ConfigSetter) (*Client, error) {
+type clientContextKey struct {
+}
+
+func NewClient(ctx context.Context, conf ...ConfigSetter) (context.Context, *Client, error) {
 	config := &config{}
 
 	setConfigDefaults(config)
@@ -90,13 +102,30 @@ func NewClient(ctx context.Context, conf ...ConfigSetter) (*Client, error) {
 	c.resource.client = c
 
 	c.Application = (*ApplicationResource)(&c.resource)
+	c.AuthorizationServer = (*AuthorizationServerResource)(&c.resource)
+	c.EventHook = (*EventHookResource)(&c.resource)
+	c.Feature = (*FeatureResource)(&c.resource)
 	c.Group = (*GroupResource)(&c.resource)
+	c.IdentityProvider = (*IdentityProviderResource)(&c.resource)
+	c.InlineHook = (*InlineHookResource)(&c.resource)
 	c.LogEvent = (*LogEventResource)(&c.resource)
+	c.LinkedObject = (*LinkedObjectResource)(&c.resource)
+	c.UserType = (*UserTypeResource)(&c.resource)
 	c.Policy = (*PolicyResource)(&c.resource)
 	c.Session = (*SessionResource)(&c.resource)
+	c.SmsTemplate = (*SmsTemplateResource)(&c.resource)
+	c.TrustedOrigin = (*TrustedOriginResource)(&c.resource)
 	c.User = (*UserResource)(&c.resource)
-	c.Factor = (*FactorResource)(&c.resource)
-	return c, nil
+	c.UserFactor = (*UserFactorResource)(&c.resource)
+
+	contextReturn := context.WithValue(ctx, clientContextKey{}, c)
+
+	return contextReturn, c, nil
+}
+
+func ClientFromContext(ctx context.Context) (*Client, bool) {
+	u, ok := ctx.Value(clientContextKey{}).(*Client)
+	return u, ok
 }
 
 func (c *Client) GetConfig() *config {
@@ -126,20 +155,19 @@ func setConfigDefaults(c *config) {
 	}
 }
 
-func readConfigFromFile(location string, c *config) (*config, error) {
+func readConfigFromFile(location string, c config) (*config, error) {
 	yamlConfig, err := ioutil.ReadFile(location)
 
 	if err != nil {
 		return nil, err
 	}
 
-	// conf := config{}
-	err = yaml.Unmarshal(yamlConfig, c)
+	err = yaml.Unmarshal(yamlConfig, &c)
 	if err != nil {
 		return nil, err
 	}
 
-	return c, err
+	return &c, err
 }
 
 func readConfigFromSystem(c config) *config {
@@ -151,7 +179,7 @@ func readConfigFromSystem(c config) *config {
 		return &c
 	}
 
-	conf, err := readConfigFromFile(currUser.HomeDir+"/.okta/okta.yaml", &c)
+	conf, err := readConfigFromFile(currUser.HomeDir+"/.okta/okta.yaml", c)
 
 	if err != nil {
 		return &c
@@ -161,7 +189,7 @@ func readConfigFromSystem(c config) *config {
 }
 
 func readConfigFromApplication(c config) *config {
-	conf, err := readConfigFromFile(".okta.yaml", &c)
+	conf, err := readConfigFromFile(".okta.yaml", c)
 
 	if err != nil {
 		return &c

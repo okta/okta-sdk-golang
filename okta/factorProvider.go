@@ -20,13 +20,4 @@ package okta
 
 import ()
 
-type FactorProvider struct {
-}
-
-func NewFactorProvider() *FactorProvider {
-	return &FactorProvider{}
-}
-
-func (a *FactorProvider) IsUserFactorInstance() bool {
-	return true
-}
+type FactorProvider string
