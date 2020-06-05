@@ -20,7 +20,7 @@ package okta
 
 import ()
 
-type CSRMetadata struct {
-	Subject         *CSRMetadataSubject         `json:"subject,omitempty"`
-	SubjectAltNames *CSRMetadataSubjectAltNames `json:"subjectAltNames,omitempty"`
+type CsrMetadata struct {
+	Subject         *CsrMetadataSubject         `json:"subject,omitempty"`
+	SubjectAltNames *CsrMetadataSubjectAltNames `json:"subjectAltNames,omitempty"`
 }

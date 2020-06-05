@@ -213,8 +213,8 @@ func (m *IdentityProviderResource) GetIdentityProviderKey(ctx context.Context, k
 	return jsonWebKey, resp, nil
 }
 
-// Enumerates signing CSRs for an IdP
-func (m *IdentityProviderResource) ListCsrsForIdentityProvider(ctx context.Context, idpId string) ([]*CSR, *Response, error) {
+// Enumerates Certificate Signing Requests for an IdP
+func (m *IdentityProviderResource) ListCsrsForIdentityProvider(ctx context.Context, idpId string) ([]*Csr, *Response, error) {
 	url := fmt.Sprintf("/api/v1/idps/%v/credentials/csrs", idpId)
 
 	req, err := m.client.requestExecutor.WithAccept("application/json").WithContentType("application/json").NewRequest("GET", url, nil)
@@ -222,7 +222,7 @@ func (m *IdentityProviderResource) ListCsrsForIdentityProvider(ctx context.Conte
 		return nil, nil, err
 	}
 
-	var csr []*CSR
+	var csr []*Csr
 
 	resp, err := m.client.requestExecutor.Do(ctx, req, &csr)
 	if err != nil {
@@ -233,15 +233,15 @@ func (m *IdentityProviderResource) ListCsrsForIdentityProvider(ctx context.Conte
 }
 
 // Generates a new key pair and returns a Certificate Signing Request for it.
-func (m *IdentityProviderResource) GenerateCsrForIdentityProvider(ctx context.Context, idpId string, body CSRMetadata) (*CSR, *Response, error) {
+func (m *IdentityProviderResource) GenerateCsrForIdentityProvider(ctx context.Context, idpId string, body CsrMetadata) (*Csr, *Response, error) {
 	url := fmt.Sprintf("/api/v1/idps/%v/credentials/csrs", idpId)
 
-	req, err := m.client.requestExecutor.WithAccept("application/pkcs10").WithContentType("application/json").NewRequest("POST", url, body)
+	req, err := m.client.requestExecutor.WithAccept("application/json").WithContentType("application/json").NewRequest("POST", url, body)
 	if err != nil {
 		return nil, nil, err
 	}
 
-	var csr *CSR
+	var csr *Csr
 
 	resp, err := m.client.requestExecutor.Do(ctx, req, &csr)
 	if err != nil {
@@ -251,7 +251,7 @@ func (m *IdentityProviderResource) GenerateCsrForIdentityProvider(ctx context.Co
 	return csr, resp, nil
 }
 
-// Revoke a CSR and delete the key pair from the IdP
+// Revoke a Certificate Signing Request and delete the key pair from the IdP
 func (m *IdentityProviderResource) RevokeCsrForIdentityProvider(ctx context.Context, idpId string, csrId string) (*Response, error) {
 	url := fmt.Sprintf("/api/v1/idps/%v/credentials/csrs/%v", idpId, csrId)
 
@@ -268,8 +268,8 @@ func (m *IdentityProviderResource) RevokeCsrForIdentityProvider(ctx context.Cont
 	return resp, nil
 }
 
-// Gets a specific CSR model by id
-func (m *IdentityProviderResource) GetCsrForIdentityProvider(ctx context.Context, idpId string, csrId string) (*CSR, *Response, error) {
+// Gets a specific Certificate Signing Request model by id
+func (m *IdentityProviderResource) GetCsrForIdentityProvider(ctx context.Context, idpId string, csrId string) (*Csr, *Response, error) {
 	url := fmt.Sprintf("/api/v1/idps/%v/credentials/csrs/%v", idpId, csrId)
 
 	req, err := m.client.requestExecutor.WithAccept("application/json").WithContentType("application/json").NewRequest("GET", url, nil)
@@ -277,7 +277,7 @@ func (m *IdentityProviderResource) GetCsrForIdentityProvider(ctx context.Context
 		return nil, nil, err
 	}
 
-	var csr *CSR
+	var csr *Csr
 
 	resp, err := m.client.requestExecutor.Do(ctx, req, &csr)
 	if err != nil {
@@ -287,7 +287,7 @@ func (m *IdentityProviderResource) GetCsrForIdentityProvider(ctx context.Context
 	return csr, resp, nil
 }
 
-// Update the CSR with a signed X.509 certificate and add it into the signing key credentials for the IdP.
+// Update the Certificate Signing Request with a signed X.509 certificate and add it into the signing key credentials for the IdP.
 func (m *IdentityProviderResource) PublishCerCertForIdentityProvider(ctx context.Context, idpId string, csrId string, body string) (*JsonWebKey, *Response, error) {
 	url := fmt.Sprintf("/api/v1/idps/%v/credentials/csrs/%v/lifecycle/publish", idpId, csrId)
 
@@ -306,7 +306,7 @@ func (m *IdentityProviderResource) PublishCerCertForIdentityProvider(ctx context
 	return jsonWebKey, resp, nil
 }
 
-// Update the CSR with a signed X.509 certificate and add it into the signing key credentials for the IdP.
+// Update the Certificate Signing Request with a signed X.509 certificate and add it into the signing key credentials for the IdP.
 func (m *IdentityProviderResource) PublishBinaryCerCertForIdentityProvider(ctx context.Context, idpId string, csrId string, body string) (*JsonWebKey, *Response, error) {
 	url := fmt.Sprintf("/api/v1/idps/%v/credentials/csrs/%v/lifecycle/publish", idpId, csrId)
 
@@ -325,7 +325,7 @@ func (m *IdentityProviderResource) PublishBinaryCerCertForIdentityProvider(ctx c
 	return jsonWebKey, resp, nil
 }
 
-// Update the CSR with a signed X.509 certificate and add it into the signing key credentials for the IdP.
+// Update the Certificate Signing Request with a signed X.509 certificate and add it into the signing key credentials for the IdP.
 func (m *IdentityProviderResource) PublishDerCertForIdentityProvider(ctx context.Context, idpId string, csrId string, body string) (*JsonWebKey, *Response, error) {
 	url := fmt.Sprintf("/api/v1/idps/%v/credentials/csrs/%v/lifecycle/publish", idpId, csrId)
 
@@ -344,7 +344,7 @@ func (m *IdentityProviderResource) PublishDerCertForIdentityProvider(ctx context
 	return jsonWebKey, resp, nil
 }
 
-// Update the CSR with a signed X.509 certificate and add it into the signing key credentials for the IdP.
+// Update the Certificate Signing Request with a signed X.509 certificate and add it into the signing key credentials for the IdP.
 func (m *IdentityProviderResource) PublishBinaryDerCertForIdentityProvider(ctx context.Context, idpId string, csrId string, body string) (*JsonWebKey, *Response, error) {
 	url := fmt.Sprintf("/api/v1/idps/%v/credentials/csrs/%v/lifecycle/publish", idpId, csrId)
 
@@ -363,7 +363,7 @@ func (m *IdentityProviderResource) PublishBinaryDerCertForIdentityProvider(ctx c
 	return jsonWebKey, resp, nil
 }
 
-// Update the CSR with a signed X.509 certificate and add it into the signing key credentials for the IdP.
+// Update the Certificate Signing Request with a signed X.509 certificate and add it into the signing key credentials for the IdP.
 func (m *IdentityProviderResource) PublishBinaryPemCertForIdentityProvider(ctx context.Context, idpId string, csrId string, body string) (*JsonWebKey, *Response, error) {
 	url := fmt.Sprintf("/api/v1/idps/%v/credentials/csrs/%v/lifecycle/publish", idpId, csrId)
 

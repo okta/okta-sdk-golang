@@ -22,7 +22,7 @@ import (
 	"time"
 )
 
-type CSR struct {
+type Csr struct {
 	Created *time.Time `json:"created,omitempty"`
 	Csr     string     `json:"csr,omitempty"`
 	Id      string     `json:"id,omitempty"`

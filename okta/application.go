@@ -165,8 +165,8 @@ func (m *ApplicationResource) CreateApplication(ctx context.Context, body App, q
 	return application, resp, nil
 }
 
-// Enumerates CSRs for an application
-func (m *ApplicationResource) ListCsrsForApplication(ctx context.Context, appId string) ([]*CSR, *Response, error) {
+// Enumerates Certificate Signing Requests for an application
+func (m *ApplicationResource) ListCsrsForApplication(ctx context.Context, appId string) ([]*Csr, *Response, error) {
 	url := fmt.Sprintf("/api/v1/apps/%v/credentials/csrs", appId)
 
 	req, err := m.client.requestExecutor.WithAccept("application/json").WithContentType("application/json").NewRequest("GET", url, nil)
@@ -174,7 +174,7 @@ func (m *ApplicationResource) ListCsrsForApplication(ctx context.Context, appId 
 		return nil, nil, err
 	}
 
-	var csr []*CSR
+	var csr []*Csr
 
 	resp, err := m.client.requestExecutor.Do(ctx, req, &csr)
 	if err != nil {
@@ -185,7 +185,7 @@ func (m *ApplicationResource) ListCsrsForApplication(ctx context.Context, appId 
 }
 
 // Generates a new key pair and returns the Certificate Signing Request for it.
-func (m *ApplicationResource) GenerateCsrForApplication(ctx context.Context, appId string, body CSRMetadata) (*CSR, *Response, error) {
+func (m *ApplicationResource) GenerateCsrForApplication(ctx context.Context, appId string, body CsrMetadata) (*Csr, *Response, error) {
 	url := fmt.Sprintf("/api/v1/apps/%v/credentials/csrs", appId)
 
 	req, err := m.client.requestExecutor.WithAccept("application/json").WithContentType("application/json").NewRequest("POST", url, body)
@@ -193,7 +193,7 @@ func (m *ApplicationResource) GenerateCsrForApplication(ctx context.Context, app
 		return nil, nil, err
 	}
 
-	var csr *CSR
+	var csr *Csr
 
 	resp, err := m.client.requestExecutor.Do(ctx, req, &csr)
 	if err != nil {
@@ -203,7 +203,7 @@ func (m *ApplicationResource) GenerateCsrForApplication(ctx context.Context, app
 	return csr, resp, nil
 }
 
-func (m *ApplicationResource) RevokeCSRFromApplication(ctx context.Context, appId string, csrId string) (*Response, error) {
+func (m *ApplicationResource) RevokeCsrFromApplication(ctx context.Context, appId string, csrId string) (*Response, error) {
 	url := fmt.Sprintf("/api/v1/apps/%v/credentials/csrs/%v", appId, csrId)
 
 	req, err := m.client.requestExecutor.WithAccept("application/json").WithContentType("application/json").NewRequest("DELETE", url, nil)
@@ -219,7 +219,7 @@ func (m *ApplicationResource) RevokeCSRFromApplication(ctx context.Context, appI
 	return resp, nil
 }
 
-func (m *ApplicationResource) GetCsrForApplication(ctx context.Context, appId string, csrId string) (*CSR, *Response, error) {
+func (m *ApplicationResource) GetCsrForApplication(ctx context.Context, appId string, csrId string) (*Csr, *Response, error) {
 	url := fmt.Sprintf("/api/v1/apps/%v/credentials/csrs/%v", appId, csrId)
 
 	req, err := m.client.requestExecutor.WithAccept("application/json").WithContentType("application/json").NewRequest("GET", url, nil)
@@ -227,7 +227,7 @@ func (m *ApplicationResource) GetCsrForApplication(ctx context.Context, appId st
 		return nil, nil, err
 	}
 
-	var csr *CSR
+	var csr *Csr
 
 	resp, err := m.client.requestExecutor.Do(ctx, req, &csr)
 	if err != nil {

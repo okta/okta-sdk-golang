@@ -3,6 +3,11 @@ Running changelog of releases since `2.0.0-rc.4`
 
 ## v2.0.0
 - Official Release of v2 Okta Golang SDK (June 4, 2020)
+- `CSR` Model has been renamed to `Csr`
+- `CSRMetadata` Model has been renamed to `CsrMetadata`
+- `CSRMetadataSubject` Model has been renamed to `CsrMetadataSubject`
+- `CSRMetadataSubjectAltNames` Model has been renamed to `CsrMetadataSubjectAltNames`
+- `GenerateCsrForIdentityProvider` now sets accept header correctly to `application/json`
 
 ## v2.0.0-rc.5
 - Remove `PreviewSamlMetadataForApplication` method from `ApplicationResource`

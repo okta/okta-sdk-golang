@@ -20,6 +20,6 @@ package okta
 
 import ()
 
-type CSRMetadataSubjectAltNames struct {
+type CsrMetadataSubjectAltNames struct {
 	DnsNames []string `json:"dnsNames,omitempty"`
 }
