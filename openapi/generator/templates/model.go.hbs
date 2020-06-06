@@ -21,7 +21,7 @@ type Factor interface {
 }
 
 {{/if}}
-{{#if (or (or (gt model.methods.length 0) (gt model.crud.length 0)) (eq model.modelName "LogEvent"))}}
+{{#if (and (or (or (gt model.methods.length 0) (gt model.crud.length 0)) (eq model.modelName "LogEvent")) (ne model.modelName "Role"))}}
 type {{model.modelName}}Resource resource
 
 {{/if}}
@@ -36,7 +36,7 @@ type {{model.modelName}} struct {
 {{/if}}
 {{#if model.enum}}
 {{else}}
-{{#if (or ( eq model.tags.[0] "Application" ) ( eq model.tags.[0] "UserFactor") ) }}
+{{#if (isInstance model) }}
 func New{{model.modelName}}() *{{model.modelName}} {
 	return &{{model.modelName}}{
 		{{#each model.properties as |prop|}}

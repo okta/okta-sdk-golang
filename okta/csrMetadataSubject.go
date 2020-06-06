@@ -20,7 +20,7 @@ package okta
 
 import ()
 
-type CSRMetadataSubject struct {
+type CsrMetadataSubject struct {
 	CommonName             string `json:"commonName,omitempty"`
 	CountryName            string `json:"countryName,omitempty"`
 	LocalityName           string `json:"localityName,omitempty"`

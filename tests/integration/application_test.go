@@ -410,7 +410,7 @@ func Test_can_create_csr_for_application(t *testing.T) {
 
 	application := create_application(t)
 
-	subject := okta.CSRMetadataSubject{
+	subject := okta.CsrMetadataSubject{
 		CountryName:            "US",
 		StateOrProvinceName:    "California",
 		LocalityName:           "San Francisco",
@@ -419,19 +419,19 @@ func Test_can_create_csr_for_application(t *testing.T) {
 		CommonName:             "SP Issuer",
 	}
 
-	subjectAltNames := okta.CSRMetadataSubjectAltNames{
+	subjectAltNames := okta.CsrMetadataSubjectAltNames{
 		DnsNames: []string{"dev.okta.com"},
 	}
 
-	csr := okta.CSRMetadata{
+	csr := okta.CsrMetadata{
 		Subject:         &subject,
 		SubjectAltNames: &subjectAltNames,
 	}
 
 	csrs, _, err := client.Application.GenerateCsrForApplication(ctx, application.Id, csr)
-	require.NoError(t, err, "Creating an application CSR should not error")
+	require.NoError(t, err, "Creating an application Csr should not error")
 
-	assert.IsType(t, &okta.CSR{}, csrs, "did not return a `okta.CSR` object")
+	assert.IsType(t, &okta.Csr{}, csrs, "did not return a `okta.Csr` object")
 
 	client.Application.DeactivateApplication(ctx, application.Id)
 	_, err = client.Application.DeleteApplication(ctx, application.Id)

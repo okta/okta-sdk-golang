@@ -79,13 +79,13 @@ function lowercaseFirstLetter(text) {
 function ucFirst(text) {
 	switch(text) {
   	case 'csr':
-    	return 'CSR';
+    	return 'Csr';
     case 'csrMetadata':
-    	return 'CSRMetadata';
+    	return 'CsrMetadata';
     case 'csrMetadataSubject':
-    	return 'CSRMetadataSubject';
+    	return 'CsrMetadataSubject';
     case 'csrMetadataSubjectAltNames':
-    	return 'CSRMetadataSubjectAllNames';
+    	return 'CsrMetadataSubjectAllNames';
   	default:
       return text.charAt(0).toUpperCase() + text.slice(1);
   }
@@ -183,6 +183,11 @@ function getImports(object) {
   }
 
   imports = [...new Set(imports)];
+
+  if (object.model.modelName == "Role") {
+    imports.splice (imports.indexOf("context"), 1);
+    imports.splice (imports.indexOf("fmt"), 1);
+  }
 
   return imports;
 }
@@ -373,6 +378,22 @@ function buildModelProperties(model) {
   return finalProps.join("\n\t");
 }
 
+function isInstance(model) {
+  if ( model.modelName == "Csr" ||
+      model.modelName == "CsrMetadata" ||
+      model.modelName == "CsrMetadataSubject" ||
+      model.modelName == "CsrMetadataSubjectAltNames" ||
+      model.modelName == "OAuth2Claim" ||
+      model.modelName == "OAuth2ScopeConsentGrant") {
+    return false
+  }
+
+  if ( model.tags[0] == "Application" || model.tags[0] == "UserFactor") {
+      return true
+  }
+  return false
+}
+
 function log(item) {
     console.log(item);
 }
@@ -491,7 +512,8 @@ golang.process = ({ spec, operations, models, handlebars }) => {
     responseModelInterface,
     applicationModelInterface,
     factorModelInterface,
-    factorInstanceOperation
+    factorInstanceOperation,
+    isInstance
   });
 
   handlebars.registerPartial('partials.copyHeader', fs.readFileSync('generator/templates/partials/copyHeader.hbs', 'utf8'));
