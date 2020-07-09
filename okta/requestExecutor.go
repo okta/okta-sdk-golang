@@ -332,7 +332,7 @@ func Get429BackoffTime(ctx context.Context, response *http.Response) int64 {
 
 	sort.Ints(limitResetMap)
 
-	requestDate, _ := time.Parse("Mon, 02 Jan 2006 15:04:05 Z", response.Header.Get("Date"))
+	requestDate, _ := time.Parse("Mon, 02 Jan 2006 15:04:05 GMT", response.Header.Get("Date"))
 	requestDateUnix := requestDate.Unix()
 	backoffSeconds := int64(limitResetMap[0]) - requestDateUnix + 1
 	return backoffSeconds
