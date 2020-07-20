@@ -29,6 +29,7 @@ type PolicyRuleResource resource
 type PolicyRule struct {
 	Created     *time.Time `json:"created,omitempty"`
 	Id          string     `json:"id,omitempty"`
+	Name        string     `json:"name,omitempty"`
 	LastUpdated *time.Time `json:"lastUpdated,omitempty"`
 	Priority    int64      `json:"priority,omitempty"`
 	Status      string     `json:"status,omitempty"`
