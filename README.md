@@ -25,7 +25,7 @@ We also publish these libraries for Golang:
 
 * [JWT Verifier](https://github.com/okta/okta-jwt-verifier-golang)
 
-You can learn more on the [Okta + Golang](lang-landing) page in our documentation.
+You can learn more on the [Okta + Golang][lang-landing] page in our documentation.
 
 ## Release status
 
