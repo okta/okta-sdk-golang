@@ -10,7 +10,7 @@
 * [Getting started](#getting-started)
 * [Usage guide](#usage-guide)
 * [Configuration reference](#configuration-reference)
-* [Upgrading Guide](#upgrading-to-2.0.x)
+* [Upgrading Guide](#upgrading-to-20x)
 * [Building the SDK](#building-the-sdk)
 * [Contributing](#contributing)
 
