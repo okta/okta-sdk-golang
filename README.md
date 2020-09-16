@@ -49,15 +49,26 @@ If you run into problems using the SDK, you can
 
 ## Getting started
 
+The SDK is compatible with Go version 1.12.x and up. For SDK v2 and above, you must use [Go Modules](https://blog.golang.org/using-go-modules) to install the SDK.
+
+### Install current release
 To install the Okta Golang SDK in your project:
+  - Create a module file by running `go mod init`
+    - You can skip this step if you already use `go mod`
+  - Run `go get github.com/okta/okta-sdk-golang/v2`. This will add the SDK to your `go.mod` file.
+  - Import the package in your project with `import "github.com/okta/okta-sdk-golang/v2/okta"`
 
-Version 2.x (Release)
-run `go get github.com/okta/okta-sdk-golang/v2/okta`
+### Installing legacy version
+Although we do not suggest using the 1.x version of the SDK, you can still use it. Version 1.x is *retiring* and will not be supported past March 4, 2021. it will likely remain working after that date, but you should make a plan to migrate to the new 2.x version.
 
-You'll also need
+You can install v1 of the sdk by running `go get github.com/okta/okta-sdk-golang` and import the package in your project with `import "github.com/okta/okta-sdk-golang"`
+
+### You'll also need
 
 * An Okta account, called an _organization_ (sign up for a free [developer organization](https://developer.okta.com/signup) if you need one)
 * An [API token](https://developer.okta.com/docs/api/getting_started/getting_a_token)
+
+### Initialize a client
 
 Construct a client instance by passing it your Okta domain name and API token:
 
