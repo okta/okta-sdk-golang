@@ -509,7 +509,7 @@ func Test_can_assign_a_user_to_a_role(t *testing.T) {
 	assert.True(t, found, "Could not verify USER_ADMIN was added to the user")
 
 	// Remove role for the user → DELETE /api/v1/users/{{userId}}//roles/{{roleId}}/
-	_, err = client.User.RemoveRoleFromUser(ctx, user.Id, roleId)
+	_, err = client.User.RemoveRoleFromUser(ctx, user.Id, roleID)
 	require.NoError(t, err, "Should not have had an error when removing role to user")
 
 	// List roles for user and verify role was removed → GET /api/v1/users/{{userId}}/roles
