@@ -41,8 +41,11 @@ func Test_can_get_a_user(t *testing.T) {
 	}
 	uuid := tests.GenUUID()
 	profile := okta.UserProfile{}
-	profile["email"] = "john-get-user@example.com"
-	profile["login"] = "john-get-user@example.com"
+
+	profile["firstName"] = "John"
+	profile["lastName"] = "Get-User"
+	profile["email"] = "john-get-user" + uuid + "@example.com"
+	profile["login"] = "john-get-user" + uuid + "@example.com"
 	u := &okta.CreateUserRequest{
 		Credentials: uc,
 		Profile:     &profile,
@@ -509,7 +512,7 @@ func Test_can_assign_a_user_to_a_role(t *testing.T) {
 	assert.True(t, found, "Could not verify USER_ADMIN was added to the user")
 
 	// Remove role for the user → DELETE /api/v1/users/{{userId}}//roles/{{roleId}}/
-	_, err = client.User.RemoveRoleFromUser(ctx, user.Id, roleID)
+	_, err = client.User.RemoveRoleFromUser(ctx, user.Id, roleId)
 	require.NoError(t, err, "Should not have had an error when removing role to user")
 
 	// List roles for user and verify role was removed → GET /api/v1/users/{{userId}}/roles
@@ -557,6 +560,7 @@ func Test_user_group_target_role(t *testing.T) {
 	profile["firstName"] = "John"
 	profile["lastName"] = "Group-Target"
 	profile["email"] = "john-go-sdk-group-target" + uuid + "@example.com"
+	profile["login"] = "john-go-sdk-group-target" + uuid + "@example.com"
 	u := &okta.CreateUserRequest{
 		Credentials: uc,
 		Profile:     &profile,
