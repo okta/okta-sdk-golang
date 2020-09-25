@@ -8,7 +8,7 @@
   },
   "devDependencies": {
     "@okta/openapi": "^1.11.2",
-    "lodash": "^4.17.4",
+    "lodash": "^4.17.19",
     "lodash-inflection": "^1.5.0"
   },
   "dependencies": {
