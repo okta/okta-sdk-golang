@@ -84,6 +84,26 @@ These examples will help you understand how to use this library. You can also br
 
 Once you initialize a `client`, you can call methods to make requests to the Okta API. Most methods are grouped by the API endpoint they belong to. For example, methods that call the [Users API](https://developer.okta.com/docs/api/resources/users) are organized under `client.User`.
 
+
+## Connection Retry / Rate Limiting
+By default this SDK retries requests that are return with a 429 exception. To disable this functionality set `OKTA_CLIENT_REQUESTTIMEOUT` and `OKTA_CLIENT_RATELIMIT_MAXRETRIES` to 0.
+
+Setting only one of the values to zero disables that check. Meaning, by default, four retry attempts will be made. If you set `OKTA_CLIENT_REQUESTTIMEOUT` to 45 seconds and `OKTA_CLIENT_RATELIMIT_MAXRETRIES` to 0. This SDK will continue to retry indefinitely for 45 seconds. If both values are non zero, this SDK attempts to retry until either of the conditions are met (not both).
+
+We use the Date header from the server to calculate the delta, as its more reliable than system time.  But always add 1 second to account for some clock skew in our service:
+
+```
+backoff_seconds = header['X-Rate-Limit-Reset'] - header['Date'] + 1s
+```
+
+If the `backoff_seconds` calculation exceeds the request timeout, the initial 429 response will be allowed through without additional attempts.
+
+When creating your client, you can pass in these settings like you would with any other configuration.
+
+```go
+ctx, client, err := okta.NewClient(context, okta.WithRequestTimeout(45), okta.WithRateLimitMaxRetries(3))
+```
+
 ### Authenticate a User
 This library should only be used with the Okta management API. To call the [Authentication API](https://developer.okta.com/docs/api/resources/authn), you should construct your own HTTP requests.
 
