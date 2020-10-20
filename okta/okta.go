@@ -92,7 +92,7 @@ func NewClient(ctx context.Context, conf ...ConfigSetter) (context.Context, *Cli
 
 	config, err := validateConfig(config)
 	if err != nil {
-		return nil, err
+		return nil, nil, err
 	}
 
 	c := &Client{}
