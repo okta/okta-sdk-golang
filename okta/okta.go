@@ -23,6 +23,9 @@ import (
 	"fmt"
 	"io/ioutil"
 	"os/user"
+	"path"
+	"path/filepath"
+	"runtime"
 
 	"github.com/okta/okta-sdk-golang/v2/okta/cache"
 
@@ -188,8 +191,10 @@ func readConfigFromSystem(c config) *config {
 	return conf
 }
 
+// read config from the project's root directory
 func readConfigFromApplication(c config) *config {
-	conf, err := readConfigFromFile(".okta.yaml", c)
+	_, b, _, _ := runtime.Caller(0)
+	conf, err := readConfigFromFile(filepath.Join(filepath.Dir(path.Join(path.Dir(b))), ".okta.yaml"), c)
 
 	if err != nil {
 		return &c
