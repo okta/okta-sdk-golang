@@ -22,9 +22,8 @@ import (
 	"testing"
 	"time"
 
-	"github.com/okta/okta-sdk-golang/v2/okta/query"
-
 	"github.com/okta/okta-sdk-golang/v2/okta"
+	"github.com/okta/okta-sdk-golang/v2/okta/query"
 	"github.com/okta/okta-sdk-golang/v2/tests"
 	"github.com/stretchr/testify/assert"
 	"github.com/stretchr/testify/require"
@@ -77,13 +76,13 @@ func Test_can_get_a_user(t *testing.T) {
 }
 
 func Test_can_activate_a_user(t *testing.T) {
-	ctx, client, _ := tests.NewClient(context.TODO())
+	ctx, client, err := tests.NewClient(context.TODO())
+	require.NoError(t, err)
 	//Create user with credentials → POST /api/v1/users?activate=false
-	p := &okta.PasswordCredential{
-		Value: "Abcd1234",
-	}
 	uc := &okta.UserCredentials{
-		Password: p,
+		Password: &okta.PasswordCredential{
+			Value: "Abcd1234",
+		},
 	}
 	profile := okta.UserProfile{}
 	profile["firstName"] = "John"
@@ -105,17 +104,9 @@ func Test_can_activate_a_user(t *testing.T) {
 	assert.NotEmpty(t, token, "Token was not provided")
 	assert.IsType(t, &okta.UserActivationToken{}, token, "Activation did not return correct type")
 
-	// Verify that the user is in the list of ACTIVE users with query parameter → GET /api/v1/users?filter=status eq "ACTIVE"
-	filter := query.NewQueryParams(query.WithFilter("status eq \"ACTIVE\""))
-	users, _, err := client.User.ListUsers(ctx, filter)
-	require.NoError(t, err, "Could not get active users")
-	found := false
-	for _, u := range users {
-		if user.Id == u.Id {
-			found = true
-		}
-	}
-	assert.True(t, found, "The user was not found")
+	crUser, _, err := client.User.GetUser(ctx, user.Id)
+	require.NoError(t, err, "Could not get user by ID")
+	assert.NotNil(t, crUser.Activated, "users activation time is missing")
 
 	// Deactivate the user → POST /api/v1/users/{{userId}}/lifecycle/deactivate
 	_, err = client.User.DeactivateUser(ctx, user.Id, nil)

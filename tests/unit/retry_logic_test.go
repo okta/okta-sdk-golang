@@ -54,7 +54,8 @@ func Test_Will_Stop_Retrying_Based_On_Max_Retry_Configuration(t *testing.T) {
 	httpmock.Activate()
 	defer httpmock.DeactivateAndReset()
 
-	ctx, client, _ := tests.NewClient(context.TODO(), okta.WithRequestTimeout(0), okta.WithRateLimitMaxRetries(1))
+	ctx, client, err := tests.NewClient(context.TODO(), okta.WithRequestTimeout(0), okta.WithRateLimitMaxRetries(1))
+	require.NoError(t, err)
 
 	httpmock.RegisterResponder("GET", "/api/v1/users",
 		tests.MockResponse(
@@ -63,7 +64,7 @@ func Test_Will_Stop_Retrying_Based_On_Max_Retry_Configuration(t *testing.T) {
 		),
 	)
 
-	_, _, err := client.User.ListUsers(ctx, nil)
+	_, _, err = client.User.ListUsers(ctx, nil)
 	require.NotNil(t, err, "error was nil, but should have told the user they reached their max retry limit")
 
 	httpmock.GetTotalCallCount()
