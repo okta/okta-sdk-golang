@@ -25,6 +25,7 @@ import (
 type PasswordPolicy struct {
 	Embedded    interface{}               `json:"_embedded,omitempty"`
 	Links       interface{}               `json:"_links,omitempty"`
+	Conditions  *PasswordPolicyConditions `json:"conditions,omitempty"`
 	Created     *time.Time                `json:"created,omitempty"`
 	Description string                    `json:"description,omitempty"`
 	Id          string                    `json:"id,omitempty"`
@@ -34,6 +35,5 @@ type PasswordPolicy struct {
 	Status      string                    `json:"status,omitempty"`
 	System      *bool                     `json:"system,omitempty"`
 	Type        string                    `json:"type,omitempty"`
-	Conditions  *PasswordPolicyConditions `json:"conditions,omitempty"`
 	Settings    *PasswordPolicySettings   `json:"settings,omitempty"`
 }

@@ -19,8 +19,9 @@
 package okta
 
 import (
+	"context"
 	"fmt"
-	"github.com/okta/okta-sdk-golang/okta/query"
+	"github.com/okta/okta-sdk-golang/v2/okta/query"
 	"time"
 )
 
@@ -57,291 +58,727 @@ func (a *Application) IsApplicationInstance() bool {
 	return true
 }
 
-func (m *ApplicationResource) GetApplication(appId string, appInstance App, qp *query.Params) (interface{}, *Response, error) {
+// Fetches an application from your Okta organization by &#x60;id&#x60;.
+func (m *ApplicationResource) GetApplication(ctx context.Context, appId string, appInstance App, qp *query.Params) (App, *Response, error) {
 	url := fmt.Sprintf("/api/v1/apps/%v", appId)
 	if qp != nil {
 		url = url + qp.String()
 	}
-	req, err := m.client.requestExecutor.NewRequest("GET", url, nil)
+
+	req, err := m.client.requestExecutor.WithAccept("application/json").WithContentType("application/json").NewRequest("GET", url, nil)
 	if err != nil {
 		return nil, nil, err
 	}
 
 	application := appInstance
-	resp, err := m.client.requestExecutor.Do(req, &application)
+
+	resp, err := m.client.requestExecutor.Do(ctx, req, &application)
 	if err != nil {
 		return nil, resp, err
 	}
+
 	return application, resp, nil
 }
-func (m *ApplicationResource) UpdateApplication(appId string, body App) (interface{}, *Response, error) {
+
+// Updates an application in your organization.
+func (m *ApplicationResource) UpdateApplication(ctx context.Context, appId string, body App) (App, *Response, error) {
 	url := fmt.Sprintf("/api/v1/apps/%v", appId)
-	req, err := m.client.requestExecutor.NewRequest("PUT", url, body)
+
+	req, err := m.client.requestExecutor.WithAccept("application/json").WithContentType("application/json").NewRequest("PUT", url, body)
 	if err != nil {
 		return nil, nil, err
 	}
 
 	application := body
-	resp, err := m.client.requestExecutor.Do(req, &application)
+
+	resp, err := m.client.requestExecutor.Do(ctx, req, &application)
 	if err != nil {
 		return nil, resp, err
 	}
+
 	return application, resp, nil
 }
-func (m *ApplicationResource) DeleteApplication(appId string) (*Response, error) {
+
+// Removes an inactive application.
+func (m *ApplicationResource) DeleteApplication(ctx context.Context, appId string) (*Response, error) {
 	url := fmt.Sprintf("/api/v1/apps/%v", appId)
-	req, err := m.client.requestExecutor.NewRequest("DELETE", url, nil)
+
+	req, err := m.client.requestExecutor.WithAccept("application/json").WithContentType("application/json").NewRequest("DELETE", url, nil)
 	if err != nil {
 		return nil, err
 	}
 
-	resp, err := m.client.requestExecutor.Do(req, nil)
+	resp, err := m.client.requestExecutor.Do(ctx, req, nil)
 	if err != nil {
 		return resp, err
 	}
+
 	return resp, nil
 }
-func (m *ApplicationResource) ListApplications(qp *query.Params) ([]App, *Response, error) {
+
+// Enumerates apps added to your organization with pagination. A subset of apps can be returned that match a supported filter expression or query.
+func (m *ApplicationResource) ListApplications(ctx context.Context, qp *query.Params) ([]App, *Response, error) {
 	url := fmt.Sprintf("/api/v1/apps")
 	if qp != nil {
 		url = url + qp.String()
 	}
-	req, err := m.client.requestExecutor.NewRequest("GET", url, nil)
+
+	req, err := m.client.requestExecutor.WithAccept("application/json").WithContentType("application/json").NewRequest("GET", url, nil)
 	if err != nil {
 		return nil, nil, err
 	}
 
-	var application []App
-	resp, err := m.client.requestExecutor.Do(req, &application)
+	var application []Application
+
+	resp, err := m.client.requestExecutor.Do(ctx, req, &application)
 	if err != nil {
 		return nil, resp, err
 	}
-	return application, resp, nil
+
+	apps := make([]App, len(application))
+	for i := range application {
+		apps[i] = &application[i]
+	}
+	return apps, resp, nil
+
 }
-func (m *ApplicationResource) CreateApplication(body App, qp *query.Params) (interface{}, *Response, error) {
+
+// Adds a new application to your Okta organization.
+func (m *ApplicationResource) CreateApplication(ctx context.Context, body App, qp *query.Params) (App, *Response, error) {
 	url := fmt.Sprintf("/api/v1/apps")
 	if qp != nil {
 		url = url + qp.String()
 	}
-	req, err := m.client.requestExecutor.NewRequest("POST", url, body)
+
+	req, err := m.client.requestExecutor.WithAccept("application/json").WithContentType("application/json").NewRequest("POST", url, body)
 	if err != nil {
 		return nil, nil, err
 	}
 
 	application := body
-	resp, err := m.client.requestExecutor.Do(req, &application)
+
+	resp, err := m.client.requestExecutor.Do(ctx, req, &application)
 	if err != nil {
 		return nil, resp, err
 	}
+
 	return application, resp, nil
 }
-func (m *ApplicationResource) ListApplicationKeys(appId string) ([]*JsonWebKey, *Response, error) {
+
+// Enumerates Certificate Signing Requests for an application
+func (m *ApplicationResource) ListCsrsForApplication(ctx context.Context, appId string) ([]*Csr, *Response, error) {
+	url := fmt.Sprintf("/api/v1/apps/%v/credentials/csrs", appId)
+
+	req, err := m.client.requestExecutor.WithAccept("application/json").WithContentType("application/json").NewRequest("GET", url, nil)
+	if err != nil {
+		return nil, nil, err
+	}
+
+	var csr []*Csr
+
+	resp, err := m.client.requestExecutor.Do(ctx, req, &csr)
+	if err != nil {
+		return nil, resp, err
+	}
+
+	return csr, resp, nil
+}
+
+// Generates a new key pair and returns the Certificate Signing Request for it.
+func (m *ApplicationResource) GenerateCsrForApplication(ctx context.Context, appId string, body CsrMetadata) (*Csr, *Response, error) {
+	url := fmt.Sprintf("/api/v1/apps/%v/credentials/csrs", appId)
+
+	req, err := m.client.requestExecutor.WithAccept("application/json").WithContentType("application/json").NewRequest("POST", url, body)
+	if err != nil {
+		return nil, nil, err
+	}
+
+	var csr *Csr
+
+	resp, err := m.client.requestExecutor.Do(ctx, req, &csr)
+	if err != nil {
+		return nil, resp, err
+	}
+
+	return csr, resp, nil
+}
+
+func (m *ApplicationResource) RevokeCsrFromApplication(ctx context.Context, appId string, csrId string) (*Response, error) {
+	url := fmt.Sprintf("/api/v1/apps/%v/credentials/csrs/%v", appId, csrId)
+
+	req, err := m.client.requestExecutor.WithAccept("application/json").WithContentType("application/json").NewRequest("DELETE", url, nil)
+	if err != nil {
+		return nil, err
+	}
+
+	resp, err := m.client.requestExecutor.Do(ctx, req, nil)
+	if err != nil {
+		return resp, err
+	}
+
+	return resp, nil
+}
+
+func (m *ApplicationResource) GetCsrForApplication(ctx context.Context, appId string, csrId string) (*Csr, *Response, error) {
+	url := fmt.Sprintf("/api/v1/apps/%v/credentials/csrs/%v", appId, csrId)
+
+	req, err := m.client.requestExecutor.WithAccept("application/json").WithContentType("application/json").NewRequest("GET", url, nil)
+	if err != nil {
+		return nil, nil, err
+	}
+
+	var csr *Csr
+
+	resp, err := m.client.requestExecutor.Do(ctx, req, &csr)
+	if err != nil {
+		return nil, resp, err
+	}
+
+	return csr, resp, nil
+}
+
+func (m *ApplicationResource) PublishCerCert(ctx context.Context, appId string, csrId string, body string) (*JsonWebKey, *Response, error) {
+	url := fmt.Sprintf("/api/v1/apps/%v/credentials/csrs/%v/lifecycle/publish", appId, csrId)
+
+	req, err := m.client.requestExecutor.WithAccept("application/json").WithContentType("application/x-x509-ca-cert").NewRequest("POST", url, body)
+	if err != nil {
+		return nil, nil, err
+	}
+
+	var jsonWebKey *JsonWebKey
+
+	resp, err := m.client.requestExecutor.Do(ctx, req, &jsonWebKey)
+	if err != nil {
+		return nil, resp, err
+	}
+
+	return jsonWebKey, resp, nil
+}
+
+func (m *ApplicationResource) PublishBinaryCerCert(ctx context.Context, appId string, csrId string, body string) (*JsonWebKey, *Response, error) {
+	url := fmt.Sprintf("/api/v1/apps/%v/credentials/csrs/%v/lifecycle/publish", appId, csrId)
+
+	req, err := m.client.requestExecutor.AsBinary().WithAccept("application/json").WithContentType("application/x-x509-ca-cert").NewRequest("POST", url, body)
+	if err != nil {
+		return nil, nil, err
+	}
+
+	var jsonWebKey *JsonWebKey
+
+	resp, err := m.client.requestExecutor.Do(ctx, req, &jsonWebKey)
+	if err != nil {
+		return nil, resp, err
+	}
+
+	return jsonWebKey, resp, nil
+}
+
+func (m *ApplicationResource) PublishDerCert(ctx context.Context, appId string, csrId string, body string) (*JsonWebKey, *Response, error) {
+	url := fmt.Sprintf("/api/v1/apps/%v/credentials/csrs/%v/lifecycle/publish", appId, csrId)
+
+	req, err := m.client.requestExecutor.WithAccept("application/json").WithContentType("application/pkix-cert").NewRequest("POST", url, body)
+	if err != nil {
+		return nil, nil, err
+	}
+
+	var jsonWebKey *JsonWebKey
+
+	resp, err := m.client.requestExecutor.Do(ctx, req, &jsonWebKey)
+	if err != nil {
+		return nil, resp, err
+	}
+
+	return jsonWebKey, resp, nil
+}
+
+func (m *ApplicationResource) PublishBinaryDerCert(ctx context.Context, appId string, csrId string, body string) (*JsonWebKey, *Response, error) {
+	url := fmt.Sprintf("/api/v1/apps/%v/credentials/csrs/%v/lifecycle/publish", appId, csrId)
+
+	req, err := m.client.requestExecutor.AsBinary().WithAccept("application/json").WithContentType("application/pkix-cert").NewRequest("POST", url, body)
+	if err != nil {
+		return nil, nil, err
+	}
+
+	var jsonWebKey *JsonWebKey
+
+	resp, err := m.client.requestExecutor.Do(ctx, req, &jsonWebKey)
+	if err != nil {
+		return nil, resp, err
+	}
+
+	return jsonWebKey, resp, nil
+}
+
+func (m *ApplicationResource) PublishBinaryPemCert(ctx context.Context, appId string, csrId string, body string) (*JsonWebKey, *Response, error) {
+	url := fmt.Sprintf("/api/v1/apps/%v/credentials/csrs/%v/lifecycle/publish", appId, csrId)
+
+	req, err := m.client.requestExecutor.AsBinary().WithAccept("application/json").WithContentType("application/x-pem-file").NewRequest("POST", url, body)
+	if err != nil {
+		return nil, nil, err
+	}
+
+	var jsonWebKey *JsonWebKey
+
+	resp, err := m.client.requestExecutor.Do(ctx, req, &jsonWebKey)
+	if err != nil {
+		return nil, resp, err
+	}
+
+	return jsonWebKey, resp, nil
+}
+
+// Enumerates key credentials for an application
+func (m *ApplicationResource) ListApplicationKeys(ctx context.Context, appId string) ([]*JsonWebKey, *Response, error) {
 	url := fmt.Sprintf("/api/v1/apps/%v/credentials/keys", appId)
-	req, err := m.client.requestExecutor.NewRequest("GET", url, nil)
+
+	req, err := m.client.requestExecutor.WithAccept("application/json").WithContentType("application/json").NewRequest("GET", url, nil)
 	if err != nil {
 		return nil, nil, err
 	}
 
 	var jsonWebKey []*JsonWebKey
-	resp, err := m.client.requestExecutor.Do(req, &jsonWebKey)
+
+	resp, err := m.client.requestExecutor.Do(ctx, req, &jsonWebKey)
 	if err != nil {
 		return nil, resp, err
 	}
+
 	return jsonWebKey, resp, nil
 }
-func (m *ApplicationResource) GetApplicationKey(appId string, keyId string) (*JsonWebKey, *Response, error) {
-	url := fmt.Sprintf("/api/v1/apps/%v/credentials/keys/%v", appId, keyId)
-	req, err := m.client.requestExecutor.NewRequest("GET", url, nil)
+
+// Generates a new X.509 certificate for an application key credential
+func (m *ApplicationResource) GenerateApplicationKey(ctx context.Context, appId string, qp *query.Params) (*JsonWebKey, *Response, error) {
+	url := fmt.Sprintf("/api/v1/apps/%v/credentials/keys/generate", appId)
+	if qp != nil {
+		url = url + qp.String()
+	}
+
+	req, err := m.client.requestExecutor.WithAccept("application/json").WithContentType("application/json").NewRequest("POST", url, nil)
 	if err != nil {
 		return nil, nil, err
 	}
 
 	var jsonWebKey *JsonWebKey
-	resp, err := m.client.requestExecutor.Do(req, &jsonWebKey)
+
+	resp, err := m.client.requestExecutor.Do(ctx, req, &jsonWebKey)
 	if err != nil {
 		return nil, resp, err
 	}
+
 	return jsonWebKey, resp, nil
 }
-func (m *ApplicationResource) CloneApplicationKey(appId string, keyId string, qp *query.Params) (*JsonWebKey, *Response, error) {
+
+// Gets a specific application key credential by kid
+func (m *ApplicationResource) GetApplicationKey(ctx context.Context, appId string, keyId string) (*JsonWebKey, *Response, error) {
+	url := fmt.Sprintf("/api/v1/apps/%v/credentials/keys/%v", appId, keyId)
+
+	req, err := m.client.requestExecutor.WithAccept("application/json").WithContentType("application/json").NewRequest("GET", url, nil)
+	if err != nil {
+		return nil, nil, err
+	}
+
+	var jsonWebKey *JsonWebKey
+
+	resp, err := m.client.requestExecutor.Do(ctx, req, &jsonWebKey)
+	if err != nil {
+		return nil, resp, err
+	}
+
+	return jsonWebKey, resp, nil
+}
+
+// Clones a X.509 certificate for an application key credential from a source application to target application.
+func (m *ApplicationResource) CloneApplicationKey(ctx context.Context, appId string, keyId string, qp *query.Params) (*JsonWebKey, *Response, error) {
 	url := fmt.Sprintf("/api/v1/apps/%v/credentials/keys/%v/clone", appId, keyId)
 	if qp != nil {
 		url = url + qp.String()
 	}
-	req, err := m.client.requestExecutor.NewRequest("POST", url, nil)
+
+	req, err := m.client.requestExecutor.WithAccept("application/json").WithContentType("application/json").NewRequest("POST", url, nil)
 	if err != nil {
 		return nil, nil, err
 	}
 
 	var jsonWebKey *JsonWebKey
-	resp, err := m.client.requestExecutor.Do(req, &jsonWebKey)
+
+	resp, err := m.client.requestExecutor.Do(ctx, req, &jsonWebKey)
 	if err != nil {
 		return nil, resp, err
 	}
+
 	return jsonWebKey, resp, nil
 }
-func (m *ApplicationResource) ListApplicationGroupAssignments(appId string, qp *query.Params) ([]*ApplicationGroupAssignment, *Response, error) {
+
+// Lists all scope consent grants for the application
+func (m *ApplicationResource) ListScopeConsentGrants(ctx context.Context, appId string, qp *query.Params) ([]*OAuth2ScopeConsentGrant, *Response, error) {
+	url := fmt.Sprintf("/api/v1/apps/%v/grants", appId)
+	if qp != nil {
+		url = url + qp.String()
+	}
+
+	req, err := m.client.requestExecutor.WithAccept("application/json").WithContentType("application/json").NewRequest("GET", url, nil)
+	if err != nil {
+		return nil, nil, err
+	}
+
+	var oAuth2ScopeConsentGrant []*OAuth2ScopeConsentGrant
+
+	resp, err := m.client.requestExecutor.Do(ctx, req, &oAuth2ScopeConsentGrant)
+	if err != nil {
+		return nil, resp, err
+	}
+
+	return oAuth2ScopeConsentGrant, resp, nil
+}
+
+// Grants consent for the application to request an OAuth 2.0 Okta scope
+func (m *ApplicationResource) GrantConsentToScope(ctx context.Context, appId string, body OAuth2ScopeConsentGrant) (*OAuth2ScopeConsentGrant, *Response, error) {
+	url := fmt.Sprintf("/api/v1/apps/%v/grants", appId)
+
+	req, err := m.client.requestExecutor.WithAccept("application/json").WithContentType("application/json").NewRequest("POST", url, body)
+	if err != nil {
+		return nil, nil, err
+	}
+
+	var oAuth2ScopeConsentGrant *OAuth2ScopeConsentGrant
+
+	resp, err := m.client.requestExecutor.Do(ctx, req, &oAuth2ScopeConsentGrant)
+	if err != nil {
+		return nil, resp, err
+	}
+
+	return oAuth2ScopeConsentGrant, resp, nil
+}
+
+// Revokes permission for the application to request the given scope
+func (m *ApplicationResource) RevokeScopeConsentGrant(ctx context.Context, appId string, grantId string) (*Response, error) {
+	url := fmt.Sprintf("/api/v1/apps/%v/grants/%v", appId, grantId)
+
+	req, err := m.client.requestExecutor.WithAccept("application/json").WithContentType("application/json").NewRequest("DELETE", url, nil)
+	if err != nil {
+		return nil, err
+	}
+
+	resp, err := m.client.requestExecutor.Do(ctx, req, nil)
+	if err != nil {
+		return resp, err
+	}
+
+	return resp, nil
+}
+
+// Fetches a single scope consent grant for the application
+func (m *ApplicationResource) GetScopeConsentGrant(ctx context.Context, appId string, grantId string, qp *query.Params) (*OAuth2ScopeConsentGrant, *Response, error) {
+	url := fmt.Sprintf("/api/v1/apps/%v/grants/%v", appId, grantId)
+	if qp != nil {
+		url = url + qp.String()
+	}
+
+	req, err := m.client.requestExecutor.WithAccept("application/json").WithContentType("application/json").NewRequest("GET", url, nil)
+	if err != nil {
+		return nil, nil, err
+	}
+
+	var oAuth2ScopeConsentGrant *OAuth2ScopeConsentGrant
+
+	resp, err := m.client.requestExecutor.Do(ctx, req, &oAuth2ScopeConsentGrant)
+	if err != nil {
+		return nil, resp, err
+	}
+
+	return oAuth2ScopeConsentGrant, resp, nil
+}
+
+// Enumerates group assignments for an application.
+func (m *ApplicationResource) ListApplicationGroupAssignments(ctx context.Context, appId string, qp *query.Params) ([]*ApplicationGroupAssignment, *Response, error) {
 	url := fmt.Sprintf("/api/v1/apps/%v/groups", appId)
 	if qp != nil {
 		url = url + qp.String()
 	}
-	req, err := m.client.requestExecutor.NewRequest("GET", url, nil)
+
+	req, err := m.client.requestExecutor.WithAccept("application/json").WithContentType("application/json").NewRequest("GET", url, nil)
 	if err != nil {
 		return nil, nil, err
 	}
 
 	var applicationGroupAssignment []*ApplicationGroupAssignment
-	resp, err := m.client.requestExecutor.Do(req, &applicationGroupAssignment)
+
+	resp, err := m.client.requestExecutor.Do(ctx, req, &applicationGroupAssignment)
 	if err != nil {
 		return nil, resp, err
 	}
+
 	return applicationGroupAssignment, resp, nil
 }
-func (m *ApplicationResource) DeleteApplicationGroupAssignment(appId string, groupId string) (*Response, error) {
+
+// Removes a group assignment from an application.
+func (m *ApplicationResource) DeleteApplicationGroupAssignment(ctx context.Context, appId string, groupId string) (*Response, error) {
 	url := fmt.Sprintf("/api/v1/apps/%v/groups/%v", appId, groupId)
-	req, err := m.client.requestExecutor.NewRequest("DELETE", url, nil)
+
+	req, err := m.client.requestExecutor.WithAccept("application/json").WithContentType("application/json").NewRequest("DELETE", url, nil)
 	if err != nil {
 		return nil, err
 	}
 
-	resp, err := m.client.requestExecutor.Do(req, nil)
+	resp, err := m.client.requestExecutor.Do(ctx, req, nil)
 	if err != nil {
 		return resp, err
 	}
+
 	return resp, nil
 }
-func (m *ApplicationResource) GetApplicationGroupAssignment(appId string, groupId string, qp *query.Params) (*ApplicationGroupAssignment, *Response, error) {
+
+// Fetches an application group assignment
+func (m *ApplicationResource) GetApplicationGroupAssignment(ctx context.Context, appId string, groupId string, qp *query.Params) (*ApplicationGroupAssignment, *Response, error) {
 	url := fmt.Sprintf("/api/v1/apps/%v/groups/%v", appId, groupId)
 	if qp != nil {
 		url = url + qp.String()
 	}
-	req, err := m.client.requestExecutor.NewRequest("GET", url, nil)
+
+	req, err := m.client.requestExecutor.WithAccept("application/json").WithContentType("application/json").NewRequest("GET", url, nil)
 	if err != nil {
 		return nil, nil, err
 	}
 
 	var applicationGroupAssignment *ApplicationGroupAssignment
-	resp, err := m.client.requestExecutor.Do(req, &applicationGroupAssignment)
+
+	resp, err := m.client.requestExecutor.Do(ctx, req, &applicationGroupAssignment)
 	if err != nil {
 		return nil, resp, err
 	}
+
 	return applicationGroupAssignment, resp, nil
 }
-func (m *ApplicationResource) CreateApplicationGroupAssignment(appId string, groupId string, body ApplicationGroupAssignment) (*ApplicationGroupAssignment, *Response, error) {
+
+// Assigns a group to an application
+func (m *ApplicationResource) CreateApplicationGroupAssignment(ctx context.Context, appId string, groupId string, body ApplicationGroupAssignment) (*ApplicationGroupAssignment, *Response, error) {
 	url := fmt.Sprintf("/api/v1/apps/%v/groups/%v", appId, groupId)
-	req, err := m.client.requestExecutor.NewRequest("PUT", url, body)
+
+	req, err := m.client.requestExecutor.WithAccept("application/json").WithContentType("application/json").NewRequest("PUT", url, body)
 	if err != nil {
 		return nil, nil, err
 	}
 
 	var applicationGroupAssignment *ApplicationGroupAssignment
-	resp, err := m.client.requestExecutor.Do(req, &applicationGroupAssignment)
+
+	resp, err := m.client.requestExecutor.Do(ctx, req, &applicationGroupAssignment)
 	if err != nil {
 		return nil, resp, err
 	}
+
 	return applicationGroupAssignment, resp, nil
 }
-func (m *ApplicationResource) ActivateApplication(appId string) (*Response, error) {
+
+// Activates an inactive application.
+func (m *ApplicationResource) ActivateApplication(ctx context.Context, appId string) (*Response, error) {
 	url := fmt.Sprintf("/api/v1/apps/%v/lifecycle/activate", appId)
-	req, err := m.client.requestExecutor.NewRequest("POST", url, nil)
+
+	req, err := m.client.requestExecutor.WithAccept("application/json").WithContentType("application/json").NewRequest("POST", url, nil)
 	if err != nil {
 		return nil, err
 	}
 
-	resp, err := m.client.requestExecutor.Do(req, nil)
+	resp, err := m.client.requestExecutor.Do(ctx, req, nil)
 	if err != nil {
 		return resp, err
 	}
+
 	return resp, nil
 }
-func (m *ApplicationResource) DeactivateApplication(appId string) (*Response, error) {
+
+// Deactivates an active application.
+func (m *ApplicationResource) DeactivateApplication(ctx context.Context, appId string) (*Response, error) {
 	url := fmt.Sprintf("/api/v1/apps/%v/lifecycle/deactivate", appId)
-	req, err := m.client.requestExecutor.NewRequest("POST", url, nil)
+
+	req, err := m.client.requestExecutor.WithAccept("application/json").WithContentType("application/json").NewRequest("POST", url, nil)
 	if err != nil {
 		return nil, err
 	}
 
-	resp, err := m.client.requestExecutor.Do(req, nil)
+	resp, err := m.client.requestExecutor.Do(ctx, req, nil)
 	if err != nil {
 		return resp, err
 	}
+
 	return resp, nil
 }
-func (m *ApplicationResource) ListApplicationUsers(appId string, qp *query.Params) ([]*AppUser, *Response, error) {
+
+// Revokes all tokens for the specified application
+func (m *ApplicationResource) RevokeOAuth2TokensForApplication(ctx context.Context, appId string) (*Response, error) {
+	url := fmt.Sprintf("/api/v1/apps/%v/tokens", appId)
+
+	req, err := m.client.requestExecutor.WithAccept("application/json").WithContentType("application/json").NewRequest("DELETE", url, nil)
+	if err != nil {
+		return nil, err
+	}
+
+	resp, err := m.client.requestExecutor.Do(ctx, req, nil)
+	if err != nil {
+		return resp, err
+	}
+
+	return resp, nil
+}
+
+// Lists all tokens for the application
+func (m *ApplicationResource) ListOAuth2TokensForApplication(ctx context.Context, appId string, qp *query.Params) ([]*OAuth2Token, *Response, error) {
+	url := fmt.Sprintf("/api/v1/apps/%v/tokens", appId)
+	if qp != nil {
+		url = url + qp.String()
+	}
+
+	req, err := m.client.requestExecutor.WithAccept("application/json").WithContentType("application/json").NewRequest("GET", url, nil)
+	if err != nil {
+		return nil, nil, err
+	}
+
+	var oAuth2Token []*OAuth2Token
+
+	resp, err := m.client.requestExecutor.Do(ctx, req, &oAuth2Token)
+	if err != nil {
+		return nil, resp, err
+	}
+
+	return oAuth2Token, resp, nil
+}
+
+// Revokes the specified token for the specified application
+func (m *ApplicationResource) RevokeOAuth2TokenForApplication(ctx context.Context, appId string, tokenId string) (*Response, error) {
+	url := fmt.Sprintf("/api/v1/apps/%v/tokens/%v", appId, tokenId)
+
+	req, err := m.client.requestExecutor.WithAccept("application/json").WithContentType("application/json").NewRequest("DELETE", url, nil)
+	if err != nil {
+		return nil, err
+	}
+
+	resp, err := m.client.requestExecutor.Do(ctx, req, nil)
+	if err != nil {
+		return resp, err
+	}
+
+	return resp, nil
+}
+
+// Gets a token for the specified application
+func (m *ApplicationResource) GetOAuth2TokenForApplication(ctx context.Context, appId string, tokenId string, qp *query.Params) (*OAuth2Token, *Response, error) {
+	url := fmt.Sprintf("/api/v1/apps/%v/tokens/%v", appId, tokenId)
+	if qp != nil {
+		url = url + qp.String()
+	}
+
+	req, err := m.client.requestExecutor.WithAccept("application/json").WithContentType("application/json").NewRequest("GET", url, nil)
+	if err != nil {
+		return nil, nil, err
+	}
+
+	var oAuth2Token *OAuth2Token
+
+	resp, err := m.client.requestExecutor.Do(ctx, req, &oAuth2Token)
+	if err != nil {
+		return nil, resp, err
+	}
+
+	return oAuth2Token, resp, nil
+}
+
+// Enumerates all assigned [application users](#application-user-model) for an application.
+func (m *ApplicationResource) ListApplicationUsers(ctx context.Context, appId string, qp *query.Params) ([]*AppUser, *Response, error) {
 	url := fmt.Sprintf("/api/v1/apps/%v/users", appId)
 	if qp != nil {
 		url = url + qp.String()
 	}
-	req, err := m.client.requestExecutor.NewRequest("GET", url, nil)
+
+	req, err := m.client.requestExecutor.WithAccept("application/json").WithContentType("application/json").NewRequest("GET", url, nil)
 	if err != nil {
 		return nil, nil, err
 	}
 
 	var appUser []*AppUser
-	resp, err := m.client.requestExecutor.Do(req, &appUser)
+
+	resp, err := m.client.requestExecutor.Do(ctx, req, &appUser)
 	if err != nil {
 		return nil, resp, err
 	}
+
 	return appUser, resp, nil
 }
-func (m *ApplicationResource) AssignUserToApplication(appId string, body AppUser) (*AppUser, *Response, error) {
+
+// Assigns an user to an application with [credentials](#application-user-credentials-object) and an app-specific [profile](#application-user-profile-object). Profile mappings defined for the application are first applied before applying any profile properties specified in the request.
+func (m *ApplicationResource) AssignUserToApplication(ctx context.Context, appId string, body AppUser) (*AppUser, *Response, error) {
 	url := fmt.Sprintf("/api/v1/apps/%v/users", appId)
-	req, err := m.client.requestExecutor.NewRequest("POST", url, body)
+
+	req, err := m.client.requestExecutor.WithAccept("application/json").WithContentType("application/json").NewRequest("POST", url, body)
 	if err != nil {
 		return nil, nil, err
 	}
 
 	var appUser *AppUser
-	resp, err := m.client.requestExecutor.Do(req, &appUser)
+
+	resp, err := m.client.requestExecutor.Do(ctx, req, &appUser)
 	if err != nil {
 		return nil, resp, err
 	}
+
 	return appUser, resp, nil
 }
-func (m *ApplicationResource) DeleteApplicationUser(appId string, userId string, qp *query.Params) (*Response, error) {
+
+// Removes an assignment for a user from an application.
+func (m *ApplicationResource) DeleteApplicationUser(ctx context.Context, appId string, userId string, qp *query.Params) (*Response, error) {
 	url := fmt.Sprintf("/api/v1/apps/%v/users/%v", appId, userId)
 	if qp != nil {
 		url = url + qp.String()
 	}
-	req, err := m.client.requestExecutor.NewRequest("DELETE", url, nil)
+
+	req, err := m.client.requestExecutor.WithAccept("application/json").WithContentType("application/json").NewRequest("DELETE", url, nil)
 	if err != nil {
 		return nil, err
 	}
 
-	resp, err := m.client.requestExecutor.Do(req, nil)
+	resp, err := m.client.requestExecutor.Do(ctx, req, nil)
 	if err != nil {
 		return resp, err
 	}
+
 	return resp, nil
 }
-func (m *ApplicationResource) GetApplicationUser(appId string, userId string, qp *query.Params) (*AppUser, *Response, error) {
+
+// Fetches a specific user assignment for application by &#x60;id&#x60;.
+func (m *ApplicationResource) GetApplicationUser(ctx context.Context, appId string, userId string, qp *query.Params) (*AppUser, *Response, error) {
 	url := fmt.Sprintf("/api/v1/apps/%v/users/%v", appId, userId)
 	if qp != nil {
 		url = url + qp.String()
 	}
-	req, err := m.client.requestExecutor.NewRequest("GET", url, nil)
+
+	req, err := m.client.requestExecutor.WithAccept("application/json").WithContentType("application/json").NewRequest("GET", url, nil)
 	if err != nil {
 		return nil, nil, err
 	}
 
 	var appUser *AppUser
-	resp, err := m.client.requestExecutor.Do(req, &appUser)
+
+	resp, err := m.client.requestExecutor.Do(ctx, req, &appUser)
 	if err != nil {
 		return nil, resp, err
 	}
+
 	return appUser, resp, nil
 }
-func (m *ApplicationResource) UpdateApplicationUser(appId string, userId string, body AppUser) (*AppUser, *Response, error) {
+
+// Updates a user&#x27;s profile for an application
+func (m *ApplicationResource) UpdateApplicationUser(ctx context.Context, appId string, userId string, body AppUser) (*AppUser, *Response, error) {
 	url := fmt.Sprintf("/api/v1/apps/%v/users/%v", appId, userId)
-	req, err := m.client.requestExecutor.NewRequest("POST", url, body)
+
+	req, err := m.client.requestExecutor.WithAccept("application/json").WithContentType("application/json").NewRequest("POST", url, body)
 	if err != nil {
 		return nil, nil, err
 	}
 
 	var appUser *AppUser
-	resp, err := m.client.requestExecutor.Do(req, &appUser)
+
+	resp, err := m.client.requestExecutor.Do(ctx, req, &appUser)
 	if err != nil {
 		return nil, resp, err
 	}
+
 	return appUser, resp, nil
 }

@@ -20,13 +20,4 @@ package okta
 
 import ()
 
-type OAuthEndpointAuthenticationMethod struct {
-}
-
-func NewOAuthEndpointAuthenticationMethod() *OAuthEndpointAuthenticationMethod {
-	return &OAuthEndpointAuthenticationMethod{}
-}
-
-func (a *OAuthEndpointAuthenticationMethod) IsApplicationInstance() bool {
-	return true
-}
+type OAuthEndpointAuthenticationMethod string

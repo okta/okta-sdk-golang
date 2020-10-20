@@ -20,13 +20,4 @@ package okta
 
 import ()
 
-type OpenIdConnectApplicationConsentMethod struct {
-}
-
-func NewOpenIdConnectApplicationConsentMethod() *OpenIdConnectApplicationConsentMethod {
-	return &OpenIdConnectApplicationConsentMethod{}
-}
-
-func (a *OpenIdConnectApplicationConsentMethod) IsApplicationInstance() bool {
-	return true
-}
+type OpenIdConnectApplicationConsentMethod string

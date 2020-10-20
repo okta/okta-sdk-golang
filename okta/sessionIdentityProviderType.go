@@ -20,5 +20,4 @@ package okta
 
 import ()
 
-type SessionIdentityProviderType struct {
-}
+type SessionIdentityProviderType string

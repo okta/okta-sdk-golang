@@ -19,226 +19,288 @@
 package okta
 
 import (
+	"context"
 	"fmt"
-	"github.com/okta/okta-sdk-golang/okta/query"
+	"github.com/okta/okta-sdk-golang/v2/okta/query"
 	"time"
 )
 
 type PolicyResource resource
 
 type Policy struct {
-	Embedded    interface{} `json:"_embedded,omitempty"`
-	Links       interface{} `json:"_links,omitempty"`
-	Created     *time.Time  `json:"created,omitempty"`
-	Description string      `json:"description,omitempty"`
-	Id          string      `json:"id,omitempty"`
-	LastUpdated *time.Time  `json:"lastUpdated,omitempty"`
-	Name        string      `json:"name,omitempty"`
-	Priority    int64       `json:"priority,omitempty"`
-	Status      string      `json:"status,omitempty"`
-	System      *bool       `json:"system,omitempty"`
-	Type        string      `json:"type,omitempty"`
+	Embedded    interface{}           `json:"_embedded,omitempty"`
+	Links       interface{}           `json:"_links,omitempty"`
+	Conditions  *PolicyRuleConditions `json:"conditions,omitempty"`
+	Created     *time.Time            `json:"created,omitempty"`
+	Description string                `json:"description,omitempty"`
+	Id          string                `json:"id,omitempty"`
+	LastUpdated *time.Time            `json:"lastUpdated,omitempty"`
+	Name        string                `json:"name,omitempty"`
+	Priority    int64                 `json:"priority,omitempty"`
+	Status      string                `json:"status,omitempty"`
+	System      *bool                 `json:"system,omitempty"`
+	Type        string                `json:"type,omitempty"`
 }
 
-func (m *PolicyResource) GetPolicy(policyId string, qp *query.Params) (*Policy, *Response, error) {
+// Gets a policy.
+func (m *PolicyResource) GetPolicy(ctx context.Context, policyId string, qp *query.Params) (*Policy, *Response, error) {
 	url := fmt.Sprintf("/api/v1/policies/%v", policyId)
 	if qp != nil {
 		url = url + qp.String()
 	}
-	req, err := m.client.requestExecutor.NewRequest("GET", url, nil)
+
+	req, err := m.client.requestExecutor.WithAccept("application/json").WithContentType("application/json").NewRequest("GET", url, nil)
 	if err != nil {
 		return nil, nil, err
 	}
 
 	var policy *Policy
-	resp, err := m.client.requestExecutor.Do(req, &policy)
+
+	resp, err := m.client.requestExecutor.Do(ctx, req, &policy)
 	if err != nil {
 		return nil, resp, err
 	}
+
 	return policy, resp, nil
 }
-func (m *PolicyResource) UpdatePolicy(policyId string, body Policy) (*Policy, *Response, error) {
+
+// Updates a policy.
+func (m *PolicyResource) UpdatePolicy(ctx context.Context, policyId string, body Policy) (*Policy, *Response, error) {
 	url := fmt.Sprintf("/api/v1/policies/%v", policyId)
-	req, err := m.client.requestExecutor.NewRequest("PUT", url, body)
+
+	req, err := m.client.requestExecutor.WithAccept("application/json").WithContentType("application/json").NewRequest("PUT", url, body)
 	if err != nil {
 		return nil, nil, err
 	}
 
 	var policy *Policy
-	resp, err := m.client.requestExecutor.Do(req, &policy)
+
+	resp, err := m.client.requestExecutor.Do(ctx, req, &policy)
 	if err != nil {
 		return nil, resp, err
 	}
+
 	return policy, resp, nil
 }
-func (m *PolicyResource) DeletePolicy(policyId string) (*Response, error) {
+
+// Removes a policy.
+func (m *PolicyResource) DeletePolicy(ctx context.Context, policyId string) (*Response, error) {
 	url := fmt.Sprintf("/api/v1/policies/%v", policyId)
-	req, err := m.client.requestExecutor.NewRequest("DELETE", url, nil)
+
+	req, err := m.client.requestExecutor.WithAccept("application/json").WithContentType("application/json").NewRequest("DELETE", url, nil)
 	if err != nil {
 		return nil, err
 	}
 
-	resp, err := m.client.requestExecutor.Do(req, nil)
+	resp, err := m.client.requestExecutor.Do(ctx, req, nil)
 	if err != nil {
 		return resp, err
 	}
+
 	return resp, nil
 }
-func (m *PolicyResource) ListPolicies(qp *query.Params) ([]*Policy, *Response, error) {
+
+// Gets all policies with the specified type.
+func (m *PolicyResource) ListPolicies(ctx context.Context, qp *query.Params) ([]*Policy, *Response, error) {
 	url := fmt.Sprintf("/api/v1/policies")
 	if qp != nil {
 		url = url + qp.String()
 	}
-	req, err := m.client.requestExecutor.NewRequest("GET", url, nil)
+
+	req, err := m.client.requestExecutor.WithAccept("application/json").WithContentType("application/json").NewRequest("GET", url, nil)
 	if err != nil {
 		return nil, nil, err
 	}
 
 	var policy []*Policy
-	resp, err := m.client.requestExecutor.Do(req, &policy)
+
+	resp, err := m.client.requestExecutor.Do(ctx, req, &policy)
 	if err != nil {
 		return nil, resp, err
 	}
+
 	return policy, resp, nil
 }
-func (m *PolicyResource) CreatePolicy(body Policy, qp *query.Params) (*Policy, *Response, error) {
+
+// Creates a policy.
+func (m *PolicyResource) CreatePolicy(ctx context.Context, body Policy, qp *query.Params) (*Policy, *Response, error) {
 	url := fmt.Sprintf("/api/v1/policies")
 	if qp != nil {
 		url = url + qp.String()
 	}
-	req, err := m.client.requestExecutor.NewRequest("POST", url, body)
+
+	req, err := m.client.requestExecutor.WithAccept("application/json").WithContentType("application/json").NewRequest("POST", url, body)
 	if err != nil {
 		return nil, nil, err
 	}
 
 	var policy *Policy
-	resp, err := m.client.requestExecutor.Do(req, &policy)
+
+	resp, err := m.client.requestExecutor.Do(ctx, req, &policy)
 	if err != nil {
 		return nil, resp, err
 	}
+
 	return policy, resp, nil
 }
-func (m *PolicyResource) ActivatePolicy(policyId string) (*Response, error) {
+
+// Activates a policy.
+func (m *PolicyResource) ActivatePolicy(ctx context.Context, policyId string) (*Response, error) {
 	url := fmt.Sprintf("/api/v1/policies/%v/lifecycle/activate", policyId)
-	req, err := m.client.requestExecutor.NewRequest("POST", url, nil)
+
+	req, err := m.client.requestExecutor.WithAccept("application/json").WithContentType("application/json").NewRequest("POST", url, nil)
 	if err != nil {
 		return nil, err
 	}
 
-	resp, err := m.client.requestExecutor.Do(req, nil)
+	resp, err := m.client.requestExecutor.Do(ctx, req, nil)
 	if err != nil {
 		return resp, err
 	}
+
 	return resp, nil
 }
-func (m *PolicyResource) DeactivatePolicy(policyId string) (*Response, error) {
+
+// Deactivates a policy.
+func (m *PolicyResource) DeactivatePolicy(ctx context.Context, policyId string) (*Response, error) {
 	url := fmt.Sprintf("/api/v1/policies/%v/lifecycle/deactivate", policyId)
-	req, err := m.client.requestExecutor.NewRequest("POST", url, nil)
+
+	req, err := m.client.requestExecutor.WithAccept("application/json").WithContentType("application/json").NewRequest("POST", url, nil)
 	if err != nil {
 		return nil, err
 	}
 
-	resp, err := m.client.requestExecutor.Do(req, nil)
+	resp, err := m.client.requestExecutor.Do(ctx, req, nil)
 	if err != nil {
 		return resp, err
 	}
+
 	return resp, nil
 }
-func (m *PolicyResource) ListPolicyRules(policyId string) ([]*PolicyRule, *Response, error) {
+
+// Enumerates all policy rules.
+func (m *PolicyResource) ListPolicyRules(ctx context.Context, policyId string) ([]*PolicyRule, *Response, error) {
 	url := fmt.Sprintf("/api/v1/policies/%v/rules", policyId)
-	req, err := m.client.requestExecutor.NewRequest("GET", url, nil)
+
+	req, err := m.client.requestExecutor.WithAccept("application/json").WithContentType("application/json").NewRequest("GET", url, nil)
 	if err != nil {
 		return nil, nil, err
 	}
 
 	var policyRule []*PolicyRule
-	resp, err := m.client.requestExecutor.Do(req, &policyRule)
+
+	resp, err := m.client.requestExecutor.Do(ctx, req, &policyRule)
 	if err != nil {
 		return nil, resp, err
 	}
+
 	return policyRule, resp, nil
 }
-func (m *PolicyResource) AddPolicyRule(policyId string, body PolicyRule, qp *query.Params) (*PolicyRule, *Response, error) {
+
+// Creates a policy rule.
+func (m *PolicyResource) CreatePolicyRule(ctx context.Context, policyId string, body PolicyRule) (*PolicyRule, *Response, error) {
 	url := fmt.Sprintf("/api/v1/policies/%v/rules", policyId)
-	if qp != nil {
-		url = url + qp.String()
-	}
-	req, err := m.client.requestExecutor.NewRequest("POST", url, body)
+
+	req, err := m.client.requestExecutor.WithAccept("application/json").WithContentType("application/json").NewRequest("POST", url, body)
 	if err != nil {
 		return nil, nil, err
 	}
 
 	var policyRule *PolicyRule
-	resp, err := m.client.requestExecutor.Do(req, &policyRule)
+
+	resp, err := m.client.requestExecutor.Do(ctx, req, &policyRule)
 	if err != nil {
 		return nil, resp, err
 	}
+
 	return policyRule, resp, nil
 }
-func (m *PolicyResource) DeletePolicyRule(policyId string, ruleId string) (*Response, error) {
+
+// Removes a policy rule.
+func (m *PolicyResource) DeletePolicyRule(ctx context.Context, policyId string, ruleId string) (*Response, error) {
 	url := fmt.Sprintf("/api/v1/policies/%v/rules/%v", policyId, ruleId)
-	req, err := m.client.requestExecutor.NewRequest("DELETE", url, nil)
+
+	req, err := m.client.requestExecutor.WithAccept("application/json").WithContentType("application/json").NewRequest("DELETE", url, nil)
 	if err != nil {
 		return nil, err
 	}
 
-	resp, err := m.client.requestExecutor.Do(req, nil)
+	resp, err := m.client.requestExecutor.Do(ctx, req, nil)
 	if err != nil {
 		return resp, err
 	}
+
 	return resp, nil
 }
-func (m *PolicyResource) GetPolicyRule(policyId string, ruleId string) (*PolicyRule, *Response, error) {
+
+// Gets a policy rule.
+func (m *PolicyResource) GetPolicyRule(ctx context.Context, policyId string, ruleId string) (*PolicyRule, *Response, error) {
 	url := fmt.Sprintf("/api/v1/policies/%v/rules/%v", policyId, ruleId)
-	req, err := m.client.requestExecutor.NewRequest("GET", url, nil)
+
+	req, err := m.client.requestExecutor.WithAccept("application/json").WithContentType("application/json").NewRequest("GET", url, nil)
 	if err != nil {
 		return nil, nil, err
 	}
 
 	var policyRule *PolicyRule
-	resp, err := m.client.requestExecutor.Do(req, &policyRule)
+
+	resp, err := m.client.requestExecutor.Do(ctx, req, &policyRule)
 	if err != nil {
 		return nil, resp, err
 	}
+
 	return policyRule, resp, nil
 }
-func (m *PolicyResource) UpdatePolicyRule(policyId string, ruleId string, body PolicyRule) (*PolicyRule, *Response, error) {
+
+// Updates a policy rule.
+func (m *PolicyResource) UpdatePolicyRule(ctx context.Context, policyId string, ruleId string, body PolicyRule) (*PolicyRule, *Response, error) {
 	url := fmt.Sprintf("/api/v1/policies/%v/rules/%v", policyId, ruleId)
-	req, err := m.client.requestExecutor.NewRequest("PUT", url, body)
+
+	req, err := m.client.requestExecutor.WithAccept("application/json").WithContentType("application/json").NewRequest("PUT", url, body)
 	if err != nil {
 		return nil, nil, err
 	}
 
 	var policyRule *PolicyRule
-	resp, err := m.client.requestExecutor.Do(req, &policyRule)
+
+	resp, err := m.client.requestExecutor.Do(ctx, req, &policyRule)
 	if err != nil {
 		return nil, resp, err
 	}
+
 	return policyRule, resp, nil
 }
-func (m *PolicyResource) ActivatePolicyRule(policyId string, ruleId string) (*Response, error) {
+
+// Activates a policy rule.
+func (m *PolicyResource) ActivatePolicyRule(ctx context.Context, policyId string, ruleId string) (*Response, error) {
 	url := fmt.Sprintf("/api/v1/policies/%v/rules/%v/lifecycle/activate", policyId, ruleId)
-	req, err := m.client.requestExecutor.NewRequest("POST", url, nil)
+
+	req, err := m.client.requestExecutor.WithAccept("application/json").WithContentType("application/json").NewRequest("POST", url, nil)
 	if err != nil {
 		return nil, err
 	}
 
-	resp, err := m.client.requestExecutor.Do(req, nil)
+	resp, err := m.client.requestExecutor.Do(ctx, req, nil)
 	if err != nil {
 		return resp, err
 	}
+
 	return resp, nil
 }
-func (m *PolicyResource) DeactivatePolicyRule(policyId string, ruleId string) (*Response, error) {
+
+// Deactivates a policy rule.
+func (m *PolicyResource) DeactivatePolicyRule(ctx context.Context, policyId string, ruleId string) (*Response, error) {
 	url := fmt.Sprintf("/api/v1/policies/%v/rules/%v/lifecycle/deactivate", policyId, ruleId)
-	req, err := m.client.requestExecutor.NewRequest("POST", url, nil)
+
+	req, err := m.client.requestExecutor.WithAccept("application/json").WithContentType("application/json").NewRequest("POST", url, nil)
 	if err != nil {
 		return nil, err
 	}
 
-	resp, err := m.client.requestExecutor.Do(req, nil)
+	resp, err := m.client.requestExecutor.Do(ctx, req, nil)
 	if err != nil {
 		return resp, err
 	}
+
 	return resp, nil
 }

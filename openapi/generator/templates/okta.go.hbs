@@ -8,13 +8,13 @@ import (
 	"io/ioutil"
 	"os/user"
 
-	"github.com/okta/okta-sdk-golang/okta/cache"
+	"github.com/okta/okta-sdk-golang/v2/okta/cache"
 
 	"github.com/go-yaml/yaml"
 	"github.com/kelseyhightower/envconfig"
 )
 
-const Version = "0.1.0"
+const Version = "2.0.0"
 
 type Client struct {
 	config *config
@@ -30,7 +30,10 @@ type resource struct {
 	client *Client
 }
 
-func NewClient(ctx context.Context, conf ...ConfigSetter) (*Client, error) {
+type clientContextKey struct {
+}
+
+func NewClient(ctx context.Context, conf ...ConfigSetter) (context.Context, *Client, error) {
 	config := &config{}
 
 	setConfigDefaults(config)
@@ -68,7 +71,15 @@ func NewClient(ctx context.Context, conf ...ConfigSetter) (*Client, error) {
 	c.resource.client = c
 
 	{{{getNewClientTagProps operations}}}
-	return c, nil
+
+	contextReturn := context.WithValue(ctx, clientContextKey{}, c)
+
+	return contextReturn, c, nil
+}
+
+func ClientFromContext(ctx context.Context) (*Client, bool) {
+	u, ok := ctx.Value(clientContextKey{}).(*Client)
+	return u, ok
 }
 
 func (c *Client) GetConfig() *config {
@@ -90,27 +101,27 @@ func setConfigDefaults(c *config) {
 		WithUserAgentExtra(""),
 		WithTestingDisableHttpsCheck(false),
 		WithRequestTimeout(0),
-		WithRateLimitMaxRetries(2))
+		WithRateLimitMaxRetries(2),
+		WithAuthorizationMode("SSWS"))
 
 	for _, confSetter := range conf {
 		confSetter(c)
 	}
 }
 
-func readConfigFromFile(location string) (*config, error) {
+func readConfigFromFile(location string, c config) (*config, error) {
 	yamlConfig, err := ioutil.ReadFile(location)
 
 	if err != nil {
 		return nil, err
 	}
 
-	conf := config{}
-	err = yaml.Unmarshal(yamlConfig, &conf)
+	err = yaml.Unmarshal(yamlConfig, &c)
 	if err != nil {
 		return nil, err
 	}
 
-	return &conf, err
+	return &c, err
 }
 
 func readConfigFromSystem(c config) *config {
@@ -122,7 +133,7 @@ func readConfigFromSystem(c config) *config {
 		return &c
 	}
 
-	conf, err := readConfigFromFile(currUser.HomeDir + "/.okta/okta.yaml")
+	conf, err := readConfigFromFile(currUser.HomeDir + "/.okta/okta.yaml", c)
 
 	if err != nil {
 		return &c
@@ -132,7 +143,7 @@ func readConfigFromSystem(c config) *config {
 }
 
 func readConfigFromApplication(c config) *config {
-	conf, err := readConfigFromFile(".okta.yaml")
+	conf, err := readConfigFromFile(".okta.yaml", c)
 
 	if err != nil {
 		return &c

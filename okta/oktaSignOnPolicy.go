@@ -25,6 +25,7 @@ import (
 type OktaSignOnPolicy struct {
 	Embedded    interface{}                 `json:"_embedded,omitempty"`
 	Links       interface{}                 `json:"_links,omitempty"`
+	Conditions  *OktaSignOnPolicyConditions `json:"conditions,omitempty"`
 	Created     *time.Time                  `json:"created,omitempty"`
 	Description string                      `json:"description,omitempty"`
 	Id          string                      `json:"id,omitempty"`
@@ -34,5 +35,4 @@ type OktaSignOnPolicy struct {
 	Status      string                      `json:"status,omitempty"`
 	System      *bool                       `json:"system,omitempty"`
 	Type        string                      `json:"type,omitempty"`
-	Conditions  *OktaSignOnPolicyConditions `json:"conditions,omitempty"`
 }

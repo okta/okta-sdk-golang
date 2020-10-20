@@ -20,13 +20,4 @@ package okta
 
 import ()
 
-type ApplicationCredentialsScheme struct {
-}
-
-func NewApplicationCredentialsScheme() *ApplicationCredentialsScheme {
-	return &ApplicationCredentialsScheme{}
-}
-
-func (a *ApplicationCredentialsScheme) IsApplicationInstance() bool {
-	return true
-}
+type ApplicationCredentialsScheme string

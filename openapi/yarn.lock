@@ -2,9 +2,10 @@
 # yarn lockfile v1
 
 
-"@okta/openapi@^1.0.0":
-  version "1.11.1"
-  resolved "https://registry.yarnpkg.com/@okta/openapi/-/openapi-1.11.1.tgz#09869f74c90f1ac5dd85bf216245aad302932f2b"
+"@okta/openapi@^1.11.2":
+  version "1.11.2"
+  resolved "https://registry.yarnpkg.com/@okta/openapi/-/openapi-1.11.2.tgz#3898061abd7f3891725dc58b2f7b969ca75d804c"
+  integrity sha512-sQ1katXkeXHg9X9yzf672XUE0gi5RXCf9e92wi86mc8C1So50cM2mF5WWxr1wLEp+Fkznn8I/0pd8Sa5RgPVIw==
   dependencies:
     commander "2.9.0"
     fs-extra "3.0.1"
@@ -240,9 +241,10 @@ lodash.isequal@^4.5.0:
   version "4.5.0"
   resolved "https://registry.yarnpkg.com/lodash.isequal/-/lodash.isequal-4.5.0.tgz#415c4478f2bcc30120c22ce10ed3226f7d3e18e0"
 
-lodash@^4.17.4:
-  version "4.17.14"
-  resolved "https://registry.yarnpkg.com/lodash/-/lodash-4.17.14.tgz#9ce487ae66c96254fe20b599f21b6816028078ba"
+lodash@^4.17.19:
+  version "4.17.19"
+  resolved "https://registry.yarnpkg.com/lodash/-/lodash-4.17.19.tgz#e48ddedbe30b3321783c5b4301fbd353bc1e4a4b"
+  integrity sha512-JNvd8XER9GQX0v2qJgsaN/mzFCNA5BRe/j8JN9d+tWyGLSodKQHKFicdwNYzWwI3wjRnaKPsGj1XkBjx/F96DQ==
 
 map-age-cleaner@^0.1.1:
   version "0.1.3"
