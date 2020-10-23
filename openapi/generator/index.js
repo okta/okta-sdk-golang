@@ -393,6 +393,8 @@ function isInstance(model) {
       model.modelName == "OAuth2Actor" ||
       model.modelName == "OAuth2Client" ||
       model.modelName == "OAuth2RefreshToken" ||
+      model.modelName == "OAuth2ClaimConditions" ||
+      model.modelName == "OAuth2Scope" ||
       model.modelName == "WebAuthnUserFactorProfile" ||
       model.modelName == "OAuth2ScopesMediationPolicyRuleCondition") {
     return false
