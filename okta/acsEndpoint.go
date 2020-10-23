@@ -24,11 +24,3 @@ type AcsEndpoint struct {
 	Index int64  `json:"index,omitempty"`
 	Url   string `json:"url,omitempty"`
 }
-
-func NewAcsEndpoint() *AcsEndpoint {
-	return &AcsEndpoint{}
-}
-
-func (a *AcsEndpoint) IsApplicationInstance() bool {
-	return true
-}

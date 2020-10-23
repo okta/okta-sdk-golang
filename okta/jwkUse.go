@@ -23,11 +23,3 @@ import ()
 type JwkUse struct {
 	Use string `json:"use,omitempty"`
 }
-
-func NewJwkUse() *JwkUse {
-	return &JwkUse{}
-}
-
-func (a *JwkUse) IsApplicationInstance() bool {
-	return true
-}

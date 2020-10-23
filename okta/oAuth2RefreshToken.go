@@ -36,11 +36,3 @@ type OAuth2RefreshToken struct {
 	Status      string       `json:"status,omitempty"`
 	UserId      string       `json:"userId,omitempty"`
 }
-
-func NewOAuth2RefreshToken() *OAuth2RefreshToken {
-	return &OAuth2RefreshToken{}
-}
-
-func (a *OAuth2RefreshToken) IsApplicationInstance() bool {
-	return true
-}

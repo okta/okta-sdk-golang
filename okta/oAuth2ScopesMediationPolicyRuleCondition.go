@@ -23,11 +23,3 @@ import ()
 type OAuth2ScopesMediationPolicyRuleCondition struct {
 	Include []string `json:"include,omitempty"`
 }
-
-func NewOAuth2ScopesMediationPolicyRuleCondition() *OAuth2ScopesMediationPolicyRuleCondition {
-	return &OAuth2ScopesMediationPolicyRuleCondition{}
-}
-
-func (a *OAuth2ScopesMediationPolicyRuleCondition) IsApplicationInstance() bool {
-	return true
-}

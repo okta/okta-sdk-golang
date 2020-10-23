@@ -27,11 +27,3 @@ type OAuth2Client struct {
 	ClientUri  string      `json:"client_uri,omitempty"`
 	LogoUri    string      `json:"logo_uri,omitempty"`
 }
-
-func NewOAuth2Client() *OAuth2Client {
-	return &OAuth2Client{}
-}
-
-func (a *OAuth2Client) IsApplicationInstance() bool {
-	return true
-}

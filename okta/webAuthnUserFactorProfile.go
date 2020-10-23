@@ -24,11 +24,3 @@ type WebAuthnUserFactorProfile struct {
 	AuthenticatorName string `json:"authenticatorName,omitempty"`
 	CredentialId      string `json:"credentialId,omitempty"`
 }
-
-func NewWebAuthnUserFactorProfile() *WebAuthnUserFactorProfile {
-	return &WebAuthnUserFactorProfile{}
-}
-
-func (a *WebAuthnUserFactorProfile) IsUserFactorInstance() bool {
-	return true
-}
