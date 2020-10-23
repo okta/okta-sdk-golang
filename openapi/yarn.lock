@@ -3,9 +3,9 @@
 
 
 "@okta/openapi@^2.1.0":
-  version "2.1.0"
-  resolved "https://registry.yarnpkg.com/@okta/openapi/-/openapi-2.1.0.tgz#3beee2f46fd6b8c1b28ca4f89cfdcd6d57c13586"
-  integrity sha512-ik14wFi2K0nNLwNolksjzicn/LSTrYQPe6AxQ0eeqQIa8QE9WRFbhkfdBzOFR3zdDNlD2K4NUFm5eDpJTYqNgA==
+  version "2.1.1"
+  resolved "https://registry.yarnpkg.com/@okta/openapi/-/openapi-2.1.1.tgz#e8d3dbfde109ed09b300dd5c9a75ca557694efc4"
+  integrity sha512-BsAQbPArtzcPByfYb9/yS8tnTZYhnN/X6UgX3i/rzQOOV1qTASTg7+GFzxqN6rTbLvsGfv+slSNatWG1hkaVdA==
   dependencies:
     commander "2.9.0"
     fs-extra "3.0.1"
