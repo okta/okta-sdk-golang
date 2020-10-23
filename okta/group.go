@@ -374,7 +374,7 @@ func (m *GroupResource) GetRole(ctx context.Context, groupId string, roleId stri
 }
 
 // Lists all App targets for an &#x60;APP_ADMIN&#x60; Role assigned to a Group. This methods return list may include full Applications or Instances. The response for an instance will have an &#x60;ID&#x60; value, while Application will not have an ID.
-func (m *GroupResource) ListApplicationTargetsForApplicationAdministratorRoleForGroup(ctx context.Context, groupId string, roleId string, qp *query.Params) ([]App, *Response, error) {
+func (m *GroupResource) ListApplicationTargetsForApplicationAdministratorRoleForGroup(ctx context.Context, groupId string, roleId string, qp *query.Params) ([]*CatalogApplication, *Response, error) {
 	url := fmt.Sprintf("/api/v1/groups/%v/roles/%v/targets/catalog/apps", groupId, roleId)
 	if qp != nil {
 		url = url + qp.String()
@@ -385,19 +385,14 @@ func (m *GroupResource) ListApplicationTargetsForApplicationAdministratorRoleFor
 		return nil, nil, err
 	}
 
-	var application []Application
+	var catalogApplication []*CatalogApplication
 
-	resp, err := m.client.requestExecutor.Do(ctx, req, &application)
+	resp, err := m.client.requestExecutor.Do(ctx, req, &catalogApplication)
 	if err != nil {
 		return nil, resp, err
 	}
 
-	apps := make([]App, len(application))
-	for i := range application {
-		apps[i] = &application[i]
-	}
-	return apps, resp, nil
-
+	return catalogApplication, resp, nil
 }
 
 func (m *GroupResource) RemoveApplicationTargetFromApplicationAdministratorRoleGivenToGroup(ctx context.Context, groupId string, roleId string, appName string) (*Response, error) {

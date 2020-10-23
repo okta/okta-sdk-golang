@@ -27,7 +27,7 @@ type JsonWebKey struct {
 	Alg         string      `json:"alg,omitempty"`
 	Created     *time.Time  `json:"created,omitempty"`
 	E           string      `json:"e,omitempty"`
-	ExpiresAt   string      `json:"expiresAt,omitempty"`
+	ExpiresAt   *time.Time  `json:"expiresAt,omitempty"`
 	KeyOps      []string    `json:"key_ops,omitempty"`
 	Kid         string      `json:"kid,omitempty"`
 	Kty         string      `json:"kty,omitempty"`

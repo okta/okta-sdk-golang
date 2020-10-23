@@ -34,6 +34,8 @@ func (m *{{modelName}}Resource) {{ucFirst operation.operationId}}({{operationArg
 	var {{lowercaseFirstLetter operation.responseModel}} []Application
 	{{else if (factorModelInterface operation.operationId) }}
 	var {{lowercaseFirstLetter operation.responseModel}} []UserFactor
+	{{else if (catalogApplicationInterface operation.operationId) }}
+    var {{lowercaseFirstLetter operation.responseModel}} []*CatalogApplication
 	{{else}}
 	var {{lowercaseFirstLetter operation.responseModel}} []interface{}
 	{{/if}}

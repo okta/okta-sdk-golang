@@ -18,22 +18,16 @@
 
 package okta
 
-import (
-	"time"
-)
+import ()
 
-type VerifyUserFactorResponse struct {
-	Embedded            interface{} `json:"_embedded,omitempty"`
-	Links               interface{} `json:"_links,omitempty"`
-	ExpiresAt           *time.Time  `json:"expiresAt,omitempty"`
-	FactorResult        string      `json:"factorResult,omitempty"`
-	FactorResultMessage string      `json:"factorResultMessage,omitempty"`
+type CustomHotpUserFactorProfile struct {
+	SharedSecret string `json:"sharedSecret,omitempty"`
 }
 
-func NewVerifyUserFactorResponse() *VerifyUserFactorResponse {
-	return &VerifyUserFactorResponse{}
+func NewCustomHotpUserFactorProfile() *CustomHotpUserFactorProfile {
+	return &CustomHotpUserFactorProfile{}
 }
 
-func (a *VerifyUserFactorResponse) IsUserFactorInstance() bool {
+func (a *CustomHotpUserFactorProfile) IsUserFactorInstance() bool {
 	return true
 }

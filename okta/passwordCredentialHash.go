@@ -21,9 +21,9 @@ package okta
 import ()
 
 type PasswordCredentialHash struct {
-	Algorithm    string `json:"algorithm,omitempty"`
-	Salt         string `json:"salt,omitempty"`
-	SaltOrder    string `json:"saltOrder,omitempty"`
-	Value        string `json:"value,omitempty"`
-	WorkerFactor int64  `json:"workerFactor,omitempty"`
+	Algorithm  string `json:"algorithm,omitempty"`
+	Salt       string `json:"salt,omitempty"`
+	SaltOrder  string `json:"saltOrder,omitempty"`
+	Value      string `json:"value,omitempty"`
+	WorkFactor int64  `json:"workFactor,omitempty"`
 }

@@ -39,6 +39,25 @@ type UserType struct {
 	Name          string      `json:"name,omitempty"`
 }
 
+// Creates a new User Type. A default User Type is automatically created along with your org, and you may add another 9 User Types for a maximum of 10.
+func (m *UserTypeResource) CreateUserType(ctx context.Context, body UserType) (*UserType, *Response, error) {
+	url := fmt.Sprintf("/api/v1/meta/types/user")
+
+	req, err := m.client.requestExecutor.WithAccept("application/json").WithContentType("application/json").NewRequest("POST", url, body)
+	if err != nil {
+		return nil, nil, err
+	}
+
+	var userType *UserType
+
+	resp, err := m.client.requestExecutor.Do(ctx, req, &userType)
+	if err != nil {
+		return nil, resp, err
+	}
+
+	return userType, resp, nil
+}
+
 // Updates an existing User Type
 func (m *UserTypeResource) UpdateUserType(ctx context.Context, typeId string, body UserType) (*UserType, *Response, error) {
 	url := fmt.Sprintf("/api/v1/meta/types/user/%v", typeId)
@@ -104,25 +123,6 @@ func (m *UserTypeResource) ListUserTypes(ctx context.Context) ([]*UserType, *Res
 	}
 
 	var userType []*UserType
-
-	resp, err := m.client.requestExecutor.Do(ctx, req, &userType)
-	if err != nil {
-		return nil, resp, err
-	}
-
-	return userType, resp, nil
-}
-
-// Creates a new User Type. A default User Type is automatically created along with your org, and you may add another 9 User Types for a maximum of 10.
-func (m *UserTypeResource) CreateUserType(ctx context.Context, body UserType) (*UserType, *Response, error) {
-	url := fmt.Sprintf("/api/v1/meta/types/user")
-
-	req, err := m.client.requestExecutor.WithAccept("application/json").WithContentType("application/json").NewRequest("POST", url, body)
-	if err != nil {
-		return nil, nil, err
-	}
-
-	var userType *UserType
 
 	resp, err := m.client.requestExecutor.Do(ctx, req, &userType)
 	if err != nil {

@@ -21,27 +21,29 @@ package okta
 import ()
 
 type SamlApplicationSettingsSignOn struct {
-	AssertionSigned       *bool                     `json:"assertionSigned,omitempty"`
-	AttributeStatements   []*SamlAttributeStatement `json:"attributeStatements,omitempty"`
-	Audience              string                    `json:"audience,omitempty"`
-	AudienceOverride      string                    `json:"audienceOverride,omitempty"`
-	AuthnContextClassRef  string                    `json:"authnContextClassRef,omitempty"`
-	DefaultRelayState     string                    `json:"defaultRelayState,omitempty"`
-	Destination           string                    `json:"destination,omitempty"`
-	DestinationOverride   string                    `json:"destinationOverride,omitempty"`
-	DigestAlgorithm       string                    `json:"digestAlgorithm,omitempty"`
-	HonorForceAuthn       *bool                     `json:"honorForceAuthn,omitempty"`
-	IdpIssuer             string                    `json:"idpIssuer,omitempty"`
-	Recipient             string                    `json:"recipient,omitempty"`
-	RecipientOverride     string                    `json:"recipientOverride,omitempty"`
-	RequestCompressed     *bool                     `json:"requestCompressed,omitempty"`
-	ResponseSigned        *bool                     `json:"responseSigned,omitempty"`
-	SignatureAlgorithm    string                    `json:"signatureAlgorithm,omitempty"`
-	SpIssuer              string                    `json:"spIssuer,omitempty"`
-	SsoAcsUrl             string                    `json:"ssoAcsUrl,omitempty"`
-	SsoAcsUrlOverride     string                    `json:"ssoAcsUrlOverride,omitempty"`
-	SubjectNameIdFormat   string                    `json:"subjectNameIdFormat,omitempty"`
-	SubjectNameIdTemplate string                    `json:"subjectNameIdTemplate,omitempty"`
+	AcsEndpoints              []*AcsEndpoint            `json:"acsEndpoints,omitempty"`
+	AllowMultipleAcsEndpoints *bool                     `json:"allowMultipleAcsEndpoints,omitempty"`
+	AssertionSigned           *bool                     `json:"assertionSigned,omitempty"`
+	AttributeStatements       []*SamlAttributeStatement `json:"attributeStatements,omitempty"`
+	Audience                  string                    `json:"audience,omitempty"`
+	AudienceOverride          string                    `json:"audienceOverride,omitempty"`
+	AuthnContextClassRef      string                    `json:"authnContextClassRef,omitempty"`
+	DefaultRelayState         string                    `json:"defaultRelayState,omitempty"`
+	Destination               string                    `json:"destination,omitempty"`
+	DestinationOverride       string                    `json:"destinationOverride,omitempty"`
+	DigestAlgorithm           string                    `json:"digestAlgorithm,omitempty"`
+	HonorForceAuthn           *bool                     `json:"honorForceAuthn,omitempty"`
+	IdpIssuer                 string                    `json:"idpIssuer,omitempty"`
+	Recipient                 string                    `json:"recipient,omitempty"`
+	RecipientOverride         string                    `json:"recipientOverride,omitempty"`
+	RequestCompressed         *bool                     `json:"requestCompressed,omitempty"`
+	ResponseSigned            *bool                     `json:"responseSigned,omitempty"`
+	SignatureAlgorithm        string                    `json:"signatureAlgorithm,omitempty"`
+	SpIssuer                  string                    `json:"spIssuer,omitempty"`
+	SsoAcsUrl                 string                    `json:"ssoAcsUrl,omitempty"`
+	SsoAcsUrlOverride         string                    `json:"ssoAcsUrlOverride,omitempty"`
+	SubjectNameIdFormat       string                    `json:"subjectNameIdFormat,omitempty"`
+	SubjectNameIdTemplate     string                    `json:"subjectNameIdTemplate,omitempty"`
 }
 
 func NewSamlApplicationSettingsSignOn() *SamlApplicationSettingsSignOn {
