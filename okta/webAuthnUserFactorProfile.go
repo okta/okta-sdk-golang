@@ -20,18 +20,15 @@ package okta
 
 import ()
 
-type OAuth2Client struct {
-	Links      interface{} `json:"_links,omitempty"`
-	ClientId   string      `json:"client_id,omitempty"`
-	ClientName string      `json:"client_name,omitempty"`
-	ClientUri  string      `json:"client_uri,omitempty"`
-	LogoUri    string      `json:"logo_uri,omitempty"`
+type WebAuthnUserFactorProfile struct {
+	AuthenticatorName string `json:"authenticatorName,omitempty"`
+	CredentialId      string `json:"credentialId,omitempty"`
 }
 
-func NewOAuth2Client() *OAuth2Client {
-	return &OAuth2Client{}
+func NewWebAuthnUserFactorProfile() *WebAuthnUserFactorProfile {
+	return &WebAuthnUserFactorProfile{}
 }
 
-func (a *OAuth2Client) IsApplicationInstance() bool {
+func (a *WebAuthnUserFactorProfile) IsUserFactorInstance() bool {
 	return true
 }

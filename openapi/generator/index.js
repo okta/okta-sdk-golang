@@ -301,11 +301,9 @@ function responseModelInterface(operationId) {
          operationId === "listAssignedApplicationsForUser";
  }
 
- function applicationModelInterface(operationId) {
+function applicationModelInterface(operationId) {
   return operationId === "listApplications" ||
          operationId === "listAppTargetsForRole" ||
-         operationId === "listApplicationTargetsForApplicationAdministratorRoleForGroup" ||
-         operationId === "listApplicationTargetsForApplicationAdministratorRoleForUser" ||
          operationId === "listAssignedApplicationsForGroup" ||
          operationId === "listAssignedApplicationsForUser";
 }
@@ -313,6 +311,11 @@ function responseModelInterface(operationId) {
 function factorModelInterface(operationId) {
   return operationId === "listFactors" ||
          operationId === "listSupportedFactors";
+}
+
+function catalogApplicationInterface(operationId) {
+    return operationId === "listApplicationTargetsForApplicationAdministratorRoleForGroup" ||
+        operationId === "listApplicationTargetsForApplicationAdministratorRoleForUser";
 }
 
 function factorInstanceOperation(operationId) {
@@ -513,7 +516,8 @@ golang.process = ({ spec, operations, models, handlebars }) => {
     applicationModelInterface,
     factorModelInterface,
     factorInstanceOperation,
-    isInstance
+    isInstance,
+    catalogApplicationInterface
   });
 
   handlebars.registerPartial('partials.copyHeader', fs.readFileSync('generator/templates/partials/copyHeader.hbs', 'utf8'));

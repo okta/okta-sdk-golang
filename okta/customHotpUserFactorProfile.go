@@ -20,18 +20,14 @@ package okta
 
 import ()
 
-type OAuth2Client struct {
-	Links      interface{} `json:"_links,omitempty"`
-	ClientId   string      `json:"client_id,omitempty"`
-	ClientName string      `json:"client_name,omitempty"`
-	ClientUri  string      `json:"client_uri,omitempty"`
-	LogoUri    string      `json:"logo_uri,omitempty"`
+type CustomHotpUserFactorProfile struct {
+	SharedSecret string `json:"sharedSecret,omitempty"`
 }
 
-func NewOAuth2Client() *OAuth2Client {
-	return &OAuth2Client{}
+func NewCustomHotpUserFactorProfile() *CustomHotpUserFactorProfile {
+	return &CustomHotpUserFactorProfile{}
 }
 
-func (a *OAuth2Client) IsApplicationInstance() bool {
+func (a *CustomHotpUserFactorProfile) IsUserFactorInstance() bool {
 	return true
 }

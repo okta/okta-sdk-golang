@@ -117,6 +117,9 @@ func (re *RequestExecutor) NewRequest(method string, url string, body interface{
 			priv := []byte(strings.ReplaceAll(re.config.Okta.Client.PrivateKey, `\n`, "\n"))
 
 			privPem, _ := pem.Decode(priv)
+			if privPem == nil {
+				return nil, errors.New("invalid private key")
+			}
 			if privPem.Type != "RSA PRIVATE KEY" {
 				return nil, fmt.Errorf("RSA private key is of the wrong type")
 			}

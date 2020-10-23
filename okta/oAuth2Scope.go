@@ -30,3 +30,11 @@ type OAuth2Scope struct {
 	Name            string `json:"name,omitempty"`
 	System          *bool  `json:"system,omitempty"`
 }
+
+func NewOAuth2Scope() *OAuth2Scope {
+	return &OAuth2Scope{}
+}
+
+func (a *OAuth2Scope) IsApplicationInstance() bool {
+	return true
+}

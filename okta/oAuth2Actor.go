@@ -24,3 +24,11 @@ type OAuth2Actor struct {
 	Id   string `json:"id,omitempty"`
 	Type string `json:"type,omitempty"`
 }
+
+func NewOAuth2Actor() *OAuth2Actor {
+	return &OAuth2Actor{}
+}
+
+func (a *OAuth2Actor) IsApplicationInstance() bool {
+	return true
+}

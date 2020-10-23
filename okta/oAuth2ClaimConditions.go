@@ -23,3 +23,11 @@ import ()
 type OAuth2ClaimConditions struct {
 	Scopes []string `json:"scopes,omitempty"`
 }
+
+func NewOAuth2ClaimConditions() *OAuth2ClaimConditions {
+	return &OAuth2ClaimConditions{}
+}
+
+func (a *OAuth2ClaimConditions) IsApplicationInstance() bool {
+	return true
+}

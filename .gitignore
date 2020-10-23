@@ -1,3 +1,4 @@
 /vendor
 .okta
 .idea
+.okta.yaml

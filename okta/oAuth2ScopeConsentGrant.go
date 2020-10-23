@@ -34,4 +34,5 @@ type OAuth2ScopeConsentGrant struct {
 	ScopeId     string       `json:"scopeId,omitempty"`
 	Source      string       `json:"source,omitempty"`
 	Status      string       `json:"status,omitempty"`
+	UserId      string       `json:"userId,omitempty"`
 }

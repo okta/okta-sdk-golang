@@ -20,18 +20,15 @@ package okta
 
 import ()
 
-type OAuth2Client struct {
-	Links      interface{} `json:"_links,omitempty"`
-	ClientId   string      `json:"client_id,omitempty"`
-	ClientName string      `json:"client_name,omitempty"`
-	ClientUri  string      `json:"client_uri,omitempty"`
-	LogoUri    string      `json:"logo_uri,omitempty"`
+type AcsEndpoint struct {
+	Index int64  `json:"index,omitempty"`
+	Url   string `json:"url,omitempty"`
 }
 
-func NewOAuth2Client() *OAuth2Client {
-	return &OAuth2Client{}
+func NewAcsEndpoint() *AcsEndpoint {
+	return &AcsEndpoint{}
 }
 
-func (a *OAuth2Client) IsApplicationInstance() bool {
+func (a *AcsEndpoint) IsApplicationInstance() bool {
 	return true
 }
