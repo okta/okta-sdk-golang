@@ -1,6 +1,37 @@
 # Changelog
 Running changelog of releases since `2.0.0-rc.4`
 
+## v2.1.0
+### New Structs
+- `AcsEndpoint`
+- `CatalogApplication`
+- `CatalogApplicationStatus`
+- `CustomHotpUserFactor`
+- `CustomHotpUserFactorProfile`
+- `InlineHookStatus`
+- `InlineHookType`
+- `WebAuthnUserFactor`
+- `WebAuthnUserFactorProfile`
+
+### Bug Fixes
+- Updates `okta/config.go` to use `github.com/okta/okta-sdk-golang/v2/okta/cache` (#167, Resolves #149)
+- Updates `okta/config.go` to use `int64` for `ConnectionTimeout` and `RequestTimeout` (#166)
+- `ListApplicationTargetsForApplicationAdministratorRoleForGroup` now returns correct `[]CatalogApplication`
+- `ListApplicationTargetsForApplicationAdministratorRoleForUser` now returns correct `[]CatalogApplication`
+- `JsonWebKey.ExpiresAt` changed to correctly use `*time.Time`
+- `verifyUserFactorResponse.ExpiresAt` changed to correctly use `*time.Time`
+- Correctly reads `.okta.yaml` from project root directory
+- Updated typo in `PasswordCredentialHash` struct and changed `WorkerFactor` to the correct `WorkFactor`
+
+### Updates
+- Updates to @okta/openapi 2.1.1 (And associated Generator Updates)
+- Added `UserId` to `OAuth2ScopeConsentGrant` struct
+- **Now Returns error instead of panic from config in `okta.go`** (Resolves #122)
+- `RequestExecutor` returns error if `privPem` is null when using PrivateKey authentication
+- Added `AcsEndpoints` and `AllowMultipleAcsEndpoints` properties to `SamlApplicationSettingsSignOn`
+- Added `FilterType` and `FilterValue` to `SamlAttributeStatement` (Resolves #76)
+- Generated file header in line with Go standard (Resolves #118)
+
 ## v2.0.0
 - Official Release of v2 Okta Golang SDK (June 4, 2020)
 - `CSR` Model has been renamed to `Csr`
