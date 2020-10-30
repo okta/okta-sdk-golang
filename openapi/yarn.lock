@@ -2,10 +2,10 @@
 # yarn lockfile v1
 
 
-"@okta/openapi@^2.1.0":
-  version "2.1.1"
-  resolved "https://registry.yarnpkg.com/@okta/openapi/-/openapi-2.1.1.tgz#e8d3dbfde109ed09b300dd5c9a75ca557694efc4"
-  integrity sha512-BsAQbPArtzcPByfYb9/yS8tnTZYhnN/X6UgX3i/rzQOOV1qTASTg7+GFzxqN6rTbLvsGfv+slSNatWG1hkaVdA==
+"@okta/openapi@~2.1.0":
+  version "2.1.2"
+  resolved "https://registry.yarnpkg.com/@okta/openapi/-/openapi-2.1.2.tgz#b8bf11b0d3196553f6a6f2ac9092b2d9187d6643"
+  integrity sha512-rjNiV+333D4tjMG2/UklZvtwefUOk8o5YXUNoJxv2rBrj+5JQeGnojDLKboC4ccYmnlzCLlqjaMfTAYCpFBRKg==
   dependencies:
     commander "2.9.0"
     fs-extra "3.0.1"
@@ -356,9 +356,9 @@ swagger-parser@^8.0.4:
     z-schema "^4.2.2"
 
 uglify-js@^3.1.4:
-  version "3.11.3"
-  resolved "https://registry.yarnpkg.com/uglify-js/-/uglify-js-3.11.3.tgz#b2f8c87826344f091ba48c417c499d6cba5d5786"
-  integrity sha512-wDRziHG94mNj2n3R864CvYw/+pc9y/RNImiTyrrf8BzgWn75JgFSwYvXrtZQMnMnOp/4UTrf3iCSQxSStPiByA==
+  version "3.11.4"
+  resolved "https://registry.yarnpkg.com/uglify-js/-/uglify-js-3.11.4.tgz#b47b7ae99d4bd1dca65b53aaa69caa0909e6fadf"
+  integrity sha512-FyYnoxVL1D6+jDGQpbK5jW6y/2JlVfRfEeQ67BPCUg5wfCjaKOpr2XeceE4QL+MkhxliLtf5EbrMDZgzpt2CNw==
 
 universalify@^0.1.0:
   version "0.1.2"

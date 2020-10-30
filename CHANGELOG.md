@@ -1,6 +1,16 @@
 # Changelog
 Running changelog of releases since `2.0.0-rc.4`
 
+## v2.2.0
+### New Structs
+- `OpenIdConnectApplicationSettingsClientKeys`
+
+### Bug Fixes
+- Updates `okta/OpenIdConnectApplicationSettingsClient` properties to include `jwks []JsonWebKey` (Resolves #176)
+
+### Updates
+- Removes vendor directory
+
 ## v2.1.0
 ### New Structs
 - `AcsEndpoint`
