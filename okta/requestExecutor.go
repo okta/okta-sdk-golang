@@ -428,7 +428,7 @@ func buildResponse(resp *http.Response, v interface{}) (*Response, error) {
 
 		if strings.Contains(ct, "application/xml") {
 			err = xml.NewDecoder(resp.Body).Decode(v)
-		} else if strings.Contains(ct, "application/json") {
+		} else if strings.Contains(ct, "application/json") || ct == "" {
 			err = json.NewDecoder(resp.Body).Decode(v)
 		} else {
 			return nil, errors.New("could not build a response for type: " + ct)
