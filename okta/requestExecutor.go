@@ -22,6 +22,7 @@ import (
 	"crypto/x509"
 	"encoding/json"
 	"encoding/pem"
+	"encoding/xml"
 	"errors"
 	"fmt"
 	"io"
@@ -411,26 +412,11 @@ func CheckResponseForError(resp *http.Response) error {
 func buildResponse(resp *http.Response, v interface{}) (*Response, error) {
 	ct := resp.Header.Get("Content-Type")
 
-	if strings.Contains(ct, "application/xml") {
-		return buildXmlResponse(resp, v)
-	} else if strings.Contains(ct, "application/json") {
-		return buildJsonResponse(resp, v)
-	} else if ct == "" {
-		return buildJsonResponse(resp, v)
-	} else {
-		return nil, errors.New("could not build a response for type: " + ct)
-	}
-
-}
-
-func buildJsonResponse(resp *http.Response, v interface{}) (*Response, error) {
 	response := newResponse(resp)
-
 	err := CheckResponseForError(resp)
 	if err != nil {
 		return response, err
 	}
-
 	if v != nil {
 		respBody, err := ioutil.ReadAll(resp.Body)
 		if err != nil {
@@ -440,31 +426,19 @@ func buildJsonResponse(resp *http.Response, v interface{}) (*Response, error) {
 		origResp := ioutil.NopCloser(bytes.NewBuffer(respBody))
 		response.Body = origResp
 
-		decodeError := json.NewDecoder(resp.Body).Decode(v)
-		if decodeError == io.EOF {
-			decodeError = nil
+		if strings.Contains(ct, "application/xml") {
+			err = xml.NewDecoder(resp.Body).Decode(v)
+		} else if strings.Contains(ct, "application/json") {
+			err = json.NewDecoder(resp.Body).Decode(v)
+		} else {
+			return nil, errors.New("could not build a response for type: " + ct)
 		}
-		if decodeError != nil {
-			return nil, decodeError
+		if err == io.EOF {
+			err = nil
 		}
-
+		if err != nil {
+			return nil, err
+		}
 	}
-	return response, nil
-}
-
-func buildXmlResponse(resp *http.Response, v interface{}) (*Response, error) {
-	response := newResponse(resp)
-
-	err := CheckResponseForError(resp)
-	if err != nil {
-		return response, err
-	}
-
-	out, err := ioutil.ReadAll(resp.Body)
-	if err != nil {
-		return response, err
-	}
-	v = string(out)
-
 	return response, nil
 }
