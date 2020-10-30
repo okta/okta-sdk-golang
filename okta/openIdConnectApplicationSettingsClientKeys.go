@@ -21,11 +21,3 @@ package okta
 type OpenIdConnectApplicationSettingsClientKeys struct {
 	Keys []*JsonWebKey `json:"keys,omitempty"`
 }
-
-func NewOpenIdConnectApplicationSettingsClientKeys() *OpenIdConnectApplicationSettingsClientKeys {
-	return &OpenIdConnectApplicationSettingsClientKeys{}
-}
-
-func (a *OpenIdConnectApplicationSettingsClientKeys) IsApplicationInstance() bool {
-	return true
-}
