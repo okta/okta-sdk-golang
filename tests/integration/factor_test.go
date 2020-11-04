@@ -42,11 +42,12 @@ func Test_exercise_factor_lifecycle(t *testing.T) {
 	uc := &okta.UserCredentials{
 		Password: p,
 	}
+	uuid := tests.GenUUID()
 	profile := okta.UserProfile{}
 	profile["firstName"] = "John"
 	profile["lastName"] = "Factor-Lifecycle"
-	profile["email"] = "john-factor-lifecycle@example.com"
-	profile["login"] = "john-factor-lifecycle@example.com"
+	profile["email"] = "john-go-sdk-factor-lifecycle" + uuid + "@example.com"
+	profile["login"] = "john-go-sdk-factor-lifecycle" + uuid + "@example.com"
 	u := &okta.CreateUserRequest{
 		Credentials: uc,
 		Profile:     &profile,

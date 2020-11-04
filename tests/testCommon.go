@@ -27,6 +27,7 @@ import (
 	"github.com/stretchr/testify/require"
 
 	"github.com/okta/okta-sdk-golang/v2/okta"
+	guuid "github.com/google/uuid"
 )
 
 func NewClient(ctx context.Context, conf ...okta.ConfigSetter) (context.Context, *okta.Client, error) {
@@ -51,4 +52,9 @@ func Assert_response(t *testing.T, response *okta.Response, requestMethod string
 	require.IsType(t, &okta.Response{}, response, "did not return `*okta.Response` type as second variable")
 	assert.Equal(t, requestMethod, response.Response.Request.Method, "did not make a requestMethod request")
 	assert.Equal(t, requestPath, response.Response.Request.URL.Path, "path for request was incorrect")
+}
+
+func GenUUID() string {
+	id := guuid.New()
+	return id.String()
 }
