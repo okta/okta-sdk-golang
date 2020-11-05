@@ -397,6 +397,7 @@ function isInstance(model) {
       model.modelName == "OAuth2Scope" ||
       model.modelName == "WebAuthnUserFactorProfile" ||
       model.modelName == "OpenIdConnectApplicationSettingsClientKeys" ||
+      model.modelName == "OpenIdConnectApplicationSettingsRefreshToken" ||
       model.modelName == "OAuth2ScopesMediationPolicyRuleCondition") {
     return false
   }
