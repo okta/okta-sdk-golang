@@ -284,12 +284,7 @@ func (re *RequestExecutor) doWithRetries(ctx context.Context, req *http.Request,
 				return resp, errors.New("a 429 response must include the x-retry-limit-reset and date headers")
 			}
 
-			if tooManyRequests(resp) {
-				err := backoffPause(ctx, retryCount, resp)
-				if err != nil {
-					return nil, err
-				}
-			}
+			backoffPause(re.config.Okta.Client.RateLimit.MaxBackoff, resp)
 			retryCount++
 
 			req.Header.Add("X-Okta-Retry-For", resp.Header.Get("X-Okta-Request-Id"))
@@ -315,18 +310,18 @@ func tryDrainBody(body io.ReadCloser) error {
 	return nil
 }
 
-func backoffPause(ctx context.Context, retryCount int32, response *http.Response) error {
-	if response.StatusCode == http.StatusTooManyRequests {
-		backoffSeconds := Get429BackoffTime(ctx, response)
-		time.Sleep(time.Duration(backoffSeconds) * time.Second)
-
-		return nil
+func backoffPause(maxBackOff int64, response *http.Response) {
+	if response != nil && response.StatusCode == http.StatusTooManyRequests {
+		backoffSeconds := Get429BackoffTime(response)
+		if backoffSeconds > maxBackOff {
+			time.Sleep(time.Duration(maxBackOff) * time.Second)
+		} else {
+			time.Sleep(time.Duration(backoffSeconds) * time.Second)
+		}
 	}
-
-	return nil
 }
 
-func Get429BackoffTime(ctx context.Context, response *http.Response) int64 {
+func Get429BackoffTime(response *http.Response) int64 {
 	var limitResetMap []int
 
 	for _, time := range response.Header["X-Rate-Limit-Reset"] {
@@ -336,7 +331,7 @@ func Get429BackoffTime(ctx context.Context, response *http.Response) int64 {
 
 	sort.Ints(limitResetMap)
 
-	requestDate, _ := time.Parse("Mon, 02 Jan 2006 15:04:05 Z", response.Header.Get("Date"))
+	requestDate, _ := time.Parse("Mon, 02 Jan 2006 15:04:05 GMT", response.Header.Get("Date"))
 	requestDateUnix := requestDate.Unix()
 	backoffSeconds := int64(limitResetMap[0]) - requestDateUnix + 1
 	return backoffSeconds
