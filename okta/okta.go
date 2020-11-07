@@ -151,6 +151,7 @@ func setConfigDefaults(c *config) {
 		WithTestingDisableHttpsCheck(false),
 		WithRequestTimeout(0),
 		WithRateLimitMaxRetries(2),
+		WithRateLimitMaxBackOff(15),
 		WithAuthorizationMode("SSWS"))
 
 	for _, confSetter := range conf {
