@@ -27,10 +27,9 @@ import (
 	"path/filepath"
 	"runtime"
 
-	"github.com/okta/okta-sdk-golang/v2/okta/cache"
-
-	"github.com/go-yaml/yaml"
 	"github.com/kelseyhightower/envconfig"
+	"github.com/okta/okta-sdk-golang/v2/okta/cache"
+	"gopkg.in/yaml.v3"
 )
 
 const Version = "2.1.0"
@@ -151,7 +150,6 @@ func setConfigDefaults(c *config) {
 		WithTestingDisableHttpsCheck(false),
 		WithRequestTimeout(0),
 		WithRateLimitMaxRetries(2),
-		WithRateLimitMaxBackOff(15),
 		WithAuthorizationMode("SSWS"))
 
 	for _, confSetter := range conf {
