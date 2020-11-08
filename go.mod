@@ -1,6 +1,7 @@
 module github.com/okta/okta-sdk-golang/v2
 
 require (
+	github.com/cenkalti/backoff/v4 v4.1.0
 	github.com/davecgh/go-spew v1.1.1 // indirect
 	github.com/go-yaml/yaml v2.1.0+incompatible
 	github.com/google/go-cmp v0.4.0 // indirect
