@@ -149,6 +149,7 @@ func setConfigDefaults(c *config) {
 		WithUserAgentExtra(""),
 		WithTestingDisableHttpsCheck(false),
 		WithRequestTimeout(0),
+		WithRateLimitMaxBackOff(30),
 		WithRateLimitMaxRetries(2),
 		WithAuthorizationMode("SSWS"))
 
