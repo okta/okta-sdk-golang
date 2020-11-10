@@ -28,7 +28,8 @@ import (
 )
 
 func Test_can_add_an_admin_role_to_user(t *testing.T) {
-	ctx, client, _ := tests.NewClient(context.TODO())
+	ctx, client, err := tests.NewClient(context.TODO())
+	require.NoError(t, err)
 	p := &okta.PasswordCredential{
 		Value: "Abcd1234",
 	}
@@ -72,7 +73,8 @@ func Test_can_add_an_admin_role_to_user(t *testing.T) {
 }
 
 func Test_can_add_an_admin_role_to_group(t *testing.T) {
-	ctx, client, _ := tests.NewClient(context.TODO())
+	ctx, client, err := tests.NewClient(context.TODO())
+	require.NoError(t, err)
 	gp := &okta.GroupProfile{
 		Name: "Assign Admin Role To Group",
 	}
@@ -103,7 +105,8 @@ func Test_can_add_an_admin_role_to_group(t *testing.T) {
 }
 
 func Test_can_remove_an_admin_role_to_user(t *testing.T) {
-	ctx, client, _ := tests.NewClient(context.TODO())
+	ctx, client, err := tests.NewClient(context.TODO())
+	require.NoError(t, err)
 	p := &okta.PasswordCredential{
 		Value: "Abcd1234",
 	}
@@ -145,7 +148,8 @@ func Test_can_remove_an_admin_role_to_user(t *testing.T) {
 }
 
 func Test_can_remove_an_admin_role_to_group(t *testing.T) {
-	ctx, client, _ := tests.NewClient(context.TODO())
+	ctx, client, err := tests.NewClient(context.TODO())
+	require.NoError(t, err)
 	gp := &okta.GroupProfile{
 		Name: "Assign Admin Role To Group",
 	}
@@ -174,7 +178,8 @@ func Test_can_remove_an_admin_role_to_group(t *testing.T) {
 }
 
 func Test_can_list_roles_assigned_to_a_user(t *testing.T) {
-	ctx, client, _ := tests.NewClient(context.TODO())
+	ctx, client, err := tests.NewClient(context.TODO())
+	require.NoError(t, err)
 	p := &okta.PasswordCredential{
 		Value: "Abcd1234",
 	}
@@ -228,7 +233,8 @@ func Test_can_list_roles_assigned_to_a_user(t *testing.T) {
 }
 
 func Test_can_list_roles_assigned_to_a_group(t *testing.T) {
-	ctx, client, _ := tests.NewClient(context.TODO())
+	ctx, client, err := tests.NewClient(context.TODO())
+	require.NoError(t, err)
 	gp := &okta.GroupProfile{
 		Name: "Assign Admin Role To Group",
 	}
@@ -267,7 +273,8 @@ func Test_can_list_roles_assigned_to_a_group(t *testing.T) {
 }
 
 func Test_can_add_group_targets_for_the_group_administrator_role_given_to_a_user(t *testing.T) {
-	ctx, client, _ := tests.NewClient(context.TODO())
+	ctx, client, err := tests.NewClient(context.TODO())
+	require.NoError(t, err)
 	p := &okta.PasswordCredential{
 		Value: "Abcd1234",
 	}
@@ -320,7 +327,8 @@ func Test_can_add_group_targets_for_the_group_administrator_role_given_to_a_user
 }
 
 func Test_can_add_group_targets_for_the_group_administrator_role_given_to_a_group(t *testing.T) {
-	ctx, client, _ := tests.NewClient(context.TODO())
+	ctx, client, err := tests.NewClient(context.TODO())
+	require.NoError(t, err)
 
 	role := okta.AssignRoleRequest{
 		Type: "USER_ADMIN",
@@ -349,7 +357,8 @@ func Test_can_add_group_targets_for_the_group_administrator_role_given_to_a_grou
 }
 
 func Test_can_list_group_targets_for_the_group_administrator_role_given_to_a_user(t *testing.T) {
-	ctx, client, _ := tests.NewClient(context.TODO())
+	ctx, client, err := tests.NewClient(context.TODO())
+	require.NoError(t, err)
 	p := &okta.PasswordCredential{
 		Value: "Abcd1234",
 	}
@@ -414,7 +423,8 @@ func Test_can_list_group_targets_for_the_group_administrator_role_given_to_a_use
 }
 
 func Test_can_list_group_targets_for_the_group_administrator_role_given_to_a_group(t *testing.T) {
-	ctx, client, _ := tests.NewClient(context.TODO())
+	ctx, client, err := tests.NewClient(context.TODO())
+	require.NoError(t, err)
 
 	role := okta.AssignRoleRequest{
 		Type: "USER_ADMIN",

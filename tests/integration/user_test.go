@@ -30,7 +30,8 @@ import (
 )
 
 func Test_can_get_a_user(t *testing.T) {
-	ctx, client, _ := tests.NewClient(context.TODO())
+	ctx, client, err := tests.NewClient(context.TODO())
+	require.NoError(t, err)
 	// Create user with credentials → POST /api/v1/users?activate=false
 	p := &okta.PasswordCredential{
 		Value: "Abcd1234",
@@ -118,7 +119,8 @@ func Test_can_activate_a_user(t *testing.T) {
 }
 
 func Test_can_update_user_profile(t *testing.T) {
-	ctx, client, _ := tests.NewClient(context.TODO())
+	ctx, client, err := tests.NewClient(context.TODO())
+	require.NoError(t, err)
 	// Create user with credentials → POST /api/v1/users?activate=false
 	p := &okta.PasswordCredential{
 		Value: "Abcd1234",
@@ -164,7 +166,8 @@ func Test_can_update_user_profile(t *testing.T) {
 }
 
 func Test_can_suspend_a_user(t *testing.T) {
-	ctx, client, _ := tests.NewClient(context.TODO())
+	ctx, client, err := tests.NewClient(context.TODO())
+	require.NoError(t, err)
 	//Create user with credentials → POST /api/v1/users?activate=true
 	p := &okta.PasswordCredential{
 		Value: "Abcd1234",
@@ -227,7 +230,8 @@ func Test_can_suspend_a_user(t *testing.T) {
 }
 
 func Test_can_change_users_password(t *testing.T) {
-	ctx, client, _ := tests.NewClient(context.TODO())
+	ctx, client, err := tests.NewClient(context.TODO())
+	require.NoError(t, err)
 	// Create user with credentials → POST /api/v1/users?activate=true
 	p := &okta.PasswordCredential{
 		Value: "Abcd1234",
@@ -286,7 +290,8 @@ func Test_can_change_users_password(t *testing.T) {
 }
 
 func Test_can_get_reset_password_link_for_user(t *testing.T) {
-	ctx, client, _ := tests.NewClient(context.TODO())
+	ctx, client, err := tests.NewClient(context.TODO())
+	require.NoError(t, err)
 	// Create user with credentials → POST /api/v1/users?activate=true
 	p := &okta.PasswordCredential{
 		Value: "Abcd1234",
@@ -330,7 +335,8 @@ func Test_can_get_reset_password_link_for_user(t *testing.T) {
 }
 
 func Test_can_expire_a_users_password_and_get_a_temp_one(t *testing.T) {
-	ctx, client, _ := tests.NewClient(context.TODO())
+	ctx, client, err := tests.NewClient(context.TODO())
+	require.NoError(t, err)
 	// Create a user with credentials, activated by default → POST /api/v1/users?activate=true
 	p := &okta.PasswordCredential{
 		Value: "Abcd1234",
@@ -374,7 +380,8 @@ func Test_can_expire_a_users_password_and_get_a_temp_one(t *testing.T) {
 }
 
 func Test_can_change_user_recovery_question(t *testing.T) {
-	ctx, client, _ := tests.NewClient(context.TODO())
+	ctx, client, err := tests.NewClient(context.TODO())
+	require.NoError(t, err)
 	// Create a user with credentials, activated by default → POST /api/v1/users?activate=true
 	p := &okta.PasswordCredential{
 		Value: "Abcd1234",
@@ -446,7 +453,7 @@ func Test_can_change_user_recovery_question(t *testing.T) {
 }
 
 func Test_can_assign_a_user_to_a_role(t *testing.T) {
-	ctx, client, _ := tests.NewClient(context.TODO(), okta.WithCache(false))
+	ctx, client, err := tests.NewClient(context.TODO(), okta.WithCache(false))
 	// Create a user with credentials, activated by default → POST /api/v1/users?activate=true
 	p := &okta.PasswordCredential{
 		Value: "Abcd1234",
@@ -518,7 +525,8 @@ func Test_can_assign_a_user_to_a_role(t *testing.T) {
 }
 
 func Test_user_group_target_role(t *testing.T) {
-	ctx, client, _ := tests.NewClient(context.TODO())
+	ctx, client, err := tests.NewClient(context.TODO())
+	require.NoError(t, err)
 	// Create a user with credentials, activated by default → POST /api/v1/users?activate=true
 	p := &okta.PasswordCredential{
 		Value: "Abcd1234",
@@ -602,7 +610,8 @@ func Test_user_group_target_role(t *testing.T) {
 }
 
 func Test_can_get_user_with_cache_enabled(t *testing.T) {
-	ctx, client, _ := tests.NewClient(context.TODO())
+	ctx, client, err := tests.NewClient(context.TODO())
+	require.NoError(t, err)
 
 	p := &okta.PasswordCredential{
 		Value: "Abcd1234",
@@ -641,7 +650,7 @@ func Test_can_get_user_with_cache_enabled(t *testing.T) {
 }
 
 func Test_can_paginate_across_users(t *testing.T) {
-	ctx, client, _ := tests.NewClient(context.TODO(), okta.WithCache(false))
+	ctx, client, err := tests.NewClient(context.TODO(), okta.WithCache(false))
 
 	p := &okta.PasswordCredential{
 		Value: "Abcd1234",

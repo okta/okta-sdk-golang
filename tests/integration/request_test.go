@@ -42,7 +42,8 @@ func Test_private_key_request_contains_bearer_token(t *testing.T) {
 }
 
 func Test_private_key_request_can_create_a_user(t *testing.T) {
-	ctx, client, _ := tests.NewClient(context.TODO(), okta.WithAuthorizationMode("PrivateKey"), okta.WithScopes(([]string{"okta.users.manage"})))
+	ctx, client, err := tests.NewClient(context.TODO(), okta.WithAuthorizationMode("PrivateKey"), okta.WithScopes(([]string{"okta.users.manage"})))
+	require.NoError(t, err)
 
 	p := &okta.PasswordCredential{
 		Value: "Abcd1234",

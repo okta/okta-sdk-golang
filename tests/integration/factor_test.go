@@ -28,7 +28,8 @@ import (
 )
 
 func Test_exercise_factor_lifecycle(t *testing.T) {
-	ctx, client, _ := tests.NewClient(context.TODO())
+	ctx, client, err := tests.NewClient(context.TODO())
+	require.NoError(t, err)
 
 	user, _, err := client.User.GetUser(ctx, "john-factor-lifecycle@example.com")
 	if user != nil {
