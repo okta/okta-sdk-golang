@@ -18,6 +18,10 @@ func TestMain(m *testing.M) {
 		log.Fatalf("failed to clean up organization before integration tests: %v", err)
 	}
 	exitVal := m.Run()
+	err = sweep()
+	if err != nil {
+		log.Fatalf("failed to clean up organization after integration tests: %v", err)
+	}
 	os.Exit(exitVal)
 }
 

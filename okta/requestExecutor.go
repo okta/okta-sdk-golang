@@ -255,7 +255,6 @@ func (re *RequestExecutor) Do(ctx context.Context, req *http.Request, v interfac
 
 type oktaBackoff struct {
 	retryCount, maxRetries int32
-	startTime              int64
 	backoffDuration        time.Duration
 	ctx                    context.Context
 	err                    error
@@ -283,10 +282,6 @@ func (re *RequestExecutor) doWithRetries(ctx context.Context, req *http.Request)
 		resp *http.Response
 		err  error
 	)
-	if req.Body != nil {
-		bodyBytes, _ := ioutil.ReadAll(req.Body)
-		req.Body = ioutil.NopCloser(bytes.NewBuffer(bodyBytes))
-	}
 	if re.config.Okta.Client.RequestTimeout > 0 {
 		var cancel context.CancelFunc
 		ctx, cancel = context.WithTimeout(ctx, time.Second*time.Duration(re.config.Okta.Client.RequestTimeout))
@@ -295,7 +290,6 @@ func (re *RequestExecutor) doWithRetries(ctx context.Context, req *http.Request)
 	bOff := &oktaBackoff{
 		ctx:        ctx,
 		maxRetries: re.config.Okta.Client.RateLimit.MaxRetries,
-		startTime:  time.Now().Unix(),
 	}
 	operation := func() error {
 		resp, err = re.httpClient.Do(req.WithContext(ctx))
@@ -333,10 +327,7 @@ func tooManyRequests(resp *http.Response) bool {
 func tryDrainBody(body io.ReadCloser) error {
 	defer body.Close()
 	_, err := io.Copy(ioutil.Discard, io.LimitReader(body, 4096))
-	if err != nil {
-		return err
-	}
-	return nil
+	return err
 }
 
 func Get429BackoffTime(resp *http.Response) (int64, error) {
