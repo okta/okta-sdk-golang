@@ -21,6 +21,7 @@ func TestMain(m *testing.M) {
 	os.Exit(exitVal)
 }
 
+// sweep the resources before running integration tests
 func sweep() error {
 	ctx, client, err := tests.NewClient(context.Background())
 	if err != nil {
