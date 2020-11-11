@@ -203,12 +203,12 @@ func Test_can_list_roles_assigned_to_a_user(t *testing.T) {
 		Type: "SUPER_ADMIN",
 	}
 
-	_, response, err := client.User.AssignRoleToUser(ctx, user.Id, role, nil)
+	_, _, err = client.User.AssignRoleToUser(ctx, user.Id, role, nil)
 	require.NoError(t, err, "adding role to user must not error")
 
 	roles, response, err := client.User.ListAssignedRolesForUser(ctx, user.Id, nil)
 
-	require.NoError(t, err, "listing adnimistrator roles must not error")
+	require.NoError(t, err, "listing administrator roles must not error")
 	require.IsType(t, &okta.Response{}, response, "did not return `*okta.Response` type as second variable")
 	require.IsType(t, []*okta.Role{}, roles, "did not return `[]*okta.Role` as first variable")
 	assert.Equal(t, "GET", response.Response.Request.Method, "did not make a get request")
@@ -251,7 +251,7 @@ func Test_can_list_roles_assigned_to_a_group(t *testing.T) {
 
 	roles, response, err := client.Group.ListGroupAssignedRoles(ctx, group.Id, nil)
 
-	require.NoError(t, err, "listing adnimistrator roles must not error")
+	require.NoError(t, err, "listing administrator roles must not error")
 	require.IsType(t, &okta.Response{}, response, "did not return `*okta.Response` type as second variable")
 	require.IsType(t, []*okta.Role{}, roles, "did not return `[]*okta.Role` as first variable")
 	assert.Equal(t, "GET", response.Response.Request.Method, "did not make a get request")
