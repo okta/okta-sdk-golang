@@ -173,7 +173,7 @@ func Test_group_user_operations(t *testing.T) {
 	qp := query.NewQueryParams(query.WithActivate(false))
 
 	user, _, err := client.User.CreateUser(ctx, *u, qp)
-	require.NoError(t, err, "Creating an user should not error")
+	require.NoError(t, err, "Creating a new user should not error")
 	assert.IsType(t, &okta.User{}, user)
 
 	// Create a new group → POST /api/v1/groups
@@ -236,7 +236,7 @@ func Test_group_rule_operations(t *testing.T) {
 	qp := query.NewQueryParams(query.WithActivate(true))
 
 	user, _, err := client.User.CreateUser(ctx, *u, qp)
-	require.NoError(t, err, "Creating an user should not error")
+	require.NoError(t, err, "Creating a new user should not error")
 	assert.IsType(t, &okta.User{}, user)
 
 	// Create a new group → POST /api/v1/groups

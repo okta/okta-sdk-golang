@@ -47,7 +47,7 @@ func Test_can_add_an_admin_role_to_user(t *testing.T) {
 	}
 
 	user, _, err := client.User.CreateUser(ctx, *u, nil)
-	require.NoError(t, err, "Creating an user should not error")
+	require.NoError(t, err, "Creating a new user should not error")
 	role := okta.AssignRoleRequest{
 		Type: "SUPER_ADMIN",
 	}
@@ -124,7 +124,7 @@ func Test_can_remove_an_admin_role_to_user(t *testing.T) {
 	}
 
 	user, _, err := client.User.CreateUser(ctx, *u, nil)
-	require.NoError(t, err, "Creating an user should not error")
+	require.NoError(t, err, "Creating a new user should not error")
 	role := okta.AssignRoleRequest{
 		Type: "SUPER_ADMIN",
 	}
@@ -197,7 +197,7 @@ func Test_can_list_roles_assigned_to_a_user(t *testing.T) {
 	}
 
 	user, _, err := client.User.CreateUser(ctx, *u, nil)
-	require.NoError(t, err, "Creating an user should not error")
+	require.NoError(t, err, "Creating a new user should not error")
 
 	role := okta.AssignRoleRequest{
 		Type: "SUPER_ADMIN",
@@ -292,7 +292,7 @@ func Test_can_add_group_targets_for_the_group_administrator_role_given_to_a_user
 	}
 
 	user, _, err := client.User.CreateUser(ctx, *u, nil)
-	require.NoError(t, err, "Creating an user should not error")
+	require.NoError(t, err, "Creating a new user should not error")
 
 	role := okta.AssignRoleRequest{
 		Type: "USER_ADMIN",
@@ -376,7 +376,7 @@ func Test_can_list_group_targets_for_the_group_administrator_role_given_to_a_use
 	}
 
 	user, _, err := client.User.CreateUser(ctx, *u, nil)
-	require.NoError(t, err, "Creating an user should not error")
+	require.NoError(t, err, "Creating a new user should not error")
 
 	role := okta.AssignRoleRequest{
 		Type: "USER_ADMIN",

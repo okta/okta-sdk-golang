@@ -55,7 +55,7 @@ func Test_exercise_factor_lifecycle(t *testing.T) {
 	qp := query.NewQueryParams(query.WithActivate(false))
 
 	user, _, err = client.User.CreateUser(ctx, *u, qp)
-	require.NoError(t, err, "Creating an user should not error")
+	require.NoError(t, err, "Creating a new user should not error")
 
 	allowedFactors, _, _ := client.UserFactor.ListSupportedFactors(ctx, user.Id)
 	continueTesting := false

@@ -35,7 +35,7 @@ func sweep() error {
 }
 
 func sweepUsers(ctx context.Context, client *okta.Client) error {
-	users, _, err := client.User.ListUsers(ctx, &query.Params{Q: "admin_role"})
+	users, _, err := client.User.ListUsers(ctx, &query.Params{Q:"john-"})
 	if err != nil {
 		return err
 	}

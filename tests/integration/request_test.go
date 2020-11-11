@@ -64,7 +64,7 @@ func Test_private_key_request_can_create_a_user(t *testing.T) {
 	qp := query.NewQueryParams(query.WithActivate(false))
 
 	user, _, err := client.User.CreateUser(ctx, *u, qp)
-	require.NoError(t, err, "Creating an user should not error")
+	require.NoError(t, err, "Creating a new user should not error")
 	assert.NotEmpty(t, user.Id, "appears the user was not created")
 	tempProfile := *user.Profile
 	assert.Equal(t, "john-private-key@example.com", tempProfile["email"], "did not get the correct user")

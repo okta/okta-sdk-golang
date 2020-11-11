@@ -314,7 +314,7 @@ func Test_can_add_and_remove_application_users(t *testing.T) {
 	qp := query.NewQueryParams(query.WithActivate(false))
 
 	user, _, err := client.User.CreateUser(ctx, *u, qp)
-	require.NoError(t, err, "Creating an user should not error")
+	require.NoError(t, err, "Creating a new user should not error")
 
 	appUserPasswordCredentials := okta.NewAppUserPasswordCredential()
 	appUserPasswordCredentials.Value = "abcd1234"
