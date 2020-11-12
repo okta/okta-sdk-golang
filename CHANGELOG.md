@@ -1,6 +1,17 @@
 # Changelog
 Running changelog of releases since `2.0.0-rc.4`
 
+## v2.3.0
+### New Structs
+- `OpenIdConnectApplicationSettingsRefreshToken`
+- `OpenIdConnectRefreshTokenRotationType`
+
+### Bug Fixes
+- `NewCustomHotpUserFactor` sets factor type to `token:htop`
+
+### Updates
+- Updates `OpenIdConnectApplicationSettingsClient` properties to include `RefreshToken *OpenIdConnectApplicationSettingsRefreshToken`
+
 ## v2.2.0
 ### New Structs
 - `OpenIdConnectApplicationSettingsClientKeys`

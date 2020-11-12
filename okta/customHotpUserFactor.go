@@ -38,7 +38,7 @@ type CustomHotpUserFactor struct {
 
 func NewCustomHotpUserFactor() *CustomHotpUserFactor {
 	return &CustomHotpUserFactor{
-		FactorType: "hotp",
+		FactorType: "token:hotp",
 	}
 }
 

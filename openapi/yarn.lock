@@ -3,9 +3,9 @@
 
 
 "@okta/openapi@~2.1.0":
-  version "2.1.2"
-  resolved "https://registry.yarnpkg.com/@okta/openapi/-/openapi-2.1.2.tgz#b8bf11b0d3196553f6a6f2ac9092b2d9187d6643"
-  integrity sha512-rjNiV+333D4tjMG2/UklZvtwefUOk8o5YXUNoJxv2rBrj+5JQeGnojDLKboC4ccYmnlzCLlqjaMfTAYCpFBRKg==
+  version "2.1.6"
+  resolved "https://registry.yarnpkg.com/@okta/openapi/-/openapi-2.1.6.tgz#dd5b83daf3a7b22fa0cb36c1757c68f8aaa3f7f5"
+  integrity sha512-9Ln2TKp/tv9pq8WNOpC2wIgz4PuSWrC8YeYBdH3S5ICf9Q9wYFtk6/KF7ArCYVIs0WGGeOfd0vgJPqjvd/lvgw==
   dependencies:
     commander "2.9.0"
     fs-extra "3.0.1"
@@ -356,9 +356,9 @@ swagger-parser@^8.0.4:
     z-schema "^4.2.2"
 
 uglify-js@^3.1.4:
-  version "3.11.4"
-  resolved "https://registry.yarnpkg.com/uglify-js/-/uglify-js-3.11.4.tgz#b47b7ae99d4bd1dca65b53aaa69caa0909e6fadf"
-  integrity sha512-FyYnoxVL1D6+jDGQpbK5jW6y/2JlVfRfEeQ67BPCUg5wfCjaKOpr2XeceE4QL+MkhxliLtf5EbrMDZgzpt2CNw==
+  version "3.11.5"
+  resolved "https://registry.yarnpkg.com/uglify-js/-/uglify-js-3.11.5.tgz#d6788bc83cf35ff18ea78a65763e480803409bc6"
+  integrity sha512-btvv/baMqe7HxP7zJSF7Uc16h1mSfuuSplT0/qdjxseesDU+yYzH33eHBH+eMdeRXwujXspaCTooWHQVVBh09w==
 
 universalify@^0.1.0:
   version "0.1.2"
