@@ -31,11 +31,11 @@ import (
 	"net/url"
 	nUrl "net/url"
 	"reflect"
-	"sort"
 	"strconv"
 	"strings"
 	"time"
 
+	"github.com/cenkalti/backoff/v4"
 	"github.com/okta/okta-sdk-golang/v2/okta/cache"
 	"gopkg.in/square/go-jose.v2"
 	"gopkg.in/square/go-jose.v2/jwt"
@@ -224,7 +224,6 @@ func (re *RequestExecutor) RefreshNext() *RequestExecutor {
 }
 
 func (re *RequestExecutor) Do(ctx context.Context, req *http.Request, v interface{}) (*Response, error) {
-	requestStarted := time.Now().Unix()
 	cacheKey := cache.CreateCacheKey(req)
 	if req.Method != http.MethodGet {
 		re.cache.Delete(cacheKey)
@@ -238,7 +237,7 @@ func (re *RequestExecutor) Do(ctx context.Context, req *http.Request, v interfac
 
 	if !inCache {
 
-		resp, err := re.doWithRetries(ctx, req, 0, requestStarted, nil)
+		resp, err := re.doWithRetries(ctx, req)
 
 		if err != nil {
 			return nil, err
@@ -254,51 +253,70 @@ func (re *RequestExecutor) Do(ctx context.Context, req *http.Request, v interfac
 
 }
 
-func (re *RequestExecutor) doWithRetries(ctx context.Context, req *http.Request, retryCount int32, requestStarted int64, lastResponse *http.Response) (*http.Response, error) {
-	iterationStart := time.Now().Unix()
-	maxRetries := re.config.Okta.Client.RateLimit.MaxRetries
-	requestTimeout := int64(re.config.Okta.Client.RequestTimeout)
+type oktaBackoff struct {
+	retryCount, maxRetries int32
+	backoffDuration        time.Duration
+	ctx                    context.Context
+	err                    error
+}
 
-	if req.Body != nil {
-		bodyBytes, _ := ioutil.ReadAll(req.Body)
-		req.Body = ioutil.NopCloser(bytes.NewBuffer(bodyBytes))
+// NextBackOff returns the duration to wait before retrying the operation,
+// or backoff. Stop to indicate that no more retries should be made.
+func (o *oktaBackoff) NextBackOff() time.Duration {
+	// stop retrying if operation reached retry limit
+	if o.retryCount > o.maxRetries {
+		return backoff.Stop
 	}
+	return o.backoffDuration
+}
 
-	if requestTimeout > 0 && (iterationStart-requestStarted) >= requestTimeout {
-		return lastResponse, errors.New("reached the max request time")
+// Reset to initial state.
+func (o *oktaBackoff) Reset() {}
+
+func (o *oktaBackoff) Context() context.Context {
+	return o.ctx
+}
+
+func (re *RequestExecutor) doWithRetries(ctx context.Context, req *http.Request) (*http.Response, error) {
+	var (
+		resp *http.Response
+		err  error
+	)
+	if re.config.Okta.Client.RequestTimeout > 0 {
+		var cancel context.CancelFunc
+		ctx, cancel = context.WithTimeout(ctx, time.Second*time.Duration(re.config.Okta.Client.RequestTimeout))
+		defer cancel()
 	}
-
-	req = req.WithContext(ctx)
-	resp, err := re.httpClient.Do(req)
-
-	if (err != nil || tooManyRequests(resp)) && retryCount < maxRetries {
-		if resp != nil {
-			err := tryDrainBody(resp.Body)
-			if err != nil {
-				return nil, err
-			}
-
-			retryLimitReset := resp.Header.Get("X-Rate-Limit-Reset")
-			date := resp.Header.Get("Date")
-			if retryLimitReset == "" || date == "" {
-				return resp, errors.New("a 429 response must include the x-retry-limit-reset and date headers")
-			}
-
-			if tooManyRequests(resp) {
-				err := backoffPause(ctx, retryCount, resp)
-				if err != nil {
-					return nil, err
-				}
-			}
-			retryCount++
-
-			req.Header.Add("X-Okta-Retry-For", resp.Header.Get("X-Okta-Request-Id"))
-			req.Header.Add("X-Okta-Retry-Count", fmt.Sprint(retryCount))
-
-			resp, err = re.doWithRetries(ctx, req, retryCount, requestStarted, resp)
+	bOff := &oktaBackoff{
+		ctx:        ctx,
+		maxRetries: re.config.Okta.Client.RateLimit.MaxRetries,
+	}
+	operation := func() error {
+		resp, err = re.httpClient.Do(req.WithContext(ctx))
+		if err != nil {
+			// this is error is considered to be permanent and should not be retried
+			return backoff.Permanent(err)
 		}
+		if !tooManyRequests(resp) {
+			return nil
+		}
+		if err = tryDrainBody(resp.Body); err != nil {
+			return err
+		}
+		backoffDuration, err := Get429BackoffTime(resp)
+		if err != nil {
+			return err
+		}
+		if re.config.Okta.Client.RateLimit.MaxBackoff < backoffDuration {
+			backoffDuration = re.config.Okta.Client.RateLimit.MaxBackoff
+		}
+		bOff.backoffDuration = time.Second * time.Duration(backoffDuration)
+		bOff.retryCount++
+		req.Header.Add("X-Okta-Retry-For", resp.Header.Get("X-Okta-Request-Id"))
+		req.Header.Add("X-Okta-Retry-Count", fmt.Sprint(bOff.retryCount))
+		return errors.New("to many requests")
 	}
-
+	err = backoff.Retry(operation, bOff)
 	return resp, err
 }
 
@@ -309,37 +327,21 @@ func tooManyRequests(resp *http.Response) bool {
 func tryDrainBody(body io.ReadCloser) error {
 	defer body.Close()
 	_, err := io.Copy(ioutil.Discard, io.LimitReader(body, 4096))
+	return err
+}
+
+func Get429BackoffTime(resp *http.Response) (int64, error) {
+	requestDate, err := time.Parse("Mon, 02 Jan 2006 15:04:05 GMT", resp.Header.Get("Date"))
 	if err != nil {
-		return err
+		// this is error is considered to be permanent and should not be retried
+		return 0, backoff.Permanent(errors.New(fmt.Sprintf("Date header is missing or invalid: %v", err)))
 	}
-	return nil
-}
-
-func backoffPause(ctx context.Context, retryCount int32, response *http.Response) error {
-	if response.StatusCode == http.StatusTooManyRequests {
-		backoffSeconds := Get429BackoffTime(ctx, response)
-		time.Sleep(time.Duration(backoffSeconds) * time.Second)
-
-		return nil
+	rateLimitReset, err := strconv.Atoi(resp.Header.Get("X-Rate-Limit-Reset"))
+	if err != nil {
+		// this is error is considered to be permanent and should not be retried
+		return 0, backoff.Permanent(errors.New(fmt.Sprintf("X-Rate-Limit-Reset header is missing or invalid: %v", err)))
 	}
-
-	return nil
-}
-
-func Get429BackoffTime(ctx context.Context, response *http.Response) int64 {
-	var limitResetMap []int
-
-	for _, time := range response.Header["X-Rate-Limit-Reset"] {
-		timestamp, _ := strconv.Atoi(time)
-		limitResetMap = append(limitResetMap, timestamp)
-	}
-
-	sort.Ints(limitResetMap)
-
-	requestDate, _ := time.Parse("Mon, 02 Jan 2006 15:04:05 Z", response.Header.Get("Date"))
-	requestDateUnix := requestDate.Unix()
-	backoffSeconds := int64(limitResetMap[0]) - requestDateUnix + 1
-	return backoffSeconds
+	return int64(rateLimitReset) - requestDate.Unix() + 1, nil
 }
 
 type Response struct {

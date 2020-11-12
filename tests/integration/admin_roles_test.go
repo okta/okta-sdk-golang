@@ -28,7 +28,8 @@ import (
 )
 
 func Test_can_add_an_admin_role_to_user(t *testing.T) {
-	ctx, client, _ := tests.NewClient(context.TODO())
+	ctx, client, err := tests.NewClient(context.TODO())
+	require.NoError(t, err)
 	p := &okta.PasswordCredential{
 		Value: "Abcd1234",
 	}
@@ -46,7 +47,7 @@ func Test_can_add_an_admin_role_to_user(t *testing.T) {
 	}
 
 	user, _, err := client.User.CreateUser(ctx, *u, nil)
-	require.NoError(t, err, "Creating an user should not error")
+	require.NoError(t, err, "Creating a new user should not error")
 	role := okta.AssignRoleRequest{
 		Type: "SUPER_ADMIN",
 	}
@@ -72,7 +73,8 @@ func Test_can_add_an_admin_role_to_user(t *testing.T) {
 }
 
 func Test_can_add_an_admin_role_to_group(t *testing.T) {
-	ctx, client, _ := tests.NewClient(context.TODO())
+	ctx, client, err := tests.NewClient(context.TODO())
+	require.NoError(t, err)
 	gp := &okta.GroupProfile{
 		Name: "Assign Admin Role To Group",
 	}
@@ -103,7 +105,8 @@ func Test_can_add_an_admin_role_to_group(t *testing.T) {
 }
 
 func Test_can_remove_an_admin_role_to_user(t *testing.T) {
-	ctx, client, _ := tests.NewClient(context.TODO())
+	ctx, client, err := tests.NewClient(context.TODO())
+	require.NoError(t, err)
 	p := &okta.PasswordCredential{
 		Value: "Abcd1234",
 	}
@@ -121,7 +124,7 @@ func Test_can_remove_an_admin_role_to_user(t *testing.T) {
 	}
 
 	user, _, err := client.User.CreateUser(ctx, *u, nil)
-	require.NoError(t, err, "Creating an user should not error")
+	require.NoError(t, err, "Creating a new user should not error")
 	role := okta.AssignRoleRequest{
 		Type: "SUPER_ADMIN",
 	}
@@ -145,7 +148,8 @@ func Test_can_remove_an_admin_role_to_user(t *testing.T) {
 }
 
 func Test_can_remove_an_admin_role_to_group(t *testing.T) {
-	ctx, client, _ := tests.NewClient(context.TODO())
+	ctx, client, err := tests.NewClient(context.TODO())
+	require.NoError(t, err)
 	gp := &okta.GroupProfile{
 		Name: "Assign Admin Role To Group",
 	}
@@ -174,7 +178,8 @@ func Test_can_remove_an_admin_role_to_group(t *testing.T) {
 }
 
 func Test_can_list_roles_assigned_to_a_user(t *testing.T) {
-	ctx, client, _ := tests.NewClient(context.TODO())
+	ctx, client, err := tests.NewClient(context.TODO())
+	require.NoError(t, err)
 	p := &okta.PasswordCredential{
 		Value: "Abcd1234",
 	}
@@ -192,18 +197,18 @@ func Test_can_list_roles_assigned_to_a_user(t *testing.T) {
 	}
 
 	user, _, err := client.User.CreateUser(ctx, *u, nil)
-	require.NoError(t, err, "Creating an user should not error")
+	require.NoError(t, err, "Creating a new user should not error")
 
 	role := okta.AssignRoleRequest{
 		Type: "SUPER_ADMIN",
 	}
 
-	_, response, err := client.User.AssignRoleToUser(ctx, user.Id, role, nil)
+	_, _, err = client.User.AssignRoleToUser(ctx, user.Id, role, nil)
 	require.NoError(t, err, "adding role to user must not error")
 
 	roles, response, err := client.User.ListAssignedRolesForUser(ctx, user.Id, nil)
 
-	require.NoError(t, err, "listing adnimistrator roles must not error")
+	require.NoError(t, err, "listing administrator roles must not error")
 	require.IsType(t, &okta.Response{}, response, "did not return `*okta.Response` type as second variable")
 	require.IsType(t, []*okta.Role{}, roles, "did not return `[]*okta.Role` as first variable")
 	assert.Equal(t, "GET", response.Response.Request.Method, "did not make a get request")
@@ -228,7 +233,8 @@ func Test_can_list_roles_assigned_to_a_user(t *testing.T) {
 }
 
 func Test_can_list_roles_assigned_to_a_group(t *testing.T) {
-	ctx, client, _ := tests.NewClient(context.TODO())
+	ctx, client, err := tests.NewClient(context.TODO())
+	require.NoError(t, err)
 	gp := &okta.GroupProfile{
 		Name: "Assign Admin Role To Group",
 	}
@@ -245,7 +251,7 @@ func Test_can_list_roles_assigned_to_a_group(t *testing.T) {
 
 	roles, response, err := client.Group.ListGroupAssignedRoles(ctx, group.Id, nil)
 
-	require.NoError(t, err, "listing adnimistrator roles must not error")
+	require.NoError(t, err, "listing administrator roles must not error")
 	require.IsType(t, &okta.Response{}, response, "did not return `*okta.Response` type as second variable")
 	require.IsType(t, []*okta.Role{}, roles, "did not return `[]*okta.Role` as first variable")
 	assert.Equal(t, "GET", response.Response.Request.Method, "did not make a get request")
@@ -267,7 +273,8 @@ func Test_can_list_roles_assigned_to_a_group(t *testing.T) {
 }
 
 func Test_can_add_group_targets_for_the_group_administrator_role_given_to_a_user(t *testing.T) {
-	ctx, client, _ := tests.NewClient(context.TODO())
+	ctx, client, err := tests.NewClient(context.TODO())
+	require.NoError(t, err)
 	p := &okta.PasswordCredential{
 		Value: "Abcd1234",
 	}
@@ -285,7 +292,7 @@ func Test_can_add_group_targets_for_the_group_administrator_role_given_to_a_user
 	}
 
 	user, _, err := client.User.CreateUser(ctx, *u, nil)
-	require.NoError(t, err, "Creating an user should not error")
+	require.NoError(t, err, "Creating a new user should not error")
 
 	role := okta.AssignRoleRequest{
 		Type: "USER_ADMIN",
@@ -320,7 +327,8 @@ func Test_can_add_group_targets_for_the_group_administrator_role_given_to_a_user
 }
 
 func Test_can_add_group_targets_for_the_group_administrator_role_given_to_a_group(t *testing.T) {
-	ctx, client, _ := tests.NewClient(context.TODO())
+	ctx, client, err := tests.NewClient(context.TODO())
+	require.NoError(t, err)
 
 	role := okta.AssignRoleRequest{
 		Type: "USER_ADMIN",
@@ -349,7 +357,8 @@ func Test_can_add_group_targets_for_the_group_administrator_role_given_to_a_grou
 }
 
 func Test_can_list_group_targets_for_the_group_administrator_role_given_to_a_user(t *testing.T) {
-	ctx, client, _ := tests.NewClient(context.TODO())
+	ctx, client, err := tests.NewClient(context.TODO())
+	require.NoError(t, err)
 	p := &okta.PasswordCredential{
 		Value: "Abcd1234",
 	}
@@ -367,7 +376,7 @@ func Test_can_list_group_targets_for_the_group_administrator_role_given_to_a_use
 	}
 
 	user, _, err := client.User.CreateUser(ctx, *u, nil)
-	require.NoError(t, err, "Creating an user should not error")
+	require.NoError(t, err, "Creating a new user should not error")
 
 	role := okta.AssignRoleRequest{
 		Type: "USER_ADMIN",
@@ -414,7 +423,8 @@ func Test_can_list_group_targets_for_the_group_administrator_role_given_to_a_use
 }
 
 func Test_can_list_group_targets_for_the_group_administrator_role_given_to_a_group(t *testing.T) {
-	ctx, client, _ := tests.NewClient(context.TODO())
+	ctx, client, err := tests.NewClient(context.TODO())
+	require.NoError(t, err)
 
 	role := okta.AssignRoleRequest{
 		Type: "USER_ADMIN",

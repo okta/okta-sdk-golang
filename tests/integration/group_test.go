@@ -31,7 +31,8 @@ import (
 )
 
 func Test_can_get_a_group(t *testing.T) {
-	ctx, client, _ := tests.NewClient(context.TODO())
+	ctx, client, err := tests.NewClient(context.TODO())
+	require.NoError(t, err)
 	// Create a new group → POST /api/v1/groups
 	gp := &okta.GroupProfile{
 		Name: "Get Test Group",
@@ -60,7 +61,8 @@ func Test_can_get_a_group(t *testing.T) {
 }
 
 func Test_can_list_groups(t *testing.T) {
-	ctx, client, _ := tests.NewClient(context.TODO())
+	ctx, client, err := tests.NewClient(context.TODO())
+	require.NoError(t, err)
 	// Create a new group → POST /api/v1/groups
 	gp := &okta.GroupProfile{
 		Name: "List Test Group",
@@ -89,7 +91,8 @@ func Test_can_list_groups(t *testing.T) {
 }
 
 func Test_can_search_for_a_group(t *testing.T) {
-	ctx, client, _ := tests.NewClient(context.TODO())
+	ctx, client, err := tests.NewClient(context.TODO())
+	require.NoError(t, err)
 	// Create a new group → POST /api/v1/groups
 	gp := &okta.GroupProfile{
 		Name: "Search Test Group",
@@ -119,7 +122,8 @@ func Test_can_search_for_a_group(t *testing.T) {
 }
 
 func Test_can_update_a_group(t *testing.T) {
-	ctx, client, _ := tests.NewClient(context.TODO())
+	ctx, client, err := tests.NewClient(context.TODO())
+	require.NoError(t, err)
 	// Create a new group → POST /api/v1/groups
 	gp := &okta.GroupProfile{
 		Name: "Update Test Group",
@@ -148,7 +152,8 @@ func Test_can_update_a_group(t *testing.T) {
 }
 
 func Test_group_user_operations(t *testing.T) {
-	ctx, client, _ := tests.NewClient(context.TODO())
+	ctx, client, err := tests.NewClient(context.TODO())
+	require.NoError(t, err)
 	// Create a user with credentials → POST /api/v1/users?activate=false
 	p := &okta.PasswordCredential{
 		Value: "Abcd1234",
@@ -168,7 +173,7 @@ func Test_group_user_operations(t *testing.T) {
 	qp := query.NewQueryParams(query.WithActivate(false))
 
 	user, _, err := client.User.CreateUser(ctx, *u, qp)
-	require.NoError(t, err, "Creating an user should not error")
+	require.NoError(t, err, "Creating a new user should not error")
 	assert.IsType(t, &okta.User{}, user)
 
 	// Create a new group → POST /api/v1/groups
@@ -211,7 +216,7 @@ func Test_group_user_operations(t *testing.T) {
 }
 
 func Test_group_rule_operations(t *testing.T) {
-	ctx, client, _ := tests.NewClient(context.TODO(), okta.WithCache(false))
+	ctx, client, err := tests.NewClient(context.TODO(), okta.WithCache(false))
 	// Create a user with credentials, activated by default → POST /api/v1/users?activate=true
 	p := &okta.PasswordCredential{
 		Value: "Abcd1234",
@@ -231,7 +236,7 @@ func Test_group_rule_operations(t *testing.T) {
 	qp := query.NewQueryParams(query.WithActivate(true))
 
 	user, _, err := client.User.CreateUser(ctx, *u, qp)
-	require.NoError(t, err, "Creating an user should not error")
+	require.NoError(t, err, "Creating a new user should not error")
 	assert.IsType(t, &okta.User{}, user)
 
 	// Create a new group → POST /api/v1/groups

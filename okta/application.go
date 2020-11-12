@@ -704,7 +704,7 @@ func (m *ApplicationResource) ListApplicationUsers(ctx context.Context, appId st
 	return appUser, resp, nil
 }
 
-// Assigns an user to an application with [credentials](#application-user-credentials-object) and an app-specific [profile](#application-user-profile-object). Profile mappings defined for the application are first applied before applying any profile properties specified in the request.
+// Assigns a user to an application with [credentials](#application-user-credentials-object) and an app-specific [profile](#application-user-profile-object). Profile mappings defined for the application are first applied before applying any profile properties specified in the request.
 func (m *ApplicationResource) AssignUserToApplication(ctx context.Context, appId string, body AppUser) (*AppUser, *Response, error) {
 	url := fmt.Sprintf("/api/v1/apps/%v/users", appId)
 

@@ -32,7 +32,7 @@ func Mock429Response() *http.Response {
 	header.Add("X-Rate-Limit-Reset", strconv.FormatInt(time.Now().Unix()+1, 10))
 	header.Add("X-Okta-Request-id", "a-request-id")
 	header.Add("Content-Type", "application/json")
-	header.Add("Date", zulu.Format("Mon, 02 Jan 2006 15:04:05 Z"))
+	header.Add("Date", zulu.Format("Mon, 02 Jan 2006 15:04:05 GMT"))
 
 	return &http.Response{
 		Status:        strconv.Itoa(429),
@@ -50,7 +50,7 @@ func Mock429ResponseNoResetHeader() *http.Response {
 	header.Add("X-Okta-Now", strconv.FormatInt(zulu.Unix(), 10))
 	header.Add("X-Okta-Request-id", "a-request-id")
 	header.Add("Content-Type", "application/json")
-	header.Add("Date", zulu.Format("Mon, 02 Jan 2006 15:04:05 Z"))
+	header.Add("Date", zulu.Format("Mon, 02 Jan 2006 15:04:05 GMT"))
 
 	return &http.Response{
 		Status:        strconv.Itoa(429),
@@ -88,7 +88,7 @@ func Mock429ResponseMultipleHeaders() *http.Response {
 	header.Add("X-Rate-Limit-Reset", strconv.FormatInt(time.Now().Unix()+10, 10))
 	header.Add("X-Okta-Request-id", "a-request-id")
 	header.Add("Content-Type", "application/json")
-	header.Add("Date", zulu.Format("Mon, 02 Jan 2006 15:04:05 Z"))
+	header.Add("Date", zulu.Format("Mon, 02 Jan 2006 15:04:05 GMT"))
 
 	return &http.Response{
 		Status:        strconv.Itoa(429),

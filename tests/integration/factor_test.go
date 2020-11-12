@@ -28,7 +28,8 @@ import (
 )
 
 func Test_exercise_factor_lifecycle(t *testing.T) {
-	ctx, client, _ := tests.NewClient(context.TODO())
+	ctx, client, err := tests.NewClient(context.TODO())
+	require.NoError(t, err)
 
 	user, _, err := client.User.GetUser(ctx, "john-factor-lifecycle@example.com")
 	if user != nil {
@@ -54,7 +55,7 @@ func Test_exercise_factor_lifecycle(t *testing.T) {
 	qp := query.NewQueryParams(query.WithActivate(false))
 
 	user, _, err = client.User.CreateUser(ctx, *u, qp)
-	require.NoError(t, err, "Creating an user should not error")
+	require.NoError(t, err, "Creating a new user should not error")
 
 	allowedFactors, _, _ := client.UserFactor.ListSupportedFactors(ctx, user.Id)
 	continueTesting := false
