@@ -1,26 +1,19 @@
 # Changelog
 Running changelog of releases since `2.0.0-rc.4`
 
-## v2.3.0
+## v2.2.0
 ### New Structs
+- `OpenIdConnectApplicationSettingsClientKeys`
 - `OpenIdConnectApplicationSettingsRefreshToken`
 - `OpenIdConnectRefreshTokenRotationType`
 
 ### Bug Fixes
+- Updates `okta/OpenIdConnectApplicationSettingsClient` properties to include `jwks []JsonWebKey` (Resolves #176)
 - `NewCustomHotpUserFactor` sets factor type to `token:htop`
 
 ### Updates
-- Updates `OpenIdConnectApplicationSettingsClient` properties to include `RefreshToken *OpenIdConnectApplicationSettingsRefreshToken`
-
-## v2.2.0
-### New Structs
-- `OpenIdConnectApplicationSettingsClientKeys`
-
-### Bug Fixes
-- Updates `okta/OpenIdConnectApplicationSettingsClient` properties to include `jwks []JsonWebKey` (Resolves #176)
-
-### Updates
 - Removes vendor directory
+- Updates `OpenIdConnectApplicationSettingsClient` properties to include `RefreshToken *OpenIdConnectApplicationSettingsRefreshToken`
 
 ## v2.1.0
 ### New Structs
