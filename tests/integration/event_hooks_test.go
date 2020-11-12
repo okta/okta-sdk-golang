@@ -29,7 +29,8 @@ import (
 )
 
 func Test_create_an_event_hook(t *testing.T) {
-	ctx, client, _ := tests.NewClient(context.TODO())
+	ctx, client, err := tests.NewClient(context.TODO())
+	require.NoError(t, err)
 
 	eventHookRequest := createEventHookRequestObject("Create an event hook")
 
@@ -48,7 +49,8 @@ func Test_create_an_event_hook(t *testing.T) {
 }
 
 func Test_get_an_event_hook(t *testing.T) {
-	ctx, client, _ := tests.NewClient(context.TODO())
+	ctx, client, err := tests.NewClient(context.TODO())
+	require.NoError(t, err)
 
 	eventHookRequest := createEventHookRequestObject("get an event hook")
 
@@ -73,7 +75,8 @@ func Test_get_an_event_hook(t *testing.T) {
 }
 
 func Test_update_an_event_hook(t *testing.T) {
-	ctx, client, _ := tests.NewClient(context.TODO())
+	ctx, client, err := tests.NewClient(context.TODO())
+	require.NoError(t, err)
 
 	eventHookRequest := createEventHookRequestObject("Create an event hook")
 
@@ -96,7 +99,8 @@ func Test_update_an_event_hook(t *testing.T) {
 }
 
 func Test_deactivate_and_delete_an_event_hook(t *testing.T) {
-	ctx, client, _ := tests.NewClient(context.TODO())
+	ctx, client, err := tests.NewClient(context.TODO())
+	require.NoError(t, err)
 
 	eventHookRequest := createEventHookRequestObject("deactivate and delete an event hook")
 
@@ -124,7 +128,8 @@ func Test_deactivate_and_delete_an_event_hook(t *testing.T) {
 }
 
 func Test_activate_an_event_hook(t *testing.T) {
-	ctx, client, _ := tests.NewClient(context.TODO())
+	ctx, client, err := tests.NewClient(context.TODO())
+	require.NoError(t, err)
 
 	eventHookRequest := createEventHookRequestObject("activate an event hook")
 
@@ -154,7 +159,8 @@ func Test_activate_an_event_hook(t *testing.T) {
 }
 
 func Test_list_event_hooks(t *testing.T) {
-	ctx, client, _ := tests.NewClient(context.TODO())
+	ctx, client, err := tests.NewClient(context.TODO())
+	require.NoError(t, err)
 
 	eventHookRequest := createEventHookRequestObject("List event hooks")
 
@@ -183,7 +189,8 @@ func Test_list_event_hooks(t *testing.T) {
 }
 
 func Test_verify_an_event_hook(t *testing.T) {
-	ctx, client, _ := tests.NewClient(context.TODO())
+	ctx, client, err := tests.NewClient(context.TODO())
+	require.NoError(t, err)
 
 	eventHookRequest := createEventHookRequestObject("Verify an event hook")
 

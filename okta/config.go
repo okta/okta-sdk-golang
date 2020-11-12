@@ -40,6 +40,7 @@ type config struct {
 			RequestTimeout    int64 `yaml:"requestTimeout" envconfig:"OKTA_CLIENT_REQUEST_TIMEOUT"`
 			RateLimit         struct {
 				MaxRetries int32 `yaml:"maxRetries" envconfig:"OKTA_CLIENT_RATE_LIMIT_MAX_RETRIES"`
+				MaxBackoff int64 `yaml:"maxBackoff" envconfig:"OKTA_CLIENT_RATE_LIMIT_MAX_BACKOFF"`
 			} `yaml:"rateLimit"`
 			OrgUrl            string   `yaml:"orgUrl" envconfig:"OKTA_CLIENT_ORGURL"`
 			Token             string   `yaml:"token" envconfig:"OKTA_CLIENT_TOKEN"`
@@ -152,6 +153,12 @@ func WithRequestTimeout(requestTimeout int64) ConfigSetter {
 func WithRateLimitMaxRetries(maxRetries int32) ConfigSetter {
 	return func(c *config) {
 		c.Okta.Client.RateLimit.MaxRetries = maxRetries
+	}
+}
+
+func WithRateLimitMaxBackOff(maxBackoff int64) ConfigSetter {
+	return func(c *config) {
+		c.Okta.Client.RateLimit.MaxBackoff = maxBackoff
 	}
 }
 

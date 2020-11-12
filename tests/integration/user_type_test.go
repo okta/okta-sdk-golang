@@ -28,7 +28,8 @@ import (
 )
 
 func Test_can_create_user_type(t *testing.T) {
-	ctx, client, _ := tests.NewClient(context.TODO())
+	ctx, client, err := tests.NewClient(context.TODO())
+	require.NoError(t, err)
 
 	ut := okta.UserType{
 		Description: "My Custom User Type",
@@ -48,7 +49,8 @@ func Test_can_create_user_type(t *testing.T) {
 }
 
 func Test_can_list_user_types(t *testing.T) {
-	ctx, client, _ := tests.NewClient(context.TODO())
+	ctx, client, err := tests.NewClient(context.TODO())
+	require.NoError(t, err)
 
 	userTypes, response, err := client.UserType.ListUserTypes(ctx)
 	require.NoError(t, err, "creating a user type should not error")

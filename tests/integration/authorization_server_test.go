@@ -29,7 +29,8 @@ import (
 )
 
 func Test_can_create_an_authorizaiton_server(t *testing.T) {
-	ctx, client, _ := tests.NewClient(context.TODO())
+	ctx, client, err := tests.NewClient(context.TODO())
+	require.NoError(t, err)
 
 	as := okta.AuthorizationServer{
 		Name:        "Sample Authorizaiton Server - Golang",
@@ -47,7 +48,8 @@ func Test_can_create_an_authorizaiton_server(t *testing.T) {
 }
 
 func Test_can_get_an_authorizaiton_server(t *testing.T) {
-	ctx, client, _ := tests.NewClient(context.TODO())
+	ctx, client, err := tests.NewClient(context.TODO())
+	require.NoError(t, err)
 
 	as := okta.AuthorizationServer{
 		Name:        "Sample Authorizaiton Server - Golang",
@@ -72,7 +74,8 @@ func Test_can_get_an_authorizaiton_server(t *testing.T) {
 }
 
 func Test_can_update_an_authorizaiton_server(t *testing.T) {
-	ctx, client, _ := tests.NewClient(context.TODO())
+	ctx, client, err := tests.NewClient(context.TODO())
+	require.NoError(t, err)
 
 	as := okta.AuthorizationServer{
 		Name:        "Sample Authorizaiton Server - Golang",
@@ -111,7 +114,8 @@ func Test_can_update_an_authorizaiton_server(t *testing.T) {
 }
 
 func Test_can_delete_an_authorizaiton_server(t *testing.T) {
-	ctx, client, _ := tests.NewClient(context.TODO())
+	ctx, client, err := tests.NewClient(context.TODO())
+	require.NoError(t, err)
 
 	as := okta.AuthorizationServer{
 		Name:        "Sample Authorizaiton Server - Golang",
@@ -141,7 +145,8 @@ func Test_can_delete_an_authorizaiton_server(t *testing.T) {
 }
 
 func Test_can_list_authorizaiton_servers(t *testing.T) {
-	ctx, client, _ := tests.NewClient(context.TODO())
+	ctx, client, err := tests.NewClient(context.TODO())
+	require.NoError(t, err)
 
 	as := okta.AuthorizationServer{
 		Name:        "Sample Authorizaiton Server - Golang",
@@ -170,7 +175,8 @@ func Test_can_list_authorizaiton_servers(t *testing.T) {
 }
 
 func Test_can_activate_an_authorizaiton_server(t *testing.T) {
-	ctx, client, _ := tests.NewClient(context.TODO())
+	ctx, client, err := tests.NewClient(context.TODO())
+	require.NoError(t, err)
 
 	as := okta.AuthorizationServer{
 		Name:        "Sample Authorizaiton Server - Golang",

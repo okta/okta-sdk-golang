@@ -20,12 +20,10 @@ import (
 	"context"
 	"testing"
 
-	"github.com/stretchr/testify/require"
-
-	"github.com/okta/okta-sdk-golang/v2/okta"
-
 	"github.com/jarcoal/httpmock"
+	"github.com/okta/okta-sdk-golang/v2/okta"
 	"github.com/okta/okta-sdk-golang/v2/tests"
+	"github.com/stretchr/testify/require"
 )
 
 func Test_429_Will_Automatically_Retry(t *testing.T) {
@@ -133,13 +131,8 @@ func Test_a_429_with_no_date_header_throws_error(t *testing.T) {
 }
 
 func Test_gets_the_correct_backoff_time(t *testing.T) {
-	backoff := okta.Get429BackoffTime(context.TODO(), tests.Mock429Response())
+	backoff, err := okta.Get429BackoffTime(tests.Mock429Response())
+	require.NoError(t, err)
 
 	require.Equal(t, int64(2), backoff, "backoff time should have only been 1 second")
-}
-
-func Test_with_multiple_x_rate_limit_request_times_still_retries(t *testing.T) {
-	backoff := okta.Get429BackoffTime(context.TODO(), tests.Mock429ResponseMultipleHeaders())
-
-	require.Equal(t, int64(11), backoff, "Backoff time should handle the correct header")
 }
