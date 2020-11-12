@@ -81,7 +81,10 @@ func NewRequestExecutor(httpClient *http.Client, cache cache.Cache, config *conf
 		tr := &http.Transport{
 			IdleConnTimeout: 30 * time.Second,
 		}
-		re.httpClient = &http.Client{Transport: tr}
+		re.httpClient = &http.Client{
+			Transport: tr,
+			Timeout:   time.Second * time.Duration(re.config.Okta.Client.ConnectionTimeout),
+		}
 	}
 
 	return &re
