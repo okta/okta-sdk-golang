@@ -1,6 +1,12 @@
 # Changelog
 Running changelog of releases since `2.0.0-rc.4`
 
+## v2.2.1
+### Bug Fixes
+- Update default connection Timeout to `60` seconds (#185)
+- Http Client now uses `Timeout` setting for connection timeout (#185)
+- SDK no longer cancels context (#185)
+
 ## v2.2.0
 ### New Structs
 - `OpenIdConnectApplicationSettingsClientKeys`
