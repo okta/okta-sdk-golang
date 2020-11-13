@@ -45,6 +45,14 @@ func Test_private_key_request_can_create_a_user(t *testing.T) {
 	ctx, client, err := tests.NewClient(context.TODO(), okta.WithAuthorizationMode("PrivateKey"), okta.WithScopes(([]string{"okta.users.manage"})))
 	require.NoError(t, err)
 
+	users, _, err := client.User.ListUsers(ctx, &query.Params{Q:"john-private-key@example.com"})
+	require.NoError(t, err, "listing user should not fail")
+	for _, u := range users {
+		if err := ensureUserDelete(ctx, client, u.Id, u.Status); err != nil {
+			require.NoError(t, err, "removing user should fail")
+		}
+	}
+
 	p := &okta.PasswordCredential{
 		Value: "Abcd1234",
 	}
@@ -64,7 +72,7 @@ func Test_private_key_request_can_create_a_user(t *testing.T) {
 	qp := query.NewQueryParams(query.WithActivate(false))
 
 	user, _, err := client.User.CreateUser(ctx, *u, qp)
-	require.NoError(t, err, "Creating a new user should not error")
+	require.NoError(t, err, "creating a new user should not error")
 	assert.NotEmpty(t, user.Id, "appears the user was not created")
 	tempProfile := *user.Profile
 	assert.Equal(t, "john-private-key@example.com", tempProfile["email"], "did not get the correct user")
