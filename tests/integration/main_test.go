@@ -31,11 +31,29 @@ func sweep() error {
 	if err != nil {
 		return err
 	}
-	return sweepUsers(ctx, client)
+	err = sweepUsers(ctx, client)
+	if err != nil {
+		return err
+	}
+	return sweepGroups(ctx, client)
+}
+
+func sweepGroups(ctx context.Context, client *okta.Client) error {
+	groups, _, err := client.Group.ListGroups(ctx, &query.Params{Q: "Group-Member-Rule"})
+	if err != nil {
+		return err
+	}
+	for _, g := range groups {
+		_, err = client.Group.DeleteGroup(ctx, g.Id)
+		if err != nil {
+			return err
+		}
+	}
+	return nil
 }
 
 func sweepUsers(ctx context.Context, client *okta.Client) error {
-	users, _, err := client.User.ListUsers(ctx, &query.Params{Q:"john-"})
+	users, _, err := client.User.ListUsers(ctx, &query.Params{Q: "john-"})
 	if err != nil {
 		return err
 	}
