@@ -1,10 +1,14 @@
 language: go
 
-go:
-  - 1.15.x
-  - tip
-
-script:
-  - go mod download
-  - make test
-
+jobs:
+  include:
+    - stage: test_go_1.13
+      go: 1.13.x
+      script:
+        - go mod download
+        - make test
+    - stage: test_go_tip
+      go: tip
+      script:
+        - go mod download
+        - make test
