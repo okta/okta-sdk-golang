@@ -43,7 +43,6 @@ pull-spec:
 	cp spec-raw/dist/spec.json openapi/spec.json
 	rm -fr spec-raw
 
-
 test:
 	make test:all
 

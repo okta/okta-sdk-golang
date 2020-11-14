@@ -32,7 +32,7 @@ import (
 	"gopkg.in/yaml.v3"
 )
 
-const Version = "2.2.0"
+const Version = "2.2.1"
 
 type Client struct {
 	config *config
@@ -142,7 +142,7 @@ func setConfigDefaults(c *config) {
 	var conf []ConfigSetter
 
 	conf = append(conf,
-		WithConnectionTimeout(30),
+		WithConnectionTimeout(60),
 		WithCache(true),
 		WithCacheTtl(300),
 		WithCacheTti(300),

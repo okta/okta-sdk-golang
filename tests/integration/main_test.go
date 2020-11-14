@@ -31,11 +31,53 @@ func sweep() error {
 	if err != nil {
 		return err
 	}
-	return sweepUsers(ctx, client)
+	err = sweepUsers(ctx, client)
+	if err != nil {
+		return err
+	}
+	err = sweepGroups(ctx, client)
+	if err != nil {
+		return err
+	}
+	return sweepGroupRules(ctx, client)
+}
+
+func sweepGroups(ctx context.Context, client *okta.Client) error {
+	groups, _, err := client.Group.ListGroups(ctx, &query.Params{Q: "Group-Member-Rule"})
+	if err != nil {
+		return err
+	}
+	for _, g := range groups {
+		_, err = client.Group.DeleteGroup(ctx, g.Id)
+		if err != nil {
+			return err
+		}
+	}
+	return nil
+}
+
+func sweepGroupRules(ctx context.Context, client *okta.Client) error {
+	groupRules, _, err := client.Group.ListGroupRules(ctx, &query.Params{Q: "Test"})
+	if err != nil {
+		return err
+	}
+	for _, g := range groupRules {
+		if g.Status == "ACTIVE" {
+			_, err = client.Group.DeactivateGroupRule(ctx, g.Id)
+			if err != nil {
+				return err
+			}
+		}
+		_, err = client.Group.DeleteGroupRule(ctx, g.Id)
+		if err != nil {
+			return err
+		}
+	}
+	return nil
 }
 
 func sweepUsers(ctx context.Context, client *okta.Client) error {
-	users, _, err := client.User.ListUsers(ctx, &query.Params{Q:"john-"})
+	users, _, err := client.User.ListUsers(ctx, &query.Params{Q: "john-"})
 	if err != nil {
 		return err
 	}
