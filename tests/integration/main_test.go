@@ -35,7 +35,11 @@ func sweep() error {
 	if err != nil {
 		return err
 	}
-	return sweepGroups(ctx, client)
+	err = sweepGroups(ctx, client)
+	if err != nil {
+		return err
+	}
+	return sweepGroupRules(ctx, client)
 }
 
 func sweepGroups(ctx context.Context, client *okta.Client) error {
@@ -45,6 +49,26 @@ func sweepGroups(ctx context.Context, client *okta.Client) error {
 	}
 	for _, g := range groups {
 		_, err = client.Group.DeleteGroup(ctx, g.Id)
+		if err != nil {
+			return err
+		}
+	}
+	return nil
+}
+
+func sweepGroupRules(ctx context.Context, client *okta.Client) error {
+	groupRules, _, err := client.Group.ListGroupRules(ctx, &query.Params{Q: "Test"})
+	if err != nil {
+		return err
+	}
+	for _, g := range groupRules {
+		if g.Status == "ACTIVE" {
+			_, err = client.Group.DeactivateGroupRule(ctx, g.Id)
+			if err != nil {
+				return err
+			}
+		}
+		_, err = client.Group.DeleteGroupRule(ctx, g.Id)
 		if err != nil {
 			return err
 		}
