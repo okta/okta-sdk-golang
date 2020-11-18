@@ -183,14 +183,14 @@ func WithScopes(scopes []string) ConfigSetter {
 	}
 }
 
+// WithPrivateKey sets private key key. Can be either a path to a private key or private key itself.
 func WithPrivateKey(privateKey string) ConfigSetter {
 	return func(c *config) {
 		if fileExists(privateKey) {
 			content, err := ioutil.ReadFile(privateKey)
 			if err != nil {
-				log.Fatal(err)
+				log.Fatalf("failed to read from provided private key file path: %v", err)
 			}
-
 			c.Okta.Client.PrivateKey = string(content)
 		} else {
 			c.Okta.Client.PrivateKey = privateKey
