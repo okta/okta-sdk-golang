@@ -23,8 +23,8 @@ type PasswordPolicyPasswordSettingsComplexity struct {
 	ExcludeAttributes []string            `json:"excludeAttributes,omitempty"`
 	ExcludeUsername   *bool               `json:"excludeUsername,omitempty"`
 	MinLength         int64               `json:"minLength,omitempty"`
-	MinLowerCase      int64               `json:"minLowerCase,omitempty"`
-	MinNumber         int64               `json:"minNumber,omitempty"`
-	MinSymbol         int64               `json:"minSymbol,omitempty"`
-	MinUpperCase      int64               `json:"minUpperCase,omitempty"`
+	MinLowerCase      int64               `json:"minLowerCase"`
+	MinNumber         int64               `json:"minNumber"`
+	MinSymbol         int64               `json:"minSymbol"`
+	MinUpperCase      int64               `json:"minUpperCase"`
 }

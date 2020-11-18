@@ -374,11 +374,25 @@ function buildModelProperties(model) {
   }
 
   for (let propKey in properties) {
-    finalProps.push( structProp(properties[propKey].propertyName) + " " + getType(properties[propKey], "*") + " `json:\""+properties[propKey].propertyName+",omitempty\"`" );
-
+    finalProps.push( structProp(properties[propKey].propertyName) + " " +
+        getType(properties[propKey], "*") + createJsonTag(properties[propKey].propertyName));
   }
 
   return finalProps.join("\n\t");
+}
+
+function createJsonTag(propertyName) {
+  if (propertyName === "tokenLifetimeMinutes" ||
+      propertyName === "minLowerCase" ||
+      propertyName === "minUpperCase" ||
+      propertyName === "minNumber" ||
+      propertyName === "minSymbol" ||
+      propertyName === "maxSessionLifetimeMinutes" ||
+      propertyName === "maxSessionIdleMinutes") {
+    return " `json:\""+propertyName+"\"`"
+  } else {
+    return " `json:\""+propertyName+",omitempty\"`"
+  }
 }
 
 function isInstance(model) {

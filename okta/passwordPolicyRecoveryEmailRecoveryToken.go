@@ -19,5 +19,5 @@
 package okta
 
 type PasswordPolicyRecoveryEmailRecoveryToken struct {
-	TokenLifetimeMinutes int64 `json:"tokenLifetimeMinutes,omitempty"`
+	TokenLifetimeMinutes int64 `json:"tokenLifetimeMinutes"`
 }
