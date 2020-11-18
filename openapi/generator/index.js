@@ -387,6 +387,7 @@ function createJsonTag(propertyName) {
       propertyName === "minUpperCase" ||
       propertyName === "minNumber" ||
       propertyName === "minSymbol" ||
+      propertyName === "maxSessionLifetimeMinutes" ||
       propertyName === "maxSessionIdleMinutes") {
     return " `json:\""+propertyName+"\"`"
   } else {
