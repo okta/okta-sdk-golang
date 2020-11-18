@@ -20,6 +20,6 @@ package okta
 
 type OktaSignOnPolicyRuleSignonSessionActions struct {
 	MaxSessionIdleMinutes     int64 `json:"maxSessionIdleMinutes"`
-	MaxSessionLifetimeMinutes int64 `json:"maxSessionLifetimeMinutes,omitempty"`
+	MaxSessionLifetimeMinutes int64 `json:"maxSessionLifetimeMinutes"`
 	UsePersistentCookie       *bool `json:"usePersistentCookie,omitempty"`
 }
