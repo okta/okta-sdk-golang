@@ -33,8 +33,8 @@ clean-files:
 generate-files:
 	@echo "$(COLOR_OKTA)Generating SDK Files...$(COLOR_NONE)"
 	cd openapi && yarn generator
-	@echo "$(COLOR_OK)Running Go Fmt on generated files...$(COLOR_NONE)"
-	gofmt -w ./okta
+	@echo "$(COLOR_OK)Running Goimports on generated files...$(COLOR_NONE)"
+	@goimports -w ./okta
 
 pull-spec:
 	@echo "$(COLOR_OKTA)Pulling in latest spec...$(COLOR_NONE)"

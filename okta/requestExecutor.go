@@ -18,9 +18,11 @@ package okta
 
 import (
 	"bytes"
+	"context"
 	"crypto/x509"
 	"encoding/json"
 	"encoding/pem"
+	"encoding/xml"
 	"errors"
 	"fmt"
 	"io"
@@ -29,21 +31,25 @@ import (
 	"net/url"
 	nUrl "net/url"
 	"reflect"
-	"sort"
 	"strconv"
 	"strings"
 	"time"
 
-	"github.com/okta/okta-sdk-golang/okta/cache"
-	"github.com/square/go-jose/jwt"
+	"github.com/cenkalti/backoff/v4"
+	"github.com/okta/okta-sdk-golang/v2/okta/cache"
 	"gopkg.in/square/go-jose.v2"
+	"gopkg.in/square/go-jose.v2/jwt"
 )
 
 type RequestExecutor struct {
-	httpClient *http.Client
-	config     *config
-	BaseUrl    *url.URL
-	cache      cache.Cache
+	httpClient        *http.Client
+	config            *config
+	BaseUrl           *url.URL
+	cache             cache.Cache
+	binary            bool
+	headerAccept      string
+	headerContentType string
+	freshCache        bool
 }
 
 type ClientAssertionClaims struct {
@@ -67,12 +73,18 @@ func NewRequestExecutor(httpClient *http.Client, cache cache.Cache, config *conf
 	re.httpClient = httpClient
 	re.config = config
 	re.cache = cache
+	re.binary = false
+	re.headerAccept = "application/json"
+	re.headerContentType = "application/json"
 
 	if httpClient == nil {
 		tr := &http.Transport{
 			IdleConnTimeout: 30 * time.Second,
 		}
-		re.httpClient = &http.Client{Transport: tr}
+		re.httpClient = &http.Client{
+			Transport: tr,
+			Timeout:   time.Second * time.Duration(re.config.Okta.Client.ConnectionTimeout),
+		}
 	}
 
 	return &re
@@ -106,9 +118,12 @@ func (re *RequestExecutor) NewRequest(method string, url string, body interface{
 			token := re.cache.GetString("OKTA_ACCESS_TOKEN")
 			req.Header.Add("Authorization", "Bearer "+token)
 		} else {
-			priv := []byte(re.config.Okta.Client.PrivateKey)
+			priv := []byte(strings.ReplaceAll(re.config.Okta.Client.PrivateKey, `\n`, "\n"))
 
 			privPem, _ := pem.Decode(priv)
+			if privPem == nil {
+				return nil, errors.New("invalid private key")
+			}
 			if privPem.Type != "RSA PRIVATE KEY" {
 				return nil, fmt.Errorf("RSA private key is of the wrong type")
 			}
@@ -165,6 +180,7 @@ func (re *RequestExecutor) NewRequest(method string, url string, body interface{
 			origResp := ioutil.NopCloser(bytes.NewBuffer(respBody))
 			tokenResponse.Body = origResp
 			var accessToken *RequestAccessToken
+
 			_, err = buildResponse(tokenResponse, &accessToken)
 			if err != nil {
 				return nil, err
@@ -176,38 +192,60 @@ func (re *RequestExecutor) NewRequest(method string, url string, body interface{
 
 	}
 	req.Header.Add("User-Agent", NewUserAgent(re.config).String())
-	req.Header.Add("Accept", "application/json")
+	req.Header.Add("Accept", re.headerAccept)
 
 	if body != nil {
-		req.Header.Set("Content-Type", "application/json")
+		req.Header.Set("Content-Type", re.headerContentType)
 	}
+
+	// Force reset defaults
+	re.binary = false
+	re.headerAccept = "application/json"
+	re.headerContentType = "application/json"
 
 	return req, nil
 }
 
-func (re *RequestExecutor) Do(req *http.Request, v interface{}) (*Response, error) {
-	requestStarted := time.Now().Unix()
+func (re *RequestExecutor) AsBinary() *RequestExecutor {
+	re.binary = true
+	return re
+}
+
+func (re *RequestExecutor) WithAccept(acceptHeader string) *RequestExecutor {
+	re.headerAccept = acceptHeader
+	return re
+}
+
+func (re *RequestExecutor) WithContentType(contentTypeHeader string) *RequestExecutor {
+	re.headerContentType = contentTypeHeader
+	return re
+}
+
+func (re *RequestExecutor) RefreshNext() *RequestExecutor {
+	re.freshCache = true
+	return re
+}
+
+func (re *RequestExecutor) Do(ctx context.Context, req *http.Request, v interface{}) (*Response, error) {
 	cacheKey := cache.CreateCacheKey(req)
 	if req.Method != http.MethodGet {
 		re.cache.Delete(cacheKey)
 	}
 	inCache := re.cache.Has(cacheKey)
+	if re.freshCache {
+		re.cache.Delete(cacheKey)
+		inCache = false
+		re.freshCache = false
+	}
 
 	if !inCache {
 
-		resp, err := re.doWithRetries(req, 0, requestStarted, nil)
+		resp, err := re.doWithRetries(ctx, req)
 
 		if err != nil {
 			return nil, err
 		}
-		defer resp.Body.Close()
-		respBody, err := ioutil.ReadAll(resp.Body)
-		if err != nil {
-			return nil, err
-		}
-		origResp := ioutil.NopCloser(bytes.NewBuffer(respBody))
-		resp.Body = origResp
-		if resp.StatusCode >= 200 && resp.StatusCode <= 299 && req.Method == http.MethodGet && reflect.TypeOf(v).Kind() != reflect.Slice {
+		if resp.StatusCode >= 200 && resp.StatusCode <= 299 && req.Method == http.MethodGet && v != nil && reflect.TypeOf(v).Kind() != reflect.Slice {
 			re.cache.Set(cacheKey, resp)
 		}
 		return buildResponse(resp, &v)
@@ -218,50 +256,68 @@ func (re *RequestExecutor) Do(req *http.Request, v interface{}) (*Response, erro
 
 }
 
-func (re *RequestExecutor) doWithRetries(req *http.Request, retryCount int32, requestStarted int64, lastResponse *http.Response) (*http.Response, error) {
-	iterationStart := time.Now().Unix()
-	maxRetries := re.config.Okta.Client.RateLimit.MaxRetries
-	requestTimeout := int64(re.config.Okta.Client.RequestTimeout)
+type oktaBackoff struct {
+	retryCount, maxRetries int32
+	backoffDuration        time.Duration
+	ctx                    context.Context
+	err                    error
+}
 
-	if req.Body != nil {
-		bodyBytes, _ := ioutil.ReadAll(req.Body)
-		req.Body = ioutil.NopCloser(bytes.NewBuffer(bodyBytes))
+// NextBackOff returns the duration to wait before retrying the operation,
+// or backoff. Stop to indicate that no more retries should be made.
+func (o *oktaBackoff) NextBackOff() time.Duration {
+	// stop retrying if operation reached retry limit
+	if o.retryCount > o.maxRetries {
+		return backoff.Stop
 	}
+	return o.backoffDuration
+}
 
-	if requestTimeout > 0 && (iterationStart-requestStarted) >= requestTimeout {
-		return lastResponse, errors.New("reached the max request time")
+// Reset to initial state.
+func (o *oktaBackoff) Reset() {}
+
+func (o *oktaBackoff) Context() context.Context {
+	return o.ctx
+}
+
+func (re *RequestExecutor) doWithRetries(ctx context.Context, req *http.Request) (*http.Response, error) {
+	var (
+		resp *http.Response
+		err  error
+	)
+	if re.config.Okta.Client.RequestTimeout > 0 {
+		ctx, _ = context.WithTimeout(ctx, time.Second*time.Duration(re.config.Okta.Client.RequestTimeout))
 	}
-
-	resp, err := re.httpClient.Do(req)
-
-	if (err != nil || tooManyRequests(resp)) && retryCount < maxRetries {
-		if resp != nil {
-			err := tryDrainBody(resp.Body)
-			if err != nil {
-				return nil, err
-			}
+	bOff := &oktaBackoff{
+		ctx:        ctx,
+		maxRetries: re.config.Okta.Client.RateLimit.MaxRetries,
+	}
+	operation := func() error {
+		resp, err = re.httpClient.Do(req.WithContext(ctx))
+		if err != nil {
+			// this is error is considered to be permanent and should not be retried
+			return backoff.Permanent(err)
 		}
-
-		retryLimitReset := resp.Header.Get("X-Rate-Limit-Reset")
-		date := resp.Header.Get("Date")
-		if retryLimitReset == "" || date == "" {
-			return resp, errors.New("a 429 response must include the x-retry-limit-reset and date headers")
+		if !tooManyRequests(resp) {
+			return nil
 		}
-
-		if tooManyRequests(resp) {
-			err := backoffPause(retryCount, resp)
-			if err != nil {
-				return nil, err
-			}
+		if err = tryDrainBody(resp.Body); err != nil {
+			return err
 		}
-		retryCount++
-
+		backoffDuration, err := Get429BackoffTime(resp)
+		if err != nil {
+			return err
+		}
+		if re.config.Okta.Client.RateLimit.MaxBackoff < backoffDuration {
+			backoffDuration = re.config.Okta.Client.RateLimit.MaxBackoff
+		}
+		bOff.backoffDuration = time.Second * time.Duration(backoffDuration)
+		bOff.retryCount++
 		req.Header.Add("X-Okta-Retry-For", resp.Header.Get("X-Okta-Request-Id"))
-		req.Header.Add("X-Okta-Retry-Count", fmt.Sprint(retryCount))
-
-		resp, err = re.doWithRetries(req, retryCount, requestStarted, resp)
+		req.Header.Add("X-Okta-Retry-Count", fmt.Sprint(bOff.retryCount))
+		return errors.New("to many requests")
 	}
-
+	err = backoff.Retry(operation, bOff)
 	return resp, err
 }
 
@@ -272,45 +328,70 @@ func tooManyRequests(resp *http.Response) bool {
 func tryDrainBody(body io.ReadCloser) error {
 	defer body.Close()
 	_, err := io.Copy(ioutil.Discard, io.LimitReader(body, 4096))
+	return err
+}
+
+func Get429BackoffTime(resp *http.Response) (int64, error) {
+	requestDate, err := time.Parse("Mon, 02 Jan 2006 15:04:05 GMT", resp.Header.Get("Date"))
 	if err != nil {
-		return err
+		// this is error is considered to be permanent and should not be retried
+		return 0, backoff.Permanent(errors.New(fmt.Sprintf("Date header is missing or invalid: %v", err)))
 	}
-	return nil
-}
-
-func backoffPause(retryCount int32, response *http.Response) error {
-	if response.StatusCode == http.StatusTooManyRequests {
-		backoffSeconds := Get429BackoffTime(response)
-		time.Sleep(time.Duration(backoffSeconds) * time.Second)
-
-		return nil
+	rateLimitReset, err := strconv.Atoi(resp.Header.Get("X-Rate-Limit-Reset"))
+	if err != nil {
+		// this is error is considered to be permanent and should not be retried
+		return 0, backoff.Permanent(errors.New(fmt.Sprintf("X-Rate-Limit-Reset header is missing or invalid: %v", err)))
 	}
-
-	return nil
-}
-
-func Get429BackoffTime(response *http.Response) int64 {
-	var limitResetMap []int
-
-	for _, time := range response.Header["X-Rate-Limit-Reset"] {
-		timestamp, _ := strconv.Atoi(time)
-		limitResetMap = append(limitResetMap, timestamp)
-	}
-
-	sort.Ints(limitResetMap)
-
-	requestDate, _ := time.Parse("Mon, 02 Jan 2006 15:04:05 Z", response.Header.Get("Date"))
-	requestDateUnix := requestDate.Unix()
-	backoffSeconds := int64(limitResetMap[0]) - requestDateUnix + 1
-	return backoffSeconds
+	return int64(rateLimitReset) - requestDate.Unix() + 1, nil
 }
 
 type Response struct {
 	*http.Response
+	Self     string
+	NextPage string
+}
+
+func (r *Response) Next(ctx context.Context, v interface{}) (*Response, error) {
+	client, _ := ClientFromContext(ctx)
+
+	req, err := client.requestExecutor.WithAccept("application/json").WithContentType("application/json").NewRequest("GET", r.NextPage, nil)
+	if err != nil {
+		return nil, err
+	}
+
+	return client.requestExecutor.Do(ctx, req, v)
+
+}
+
+func (r *Response) HasNextPage() bool {
+	return r.NextPage != ""
 }
 
 func newResponse(r *http.Response) *Response {
 	response := &Response{Response: r}
+	links := r.Header["Link"]
+
+	if len(links) > 0 {
+		for _, link := range links {
+			splitLinkHeader := strings.Split(link, ";")
+			if len(splitLinkHeader) < 2 {
+				continue
+			}
+			rawLink := strings.TrimRight(strings.TrimLeft(splitLinkHeader[0], "<"), ">")
+			rawUrl, _ := url.Parse(rawLink)
+			rawUrl.Scheme = ""
+			rawUrl.Host = ""
+
+			if strings.Contains(link, `rel="self"`) {
+				response.Self = rawUrl.String()
+			}
+
+			if strings.Contains(link, `rel="next"`) {
+				response.NextPage = rawUrl.String()
+			}
+		}
+	}
+
 	return response
 }
 
@@ -332,22 +413,35 @@ func CheckResponseForError(resp *http.Response) error {
 }
 
 func buildResponse(resp *http.Response, v interface{}) (*Response, error) {
-	response := newResponse(resp)
+	ct := resp.Header.Get("Content-Type")
 
+	response := newResponse(resp)
 	err := CheckResponseForError(resp)
 	if err != nil {
 		return response, err
 	}
-
 	if v != nil {
-		decodeError := json.NewDecoder(resp.Body).Decode(v)
-		if decodeError == io.EOF {
-			decodeError = nil
-		}
-		if decodeError != nil {
-			err = decodeError
+		respBody, err := ioutil.ReadAll(resp.Body)
+		if err != nil {
+			return nil, err
 		}
 
+		origResp := ioutil.NopCloser(bytes.NewBuffer(respBody))
+		response.Body = origResp
+
+		if strings.Contains(ct, "application/xml") {
+			err = xml.NewDecoder(resp.Body).Decode(v)
+		} else if strings.Contains(ct, "application/json") || ct == "" {
+			err = json.NewDecoder(resp.Body).Decode(v)
+		} else {
+			return nil, errors.New("could not build a response for type: " + ct)
+		}
+		if err == io.EOF {
+			err = nil
+		}
+		if err != nil {
+			return nil, err
+		}
 	}
-	return response, err
+	return response, nil
 }

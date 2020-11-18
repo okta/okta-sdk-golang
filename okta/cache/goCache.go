@@ -17,7 +17,10 @@
 package cache
 
 import (
+	"bufio"
+	"bytes"
 	"net/http"
+	"net/http/httputil"
 	"time"
 
 	patrickmnGoCache "github.com/patrickmn/go-cache"
@@ -44,15 +47,18 @@ func NewGoCache(ttl int32, tti int32) GoCache {
 func (c GoCache) Get(key string) *http.Response {
 	item, found := c.rootLibrary.Get(key)
 	if found {
-		itemCopy := CopyResponse(item.(*http.Response))
-		return itemCopy
+		r := bufio.NewReader(bytes.NewReader(item.([]byte)))
+		resp, _ := http.ReadResponse(r, nil)
+		return resp
 	}
 
 	return nil
 }
 
 func (c GoCache) Set(key string, value *http.Response) {
-	c.rootLibrary.Set(key, value, c.ttl)
+	cacheableResponse, _ := httputil.DumpResponse(value, true)
+
+	c.rootLibrary.Set(key, cacheableResponse, c.ttl)
 }
 
 func (c GoCache) GetString(key string) string {
