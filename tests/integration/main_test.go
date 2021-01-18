@@ -43,7 +43,7 @@ func sweep() error {
 }
 
 func sweepGroups(ctx context.Context, client *okta.Client) error {
-	groups, _, err := client.Group.ListGroups(ctx, &query.Params{Q: "Group-Member-Rule"})
+	groups, _, err := client.Group.ListGroups(ctx, &query.Params{Q: "SDK_TEST"})
 	if err != nil {
 		return err
 	}
@@ -77,7 +77,7 @@ func sweepGroupRules(ctx context.Context, client *okta.Client) error {
 }
 
 func sweepUsers(ctx context.Context, client *okta.Client) error {
-	users, _, err := client.User.ListUsers(ctx, &query.Params{Q: "john-"})
+	users, _, err := client.User.ListUsers(ctx, &query.Params{Q: "SDK_TEST"})
 	if err != nil {
 		return err
 	}

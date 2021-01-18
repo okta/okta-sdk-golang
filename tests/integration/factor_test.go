@@ -31,12 +31,6 @@ func Test_exercise_factor_lifecycle(t *testing.T) {
 	ctx, client, err := tests.NewClient(context.TODO())
 	require.NoError(t, err)
 
-	user, _, err := client.User.GetUser(ctx, "john-factor-lifecycle@example.com")
-	if user != nil {
-		client.User.DeactivateUser(ctx, user.Id, nil)
-		client.User.DeactivateOrDeleteUser(ctx, user.Id, nil)
-	}
-
 	p := &okta.PasswordCredential{
 		Value: "Abcd1234",
 	}
@@ -47,14 +41,14 @@ func Test_exercise_factor_lifecycle(t *testing.T) {
 	profile["firstName"] = "John"
 	profile["lastName"] = "Factor-Lifecycle"
 	profile["email"] = "john-factor-lifecycle@example.com"
-	profile["login"] = "john-factor-lifecycle@example.com"
+	profile["login"] = "SDK_TESTjohn-factor-lifecycle@example.com"
 	u := &okta.CreateUserRequest{
 		Credentials: uc,
 		Profile:     &profile,
 	}
 	qp := query.NewQueryParams(query.WithActivate(false))
 
-	user, _, err = client.User.CreateUser(ctx, *u, qp)
+	user, _, err := client.User.CreateUser(ctx, *u, qp)
 	require.NoError(t, err, "Creating a new user should not error")
 
 	allowedFactors, _, _ := client.UserFactor.ListSupportedFactors(ctx, user.Id)

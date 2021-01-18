@@ -40,7 +40,7 @@ func Test_can_add_an_admin_role_to_user(t *testing.T) {
 	profile["firstName"] = "John"
 	profile["lastName"] = "add_admin_role"
 	profile["email"] = "john-add-admin-role@example.com"
-	profile["login"] = "john-add-admin-role@example.com"
+	profile["login"] = "SDK_TESTjohn-add-admin-role@example.com"
 	u := &okta.CreateUserRequest{
 		Credentials: uc,
 		Profile:     &profile,
@@ -76,7 +76,7 @@ func Test_can_add_an_admin_role_to_group(t *testing.T) {
 	ctx, client, err := tests.NewClient(context.TODO())
 	require.NoError(t, err)
 	gp := &okta.GroupProfile{
-		Name: "Assign Admin Role To Group",
+		Name: "SDK_TEST Assign Admin Role To Group",
 	}
 	g := &okta.Group{
 		Profile: gp,
@@ -117,7 +117,7 @@ func Test_can_remove_an_admin_role_to_user(t *testing.T) {
 	profile["firstName"] = "John"
 	profile["lastName"] = "delete_admin_role"
 	profile["email"] = "john-delete-admin-role@example.com"
-	profile["login"] = "john-delete-admin-role@example.com"
+	profile["login"] = "SDK_TESTjohn-delete-admin-role@example.com"
 	u := &okta.CreateUserRequest{
 		Credentials: uc,
 		Profile:     &profile,
@@ -151,7 +151,7 @@ func Test_can_remove_an_admin_role_to_group(t *testing.T) {
 	ctx, client, err := tests.NewClient(context.TODO())
 	require.NoError(t, err)
 	gp := &okta.GroupProfile{
-		Name: "Assign Admin Role To Group",
+		Name: "SDK_TEST Assign Admin Role To Group",
 	}
 	g := &okta.Group{
 		Profile: gp,
@@ -190,7 +190,7 @@ func Test_can_list_roles_assigned_to_a_user(t *testing.T) {
 	profile["firstName"] = "John"
 	profile["lastName"] = "list_roles"
 	profile["email"] = "john-list-roles@example.com"
-	profile["login"] = "john-list-roles@example.com"
+	profile["login"] = "SDK_TESTjohn-list-roles@example.com"
 	u := &okta.CreateUserRequest{
 		Credentials: uc,
 		Profile:     &profile,
@@ -236,7 +236,7 @@ func Test_can_list_roles_assigned_to_a_group(t *testing.T) {
 	ctx, client, err := tests.NewClient(context.TODO())
 	require.NoError(t, err)
 	gp := &okta.GroupProfile{
-		Name: "Assign Admin Role To Group",
+		Name: "SDK_TEST Assign Admin Role To Group",
 	}
 	g := &okta.Group{
 		Profile: gp,
@@ -285,7 +285,7 @@ func Test_can_add_group_targets_for_the_group_administrator_role_given_to_a_user
 	profile["firstName"] = "John"
 	profile["lastName"] = "add-group-targets"
 	profile["email"] = "john-add-group-targets@example.com"
-	profile["login"] = "john-add-group-targets@example.com"
+	profile["login"] = "SDK_TESTjohn-add-group-targets@example.com"
 	u := &okta.CreateUserRequest{
 		Credentials: uc,
 		Profile:     &profile,
@@ -299,7 +299,7 @@ func Test_can_add_group_targets_for_the_group_administrator_role_given_to_a_user
 	}
 
 	gp := &okta.GroupProfile{
-		Name: "Assign Admin Role To Group",
+		Name: "SDK_TEST Assign Admin Role To Group",
 	}
 	g := &okta.Group{
 		Profile: gp,
@@ -335,7 +335,7 @@ func Test_can_add_group_targets_for_the_group_administrator_role_given_to_a_grou
 	}
 
 	gp := &okta.GroupProfile{
-		Name: "Assign Admin Role To Group",
+		Name: "SDK_TEST Assign Admin Role To Group",
 	}
 	g := &okta.Group{
 		Profile: gp,
@@ -369,7 +369,7 @@ func Test_can_list_group_targets_for_the_group_administrator_role_given_to_a_use
 	profile["firstName"] = "John"
 	profile["lastName"] = "add-group-targets"
 	profile["email"] = "john-add-group-targets@example.com"
-	profile["login"] = "john-add-group-targets@example.com"
+	profile["login"] = "SDK_TESTjohn-add-group-targets@example.com"
 	u := &okta.CreateUserRequest{
 		Credentials: uc,
 		Profile:     &profile,
@@ -383,7 +383,7 @@ func Test_can_list_group_targets_for_the_group_administrator_role_given_to_a_use
 	}
 
 	gp := &okta.GroupProfile{
-		Name: "Assign Admin Role To Group",
+		Name: "SDK_TEST Assign Admin Role To Group",
 	}
 	g := &okta.Group{
 		Profile: gp,
@@ -431,7 +431,7 @@ func Test_can_list_group_targets_for_the_group_administrator_role_given_to_a_gro
 	}
 
 	gp := &okta.GroupProfile{
-		Name: "Assign Admin Role To Group",
+		Name: "SDK_TEST Assign Admin Role To Group",
 	}
 	g := &okta.Group{
 		Profile: gp,

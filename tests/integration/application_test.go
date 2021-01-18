@@ -306,7 +306,7 @@ func Test_can_add_and_remove_application_users(t *testing.T) {
 	profile["firstName"] = "John"
 	profile["lastName"] = "Get-User"
 	profile["email"] = "john-get-user@example.com"
-	profile["login"] = "john-get-user@example.com"
+	profile["login"] = "SDK_TESTjohn-get-user@example.com"
 	u := &okta.CreateUserRequest{
 		Credentials: uc,
 		Profile:     &profile,
