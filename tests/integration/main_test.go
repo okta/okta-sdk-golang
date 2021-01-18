@@ -77,13 +77,25 @@ func sweepGroupRules(ctx context.Context, client *okta.Client) error {
 }
 
 func sweepUsers(ctx context.Context, client *okta.Client) error {
-	users, _, err := client.User.ListUsers(ctx, &query.Params{Q: "SDK_TEST"})
+	users, resp, err := client.User.ListUsers(ctx, &query.Params{Q: "SDK_TEST"})
 	if err != nil {
 		return err
 	}
 	for _, u := range users {
 		if err := ensureUserDelete(ctx, client, u.Id, u.Status); err != nil {
 			return err
+		}
+	}
+	for resp.HasNextPage() {
+		var users []*okta.User
+		resp, err = resp.Next(ctx, &users)
+		if err != nil {
+			return err
+		}
+		for _, u := range users {
+			if err := ensureUserDelete(ctx, client, u.Id, u.Status); err != nil {
+				return err
+			}
 		}
 	}
 	return nil

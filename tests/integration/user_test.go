@@ -662,7 +662,7 @@ func Test_can_paginate_across_users(t *testing.T) {
 	profile1["firstName"] = "John"
 	profile1["lastName"] = "page-test"
 	profile1["email"] = "john-page-1@example.com"
-	profile1["login"] = "john-page-1@example.com"
+	profile1["login"] = "SDK_TESTjohn-page-1@example.com"
 	u1 := &okta.CreateUserRequest{
 		Credentials: uc,
 		Profile:     &profile1,
@@ -671,7 +671,7 @@ func Test_can_paginate_across_users(t *testing.T) {
 	profile2["firstName"] = "John"
 	profile2["lastName"] = "page-test"
 	profile2["email"] = "john-page-2@example.com"
-	profile2["login"] = "john-page-2@example.com"
+	profile2["login"] = "SDK_TESTjohn-page-2@example.com"
 	u2 := &okta.CreateUserRequest{
 		Credentials: uc,
 		Profile:     &profile2,
