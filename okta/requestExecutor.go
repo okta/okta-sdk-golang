@@ -414,25 +414,20 @@ func CheckResponseForError(resp *http.Response) error {
 
 func buildResponse(resp *http.Response, v interface{}) (*Response, error) {
 	ct := resp.Header.Get("Content-Type")
-
 	response := newResponse(resp)
 	err := CheckResponseForError(resp)
 	if err != nil {
 		return response, err
 	}
 	if v != nil {
-		respBody, err := ioutil.ReadAll(resp.Body)
-		if err != nil {
-			return nil, err
-		}
-
-		origResp := ioutil.NopCloser(bytes.NewBuffer(respBody))
-		response.Body = origResp
-
+		bodyBytes, _ := ioutil.ReadAll(resp.Body)
+		bodyString := string(bodyBytes)
+		_ = resp.Body.Close()
+		resp.Body = ioutil.NopCloser(bytes.NewBuffer(bodyBytes))
 		if strings.Contains(ct, "application/xml") {
-			err = xml.NewDecoder(resp.Body).Decode(v)
+			err = xml.Unmarshal([]byte(bodyString), v)
 		} else if strings.Contains(ct, "application/json") || ct == "" {
-			err = json.NewDecoder(resp.Body).Decode(v)
+			err = json.Unmarshal([]byte(bodyString), v)
 		} else {
 			return nil, errors.New("could not build a response for type: " + ct)
 		}
