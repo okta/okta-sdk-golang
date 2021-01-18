@@ -401,12 +401,13 @@ func CheckResponseForError(resp *http.Response) error {
 		return nil
 	}
 	bodyBytes, _ := ioutil.ReadAll(resp.Body)
-	bodyString := string(bodyBytes)
+	copyBodyBytes := make([]byte, len(bodyBytes))
+	copy(copyBodyBytes, bodyBytes)
 	_ = resp.Body.Close()
 	resp.Body = ioutil.NopCloser(bytes.NewBuffer(bodyBytes))
-	e := new(Error)
-	_ = json.Unmarshal([]byte(bodyString), &e)
-	return e
+	e := Error{}
+	_ = json.NewDecoder(bytes.NewReader(copyBodyBytes)).Decode(&e)
+	return &e
 }
 
 func buildResponse(resp *http.Response, re *RequestExecutor, v interface{}) (*Response, error) {
@@ -418,13 +419,14 @@ func buildResponse(resp *http.Response, re *RequestExecutor, v interface{}) (*Re
 	}
 	if v != nil {
 		bodyBytes, _ := ioutil.ReadAll(resp.Body)
-		bodyString := string(bodyBytes)
+		copyBodyBytes := make([]byte, len(bodyBytes))
+		copy(copyBodyBytes, bodyBytes)
 		_ = resp.Body.Close()
 		resp.Body = ioutil.NopCloser(bytes.NewBuffer(bodyBytes))
 		if strings.Contains(ct, "application/xml") {
-			err = xml.Unmarshal([]byte(bodyString), v)
+			err = xml.NewDecoder(bytes.NewReader(copyBodyBytes)).Decode(v)
 		} else if strings.Contains(ct, "application/json") || ct == "" {
-			err = json.Unmarshal([]byte(bodyString), v)
+			err = json.NewDecoder(bytes.NewReader(copyBodyBytes)).Decode(v)
 		} else {
 			return nil, errors.New("could not build a response for type: " + ct)
 		}
