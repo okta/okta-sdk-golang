@@ -54,8 +54,8 @@ func Test_private_key_request_can_create_a_user(t *testing.T) {
 	profile := okta.UserProfile{}
 	profile["firstName"] = "John"
 	profile["lastName"] = "Private_Key"
-	profile["email"] = "john-private-key@example.com"
-	profile["login"] = "SDK_TESTjohn-private-key@example.com"
+	profile["email"] = randomEmail()
+	profile["login"] = profile["email"]
 	u := &okta.CreateUserRequest{
 		Credentials: uc,
 		Profile:     &profile,

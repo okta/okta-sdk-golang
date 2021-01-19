@@ -22,9 +22,8 @@ import (
 	"testing"
 	"time"
 
-	"github.com/okta/okta-sdk-golang/v2/okta/query"
-
 	"github.com/okta/okta-sdk-golang/v2/okta"
+	"github.com/okta/okta-sdk-golang/v2/okta/query"
 	"github.com/okta/okta-sdk-golang/v2/tests"
 	"github.com/stretchr/testify/assert"
 	"github.com/stretchr/testify/require"
@@ -164,8 +163,8 @@ func Test_group_user_operations(t *testing.T) {
 	profile := okta.UserProfile{}
 	profile["firstName"] = "John"
 	profile["lastName"] = "With-Group"
-	profile["email"] = "john-with-group@example.com"
-	profile["login"] = "SDK_TESTjohn-with-group@example.com"
+	profile["email"] = randomEmail()
+	profile["login"] = profile["email"]
 	u := &okta.CreateUserRequest{
 		Credentials: uc,
 		Profile:     &profile,
@@ -227,8 +226,8 @@ func Test_group_rule_operations(t *testing.T) {
 	profile := okta.UserProfile{}
 	profile["firstName"] = "John"
 	profile["lastName"] = "With-Group-Rule"
-	profile["email"] = "john-with-group-rule@example.com"
-	profile["login"] = "SDK_TESTjohn-with-group-rule@example.com"
+	profile["email"] = randomEmail()
+	profile["login"] = profile["email"]
 	u := &okta.CreateUserRequest{
 		Credentials: uc,
 		Profile:     &profile,
@@ -270,7 +269,7 @@ func Test_group_rule_operations(t *testing.T) {
 		Actions:    gra,
 		Conditions: grc,
 		Type:       "group_rule",
-		Name:       "Test group rule",
+		Name:       "SDK_TEST group rule",
 	}
 	groupRule, _, err := client.Group.CreateGroupRule(ctx, *gr)
 	require.NoError(t, err, "Should not error when creating a group Rule")
@@ -323,7 +322,7 @@ func Test_group_rule_operations(t *testing.T) {
 		Actions:    gra,
 		Conditions: grc,
 		Type:       "group_rule",
-		Name:       "Test group rule Updated",
+		Name:       "SDK_TEST group rule Updated",
 	}
 	newGroupRule, _, err := client.Group.UpdateGroupRule(ctx, groupRule.Id, *gr)
 	require.NoError(t, err, "Should not error when updating rule")

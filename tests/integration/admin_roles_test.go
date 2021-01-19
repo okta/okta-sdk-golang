@@ -39,8 +39,8 @@ func Test_can_add_an_admin_role_to_user(t *testing.T) {
 	profile := okta.UserProfile{}
 	profile["firstName"] = "John"
 	profile["lastName"] = "add_admin_role"
-	profile["email"] = "john-add-admin-role@example.com"
-	profile["login"] = "SDK_TESTjohn-add-admin-role@example.com"
+	profile["email"] = randomEmail()
+	profile["login"] = profile["email"]
 	u := &okta.CreateUserRequest{
 		Credentials: uc,
 		Profile:     &profile,
@@ -116,8 +116,8 @@ func Test_can_remove_an_admin_role_to_user(t *testing.T) {
 	profile := okta.UserProfile{}
 	profile["firstName"] = "John"
 	profile["lastName"] = "delete_admin_role"
-	profile["email"] = "john-delete-admin-role@example.com"
-	profile["login"] = "SDK_TESTjohn-delete-admin-role@example.com"
+	profile["email"] = randomEmail()
+	profile["login"] = profile["email"]
 	u := &okta.CreateUserRequest{
 		Credentials: uc,
 		Profile:     &profile,
@@ -189,8 +189,8 @@ func Test_can_list_roles_assigned_to_a_user(t *testing.T) {
 	profile := okta.UserProfile{}
 	profile["firstName"] = "John"
 	profile["lastName"] = "list_roles"
-	profile["email"] = "john-list-roles@example.com"
-	profile["login"] = "SDK_TESTjohn-list-roles@example.com"
+	profile["email"] = randomEmail()
+	profile["login"] = profile["email"]
 	u := &okta.CreateUserRequest{
 		Credentials: uc,
 		Profile:     &profile,
@@ -284,8 +284,8 @@ func Test_can_add_group_targets_for_the_group_administrator_role_given_to_a_user
 	profile := okta.UserProfile{}
 	profile["firstName"] = "John"
 	profile["lastName"] = "add-group-targets"
-	profile["email"] = "john-add-group-targets@example.com"
-	profile["login"] = "SDK_TESTjohn-add-group-targets@example.com"
+	profile["email"] = randomEmail()
+	profile["login"] = profile["email"]
 	u := &okta.CreateUserRequest{
 		Credentials: uc,
 		Profile:     &profile,
@@ -368,8 +368,8 @@ func Test_can_list_group_targets_for_the_group_administrator_role_given_to_a_use
 	profile := okta.UserProfile{}
 	profile["firstName"] = "John"
 	profile["lastName"] = "add-group-targets"
-	profile["email"] = "john-add-group-targets@example.com"
-	profile["login"] = "SDK_TESTjohn-add-group-targets@example.com"
+	profile["email"] = randomEmail()
+	profile["login"] = profile["email"]
 	u := &okta.CreateUserRequest{
 		Credentials: uc,
 		Profile:     &profile,

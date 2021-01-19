@@ -42,8 +42,8 @@ func Test_can_get_a_user(t *testing.T) {
 	profile := okta.UserProfile{}
 	profile["firstName"] = "John"
 	profile["lastName"] = "Get-User"
-	profile["email"] = "john-get-user@example.com"
-	profile["login"] = "SDK_TESTjohn-get-user@example.com"
+	profile["email"] = randomEmail()
+	profile["login"] = profile["email"]
 	u := &okta.CreateUserRequest{
 		Credentials: uc,
 		Profile:     &profile,
@@ -88,8 +88,8 @@ func Test_can_activate_a_user(t *testing.T) {
 	profile := okta.UserProfile{}
 	profile["firstName"] = "John"
 	profile["lastName"] = "Activate"
-	profile["email"] = "john-activate@example.com"
-	profile["login"] = "SDK_TESTjohn-activate@example.com"
+	profile["email"] = randomEmail()
+	profile["login"] = profile["email"]
 	u := &okta.CreateUserRequest{
 		Credentials: uc,
 		Profile:     &profile,
@@ -131,8 +131,8 @@ func Test_can_update_user_profile(t *testing.T) {
 	profile := okta.UserProfile{}
 	profile["firstName"] = "John"
 	profile["lastName"] = "Profile-Update"
-	profile["email"] = "john-profile-update@example.com"
-	profile["login"] = "SDK_TESTjohn-profile-update@example.com"
+	profile["email"] = randomEmail()
+	profile["login"] = profile["email"]
 	u := &okta.CreateUserRequest{
 		Credentials: uc,
 		Profile:     &profile,
@@ -178,8 +178,8 @@ func Test_can_suspend_a_user(t *testing.T) {
 	profile := okta.UserProfile{}
 	profile["firstName"] = "John"
 	profile["lastName"] = "Suspend"
-	profile["email"] = "john-suspend@example.com"
-	profile["login"] = "SDK_TESTjohn-suspend@example.com"
+	profile["email"] = randomEmail()
+	profile["login"] = profile["email"]
 	u := &okta.CreateUserRequest{
 		Credentials: uc,
 		Profile:     &profile,
@@ -242,8 +242,8 @@ func Test_can_change_users_password(t *testing.T) {
 	profile := okta.UserProfile{}
 	profile["firstName"] = "John"
 	profile["lastName"] = "Change-Password"
-	profile["email"] = "john-change-password@example.com"
-	profile["login"] = "SDK_TESTjohn-change-password@example.com"
+	profile["email"] = randomEmail()
+	profile["login"] = profile["email"]
 	u := &okta.CreateUserRequest{
 		Credentials: uc,
 		Profile:     &profile,
@@ -302,8 +302,8 @@ func Test_can_get_reset_password_link_for_user(t *testing.T) {
 	profile := okta.UserProfile{}
 	profile["firstName"] = "John"
 	profile["lastName"] = "Get-Reset-Password-Url"
-	profile["email"] = "john-get-reset-password-url@example.com"
-	profile["login"] = "SDK_TESTjohn-get-reset-password-url@example.com"
+	profile["email"] = randomEmail()
+	profile["login"] = profile["email"]
 	u := &okta.CreateUserRequest{
 		Credentials: uc,
 		Profile:     &profile,
@@ -347,8 +347,8 @@ func Test_can_expire_a_users_password_and_get_a_temp_one(t *testing.T) {
 	profile := okta.UserProfile{}
 	profile["firstName"] = "John"
 	profile["lastName"] = "Expire-Password"
-	profile["email"] = "john-expire-password@example.com"
-	profile["login"] = "SDK_TESTjohn-expire-password@example.com"
+	profile["email"] = randomEmail()
+	profile["login"] = profile["email"]
 	u := &okta.CreateUserRequest{
 		Credentials: uc,
 		Profile:     &profile,
@@ -392,8 +392,8 @@ func Test_can_change_user_recovery_question(t *testing.T) {
 	profile := okta.UserProfile{}
 	profile["firstName"] = "John"
 	profile["lastName"] = "Change-Recovery-Question"
-	profile["email"] = "john-change-recovery-question@example.com"
-	profile["login"] = "SDK_TESTjohn-change-recovery-question@example.com"
+	profile["email"] = randomEmail()
+	profile["login"] = profile["email"]
 	u := &okta.CreateUserRequest{
 		Credentials: uc,
 		Profile:     &profile,
@@ -464,8 +464,8 @@ func Test_can_assign_a_user_to_a_role(t *testing.T) {
 	profile := okta.UserProfile{}
 	profile["firstName"] = "John"
 	profile["lastName"] = "Role"
-	profile["email"] = "john-role@example.com"
-	profile["login"] = "SDK_TESTjohn-role@example.com"
+	profile["email"] = randomEmail()
+	profile["login"] = profile["email"]
 	u := &okta.CreateUserRequest{
 		Credentials: uc,
 		Profile:     &profile,
@@ -537,8 +537,8 @@ func Test_user_group_target_role(t *testing.T) {
 	profile := okta.UserProfile{}
 	profile["firstName"] = "John"
 	profile["lastName"] = "Group-Target"
-	profile["email"] = "john-group-target@example.com"
-	profile["login"] = "SDK_TESTjohn-group-target@example.com"
+	profile["email"] = randomEmail()
+	profile["login"] = profile["email"]
 	u := &okta.CreateUserRequest{
 		Credentials: uc,
 		Profile:     &profile,
@@ -622,8 +622,8 @@ func Test_can_get_user_with_cache_enabled(t *testing.T) {
 	profile := okta.UserProfile{}
 	profile["firstName"] = "John"
 	profile["lastName"] = "Test-Cache"
-	profile["email"] = "john-test-cache@example.com"
-	profile["login"] = "SDK_TESTjohn-test-cache@example.com"
+	profile["email"] = randomEmail()
+	profile["login"] = profile["email"]
 	u := &okta.CreateUserRequest{
 		Credentials: uc,
 		Profile:     &profile,
@@ -634,7 +634,7 @@ func Test_can_get_user_with_cache_enabled(t *testing.T) {
 	require.NoError(t, err, "Creating a new user should not error")
 
 	for i := 0; i < 50; i++ {
-		user, resp, err := client.User.GetUser(ctx, "SDK_TESTjohn-test-cache@example.com")
+		user, resp, err := client.User.GetUser(ctx, profile["email"].(string))
 		assert.NoError(t, err, "Should not error when getting user")
 		assert.NotNil(t, user, "user should not be nil")
 		assert.NotNil(t, resp, "resp should not be nil")

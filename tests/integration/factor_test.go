@@ -40,8 +40,8 @@ func Test_exercise_factor_lifecycle(t *testing.T) {
 	profile := okta.UserProfile{}
 	profile["firstName"] = "John"
 	profile["lastName"] = "Factor-Lifecycle"
-	profile["email"] = "john-factor-lifecycle@example.com"
-	profile["login"] = "SDK_TESTjohn-factor-lifecycle@example.com"
+	profile["email"] = randomEmail()
+	profile["login"] = profile["email"]
 	u := &okta.CreateUserRequest{
 		Credentials: uc,
 		Profile:     &profile,
