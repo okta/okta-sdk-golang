@@ -136,8 +136,8 @@ func randomEmail() string {
 // randStringFromCharSet generates a random string by selecting characters from
 // the charset provided
 func randomTestString() string {
-	result := make([]byte, 10)
-	for i := 0; i < 10; i++ {
+	result := make([]byte, 15)
+	for i := 0; i < 15; i++ {
 		result[i] = charSetAlpha[rand.Intn(len(charSetAlpha))]
 	}
 	return testPrefix + string(result)
