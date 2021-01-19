@@ -417,25 +417,26 @@ func buildResponse(resp *http.Response, re *RequestExecutor, v interface{}) (*Re
 	if err != nil {
 		return response, err
 	}
-	if v != nil {
-		bodyBytes, _ := ioutil.ReadAll(resp.Body)
-		copyBodyBytes := make([]byte, len(bodyBytes))
-		copy(copyBodyBytes, bodyBytes)
-		_ = resp.Body.Close() // close it to avoid memory leaks
-		resp.Body = ioutil.NopCloser(bytes.NewBuffer(bodyBytes)) // restore the original response body
-		if strings.Contains(ct, "application/xml") {
-			err = xml.NewDecoder(bytes.NewReader(copyBodyBytes)).Decode(v)
-		} else if strings.Contains(ct, "application/json") || ct == "" {
-			err = json.NewDecoder(bytes.NewReader(copyBodyBytes)).Decode(v)
-		} else if strings.Contains(ct, "application/octet-stream") {
-			// since the response is arbitrary binary data, we leave it to the user to decode it
-			return response, nil
-		} else {
-			return nil, errors.New("could not build a response for type: " + ct)
-		}
-		if err != nil {
-			return nil, err
-		}
+	bodyBytes, _ := ioutil.ReadAll(resp.Body)
+	copyBodyBytes := make([]byte, len(bodyBytes))
+	copy(copyBodyBytes, bodyBytes)
+	_ = resp.Body.Close()                                    // close it to avoid memory leaks
+	resp.Body = ioutil.NopCloser(bytes.NewBuffer(bodyBytes)) // restore the original response body
+	if strings.Contains(ct, "application/xml") {
+		err = xml.NewDecoder(bytes.NewReader(copyBodyBytes)).Decode(v)
+	} else if strings.Contains(ct, "application/json") || ct == "" {
+		err = json.NewDecoder(bytes.NewReader(copyBodyBytes)).Decode(v)
+	} else if strings.Contains(ct, "application/octet-stream") {
+		// since the response is arbitrary binary data, we leave it to the user to decode it
+		return response, nil
+	} else {
+		return nil, errors.New("could not build a response for type: " + ct)
+	}
+	if err == io.EOF {
+		err = nil
+	}
+	if err != nil {
+		return nil, err
 	}
 	return response, nil
 }
