@@ -51,11 +51,12 @@ func Test_private_key_request_can_create_a_user(t *testing.T) {
 	uc := &okta.UserCredentials{
 		Password: p,
 	}
+	email := randomEmail()
 	profile := okta.UserProfile{}
 	profile["firstName"] = "John"
 	profile["lastName"] = "Private_Key"
-	profile["email"] = "john-private-key@example.com"
-	profile["login"] = "john-private-key@example.com"
+	profile["email"] = email
+	profile["login"] = email
 	u := &okta.CreateUserRequest{
 		Credentials: uc,
 		Profile:     &profile,
@@ -67,7 +68,7 @@ func Test_private_key_request_can_create_a_user(t *testing.T) {
 	require.NoError(t, err, "Creating a new user should not error")
 	assert.NotEmpty(t, user.Id, "appears the user was not created")
 	tempProfile := *user.Profile
-	assert.Equal(t, "john-private-key@example.com", tempProfile["email"], "did not get the correct user")
+	assert.Equal(t, email, tempProfile["email"], "did not get the correct user")
 
 	// Deactivate the user → POST /api/v1/users/{{userId}}/lifecycle/deactivate
 	_, err = client.User.DeactivateUser(ctx, user.Id, nil)

@@ -187,7 +187,7 @@ func Test_list_application_allows_casting_to_correct_type(t *testing.T) {
 	require.NoError(t, err, "Creating an application should not error")
 
 	applist, _, err := client.Application.ListApplications(ctx, nil)
-	require.NoError(t, err, "List applicaitons should not error")
+	require.NoError(t, err, "List applications should not error")
 
 	for _, a := range applist {
 
@@ -305,8 +305,8 @@ func Test_can_add_and_remove_application_users(t *testing.T) {
 	profile := okta.UserProfile{}
 	profile["firstName"] = "John"
 	profile["lastName"] = "Get-User"
-	profile["email"] = "john-get-user@example.com"
-	profile["login"] = "john-get-user@example.com"
+	profile["email"] = randomEmail()
+	profile["login"] = profile["email"]
 	u := &okta.CreateUserRequest{
 		Credentials: uc,
 		Profile:     &profile,

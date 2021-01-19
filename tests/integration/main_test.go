@@ -4,13 +4,19 @@ import (
 	"context"
 	"fmt"
 	"log"
+	"math/rand"
 	"os"
 	"testing"
+	"time"
 
 	"github.com/okta/okta-sdk-golang/v2/okta"
 	"github.com/okta/okta-sdk-golang/v2/okta/query"
 	"github.com/okta/okta-sdk-golang/v2/tests"
 )
+
+func init() {
+	rand.Seed(time.Now().UTC().UnixNano())
+}
 
 func TestMain(m *testing.M) {
 	err := sweep()
@@ -27,6 +33,7 @@ func TestMain(m *testing.M) {
 
 // sweep the resources before running integration tests
 func sweep() error {
+	log.Println("[INFO] sweeping test users, groups and rules")
 	ctx, client, err := tests.NewClient(context.Background())
 	if err != nil {
 		return err
@@ -43,7 +50,7 @@ func sweep() error {
 }
 
 func sweepGroups(ctx context.Context, client *okta.Client) error {
-	groups, _, err := client.Group.ListGroups(ctx, &query.Params{Q: "Group-Member-Rule"})
+	groups, _, err := client.Group.ListGroups(ctx, &query.Params{Q: "SDK_TEST"})
 	if err != nil {
 		return err
 	}
@@ -57,7 +64,7 @@ func sweepGroups(ctx context.Context, client *okta.Client) error {
 }
 
 func sweepGroupRules(ctx context.Context, client *okta.Client) error {
-	groupRules, _, err := client.Group.ListGroupRules(ctx, &query.Params{Q: "Test"})
+	groupRules, _, err := client.Group.ListGroupRules(ctx, &query.Params{Q: "SDK_TEST"})
 	if err != nil {
 		return err
 	}
@@ -77,13 +84,25 @@ func sweepGroupRules(ctx context.Context, client *okta.Client) error {
 }
 
 func sweepUsers(ctx context.Context, client *okta.Client) error {
-	users, _, err := client.User.ListUsers(ctx, &query.Params{Q: "john-"})
+	users, resp, err := client.User.ListUsers(ctx, &query.Params{Q: "SDK_TEST"})
 	if err != nil {
 		return err
 	}
 	for _, u := range users {
 		if err := ensureUserDelete(ctx, client, u.Id, u.Status); err != nil {
 			return err
+		}
+	}
+	for resp.HasNextPage() {
+		var users []*okta.User
+		resp, err = resp.Next(ctx, &users)
+		if err != nil {
+			return err
+		}
+		for _, u := range users {
+			if err := ensureUserDelete(ctx, client, u.Id, u.Status); err != nil {
+				return err
+			}
 		}
 	}
 	return nil
@@ -103,4 +122,23 @@ func ensureUserDelete(ctx context.Context, client *okta.Client, id, status strin
 		}
 	}
 	return nil
+}
+
+const (
+	charSetAlpha = "abcdefghijklmnopqrstuvwxyz"
+	testPrefix   = "SDK_TEST_"
+)
+
+func randomEmail() string {
+	return randomTestString() + "@example.com"
+}
+
+// randStringFromCharSet generates a random string by selecting characters from
+// the charset provided
+func randomTestString() string {
+	result := make([]byte, 15)
+	for i := 0; i < 15; i++ {
+		result[i] = charSetAlpha[rand.Intn(len(charSetAlpha))]
+	}
+	return testPrefix + string(result)
 }
