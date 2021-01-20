@@ -35,6 +35,7 @@ import (
 	"strings"
 	"time"
 
+	"github.com/BurntSushi/toml"
 	"github.com/cenkalti/backoff/v4"
 	"github.com/okta/okta-sdk-golang/v2/okta/cache"
 	"gopkg.in/square/go-jose.v2"
@@ -400,12 +401,23 @@ func CheckResponseForError(resp *http.Response) error {
 	if statusCode >= http.StatusOK && statusCode < http.StatusBadRequest {
 		return nil
 	}
+	e := Error{}
+	if statusCode == http.StatusUnauthorized && strings.Contains(resp.Header.Get("WWW-Authenticate"), "Bearer") {
+		for _, v := range strings.Split(resp.Header.Get("WWW-Authenticate"), ", ") {
+			if strings.Contains(v, "error_description") {
+				_, err := toml.Decode(v, &e)
+				if err != nil {
+					e.ErrorSummary = "unauthorized"
+				}
+				return &e
+			}
+		}
+	}
 	bodyBytes, _ := ioutil.ReadAll(resp.Body)
 	copyBodyBytes := make([]byte, len(bodyBytes))
 	copy(copyBodyBytes, bodyBytes)
 	_ = resp.Body.Close()
 	resp.Body = ioutil.NopCloser(bytes.NewBuffer(bodyBytes))
-	e := Error{}
 	_ = json.NewDecoder(bytes.NewReader(copyBodyBytes)).Decode(&e)
 	return &e
 }
