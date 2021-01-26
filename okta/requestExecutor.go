@@ -295,7 +295,10 @@ func (re *RequestExecutor) doWithRetries(ctx context.Context, req *http.Request)
 	}
 	operation := func() error {
 		resp, err = re.httpClient.Do(req.WithContext(ctx))
-		if err != nil {
+		if err == io.EOF {
+			// retry on EOF errors, which might be caused by network connectivity issues
+			return fmt.Errorf("network error: %v", err)
+		} else if err != nil {
 			// this is error is considered to be permanent and should not be retried
 			return backoff.Permanent(err)
 		}
