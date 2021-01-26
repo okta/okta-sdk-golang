@@ -383,11 +383,14 @@ function buildModelProperties(model) {
 
 function createJsonTag(propertyName) {
   if (propertyName === "tokenLifetimeMinutes" ||
+      propertyName === "accessTokenLifetimeMinutes" ||
       propertyName === "minLowerCase" ||
       propertyName === "minUpperCase" ||
       propertyName === "minNumber" ||
       propertyName === "minSymbol" ||
       propertyName === "maxSessionLifetimeMinutes" ||
+      propertyName === "refreshTokenLifetimeMinutes" ||
+      propertyName === "refreshTokenWindowMinutes" ||
       propertyName === "maxSessionIdleMinutes") {
     return " `json:\""+propertyName+"\"`"
   } else {

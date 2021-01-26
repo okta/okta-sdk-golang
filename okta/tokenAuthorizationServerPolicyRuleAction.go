@@ -19,7 +19,7 @@
 package okta
 
 type TokenAuthorizationServerPolicyRuleAction struct {
-	AccessTokenLifetimeMinutes  int64 `json:"accessTokenLifetimeMinutes,omitempty"`
-	RefreshTokenLifetimeMinutes int64 `json:"refreshTokenLifetimeMinutes,omitempty"`
-	RefreshTokenWindowMinutes   int64 `json:"refreshTokenWindowMinutes,omitempty"`
+	AccessTokenLifetimeMinutes  int64 `json:"accessTokenLifetimeMinutes"`
+	RefreshTokenLifetimeMinutes int64 `json:"refreshTokenLifetimeMinutes"`
+	RefreshTokenWindowMinutes   int64 `json:"refreshTokenWindowMinutes"`
 }
