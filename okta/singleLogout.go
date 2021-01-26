@@ -23,11 +23,3 @@ type SingleLogout struct {
 	Issuer    string `json:"issuer,omitempty"`
 	LogoutUrl string `json:"logoutUrl,omitempty"`
 }
-
-func NewSingleLogout() *SingleLogout {
-	return &SingleLogout{}
-}
-
-func (a *SingleLogout) IsApplicationInstance() bool {
-	return true
-}

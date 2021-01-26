@@ -412,6 +412,7 @@ function isInstance(model) {
       model.modelName == "WebAuthnUserFactorProfile" ||
       model.modelName == "OpenIdConnectApplicationSettingsClientKeys" ||
       model.modelName == "OpenIdConnectApplicationSettingsRefreshToken" ||
+      model.modelName == "SingleLogout" ||
       model.modelName == "OAuth2ScopesMediationPolicyRuleCondition") {
     return false
   }
