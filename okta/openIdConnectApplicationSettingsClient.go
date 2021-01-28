@@ -23,6 +23,7 @@ type OpenIdConnectApplicationSettingsClient struct {
 	ClientUri              string                                        `json:"client_uri,omitempty"`
 	ConsentMethod          string                                        `json:"consent_method,omitempty"`
 	GrantTypes             []*OAuthGrantType                             `json:"grant_types,omitempty"`
+	IdpInitiatedLogin      *OpenIdConnectApplicationIdpInitiatedLogin    `json:"idp_initiated_login,omitempty"`
 	InitiateLoginUri       string                                        `json:"initiate_login_uri,omitempty"`
 	IssuerMode             string                                        `json:"issuer_mode,omitempty"`
 	Jwks                   *OpenIdConnectApplicationSettingsClientKeys   `json:"jwks,omitempty"`

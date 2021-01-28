@@ -416,6 +416,8 @@ function isInstance(model) {
       model.modelName == "OpenIdConnectApplicationSettingsClientKeys" ||
       model.modelName == "OpenIdConnectApplicationSettingsRefreshToken" ||
       model.modelName == "SingleLogout" ||
+      model.modelName == "SpCertificate" ||
+      model.modelName == "OpenIdConnectApplicationIdpInitiatedLogin" ||
       model.modelName == "OAuth2ScopesMediationPolicyRuleCondition") {
     return false
   }
