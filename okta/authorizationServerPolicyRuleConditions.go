@@ -18,9 +18,9 @@
 
 package okta
 
-type InlineHookChannelConfig struct {
-	AuthScheme *InlineHookChannelConfigAuthScheme `json:"authScheme,omitempty"`
-	Headers    []*InlineHookChannelConfigHeaders  `json:"headers,omitempty"`
-	Method     string                             `json:"method,omitempty"`
-	Uri        string                             `json:"uri,omitempty"`
+type AuthorizationServerPolicyRuleConditions struct {
+	Clients    *ClientPolicyCondition                    `json:"clients,omitempty"`
+	GrantTypes *GrantTypePolicyRuleCondition             `json:"grantTypes,omitempty"`
+	People     *PolicyPeopleCondition                    `json:"people,omitempty"`
+	Scopes     *OAuth2ScopesMediationPolicyRuleCondition `json:"scopes,omitempty"`
 }
