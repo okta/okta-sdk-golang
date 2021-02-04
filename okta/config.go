@@ -202,10 +202,7 @@ func WithPrivateKey(privateKey string) ConfigSetter {
 
 func fileExists(filename string) bool {
 	info, err := os.Stat(filename)
-	if os.IsNotExist(err) {
-		return false
-	}
-	if err != nil && errors.Is(err.(*os.PathError).Err, syscall.ENAMETOOLONG) {
+	if os.IsNotExist(err) || errors.Is(err, syscall.ENAMETOOLONG) {
 		return false
 	}
 	return !info.IsDir()
