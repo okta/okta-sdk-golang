@@ -17,10 +17,12 @@
 package okta
 
 import (
+	"errors"
 	"io/ioutil"
 	"log"
 	"net/http"
 	"os"
+	"syscall"
 
 	"github.com/okta/okta-sdk-golang/v2/okta/cache"
 )
@@ -201,6 +203,9 @@ func WithPrivateKey(privateKey string) ConfigSetter {
 func fileExists(filename string) bool {
 	info, err := os.Stat(filename)
 	if os.IsNotExist(err) {
+		return false
+	}
+	if err != nil && errors.Is(err.(*os.PathError).Err, syscall.ENAMETOOLONG) {
 		return false
 	}
 	return !info.IsDir()
