@@ -282,6 +282,16 @@ func (o *oktaBackoff) Context() context.Context {
 }
 
 func (re *RequestExecutor) doWithRetries(ctx context.Context, req *http.Request) (*http.Response, error) {
+	var bodyReader func() io.ReadCloser
+	if req.Body != nil {
+		buf, err := ioutil.ReadAll(req.Body)
+		if err != nil {
+			return nil, err
+		}
+		bodyReader = func() io.ReadCloser {
+			return ioutil.NopCloser(bytes.NewReader(buf))
+		}
+	}
 	var (
 		resp *http.Response
 		err  error
@@ -294,6 +304,10 @@ func (re *RequestExecutor) doWithRetries(ctx context.Context, req *http.Request)
 		maxRetries: re.config.Okta.Client.RateLimit.MaxRetries,
 	}
 	operation := func() error {
+		// Always rewind the request body when non-nil.
+		if bodyReader != nil {
+			req.Body = bodyReader()
+		}
 		resp, err = re.httpClient.Do(req.WithContext(ctx))
 		if errors.Is(err, io.EOF) {
 			// retry on EOF errors, which might be caused by network connectivity issues
