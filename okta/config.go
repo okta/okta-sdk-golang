@@ -199,9 +199,9 @@ func WithPrivateKey(privateKey string) ConfigSetter {
 }
 
 func fileExists(filename string) bool {
-	info, err := os.Stat(filename)
-	if os.IsNotExist(err) {
-		return false
+	info, _ := os.Stat(filename)
+	if info != nil {
+		return !info.IsDir()
 	}
-	return !info.IsDir()
+	return false
 }
