@@ -17,10 +17,12 @@
 package okta
 
 import (
+	"errors"
 	"io/ioutil"
 	"log"
 	"net/http"
 	"os"
+	"syscall"
 
 	"github.com/okta/okta-sdk-golang/v2/okta/cache"
 )
@@ -199,9 +201,13 @@ func WithPrivateKey(privateKey string) ConfigSetter {
 }
 
 func fileExists(filename string) bool {
-	info, _ := os.Stat(filename)
-	if info != nil {
-		return !info.IsDir()
+	info, err := os.Stat(filename)
+	if err != nil {
+		if os.IsNotExist(err) || errors.Is(err, syscall.ENAMETOOLONG) {
+			return false
+		}
+		log.Println("can not get information about the file containing private key, using provided value as the key itself")
+		return false
 	}
-	return false
+	return !info.IsDir()
 }
