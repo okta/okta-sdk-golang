@@ -10,6 +10,7 @@
 * [Getting started](#getting-started)
 * [Usage guide](#usage-guide)
 * [Configuration reference](#configuration-reference)
+* [Upgrading Guide](#upgrading-to-20x)
 * [Building the SDK](#building-the-sdk)
 * [Contributing](#contributing)
 
@@ -25,7 +26,7 @@ We also publish these libraries for Golang:
 
 * [JWT Verifier](https://github.com/okta/okta-jwt-verifier-golang)
 
-You can learn more on the [Okta + Golang](lang-landing) page in our documentation.
+You can learn more on the [Okta + Golang][lang-landing] page in our documentation.
 
 ## Release status
 
@@ -48,118 +49,34 @@ If you run into problems using the SDK, you can
 
 ## Getting started
 
+The SDK is compatible with Go version 1.12.x and up. For SDK v2 and above, you must use [Go Modules](https://blog.golang.org/using-go-modules) to install the SDK.
+
+### Install current release
 To install the Okta Golang SDK in your project:
+  - Create a module file by running `go mod init`
+    - You can skip this step if you already use `go mod`
+  - Run `go get github.com/okta/okta-sdk-golang/v2`. This will add the SDK to your `go.mod` file.
+  - Import the package in your project with `import "github.com/okta/okta-sdk-golang/v2/okta"`
 
-Version 2.x (Release)
-run `go get github.com/okta/okta-sdk-golang/v2/okta`
+### Installing legacy version
+Although we do not suggest using the 1.x version of the SDK, you can still use it. Version 1.x is *retiring* and will not be supported past March 4, 2021. it will likely remain working after that date, but you should make a plan to migrate to the new 2.x version.
 
-You'll also need
+You can install v1 of the sdk by running `go get github.com/okta/okta-sdk-golang` and import the package in your project with `import "github.com/okta/okta-sdk-golang"`
+
+### You'll also need
 
 * An Okta account, called an _organization_ (sign up for a free [developer organization](https://developer.okta.com/signup) if you need one)
 * An [API token](https://developer.okta.com/docs/api/getting_started/getting_a_token)
 
+### Initialize a client
+
 Construct a client instance by passing it your Okta domain name and API token:
 
 ```
-client := okta.NewClient(context, okta.WithOrgUrl("https://{yourOktaDomain}"), okta.WithToken("{apiToken}"))
+ctx, client, err := okta.NewClient(context, okta.WithOrgUrl("https://{yourOktaDomain}"), okta.WithToken("{apiToken}"))
 ```
 
 Hard-coding the Okta domain and API token works for quick tests, but for real projects you should use a more secure way of storing these values (such as environment variables). This library supports a few different configuration sources, covered in the [configuration reference](#configuration-reference) section.
-
-## Upgrading to 2.0.x
-The main purpose of this version is to include all documented, application/json endpoints
-to the SDK. During this update we have made many changes to method names, as well as method signatures.
-
-### Context
-Every method that calls the API now has the ability to pass `context.Context` to it as the first parameter. If you do not have a context or do not know which context to use, you can pass `context.TODO()` to the methods.
-
-### Method changes
-We have spent time during this update making sure we become a little more uniform with naming of methods. This will require you to update some of your calls to the SDK with the new names.
-
-All methods now specify the `Accept` and `Content-Type` headers when creating a new request. This allows for future use of the SDK to handle multiple `Accept` types.
-
-### OAuth 2.0
-
-Okta allows you to interact with Okta APIs using scoped OAuth 2.0 access tokens. Each access token enables the bearer to perform specific actions on specific Okta endpoints, with that ability controlled by which scopes the access token contains.
-
-This SDK supports this feature only for service-to-service applications. Check out [our guides](https://developer.okta.com/docs/guides/implement-oauth-for-okta/overview/) to learn more about how to register a new service application using a private and public key pair.
-
-When using this approach you won't need an API Token because the SDK will request an access token for you. In order to use OAuth 2.0, construct a client instance by passing the following parameters:
-
-```
-client, _ := okta.NewClient(context,
-  okta.WithAuthorizationMode("PrivateKey"),
-  okta.WithClientId("{{clientId}}),
-  okta.WithScopes(([]string{"okta.users.manage"})),
-  okta.WithPrivateKey({{PEM PRIVATE KEY BLOCK}})
-)
-```
-
-### Extending the Client
-When calling `okta.NewClient()` we allow for you to pass custom instances of `http.Client` and `cache.Cache`.
-
-```
-myClient := &http.Client{}
-
-myCache := NewCustomCacheDriver()
-
-client := okta.NewClient(context, okta.WithOrgUrl("https://{yourOktaDomain}"), okta.WithToken("{apiToken}"), okta.WithHttpClient(myClient), okta.WithCacheManager(myCache))
-```
-
-
-### Extending or Creating New Cache Manager
-You can create a custom cache driver by implementing `cache.Cache`
-
-```
-type CustomCacheDriver struct {
-}
-
-func NewCustomCacheDriver() Cache {
-	return CustomCacheDriver{}
-}
-
-func (c CustomCacheDriver) Get(key string) *http.Response {
-	return nil
-}
-
-func (c CustomCacheDriver) Set(key string, value *http.Response) {}
-
-func (c CustomCacheDriver) Delete(key string) {}
-
-func (c CustomCacheDriver) Clear() {}
-
-func (c CustomCacheDriver) Has(key string) bool {
-	return false
-}
-```
-
-### Refreshing Cache for Specific Call
-If you have an issue where you do a `GET`, then a `DELETE`, and then re-issue a `GET` to the original endpoint, you may have an issue with the cache returning with the deleted resource. An example of this is listing applicaiton users, delete and application user, and them listing them again.
-
-You can solve this by running `client.GetRequestExecutor().RefreshNext()` before your second `ListApplicationUsers` call, which will tell the call to delete the cache for this endpoint and make a new call.
-
-```go
-appUserList, _, _ = client.Application.ListApplicationUsers(context.TODO(), appId, nil)
-
-client.Application.DeleteApplicationUser(context.TODO(), appId, appUser.Id, nil)
-
-client.GetRequestExecutor().RefreshNext()
-appUserList, _, _ = client.Application.ListApplicationUsers(context.TODO(), appId, nil)
-```
-
-### Pagination
-If your request comes back with more than the default or set limit, you can request the next page.
-
-Exmaple of listing users 1 at a time:
-```go
-query := query.NewQueryParams(query.WithLimit(1))
-users, resp, err := client.User.ListUsers(ctx, query)
-// Do something with your users until you run out of users to iterate.
-if resp.HasNextPage() {
-  var nextUserSet []*okta.User
-  resp, err = resp.Next(ctx, &nextUserSet)
-}
-```
 
 ## Usage guide
 
@@ -167,24 +84,44 @@ These examples will help you understand how to use this library. You can also br
 
 Once you initialize a `client`, you can call methods to make requests to the Okta API. Most methods are grouped by the API endpoint they belong to. For example, methods that call the [Users API](https://developer.okta.com/docs/api/resources/users) are organized under `client.User`.
 
+
+## Connection Retry / Rate Limiting
+By default this SDK retries requests that are return with a 429 exception. To disable this functionality set `OKTA_CLIENT_REQUESTTIMEOUT` and `OKTA_CLIENT_RATELIMIT_MAXRETRIES` to 0.
+
+Setting only one of the values to zero disables that check. Meaning, by default, four retry attempts will be made. If you set `OKTA_CLIENT_REQUESTTIMEOUT` to 45 seconds and `OKTA_CLIENT_RATELIMIT_MAXRETRIES` to 0. This SDK will continue to retry indefinitely for 45 seconds. If both values are non zero, this SDK attempts to retry until either of the conditions are met (not both).
+
+We use the Date header from the server to calculate the delta, as its more reliable than system time.  But always add 1 second to account for some clock skew in our service:
+
+```
+backoff_seconds = header['X-Rate-Limit-Reset'] - header['Date'] + 1s
+```
+
+If the `backoff_seconds` calculation exceeds the request timeout, the initial 429 response will be allowed through without additional attempts.
+
+When creating your client, you can pass in these settings like you would with any other configuration.
+
+```go
+ctx, client, err := okta.NewClient(context, okta.WithRequestTimeout(45), okta.WithRateLimitMaxRetries(3))
+```
+
 ### Authenticate a User
 This library should only be used with the Okta management API. To call the [Authentication API](https://developer.okta.com/docs/api/resources/authn), you should construct your own HTTP requests.
 
 ### Get a User
 ```
-client := okta.NewClient(context, okta.WithOrgUrl("https://{yourOktaDomain}"), okta.WithToken("{apiToken}"))
+ctx, client, err := okta.NewClient(context, okta.WithOrgUrl("https://{yourOktaDomain}"), okta.WithToken("{apiToken}"))
 user, resp, err := client.User.GetUser(user.Id, nil)
 ```
 
 ### List all Users
 ```
-client := okta.NewClient(context, okta.WithOrgUrl("https://{yourOktaDomain}"), okta.WithToken("{apiToken}"))
+ctx, client, err := okta.NewClient(context, okta.WithOrgUrl("https://{yourOktaDomain}"), okta.WithToken("{apiToken}"))
 users, resp, err := client.User.ListUsers()
 ```
 
 ### Filter or search for Users
 ```
-client := okta.NewClient(context, okta.WithOrgUrl("https://{yourOktaDomain}"), okta.WithToken("{apiToken}"))
+ctx, client, err := okta.NewClient(context, okta.WithOrgUrl("https://{yourOktaDomain}"), okta.WithToken("{apiToken}"))
 
 filter := query.NewQueryParams(query.WithFilter("status eq \"ACTIVE\""))
 
@@ -193,7 +130,7 @@ users, resp, err := client.User.ListUsers(filter)
 
 ### Create a User
 ```
-client := okta.NewClient(context, okta.WithOrgUrl("https://{yourOktaDomain}"), okta.WithToken("{apiToken}"))
+ctx, client, err := okta.NewClient(context, okta.WithOrgUrl("https://{yourOktaDomain}"), okta.WithToken("{apiToken}"))
 
 p := &okta.PasswordCredential{
 		Value: "Abcd1234",
@@ -216,7 +153,7 @@ user, resp, err := client.User.CreateUser(*u, nil)
 
 ### Update a User
 ```
-client := okta.NewClient(context, okta.WithOrgUrl("https://{yourOktaDomain}"), okta.WithToken("{apiToken}"))
+ctx, client, err := okta.NewClient(context, okta.WithOrgUrl("https://{yourOktaDomain}"), okta.WithToken("{apiToken}"))
 
 newProfile := *user.Profile
 newProfile["nickName"] = "Batman"
@@ -229,7 +166,7 @@ user, resp, err := client.User.UpdateUser(user.Id, *updatedUser, nil)
 ### Get and set custom attributes
 Custom attributes must first be defined in the Okta profile editor. Then, you can work with custom attributes on a user:
 ```
-client := okta.NewClient(context, okta.WithOrgUrl("https://{yourOktaDomain}"), okta.WithToken("{apiToken}"))
+ctx, client, err := okta.NewClient(context, okta.WithOrgUrl("https://{yourOktaDomain}"), okta.WithToken("{apiToken}"))
 user, resp, err := client.User.GetUser(user.Id, nil)
 
 nickName = user.Profile["nickName"]
@@ -238,7 +175,7 @@ nickName = user.Profile["nickName"]
 ### Remove a User
 You must first deactivate the user, and then you can delete the user.
 ```
-client := okta.NewClient(context, okta.WithOrgUrl("https://{yourOktaDomain}"), okta.WithToken("{apiToken}"))
+ctx, client, err := okta.NewClient(context, okta.WithOrgUrl("https://{yourOktaDomain}"), okta.WithToken("{apiToken}"))
 resp, err := client.User.DeactivateUser(user.Id, nil)
 
 resp, err := client.User.DeactivateOrDeleteUser(user.Id, nil)
@@ -246,14 +183,14 @@ resp, err := client.User.DeactivateOrDeleteUser(user.Id, nil)
 
 ### List a User's Groups
 ```
-client := okta.NewClient(context, okta.WithOrgUrl("https://{yourOktaDomain}"), okta.WithToken("{apiToken}"))
+ctx, client, err := okta.NewClient(context, okta.WithOrgUrl("https://{yourOktaDomain}"), okta.WithToken("{apiToken}"))
 
 groups, resp, err := client.User.ListUserGroups(user.Id, nil)
 ```
 
 ### Create a Group
 ```
-client := okta.NewClient(context, okta.WithOrgUrl("https://{yourOktaDomain}"), okta.WithToken("{apiToken}"))
+ctx, client, err := okta.NewClient(context, okta.WithOrgUrl("https://{yourOktaDomain}"), okta.WithToken("{apiToken}"))
 
 gp := &okta.GroupProfile{
   Name: "Get Test Group",
@@ -266,21 +203,21 @@ group, resp, err := client.Group.CreateGroup(*g, nil)
 
 ### Add a User to a Group
 ```
-client := okta.NewClient(context, okta.WithOrgUrl("https://{yourOktaDomain}"), okta.WithToken("{apiToken}"))
+ctx, client, err := okta.NewClient(context, okta.WithOrgUrl("https://{yourOktaDomain}"), okta.WithToken("{apiToken}"))
 
 resp, err := client.Group.AddUserToGroup(group.Id, user.Id, nil)
 ```
 
 ### List a User's enrolled Factors
 ```
-client := okta.NewClient(context, okta.WithOrgUrl("https://{yourOktaDomain}"), okta.WithToken("{apiToken}"))
+ctx, client, err := okta.NewClient(context, okta.WithOrgUrl("https://{yourOktaDomain}"), okta.WithToken("{apiToken}"))
 
 allowedFactors, resp, err := client.Factor.ListSupportedFactors(user.Id)
 ```
 
 ### Enroll a User in a new Factor
 ```
-client := okta.NewClient(context, okta.WithOrgUrl("https://{yourOktaDomain}"), okta.WithToken("{apiToken}"))
+ctx, client, err := okta.NewClient(context, okta.WithOrgUrl("https://{yourOktaDomain}"), okta.WithToken("{apiToken}"))
 
 factorProfile := okta.NewSmsFactorProfile()
 factorProfile.PhoneNumber = "5551234567"
@@ -293,14 +230,14 @@ addedFactor, resp, err := client.Factor.AddFactor(user.Id, factor, nil)
 
 ### Activate a Factor
 ```
-client := okta.NewClient(context, okta.WithOrgUrl("https://{yourOktaDomain}"), okta.WithToken("{apiToken}"))
+ctx, client, err := okta.NewClient(context, okta.WithOrgUrl("https://{yourOktaDomain}"), okta.WithToken("{apiToken}"))
 
 factor, resp, err := client.Factor.ActivateFactor(user.Id, factor.Id, nil)
 ```
 
 ### Verify a Factor
 ```
-client := okta.NewClient(context, okta.WithOrgUrl("https://{yourOktaDomain}"), okta.WithToken("{apiToken}"))
+ctx, client, err := okta.NewClient(context, okta.WithOrgUrl("https://{yourOktaDomain}"), okta.WithToken("{apiToken}"))
 
 verifyFactorRequest := okta.VerifyFactorRequest{
   PassCode: "123456"
@@ -310,7 +247,7 @@ verifyFactorResp, resp, err := client.Factor.VerifyFactor(user.Id, factor.Id, ve
 
 ### List all Applications
 ```
-client := okta.NewClient(context, okta.WithOrgUrl("https://{yourOktaDomain}"), okta.WithToken("{apiToken}"))
+ctx, client, err := okta.NewClient(context, okta.WithOrgUrl("https://{yourOktaDomain}"), okta.WithToken("{apiToken}"))
 
 applications, resp, err := client.Application.ListApplications(nil)
 
@@ -327,7 +264,7 @@ for _, a := range applications {
 
 ### Get an Application
 ```
-client := okta.NewClient(context, okta.WithOrgUrl("https://{yourOktaDomain}"), okta.WithToken("{apiToken}"))
+ctx, client, err := okta.NewClient(context, okta.WithOrgUrl("https://{yourOktaDomain}"), okta.WithToken("{apiToken}"))
 
 //Getting a Basic Auth Application
 application, resp, err = client.Application.GetApplication(appId, okta.NewBasicAuthApplication(), nil)
@@ -338,7 +275,7 @@ app := application.(*okta.BasicAuthApplication)
 
 ### Create a SWA Application
 ```
-client := okta.NewClient(context, okta.WithOrgUrl("https://{yourOktaDomain}"), okta.WithToken("{apiToken}"))
+ctx, client, err := okta.NewClient(context, okta.WithOrgUrl("https://{yourOktaDomain}"), okta.WithToken("{apiToken}"))
 
 swaAppSettingsApp := newSwaApplicationSettingsApplication()
 swaAppSettingsApp.ButtonField = "btn-login"
@@ -360,7 +297,7 @@ application, resp, err := client.Application.CreateApplication(swaApp, nil)
 ### Call other API endpoints
 Not every API endpoint is represented by a method in this library. You can call any Okta management API endpoint using this generic syntax:
 ```
-client := okta.NewClient(context, okta.WithOrgUrl("https://{yourOktaDomain}"), okta.WithToken("{apiToken}"))
+ctx, client, err := okta.NewClient(context, okta.WithOrgUrl("https://{yourOktaDomain}"), okta.WithToken("{apiToken}"))
 
 url := "https://golang.oktapreview.com/api/v1/authorizationServers
 
@@ -481,6 +418,101 @@ Each one of the configuration values above can be turned into an environment var
 * `OKTA_CLIENT_CONNECTIONTIMEOUT`
 * `OKTA_CLIENT_TOKEN`
 * and so on
+
+## Upgrading to 2.0.x
+The main purpose of this version is to include all documented, application/json endpoints
+to the SDK. During this update we have made many changes to method names, as well as method signatures.
+
+### Context
+Every method that calls the API now has the ability to pass `context.Context` to it as the first parameter. If you do not have a context or do not know which context to use, you can pass `context.TODO()` to the methods.
+
+### Method changes
+We have spent time during this update making sure we become a little more uniform with naming of methods. This will require you to update some of your calls to the SDK with the new names.
+
+All methods now specify the `Accept` and `Content-Type` headers when creating a new request. This allows for future use of the SDK to handle multiple `Accept` types.
+
+### OAuth 2.0
+
+Okta allows you to interact with Okta APIs using scoped OAuth 2.0 access tokens. Each access token enables the bearer to perform specific actions on specific Okta endpoints, with that ability controlled by which scopes the access token contains.
+
+This SDK supports this feature only for service-to-service applications. Check out [our guides](https://developer.okta.com/docs/guides/implement-oauth-for-okta/overview/) to learn more about how to register a new service application using a private and public key pair.
+
+When using this approach you won't need an API Token because the SDK will request an access token for you. In order to use OAuth 2.0, construct a client instance by passing the following parameters:
+
+```
+ctx, client, err := okta.NewClient(context,
+  okta.WithAuthorizationMode("PrivateKey"),
+  okta.WithClientId("{{clientId}}),
+  okta.WithScopes(([]string{"okta.users.manage"})),
+  okta.WithPrivateKey({{PEM PRIVATE KEY BLOCK}}) //when pasting blocks, use backticks and remove all space at begining of each line.
+)
+```
+
+### Extending the Client
+When calling `okta.NewClient()` we allow for you to pass custom instances of `http.Client` and `cache.Cache`.
+
+```
+myClient := &http.Client{}
+
+myCache := NewCustomCacheDriver()
+
+ctx, client, err := okta.NewClient(context, okta.WithOrgUrl("https://{yourOktaDomain}"), okta.WithToken("{apiToken}"), okta.WithHttpClient(myClient), okta.WithCacheManager(myCache))
+```
+
+
+### Extending or Creating New Cache Manager
+You can create a custom cache driver by implementing `cache.Cache`
+
+```
+type CustomCacheDriver struct {
+}
+
+func NewCustomCacheDriver() Cache {
+	return CustomCacheDriver{}
+}
+
+func (c CustomCacheDriver) Get(key string) *http.Response {
+	return nil
+}
+
+func (c CustomCacheDriver) Set(key string, value *http.Response) {}
+
+func (c CustomCacheDriver) Delete(key string) {}
+
+func (c CustomCacheDriver) Clear() {}
+
+func (c CustomCacheDriver) Has(key string) bool {
+	return false
+}
+```
+
+### Refreshing Cache for Specific Call
+If you have an issue where you do a `GET`, then a `DELETE`, and then re-issue a `GET` to the original endpoint, you may have an issue with the cache returning with the deleted resource. An example of this is listing applicaiton users, delete and application user, and them listing them again.
+
+You can solve this by running `client.GetRequestExecutor().RefreshNext()` before your second `ListApplicationUsers` call, which will tell the call to delete the cache for this endpoint and make a new call.
+
+```go
+appUserList, _, _ = client.Application.ListApplicationUsers(context.TODO(), appId, nil)
+
+client.Application.DeleteApplicationUser(context.TODO(), appId, appUser.Id, nil)
+
+client.GetRequestExecutor().RefreshNext()
+appUserList, _, _ = client.Application.ListApplicationUsers(context.TODO(), appId, nil)
+```
+
+### Pagination
+If your request comes back with more than the default or set limit, you can request the next page.
+
+Exmaple of listing users 1 at a time:
+```go
+query := query.NewQueryParams(query.WithLimit(1))
+users, resp, err := client.User.ListUsers(ctx, query)
+// Do something with your users until you run out of users to iterate.
+if resp.HasNextPage() {
+  var nextUserSet []*okta.User
+  resp, err = resp.Next(ctx, &nextUserSet)
+}
+```
 
 ## Building the SDK
 

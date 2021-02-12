@@ -301,11 +301,9 @@ function responseModelInterface(operationId) {
          operationId === "listAssignedApplicationsForUser";
  }
 
- function applicationModelInterface(operationId) {
+function applicationModelInterface(operationId) {
   return operationId === "listApplications" ||
          operationId === "listAppTargetsForRole" ||
-         operationId === "listApplicationTargetsForApplicationAdministratorRoleForGroup" ||
-         operationId === "listApplicationTargetsForApplicationAdministratorRoleForUser" ||
          operationId === "listAssignedApplicationsForGroup" ||
          operationId === "listAssignedApplicationsForUser";
 }
@@ -313,6 +311,11 @@ function responseModelInterface(operationId) {
 function factorModelInterface(operationId) {
   return operationId === "listFactors" ||
          operationId === "listSupportedFactors";
+}
+
+function catalogApplicationInterface(operationId) {
+    return operationId === "listApplicationTargetsForApplicationAdministratorRoleForGroup" ||
+        operationId === "listApplicationTargetsForApplicationAdministratorRoleForUser";
 }
 
 function factorInstanceOperation(operationId) {
@@ -371,11 +374,28 @@ function buildModelProperties(model) {
   }
 
   for (let propKey in properties) {
-    finalProps.push( structProp(properties[propKey].propertyName) + " " + getType(properties[propKey], "*") + " `json:\""+properties[propKey].propertyName+",omitempty\"`" );
-
+    finalProps.push( structProp(properties[propKey].propertyName) + " " +
+        getType(properties[propKey], "*") + createJsonTag(properties[propKey].propertyName));
   }
 
   return finalProps.join("\n\t");
+}
+
+function createJsonTag(propertyName) {
+  if (propertyName === "tokenLifetimeMinutes" ||
+      propertyName === "accessTokenLifetimeMinutes" ||
+      propertyName === "minLowerCase" ||
+      propertyName === "minUpperCase" ||
+      propertyName === "minNumber" ||
+      propertyName === "minSymbol" ||
+      propertyName === "maxSessionLifetimeMinutes" ||
+      propertyName === "refreshTokenLifetimeMinutes" ||
+      propertyName === "refreshTokenWindowMinutes" ||
+      propertyName === "maxSessionIdleMinutes") {
+    return " `json:\""+propertyName+"\"`"
+  } else {
+    return " `json:\""+propertyName+",omitempty\"`"
+  }
 }
 
 function isInstance(model) {
@@ -384,14 +404,25 @@ function isInstance(model) {
       model.modelName == "CsrMetadataSubject" ||
       model.modelName == "CsrMetadataSubjectAltNames" ||
       model.modelName == "OAuth2Claim" ||
-      model.modelName == "OAuth2ScopeConsentGrant") {
+      model.modelName == "OAuth2ScopeConsentGrant" ||
+      model.modelName == "AcsEndpoint" ||
+      model.modelName == "JwkUse" ||
+      model.modelName == "OAuth2Actor" ||
+      model.modelName == "OAuth2Client" ||
+      model.modelName == "OAuth2RefreshToken" ||
+      model.modelName == "OAuth2ClaimConditions" ||
+      model.modelName == "OAuth2Scope" ||
+      model.modelName == "WebAuthnUserFactorProfile" ||
+      model.modelName == "OpenIdConnectApplicationSettingsClientKeys" ||
+      model.modelName == "OpenIdConnectApplicationSettingsRefreshToken" ||
+      model.modelName == "SingleLogout" ||
+      model.modelName == "SpCertificate" ||
+      model.modelName == "OpenIdConnectApplicationIdpInitiatedLogin" ||
+      model.modelName == "OAuth2ScopesMediationPolicyRuleCondition") {
     return false
   }
 
-  if ( model.tags[0] == "Application" || model.tags[0] == "UserFactor") {
-      return true
-  }
-  return false
+  return model.tags[0] == "Application" || model.tags[0] == "UserFactor";
 }
 
 function log(item) {
@@ -513,7 +544,8 @@ golang.process = ({ spec, operations, models, handlebars }) => {
     applicationModelInterface,
     factorModelInterface,
     factorInstanceOperation,
-    isInstance
+    isInstance,
+    catalogApplicationInterface
   });
 
   handlebars.registerPartial('partials.copyHeader', fs.readFileSync('generator/templates/partials/copyHeader.hbs', 'utf8'));

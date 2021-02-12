@@ -20,12 +20,10 @@ import (
 	"context"
 	"testing"
 
-	"github.com/stretchr/testify/require"
-
-	"github.com/okta/okta-sdk-golang/v2/okta"
-
 	"github.com/jarcoal/httpmock"
+	"github.com/okta/okta-sdk-golang/v2/okta"
 	"github.com/okta/okta-sdk-golang/v2/tests"
+	"github.com/stretchr/testify/require"
 )
 
 func Test_429_Will_Automatically_Retry(t *testing.T) {
@@ -54,7 +52,8 @@ func Test_Will_Stop_Retrying_Based_On_Max_Retry_Configuration(t *testing.T) {
 	httpmock.Activate()
 	defer httpmock.DeactivateAndReset()
 
-	ctx, client, _ := tests.NewClient(context.TODO(), okta.WithRequestTimeout(0), okta.WithRateLimitMaxRetries(1))
+	ctx, client, err := tests.NewClient(context.TODO(), okta.WithRequestTimeout(0), okta.WithRateLimitMaxRetries(1))
+	require.NoError(t, err)
 
 	httpmock.RegisterResponder("GET", "/api/v1/users",
 		tests.MockResponse(
@@ -63,7 +62,7 @@ func Test_Will_Stop_Retrying_Based_On_Max_Retry_Configuration(t *testing.T) {
 		),
 	)
 
-	_, _, err := client.User.ListUsers(ctx, nil)
+	_, _, err = client.User.ListUsers(ctx, nil)
 	require.NotNil(t, err, "error was nil, but should have told the user they reached their max retry limit")
 
 	httpmock.GetTotalCallCount()
@@ -132,13 +131,8 @@ func Test_a_429_with_no_date_header_throws_error(t *testing.T) {
 }
 
 func Test_gets_the_correct_backoff_time(t *testing.T) {
-	backoff := okta.Get429BackoffTime(context.TODO(), tests.Mock429Response())
+	backoff, err := okta.Get429BackoffTime(tests.Mock429Response())
+	require.NoError(t, err)
 
 	require.Equal(t, int64(2), backoff, "backoff time should have only been 1 second")
-}
-
-func Test_with_multiple_x_rate_limit_request_times_still_retries(t *testing.T) {
-	backoff := okta.Get429BackoffTime(context.TODO(), tests.Mock429ResponseMultipleHeaders())
-
-	require.Equal(t, int64(11), backoff, "Backoff time should handle the correct header")
 }

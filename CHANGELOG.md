@@ -1,6 +1,73 @@
 # Changelog
 Running changelog of releases since `2.0.0-rc.4`
 
+## v2.3.0
+
+### New Structs
+- AuthorizationServerPolicy
+- AuthorizationServerPolicyRule
+
+### Bug fixes
+- Fixed response body parsing
+- Fix error handling for 401 error
+- Retry on EOF errors from HTTP client
+
+### Updates
+- Update `SamlApplicationSettingsSignOn` properties to include `SingleLogout` and `SpCertificate`
+- Update `InlineHookChannelConfig` properties to include `Method`
+- Update `OpenIdConnectApplicationSettingsClient` properties to include `IdpInitiatedLogin`
+
+## v2.2.1
+### Bug Fixes
+- Update default connection Timeout to `60` seconds (#185)
+- Http Client now uses `Timeout` setting for connection timeout (#185)
+- SDK no longer cancels context (#185)
+
+## v2.2.0
+### New Structs
+- `OpenIdConnectApplicationSettingsClientKeys`
+- `OpenIdConnectApplicationSettingsRefreshToken`
+- `OpenIdConnectRefreshTokenRotationType`
+
+### Bug Fixes
+- Updates `okta/OpenIdConnectApplicationSettingsClient` properties to include `jwks []JsonWebKey` (Resolves #176)
+- `NewCustomHotpUserFactor` sets factor type to `token:htop`
+
+### Updates
+- Removes vendor directory
+- Updates `OpenIdConnectApplicationSettingsClient` properties to include `RefreshToken *OpenIdConnectApplicationSettingsRefreshToken`
+
+## v2.1.0
+### New Structs
+- `AcsEndpoint`
+- `CatalogApplication`
+- `CatalogApplicationStatus`
+- `CustomHotpUserFactor`
+- `CustomHotpUserFactorProfile`
+- `InlineHookStatus`
+- `InlineHookType`
+- `WebAuthnUserFactor`
+- `WebAuthnUserFactorProfile`
+
+### Bug Fixes
+- Updates `okta/config.go` to use `github.com/okta/okta-sdk-golang/v2/okta/cache` (#167, Resolves #149)
+- Updates `okta/config.go` to use `int64` for `ConnectionTimeout` and `RequestTimeout` (#166)
+- `ListApplicationTargetsForApplicationAdministratorRoleForGroup` now returns correct `[]CatalogApplication`
+- `ListApplicationTargetsForApplicationAdministratorRoleForUser` now returns correct `[]CatalogApplication`
+- `JsonWebKey.ExpiresAt` changed to correctly use `*time.Time`
+- `verifyUserFactorResponse.ExpiresAt` changed to correctly use `*time.Time`
+- Correctly reads `.okta.yaml` from project root directory
+- Updated typo in `PasswordCredentialHash` struct and changed `WorkerFactor` to the correct `WorkFactor`
+
+### Updates
+- Updates to @okta/openapi 2.1.1 (And associated Generator Updates)
+- Added `UserId` to `OAuth2ScopeConsentGrant` struct
+- **Now Returns error instead of panic from config in `okta.go`** (Resolves #122)
+- `RequestExecutor` returns error if `privPem` is null when using PrivateKey authentication
+- Added `AcsEndpoints` and `AllowMultipleAcsEndpoints` properties to `SamlApplicationSettingsSignOn`
+- Added `FilterType` and `FilterValue` to `SamlAttributeStatement` (Resolves #76)
+- Generated file header in line with Go standard (Resolves #118)
+
 ## v2.0.0
 - Official Release of v2 Okta Golang SDK (June 4, 2020)
 - `CSR` Model has been renamed to `Csr`

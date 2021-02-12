@@ -22,16 +22,16 @@ import (
 	"testing"
 	"time"
 
-	"github.com/okta/okta-sdk-golang/v2/okta/query"
-
 	"github.com/okta/okta-sdk-golang/v2/okta"
+	"github.com/okta/okta-sdk-golang/v2/okta/query"
 	"github.com/okta/okta-sdk-golang/v2/tests"
 	"github.com/stretchr/testify/assert"
 	"github.com/stretchr/testify/require"
 )
 
 func Test_can_get_a_user(t *testing.T) {
-	ctx, client, _ := tests.NewClient(context.TODO())
+	ctx, client, err := tests.NewClient(context.TODO())
+	require.NoError(t, err)
 	// Create user with credentials → POST /api/v1/users?activate=false
 	p := &okta.PasswordCredential{
 		Value: "Abcd1234",
@@ -42,8 +42,8 @@ func Test_can_get_a_user(t *testing.T) {
 	profile := okta.UserProfile{}
 	profile["firstName"] = "John"
 	profile["lastName"] = "Get-User"
-	profile["email"] = "john-get-user@example.com"
-	profile["login"] = "john-get-user@example.com"
+	profile["email"] = randomEmail()
+	profile["login"] = profile["email"]
 	u := &okta.CreateUserRequest{
 		Credentials: uc,
 		Profile:     &profile,
@@ -51,7 +51,7 @@ func Test_can_get_a_user(t *testing.T) {
 	qp := query.NewQueryParams(query.WithActivate(false))
 
 	user, _, err := client.User.CreateUser(ctx, *u, qp)
-	require.NoError(t, err, "Creating an user should not error")
+	require.NoError(t, err, "Creating a new user should not error")
 
 	// Get the user by ID → GET /api/v1/users/{{userId}}
 	ubid, _, err := client.User.GetUser(ctx, user.Id)
@@ -77,19 +77,19 @@ func Test_can_get_a_user(t *testing.T) {
 }
 
 func Test_can_activate_a_user(t *testing.T) {
-	ctx, client, _ := tests.NewClient(context.TODO())
+	ctx, client, err := tests.NewClient(context.TODO())
+	require.NoError(t, err)
 	//Create user with credentials → POST /api/v1/users?activate=false
-	p := &okta.PasswordCredential{
-		Value: "Abcd1234",
-	}
 	uc := &okta.UserCredentials{
-		Password: p,
+		Password: &okta.PasswordCredential{
+			Value: "Abcd1234",
+		},
 	}
 	profile := okta.UserProfile{}
 	profile["firstName"] = "John"
 	profile["lastName"] = "Activate"
-	profile["email"] = "john-activate@example.com"
-	profile["login"] = "john-activate@example.com"
+	profile["email"] = randomEmail()
+	profile["login"] = profile["email"]
 	u := &okta.CreateUserRequest{
 		Credentials: uc,
 		Profile:     &profile,
@@ -97,7 +97,7 @@ func Test_can_activate_a_user(t *testing.T) {
 	qp := query.NewQueryParams(query.WithActivate(false))
 
 	user, _, err := client.User.CreateUser(ctx, *u, qp)
-	require.NoError(t, err, "Creating an user should not error")
+	require.NoError(t, err, "Creating a new user should not error")
 
 	// Activate the user → POST /api/v1/users/{{userId}}/lifecycle/activate?sendEmail=false
 	token, _, err := client.User.ActivateUser(ctx, user.Id, query.NewQueryParams(query.WithSendEmail(false)))
@@ -105,17 +105,9 @@ func Test_can_activate_a_user(t *testing.T) {
 	assert.NotEmpty(t, token, "Token was not provided")
 	assert.IsType(t, &okta.UserActivationToken{}, token, "Activation did not return correct type")
 
-	// Verify that the user is in the list of ACTIVE users with query parameter → GET /api/v1/users?filter=status eq "ACTIVE"
-	filter := query.NewQueryParams(query.WithFilter("status eq \"ACTIVE\""))
-	users, _, err := client.User.ListUsers(ctx, filter)
-	require.NoError(t, err, "Could not get active users")
-	found := false
-	for _, u := range users {
-		if user.Id == u.Id {
-			found = true
-		}
-	}
-	assert.True(t, found, "The user was not found")
+	crUser, _, err := client.User.GetUser(ctx, user.Id)
+	require.NoError(t, err, "Could not get user by ID")
+	assert.NotNil(t, crUser.Activated, "users activation time is missing")
 
 	// Deactivate the user → POST /api/v1/users/{{userId}}/lifecycle/deactivate
 	_, err = client.User.DeactivateUser(ctx, user.Id, nil)
@@ -127,7 +119,8 @@ func Test_can_activate_a_user(t *testing.T) {
 }
 
 func Test_can_update_user_profile(t *testing.T) {
-	ctx, client, _ := tests.NewClient(context.TODO())
+	ctx, client, err := tests.NewClient(context.TODO())
+	require.NoError(t, err)
 	// Create user with credentials → POST /api/v1/users?activate=false
 	p := &okta.PasswordCredential{
 		Value: "Abcd1234",
@@ -138,8 +131,8 @@ func Test_can_update_user_profile(t *testing.T) {
 	profile := okta.UserProfile{}
 	profile["firstName"] = "John"
 	profile["lastName"] = "Profile-Update"
-	profile["email"] = "john-profile-update@example.com"
-	profile["login"] = "john-profile-update@example.com"
+	profile["email"] = randomEmail()
+	profile["login"] = profile["email"]
 	u := &okta.CreateUserRequest{
 		Credentials: uc,
 		Profile:     &profile,
@@ -147,7 +140,7 @@ func Test_can_update_user_profile(t *testing.T) {
 	qp := query.NewQueryParams(query.WithActivate(false))
 
 	user, _, err := client.User.CreateUser(ctx, *u, qp)
-	require.NoError(t, err, "Creating an user should not error")
+	require.NoError(t, err, "Creating a new user should not error")
 
 	// Update the user's profile by adding a nickname → PUT /api/v1/users/{{userId}}
 	newProfile := *user.Profile
@@ -173,7 +166,8 @@ func Test_can_update_user_profile(t *testing.T) {
 }
 
 func Test_can_suspend_a_user(t *testing.T) {
-	ctx, client, _ := tests.NewClient(context.TODO())
+	ctx, client, err := tests.NewClient(context.TODO())
+	require.NoError(t, err)
 	//Create user with credentials → POST /api/v1/users?activate=true
 	p := &okta.PasswordCredential{
 		Value: "Abcd1234",
@@ -184,8 +178,8 @@ func Test_can_suspend_a_user(t *testing.T) {
 	profile := okta.UserProfile{}
 	profile["firstName"] = "John"
 	profile["lastName"] = "Suspend"
-	profile["email"] = "john-suspend@example.com"
-	profile["login"] = "john-suspend@example.com"
+	profile["email"] = randomEmail()
+	profile["login"] = profile["email"]
 	u := &okta.CreateUserRequest{
 		Credentials: uc,
 		Profile:     &profile,
@@ -193,7 +187,7 @@ func Test_can_suspend_a_user(t *testing.T) {
 	qp := query.NewQueryParams(query.WithActivate(true))
 
 	user, _, err := client.User.CreateUser(ctx, *u, qp)
-	require.NoError(t, err, "Creating an user should not error")
+	require.NoError(t, err, "Creating a new user should not error")
 
 	// Suspend the user → POST /api/v1/users/{{userId}}/lifecycle/suspend
 	_, err = client.User.SuspendUser(ctx, user.Id)
@@ -236,7 +230,8 @@ func Test_can_suspend_a_user(t *testing.T) {
 }
 
 func Test_can_change_users_password(t *testing.T) {
-	ctx, client, _ := tests.NewClient(context.TODO())
+	ctx, client, err := tests.NewClient(context.TODO())
+	require.NoError(t, err)
 	// Create user with credentials → POST /api/v1/users?activate=true
 	p := &okta.PasswordCredential{
 		Value: "Abcd1234",
@@ -247,8 +242,8 @@ func Test_can_change_users_password(t *testing.T) {
 	profile := okta.UserProfile{}
 	profile["firstName"] = "John"
 	profile["lastName"] = "Change-Password"
-	profile["email"] = "john-change-password@example.com"
-	profile["login"] = "john-change-password@example.com"
+	profile["email"] = randomEmail()
+	profile["login"] = profile["email"]
 	u := &okta.CreateUserRequest{
 		Credentials: uc,
 		Profile:     &profile,
@@ -256,7 +251,7 @@ func Test_can_change_users_password(t *testing.T) {
 	qp := query.NewQueryParams(query.WithActivate(true))
 
 	user, _, err := client.User.CreateUser(ctx, *u, qp)
-	require.NoError(t, err, "Creating an user should not error")
+	require.NoError(t, err, "Creating a new user should not error")
 
 	//Sleep 1 second to make sure time has passed for password chagned timestamps
 	time.Sleep(1 * time.Second)
@@ -295,7 +290,8 @@ func Test_can_change_users_password(t *testing.T) {
 }
 
 func Test_can_get_reset_password_link_for_user(t *testing.T) {
-	ctx, client, _ := tests.NewClient(context.TODO())
+	ctx, client, err := tests.NewClient(context.TODO())
+	require.NoError(t, err)
 	// Create user with credentials → POST /api/v1/users?activate=true
 	p := &okta.PasswordCredential{
 		Value: "Abcd1234",
@@ -306,8 +302,8 @@ func Test_can_get_reset_password_link_for_user(t *testing.T) {
 	profile := okta.UserProfile{}
 	profile["firstName"] = "John"
 	profile["lastName"] = "Get-Reset-Password-Url"
-	profile["email"] = "john-get-reset-password-url@example.com"
-	profile["login"] = "john-get-reset-password-url@example.com"
+	profile["email"] = randomEmail()
+	profile["login"] = profile["email"]
 	u := &okta.CreateUserRequest{
 		Credentials: uc,
 		Profile:     &profile,
@@ -315,7 +311,7 @@ func Test_can_get_reset_password_link_for_user(t *testing.T) {
 	qp := query.NewQueryParams(query.WithActivate(true))
 
 	user, _, err := client.User.CreateUser(ctx, *u, qp)
-	require.NoError(t, err, "Creating an user should not error")
+	require.NoError(t, err, "Creating a new user should not error")
 
 	// Reset the user password → POST /api/v1/users/{{userId}}/lifecycle/reset_password?sendEmail=false
 	rpt, _, err := client.User.ResetPassword(ctx, user.Id, query.NewQueryParams(query.WithSendEmail(false)))
@@ -339,7 +335,8 @@ func Test_can_get_reset_password_link_for_user(t *testing.T) {
 }
 
 func Test_can_expire_a_users_password_and_get_a_temp_one(t *testing.T) {
-	ctx, client, _ := tests.NewClient(context.TODO())
+	ctx, client, err := tests.NewClient(context.TODO())
+	require.NoError(t, err)
 	// Create a user with credentials, activated by default → POST /api/v1/users?activate=true
 	p := &okta.PasswordCredential{
 		Value: "Abcd1234",
@@ -350,8 +347,8 @@ func Test_can_expire_a_users_password_and_get_a_temp_one(t *testing.T) {
 	profile := okta.UserProfile{}
 	profile["firstName"] = "John"
 	profile["lastName"] = "Expire-Password"
-	profile["email"] = "john-expire-password@example.com"
-	profile["login"] = "john-expire-password@example.com"
+	profile["email"] = randomEmail()
+	profile["login"] = profile["email"]
 	u := &okta.CreateUserRequest{
 		Credentials: uc,
 		Profile:     &profile,
@@ -359,7 +356,7 @@ func Test_can_expire_a_users_password_and_get_a_temp_one(t *testing.T) {
 	qp := query.NewQueryParams(query.WithActivate(true))
 
 	user, _, err := client.User.CreateUser(ctx, *u, qp)
-	require.NoError(t, err, "Creating an user should not error")
+	require.NoError(t, err, "Creating a new user should not error")
 
 	// Expire the user password → POST /api/v1/users/{{userId}}/lifecycle/expire_password?tempPassword=true
 	ep, _, err := client.User.ExpirePasswordAndGetTemporaryPassword(ctx, user.Id)
@@ -383,7 +380,8 @@ func Test_can_expire_a_users_password_and_get_a_temp_one(t *testing.T) {
 }
 
 func Test_can_change_user_recovery_question(t *testing.T) {
-	ctx, client, _ := tests.NewClient(context.TODO())
+	ctx, client, err := tests.NewClient(context.TODO())
+	require.NoError(t, err)
 	// Create a user with credentials, activated by default → POST /api/v1/users?activate=true
 	p := &okta.PasswordCredential{
 		Value: "Abcd1234",
@@ -394,8 +392,8 @@ func Test_can_change_user_recovery_question(t *testing.T) {
 	profile := okta.UserProfile{}
 	profile["firstName"] = "John"
 	profile["lastName"] = "Change-Recovery-Question"
-	profile["email"] = "john-change-recovery-question@example.com"
-	profile["login"] = "john-change-recovery-question@example.com"
+	profile["email"] = randomEmail()
+	profile["login"] = profile["email"]
 	u := &okta.CreateUserRequest{
 		Credentials: uc,
 		Profile:     &profile,
@@ -403,7 +401,7 @@ func Test_can_change_user_recovery_question(t *testing.T) {
 	qp := query.NewQueryParams(query.WithActivate(true))
 
 	user, _, err := client.User.CreateUser(ctx, *u, qp)
-	require.NoError(t, err, "Creating an user should not error")
+	require.NoError(t, err, "Creating a new user should not error")
 
 	// Update the user's recovery question → POST /api/v1/users/{{userId}}/credentials/change_recovery_question
 	nucp := &okta.PasswordCredential{
@@ -455,7 +453,7 @@ func Test_can_change_user_recovery_question(t *testing.T) {
 }
 
 func Test_can_assign_a_user_to_a_role(t *testing.T) {
-	ctx, client, _ := tests.NewClient(context.TODO(), okta.WithCache(false))
+	ctx, client, err := tests.NewClient(context.TODO(), okta.WithCache(false))
 	// Create a user with credentials, activated by default → POST /api/v1/users?activate=true
 	p := &okta.PasswordCredential{
 		Value: "Abcd1234",
@@ -466,8 +464,8 @@ func Test_can_assign_a_user_to_a_role(t *testing.T) {
 	profile := okta.UserProfile{}
 	profile["firstName"] = "John"
 	profile["lastName"] = "Role"
-	profile["email"] = "john-role@example.com"
-	profile["login"] = "john-role@example.com"
+	profile["email"] = randomEmail()
+	profile["login"] = profile["email"]
 	u := &okta.CreateUserRequest{
 		Credentials: uc,
 		Profile:     &profile,
@@ -475,7 +473,7 @@ func Test_can_assign_a_user_to_a_role(t *testing.T) {
 	qp := query.NewQueryParams(query.WithActivate(true))
 
 	user, _, err := client.User.CreateUser(ctx, *u, qp)
-	require.NoError(t, err, "Creating an user should not error")
+	require.NoError(t, err, "Creating a new user should not error")
 
 	// Add 'USER_ADMIN' role to the user → POST /api/v1/users/{{userId}}/roles (Body → { type: 'USER_ADMIN'  })
 	arr := &okta.AssignRoleRequest{
@@ -527,7 +525,8 @@ func Test_can_assign_a_user_to_a_role(t *testing.T) {
 }
 
 func Test_user_group_target_role(t *testing.T) {
-	ctx, client, _ := tests.NewClient(context.TODO())
+	ctx, client, err := tests.NewClient(context.TODO())
+	require.NoError(t, err)
 	// Create a user with credentials, activated by default → POST /api/v1/users?activate=true
 	p := &okta.PasswordCredential{
 		Value: "Abcd1234",
@@ -538,8 +537,8 @@ func Test_user_group_target_role(t *testing.T) {
 	profile := okta.UserProfile{}
 	profile["firstName"] = "John"
 	profile["lastName"] = "Group-Target"
-	profile["email"] = "john-group-target@example.com"
-	profile["login"] = "john-group-target@example.com"
+	profile["email"] = randomEmail()
+	profile["login"] = profile["email"]
 	u := &okta.CreateUserRequest{
 		Credentials: uc,
 		Profile:     &profile,
@@ -547,11 +546,11 @@ func Test_user_group_target_role(t *testing.T) {
 	qp := query.NewQueryParams(query.WithActivate(true))
 
 	user, _, err := client.User.CreateUser(ctx, *u, qp)
-	require.NoError(t, err, "Creating an user should not error")
+	require.NoError(t, err, "Creating a new user should not error")
 
 	// Create a new group → POST /api/v1/groups
 	gp := &okta.GroupProfile{
-		Name: "Group-Target Test Group",
+		Name: "SDK_TEST Group-Target Test Group",
 	}
 	g := &okta.Group{
 		Profile: gp,
@@ -582,7 +581,7 @@ func Test_user_group_target_role(t *testing.T) {
 
 	//Remove Group Target from Admin User Role and verify removed → DELETE /api/v1/users/{{userId}}/roles/{{roleId}}/targets/groups/{{groupId}}
 	gp = &okta.GroupProfile{
-		Name: "TMP - Group-Target Test Group",
+		Name: "SDK_TEST TMP - Group-Target Test Group",
 	}
 	g = &okta.Group{
 		Profile: gp,
@@ -611,7 +610,8 @@ func Test_user_group_target_role(t *testing.T) {
 }
 
 func Test_can_get_user_with_cache_enabled(t *testing.T) {
-	ctx, client, _ := tests.NewClient(context.TODO())
+	ctx, client, err := tests.NewClient(context.TODO())
+	require.NoError(t, err)
 
 	p := &okta.PasswordCredential{
 		Value: "Abcd1234",
@@ -622,8 +622,8 @@ func Test_can_get_user_with_cache_enabled(t *testing.T) {
 	profile := okta.UserProfile{}
 	profile["firstName"] = "John"
 	profile["lastName"] = "Test-Cache"
-	profile["email"] = "john-test-cache@example.com"
-	profile["login"] = "john-test-cache@example.com"
+	profile["email"] = randomEmail()
+	profile["login"] = profile["email"]
 	u := &okta.CreateUserRequest{
 		Credentials: uc,
 		Profile:     &profile,
@@ -631,10 +631,10 @@ func Test_can_get_user_with_cache_enabled(t *testing.T) {
 	qp := query.NewQueryParams(query.WithActivate(true))
 
 	createdUser, _, err := client.User.CreateUser(ctx, *u, qp)
-	require.NoError(t, err, "Creating an user should not error")
+	require.NoError(t, err, "Creating a new user should not error")
 
 	for i := 0; i < 50; i++ {
-		user, resp, err := client.User.GetUser(ctx, "john-test-cache@example.com")
+		user, resp, err := client.User.GetUser(ctx, profile["email"].(string))
 		assert.NoError(t, err, "Should not error when getting user")
 		assert.NotNil(t, user, "user should not be nil")
 		assert.NotNil(t, resp, "resp should not be nil")
@@ -650,7 +650,7 @@ func Test_can_get_user_with_cache_enabled(t *testing.T) {
 }
 
 func Test_can_paginate_across_users(t *testing.T) {
-	ctx, client, _ := tests.NewClient(context.TODO(), okta.WithCache(false))
+	ctx, client, err := tests.NewClient(context.TODO(), okta.WithCache(false))
 
 	p := &okta.PasswordCredential{
 		Value: "Abcd1234",
@@ -662,7 +662,7 @@ func Test_can_paginate_across_users(t *testing.T) {
 	profile1["firstName"] = "John"
 	profile1["lastName"] = "page-test"
 	profile1["email"] = "john-page-1@example.com"
-	profile1["login"] = "john-page-1@example.com"
+	profile1["login"] = "SDK_TESTjohn-page-1@example.com"
 	u1 := &okta.CreateUserRequest{
 		Credentials: uc,
 		Profile:     &profile1,
@@ -671,7 +671,7 @@ func Test_can_paginate_across_users(t *testing.T) {
 	profile2["firstName"] = "John"
 	profile2["lastName"] = "page-test"
 	profile2["email"] = "john-page-2@example.com"
-	profile2["login"] = "john-page-2@example.com"
+	profile2["login"] = "SDK_TESTjohn-page-2@example.com"
 	u2 := &okta.CreateUserRequest{
 		Credentials: uc,
 		Profile:     &profile2,
@@ -679,9 +679,9 @@ func Test_can_paginate_across_users(t *testing.T) {
 	qp := query.NewQueryParams(query.WithActivate(true))
 
 	createdUser1, _, err := client.User.CreateUser(ctx, *u1, qp)
-	require.NoError(t, err, "Creating an user should not error")
+	require.NoError(t, err, "Creating a new user should not error")
 	createdUser2, _, err := client.User.CreateUser(ctx, *u2, qp)
-	require.NoError(t, err, "Creating an user should not error")
+	require.NoError(t, err, "Creating a new user should not error")
 
 	query := query.NewQueryParams(query.WithLimit(1))
 	user1, resp, err := client.User.ListUsers(ctx, query)
