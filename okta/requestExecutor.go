@@ -42,6 +42,8 @@ import (
 	"gopkg.in/square/go-jose.v2/jwt"
 )
 
+const AccessTokenCacheKey = "OKTA_ACCESS_TOKEN"
+
 type RequestExecutor struct {
 	httpClient        *http.Client
 	config            *config
@@ -115,8 +117,8 @@ func (re *RequestExecutor) NewRequest(method string, url string, body interface{
 	}
 
 	if re.config.Okta.Client.AuthorizationMode == "PrivateKey" {
-		if re.cache.Has("OKTA_ACCESS_TOKEN") {
-			token := re.cache.GetString("OKTA_ACCESS_TOKEN")
+		if re.cache.Has(AccessTokenCacheKey) {
+			token := re.cache.GetString(AccessTokenCacheKey)
 			req.Header.Add("Authorization", "Bearer "+token)
 		} else {
 			priv := []byte(strings.ReplaceAll(re.config.Okta.Client.PrivateKey, `\n`, "\n"))
@@ -188,7 +190,7 @@ func (re *RequestExecutor) NewRequest(method string, url string, body interface{
 			}
 			req.Header.Add("Authorization", "Bearer "+accessToken.AccessToken)
 
-			re.cache.SetString("OKTA_ACCESS_TOKEN", accessToken.AccessToken)
+			re.cache.SetString(AccessTokenCacheKey, accessToken.AccessToken)
 		}
 
 	}
