@@ -391,6 +391,7 @@ function createJsonTag(propertyName) {
       propertyName === "maxSessionLifetimeMinutes" ||
       propertyName === "refreshTokenLifetimeMinutes" ||
       propertyName === "refreshTokenWindowMinutes" ||
+      propertyName === "default_scope" ||
       propertyName === "maxSessionIdleMinutes") {
     return " `json:\""+propertyName+"\"`"
   } else {
