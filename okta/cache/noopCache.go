@@ -18,8 +18,7 @@ package cache
 
 import "net/http"
 
-type NoOpCache struct {
-}
+type NoOpCache struct{}
 
 func NewNoOpCache() Cache {
 	return NoOpCache{}
@@ -30,7 +29,6 @@ func (c NoOpCache) Get(key string) *http.Response {
 }
 
 func (c NoOpCache) Set(key string, value *http.Response) {
-
 }
 
 func (c NoOpCache) GetString(key string) string {
@@ -38,15 +36,12 @@ func (c NoOpCache) GetString(key string) string {
 }
 
 func (c NoOpCache) SetString(key string, value string) {
-
 }
 
 func (c NoOpCache) Delete(key string) {
-
 }
 
 func (c NoOpCache) Clear() {
-
 }
 
 func (c NoOpCache) Has(key string) bool {

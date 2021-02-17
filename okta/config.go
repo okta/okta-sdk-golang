@@ -59,7 +59,7 @@ type config struct {
 		} `yaml:"testing"`
 	} `yaml:"okta"`
 	UserAgentExtra string
-	HttpClient     http.Client
+	HttpClient     *http.Client
 	CacheManager   cache.Cache
 }
 
@@ -137,7 +137,14 @@ func WithUserAgentExtra(userAgent string) ConfigSetter {
 	}
 }
 
+// Deprecated: please use WithHttpClientPtr method
 func WithHttpClient(httpClient http.Client) ConfigSetter {
+	return func(c *config) {
+		c.HttpClient = &httpClient
+	}
+}
+
+func WithHttpClientPtr(httpClient *http.Client) ConfigSetter {
 	return func(c *config) {
 		c.HttpClient = httpClient
 	}

@@ -45,7 +45,6 @@ func Test_can_create_user_type(t *testing.T) {
 
 	_, err = client.UserType.DeleteUserType(ctx, userType.Id)
 	require.NoError(t, err, "deleting a user type should not error")
-
 }
 
 func Test_can_list_user_types(t *testing.T) {
@@ -57,7 +56,6 @@ func Test_can_list_user_types(t *testing.T) {
 	tests.Assert_response(t, response, "GET", "/api/v1/meta/types/user")
 
 	assert_user_type_model(t, userTypes[0])
-
 }
 
 func assert_user_type_model(t *testing.T, userType *okta.UserType) {
@@ -70,5 +68,4 @@ func assert_user_type_model(t *testing.T, userType *okta.UserType) {
 	assert.IsType(t, &time.Time{}, userType.LastUpdated, "lastUpdated should not be of type `*time.Time`")
 	assert.NotEmpty(t, userType.LastUpdatedBy, "lastUpdatedBy should not be empty")
 	assert.NotEmpty(t, userType.Name, "name should not be empty")
-
 }

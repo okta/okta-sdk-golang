@@ -63,8 +63,7 @@ type resource struct {
 	client *Client
 }
 
-type clientContextKey struct {
-}
+type clientContextKey struct{}
 
 func NewClient(ctx context.Context, conf ...ConfigSetter) (context.Context, *Client, error) {
 	config := &config{}
@@ -99,7 +98,7 @@ func NewClient(ctx context.Context, conf ...ConfigSetter) (context.Context, *Cli
 
 	c := &Client{}
 	c.config = config
-	c.requestExecutor = NewRequestExecutor(&config.HttpClient, oktaCache, config)
+	c.requestExecutor = NewRequestExecutor(config.HttpClient, oktaCache, config)
 
 	c.resource.client = c
 
@@ -160,7 +159,6 @@ func setConfigDefaults(c *config) {
 
 func readConfigFromFile(location string, c config) (*config, error) {
 	yamlConfig, err := ioutil.ReadFile(location)
-
 	if err != nil {
 		return nil, err
 	}
@@ -183,7 +181,6 @@ func readConfigFromSystem(c config) *config {
 	}
 
 	conf, err := readConfigFromFile(currUser.HomeDir+"/.okta/okta.yaml", c)
-
 	if err != nil {
 		return &c
 	}
@@ -195,7 +192,6 @@ func readConfigFromSystem(c config) *config {
 func readConfigFromApplication(c config) *config {
 	_, b, _, _ := runtime.Caller(0)
 	conf, err := readConfigFromFile(filepath.Join(filepath.Dir(path.Join(path.Dir(b))), ".okta.yaml"), c)
-
 	if err != nil {
 		return &c
 	}

@@ -107,7 +107,6 @@ func (re *RequestExecutor) NewRequest(method string, url string, body interface{
 	url = re.config.Okta.Client.OrgUrl + url
 
 	req, err := http.NewRequest(method, url, buff)
-
 	if err != nil {
 		return nil, err
 	}
@@ -192,7 +191,6 @@ func (re *RequestExecutor) NewRequest(method string, url string, body interface{
 
 			re.cache.SetString(AccessTokenCacheKey, accessToken.AccessToken)
 		}
-
 	}
 	req.Header.Add("User-Agent", NewUserAgent(re.config).String())
 	req.Header.Add("Accept", re.headerAccept)
@@ -244,7 +242,6 @@ func (re *RequestExecutor) Do(ctx context.Context, req *http.Request, v interfac
 	if !inCache {
 
 		resp, err := re.doWithRetries(ctx, req)
-
 		if err != nil {
 			return nil, err
 		}
@@ -256,7 +253,6 @@ func (re *RequestExecutor) Do(ctx context.Context, req *http.Request, v interfac
 
 	resp := re.cache.Get(cacheKey)
 	return buildResponse(resp, re, &v)
-
 }
 
 type oktaBackoff struct {

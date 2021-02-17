@@ -45,7 +45,6 @@ func Test_create_an_event_hook(t *testing.T) {
 	require.NoError(t, err, "deactivating an event hook should not error")
 	_, err = client.EventHook.DeleteEventHook(ctx, eventHook.Id)
 	require.NoError(t, err, "deleting an event hook should not error")
-
 }
 
 func Test_get_an_event_hook(t *testing.T) {
@@ -71,7 +70,6 @@ func Test_get_an_event_hook(t *testing.T) {
 	require.NoError(t, err, "deactivating an event hook should not error")
 	_, err = client.EventHook.DeleteEventHook(ctx, eventHook.Id)
 	require.NoError(t, err, "deleting an event hook should not error")
-
 }
 
 func Test_update_an_event_hook(t *testing.T) {
@@ -95,7 +93,6 @@ func Test_update_an_event_hook(t *testing.T) {
 	require.NoError(t, err, "deactivating an event hook should not error")
 	_, err = client.EventHook.DeleteEventHook(ctx, eventHook.Id)
 	require.NoError(t, err, "deleting an event hook should not error")
-
 }
 
 func Test_deactivate_and_delete_an_event_hook(t *testing.T) {
@@ -124,7 +121,6 @@ func Test_deactivate_and_delete_an_event_hook(t *testing.T) {
 	response, err = client.EventHook.DeleteEventHook(ctx, eventHook.Id)
 	require.NoError(t, err, "deleting an event hook should not error")
 	tests.Assert_response(t, response, "DELETE", "/api/v1/eventHooks/"+eventHook.Id)
-
 }
 
 func Test_activate_an_event_hook(t *testing.T) {
@@ -155,7 +151,6 @@ func Test_activate_an_event_hook(t *testing.T) {
 	require.NoError(t, err, "deactivating an event hook should not error")
 	response, err = client.EventHook.DeleteEventHook(ctx, eventHook.Id)
 	require.NoError(t, err, "deleting an event hook should not error")
-
 }
 
 func Test_list_event_hooks(t *testing.T) {
@@ -185,7 +180,6 @@ func Test_list_event_hooks(t *testing.T) {
 	require.NoError(t, err, "deactivating an event hook should not error")
 	_, err = client.EventHook.DeleteEventHook(ctx, eventHook.Id)
 	require.NoError(t, err, "deleting an event hook should not error")
-
 }
 
 func Test_verify_an_event_hook(t *testing.T) {
@@ -211,7 +205,6 @@ func Test_verify_an_event_hook(t *testing.T) {
 	require.NoError(t, err, "deactivating an event hook should not error")
 	_, err = client.EventHook.DeleteEventHook(ctx, eventHook.Id)
 	require.NoError(t, err, "deleting an event hook should not error")
-
 }
 
 func createEventHookRequestObject(name string) okta.EventHook {
@@ -255,7 +248,6 @@ func createEventHookRequestObject(name string) okta.EventHook {
 	}
 
 	return eventHookRequest
-
 }
 
 func assert_event_hook_model(t *testing.T, eventHook *okta.EventHook) {

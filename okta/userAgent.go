@@ -36,7 +36,6 @@ func NewUserAgent(config *config) UserAgent {
 	ua.osVersion = runtime.GOARCH
 
 	return ua
-
 }
 
 func (ua UserAgent) String() string {

@@ -229,7 +229,6 @@ func Test_can_list_roles_assigned_to_a_user(t *testing.T) {
 
 	_, err = client.User.DeactivateOrDeleteUser(ctx, user.Id, nil)
 	require.NoError(t, err, "Should not error when deleting")
-
 }
 
 func Test_can_list_roles_assigned_to_a_group(t *testing.T) {
@@ -269,7 +268,6 @@ func Test_can_list_roles_assigned_to_a_group(t *testing.T) {
 
 	_, err = client.Group.DeleteGroup(ctx, group.Id)
 	require.NoError(t, err, "Should not error when deleting a group")
-
 }
 
 func Test_can_add_group_targets_for_the_group_administrator_role_given_to_a_user(t *testing.T) {

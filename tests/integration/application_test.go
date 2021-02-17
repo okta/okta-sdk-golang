@@ -190,7 +190,6 @@ func Test_list_application_allows_casting_to_correct_type(t *testing.T) {
 	require.NoError(t, err, "List applications should not error")
 
 	for _, a := range applist {
-
 		if a.(*okta.Application).Name == "bookmark" {
 			if a.(*okta.Application).Id == app2.(*okta.BookmarkApplication).Id {
 				ba, _, _ := client.Application.GetApplication(ctx, a.(*okta.Application).Id, okta.NewBookmarkApplication(), nil)
