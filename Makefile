@@ -3,6 +3,7 @@ COLOR_NONE=\x1b[0m
 COLOR_ERROR=\x1b[31;01m
 COLOR_WARNING=\x1b[33;05m
 COLOR_OKTA=\x1B[34;01m
+GOFMT := gofumpt
 
 help:
 	@echo "$(COLOR_OK)Okta SDK for Golang$(COLOR_NONE)"
@@ -30,11 +31,11 @@ clean-files:
 	@echo "$(COLOR_OKTA)Cleaning Up Old Generated Files...$(COLOR_NONE)"
 	cd openapi && yarn cleanFiles
 
-generate-files:
+generate-files: check-fmt
 	@echo "$(COLOR_OKTA)Generating SDK Files...$(COLOR_NONE)"
 	cd openapi && yarn generator
 	@echo "$(COLOR_OK)Running Goimports on generated files...$(COLOR_NONE)"
-	@goimports -w ./okta
+	$(GOFMT) -l -w $$(find . -name '*.go' |grep -v vendor)
 
 pull-spec:
 	@echo "$(COLOR_OKTA)Pulling in latest spec...$(COLOR_NONE)"
@@ -58,3 +59,10 @@ test\:integration:
 test\:unit:
 	@echo "$(COLOR_OK)Running unit tests...$(COLOR_NONE)"
 	go test ./tests/unit -test.v
+
+.PHONY: fmt
+fmt: check-fmt # Format the code
+	$(GOFMT) -l -w $$(find . -name '*.go' |grep -v vendor)
+
+check-fmt:
+	@which $(GOFMT) || GO111MODULE=on go get mvdan.cc/gofumpt

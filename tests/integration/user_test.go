@@ -79,7 +79,7 @@ func Test_can_get_a_user(t *testing.T) {
 func Test_can_activate_a_user(t *testing.T) {
 	ctx, client, err := tests.NewClient(context.TODO())
 	require.NoError(t, err)
-	//Create user with credentials → POST /api/v1/users?activate=false
+	// Create user with credentials → POST /api/v1/users?activate=false
 	uc := &okta.UserCredentials{
 		Password: &okta.PasswordCredential{
 			Value: "Abcd1234",
@@ -168,7 +168,7 @@ func Test_can_update_user_profile(t *testing.T) {
 func Test_can_suspend_a_user(t *testing.T) {
 	ctx, client, err := tests.NewClient(context.TODO())
 	require.NoError(t, err)
-	//Create user with credentials → POST /api/v1/users?activate=true
+	// Create user with credentials → POST /api/v1/users?activate=true
 	p := &okta.PasswordCredential{
 		Value: "Abcd1234",
 	}
@@ -253,7 +253,7 @@ func Test_can_change_users_password(t *testing.T) {
 	user, _, err := client.User.CreateUser(ctx, *u, qp)
 	require.NoError(t, err, "Creating a new user should not error")
 
-	//Sleep 1 second to make sure time has passed for password chagned timestamps
+	// Sleep 1 second to make sure time has passed for password chagned timestamps
 	time.Sleep(1 * time.Second)
 
 	// Change the password to '1234Abcd' → POST /api/v1/users/{{userId}}/credentials/change_password
@@ -579,7 +579,7 @@ func Test_user_group_target_role(t *testing.T) {
 	}
 	assert.True(t, found, "Could not verify group target")
 
-	//Remove Group Target from Admin User Role and verify removed → DELETE /api/v1/users/{{userId}}/roles/{{roleId}}/targets/groups/{{groupId}}
+	// Remove Group Target from Admin User Role and verify removed → DELETE /api/v1/users/{{userId}}/roles/{{roleId}}/targets/groups/{{groupId}}
 	gp = &okta.GroupProfile{
 		Name: "SDK_TEST TMP - Group-Target Test Group",
 	}

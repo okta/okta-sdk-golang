@@ -38,7 +38,6 @@ func Test_private_key_request_contains_bearer_token(t *testing.T) {
 	require.NoError(t, err)
 
 	assert.Contains(t, request.Header.Get("Authorization"), "Bearer", "does not contain a bearer token for the request")
-
 }
 
 func Test_private_key_request_can_create_a_user(t *testing.T) {

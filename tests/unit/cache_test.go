@@ -67,7 +67,6 @@ func Test_an_item_can_be_stored_in_cache(t *testing.T) {
 	assert.NotEqual(t, result, pulledFromCache, "Item pulled from cache was not a copy")
 	cachedBody, _ := ioutil.ReadAll(pulledFromCache.Body)
 	assert.Equal(t, toCache, string(cachedBody), "Item pulled from cache was not correct")
-
 }
 
 func Test_an_item_can_be_deleted_from_cache(t *testing.T) {
@@ -92,7 +91,6 @@ func Test_an_item_can_be_deleted_from_cache(t *testing.T) {
 
 	found = myCache.Has(cacheKey)
 	assert.False(t, found, "item was not deleted from cache")
-
 }
 
 func Test_cache_can_be_cleared(t *testing.T) {
