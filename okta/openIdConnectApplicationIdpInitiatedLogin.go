@@ -19,6 +19,6 @@
 package okta
 
 type OpenIdConnectApplicationIdpInitiatedLogin struct {
-	DefaultScope []string `json:"default_scope,omitempty"`
+	DefaultScope []string `json:"default_scope"`
 	Mode         string   `json:"mode,omitempty"`
 }
