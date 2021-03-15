@@ -77,7 +77,7 @@ func Test_error_when_authorization_mode_is_not_valid(t *testing.T) {
 }
 
 func Test_does_not_error_when_authorization_mode_is_valid(t *testing.T) {
-	_, _, err := tests.NewClient(context.TODO(), okta.WithAuthorizationMode("SSWS"))
+	_, _, err := tests.NewClient(context.TODO(), okta.WithAuthorizationMode("SSWS"), okta.WithToken("some token"))
 	assert.NoError(t, err, "Should not error when authorization mode is SSWS")
 }
 

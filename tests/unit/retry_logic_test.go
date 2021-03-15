@@ -30,7 +30,8 @@ func Test_429_Will_Automatically_Retry(t *testing.T) {
 	httpmock.Activate()
 	defer httpmock.DeactivateAndReset()
 
-	ctx, client, _ := tests.NewClient(context.TODO(), okta.WithCache(false))
+	ctx, client, err := tests.NewClient(context.TODO(), okta.WithCache(false))
+	require.NoError(t, err)
 
 	httpmock.RegisterResponder("GET", "/api/v1/users",
 		tests.MockResponse(
