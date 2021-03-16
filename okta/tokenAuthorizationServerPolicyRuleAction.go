@@ -18,9 +18,8 @@
 
 package okta
 
-type InlineHookChannelConfig struct {
-	AuthScheme *InlineHookChannelConfigAuthScheme `json:"authScheme,omitempty"`
-	Headers    []*InlineHookChannelConfigHeaders  `json:"headers,omitempty"`
-	Method     string                             `json:"method,omitempty"`
-	Uri        string                             `json:"uri,omitempty"`
+type TokenAuthorizationServerPolicyRuleAction struct {
+	AccessTokenLifetimeMinutes  int64 `json:"accessTokenLifetimeMinutes"`
+	RefreshTokenLifetimeMinutes int64 `json:"refreshTokenLifetimeMinutes"`
+	RefreshTokenWindowMinutes   int64 `json:"refreshTokenWindowMinutes"`
 }

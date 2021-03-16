@@ -18,9 +18,7 @@
 
 package okta
 
-type InlineHookChannelConfig struct {
-	AuthScheme *InlineHookChannelConfigAuthScheme `json:"authScheme,omitempty"`
-	Headers    []*InlineHookChannelConfigHeaders  `json:"headers,omitempty"`
-	Method     string                             `json:"method,omitempty"`
-	Uri        string                             `json:"uri,omitempty"`
+type OpenIdConnectApplicationIdpInitiatedLogin struct {
+	DefaultScope []string `json:"default_scope"`
+	Mode         string   `json:"mode,omitempty"`
 }

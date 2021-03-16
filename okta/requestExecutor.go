@@ -35,11 +35,14 @@ import (
 	"strings"
 	"time"
 
+	"github.com/BurntSushi/toml"
 	"github.com/cenkalti/backoff/v4"
 	"github.com/okta/okta-sdk-golang/v2/okta/cache"
 	"gopkg.in/square/go-jose.v2"
 	"gopkg.in/square/go-jose.v2/jwt"
 )
+
+const AccessTokenCacheKey = "OKTA_ACCESS_TOKEN"
 
 type RequestExecutor struct {
 	httpClient        *http.Client
@@ -104,7 +107,6 @@ func (re *RequestExecutor) NewRequest(method string, url string, body interface{
 	url = re.config.Okta.Client.OrgUrl + url
 
 	req, err := http.NewRequest(method, url, buff)
-
 	if err != nil {
 		return nil, err
 	}
@@ -114,8 +116,8 @@ func (re *RequestExecutor) NewRequest(method string, url string, body interface{
 	}
 
 	if re.config.Okta.Client.AuthorizationMode == "PrivateKey" {
-		if re.cache.Has("OKTA_ACCESS_TOKEN") {
-			token := re.cache.GetString("OKTA_ACCESS_TOKEN")
+		if re.cache.Has(AccessTokenCacheKey) {
+			token := re.cache.GetString(AccessTokenCacheKey)
 			req.Header.Add("Authorization", "Bearer "+token)
 		} else {
 			priv := []byte(strings.ReplaceAll(re.config.Okta.Client.PrivateKey, `\n`, "\n"))
@@ -181,15 +183,14 @@ func (re *RequestExecutor) NewRequest(method string, url string, body interface{
 			tokenResponse.Body = origResp
 			var accessToken *RequestAccessToken
 
-			_, err = buildResponse(tokenResponse, &accessToken)
+			_, err = buildResponse(tokenResponse, nil, &accessToken)
 			if err != nil {
 				return nil, err
 			}
 			req.Header.Add("Authorization", "Bearer "+accessToken.AccessToken)
 
-			re.cache.SetString("OKTA_ACCESS_TOKEN", accessToken.AccessToken)
+			re.cache.SetString(AccessTokenCacheKey, accessToken.AccessToken)
 		}
-
 	}
 	req.Header.Add("User-Agent", NewUserAgent(re.config).String())
 	req.Header.Add("Accept", re.headerAccept)
@@ -241,19 +242,17 @@ func (re *RequestExecutor) Do(ctx context.Context, req *http.Request, v interfac
 	if !inCache {
 
 		resp, err := re.doWithRetries(ctx, req)
-
 		if err != nil {
 			return nil, err
 		}
 		if resp.StatusCode >= 200 && resp.StatusCode <= 299 && req.Method == http.MethodGet && v != nil && reflect.TypeOf(v).Kind() != reflect.Slice {
 			re.cache.Set(cacheKey, resp)
 		}
-		return buildResponse(resp, &v)
+		return buildResponse(resp, re, &v)
 	}
 
 	resp := re.cache.Get(cacheKey)
-	return buildResponse(resp, &v)
-
+	return buildResponse(resp, re, &v)
 }
 
 type oktaBackoff struct {
@@ -281,6 +280,16 @@ func (o *oktaBackoff) Context() context.Context {
 }
 
 func (re *RequestExecutor) doWithRetries(ctx context.Context, req *http.Request) (*http.Response, error) {
+	var bodyReader func() io.ReadCloser
+	if req.Body != nil {
+		buf, err := ioutil.ReadAll(req.Body)
+		if err != nil {
+			return nil, err
+		}
+		bodyReader = func() io.ReadCloser {
+			return ioutil.NopCloser(bytes.NewReader(buf))
+		}
+	}
 	var (
 		resp *http.Response
 		err  error
@@ -293,8 +302,15 @@ func (re *RequestExecutor) doWithRetries(ctx context.Context, req *http.Request)
 		maxRetries: re.config.Okta.Client.RateLimit.MaxRetries,
 	}
 	operation := func() error {
+		// Always rewind the request body when non-nil.
+		if bodyReader != nil {
+			req.Body = bodyReader()
+		}
 		resp, err = re.httpClient.Do(req.WithContext(ctx))
-		if err != nil {
+		if errors.Is(err, io.EOF) {
+			// retry on EOF errors, which might be caused by network connectivity issues
+			return fmt.Errorf("network error: %v", err)
+		} else if err != nil {
 			// this is error is considered to be permanent and should not be retried
 			return backoff.Permanent(err)
 		}
@@ -347,28 +363,28 @@ func Get429BackoffTime(resp *http.Response) (int64, error) {
 
 type Response struct {
 	*http.Response
+	re       *RequestExecutor
 	Self     string
 	NextPage string
 }
 
 func (r *Response) Next(ctx context.Context, v interface{}) (*Response, error) {
-	client, _ := ClientFromContext(ctx)
-
-	req, err := client.requestExecutor.WithAccept("application/json").WithContentType("application/json").NewRequest("GET", r.NextPage, nil)
+	if r.re == nil {
+		return nil, errors.New("no initial response provided from previous request")
+	}
+	req, err := r.re.NewRequest("GET", r.NextPage, nil)
 	if err != nil {
 		return nil, err
 	}
-
-	return client.requestExecutor.Do(ctx, req, v)
-
+	return r.re.Do(ctx, req, v)
 }
 
 func (r *Response) HasNextPage() bool {
 	return r.NextPage != ""
 }
 
-func newResponse(r *http.Response) *Response {
-	response := &Response{Response: r}
+func newResponse(r *http.Response, re *RequestExecutor) *Response {
+	response := &Response{Response: r, re: re}
 	links := r.Header["Link"]
 
 	if len(links) > 0 {
@@ -400,48 +416,54 @@ func CheckResponseForError(resp *http.Response) error {
 	if statusCode >= http.StatusOK && statusCode < http.StatusBadRequest {
 		return nil
 	}
-
-	bodyBytes, err := ioutil.ReadAll(resp.Body)
-	if err != nil {
-		return err
+	e := Error{}
+	if statusCode == http.StatusUnauthorized && strings.Contains(resp.Header.Get("WWW-Authenticate"), "Bearer") {
+		for _, v := range strings.Split(resp.Header.Get("WWW-Authenticate"), ", ") {
+			if strings.Contains(v, "error_description") {
+				_, err := toml.Decode(v, &e)
+				if err != nil {
+					e.ErrorSummary = "unauthorized"
+				}
+				return &e
+			}
+		}
 	}
-
-	e := new(Error)
-	json.Unmarshal(bodyBytes, &e)
-	return e
-
+	bodyBytes, _ := ioutil.ReadAll(resp.Body)
+	copyBodyBytes := make([]byte, len(bodyBytes))
+	copy(copyBodyBytes, bodyBytes)
+	_ = resp.Body.Close()
+	resp.Body = ioutil.NopCloser(bytes.NewBuffer(bodyBytes))
+	_ = json.NewDecoder(bytes.NewReader(copyBodyBytes)).Decode(&e)
+	return &e
 }
 
-func buildResponse(resp *http.Response, v interface{}) (*Response, error) {
+func buildResponse(resp *http.Response, re *RequestExecutor, v interface{}) (*Response, error) {
 	ct := resp.Header.Get("Content-Type")
-
-	response := newResponse(resp)
+	response := newResponse(resp, re)
 	err := CheckResponseForError(resp)
 	if err != nil {
 		return response, err
 	}
-	if v != nil {
-		respBody, err := ioutil.ReadAll(resp.Body)
-		if err != nil {
-			return nil, err
-		}
-
-		origResp := ioutil.NopCloser(bytes.NewBuffer(respBody))
-		response.Body = origResp
-
-		if strings.Contains(ct, "application/xml") {
-			err = xml.NewDecoder(resp.Body).Decode(v)
-		} else if strings.Contains(ct, "application/json") || ct == "" {
-			err = json.NewDecoder(resp.Body).Decode(v)
-		} else {
-			return nil, errors.New("could not build a response for type: " + ct)
-		}
-		if err == io.EOF {
-			err = nil
-		}
-		if err != nil {
-			return nil, err
-		}
+	bodyBytes, _ := ioutil.ReadAll(resp.Body)
+	copyBodyBytes := make([]byte, len(bodyBytes))
+	copy(copyBodyBytes, bodyBytes)
+	_ = resp.Body.Close()                                    // close it to avoid memory leaks
+	resp.Body = ioutil.NopCloser(bytes.NewBuffer(bodyBytes)) // restore the original response body
+	if strings.Contains(ct, "application/xml") {
+		err = xml.NewDecoder(bytes.NewReader(copyBodyBytes)).Decode(v)
+	} else if strings.Contains(ct, "application/json") || ct == "" {
+		err = json.NewDecoder(bytes.NewReader(copyBodyBytes)).Decode(v)
+	} else if strings.Contains(ct, "application/octet-stream") {
+		// since the response is arbitrary binary data, we leave it to the user to decode it
+		return response, nil
+	} else {
+		return nil, errors.New("could not build a response for type: " + ct)
+	}
+	if err == io.EOF {
+		err = nil
+	}
+	if err != nil {
+		return nil, err
 	}
 	return response, nil
 }

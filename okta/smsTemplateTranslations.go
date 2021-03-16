@@ -18,5 +18,4 @@
 
 package okta
 
-type SmsTemplateTranslations struct {
-}
+type SmsTemplateTranslations struct{}

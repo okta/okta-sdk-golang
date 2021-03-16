@@ -17,10 +17,12 @@
 package okta
 
 import (
+	"errors"
 	"io/ioutil"
 	"log"
 	"net/http"
 	"os"
+	"syscall"
 
 	"github.com/okta/okta-sdk-golang/v2/okta/cache"
 )
@@ -57,7 +59,7 @@ type config struct {
 		} `yaml:"testing"`
 	} `yaml:"okta"`
 	UserAgentExtra string
-	HttpClient     http.Client
+	HttpClient     *http.Client
 	CacheManager   cache.Cache
 }
 
@@ -135,7 +137,14 @@ func WithUserAgentExtra(userAgent string) ConfigSetter {
 	}
 }
 
+// Deprecated: please use WithHttpClientPtr method
 func WithHttpClient(httpClient http.Client) ConfigSetter {
+	return func(c *config) {
+		c.HttpClient = &httpClient
+	}
+}
+
+func WithHttpClientPtr(httpClient *http.Client) ConfigSetter {
 	return func(c *config) {
 		c.HttpClient = httpClient
 	}
@@ -200,7 +209,11 @@ func WithPrivateKey(privateKey string) ConfigSetter {
 
 func fileExists(filename string) bool {
 	info, err := os.Stat(filename)
-	if os.IsNotExist(err) {
+	if err != nil {
+		if os.IsNotExist(err) || errors.Is(err, syscall.ENAMETOOLONG) {
+			return false
+		}
+		log.Println("can not get information about the file containing private key, using provided value as the key itself")
 		return false
 	}
 	return !info.IsDir()

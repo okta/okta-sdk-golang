@@ -47,7 +47,6 @@ func Test_can_list_all_features_for_organization(t *testing.T) {
 	assert.NotEmpty(t, features[0].Stage, "stage should not be empty")
 	assert.NotEmpty(t, features[0].Status, "status should not be empty")
 	assert.NotEmpty(t, features[0].Type, "type should not be empty")
-
 }
 
 func Test_can_get_a_feature(t *testing.T) {
@@ -74,7 +73,6 @@ func Test_can_get_a_feature(t *testing.T) {
 	assert.NotEmpty(t, feature.Stage, "stage should not be empty")
 	assert.NotEmpty(t, feature.Status, "status should not be empty")
 	assert.NotEmpty(t, feature.Type, "type should not be empty")
-
 }
 
 func Test_can_get_feature_dependencies(t *testing.T) {
@@ -92,7 +90,6 @@ func Test_can_get_feature_dependencies(t *testing.T) {
 	require.IsType(t, []*okta.Feature{}, featureDependencies, "did not return `[]*okta.Feature` as first variable")
 	assert.Equal(t, "GET", response.Response.Request.Method, "did not make a get request")
 	assert.Equal(t, "/api/v1/features/"+firstFeatureId+"/dependencies", response.Response.Request.URL.Path, "path for request was incorrect")
-
 }
 
 func Test_can_get_feature_dependants(t *testing.T) {
@@ -110,7 +107,6 @@ func Test_can_get_feature_dependants(t *testing.T) {
 	require.IsType(t, []*okta.Feature{}, featureDependants, "did not return `[]*okta.Feature` as first variable")
 	assert.Equal(t, "GET", response.Response.Request.Method, "did not make a get request")
 	assert.Equal(t, "/api/v1/features/"+firstFeatureId+"/dependents", response.Response.Request.URL.Path, "path for request was incorrect")
-
 }
 
 func Test_can_update_a_feature_lifecycle(t *testing.T) {

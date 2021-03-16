@@ -141,7 +141,6 @@ func (m *ApplicationResource) ListApplications(ctx context.Context, qp *query.Pa
 		apps[i] = &application[i]
 	}
 	return apps, resp, nil
-
 }
 
 // Adds a new application to your Okta organization.

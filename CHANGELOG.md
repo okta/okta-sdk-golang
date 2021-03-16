@@ -1,6 +1,22 @@
 # Changelog
 Running changelog of releases since `2.0.0-rc.4`
 
+## v2.3.0
+
+### New Structs
+- AuthorizationServerPolicy
+- AuthorizationServerPolicyRule
+
+### Bug fixes
+- Fixed response body parsing
+- Fix error handling for 401 error
+- Retry on EOF errors from HTTP client
+
+### Updates
+- Update `SamlApplicationSettingsSignOn` properties to include `SingleLogout` and `SpCertificate`
+- Update `InlineHookChannelConfig` properties to include `Method`
+- Update `OpenIdConnectApplicationSettingsClient` properties to include `IdpInitiatedLogin`
+
 ## v2.2.1
 ### Bug Fixes
 - Update default connection Timeout to `60` seconds (#185)

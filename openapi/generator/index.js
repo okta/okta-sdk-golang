@@ -383,11 +383,15 @@ function buildModelProperties(model) {
 
 function createJsonTag(propertyName) {
   if (propertyName === "tokenLifetimeMinutes" ||
+      propertyName === "accessTokenLifetimeMinutes" ||
       propertyName === "minLowerCase" ||
       propertyName === "minUpperCase" ||
       propertyName === "minNumber" ||
       propertyName === "minSymbol" ||
       propertyName === "maxSessionLifetimeMinutes" ||
+      propertyName === "refreshTokenLifetimeMinutes" ||
+      propertyName === "refreshTokenWindowMinutes" ||
+      propertyName === "default_scope" ||
       propertyName === "maxSessionIdleMinutes") {
     return " `json:\""+propertyName+"\"`"
   } else {
@@ -412,6 +416,9 @@ function isInstance(model) {
       model.modelName == "WebAuthnUserFactorProfile" ||
       model.modelName == "OpenIdConnectApplicationSettingsClientKeys" ||
       model.modelName == "OpenIdConnectApplicationSettingsRefreshToken" ||
+      model.modelName == "SingleLogout" ||
+      model.modelName == "SpCertificate" ||
+      model.modelName == "OpenIdConnectApplicationIdpInitiatedLogin" ||
       model.modelName == "OAuth2ScopesMediationPolicyRuleCondition") {
     return false
   }

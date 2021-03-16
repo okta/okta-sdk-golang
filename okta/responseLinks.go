@@ -18,5 +18,4 @@
 
 package okta
 
-type ResponseLinks struct {
-}
+type ResponseLinks struct{}

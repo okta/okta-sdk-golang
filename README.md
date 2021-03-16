@@ -86,11 +86,11 @@ Once you initialize a `client`, you can call methods to make requests to the Okt
 
 
 ## Connection Retry / Rate Limiting
-By default this SDK retries requests that are return with a 429 exception. To disable this functionality set `OKTA_CLIENT_REQUESTTIMEOUT` and `OKTA_CLIENT_RATELIMIT_MAXRETRIES` to 0.
+By default this SDK retries requests that are returned with a 429 exception. To disable this functionality set `OKTA_CLIENT_REQUESTTIMEOUT` and `OKTA_CLIENT_RATELIMIT_MAXRETRIES` to 0.
 
 Setting only one of the values to zero disables that check. Meaning, by default, four retry attempts will be made. If you set `OKTA_CLIENT_REQUESTTIMEOUT` to 45 seconds and `OKTA_CLIENT_RATELIMIT_MAXRETRIES` to 0. This SDK will continue to retry indefinitely for 45 seconds. If both values are non zero, this SDK attempts to retry until either of the conditions are met (not both).
 
-We use the Date header from the server to calculate the delta, as its more reliable than system time.  But always add 1 second to account for some clock skew in our service:
+We use the Date header from the server to calculate the delta, as it's more reliable than system time. But always add 1 second to account for some clock skew in our service:
 
 ```
 backoff_seconds = header['X-Rate-Limit-Reset'] - header['Date'] + 1s
@@ -444,7 +444,7 @@ ctx, client, err := okta.NewClient(context,
   okta.WithAuthorizationMode("PrivateKey"),
   okta.WithClientId("{{clientId}}),
   okta.WithScopes(([]string{"okta.users.manage"})),
-  okta.WithPrivateKey({{PEM PRIVATE KEY BLOCK}}) //when pasting blocks, use backticks and remove all space at begining of each line.
+  okta.WithPrivateKey({{PEM PRIVATE KEY BLOCK}}) //when pasting blocks, use backticks and remove all space at beginning of each line.
 )
 ```
 
@@ -487,7 +487,7 @@ func (c CustomCacheDriver) Has(key string) bool {
 ```
 
 ### Refreshing Cache for Specific Call
-If you have an issue where you do a `GET`, then a `DELETE`, and then re-issue a `GET` to the original endpoint, you may have an issue with the cache returning with the deleted resource. An example of this is listing applicaiton users, delete and application user, and them listing them again.
+If you have an issue where you do a `GET`, then a `DELETE`, and then re-issue a `GET` to the original endpoint, you may have an issue with the cache returning with the deleted resource. An example of this is listing application users, delete an application user, and then listing them again.
 
 You can solve this by running `client.GetRequestExecutor().RefreshNext()` before your second `ListApplicationUsers` call, which will tell the call to delete the cache for this endpoint and make a new call.
 
@@ -503,7 +503,7 @@ appUserList, _, _ = client.Application.ListApplicationUsers(context.TODO(), appI
 ### Pagination
 If your request comes back with more than the default or set limit, you can request the next page.
 
-Exmaple of listing users 1 at a time:
+Example of listing users 1 at a time:
 ```go
 query := query.NewQueryParams(query.WithLimit(1))
 users, resp, err := client.User.ListUsers(ctx, query)

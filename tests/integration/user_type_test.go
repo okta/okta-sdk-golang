@@ -45,7 +45,6 @@ func Test_can_create_user_type(t *testing.T) {
 
 	_, err = client.UserType.DeleteUserType(ctx, userType.Id)
 	require.NoError(t, err, "deleting a user type should not error")
-
 }
 
 func Test_can_list_user_types(t *testing.T) {
@@ -53,11 +52,10 @@ func Test_can_list_user_types(t *testing.T) {
 	require.NoError(t, err)
 
 	userTypes, response, err := client.UserType.ListUserTypes(ctx)
-	require.NoError(t, err, "creating a user type should not error")
+	require.NoError(t, err, "list user types should not error")
 	tests.Assert_response(t, response, "GET", "/api/v1/meta/types/user")
 
 	assert_user_type_model(t, userTypes[0])
-
 }
 
 func assert_user_type_model(t *testing.T, userType *okta.UserType) {
@@ -65,11 +63,9 @@ func assert_user_type_model(t *testing.T, userType *okta.UserType) {
 	assert.NotEmpty(t, userType.Created, "created should not be empty")
 	assert.IsType(t, &time.Time{}, userType.Created, "created should not be of type `*time.Time`")
 	assert.NotEmpty(t, userType.CreatedBy, "createdBy should not be empty")
-	assert.NotEmpty(t, userType.Description, "description should not be empty")
 	assert.NotEmpty(t, userType.DisplayName, "displayName should not be empty")
 	assert.NotEmpty(t, userType.LastUpdated, "lastUpdated should not be empty")
 	assert.IsType(t, &time.Time{}, userType.LastUpdated, "lastUpdated should not be of type `*time.Time`")
 	assert.NotEmpty(t, userType.LastUpdatedBy, "lastUpdatedBy should not be empty")
 	assert.NotEmpty(t, userType.Name, "name should not be empty")
-
 }
