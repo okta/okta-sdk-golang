@@ -72,11 +72,17 @@ func validateAuthorization(c *config) error {
 		return errors.New("the AuthorizaitonMode config option must be one of [SSWS, PrivateKey]. You provided the SDK with " + c.Okta.Client.AuthorizationMode)
 	}
 
-	if c.Okta.Client.AuthorizationMode == "PrivateKey" &&
-		(c.Okta.Client.ClientId == "" ||
+	if c.Okta.Client.AuthorizationMode == "PrivateKey" {
+		// If the private key is a string and it is empty, raise a validation error.
+		if key, ok := c.Okta.Client.PrivateKey.(string); ok && key == "" {
+			return errors.New("when using AuthorizationMode 'PrivateKey', you must supply 'ClientId', 'Scopes', and 'PrivateKey'")
+		}
+
+		if c.Okta.Client.ClientId == "" ||
 			c.Okta.Client.Scopes == nil ||
-			c.Okta.Client.PrivateKey == "") {
-		return errors.New("when using AuthorizationMode 'PrivateKey', you must supply 'ClientId', 'Scopes', and 'PrivateKey'")
+			c.Okta.Client.PrivateKey == nil {
+			return errors.New("when using AuthorizationMode 'PrivateKey', you must supply 'ClientId', 'Scopes', and 'PrivateKey'")
+		}
 	}
 
 	return nil

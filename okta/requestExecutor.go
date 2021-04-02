@@ -120,24 +120,36 @@ func (re *RequestExecutor) NewRequest(method string, url string, body interface{
 			token := re.cache.GetString(AccessTokenCacheKey)
 			req.Header.Add("Authorization", "Bearer "+token)
 		} else {
-			priv := []byte(strings.ReplaceAll(re.config.Okta.Client.PrivateKey, `\n`, "\n"))
 
-			privPem, _ := pem.Decode(priv)
-			if privPem == nil {
-				return nil, errors.New("invalid private key")
-			}
-			if privPem.Type != "RSA PRIVATE KEY" {
-				return nil, fmt.Errorf("RSA private key is of the wrong type")
-			}
+			var signer jose.Signer
+			switch key := re.config.Okta.Client.PrivateKey.(type) {
 
-			parsedKey, err := x509.ParsePKCS1PrivateKey(privPem.Bytes)
-			if err != nil {
-				return nil, err
-			}
+			case string:
+				priv := []byte(strings.ReplaceAll(key, `\n`, "\n"))
 
-			signer, err := jose.NewSigner(jose.SigningKey{Algorithm: jose.RS256, Key: parsedKey}, nil)
-			if err != nil {
-				return nil, err
+				privPem, _ := pem.Decode(priv)
+				if privPem == nil {
+					return nil, errors.New("invalid private key")
+				}
+				if privPem.Type != "RSA PRIVATE KEY" {
+					return nil, fmt.Errorf("RSA private key is of the wrong type")
+				}
+
+				parsedKey, err := x509.ParsePKCS1PrivateKey(privPem.Bytes)
+				if err != nil {
+					return nil, err
+				}
+
+				if signer, err = jose.NewSigner(jose.SigningKey{Algorithm: jose.RS256, Key: parsedKey}, nil); err != nil {
+					return nil, err
+				}
+
+			case jose.Signer:
+				signer = key
+
+			default:
+				return nil, fmt.Errorf("private key type not supported")
+
 			}
 
 			claims := ClientAssertionClaims{

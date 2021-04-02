@@ -47,12 +47,12 @@ type config struct {
 				MaxRetries int32 `yaml:"maxRetries" envconfig:"OKTA_CLIENT_RATE_LIMIT_MAX_RETRIES"`
 				MaxBackoff int64 `yaml:"maxBackoff" envconfig:"OKTA_CLIENT_RATE_LIMIT_MAX_BACKOFF"`
 			} `yaml:"rateLimit"`
-			OrgUrl            string   `yaml:"orgUrl" envconfig:"OKTA_CLIENT_ORGURL"`
-			Token             string   `yaml:"token" envconfig:"OKTA_CLIENT_TOKEN"`
-			AuthorizationMode string   `yaml:"authorizationMode" envconfig:"OKTA_CLIENT_AUTHORIZATIONMODE"`
-			ClientId          string   `yaml:"clientId" envconfig:"OKTA_CLIENT_CLIENTID"`
-			Scopes            []string `yaml:"scopes" envconfig:"OKTA_CLIENT_SCOPES"`
-			PrivateKey        string   `yaml:"privateKey" envconfig:"OKTA_CLIENT_PRIVATEKEY"`
+			OrgUrl            string      `yaml:"orgUrl" envconfig:"OKTA_CLIENT_ORGURL"`
+			Token             string      `yaml:"token" envconfig:"OKTA_CLIENT_TOKEN"`
+			AuthorizationMode string      `yaml:"authorizationMode" envconfig:"OKTA_CLIENT_AUTHORIZATIONMODE"`
+			ClientId          string      `yaml:"clientId" envconfig:"OKTA_CLIENT_CLIENTID"`
+			Scopes            []string    `yaml:"scopes" envconfig:"OKTA_CLIENT_SCOPES"`
+			PrivateKey        interface{} `yaml:"privateKey" envconfig:"OKTA_CLIENT_PRIVATEKEY"`
 		} `yaml:"client"`
 		Testing struct {
 			DisableHttpsCheck bool `yaml:"disableHttpsCheck" envconfig:"OKTA_TESTING_DISABLE_HTTPS_CHECK"`
@@ -193,17 +193,24 @@ func WithScopes(scopes []string) ConfigSetter {
 }
 
 // WithPrivateKey sets private key key. Can be either a path to a private key or private key itself.
-func WithPrivateKey(privateKey string) ConfigSetter {
+func WithPrivateKey(privateKey interface{}) ConfigSetter {
 	return func(c *config) {
-		if fileExists(privateKey) {
-			content, err := ioutil.ReadFile(privateKey)
-			if err != nil {
-				log.Fatalf("failed to read from provided private key file path: %v", err)
+
+		// Retreive the file content if the provided private key is a file path.
+		if path, ok := privateKey.(string); ok {
+			if fileExists(path) {
+				content, err := ioutil.ReadFile(path)
+				if err != nil {
+					log.Fatalf("failed to read from provided private key file path: %v", err)
+				}
+				c.Okta.Client.PrivateKey = string(content)
+				return
 			}
-			c.Okta.Client.PrivateKey = string(content)
-		} else {
-			c.Okta.Client.PrivateKey = privateKey
 		}
+
+		// Otherwise, transparently pass the provided private key interface into the configuration.
+		c.Okta.Client.PrivateKey = privateKey
+
 	}
 }
 
