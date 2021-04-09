@@ -59,7 +59,7 @@ Rebase `feature_x` to include updates from `upstream/master`
 ------------------------------------------------------------
 
 It is important that you maintain an up-to-date `master` branch in your local repository.  This is done by rebasing in
- the code changes from `upstream/master` (the official Okta Java SDK project repository) into your local repository.
+ the code changes from `upstream/master` (the official Okta Golang SDK project repository) into your local repository.
  You will want to do this before you start working on a feature as well as right before you submit your changes as a pull request.  I recommend you do this process periodically while you work to make sure you are working off the most recent project code.
 
 This process will do the following:
@@ -97,8 +97,7 @@ Now that the `feature_x` branch has been pushed to your GitHub repository, you c
 
 To initiate the pull request, do the following:
 
-1. In your browser, navigate to your forked repository: [https://github.com/YOUR_ACCOUNT/okta-sdk-golang](https://github
-.com/YOUR_ACCOUNT/okta-sdk-golang)
+1. In your browser, navigate to your forked repository: [https://github.com/YOUR_ACCOUNT/okta-sdk-golang](https://github.com/YOUR_ACCOUNT/okta-sdk-golang)
 2. Click the new button called '**Compare & pull request**' that showed up just above the main area in your forked repository
 3. Validate the pull request will be into the upstream `master` and will be from your `feature_x` branch
 4. Enter a detailed description of the work you have done and then click '**Send pull request**'
