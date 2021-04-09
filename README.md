@@ -533,13 +533,13 @@ This way, if a json file like this one is created:
 This can be read from Go and used directly in the client creation:
 
 ```go
-	ctx, client, err := okta.NewClient(context,
-		okta.WithOrgUrl("https://"+Oktadomain),
-		okta.WithAuthorizationMode("PrivateKey"),
-		okta.WithClientId(clientId),
+  ctx, client, err := okta.NewClient(context,
+    okta.WithOrgUrl("https://"+Oktadomain),
+    okta.WithAuthorizationMode("PrivateKey"),
+    okta.WithClientId(clientId),
     okta.WithScopes(scopes),
     okta.WithPrivateKey(privateKey),
-	)
+    )
 ```
 ### Extending the Client
 When calling `okta.NewClient()` we allow for you to pass custom instances of `http.Client` and `cache.Cache`.
