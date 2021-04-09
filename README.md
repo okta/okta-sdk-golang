@@ -478,7 +478,7 @@ Now create the PEM formatted private key. It can be done using [this tool](https
 pem-jwk public-private-keypair > private.pem
 ```
 
-Create the service app as stated [here](https://developer.okta.com/docs/guides/implement-oauth-for-okta-serviceapp/create-serviceapp-grantscopes/#create-a-service-app).
+Create the service app as stated [here](https://developer.okta.com/docs/guides/implement-oauth-for-okta-serviceapp/create-serviceapp-grantscopes/#create-a-service-app), using *public-private-keypair-set*.
 
 To grant the scopes, you can go to web console and do this in the usual way.
 
