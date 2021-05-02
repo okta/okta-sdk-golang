@@ -120,24 +120,26 @@ func (re *RequestExecutor) NewRequest(method string, url string, body interface{
 			token := re.cache.GetString(AccessTokenCacheKey)
 			req.Header.Add("Authorization", "Bearer "+token)
 		} else {
-			priv := []byte(strings.ReplaceAll(re.config.Okta.Client.PrivateKey, `\n`, "\n"))
+			if re.config.PrivateKeySigner == nil {
+				priv := []byte(strings.ReplaceAll(re.config.Okta.Client.PrivateKey, `\n`, "\n"))
 
-			privPem, _ := pem.Decode(priv)
-			if privPem == nil {
-				return nil, errors.New("invalid private key")
-			}
-			if privPem.Type != "RSA PRIVATE KEY" {
-				return nil, fmt.Errorf("RSA private key is of the wrong type")
-			}
+				privPem, _ := pem.Decode(priv)
+				if privPem == nil {
+					return nil, errors.New("invalid private key")
+				}
+				if privPem.Type != "RSA PRIVATE KEY" {
+					return nil, fmt.Errorf("RSA private key is of the wrong type")
+				}
 
-			parsedKey, err := x509.ParsePKCS1PrivateKey(privPem.Bytes)
-			if err != nil {
-				return nil, err
-			}
+				parsedKey, err := x509.ParsePKCS1PrivateKey(privPem.Bytes)
+				if err != nil {
+					return nil, err
+				}
 
-			signer, err := jose.NewSigner(jose.SigningKey{Algorithm: jose.RS256, Key: parsedKey}, nil)
-			if err != nil {
-				return nil, err
+				re.config.PrivateKeySigner, err = jose.NewSigner(jose.SigningKey{Algorithm: jose.RS256, Key: parsedKey}, nil)
+				if err != nil {
+					return nil, err
+				}
 			}
 
 			claims := ClientAssertionClaims{
@@ -147,7 +149,7 @@ func (re *RequestExecutor) NewRequest(method string, url string, body interface{
 				Issuer:   re.config.Okta.Client.ClientId,
 				Audience: re.config.Okta.Client.OrgUrl + "/oauth2/v1/token",
 			}
-			jwtBuilder := jwt.Signed(signer).Claims(claims)
+			jwtBuilder := jwt.Signed(re.config.PrivateKeySigner).Claims(claims)
 			clientAssertion, err := jwtBuilder.CompactSerialize()
 			if err != nil {
 				return nil, err
