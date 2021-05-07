@@ -2,10 +2,10 @@
 # yarn lockfile v1
 
 
-"@okta/openapi@~2.1.0":
-  version "2.1.6"
-  resolved "https://registry.yarnpkg.com/@okta/openapi/-/openapi-2.1.6.tgz#dd5b83daf3a7b22fa0cb36c1757c68f8aaa3f7f5"
-  integrity sha512-9Ln2TKp/tv9pq8WNOpC2wIgz4PuSWrC8YeYBdH3S5ICf9Q9wYFtk6/KF7ArCYVIs0WGGeOfd0vgJPqjvd/lvgw==
+"@okta/openapi@^2.2.4":
+  version "2.4.0"
+  resolved "https://registry.yarnpkg.com/@okta/openapi/-/openapi-2.4.0.tgz#8953183fe94120354a01e14291be7597cf5ad83f"
+  integrity sha512-isPw9DuGLbLI1UndwHWeinIn0uToCiuYXhJok/h2NEuciv7dD3SBz4SwkPuyKIETJgsKdhWgo0naK5c9KH031w==
   dependencies:
     commander "2.9.0"
     fs-extra "3.0.1"
@@ -133,9 +133,9 @@ graceful-fs@^4.1.2, graceful-fs@^4.1.6:
   integrity sha1-TK+tdrxi8C+gObL5Tpo906ORpyU=
 
 handlebars@^4.7.6:
-  version "4.7.6"
-  resolved "https://registry.yarnpkg.com/handlebars/-/handlebars-4.7.6.tgz#d4c05c1baf90e9945f77aa68a7a219aa4a7df74e"
-  integrity sha512-1f2BACcBfiwAfStCKZNrUCgqNZkGsAT7UM3kkYtXuLo0KnaVfjKOyf7PRzB6++aK9STyT1Pd2ZCPe3EGOXleXA==
+  version "4.7.7"
+  resolved "https://registry.yarnpkg.com/handlebars/-/handlebars-4.7.7.tgz#9ce33416aad02dbd6c8fafa8240d5d98004945a1"
+  integrity sha512-aAcXm5OAfE/8IXkcZvCepKU3VzW1/39Fb5ZuqMtgI/hT8X2YgoMvBY5dLhq/cpOvw7Lk1nK/UF71aLG/ZnVYRA==
   dependencies:
     minimist "^1.2.5"
     neo-async "^2.6.0"
@@ -356,9 +356,9 @@ swagger-parser@^8.0.4:
     z-schema "^4.2.2"
 
 uglify-js@^3.1.4:
-  version "3.12.5"
-  resolved "https://registry.yarnpkg.com/uglify-js/-/uglify-js-3.12.5.tgz#83241496087c640efe9dfc934832e71725aba008"
-  integrity sha512-SgpgScL4T7Hj/w/GexjnBHi3Ien9WS1Rpfg5y91WXMj9SY997ZCQU76mH4TpLwwfmMvoOU8wiaRkIf6NaH3mtg==
+  version "3.13.5"
+  resolved "https://registry.yarnpkg.com/uglify-js/-/uglify-js-3.13.5.tgz#5d71d6dbba64cf441f32929b1efce7365bb4f113"
+  integrity sha512-xtB8yEqIkn7zmOyS2zUNBsYCBRhDkvlNxMMY2smuJ/qA8NCHeQvKCF3i9Z4k8FJH4+PJvZRtMrPynfZ75+CSZw==
 
 universalify@^0.1.0:
   version "0.1.2"
