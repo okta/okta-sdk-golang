@@ -98,6 +98,7 @@ function strToUpper(string) {
 
 function structProp(prop) {
   prop = prop.replace(/#/g,"");
+  prop = prop.replace(/\$/g,"");
   prop = prop.replace(/(\_\w)/g, function(m){return m[1].toUpperCase();});
 
   prop = prop.charAt(0).toUpperCase() + prop.slice(1);
@@ -180,6 +181,11 @@ function getImports(object) {
 
   if (object.model.modelName === "LogEvent") {
     imports.push("fmt")
+  }
+
+  if (object.model.modelName === "UserSchema") {
+    imports.push("fmt")
+    imports.push("context")
   }
 
   imports = [...new Set(imports)];
@@ -331,8 +337,8 @@ function getClientTagResources(operations) {
     if (tag === "AuthServer") tag = "AuthorizationServer";
     if (tag === "Template") tag = "SmsTemplate";
     if (tag === "Idp") tag = "IdpTrust";
-    if (tag === "UserFactor") tag = "UserFactor";
     if (tag === "Log") tag = "LogEvent";
+    if (tag === "ThreatInsight") tag = "ThreatInsightConfiguration";
     tagResources.push(structProp(tag) + " *" + structProp(tag) + "Resource")
   }
   return tagResources.join("\n\t");
@@ -345,8 +351,8 @@ function getNewClientTagProps(operations) {
     if (tag === "AuthServer") tag = "AuthorizationServer";
     if (tag === "Template") tag = "SmsTemplate";
     if (tag === "Idp") tag = "IdpTrust";
-    if (tag === "UserFactor") tag = "UserFactor";
     if (tag === "Log") tag = "LogEvent";
+    if (tag === "ThreatInsight") tag = "ThreatInsightConfiguration";
     tagResources.push("c." + structProp(tag) + " = (*" + structProp(tag) + "Resource)(&c.resource)")
   }
   return tagResources.join("\n\t");
