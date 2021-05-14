@@ -381,7 +381,7 @@ func (m *AuthorizationServerResource) DeactivateAuthorizationServer(ctx context.
 	return resp, nil
 }
 
-func (m *AuthorizationServerResource) ListAuthorizationServerPolicies(ctx context.Context, authServerId string) ([]*Policy, *Response, error) {
+func (m *AuthorizationServerResource) ListAuthorizationServerPolicies(ctx context.Context, authServerId string) ([]*AuthorizationServerPolicy, *Response, error) {
 	url := fmt.Sprintf("/api/v1/authorizationServers/%v/policies", authServerId)
 
 	req, err := m.client.requestExecutor.WithAccept("application/json").WithContentType("application/json").NewRequest("GET", url, nil)
@@ -389,17 +389,17 @@ func (m *AuthorizationServerResource) ListAuthorizationServerPolicies(ctx contex
 		return nil, nil, err
 	}
 
-	var policy []*Policy
+	var authorizationServerPolicy []*AuthorizationServerPolicy
 
-	resp, err := m.client.requestExecutor.Do(ctx, req, &policy)
+	resp, err := m.client.requestExecutor.Do(ctx, req, &authorizationServerPolicy)
 	if err != nil {
 		return nil, resp, err
 	}
 
-	return policy, resp, nil
+	return authorizationServerPolicy, resp, nil
 }
 
-func (m *AuthorizationServerResource) CreateAuthorizationServerPolicy(ctx context.Context, authServerId string, body Policy) (*Policy, *Response, error) {
+func (m *AuthorizationServerResource) CreateAuthorizationServerPolicy(ctx context.Context, authServerId string, body AuthorizationServerPolicy) (*AuthorizationServerPolicy, *Response, error) {
 	url := fmt.Sprintf("/api/v1/authorizationServers/%v/policies", authServerId)
 
 	req, err := m.client.requestExecutor.WithAccept("application/json").WithContentType("application/json").NewRequest("POST", url, body)
@@ -407,14 +407,14 @@ func (m *AuthorizationServerResource) CreateAuthorizationServerPolicy(ctx contex
 		return nil, nil, err
 	}
 
-	var policy *Policy
+	var authorizationServerPolicy *AuthorizationServerPolicy
 
-	resp, err := m.client.requestExecutor.Do(ctx, req, &policy)
+	resp, err := m.client.requestExecutor.Do(ctx, req, &authorizationServerPolicy)
 	if err != nil {
 		return nil, resp, err
 	}
 
-	return policy, resp, nil
+	return authorizationServerPolicy, resp, nil
 }
 
 func (m *AuthorizationServerResource) DeleteAuthorizationServerPolicy(ctx context.Context, authServerId string, policyId string) (*Response, error) {
@@ -433,7 +433,7 @@ func (m *AuthorizationServerResource) DeleteAuthorizationServerPolicy(ctx contex
 	return resp, nil
 }
 
-func (m *AuthorizationServerResource) GetAuthorizationServerPolicy(ctx context.Context, authServerId string, policyId string) (*Policy, *Response, error) {
+func (m *AuthorizationServerResource) GetAuthorizationServerPolicy(ctx context.Context, authServerId string, policyId string) (*AuthorizationServerPolicy, *Response, error) {
 	url := fmt.Sprintf("/api/v1/authorizationServers/%v/policies/%v", authServerId, policyId)
 
 	req, err := m.client.requestExecutor.WithAccept("application/json").WithContentType("application/json").NewRequest("GET", url, nil)
@@ -441,17 +441,17 @@ func (m *AuthorizationServerResource) GetAuthorizationServerPolicy(ctx context.C
 		return nil, nil, err
 	}
 
-	var policy *Policy
+	var authorizationServerPolicy *AuthorizationServerPolicy
 
-	resp, err := m.client.requestExecutor.Do(ctx, req, &policy)
+	resp, err := m.client.requestExecutor.Do(ctx, req, &authorizationServerPolicy)
 	if err != nil {
 		return nil, resp, err
 	}
 
-	return policy, resp, nil
+	return authorizationServerPolicy, resp, nil
 }
 
-func (m *AuthorizationServerResource) UpdateAuthorizationServerPolicy(ctx context.Context, authServerId string, policyId string, body Policy) (*Policy, *Response, error) {
+func (m *AuthorizationServerResource) UpdateAuthorizationServerPolicy(ctx context.Context, authServerId string, policyId string, body AuthorizationServerPolicy) (*AuthorizationServerPolicy, *Response, error) {
 	url := fmt.Sprintf("/api/v1/authorizationServers/%v/policies/%v", authServerId, policyId)
 
 	req, err := m.client.requestExecutor.WithAccept("application/json").WithContentType("application/json").NewRequest("PUT", url, body)
@@ -459,14 +459,175 @@ func (m *AuthorizationServerResource) UpdateAuthorizationServerPolicy(ctx contex
 		return nil, nil, err
 	}
 
-	var policy *Policy
+	var authorizationServerPolicy *AuthorizationServerPolicy
 
-	resp, err := m.client.requestExecutor.Do(ctx, req, &policy)
+	resp, err := m.client.requestExecutor.Do(ctx, req, &authorizationServerPolicy)
 	if err != nil {
 		return nil, resp, err
 	}
 
-	return policy, resp, nil
+	return authorizationServerPolicy, resp, nil
+}
+
+// Activate Authorization Server Policy
+func (m *AuthorizationServerResource) ActivateAuthorizationServerPolicy(ctx context.Context, authServerId string, policyId string) (*Response, error) {
+	url := fmt.Sprintf("/api/v1/authorizationServers/%v/policies/%v/lifecycle/activate", authServerId, policyId)
+
+	req, err := m.client.requestExecutor.WithAccept("application/json").WithContentType("application/json").NewRequest("POST", url, nil)
+	if err != nil {
+		return nil, err
+	}
+
+	resp, err := m.client.requestExecutor.Do(ctx, req, nil)
+	if err != nil {
+		return resp, err
+	}
+
+	return resp, nil
+}
+
+// Deactivate Authorization Server Policy
+func (m *AuthorizationServerResource) DeactivateAuthorizationServerPolicy(ctx context.Context, authServerId string, policyId string) (*Response, error) {
+	url := fmt.Sprintf("/api/v1/authorizationServers/%v/policies/%v/lifecycle/deactivate", authServerId, policyId)
+
+	req, err := m.client.requestExecutor.WithAccept("application/json").WithContentType("application/json").NewRequest("POST", url, nil)
+	if err != nil {
+		return nil, err
+	}
+
+	resp, err := m.client.requestExecutor.Do(ctx, req, nil)
+	if err != nil {
+		return resp, err
+	}
+
+	return resp, nil
+}
+
+// Enumerates all policy rules for the specified Custom Authorization Server and Policy.
+func (m *AuthorizationServerResource) ListAuthorizationServerPolicyRules(ctx context.Context, policyId string, authServerId string) ([]*AuthorizationServerPolicyRule, *Response, error) {
+	url := fmt.Sprintf("/api/v1/authorizationServers/%v/policies/%v/rules", policyId, authServerId)
+
+	req, err := m.client.requestExecutor.WithAccept("application/json").WithContentType("application/json").NewRequest("GET", url, nil)
+	if err != nil {
+		return nil, nil, err
+	}
+
+	var authorizationServerPolicyRule []*AuthorizationServerPolicyRule
+
+	resp, err := m.client.requestExecutor.Do(ctx, req, &authorizationServerPolicyRule)
+	if err != nil {
+		return nil, resp, err
+	}
+
+	return authorizationServerPolicyRule, resp, nil
+}
+
+// Creates a policy rule for the specified Custom Authorization Server and Policy.
+func (m *AuthorizationServerResource) CreateAuthorizationServerPolicyRule(ctx context.Context, policyId string, authServerId string, body AuthorizationServerPolicyRule) (*AuthorizationServerPolicyRule, *Response, error) {
+	url := fmt.Sprintf("/api/v1/authorizationServers/%v/policies/%v/rules", policyId, authServerId)
+
+	req, err := m.client.requestExecutor.WithAccept("application/json").WithContentType("application/json").NewRequest("POST", url, body)
+	if err != nil {
+		return nil, nil, err
+	}
+
+	var authorizationServerPolicyRule *AuthorizationServerPolicyRule
+
+	resp, err := m.client.requestExecutor.Do(ctx, req, &authorizationServerPolicyRule)
+	if err != nil {
+		return nil, resp, err
+	}
+
+	return authorizationServerPolicyRule, resp, nil
+}
+
+// Deletes a Policy Rule defined in the specified Custom Authorization Server and Policy.
+func (m *AuthorizationServerResource) DeleteAuthorizationServerPolicyRule(ctx context.Context, policyId string, authServerId string, ruleId string) (*Response, error) {
+	url := fmt.Sprintf("/api/v1/authorizationServers/%v/policies/%v/rules/%v", policyId, authServerId, ruleId)
+
+	req, err := m.client.requestExecutor.WithAccept("application/json").WithContentType("application/json").NewRequest("DELETE", url, nil)
+	if err != nil {
+		return nil, err
+	}
+
+	resp, err := m.client.requestExecutor.Do(ctx, req, nil)
+	if err != nil {
+		return resp, err
+	}
+
+	return resp, nil
+}
+
+// Returns a Policy Rule by ID that is defined in the specified Custom Authorization Server and Policy.
+func (m *AuthorizationServerResource) GetAuthorizationServerPolicyRule(ctx context.Context, policyId string, authServerId string, ruleId string) (*AuthorizationServerPolicyRule, *Response, error) {
+	url := fmt.Sprintf("/api/v1/authorizationServers/%v/policies/%v/rules/%v", policyId, authServerId, ruleId)
+
+	req, err := m.client.requestExecutor.WithAccept("application/json").WithContentType("application/json").NewRequest("GET", url, nil)
+	if err != nil {
+		return nil, nil, err
+	}
+
+	var authorizationServerPolicyRule *AuthorizationServerPolicyRule
+
+	resp, err := m.client.requestExecutor.Do(ctx, req, &authorizationServerPolicyRule)
+	if err != nil {
+		return nil, resp, err
+	}
+
+	return authorizationServerPolicyRule, resp, nil
+}
+
+// Updates the configuration of the Policy Rule defined in the specified Custom Authorization Server and Policy.
+func (m *AuthorizationServerResource) UpdateAuthorizationServerPolicyRule(ctx context.Context, policyId string, authServerId string, ruleId string, body AuthorizationServerPolicyRule) (*AuthorizationServerPolicyRule, *Response, error) {
+	url := fmt.Sprintf("/api/v1/authorizationServers/%v/policies/%v/rules/%v", policyId, authServerId, ruleId)
+
+	req, err := m.client.requestExecutor.WithAccept("application/json").WithContentType("application/json").NewRequest("PUT", url, body)
+	if err != nil {
+		return nil, nil, err
+	}
+
+	var authorizationServerPolicyRule *AuthorizationServerPolicyRule
+
+	resp, err := m.client.requestExecutor.Do(ctx, req, &authorizationServerPolicyRule)
+	if err != nil {
+		return nil, resp, err
+	}
+
+	return authorizationServerPolicyRule, resp, nil
+}
+
+// Activate Authorization Server Policy Rule
+func (m *AuthorizationServerResource) ActivateAuthorizationServerPolicyRule(ctx context.Context, authServerId string, policyId string, ruleId string) (*Response, error) {
+	url := fmt.Sprintf("/api/v1/authorizationServers/%v/policies/%v/rules/%v/lifecycle/activate", authServerId, policyId, ruleId)
+
+	req, err := m.client.requestExecutor.WithAccept("application/json").WithContentType("application/json").NewRequest("POST", url, nil)
+	if err != nil {
+		return nil, err
+	}
+
+	resp, err := m.client.requestExecutor.Do(ctx, req, nil)
+	if err != nil {
+		return resp, err
+	}
+
+	return resp, nil
+}
+
+// Deactivate Authorization Server Policy Rule
+func (m *AuthorizationServerResource) DeactivateAuthorizationServerPolicyRule(ctx context.Context, authServerId string, policyId string, ruleId string) (*Response, error) {
+	url := fmt.Sprintf("/api/v1/authorizationServers/%v/policies/%v/rules/%v/lifecycle/deactivate", authServerId, policyId, ruleId)
+
+	req, err := m.client.requestExecutor.WithAccept("application/json").WithContentType("application/json").NewRequest("POST", url, nil)
+	if err != nil {
+		return nil, err
+	}
+
+	resp, err := m.client.requestExecutor.Do(ctx, req, nil)
+	if err != nil {
+		return resp, err
+	}
+
+	return resp, nil
 }
 
 func (m *AuthorizationServerResource) ListOAuth2Scopes(ctx context.Context, authServerId string, qp *query.Params) ([]*OAuth2Scope, *Response, error) {

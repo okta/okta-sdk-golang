@@ -41,22 +41,26 @@ type Client struct {
 
 	resource resource
 
-	Application         *ApplicationResource
-	AuthorizationServer *AuthorizationServerResource
-	EventHook           *EventHookResource
-	Feature             *FeatureResource
-	Group               *GroupResource
-	IdentityProvider    *IdentityProviderResource
-	InlineHook          *InlineHookResource
-	LogEvent            *LogEventResource
-	LinkedObject        *LinkedObjectResource
-	UserType            *UserTypeResource
-	Policy              *PolicyResource
-	Session             *SessionResource
-	SmsTemplate         *SmsTemplateResource
-	TrustedOrigin       *TrustedOriginResource
-	User                *UserResource
-	UserFactor          *UserFactorResource
+	Application                *ApplicationResource
+	AuthorizationServer        *AuthorizationServerResource
+	EventHook                  *EventHookResource
+	Feature                    *FeatureResource
+	Group                      *GroupResource
+	IdentityProvider           *IdentityProviderResource
+	InlineHook                 *InlineHookResource
+	LogEvent                   *LogEventResource
+	ProfileMapping             *ProfileMappingResource
+	UserSchema                 *UserSchemaResource
+	LinkedObject               *LinkedObjectResource
+	UserType                   *UserTypeResource
+	Policy                     *PolicyResource
+	Session                    *SessionResource
+	SmsTemplate                *SmsTemplateResource
+	ThreatInsightConfiguration *ThreatInsightConfigurationResource
+	TrustedOrigin              *TrustedOriginResource
+	User                       *UserResource
+	UserFactor                 *UserFactorResource
+	NetworkZone                *NetworkZoneResource
 }
 
 type resource struct {
@@ -110,14 +114,18 @@ func NewClient(ctx context.Context, conf ...ConfigSetter) (context.Context, *Cli
 	c.IdentityProvider = (*IdentityProviderResource)(&c.resource)
 	c.InlineHook = (*InlineHookResource)(&c.resource)
 	c.LogEvent = (*LogEventResource)(&c.resource)
+	c.ProfileMapping = (*ProfileMappingResource)(&c.resource)
+	c.UserSchema = (*UserSchemaResource)(&c.resource)
 	c.LinkedObject = (*LinkedObjectResource)(&c.resource)
 	c.UserType = (*UserTypeResource)(&c.resource)
 	c.Policy = (*PolicyResource)(&c.resource)
 	c.Session = (*SessionResource)(&c.resource)
 	c.SmsTemplate = (*SmsTemplateResource)(&c.resource)
+	c.ThreatInsightConfiguration = (*ThreatInsightConfigurationResource)(&c.resource)
 	c.TrustedOrigin = (*TrustedOriginResource)(&c.resource)
 	c.User = (*UserResource)(&c.resource)
 	c.UserFactor = (*UserFactorResource)(&c.resource)
+	c.NetworkZone = (*NetworkZoneResource)(&c.resource)
 
 	contextReturn := context.WithValue(ctx, clientContextKey{}, c)
 

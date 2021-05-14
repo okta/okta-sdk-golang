@@ -44,6 +44,8 @@ type Params struct {
 	Since                string `json:"since,omitempty"`
 	Until                string `json:"until,omitempty"`
 	SortOrder            string `json:"sortOrder,omitempty"`
+	SourceId             string `json:"sourceId,omitempty"`
+	TargetId             string `json:"targetId,omitempty"`
 	Status               string `json:"status,omitempty"`
 	TemplateType         string `json:"templateType,omitempty"`
 	SortBy               string `json:"sortBy,omitempty"`
@@ -195,6 +197,18 @@ func WithSortOrder(querySortOrder string) ParamOptions {
 	}
 }
 
+func WithSourceId(querySourceId string) ParamOptions {
+	return func(p *Params) {
+		p.SourceId = querySourceId
+	}
+}
+
+func WithTargetId(queryTargetId string) ParamOptions {
+	return func(p *Params) {
+		p.TargetId = queryTargetId
+	}
+}
+
 func WithStatus(queryStatus string) ParamOptions {
 	return func(p *Params) {
 		p.Status = queryStatus
@@ -331,6 +345,12 @@ func (p *Params) String() string {
 	}
 	if p.SortOrder != "" {
 		qs.Add(`sortOrder`, p.SortOrder)
+	}
+	if p.SourceId != "" {
+		qs.Add(`sourceId`, p.SourceId)
+	}
+	if p.TargetId != "" {
+		qs.Add(`targetId`, p.TargetId)
 	}
 	if p.Status != "" {
 		qs.Add(`status`, p.Status)

@@ -18,10 +18,9 @@
 
 package okta
 
-type PasswordPolicyRuleActions struct {
-	Enroll                   *PolicyRuleActionsEnroll           `json:"enroll,omitempty"`
-	PasswordChange           *PasswordPolicyRuleAction          `json:"passwordChange,omitempty"`
-	SelfServicePasswordReset *PasswordPolicyRuleAction          `json:"selfServicePasswordReset,omitempty"`
-	SelfServiceUnlock        *PasswordPolicyRuleAction          `json:"selfServiceUnlock,omitempty"`
-	Signon                   *OktaSignOnPolicyRuleSignonActions `json:"signon,omitempty"`
+type ProfileMappingSource struct {
+	Links interface{} `json:"_links,omitempty"`
+	Id    string      `json:"id,omitempty"`
+	Name  string      `json:"name,omitempty"`
+	Type  string      `json:"type,omitempty"`
 }
