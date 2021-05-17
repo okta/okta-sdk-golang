@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package unit
+package cache
 
 import (
 	"io"
@@ -22,8 +22,6 @@ import (
 	"net/http"
 	"net/http/httptest"
 	"testing"
-
-	"github.com/okta/okta-sdk-golang/v2/okta/cache"
 
 	"github.com/stretchr/testify/assert"
 )
@@ -34,7 +32,7 @@ func Test_cache_key_can_be_created_from_request_object(t *testing.T) {
 		"com?with=a&query=string",
 		buff)
 
-	cacheKey := cache.CreateCacheKey(request)
+	cacheKey := CreateCacheKey(request)
 
 	assert.Equal(t, "https://example.com/sample/cache-key/test+test@test.com?with=a&query=string", cacheKey,
 		"The cache key was not created correctly.")
@@ -45,9 +43,9 @@ func Test_an_item_can_be_stored_in_cache(t *testing.T) {
 	url := "https://example.com/sample/cache-key/"
 	request, _ := http.NewRequest("GET", url, buff)
 
-	cacheKey := cache.CreateCacheKey(request)
+	cacheKey := CreateCacheKey(request)
 
-	myCache := cache.NewGoCache(30, 30)
+	myCache := NewGoCache(30, 30)
 
 	found := myCache.Has(cacheKey)
 	assert.False(t, found, "item already existed in cache")
@@ -74,9 +72,9 @@ func Test_an_item_can_be_deleted_from_cache(t *testing.T) {
 	url := "https://example.com/sample/cache-key/delete"
 	request, _ := http.NewRequest("GET", url, buff)
 
-	cacheKey := cache.CreateCacheKey(request)
+	cacheKey := CreateCacheKey(request)
 
-	myCache := cache.NewGoCache(30, 30)
+	myCache := NewGoCache(30, 30)
 
 	record := httptest.NewRecorder()
 	record.WriteString("test Item")
@@ -98,9 +96,9 @@ func Test_cache_can_be_cleared(t *testing.T) {
 	url := "https://example.com/sample/cache-key/clear"
 	request, _ := http.NewRequest("GET", url, buff)
 
-	cacheKey := cache.CreateCacheKey(request)
+	cacheKey := CreateCacheKey(request)
 
-	myCache := cache.NewGoCache(30, 30)
+	myCache := NewGoCache(30, 30)
 
 	record := httptest.NewRecorder()
 	record.WriteString("test Item")
