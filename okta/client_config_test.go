@@ -14,74 +14,71 @@
  * limitations under the License.
  */
 
-package unit
+package okta
 
 import (
 	"context"
 	"testing"
 
-	"github.com/okta/okta-sdk-golang/v2/okta"
-
-	"github.com/okta/okta-sdk-golang/v2/tests"
 	"github.com/stretchr/testify/assert"
 )
 
 func Test_error_on_empty_url(t *testing.T) {
-	_, _, err := tests.NewClient(context.TODO(), okta.WithOrgUrl(""))
+	_, _, err := NewClient(context.TODO(), WithOrgUrl(""))
 	assert.Error(t, err, "Does not error when org url is missing")
 }
 
 func Test_error_when_url_contains_yourOktaDomain(t *testing.T) {
-	_, _, err := tests.NewClient(context.TODO(), okta.WithOrgUrl("https://{yourOktaDomain}"))
+	_, _, err := NewClient(context.TODO(), WithOrgUrl("https://{yourOktaDomain}"))
 	assert.Error(t, err, "Does not error when org url contains {yourOktaDomain}")
 }
 
 func Test_error_when_url_contains_admin_okta_com(t *testing.T) {
-	_, _, err := tests.NewClient(context.TODO(), okta.WithOrgUrl("https://test-admin.okta.com"))
+	_, _, err := NewClient(context.TODO(), WithOrgUrl("https://test-admin.okta.com"))
 	assert.Error(t, err, "Does not error when org url contains test-admin.okta.com")
 }
 
 func Test_error_when_url_contains_admin_oktapreview_com(t *testing.T) {
-	_, _, err := tests.NewClient(context.TODO(), okta.WithOrgUrl("https://test-admin.oktapreview.com"))
+	_, _, err := NewClient(context.TODO(), WithOrgUrl("https://test-admin.oktapreview.com"))
 	assert.Error(t, err, "Does not error when org url contains test-admin.oktapreview.com")
 }
 
 func Test_error_when_url_contains_admin_okta_emea_com(t *testing.T) {
-	_, _, err := tests.NewClient(context.TODO(), okta.WithOrgUrl("https://test-admin.okta-emea.com"))
+	_, _, err := NewClient(context.TODO(), WithOrgUrl("https://test-admin.okta-emea.com"))
 	assert.Error(t, err, "Does not error when org url contains test-admin.okta-emea.com")
 }
 
 func Test_error_when_url_contains_com_com(t *testing.T) {
-	_, _, err := tests.NewClient(context.TODO(), okta.WithOrgUrl("https://test.okta.com.com"))
+	_, _, err := NewClient(context.TODO(), WithOrgUrl("https://test.okta.com.com"))
 	assert.Error(t, err, "Does not error when org url contains .com.com")
 }
 
 func Test_error_when_url_does_not_begin_with_https(t *testing.T) {
-	_, _, err := tests.NewClient(context.TODO(), okta.WithTestingDisableHttpsCheck(false), okta.WithOrgUrl("http://test.okta.com"))
+	_, _, err := NewClient(context.TODO(), WithTestingDisableHttpsCheck(false), WithOrgUrl("http://test.okta.com"))
 	assert.Error(t, err, "Does not error when url contains only http")
 }
 
 func Test_error_when_api_token_is_empty(t *testing.T) {
-	_, _, err := tests.NewClient(context.TODO(), okta.WithToken(""))
+	_, _, err := NewClient(context.TODO(), WithToken(""))
 	assert.Error(t, err, "Does not error when api token is empty")
 }
 
 func Test_error_when_api_token_contains_placeholder(t *testing.T) {
-	_, _, err := tests.NewClient(context.TODO(), okta.WithToken("{apiToken}"))
+	_, _, err := NewClient(context.TODO(), WithToken("{apiToken}"))
 	assert.Error(t, err, "Does not error when api token contains {apiToken}")
 }
 
 func Test_error_when_authorization_mode_is_not_valid(t *testing.T) {
-	_, _, err := tests.NewClient(context.TODO(), okta.WithAuthorizationMode("invalid"))
+	_, _, err := NewClient(context.TODO(), WithAuthorizationMode("invalid"))
 	assert.Error(t, err, "Does not error when authorization mode is invalid")
 }
 
 func Test_does_not_error_when_authorization_mode_is_valid(t *testing.T) {
-	_, _, err := tests.NewClient(context.TODO(), okta.WithAuthorizationMode("SSWS"))
+	_, _, err := NewClient(context.TODO(), WithAuthorizationMode("SSWS"))
 	assert.NoError(t, err, "Should not error when authorization mode is SSWS")
 }
 
 func Test_will_error_if_private_key_authorization_type_with_missing_properties(t *testing.T) {
-	_, _, err := tests.NewClient(context.TODO(), okta.WithAuthorizationMode("PrivateKey"), okta.WithClientId(""))
+	_, _, err := NewClient(context.TODO(), WithAuthorizationMode("PrivateKey"), WithClientId(""))
 	assert.Error(t, err, "Does not error if private key selected with no other required options")
 }
