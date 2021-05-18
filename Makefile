@@ -60,7 +60,7 @@ test\:integration:
 
 test\:unit:
 	@echo "$(COLOR_OK)Running unit tests...$(COLOR_NONE)"
-	go test ./tests/unit -test.v
+	go test ./okta/... -test.v
 
 .PHONY: fmt
 fmt: check-fmt # Format the code

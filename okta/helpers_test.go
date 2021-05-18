@@ -14,15 +14,30 @@
  * limitations under the License.
  */
 
-package tests
+package okta
 
 import (
+	"fmt"
 	"net/http"
 	"strconv"
 	"time"
 
 	"github.com/jarcoal/httpmock"
 )
+
+func MockResponse(responses ...*http.Response) httpmock.Responder {
+	return func(req *http.Request) (*http.Response, error) {
+		httpmock.GetTotalCallCount()
+		info := httpmock.GetCallCountInfo()
+		count := info[req.Method+" "+req.URL.Path]
+
+		if len(responses) >= count {
+			return responses[count-1], nil
+		}
+
+		return nil, fmt.Errorf("no response found for call %v to %s", count, req.URL.Path)
+	}
+}
 
 func Mock429Response() *http.Response {
 	loc, _ := time.LoadLocation("UTC")

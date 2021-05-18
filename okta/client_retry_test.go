@@ -14,15 +14,13 @@
  * limitations under the License.
  */
 
-package unit
+package okta
 
 import (
 	"context"
 	"testing"
 
 	"github.com/jarcoal/httpmock"
-	"github.com/okta/okta-sdk-golang/v2/okta"
-	"github.com/okta/okta-sdk-golang/v2/tests"
 	"github.com/stretchr/testify/require"
 )
 
@@ -30,12 +28,12 @@ func Test_429_Will_Automatically_Retry(t *testing.T) {
 	httpmock.Activate()
 	defer httpmock.DeactivateAndReset()
 
-	ctx, client, _ := tests.NewClient(context.TODO(), okta.WithCache(false))
+	ctx, client, _ := NewClient(context.TODO(), WithCache(false))
 
 	httpmock.RegisterResponder("GET", "/api/v1/users",
-		tests.MockResponse(
-			tests.Mock429Response(),
-			tests.MockValidResponse(),
+		MockResponse(
+			Mock429Response(),
+			MockValidResponse(),
 		),
 	)
 
@@ -52,13 +50,13 @@ func Test_Will_Stop_Retrying_Based_On_Max_Retry_Configuration(t *testing.T) {
 	httpmock.Activate()
 	defer httpmock.DeactivateAndReset()
 
-	ctx, client, err := tests.NewClient(context.TODO(), okta.WithRequestTimeout(0), okta.WithRateLimitMaxRetries(1))
+	ctx, client, err := NewClient(context.TODO(), WithRequestTimeout(0), WithRateLimitMaxRetries(1))
 	require.NoError(t, err)
 
 	httpmock.RegisterResponder("GET", "/api/v1/users",
-		tests.MockResponse(
-			tests.Mock429Response(),
-			tests.Mock429Response(),
+		MockResponse(
+			Mock429Response(),
+			Mock429Response(),
 		),
 	)
 
@@ -76,14 +74,14 @@ func Test_Will_Handle_Backoff_Strategy_For_429(t *testing.T) {
 	httpmock.Activate()
 	defer httpmock.DeactivateAndReset()
 
-	ctx, client, _ := tests.NewClient(context.TODO(), okta.WithRequestTimeout(1), okta.WithRateLimitMaxRetries(3))
+	ctx, client, _ := NewClient(context.TODO(), WithRequestTimeout(1), WithRateLimitMaxRetries(3))
 
 	httpmock.RegisterResponder("GET", "/api/v1/users",
-		tests.MockResponse(
-			tests.Mock429Response(),
-			tests.Mock429Response(),
-			tests.Mock429Response(),
-			tests.MockValidResponse(),
+		MockResponse(
+			Mock429Response(),
+			Mock429Response(),
+			Mock429Response(),
+			MockValidResponse(),
 		),
 	)
 
@@ -100,11 +98,11 @@ func Test_a_429_with_x_reset_header_throws_error(t *testing.T) {
 	httpmock.Activate()
 	defer httpmock.DeactivateAndReset()
 
-	ctx, client, _ := tests.NewClient(context.TODO())
+	ctx, client, _ := NewClient(context.TODO())
 
 	httpmock.RegisterResponder("GET", "/api/v1/users",
-		tests.MockResponse(
-			tests.Mock429ResponseNoResetHeader(),
+		MockResponse(
+			Mock429ResponseNoResetHeader(),
 		),
 	)
 
@@ -117,11 +115,11 @@ func Test_a_429_with_no_date_header_throws_error(t *testing.T) {
 	httpmock.Activate()
 	defer httpmock.DeactivateAndReset()
 
-	ctx, client, _ := tests.NewClient(context.TODO())
+	ctx, client, _ := NewClient(context.TODO())
 
 	httpmock.RegisterResponder("GET", "/api/v1/users",
-		tests.MockResponse(
-			tests.Mock429ResponseNoDateHeader(),
+		MockResponse(
+			Mock429ResponseNoDateHeader(),
 		),
 	)
 
@@ -131,7 +129,7 @@ func Test_a_429_with_no_date_header_throws_error(t *testing.T) {
 }
 
 func Test_gets_the_correct_backoff_time(t *testing.T) {
-	backoff, err := okta.Get429BackoffTime(tests.Mock429Response())
+	backoff, err := Get429BackoffTime(Mock429Response())
 	require.NoError(t, err)
 
 	require.Equal(t, int64(2), backoff, "backoff time should have only been 1 second")

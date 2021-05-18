@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package unit
+package okta
 
 import (
 	"context"
@@ -22,25 +22,22 @@ import (
 
 	"github.com/stretchr/testify/require"
 
-	"github.com/okta/okta-sdk-golang/v2/okta"
-
 	"github.com/jarcoal/httpmock"
-	"github.com/okta/okta-sdk-golang/v2/tests"
 )
 
 func Test_Create_Session(t *testing.T) {
 	httpmock.Activate()
 	defer httpmock.DeactivateAndReset()
 
-	ctx, client, _ := tests.NewClient(context.TODO(), okta.WithCache(false))
+	ctx, client, _ := NewClient(context.TODO(), WithCache(false))
 
 	httpmock.RegisterResponder("POST", "/api/v1/sessions",
-		tests.MockResponse(
-			tests.MockSessionCreateResponse(),
+		MockResponse(
+			MockSessionCreateResponse(),
 		),
 	)
 
-	csr := okta.CreateSessionRequest{
+	csr := CreateSessionRequest{
 		SessionToken: "abc123",
 	}
 
