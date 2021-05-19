@@ -68,3 +68,11 @@ fmt: check-fmt # Format the code
 
 check-fmt:
 	@which $(GOFMT) || GO111MODULE=on go get mvdan.cc/gofumpt
+
+coverage\:text:
+	@echo "$(COLOR_OK)Running unit tests and displaying code coverage in text...$(COLOR_NONE)"
+	go test -v -covermode=set -coverprofile=coverage.out ./okta/... && go tool cover -func=coverage.out
+
+coverage\:html:
+	@echo "$(COLOR_OK)Running unit tests and displaying code coverage in html...$(COLOR_NONE)"
+	go test -v -covermode=set -coverprofile=coverage.out ./okta/... && go tool cover -html=coverage.out
