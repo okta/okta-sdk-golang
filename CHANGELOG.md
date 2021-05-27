@@ -1,6 +1,11 @@
 # Changelog
 Running changelog of releases since `2.0.0-rc.4`
 
+## v2.3.1
+
+### Bug fixes
+- Fixed typo in error message of "too many requests"
+
 ## v2.3.0
 
 ### New Structs
