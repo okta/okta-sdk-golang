@@ -331,7 +331,7 @@ func (re *RequestExecutor) doWithRetries(ctx context.Context, req *http.Request)
 		bOff.retryCount++
 		req.Header.Add("X-Okta-Retry-For", resp.Header.Get("X-Okta-Request-Id"))
 		req.Header.Add("X-Okta-Retry-Count", fmt.Sprint(bOff.retryCount))
-		return errors.New("to many requests")
+		return errors.New("too many requests")
 	}
 	err = backoff.Retry(operation, bOff)
 	return resp, err
