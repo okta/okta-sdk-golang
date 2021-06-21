@@ -15,7 +15,6 @@ help:
 	@echo "$(COLOR_OK)  build                   Clean and build the Okta Golang SDK generated files$(COLOR_NONE)"
 	@echo "$(COLOR_OK)  clean-files             Deletes all generated files$(COLOR_NONE)"
 	@echo "$(COLOR_OK)  generate-files          Generates files based around spec$(COLOR_NONE)"
-	@echo "$(COLOR_OK)  pull-spec               Pull down the most recent released version of the spec$(COLOR_NONE)"
 	@echo "$(COLOR_WARNING)test$(COLOR_NONE)"
 	@echo "$(COLOR_OK)  test:all                Run all tests$(COLOR_NONE)"
 	@echo "$(COLOR_OK)  test:integration        Run only integration tests$(COLOR_NONE)"
@@ -38,13 +37,6 @@ generate-files: check-fmt
 		yarn generator
 	@echo "$(COLOR_OK)Running Goimports on generated files...$(COLOR_NONE)"
 	$(GOFMT) -l -w $$(find . -name '*.go' |grep -v vendor)
-
-pull-spec:
-	@echo "$(COLOR_OKTA)Pulling in latest spec...$(COLOR_NONE)"
-	rm openapi/spec.json
-	git clone https://github.com/okta/okta-management-openapi-spec spec-raw
-	cp spec-raw/dist/spec.json openapi/spec.json
-	rm -fr spec-raw
 
 test:
 	make test:all
