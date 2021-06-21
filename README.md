@@ -435,7 +435,7 @@ All methods now specify the `Accept` and `Content-Type` headers when creating a 
 
 Okta allows you to interact with Okta APIs using scoped OAuth 2.0 access tokens. Each access token enables the bearer to perform specific actions on specific Okta endpoints, with that ability controlled by which scopes the access token contains.
 
-This SDK supports this feature only for service-to-service applications. Check out [our guides](https://developer.okta.com/docs/guides/implement-oauth-for-okta/overview/) to learn more about how to register a new service application using a private and public key pair, or follow the example steps at the end of this topic.
+This SDK supports this feature only for service-to-service applications. Check out [our guides](https://developer.okta.com/docs/guides/implement-oauth-for-okta/overview/) to learn more about how to register a new service application using a private and public key pair. Otherwise, follow the example steps at the end of this topic.
 
 When using this approach you won't need an API Token because the SDK will request an access token for you. In order to use OAuth 2.0, construct a client instance by passing the following parameters:
 
@@ -452,15 +452,15 @@ ctx, client, err := okta.NewClient(context,
 
 Let's say the need is to authenticate a script that will run in a pipeline (or any other automated way), and instead of using an API Token (that is bound to a user) the goal is to use a service app.
 
-*To do this a public/private key pair will be needed.*
+*A public/private key pair is required to do so.*
 
 These are the requirements:
 
-  - a public/private key par in JWT format [more here](https://developer.okta.com/docs/guides/implement-oauth-for-okta-serviceapp/create-publicprivate-keypair/)
-  - a service app that uses the created key [more here](https://developer.okta.com/docs/guides/implement-oauth-for-okta-serviceapp/create-serviceapp-grantscopes/)
-  - store the private key in a PEM format [more here](https://www.npmjs.com/package/pem-jwk)
+  - a public/private key par in JWT format ([reference](https://developer.okta.com/docs/guides/implement-oauth-for-okta-serviceapp/create-publicprivate-keypair/))
+  - a service app that uses the created key ([reference](https://developer.okta.com/docs/guides/implement-oauth-for-okta-serviceapp/create-serviceapp-grantscopes/))
+  - store the private key in a PEM format ([reference](https://www.npmjs.com/package/pem-jwk))
 
-To store the PEM formatted key in a json file the multiple lines need to be one-line formatted joined with "\n". It can be accomplished with the following command:
+To store the PEM formatted key with new lines in a json file, the multiple lines need to be one-line formatted by joining them with the "\n" character. The `awk` command makes this formatting quick and precise:
 
 ```bash
 awk 'NF {sub(/\r/, ""); printf "%s\\n",$0;}' private.pem
@@ -468,23 +468,21 @@ awk 'NF {sub(/\r/, ""); printf "%s\\n",$0;}' private.pem
 
 ##### Steps
 
-Go to [this tool](https://mkjwk.org/) and create your keys. (It is recommend to user your own instance when creating keys for prod)
+The [mkjwk](https://mkjwk.org/) can be used to create your keys. If generating production keys, only use `mkjwk` running locally after you have audited their code.
 
-Save the three files in your PC, i.e. in *public-key*, *public-private-keypair* and *public-private-keypair-set* files.
+Save the three files, for example named as *public-key*, *public-private-keypair* and *public-private-keypair-set*.
 
-Now create the PEM formatted private key. It can be done using [this tool](https://www.npmjs.com/package/pem-jwk) as follows:
+Now create the PEM formatted private key. `[pem-jwk](https://www.npmjs.com/package/pem-jwk)` can be utilized to do the PEM formatting. Be sure to audit the `pem-jwk` code before trusting it with production values.
 
 ```bash
 pem-jwk public-private-keypair > private.pem
 ```
 
-Create the service app as stated [here](https://developer.okta.com/docs/guides/implement-oauth-for-okta-serviceapp/create-serviceapp-grantscopes/#create-a-service-app), using *public-private-keypair-set*.
+Create the service app following Okta's guide ["Create a service app and grant scopes > Create a service app"](https://developer.okta.com/docs/guides/implement-oauth-for-okta-serviceapp/create-serviceapp-grantscopes/#create-a-service-app), using *public-private-keypair-set*.
 
-To grant the scopes, you can go to web console and do this in the usual way.
+Use the Okta web console to grant the scopes as usual.
 
-Now, let's say the PEM formatted private key will be stored in a json file, so your app can read it during the run time. It needs to be stored as a one-line.
-
-If this is the PEM formatted key:
+To complete our example the PEM formatted private key will be stored in a json file so your app can read it at run time.  If this is the PEM formatted key:
 
 ```bash
 ----BEGIN RSA PRIVATE KEY-----
@@ -530,7 +528,7 @@ This way, if a json file like this one is created:
 }
 ```
 
-This can be read from Go and used directly in the client creation:
+The file can be read from Go and used directly in the client creation:
 
 ```go
   ctx, client, err := okta.NewClient(context,
