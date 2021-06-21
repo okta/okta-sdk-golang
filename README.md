@@ -5,6 +5,7 @@
 [![API Reference](https://img.shields.io/badge/docs-reference-lightgrey.svg)][sdkapiref]
 
 # Okta Golang management SDK
+
 * [Release status](#release-status)
 * [Need help?](#need-help)
 * [Getting started](#getting-started)
@@ -14,7 +15,8 @@
 * [Building the SDK](#building-the-sdk)
 * [Contributing](#contributing)
 
-This repository contains the Okta management SDK for Golang. This SDK can be used in your server-side code to interact with the Okta management API and
+This repository contains the Okta management SDK for Golang. This SDK can be
+used in your server-side code to interact with the Okta management API and
 
 * Create and update users with the [Users API](https://developer.okta.com/docs/api/resources/users)
 * Add security factors to users with the [Factors API](https://developer.okta.com/docs/api/resources/factors)
@@ -30,7 +32,8 @@ You can learn more on the [Okta + Golang][lang-landing] page in our documentatio
 
 ## Release status
 
-This library uses semantic versioning and follows Okta's [library version policy](https://developer.okta.com/code/library-versions/).
+This library uses semantic versioning and follows Okta's [library version
+policy](https://developer.okta.com/code/library-versions/).
 
 | Version | Status                             |
 | ------- | ---------------------------------- |
@@ -49,78 +52,118 @@ If you run into problems using the SDK, you can
 
 ## Getting started
 
-The SDK is compatible with Go version 1.12.x and up. For SDK v2 and above, you must use [Go Modules](https://blog.golang.org/using-go-modules) to install the SDK.
+The SDK is compatible with Go version 1.12.x and up. For SDK v2 and above, you
+must use [Go Modules](https://blog.golang.org/using-go-modules) to install the
+SDK.
 
 ### Install current release
+
 To install the Okta Golang SDK in your project:
   - Create a module file by running `go mod init`
     - You can skip this step if you already use `go mod`
-  - Run `go get github.com/okta/okta-sdk-golang/v2`. This will add the SDK to your `go.mod` file.
-  - Import the package in your project with `import "github.com/okta/okta-sdk-golang/v2/okta"`
+  - Run `go get github.com/okta/okta-sdk-golang/v2`. This will add the SDK to
+    your `go.mod` file.
+  - Import the package in your project with `import
+   "github.com/okta/okta-sdk-golang/v2/okta"`
 
 ### Installing legacy version
-Although we do not suggest using the 1.x version of the SDK, you can still use it. Version 1.x is *retiring* and will not be supported past March 4, 2021. it will likely remain working after that date, but you should make a plan to migrate to the new 2.x version.
 
-You can install v1 of the sdk by running `go get github.com/okta/okta-sdk-golang` and import the package in your project with `import "github.com/okta/okta-sdk-golang"`
+Although we do not suggest using the 1.x version of the SDK, you can still use
+it. Version 1.x is *retiring* and will not be supported past March 4, 2021. It
+will likely remain working after that date, but you should make a plan to
+migrate to the new 2.x version.
+
+You can install v1 of the SDK by running `go get
+github.com/okta/okta-sdk-golang` and import the package in your project with
+`import "github.com/okta/okta-sdk-golang"`
 
 ### You'll also need
 
-* An Okta account, called an _organization_ (sign up for a free [developer organization](https://developer.okta.com/signup) if you need one)
-* An [API token](https://developer.okta.com/docs/api/getting_started/getting_a_token)
+* An Okta account, called an _organization_ (sign up for a free [developer
+  organization](https://developer.okta.com/signup) if you need one)
+* An [API
+  token](https://developer.okta.com/docs/api/getting_started/getting_a_token)
 
 ### Initialize a client
 
 Construct a client instance by passing it your Okta domain name and API token:
 
-```
+```go
 ctx, client, err := okta.NewClient(context, okta.WithOrgUrl("https://{yourOktaDomain}"), okta.WithToken("{apiToken}"))
 ```
 
-Hard-coding the Okta domain and API token works for quick tests, but for real projects you should use a more secure way of storing these values (such as environment variables). This library supports a few different configuration sources, covered in the [configuration reference](#configuration-reference) section.
+Hard-coding the Okta domain and API token works for quick tests, but for real
+projects you should use a more secure way of storing these values (such as
+environment variables). This library supports a few different configuration
+sources, covered in the [configuration reference](#configuration-reference)
+  section.
 
 ## Usage guide
 
-These examples will help you understand how to use this library. You can also browse the full [API reference documentation][sdkapiref].
+These examples will help you understand how to use this library. You can also
+browse the full [API reference documentation][sdkapiref].
 
-Once you initialize a `client`, you can call methods to make requests to the Okta API. Most methods are grouped by the API endpoint they belong to. For example, methods that call the [Users API](https://developer.okta.com/docs/api/resources/users) are organized under `client.User`.
+Once you initialize a `client`, you can call methods to make requests to the
+Okta API. Most methods are grouped by the API endpoint they belong to. For
+example, methods that call the [Users
+API](https://developer.okta.com/docs/api/resources/users) are organized under
+`client.User`.
 
 
 ## Connection Retry / Rate Limiting
-By default this SDK retries requests that are returned with a 429 exception. To disable this functionality set `OKTA_CLIENT_REQUESTTIMEOUT` and `OKTA_CLIENT_RATELIMIT_MAXRETRIES` to 0.
 
-Setting only one of the values to zero disables that check. Meaning, by default, four retry attempts will be made. If you set `OKTA_CLIENT_REQUESTTIMEOUT` to 45 seconds and `OKTA_CLIENT_RATELIMIT_MAXRETRIES` to 0. This SDK will continue to retry indefinitely for 45 seconds. If both values are non zero, this SDK attempts to retry until either of the conditions are met (not both).
+By default this SDK retries requests that are returned with a 429 exception. To
+disable this functionality set `OKTA_CLIENT_REQUESTTIMEOUT` and
+`OKTA_CLIENT_RATELIMIT_MAXRETRIES` to `0`.
 
-We use the Date header from the server to calculate the delta, as it's more reliable than system time. But always add 1 second to account for some clock skew in our service:
+Setting only one of the values to zero disables that check. Meaning, by
+default, four retry attempts will be made. If you set
+`OKTA_CLIENT_REQUESTTIMEOUT` to 45 seconds and
+`OKTA_CLIENT_RATELIMIT_MAXRETRIES` to `0`. This SDK will continue to retry
+indefinitely for 45 seconds. If both values are non zero, this SDK attempts to
+retry until either of the conditions are met (not both).
 
-```
+We use the Date header from the server to calculate the delta, as it's more
+reliable than system time. But always add 1 second to account for some clock
+skew in our service:
+
+```go
 backoff_seconds = header['X-Rate-Limit-Reset'] - header['Date'] + 1s
 ```
 
-If the `backoff_seconds` calculation exceeds the request timeout, the initial 429 response will be allowed through without additional attempts.
+If the `backoff_seconds` calculation exceeds the request timeout, the initial
+429 response will be allowed through without additional attempts.
 
-When creating your client, you can pass in these settings like you would with any other configuration.
+When creating your client, you can pass in these settings like you would with
+any other configuration.
 
 ```go
 ctx, client, err := okta.NewClient(context, okta.WithRequestTimeout(45), okta.WithRateLimitMaxRetries(3))
 ```
 
 ### Authenticate a User
-This library should only be used with the Okta management API. To call the [Authentication API](https://developer.okta.com/docs/api/resources/authn), you should construct your own HTTP requests.
+
+This library should only be used with the Okta management API. To call the
+[Authentication API](https://developer.okta.com/docs/api/resources/authn), you
+should construct your own HTTP requests.
 
 ### Get a User
-```
+
+```go
 ctx, client, err := okta.NewClient(context, okta.WithOrgUrl("https://{yourOktaDomain}"), okta.WithToken("{apiToken}"))
 user, resp, err := client.User.GetUser(user.Id, nil)
 ```
 
 ### List all Users
-```
+
+```go
 ctx, client, err := okta.NewClient(context, okta.WithOrgUrl("https://{yourOktaDomain}"), okta.WithToken("{apiToken}"))
 users, resp, err := client.User.ListUsers()
 ```
 
 ### Filter or search for Users
-```
+
+```go
 ctx, client, err := okta.NewClient(context, okta.WithOrgUrl("https://{yourOktaDomain}"), okta.WithToken("{apiToken}"))
 
 filter := query.NewQueryParams(query.WithFilter("status eq \"ACTIVE\""))
@@ -129,7 +172,8 @@ users, resp, err := client.User.ListUsers(filter)
 ```
 
 ### Create a User
-```
+
+```go
 ctx, client, err := okta.NewClient(context, okta.WithOrgUrl("https://{yourOktaDomain}"), okta.WithToken("{apiToken}"))
 
 p := &okta.PasswordCredential{
@@ -152,7 +196,8 @@ user, resp, err := client.User.CreateUser(*u, nil)
 ```
 
 ### Update a User
-```
+
+```go
 ctx, client, err := okta.NewClient(context, okta.WithOrgUrl("https://{yourOktaDomain}"), okta.WithToken("{apiToken}"))
 
 newProfile := *user.Profile
@@ -164,8 +209,11 @@ user, resp, err := client.User.UpdateUser(user.Id, *updatedUser, nil)
 ```
 
 ### Get and set custom attributes
-Custom attributes must first be defined in the Okta profile editor. Then, you can work with custom attributes on a user:
-```
+
+Custom attributes must first be defined in the Okta profile editor. Then, you
+can work with custom attributes on a user:
+
+```go
 ctx, client, err := okta.NewClient(context, okta.WithOrgUrl("https://{yourOktaDomain}"), okta.WithToken("{apiToken}"))
 user, resp, err := client.User.GetUser(user.Id, nil)
 
@@ -173,8 +221,10 @@ nickName = user.Profile["nickName"]
 ```
 
 ### Remove a User
+
 You must first deactivate the user, and then you can delete the user.
-```
+
+```go
 ctx, client, err := okta.NewClient(context, okta.WithOrgUrl("https://{yourOktaDomain}"), okta.WithToken("{apiToken}"))
 resp, err := client.User.DeactivateUser(user.Id, nil)
 
@@ -182,14 +232,16 @@ resp, err := client.User.DeactivateOrDeleteUser(user.Id, nil)
 ```
 
 ### List a User's Groups
-```
+
+```go
 ctx, client, err := okta.NewClient(context, okta.WithOrgUrl("https://{yourOktaDomain}"), okta.WithToken("{apiToken}"))
 
 groups, resp, err := client.User.ListUserGroups(user.Id, nil)
 ```
 
 ### Create a Group
-```
+
+```go
 ctx, client, err := okta.NewClient(context, okta.WithOrgUrl("https://{yourOktaDomain}"), okta.WithToken("{apiToken}"))
 
 gp := &okta.GroupProfile{
@@ -202,21 +254,24 @@ group, resp, err := client.Group.CreateGroup(*g, nil)
 ```
 
 ### Add a User to a Group
-```
+
+```go
 ctx, client, err := okta.NewClient(context, okta.WithOrgUrl("https://{yourOktaDomain}"), okta.WithToken("{apiToken}"))
 
 resp, err := client.Group.AddUserToGroup(group.Id, user.Id, nil)
 ```
 
 ### List a User's enrolled Factors
-```
+
+```go
 ctx, client, err := okta.NewClient(context, okta.WithOrgUrl("https://{yourOktaDomain}"), okta.WithToken("{apiToken}"))
 
 allowedFactors, resp, err := client.Factor.ListSupportedFactors(user.Id)
 ```
 
 ### Enroll a User in a new Factor
-```
+
+```go
 ctx, client, err := okta.NewClient(context, okta.WithOrgUrl("https://{yourOktaDomain}"), okta.WithToken("{apiToken}"))
 
 factorProfile := okta.NewSmsFactorProfile()
@@ -229,14 +284,16 @@ addedFactor, resp, err := client.Factor.AddFactor(user.Id, factor, nil)
 ```
 
 ### Activate a Factor
-```
+
+```go
 ctx, client, err := okta.NewClient(context, okta.WithOrgUrl("https://{yourOktaDomain}"), okta.WithToken("{apiToken}"))
 
 factor, resp, err := client.Factor.ActivateFactor(user.Id, factor.Id, nil)
 ```
 
 ### Verify a Factor
-```
+
+```go
 ctx, client, err := okta.NewClient(context, okta.WithOrgUrl("https://{yourOktaDomain}"), okta.WithToken("{apiToken}"))
 
 verifyFactorRequest := okta.VerifyFactorRequest{
@@ -246,7 +303,8 @@ verifyFactorResp, resp, err := client.Factor.VerifyFactor(user.Id, factor.Id, ve
 ```
 
 ### List all Applications
-```
+
+```go
 ctx, client, err := okta.NewClient(context, okta.WithOrgUrl("https://{yourOktaDomain}"), okta.WithToken("{apiToken}"))
 
 applications, resp, err := client.Application.ListApplications(nil)
@@ -263,7 +321,8 @@ for _, a := range applications {
 ```
 
 ### Get an Application
-```
+
+```go
 ctx, client, err := okta.NewClient(context, okta.WithOrgUrl("https://{yourOktaDomain}"), okta.WithToken("{apiToken}"))
 
 //Getting a Basic Auth Application
@@ -274,7 +333,8 @@ app := application.(*okta.BasicAuthApplication)
 ```
 
 ### Create a SWA Application
-```
+
+```go
 ctx, client, err := okta.NewClient(context, okta.WithOrgUrl("https://{yourOktaDomain}"), okta.WithToken("{apiToken}"))
 
 swaAppSettingsApp := newSwaApplicationSettingsApplication()
@@ -295,8 +355,11 @@ application, resp, err := client.Application.CreateApplication(swaApp, nil)
 ```
 
 ### Call other API endpoints
-Not every API endpoint is represented by a method in this library. You can call any Okta management API endpoint using this generic syntax:
-```
+
+Not every API endpoint is represented by a method in this library. You can call
+any Okta management API endpoint using this generic syntax:
+
+```go
 ctx, client, err := okta.NewClient(context, okta.WithOrgUrl("https://{yourOktaDomain}"), okta.WithToken("{apiToken}"))
 
 url := "https://golang.oktapreview.com/api/v1/authorizationServers
@@ -347,28 +410,37 @@ return authServer, resp, nil
 ```
 
 ### Access Request Executor
-If you need to gain access to the request executor, we have provided a method off the `Client` to do so.
+
+If you need to gain access to the request executor, we have provided a method
+off the `Client` to do so.
 
 ```go
 re := client.GetRequestExecutor()
 ```
 
-Doing this will provide you with the ability to create your own requests for the Okta API and call the `Do` method that handles all of the headers for you based on the configuration.
+Doing this will provide you with the ability to create your own requests for
+the Okta API and call the `Do` method that handles all of the headers for you
+based on the configuration.
 
 ## Configuration reference
 
 This library looks for configuration in the following sources:
 
-0. An `okta.yaml` file in a `.okta` folder in the current user's home directory (`~/.okta/okta.yaml` or `%userprofile\.okta\okta.yaml`)
+0. An `okta.yaml` file in a `.okta` folder in the current user's home directory
+   (`~/.okta/okta.yaml` or `%userprofile\.okta\okta.yaml`)
 0. A `.okta.yaml` file in the application or project's root directory
 0. Environment variables
-0. Configuration explicitly passed to the constructor (see the example in [Getting started](#getting-started))
+0. Configuration explicitly passed to the constructor (see the example in
+   [Getting started](#getting-started))
 
-Higher numbers win. In other words, configuration passed via the constructor will override configuration found in environment variables, which will override configuration in `okta.yaml` (if any), and so on.
+Higher numbers win. In other words, configuration passed via the constructor
+will override configuration found in environment variables, which will override
+configuration in `okta.yaml` (if any), and so on.
 
 ### YAML configuration
 
-When you use an API Token instead of OAuth 2.0 the full YAML configuration looks like:
+When you use an API Token instead of OAuth 2.0 the full YAML configuration
+looks like:
 
 ```yaml
 okta:
@@ -413,33 +485,54 @@ okta:
 
 ### Environment variables
 
-Each one of the configuration values above can be turned into an environment variable name with the `_` (underscore) character:
+Each one of the configuration values above can be turned into an environment
+variable name with the `_` (underscore) character:
 
 * `OKTA_CLIENT_CONNECTIONTIMEOUT`
 * `OKTA_CLIENT_TOKEN`
 * and so on
 
 ## Upgrading to 2.0.x
-The main purpose of this version is to include all documented, application/json endpoints
-to the SDK. During this update we have made many changes to method names, as well as method signatures.
+
+The main purpose of this version is to include all documented,
+`application/json` content-type endpoints to the SDK. During this update we
+have made many changes to method names, as well as method signatures.
 
 ### Context
-Every method that calls the API now has the ability to pass `context.Context` to it as the first parameter. If you do not have a context or do not know which context to use, you can pass `context.TODO()` to the methods.
+
+Every method that calls the API now has the ability to pass `context.Context`
+to it as the first parameter. If you do not have a context or do not know which
+context to use, you can pass `context.TODO()` to the methods.
 
 ### Method changes
-We have spent time during this update making sure we become a little more uniform with naming of methods. This will require you to update some of your calls to the SDK with the new names.
 
-All methods now specify the `Accept` and `Content-Type` headers when creating a new request. This allows for future use of the SDK to handle multiple `Accept` types.
+We have spent time during this update making sure we become a little more
+uniform with naming of methods. This will require you to update some of your
+calls to the SDK with the new names.
+
+All methods now specify the `Accept` and `Content-Type` headers when creating a
+new request. This allows for future use of the SDK to handle multiple `Accept`
+types.
 
 ### OAuth 2.0
 
-Okta allows you to interact with Okta APIs using scoped OAuth 2.0 access tokens. Each access token enables the bearer to perform specific actions on specific Okta endpoints, with that ability controlled by which scopes the access token contains.
+Okta allows you to interact with Okta APIs using scoped OAuth 2.0 access
+tokens. Each access token enables the bearer to perform specific actions on
+specific Okta endpoints, with that ability controlled by which scopes the
+access token contains.
 
-This SDK supports this feature only for service-to-service applications. Check out [our guides](https://developer.okta.com/docs/guides/implement-oauth-for-okta/overview/) to learn more about how to register a new service application using a private and public key pair. Otherwise, follow the example steps at the end of this topic.
+This SDK supports this feature only for service-to-service applications. Check
+out [our
+guides](https://developer.okta.com/docs/guides/implement-oauth-for-okta/overview/)
+to learn more about how to register a new service application using a private
+and public key pair. Otherwise, follow the example steps at the end of this
+topic.
 
-When using this approach you won't need an API Token because the SDK will request an access token for you. In order to use OAuth 2.0, construct a client instance by passing the following parameters:
+When using this approach you won't need an API Token because the SDK will
+request an access token for you. In order to use OAuth 2.0, construct a client
+instance by passing the following parameters:
 
-```
+```go
 ctx, client, err := okta.NewClient(context,
   okta.WithAuthorizationMode("PrivateKey"),
   okta.WithClientId("{{clientId}}"),
@@ -450,17 +543,24 @@ ctx, client, err := okta.NewClient(context,
 
 #### Example
 
-Let's say the need is to authenticate a script that will run in a pipeline (or any other automated way), and instead of using an API Token (that is bound to a user) the goal is to use a service app.
+Let's say the need is to authenticate a script that will run in a pipeline (or
+any other automated way), and instead of using an API Token (that is bound
+to a user) the goal is to use a service app.
 
 *A public/private key pair is required to do so.*
 
 These are the requirements:
 
-  - a public/private key par in JWT format ([reference](https://developer.okta.com/docs/guides/implement-oauth-for-okta-serviceapp/create-publicprivate-keypair/))
-  - a service app that uses the created key ([reference](https://developer.okta.com/docs/guides/implement-oauth-for-okta-serviceapp/create-serviceapp-grantscopes/))
-  - store the private key in a PEM format ([reference](https://www.npmjs.com/package/pem-jwk))
-
-To store the PEM formatted key with new lines in a json file, the multiple lines need to be one-line formatted by joining them with the "\n" character. The `awk` command makes this formatting quick and precise:
+  - a public/private key par in JWT format
+    ([reference](https://developer.okta.com/docs/guides/implement-oauth-for-okta-serviceapp/create-publicprivate-keypair/))
+  - a service app that uses the created key
+    ([reference](https://developer.okta.com/docs/guides/implement-oauth-for-okta-serviceapp/create-serviceapp-grantscopes/))
+  - store the private key in a PEM format
+    ([reference](https://www.npmjs.com/package/pem-jwk))
+ 
+To store the PEM formatted key with new lines in a JSON file, the multiple
+lines need to be one-line formatted by joining them with the "\n" character.
+The `awk` command makes this formatting quick and precise:
 
 ```bash
 awk 'NF {sub(/\r/, ""); printf "%s\\n",$0;}' private.pem
@@ -468,21 +568,31 @@ awk 'NF {sub(/\r/, ""); printf "%s\\n",$0;}' private.pem
 
 ##### Steps
 
-The [mkjwk](https://mkjwk.org/) can be used to create your keys. If generating production keys, only use `mkjwk` running locally after you have audited their code.
+The [mkjwk](https://mkjwk.org/) can be used to create your keys. If generating
+production keys, only use `mkjwk` running locally after you have audited their
+code.
 
-Save the three files, for example named as *public-key*, *public-private-keypair* and *public-private-keypair-set*.
+Save the three files, for example named as *public-key*,
+*public-private-keypair* and *public-private-keypair-set*.
 
-Now create the PEM formatted private key. `[pem-jwk](https://www.npmjs.com/package/pem-jwk)` can be utilized to do the PEM formatting. Be sure to audit the `pem-jwk` code before trusting it with production values.
+Now create the PEM formatted private key.
+`[pem-jwk](https://www.npmjs.com/package/pem-jwk)` can be utilized to do the
+PEM formatting. Be sure to audit the `pem-jwk` code before trusting it with
+production values.
 
 ```bash
 pem-jwk public-private-keypair > private.pem
 ```
 
-Create the service app following Okta's guide ["Create a service app and grant scopes > Create a service app"](https://developer.okta.com/docs/guides/implement-oauth-for-okta-serviceapp/create-serviceapp-grantscopes/#create-a-service-app), using *public-private-keypair-set*.
+Create the service app following Okta's guide ["Create a service app and grant
+scopes > Create a service
+app"](https://developer.okta.com/docs/guides/implement-oauth-for-okta-serviceapp/create-serviceapp-grantscopes/#create-a-service-app),
+using *public-private-keypair-set*.
 
 Use the Okta web console to grant the scopes as usual.
 
-To complete our example the PEM formatted private key will be stored in a json file so your app can read it at run time.  If this is the PEM formatted key:
+To complete our example the PEM formatted private key will be stored in a JSON
+file so your app can read it at run time.  If this is the PEM formatted key:
 
 ```bash
 ----BEGIN RSA PRIVATE KEY-----
@@ -512,13 +622,13 @@ ftlYhgBkwRwRfk7lEvmaTvJugd5g1E/9DAXTajlRYdohGubVz+2G
 -----END RSA PRIVATE KEY-----
 ```
 
-...then the value that must be added to the json file is:
+... then the value that must be added to the JSON file is:
 
 ```bash
 ----BEGIN RSA PRIVATE KEY-----\nMIIEowIBAAKCAQEAmyX8wdrHK1ycOMeXNg3NOMQvebnfQp+3L5OaaiX16/+tLbwb\nJTZDYh0EXLySMVsduRxC/1PQdPuI6x50TdkoB3C4JMuU968uJqkFp7fXXy5SMAej\nHAyF67cY51dx15ztvakRNJPhhI5WaC20RfR/eow0IH5lGI3czcvTCChGau5qLue3\nHqNDYFY+U3xhOlavSDdtmuxpIFsDycn/OjYjsV4lzyRrOArqtVV/kXHKx04T6A1x\nSc99999999999999999999999999999999999999999999999999EGekHlUAIUpw\nTqzdddddddddddddddddddddddddddddddddddddddddddddddddd5rNLLe5C7p/\nLMta1rzm5TPYwazIbiMkFLAW02ToNAs9LGgDP+VRCZskl6+LuaA5XGabpi09ka7x\nvJ88888888888888888888888888888888888888888888888888JDmIfMSU1tEw\nHmthd7qcwrx29ectcGHyQaX6iyYlQiBKCto+VwPrUq/qDCPYMIyqCTxAGTPLWQAz\nTqzdddddddddddddddddddddddddddddddddddddddddddddddddd5rNLLe5C7p/\nHpDowa9Q+CBO5CEcPW4w9gsCgYA68a+82YtsiyYjdwSzscKIrw4ht3qAZQhGO4Id\nH70kN1CkhHUNFf5UuRHJJ+s3BKlawBUwZaKD5KQ+lpnmrwqfArWu+3HNpX3LIPs5\nvJ88888888888888888888888888888888888888888888888888JDmIfMSU1tEw\ntATmAQKBgCKBkyHmEaS8tEAXcRI26oHOwTZAj6tJp2ODrEcrWtT0bR8wjaEdASdM\nTqzdddddddddddddddddddddddddddddddddddddddddddddddddd5rNLLe5C7p/\n4b+xIYHz8dxmWPsZ7C4WbW9pw3Wn1Du/uvImwt0f4Jp6IPZM9vltXz0Dh7Yv5/SE\nvJ88888888888888888888888888888888888888888888888888JDmIfMSU1tEw\ntATmAQKBgCKBkyHmEaS8tEAXcRI26oHOwTZAj6tJp2ODrEcrWtT0bR8wjaEdASdM\nTqzdddddddddddddddddddddddddddddddddddddddddddddddddd5rNLLe5C7p/\nvJ88888888888888888888888888888888888888888888888888JDmIfMSU1tEw\ntATmAQKBgCKBkyHmEaS8tEAXcRI26oHOwTZAj6tJp2ODrEcrWtT0bR8wjaEdASdM\nDKctGohIQ/ujUD9wzSvlaSZjBcKWw27yN0HiEBn+whKmO76PT7NFAQv/TG8ou3NE\nftlYhgBkwRwRfk7lEvmaTvJugd5g1E/9DAXTajlRYdohGubVz+2G\n-----END RSA PRIVATE KEY-----
 ```
 
-This way, if a json file like this one is created:
+This way, if a JSON file like this one is created:
 
 ```yaml
 {
@@ -539,10 +649,13 @@ The file can be read from Go and used directly in the client creation:
     okta.WithPrivateKey(privateKey),
     )
 ```
-### Extending the Client
-When calling `okta.NewClient()` we allow for you to pass custom instances of `http.Client` and `cache.Cache`.
 
-```
+### Extending the Client
+
+When calling `okta.NewClient()` we allow for you to pass custom instances of
+`http.Client` and `cache.Cache`.
+
+```go
 myClient := &http.Client{}
 
 myCache := NewCustomCacheDriver()
@@ -552,9 +665,10 @@ ctx, client, err := okta.NewClient(context, okta.WithOrgUrl("https://{yourOktaDo
 
 
 ### Extending or Creating New Cache Manager
+
 You can create a custom cache driver by implementing `cache.Cache`
 
-```
+```go
 type CustomCacheDriver struct {
 }
 
@@ -578,9 +692,15 @@ func (c CustomCacheDriver) Has(key string) bool {
 ```
 
 ### Refreshing Cache for Specific Call
-If you have an issue where you do a `GET`, then a `DELETE`, and then re-issue a `GET` to the original endpoint, you may have an issue with the cache returning with the deleted resource. An example of this is listing application users, delete an application user, and then listing them again.
 
-You can solve this by running `client.GetRequestExecutor().RefreshNext()` before your second `ListApplicationUsers` call, which will tell the call to delete the cache for this endpoint and make a new call.
+If you have an issue where you do a `GET`, then a `DELETE`, and then re-issue a
+`GET` to the original endpoint, you may have an issue with the cache returning
+with the deleted resource. An example of this is listing application users,
+delete an application user, and then listing them again.
+
+You can solve this by running `client.GetRequestExecutor().RefreshNext()`
+before your second `ListApplicationUsers` call, which will tell the call to
+delete the cache for this endpoint and make a new call.
 
 ```go
 appUserList, _, _ = client.Application.ListApplicationUsers(context.TODO(), appId, nil)
@@ -592,9 +712,12 @@ appUserList, _, _ = client.Application.ListApplicationUsers(context.TODO(), appI
 ```
 
 ### Pagination
-If your request comes back with more than the default or set limit, you can request the next page.
+
+If your request comes back with more than the default or set limit, you can
+request the next page.
 
 Example of listing users 1 at a time:
+
 ```go
 query := query.NewQueryParams(query.WithLimit(1))
 users, resp, err := client.User.ListUsers(ctx, query)
@@ -607,15 +730,17 @@ if resp.HasNextPage() {
 
 ## Building the SDK
 
-In most cases, you won't need to build the SDK from source. If you want to build it yourself, you'll need these prerequisites:
+In most cases, you won't need to build the SDK from source. If you want to
+build it yourself, you'll need these prerequisites:
 
 - Clone the repo
 - Run `make build` from the root of the project
 
 ## Contributing
 
-We're happy to accept contributions and PRs! Please see the [contribution guide](/okta/okta-sdk-golang/blob/master/CONTRIBUTING.md) to understand how to structure a contribution.
-
+We're happy to accept contributions and PRs! Please see the [contribution
+guide](/okta/okta-sdk-golang/blob/master/CONTRIBUTING.md) to understand how to
+structure a contribution.
 
 [devforum]: https://devforum.okta.com/
 [sdkapiref]: https://godoc.org/github.com/okta/okta-sdk-golang/okta
