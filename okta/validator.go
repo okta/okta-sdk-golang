@@ -75,8 +75,9 @@ func validateAuthorization(c *config) error {
 	if c.Okta.Client.AuthorizationMode == "PrivateKey" &&
 		(c.Okta.Client.ClientId == "" ||
 			c.Okta.Client.Scopes == nil ||
-			c.Okta.Client.PrivateKey == "") {
-		return errors.New("when using AuthorizationMode 'PrivateKey', you must supply 'ClientId', 'Scopes', and 'PrivateKey'")
+			(c.Okta.Client.PrivateKey == "" &&
+				c.PrivateKeySigner == nil)) {
+		return errors.New("when using AuthorizationMode 'PrivateKey', you must supply 'ClientId', 'Scopes', and 'PrivateKey' or 'PrivateKeySigner'")
 	}
 
 	return nil
