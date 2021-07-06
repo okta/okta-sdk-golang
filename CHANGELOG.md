@@ -3,8 +3,17 @@ Running changelog of releases since `2.0.0-rc.4`
 
 ## v2.3.1
 
+### Updates
+- Support opaque private keys (#225) @aborrello
+- Improve OAuth 2.0 servapp doc (#221) @juanmatias
+- Removed omitempty from ApplicationGroupAssignment priority field (#218) @bogdanprodan-okta
+- Added `WithHttpClientPtr`, `WithHttpClientPtr` (#214) @bogdanprodan-okta
+- Remove omitempty of 'default_scope' field (#212) @bogdanprodan-okta
+- Add exported OKTA_ACCESS_TOKEN constant (#213) @bretterer
+- Adds Stalebot workflow (#210) @bretterer
+
 ### Bug fixes
-- Fixed typo in error message of "too many requests"
+- Fixed typo in error message of "too many requests" #230 @halmai
 
 ## v2.3.0
 
