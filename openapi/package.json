@@ -7,8 +7,8 @@
     "cleanFiles": " node ./generator/cleanFiles.js"
   },
   "devDependencies": {
-    "@okta/openapi": "^2.2.4",
-    "lodash": "^4.17.19",
+    "@okta/openapi": "^2.4.0",
+    "lodash": "^4.17.21",
     "lodash-inflection": "^1.5.0"
   },
   "dependencies": {
