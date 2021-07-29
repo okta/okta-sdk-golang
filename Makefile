@@ -39,7 +39,7 @@ generate-files: check-fmt
 
 pull-spec:
 	@echo "$(COLOR_OKTA)Pulling in latest spec...$(COLOR_NONE)"
-	rm openapi/spec.json
+	rm -f openapi/spec.json
 	git clone https://github.com/okta/openapi spec-raw
 	cp spec-raw/dist/spec.json openapi/spec.json
 	rm -fr spec-raw
