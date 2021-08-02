@@ -33,7 +33,7 @@ clean-files:
 
 generate-files: check-fmt
 	@echo "$(COLOR_OKTA)Generating SDK Files...$(COLOR_NONE)"
-	cd openapi && yarn generator
+	cd openapi && npm install && yarn generator
 	@echo "$(COLOR_OK)Running Goimports on generated files...$(COLOR_NONE)"
 	$(GOFMT) -l -w $$(find . -name '*.go' |grep -v vendor)
 
