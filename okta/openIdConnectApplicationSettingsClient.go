@@ -34,6 +34,7 @@ type OpenIdConnectApplicationSettingsClient struct {
 	RefreshToken           *OpenIdConnectApplicationSettingsRefreshToken `json:"refresh_token,omitempty"`
 	ResponseTypes          []*OAuthResponseType                          `json:"response_types,omitempty"`
 	TosUri                 string                                        `json:"tos_uri,omitempty"`
+	WildcardRedirect       string                                        `json:"wildcard_redirect,omitempty"`
 }
 
 func NewOpenIdConnectApplicationSettingsClient() *OpenIdConnectApplicationSettingsClient {

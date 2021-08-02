@@ -33,14 +33,14 @@ clean-files:
 
 generate-files: check-fmt
 	@echo "$(COLOR_OKTA)Generating SDK Files...$(COLOR_NONE)"
-	cd openapi && yarn generator
+	cd openapi && npm install && yarn generator
 	@echo "$(COLOR_OK)Running Goimports on generated files...$(COLOR_NONE)"
 	$(GOFMT) -l -w $$(find . -name '*.go' |grep -v vendor)
 
 pull-spec:
 	@echo "$(COLOR_OKTA)Pulling in latest spec...$(COLOR_NONE)"
-	rm openapi/spec.json
-	git clone https://github.com/okta/openapi spec-raw
+	rm -f openapi/spec.json
+	git clone https://github.com/okta/okta-management-openapi-spec spec-raw
 	cp spec-raw/dist/spec.json openapi/spec.json
 	rm -fr spec-raw
 
