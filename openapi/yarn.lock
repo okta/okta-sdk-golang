@@ -2,10 +2,10 @@
 # yarn lockfile v1
 
 
-"@okta/openapi@~2.1.0":
-  version "2.1.6"
-  resolved "https://registry.yarnpkg.com/@okta/openapi/-/openapi-2.1.6.tgz#dd5b83daf3a7b22fa0cb36c1757c68f8aaa3f7f5"
-  integrity sha512-9Ln2TKp/tv9pq8WNOpC2wIgz4PuSWrC8YeYBdH3S5ICf9Q9wYFtk6/KF7ArCYVIs0WGGeOfd0vgJPqjvd/lvgw==
+"@okta/openapi@^2.5.0":
+  version "2.5.0"
+  resolved "https://registry.yarnpkg.com/@okta/openapi/-/openapi-2.5.0.tgz#3299fd9c863f40e42cd806ff65382bf357416aa1"
+  integrity sha512-Hke9OXDVaq8lSJI3XepZXxoD2xysQH0KeQta6s/V2fS5aE8HB0utv8DrOaSjnXF7/bFUxteBxRIO7hllpkx1cw==
   dependencies:
     commander "2.9.0"
     fs-extra "3.0.1"
@@ -212,10 +212,10 @@ lodash.isequal@^4.5.0:
   resolved "https://registry.yarnpkg.com/lodash.isequal/-/lodash.isequal-4.5.0.tgz#415c4478f2bcc30120c22ce10ed3226f7d3e18e0"
   integrity sha1-QVxEePK8wwEgwizhDtMib30+GOA=
 
-lodash@^4.17.19:
-  version "4.17.20"
-  resolved "https://registry.yarnpkg.com/lodash/-/lodash-4.17.20.tgz#b44a9b6297bcb698f1c51a3545a2b3b368d59c52"
-  integrity sha512-PlhdFcillOINfeV7Ni6oF1TAEayyZBoZ8bcshTHqOYJYlrqzRK5hagpagky5o4HfCzzd1TRkXPMFq6cKk9rGmA==
+lodash@^4.17.21:
+  version "4.17.21"
+  resolved "https://registry.yarnpkg.com/lodash/-/lodash-4.17.21.tgz#679591c564c3bffaae8454cf0b3df370c3d6911c"
+  integrity sha512-v2kDEe57lecTulaDIuNTPy3Ry4gLGJ6Z1O3vE1krgXZNrsQ+LFTGHVxVjcXPs17LhbZVGedAJv8XZ1tvj5FvSg==
 
 minimist@^1.2.5:
   version "1.2.5"
