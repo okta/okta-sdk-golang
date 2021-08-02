@@ -18,10 +18,9 @@
 
 package okta
 
-type PasswordPolicyRuleActions struct {
-	Enroll                   *PolicyRuleActionsEnroll           `json:"enroll,omitempty"`
-	PasswordChange           *PasswordPolicyRuleAction          `json:"passwordChange,omitempty"`
-	SelfServicePasswordReset *PasswordPolicyRuleAction          `json:"selfServicePasswordReset,omitempty"`
-	SelfServiceUnlock        *PasswordPolicyRuleAction          `json:"selfServiceUnlock,omitempty"`
-	Signon                   *OktaSignOnPolicyRuleSignonActions `json:"signon,omitempty"`
+type DNSRecord struct {
+	Expiration string   `json:"expiration,omitempty"`
+	Fqdn       string   `json:"fqdn,omitempty"`
+	RecordType string   `json:"recordType,omitempty"`
+	Values     []string `json:"values,omitempty"`
 }

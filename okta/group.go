@@ -159,8 +159,11 @@ func (m *GroupResource) CreateGroupRule(ctx context.Context, body GroupRule) (*G
 }
 
 // Removes a specific group rule by id from your organization
-func (m *GroupResource) DeleteGroupRule(ctx context.Context, ruleId string) (*Response, error) {
+func (m *GroupResource) DeleteGroupRule(ctx context.Context, ruleId string, qp *query.Params) (*Response, error) {
 	url := fmt.Sprintf("/api/v1/groups/rules/%v", ruleId)
+	if qp != nil {
+		url = url + qp.String()
+	}
 
 	req, err := m.client.requestExecutor.WithAccept("application/json").WithContentType("application/json").NewRequest("DELETE", url, nil)
 	if err != nil {

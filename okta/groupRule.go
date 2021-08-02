@@ -22,6 +22,8 @@ import (
 	"context"
 	"fmt"
 	"time"
+
+	"github.com/okta/okta-sdk-golang/v2/okta/query"
 )
 
 type GroupRuleResource resource
@@ -57,8 +59,11 @@ func (m *GroupRuleResource) UpdateGroupRule(ctx context.Context, ruleId string, 
 }
 
 // Removes a specific group rule by id from your organization
-func (m *GroupRuleResource) DeleteGroupRule(ctx context.Context, ruleId string) (*Response, error) {
+func (m *GroupRuleResource) DeleteGroupRule(ctx context.Context, ruleId string, qp *query.Params) (*Response, error) {
 	url := fmt.Sprintf("/api/v1/groups/rules/%v", ruleId)
+	if qp != nil {
+		url = url + qp.String()
+	}
 
 	req, err := m.client.requestExecutor.WithAccept("application/json").WithContentType("application/json").NewRequest("DELETE", url, nil)
 	if err != nil {

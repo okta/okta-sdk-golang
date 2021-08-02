@@ -21,7 +21,16 @@ type Factor interface {
 }
 
 {{/if}}
-{{#if (and (or (or (gt model.methods.length 0) (gt model.crud.length 0)) (eq model.modelName "LogEvent")) (ne model.modelName "Role"))}}
+{{#if (and
+    (or 
+      (or (gt model.methods.length 0)
+          (gt model.crud.length 0))
+      (or 
+          (eq model.modelName "LogEvent")
+          (or (eq model.modelName "Domain") (eq model.modelName "UserSchema")))
+    )
+    (ne model.modelName "Role")
+)}}
 type {{model.modelName}}Resource resource
 
 {{/if}}

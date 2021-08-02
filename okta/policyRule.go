@@ -27,13 +27,16 @@ import (
 type PolicyRuleResource resource
 
 type PolicyRule struct {
-	Created     *time.Time `json:"created,omitempty"`
-	Id          string     `json:"id,omitempty"`
-	LastUpdated *time.Time `json:"lastUpdated,omitempty"`
-	Priority    int64      `json:"priority,omitempty"`
-	Status      string     `json:"status,omitempty"`
-	System      *bool      `json:"system,omitempty"`
-	Type        string     `json:"type,omitempty"`
+	Actions     *PolicyRuleActions    `json:"actions,omitempty"`
+	Conditions  *PolicyRuleConditions `json:"conditions,omitempty"`
+	Created     *time.Time            `json:"created,omitempty"`
+	Id          string                `json:"id,omitempty"`
+	LastUpdated *time.Time            `json:"lastUpdated,omitempty"`
+	Name        string                `json:"name,omitempty"`
+	Priority    int64                 `json:"priority,omitempty"`
+	Status      string                `json:"status,omitempty"`
+	System      *bool                 `json:"system,omitempty"`
+	Type        string                `json:"type,omitempty"`
 }
 
 // Updates a policy rule.

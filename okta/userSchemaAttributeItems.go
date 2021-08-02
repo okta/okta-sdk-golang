@@ -18,10 +18,8 @@
 
 package okta
 
-type PasswordPolicyRuleActions struct {
-	Enroll                   *PolicyRuleActionsEnroll           `json:"enroll,omitempty"`
-	PasswordChange           *PasswordPolicyRuleAction          `json:"passwordChange,omitempty"`
-	SelfServicePasswordReset *PasswordPolicyRuleAction          `json:"selfServicePasswordReset,omitempty"`
-	SelfServiceUnlock        *PasswordPolicyRuleAction          `json:"selfServiceUnlock,omitempty"`
-	Signon                   *OktaSignOnPolicyRuleSignonActions `json:"signon,omitempty"`
+type UserSchemaAttributeItems struct {
+	Enum  []string                   `json:"enum,omitempty"`
+	OneOf []*UserSchemaAttributeEnum `json:"oneOf,omitempty"`
+	Type  string                     `json:"type,omitempty"`
 }

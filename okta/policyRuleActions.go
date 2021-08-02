@@ -18,7 +18,7 @@
 
 package okta
 
-type PasswordPolicyRuleActions struct {
+type PolicyRuleActions struct {
 	Enroll                   *PolicyRuleActionsEnroll           `json:"enroll,omitempty"`
 	PasswordChange           *PasswordPolicyRuleAction          `json:"passwordChange,omitempty"`
 	SelfServicePasswordReset *PasswordPolicyRuleAction          `json:"selfServicePasswordReset,omitempty"`

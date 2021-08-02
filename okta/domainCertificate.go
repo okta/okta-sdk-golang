@@ -18,10 +18,11 @@
 
 package okta
 
-type PasswordPolicyRuleActions struct {
-	Enroll                   *PolicyRuleActionsEnroll           `json:"enroll,omitempty"`
-	PasswordChange           *PasswordPolicyRuleAction          `json:"passwordChange,omitempty"`
-	SelfServicePasswordReset *PasswordPolicyRuleAction          `json:"selfServicePasswordReset,omitempty"`
-	SelfServiceUnlock        *PasswordPolicyRuleAction          `json:"selfServiceUnlock,omitempty"`
-	Signon                   *OktaSignOnPolicyRuleSignonActions `json:"signon,omitempty"`
+type DomainCertificateResource resource
+
+type DomainCertificate struct {
+	Certificate      string `json:"certificate,omitempty"`
+	CertificateChain string `json:"certificateChain,omitempty"`
+	PrivateKey       string `json:"privateKey,omitempty"`
+	Type             string `json:"type,omitempty"`
 }
