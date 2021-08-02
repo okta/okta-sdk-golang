@@ -356,6 +356,6 @@ func Test_group_rule_operations(t *testing.T) {
 	require.NoError(t, err, "Should not error when deleting Group")
 
 	// Delete the group rule → DELETE /api/v1/groups/rules/{{ruleId}}
-	_, err = client.Group.DeleteGroupRule(ctx, groupRule.Id)
+	_, err = client.Group.DeleteGroupRule(ctx, groupRule.Id, &query.Params{})
 	require.NoError(t, err, "Should not error when deleting Rule")
 }

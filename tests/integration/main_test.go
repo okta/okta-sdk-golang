@@ -75,7 +75,7 @@ func sweepGroupRules(ctx context.Context, client *okta.Client) error {
 				return err
 			}
 		}
-		_, err = client.Group.DeleteGroupRule(ctx, g.Id)
+		_, err = client.Group.DeleteGroupRule(ctx, g.Id, &query.Params{})
 		if err != nil {
 			return err
 		}
