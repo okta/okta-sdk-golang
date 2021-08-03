@@ -177,22 +177,27 @@ users, resp, err := client.User.ListUsers(filter)
 ctx, client, err := okta.NewClient(context, okta.WithOrgUrl("https://{yourOktaDomain}"), okta.WithToken("{apiToken}"))
 
 p := &okta.PasswordCredential{
-		Value: "Abcd1234",
+  Value: "Abcd1234",
 }
+
 uc := &okta.UserCredentials{
-		Password: p,
+  Password: p,
 }
+
 profile := okta.UserProfile{}
 profile["firstName"] = "John"
 profile["lastName"] = "Activate"
 profile["email"] = "john-activate@example.com"
 profile["login"] = "john-activate@example.com"
+
 u := &okta.User{
-		Credentials: uc,
-		Profile:     &profile,
+	Credentials: uc,
+	Profile:     &profile,
 }
 
-user, resp, err := client.User.CreateUser(*u, nil)
+qp := query.NewQueryParams(query.WithActivate(true))
+
+user, resp, err := client.User.CreateUser(ctx, *u, qp)
 ```
 
 ### Update a User
