@@ -1,6 +1,12 @@
 # Changelog
 Running changelog of releases since `2.0.0-rc.4`
 
+## v2.5.0
+
+### Updates
+- Update generated code to version 2.5.0 of Okta's openapi spec https://github.com/okta/okta-management-openapi-spec
+- Refine Makefile's flexibility
+
 ## v2.3.1
 
 ### Updates
