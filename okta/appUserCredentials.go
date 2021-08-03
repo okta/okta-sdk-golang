@@ -20,7 +20,7 @@ package okta
 
 type AppUserCredentials struct {
 	Password *AppUserPasswordCredential `json:"password,omitempty"`
-	UserName string                     `json:"userName,omitempty"`
+	UserName string                     `json:"userName"`
 }
 
 func NewAppUserCredentials() *AppUserCredentials {

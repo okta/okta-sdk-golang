@@ -18,7 +18,14 @@
 
 package okta
 
-type OpenIdConnectApplicationSettingsRefreshToken struct {
-	Leeway       int64  `json:"leeway"`
-	RotationType string `json:"rotation_type,omitempty"`
+type SignOnInlineHook struct {
+	Id string `json:"id,omitempty"`
+}
+
+func NewSignOnInlineHook() *SignOnInlineHook {
+	return &SignOnInlineHook{}
+}
+
+func (a *SignOnInlineHook) IsApplicationInstance() bool {
+	return true
 }
