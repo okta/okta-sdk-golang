@@ -172,7 +172,18 @@ func (re *RequestExecutor) NewRequest(method string, url string, body interface{
 			tokenRequest.Header.Add("Accept", "application/json")
 			tokenRequest.Header.Add("Content-Type", "application/x-www-form-urlencoded")
 
-			tokenResponse, err := re.httpClient.Do(tokenRequest)
+			bOff := &oktaBackoff{
+				ctx:             context.TODO(),
+				maxRetries:      re.config.Okta.Client.RateLimit.MaxRetries,
+				backoffDuration: time.Duration(re.config.Okta.Client.RateLimit.MaxBackoff),
+			}
+			var tokenResponse *http.Response
+			operation := func() error {
+				tokenResponse, err = re.httpClient.Do(tokenRequest)
+				bOff.retryCount++
+				return err
+			}
+			err = backoff.Retry(operation, bOff)
 			if err != nil {
 				return nil, err
 			}
