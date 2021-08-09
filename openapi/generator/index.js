@@ -424,6 +424,7 @@ function createJsonTag(propertyName) {
     propertyName === "destinationOverride" ||
     propertyName === "recipientOverride" ||
     propertyName === "ssoAcsUrlOverride" ||
+    propertyName === "attributeStatements" ||
     propertyName === "maxSessionIdleMinutes") {
     return " `json:\"" + propertyName + "\"`"
   } else {

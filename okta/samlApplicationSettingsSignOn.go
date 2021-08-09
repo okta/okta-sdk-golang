@@ -22,7 +22,7 @@ type SamlApplicationSettingsSignOn struct {
 	AcsEndpoints              []*AcsEndpoint            `json:"acsEndpoints,omitempty"`
 	AllowMultipleAcsEndpoints *bool                     `json:"allowMultipleAcsEndpoints,omitempty"`
 	AssertionSigned           *bool                     `json:"assertionSigned,omitempty"`
-	AttributeStatements       []*SamlAttributeStatement `json:"attributeStatements,omitempty"`
+	AttributeStatements       []*SamlAttributeStatement `json:"attributeStatements"`
 	Audience                  string                    `json:"audience,omitempty"`
 	AudienceOverride          string                    `json:"audienceOverride"`
 	AuthnContextClassRef      string                    `json:"authnContextClassRef,omitempty"`

@@ -19,7 +19,7 @@
 package okta
 
 type WsFederationApplicationSettingsApplication struct {
-	AttributeStatements  string `json:"attributeStatements,omitempty"`
+	AttributeStatements  string `json:"attributeStatements"`
 	AudienceRestriction  string `json:"audienceRestriction,omitempty"`
 	AuthnContextClassRef string `json:"authnContextClassRef,omitempty"`
 	GroupFilter          string `json:"groupFilter,omitempty"`
