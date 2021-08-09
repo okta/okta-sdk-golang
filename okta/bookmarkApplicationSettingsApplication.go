@@ -22,11 +22,3 @@ type BookmarkApplicationSettingsApplication struct {
 	RequestIntegration *bool  `json:"requestIntegration,omitempty"`
 	Url                string `json:"url,omitempty"`
 }
-
-func NewBookmarkApplicationSettingsApplication() *BookmarkApplicationSettingsApplication {
-	return &BookmarkApplicationSettingsApplication{}
-}
-
-func (a *BookmarkApplicationSettingsApplication) IsApplicationInstance() bool {
-	return true
-}

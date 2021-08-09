@@ -29,11 +29,3 @@ type ApplicationCredentialsSigning struct {
 	RotationMode string     `json:"rotationMode,omitempty"`
 	Use          string     `json:"use,omitempty"`
 }
-
-func NewApplicationCredentialsSigning() *ApplicationCredentialsSigning {
-	return &ApplicationCredentialsSigning{}
-}
-
-func (a *ApplicationCredentialsSigning) IsApplicationInstance() bool {
-	return true
-}

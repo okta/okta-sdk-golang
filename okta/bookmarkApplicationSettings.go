@@ -24,11 +24,3 @@ type BookmarkApplicationSettings struct {
 	InlineHookId       string                                  `json:"inlineHookId,omitempty"`
 	Notifications      *ApplicationSettingsNotifications       `json:"notifications,omitempty"`
 }
-
-func NewBookmarkApplicationSettings() *BookmarkApplicationSettings {
-	return &BookmarkApplicationSettings{}
-}
-
-func (a *BookmarkApplicationSettings) IsApplicationInstance() bool {
-	return true
-}

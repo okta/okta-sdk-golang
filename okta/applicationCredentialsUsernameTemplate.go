@@ -23,11 +23,3 @@ type ApplicationCredentialsUsernameTemplate struct {
 	Template string `json:"template,omitempty"`
 	Type     string `json:"type,omitempty"`
 }
-
-func NewApplicationCredentialsUsernameTemplate() *ApplicationCredentialsUsernameTemplate {
-	return &ApplicationCredentialsUsernameTemplate{}
-}
-
-func (a *ApplicationCredentialsUsernameTemplate) IsApplicationInstance() bool {
-	return true
-}

@@ -45,14 +45,6 @@ type AppUser struct {
 	SyncState       string              `json:"syncState,omitempty"`
 }
 
-func NewAppUser() *AppUser {
-	return &AppUser{}
-}
-
-func (a *AppUser) IsApplicationInstance() bool {
-	return true
-}
-
 // Updates a user&#x27;s profile for an application
 func (m *AppUserResource) UpdateApplicationUser(ctx context.Context, appId string, userId string, body AppUser) (*AppUser, *Response, error) {
 	url := fmt.Sprintf("/api/v1/apps/%v/users/%v", appId, userId)

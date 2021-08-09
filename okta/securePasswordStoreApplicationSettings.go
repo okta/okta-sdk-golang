@@ -24,11 +24,3 @@ type SecurePasswordStoreApplicationSettings struct {
 	InlineHookId       string                                             `json:"inlineHookId,omitempty"`
 	Notifications      *ApplicationSettingsNotifications                  `json:"notifications,omitempty"`
 }
-
-func NewSecurePasswordStoreApplicationSettings() *SecurePasswordStoreApplicationSettings {
-	return &SecurePasswordStoreApplicationSettings{}
-}
-
-func (a *SecurePasswordStoreApplicationSettings) IsApplicationInstance() bool {
-	return true
-}

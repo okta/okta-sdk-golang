@@ -23,11 +23,3 @@ type ApplicationSettingsNotificationsVpnNetwork struct {
 	Exclude    []string `json:"exclude,omitempty"`
 	Include    []string `json:"include,omitempty"`
 }
-
-func NewApplicationSettingsNotificationsVpnNetwork() *ApplicationSettingsNotificationsVpnNetwork {
-	return &ApplicationSettingsNotificationsVpnNetwork{}
-}
-
-func (a *ApplicationSettingsNotificationsVpnNetwork) IsApplicationInstance() bool {
-	return true
-}

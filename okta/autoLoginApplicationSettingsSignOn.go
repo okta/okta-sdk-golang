@@ -22,11 +22,3 @@ type AutoLoginApplicationSettingsSignOn struct {
 	LoginUrl    string `json:"loginUrl,omitempty"`
 	RedirectUrl string `json:"redirectUrl,omitempty"`
 }
-
-func NewAutoLoginApplicationSettingsSignOn() *AutoLoginApplicationSettingsSignOn {
-	return &AutoLoginApplicationSettingsSignOn{}
-}
-
-func (a *AutoLoginApplicationSettingsSignOn) IsApplicationInstance() bool {
-	return true
-}

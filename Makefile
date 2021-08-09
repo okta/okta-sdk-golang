@@ -42,6 +42,7 @@ pull-spec:
 	rm -f openapi/spec.json
 	git clone https://github.com/okta/okta-management-openapi-spec spec-raw
 	cp spec-raw/dist/spec.json openapi/spec.json
+	cp spec-raw/dist/spec.json openapi/node_modules/@okta/openapi/dist/spec.json
 	rm -fr spec-raw
 
 test:

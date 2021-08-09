@@ -20,8 +20,8 @@ const fs = require('fs');
 
 const golang = module.exports;
 
-function getType(obj, prefix="") {
-  switch(obj.commonType) {
+function getType(obj, prefix = "") {
+  switch (obj.commonType) {
     case 'dateTime' :
       return String.raw`*time.Time`;
     case 'integer' :
@@ -29,13 +29,19 @@ function getType(obj, prefix="") {
     case 'boolean' :
       return String.raw`*bool`;
     case 'hash' :
-      return String.raw`interface{}`;
+      if (obj.model == 'object') {
+        return String.raw`interface{}`;
+      }
+      if (obj.model === 'boolean') {
+        return String.raw`map[string]bool`;
+      }
+      return String.raw`map[string]*` + obj.model;
     case 'array' :
-        if(obj.model == undefined || obj.model === "string") {
-          return String.raw`[]string`;
-        } else {
-          return String.raw`[]` + prefix + obj.model;
-        }
+      if (obj.model == undefined || obj.model === "string") {
+        return String.raw`[]string`;
+      } else {
+        return String.raw`[]` + prefix + obj.model;
+      }
     case 'enum' :
     case '':
     case 'null' :
@@ -45,10 +51,13 @@ function getType(obj, prefix="") {
     case 'double':
       return String.raw`float64`;
     case 'object' :
-      if(obj.model == undefined) {
+      if (obj.model === "SmsTemplateTranslations") {
+        return String.raw`map[string]interface{}`;
+      }
+      if (obj.model == undefined) {
         return String.raw`string`;
       } else {
-        if(prefix !== null || prefix != "") {
+        if (prefix !== null || prefix != "") {
           return prefix + obj.model;
         }
         return obj.model;
@@ -63,12 +72,12 @@ function lowercaseFirstLetter(text) {
   const isSingleCap = /^[A-Z][^A-Z]/;
   const isAllCap = /^[A-Z]*$/;
   const isMultiCap = /^[A-Z]{2,}/;
-  if(text.match(isSingleCap)) {
+  if (text.match(isSingleCap)) {
     return text.charAt(0).toLowerCase() + text.slice(1);
-  } else if(text.match(isAllCap)) {
+  } else if (text.match(isAllCap)) {
     return text.toLowerCase();
-  } else if(text.match(isMultiCap)) {
-    return text.replace(/^([A-Z]*)([A-Z])/, function(match, leading, keep, offset, remaining) {
+  } else if (text.match(isMultiCap)) {
+    return text.replace(/^([A-Z]*)([A-Z])/, function (match, leading, keep, offset, remaining) {
       return leading.toLowerCase() + keep;
     });
   } else {
@@ -77,16 +86,16 @@ function lowercaseFirstLetter(text) {
 }
 
 function ucFirst(text) {
-	switch(text) {
-  	case 'csr':
-    	return 'Csr';
+  switch (text) {
+    case 'csr':
+      return 'Csr';
     case 'csrMetadata':
-    	return 'CsrMetadata';
+      return 'CsrMetadata';
     case 'csrMetadataSubject':
-    	return 'CsrMetadataSubject';
+      return 'CsrMetadataSubject';
     case 'csrMetadataSubjectAltNames':
-    	return 'CsrMetadataSubjectAllNames';
-  	default:
+      return 'CsrMetadataSubjectAllNames';
+    default:
       return text.charAt(0).toUpperCase() + text.slice(1);
   }
 
@@ -97,9 +106,11 @@ function strToUpper(string) {
 }
 
 function structProp(prop) {
-  prop = prop.replace(/#/g,"");
-  prop = prop.replace(/\$/g,"");
-  prop = prop.replace(/(\_\w)/g, function(m){return m[1].toUpperCase();});
+  prop = prop.replace(/#/g, "");
+  prop = prop.replace(/\$/g, "");
+  prop = prop.replace(/(\_\w)/g, function (m) {
+    return m[1].toUpperCase();
+  });
 
   prop = prop.charAt(0).toUpperCase() + prop.slice(1);
 
@@ -137,7 +148,7 @@ function getImports(object) {
 
   if (object.operations !== undefined) {
     for (let operation in object.operations) {
-      if(object.operations[operation].queryParams.length) {
+      if (object.operations[operation].queryParams.length) {
         imports.push("github.com/okta/okta-sdk-golang/v2/okta/query")
         imports.push("context");
       }
@@ -147,7 +158,7 @@ function getImports(object) {
   if (object.model.methods !== undefined) {
     for (let method of object.model.methods) {
 
-      if(method.operation.queryParams.length) {
+      if (method.operation.queryParams.length) {
         imports.push("github.com/okta/okta-sdk-golang/v2/okta/query")
       }
       imports.push("fmt");
@@ -164,7 +175,7 @@ function getImports(object) {
 
   if (object.model.crud !== undefined) {
     for (let method of object.model.crud) {
-      if(method.operation.queryParams.length) {
+      if (method.operation.queryParams.length) {
         imports.push("github.com/okta/okta-sdk-golang/v2/okta/query");
       }
       imports.push("fmt");
@@ -200,8 +211,8 @@ function getImports(object) {
   imports = [...new Set(imports)];
 
   if (object.model.modelName == "Role") {
-    imports.splice (imports.indexOf("context"), 1);
-    imports.splice (imports.indexOf("fmt"), 1);
+    imports.splice(imports.indexOf("context"), 1);
+    imports.splice(imports.indexOf("fmt"), 1);
   }
 
   return imports;
@@ -217,28 +228,28 @@ function operationArgumentBuilder(operation) {
   if ((operation.method === 'post' || operation.method === 'put') && operation.bodyModel) {
     let bodyModel = ucFirst(_.camelCase(operation.bodyModel));
 
-    if(bodyModel === "Application") {
+    if (bodyModel === "Application") {
       bodyModel = "App";
     }
 
-    if(bodyModel === "UserFactor") {
+    if (bodyModel === "UserFactor") {
       bodyModel = "Factor";
     }
 
-    if(bodyModel === "String") {
+    if (bodyModel === "String") {
       bodyModel = "string";
     }
 
     args.push(`body ` + bodyModel);
   }
 
-  if(operation.operationId === "getApplication") {
+  if (operation.operationId === "getApplication") {
     args.push(`appInstance App`);
   }
 
-  if(operation.operationId === "getFactor" ||
-      operation.operationId === "activateFactor" ||
-      operation.operationId === "verifyFactor") {
+  if (operation.operationId === "getFactor" ||
+    operation.operationId === "activateFactor" ||
+    operation.operationId === "verifyFactor") {
     args.push(`factorInstance Factor`);
   }
 
@@ -267,23 +278,23 @@ function getPathParams(operation) {
 }
 
 function returnType(operation) {
-  if ( operation.responseModel !== undefined ) {
-    let responseModel = "*" +operation.responseModel
-    if ( responseModel === "*Application" ) {
-      if ( applicationModelInterface ) {
+  if (operation.responseModel !== undefined) {
+    let responseModel = "*" + operation.responseModel
+    if (responseModel === "*Application") {
+      if (applicationModelInterface) {
         responseModel = "App"
       } else {
         responseModel = "interface{}"
       }
     }
-    if ( responseModel === "*UserFactor" ) {
-      if ( factorModelInterface ) {
+    if (responseModel === "*UserFactor") {
+      if (factorModelInterface) {
         responseModel = "Factor"
       } else {
         responseModel = "interface{}"
       }
     }
-    if ( operation.isArray !== undefined && operation.isArray === true) {
+    if (operation.isArray !== undefined && operation.isArray === true) {
       return " ([]" + responseModel + ", *Response, error) ";
     }
     return " (" + responseModel + ", *Response, error) ";
@@ -307,36 +318,36 @@ function getClientTags(operations) {
 
 function responseModelInterface(operationId) {
   return operationId === "listFactors" ||
-         operationId === "listSupportedFactors" ||
-         operationId === "listApplications" ||
-         operationId === "listAppTargetsForRole" ||
-         operationId === "listApplicationTargetsForApplicationAdministratorRoleForGroup" ||
-         operationId === "listApplicationTargetsForApplicationAdministratorRoleForUser" ||
-         operationId === "listAssignedApplicationsForGroup" ||
-         operationId === "listAssignedApplicationsForUser";
- }
+    operationId === "listSupportedFactors" ||
+    operationId === "listApplications" ||
+    operationId === "listAppTargetsForRole" ||
+    operationId === "listApplicationTargetsForApplicationAdministratorRoleForGroup" ||
+    operationId === "listApplicationTargetsForApplicationAdministratorRoleForUser" ||
+    operationId === "listAssignedApplicationsForGroup" ||
+    operationId === "listAssignedApplicationsForUser";
+}
 
 function applicationModelInterface(operationId) {
   return operationId === "listApplications" ||
-         operationId === "listAppTargetsForRole" ||
-         operationId === "listAssignedApplicationsForGroup" ||
-         operationId === "listAssignedApplicationsForUser";
+    operationId === "listAppTargetsForRole" ||
+    operationId === "listAssignedApplicationsForGroup" ||
+    operationId === "listAssignedApplicationsForUser";
 }
 
 function factorModelInterface(operationId) {
   return operationId === "listFactors" ||
-         operationId === "listSupportedFactors";
+    operationId === "listSupportedFactors";
 }
 
 function catalogApplicationInterface(operationId) {
-    return operationId === "listApplicationTargetsForApplicationAdministratorRoleForGroup" ||
-        operationId === "listApplicationTargetsForApplicationAdministratorRoleForUser";
+  return operationId === "listApplicationTargetsForApplicationAdministratorRoleForGroup" ||
+    operationId === "listApplicationTargetsForApplicationAdministratorRoleForUser";
 }
 
 function factorInstanceOperation(operationId) {
   return operationId === "getFactor" ||
-         operationId === "activateFactor" ||
-         operationId === "verifyFactor";
+    operationId === "activateFactor" ||
+    operationId === "verifyFactor";
 }
 
 function getClientTagResources(operations) {
@@ -373,26 +384,26 @@ function buildModelProperties(model) {
   const properties = {};
   const finalProps = [];
 
-  if(model.parent !== undefined) {
+  if (model.parent !== undefined) {
     for (let parentProperty of model.parent.properties) {
       properties[parentProperty.propertyName] = parentProperty;
     }
-    if(model.parent.parent !== undefined) {
+    if (model.parent.parent !== undefined) {
       for (let parentProperty of model.parent.parent.properties) {
         properties[parentProperty.propertyName] = parentProperty;
       }
     }
   }
 
-  if(model.properties !== undefined) {
+  if (model.properties !== undefined) {
     for (let modelProperty of model.properties) {
       properties[modelProperty.propertyName] = modelProperty;
     }
   }
 
   for (let propKey in properties) {
-    finalProps.push( structProp(properties[propKey].propertyName) + " " +
-        getType(properties[propKey], "*") + createJsonTag(properties[propKey].propertyName));
+    finalProps.push(structProp(properties[propKey].propertyName) + " " +
+      getType(properties[propKey], "*") + createJsonTag(properties[propKey].propertyName));
   }
 
   return finalProps.join("\n\t");
@@ -400,43 +411,93 @@ function buildModelProperties(model) {
 
 function createJsonTag(propertyName) {
   if (propertyName === "tokenLifetimeMinutes" ||
-      propertyName === "accessTokenLifetimeMinutes" ||
-      propertyName === "minLowerCase" ||
-      propertyName === "minUpperCase" ||
-      propertyName === "minNumber" ||
-      propertyName === "minSymbol" ||
-      propertyName === "maxSessionLifetimeMinutes" ||
-      propertyName === "refreshTokenLifetimeMinutes" ||
-      propertyName === "refreshTokenWindowMinutes" ||
-      propertyName === "default_scope" ||
-      propertyName === "maxSessionIdleMinutes") {
-    return " `json:\""+propertyName+"\"`"
+    propertyName === "accessTokenLifetimeMinutes" ||
+    propertyName === "minLowerCase" ||
+    propertyName === "minUpperCase" ||
+    propertyName === "minNumber" ||
+    propertyName === "minSymbol" ||
+    propertyName === "maxSessionLifetimeMinutes" ||
+    propertyName === "refreshTokenLifetimeMinutes" ||
+    propertyName === "refreshTokenWindowMinutes" ||
+    propertyName === "default_scope" ||
+    propertyName === "userName" ||
+    propertyName === "leeway" ||
+    propertyName === "audienceOverride" ||
+    propertyName === "defaultRelayState" ||
+    propertyName === "destinationOverride" ||
+    propertyName === "recipientOverride" ||
+    propertyName === "ssoAcsUrlOverride" ||
+    propertyName === "attributeStatements" ||
+    propertyName === "maxSessionIdleMinutes") {
+    return " `json:\"" + propertyName + "\"`"
   } else {
-    return " `json:\""+propertyName+",omitempty\"`"
+    return " `json:\"" + propertyName + ",omitempty\"`"
   }
 }
 
 function isInstance(model) {
-  if ( model.modelName == "Csr" ||
-      model.modelName == "CsrMetadata" ||
-      model.modelName == "CsrMetadataSubject" ||
-      model.modelName == "CsrMetadataSubjectAltNames" ||
-      model.modelName == "OAuth2Claim" ||
-      model.modelName == "OAuth2ScopeConsentGrant" ||
-      model.modelName == "AcsEndpoint" ||
-      model.modelName == "JwkUse" ||
-      model.modelName == "OAuth2Actor" ||
-      model.modelName == "OAuth2Client" ||
-      model.modelName == "OAuth2RefreshToken" ||
-      model.modelName == "OAuth2ClaimConditions" ||
-      model.modelName == "OAuth2Scope" ||
-      model.modelName == "WebAuthnUserFactorProfile" ||
-      model.modelName == "OpenIdConnectApplicationSettingsClientKeys" ||
-      model.modelName == "OpenIdConnectApplicationSettingsRefreshToken" ||
-      model.modelName == "SingleLogout" ||
-      model.modelName == "SpCertificate" ||
-      model.modelName == "OpenIdConnectApplicationIdpInitiatedLogin" ||
-      model.modelName == "OAuth2ScopesMediationPolicyRuleCondition") {
+  if (model.modelName === "Csr" ||
+    model.modelName === "CsrMetadata" ||
+    model.modelName === "CsrMetadataSubject" ||
+    model.modelName === "CsrMetadataSubjectAltNames" ||
+    model.modelName === "OAuth2Claim" ||
+    model.modelName === "OAuth2ScopeConsentGrant" ||
+    model.modelName === "AcsEndpoint" ||
+    model.modelName === "JwkUse" ||
+    model.modelName === "OAuth2Actor" ||
+    model.modelName === "OAuth2Client" ||
+    model.modelName === "OAuth2RefreshToken" ||
+    model.modelName === "OAuth2ClaimConditions" ||
+    model.modelName === "OAuth2Scope" ||
+    model.modelName === "WebAuthnUserFactorProfile" ||
+    model.modelName === "OpenIdConnectApplicationSettingsClientKeys" ||
+    model.modelName === "OpenIdConnectApplicationSettingsRefreshToken" ||
+    model.modelName === "SingleLogout" ||
+    model.modelName === "SpCertificate" ||
+    model.modelName === "OpenIdConnectApplicationIdpInitiatedLogin" ||
+    model.modelName === "ApplicationAccessibility" ||
+    model.modelName === "ApplicationCredentials" ||
+    model.modelName === "ApplicationCredentialsOAuthClient" ||
+    model.modelName === "ApplicationCredentialsSigning" ||
+    model.modelName === "ApplicationCredentialsUsernameTemplate" ||
+    model.modelName === "ApplicationGroupAssignment" ||
+    model.modelName === "ApplicationLicensing" ||
+    model.modelName === "ApplicationSettings" ||
+    model.modelName === "ApplicationSettingsApplication" ||
+    model.modelName === "ApplicationSettingsNotifications" ||
+    model.modelName === "ApplicationSettingsNotificationsVpn" ||
+    model.modelName === "ApplicationSettingsNotificationsVpnNetwork" ||
+    model.modelName === "ApplicationVisibility" ||
+    model.modelName === "ApplicationVisibilityHide" ||
+    model.modelName === "AppUser" ||
+    model.modelName === "AppUserCredentials" ||
+    model.modelName === "AppUserPasswordCredential" ||
+    model.modelName === "AuthorizationServerCredentials" ||
+    model.modelName === "AutoLoginApplicationSettings" ||
+    model.modelName === "AutoLoginApplicationSettingsSignOn" ||
+    model.modelName === "BasicApplicationSettings" ||
+    model.modelName === "BasicApplicationSettingsApplication" ||
+    model.modelName === "BookmarkApplicationSettings" ||
+    model.modelName === "BookmarkApplicationSettingsApplication" ||
+    model.modelName === "JsonWebKey" ||
+    model.modelName === "OAuth2Token" ||
+    model.modelName === "OAuthApplicationCredentials" ||
+    model.modelName === "OpenIdConnectApplicationSettings" ||
+    model.modelName === "OpenIdConnectApplicationSettingsClient" ||
+    model.modelName === "SamlApplicationSettings" ||
+    model.modelName === "SamlApplicationSettingsSignOn" ||
+    model.modelName === "SamlAttributeStatement" ||
+    model.modelName === "SchemeApplicationCredentials" ||
+    model.modelName === "SecurePasswordStoreApplicationSettings" ||
+    model.modelName === "SecurePasswordStoreApplicationSettingsApplication" ||
+    model.modelName === "SignOnInlineHook" ||
+    model.modelName === "SwaApplicationSettings" ||
+    model.modelName === "SwaApplicationSettingsApplication" ||
+    model.modelName === "SwaThreeFieldApplicationSettings" ||
+    model.modelName === "SwaThreeFieldApplicationSettingsApplication" ||
+    model.modelName === "WsFederationApplicationSettings" ||
+    model.modelName === "WsFederationApplicationSettingsApplication" ||
+    model.modelName === "OAuth2ScopesMediationPolicyRuleCondition") {
     return false
   }
 
@@ -444,10 +505,10 @@ function isInstance(model) {
 }
 
 function log(item) {
-    console.log(item);
+  console.log(item);
 }
 
-golang.process = ({ spec, operations, models, handlebars }) => {
+golang.process = ({spec, operations, models, handlebars}) => {
   golang.spec = spec;
   const templates = [];
   const queryOptionsTemp = [];
@@ -493,19 +554,19 @@ golang.process = ({ spec, operations, models, handlebars }) => {
 
   for (let model of models) {
 
-    if(model.extends !== undefined) {
+    if (model.extends !== undefined) {
       model.parent = modelsByName[model.extends];
 
-      if(model.parent.resolutionStrategy !== undefined && model.parent.parent == undefined) {
+      if (model.parent.resolutionStrategy !== undefined && model.parent.parent == undefined) {
         for (let value in model.parent.resolutionStrategy.valueToModelMapping) {
-          if(model.modelName)
-          if (model.parent.resolutionStrategy.valueToModelMapping[value] === model.modelName) {
-            model.resolution = {fieldName: model.parent.resolutionStrategy.propertyName, fieldValue: value};
-          }
+          if (model.modelName)
+            if (model.parent.resolutionStrategy.valueToModelMapping[value] === model.modelName) {
+              model.resolution = {fieldName: model.parent.resolutionStrategy.propertyName, fieldValue: value};
+            }
         }
       }
 
-      if(model.parent.parent !== undefined && model.parent.parent.resolutionStrategy !== undefined) {
+      if (model.parent.parent !== undefined && model.parent.parent.resolutionStrategy !== undefined) {
         model.resolution = model.parent.resolution;
       }
     }
@@ -513,7 +574,7 @@ golang.process = ({ spec, operations, models, handlebars }) => {
 
     let modelOperations = {}
 
-    if(model.crud != undefined) {
+    if (model.crud != undefined) {
       for (let modelCrud of model.crud) {
         modelOperations[modelCrud.operation.operationId] = modelCrud.operation;
       }
@@ -524,8 +585,8 @@ golang.process = ({ spec, operations, models, handlebars }) => {
       if (tag === "AuthServer") tag = "AuthorizationServer";
       if (tag === "Template") tag = "SmsTemplate";
       if (tag === "Idp") tag = "IdpTrust";
-      if (tag === "UserFactor" ) tag = "UserFactor";
-      if (tag === "Log" ) tag = "LogEvent";
+      if (tag === "UserFactor") tag = "UserFactor";
+      if (tag === "Log") tag = "LogEvent";
       if (tag == model.modelName) {
         modelOperations[operation.operationId] = operation;
       }
@@ -570,7 +631,7 @@ golang.process = ({ spec, operations, models, handlebars }) => {
   handlebars.registerPartial('model.defaultMethod', fs.readFileSync('generator/templates/model/defaultMethod.go.hbs', 'utf8'));
   handlebars.registerPartial('model.defaultOperation', fs.readFileSync('generator/templates/model/defaultOperation.go.hbs', 'utf8'));
 
-  fs.writeFile("generator/createdFiles.json", JSON.stringify(templates), function(error) {
+  fs.writeFile("generator/createdFiles.json", JSON.stringify(templates), function (error) {
     console.log(error);
   });
   return templates;

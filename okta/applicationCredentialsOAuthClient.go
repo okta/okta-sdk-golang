@@ -24,11 +24,3 @@ type ApplicationCredentialsOAuthClient struct {
 	ClientSecret            string `json:"client_secret,omitempty"`
 	TokenEndpointAuthMethod string `json:"token_endpoint_auth_method,omitempty"`
 }
-
-func NewApplicationCredentialsOAuthClient() *ApplicationCredentialsOAuthClient {
-	return &ApplicationCredentialsOAuthClient{}
-}
-
-func (a *ApplicationCredentialsOAuthClient) IsApplicationInstance() bool {
-	return true
-}

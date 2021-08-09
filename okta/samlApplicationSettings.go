@@ -25,11 +25,3 @@ type SamlApplicationSettings struct {
 	Notifications      *ApplicationSettingsNotifications `json:"notifications,omitempty"`
 	SignOn             *SamlApplicationSettingsSignOn    `json:"signOn,omitempty"`
 }
-
-func NewSamlApplicationSettings() *SamlApplicationSettings {
-	return &SamlApplicationSettings{}
-}
-
-func (a *SamlApplicationSettings) IsApplicationInstance() bool {
-	return true
-}

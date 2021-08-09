@@ -24,11 +24,3 @@ type WsFederationApplicationSettings struct {
 	InlineHookId       string                                      `json:"inlineHookId,omitempty"`
 	Notifications      *ApplicationSettingsNotifications           `json:"notifications,omitempty"`
 }
-
-func NewWsFederationApplicationSettings() *WsFederationApplicationSettings {
-	return &WsFederationApplicationSettings{}
-}
-
-func (a *WsFederationApplicationSettings) IsApplicationInstance() bool {
-	return true
-}

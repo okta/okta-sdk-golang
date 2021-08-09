@@ -35,14 +35,6 @@ type ApplicationGroupAssignment struct {
 	Profile     interface{} `json:"profile,omitempty"`
 }
 
-func NewApplicationGroupAssignment() *ApplicationGroupAssignment {
-	return &ApplicationGroupAssignment{}
-}
-
-func (a *ApplicationGroupAssignment) IsApplicationInstance() bool {
-	return true
-}
-
 // Removes a group assignment from an application.
 func (m *ApplicationGroupAssignmentResource) DeleteApplicationGroupAssignment(ctx context.Context, appId string, groupId string) (*Response, error) {
 	url := fmt.Sprintf("/api/v1/apps/%v/groups/%v", appId, groupId)
