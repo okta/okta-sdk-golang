@@ -102,7 +102,7 @@ func (m *PolicyResource) DeletePolicy(ctx context.Context, policyId string) (*Re
 }
 
 // Gets all policies with the specified type.
-func (m *PolicyResource) ListPolicies(ctx context.Context, qp *query.Params) ([]*Policy, *Response, error) {
+func (m *PolicyResource) ListPolicies(ctx context.Context, qp *query.Params) ([]*AuthorizationServerPolicy, *Response, error) {
 	url := fmt.Sprintf("/api/v1/policies")
 	if qp != nil {
 		url = url + qp.String()
@@ -113,14 +113,14 @@ func (m *PolicyResource) ListPolicies(ctx context.Context, qp *query.Params) ([]
 		return nil, nil, err
 	}
 
-	var policy []*Policy
+	var authorizationServerPolicy []*AuthorizationServerPolicy
 
-	resp, err := m.client.requestExecutor.Do(ctx, req, &policy)
+	resp, err := m.client.requestExecutor.Do(ctx, req, &authorizationServerPolicy)
 	if err != nil {
 		return nil, resp, err
 	}
 
-	return policy, resp, nil
+	return authorizationServerPolicy, resp, nil
 }
 
 // Creates a policy.

@@ -23,14 +23,14 @@ import (
 )
 
 type OktaSignOnPolicyRule struct {
+	Actions     *OktaSignOnPolicyRuleActions    `json:"actions,omitempty"`
+	Conditions  *OktaSignOnPolicyRuleConditions `json:"conditions,omitempty"`
 	Created     *time.Time                      `json:"created,omitempty"`
 	Id          string                          `json:"id,omitempty"`
 	LastUpdated *time.Time                      `json:"lastUpdated,omitempty"`
+	Name        string                          `json:"name,omitempty"`
 	Priority    int64                           `json:"priority,omitempty"`
 	Status      string                          `json:"status,omitempty"`
 	System      *bool                           `json:"system,omitempty"`
 	Type        string                          `json:"type,omitempty"`
-	Actions     *OktaSignOnPolicyRuleActions    `json:"actions,omitempty"`
-	Conditions  *OktaSignOnPolicyRuleConditions `json:"conditions,omitempty"`
-	Name        string                          `json:"name,omitempty"`
 }

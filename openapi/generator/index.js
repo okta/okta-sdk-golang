@@ -98,6 +98,7 @@ function strToUpper(string) {
 
 function structProp(prop) {
   prop = prop.replace(/#/g,"");
+  prop = prop.replace(/\$/g,"");
   prop = prop.replace(/(\_\w)/g, function(m){return m[1].toUpperCase();});
 
   prop = prop.charAt(0).toUpperCase() + prop.slice(1);
@@ -156,7 +157,7 @@ function getImports(object) {
       }
 
       if (method.operation.bodyModel !== undefined) {
-        imports.push("fmt")
+        imports.push("fmt");
       }
     }
   }
@@ -164,7 +165,7 @@ function getImports(object) {
   if (object.model.crud !== undefined) {
     for (let method of object.model.crud) {
       if(method.operation.queryParams.length) {
-        imports.push("github.com/okta/okta-sdk-golang/v2/okta/query")
+        imports.push("github.com/okta/okta-sdk-golang/v2/okta/query");
       }
       imports.push("fmt");
       imports.push("context");
@@ -173,13 +174,27 @@ function getImports(object) {
       }
 
       if (method.operation.bodyModel !== undefined) {
-        imports.push("fmt")
+        imports.push("fmt");
       }
     }
   }
 
   if (object.model.modelName === "LogEvent") {
-    imports.push("fmt")
+    imports.push("fmt");
+  }
+
+  if (object.model.modelName === "UserSchema") {
+    imports.push("fmt");
+    imports.push("context");
+  }
+
+  if (object.model.modelName === "Domain") {
+    imports.push("fmt");
+    imports.push("context");
+  }
+
+  if (object.model.modelName === "DomainCertificate") {
+    imports = [];
   }
 
   imports = [...new Set(imports)];
@@ -333,6 +348,7 @@ function getClientTagResources(operations) {
     if (tag === "Idp") tag = "IdpTrust";
     if (tag === "UserFactor") tag = "UserFactor";
     if (tag === "Log") tag = "LogEvent";
+    if (tag === "ThreatInsight") tag = "ThreatInsightConfiguration";
     tagResources.push(structProp(tag) + " *" + structProp(tag) + "Resource")
   }
   return tagResources.join("\n\t");
@@ -347,6 +363,7 @@ function getNewClientTagProps(operations) {
     if (tag === "Idp") tag = "IdpTrust";
     if (tag === "UserFactor") tag = "UserFactor";
     if (tag === "Log") tag = "LogEvent";
+    if (tag === "ThreatInsight") tag = "ThreatInsightConfiguration";
     tagResources.push("c." + structProp(tag) + " = (*" + structProp(tag) + "Resource)(&c.resource)")
   }
   return tagResources.join("\n\t");
@@ -429,8 +446,6 @@ function isInstance(model) {
 function log(item) {
     console.log(item);
 }
-
-
 
 golang.process = ({ spec, operations, models, handlebars }) => {
   golang.spec = spec;
