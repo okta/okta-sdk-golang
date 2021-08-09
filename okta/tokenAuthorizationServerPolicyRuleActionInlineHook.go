@@ -18,9 +18,6 @@
 
 package okta
 
-type TokenAuthorizationServerPolicyRuleAction struct {
-	AccessTokenLifetimeMinutes  int64                                               `json:"accessTokenLifetimeMinutes"`
-	InlineHook                  *TokenAuthorizationServerPolicyRuleActionInlineHook `json:"inlineHook,omitempty"`
-	RefreshTokenLifetimeMinutes int64                                               `json:"refreshTokenLifetimeMinutes"`
-	RefreshTokenWindowMinutes   int64                                               `json:"refreshTokenWindowMinutes"`
+type TokenAuthorizationServerPolicyRuleActionInlineHook struct {
+	Id string `json:"id,omitempty"`
 }
