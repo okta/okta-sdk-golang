@@ -36,15 +36,13 @@ func Test_can_get_applicaiton_by_id(t *testing.T) {
 	ctx, client, err := tests.NewClient(context.TODO())
 	require.NoError(t, err)
 
-	basicApplicationSettingsApplication := okta.NewBasicApplicationSettingsApplication()
-	basicApplicationSettingsApplication.AuthURL = "https://example.com/auth.html"
-	basicApplicationSettingsApplication.Url = "https://example.com/auth.html"
-
-	basicApplicationSettings := okta.NewBasicApplicationSettings()
-	basicApplicationSettings.App = basicApplicationSettingsApplication
-
 	basicApplication := okta.NewBasicAuthApplication()
-	basicApplication.Settings = basicApplicationSettings
+	basicApplication.Settings = &okta.BasicApplicationSettings{
+		App: &okta.BasicApplicationSettingsApplication{
+			AuthURL: "https://example.com/auth.html",
+			Url:     "https://example.com/auth.html",
+		},
+	}
 
 	application, _, err := client.Application.CreateApplication(ctx, basicApplication, nil)
 	require.NoError(t, err, "Creating an application should not error")
@@ -66,37 +64,35 @@ func Test_can_update_application(t *testing.T) {
 	ctx, client, err := tests.NewClient(context.TODO())
 	require.NoError(t, err)
 
-	basicApplicationSettingsApplication := okta.NewBasicApplicationSettingsApplication()
-	basicApplicationSettingsApplication.AuthURL = "https://example.com/auth.html"
-	basicApplicationSettingsApplication.Url = "https://example.com/auth.html"
-
-	basicApplicationSettings := okta.NewBasicApplicationSettings()
-	basicApplicationSettings.App = basicApplicationSettingsApplication
-
 	basicApplication := okta.NewBasicAuthApplication()
-	basicApplication.Settings = basicApplicationSettings
+	basicApplication.Settings = &okta.BasicApplicationSettings{
+		App: &okta.BasicApplicationSettingsApplication{
+			AuthURL: "https://example.com/auth.html",
+			Url:     "https://example.com/auth.html",
+		},
+	}
 
 	application, _, err := client.Application.CreateApplication(ctx, basicApplication, nil)
 	require.NoError(t, err, "Creating an application should not error")
 
 	appId := application.(*okta.BasicAuthApplication).Id
 
-	newBasicApplicationSettingsApplication := okta.NewBasicApplicationSettingsApplication()
-	newBasicApplicationSettingsApplication.AuthURL = "https://example.org/auth.html"
-	newBasicApplicationSettingsApplication.Url = "https://example.org/auth.html"
-
-	newBasicApplicationSettings := okta.NewBasicApplicationSettings()
-	newBasicApplicationSettings.App = newBasicApplicationSettingsApplication
-
 	newBasicApplication := okta.NewBasicAuthApplication()
-	newBasicApplication.Settings = newBasicApplicationSettings
+	newBasicApplication.Settings = &okta.BasicApplicationSettings{
+		App: &okta.BasicApplicationSettingsApplication{
+			AuthURL: "https://example.org/auth.html",
+			Url:     "https://example.org/auth.html",
+		},
+	}
 
 	newApp, _, err := client.Application.UpdateApplication(ctx, appId, newBasicApplication)
 	require.NoError(t, err, "Updating an application caused an error")
 
 	assert.Equal(t, "https://example.org/auth.html", newApp.(*okta.BasicAuthApplication).Settings.App.Url, "The application did not update")
 
-	client.Application.DeactivateApplication(ctx, appId)
+	_, err = client.Application.DeactivateApplication(ctx, appId)
+	require.NoError(t, err, "Deactivating an application should not error")
+
 	_, err = client.Application.DeleteApplication(ctx, appId)
 
 	require.NoError(t, err, "Deleting an application should not error")
@@ -106,15 +102,14 @@ func Test_can_create_a_bookmark_application(t *testing.T) {
 	ctx, client, err := tests.NewClient(context.TODO())
 	require.NoError(t, err)
 
-	bookmarkApplicationSettingsApplication := okta.NewBookmarkApplicationSettingsApplication()
-	bookmarkApplicationSettingsApplication.RequestIntegration = new(bool)
-	bookmarkApplicationSettingsApplication.Url = "https://example.com/bookmark.htm"
-
-	bookmarkApplicationSettings := okta.NewBookmarkApplicationSettings()
-	bookmarkApplicationSettings.App = bookmarkApplicationSettingsApplication
-
 	bookmarkApplication := okta.NewBookmarkApplication()
-	bookmarkApplication.Settings = bookmarkApplicationSettings
+	bookmarkApplication.Settings = &okta.BookmarkApplicationSettings{
+		App: &okta.BookmarkApplicationSettingsApplication{
+			RequestIntegration: new(bool),
+			Url: "https://example.com/bookmark.htm",
+		},
+	}
+
 	assert.Empty(t, bookmarkApplication.Id)
 	application, _, err := client.Application.CreateApplication(ctx, bookmarkApplication, nil)
 	require.NoError(t, err, "Creating an application should not error")
@@ -132,15 +127,13 @@ func Test_can_create_a_basic_authentication_application(t *testing.T) {
 	ctx, client, err := tests.NewClient(context.TODO())
 	require.NoError(t, err)
 
-	basicApplicationSettingsApplication := okta.NewBasicApplicationSettingsApplication()
-	basicApplicationSettingsApplication.AuthURL = "https://example.com/auth.html"
-	basicApplicationSettingsApplication.Url = "https://example.com/auth.html"
-
-	basicApplicationSettings := okta.NewBasicApplicationSettings()
-	basicApplicationSettings.App = basicApplicationSettingsApplication
-
 	basicApplication := okta.NewBasicAuthApplication()
-	basicApplication.Settings = basicApplicationSettings
+	basicApplication.Settings = &okta.BasicApplicationSettings{
+		App: &okta.BasicApplicationSettingsApplication{
+			AuthURL: "https://example.com/auth.html",
+			Url:     "https://example.com/auth.html",
+		},
+	}
 
 	assert.Empty(t, basicApplication.Id)
 	application, _, err := client.Application.CreateApplication(ctx, basicApplication, nil)
@@ -160,28 +153,24 @@ func Test_list_application_allows_casting_to_correct_type(t *testing.T) {
 	ctx, client, err := tests.NewClient(context.TODO())
 	require.NoError(t, err)
 
-	basicApplicationSettingsApplication := okta.NewBasicApplicationSettingsApplication()
-	basicApplicationSettingsApplication.AuthURL = "https://example.com/auth.html"
-	basicApplicationSettingsApplication.Url = "https://example.com/auth.html"
-
-	basicApplicationSettings := okta.NewBasicApplicationSettings()
-	basicApplicationSettings.App = basicApplicationSettingsApplication
-
 	basicApplication := okta.NewBasicAuthApplication()
-	basicApplication.Settings = basicApplicationSettings
+	basicApplication.Settings = &okta.BasicApplicationSettings{
+		App: &okta.BasicApplicationSettingsApplication{
+			AuthURL: "https://example.com/auth.html",
+			Url:     "https://example.com/auth.html",
+		},
+	}
 
 	app1, _, err := client.Application.CreateApplication(ctx, basicApplication, nil)
 	require.NoError(t, err, "Creating an application should not error")
 
-	bookmarkApplicationSettingsApplication := okta.NewBookmarkApplicationSettingsApplication()
-	bookmarkApplicationSettingsApplication.RequestIntegration = new(bool)
-	bookmarkApplicationSettingsApplication.Url = "https://example.com/bookmark.htm"
-
-	bookmarkApplicationSettings := okta.NewBookmarkApplicationSettings()
-	bookmarkApplicationSettings.App = bookmarkApplicationSettingsApplication
-
 	bookmarkApplication := okta.NewBookmarkApplication()
-	bookmarkApplication.Settings = bookmarkApplicationSettings
+	bookmarkApplication.Settings = &okta.BookmarkApplicationSettings{
+		App: &okta.BookmarkApplicationSettingsApplication{
+			RequestIntegration: new(bool),
+			Url:                "https://example.com/bookmark.htm",
+		},
+	}
 
 	app2, _, err := client.Application.CreateApplication(ctx, bookmarkApplication, nil)
 	require.NoError(t, err, "Creating an application should not error")
@@ -214,15 +203,13 @@ func Test_can_activate_application(t *testing.T) {
 	ctx, client, err := tests.NewClient(context.TODO())
 	require.NoError(t, err)
 
-	basicApplicationSettingsApplication := okta.NewBasicApplicationSettingsApplication()
-	basicApplicationSettingsApplication.AuthURL = "https://example.com/auth.html"
-	basicApplicationSettingsApplication.Url = "https://example.com/auth.html"
-
-	basicApplicationSettings := okta.NewBasicApplicationSettings()
-	basicApplicationSettings.App = basicApplicationSettingsApplication
-
 	basicApplication := okta.NewBasicAuthApplication()
-	basicApplication.Settings = basicApplicationSettings
+	basicApplication.Settings = &okta.BasicApplicationSettings{
+		App: &okta.BasicApplicationSettingsApplication{
+			AuthURL: "https://example.com/auth.html",
+			Url:     "https://example.com/auth.html",
+		},
+	}
 
 	application, _, err := client.Application.CreateApplication(ctx, basicApplication, query.NewQueryParams(query.WithActivate(false)))
 	require.NoError(t, err, "Creating an application should not error")
@@ -246,15 +233,13 @@ func Test_can_deactivate_application(t *testing.T) {
 	ctx, client, err := tests.NewClient(context.TODO())
 	require.NoError(t, err)
 
-	basicApplicationSettingsApplication := okta.NewBasicApplicationSettingsApplication()
-	basicApplicationSettingsApplication.AuthURL = "https://example.com/auth.html"
-	basicApplicationSettingsApplication.Url = "https://example.com/auth.html"
-
-	basicApplicationSettings := okta.NewBasicApplicationSettings()
-	basicApplicationSettings.App = basicApplicationSettingsApplication
-
 	basicApplication := okta.NewBasicAuthApplication()
-	basicApplication.Settings = basicApplicationSettings
+	basicApplication.Settings = &okta.BasicApplicationSettings{
+		App: &okta.BasicApplicationSettingsApplication{
+			AuthURL: "https://example.com/auth.html",
+			Url:     "https://example.com/auth.html",
+		},
+	}
 
 	application, _, err := client.Application.CreateApplication(ctx, basicApplication, query.NewQueryParams(query.WithActivate(true)))
 	require.NoError(t, err, "Creating an application should not error")
@@ -277,15 +262,13 @@ func Test_can_add_and_remove_application_users(t *testing.T) {
 	ctx, client, err := tests.NewClient(context.TODO())
 	require.NoError(t, err)
 
-	basicApplicationSettingsApplication := okta.NewBasicApplicationSettingsApplication()
-	basicApplicationSettingsApplication.AuthURL = "https://example.com/auth.htmel"
-	basicApplicationSettingsApplication.Url = "https://example.com/auth.html"
-
-	basicApplicationSettings := okta.NewBasicApplicationSettings()
-	basicApplicationSettings.App = basicApplicationSettingsApplication
-
 	basicApplication := okta.NewBasicAuthApplication()
-	basicApplication.Settings = basicApplicationSettings
+	basicApplication.Settings = &okta.BasicApplicationSettings{
+		App: &okta.BasicApplicationSettingsApplication{
+			AuthURL: "https://example.com/auth.html",
+			Url:     "https://example.com/auth.html",
+		},
+	}
 
 	application, _, err := client.Application.CreateApplication(ctx, basicApplication, nil)
 	require.NoError(t, err, "Creating an application should not error")
@@ -315,18 +298,17 @@ func Test_can_add_and_remove_application_users(t *testing.T) {
 	user, _, err := client.User.CreateUser(ctx, *u, qp)
 	require.NoError(t, err, "Creating a new user should not error")
 
-	appUserPasswordCredentials := okta.NewAppUserPasswordCredential()
-	appUserPasswordCredentials.Value = "abcd1234"
+	req := okta.AppUser{
+		Credentials:    &okta.AppUserCredentials{
+			Password: &okta.AppUserPasswordCredential{
+				Value: "abcd1234",
+			},
+			UserName: "appUser",
+		},
+		Id:              user.Id,
+	}
 
-	appUserCredentials := okta.NewAppUserCredentials()
-	appUserCredentials.UserName = "appUser"
-	appUserCredentials.Password = appUserPasswordCredentials
-
-	appUser := okta.NewAppUser()
-	appUser.Credentials = appUserCredentials
-	appUser.Id = user.Id
-
-	appUser, _, err = client.Application.AssignUserToApplication(ctx, appId, *appUser)
+	appUser, _, err := client.Application.AssignUserToApplication(ctx, appId, req)
 	require.NoError(t, err, "Assigning user to application show not error")
 
 	assert.IsType(t, okta.AppUser{}, *appUser, "Type returned from assigning user to application was incorrect")
@@ -352,15 +334,13 @@ func Test_can_set_application_settings_during_creation(t *testing.T) {
 	ctx, client, err := tests.NewClient(context.TODO())
 	require.NoError(t, err)
 
-	basicApplicationSettingsApplication := okta.NewBasicApplicationSettingsApplication()
-	basicApplicationSettingsApplication.AuthURL = "https://example.com/auth.html"
-	basicApplicationSettingsApplication.Url = "https://example.com/auth.html"
-
-	basicApplicationSettings := okta.NewBasicApplicationSettings()
-	basicApplicationSettings.App = basicApplicationSettingsApplication
-
 	basicApplication := okta.NewBasicAuthApplication()
-	basicApplication.Settings = basicApplicationSettings
+	basicApplication.Settings = &okta.BasicApplicationSettings{
+		App: &okta.BasicApplicationSettingsApplication{
+			AuthURL: "https://example.com/auth.html",
+			Url:     "https://example.com/auth.html",
+		},
+	}
 
 	assert.Empty(t, basicApplication.Id)
 	application, _, err := client.Application.CreateApplication(ctx, basicApplication, nil)
@@ -380,15 +360,13 @@ func Test_can_set_application_settings_during_update(t *testing.T) {
 	ctx, client, err := tests.NewClient(context.TODO())
 	require.NoError(t, err)
 
-	basicApplicationSettingsApplication := okta.NewBasicApplicationSettingsApplication()
-	basicApplicationSettingsApplication.AuthURL = "https://example.com/auth.html"
-	basicApplicationSettingsApplication.Url = "https://example.com/auth.html"
-
-	basicApplicationSettings := okta.NewBasicApplicationSettings()
-	basicApplicationSettings.App = basicApplicationSettingsApplication
-
 	basicApplication := okta.NewBasicAuthApplication()
-	basicApplication.Settings = basicApplicationSettings
+	basicApplication.Settings = &okta.BasicApplicationSettings{
+		App: &okta.BasicApplicationSettingsApplication{
+			AuthURL: "https://example.com/auth.html",
+			Url:     "https://example.com/auth.html",
+		},
+	}
 
 	assert.Empty(t, basicApplication.Id)
 	application, _, err := client.Application.CreateApplication(ctx, basicApplication, nil)
@@ -452,15 +430,14 @@ func Test_can_create_csr_for_application(t *testing.T) {
 func create_application(t *testing.T) *okta.BasicAuthApplication {
 	ctx, client, err := tests.NewClient(context.TODO())
 	require.NoError(t, err)
-	basicApplicationSettingsApplication := okta.NewBasicApplicationSettingsApplication()
-	basicApplicationSettingsApplication.AuthURL = "https://example.com/auth.html"
-	basicApplicationSettingsApplication.Url = "https://example.com/auth.html"
-
-	basicApplicationSettings := okta.NewBasicApplicationSettings()
-	basicApplicationSettings.App = basicApplicationSettingsApplication
 
 	basicApplication := okta.NewBasicAuthApplication()
-	basicApplication.Settings = basicApplicationSettings
+	basicApplication.Settings = &okta.BasicApplicationSettings{
+		App: &okta.BasicApplicationSettingsApplication{
+			AuthURL: "https://example.com/auth.html",
+			Url:     "https://example.com/auth.html",
+		},
+	}
 
 	application, _, err := client.Application.CreateApplication(ctx, basicApplication, nil)
 	require.NoError(t, err, "Creating an application should not error")
