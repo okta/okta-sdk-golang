@@ -26,7 +26,7 @@ import (
 type DomainResource resource
 
 type Domain struct {
-	CertificateSourcetype string                     `json:"certificateSourcetype,omitempty"`
+	CertificateSourceType string                     `json:"certificateSourceType,omitempty"`
 	DnsRecords            []*DNSRecord               `json:"dnsRecords,omitempty"`
 	Domain                string                     `json:"domain,omitempty"`
 	Id                    string                     `json:"id,omitempty"`

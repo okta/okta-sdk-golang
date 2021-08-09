@@ -35,11 +35,3 @@ type OAuth2Token struct {
 	Status      string      `json:"status,omitempty"`
 	UserId      string      `json:"userId,omitempty"`
 }
-
-func NewOAuth2Token() *OAuth2Token {
-	return &OAuth2Token{}
-}
-
-func (a *OAuth2Token) IsApplicationInstance() bool {
-	return true
-}

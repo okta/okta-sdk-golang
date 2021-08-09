@@ -25,11 +25,3 @@ type SwaApplicationSettingsApplication struct {
 	Url           string `json:"url,omitempty"`
 	UsernameField string `json:"usernameField,omitempty"`
 }
-
-func NewSwaApplicationSettingsApplication() *SwaApplicationSettingsApplication {
-	return &SwaApplicationSettingsApplication{}
-}
-
-func (a *SwaApplicationSettingsApplication) IsApplicationInstance() bool {
-	return true
-}

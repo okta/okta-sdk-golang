@@ -21,11 +21,3 @@ package okta
 type ApplicationSettingsNotifications struct {
 	Vpn *ApplicationSettingsNotificationsVpn `json:"vpn,omitempty"`
 }
-
-func NewApplicationSettingsNotifications() *ApplicationSettingsNotifications {
-	return &ApplicationSettingsNotifications{}
-}
-
-func (a *ApplicationSettingsNotifications) IsApplicationInstance() bool {
-	return true
-}

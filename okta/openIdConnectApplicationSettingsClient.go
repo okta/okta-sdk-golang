@@ -36,11 +36,3 @@ type OpenIdConnectApplicationSettingsClient struct {
 	TosUri                 string                                        `json:"tos_uri,omitempty"`
 	WildcardRedirect       string                                        `json:"wildcard_redirect,omitempty"`
 }
-
-func NewOpenIdConnectApplicationSettingsClient() *OpenIdConnectApplicationSettingsClient {
-	return &OpenIdConnectApplicationSettingsClient{}
-}
-
-func (a *OpenIdConnectApplicationSettingsClient) IsApplicationInstance() bool {
-	return true
-}

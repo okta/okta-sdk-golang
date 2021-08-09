@@ -19,7 +19,7 @@
 package okta
 
 type WsFederationApplicationSettingsApplication struct {
-	AttributeStatements  string `json:"attributeStatements,omitempty"`
+	AttributeStatements  string `json:"attributeStatements"`
 	AudienceRestriction  string `json:"audienceRestriction,omitempty"`
 	AuthnContextClassRef string `json:"authnContextClassRef,omitempty"`
 	GroupFilter          string `json:"groupFilter,omitempty"`
@@ -31,12 +31,4 @@ type WsFederationApplicationSettingsApplication struct {
 	UsernameAttribute    string `json:"usernameAttribute,omitempty"`
 	WReplyOverride       *bool  `json:"wReplyOverride,omitempty"`
 	WReplyURL            string `json:"wReplyURL,omitempty"`
-}
-
-func NewWsFederationApplicationSettingsApplication() *WsFederationApplicationSettingsApplication {
-	return &WsFederationApplicationSettingsApplication{}
-}
-
-func (a *WsFederationApplicationSettingsApplication) IsApplicationInstance() bool {
-	return true
 }

@@ -22,11 +22,3 @@ type BasicApplicationSettingsApplication struct {
 	AuthURL string `json:"authURL,omitempty"`
 	Url     string `json:"url,omitempty"`
 }
-
-func NewBasicApplicationSettingsApplication() *BasicApplicationSettingsApplication {
-	return &BasicApplicationSettingsApplication{}
-}
-
-func (a *BasicApplicationSettingsApplication) IsApplicationInstance() bool {
-	return true
-}

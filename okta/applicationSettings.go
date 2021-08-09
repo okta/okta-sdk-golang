@@ -24,11 +24,3 @@ type ApplicationSettings struct {
 	InlineHookId       string                            `json:"inlineHookId,omitempty"`
 	Notifications      *ApplicationSettingsNotifications `json:"notifications,omitempty"`
 }
-
-func NewApplicationSettings() *ApplicationSettings {
-	return &ApplicationSettings{}
-}
-
-func (a *ApplicationSettings) IsApplicationInstance() bool {
-	return true
-}

@@ -20,13 +20,5 @@ package okta
 
 type AppUserCredentials struct {
 	Password *AppUserPasswordCredential `json:"password,omitempty"`
-	UserName string                     `json:"userName,omitempty"`
-}
-
-func NewAppUserCredentials() *AppUserCredentials {
-	return &AppUserCredentials{}
-}
-
-func (a *AppUserCredentials) IsApplicationInstance() bool {
-	return true
+	UserName string                     `json:"userName"`
 }

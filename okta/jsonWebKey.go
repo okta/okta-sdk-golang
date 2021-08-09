@@ -40,11 +40,3 @@ type JsonWebKey struct {
 	X5tS256     string      `json:"x5t#S256,omitempty"`
 	X5u         string      `json:"x5u,omitempty"`
 }
-
-func NewJsonWebKey() *JsonWebKey {
-	return &JsonWebKey{}
-}
-
-func (a *JsonWebKey) IsApplicationInstance() bool {
-	return true
-}

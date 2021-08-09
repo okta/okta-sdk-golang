@@ -15,17 +15,16 @@ type App interface {
 {{/if}}
 
 {{#if (eq model.modelName "UserFactor")}}
-{{log model.modelName }}
 type Factor interface {
 	IsUserFactorInstance() bool
 }
 
 {{/if}}
 {{#if (and
-    (or 
+    (or
       (or (gt model.methods.length 0)
           (gt model.crud.length 0))
-      (or 
+      (or
           (eq model.modelName "LogEvent")
           (or (eq model.modelName "Domain") (eq model.modelName "UserSchema")))
     )

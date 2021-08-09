@@ -21,11 +21,3 @@ package okta
 type AuthorizationServerCredentials struct {
 	Signing *AuthorizationServerCredentialsSigningConfig `json:"signing,omitempty"`
 }
-
-func NewAuthorizationServerCredentials() *AuthorizationServerCredentials {
-	return &AuthorizationServerCredentials{}
-}
-
-func (a *AuthorizationServerCredentials) IsApplicationInstance() bool {
-	return true
-}
