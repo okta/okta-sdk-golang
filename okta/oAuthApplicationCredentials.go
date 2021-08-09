@@ -23,11 +23,3 @@ type OAuthApplicationCredentials struct {
 	UserNameTemplate *ApplicationCredentialsUsernameTemplate `json:"userNameTemplate,omitempty"`
 	OauthClient      *ApplicationCredentialsOAuthClient      `json:"oauthClient,omitempty"`
 }
-
-func NewOAuthApplicationCredentials() *OAuthApplicationCredentials {
-	return &OAuthApplicationCredentials{}
-}
-
-func (a *OAuthApplicationCredentials) IsApplicationInstance() bool {
-	return true
-}

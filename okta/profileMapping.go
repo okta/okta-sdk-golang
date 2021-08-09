@@ -28,11 +28,11 @@ import (
 type ProfileMappingResource resource
 
 type ProfileMapping struct {
-	Links      interface{}           `json:"_links,omitempty"`
-	Id         string                `json:"id,omitempty"`
-	Properties interface{}           `json:"properties,omitempty"`
-	Source     *ProfileMappingSource `json:"source,omitempty"`
-	Target     *ProfileMappingSource `json:"target,omitempty"`
+	Links      interface{}                        `json:"_links,omitempty"`
+	Id         string                             `json:"id,omitempty"`
+	Properties map[string]*ProfileMappingProperty `json:"properties,omitempty"`
+	Source     *ProfileMappingSource              `json:"source,omitempty"`
+	Target     *ProfileMappingSource              `json:"target,omitempty"`
 }
 
 // Fetches a single Profile Mapping referenced by its ID.

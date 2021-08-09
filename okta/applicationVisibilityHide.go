@@ -22,11 +22,3 @@ type ApplicationVisibilityHide struct {
 	IOS *bool `json:"iOS,omitempty"`
 	Web *bool `json:"web,omitempty"`
 }
-
-func NewApplicationVisibilityHide() *ApplicationVisibilityHide {
-	return &ApplicationVisibilityHide{}
-}
-
-func (a *ApplicationVisibilityHide) IsApplicationInstance() bool {
-	return true
-}

@@ -24,11 +24,3 @@ type SwaApplicationSettings struct {
 	InlineHookId       string                             `json:"inlineHookId,omitempty"`
 	Notifications      *ApplicationSettingsNotifications  `json:"notifications,omitempty"`
 }
-
-func NewSwaApplicationSettings() *SwaApplicationSettings {
-	return &SwaApplicationSettings{}
-}
-
-func (a *SwaApplicationSettings) IsApplicationInstance() bool {
-	return true
-}

@@ -96,12 +96,19 @@ func NewRequestExecutor(httpClient *http.Client, cache cache.Cache, config *conf
 func (re *RequestExecutor) NewRequest(method string, url string, body interface{}) (*http.Request, error) {
 	var buff io.ReadWriter
 	if body != nil {
-		buff = new(bytes.Buffer)
-		encoder := json.NewEncoder(buff)
-		encoder.SetEscapeHTML(false)
-		err := encoder.Encode(body)
-		if err != nil {
-			return nil, err
+		switch body.(type) {
+		case []byte:
+			buff = bytes.NewBuffer(body.([]byte))
+		case *bytes.Buffer:
+			buff = body.(*bytes.Buffer)
+		default:
+			buff = new(bytes.Buffer)
+			encoder := json.NewEncoder(buff)
+			encoder.SetEscapeHTML(false)
+			err := encoder.Encode(body)
+			if err != nil {
+				return nil, err
+			}
 		}
 	}
 	url = re.config.Okta.Client.OrgUrl + url
@@ -447,6 +454,9 @@ func CheckResponseForError(resp *http.Response) error {
 	_ = resp.Body.Close()
 	resp.Body = ioutil.NopCloser(bytes.NewBuffer(bodyBytes))
 	_ = json.NewDecoder(bytes.NewReader(copyBodyBytes)).Decode(&e)
+	if statusCode == http.StatusInternalServerError {
+		e.ErrorSummary += fmt.Sprintf(", x-okta-request-id=%s", resp.Header.Get("x-okta-request-id"))
+	}
 	return &e
 }
 

@@ -32,11 +32,3 @@ type WsFederationApplicationSettingsApplication struct {
 	WReplyOverride       *bool  `json:"wReplyOverride,omitempty"`
 	WReplyURL            string `json:"wReplyURL,omitempty"`
 }
-
-func NewWsFederationApplicationSettingsApplication() *WsFederationApplicationSettingsApplication {
-	return &WsFederationApplicationSettingsApplication{}
-}
-
-func (a *WsFederationApplicationSettingsApplication) IsApplicationInstance() bool {
-	return true
-}
