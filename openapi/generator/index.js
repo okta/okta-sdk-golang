@@ -51,6 +51,9 @@ function getType(obj, prefix = "") {
     case 'double':
       return String.raw`float64`;
     case 'object' :
+      if (obj.model === "SmsTemplateTranslations") {
+        return String.raw`map[string]interface{}`;
+      }
       if (obj.model == undefined) {
         return String.raw`string`;
       } else {

@@ -106,7 +106,7 @@ func Test_can_create_a_bookmark_application(t *testing.T) {
 	bookmarkApplication.Settings = &okta.BookmarkApplicationSettings{
 		App: &okta.BookmarkApplicationSettingsApplication{
 			RequestIntegration: new(bool),
-			Url: "https://example.com/bookmark.htm",
+			Url:                "https://example.com/bookmark.htm",
 		},
 	}
 
@@ -299,13 +299,13 @@ func Test_can_add_and_remove_application_users(t *testing.T) {
 	require.NoError(t, err, "Creating a new user should not error")
 
 	req := okta.AppUser{
-		Credentials:    &okta.AppUserCredentials{
+		Credentials: &okta.AppUserCredentials{
 			Password: &okta.AppUserPasswordCredential{
 				Value: "abcd1234",
 			},
 			UserName: "appUser",
 		},
-		Id:              user.Id,
+		Id: user.Id,
 	}
 
 	appUser, _, err := client.Application.AssignUserToApplication(ctx, appId, req)
