@@ -526,12 +526,9 @@ tokens. Each access token enables the bearer to perform specific actions on
 specific Okta endpoints, with that ability controlled by which scopes the
 access token contains.
 
-This SDK supports this feature only for service-to-service applications. Check
-out [our
-guides](https://developer.okta.com/docs/guides/implement-oauth-for-okta/overview/)
-to learn more about how to register a new service application using a private
-and public key pair. Otherwise, follow the example steps at the end of this
-topic.
+This SDK supports this feature only for service-to-service applications. Check out
+[our guides](https://developer.okta.com/docs/guides/implement-oauth-for-okta-serviceapp/overview/) to learn more about
+how to register a new service application using a private and public key pair.
 
 When using this approach you won't need an API Token because the SDK will
 request an access token for you. In order to use OAuth 2.0, construct a client
@@ -562,7 +559,7 @@ These are the requirements:
     ([reference](https://developer.okta.com/docs/guides/implement-oauth-for-okta-serviceapp/create-serviceapp-grantscopes/))
   - store the private key in a PEM format
     ([reference](https://www.npmjs.com/package/pem-jwk))
- 
+
 To store the PEM formatted key with new lines in a JSON file, the multiple
 lines need to be one-line formatted by joining them with the "\n" character.
 The `awk` command makes this formatting quick and precise:
