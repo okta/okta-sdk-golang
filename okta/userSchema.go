@@ -77,8 +77,8 @@ func (m *UserSchemaResource) UpdateApplicationUserProfile(ctx context.Context, a
 }
 
 // Fetches the schema for a Schema Id.
-func (m *UserSchemaResource) GetUserSchema(ctx context.Context, typeId string) (*UserSchema, *Response, error) {
-	url := fmt.Sprintf("/api/v1/meta/schemas/user/%v", typeId)
+func (m *UserSchemaResource) GetUserSchema(ctx context.Context, schemaId string) (*UserSchema, *Response, error) {
+	url := fmt.Sprintf("/api/v1/meta/schemas/user/%v", schemaId)
 
 	req, err := m.client.requestExecutor.WithAccept("application/json").WithContentType("application/json").NewRequest("GET", url, nil)
 	if err != nil {
@@ -96,8 +96,8 @@ func (m *UserSchemaResource) GetUserSchema(ctx context.Context, typeId string) (
 }
 
 // Partial updates on the User Profile properties of the user schema.
-func (m *UserSchemaResource) UpdateUserProfile(ctx context.Context, typeId string, body UserSchema) (*UserSchema, *Response, error) {
-	url := fmt.Sprintf("/api/v1/meta/schemas/user/%v", typeId)
+func (m *UserSchemaResource) UpdateUserProfile(ctx context.Context, schemaId string, body UserSchema) (*UserSchema, *Response, error) {
+	url := fmt.Sprintf("/api/v1/meta/schemas/user/%v", schemaId)
 
 	req, err := m.client.requestExecutor.WithAccept("application/json").WithContentType("application/json").NewRequest("POST", url, body)
 	if err != nil {
