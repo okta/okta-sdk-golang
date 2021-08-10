@@ -542,8 +542,8 @@ func (m *AuthorizationServerResource) CreateAuthorizationServerPolicyRule(ctx co
 }
 
 // Deletes a Policy Rule defined in the specified Custom Authorization Server and Policy.
-func (m *AuthorizationServerResource) DeleteAuthorizationServerPolicyRule(ctx context.Context, policyId string, authServerId string, ruleId string) (*Response, error) {
-	url := fmt.Sprintf("/api/v1/authorizationServers/%v/policies/%v/rules/%v", policyId, authServerId, ruleId)
+func (m *AuthorizationServerResource) DeleteAuthorizationServerPolicyRule(ctx context.Context, authServerId string, policyId string, ruleId string) (*Response, error) {
+	url := fmt.Sprintf("/api/v1/authorizationServers/%v/policies/%v/rules/%v", authServerId, policyId, ruleId)
 
 	req, err := m.client.requestExecutor.WithAccept("application/json").WithContentType("application/json").NewRequest("DELETE", url, nil)
 	if err != nil {
@@ -559,8 +559,8 @@ func (m *AuthorizationServerResource) DeleteAuthorizationServerPolicyRule(ctx co
 }
 
 // Returns a Policy Rule by ID that is defined in the specified Custom Authorization Server and Policy.
-func (m *AuthorizationServerResource) GetAuthorizationServerPolicyRule(ctx context.Context, policyId string, authServerId string, ruleId string) (*AuthorizationServerPolicyRule, *Response, error) {
-	url := fmt.Sprintf("/api/v1/authorizationServers/%v/policies/%v/rules/%v", policyId, authServerId, ruleId)
+func (m *AuthorizationServerResource) GetAuthorizationServerPolicyRule(ctx context.Context, authServerId string, policyId string, ruleId string) (*AuthorizationServerPolicyRule, *Response, error) {
+	url := fmt.Sprintf("/api/v1/authorizationServers/%v/policies/%v/rules/%v", authServerId, policyId, ruleId)
 
 	req, err := m.client.requestExecutor.WithAccept("application/json").WithContentType("application/json").NewRequest("GET", url, nil)
 	if err != nil {
@@ -578,8 +578,8 @@ func (m *AuthorizationServerResource) GetAuthorizationServerPolicyRule(ctx conte
 }
 
 // Updates the configuration of the Policy Rule defined in the specified Custom Authorization Server and Policy.
-func (m *AuthorizationServerResource) UpdateAuthorizationServerPolicyRule(ctx context.Context, policyId string, authServerId string, ruleId string, body AuthorizationServerPolicyRule) (*AuthorizationServerPolicyRule, *Response, error) {
-	url := fmt.Sprintf("/api/v1/authorizationServers/%v/policies/%v/rules/%v", policyId, authServerId, ruleId)
+func (m *AuthorizationServerResource) UpdateAuthorizationServerPolicyRule(ctx context.Context, authServerId string, policyId string, ruleId string, body AuthorizationServerPolicyRule) (*AuthorizationServerPolicyRule, *Response, error) {
+	url := fmt.Sprintf("/api/v1/authorizationServers/%v/policies/%v/rules/%v", authServerId, policyId, ruleId)
 
 	req, err := m.client.requestExecutor.WithAccept("application/json").WithContentType("application/json").NewRequest("PUT", url, body)
 	if err != nil {

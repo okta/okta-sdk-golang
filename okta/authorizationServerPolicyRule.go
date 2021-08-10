@@ -40,8 +40,8 @@ type AuthorizationServerPolicyRule struct {
 }
 
 // Updates the configuration of the Policy Rule defined in the specified Custom Authorization Server and Policy.
-func (m *AuthorizationServerPolicyRuleResource) UpdateAuthorizationServerPolicyRule(ctx context.Context, policyId string, authServerId string, ruleId string, body AuthorizationServerPolicyRule) (*AuthorizationServerPolicyRule, *Response, error) {
-	url := fmt.Sprintf("/api/v1/authorizationServers/%v/policies/%v/rules/%v", policyId, authServerId, ruleId)
+func (m *AuthorizationServerPolicyRuleResource) UpdateAuthorizationServerPolicyRule(ctx context.Context, authServerId string, policyId string, ruleId string, body AuthorizationServerPolicyRule) (*AuthorizationServerPolicyRule, *Response, error) {
+	url := fmt.Sprintf("/api/v1/authorizationServers/%v/policies/%v/rules/%v", authServerId, policyId, ruleId)
 
 	req, err := m.client.requestExecutor.WithAccept("application/json").WithContentType("application/json").NewRequest("PUT", url, body)
 	if err != nil {
@@ -59,8 +59,8 @@ func (m *AuthorizationServerPolicyRuleResource) UpdateAuthorizationServerPolicyR
 }
 
 // Deletes a Policy Rule defined in the specified Custom Authorization Server and Policy.
-func (m *AuthorizationServerPolicyRuleResource) DeleteAuthorizationServerPolicyRule(ctx context.Context, policyId string, authServerId string, ruleId string) (*Response, error) {
-	url := fmt.Sprintf("/api/v1/authorizationServers/%v/policies/%v/rules/%v", policyId, authServerId, ruleId)
+func (m *AuthorizationServerPolicyRuleResource) DeleteAuthorizationServerPolicyRule(ctx context.Context, authServerId string, policyId string, ruleId string) (*Response, error) {
+	url := fmt.Sprintf("/api/v1/authorizationServers/%v/policies/%v/rules/%v", authServerId, policyId, ruleId)
 
 	req, err := m.client.requestExecutor.WithAccept("application/json").WithContentType("application/json").NewRequest("DELETE", url, nil)
 	if err != nil {
