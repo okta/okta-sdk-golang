@@ -29,7 +29,7 @@ type UserSchemaAttribute struct {
 	MinLength         int64                            `json:"minLength,omitempty"`
 	Mutability        string                           `json:"mutability,omitempty"`
 	OneOf             []*UserSchemaAttributeEnum       `json:"oneOf,omitempty"`
-	Pattern           string                           `json:"pattern,omitempty"`
+	Pattern           *string                          `json:"pattern"`
 	Permissions       []*UserSchemaAttributePermission `json:"permissions,omitempty"`
 	Required          *bool                            `json:"required,omitempty"`
 	Scope             string                           `json:"scope,omitempty"`
