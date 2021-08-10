@@ -19,6 +19,6 @@
 package okta
 
 type UserSchemaAttributeMasterPriority struct {
-	Type   string `json:"type,omitempty"`
-	Valuse string `json:"valuse,omitempty"`
+	Type  string `json:"type,omitempty"`
+	Value string `json:"value,omitempty"`
 }
