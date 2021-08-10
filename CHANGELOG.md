@@ -1,6 +1,17 @@
 # Changelog
 Running changelog of releases since `2.0.0-rc.4`
 
+## v2.5.1
+
+### Updates
+- Hardcode to version 2.5.1 off of main branch of Okta's openapi spec https://github.com/okta/okta-management-openapi-spec
+
+### Bug fixes
+- Fixed code generation inconsistencies from Okta's open API spec #243 @bogdanprodan-okta
+- Fixed/improved app instances interface implementations, removed 'omitemty' tags #241 @bogdanprodan-okta
+- Fixed failed access token requests are not retried. #194 @adw1n
+- Fixed `client.User.CreateUser` example in README. #231 @Sanil2108
+
 ## v2.5.0
 
 ### Updates
