@@ -1,6 +1,14 @@
 # Changelog
 Running changelog of releases since `2.0.0-rc.4`
 
+## v2.5.2
+
+### Updates
+- Added more fields to the error struct for different error response patterns from API #246 @bogdanprodan-okta
+
+### Bug fixes
+- Fixed error handling for 400/401/403 errors
+
 ## v2.5.1
 
 ### Updates
