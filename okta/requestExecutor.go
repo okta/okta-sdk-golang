@@ -437,8 +437,9 @@ func CheckResponseForError(resp *http.Response) error {
 		return nil
 	}
 	e := Error{}
-	if statusCode == http.StatusUnauthorized && strings.Contains(resp.Header.Get("WWW-Authenticate"), "Bearer") {
-		for _, v := range strings.Split(resp.Header.Get("WWW-Authenticate"), ", ") {
+	if (statusCode == http.StatusUnauthorized || statusCode == http.StatusForbidden) &&
+		strings.Contains(resp.Header.Get("Www-Authenticate"), "Bearer") {
+		for _, v := range strings.Split(resp.Header.Get("Www-Authenticate"), ", ") {
 			if strings.Contains(v, "error_description") {
 				_, err := toml.Decode(v, &e)
 				if err != nil {
