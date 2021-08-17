@@ -1,6 +1,11 @@
 # Changelog
 Running changelog of releases since `2.0.0-rc.4`
 
+## v2.6.1
+
+### Bug fixes
+-  Pass previous query parameters to the NextPage URL #252 @bogdanprodan-okta
+
 ## v2.6.0
 
 ### Updates
