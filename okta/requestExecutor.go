@@ -258,9 +258,7 @@ func (re *RequestExecutor) Do(ctx context.Context, req *http.Request, v interfac
 		inCache = false
 		re.freshCache = false
 	}
-
 	if !inCache {
-
 		resp, err := re.doWithRetries(ctx, req)
 		if err != nil {
 			return nil, err
@@ -270,7 +268,6 @@ func (re *RequestExecutor) Do(ctx context.Context, req *http.Request, v interfac
 		}
 		return buildResponse(resp, re, &v)
 	}
-
 	resp := re.cache.Get(cacheKey)
 	return buildResponse(resp, re, &v)
 }
@@ -417,11 +414,15 @@ func newResponse(r *http.Response, re *RequestExecutor) *Response {
 			rawUrl, _ := url.Parse(rawLink)
 			rawUrl.Scheme = ""
 			rawUrl.Host = ""
+			q := r.Request.URL.Query()
+			for k, v := range rawUrl.Query() {
+				q.Set(k, v[0])
+			}
+			rawUrl.RawQuery = q.Encode()
 
 			if strings.Contains(link, `rel="self"`) {
 				response.Self = rawUrl.String()
 			}
-
 			if strings.Contains(link, `rel="next"`) {
 				response.NextPage = rawUrl.String()
 			}
