@@ -1,6 +1,12 @@
 # Changelog
 Running changelog of releases since `2.0.0-rc.4`
 
+## v2.6.0
+
+### Updates
+- Corrected UserSchemaBase properties field as UserSchemaAttribute #248 @bogdanprodan-okta
+- Added ApplicationSettingsNotes to all apps
+
 ## v2.5.2
 
 ### Updates
