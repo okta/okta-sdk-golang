@@ -63,7 +63,7 @@ function getType(obj, prefix = "") {
         return obj.model;
       }
     default:
-      if (obj.propertyName === "pattern") {
+      if (obj.propertyName === "pattern" || obj.propertyName === "admin" || obj.propertyName === "enduser") {
         return String.raw`*string`;
       }
       return obj.commonType;
@@ -432,6 +432,8 @@ function createJsonTag(propertyName) {
     propertyName === "ssoAcsUrlOverride" ||
     propertyName === "attributeStatements" ||
     propertyName === "pattern" ||
+    propertyName === "admin" ||
+    propertyName === "enduser" ||
     propertyName === "maxSessionIdleMinutes") {
     return " `json:\"" + propertyName + "\"`"
   } else {
