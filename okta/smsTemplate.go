@@ -29,13 +29,13 @@ import (
 type SmsTemplateResource resource
 
 type SmsTemplate struct {
-	Created      *time.Time             `json:"created,omitempty"`
-	Id           string                 `json:"id,omitempty"`
-	LastUpdated  *time.Time             `json:"lastUpdated,omitempty"`
-	Name         string                 `json:"name,omitempty"`
-	Template     string                 `json:"template,omitempty"`
-	Translations map[string]interface{} `json:"translations,omitempty"`
-	Type         string                 `json:"type,omitempty"`
+	Created      *time.Time               `json:"created,omitempty"`
+	Id           string                   `json:"id,omitempty"`
+	LastUpdated  *time.Time               `json:"lastUpdated,omitempty"`
+	Name         string                   `json:"name,omitempty"`
+	Template     string                   `json:"template,omitempty"`
+	Translations *SmsTemplateTranslations `json:"translations,omitempty"`
+	Type         string                   `json:"type,omitempty"`
 }
 
 // Adds a new custom SMS template to your organization.

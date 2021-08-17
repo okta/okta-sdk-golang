@@ -2,7 +2,7 @@
 
 package okta
 
-{{#if (eq model.modelName "UserProfile")}}
+{{#if (or (eq model.modelName "UserProfile") (eq model.modelName "SmsTemplateTranslations"))}}
 type {{model.modelName}} map[string]interface{}
 {{else}}
 {{> model.imports this}}

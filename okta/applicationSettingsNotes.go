@@ -18,10 +18,7 @@
 
 package okta
 
-type BasicApplicationSettings struct {
-	App                *BasicApplicationSettingsApplication `json:"app,omitempty"`
-	ImplicitAssignment *bool                                `json:"implicitAssignment,omitempty"`
-	InlineHookId       string                               `json:"inlineHookId,omitempty"`
-	Notes              *ApplicationSettingsNotes            `json:"notes,omitempty"`
-	Notifications      *ApplicationSettingsNotifications    `json:"notifications,omitempty"`
+type ApplicationSettingsNotes struct {
+	Admin   *string `json:"admin"`
+	Enduser *string `json:"enduser"`
 }
