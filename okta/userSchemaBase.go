@@ -19,8 +19,8 @@
 package okta
 
 type UserSchemaBase struct {
-	Id         string                    `json:"id,omitempty"`
-	Properties *UserSchemaBaseProperties `json:"properties,omitempty"`
-	Required   []string                  `json:"required,omitempty"`
-	Type       string                    `json:"type,omitempty"`
+	Id         string                          `json:"id,omitempty"`
+	Properties map[string]*UserSchemaAttribute `json:"properties,omitempty"`
+	Required   []string                        `json:"required,omitempty"`
+	Type       string                          `json:"type,omitempty"`
 }

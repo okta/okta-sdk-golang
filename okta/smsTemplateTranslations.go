@@ -18,4 +18,4 @@
 
 package okta
 
-type SmsTemplateTranslations struct{}
+type SmsTemplateTranslations map[string]interface{}

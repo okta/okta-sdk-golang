@@ -51,8 +51,8 @@ function getType(obj, prefix = "") {
     case 'double':
       return String.raw`float64`;
     case 'object' :
-      if (obj.model === "SmsTemplateTranslations") {
-        return String.raw`map[string]interface{}`;
+      if (obj.model === "UserSchemaBaseProperties") {
+        return String.raw`map[string]*UserSchemaAttribute`;
       }
       if (obj.model == undefined) {
         return String.raw`string`;
@@ -63,7 +63,7 @@ function getType(obj, prefix = "") {
         return obj.model;
       }
     default:
-      if (obj.propertyName === "pattern") {
+      if (obj.propertyName === "pattern" || obj.propertyName === "admin" || obj.propertyName === "enduser") {
         return String.raw`*string`;
       }
       return obj.commonType;
@@ -431,7 +431,8 @@ function createJsonTag(propertyName) {
     propertyName === "recipientOverride" ||
     propertyName === "ssoAcsUrlOverride" ||
     propertyName === "attributeStatements" ||
-    propertyName === "pattern" ||
+    propertyName === "admin" ||
+    propertyName === "enduser" ||
     propertyName === "maxSessionIdleMinutes") {
     return " `json:\"" + propertyName + "\"`"
   } else {
@@ -468,6 +469,7 @@ function isInstance(model) {
     model.modelName === "ApplicationLicensing" ||
     model.modelName === "ApplicationSettings" ||
     model.modelName === "ApplicationSettingsApplication" ||
+    model.modelName === "ApplicationSettingsNotes" ||
     model.modelName === "ApplicationSettingsNotifications" ||
     model.modelName === "ApplicationSettingsNotificationsVpn" ||
     model.modelName === "ApplicationSettingsNotificationsVpnNetwork" ||

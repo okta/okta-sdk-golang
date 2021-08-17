@@ -253,7 +253,7 @@ func (m *GroupResource) DeactivateGroupRule(ctx context.Context, ruleId string) 
 	return resp, nil
 }
 
-// Lists all group rules for your organization.
+// Fetches a group from your organization.
 func (m *GroupResource) GetGroup(ctx context.Context, groupId string) (*Group, *Response, error) {
 	url := fmt.Sprintf("/api/v1/groups/%v", groupId)
 

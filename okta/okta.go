@@ -32,15 +32,12 @@ import (
 	"gopkg.in/yaml.v3"
 )
 
-const Version = "2.5.2"
+const Version = "2.6.0"
 
 type Client struct {
-	config *config
-
-	requestExecutor *RequestExecutor
-
-	resource resource
-
+	config                     *config
+	requestExecutor            *RequestExecutor
+	resource                   resource
 	Application                *ApplicationResource
 	AuthorizationServer        *AuthorizationServerResource
 	Domain                     *DomainResource
@@ -148,9 +145,7 @@ func (c *Client) GetRequestExecutor() *RequestExecutor {
 }
 
 func setConfigDefaults(c *config) {
-	var conf []ConfigSetter
-
-	conf = append(conf,
+	conf := []ConfigSetter{
 		WithConnectionTimeout(60),
 		WithCache(true),
 		WithCacheTtl(300),
@@ -160,8 +155,8 @@ func setConfigDefaults(c *config) {
 		WithRequestTimeout(0),
 		WithRateLimitMaxBackOff(30),
 		WithRateLimitMaxRetries(2),
-		WithAuthorizationMode("SSWS"))
-
+		WithAuthorizationMode("SSWS"),
+	}
 	for _, confSetter := range conf {
 		confSetter(c)
 	}
@@ -172,12 +167,10 @@ func readConfigFromFile(location string, c config) (*config, error) {
 	if err != nil {
 		return nil, err
 	}
-
 	err = yaml.Unmarshal(yamlConfig, &c)
 	if err != nil {
 		return nil, err
 	}
-
 	return &c, err
 }
 
@@ -189,12 +182,10 @@ func readConfigFromSystem(c config) *config {
 	if currUser.HomeDir == "" {
 		return &c
 	}
-
 	conf, err := readConfigFromFile(currUser.HomeDir+"/.okta/okta.yaml", c)
 	if err != nil {
 		return &c
 	}
-
 	return conf
 }
 
@@ -205,7 +196,6 @@ func readConfigFromApplication(c config) *config {
 	if err != nil {
 		return &c
 	}
-
 	return conf
 }
 
