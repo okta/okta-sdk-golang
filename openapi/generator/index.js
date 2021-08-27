@@ -558,6 +558,10 @@ golang.process = ({spec, operations, models, handlebars}) => {
     }
   });
 
+  // Keeping track of all operations as they are built up. If the operation
+  // already exists then we won't pass it into an the next model that refers to it.
+  let allOperations = {};
+
   for (let model of models) {
 
     if (model.extends !== undefined) {
@@ -578,11 +582,15 @@ golang.process = ({spec, operations, models, handlebars}) => {
     }
 
 
-    let modelOperations = {}
+    let modelOperations = {};
 
     if (model.crud != undefined) {
       for (let modelCrud of model.crud) {
-        modelOperations[modelCrud.operation.operationId] = modelCrud.operation;
+        let id = modelCrud.operation.operationId;
+        if (allOperations[id] !== true) {
+          allOperations[modelCrud.operation.operationId] = true;
+          modelOperations[modelCrud.operation.operationId] = modelCrud.operation;
+        }
       }
     }
 
@@ -594,7 +602,11 @@ golang.process = ({spec, operations, models, handlebars}) => {
       if (tag === "UserFactor") tag = "UserFactor";
       if (tag === "Log") tag = "LogEvent";
       if (tag == model.modelName) {
-        modelOperations[operation.operationId] = operation;
+        let id = operation.operationId;
+        if (allOperations[id] !== true) {
+          allOperations[operation.operationId] = true;
+          modelOperations[operation.operationId] = operation;
+        }
       }
     }
 

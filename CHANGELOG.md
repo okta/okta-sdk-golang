@@ -1,6 +1,11 @@
 # Changelog
 Running changelog of releases since `2.0.0-rc.4`
 
+## v2.6.2
+
+### Bug fixes
+-  Remove duplicate operation methods.
+
 ## v2.6.1
 
 ### Bug fixes

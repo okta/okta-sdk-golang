@@ -722,26 +722,6 @@ func (m *ApplicationResource) AssignUserToApplication(ctx context.Context, appId
 	return appUser, resp, nil
 }
 
-// Removes an assignment for a user from an application.
-func (m *ApplicationResource) DeleteApplicationUser(ctx context.Context, appId string, userId string, qp *query.Params) (*Response, error) {
-	url := fmt.Sprintf("/api/v1/apps/%v/users/%v", appId, userId)
-	if qp != nil {
-		url = url + qp.String()
-	}
-
-	req, err := m.client.requestExecutor.WithAccept("application/json").WithContentType("application/json").NewRequest("DELETE", url, nil)
-	if err != nil {
-		return nil, err
-	}
-
-	resp, err := m.client.requestExecutor.Do(ctx, req, nil)
-	if err != nil {
-		return resp, err
-	}
-
-	return resp, nil
-}
-
 // Fetches a specific user assignment for application by &#x60;id&#x60;.
 func (m *ApplicationResource) GetApplicationUser(ctx context.Context, appId string, userId string, qp *query.Params) (*AppUser, *Response, error) {
 	url := fmt.Sprintf("/api/v1/apps/%v/users/%v", appId, userId)
@@ -750,25 +730,6 @@ func (m *ApplicationResource) GetApplicationUser(ctx context.Context, appId stri
 	}
 
 	req, err := m.client.requestExecutor.WithAccept("application/json").WithContentType("application/json").NewRequest("GET", url, nil)
-	if err != nil {
-		return nil, nil, err
-	}
-
-	var appUser *AppUser
-
-	resp, err := m.client.requestExecutor.Do(ctx, req, &appUser)
-	if err != nil {
-		return nil, resp, err
-	}
-
-	return appUser, resp, nil
-}
-
-// Updates a user&#x27;s profile for an application
-func (m *ApplicationResource) UpdateApplicationUser(ctx context.Context, appId string, userId string, body AppUser) (*AppUser, *Response, error) {
-	url := fmt.Sprintf("/api/v1/apps/%v/users/%v", appId, userId)
-
-	req, err := m.client.requestExecutor.WithAccept("application/json").WithContentType("application/json").NewRequest("POST", url, body)
 	if err != nil {
 		return nil, nil, err
 	}
