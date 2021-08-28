@@ -40,7 +40,7 @@ func Test_can_create_an_authorizaiton_server(t *testing.T) {
 
 	authorizationServer, response, err := client.AuthorizationServer.CreateAuthorizationServer(ctx, as)
 	require.NoError(t, err, "creating an authorizaiton server should not error")
-	tests.Assert_response(t, response, "POST", "/api/v1/authorizationServers")
+	tests.AssertResponse(t, response, "POST", "/api/v1/authorizationServers")
 
 	assert_authorization_server_model(t, authorizationServer)
 
@@ -59,11 +59,11 @@ func Test_can_get_an_authorizaiton_server(t *testing.T) {
 
 	authorizationServer, response, err := client.AuthorizationServer.CreateAuthorizationServer(ctx, as)
 	require.NoError(t, err, "creating an authorizaiton server should not error")
-	tests.Assert_response(t, response, "POST", "/api/v1/authorizationServers")
+	tests.AssertResponse(t, response, "POST", "/api/v1/authorizationServers")
 
 	authorizationServer, response, err = client.AuthorizationServer.GetAuthorizationServer(ctx, authorizationServer.Id)
 	require.NoError(t, err, "getting an authorizaiton server should not error")
-	tests.Assert_response(t, response, "GET", "/api/v1/authorizationServers/"+authorizationServer.Id)
+	tests.AssertResponse(t, response, "GET", "/api/v1/authorizationServers/"+authorizationServer.Id)
 
 	assert_authorization_server_model(t, authorizationServer)
 
@@ -85,11 +85,11 @@ func Test_can_update_an_authorizaiton_server(t *testing.T) {
 
 	authorizationServer, response, err := client.AuthorizationServer.CreateAuthorizationServer(ctx, as)
 	require.NoError(t, err, "creating an authorizaiton server should not error")
-	tests.Assert_response(t, response, "POST", "/api/v1/authorizationServers")
+	tests.AssertResponse(t, response, "POST", "/api/v1/authorizationServers")
 
 	authorizationServer, response, err = client.AuthorizationServer.GetAuthorizationServer(ctx, authorizationServer.Id)
 	require.NoError(t, err, "getting an authorizaiton server should not error")
-	tests.Assert_response(t, response, "GET", "/api/v1/authorizationServers/"+authorizationServer.Id)
+	tests.AssertResponse(t, response, "GET", "/api/v1/authorizationServers/"+authorizationServer.Id)
 
 	assert_authorization_server_model(t, authorizationServer)
 
@@ -103,7 +103,7 @@ func Test_can_update_an_authorizaiton_server(t *testing.T) {
 
 	authorizationServer, response, err = client.AuthorizationServer.UpdateAuthorizationServer(ctx, authorizationServer.Id, *authorizationServer)
 	require.NoError(t, err, "getting an authorizaiton server should not error")
-	tests.Assert_response(t, response, "PUT", "/api/v1/authorizationServers/"+authorizationServer.Id)
+	tests.AssertResponse(t, response, "PUT", "/api/v1/authorizationServers/"+authorizationServer.Id)
 
 	assert_authorization_server_model(t, authorizationServer)
 
@@ -125,11 +125,11 @@ func Test_can_delete_an_authorizaiton_server(t *testing.T) {
 
 	authorizationServer, response, err := client.AuthorizationServer.CreateAuthorizationServer(ctx, as)
 	require.NoError(t, err, "creating an authorizaiton server should not error")
-	tests.Assert_response(t, response, "POST", "/api/v1/authorizationServers")
+	tests.AssertResponse(t, response, "POST", "/api/v1/authorizationServers")
 
 	authorizationServer, response, err = client.AuthorizationServer.GetAuthorizationServer(ctx, authorizationServer.Id)
 	require.NoError(t, err, "getting an authorizaiton server should not error")
-	tests.Assert_response(t, response, "GET", "/api/v1/authorizationServers/"+authorizationServer.Id)
+	tests.AssertResponse(t, response, "GET", "/api/v1/authorizationServers/"+authorizationServer.Id)
 
 	assert_authorization_server_model(t, authorizationServer)
 
@@ -156,11 +156,11 @@ func Test_can_list_authorizaiton_servers(t *testing.T) {
 
 	authorizationServer, response, err := client.AuthorizationServer.CreateAuthorizationServer(ctx, as)
 	require.NoError(t, err, "creating an authorizaiton server should not error")
-	tests.Assert_response(t, response, "POST", "/api/v1/authorizationServers")
+	tests.AssertResponse(t, response, "POST", "/api/v1/authorizationServers")
 
 	authorizationServerList, response, err := client.AuthorizationServer.ListAuthorizationServers(ctx, nil)
 	require.NoError(t, err, "list authorizaiton servers should not error")
-	tests.Assert_response(t, response, "GET", "/api/v1/authorizationServers")
+	tests.AssertResponse(t, response, "GET", "/api/v1/authorizationServers")
 
 	found := false
 	for _, authServer := range authorizationServerList {
@@ -186,19 +186,19 @@ func Test_can_activate_an_authorizaiton_server(t *testing.T) {
 
 	authorizationServer, response, err := client.AuthorizationServer.CreateAuthorizationServer(ctx, as)
 	require.NoError(t, err, "creating an authorizaiton server should not error")
-	tests.Assert_response(t, response, "POST", "/api/v1/authorizationServers")
+	tests.AssertResponse(t, response, "POST", "/api/v1/authorizationServers")
 	assert.Equal(t, "ACTIVE", authorizationServer.Status, "should have active status after creating")
 
 	response, err = client.AuthorizationServer.DeactivateAuthorizationServer(ctx, authorizationServer.Id)
 	require.NoError(t, err, "deactivating an authorizaiton server should not error")
-	tests.Assert_response(t, response, "POST", "/api/v1/authorizationServers/"+authorizationServer.Id+"/lifecycle/deactivate")
+	tests.AssertResponse(t, response, "POST", "/api/v1/authorizationServers/"+authorizationServer.Id+"/lifecycle/deactivate")
 
 	authorizationServer, _, _ = client.AuthorizationServer.GetAuthorizationServer(ctx, authorizationServer.Id)
 	assert.Equal(t, "INACTIVE", authorizationServer.Status, "should have inactive status after deactivating")
 
 	response, err = client.AuthorizationServer.ActivateAuthorizationServer(ctx, authorizationServer.Id)
 	require.NoError(t, err, "activating an authorizaiton server should not error")
-	tests.Assert_response(t, response, "POST", "/api/v1/authorizationServers/"+authorizationServer.Id+"/lifecycle/activate")
+	tests.AssertResponse(t, response, "POST", "/api/v1/authorizationServers/"+authorizationServer.Id+"/lifecycle/activate")
 
 	// authorizationServer, response, _ = client.AuthorizationServer.GetAuthorizationServer(authorizationServer.Id)
 	// assert.Equal(t, "ACTIVE", authorizationServer.Status, "should have active status after activating")

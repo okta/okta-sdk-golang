@@ -39,7 +39,7 @@ func Test_can_create_user_type(t *testing.T) {
 
 	userType, response, err := client.UserType.CreateUserType(ctx, ut)
 	require.NoError(t, err, "creating a user type should not error")
-	tests.Assert_response(t, response, "POST", "/api/v1/meta/types/user")
+	tests.AssertResponse(t, response, "POST", "/api/v1/meta/types/user")
 
 	assert_user_type_model(t, userType)
 
@@ -53,7 +53,7 @@ func Test_can_list_user_types(t *testing.T) {
 
 	userTypes, response, err := client.UserType.ListUserTypes(ctx)
 	require.NoError(t, err, "list user types should not error")
-	tests.Assert_response(t, response, "GET", "/api/v1/meta/types/user")
+	tests.AssertResponse(t, response, "GET", "/api/v1/meta/types/user")
 
 	assert_user_type_model(t, userTypes[0])
 }
