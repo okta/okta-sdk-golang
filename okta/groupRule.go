@@ -19,11 +19,7 @@
 package okta
 
 import (
-	"context"
-	"fmt"
 	"time"
-
-	"github.com/okta/okta-sdk-golang/v2/okta/query"
 )
 
 type GroupRuleResource resource

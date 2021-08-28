@@ -213,7 +213,7 @@ function getImports(object) {
 
   imports = [...new Set(imports)];
 
-  if (object.model.modelName == "Role") {
+  if (object.model.modelName === "Role") {
     imports.splice(imports.indexOf("context"), 1);
     imports.splice(imports.indexOf("fmt"), 1);
   }

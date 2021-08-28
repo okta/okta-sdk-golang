@@ -19,8 +19,6 @@
 package okta
 
 import (
-	"context"
-	"fmt"
 	"time"
 )
 
