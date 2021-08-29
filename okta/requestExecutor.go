@@ -472,6 +472,9 @@ func buildResponse(resp *http.Response, re *RequestExecutor, v interface{}) (*Re
 	copy(copyBodyBytes, bodyBytes)
 	_ = resp.Body.Close()                                    // close it to avoid memory leaks
 	resp.Body = ioutil.NopCloser(bytes.NewBuffer(bodyBytes)) // restore the original response body
+	if len(copyBodyBytes) == 0 {
+		return response, nil
+	}
 	switch {
 	case strings.Contains(ct, "application/xml"):
 		err = xml.NewDecoder(bytes.NewReader(copyBodyBytes)).Decode(v)
