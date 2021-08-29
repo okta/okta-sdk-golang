@@ -38,6 +38,7 @@ generate-files:
 	@echo "$(COLOR_OK)Running goimports and gofumpt on generated files...$(COLOR_NONE)"
 	@make import
 	@make fmt
+	@echo "$(COLOR_OKTA)Done!$(COLOR_NONE)"
 
 pull-spec:
 	@echo "$(COLOR_OKTA)Pulling in latest spec...$(COLOR_NONE)"
