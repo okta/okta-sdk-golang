@@ -39,14 +39,16 @@ type ProfileMapping struct {
 func (m *ProfileMappingResource) GetProfileMapping(ctx context.Context, mappingId string) (*ProfileMapping, *Response, error) {
 	url := fmt.Sprintf("/api/v1/mappings/%v", mappingId)
 
-	req, err := m.client.requestExecutor.WithAccept("application/json").WithContentType("application/json").NewRequest("GET", url, nil)
+	rq := m.client.CloneRequestExecutor()
+
+	req, err := rq.WithAccept("application/json").WithContentType("application/json").NewRequest("GET", url, nil)
 	if err != nil {
 		return nil, nil, err
 	}
 
 	var profileMapping *ProfileMapping
 
-	resp, err := m.client.requestExecutor.Do(ctx, req, &profileMapping)
+	resp, err := rq.Do(ctx, req, &profileMapping)
 	if err != nil {
 		return nil, resp, err
 	}
@@ -58,14 +60,16 @@ func (m *ProfileMappingResource) GetProfileMapping(ctx context.Context, mappingI
 func (m *ProfileMappingResource) UpdateProfileMapping(ctx context.Context, mappingId string, body ProfileMapping) (*ProfileMapping, *Response, error) {
 	url := fmt.Sprintf("/api/v1/mappings/%v", mappingId)
 
-	req, err := m.client.requestExecutor.WithAccept("application/json").WithContentType("application/json").NewRequest("POST", url, body)
+	rq := m.client.CloneRequestExecutor()
+
+	req, err := rq.WithAccept("application/json").WithContentType("application/json").NewRequest("POST", url, body)
 	if err != nil {
 		return nil, nil, err
 	}
 
 	var profileMapping *ProfileMapping
 
-	resp, err := m.client.requestExecutor.Do(ctx, req, &profileMapping)
+	resp, err := rq.Do(ctx, req, &profileMapping)
 	if err != nil {
 		return nil, resp, err
 	}
@@ -80,14 +84,16 @@ func (m *ProfileMappingResource) ListProfileMappings(ctx context.Context, qp *qu
 		url = url + qp.String()
 	}
 
-	req, err := m.client.requestExecutor.WithAccept("application/json").WithContentType("application/json").NewRequest("GET", url, nil)
+	rq := m.client.CloneRequestExecutor()
+
+	req, err := rq.WithAccept("application/json").WithContentType("application/json").NewRequest("GET", url, nil)
 	if err != nil {
 		return nil, nil, err
 	}
 
 	var profileMapping []*ProfileMapping
 
-	resp, err := m.client.requestExecutor.Do(ctx, req, &profileMapping)
+	resp, err := rq.Do(ctx, req, &profileMapping)
 	if err != nil {
 		return nil, resp, err
 	}

@@ -45,14 +45,16 @@ type AuthorizationServer struct {
 func (m *AuthorizationServerResource) CreateAuthorizationServer(ctx context.Context, body AuthorizationServer) (*AuthorizationServer, *Response, error) {
 	url := fmt.Sprintf("/api/v1/authorizationServers")
 
-	req, err := m.client.requestExecutor.WithAccept("application/json").WithContentType("application/json").NewRequest("POST", url, body)
+	rq := m.client.CloneRequestExecutor()
+
+	req, err := rq.WithAccept("application/json").WithContentType("application/json").NewRequest("POST", url, body)
 	if err != nil {
 		return nil, nil, err
 	}
 
 	var authorizationServer *AuthorizationServer
 
-	resp, err := m.client.requestExecutor.Do(ctx, req, &authorizationServer)
+	resp, err := rq.Do(ctx, req, &authorizationServer)
 	if err != nil {
 		return nil, resp, err
 	}
@@ -63,14 +65,16 @@ func (m *AuthorizationServerResource) CreateAuthorizationServer(ctx context.Cont
 func (m *AuthorizationServerResource) GetAuthorizationServer(ctx context.Context, authServerId string) (*AuthorizationServer, *Response, error) {
 	url := fmt.Sprintf("/api/v1/authorizationServers/%v", authServerId)
 
-	req, err := m.client.requestExecutor.WithAccept("application/json").WithContentType("application/json").NewRequest("GET", url, nil)
+	rq := m.client.CloneRequestExecutor()
+
+	req, err := rq.WithAccept("application/json").WithContentType("application/json").NewRequest("GET", url, nil)
 	if err != nil {
 		return nil, nil, err
 	}
 
 	var authorizationServer *AuthorizationServer
 
-	resp, err := m.client.requestExecutor.Do(ctx, req, &authorizationServer)
+	resp, err := rq.Do(ctx, req, &authorizationServer)
 	if err != nil {
 		return nil, resp, err
 	}
@@ -81,14 +85,16 @@ func (m *AuthorizationServerResource) GetAuthorizationServer(ctx context.Context
 func (m *AuthorizationServerResource) UpdateAuthorizationServer(ctx context.Context, authServerId string, body AuthorizationServer) (*AuthorizationServer, *Response, error) {
 	url := fmt.Sprintf("/api/v1/authorizationServers/%v", authServerId)
 
-	req, err := m.client.requestExecutor.WithAccept("application/json").WithContentType("application/json").NewRequest("PUT", url, body)
+	rq := m.client.CloneRequestExecutor()
+
+	req, err := rq.WithAccept("application/json").WithContentType("application/json").NewRequest("PUT", url, body)
 	if err != nil {
 		return nil, nil, err
 	}
 
 	var authorizationServer *AuthorizationServer
 
-	resp, err := m.client.requestExecutor.Do(ctx, req, &authorizationServer)
+	resp, err := rq.Do(ctx, req, &authorizationServer)
 	if err != nil {
 		return nil, resp, err
 	}
@@ -99,7 +105,9 @@ func (m *AuthorizationServerResource) UpdateAuthorizationServer(ctx context.Cont
 func (m *AuthorizationServerResource) DeleteAuthorizationServer(ctx context.Context, authServerId string) (*Response, error) {
 	url := fmt.Sprintf("/api/v1/authorizationServers/%v", authServerId)
 
-	req, err := m.client.requestExecutor.WithAccept("application/json").WithContentType("application/json").NewRequest("DELETE", url, nil)
+	rq := m.client.CloneRequestExecutor()
+
+	req, err := rq.WithAccept("application/json").WithContentType("application/json").NewRequest("DELETE", url, nil)
 	if err != nil {
 		return nil, err
 	}
@@ -118,14 +126,16 @@ func (m *AuthorizationServerResource) ListAuthorizationServers(ctx context.Conte
 		url = url + qp.String()
 	}
 
-	req, err := m.client.requestExecutor.WithAccept("application/json").WithContentType("application/json").NewRequest("GET", url, nil)
+	rq := m.client.CloneRequestExecutor()
+
+	req, err := rq.WithAccept("application/json").WithContentType("application/json").NewRequest("GET", url, nil)
 	if err != nil {
 		return nil, nil, err
 	}
 
 	var authorizationServer []*AuthorizationServer
 
-	resp, err := m.client.requestExecutor.Do(ctx, req, &authorizationServer)
+	resp, err := rq.Do(ctx, req, &authorizationServer)
 	if err != nil {
 		return nil, resp, err
 	}
@@ -136,14 +146,16 @@ func (m *AuthorizationServerResource) ListAuthorizationServers(ctx context.Conte
 func (m *AuthorizationServerResource) ListOAuth2Claims(ctx context.Context, authServerId string) ([]*OAuth2Claim, *Response, error) {
 	url := fmt.Sprintf("/api/v1/authorizationServers/%v/claims", authServerId)
 
-	req, err := m.client.requestExecutor.WithAccept("application/json").WithContentType("application/json").NewRequest("GET", url, nil)
+	rq := m.client.CloneRequestExecutor()
+
+	req, err := rq.WithAccept("application/json").WithContentType("application/json").NewRequest("GET", url, nil)
 	if err != nil {
 		return nil, nil, err
 	}
 
 	var oAuth2Claim []*OAuth2Claim
 
-	resp, err := m.client.requestExecutor.Do(ctx, req, &oAuth2Claim)
+	resp, err := rq.Do(ctx, req, &oAuth2Claim)
 	if err != nil {
 		return nil, resp, err
 	}
@@ -154,14 +166,16 @@ func (m *AuthorizationServerResource) ListOAuth2Claims(ctx context.Context, auth
 func (m *AuthorizationServerResource) CreateOAuth2Claim(ctx context.Context, authServerId string, body OAuth2Claim) (*OAuth2Claim, *Response, error) {
 	url := fmt.Sprintf("/api/v1/authorizationServers/%v/claims", authServerId)
 
-	req, err := m.client.requestExecutor.WithAccept("application/json").WithContentType("application/json").NewRequest("POST", url, body)
+	rq := m.client.CloneRequestExecutor()
+
+	req, err := rq.WithAccept("application/json").WithContentType("application/json").NewRequest("POST", url, body)
 	if err != nil {
 		return nil, nil, err
 	}
 
 	var oAuth2Claim *OAuth2Claim
 
-	resp, err := m.client.requestExecutor.Do(ctx, req, &oAuth2Claim)
+	resp, err := rq.Do(ctx, req, &oAuth2Claim)
 	if err != nil {
 		return nil, resp, err
 	}
@@ -172,7 +186,9 @@ func (m *AuthorizationServerResource) CreateOAuth2Claim(ctx context.Context, aut
 func (m *AuthorizationServerResource) DeleteOAuth2Claim(ctx context.Context, authServerId string, claimId string) (*Response, error) {
 	url := fmt.Sprintf("/api/v1/authorizationServers/%v/claims/%v", authServerId, claimId)
 
-	req, err := m.client.requestExecutor.WithAccept("application/json").WithContentType("application/json").NewRequest("DELETE", url, nil)
+	rq := m.client.CloneRequestExecutor()
+
+	req, err := rq.WithAccept("application/json").WithContentType("application/json").NewRequest("DELETE", url, nil)
 	if err != nil {
 		return nil, err
 	}
@@ -188,14 +204,16 @@ func (m *AuthorizationServerResource) DeleteOAuth2Claim(ctx context.Context, aut
 func (m *AuthorizationServerResource) GetOAuth2Claim(ctx context.Context, authServerId string, claimId string) (*OAuth2Claim, *Response, error) {
 	url := fmt.Sprintf("/api/v1/authorizationServers/%v/claims/%v", authServerId, claimId)
 
-	req, err := m.client.requestExecutor.WithAccept("application/json").WithContentType("application/json").NewRequest("GET", url, nil)
+	rq := m.client.CloneRequestExecutor()
+
+	req, err := rq.WithAccept("application/json").WithContentType("application/json").NewRequest("GET", url, nil)
 	if err != nil {
 		return nil, nil, err
 	}
 
 	var oAuth2Claim *OAuth2Claim
 
-	resp, err := m.client.requestExecutor.Do(ctx, req, &oAuth2Claim)
+	resp, err := rq.Do(ctx, req, &oAuth2Claim)
 	if err != nil {
 		return nil, resp, err
 	}
@@ -206,14 +224,16 @@ func (m *AuthorizationServerResource) GetOAuth2Claim(ctx context.Context, authSe
 func (m *AuthorizationServerResource) UpdateOAuth2Claim(ctx context.Context, authServerId string, claimId string, body OAuth2Claim) (*OAuth2Claim, *Response, error) {
 	url := fmt.Sprintf("/api/v1/authorizationServers/%v/claims/%v", authServerId, claimId)
 
-	req, err := m.client.requestExecutor.WithAccept("application/json").WithContentType("application/json").NewRequest("PUT", url, body)
+	rq := m.client.CloneRequestExecutor()
+
+	req, err := rq.WithAccept("application/json").WithContentType("application/json").NewRequest("PUT", url, body)
 	if err != nil {
 		return nil, nil, err
 	}
 
 	var oAuth2Claim *OAuth2Claim
 
-	resp, err := m.client.requestExecutor.Do(ctx, req, &oAuth2Claim)
+	resp, err := rq.Do(ctx, req, &oAuth2Claim)
 	if err != nil {
 		return nil, resp, err
 	}
@@ -224,14 +244,16 @@ func (m *AuthorizationServerResource) UpdateOAuth2Claim(ctx context.Context, aut
 func (m *AuthorizationServerResource) ListOAuth2ClientsForAuthorizationServer(ctx context.Context, authServerId string) ([]*OAuth2Client, *Response, error) {
 	url := fmt.Sprintf("/api/v1/authorizationServers/%v/clients", authServerId)
 
-	req, err := m.client.requestExecutor.WithAccept("application/json").WithContentType("application/json").NewRequest("GET", url, nil)
+	rq := m.client.CloneRequestExecutor()
+
+	req, err := rq.WithAccept("application/json").WithContentType("application/json").NewRequest("GET", url, nil)
 	if err != nil {
 		return nil, nil, err
 	}
 
 	var oAuth2Client []*OAuth2Client
 
-	resp, err := m.client.requestExecutor.Do(ctx, req, &oAuth2Client)
+	resp, err := rq.Do(ctx, req, &oAuth2Client)
 	if err != nil {
 		return nil, resp, err
 	}
@@ -242,7 +264,9 @@ func (m *AuthorizationServerResource) ListOAuth2ClientsForAuthorizationServer(ct
 func (m *AuthorizationServerResource) RevokeRefreshTokensForAuthorizationServerAndClient(ctx context.Context, authServerId string, clientId string) (*Response, error) {
 	url := fmt.Sprintf("/api/v1/authorizationServers/%v/clients/%v/tokens", authServerId, clientId)
 
-	req, err := m.client.requestExecutor.WithAccept("application/json").WithContentType("application/json").NewRequest("DELETE", url, nil)
+	rq := m.client.CloneRequestExecutor()
+
+	req, err := rq.WithAccept("application/json").WithContentType("application/json").NewRequest("DELETE", url, nil)
 	if err != nil {
 		return nil, err
 	}
@@ -261,14 +285,16 @@ func (m *AuthorizationServerResource) ListRefreshTokensForAuthorizationServerAnd
 		url = url + qp.String()
 	}
 
-	req, err := m.client.requestExecutor.WithAccept("application/json").WithContentType("application/json").NewRequest("GET", url, nil)
+	rq := m.client.CloneRequestExecutor()
+
+	req, err := rq.WithAccept("application/json").WithContentType("application/json").NewRequest("GET", url, nil)
 	if err != nil {
 		return nil, nil, err
 	}
 
 	var oAuth2RefreshToken []*OAuth2RefreshToken
 
-	resp, err := m.client.requestExecutor.Do(ctx, req, &oAuth2RefreshToken)
+	resp, err := rq.Do(ctx, req, &oAuth2RefreshToken)
 	if err != nil {
 		return nil, resp, err
 	}
@@ -279,7 +305,9 @@ func (m *AuthorizationServerResource) ListRefreshTokensForAuthorizationServerAnd
 func (m *AuthorizationServerResource) RevokeRefreshTokenForAuthorizationServerAndClient(ctx context.Context, authServerId string, clientId string, tokenId string) (*Response, error) {
 	url := fmt.Sprintf("/api/v1/authorizationServers/%v/clients/%v/tokens/%v", authServerId, clientId, tokenId)
 
-	req, err := m.client.requestExecutor.WithAccept("application/json").WithContentType("application/json").NewRequest("DELETE", url, nil)
+	rq := m.client.CloneRequestExecutor()
+
+	req, err := rq.WithAccept("application/json").WithContentType("application/json").NewRequest("DELETE", url, nil)
 	if err != nil {
 		return nil, err
 	}
@@ -298,14 +326,16 @@ func (m *AuthorizationServerResource) GetRefreshTokenForAuthorizationServerAndCl
 		url = url + qp.String()
 	}
 
-	req, err := m.client.requestExecutor.WithAccept("application/json").WithContentType("application/json").NewRequest("GET", url, nil)
+	rq := m.client.CloneRequestExecutor()
+
+	req, err := rq.WithAccept("application/json").WithContentType("application/json").NewRequest("GET", url, nil)
 	if err != nil {
 		return nil, nil, err
 	}
 
 	var oAuth2RefreshToken *OAuth2RefreshToken
 
-	resp, err := m.client.requestExecutor.Do(ctx, req, &oAuth2RefreshToken)
+	resp, err := rq.Do(ctx, req, &oAuth2RefreshToken)
 	if err != nil {
 		return nil, resp, err
 	}
@@ -316,14 +346,16 @@ func (m *AuthorizationServerResource) GetRefreshTokenForAuthorizationServerAndCl
 func (m *AuthorizationServerResource) ListAuthorizationServerKeys(ctx context.Context, authServerId string) ([]*JsonWebKey, *Response, error) {
 	url := fmt.Sprintf("/api/v1/authorizationServers/%v/credentials/keys", authServerId)
 
-	req, err := m.client.requestExecutor.WithAccept("application/json").WithContentType("application/json").NewRequest("GET", url, nil)
+	rq := m.client.CloneRequestExecutor()
+
+	req, err := rq.WithAccept("application/json").WithContentType("application/json").NewRequest("GET", url, nil)
 	if err != nil {
 		return nil, nil, err
 	}
 
 	var jsonWebKey []*JsonWebKey
 
-	resp, err := m.client.requestExecutor.Do(ctx, req, &jsonWebKey)
+	resp, err := rq.Do(ctx, req, &jsonWebKey)
 	if err != nil {
 		return nil, resp, err
 	}
@@ -334,14 +366,16 @@ func (m *AuthorizationServerResource) ListAuthorizationServerKeys(ctx context.Co
 func (m *AuthorizationServerResource) RotateAuthorizationServerKeys(ctx context.Context, authServerId string, body JwkUse) ([]*JsonWebKey, *Response, error) {
 	url := fmt.Sprintf("/api/v1/authorizationServers/%v/credentials/lifecycle/keyRotate", authServerId)
 
-	req, err := m.client.requestExecutor.WithAccept("application/json").WithContentType("application/json").NewRequest("POST", url, body)
+	rq := m.client.CloneRequestExecutor()
+
+	req, err := rq.WithAccept("application/json").WithContentType("application/json").NewRequest("POST", url, body)
 	if err != nil {
 		return nil, nil, err
 	}
 
 	var jsonWebKey []*JsonWebKey
 
-	resp, err := m.client.requestExecutor.Do(ctx, req, &jsonWebKey)
+	resp, err := rq.Do(ctx, req, &jsonWebKey)
 	if err != nil {
 		return nil, resp, err
 	}
@@ -352,7 +386,9 @@ func (m *AuthorizationServerResource) RotateAuthorizationServerKeys(ctx context.
 func (m *AuthorizationServerResource) ActivateAuthorizationServer(ctx context.Context, authServerId string) (*Response, error) {
 	url := fmt.Sprintf("/api/v1/authorizationServers/%v/lifecycle/activate", authServerId)
 
-	req, err := m.client.requestExecutor.WithAccept("application/json").WithContentType("application/json").NewRequest("POST", url, nil)
+	rq := m.client.CloneRequestExecutor()
+
+	req, err := rq.WithAccept("application/json").WithContentType("application/json").NewRequest("POST", url, nil)
 	if err != nil {
 		return nil, err
 	}
@@ -368,7 +404,9 @@ func (m *AuthorizationServerResource) ActivateAuthorizationServer(ctx context.Co
 func (m *AuthorizationServerResource) DeactivateAuthorizationServer(ctx context.Context, authServerId string) (*Response, error) {
 	url := fmt.Sprintf("/api/v1/authorizationServers/%v/lifecycle/deactivate", authServerId)
 
-	req, err := m.client.requestExecutor.WithAccept("application/json").WithContentType("application/json").NewRequest("POST", url, nil)
+	rq := m.client.CloneRequestExecutor()
+
+	req, err := rq.WithAccept("application/json").WithContentType("application/json").NewRequest("POST", url, nil)
 	if err != nil {
 		return nil, err
 	}
@@ -384,14 +422,16 @@ func (m *AuthorizationServerResource) DeactivateAuthorizationServer(ctx context.
 func (m *AuthorizationServerResource) ListAuthorizationServerPolicies(ctx context.Context, authServerId string) ([]*AuthorizationServerPolicy, *Response, error) {
 	url := fmt.Sprintf("/api/v1/authorizationServers/%v/policies", authServerId)
 
-	req, err := m.client.requestExecutor.WithAccept("application/json").WithContentType("application/json").NewRequest("GET", url, nil)
+	rq := m.client.CloneRequestExecutor()
+
+	req, err := rq.WithAccept("application/json").WithContentType("application/json").NewRequest("GET", url, nil)
 	if err != nil {
 		return nil, nil, err
 	}
 
 	var authorizationServerPolicy []*AuthorizationServerPolicy
 
-	resp, err := m.client.requestExecutor.Do(ctx, req, &authorizationServerPolicy)
+	resp, err := rq.Do(ctx, req, &authorizationServerPolicy)
 	if err != nil {
 		return nil, resp, err
 	}
@@ -402,14 +442,16 @@ func (m *AuthorizationServerResource) ListAuthorizationServerPolicies(ctx contex
 func (m *AuthorizationServerResource) CreateAuthorizationServerPolicy(ctx context.Context, authServerId string, body AuthorizationServerPolicy) (*AuthorizationServerPolicy, *Response, error) {
 	url := fmt.Sprintf("/api/v1/authorizationServers/%v/policies", authServerId)
 
-	req, err := m.client.requestExecutor.WithAccept("application/json").WithContentType("application/json").NewRequest("POST", url, body)
+	rq := m.client.CloneRequestExecutor()
+
+	req, err := rq.WithAccept("application/json").WithContentType("application/json").NewRequest("POST", url, body)
 	if err != nil {
 		return nil, nil, err
 	}
 
 	var authorizationServerPolicy *AuthorizationServerPolicy
 
-	resp, err := m.client.requestExecutor.Do(ctx, req, &authorizationServerPolicy)
+	resp, err := rq.Do(ctx, req, &authorizationServerPolicy)
 	if err != nil {
 		return nil, resp, err
 	}
@@ -420,7 +462,9 @@ func (m *AuthorizationServerResource) CreateAuthorizationServerPolicy(ctx contex
 func (m *AuthorizationServerResource) DeleteAuthorizationServerPolicy(ctx context.Context, authServerId string, policyId string) (*Response, error) {
 	url := fmt.Sprintf("/api/v1/authorizationServers/%v/policies/%v", authServerId, policyId)
 
-	req, err := m.client.requestExecutor.WithAccept("application/json").WithContentType("application/json").NewRequest("DELETE", url, nil)
+	rq := m.client.CloneRequestExecutor()
+
+	req, err := rq.WithAccept("application/json").WithContentType("application/json").NewRequest("DELETE", url, nil)
 	if err != nil {
 		return nil, err
 	}
@@ -436,14 +480,16 @@ func (m *AuthorizationServerResource) DeleteAuthorizationServerPolicy(ctx contex
 func (m *AuthorizationServerResource) GetAuthorizationServerPolicy(ctx context.Context, authServerId string, policyId string) (*AuthorizationServerPolicy, *Response, error) {
 	url := fmt.Sprintf("/api/v1/authorizationServers/%v/policies/%v", authServerId, policyId)
 
-	req, err := m.client.requestExecutor.WithAccept("application/json").WithContentType("application/json").NewRequest("GET", url, nil)
+	rq := m.client.CloneRequestExecutor()
+
+	req, err := rq.WithAccept("application/json").WithContentType("application/json").NewRequest("GET", url, nil)
 	if err != nil {
 		return nil, nil, err
 	}
 
 	var authorizationServerPolicy *AuthorizationServerPolicy
 
-	resp, err := m.client.requestExecutor.Do(ctx, req, &authorizationServerPolicy)
+	resp, err := rq.Do(ctx, req, &authorizationServerPolicy)
 	if err != nil {
 		return nil, resp, err
 	}
@@ -454,14 +500,16 @@ func (m *AuthorizationServerResource) GetAuthorizationServerPolicy(ctx context.C
 func (m *AuthorizationServerResource) UpdateAuthorizationServerPolicy(ctx context.Context, authServerId string, policyId string, body AuthorizationServerPolicy) (*AuthorizationServerPolicy, *Response, error) {
 	url := fmt.Sprintf("/api/v1/authorizationServers/%v/policies/%v", authServerId, policyId)
 
-	req, err := m.client.requestExecutor.WithAccept("application/json").WithContentType("application/json").NewRequest("PUT", url, body)
+	rq := m.client.CloneRequestExecutor()
+
+	req, err := rq.WithAccept("application/json").WithContentType("application/json").NewRequest("PUT", url, body)
 	if err != nil {
 		return nil, nil, err
 	}
 
 	var authorizationServerPolicy *AuthorizationServerPolicy
 
-	resp, err := m.client.requestExecutor.Do(ctx, req, &authorizationServerPolicy)
+	resp, err := rq.Do(ctx, req, &authorizationServerPolicy)
 	if err != nil {
 		return nil, resp, err
 	}
@@ -473,7 +521,9 @@ func (m *AuthorizationServerResource) UpdateAuthorizationServerPolicy(ctx contex
 func (m *AuthorizationServerResource) ActivateAuthorizationServerPolicy(ctx context.Context, authServerId string, policyId string) (*Response, error) {
 	url := fmt.Sprintf("/api/v1/authorizationServers/%v/policies/%v/lifecycle/activate", authServerId, policyId)
 
-	req, err := m.client.requestExecutor.WithAccept("application/json").WithContentType("application/json").NewRequest("POST", url, nil)
+	rq := m.client.CloneRequestExecutor()
+
+	req, err := rq.WithAccept("application/json").WithContentType("application/json").NewRequest("POST", url, nil)
 	if err != nil {
 		return nil, err
 	}
@@ -490,7 +540,9 @@ func (m *AuthorizationServerResource) ActivateAuthorizationServerPolicy(ctx cont
 func (m *AuthorizationServerResource) DeactivateAuthorizationServerPolicy(ctx context.Context, authServerId string, policyId string) (*Response, error) {
 	url := fmt.Sprintf("/api/v1/authorizationServers/%v/policies/%v/lifecycle/deactivate", authServerId, policyId)
 
-	req, err := m.client.requestExecutor.WithAccept("application/json").WithContentType("application/json").NewRequest("POST", url, nil)
+	rq := m.client.CloneRequestExecutor()
+
+	req, err := rq.WithAccept("application/json").WithContentType("application/json").NewRequest("POST", url, nil)
 	if err != nil {
 		return nil, err
 	}
@@ -507,14 +559,16 @@ func (m *AuthorizationServerResource) DeactivateAuthorizationServerPolicy(ctx co
 func (m *AuthorizationServerResource) ListAuthorizationServerPolicyRules(ctx context.Context, policyId string, authServerId string) ([]*AuthorizationServerPolicyRule, *Response, error) {
 	url := fmt.Sprintf("/api/v1/authorizationServers/%v/policies/%v/rules", policyId, authServerId)
 
-	req, err := m.client.requestExecutor.WithAccept("application/json").WithContentType("application/json").NewRequest("GET", url, nil)
+	rq := m.client.CloneRequestExecutor()
+
+	req, err := rq.WithAccept("application/json").WithContentType("application/json").NewRequest("GET", url, nil)
 	if err != nil {
 		return nil, nil, err
 	}
 
 	var authorizationServerPolicyRule []*AuthorizationServerPolicyRule
 
-	resp, err := m.client.requestExecutor.Do(ctx, req, &authorizationServerPolicyRule)
+	resp, err := rq.Do(ctx, req, &authorizationServerPolicyRule)
 	if err != nil {
 		return nil, resp, err
 	}
@@ -526,14 +580,16 @@ func (m *AuthorizationServerResource) ListAuthorizationServerPolicyRules(ctx con
 func (m *AuthorizationServerResource) CreateAuthorizationServerPolicyRule(ctx context.Context, policyId string, authServerId string, body AuthorizationServerPolicyRule) (*AuthorizationServerPolicyRule, *Response, error) {
 	url := fmt.Sprintf("/api/v1/authorizationServers/%v/policies/%v/rules", policyId, authServerId)
 
-	req, err := m.client.requestExecutor.WithAccept("application/json").WithContentType("application/json").NewRequest("POST", url, body)
+	rq := m.client.CloneRequestExecutor()
+
+	req, err := rq.WithAccept("application/json").WithContentType("application/json").NewRequest("POST", url, body)
 	if err != nil {
 		return nil, nil, err
 	}
 
 	var authorizationServerPolicyRule *AuthorizationServerPolicyRule
 
-	resp, err := m.client.requestExecutor.Do(ctx, req, &authorizationServerPolicyRule)
+	resp, err := rq.Do(ctx, req, &authorizationServerPolicyRule)
 	if err != nil {
 		return nil, resp, err
 	}
@@ -545,7 +601,9 @@ func (m *AuthorizationServerResource) CreateAuthorizationServerPolicyRule(ctx co
 func (m *AuthorizationServerResource) DeleteAuthorizationServerPolicyRule(ctx context.Context, policyId string, authServerId string, ruleId string) (*Response, error) {
 	url := fmt.Sprintf("/api/v1/authorizationServers/%v/policies/%v/rules/%v", policyId, authServerId, ruleId)
 
-	req, err := m.client.requestExecutor.WithAccept("application/json").WithContentType("application/json").NewRequest("DELETE", url, nil)
+	rq := m.client.CloneRequestExecutor()
+
+	req, err := rq.WithAccept("application/json").WithContentType("application/json").NewRequest("DELETE", url, nil)
 	if err != nil {
 		return nil, err
 	}
@@ -562,14 +620,16 @@ func (m *AuthorizationServerResource) DeleteAuthorizationServerPolicyRule(ctx co
 func (m *AuthorizationServerResource) GetAuthorizationServerPolicyRule(ctx context.Context, policyId string, authServerId string, ruleId string) (*AuthorizationServerPolicyRule, *Response, error) {
 	url := fmt.Sprintf("/api/v1/authorizationServers/%v/policies/%v/rules/%v", policyId, authServerId, ruleId)
 
-	req, err := m.client.requestExecutor.WithAccept("application/json").WithContentType("application/json").NewRequest("GET", url, nil)
+	rq := m.client.CloneRequestExecutor()
+
+	req, err := rq.WithAccept("application/json").WithContentType("application/json").NewRequest("GET", url, nil)
 	if err != nil {
 		return nil, nil, err
 	}
 
 	var authorizationServerPolicyRule *AuthorizationServerPolicyRule
 
-	resp, err := m.client.requestExecutor.Do(ctx, req, &authorizationServerPolicyRule)
+	resp, err := rq.Do(ctx, req, &authorizationServerPolicyRule)
 	if err != nil {
 		return nil, resp, err
 	}
@@ -581,14 +641,16 @@ func (m *AuthorizationServerResource) GetAuthorizationServerPolicyRule(ctx conte
 func (m *AuthorizationServerResource) UpdateAuthorizationServerPolicyRule(ctx context.Context, policyId string, authServerId string, ruleId string, body AuthorizationServerPolicyRule) (*AuthorizationServerPolicyRule, *Response, error) {
 	url := fmt.Sprintf("/api/v1/authorizationServers/%v/policies/%v/rules/%v", policyId, authServerId, ruleId)
 
-	req, err := m.client.requestExecutor.WithAccept("application/json").WithContentType("application/json").NewRequest("PUT", url, body)
+	rq := m.client.CloneRequestExecutor()
+
+	req, err := rq.WithAccept("application/json").WithContentType("application/json").NewRequest("PUT", url, body)
 	if err != nil {
 		return nil, nil, err
 	}
 
 	var authorizationServerPolicyRule *AuthorizationServerPolicyRule
 
-	resp, err := m.client.requestExecutor.Do(ctx, req, &authorizationServerPolicyRule)
+	resp, err := rq.Do(ctx, req, &authorizationServerPolicyRule)
 	if err != nil {
 		return nil, resp, err
 	}
@@ -600,7 +662,9 @@ func (m *AuthorizationServerResource) UpdateAuthorizationServerPolicyRule(ctx co
 func (m *AuthorizationServerResource) ActivateAuthorizationServerPolicyRule(ctx context.Context, authServerId string, policyId string, ruleId string) (*Response, error) {
 	url := fmt.Sprintf("/api/v1/authorizationServers/%v/policies/%v/rules/%v/lifecycle/activate", authServerId, policyId, ruleId)
 
-	req, err := m.client.requestExecutor.WithAccept("application/json").WithContentType("application/json").NewRequest("POST", url, nil)
+	rq := m.client.CloneRequestExecutor()
+
+	req, err := rq.WithAccept("application/json").WithContentType("application/json").NewRequest("POST", url, nil)
 	if err != nil {
 		return nil, err
 	}
@@ -617,7 +681,9 @@ func (m *AuthorizationServerResource) ActivateAuthorizationServerPolicyRule(ctx 
 func (m *AuthorizationServerResource) DeactivateAuthorizationServerPolicyRule(ctx context.Context, authServerId string, policyId string, ruleId string) (*Response, error) {
 	url := fmt.Sprintf("/api/v1/authorizationServers/%v/policies/%v/rules/%v/lifecycle/deactivate", authServerId, policyId, ruleId)
 
-	req, err := m.client.requestExecutor.WithAccept("application/json").WithContentType("application/json").NewRequest("POST", url, nil)
+	rq := m.client.CloneRequestExecutor()
+
+	req, err := rq.WithAccept("application/json").WithContentType("application/json").NewRequest("POST", url, nil)
 	if err != nil {
 		return nil, err
 	}
@@ -636,14 +702,16 @@ func (m *AuthorizationServerResource) ListOAuth2Scopes(ctx context.Context, auth
 		url = url + qp.String()
 	}
 
-	req, err := m.client.requestExecutor.WithAccept("application/json").WithContentType("application/json").NewRequest("GET", url, nil)
+	rq := m.client.CloneRequestExecutor()
+
+	req, err := rq.WithAccept("application/json").WithContentType("application/json").NewRequest("GET", url, nil)
 	if err != nil {
 		return nil, nil, err
 	}
 
 	var oAuth2Scope []*OAuth2Scope
 
-	resp, err := m.client.requestExecutor.Do(ctx, req, &oAuth2Scope)
+	resp, err := rq.Do(ctx, req, &oAuth2Scope)
 	if err != nil {
 		return nil, resp, err
 	}
@@ -654,14 +722,16 @@ func (m *AuthorizationServerResource) ListOAuth2Scopes(ctx context.Context, auth
 func (m *AuthorizationServerResource) CreateOAuth2Scope(ctx context.Context, authServerId string, body OAuth2Scope) (*OAuth2Scope, *Response, error) {
 	url := fmt.Sprintf("/api/v1/authorizationServers/%v/scopes", authServerId)
 
-	req, err := m.client.requestExecutor.WithAccept("application/json").WithContentType("application/json").NewRequest("POST", url, body)
+	rq := m.client.CloneRequestExecutor()
+
+	req, err := rq.WithAccept("application/json").WithContentType("application/json").NewRequest("POST", url, body)
 	if err != nil {
 		return nil, nil, err
 	}
 
 	var oAuth2Scope *OAuth2Scope
 
-	resp, err := m.client.requestExecutor.Do(ctx, req, &oAuth2Scope)
+	resp, err := rq.Do(ctx, req, &oAuth2Scope)
 	if err != nil {
 		return nil, resp, err
 	}
@@ -672,7 +742,9 @@ func (m *AuthorizationServerResource) CreateOAuth2Scope(ctx context.Context, aut
 func (m *AuthorizationServerResource) DeleteOAuth2Scope(ctx context.Context, authServerId string, scopeId string) (*Response, error) {
 	url := fmt.Sprintf("/api/v1/authorizationServers/%v/scopes/%v", authServerId, scopeId)
 
-	req, err := m.client.requestExecutor.WithAccept("application/json").WithContentType("application/json").NewRequest("DELETE", url, nil)
+	rq := m.client.CloneRequestExecutor()
+
+	req, err := rq.WithAccept("application/json").WithContentType("application/json").NewRequest("DELETE", url, nil)
 	if err != nil {
 		return nil, err
 	}
@@ -688,14 +760,16 @@ func (m *AuthorizationServerResource) DeleteOAuth2Scope(ctx context.Context, aut
 func (m *AuthorizationServerResource) GetOAuth2Scope(ctx context.Context, authServerId string, scopeId string) (*OAuth2Scope, *Response, error) {
 	url := fmt.Sprintf("/api/v1/authorizationServers/%v/scopes/%v", authServerId, scopeId)
 
-	req, err := m.client.requestExecutor.WithAccept("application/json").WithContentType("application/json").NewRequest("GET", url, nil)
+	rq := m.client.CloneRequestExecutor()
+
+	req, err := rq.WithAccept("application/json").WithContentType("application/json").NewRequest("GET", url, nil)
 	if err != nil {
 		return nil, nil, err
 	}
 
 	var oAuth2Scope *OAuth2Scope
 
-	resp, err := m.client.requestExecutor.Do(ctx, req, &oAuth2Scope)
+	resp, err := rq.Do(ctx, req, &oAuth2Scope)
 	if err != nil {
 		return nil, resp, err
 	}
@@ -706,14 +780,16 @@ func (m *AuthorizationServerResource) GetOAuth2Scope(ctx context.Context, authSe
 func (m *AuthorizationServerResource) UpdateOAuth2Scope(ctx context.Context, authServerId string, scopeId string, body OAuth2Scope) (*OAuth2Scope, *Response, error) {
 	url := fmt.Sprintf("/api/v1/authorizationServers/%v/scopes/%v", authServerId, scopeId)
 
-	req, err := m.client.requestExecutor.WithAccept("application/json").WithContentType("application/json").NewRequest("PUT", url, body)
+	rq := m.client.CloneRequestExecutor()
+
+	req, err := rq.WithAccept("application/json").WithContentType("application/json").NewRequest("PUT", url, body)
 	if err != nil {
 		return nil, nil, err
 	}
 
 	var oAuth2Scope *OAuth2Scope
 
-	resp, err := m.client.requestExecutor.Do(ctx, req, &oAuth2Scope)
+	resp, err := rq.Do(ctx, req, &oAuth2Scope)
 	if err != nil {
 		return nil, resp, err
 	}

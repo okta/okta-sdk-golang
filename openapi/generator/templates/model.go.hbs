@@ -20,6 +20,10 @@ type Factor interface {
 }
 
 {{/if}}
+{{#if (eq model.modelName "GroupSchema")}}
+type {{model.modelName}}Resource resource
+
+{{/if}}
 {{#if (and
     (or
       (or (gt model.methods.length 0)

@@ -38,14 +38,16 @@ type Domain struct {
 func (m *DomainResource) ListDomains(ctx context.Context) (*DomainListResponse, *Response, error) {
 	url := fmt.Sprintf("/api/v1/domains")
 
-	req, err := m.client.requestExecutor.WithAccept("application/json").WithContentType("application/json").NewRequest("GET", url, nil)
+	rq := m.client.CloneRequestExecutor()
+
+	req, err := rq.WithAccept("application/json").WithContentType("application/json").NewRequest("GET", url, nil)
 	if err != nil {
 		return nil, nil, err
 	}
 
 	var domainListResponse *DomainListResponse
 
-	resp, err := m.client.requestExecutor.Do(ctx, req, &domainListResponse)
+	resp, err := rq.Do(ctx, req, &domainListResponse)
 	if err != nil {
 		return nil, resp, err
 	}
@@ -57,14 +59,16 @@ func (m *DomainResource) ListDomains(ctx context.Context) (*DomainListResponse, 
 func (m *DomainResource) CreateDomain(ctx context.Context, body Domain) (*Domain, *Response, error) {
 	url := fmt.Sprintf("/api/v1/domains")
 
-	req, err := m.client.requestExecutor.WithAccept("application/json").WithContentType("application/json").NewRequest("POST", url, body)
+	rq := m.client.CloneRequestExecutor()
+
+	req, err := rq.WithAccept("application/json").WithContentType("application/json").NewRequest("POST", url, body)
 	if err != nil {
 		return nil, nil, err
 	}
 
 	var domain *Domain
 
-	resp, err := m.client.requestExecutor.Do(ctx, req, &domain)
+	resp, err := rq.Do(ctx, req, &domain)
 	if err != nil {
 		return nil, resp, err
 	}
@@ -76,7 +80,9 @@ func (m *DomainResource) CreateDomain(ctx context.Context, body Domain) (*Domain
 func (m *DomainResource) DeleteDomain(ctx context.Context, domainId string) (*Response, error) {
 	url := fmt.Sprintf("/api/v1/domains/%v", domainId)
 
-	req, err := m.client.requestExecutor.WithAccept("application/json").WithContentType("application/json").NewRequest("DELETE", url, nil)
+	rq := m.client.CloneRequestExecutor()
+
+	req, err := rq.WithAccept("application/json").WithContentType("application/json").NewRequest("DELETE", url, nil)
 	if err != nil {
 		return nil, err
 	}
@@ -93,14 +99,16 @@ func (m *DomainResource) DeleteDomain(ctx context.Context, domainId string) (*Re
 func (m *DomainResource) GetDomain(ctx context.Context, domainId string) (*Domain, *Response, error) {
 	url := fmt.Sprintf("/api/v1/domains/%v", domainId)
 
-	req, err := m.client.requestExecutor.WithAccept("application/json").WithContentType("application/json").NewRequest("GET", url, nil)
+	rq := m.client.CloneRequestExecutor()
+
+	req, err := rq.WithAccept("application/json").WithContentType("application/json").NewRequest("GET", url, nil)
 	if err != nil {
 		return nil, nil, err
 	}
 
 	var domain *Domain
 
-	resp, err := m.client.requestExecutor.Do(ctx, req, &domain)
+	resp, err := rq.Do(ctx, req, &domain)
 	if err != nil {
 		return nil, resp, err
 	}
@@ -112,7 +120,9 @@ func (m *DomainResource) GetDomain(ctx context.Context, domainId string) (*Domai
 func (m *DomainResource) CreateCertificate(ctx context.Context, domainId string, body DomainCertificate) (*Response, error) {
 	url := fmt.Sprintf("/api/v1/domains/%v/certificate", domainId)
 
-	req, err := m.client.requestExecutor.WithAccept("application/json").WithContentType("application/json").NewRequest("PUT", url, body)
+	rq := m.client.CloneRequestExecutor()
+
+	req, err := rq.WithAccept("application/json").WithContentType("application/json").NewRequest("PUT", url, body)
 	if err != nil {
 		return nil, err
 	}
@@ -129,14 +139,16 @@ func (m *DomainResource) CreateCertificate(ctx context.Context, domainId string,
 func (m *DomainResource) VerifyDomain(ctx context.Context, domainId string) (*Domain, *Response, error) {
 	url := fmt.Sprintf("/api/v1/domains/%v/verify", domainId)
 
-	req, err := m.client.requestExecutor.WithAccept("application/json").WithContentType("application/json").NewRequest("POST", url, nil)
+	rq := m.client.CloneRequestExecutor()
+
+	req, err := rq.WithAccept("application/json").WithContentType("application/json").NewRequest("POST", url, nil)
 	if err != nil {
 		return nil, nil, err
 	}
 
 	var domain *Domain
 
-	resp, err := m.client.requestExecutor.Do(ctx, req, &domain)
+	resp, err := rq.Do(ctx, req, &domain)
 	if err != nil {
 		return nil, resp, err
 	}

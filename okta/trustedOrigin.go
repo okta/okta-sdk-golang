@@ -44,14 +44,16 @@ type TrustedOrigin struct {
 func (m *TrustedOriginResource) CreateOrigin(ctx context.Context, body TrustedOrigin) (*TrustedOrigin, *Response, error) {
 	url := fmt.Sprintf("/api/v1/trustedOrigins")
 
-	req, err := m.client.requestExecutor.WithAccept("application/json").WithContentType("application/json").NewRequest("POST", url, body)
+	rq := m.client.CloneRequestExecutor()
+
+	req, err := rq.WithAccept("application/json").WithContentType("application/json").NewRequest("POST", url, body)
 	if err != nil {
 		return nil, nil, err
 	}
 
 	var trustedOrigin *TrustedOrigin
 
-	resp, err := m.client.requestExecutor.Do(ctx, req, &trustedOrigin)
+	resp, err := rq.Do(ctx, req, &trustedOrigin)
 	if err != nil {
 		return nil, resp, err
 	}
@@ -62,14 +64,16 @@ func (m *TrustedOriginResource) CreateOrigin(ctx context.Context, body TrustedOr
 func (m *TrustedOriginResource) GetOrigin(ctx context.Context, trustedOriginId string) (*TrustedOrigin, *Response, error) {
 	url := fmt.Sprintf("/api/v1/trustedOrigins/%v", trustedOriginId)
 
-	req, err := m.client.requestExecutor.WithAccept("application/json").WithContentType("application/json").NewRequest("GET", url, nil)
+	rq := m.client.CloneRequestExecutor()
+
+	req, err := rq.WithAccept("application/json").WithContentType("application/json").NewRequest("GET", url, nil)
 	if err != nil {
 		return nil, nil, err
 	}
 
 	var trustedOrigin *TrustedOrigin
 
-	resp, err := m.client.requestExecutor.Do(ctx, req, &trustedOrigin)
+	resp, err := rq.Do(ctx, req, &trustedOrigin)
 	if err != nil {
 		return nil, resp, err
 	}
@@ -80,14 +84,16 @@ func (m *TrustedOriginResource) GetOrigin(ctx context.Context, trustedOriginId s
 func (m *TrustedOriginResource) UpdateOrigin(ctx context.Context, trustedOriginId string, body TrustedOrigin) (*TrustedOrigin, *Response, error) {
 	url := fmt.Sprintf("/api/v1/trustedOrigins/%v", trustedOriginId)
 
-	req, err := m.client.requestExecutor.WithAccept("application/json").WithContentType("application/json").NewRequest("PUT", url, body)
+	rq := m.client.CloneRequestExecutor()
+
+	req, err := rq.WithAccept("application/json").WithContentType("application/json").NewRequest("PUT", url, body)
 	if err != nil {
 		return nil, nil, err
 	}
 
 	var trustedOrigin *TrustedOrigin
 
-	resp, err := m.client.requestExecutor.Do(ctx, req, &trustedOrigin)
+	resp, err := rq.Do(ctx, req, &trustedOrigin)
 	if err != nil {
 		return nil, resp, err
 	}
@@ -98,7 +104,9 @@ func (m *TrustedOriginResource) UpdateOrigin(ctx context.Context, trustedOriginI
 func (m *TrustedOriginResource) DeleteOrigin(ctx context.Context, trustedOriginId string) (*Response, error) {
 	url := fmt.Sprintf("/api/v1/trustedOrigins/%v", trustedOriginId)
 
-	req, err := m.client.requestExecutor.WithAccept("application/json").WithContentType("application/json").NewRequest("DELETE", url, nil)
+	rq := m.client.CloneRequestExecutor()
+
+	req, err := rq.WithAccept("application/json").WithContentType("application/json").NewRequest("DELETE", url, nil)
 	if err != nil {
 		return nil, err
 	}
@@ -117,14 +125,16 @@ func (m *TrustedOriginResource) ListOrigins(ctx context.Context, qp *query.Param
 		url = url + qp.String()
 	}
 
-	req, err := m.client.requestExecutor.WithAccept("application/json").WithContentType("application/json").NewRequest("GET", url, nil)
+	rq := m.client.CloneRequestExecutor()
+
+	req, err := rq.WithAccept("application/json").WithContentType("application/json").NewRequest("GET", url, nil)
 	if err != nil {
 		return nil, nil, err
 	}
 
 	var trustedOrigin []*TrustedOrigin
 
-	resp, err := m.client.requestExecutor.Do(ctx, req, &trustedOrigin)
+	resp, err := rq.Do(ctx, req, &trustedOrigin)
 	if err != nil {
 		return nil, resp, err
 	}
@@ -135,14 +145,16 @@ func (m *TrustedOriginResource) ListOrigins(ctx context.Context, qp *query.Param
 func (m *TrustedOriginResource) ActivateOrigin(ctx context.Context, trustedOriginId string) (*TrustedOrigin, *Response, error) {
 	url := fmt.Sprintf("/api/v1/trustedOrigins/%v/lifecycle/activate", trustedOriginId)
 
-	req, err := m.client.requestExecutor.WithAccept("application/json").WithContentType("application/json").NewRequest("POST", url, nil)
+	rq := m.client.CloneRequestExecutor()
+
+	req, err := rq.WithAccept("application/json").WithContentType("application/json").NewRequest("POST", url, nil)
 	if err != nil {
 		return nil, nil, err
 	}
 
 	var trustedOrigin *TrustedOrigin
 
-	resp, err := m.client.requestExecutor.Do(ctx, req, &trustedOrigin)
+	resp, err := rq.Do(ctx, req, &trustedOrigin)
 	if err != nil {
 		return nil, resp, err
 	}
@@ -153,14 +165,16 @@ func (m *TrustedOriginResource) ActivateOrigin(ctx context.Context, trustedOrigi
 func (m *TrustedOriginResource) DeactivateOrigin(ctx context.Context, trustedOriginId string) (*TrustedOrigin, *Response, error) {
 	url := fmt.Sprintf("/api/v1/trustedOrigins/%v/lifecycle/deactivate", trustedOriginId)
 
-	req, err := m.client.requestExecutor.WithAccept("application/json").WithContentType("application/json").NewRequest("POST", url, nil)
+	rq := m.client.CloneRequestExecutor()
+
+	req, err := rq.WithAccept("application/json").WithContentType("application/json").NewRequest("POST", url, nil)
 	if err != nil {
 		return nil, nil, err
 	}
 
 	var trustedOrigin *TrustedOrigin
 
-	resp, err := m.client.requestExecutor.Do(ctx, req, &trustedOrigin)
+	resp, err := rq.Do(ctx, req, &trustedOrigin)
 	if err != nil {
 		return nil, resp, err
 	}

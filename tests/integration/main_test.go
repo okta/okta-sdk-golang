@@ -84,7 +84,7 @@ func sweepGroupRules(ctx context.Context, client *okta.Client) error {
 }
 
 func sweepUsers(ctx context.Context, client *okta.Client) error {
-	users, resp, err := client.User.ListUsers(ctx, &query.Params{Q: "SDK_TEST"})
+	users, resp, err := client.User.ListUsers(ctx, &query.Params{Q: "SDK_TEST", Limit: 200})
 	if err != nil {
 		return err
 	}
@@ -118,7 +118,7 @@ func ensureUserDelete(ctx context.Context, client *okta.Client, id, status strin
 	for i := 0; i < passes; i++ {
 		_, err := client.User.DeactivateOrDeleteUser(ctx, id, nil)
 		if err != nil {
-			return fmt.Errorf("failed to deprovision or delete user: %v", err)
+			return fmt.Errorf("failed to deprovision or delete user: %w", err)
 		}
 	}
 	return nil

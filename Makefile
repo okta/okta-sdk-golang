@@ -4,6 +4,7 @@ COLOR_ERROR=\x1b[31;01m
 COLOR_WARNING=\x1b[33;05m
 COLOR_OKTA=\x1B[34;01m
 GOFMT := gofumpt
+GOIMPORTS := goimports
 
 help:
 	@echo "$(COLOR_OK)Okta SDK for Golang$(COLOR_NONE)"
@@ -31,11 +32,13 @@ clean-files:
 	@echo "$(COLOR_OKTA)Cleaning Up Old Generated Files...$(COLOR_NONE)"
 	cd openapi && yarn cleanFiles
 
-generate-files: check-fmt
+generate-files:
 	@echo "$(COLOR_OKTA)Generating SDK Files...$(COLOR_NONE)"
 	cd openapi && npm install && yarn generator
-	@echo "$(COLOR_OK)Running Goimports on generated files...$(COLOR_NONE)"
-	$(GOFMT) -l -w $$(find . -name '*.go' |grep -v vendor)
+	@echo "$(COLOR_OK)Running goimports and gofumpt on generated files...$(COLOR_NONE)"
+	@make import
+	@make fmt
+	@echo "$(COLOR_OKTA)Done!$(COLOR_NONE)"
 
 pull-spec:
 	@echo "$(COLOR_OKTA)Pulling in latest spec...$(COLOR_NONE)"
@@ -50,20 +53,27 @@ test:
 
 test\:all:
 	@echo "$(COLOR_OKTA)Running all tests...$(COLOR_NONE)"
-	make test:unit
-	make test:integration
+	@make test:unit
+	@make test:integration
 
 test\:integration:
 	@echo "$(COLOR_OKTA)Running integration tests...$(COLOR_NONE)"
-	go test ./tests/integration -test.v
+	go test -race ./tests/integration -test.v
 
 test\:unit:
 	@echo "$(COLOR_OK)Running unit tests...$(COLOR_NONE)"
-	go test ./tests/unit -test.v
+	go test -race ./tests/unit -test.v
 
 .PHONY: fmt
 fmt: check-fmt # Format the code
-	$(GOFMT) -l -w $$(find . -name '*.go' |grep -v vendor)
+	@$(GOFMT) -l -w $$(find . -name '*.go' |grep -v vendor) > /dev/null
 
 check-fmt:
-	@which $(GOFMT) || GO111MODULE=on go get mvdan.cc/gofumpt
+	@which $(GOFMT) > /dev/null || GO111MODULE=on go get mvdan.cc/gofumpt
+
+.PHONY: import
+import: check-goimports
+	@$(GOIMPORTS) -w $$(find . -path ./vendor -prune -o -name '*.go' -print) > /dev/null
+
+check-goimports:
+	@which $(GOIMPORTS) > /dev/null || GO111MODULE=on go get golang.org/x/tools/cmd/goimports

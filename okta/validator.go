@@ -14,7 +14,7 @@ func validateConfig(c *config) (*config, error) {
 	}
 
 	if c.Okta.Client.AuthorizationMode == "SSWS" {
-		err = validateApiToken(c)
+		err = validateAPIToken(c)
 		if err != nil {
 			return nil, err
 		}
@@ -47,15 +47,13 @@ func validateOktaDomain(c *config) error {
 		return errors.New("it looks like there's a typo in your Okta domain. Current value: " + c.Okta.Client.OrgUrl + ". You can copy your domain from the Okta Developer Console. Follow these instructions to find it: https://bit.ly/finding-okta-domain")
 	}
 
-	if c.Okta.Testing.DisableHttpsCheck == false {
-		if strings.HasPrefix(c.Okta.Client.OrgUrl, "https://") != true {
-			return errors.New("your Okta URL must start with https. Current value: " + c.Okta.Client.OrgUrl + ". You can copy your domain from the Okta Developer Console. Follow these instructions to find it: https://bit.ly/finding-okta-domain")
-		}
+	if !c.Okta.Testing.DisableHttpsCheck && !strings.HasPrefix(c.Okta.Client.OrgUrl, "https://") {
+		return errors.New("your Okta URL must start with https. Current value: " + c.Okta.Client.OrgUrl + ". You can copy your domain from the Okta Developer Console. Follow these instructions to find it: https://bit.ly/finding-okta-domain")
 	}
 	return nil
 }
 
-func validateApiToken(c *config) error {
+func validateAPIToken(c *config) error {
 	if c.Okta.Client.Token == "" {
 		return errors.New("your Okta API token is missing. You can generate one in the Okta Developer Console. Follow these instructions: https://bit.ly/get-okta-api-token")
 	}

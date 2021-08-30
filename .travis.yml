@@ -2,8 +2,8 @@ language: go
 
 jobs:
   include:
-    - stage: test_go_1.13
-      go: 1.13.x
+    - stage: test_go_1.15
+      go: 1.15.x
       script:
         - go mod download
         - make test

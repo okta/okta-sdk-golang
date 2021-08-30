@@ -32,7 +32,7 @@ import (
 	"github.com/okta/okta-sdk-golang/v2/tests"
 )
 
-func Test_can_get_applicaiton_by_id(t *testing.T) {
+func Test_can_get_application_by_id(t *testing.T) {
 	ctx, client, err := tests.NewClient(context.TODO())
 	require.NoError(t, err)
 

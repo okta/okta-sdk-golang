@@ -42,14 +42,16 @@ type UserSchema struct {
 func (m *UserSchemaResource) GetApplicationUserSchema(ctx context.Context, appInstanceId string) (*UserSchema, *Response, error) {
 	url := fmt.Sprintf("/api/v1/meta/schemas/apps/%v/default", appInstanceId)
 
-	req, err := m.client.requestExecutor.WithAccept("application/json").WithContentType("application/json").NewRequest("GET", url, nil)
+	rq := m.client.CloneRequestExecutor()
+
+	req, err := rq.WithAccept("application/json").WithContentType("application/json").NewRequest("GET", url, nil)
 	if err != nil {
 		return nil, nil, err
 	}
 
 	var userSchema *UserSchema
 
-	resp, err := m.client.requestExecutor.Do(ctx, req, &userSchema)
+	resp, err := rq.Do(ctx, req, &userSchema)
 	if err != nil {
 		return nil, resp, err
 	}
@@ -61,14 +63,16 @@ func (m *UserSchemaResource) GetApplicationUserSchema(ctx context.Context, appIn
 func (m *UserSchemaResource) UpdateApplicationUserProfile(ctx context.Context, appInstanceId string, body UserSchema) (*UserSchema, *Response, error) {
 	url := fmt.Sprintf("/api/v1/meta/schemas/apps/%v/default", appInstanceId)
 
-	req, err := m.client.requestExecutor.WithAccept("application/json").WithContentType("application/json").NewRequest("POST", url, body)
+	rq := m.client.CloneRequestExecutor()
+
+	req, err := rq.WithAccept("application/json").WithContentType("application/json").NewRequest("POST", url, body)
 	if err != nil {
 		return nil, nil, err
 	}
 
 	var userSchema *UserSchema
 
-	resp, err := m.client.requestExecutor.Do(ctx, req, &userSchema)
+	resp, err := rq.Do(ctx, req, &userSchema)
 	if err != nil {
 		return nil, resp, err
 	}
@@ -80,14 +84,16 @@ func (m *UserSchemaResource) UpdateApplicationUserProfile(ctx context.Context, a
 func (m *UserSchemaResource) GetUserSchema(ctx context.Context, schemaId string) (*UserSchema, *Response, error) {
 	url := fmt.Sprintf("/api/v1/meta/schemas/user/%v", schemaId)
 
-	req, err := m.client.requestExecutor.WithAccept("application/json").WithContentType("application/json").NewRequest("GET", url, nil)
+	rq := m.client.CloneRequestExecutor()
+
+	req, err := rq.WithAccept("application/json").WithContentType("application/json").NewRequest("GET", url, nil)
 	if err != nil {
 		return nil, nil, err
 	}
 
 	var userSchema *UserSchema
 
-	resp, err := m.client.requestExecutor.Do(ctx, req, &userSchema)
+	resp, err := rq.Do(ctx, req, &userSchema)
 	if err != nil {
 		return nil, resp, err
 	}
@@ -99,14 +105,16 @@ func (m *UserSchemaResource) GetUserSchema(ctx context.Context, schemaId string)
 func (m *UserSchemaResource) UpdateUserProfile(ctx context.Context, schemaId string, body UserSchema) (*UserSchema, *Response, error) {
 	url := fmt.Sprintf("/api/v1/meta/schemas/user/%v", schemaId)
 
-	req, err := m.client.requestExecutor.WithAccept("application/json").WithContentType("application/json").NewRequest("POST", url, body)
+	rq := m.client.CloneRequestExecutor()
+
+	req, err := rq.WithAccept("application/json").WithContentType("application/json").NewRequest("POST", url, body)
 	if err != nil {
 		return nil, nil, err
 	}
 
 	var userSchema *UserSchema
 
-	resp, err := m.client.requestExecutor.Do(ctx, req, &userSchema)
+	resp, err := rq.Do(ctx, req, &userSchema)
 	if err != nil {
 		return nil, resp, err
 	}

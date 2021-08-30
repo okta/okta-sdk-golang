@@ -34,7 +34,7 @@ func Test_private_key_request_contains_bearer_token(t *testing.T) {
 	_, client, err := tests.NewClient(context.TODO(), okta.WithAuthorizationMode("PrivateKey"), okta.WithScopes(([]string{"okta.users.manage"})))
 	require.NoError(t, err)
 
-	request, err := client.GetRequestExecutor().NewRequest("GET", "https://example.com/", buff)
+	request, err := client.CloneRequestExecutor().NewRequest("GET", "https://example.com/", buff)
 	require.NoError(t, err)
 
 	assert.Contains(t, request.Header.Get("Authorization"), "Bearer", "does not contain a bearer token for the request")

@@ -23,7 +23,7 @@ import (
 )
 
 type SwaThreeFieldApplication struct {
-	Credentials   *ApplicationCredentials           `json:"credentials,omitempty"`
+	Credentials   *SchemeApplicationCredentials     `json:"credentials,omitempty"`
 	Embedded      interface{}                       `json:"_embedded,omitempty"`
 	Links         interface{}                       `json:"_links,omitempty"`
 	Accessibility *ApplicationAccessibility         `json:"accessibility,omitempty"`

@@ -28,8 +28,7 @@ import (
 	"io"
 	"io/ioutil"
 	"net/http"
-	"net/url"
-	nUrl "net/url"
+	urlpkg "net/url"
 	"reflect"
 	"strconv"
 	"strings"
@@ -47,7 +46,7 @@ const AccessTokenCacheKey = "OKTA_ACCESS_TOKEN"
 type RequestExecutor struct {
 	httpClient        *http.Client
 	config            *config
-	BaseUrl           *url.URL
+	BaseUrl           *urlpkg.URL
 	cache             cache.Cache
 	binary            bool
 	headerAccept      string
@@ -163,15 +162,15 @@ func (re *RequestExecutor) NewRequest(method string, url string, body interface{
 			}
 
 			var tokenRequestBuff io.ReadWriter
-			query := nUrl.Values{}
-			tokenRequestUrl := re.config.Okta.Client.OrgUrl + "/oauth2/v1/token"
+			query := urlpkg.Values{}
+			tokenRequestURL := re.config.Okta.Client.OrgUrl + "/oauth2/v1/token"
 
 			query.Add("grant_type", "client_credentials")
 			query.Add("scope", strings.Join(re.config.Okta.Client.Scopes, " "))
 			query.Add("client_assertion_type", "urn:ietf:params:oauth:client-assertion-type:jwt-bearer")
 			query.Add("client_assertion", clientAssertion)
-			tokenRequestUrl += "?" + query.Encode()
-			tokenRequest, err := http.NewRequest("POST", tokenRequestUrl, tokenRequestBuff)
+			tokenRequestURL += "?" + query.Encode()
+			tokenRequest, err := http.NewRequest("POST", tokenRequestURL, tokenRequestBuff)
 			if err != nil {
 				return nil, err
 			}
@@ -276,7 +275,6 @@ type oktaBackoff struct {
 	retryCount, maxRetries int32
 	backoffDuration        time.Duration
 	ctx                    context.Context
-	err                    error
 }
 
 // NextBackOff returns the duration to wait before retrying the operation,
@@ -326,7 +324,7 @@ func (re *RequestExecutor) doWithRetries(ctx context.Context, req *http.Request)
 		resp, err = re.httpClient.Do(req.WithContext(ctx))
 		if errors.Is(err, io.EOF) {
 			// retry on EOF errors, which might be caused by network connectivity issues
-			return fmt.Errorf("network error: %v", err)
+			return fmt.Errorf("network error: %w", err)
 		} else if err != nil {
 			// this is error is considered to be permanent and should not be retried
 			return backoff.Permanent(err)
@@ -368,12 +366,12 @@ func Get429BackoffTime(resp *http.Response) (int64, error) {
 	requestDate, err := time.Parse("Mon, 02 Jan 2006 15:04:05 GMT", resp.Header.Get("Date"))
 	if err != nil {
 		// this is error is considered to be permanent and should not be retried
-		return 0, backoff.Permanent(errors.New(fmt.Sprintf("Date header is missing or invalid: %v", err)))
+		return 0, backoff.Permanent(fmt.Errorf("date header is missing or invalid: %w", err))
 	}
 	rateLimitReset, err := strconv.Atoi(resp.Header.Get("X-Rate-Limit-Reset"))
 	if err != nil {
 		// this is error is considered to be permanent and should not be retried
-		return 0, backoff.Permanent(errors.New(fmt.Sprintf("X-Rate-Limit-Reset header is missing or invalid: %v", err)))
+		return 0, backoff.Permanent(fmt.Errorf("X-Rate-Limit-Reset header is missing or invalid: %w", err))
 	}
 	return int64(rateLimitReset) - requestDate.Unix() + 1, nil
 }
@@ -411,20 +409,21 @@ func newResponse(r *http.Response, re *RequestExecutor) *Response {
 				continue
 			}
 			rawLink := strings.TrimRight(strings.TrimLeft(splitLinkHeader[0], "<"), ">")
-			rawUrl, _ := url.Parse(rawLink)
-			rawUrl.Scheme = ""
-			rawUrl.Host = ""
-			q := r.Request.URL.Query()
-			for k, v := range rawUrl.Query() {
-				q.Set(k, v[0])
+			rawURL, _ := urlpkg.Parse(rawLink)
+			rawURL.Scheme = ""
+			rawURL.Host = ""
+			if r.Request != nil {
+				q := r.Request.URL.Query()
+				for k, v := range rawURL.Query() {
+					q.Set(k, v[0])
+				}
+				rawURL.RawQuery = q.Encode()
 			}
-			rawUrl.RawQuery = q.Encode()
-
 			if strings.Contains(link, `rel="self"`) {
-				response.Self = rawUrl.String()
+				response.Self = rawURL.String()
 			}
 			if strings.Contains(link, `rel="next"`) {
-				response.NextPage = rawUrl.String()
+				response.NextPage = rawURL.String()
 			}
 		}
 	}
@@ -474,14 +473,18 @@ func buildResponse(resp *http.Response, re *RequestExecutor, v interface{}) (*Re
 	copy(copyBodyBytes, bodyBytes)
 	_ = resp.Body.Close()                                    // close it to avoid memory leaks
 	resp.Body = ioutil.NopCloser(bytes.NewBuffer(bodyBytes)) // restore the original response body
-	if strings.Contains(ct, "application/xml") {
+	if len(copyBodyBytes) == 0 {
+		return response, nil
+	}
+	switch {
+	case strings.Contains(ct, "application/xml"):
 		err = xml.NewDecoder(bytes.NewReader(copyBodyBytes)).Decode(v)
-	} else if strings.Contains(ct, "application/json") || ct == "" {
+	case strings.Contains(ct, "application/json"):
 		err = json.NewDecoder(bytes.NewReader(copyBodyBytes)).Decode(v)
-	} else if strings.Contains(ct, "application/octet-stream") {
+	case strings.Contains(ct, "application/octet-stream"):
 		// since the response is arbitrary binary data, we leave it to the user to decode it
 		return response, nil
-	} else {
+	default:
 		return nil, errors.New("could not build a response for type: " + ct)
 	}
 	if err == io.EOF {

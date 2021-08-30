@@ -29,7 +29,7 @@ function getType(obj, prefix = "") {
     case 'boolean' :
       return String.raw`*bool`;
     case 'hash' :
-      if (obj.model == 'object') {
+      if (obj.model === 'object') {
         return String.raw`interface{}`;
       }
       if (obj.model === 'boolean') {
@@ -37,7 +37,7 @@ function getType(obj, prefix = "") {
       }
       return String.raw`map[string]*` + obj.model;
     case 'array' :
-      if (obj.model == undefined || obj.model === "string") {
+      if (obj.model === undefined || obj.model === "string") {
         return String.raw`[]string`;
       } else {
         return String.raw`[]` + prefix + obj.model;
@@ -54,10 +54,13 @@ function getType(obj, prefix = "") {
       if (obj.model === "UserSchemaBaseProperties") {
         return String.raw`map[string]*UserSchemaAttribute`;
       }
-      if (obj.model == undefined) {
+      if (obj.model === "GroupSchemaBaseProperties") {
+        return String.raw`map[string]*GroupSchemaAttribute`;
+      }
+      if (obj.model === undefined) {
         return String.raw`string`;
       } else {
-        if (prefix !== null || prefix != "") {
+        if (prefix !== "") {
           return prefix + obj.model;
         }
         return obj.model;
@@ -111,7 +114,7 @@ function strToUpper(string) {
 function structProp(prop) {
   prop = prop.replace(/#/g, "");
   prop = prop.replace(/\$/g, "");
-  prop = prop.replace(/(\_\w)/g, function (m) {
+  prop = prop.replace(/(_\w)/g, function (m) {
     return m[1].toUpperCase();
   });
 
@@ -213,7 +216,7 @@ function getImports(object) {
 
   imports = [...new Set(imports)];
 
-  if (object.model.modelName == "Role") {
+  if (object.model.modelName === "Role") {
     imports.splice(imports.indexOf("context"), 1);
     imports.splice(imports.indexOf("fmt"), 1);
   }
@@ -507,7 +510,7 @@ function isInstance(model) {
     return false
   }
 
-  return model.tags[0] == "Application" || model.tags[0] == "UserFactor";
+  return model.tags[0] === "Application" || model.tags[0] === "UserFactor";
 }
 
 function log(item) {
@@ -563,11 +566,21 @@ golang.process = ({spec, operations, models, handlebars}) => {
     if (model.extends !== undefined) {
       model.parent = modelsByName[model.extends];
 
-      if (model.parent.resolutionStrategy !== undefined && model.parent.parent == undefined) {
+      if (model.parent.resolutionStrategy !== undefined) {
         for (let value in model.parent.resolutionStrategy.valueToModelMapping) {
           if (model.modelName)
             if (model.parent.resolutionStrategy.valueToModelMapping[value] === model.modelName) {
               model.resolution = {fieldName: model.parent.resolutionStrategy.propertyName, fieldValue: value};
+              let result = new Map()
+              for (let value of model.properties) {
+                result.set(value.propertyName, value)
+              }
+              for (let value of model.parent.properties) {
+                if (!result.has(value.propertyName)) {
+                  result.set(value.propertyName, value)
+                }
+              }
+              model.properties = [...result].map(([name, value]) => (value));
             }
         }
       }
@@ -577,10 +590,9 @@ golang.process = ({spec, operations, models, handlebars}) => {
       }
     }
 
-
     let modelOperations = {}
 
-    if (model.crud != undefined) {
+    if (model.crud !== undefined) {
       for (let modelCrud of model.crud) {
         modelOperations[modelCrud.operation.operationId] = modelCrud.operation;
       }
@@ -593,7 +605,7 @@ golang.process = ({spec, operations, models, handlebars}) => {
       if (tag === "Idp") tag = "IdpTrust";
       if (tag === "UserFactor") tag = "UserFactor";
       if (tag === "Log") tag = "LogEvent";
-      if (tag == model.modelName) {
+      if (tag === model.modelName) {
         modelOperations[operation.operationId] = operation;
       }
     }
