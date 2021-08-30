@@ -916,6 +916,27 @@ func (m *UserResource) RemoveRoleFromUser(ctx context.Context, userId string, ro
 	return resp, nil
 }
 
+// Gets role that is assigne to user.
+func (m *UserResource) GetUserRole(ctx context.Context, userId string, roleId string) (*Role, *Response, error) {
+	url := fmt.Sprintf("/api/v1/users/%v/roles/%v", userId, roleId)
+
+	rq := m.client.CloneRequestExecutor()
+
+	req, err := rq.WithAccept("application/json").WithContentType("application/json").NewRequest("GET", url, nil)
+	if err != nil {
+		return nil, nil, err
+	}
+
+	var role *Role
+
+	resp, err := rq.Do(ctx, req, &role)
+	if err != nil {
+		return nil, resp, err
+	}
+
+	return role, resp, nil
+}
+
 // Lists all App targets for an &#x60;APP_ADMIN&#x60; Role assigned to a User. This methods return list may include full Applications or Instances. The response for an instance will have an &#x60;ID&#x60; value, while Application will not have an ID.
 func (m *UserResource) ListApplicationTargetsForApplicationAdministratorRoleForUser(ctx context.Context, userId string, roleId string, qp *query.Params) ([]*CatalogApplication, *Response, error) {
 	url := fmt.Sprintf("/api/v1/users/%v/roles/%v/targets/catalog/apps", userId, roleId)

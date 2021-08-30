@@ -1,10 +1,18 @@
 # Changelog
 Running changelog of releases since `2.0.0-rc.4`
 
+## v2.6.2
+
+### Updates
+- Okta API Group Schema support #256 thanks @bogdanprodan-okta
+
+### Bug fixes
+- Fix race condition #257 thanks @bogdanprodan-okta, @maxkondr
+
 ## v2.6.1
 
 ### Bug fixes
--  Pass previous query parameters to the NextPage URL #252 @bogdanprodan-okta
+- Pass previous query parameters to the NextPage URL #252 @bogdanprodan-okta
 
 ## v2.6.0
 

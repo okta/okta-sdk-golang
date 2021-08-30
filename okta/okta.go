@@ -32,7 +32,7 @@ import (
 	"gopkg.in/yaml.v3"
 )
 
-const Version = "2.7.0"
+const Version = "2.6.2"
 
 type Client struct {
 	config                     *config
@@ -143,6 +143,7 @@ func (c *Client) GetConfig() *config {
 }
 
 // GetRequestExecutor returns underlying request executor
+// Deprecated: please use CloneRequestExecutor() to avoid race conditions
 func (c *Client) GetRequestExecutor() *RequestExecutor {
 	return c.requestExecutor
 }
