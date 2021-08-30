@@ -32,7 +32,7 @@ import (
 	"gopkg.in/yaml.v3"
 )
 
-const Version = "2.6.1"
+const Version = "2.7.0"
 
 type Client struct {
 	config                     *config
@@ -49,6 +49,7 @@ type Client struct {
 	LogEvent                   *LogEventResource
 	ProfileMapping             *ProfileMappingResource
 	UserSchema                 *UserSchemaResource
+	GroupSchema                *GroupSchemaResource
 	LinkedObject               *LinkedObjectResource
 	UserType                   *UserTypeResource
 	Policy                     *PolicyResource
@@ -115,6 +116,7 @@ func NewClient(ctx context.Context, conf ...ConfigSetter) (context.Context, *Cli
 	c.LogEvent = (*LogEventResource)(&c.resource)
 	c.ProfileMapping = (*ProfileMappingResource)(&c.resource)
 	c.UserSchema = (*UserSchemaResource)(&c.resource)
+	c.GroupSchema = (*GroupSchemaResource)(&c.resource)
 	c.LinkedObject = (*LinkedObjectResource)(&c.resource)
 	c.UserType = (*UserTypeResource)(&c.resource)
 	c.Policy = (*PolicyResource)(&c.resource)
@@ -140,8 +142,15 @@ func (c *Client) GetConfig() *config {
 	return c.config
 }
 
+// GetRequestExecutor returns underlying request executor
 func (c *Client) GetRequestExecutor() *RequestExecutor {
 	return c.requestExecutor
+}
+
+// CloneRequestExecutor create a clone of the underlying request executor
+func (c *Client) CloneRequestExecutor() *RequestExecutor {
+	a := *c.requestExecutor
+	return &a
 }
 
 func setConfigDefaults(c *config) {

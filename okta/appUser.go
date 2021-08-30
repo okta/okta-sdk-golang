@@ -49,14 +49,16 @@ type AppUser struct {
 func (m *AppUserResource) UpdateApplicationUser(ctx context.Context, appId string, userId string, body AppUser) (*AppUser, *Response, error) {
 	url := fmt.Sprintf("/api/v1/apps/%v/users/%v", appId, userId)
 
-	req, err := m.client.requestExecutor.WithAccept("application/json").WithContentType("application/json").NewRequest("POST", url, body)
+	rq := m.client.CloneRequestExecutor()
+
+	req, err := rq.WithAccept("application/json").WithContentType("application/json").NewRequest("POST", url, body)
 	if err != nil {
 		return nil, nil, err
 	}
 
 	var appUser *AppUser
 
-	resp, err := m.client.requestExecutor.Do(ctx, req, &appUser)
+	resp, err := rq.Do(ctx, req, &appUser)
 	if err != nil {
 		return nil, resp, err
 	}
@@ -71,7 +73,9 @@ func (m *AppUserResource) DeleteApplicationUser(ctx context.Context, appId strin
 		url = url + qp.String()
 	}
 
-	req, err := m.client.requestExecutor.WithAccept("application/json").WithContentType("application/json").NewRequest("DELETE", url, nil)
+	rq := m.client.CloneRequestExecutor()
+
+	req, err := rq.WithAccept("application/json").WithContentType("application/json").NewRequest("DELETE", url, nil)
 	if err != nil {
 		return nil, err
 	}

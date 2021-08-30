@@ -42,14 +42,16 @@ type EventHook struct {
 func (m *EventHookResource) CreateEventHook(ctx context.Context, body EventHook) (*EventHook, *Response, error) {
 	url := fmt.Sprintf("/api/v1/eventHooks")
 
-	req, err := m.client.requestExecutor.WithAccept("application/json").WithContentType("application/json").NewRequest("POST", url, body)
+	rq := m.client.CloneRequestExecutor()
+
+	req, err := rq.WithAccept("application/json").WithContentType("application/json").NewRequest("POST", url, body)
 	if err != nil {
 		return nil, nil, err
 	}
 
 	var eventHook *EventHook
 
-	resp, err := m.client.requestExecutor.Do(ctx, req, &eventHook)
+	resp, err := rq.Do(ctx, req, &eventHook)
 	if err != nil {
 		return nil, resp, err
 	}
@@ -60,14 +62,16 @@ func (m *EventHookResource) CreateEventHook(ctx context.Context, body EventHook)
 func (m *EventHookResource) GetEventHook(ctx context.Context, eventHookId string) (*EventHook, *Response, error) {
 	url := fmt.Sprintf("/api/v1/eventHooks/%v", eventHookId)
 
-	req, err := m.client.requestExecutor.WithAccept("application/json").WithContentType("application/json").NewRequest("GET", url, nil)
+	rq := m.client.CloneRequestExecutor()
+
+	req, err := rq.WithAccept("application/json").WithContentType("application/json").NewRequest("GET", url, nil)
 	if err != nil {
 		return nil, nil, err
 	}
 
 	var eventHook *EventHook
 
-	resp, err := m.client.requestExecutor.Do(ctx, req, &eventHook)
+	resp, err := rq.Do(ctx, req, &eventHook)
 	if err != nil {
 		return nil, resp, err
 	}
@@ -78,14 +82,16 @@ func (m *EventHookResource) GetEventHook(ctx context.Context, eventHookId string
 func (m *EventHookResource) UpdateEventHook(ctx context.Context, eventHookId string, body EventHook) (*EventHook, *Response, error) {
 	url := fmt.Sprintf("/api/v1/eventHooks/%v", eventHookId)
 
-	req, err := m.client.requestExecutor.WithAccept("application/json").WithContentType("application/json").NewRequest("PUT", url, body)
+	rq := m.client.CloneRequestExecutor()
+
+	req, err := rq.WithAccept("application/json").WithContentType("application/json").NewRequest("PUT", url, body)
 	if err != nil {
 		return nil, nil, err
 	}
 
 	var eventHook *EventHook
 
-	resp, err := m.client.requestExecutor.Do(ctx, req, &eventHook)
+	resp, err := rq.Do(ctx, req, &eventHook)
 	if err != nil {
 		return nil, resp, err
 	}
@@ -96,7 +102,9 @@ func (m *EventHookResource) UpdateEventHook(ctx context.Context, eventHookId str
 func (m *EventHookResource) DeleteEventHook(ctx context.Context, eventHookId string) (*Response, error) {
 	url := fmt.Sprintf("/api/v1/eventHooks/%v", eventHookId)
 
-	req, err := m.client.requestExecutor.WithAccept("application/json").WithContentType("application/json").NewRequest("DELETE", url, nil)
+	rq := m.client.CloneRequestExecutor()
+
+	req, err := rq.WithAccept("application/json").WithContentType("application/json").NewRequest("DELETE", url, nil)
 	if err != nil {
 		return nil, err
 	}
@@ -112,14 +120,16 @@ func (m *EventHookResource) DeleteEventHook(ctx context.Context, eventHookId str
 func (m *EventHookResource) ListEventHooks(ctx context.Context) ([]*EventHook, *Response, error) {
 	url := fmt.Sprintf("/api/v1/eventHooks")
 
-	req, err := m.client.requestExecutor.WithAccept("application/json").WithContentType("application/json").NewRequest("GET", url, nil)
+	rq := m.client.CloneRequestExecutor()
+
+	req, err := rq.WithAccept("application/json").WithContentType("application/json").NewRequest("GET", url, nil)
 	if err != nil {
 		return nil, nil, err
 	}
 
 	var eventHook []*EventHook
 
-	resp, err := m.client.requestExecutor.Do(ctx, req, &eventHook)
+	resp, err := rq.Do(ctx, req, &eventHook)
 	if err != nil {
 		return nil, resp, err
 	}
@@ -130,14 +140,16 @@ func (m *EventHookResource) ListEventHooks(ctx context.Context) ([]*EventHook, *
 func (m *EventHookResource) ActivateEventHook(ctx context.Context, eventHookId string) (*EventHook, *Response, error) {
 	url := fmt.Sprintf("/api/v1/eventHooks/%v/lifecycle/activate", eventHookId)
 
-	req, err := m.client.requestExecutor.WithAccept("application/json").WithContentType("application/json").NewRequest("POST", url, nil)
+	rq := m.client.CloneRequestExecutor()
+
+	req, err := rq.WithAccept("application/json").WithContentType("application/json").NewRequest("POST", url, nil)
 	if err != nil {
 		return nil, nil, err
 	}
 
 	var eventHook *EventHook
 
-	resp, err := m.client.requestExecutor.Do(ctx, req, &eventHook)
+	resp, err := rq.Do(ctx, req, &eventHook)
 	if err != nil {
 		return nil, resp, err
 	}
@@ -148,14 +160,16 @@ func (m *EventHookResource) ActivateEventHook(ctx context.Context, eventHookId s
 func (m *EventHookResource) DeactivateEventHook(ctx context.Context, eventHookId string) (*EventHook, *Response, error) {
 	url := fmt.Sprintf("/api/v1/eventHooks/%v/lifecycle/deactivate", eventHookId)
 
-	req, err := m.client.requestExecutor.WithAccept("application/json").WithContentType("application/json").NewRequest("POST", url, nil)
+	rq := m.client.CloneRequestExecutor()
+
+	req, err := rq.WithAccept("application/json").WithContentType("application/json").NewRequest("POST", url, nil)
 	if err != nil {
 		return nil, nil, err
 	}
 
 	var eventHook *EventHook
 
-	resp, err := m.client.requestExecutor.Do(ctx, req, &eventHook)
+	resp, err := rq.Do(ctx, req, &eventHook)
 	if err != nil {
 		return nil, resp, err
 	}
@@ -166,14 +180,16 @@ func (m *EventHookResource) DeactivateEventHook(ctx context.Context, eventHookId
 func (m *EventHookResource) VerifyEventHook(ctx context.Context, eventHookId string) (*EventHook, *Response, error) {
 	url := fmt.Sprintf("/api/v1/eventHooks/%v/lifecycle/verify", eventHookId)
 
-	req, err := m.client.requestExecutor.WithAccept("application/json").WithContentType("application/json").NewRequest("POST", url, nil)
+	rq := m.client.CloneRequestExecutor()
+
+	req, err := rq.WithAccept("application/json").WithContentType("application/json").NewRequest("POST", url, nil)
 	if err != nil {
 		return nil, nil, err
 	}
 
 	var eventHook *EventHook
 
-	resp, err := m.client.requestExecutor.Do(ctx, req, &eventHook)
+	resp, err := rq.Do(ctx, req, &eventHook)
 	if err != nil {
 		return nil, resp, err
 	}

@@ -49,14 +49,16 @@ type NetworkZone struct {
 func (m *NetworkZoneResource) GetNetworkZone(ctx context.Context, zoneId string) (*NetworkZone, *Response, error) {
 	url := fmt.Sprintf("/api/v1/zones/%v", zoneId)
 
-	req, err := m.client.requestExecutor.WithAccept("application/json").WithContentType("application/json").NewRequest("GET", url, nil)
+	rq := m.client.CloneRequestExecutor()
+
+	req, err := rq.WithAccept("application/json").WithContentType("application/json").NewRequest("GET", url, nil)
 	if err != nil {
 		return nil, nil, err
 	}
 
 	var networkZone *NetworkZone
 
-	resp, err := m.client.requestExecutor.Do(ctx, req, &networkZone)
+	resp, err := rq.Do(ctx, req, &networkZone)
 	if err != nil {
 		return nil, resp, err
 	}
@@ -68,14 +70,16 @@ func (m *NetworkZoneResource) GetNetworkZone(ctx context.Context, zoneId string)
 func (m *NetworkZoneResource) UpdateNetworkZone(ctx context.Context, zoneId string, body NetworkZone) (*NetworkZone, *Response, error) {
 	url := fmt.Sprintf("/api/v1/zones/%v", zoneId)
 
-	req, err := m.client.requestExecutor.WithAccept("application/json").WithContentType("application/json").NewRequest("PUT", url, body)
+	rq := m.client.CloneRequestExecutor()
+
+	req, err := rq.WithAccept("application/json").WithContentType("application/json").NewRequest("PUT", url, body)
 	if err != nil {
 		return nil, nil, err
 	}
 
 	var networkZone *NetworkZone
 
-	resp, err := m.client.requestExecutor.Do(ctx, req, &networkZone)
+	resp, err := rq.Do(ctx, req, &networkZone)
 	if err != nil {
 		return nil, resp, err
 	}
@@ -87,7 +91,9 @@ func (m *NetworkZoneResource) UpdateNetworkZone(ctx context.Context, zoneId stri
 func (m *NetworkZoneResource) DeleteNetworkZone(ctx context.Context, zoneId string) (*Response, error) {
 	url := fmt.Sprintf("/api/v1/zones/%v", zoneId)
 
-	req, err := m.client.requestExecutor.WithAccept("application/json").WithContentType("application/json").NewRequest("DELETE", url, nil)
+	rq := m.client.CloneRequestExecutor()
+
+	req, err := rq.WithAccept("application/json").WithContentType("application/json").NewRequest("DELETE", url, nil)
 	if err != nil {
 		return nil, err
 	}
@@ -107,14 +113,16 @@ func (m *NetworkZoneResource) ListNetworkZones(ctx context.Context, qp *query.Pa
 		url = url + qp.String()
 	}
 
-	req, err := m.client.requestExecutor.WithAccept("application/json").WithContentType("application/json").NewRequest("GET", url, nil)
+	rq := m.client.CloneRequestExecutor()
+
+	req, err := rq.WithAccept("application/json").WithContentType("application/json").NewRequest("GET", url, nil)
 	if err != nil {
 		return nil, nil, err
 	}
 
 	var networkZone []*NetworkZone
 
-	resp, err := m.client.requestExecutor.Do(ctx, req, &networkZone)
+	resp, err := rq.Do(ctx, req, &networkZone)
 	if err != nil {
 		return nil, resp, err
 	}
@@ -126,14 +134,16 @@ func (m *NetworkZoneResource) ListNetworkZones(ctx context.Context, qp *query.Pa
 func (m *NetworkZoneResource) CreateNetworkZone(ctx context.Context, body NetworkZone) (*NetworkZone, *Response, error) {
 	url := fmt.Sprintf("/api/v1/zones")
 
-	req, err := m.client.requestExecutor.WithAccept("application/json").WithContentType("application/json").NewRequest("POST", url, body)
+	rq := m.client.CloneRequestExecutor()
+
+	req, err := rq.WithAccept("application/json").WithContentType("application/json").NewRequest("POST", url, body)
 	if err != nil {
 		return nil, nil, err
 	}
 
 	var networkZone *NetworkZone
 
-	resp, err := m.client.requestExecutor.Do(ctx, req, &networkZone)
+	resp, err := rq.Do(ctx, req, &networkZone)
 	if err != nil {
 		return nil, resp, err
 	}
@@ -145,14 +155,16 @@ func (m *NetworkZoneResource) CreateNetworkZone(ctx context.Context, body Networ
 func (m *NetworkZoneResource) ActivateNetworkZone(ctx context.Context, zoneId string) (*NetworkZone, *Response, error) {
 	url := fmt.Sprintf("/api/v1/zones/%v/lifecycle/activate", zoneId)
 
-	req, err := m.client.requestExecutor.WithAccept("application/json").WithContentType("application/json").NewRequest("POST", url, nil)
+	rq := m.client.CloneRequestExecutor()
+
+	req, err := rq.WithAccept("application/json").WithContentType("application/json").NewRequest("POST", url, nil)
 	if err != nil {
 		return nil, nil, err
 	}
 
 	var networkZone *NetworkZone
 
-	resp, err := m.client.requestExecutor.Do(ctx, req, &networkZone)
+	resp, err := rq.Do(ctx, req, &networkZone)
 	if err != nil {
 		return nil, resp, err
 	}
@@ -164,14 +176,16 @@ func (m *NetworkZoneResource) ActivateNetworkZone(ctx context.Context, zoneId st
 func (m *NetworkZoneResource) DeactivateNetworkZone(ctx context.Context, zoneId string) (*NetworkZone, *Response, error) {
 	url := fmt.Sprintf("/api/v1/zones/%v/lifecycle/deactivate", zoneId)
 
-	req, err := m.client.requestExecutor.WithAccept("application/json").WithContentType("application/json").NewRequest("POST", url, nil)
+	rq := m.client.CloneRequestExecutor()
+
+	req, err := rq.WithAccept("application/json").WithContentType("application/json").NewRequest("POST", url, nil)
 	if err != nil {
 		return nil, nil, err
 	}
 
 	var networkZone *NetworkZone
 
-	resp, err := m.client.requestExecutor.Do(ctx, req, &networkZone)
+	resp, err := rq.Do(ctx, req, &networkZone)
 	if err != nil {
 		return nil, resp, err
 	}

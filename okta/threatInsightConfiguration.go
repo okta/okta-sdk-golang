@@ -38,14 +38,16 @@ type ThreatInsightConfiguration struct {
 func (m *ThreatInsightConfigurationResource) GetCurrentConfiguration(ctx context.Context) (*ThreatInsightConfiguration, *Response, error) {
 	url := fmt.Sprintf("/api/v1/threats/configuration")
 
-	req, err := m.client.requestExecutor.WithAccept("application/json").WithContentType("application/json").NewRequest("GET", url, nil)
+	rq := m.client.CloneRequestExecutor()
+
+	req, err := rq.WithAccept("application/json").WithContentType("application/json").NewRequest("GET", url, nil)
 	if err != nil {
 		return nil, nil, err
 	}
 
 	var threatInsightConfiguration *ThreatInsightConfiguration
 
-	resp, err := m.client.requestExecutor.Do(ctx, req, &threatInsightConfiguration)
+	resp, err := rq.Do(ctx, req, &threatInsightConfiguration)
 	if err != nil {
 		return nil, resp, err
 	}
@@ -57,14 +59,16 @@ func (m *ThreatInsightConfigurationResource) GetCurrentConfiguration(ctx context
 func (m *ThreatInsightConfigurationResource) UpdateConfiguration(ctx context.Context, body ThreatInsightConfiguration) (*ThreatInsightConfiguration, *Response, error) {
 	url := fmt.Sprintf("/api/v1/threats/configuration")
 
-	req, err := m.client.requestExecutor.WithAccept("application/json").WithContentType("application/json").NewRequest("POST", url, body)
+	rq := m.client.CloneRequestExecutor()
+
+	req, err := rq.WithAccept("application/json").WithContentType("application/json").NewRequest("POST", url, body)
 	if err != nil {
 		return nil, nil, err
 	}
 
 	var threatInsightConfiguration *ThreatInsightConfiguration
 
-	resp, err := m.client.requestExecutor.Do(ctx, req, &threatInsightConfiguration)
+	resp, err := rq.Do(ctx, req, &threatInsightConfiguration)
 	if err != nil {
 		return nil, resp, err
 	}

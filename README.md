@@ -420,7 +420,7 @@ If you need to gain access to the request executor, we have provided a method
 off the `Client` to do so.
 
 ```go
-re := client.GetRequestExecutor()
+re := client.CloneRequestExecutor()
 ```
 
 Doing this will provide you with the ability to create your own requests for
@@ -562,7 +562,7 @@ These are the requirements:
     ([reference](https://developer.okta.com/docs/guides/implement-oauth-for-okta-serviceapp/create-serviceapp-grantscopes/))
   - store the private key in a PEM format
     ([reference](https://www.npmjs.com/package/pem-jwk))
- 
+
 To store the PEM formatted key with new lines in a JSON file, the multiple
 lines need to be one-line formatted by joining them with the "\n" character.
 The `awk` command makes this formatting quick and precise:
@@ -703,7 +703,7 @@ If you have an issue where you do a `GET`, then a `DELETE`, and then re-issue a
 with the deleted resource. An example of this is listing application users,
 delete an application user, and then listing them again.
 
-You can solve this by running `client.GetRequestExecutor().RefreshNext()`
+You can solve this by running `client.CloneRequestExecutor().RefreshNext()`
 before your second `ListApplicationUsers` call, which will tell the call to
 delete the cache for this endpoint and make a new call.
 
@@ -712,7 +712,7 @@ appUserList, _, _ = client.Application.ListApplicationUsers(context.TODO(), appI
 
 client.Application.DeleteApplicationUser(context.TODO(), appId, appUser.Id, nil)
 
-client.GetRequestExecutor().RefreshNext()
+client.CloneRequestExecutor().RefreshNext()
 appUserList, _, _ = client.Application.ListApplicationUsers(context.TODO(), appId, nil)
 ```
 

@@ -44,14 +44,16 @@ type Session struct {
 func (m *SessionResource) GetSession(ctx context.Context, sessionId string) (*Session, *Response, error) {
 	url := fmt.Sprintf("/api/v1/sessions/%v", sessionId)
 
-	req, err := m.client.requestExecutor.WithAccept("application/json").WithContentType("application/json").NewRequest("GET", url, nil)
+	rq := m.client.CloneRequestExecutor()
+
+	req, err := rq.WithAccept("application/json").WithContentType("application/json").NewRequest("GET", url, nil)
 	if err != nil {
 		return nil, nil, err
 	}
 
 	var session *Session
 
-	resp, err := m.client.requestExecutor.Do(ctx, req, &session)
+	resp, err := rq.Do(ctx, req, &session)
 	if err != nil {
 		return nil, resp, err
 	}
@@ -63,7 +65,9 @@ func (m *SessionResource) GetSession(ctx context.Context, sessionId string) (*Se
 func (m *SessionResource) EndSession(ctx context.Context, sessionId string) (*Response, error) {
 	url := fmt.Sprintf("/api/v1/sessions/%v", sessionId)
 
-	req, err := m.client.requestExecutor.WithAccept("application/json").WithContentType("application/json").NewRequest("DELETE", url, nil)
+	rq := m.client.CloneRequestExecutor()
+
+	req, err := rq.WithAccept("application/json").WithContentType("application/json").NewRequest("DELETE", url, nil)
 	if err != nil {
 		return nil, err
 	}
@@ -80,14 +84,16 @@ func (m *SessionResource) EndSession(ctx context.Context, sessionId string) (*Re
 func (m *SessionResource) CreateSession(ctx context.Context, body CreateSessionRequest) (*Session, *Response, error) {
 	url := fmt.Sprintf("/api/v1/sessions")
 
-	req, err := m.client.requestExecutor.WithAccept("application/json").WithContentType("application/json").NewRequest("POST", url, body)
+	rq := m.client.CloneRequestExecutor()
+
+	req, err := rq.WithAccept("application/json").WithContentType("application/json").NewRequest("POST", url, body)
 	if err != nil {
 		return nil, nil, err
 	}
 
 	var session *Session
 
-	resp, err := m.client.requestExecutor.Do(ctx, req, &session)
+	resp, err := rq.Do(ctx, req, &session)
 	if err != nil {
 		return nil, resp, err
 	}
@@ -99,14 +105,16 @@ func (m *SessionResource) CreateSession(ctx context.Context, body CreateSessionR
 func (m *SessionResource) RefreshSession(ctx context.Context, sessionId string) (*Session, *Response, error) {
 	url := fmt.Sprintf("/api/v1/sessions/%v/lifecycle/refresh", sessionId)
 
-	req, err := m.client.requestExecutor.WithAccept("application/json").WithContentType("application/json").NewRequest("POST", url, nil)
+	rq := m.client.CloneRequestExecutor()
+
+	req, err := rq.WithAccept("application/json").WithContentType("application/json").NewRequest("POST", url, nil)
 	if err != nil {
 		return nil, nil, err
 	}
 
 	var session *Session
 
-	resp, err := m.client.requestExecutor.Do(ctx, req, &session)
+	resp, err := rq.Do(ctx, req, &session)
 	if err != nil {
 		return nil, resp, err
 	}

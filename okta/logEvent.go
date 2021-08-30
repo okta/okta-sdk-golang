@@ -54,14 +54,16 @@ func (m *LogEventResource) GetLogs(ctx context.Context, qp *query.Params) ([]*Lo
 		url = url + qp.String()
 	}
 
-	req, err := m.client.requestExecutor.WithAccept("application/json").WithContentType("application/json").NewRequest("GET", url, nil)
+	rq := m.client.CloneRequestExecutor()
+
+	req, err := rq.WithAccept("application/json").WithContentType("application/json").NewRequest("GET", url, nil)
 	if err != nil {
 		return nil, nil, err
 	}
 
 	var logEvent []*LogEvent
 
-	resp, err := m.client.requestExecutor.Do(ctx, req, &logEvent)
+	resp, err := rq.Do(ctx, req, &logEvent)
 	if err != nil {
 		return nil, resp, err
 	}

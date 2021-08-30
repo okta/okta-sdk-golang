@@ -43,14 +43,16 @@ type UserType struct {
 func (m *UserTypeResource) CreateUserType(ctx context.Context, body UserType) (*UserType, *Response, error) {
 	url := fmt.Sprintf("/api/v1/meta/types/user")
 
-	req, err := m.client.requestExecutor.WithAccept("application/json").WithContentType("application/json").NewRequest("POST", url, body)
+	rq := m.client.CloneRequestExecutor()
+
+	req, err := rq.WithAccept("application/json").WithContentType("application/json").NewRequest("POST", url, body)
 	if err != nil {
 		return nil, nil, err
 	}
 
 	var userType *UserType
 
-	resp, err := m.client.requestExecutor.Do(ctx, req, &userType)
+	resp, err := rq.Do(ctx, req, &userType)
 	if err != nil {
 		return nil, resp, err
 	}
@@ -62,14 +64,16 @@ func (m *UserTypeResource) CreateUserType(ctx context.Context, body UserType) (*
 func (m *UserTypeResource) UpdateUserType(ctx context.Context, typeId string, body UserType) (*UserType, *Response, error) {
 	url := fmt.Sprintf("/api/v1/meta/types/user/%v", typeId)
 
-	req, err := m.client.requestExecutor.WithAccept("application/json").WithContentType("application/json").NewRequest("POST", url, body)
+	rq := m.client.CloneRequestExecutor()
+
+	req, err := rq.WithAccept("application/json").WithContentType("application/json").NewRequest("POST", url, body)
 	if err != nil {
 		return nil, nil, err
 	}
 
 	var userType *UserType
 
-	resp, err := m.client.requestExecutor.Do(ctx, req, &userType)
+	resp, err := rq.Do(ctx, req, &userType)
 	if err != nil {
 		return nil, resp, err
 	}
@@ -81,14 +85,16 @@ func (m *UserTypeResource) UpdateUserType(ctx context.Context, typeId string, bo
 func (m *UserTypeResource) GetUserType(ctx context.Context, typeId string) (*UserType, *Response, error) {
 	url := fmt.Sprintf("/api/v1/meta/types/user/%v", typeId)
 
-	req, err := m.client.requestExecutor.WithAccept("application/json").WithContentType("application/json").NewRequest("GET", url, nil)
+	rq := m.client.CloneRequestExecutor()
+
+	req, err := rq.WithAccept("application/json").WithContentType("application/json").NewRequest("GET", url, nil)
 	if err != nil {
 		return nil, nil, err
 	}
 
 	var userType *UserType
 
-	resp, err := m.client.requestExecutor.Do(ctx, req, &userType)
+	resp, err := rq.Do(ctx, req, &userType)
 	if err != nil {
 		return nil, resp, err
 	}
@@ -100,7 +106,9 @@ func (m *UserTypeResource) GetUserType(ctx context.Context, typeId string) (*Use
 func (m *UserTypeResource) DeleteUserType(ctx context.Context, typeId string) (*Response, error) {
 	url := fmt.Sprintf("/api/v1/meta/types/user/%v", typeId)
 
-	req, err := m.client.requestExecutor.WithAccept("application/json").WithContentType("application/json").NewRequest("DELETE", url, nil)
+	rq := m.client.CloneRequestExecutor()
+
+	req, err := rq.WithAccept("application/json").WithContentType("application/json").NewRequest("DELETE", url, nil)
 	if err != nil {
 		return nil, err
 	}
@@ -117,14 +125,16 @@ func (m *UserTypeResource) DeleteUserType(ctx context.Context, typeId string) (*
 func (m *UserTypeResource) ListUserTypes(ctx context.Context) ([]*UserType, *Response, error) {
 	url := fmt.Sprintf("/api/v1/meta/types/user")
 
-	req, err := m.client.requestExecutor.WithAccept("application/json").WithContentType("application/json").NewRequest("GET", url, nil)
+	rq := m.client.CloneRequestExecutor()
+
+	req, err := rq.WithAccept("application/json").WithContentType("application/json").NewRequest("GET", url, nil)
 	if err != nil {
 		return nil, nil, err
 	}
 
 	var userType []*UserType
 
-	resp, err := m.client.requestExecutor.Do(ctx, req, &userType)
+	resp, err := rq.Do(ctx, req, &userType)
 	if err != nil {
 		return nil, resp, err
 	}
@@ -136,14 +146,16 @@ func (m *UserTypeResource) ListUserTypes(ctx context.Context) ([]*UserType, *Res
 func (m *UserTypeResource) ReplaceUserType(ctx context.Context, typeId string, body UserType) (*UserType, *Response, error) {
 	url := fmt.Sprintf("/api/v1/meta/types/user/%v", typeId)
 
-	req, err := m.client.requestExecutor.WithAccept("application/json").WithContentType("application/json").NewRequest("PUT", url, body)
+	rq := m.client.CloneRequestExecutor()
+
+	req, err := rq.WithAccept("application/json").WithContentType("application/json").NewRequest("PUT", url, body)
 	if err != nil {
 		return nil, nil, err
 	}
 
 	var userType *UserType
 
-	resp, err := m.client.requestExecutor.Do(ctx, req, &userType)
+	resp, err := rq.Do(ctx, req, &userType)
 	if err != nil {
 		return nil, resp, err
 	}

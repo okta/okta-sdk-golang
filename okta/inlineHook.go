@@ -43,14 +43,16 @@ type InlineHook struct {
 func (m *InlineHookResource) CreateInlineHook(ctx context.Context, body InlineHook) (*InlineHook, *Response, error) {
 	url := fmt.Sprintf("/api/v1/inlineHooks")
 
-	req, err := m.client.requestExecutor.WithAccept("application/json").WithContentType("application/json").NewRequest("POST", url, body)
+	rq := m.client.CloneRequestExecutor()
+
+	req, err := rq.WithAccept("application/json").WithContentType("application/json").NewRequest("POST", url, body)
 	if err != nil {
 		return nil, nil, err
 	}
 
 	var inlineHook *InlineHook
 
-	resp, err := m.client.requestExecutor.Do(ctx, req, &inlineHook)
+	resp, err := rq.Do(ctx, req, &inlineHook)
 	if err != nil {
 		return nil, resp, err
 	}
@@ -62,14 +64,16 @@ func (m *InlineHookResource) CreateInlineHook(ctx context.Context, body InlineHo
 func (m *InlineHookResource) GetInlineHook(ctx context.Context, inlineHookId string) (*InlineHook, *Response, error) {
 	url := fmt.Sprintf("/api/v1/inlineHooks/%v", inlineHookId)
 
-	req, err := m.client.requestExecutor.WithAccept("application/json").WithContentType("application/json").NewRequest("GET", url, nil)
+	rq := m.client.CloneRequestExecutor()
+
+	req, err := rq.WithAccept("application/json").WithContentType("application/json").NewRequest("GET", url, nil)
 	if err != nil {
 		return nil, nil, err
 	}
 
 	var inlineHook *InlineHook
 
-	resp, err := m.client.requestExecutor.Do(ctx, req, &inlineHook)
+	resp, err := rq.Do(ctx, req, &inlineHook)
 	if err != nil {
 		return nil, resp, err
 	}
@@ -81,14 +85,16 @@ func (m *InlineHookResource) GetInlineHook(ctx context.Context, inlineHookId str
 func (m *InlineHookResource) UpdateInlineHook(ctx context.Context, inlineHookId string, body InlineHook) (*InlineHook, *Response, error) {
 	url := fmt.Sprintf("/api/v1/inlineHooks/%v", inlineHookId)
 
-	req, err := m.client.requestExecutor.WithAccept("application/json").WithContentType("application/json").NewRequest("PUT", url, body)
+	rq := m.client.CloneRequestExecutor()
+
+	req, err := rq.WithAccept("application/json").WithContentType("application/json").NewRequest("PUT", url, body)
 	if err != nil {
 		return nil, nil, err
 	}
 
 	var inlineHook *InlineHook
 
-	resp, err := m.client.requestExecutor.Do(ctx, req, &inlineHook)
+	resp, err := rq.Do(ctx, req, &inlineHook)
 	if err != nil {
 		return nil, resp, err
 	}
@@ -100,7 +106,9 @@ func (m *InlineHookResource) UpdateInlineHook(ctx context.Context, inlineHookId 
 func (m *InlineHookResource) DeleteInlineHook(ctx context.Context, inlineHookId string) (*Response, error) {
 	url := fmt.Sprintf("/api/v1/inlineHooks/%v", inlineHookId)
 
-	req, err := m.client.requestExecutor.WithAccept("application/json").WithContentType("application/json").NewRequest("DELETE", url, nil)
+	rq := m.client.CloneRequestExecutor()
+
+	req, err := rq.WithAccept("application/json").WithContentType("application/json").NewRequest("DELETE", url, nil)
 	if err != nil {
 		return nil, err
 	}
@@ -119,14 +127,16 @@ func (m *InlineHookResource) ListInlineHooks(ctx context.Context, qp *query.Para
 		url = url + qp.String()
 	}
 
-	req, err := m.client.requestExecutor.WithAccept("application/json").WithContentType("application/json").NewRequest("GET", url, nil)
+	rq := m.client.CloneRequestExecutor()
+
+	req, err := rq.WithAccept("application/json").WithContentType("application/json").NewRequest("GET", url, nil)
 	if err != nil {
 		return nil, nil, err
 	}
 
 	var inlineHook []*InlineHook
 
-	resp, err := m.client.requestExecutor.Do(ctx, req, &inlineHook)
+	resp, err := rq.Do(ctx, req, &inlineHook)
 	if err != nil {
 		return nil, resp, err
 	}
@@ -138,14 +148,16 @@ func (m *InlineHookResource) ListInlineHooks(ctx context.Context, qp *query.Para
 func (m *InlineHookResource) ExecuteInlineHook(ctx context.Context, inlineHookId string, body InlineHookPayload) (*InlineHookResponse, *Response, error) {
 	url := fmt.Sprintf("/api/v1/inlineHooks/%v/execute", inlineHookId)
 
-	req, err := m.client.requestExecutor.WithAccept("application/json").WithContentType("application/json").NewRequest("POST", url, body)
+	rq := m.client.CloneRequestExecutor()
+
+	req, err := rq.WithAccept("application/json").WithContentType("application/json").NewRequest("POST", url, body)
 	if err != nil {
 		return nil, nil, err
 	}
 
 	var inlineHookResponse *InlineHookResponse
 
-	resp, err := m.client.requestExecutor.Do(ctx, req, &inlineHookResponse)
+	resp, err := rq.Do(ctx, req, &inlineHookResponse)
 	if err != nil {
 		return nil, resp, err
 	}
@@ -157,14 +169,16 @@ func (m *InlineHookResource) ExecuteInlineHook(ctx context.Context, inlineHookId
 func (m *InlineHookResource) ActivateInlineHook(ctx context.Context, inlineHookId string) (*InlineHook, *Response, error) {
 	url := fmt.Sprintf("/api/v1/inlineHooks/%v/lifecycle/activate", inlineHookId)
 
-	req, err := m.client.requestExecutor.WithAccept("application/json").WithContentType("application/json").NewRequest("POST", url, nil)
+	rq := m.client.CloneRequestExecutor()
+
+	req, err := rq.WithAccept("application/json").WithContentType("application/json").NewRequest("POST", url, nil)
 	if err != nil {
 		return nil, nil, err
 	}
 
 	var inlineHook *InlineHook
 
-	resp, err := m.client.requestExecutor.Do(ctx, req, &inlineHook)
+	resp, err := rq.Do(ctx, req, &inlineHook)
 	if err != nil {
 		return nil, resp, err
 	}
@@ -176,14 +190,16 @@ func (m *InlineHookResource) ActivateInlineHook(ctx context.Context, inlineHookI
 func (m *InlineHookResource) DeactivateInlineHook(ctx context.Context, inlineHookId string) (*InlineHook, *Response, error) {
 	url := fmt.Sprintf("/api/v1/inlineHooks/%v/lifecycle/deactivate", inlineHookId)
 
-	req, err := m.client.requestExecutor.WithAccept("application/json").WithContentType("application/json").NewRequest("POST", url, nil)
+	rq := m.client.CloneRequestExecutor()
+
+	req, err := rq.WithAccept("application/json").WithContentType("application/json").NewRequest("POST", url, nil)
 	if err != nil {
 		return nil, nil, err
 	}
 
 	var inlineHook *InlineHook
 
-	resp, err := m.client.requestExecutor.Do(ctx, req, &inlineHook)
+	resp, err := rq.Do(ctx, req, &inlineHook)
 	if err != nil {
 		return nil, resp, err
 	}

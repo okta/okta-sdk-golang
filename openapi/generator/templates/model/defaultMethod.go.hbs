@@ -9,14 +9,16 @@ func (m *{{modelName}}Resource) {{ucFirst operation.operationId}}({{operationArg
 	}
 	{{/if}}
 
+	rq := m.client.CloneRequestExecutor()
+
 	{{#if (ne operation.bodyModel undefined)}}
 	{{#if (eq operation.bodyFormat "binary")}}
-	req, err := m.client.requestExecutor.AsBinary().WithAccept("{{operation.produces.[0]}}").WithContentType("{{operation.consumes.[0]}}").NewRequest("{{strToUpper operation.method}}", url, body)
+	req, err := rq.AsBinary().WithAccept("{{operation.produces.[0]}}").WithContentType("{{operation.consumes.[0]}}").NewRequest("{{strToUpper operation.method}}", url, body)
 	{{else}}
-	req, err := m.client.requestExecutor.WithAccept("{{operation.produces.[0]}}").WithContentType("{{operation.consumes.[0]}}").NewRequest("{{strToUpper operation.method}}", url, body)
+	req, err := rq.WithAccept("{{operation.produces.[0]}}").WithContentType("{{operation.consumes.[0]}}").NewRequest("{{strToUpper operation.method}}", url, body)
 	{{/if}}
 	{{else}}
-	req, err := m.client.requestExecutor.WithAccept("{{operation.produces.[0]}}").WithContentType("{{operation.consumes.[0]}}").NewRequest("{{strToUpper operation.method}}", url, nil)
+	req, err := rq.WithAccept("{{operation.produces.[0]}}").WithContentType("{{operation.consumes.[0]}}").NewRequest("{{strToUpper operation.method}}", url, nil)
 	{{/if}}
 	if err != nil {
 		{{#if (ne operation.responseModel undefined)}}
@@ -56,7 +58,7 @@ func (m *{{modelName}}Resource) {{ucFirst operation.operationId}}({{operationArg
 	{{/if}}
 	{{/if}}
 
-	resp, err := m.client.requestExecutor.Do(ctx, req, &{{lowercaseFirstLetter operation.responseModel}})
+	resp, err := rq.Do(ctx, req, &{{lowercaseFirstLetter operation.responseModel}})
 	if err != nil {
 		{{#if (ne operation.responseModel undefined)}}
 		return nil, resp, err

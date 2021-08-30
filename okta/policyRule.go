@@ -43,14 +43,16 @@ type PolicyRule struct {
 func (m *PolicyRuleResource) UpdatePolicyRule(ctx context.Context, policyId string, ruleId string, body PolicyRule) (*PolicyRule, *Response, error) {
 	url := fmt.Sprintf("/api/v1/policies/%v/rules/%v", policyId, ruleId)
 
-	req, err := m.client.requestExecutor.WithAccept("application/json").WithContentType("application/json").NewRequest("PUT", url, body)
+	rq := m.client.CloneRequestExecutor()
+
+	req, err := rq.WithAccept("application/json").WithContentType("application/json").NewRequest("PUT", url, body)
 	if err != nil {
 		return nil, nil, err
 	}
 
 	var policyRule *PolicyRule
 
-	resp, err := m.client.requestExecutor.Do(ctx, req, &policyRule)
+	resp, err := rq.Do(ctx, req, &policyRule)
 	if err != nil {
 		return nil, resp, err
 	}
@@ -62,7 +64,9 @@ func (m *PolicyRuleResource) UpdatePolicyRule(ctx context.Context, policyId stri
 func (m *PolicyRuleResource) DeletePolicyRule(ctx context.Context, policyId string, ruleId string) (*Response, error) {
 	url := fmt.Sprintf("/api/v1/policies/%v/rules/%v", policyId, ruleId)
 
-	req, err := m.client.requestExecutor.WithAccept("application/json").WithContentType("application/json").NewRequest("DELETE", url, nil)
+	rq := m.client.CloneRequestExecutor()
+
+	req, err := rq.WithAccept("application/json").WithContentType("application/json").NewRequest("DELETE", url, nil)
 	if err != nil {
 		return nil, err
 	}

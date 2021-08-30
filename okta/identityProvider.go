@@ -45,14 +45,16 @@ type IdentityProvider struct {
 func (m *IdentityProviderResource) CreateIdentityProvider(ctx context.Context, body IdentityProvider) (*IdentityProvider, *Response, error) {
 	url := fmt.Sprintf("/api/v1/idps")
 
-	req, err := m.client.requestExecutor.WithAccept("application/json").WithContentType("application/json").NewRequest("POST", url, body)
+	rq := m.client.CloneRequestExecutor()
+
+	req, err := rq.WithAccept("application/json").WithContentType("application/json").NewRequest("POST", url, body)
 	if err != nil {
 		return nil, nil, err
 	}
 
 	var identityProvider *IdentityProvider
 
-	resp, err := m.client.requestExecutor.Do(ctx, req, &identityProvider)
+	resp, err := rq.Do(ctx, req, &identityProvider)
 	if err != nil {
 		return nil, resp, err
 	}
@@ -64,14 +66,16 @@ func (m *IdentityProviderResource) CreateIdentityProvider(ctx context.Context, b
 func (m *IdentityProviderResource) GetIdentityProvider(ctx context.Context, idpId string) (*IdentityProvider, *Response, error) {
 	url := fmt.Sprintf("/api/v1/idps/%v", idpId)
 
-	req, err := m.client.requestExecutor.WithAccept("application/json").WithContentType("application/json").NewRequest("GET", url, nil)
+	rq := m.client.CloneRequestExecutor()
+
+	req, err := rq.WithAccept("application/json").WithContentType("application/json").NewRequest("GET", url, nil)
 	if err != nil {
 		return nil, nil, err
 	}
 
 	var identityProvider *IdentityProvider
 
-	resp, err := m.client.requestExecutor.Do(ctx, req, &identityProvider)
+	resp, err := rq.Do(ctx, req, &identityProvider)
 	if err != nil {
 		return nil, resp, err
 	}
@@ -83,14 +87,16 @@ func (m *IdentityProviderResource) GetIdentityProvider(ctx context.Context, idpI
 func (m *IdentityProviderResource) UpdateIdentityProvider(ctx context.Context, idpId string, body IdentityProvider) (*IdentityProvider, *Response, error) {
 	url := fmt.Sprintf("/api/v1/idps/%v", idpId)
 
-	req, err := m.client.requestExecutor.WithAccept("application/json").WithContentType("application/json").NewRequest("PUT", url, body)
+	rq := m.client.CloneRequestExecutor()
+
+	req, err := rq.WithAccept("application/json").WithContentType("application/json").NewRequest("PUT", url, body)
 	if err != nil {
 		return nil, nil, err
 	}
 
 	var identityProvider *IdentityProvider
 
-	resp, err := m.client.requestExecutor.Do(ctx, req, &identityProvider)
+	resp, err := rq.Do(ctx, req, &identityProvider)
 	if err != nil {
 		return nil, resp, err
 	}
@@ -102,7 +108,9 @@ func (m *IdentityProviderResource) UpdateIdentityProvider(ctx context.Context, i
 func (m *IdentityProviderResource) DeleteIdentityProvider(ctx context.Context, idpId string) (*Response, error) {
 	url := fmt.Sprintf("/api/v1/idps/%v", idpId)
 
-	req, err := m.client.requestExecutor.WithAccept("application/json").WithContentType("application/json").NewRequest("DELETE", url, nil)
+	rq := m.client.CloneRequestExecutor()
+
+	req, err := rq.WithAccept("application/json").WithContentType("application/json").NewRequest("DELETE", url, nil)
 	if err != nil {
 		return nil, err
 	}
@@ -122,14 +130,16 @@ func (m *IdentityProviderResource) ListIdentityProviders(ctx context.Context, qp
 		url = url + qp.String()
 	}
 
-	req, err := m.client.requestExecutor.WithAccept("application/json").WithContentType("application/json").NewRequest("GET", url, nil)
+	rq := m.client.CloneRequestExecutor()
+
+	req, err := rq.WithAccept("application/json").WithContentType("application/json").NewRequest("GET", url, nil)
 	if err != nil {
 		return nil, nil, err
 	}
 
 	var identityProvider []*IdentityProvider
 
-	resp, err := m.client.requestExecutor.Do(ctx, req, &identityProvider)
+	resp, err := rq.Do(ctx, req, &identityProvider)
 	if err != nil {
 		return nil, resp, err
 	}
@@ -144,14 +154,16 @@ func (m *IdentityProviderResource) ListIdentityProviderKeys(ctx context.Context,
 		url = url + qp.String()
 	}
 
-	req, err := m.client.requestExecutor.WithAccept("application/json").WithContentType("application/json").NewRequest("GET", url, nil)
+	rq := m.client.CloneRequestExecutor()
+
+	req, err := rq.WithAccept("application/json").WithContentType("application/json").NewRequest("GET", url, nil)
 	if err != nil {
 		return nil, nil, err
 	}
 
 	var jsonWebKey []*JsonWebKey
 
-	resp, err := m.client.requestExecutor.Do(ctx, req, &jsonWebKey)
+	resp, err := rq.Do(ctx, req, &jsonWebKey)
 	if err != nil {
 		return nil, resp, err
 	}
@@ -163,14 +175,16 @@ func (m *IdentityProviderResource) ListIdentityProviderKeys(ctx context.Context,
 func (m *IdentityProviderResource) CreateIdentityProviderKey(ctx context.Context, body JsonWebKey) (*JsonWebKey, *Response, error) {
 	url := fmt.Sprintf("/api/v1/idps/credentials/keys")
 
-	req, err := m.client.requestExecutor.WithAccept("application/json").WithContentType("application/json").NewRequest("POST", url, body)
+	rq := m.client.CloneRequestExecutor()
+
+	req, err := rq.WithAccept("application/json").WithContentType("application/json").NewRequest("POST", url, body)
 	if err != nil {
 		return nil, nil, err
 	}
 
 	var jsonWebKey *JsonWebKey
 
-	resp, err := m.client.requestExecutor.Do(ctx, req, &jsonWebKey)
+	resp, err := rq.Do(ctx, req, &jsonWebKey)
 	if err != nil {
 		return nil, resp, err
 	}
@@ -182,7 +196,9 @@ func (m *IdentityProviderResource) CreateIdentityProviderKey(ctx context.Context
 func (m *IdentityProviderResource) DeleteIdentityProviderKey(ctx context.Context, keyId string) (*Response, error) {
 	url := fmt.Sprintf("/api/v1/idps/credentials/keys/%v", keyId)
 
-	req, err := m.client.requestExecutor.WithAccept("application/json").WithContentType("application/json").NewRequest("DELETE", url, nil)
+	rq := m.client.CloneRequestExecutor()
+
+	req, err := rq.WithAccept("application/json").WithContentType("application/json").NewRequest("DELETE", url, nil)
 	if err != nil {
 		return nil, err
 	}
@@ -199,14 +215,16 @@ func (m *IdentityProviderResource) DeleteIdentityProviderKey(ctx context.Context
 func (m *IdentityProviderResource) GetIdentityProviderKey(ctx context.Context, keyId string) (*JsonWebKey, *Response, error) {
 	url := fmt.Sprintf("/api/v1/idps/credentials/keys/%v", keyId)
 
-	req, err := m.client.requestExecutor.WithAccept("application/json").WithContentType("application/json").NewRequest("GET", url, nil)
+	rq := m.client.CloneRequestExecutor()
+
+	req, err := rq.WithAccept("application/json").WithContentType("application/json").NewRequest("GET", url, nil)
 	if err != nil {
 		return nil, nil, err
 	}
 
 	var jsonWebKey *JsonWebKey
 
-	resp, err := m.client.requestExecutor.Do(ctx, req, &jsonWebKey)
+	resp, err := rq.Do(ctx, req, &jsonWebKey)
 	if err != nil {
 		return nil, resp, err
 	}
@@ -218,14 +236,16 @@ func (m *IdentityProviderResource) GetIdentityProviderKey(ctx context.Context, k
 func (m *IdentityProviderResource) ListCsrsForIdentityProvider(ctx context.Context, idpId string) ([]*Csr, *Response, error) {
 	url := fmt.Sprintf("/api/v1/idps/%v/credentials/csrs", idpId)
 
-	req, err := m.client.requestExecutor.WithAccept("application/json").WithContentType("application/json").NewRequest("GET", url, nil)
+	rq := m.client.CloneRequestExecutor()
+
+	req, err := rq.WithAccept("application/json").WithContentType("application/json").NewRequest("GET", url, nil)
 	if err != nil {
 		return nil, nil, err
 	}
 
 	var csr []*Csr
 
-	resp, err := m.client.requestExecutor.Do(ctx, req, &csr)
+	resp, err := rq.Do(ctx, req, &csr)
 	if err != nil {
 		return nil, resp, err
 	}
@@ -237,14 +257,16 @@ func (m *IdentityProviderResource) ListCsrsForIdentityProvider(ctx context.Conte
 func (m *IdentityProviderResource) GenerateCsrForIdentityProvider(ctx context.Context, idpId string, body CsrMetadata) (*Csr, *Response, error) {
 	url := fmt.Sprintf("/api/v1/idps/%v/credentials/csrs", idpId)
 
-	req, err := m.client.requestExecutor.WithAccept("application/json").WithContentType("application/json").NewRequest("POST", url, body)
+	rq := m.client.CloneRequestExecutor()
+
+	req, err := rq.WithAccept("application/json").WithContentType("application/json").NewRequest("POST", url, body)
 	if err != nil {
 		return nil, nil, err
 	}
 
 	var csr *Csr
 
-	resp, err := m.client.requestExecutor.Do(ctx, req, &csr)
+	resp, err := rq.Do(ctx, req, &csr)
 	if err != nil {
 		return nil, resp, err
 	}
@@ -256,7 +278,9 @@ func (m *IdentityProviderResource) GenerateCsrForIdentityProvider(ctx context.Co
 func (m *IdentityProviderResource) RevokeCsrForIdentityProvider(ctx context.Context, idpId string, csrId string) (*Response, error) {
 	url := fmt.Sprintf("/api/v1/idps/%v/credentials/csrs/%v", idpId, csrId)
 
-	req, err := m.client.requestExecutor.WithAccept("application/json").WithContentType("application/json").NewRequest("DELETE", url, nil)
+	rq := m.client.CloneRequestExecutor()
+
+	req, err := rq.WithAccept("application/json").WithContentType("application/json").NewRequest("DELETE", url, nil)
 	if err != nil {
 		return nil, err
 	}
@@ -273,14 +297,16 @@ func (m *IdentityProviderResource) RevokeCsrForIdentityProvider(ctx context.Cont
 func (m *IdentityProviderResource) GetCsrForIdentityProvider(ctx context.Context, idpId string, csrId string) (*Csr, *Response, error) {
 	url := fmt.Sprintf("/api/v1/idps/%v/credentials/csrs/%v", idpId, csrId)
 
-	req, err := m.client.requestExecutor.WithAccept("application/json").WithContentType("application/json").NewRequest("GET", url, nil)
+	rq := m.client.CloneRequestExecutor()
+
+	req, err := rq.WithAccept("application/json").WithContentType("application/json").NewRequest("GET", url, nil)
 	if err != nil {
 		return nil, nil, err
 	}
 
 	var csr *Csr
 
-	resp, err := m.client.requestExecutor.Do(ctx, req, &csr)
+	resp, err := rq.Do(ctx, req, &csr)
 	if err != nil {
 		return nil, resp, err
 	}
@@ -292,14 +318,16 @@ func (m *IdentityProviderResource) GetCsrForIdentityProvider(ctx context.Context
 func (m *IdentityProviderResource) PublishCerCertForIdentityProvider(ctx context.Context, idpId string, csrId string, body string) (*JsonWebKey, *Response, error) {
 	url := fmt.Sprintf("/api/v1/idps/%v/credentials/csrs/%v/lifecycle/publish", idpId, csrId)
 
-	req, err := m.client.requestExecutor.WithAccept("application/json").WithContentType("application/x-x509-ca-cert").NewRequest("POST", url, body)
+	rq := m.client.CloneRequestExecutor()
+
+	req, err := rq.WithAccept("application/json").WithContentType("application/x-x509-ca-cert").NewRequest("POST", url, body)
 	if err != nil {
 		return nil, nil, err
 	}
 
 	var jsonWebKey *JsonWebKey
 
-	resp, err := m.client.requestExecutor.Do(ctx, req, &jsonWebKey)
+	resp, err := rq.Do(ctx, req, &jsonWebKey)
 	if err != nil {
 		return nil, resp, err
 	}
@@ -311,14 +339,16 @@ func (m *IdentityProviderResource) PublishCerCertForIdentityProvider(ctx context
 func (m *IdentityProviderResource) PublishBinaryCerCertForIdentityProvider(ctx context.Context, idpId string, csrId string, body string) (*JsonWebKey, *Response, error) {
 	url := fmt.Sprintf("/api/v1/idps/%v/credentials/csrs/%v/lifecycle/publish", idpId, csrId)
 
-	req, err := m.client.requestExecutor.AsBinary().WithAccept("application/json").WithContentType("application/x-x509-ca-cert").NewRequest("POST", url, body)
+	rq := m.client.CloneRequestExecutor()
+
+	req, err := rq.AsBinary().WithAccept("application/json").WithContentType("application/x-x509-ca-cert").NewRequest("POST", url, body)
 	if err != nil {
 		return nil, nil, err
 	}
 
 	var jsonWebKey *JsonWebKey
 
-	resp, err := m.client.requestExecutor.Do(ctx, req, &jsonWebKey)
+	resp, err := rq.Do(ctx, req, &jsonWebKey)
 	if err != nil {
 		return nil, resp, err
 	}
@@ -330,14 +360,16 @@ func (m *IdentityProviderResource) PublishBinaryCerCertForIdentityProvider(ctx c
 func (m *IdentityProviderResource) PublishDerCertForIdentityProvider(ctx context.Context, idpId string, csrId string, body string) (*JsonWebKey, *Response, error) {
 	url := fmt.Sprintf("/api/v1/idps/%v/credentials/csrs/%v/lifecycle/publish", idpId, csrId)
 
-	req, err := m.client.requestExecutor.WithAccept("application/json").WithContentType("application/pkix-cert").NewRequest("POST", url, body)
+	rq := m.client.CloneRequestExecutor()
+
+	req, err := rq.WithAccept("application/json").WithContentType("application/pkix-cert").NewRequest("POST", url, body)
 	if err != nil {
 		return nil, nil, err
 	}
 
 	var jsonWebKey *JsonWebKey
 
-	resp, err := m.client.requestExecutor.Do(ctx, req, &jsonWebKey)
+	resp, err := rq.Do(ctx, req, &jsonWebKey)
 	if err != nil {
 		return nil, resp, err
 	}
@@ -349,14 +381,16 @@ func (m *IdentityProviderResource) PublishDerCertForIdentityProvider(ctx context
 func (m *IdentityProviderResource) PublishBinaryDerCertForIdentityProvider(ctx context.Context, idpId string, csrId string, body string) (*JsonWebKey, *Response, error) {
 	url := fmt.Sprintf("/api/v1/idps/%v/credentials/csrs/%v/lifecycle/publish", idpId, csrId)
 
-	req, err := m.client.requestExecutor.AsBinary().WithAccept("application/json").WithContentType("application/pkix-cert").NewRequest("POST", url, body)
+	rq := m.client.CloneRequestExecutor()
+
+	req, err := rq.AsBinary().WithAccept("application/json").WithContentType("application/pkix-cert").NewRequest("POST", url, body)
 	if err != nil {
 		return nil, nil, err
 	}
 
 	var jsonWebKey *JsonWebKey
 
-	resp, err := m.client.requestExecutor.Do(ctx, req, &jsonWebKey)
+	resp, err := rq.Do(ctx, req, &jsonWebKey)
 	if err != nil {
 		return nil, resp, err
 	}
@@ -368,14 +402,16 @@ func (m *IdentityProviderResource) PublishBinaryDerCertForIdentityProvider(ctx c
 func (m *IdentityProviderResource) PublishBinaryPemCertForIdentityProvider(ctx context.Context, idpId string, csrId string, body string) (*JsonWebKey, *Response, error) {
 	url := fmt.Sprintf("/api/v1/idps/%v/credentials/csrs/%v/lifecycle/publish", idpId, csrId)
 
-	req, err := m.client.requestExecutor.AsBinary().WithAccept("application/json").WithContentType("application/x-pem-file").NewRequest("POST", url, body)
+	rq := m.client.CloneRequestExecutor()
+
+	req, err := rq.AsBinary().WithAccept("application/json").WithContentType("application/x-pem-file").NewRequest("POST", url, body)
 	if err != nil {
 		return nil, nil, err
 	}
 
 	var jsonWebKey *JsonWebKey
 
-	resp, err := m.client.requestExecutor.Do(ctx, req, &jsonWebKey)
+	resp, err := rq.Do(ctx, req, &jsonWebKey)
 	if err != nil {
 		return nil, resp, err
 	}
@@ -387,14 +423,16 @@ func (m *IdentityProviderResource) PublishBinaryPemCertForIdentityProvider(ctx c
 func (m *IdentityProviderResource) ListIdentityProviderSigningKeys(ctx context.Context, idpId string) ([]*JsonWebKey, *Response, error) {
 	url := fmt.Sprintf("/api/v1/idps/%v/credentials/keys", idpId)
 
-	req, err := m.client.requestExecutor.WithAccept("application/json").WithContentType("application/json").NewRequest("GET", url, nil)
+	rq := m.client.CloneRequestExecutor()
+
+	req, err := rq.WithAccept("application/json").WithContentType("application/json").NewRequest("GET", url, nil)
 	if err != nil {
 		return nil, nil, err
 	}
 
 	var jsonWebKey []*JsonWebKey
 
-	resp, err := m.client.requestExecutor.Do(ctx, req, &jsonWebKey)
+	resp, err := rq.Do(ctx, req, &jsonWebKey)
 	if err != nil {
 		return nil, resp, err
 	}
@@ -409,14 +447,16 @@ func (m *IdentityProviderResource) GenerateIdentityProviderSigningKey(ctx contex
 		url = url + qp.String()
 	}
 
-	req, err := m.client.requestExecutor.WithAccept("application/json").WithContentType("application/json").NewRequest("POST", url, nil)
+	rq := m.client.CloneRequestExecutor()
+
+	req, err := rq.WithAccept("application/json").WithContentType("application/json").NewRequest("POST", url, nil)
 	if err != nil {
 		return nil, nil, err
 	}
 
 	var jsonWebKey *JsonWebKey
 
-	resp, err := m.client.requestExecutor.Do(ctx, req, &jsonWebKey)
+	resp, err := rq.Do(ctx, req, &jsonWebKey)
 	if err != nil {
 		return nil, resp, err
 	}
@@ -428,14 +468,16 @@ func (m *IdentityProviderResource) GenerateIdentityProviderSigningKey(ctx contex
 func (m *IdentityProviderResource) GetIdentityProviderSigningKey(ctx context.Context, idpId string, keyId string) (*JsonWebKey, *Response, error) {
 	url := fmt.Sprintf("/api/v1/idps/%v/credentials/keys/%v", idpId, keyId)
 
-	req, err := m.client.requestExecutor.WithAccept("application/json").WithContentType("application/json").NewRequest("GET", url, nil)
+	rq := m.client.CloneRequestExecutor()
+
+	req, err := rq.WithAccept("application/json").WithContentType("application/json").NewRequest("GET", url, nil)
 	if err != nil {
 		return nil, nil, err
 	}
 
 	var jsonWebKey *JsonWebKey
 
-	resp, err := m.client.requestExecutor.Do(ctx, req, &jsonWebKey)
+	resp, err := rq.Do(ctx, req, &jsonWebKey)
 	if err != nil {
 		return nil, resp, err
 	}
@@ -450,14 +492,16 @@ func (m *IdentityProviderResource) CloneIdentityProviderKey(ctx context.Context,
 		url = url + qp.String()
 	}
 
-	req, err := m.client.requestExecutor.WithAccept("application/json").WithContentType("application/json").NewRequest("POST", url, nil)
+	rq := m.client.CloneRequestExecutor()
+
+	req, err := rq.WithAccept("application/json").WithContentType("application/json").NewRequest("POST", url, nil)
 	if err != nil {
 		return nil, nil, err
 	}
 
 	var jsonWebKey *JsonWebKey
 
-	resp, err := m.client.requestExecutor.Do(ctx, req, &jsonWebKey)
+	resp, err := rq.Do(ctx, req, &jsonWebKey)
 	if err != nil {
 		return nil, resp, err
 	}
@@ -469,14 +513,16 @@ func (m *IdentityProviderResource) CloneIdentityProviderKey(ctx context.Context,
 func (m *IdentityProviderResource) ActivateIdentityProvider(ctx context.Context, idpId string) (*IdentityProvider, *Response, error) {
 	url := fmt.Sprintf("/api/v1/idps/%v/lifecycle/activate", idpId)
 
-	req, err := m.client.requestExecutor.WithAccept("application/json").WithContentType("application/json").NewRequest("POST", url, nil)
+	rq := m.client.CloneRequestExecutor()
+
+	req, err := rq.WithAccept("application/json").WithContentType("application/json").NewRequest("POST", url, nil)
 	if err != nil {
 		return nil, nil, err
 	}
 
 	var identityProvider *IdentityProvider
 
-	resp, err := m.client.requestExecutor.Do(ctx, req, &identityProvider)
+	resp, err := rq.Do(ctx, req, &identityProvider)
 	if err != nil {
 		return nil, resp, err
 	}
@@ -488,14 +534,16 @@ func (m *IdentityProviderResource) ActivateIdentityProvider(ctx context.Context,
 func (m *IdentityProviderResource) DeactivateIdentityProvider(ctx context.Context, idpId string) (*IdentityProvider, *Response, error) {
 	url := fmt.Sprintf("/api/v1/idps/%v/lifecycle/deactivate", idpId)
 
-	req, err := m.client.requestExecutor.WithAccept("application/json").WithContentType("application/json").NewRequest("POST", url, nil)
+	rq := m.client.CloneRequestExecutor()
+
+	req, err := rq.WithAccept("application/json").WithContentType("application/json").NewRequest("POST", url, nil)
 	if err != nil {
 		return nil, nil, err
 	}
 
 	var identityProvider *IdentityProvider
 
-	resp, err := m.client.requestExecutor.Do(ctx, req, &identityProvider)
+	resp, err := rq.Do(ctx, req, &identityProvider)
 	if err != nil {
 		return nil, resp, err
 	}
@@ -507,14 +555,16 @@ func (m *IdentityProviderResource) DeactivateIdentityProvider(ctx context.Contex
 func (m *IdentityProviderResource) ListIdentityProviderApplicationUsers(ctx context.Context, idpId string) ([]*IdentityProviderApplicationUser, *Response, error) {
 	url := fmt.Sprintf("/api/v1/idps/%v/users", idpId)
 
-	req, err := m.client.requestExecutor.WithAccept("application/json").WithContentType("application/json").NewRequest("GET", url, nil)
+	rq := m.client.CloneRequestExecutor()
+
+	req, err := rq.WithAccept("application/json").WithContentType("application/json").NewRequest("GET", url, nil)
 	if err != nil {
 		return nil, nil, err
 	}
 
 	var identityProviderApplicationUser []*IdentityProviderApplicationUser
 
-	resp, err := m.client.requestExecutor.Do(ctx, req, &identityProviderApplicationUser)
+	resp, err := rq.Do(ctx, req, &identityProviderApplicationUser)
 	if err != nil {
 		return nil, resp, err
 	}
@@ -526,7 +576,9 @@ func (m *IdentityProviderResource) ListIdentityProviderApplicationUsers(ctx cont
 func (m *IdentityProviderResource) UnlinkUserFromIdentityProvider(ctx context.Context, idpId string, userId string) (*Response, error) {
 	url := fmt.Sprintf("/api/v1/idps/%v/users/%v", idpId, userId)
 
-	req, err := m.client.requestExecutor.WithAccept("application/json").WithContentType("application/json").NewRequest("DELETE", url, nil)
+	rq := m.client.CloneRequestExecutor()
+
+	req, err := rq.WithAccept("application/json").WithContentType("application/json").NewRequest("DELETE", url, nil)
 	if err != nil {
 		return nil, err
 	}
@@ -543,14 +595,16 @@ func (m *IdentityProviderResource) UnlinkUserFromIdentityProvider(ctx context.Co
 func (m *IdentityProviderResource) GetIdentityProviderApplicationUser(ctx context.Context, idpId string, userId string) (*IdentityProviderApplicationUser, *Response, error) {
 	url := fmt.Sprintf("/api/v1/idps/%v/users/%v", idpId, userId)
 
-	req, err := m.client.requestExecutor.WithAccept("application/json").WithContentType("application/json").NewRequest("GET", url, nil)
+	rq := m.client.CloneRequestExecutor()
+
+	req, err := rq.WithAccept("application/json").WithContentType("application/json").NewRequest("GET", url, nil)
 	if err != nil {
 		return nil, nil, err
 	}
 
 	var identityProviderApplicationUser *IdentityProviderApplicationUser
 
-	resp, err := m.client.requestExecutor.Do(ctx, req, &identityProviderApplicationUser)
+	resp, err := rq.Do(ctx, req, &identityProviderApplicationUser)
 	if err != nil {
 		return nil, resp, err
 	}
@@ -562,14 +616,16 @@ func (m *IdentityProviderResource) GetIdentityProviderApplicationUser(ctx contex
 func (m *IdentityProviderResource) LinkUserToIdentityProvider(ctx context.Context, idpId string, userId string, body UserIdentityProviderLinkRequest) (*IdentityProviderApplicationUser, *Response, error) {
 	url := fmt.Sprintf("/api/v1/idps/%v/users/%v", idpId, userId)
 
-	req, err := m.client.requestExecutor.WithAccept("application/json").WithContentType("application/json").NewRequest("POST", url, body)
+	rq := m.client.CloneRequestExecutor()
+
+	req, err := rq.WithAccept("application/json").WithContentType("application/json").NewRequest("POST", url, body)
 	if err != nil {
 		return nil, nil, err
 	}
 
 	var identityProviderApplicationUser *IdentityProviderApplicationUser
 
-	resp, err := m.client.requestExecutor.Do(ctx, req, &identityProviderApplicationUser)
+	resp, err := rq.Do(ctx, req, &identityProviderApplicationUser)
 	if err != nil {
 		return nil, resp, err
 	}
@@ -581,14 +637,16 @@ func (m *IdentityProviderResource) LinkUserToIdentityProvider(ctx context.Contex
 func (m *IdentityProviderResource) ListSocialAuthTokens(ctx context.Context, idpId string, userId string) ([]*SocialAuthToken, *Response, error) {
 	url := fmt.Sprintf("/api/v1/idps/%v/users/%v/credentials/tokens", idpId, userId)
 
-	req, err := m.client.requestExecutor.WithAccept("application/json").WithContentType("application/json").NewRequest("GET", url, nil)
+	rq := m.client.CloneRequestExecutor()
+
+	req, err := rq.WithAccept("application/json").WithContentType("application/json").NewRequest("GET", url, nil)
 	if err != nil {
 		return nil, nil, err
 	}
 
 	var socialAuthToken []*SocialAuthToken
 
-	resp, err := m.client.requestExecutor.Do(ctx, req, &socialAuthToken)
+	resp, err := rq.Do(ctx, req, &socialAuthToken)
 	if err != nil {
 		return nil, resp, err
 	}

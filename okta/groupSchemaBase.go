@@ -18,9 +18,9 @@
 
 package okta
 
-type ApplicationVisibility struct {
-	AppLinks          map[string]bool            `json:"appLinks,omitempty"`
-	AutoLaunch        *bool                      `json:"autoLaunch,omitempty"`
-	AutoSubmitToolbar *bool                      `json:"autoSubmitToolbar,omitempty"`
-	Hide              *ApplicationVisibilityHide `json:"hide,omitempty"`
+type GroupSchemaBase struct {
+	Id         string                           `json:"id,omitempty"`
+	Properties map[string]*GroupSchemaAttribute `json:"properties,omitempty"`
+	Required   []string                         `json:"required,omitempty"`
+	Type       string                           `json:"type,omitempty"`
 }

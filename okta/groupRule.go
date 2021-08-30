@@ -43,14 +43,16 @@ type GroupRule struct {
 func (m *GroupRuleResource) UpdateGroupRule(ctx context.Context, ruleId string, body GroupRule) (*GroupRule, *Response, error) {
 	url := fmt.Sprintf("/api/v1/groups/rules/%v", ruleId)
 
-	req, err := m.client.requestExecutor.WithAccept("application/json").WithContentType("application/json").NewRequest("PUT", url, body)
+	rq := m.client.CloneRequestExecutor()
+
+	req, err := rq.WithAccept("application/json").WithContentType("application/json").NewRequest("PUT", url, body)
 	if err != nil {
 		return nil, nil, err
 	}
 
 	var groupRule *GroupRule
 
-	resp, err := m.client.requestExecutor.Do(ctx, req, &groupRule)
+	resp, err := rq.Do(ctx, req, &groupRule)
 	if err != nil {
 		return nil, resp, err
 	}
@@ -65,7 +67,9 @@ func (m *GroupRuleResource) DeleteGroupRule(ctx context.Context, ruleId string, 
 		url = url + qp.String()
 	}
 
-	req, err := m.client.requestExecutor.WithAccept("application/json").WithContentType("application/json").NewRequest("DELETE", url, nil)
+	rq := m.client.CloneRequestExecutor()
+
+	req, err := rq.WithAccept("application/json").WithContentType("application/json").NewRequest("DELETE", url, nil)
 	if err != nil {
 		return nil, err
 	}

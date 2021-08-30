@@ -40,14 +40,16 @@ type Feature struct {
 func (m *FeatureResource) GetFeature(ctx context.Context, featureId string) (*Feature, *Response, error) {
 	url := fmt.Sprintf("/api/v1/features/%v", featureId)
 
-	req, err := m.client.requestExecutor.WithAccept("application/json").WithContentType("application/json").NewRequest("GET", url, nil)
+	rq := m.client.CloneRequestExecutor()
+
+	req, err := rq.WithAccept("application/json").WithContentType("application/json").NewRequest("GET", url, nil)
 	if err != nil {
 		return nil, nil, err
 	}
 
 	var feature *Feature
 
-	resp, err := m.client.requestExecutor.Do(ctx, req, &feature)
+	resp, err := rq.Do(ctx, req, &feature)
 	if err != nil {
 		return nil, resp, err
 	}
@@ -58,14 +60,16 @@ func (m *FeatureResource) GetFeature(ctx context.Context, featureId string) (*Fe
 func (m *FeatureResource) ListFeatures(ctx context.Context) ([]*Feature, *Response, error) {
 	url := fmt.Sprintf("/api/v1/features")
 
-	req, err := m.client.requestExecutor.WithAccept("application/json").WithContentType("application/json").NewRequest("GET", url, nil)
+	rq := m.client.CloneRequestExecutor()
+
+	req, err := rq.WithAccept("application/json").WithContentType("application/json").NewRequest("GET", url, nil)
 	if err != nil {
 		return nil, nil, err
 	}
 
 	var feature []*Feature
 
-	resp, err := m.client.requestExecutor.Do(ctx, req, &feature)
+	resp, err := rq.Do(ctx, req, &feature)
 	if err != nil {
 		return nil, resp, err
 	}
@@ -76,14 +80,16 @@ func (m *FeatureResource) ListFeatures(ctx context.Context) ([]*Feature, *Respon
 func (m *FeatureResource) ListFeatureDependencies(ctx context.Context, featureId string) ([]*Feature, *Response, error) {
 	url := fmt.Sprintf("/api/v1/features/%v/dependencies", featureId)
 
-	req, err := m.client.requestExecutor.WithAccept("application/json").WithContentType("application/json").NewRequest("GET", url, nil)
+	rq := m.client.CloneRequestExecutor()
+
+	req, err := rq.WithAccept("application/json").WithContentType("application/json").NewRequest("GET", url, nil)
 	if err != nil {
 		return nil, nil, err
 	}
 
 	var feature []*Feature
 
-	resp, err := m.client.requestExecutor.Do(ctx, req, &feature)
+	resp, err := rq.Do(ctx, req, &feature)
 	if err != nil {
 		return nil, resp, err
 	}
@@ -94,14 +100,16 @@ func (m *FeatureResource) ListFeatureDependencies(ctx context.Context, featureId
 func (m *FeatureResource) ListFeatureDependents(ctx context.Context, featureId string) ([]*Feature, *Response, error) {
 	url := fmt.Sprintf("/api/v1/features/%v/dependents", featureId)
 
-	req, err := m.client.requestExecutor.WithAccept("application/json").WithContentType("application/json").NewRequest("GET", url, nil)
+	rq := m.client.CloneRequestExecutor()
+
+	req, err := rq.WithAccept("application/json").WithContentType("application/json").NewRequest("GET", url, nil)
 	if err != nil {
 		return nil, nil, err
 	}
 
 	var feature []*Feature
 
-	resp, err := m.client.requestExecutor.Do(ctx, req, &feature)
+	resp, err := rq.Do(ctx, req, &feature)
 	if err != nil {
 		return nil, resp, err
 	}
@@ -115,14 +123,16 @@ func (m *FeatureResource) UpdateFeatureLifecycle(ctx context.Context, featureId 
 		url = url + qp.String()
 	}
 
-	req, err := m.client.requestExecutor.WithAccept("application/json").WithContentType("application/json").NewRequest("POST", url, nil)
+	rq := m.client.CloneRequestExecutor()
+
+	req, err := rq.WithAccept("application/json").WithContentType("application/json").NewRequest("POST", url, nil)
 	if err != nil {
 		return nil, nil, err
 	}
 
 	var feature *Feature
 
-	resp, err := m.client.requestExecutor.Do(ctx, req, &feature)
+	resp, err := rq.Do(ctx, req, &feature)
 	if err != nil {
 		return nil, resp, err
 	}

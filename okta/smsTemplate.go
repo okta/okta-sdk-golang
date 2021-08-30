@@ -42,14 +42,16 @@ type SmsTemplate struct {
 func (m *SmsTemplateResource) CreateSmsTemplate(ctx context.Context, body SmsTemplate) (*SmsTemplate, *Response, error) {
 	url := fmt.Sprintf("/api/v1/templates/sms")
 
-	req, err := m.client.requestExecutor.WithAccept("application/json").WithContentType("application/json").NewRequest("POST", url, body)
+	rq := m.client.CloneRequestExecutor()
+
+	req, err := rq.WithAccept("application/json").WithContentType("application/json").NewRequest("POST", url, body)
 	if err != nil {
 		return nil, nil, err
 	}
 
 	var smsTemplate *SmsTemplate
 
-	resp, err := m.client.requestExecutor.Do(ctx, req, &smsTemplate)
+	resp, err := rq.Do(ctx, req, &smsTemplate)
 	if err != nil {
 		return nil, resp, err
 	}
@@ -61,14 +63,16 @@ func (m *SmsTemplateResource) CreateSmsTemplate(ctx context.Context, body SmsTem
 func (m *SmsTemplateResource) GetSmsTemplate(ctx context.Context, templateId string) (*SmsTemplate, *Response, error) {
 	url := fmt.Sprintf("/api/v1/templates/sms/%v", templateId)
 
-	req, err := m.client.requestExecutor.WithAccept("application/json").WithContentType("application/json").NewRequest("GET", url, nil)
+	rq := m.client.CloneRequestExecutor()
+
+	req, err := rq.WithAccept("application/json").WithContentType("application/json").NewRequest("GET", url, nil)
 	if err != nil {
 		return nil, nil, err
 	}
 
 	var smsTemplate *SmsTemplate
 
-	resp, err := m.client.requestExecutor.Do(ctx, req, &smsTemplate)
+	resp, err := rq.Do(ctx, req, &smsTemplate)
 	if err != nil {
 		return nil, resp, err
 	}
@@ -80,14 +84,16 @@ func (m *SmsTemplateResource) GetSmsTemplate(ctx context.Context, templateId str
 func (m *SmsTemplateResource) UpdateSmsTemplate(ctx context.Context, templateId string, body SmsTemplate) (*SmsTemplate, *Response, error) {
 	url := fmt.Sprintf("/api/v1/templates/sms/%v", templateId)
 
-	req, err := m.client.requestExecutor.WithAccept("application/json").WithContentType("application/json").NewRequest("PUT", url, body)
+	rq := m.client.CloneRequestExecutor()
+
+	req, err := rq.WithAccept("application/json").WithContentType("application/json").NewRequest("PUT", url, body)
 	if err != nil {
 		return nil, nil, err
 	}
 
 	var smsTemplate *SmsTemplate
 
-	resp, err := m.client.requestExecutor.Do(ctx, req, &smsTemplate)
+	resp, err := rq.Do(ctx, req, &smsTemplate)
 	if err != nil {
 		return nil, resp, err
 	}
@@ -99,7 +105,9 @@ func (m *SmsTemplateResource) UpdateSmsTemplate(ctx context.Context, templateId 
 func (m *SmsTemplateResource) DeleteSmsTemplate(ctx context.Context, templateId string) (*Response, error) {
 	url := fmt.Sprintf("/api/v1/templates/sms/%v", templateId)
 
-	req, err := m.client.requestExecutor.WithAccept("application/json").WithContentType("application/json").NewRequest("DELETE", url, nil)
+	rq := m.client.CloneRequestExecutor()
+
+	req, err := rq.WithAccept("application/json").WithContentType("application/json").NewRequest("DELETE", url, nil)
 	if err != nil {
 		return nil, err
 	}
@@ -119,14 +127,16 @@ func (m *SmsTemplateResource) ListSmsTemplates(ctx context.Context, qp *query.Pa
 		url = url + qp.String()
 	}
 
-	req, err := m.client.requestExecutor.WithAccept("application/json").WithContentType("application/json").NewRequest("GET", url, nil)
+	rq := m.client.CloneRequestExecutor()
+
+	req, err := rq.WithAccept("application/json").WithContentType("application/json").NewRequest("GET", url, nil)
 	if err != nil {
 		return nil, nil, err
 	}
 
 	var smsTemplate []*SmsTemplate
 
-	resp, err := m.client.requestExecutor.Do(ctx, req, &smsTemplate)
+	resp, err := rq.Do(ctx, req, &smsTemplate)
 	if err != nil {
 		return nil, resp, err
 	}
@@ -138,14 +148,16 @@ func (m *SmsTemplateResource) ListSmsTemplates(ctx context.Context, qp *query.Pa
 func (m *SmsTemplateResource) PartialUpdateSmsTemplate(ctx context.Context, templateId string, body SmsTemplate) (*SmsTemplate, *Response, error) {
 	url := fmt.Sprintf("/api/v1/templates/sms/%v", templateId)
 
-	req, err := m.client.requestExecutor.WithAccept("application/json").WithContentType("application/json").NewRequest("POST", url, body)
+	rq := m.client.CloneRequestExecutor()
+
+	req, err := rq.WithAccept("application/json").WithContentType("application/json").NewRequest("POST", url, body)
 	if err != nil {
 		return nil, nil, err
 	}
 
 	var smsTemplate *SmsTemplate
 
-	resp, err := m.client.requestExecutor.Do(ctx, req, &smsTemplate)
+	resp, err := rq.Do(ctx, req, &smsTemplate)
 	if err != nil {
 		return nil, resp, err
 	}

@@ -56,7 +56,9 @@ func (a *UserFactor) IsUserFactorInstance() bool {
 func (m *UserFactorResource) DeleteFactor(ctx context.Context, userId string, factorId string) (*Response, error) {
 	url := fmt.Sprintf("/api/v1/users/%v/factors/%v", userId, factorId)
 
-	req, err := m.client.requestExecutor.WithAccept("application/json").WithContentType("application/json").NewRequest("DELETE", url, nil)
+	rq := m.client.CloneRequestExecutor()
+
+	req, err := rq.WithAccept("application/json").WithContentType("application/json").NewRequest("DELETE", url, nil)
 	if err != nil {
 		return nil, err
 	}
@@ -73,14 +75,16 @@ func (m *UserFactorResource) DeleteFactor(ctx context.Context, userId string, fa
 func (m *UserFactorResource) ListFactors(ctx context.Context, userId string) ([]Factor, *Response, error) {
 	url := fmt.Sprintf("/api/v1/users/%v/factors", userId)
 
-	req, err := m.client.requestExecutor.WithAccept("application/json").WithContentType("application/json").NewRequest("GET", url, nil)
+	rq := m.client.CloneRequestExecutor()
+
+	req, err := rq.WithAccept("application/json").WithContentType("application/json").NewRequest("GET", url, nil)
 	if err != nil {
 		return nil, nil, err
 	}
 
 	var userFactor []UserFactor
 
-	resp, err := m.client.requestExecutor.Do(ctx, req, &userFactor)
+	resp, err := rq.Do(ctx, req, &userFactor)
 	if err != nil {
 		return nil, resp, err
 	}
@@ -99,14 +103,16 @@ func (m *UserFactorResource) EnrollFactor(ctx context.Context, userId string, bo
 		url = url + qp.String()
 	}
 
-	req, err := m.client.requestExecutor.WithAccept("application/json").WithContentType("application/json").NewRequest("POST", url, body)
+	rq := m.client.CloneRequestExecutor()
+
+	req, err := rq.WithAccept("application/json").WithContentType("application/json").NewRequest("POST", url, body)
 	if err != nil {
 		return nil, nil, err
 	}
 
 	var userFactor *UserFactor
 
-	resp, err := m.client.requestExecutor.Do(ctx, req, &userFactor)
+	resp, err := rq.Do(ctx, req, &userFactor)
 	if err != nil {
 		return nil, resp, err
 	}
@@ -118,14 +124,16 @@ func (m *UserFactorResource) EnrollFactor(ctx context.Context, userId string, bo
 func (m *UserFactorResource) ListSupportedFactors(ctx context.Context, userId string) ([]Factor, *Response, error) {
 	url := fmt.Sprintf("/api/v1/users/%v/factors/catalog", userId)
 
-	req, err := m.client.requestExecutor.WithAccept("application/json").WithContentType("application/json").NewRequest("GET", url, nil)
+	rq := m.client.CloneRequestExecutor()
+
+	req, err := rq.WithAccept("application/json").WithContentType("application/json").NewRequest("GET", url, nil)
 	if err != nil {
 		return nil, nil, err
 	}
 
 	var userFactor []UserFactor
 
-	resp, err := m.client.requestExecutor.Do(ctx, req, &userFactor)
+	resp, err := rq.Do(ctx, req, &userFactor)
 	if err != nil {
 		return nil, resp, err
 	}
@@ -141,14 +149,16 @@ func (m *UserFactorResource) ListSupportedFactors(ctx context.Context, userId st
 func (m *UserFactorResource) ListSupportedSecurityQuestions(ctx context.Context, userId string) ([]*SecurityQuestion, *Response, error) {
 	url := fmt.Sprintf("/api/v1/users/%v/factors/questions", userId)
 
-	req, err := m.client.requestExecutor.WithAccept("application/json").WithContentType("application/json").NewRequest("GET", url, nil)
+	rq := m.client.CloneRequestExecutor()
+
+	req, err := rq.WithAccept("application/json").WithContentType("application/json").NewRequest("GET", url, nil)
 	if err != nil {
 		return nil, nil, err
 	}
 
 	var securityQuestion []*SecurityQuestion
 
-	resp, err := m.client.requestExecutor.Do(ctx, req, &securityQuestion)
+	resp, err := rq.Do(ctx, req, &securityQuestion)
 	if err != nil {
 		return nil, resp, err
 	}
@@ -160,14 +170,16 @@ func (m *UserFactorResource) ListSupportedSecurityQuestions(ctx context.Context,
 func (m *UserFactorResource) GetFactor(ctx context.Context, userId string, factorId string, factorInstance Factor) (Factor, *Response, error) {
 	url := fmt.Sprintf("/api/v1/users/%v/factors/%v", userId, factorId)
 
-	req, err := m.client.requestExecutor.WithAccept("application/json").WithContentType("application/json").NewRequest("GET", url, nil)
+	rq := m.client.CloneRequestExecutor()
+
+	req, err := rq.WithAccept("application/json").WithContentType("application/json").NewRequest("GET", url, nil)
 	if err != nil {
 		return nil, nil, err
 	}
 
 	var userFactor *UserFactor
 
-	resp, err := m.client.requestExecutor.Do(ctx, req, &userFactor)
+	resp, err := rq.Do(ctx, req, &userFactor)
 	if err != nil {
 		return nil, resp, err
 	}
@@ -179,14 +191,16 @@ func (m *UserFactorResource) GetFactor(ctx context.Context, userId string, facto
 func (m *UserFactorResource) ActivateFactor(ctx context.Context, userId string, factorId string, body ActivateFactorRequest, factorInstance Factor) (Factor, *Response, error) {
 	url := fmt.Sprintf("/api/v1/users/%v/factors/%v/lifecycle/activate", userId, factorId)
 
-	req, err := m.client.requestExecutor.WithAccept("application/json").WithContentType("application/json").NewRequest("POST", url, body)
+	rq := m.client.CloneRequestExecutor()
+
+	req, err := rq.WithAccept("application/json").WithContentType("application/json").NewRequest("POST", url, body)
 	if err != nil {
 		return nil, nil, err
 	}
 
 	var userFactor *UserFactor
 
-	resp, err := m.client.requestExecutor.Do(ctx, req, &userFactor)
+	resp, err := rq.Do(ctx, req, &userFactor)
 	if err != nil {
 		return nil, resp, err
 	}
@@ -198,14 +212,16 @@ func (m *UserFactorResource) ActivateFactor(ctx context.Context, userId string, 
 func (m *UserFactorResource) GetFactorTransactionStatus(ctx context.Context, userId string, factorId string, transactionId string) (*VerifyUserFactorResponse, *Response, error) {
 	url := fmt.Sprintf("/api/v1/users/%v/factors/%v/transactions/%v", userId, factorId, transactionId)
 
-	req, err := m.client.requestExecutor.WithAccept("application/json").WithContentType("application/json").NewRequest("GET", url, nil)
+	rq := m.client.CloneRequestExecutor()
+
+	req, err := rq.WithAccept("application/json").WithContentType("application/json").NewRequest("GET", url, nil)
 	if err != nil {
 		return nil, nil, err
 	}
 
 	var verifyUserFactorResponse *VerifyUserFactorResponse
 
-	resp, err := m.client.requestExecutor.Do(ctx, req, &verifyUserFactorResponse)
+	resp, err := rq.Do(ctx, req, &verifyUserFactorResponse)
 	if err != nil {
 		return nil, resp, err
 	}
@@ -220,14 +236,16 @@ func (m *UserFactorResource) VerifyFactor(ctx context.Context, userId string, fa
 		url = url + qp.String()
 	}
 
-	req, err := m.client.requestExecutor.WithAccept("application/json").WithContentType("application/json").NewRequest("POST", url, body)
+	rq := m.client.CloneRequestExecutor()
+
+	req, err := rq.WithAccept("application/json").WithContentType("application/json").NewRequest("POST", url, body)
 	if err != nil {
 		return nil, nil, err
 	}
 
 	var verifyUserFactorResponse *VerifyUserFactorResponse
 
-	resp, err := m.client.requestExecutor.Do(ctx, req, &verifyUserFactorResponse)
+	resp, err := rq.Do(ctx, req, &verifyUserFactorResponse)
 	if err != nil {
 		return nil, resp, err
 	}

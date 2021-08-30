@@ -103,7 +103,7 @@ func MockValidResponse() *http.Response {
 	header := http.Header{}
 	header.Add("X-Okta-Request-id", "another-request-id")
 	header.Add("Content-Type", "application/json")
-	header.Add("Date", time.Now().Add(time.Duration(time.Second*10)).Format(time.RFC3339))
+	header.Add("Date", time.Now().Add(time.Second*10).Format(time.RFC3339))
 
 	return &http.Response{
 		Status:        strconv.Itoa(200),
@@ -119,7 +119,7 @@ func MockSessionCreateResponse() *http.Response {
 	header.Add("X-Okta-Request-id", "another-request-id")
 	header.Add("Content-Type", "application/json")
 	header.Add("Accept", "application/json")
-	header.Add("Date", time.Now().Add(time.Duration(time.Second*10)).Format(time.RFC3339))
+	header.Add("Date", time.Now().Add(time.Second*10).Format(time.RFC3339))
 
 	return &http.Response{
 		Status:     strconv.Itoa(200),
