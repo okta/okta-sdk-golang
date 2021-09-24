@@ -32,13 +32,14 @@ import (
 	"gopkg.in/yaml.v3"
 )
 
-const Version = "2.6.2"
+const Version = "2.7.1"
 
 type Client struct {
 	config                     *config
 	requestExecutor            *RequestExecutor
 	resource                   resource
 	Application                *ApplicationResource
+	Authenticator              *AuthenticatorResource
 	AuthorizationServer        *AuthorizationServerResource
 	Domain                     *DomainResource
 	EventHook                  *EventHookResource
@@ -52,6 +53,7 @@ type Client struct {
 	GroupSchema                *GroupSchemaResource
 	LinkedObject               *LinkedObjectResource
 	UserType                   *UserTypeResource
+	OrgSetting                 *OrgSettingResource
 	Policy                     *PolicyResource
 	Session                    *SessionResource
 	SmsTemplate                *SmsTemplateResource
@@ -106,6 +108,7 @@ func NewClient(ctx context.Context, conf ...ConfigSetter) (context.Context, *Cli
 	c.resource.client = c
 
 	c.Application = (*ApplicationResource)(&c.resource)
+	c.Authenticator = (*AuthenticatorResource)(&c.resource)
 	c.AuthorizationServer = (*AuthorizationServerResource)(&c.resource)
 	c.Domain = (*DomainResource)(&c.resource)
 	c.EventHook = (*EventHookResource)(&c.resource)
@@ -119,6 +122,7 @@ func NewClient(ctx context.Context, conf ...ConfigSetter) (context.Context, *Cli
 	c.GroupSchema = (*GroupSchemaResource)(&c.resource)
 	c.LinkedObject = (*LinkedObjectResource)(&c.resource)
 	c.UserType = (*UserTypeResource)(&c.resource)
+	c.OrgSetting = (*OrgSettingResource)(&c.resource)
 	c.Policy = (*PolicyResource)(&c.resource)
 	c.Session = (*SessionResource)(&c.resource)
 	c.SmsTemplate = (*SmsTemplateResource)(&c.resource)
