@@ -647,7 +647,6 @@ golang.process = ({spec, operations, models, handlebars}) => {
   handlebars.registerPartial('struct.withProp', fs.readFileSync('generator/templates/struct/withProp.go.hbs', 'utf8'));
   handlebars.registerPartial('model.imports', fs.readFileSync('generator/templates/model/imports.go.hbs', 'utf8'));
   handlebars.registerPartial('model.defaultMethod', fs.readFileSync('generator/templates/model/defaultMethod.go.hbs', 'utf8'));
-  handlebars.registerPartial('model.defaultOperation', fs.readFileSync('generator/templates/model/defaultOperation.go.hbs', 'utf8'));
 
   fs.writeFile("generator/createdFiles.json", JSON.stringify(templates), function (error) {
     console.log(error);
