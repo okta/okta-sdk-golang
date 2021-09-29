@@ -47,6 +47,27 @@ type OrgSetting struct {
 	Website               string      `json:"website,omitempty"`
 }
 
+// Get settings of your organization.
+func (m *OrgSettingResource) GetOrgSettings(ctx context.Context) (*OrgSetting, *Response, error) {
+	url := fmt.Sprintf("/api/v1/org")
+
+	rq := m.client.CloneRequestExecutor()
+
+	req, err := rq.WithAccept("application/json").WithContentType("application/json").NewRequest("GET", url, nil)
+	if err != nil {
+		return nil, nil, err
+	}
+
+	var orgSetting *OrgSetting
+
+	resp, err := rq.Do(ctx, req, &orgSetting)
+	if err != nil {
+		return nil, resp, err
+	}
+
+	return orgSetting, resp, nil
+}
+
 // Update settings of your organization.
 func (m *OrgSettingResource) UpdateOrgSetting(ctx context.Context, body OrgSetting) (*OrgSetting, *Response, error) {
 	url := fmt.Sprintf("/api/v1/org")
