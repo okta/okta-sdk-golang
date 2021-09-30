@@ -19,6 +19,8 @@
 package okta
 
 import (
+	"context"
+	"fmt"
 	"time"
 )
 
@@ -28,4 +30,88 @@ type OrgOktaSupportSettingsObj struct {
 	Links      interface{} `json:"_links,omitempty"`
 	Expiration *time.Time  `json:"expiration,omitempty"`
 	Support    string      `json:"support,omitempty"`
+}
+
+// Gets Okta Support Settings of your organization.
+func (m *OrgOktaSupportSettingsObjResource) GetOrgOktaSupportSettings(ctx context.Context) (*OrgOktaSupportSettingsObj, *Response, error) {
+	url := fmt.Sprintf("/api/v1/org/privacy/oktaSupport")
+
+	rq := m.client.CloneRequestExecutor()
+
+	req, err := rq.WithAccept("application/json").WithContentType("application/json").NewRequest("GET", url, nil)
+	if err != nil {
+		return nil, nil, err
+	}
+
+	var orgOktaSupportSettingsObj *OrgOktaSupportSettingsObj
+
+	resp, err := rq.Do(ctx, req, &orgOktaSupportSettingsObj)
+	if err != nil {
+		return nil, resp, err
+	}
+
+	return orgOktaSupportSettingsObj, resp, nil
+}
+
+// Enables you to temporarily allow Okta Support to access your org as an administrator for eight hours.
+func (m *OrgOktaSupportSettingsObjResource) GrantOktaSupport(ctx context.Context) (*OrgOktaSupportSettingsObj, *Response, error) {
+	url := fmt.Sprintf("/api/v1/org/privacy/oktaSupport/grant")
+
+	rq := m.client.CloneRequestExecutor()
+
+	req, err := rq.WithAccept("application/json").WithContentType("application/json").NewRequest("POST", url, nil)
+	if err != nil {
+		return nil, nil, err
+	}
+
+	var orgOktaSupportSettingsObj *OrgOktaSupportSettingsObj
+
+	resp, err := rq.Do(ctx, req, &orgOktaSupportSettingsObj)
+	if err != nil {
+		return nil, resp, err
+	}
+
+	return orgOktaSupportSettingsObj, resp, nil
+}
+
+// Extends the length of time that Okta Support can access your org by 24 hours. This means that 24 hours are added to the remaining access time.
+func (m *OrgOktaSupportSettingsObjResource) ExtendOktaSupport(ctx context.Context) (*OrgOktaSupportSettingsObj, *Response, error) {
+	url := fmt.Sprintf("/api/v1/org/privacy/oktaSupport/extend")
+
+	rq := m.client.CloneRequestExecutor()
+
+	req, err := rq.WithAccept("application/json").WithContentType("application/json").NewRequest("POST", url, nil)
+	if err != nil {
+		return nil, nil, err
+	}
+
+	var orgOktaSupportSettingsObj *OrgOktaSupportSettingsObj
+
+	resp, err := rq.Do(ctx, req, &orgOktaSupportSettingsObj)
+	if err != nil {
+		return nil, resp, err
+	}
+
+	return orgOktaSupportSettingsObj, resp, nil
+}
+
+// Revokes Okta Support access to your organization.
+func (m *OrgOktaSupportSettingsObjResource) RevokeOktaSupport(ctx context.Context) (*OrgOktaSupportSettingsObj, *Response, error) {
+	url := fmt.Sprintf("/api/v1/org/privacy/oktaSupport/revoke")
+
+	rq := m.client.CloneRequestExecutor()
+
+	req, err := rq.WithAccept("application/json").WithContentType("application/json").NewRequest("POST", url, nil)
+	if err != nil {
+		return nil, nil, err
+	}
+
+	var orgOktaSupportSettingsObj *OrgOktaSupportSettingsObj
+
+	resp, err := rq.Do(ctx, req, &orgOktaSupportSettingsObj)
+	if err != nil {
+		return nil, resp, err
+	}
+
+	return orgOktaSupportSettingsObj, resp, nil
 }

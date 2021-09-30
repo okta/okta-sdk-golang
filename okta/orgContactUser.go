@@ -18,9 +18,56 @@
 
 package okta
 
+import (
+	"context"
+	"fmt"
+)
+
 type OrgContactUserResource resource
 
 type OrgContactUser struct {
 	Links  interface{} `json:"_links,omitempty"`
 	UserId string      `json:"userId,omitempty"`
+}
+
+// Retrieves the URL of the User associated with the specified Contact Type.
+func (m *OrgContactUserResource) GetOrgContactUser(ctx context.Context, contactType string) (*OrgContactUser, *Response, error) {
+	url := fmt.Sprintf("/api/v1/org/contacts/%v", contactType)
+
+	rq := m.client.CloneRequestExecutor()
+
+	req, err := rq.WithAccept("application/json").WithContentType("application/json").NewRequest("GET", url, nil)
+	if err != nil {
+		return nil, nil, err
+	}
+
+	var orgContactUser *OrgContactUser
+
+	resp, err := rq.Do(ctx, req, &orgContactUser)
+	if err != nil {
+		return nil, resp, err
+	}
+
+	return orgContactUser, resp, nil
+}
+
+// Updates the User associated with the specified Contact Type.
+func (m *OrgContactUserResource) UpdateOrgContactUser(ctx context.Context, contactType string, body UserIdString) (*OrgContactUser, *Response, error) {
+	url := fmt.Sprintf("/api/v1/org/contacts/%v", contactType)
+
+	rq := m.client.CloneRequestExecutor()
+
+	req, err := rq.WithAccept("application/json").WithContentType("application/json").NewRequest("PUT", url, body)
+	if err != nil {
+		return nil, nil, err
+	}
+
+	var orgContactUser *OrgContactUser
+
+	resp, err := rq.Do(ctx, req, &orgContactUser)
+	if err != nil {
+		return nil, resp, err
+	}
+
+	return orgContactUser, resp, nil
 }
