@@ -18,9 +18,77 @@
 
 package okta
 
+import (
+	"context"
+	"fmt"
+)
+
 type OrgOktaCommunicationSettingResource resource
 
 type OrgOktaCommunicationSetting struct {
 	Links            interface{} `json:"_links,omitempty"`
 	OptOutEmailUsers *bool       `json:"optOutEmailUsers,omitempty"`
+}
+
+// Gets Okta Communication Settings of your organization.
+func (m *OrgOktaCommunicationSettingResource) GetOktaCommunicationSettings(ctx context.Context) (*OrgOktaCommunicationSetting, *Response, error) {
+	url := fmt.Sprintf("/api/v1/org/privacy/oktaCommunication")
+
+	rq := m.client.CloneRequestExecutor()
+
+	req, err := rq.WithAccept("application/json").WithContentType("application/json").NewRequest("GET", url, nil)
+	if err != nil {
+		return nil, nil, err
+	}
+
+	var orgOktaCommunicationSetting *OrgOktaCommunicationSetting
+
+	resp, err := rq.Do(ctx, req, &orgOktaCommunicationSetting)
+	if err != nil {
+		return nil, resp, err
+	}
+
+	return orgOktaCommunicationSetting, resp, nil
+}
+
+// Opts in all users of this org to Okta Communication emails.
+func (m *OrgOktaCommunicationSettingResource) OptInUsersToOktaCommunicationEmails(ctx context.Context) (*OrgOktaCommunicationSetting, *Response, error) {
+	url := fmt.Sprintf("/api/v1/org/privacy/oktaCommunication/optIn")
+
+	rq := m.client.CloneRequestExecutor()
+
+	req, err := rq.WithAccept("application/json").WithContentType("application/json").NewRequest("POST", url, nil)
+	if err != nil {
+		return nil, nil, err
+	}
+
+	var orgOktaCommunicationSetting *OrgOktaCommunicationSetting
+
+	resp, err := rq.Do(ctx, req, &orgOktaCommunicationSetting)
+	if err != nil {
+		return nil, resp, err
+	}
+
+	return orgOktaCommunicationSetting, resp, nil
+}
+
+// Opts out all users of this org from Okta Communication emails.
+func (m *OrgOktaCommunicationSettingResource) OptOutUsersFromOktaCommunicationEmails(ctx context.Context) (*OrgOktaCommunicationSetting, *Response, error) {
+	url := fmt.Sprintf("/api/v1/org/privacy/oktaCommunication/optOut")
+
+	rq := m.client.CloneRequestExecutor()
+
+	req, err := rq.WithAccept("application/json").WithContentType("application/json").NewRequest("POST", url, nil)
+	if err != nil {
+		return nil, nil, err
+	}
+
+	var orgOktaCommunicationSetting *OrgOktaCommunicationSetting
+
+	resp, err := rq.Do(ctx, req, &orgOktaCommunicationSetting)
+	if err != nil {
+		return nil, resp, err
+	}
+
+	return orgOktaCommunicationSetting, resp, nil
 }
