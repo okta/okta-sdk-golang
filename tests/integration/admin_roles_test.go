@@ -18,6 +18,7 @@ package integration
 
 import (
 	"context"
+	"fmt"
 	"testing"
 
 	"github.com/okta/okta-sdk-golang/v2/okta"
@@ -76,7 +77,7 @@ func Test_can_add_an_admin_role_to_group(t *testing.T) {
 	ctx, client, err := tests.NewClient(context.TODO())
 	require.NoError(t, err)
 	gp := &okta.GroupProfile{
-		Name: "SDK_TEST Assign Admin Role To Group",
+		Name: testGroupName(),
 	}
 	g := &okta.Group{
 		Profile: gp,
@@ -151,7 +152,7 @@ func Test_can_remove_an_admin_role_to_group(t *testing.T) {
 	ctx, client, err := tests.NewClient(context.TODO())
 	require.NoError(t, err)
 	gp := &okta.GroupProfile{
-		Name: "SDK_TEST Assign Admin Role To Group",
+		Name: testGroupName(),
 	}
 	g := &okta.Group{
 		Profile: gp,
@@ -235,7 +236,7 @@ func Test_can_list_roles_assigned_to_a_group(t *testing.T) {
 	ctx, client, err := tests.NewClient(context.TODO())
 	require.NoError(t, err)
 	gp := &okta.GroupProfile{
-		Name: "SDK_TEST Assign Admin Role To Group",
+		Name: testGroupName(),
 	}
 	g := &okta.Group{
 		Profile: gp,
@@ -297,7 +298,7 @@ func Test_can_add_group_targets_for_the_group_administrator_role_given_to_a_user
 	}
 
 	gp := &okta.GroupProfile{
-		Name: "SDK_TEST Assign Admin Role To Group",
+		Name: testGroupName(),
 	}
 	g := &okta.Group{
 		Profile: gp,
@@ -333,7 +334,7 @@ func Test_can_add_group_targets_for_the_group_administrator_role_given_to_a_grou
 	}
 
 	gp := &okta.GroupProfile{
-		Name: "SDK_TEST Assign Admin Role To Group",
+		Name: testGroupName(),
 	}
 	g := &okta.Group{
 		Profile: gp,
@@ -381,7 +382,7 @@ func Test_can_list_group_targets_for_the_group_administrator_role_given_to_a_use
 	}
 
 	gp := &okta.GroupProfile{
-		Name: "SDK_TEST Assign Admin Role To Group",
+		Name: testGroupName(),
 	}
 	g := &okta.Group{
 		Profile: gp,
@@ -429,7 +430,7 @@ func Test_can_list_group_targets_for_the_group_administrator_role_given_to_a_gro
 	}
 
 	gp := &okta.GroupProfile{
-		Name: "SDK_TEST Assign Admin Role To Group",
+		Name: testGroupName(),
 	}
 	g := &okta.Group{
 		Profile: gp,
@@ -437,10 +438,10 @@ func Test_can_list_group_targets_for_the_group_administrator_role_given_to_a_gro
 	group, _, err := client.Group.CreateGroup(ctx, *g)
 	require.NoError(t, err, "Should not error when creating a group")
 
-	addedRole, response, err := client.Group.AssignRoleToGroup(ctx, group.Id, role, nil)
+	addedRole, _, err := client.Group.AssignRoleToGroup(ctx, group.Id, role, nil)
 	require.NoError(t, err, "adding role to user must not error")
 
-	response, err = client.Group.AddGroupTargetToGroupAdministratorRoleForGroup(ctx, group.Id, addedRole.Id, group.Id)
+	response, err := client.Group.AddGroupTargetToGroupAdministratorRoleForGroup(ctx, group.Id, addedRole.Id, group.Id)
 	require.NoError(t, err, "list group assignments must not error")
 	require.IsType(t, &okta.Response{}, response, "did not return `*okta.Response` type as second variable")
 	assert.Equal(t, "PUT", response.Response.Request.Method, "did not make a get request")
@@ -460,4 +461,8 @@ func Test_can_list_group_targets_for_the_group_administrator_role_given_to_a_gro
 
 	_, err = client.Group.DeleteGroup(ctx, group.Id)
 	require.NoError(t, err, "Should not error when deleting a group")
+}
+
+func testGroupName() string {
+	return fmt.Sprintf("%s Assign Admin Role To Group", randomTestString())
 }
