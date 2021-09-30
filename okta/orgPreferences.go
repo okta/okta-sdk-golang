@@ -18,9 +18,77 @@
 
 package okta
 
+import (
+	"context"
+	"fmt"
+)
+
 type OrgPreferencesResource resource
 
 type OrgPreferences struct {
 	Links             interface{} `json:"_links,omitempty"`
 	ShowEndUserFooter *bool       `json:"showEndUserFooter,omitempty"`
+}
+
+// Gets preferences of your organization.
+func (m *OrgPreferencesResource) GetOrgPreferences(ctx context.Context) (*OrgPreferences, *Response, error) {
+	url := fmt.Sprintf("/api/v1/org/preferences")
+
+	rq := m.client.CloneRequestExecutor()
+
+	req, err := rq.WithAccept("application/json").WithContentType("application/json").NewRequest("GET", url, nil)
+	if err != nil {
+		return nil, nil, err
+	}
+
+	var orgPreferences *OrgPreferences
+
+	resp, err := rq.Do(ctx, req, &orgPreferences)
+	if err != nil {
+		return nil, resp, err
+	}
+
+	return orgPreferences, resp, nil
+}
+
+// Makes the Okta UI footer visible for all end users of your organization.
+func (m *OrgPreferencesResource) ShowOktaUIFooter(ctx context.Context) (*OrgPreferences, *Response, error) {
+	url := fmt.Sprintf("/api/v1/org/preferences/showEndUserFooter")
+
+	rq := m.client.CloneRequestExecutor()
+
+	req, err := rq.WithAccept("application/json").WithContentType("application/json").NewRequest("POST", url, nil)
+	if err != nil {
+		return nil, nil, err
+	}
+
+	var orgPreferences *OrgPreferences
+
+	resp, err := rq.Do(ctx, req, &orgPreferences)
+	if err != nil {
+		return nil, resp, err
+	}
+
+	return orgPreferences, resp, nil
+}
+
+// Hide the Okta UI footer for all end users of your organization.
+func (m *OrgPreferencesResource) HideOktaUIFooter(ctx context.Context) (*OrgPreferences, *Response, error) {
+	url := fmt.Sprintf("/api/v1/org/preferences/hideEndUserFooter")
+
+	rq := m.client.CloneRequestExecutor()
+
+	req, err := rq.WithAccept("application/json").WithContentType("application/json").NewRequest("POST", url, nil)
+	if err != nil {
+		return nil, nil, err
+	}
+
+	var orgPreferences *OrgPreferences
+
+	resp, err := rq.Do(ctx, req, &orgPreferences)
+	if err != nil {
+		return nil, resp, err
+	}
+
+	return orgPreferences, resp, nil
 }
