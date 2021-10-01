@@ -35,33 +35,38 @@ import (
 const Version = "2.8.0"
 
 type Client struct {
-	config                     *config
-	requestExecutor            *RequestExecutor
-	resource                   resource
-	Application                *ApplicationResource
-	Authenticator              *AuthenticatorResource
-	AuthorizationServer        *AuthorizationServerResource
-	Domain                     *DomainResource
-	EventHook                  *EventHookResource
-	Feature                    *FeatureResource
-	Group                      *GroupResource
-	IdentityProvider           *IdentityProviderResource
-	InlineHook                 *InlineHookResource
-	LogEvent                   *LogEventResource
-	ProfileMapping             *ProfileMappingResource
-	UserSchema                 *UserSchemaResource
-	GroupSchema                *GroupSchemaResource
-	LinkedObject               *LinkedObjectResource
-	UserType                   *UserTypeResource
-	OrgSetting                 *OrgSettingResource
-	Policy                     *PolicyResource
-	Session                    *SessionResource
-	SmsTemplate                *SmsTemplateResource
-	ThreatInsightConfiguration *ThreatInsightConfigurationResource
-	TrustedOrigin              *TrustedOriginResource
-	User                       *UserResource
-	UserFactor                 *UserFactorResource
-	NetworkZone                *NetworkZoneResource
+	config                      *config
+	requestExecutor             *RequestExecutor
+	resource                    resource
+	Application                 *ApplicationResource
+	Authenticator               *AuthenticatorResource
+	AuthorizationServer         *AuthorizationServerResource
+	Domain                      *DomainResource
+	EventHook                   *EventHookResource
+	Feature                     *FeatureResource
+	Group                       *GroupResource
+	GroupSchema                 *GroupSchemaResource
+	IdentityProvider            *IdentityProviderResource
+	InlineHook                  *InlineHookResource
+	LinkedObject                *LinkedObjectResource
+	LogEvent                    *LogEventResource
+	NetworkZone                 *NetworkZoneResource
+	OrgContactTypeObj           *OrgContactTypeObjResource
+	OrgContactUser              *OrgContactUserResource
+	OrgOktaCommunicationSetting *OrgOktaCommunicationSettingResource
+	OrgOktaSupportSettingsObj   *OrgOktaSupportSettingsObjResource
+	OrgPreferences              *OrgPreferencesResource
+	OrgSetting                  *OrgSettingResource
+	Policy                      *PolicyResource
+	ProfileMapping              *ProfileMappingResource
+	Session                     *SessionResource
+	SmsTemplate                 *SmsTemplateResource
+	ThreatInsightConfiguration  *ThreatInsightConfigurationResource
+	TrustedOrigin               *TrustedOriginResource
+	User                        *UserResource
+	UserFactor                  *UserFactorResource
+	UserSchema                  *UserSchemaResource
+	UserType                    *UserTypeResource
 }
 
 type resource struct {
@@ -114,23 +119,28 @@ func NewClient(ctx context.Context, conf ...ConfigSetter) (context.Context, *Cli
 	c.EventHook = (*EventHookResource)(&c.resource)
 	c.Feature = (*FeatureResource)(&c.resource)
 	c.Group = (*GroupResource)(&c.resource)
+	c.GroupSchema = (*GroupSchemaResource)(&c.resource)
 	c.IdentityProvider = (*IdentityProviderResource)(&c.resource)
 	c.InlineHook = (*InlineHookResource)(&c.resource)
-	c.LogEvent = (*LogEventResource)(&c.resource)
-	c.ProfileMapping = (*ProfileMappingResource)(&c.resource)
-	c.UserSchema = (*UserSchemaResource)(&c.resource)
-	c.GroupSchema = (*GroupSchemaResource)(&c.resource)
 	c.LinkedObject = (*LinkedObjectResource)(&c.resource)
-	c.UserType = (*UserTypeResource)(&c.resource)
+	c.LogEvent = (*LogEventResource)(&c.resource)
+	c.NetworkZone = (*NetworkZoneResource)(&c.resource)
+	c.OrgContactTypeObj = (*OrgContactTypeObjResource)(&c.resource)
+	c.OrgContactUser = (*OrgContactUserResource)(&c.resource)
+	c.OrgOktaCommunicationSetting = (*OrgOktaCommunicationSettingResource)(&c.resource)
+	c.OrgOktaSupportSettingsObj = (*OrgOktaSupportSettingsObjResource)(&c.resource)
+	c.OrgPreferences = (*OrgPreferencesResource)(&c.resource)
 	c.OrgSetting = (*OrgSettingResource)(&c.resource)
 	c.Policy = (*PolicyResource)(&c.resource)
+	c.ProfileMapping = (*ProfileMappingResource)(&c.resource)
 	c.Session = (*SessionResource)(&c.resource)
 	c.SmsTemplate = (*SmsTemplateResource)(&c.resource)
 	c.ThreatInsightConfiguration = (*ThreatInsightConfigurationResource)(&c.resource)
 	c.TrustedOrigin = (*TrustedOriginResource)(&c.resource)
 	c.User = (*UserResource)(&c.resource)
 	c.UserFactor = (*UserFactorResource)(&c.resource)
-	c.NetworkZone = (*NetworkZoneResource)(&c.resource)
+	c.UserSchema = (*UserSchemaResource)(&c.resource)
+	c.UserType = (*UserTypeResource)(&c.resource)
 
 	contextReturn := context.WithValue(ctx, clientContextKey{}, c)
 
