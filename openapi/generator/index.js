@@ -368,6 +368,7 @@ function getClientTagResources(operations) {
     if (tag === "ThreatInsight") tag = "ThreatInsightConfiguration";
     tagResources.push(structProp(tag) + " *" + structProp(tag) + "Resource")
   }
+  tagResources.sort();
   return tagResources.join("\n\t");
 }
 
@@ -383,6 +384,7 @@ function getNewClientTagProps(operations) {
     if (tag === "ThreatInsight") tag = "ThreatInsightConfiguration";
     tagResources.push("c." + structProp(tag) + " = (*" + structProp(tag) + "Resource)(&c.resource)")
   }
+  tagResources.sort();
   return tagResources.join("\n\t");
 }
 
