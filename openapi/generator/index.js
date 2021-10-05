@@ -51,6 +51,10 @@ function getType(obj, prefix = "") {
     case 'double':
       return String.raw`float64`;
     case 'object' :
+      // edge case from org settings
+      if (obj.propertyName === "_links") {
+        return "interface{}";
+      }
       if (obj.model === "UserSchemaBaseProperties") {
         return String.raw`map[string]*UserSchemaAttribute`;
       }
@@ -365,6 +369,7 @@ function getClientTagResources(operations) {
     if (tag === "Idp") tag = "IdpTrust";
     if (tag === "UserFactor") tag = "UserFactor";
     if (tag === "Log") tag = "LogEvent";
+    if (tag === "Org") tag = "OrgSetting";
     if (tag === "ThreatInsight") tag = "ThreatInsightConfiguration";
     tagResources.push(structProp(tag) + " *" + structProp(tag) + "Resource")
   }
@@ -381,6 +386,7 @@ function getNewClientTagProps(operations) {
     if (tag === "Idp") tag = "IdpTrust";
     if (tag === "UserFactor") tag = "UserFactor";
     if (tag === "Log") tag = "LogEvent";
+    if (tag === "Org") tag = "OrgSetting";
     if (tag === "ThreatInsight") tag = "ThreatInsightConfiguration";
     tagResources.push("c." + structProp(tag) + " = (*" + structProp(tag) + "Resource)(&c.resource)")
   }
