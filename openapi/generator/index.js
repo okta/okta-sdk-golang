@@ -560,12 +560,14 @@ golang.process = ({spec, operations, models, handlebars}) => {
     }
   });
 
+  const version = process.env.OKTA_SDK_GOLANG_VERISON || spec.info.version;
   templates.push({
     src: 'templates/okta.go.hbs',
     dest: 'okta/okta.go',
     context: {
       "operations": operations,
-      "models": models
+      "models": models,
+      "version": version
     }
   });
 
