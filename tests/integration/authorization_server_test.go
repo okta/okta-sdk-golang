@@ -33,7 +33,7 @@ func Test_can_create_an_authorizaiton_server(t *testing.T) {
 	require.NoError(t, err)
 
 	as := okta.AuthorizationServer{
-		Name:        "Sample Authorizaiton Server - Golang",
+		Name:        testName("Sample Authorizaiton Server - Golang"),
 		Description: "Sample Authorizaiton Server Description for Golang",
 		Audiences:   []string{"api://default"},
 	}
@@ -45,6 +45,7 @@ func Test_can_create_an_authorizaiton_server(t *testing.T) {
 	assert_authorization_server_model(t, authorizationServer)
 
 	_, err = client.AuthorizationServer.DeleteAuthorizationServer(ctx, authorizationServer.Id)
+	require.NoError(t, err)
 }
 
 func Test_can_get_an_authorizaiton_server(t *testing.T) {
@@ -52,7 +53,7 @@ func Test_can_get_an_authorizaiton_server(t *testing.T) {
 	require.NoError(t, err)
 
 	as := okta.AuthorizationServer{
-		Name:        "Sample Authorizaiton Server - Golang",
+		Name:        testName("Sample Authorizaiton Server - Golang"),
 		Description: "Sample Authorizaiton Server Description for Golang",
 		Audiences:   []string{"api://default"},
 	}
@@ -71,6 +72,7 @@ func Test_can_get_an_authorizaiton_server(t *testing.T) {
 	assert.Equal(t, as.Description, authorizationServer.Description, "did not return the same authorization server description")
 
 	_, err = client.AuthorizationServer.DeleteAuthorizationServer(ctx, authorizationServer.Id)
+	require.NoError(t, err)
 }
 
 func Test_can_update_an_authorizaiton_server(t *testing.T) {
@@ -78,7 +80,7 @@ func Test_can_update_an_authorizaiton_server(t *testing.T) {
 	require.NoError(t, err)
 
 	as := okta.AuthorizationServer{
-		Name:        "Sample Authorizaiton Server - Golang",
+		Name:        testName("Sample Authorizaiton Server - Golang"),
 		Description: "Sample Authorizaiton Server Description for Golang",
 		Audiences:   []string{"api://default"},
 	}
@@ -111,6 +113,7 @@ func Test_can_update_an_authorizaiton_server(t *testing.T) {
 	assert.Equal(t, updatedDescription, authorizationServer.Description, "did not return the same authorization server description")
 
 	_, err = client.AuthorizationServer.DeleteAuthorizationServer(ctx, authorizationServer.Id)
+	require.NoError(t, err)
 }
 
 func Test_can_delete_an_authorizaiton_server(t *testing.T) {
@@ -118,7 +121,7 @@ func Test_can_delete_an_authorizaiton_server(t *testing.T) {
 	require.NoError(t, err)
 
 	as := okta.AuthorizationServer{
-		Name:        "Sample Authorizaiton Server - Golang",
+		Name:        testName("Sample Authorizaiton Server - Golang"),
 		Description: "Sample Authorizaiton Server Description for Golang",
 		Audiences:   []string{"api://default"},
 	}
@@ -137,9 +140,10 @@ func Test_can_delete_an_authorizaiton_server(t *testing.T) {
 	assert.Equal(t, as.Description, authorizationServer.Description, "did not return the same authorization server description")
 
 	response, err = client.AuthorizationServer.DeleteAuthorizationServer(ctx, authorizationServer.Id)
+	require.NoError(t, err)
 	assert.Equal(t, http.StatusNoContent, response.StatusCode, "did not return a 204 status code during delete")
 
-	authorizationServer, response, err = client.AuthorizationServer.GetAuthorizationServer(ctx, authorizationServer.Id)
+	_, response, err = client.AuthorizationServer.GetAuthorizationServer(ctx, authorizationServer.Id)
 	assert.Error(t, err, "Finding an authorization server by id should have reported an error")
 	assert.Equal(t, http.StatusNotFound, response.StatusCode, "Should have resulted in a 404 when finding a deleted authorization server")
 }
@@ -149,7 +153,7 @@ func Test_can_list_authorizaiton_servers(t *testing.T) {
 	require.NoError(t, err)
 
 	as := okta.AuthorizationServer{
-		Name:        "Sample Authorizaiton Server - Golang",
+		Name:        testName("Sample Authorizaiton Server - Golang"),
 		Description: "Sample Authorizaiton Server Description for Golang",
 		Audiences:   []string{"api://default"},
 	}
@@ -172,6 +176,7 @@ func Test_can_list_authorizaiton_servers(t *testing.T) {
 	assert.True(t, found, "Could not find authorization from list")
 
 	_, err = client.AuthorizationServer.DeleteAuthorizationServer(ctx, authorizationServer.Id)
+	require.NoError(t, err)
 }
 
 func Test_can_activate_an_authorizaiton_server(t *testing.T) {
@@ -179,7 +184,7 @@ func Test_can_activate_an_authorizaiton_server(t *testing.T) {
 	require.NoError(t, err)
 
 	as := okta.AuthorizationServer{
-		Name:        "Sample Authorizaiton Server - Golang",
+		Name:        testName("Sample Authorizaiton Server - Golang"),
 		Description: "Sample Authorizaiton Server Description for Golang",
 		Audiences:   []string{"api://default"},
 	}
@@ -204,6 +209,7 @@ func Test_can_activate_an_authorizaiton_server(t *testing.T) {
 	// assert.Equal(t, "ACTIVE", authorizationServer.Status, "should have active status after activating")
 
 	_, err = client.AuthorizationServer.DeleteAuthorizationServer(ctx, authorizationServer.Id)
+	require.NoError(t, err)
 }
 
 func assert_authorization_server_model(t *testing.T, authorizationServer *okta.AuthorizationServer) {

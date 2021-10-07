@@ -78,7 +78,7 @@ func Test_can_add_an_admin_role_to_group(t *testing.T) {
 	ctx, client, err := tests.NewClient(context.TODO())
 	require.NoError(t, err)
 	gp := &okta.GroupProfile{
-		Name: testGroupName(ADMIN_GROUP_NAME),
+		Name: testName(ADMIN_GROUP_NAME),
 	}
 	g := &okta.Group{
 		Profile: gp,
@@ -153,7 +153,7 @@ func Test_can_remove_an_admin_role_to_group(t *testing.T) {
 	ctx, client, err := tests.NewClient(context.TODO())
 	require.NoError(t, err)
 	gp := &okta.GroupProfile{
-		Name: testGroupName(ADMIN_GROUP_NAME),
+		Name: testName(ADMIN_GROUP_NAME),
 	}
 	g := &okta.Group{
 		Profile: gp,
@@ -237,7 +237,7 @@ func Test_can_list_roles_assigned_to_a_group(t *testing.T) {
 	ctx, client, err := tests.NewClient(context.TODO())
 	require.NoError(t, err)
 	gp := &okta.GroupProfile{
-		Name: testGroupName(ADMIN_GROUP_NAME),
+		Name: testName(ADMIN_GROUP_NAME),
 	}
 	g := &okta.Group{
 		Profile: gp,
@@ -299,7 +299,7 @@ func Test_can_add_group_targets_for_the_group_administrator_role_given_to_a_user
 	}
 
 	gp := &okta.GroupProfile{
-		Name: testGroupName(ADMIN_GROUP_NAME),
+		Name: testName(ADMIN_GROUP_NAME),
 	}
 	g := &okta.Group{
 		Profile: gp,
@@ -335,7 +335,7 @@ func Test_can_add_group_targets_for_the_group_administrator_role_given_to_a_grou
 	}
 
 	gp := &okta.GroupProfile{
-		Name: testGroupName(ADMIN_GROUP_NAME),
+		Name: testName(ADMIN_GROUP_NAME),
 	}
 	g := &okta.Group{
 		Profile: gp,
@@ -383,7 +383,7 @@ func Test_can_list_group_targets_for_the_group_administrator_role_given_to_a_use
 	}
 
 	gp := &okta.GroupProfile{
-		Name: testGroupName(ADMIN_GROUP_NAME),
+		Name: testName(ADMIN_GROUP_NAME),
 	}
 	g := &okta.Group{
 		Profile: gp,
@@ -431,7 +431,7 @@ func Test_can_list_group_targets_for_the_group_administrator_role_given_to_a_gro
 	}
 
 	gp := &okta.GroupProfile{
-		Name: testGroupName(ADMIN_GROUP_NAME),
+		Name: testName(ADMIN_GROUP_NAME),
 	}
 	g := &okta.Group{
 		Profile: gp,
