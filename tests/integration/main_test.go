@@ -142,3 +142,7 @@ func randomTestString() string {
 	}
 	return testPrefix + string(result)
 }
+
+func testGroupName(name string) string {
+	return fmt.Sprintf("%s %s", randomTestString(), name)
+}
