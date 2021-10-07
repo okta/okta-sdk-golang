@@ -144,5 +144,9 @@ func randomTestString() string {
 }
 
 func testName(name string) string {
-	return fmt.Sprintf("%s %s", randomTestString(), name)
+	s := fmt.Sprintf("%s %s", randomTestString(), name)
+	if len(s) > 50 {
+		s = s[:50]
+	}
+	return s
 }
