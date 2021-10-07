@@ -19,7 +19,6 @@ package integration
 import (
 	"context"
 	"errors"
-	"fmt"
 	"testing"
 
 	"github.com/okta/okta-sdk-golang/v2/okta"
@@ -58,23 +57,32 @@ func TestActivateDeactivateAuthenticator(t *testing.T) {
 	ctx, client, err := tests.NewClient(context.TODO())
 	require.NoError(t, err)
 
-	// Find an inactive authenticator first and activate it. Then deactivate it.
-	// For integration test purposes, randomly deactivating an authenticator can
-	// return an error if that authenticator is already used in a policy. So
-	// start with a inactive authenticator as the test subject.
+	// Find the phone authenticator. Activate it if inactive, then deactivate
+	// it. Else, deactivate it, then activate it.
 
-	authenticator, err := fetchInactiveAuthenticator(ctx, client)
+	authenticator, err := fetchPhoneAuthenticator(ctx, client)
 	require.NoError(t, err)
-	authenticatorId := authenticator.Id
-	assert.Equal(t, "INACTIVE", authenticator.Status, "Expected authenticator status to be inactive.")
 
-	authenticator, _, err = client.Authenticator.ActivateAuthenticator(ctx, authenticatorId)
-	require.NoError(t, err)
-	assert.Equal(t, "ACTIVE", authenticator.Status, "Expected authenticator status to be active.")
+	var ops []string
 
-	authenticator, _, err = client.Authenticator.DeactivateAuthenticator(ctx, authenticatorId)
-	require.NoError(t, err)
-	assert.Equal(t, "INACTIVE", authenticator.Status, "Expected authenticator status to be inactive.")
+	if authenticator.Status == "INACTIVE" {
+		ops = []string{"activate", "deactivate"}
+	} else {
+		ops = []string{"deactivate", "activate"}
+	}
+
+	for _, op := range ops {
+		switch op {
+		case "activate":
+			authenticator, _, err = client.Authenticator.ActivateAuthenticator(ctx, authenticator.Id)
+			require.NoError(t, err)
+			assert.Equal(t, "ACTIVE", authenticator.Status, "Expected authenticator status to be inactive.")
+		case "deactivate":
+			authenticator, _, err = client.Authenticator.DeactivateAuthenticator(ctx, authenticator.Id)
+			require.NoError(t, err)
+			assert.Equal(t, "INACTIVE", authenticator.Status, "Expected authenticator status to be inactive.")
+		}
+	}
 }
 
 // phoneAuthenticator helper to pick the phone authenticator from the
@@ -96,33 +104,4 @@ func fetchPhoneAuthenticator(ctx context.Context, client *okta.Client) (*okta.Au
 		return nil, err
 	}
 	return phoneAuthenticator(authenticators)
-}
-
-// fetchActiveAuthenticator helper fetches the first active authenicator it
-// finds.
-func fetchActiveAuthenticator(ctx context.Context, client *okta.Client) (*okta.Authenticator, error) {
-	return fetchAuthenticatorByStatus("ACTIVE", ctx, client)
-}
-
-// fetchInactiveAuthenticator helper fetches the first inactive authenicator it
-// finds.
-func fetchInactiveAuthenticator(ctx context.Context, client *okta.Client) (*okta.Authenticator, error) {
-	return fetchAuthenticatorByStatus("INACTIVE", ctx, client)
-}
-
-// fetchAuthenticatorByStatus helper fetches the first authenicator it finds
-// with the given status.
-func fetchAuthenticatorByStatus(status string, ctx context.Context, client *okta.Client) (*okta.Authenticator, error) {
-	authenticators, _, err := client.Authenticator.ListAuthenticators(ctx)
-	if err != nil {
-		return nil, err
-	}
-
-	for _, authenticator := range authenticators {
-		if authenticator.Status == status {
-			return authenticator, nil
-		}
-	}
-
-	return nil, fmt.Errorf("Couldn't find an authenticator with satus %q.", status)
 }
