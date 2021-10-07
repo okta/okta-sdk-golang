@@ -27,6 +27,8 @@ import (
 	"github.com/stretchr/testify/require"
 )
 
+const ADMIN_GROUP_NAME = "Assign Admin Role To Group"
+
 func Test_can_add_an_admin_role_to_user(t *testing.T) {
 	ctx, client, err := tests.NewClient(context.TODO())
 	require.NoError(t, err)
@@ -76,7 +78,7 @@ func Test_can_add_an_admin_role_to_group(t *testing.T) {
 	ctx, client, err := tests.NewClient(context.TODO())
 	require.NoError(t, err)
 	gp := &okta.GroupProfile{
-		Name: "SDK_TEST Assign Admin Role To Group",
+		Name: testName(ADMIN_GROUP_NAME),
 	}
 	g := &okta.Group{
 		Profile: gp,
@@ -151,7 +153,7 @@ func Test_can_remove_an_admin_role_to_group(t *testing.T) {
 	ctx, client, err := tests.NewClient(context.TODO())
 	require.NoError(t, err)
 	gp := &okta.GroupProfile{
-		Name: "SDK_TEST Assign Admin Role To Group",
+		Name: testName(ADMIN_GROUP_NAME),
 	}
 	g := &okta.Group{
 		Profile: gp,
@@ -235,7 +237,7 @@ func Test_can_list_roles_assigned_to_a_group(t *testing.T) {
 	ctx, client, err := tests.NewClient(context.TODO())
 	require.NoError(t, err)
 	gp := &okta.GroupProfile{
-		Name: "SDK_TEST Assign Admin Role To Group",
+		Name: testName(ADMIN_GROUP_NAME),
 	}
 	g := &okta.Group{
 		Profile: gp,
@@ -245,7 +247,7 @@ func Test_can_list_roles_assigned_to_a_group(t *testing.T) {
 	role := okta.AssignRoleRequest{
 		Type: "ORG_ADMIN",
 	}
-	_, response, err := client.Group.AssignRoleToGroup(ctx, group.Id, role, nil)
+	_, _, err = client.Group.AssignRoleToGroup(ctx, group.Id, role, nil)
 	require.NoError(t, err, "adding role to user must not error")
 
 	roles, response, err := client.Group.ListGroupAssignedRoles(ctx, group.Id, nil)
@@ -297,7 +299,7 @@ func Test_can_add_group_targets_for_the_group_administrator_role_given_to_a_user
 	}
 
 	gp := &okta.GroupProfile{
-		Name: "SDK_TEST Assign Admin Role To Group",
+		Name: testName(ADMIN_GROUP_NAME),
 	}
 	g := &okta.Group{
 		Profile: gp,
@@ -305,10 +307,10 @@ func Test_can_add_group_targets_for_the_group_administrator_role_given_to_a_user
 	group, _, err := client.Group.CreateGroup(ctx, *g)
 	require.NoError(t, err, "Should not error when creating a group")
 
-	addedRole, response, err := client.User.AssignRoleToUser(ctx, user.Id, role, nil)
+	addedRole, _, err := client.User.AssignRoleToUser(ctx, user.Id, role, nil)
 	require.NoError(t, err, "adding role to user must not error")
 
-	response, err = client.User.AddGroupTargetToRole(ctx, user.Id, addedRole.Id, group.Id)
+	response, err := client.User.AddGroupTargetToRole(ctx, user.Id, addedRole.Id, group.Id)
 	require.NoError(t, err, "list group assignments must not error")
 	require.IsType(t, &okta.Response{}, response, "did not return `*okta.Response` type as second variable")
 	assert.Equal(t, "PUT", response.Response.Request.Method, "did not make a get request")
@@ -333,7 +335,7 @@ func Test_can_add_group_targets_for_the_group_administrator_role_given_to_a_grou
 	}
 
 	gp := &okta.GroupProfile{
-		Name: "SDK_TEST Assign Admin Role To Group",
+		Name: testName(ADMIN_GROUP_NAME),
 	}
 	g := &okta.Group{
 		Profile: gp,
@@ -341,10 +343,10 @@ func Test_can_add_group_targets_for_the_group_administrator_role_given_to_a_grou
 	group, _, err := client.Group.CreateGroup(ctx, *g)
 	require.NoError(t, err, "Should not error when creating a group")
 
-	addedRole, response, err := client.Group.AssignRoleToGroup(ctx, group.Id, role, nil)
+	addedRole, _, err := client.Group.AssignRoleToGroup(ctx, group.Id, role, nil)
 	require.NoError(t, err, "adding role to user must not error")
 
-	response, err = client.Group.AddGroupTargetToGroupAdministratorRoleForGroup(ctx, group.Id, addedRole.Id, group.Id)
+	response, err := client.Group.AddGroupTargetToGroupAdministratorRoleForGroup(ctx, group.Id, addedRole.Id, group.Id)
 	require.NoError(t, err, "list group assignments must not error")
 	require.IsType(t, &okta.Response{}, response, "did not return `*okta.Response` type as second variable")
 	assert.Equal(t, "PUT", response.Response.Request.Method, "did not make a get request")
@@ -381,7 +383,7 @@ func Test_can_list_group_targets_for_the_group_administrator_role_given_to_a_use
 	}
 
 	gp := &okta.GroupProfile{
-		Name: "SDK_TEST Assign Admin Role To Group",
+		Name: testName(ADMIN_GROUP_NAME),
 	}
 	g := &okta.Group{
 		Profile: gp,
@@ -389,10 +391,10 @@ func Test_can_list_group_targets_for_the_group_administrator_role_given_to_a_use
 	group, _, err := client.Group.CreateGroup(ctx, *g)
 	require.NoError(t, err, "Should not error when creating a group")
 
-	addedRole, response, err := client.User.AssignRoleToUser(ctx, user.Id, role, nil)
+	addedRole, _, err := client.User.AssignRoleToUser(ctx, user.Id, role, nil)
 	require.NoError(t, err, "adding role to user must not error")
 
-	response, err = client.User.AddGroupTargetToRole(ctx, user.Id, addedRole.Id, group.Id)
+	response, err := client.User.AddGroupTargetToRole(ctx, user.Id, addedRole.Id, group.Id)
 	require.NoError(t, err, "list group assignments must not error")
 	require.IsType(t, &okta.Response{}, response, "did not return `*okta.Response` type as second variable")
 	assert.Equal(t, "PUT", response.Response.Request.Method, "did not make a get request")
@@ -429,7 +431,7 @@ func Test_can_list_group_targets_for_the_group_administrator_role_given_to_a_gro
 	}
 
 	gp := &okta.GroupProfile{
-		Name: "SDK_TEST Assign Admin Role To Group",
+		Name: testName(ADMIN_GROUP_NAME),
 	}
 	g := &okta.Group{
 		Profile: gp,
@@ -437,10 +439,10 @@ func Test_can_list_group_targets_for_the_group_administrator_role_given_to_a_gro
 	group, _, err := client.Group.CreateGroup(ctx, *g)
 	require.NoError(t, err, "Should not error when creating a group")
 
-	addedRole, response, err := client.Group.AssignRoleToGroup(ctx, group.Id, role, nil)
+	addedRole, _, err := client.Group.AssignRoleToGroup(ctx, group.Id, role, nil)
 	require.NoError(t, err, "adding role to user must not error")
 
-	response, err = client.Group.AddGroupTargetToGroupAdministratorRoleForGroup(ctx, group.Id, addedRole.Id, group.Id)
+	response, err := client.Group.AddGroupTargetToGroupAdministratorRoleForGroup(ctx, group.Id, addedRole.Id, group.Id)
 	require.NoError(t, err, "list group assignments must not error")
 	require.IsType(t, &okta.Response{}, response, "did not return `*okta.Response` type as second variable")
 	assert.Equal(t, "PUT", response.Response.Request.Method, "did not make a get request")

@@ -51,6 +51,10 @@ function getType(obj, prefix = "") {
     case 'double':
       return String.raw`float64`;
     case 'object' :
+      // edge case from org settings
+      if (obj.propertyName === "_links") {
+        return "interface{}";
+      }
       if (obj.model === "UserSchemaBaseProperties") {
         return String.raw`map[string]*UserSchemaAttribute`;
       }
@@ -365,9 +369,11 @@ function getClientTagResources(operations) {
     if (tag === "Idp") tag = "IdpTrust";
     if (tag === "UserFactor") tag = "UserFactor";
     if (tag === "Log") tag = "LogEvent";
+    if (tag === "Org") tag = "OrgSetting";
     if (tag === "ThreatInsight") tag = "ThreatInsightConfiguration";
     tagResources.push(structProp(tag) + " *" + structProp(tag) + "Resource")
   }
+  tagResources.sort();
   return tagResources.join("\n\t");
 }
 
@@ -380,9 +386,11 @@ function getNewClientTagProps(operations) {
     if (tag === "Idp") tag = "IdpTrust";
     if (tag === "UserFactor") tag = "UserFactor";
     if (tag === "Log") tag = "LogEvent";
+    if (tag === "Org") tag = "OrgSetting";
     if (tag === "ThreatInsight") tag = "ThreatInsightConfiguration";
     tagResources.push("c." + structProp(tag) + " = (*" + structProp(tag) + "Resource)(&c.resource)")
   }
+  tagResources.sort();
   return tagResources.join("\n\t");
 }
 
@@ -552,12 +560,14 @@ golang.process = ({spec, operations, models, handlebars}) => {
     }
   });
 
+  const version = process.env.OKTA_SDK_GOLANG_VERISON || spec.info.version;
   templates.push({
     src: 'templates/okta.go.hbs',
     dest: 'okta/okta.go',
     context: {
       "operations": operations,
-      "models": models
+      "models": models,
+      "version": version
     }
   });
 
@@ -647,7 +657,6 @@ golang.process = ({spec, operations, models, handlebars}) => {
   handlebars.registerPartial('struct.withProp', fs.readFileSync('generator/templates/struct/withProp.go.hbs', 'utf8'));
   handlebars.registerPartial('model.imports', fs.readFileSync('generator/templates/model/imports.go.hbs', 'utf8'));
   handlebars.registerPartial('model.defaultMethod', fs.readFileSync('generator/templates/model/defaultMethod.go.hbs', 'utf8'));
-  handlebars.registerPartial('model.defaultOperation', fs.readFileSync('generator/templates/model/defaultOperation.go.hbs', 'utf8'));
 
   fs.writeFile("generator/createdFiles.json", JSON.stringify(templates), function (error) {
     console.log(error);

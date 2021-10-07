@@ -6,6 +6,10 @@ COLOR_OKTA=\x1B[34;01m
 GOFMT := gofumpt
 GOIMPORTS := goimports
 
+ifndef OPENAPI_SPEC_BRANCH
+override OPENAPI_SPEC_BRANCH = master
+endif
+
 help:
 	@echo "$(COLOR_OK)Okta SDK for Golang$(COLOR_NONE)"
 	@echo ""
@@ -43,7 +47,7 @@ generate-files:
 pull-spec:
 	@echo "$(COLOR_OKTA)Pulling in latest spec...$(COLOR_NONE)"
 	rm -f openapi/spec.json
-	git clone https://github.com/okta/okta-management-openapi-spec spec-raw
+	git clone --branch $(OPENAPI_SPEC_BRANCH) https://github.com/okta/okta-management-openapi-spec spec-raw
 	cp spec-raw/dist/spec.json openapi/spec.json
 	cp spec-raw/dist/spec.json openapi/node_modules/@okta/openapi/dist/spec.json
 	rm -fr spec-raw

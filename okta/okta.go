@@ -32,34 +32,36 @@ import (
 	"gopkg.in/yaml.v3"
 )
 
-const Version = "2.6.2"
+const Version = "2.8.0"
 
 type Client struct {
 	config                     *config
 	requestExecutor            *RequestExecutor
 	resource                   resource
 	Application                *ApplicationResource
+	Authenticator              *AuthenticatorResource
 	AuthorizationServer        *AuthorizationServerResource
 	Domain                     *DomainResource
 	EventHook                  *EventHookResource
 	Feature                    *FeatureResource
 	Group                      *GroupResource
+	GroupSchema                *GroupSchemaResource
 	IdentityProvider           *IdentityProviderResource
 	InlineHook                 *InlineHookResource
-	LogEvent                   *LogEventResource
-	ProfileMapping             *ProfileMappingResource
-	UserSchema                 *UserSchemaResource
-	GroupSchema                *GroupSchemaResource
 	LinkedObject               *LinkedObjectResource
-	UserType                   *UserTypeResource
+	LogEvent                   *LogEventResource
+	NetworkZone                *NetworkZoneResource
+	OrgSetting                 *OrgSettingResource
 	Policy                     *PolicyResource
+	ProfileMapping             *ProfileMappingResource
 	Session                    *SessionResource
 	SmsTemplate                *SmsTemplateResource
 	ThreatInsightConfiguration *ThreatInsightConfigurationResource
 	TrustedOrigin              *TrustedOriginResource
 	User                       *UserResource
 	UserFactor                 *UserFactorResource
-	NetworkZone                *NetworkZoneResource
+	UserSchema                 *UserSchemaResource
+	UserType                   *UserTypeResource
 }
 
 type resource struct {
@@ -106,27 +108,29 @@ func NewClient(ctx context.Context, conf ...ConfigSetter) (context.Context, *Cli
 	c.resource.client = c
 
 	c.Application = (*ApplicationResource)(&c.resource)
+	c.Authenticator = (*AuthenticatorResource)(&c.resource)
 	c.AuthorizationServer = (*AuthorizationServerResource)(&c.resource)
 	c.Domain = (*DomainResource)(&c.resource)
 	c.EventHook = (*EventHookResource)(&c.resource)
 	c.Feature = (*FeatureResource)(&c.resource)
 	c.Group = (*GroupResource)(&c.resource)
+	c.GroupSchema = (*GroupSchemaResource)(&c.resource)
 	c.IdentityProvider = (*IdentityProviderResource)(&c.resource)
 	c.InlineHook = (*InlineHookResource)(&c.resource)
-	c.LogEvent = (*LogEventResource)(&c.resource)
-	c.ProfileMapping = (*ProfileMappingResource)(&c.resource)
-	c.UserSchema = (*UserSchemaResource)(&c.resource)
-	c.GroupSchema = (*GroupSchemaResource)(&c.resource)
 	c.LinkedObject = (*LinkedObjectResource)(&c.resource)
-	c.UserType = (*UserTypeResource)(&c.resource)
+	c.LogEvent = (*LogEventResource)(&c.resource)
+	c.NetworkZone = (*NetworkZoneResource)(&c.resource)
+	c.OrgSetting = (*OrgSettingResource)(&c.resource)
 	c.Policy = (*PolicyResource)(&c.resource)
+	c.ProfileMapping = (*ProfileMappingResource)(&c.resource)
 	c.Session = (*SessionResource)(&c.resource)
 	c.SmsTemplate = (*SmsTemplateResource)(&c.resource)
 	c.ThreatInsightConfiguration = (*ThreatInsightConfigurationResource)(&c.resource)
 	c.TrustedOrigin = (*TrustedOriginResource)(&c.resource)
 	c.User = (*UserResource)(&c.resource)
 	c.UserFactor = (*UserFactorResource)(&c.resource)
-	c.NetworkZone = (*NetworkZoneResource)(&c.resource)
+	c.UserSchema = (*UserSchemaResource)(&c.resource)
+	c.UserType = (*UserTypeResource)(&c.resource)
 
 	contextReturn := context.WithValue(ctx, clientContextKey{}, c)
 

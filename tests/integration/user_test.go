@@ -219,6 +219,7 @@ func Test_can_suspend_a_user(t *testing.T) {
 			found = true
 		}
 	}
+	assert.True(t, found, "The user was not found")
 
 	// Deactivate the user → POST /api/v1/users/{{userId}}/lifecycle/deactivate
 	_, err = client.User.DeactivateUser(ctx, user.Id, nil)
@@ -454,6 +455,7 @@ func Test_can_change_user_recovery_question(t *testing.T) {
 
 func Test_can_assign_a_user_to_a_role(t *testing.T) {
 	ctx, client, err := tests.NewClient(context.TODO(), okta.WithCache(false))
+	require.NoError(t, err)
 	// Create a user with credentials, activated by default → POST /api/v1/users?activate=true
 	p := &okta.PasswordCredential{
 		Value: "Abcd1234",
@@ -484,6 +486,7 @@ func Test_can_assign_a_user_to_a_role(t *testing.T) {
 
 	// List roles for the user and verify added role → GET /api/v1/users/{{userId}}/roles
 	roles, _, err := client.User.ListAssignedRolesForUser(ctx, user.Id, nil)
+	require.NoError(t, err)
 	found := false
 	roleId := ""
 	for _, role := range roles {
@@ -500,12 +503,11 @@ func Test_can_assign_a_user_to_a_role(t *testing.T) {
 
 	// List roles for user and verify role was removed → GET /api/v1/users/{{userId}}/roles
 	roles, _, err = client.User.ListAssignedRolesForUser(ctx, user.Id, nil)
+	require.NoError(t, err)
 	found = false
-	roleId = ""
 	for _, role := range roles {
 		if role.Type == "USER_ADMIN" {
 			found = true
-			roleId = role.Id
 		}
 	}
 	assert.False(t, found, "Could not verify USER_ADMIN was removed to the user")
@@ -566,11 +568,12 @@ func Test_user_group_target_role(t *testing.T) {
 	require.NoError(t, err, "Should not have had an error when adding role to user")
 
 	// Add Group Target to 'USER_ADMIN' role → PUT /api/v1/users/{{userId}}/roles/{{roleId}}/targets/groups/{{groupId}}
-	resp, err := client.User.AddGroupTargetToRole(ctx, user.Id, r.Id, group.Id)
+	_, err = client.User.AddGroupTargetToRole(ctx, user.Id, r.Id, group.Id)
 	require.NoError(t, err, "Should not have had an error when adding group target to role")
 
 	// List Group Targets for role → GET  /api/v1/users/{{userId}}/roles/{{roleId}}/targets/groups
 	groups, _, err := client.User.ListGroupTargetsForRole(ctx, user.Id, r.Id, nil)
+	require.NoError(t, err)
 	found := false
 	for _, tmpgroup := range groups {
 		if tmpgroup.Id == group.Id {
@@ -587,7 +590,9 @@ func Test_user_group_target_role(t *testing.T) {
 		Profile: gp,
 	}
 	newgroup, _, err := client.Group.CreateGroup(ctx, *g)
+	require.NoError(t, err)
 	_, err = client.User.AddGroupTargetToRole(ctx, user.Id, r.Id, newgroup.Id)
+	require.NoError(t, err)
 	_, err = client.User.RemoveGroupTargetFromRole(ctx, user.Id, r.Id, group.Id)
 	require.NoError(t, err, "Should not have had an error when removing group target to role")
 
@@ -600,7 +605,7 @@ func Test_user_group_target_role(t *testing.T) {
 	require.NoError(t, err, "Should not error when deleting")
 
 	// Verify that the user is deleted by calling get on user (Exception thrown with 404 error message) → GET /api/v1/users/{{userId}}
-	_, resp, err = client.User.GetUser(ctx, user.Id)
+	_, resp, err := client.User.GetUser(ctx, user.Id)
 	require.Error(t, err, "User should not exist, but does")
 	assert.Equal(t, http.StatusNotFound, resp.StatusCode, "Should not have been able to find user")
 
@@ -651,6 +656,7 @@ func Test_can_get_user_with_cache_enabled(t *testing.T) {
 
 func Test_can_paginate_across_users(t *testing.T) {
 	ctx, client, err := tests.NewClient(context.TODO(), okta.WithCache(false))
+	require.NoError(t, err)
 
 	p := &okta.PasswordCredential{
 		Value: "Abcd1234",
@@ -685,6 +691,7 @@ func Test_can_paginate_across_users(t *testing.T) {
 
 	query := query.NewQueryParams(query.WithLimit(1))
 	user1, resp, err := client.User.ListUsers(ctx, query)
+	require.NoError(t, err)
 	assert.Equal(t, 1, len(user1), "User1 did not reutrn 1 user")
 	user1Profile := *user1[0].Profile
 
@@ -692,7 +699,8 @@ func Test_can_paginate_across_users(t *testing.T) {
 	assert.True(t, hasNext, "Should return true for HasNextPage")
 
 	var user2 []*okta.User
-	resp, err = resp.Next(ctx, &user2)
+	_, err = resp.Next(ctx, &user2)
+	require.NoError(t, err)
 
 	assert.Equal(t, 1, len(user2), "User2 did not reutrn 1 user")
 	user2Profile := *user2[0].Profile

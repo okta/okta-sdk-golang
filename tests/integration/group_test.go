@@ -34,7 +34,7 @@ func Test_can_get_a_group(t *testing.T) {
 	require.NoError(t, err)
 	// Create a new group → POST /api/v1/groups
 	gp := &okta.GroupProfile{
-		Name: "SDK_TEST Get Test Group",
+		Name: testName("SDK_TEST Get Test Group"),
 	}
 	g := &okta.Group{
 		Profile: gp,
@@ -64,7 +64,7 @@ func Test_can_list_groups(t *testing.T) {
 	require.NoError(t, err)
 	// Create a new group → POST /api/v1/groups
 	gp := &okta.GroupProfile{
-		Name: "SDK_TEST List Test Group",
+		Name: testName("SDK_TEST List Test Group"),
 	}
 	g := &okta.Group{
 		Profile: gp,
@@ -93,8 +93,9 @@ func Test_can_search_for_a_group(t *testing.T) {
 	ctx, client, err := tests.NewClient(context.TODO())
 	require.NoError(t, err)
 	// Create a new group → POST /api/v1/groups
+	groupName := testName("SDK_TEST Search Test Group")
 	gp := &okta.GroupProfile{
-		Name: "SDK_TEST Search Test Group",
+		Name: groupName,
 	}
 	g := &okta.Group{
 		Profile: gp,
@@ -104,7 +105,7 @@ func Test_can_search_for_a_group(t *testing.T) {
 	assert.IsType(t, &okta.Group{}, group)
 
 	// Search the group by name with query parameter → GET /api/v1/groups?q=Search
-	groupList, _, err := client.Group.ListGroups(ctx, query.NewQueryParams(query.WithQ("SDK_TEST Search Test Group")))
+	groupList, _, err := client.Group.ListGroups(ctx, query.NewQueryParams(query.WithQ(groupName)))
 	assert.Len(t, groupList, 1, "Did not find correct amount of groups")
 	require.NoError(t, err, "Listing groups should not error")
 	found := false
@@ -124,8 +125,9 @@ func Test_can_update_a_group(t *testing.T) {
 	ctx, client, err := tests.NewClient(context.TODO())
 	require.NoError(t, err)
 	// Create a new group → POST /api/v1/groups
+	groupName := testName("SDK_TEST Update Test Group")
 	gp := &okta.GroupProfile{
-		Name: "SDK_TEST Update Test Group",
+		Name: groupName,
 	}
 	g := &okta.Group{
 		Profile: gp,
@@ -135,15 +137,16 @@ func Test_can_update_a_group(t *testing.T) {
 	assert.IsType(t, &okta.Group{}, group)
 
 	// Update the group name and description → PUT /api/v1/groups/{{groupId}}
+	newGroupName := testName("SDK_TEST Updated Name")
 	ngp := &okta.GroupProfile{
-		Name: "SDK_TEST Updated Name",
+		Name: newGroupName,
 	}
 	client.Group.UpdateGroup(ctx, group.Id, okta.Group{Profile: ngp})
 
 	// Verify that group profile is updated by calling get on the group and verifying the profile → GET /api/v1/groups/{{groupId}}
 	updatedGroup, _, err := client.Group.GetGroup(ctx, group.Id)
 	require.NoError(t, err, "Should not error when getting updated group")
-	assert.Equal(t, "SDK_TEST Updated Name", updatedGroup.Profile.Name, "The group was not updated")
+	assert.Equal(t, newGroupName, updatedGroup.Profile.Name, "The group was not updated")
 
 	// Delete the group → DELETE /api/v1/groups/{{groupId}}
 	_, err = client.Group.DeleteGroup(ctx, group.Id)
@@ -177,7 +180,7 @@ func Test_group_user_operations(t *testing.T) {
 
 	// Create a new group → POST /api/v1/groups
 	gp := &okta.GroupProfile{
-		Name: "SDK_TEST Group-Member API Test Group",
+		Name: testName("SDK_TEST Group-Member API Test Group"),
 	}
 	g := &okta.Group{
 		Profile: gp,
@@ -193,6 +196,7 @@ func Test_group_user_operations(t *testing.T) {
 
 	// Validate user present in group → GET /api/v1/groups/{{groupId}}/users
 	users, _, err := client.Group.ListGroupUsers(ctx, group.Id, nil)
+	require.NoError(t, err)
 	found := false
 	for _, tmpuser := range users {
 		if tmpuser.Id == user.Id {
@@ -241,7 +245,7 @@ func Test_group_rule_operations(t *testing.T) {
 
 	// Create a new group → POST /api/v1/groups
 	gp := &okta.GroupProfile{
-		Name: "SDK_TEST Group-Member-Rule API Test Group",
+		Name: testName("SDK_TEST Group-Member-Rule API Test Group"),
 	}
 	g := &okta.Group{
 		Profile: gp,
@@ -270,7 +274,7 @@ func Test_group_rule_operations(t *testing.T) {
 		Actions:    gra,
 		Conditions: grc,
 		Type:       "group_rule",
-		Name:       "SDK_TEST group rule",
+		Name:       testName("SDK_TEST group rule"),
 	}
 	groupRule, _, err := client.Group.CreateGroupRule(ctx, *gr)
 	require.NoError(t, err, "Should not error when creating a group Rule")
@@ -323,7 +327,7 @@ func Test_group_rule_operations(t *testing.T) {
 		Actions:    gra,
 		Conditions: grc,
 		Type:       "group_rule",
-		Name:       "SDK_TEST group rule Updated",
+		Name:       testName("SDK_TEST group rule Updated"),
 	}
 	newGroupRule, _, err := client.Group.UpdateGroupRule(ctx, groupRule.Id, *gr)
 	require.NoError(t, err, "Should not error when updating rule")
