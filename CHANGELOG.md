@@ -1,6 +1,16 @@
 # Changelog
 Running changelog of releases since `2.0.0-rc.4`
 
+## v2.8.0
+
+### Updates
+- methods on client's Authenticator resource for `/api/v1/authenticators` endpoints and their integration tests
+- methods on client's OrgSetting resource for `/api/v1/org` endpoints and their integration tests
+- edge case type fixes in golang code generator
+- `make pull-spec` pulls from https://github.com/okta/okta-management-openapi-spec master or branch set by `OPENAPI_SPEC_BRANCH` env variable
+- golang generator sets api version from spec.json or by env variable override `OKTA_SDK_GOLANG_VERISON`
+- integration test improvements
+
 ## v2.6.2
 
 ### Updates
