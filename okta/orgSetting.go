@@ -382,3 +382,22 @@ func (m *OrgSettingResource) HideOktaUIFooter(ctx context.Context) (*OrgPreferen
 
 	return orgPreferences, resp, nil
 }
+
+// Updates the logo for your organization.
+func (m *OrgSettingResource) UpdateOrgLogo(ctx context.Context) (*Response, error) {
+	url := fmt.Sprintf("/api/v1/org/logo")
+
+	rq := m.client.CloneRequestExecutor()
+
+	req, err := rq.WithAccept("application/json").WithContentType("multipart/form-data").NewRequest("POST", url, nil)
+	if err != nil {
+		return nil, err
+	}
+
+	resp, err := m.client.requestExecutor.Do(ctx, req, nil)
+	if err != nil {
+		return resp, err
+	}
+
+	return resp, nil
+}
