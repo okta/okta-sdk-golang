@@ -18,6 +18,11 @@
 
 package okta
 
+import (
+	"context"
+	"fmt"
+)
+
 type OrgContactUserResource resource
 
 type OrgContactUser struct {
