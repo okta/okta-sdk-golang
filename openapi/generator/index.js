@@ -175,13 +175,6 @@ function getImports(object) {
   if (object.model.methods !== undefined) {
     for (let method of object.model.methods) {
 
-      if (method.operation.formData.length) {
-        imports.push("os");
-        imports.push("bytes");
-        imports.push("io");
-        imports.push("mime/multipart");
-      }
-
       if (method.operation.queryParams.length) {
         imports.push("github.com/okta/okta-sdk-golang/v2/okta/query")
       }

@@ -19,12 +19,8 @@
 package okta
 
 import (
-	"bytes"
 	"context"
 	"fmt"
-	"io"
-	"mime/multipart"
-	"os"
 	"time"
 )
 
