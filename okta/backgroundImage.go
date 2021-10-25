@@ -18,16 +18,6 @@
 
 package okta
 
-import (
-	"context"
-	"fmt"
-	"time"
-)
-
-type OrgOktaSupportSettingsObjResource resource
-
-type OrgOktaSupportSettingsObj struct {
-	Links      interface{} `json:"_links,omitempty"`
-	Expiration *time.Time  `json:"expiration,omitempty"`
-	Support    string      `json:"support,omitempty"`
+type BackgroundImage struct {
+	Url string `json:"url,omitempty"`
 }

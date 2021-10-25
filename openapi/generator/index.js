@@ -162,11 +162,25 @@ function getImports(object) {
         imports.push("github.com/okta/okta-sdk-golang/v2/okta/query")
         imports.push("context");
       }
+
+        if (object.operations[operation].formData && object.operations[operation].formData.length) {
+          imports.push("os");
+          imports.push("bytes");
+          imports.push("io");
+          imports.push("mime/multipart");
+        }
     }
   }
 
   if (object.model.methods !== undefined) {
     for (let method of object.model.methods) {
+
+      if (method.operation.formData.length) {
+        imports.push("os");
+        imports.push("bytes");
+        imports.push("io");
+        imports.push("mime/multipart");
+      }
 
       if (method.operation.queryParams.length) {
         imports.push("github.com/okta/okta-sdk-golang/v2/okta/query")
@@ -180,8 +194,12 @@ function getImports(object) {
       if (method.operation.bodyModel !== undefined) {
         imports.push("fmt");
       }
+
     }
+
+
   }
+
 
   if (object.model.crud !== undefined) {
     for (let method of object.model.crud) {
@@ -197,6 +215,7 @@ function getImports(object) {
       if (method.operation.bodyModel !== undefined) {
         imports.push("fmt");
       }
+
     }
   }
 
@@ -213,6 +232,7 @@ function getImports(object) {
     imports.push("fmt");
     imports.push("context");
   }
+
 
   if (object.model.modelName === "DomainCertificate") {
     imports = [];
@@ -263,9 +283,22 @@ function operationArgumentBuilder(operation) {
     args.push(`factorInstance Factor`);
   }
 
+  if (operation.formData && operation.formData.length) {
+    for (let prop of operation.formData) {
+      console.log(prop);
+      let propType = prop.type;
+      if (propType == 'file') {
+        propType = "string"
+      }
+      args.push(prop.name + ` ` + propType)
+    }
+  }
+
   if (operation.queryParams.length) {
     args.push('qp *query.Params');
   }
+
+
 
   return args.join(', ');
 }
@@ -657,6 +690,7 @@ golang.process = ({spec, operations, models, handlebars}) => {
   handlebars.registerPartial('struct.withProp', fs.readFileSync('generator/templates/struct/withProp.go.hbs', 'utf8'));
   handlebars.registerPartial('model.imports', fs.readFileSync('generator/templates/model/imports.go.hbs', 'utf8'));
   handlebars.registerPartial('model.defaultMethod', fs.readFileSync('generator/templates/model/defaultMethod.go.hbs', 'utf8'));
+  handlebars.registerPartial('model.multipartFileMethod', fs.readFileSync('generator/templates/model/multipartFileMethod.go.hbs', 'utf8'));
 
   fs.writeFile("generator/createdFiles.json", JSON.stringify(templates), function (error) {
     console.log(error);
