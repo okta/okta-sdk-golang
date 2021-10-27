@@ -13,19 +13,31 @@ func (m *{{modelName}}Resource) {{ucFirst operation.operationId}}({{operationArg
 
 	fo, err := os.Open({{operation.formData.0.name}})
 	if err != nil {
+		{{#if (ne operation.responseModel undefined)}}
 		return nil, nil, err
+		{{else}}
+		return nil, err
+		{{/if}}
 	}
-	defer file.Close()
+	defer fo.Close()
 	body := &bytes.Buffer{}
 	writer := multipart.NewWriter(body)
-	fw, err := writer.CreateFormFile("{{operation.formData.0.name}}", fo)
+	fw, err := writer.CreateFormFile("{{operation.formData.0.name}}", {{operation.formData.0.name}})
 
 	if err != nil {
+		{{#if (ne operation.responseModel undefined)}}
+		return nil, nil, err
+		{{else}}
 		return nil, err
+		{{/if}}
 	}
-	_, err = io.Copy(fw, file)
+	_, err = io.Copy(fw, fo)
 	if err != nil {
+		{{#if (ne operation.responseModel undefined)}}
+		return nil, nil, err
+		{{else}}
 		return nil, err
+		{{/if}}
 	}
 	_ = writer.Close()
 

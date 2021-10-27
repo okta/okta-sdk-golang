@@ -18,11 +18,6 @@
 
 package okta
 
-import (
-	"context"
-	"fmt"
-)
-
 type OrgOktaCommunicationSettingResource resource
 
 type OrgOktaCommunicationSetting struct {

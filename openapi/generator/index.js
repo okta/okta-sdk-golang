@@ -221,14 +221,23 @@ function getImports(object) {
     imports.push("context");
   }
 
-  if (object.model.modelName === "Domain") {
+  if (object.model.modelName === "Domain"||
+  object.model.modelName === "GroupSchema") {
     imports.push("fmt");
     imports.push("context");
   }
 
 
-  if (object.model.modelName === "DomainCertificate") {
+  if (object.model.modelName === "DomainCertificate" ||
+  object.model.modelName === "OrgContactUser" ||
+  object.model.modelName === "OrgOktaCommunicationSetting" ||
+  object.model.modelName === "OrgOktaSupportSettingsObj" ||
+  object.model.modelName === "OrgPreferences") {
     imports = [];
+  }
+
+  if (object.model.modelName === "OrgOktaSupportSettingsObj") {
+    imports.push("time");
   }
 
   imports = [...new Set(imports)];
@@ -641,6 +650,7 @@ golang.process = ({spec, operations, models, handlebars}) => {
       if (tag === "Idp") tag = "IdpTrust";
       if (tag === "UserFactor") tag = "UserFactor";
       if (tag === "Log") tag = "LogEvent";
+      if (tag === "Org") tag = "OrgSetting";
       if (tag === model.modelName) {
         modelOperations[operation.operationId] = operation;
       }

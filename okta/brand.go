@@ -192,16 +192,16 @@ func (m *BrandResource) UploadBrandThemeBackgroundImage(ctx context.Context, bra
 	if err != nil {
 		return nil, nil, err
 	}
-	defer file.Close()
+	defer fo.Close()
 	body := &bytes.Buffer{}
 	writer := multipart.NewWriter(body)
-	fw, err := writer.CreateFormFile("file", fo)
+	fw, err := writer.CreateFormFile("file", file)
 	if err != nil {
-		return nil, err
+		return nil, nil, err
 	}
-	_, err = io.Copy(fw, file)
+	_, err = io.Copy(fw, fo)
 	if err != nil {
-		return nil, err
+		return nil, nil, err
 	}
 	_ = writer.Close()
 
@@ -249,16 +249,16 @@ func (m *BrandResource) UploadBrandThemeFavicon(ctx context.Context, brandId str
 	if err != nil {
 		return nil, nil, err
 	}
-	defer file.Close()
+	defer fo.Close()
 	body := &bytes.Buffer{}
 	writer := multipart.NewWriter(body)
-	fw, err := writer.CreateFormFile("file", fo)
+	fw, err := writer.CreateFormFile("file", file)
 	if err != nil {
-		return nil, err
+		return nil, nil, err
 	}
-	_, err = io.Copy(fw, file)
+	_, err = io.Copy(fw, fo)
 	if err != nil {
-		return nil, err
+		return nil, nil, err
 	}
 	_ = writer.Close()
 
@@ -306,16 +306,16 @@ func (m *BrandResource) UpdateBrandThemeLogo(ctx context.Context, brandId string
 	if err != nil {
 		return nil, nil, err
 	}
-	defer file.Close()
+	defer fo.Close()
 	body := &bytes.Buffer{}
 	writer := multipart.NewWriter(body)
-	fw, err := writer.CreateFormFile("file", fo)
+	fw, err := writer.CreateFormFile("file", file)
 	if err != nil {
-		return nil, err
+		return nil, nil, err
 	}
-	_, err = io.Copy(fw, file)
+	_, err = io.Copy(fw, fo)
 	if err != nil {
-		return nil, err
+		return nil, nil, err
 	}
 	_ = writer.Close()
 
