@@ -18,7 +18,6 @@
 
 package okta
 
-type UserIdString struct {
-	Links  interface{} `json:"_links,omitempty"`
-	UserId string      `json:"userId,omitempty"`
+type Compliance struct {
+	Fips string `json:"fips,omitempty"`
 }

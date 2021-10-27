@@ -18,7 +18,7 @@
 
 package okta
 
-type UserIdString struct {
-	Links  interface{} `json:"_links,omitempty"`
-	UserId string      `json:"userId,omitempty"`
+type ChannelBinding struct {
+	Required string `json:"required,omitempty"`
+	Style    string `json:"style,omitempty"`
 }

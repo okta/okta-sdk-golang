@@ -615,6 +615,7 @@ golang.process = ({spec, operations, models, handlebars}) => {
       if (tag === "Idp") tag = "IdpTrust";
       if (tag === "UserFactor") tag = "UserFactor";
       if (tag === "Log") tag = "LogEvent";
+      if (tag === "Org") tag = "OrgSetting";
       if (tag === model.modelName) {
         modelOperations[operation.operationId] = operation;
       }

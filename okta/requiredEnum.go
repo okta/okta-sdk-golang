@@ -18,7 +18,4 @@
 
 package okta
 
-type UserIdString struct {
-	Links  interface{} `json:"_links,omitempty"`
-	UserId string      `json:"userId,omitempty"`
-}
+type RequiredEnum string

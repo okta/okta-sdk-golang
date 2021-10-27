@@ -173,6 +173,132 @@ func (m *OrgSettingResource) UpdateOrgContactUser(ctx context.Context, contactTy
 	return orgContactUser, resp, nil
 }
 
+// Gets preferences of your organization.
+func (m *OrgSettingResource) GetOrgPreferences(ctx context.Context) (*OrgPreferences, *Response, error) {
+	url := fmt.Sprintf("/api/v1/org/preferences")
+
+	rq := m.client.CloneRequestExecutor()
+
+	req, err := rq.WithAccept("application/json").WithContentType("application/json").NewRequest("GET", url, nil)
+	if err != nil {
+		return nil, nil, err
+	}
+
+	var orgPreferences *OrgPreferences
+
+	resp, err := rq.Do(ctx, req, &orgPreferences)
+	if err != nil {
+		return nil, resp, err
+	}
+
+	return orgPreferences, resp, nil
+}
+
+// Hide the Okta UI footer for all end users of your organization.
+func (m *OrgSettingResource) HideOktaUIFooter(ctx context.Context) (*OrgPreferences, *Response, error) {
+	url := fmt.Sprintf("/api/v1/org/preferences/hideEndUserFooter")
+
+	rq := m.client.CloneRequestExecutor()
+
+	req, err := rq.WithAccept("application/json").WithContentType("application/json").NewRequest("POST", url, nil)
+	if err != nil {
+		return nil, nil, err
+	}
+
+	var orgPreferences *OrgPreferences
+
+	resp, err := rq.Do(ctx, req, &orgPreferences)
+	if err != nil {
+		return nil, resp, err
+	}
+
+	return orgPreferences, resp, nil
+}
+
+// Makes the Okta UI footer visible for all end users of your organization.
+func (m *OrgSettingResource) ShowOktaUIFooter(ctx context.Context) (*OrgPreferences, *Response, error) {
+	url := fmt.Sprintf("/api/v1/org/preferences/showEndUserFooter")
+
+	rq := m.client.CloneRequestExecutor()
+
+	req, err := rq.WithAccept("application/json").WithContentType("application/json").NewRequest("POST", url, nil)
+	if err != nil {
+		return nil, nil, err
+	}
+
+	var orgPreferences *OrgPreferences
+
+	resp, err := rq.Do(ctx, req, &orgPreferences)
+	if err != nil {
+		return nil, resp, err
+	}
+
+	return orgPreferences, resp, nil
+}
+
+// Gets Okta Communication Settings of your organization.
+func (m *OrgSettingResource) GetOktaCommunicationSettings(ctx context.Context) (*OrgOktaCommunicationSetting, *Response, error) {
+	url := fmt.Sprintf("/api/v1/org/privacy/oktaCommunication")
+
+	rq := m.client.CloneRequestExecutor()
+
+	req, err := rq.WithAccept("application/json").WithContentType("application/json").NewRequest("GET", url, nil)
+	if err != nil {
+		return nil, nil, err
+	}
+
+	var orgOktaCommunicationSetting *OrgOktaCommunicationSetting
+
+	resp, err := rq.Do(ctx, req, &orgOktaCommunicationSetting)
+	if err != nil {
+		return nil, resp, err
+	}
+
+	return orgOktaCommunicationSetting, resp, nil
+}
+
+// Opts in all users of this org to Okta Communication emails.
+func (m *OrgSettingResource) OptInUsersToOktaCommunicationEmails(ctx context.Context) (*OrgOktaCommunicationSetting, *Response, error) {
+	url := fmt.Sprintf("/api/v1/org/privacy/oktaCommunication/optIn")
+
+	rq := m.client.CloneRequestExecutor()
+
+	req, err := rq.WithAccept("application/json").WithContentType("application/json").NewRequest("POST", url, nil)
+	if err != nil {
+		return nil, nil, err
+	}
+
+	var orgOktaCommunicationSetting *OrgOktaCommunicationSetting
+
+	resp, err := rq.Do(ctx, req, &orgOktaCommunicationSetting)
+	if err != nil {
+		return nil, resp, err
+	}
+
+	return orgOktaCommunicationSetting, resp, nil
+}
+
+// Opts out all users of this org from Okta Communication emails.
+func (m *OrgSettingResource) OptOutUsersFromOktaCommunicationEmails(ctx context.Context) (*OrgOktaCommunicationSetting, *Response, error) {
+	url := fmt.Sprintf("/api/v1/org/privacy/oktaCommunication/optOut")
+
+	rq := m.client.CloneRequestExecutor()
+
+	req, err := rq.WithAccept("application/json").WithContentType("application/json").NewRequest("POST", url, nil)
+	if err != nil {
+		return nil, nil, err
+	}
+
+	var orgOktaCommunicationSetting *OrgOktaCommunicationSetting
+
+	resp, err := rq.Do(ctx, req, &orgOktaCommunicationSetting)
+	if err != nil {
+		return nil, resp, err
+	}
+
+	return orgOktaCommunicationSetting, resp, nil
+}
+
 // Gets Okta Support Settings of your organization.
 func (m *OrgSettingResource) GetOrgOktaSupportSettings(ctx context.Context) (*OrgOktaSupportSettingsObj, *Response, error) {
 	url := fmt.Sprintf("/api/v1/org/privacy/oktaSupport")
@@ -194,9 +320,9 @@ func (m *OrgSettingResource) GetOrgOktaSupportSettings(ctx context.Context) (*Or
 	return orgOktaSupportSettingsObj, resp, nil
 }
 
-// Enables you to temporarily allow Okta Support to access your org as an administrator for eight hours.
-func (m *OrgSettingResource) GrantOktaSupport(ctx context.Context) (*OrgOktaSupportSettingsObj, *Response, error) {
-	url := fmt.Sprintf("/api/v1/org/privacy/oktaSupport/grant")
+// Extends the length of time that Okta Support can access your org by 24 hours. This means that 24 hours are added to the remaining access time.
+func (m *OrgSettingResource) ExtendOktaSupport(ctx context.Context) (*OrgOktaSupportSettingsObj, *Response, error) {
+	url := fmt.Sprintf("/api/v1/org/privacy/oktaSupport/extend")
 
 	rq := m.client.CloneRequestExecutor()
 
@@ -215,9 +341,9 @@ func (m *OrgSettingResource) GrantOktaSupport(ctx context.Context) (*OrgOktaSupp
 	return orgOktaSupportSettingsObj, resp, nil
 }
 
-// Extends the length of time that Okta Support can access your org by 24 hours. This means that 24 hours are added to the remaining access time.
-func (m *OrgSettingResource) ExtendOktaSupport(ctx context.Context) (*OrgOktaSupportSettingsObj, *Response, error) {
-	url := fmt.Sprintf("/api/v1/org/privacy/oktaSupport/extend")
+// Enables you to temporarily allow Okta Support to access your org as an administrator for eight hours.
+func (m *OrgSettingResource) GrantOktaSupport(ctx context.Context) (*OrgOktaSupportSettingsObj, *Response, error) {
+	url := fmt.Sprintf("/api/v1/org/privacy/oktaSupport/grant")
 
 	rq := m.client.CloneRequestExecutor()
 
@@ -255,130 +381,4 @@ func (m *OrgSettingResource) RevokeOktaSupport(ctx context.Context) (*OrgOktaSup
 	}
 
 	return orgOktaSupportSettingsObj, resp, nil
-}
-
-// Gets Okta Communication Settings of your organization.
-func (m *OrgSettingResource) GetOktaCommunicationSettings(ctx context.Context) (*OrgOktaCommunicationSetting, *Response, error) {
-	url := fmt.Sprintf("/api/v1/org/privacy/oktaCommunication")
-
-	rq := m.client.CloneRequestExecutor()
-
-	req, err := rq.WithAccept("application/json").WithContentType("application/json").NewRequest("GET", url, nil)
-	if err != nil {
-		return nil, nil, err
-	}
-
-	var orgOktaCommunicationSetting *OrgOktaCommunicationSetting
-
-	resp, err := rq.Do(ctx, req, &orgOktaCommunicationSetting)
-	if err != nil {
-		return nil, resp, err
-	}
-
-	return orgOktaCommunicationSetting, resp, nil
-}
-
-// Opts out all users of this org from Okta Communication emails.
-func (m *OrgSettingResource) OptOutUsersFromOktaCommunicationEmails(ctx context.Context) (*OrgOktaCommunicationSetting, *Response, error) {
-	url := fmt.Sprintf("/api/v1/org/privacy/oktaCommunication/optOut")
-
-	rq := m.client.CloneRequestExecutor()
-
-	req, err := rq.WithAccept("application/json").WithContentType("application/json").NewRequest("POST", url, nil)
-	if err != nil {
-		return nil, nil, err
-	}
-
-	var orgOktaCommunicationSetting *OrgOktaCommunicationSetting
-
-	resp, err := rq.Do(ctx, req, &orgOktaCommunicationSetting)
-	if err != nil {
-		return nil, resp, err
-	}
-
-	return orgOktaCommunicationSetting, resp, nil
-}
-
-// Opts in all users of this org to Okta Communication emails.
-func (m *OrgSettingResource) OptInUsersToOktaCommunicationEmails(ctx context.Context) (*OrgOktaCommunicationSetting, *Response, error) {
-	url := fmt.Sprintf("/api/v1/org/privacy/oktaCommunication/optIn")
-
-	rq := m.client.CloneRequestExecutor()
-
-	req, err := rq.WithAccept("application/json").WithContentType("application/json").NewRequest("POST", url, nil)
-	if err != nil {
-		return nil, nil, err
-	}
-
-	var orgOktaCommunicationSetting *OrgOktaCommunicationSetting
-
-	resp, err := rq.Do(ctx, req, &orgOktaCommunicationSetting)
-	if err != nil {
-		return nil, resp, err
-	}
-
-	return orgOktaCommunicationSetting, resp, nil
-}
-
-// Gets preferences of your organization.
-func (m *OrgSettingResource) GetOrgPreferences(ctx context.Context) (*OrgPreferences, *Response, error) {
-	url := fmt.Sprintf("/api/v1/org/preferences")
-
-	rq := m.client.CloneRequestExecutor()
-
-	req, err := rq.WithAccept("application/json").WithContentType("application/json").NewRequest("GET", url, nil)
-	if err != nil {
-		return nil, nil, err
-	}
-
-	var orgPreferences *OrgPreferences
-
-	resp, err := rq.Do(ctx, req, &orgPreferences)
-	if err != nil {
-		return nil, resp, err
-	}
-
-	return orgPreferences, resp, nil
-}
-
-// Makes the Okta UI footer visible for all end users of your organization.
-func (m *OrgSettingResource) ShowOktaUIFooter(ctx context.Context) (*OrgPreferences, *Response, error) {
-	url := fmt.Sprintf("/api/v1/org/preferences/showEndUserFooter")
-
-	rq := m.client.CloneRequestExecutor()
-
-	req, err := rq.WithAccept("application/json").WithContentType("application/json").NewRequest("POST", url, nil)
-	if err != nil {
-		return nil, nil, err
-	}
-
-	var orgPreferences *OrgPreferences
-
-	resp, err := rq.Do(ctx, req, &orgPreferences)
-	if err != nil {
-		return nil, resp, err
-	}
-
-	return orgPreferences, resp, nil
-}
-
-// Hide the Okta UI footer for all end users of your organization.
-func (m *OrgSettingResource) HideOktaUIFooter(ctx context.Context) (*OrgPreferences, *Response, error) {
-	url := fmt.Sprintf("/api/v1/org/preferences/hideEndUserFooter")
-
-	rq := m.client.CloneRequestExecutor()
-
-	req, err := rq.WithAccept("application/json").WithContentType("application/json").NewRequest("POST", url, nil)
-	if err != nil {
-		return nil, nil, err
-	}
-
-	var orgPreferences *OrgPreferences
-
-	resp, err := rq.Do(ctx, req, &orgPreferences)
-	if err != nil {
-		return nil, resp, err
-	}
-
-	return orgPreferences, resp, nil
 }
