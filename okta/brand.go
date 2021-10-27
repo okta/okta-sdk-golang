@@ -183,7 +183,7 @@ func (m *BrandResource) DeleteBrandThemeBackgroundImage(ctx context.Context, bra
 }
 
 // Updates the background image for your Theme
-func (m *BrandResource) UploadBrandThemeBackgroundImage(ctx context.Context, brandId string, themeId string, file string) (*BackgroundImage, *Response, error) {
+func (m *BrandResource) UploadBrandThemeBackgroundImage(ctx context.Context, brandId string, themeId string, file string) (*ImageUploadResponse, *Response, error) {
 	url := fmt.Sprintf("/api/v1/brands/%v/themes/%v/background-image", brandId, themeId)
 
 	rq := m.client.CloneRequestExecutor()
@@ -210,14 +210,14 @@ func (m *BrandResource) UploadBrandThemeBackgroundImage(ctx context.Context, bra
 		return nil, nil, err
 	}
 
-	var backgroundImage *BackgroundImage
+	var imageUploadResponse *ImageUploadResponse
 
-	resp, err := rq.Do(ctx, req, &backgroundImage)
+	resp, err := rq.Do(ctx, req, &imageUploadResponse)
 	if err != nil {
 		return nil, resp, err
 	}
 
-	return backgroundImage, resp, nil
+	return imageUploadResponse, resp, nil
 }
 
 // Deletes a Theme favicon. The org then uses the Okta default favicon.
@@ -240,7 +240,7 @@ func (m *BrandResource) DeleteBrandThemeFavicon(ctx context.Context, brandId str
 }
 
 // Updates the favicon for your theme
-func (m *BrandResource) UploadBrandThemeFavicon(ctx context.Context, brandId string, themeId string, file string) (*Favicon, *Response, error) {
+func (m *BrandResource) UploadBrandThemeFavicon(ctx context.Context, brandId string, themeId string, file string) (*ImageUploadResponse, *Response, error) {
 	url := fmt.Sprintf("/api/v1/brands/%v/themes/%v/favicon", brandId, themeId)
 
 	rq := m.client.CloneRequestExecutor()
@@ -267,14 +267,14 @@ func (m *BrandResource) UploadBrandThemeFavicon(ctx context.Context, brandId str
 		return nil, nil, err
 	}
 
-	var favicon *Favicon
+	var imageUploadResponse *ImageUploadResponse
 
-	resp, err := rq.Do(ctx, req, &favicon)
+	resp, err := rq.Do(ctx, req, &imageUploadResponse)
 	if err != nil {
 		return nil, resp, err
 	}
 
-	return favicon, resp, nil
+	return imageUploadResponse, resp, nil
 }
 
 // Deletes a Theme logo. The org then uses the Okta default logo.
