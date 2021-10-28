@@ -87,6 +87,9 @@ func TestActivateDeactivateAuthenticator(t *testing.T) {
 	ctx, client, err := tests.NewClient(context.TODO())
 	require.NoError(t, err)
 
+	err = setupDisablePhoneNumberOnMFAEnrollPolicy()
+	require.NoError(t, err)
+
 	// Find the phone authenticator. Activate it if inactive, then deactivate
 	// it. Else, deactivate it, then activate it.
 	authenticator, err := fetchAuthenticator(PhoneNumberKey, ctx, client)
@@ -103,13 +106,13 @@ func TestActivateDeactivateAuthenticator(t *testing.T) {
 	for _, op := range ops {
 		switch op {
 		case "activate":
-			authenticator, _, err = client.Authenticator.ActivateAuthenticator(ctx, authenticator.Id)
-			require.NoError(t, err)
-			assert.Equal(t, "ACTIVE", authenticator.Status, "Expected authenticator status to be inactive.")
+			result, _, err := client.Authenticator.ActivateAuthenticator(ctx, authenticator.Id)
+			require.NoError(t, err, "authenticator: "+authenticator.Id)
+			assert.Equal(t, "ACTIVE", result.Status, "Expected authenticator status to be active ("+authenticator.Id+").")
 		case "deactivate":
-			authenticator, _, err = client.Authenticator.DeactivateAuthenticator(ctx, authenticator.Id)
-			require.NoError(t, err)
-			assert.Equal(t, "INACTIVE", authenticator.Status, "Expected authenticator status to be inactive.")
+			result, _, err := client.Authenticator.DeactivateAuthenticator(ctx, authenticator.Id)
+			require.NoError(t, err, "authenticator: "+authenticator.Id)
+			assert.Equal(t, "INACTIVE", result.Status, "Expected authenticator status to be inactive ("+authenticator.Id+").")
 		}
 	}
 }
@@ -133,4 +136,49 @@ func fetchAuthenticator(key string, ctx context.Context, client *okta.Client) (*
 		return nil, err
 	}
 	return pickAuthenticator(key, authenticators)
+}
+
+func setupDisablePhoneNumberOnMFAEnrollPolicy() error {
+	ctx, client, err := tests.NewClient(context.TODO())
+	if err != nil {
+		return err
+	}
+
+	rq := client.CloneRequestExecutor()
+	url := "/api/v1/policies?type=MFA_ENROLL"
+	req, err := rq.WithAccept("application/json").WithContentType("application/json").NewRequest("GET", url, nil)
+	if err != nil {
+		return err
+	}
+
+	var policies []interface{}
+	_, err = client.GetRequestExecutor().Do(ctx, req, &policies)
+	if err != nil {
+		return err
+	}
+
+	// note: updating policy settings directly using generic golang structs
+	policy := policies[0].(map[string]interface{})
+	authenticators := policy["settings"].(map[string]interface{})["authenticators"].([]interface{})
+	for _, authenticator := range authenticators {
+		key := authenticator.(map[string]interface{})["key"]
+		if key != "phone_number" {
+			continue
+		}
+		enroll := authenticator.(map[string]interface{})["enroll"].(map[string]interface{})
+		enroll["self"] = "NOT_ALLOWED"
+		break
+	}
+
+	url = fmt.Sprintf("/api/v1/policies/%s", policy["id"])
+	req, err = rq.WithAccept("application/json").WithContentType("application/json").NewRequest("PUT", url, policy)
+	if err != nil {
+		return err
+	}
+
+	// note: have executor read an interface to prevent a panic
+	var result interface{}
+	_, err = client.GetRequestExecutor().Do(ctx, req, &result)
+
+	return err
 }
