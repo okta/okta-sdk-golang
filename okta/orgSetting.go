@@ -173,6 +173,25 @@ func (m *OrgSettingResource) UpdateOrgContactUser(ctx context.Context, contactTy
 	return orgContactUser, resp, nil
 }
 
+// Updates the logo for your organization.
+func (m *OrgSettingResource) UpdateOrgLogo(ctx context.Context) (*Response, error) {
+	url := fmt.Sprintf("/api/v1/org/logo")
+
+	rq := m.client.CloneRequestExecutor()
+
+	req, err := rq.WithAccept("application/json").WithContentType("multipart/form-data").NewRequest("POST", url, nil)
+	if err != nil {
+		return nil, err
+	}
+
+	resp, err := m.client.requestExecutor.Do(ctx, req, nil)
+	if err != nil {
+		return resp, err
+	}
+
+	return resp, nil
+}
+
 // Gets preferences of your organization.
 func (m *OrgSettingResource) GetOrgPreferences(ctx context.Context) (*OrgPreferences, *Response, error) {
 	url := fmt.Sprintf("/api/v1/org/preferences")
