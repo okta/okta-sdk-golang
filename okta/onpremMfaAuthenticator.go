@@ -23,13 +23,14 @@ import (
 )
 
 type OnpremMfaAuthenticator struct {
-	Links       interface{}            `json:"_links,omitempty"`
-	Created     *time.Time             `json:"created,omitempty"`
-	Id          string                 `json:"id,omitempty"`
-	Key         string                 `json:"key,omitempty"`
-	LastUpdated *time.Time             `json:"lastUpdated,omitempty"`
-	Name        string                 `json:"name,omitempty"`
-	Settings    *AuthenticatorSettings `json:"settings,omitempty"`
-	Status      string                 `json:"status,omitempty"`
-	Type        string                 `json:"type,omitempty"`
+	Links       interface{}                     `json:"_links,omitempty"`
+	Created     *time.Time                      `json:"created,omitempty"`
+	Id          string                          `json:"id,omitempty"`
+	Key         string                          `json:"key,omitempty"`
+	LastUpdated *time.Time                      `json:"lastUpdated,omitempty"`
+	Name        string                          `json:"name,omitempty"`
+	Provider    *OnpremMfaAuthenticatorProvider `json:"provider,omitempty"`
+	Settings    *AuthenticatorSettings          `json:"settings,omitempty"`
+	Status      string                          `json:"status,omitempty"`
+	Type        string                          `json:"type,omitempty"`
 }

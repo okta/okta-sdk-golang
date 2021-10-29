@@ -58,6 +58,40 @@ func TestGetAuthenticator(t *testing.T) {
 	assert.Equal(t, authenticator.Id, phoneAuthenticator.Id, "Expected authenticator getter should equal phone authenticator.")
 }
 
+func TestMappingTypes(t *testing.T) {
+	googleOtpAuthenticator := okta.GoogleOtpAuthenticator{}
+	authenticator := okta.Authenticator(googleOtpAuthenticator)
+	assert.NotNil(t, authenticator)
+
+	oktaEmailAuthenticator := okta.OktaEmailAuthenticator{}
+	authenticator = okta.Authenticator(oktaEmailAuthenticator)
+	assert.NotNil(t, authenticator)
+
+	oktaPasswordAuthenticator := okta.OktaPasswordAuthenticator{}
+	authenticator = okta.Authenticator(oktaPasswordAuthenticator)
+	assert.NotNil(t, authenticator)
+
+	oktaVerifyAuthenticator := okta.OktaVerifyAuthenticator{}
+	authenticator = okta.Authenticator(oktaVerifyAuthenticator)
+	assert.NotNil(t, authenticator)
+
+	onpremMfaAuthenticator := okta.OnpremMfaAuthenticator{}
+	authenticator = okta.Authenticator(onpremMfaAuthenticator)
+	assert.NotNil(t, authenticator)
+
+	phoneNumberAuthenticator := okta.PhoneNumberAuthenticator{}
+	authenticator = okta.Authenticator(phoneNumberAuthenticator)
+	assert.NotNil(t, authenticator)
+
+	rsaTokenAuthenticator := okta.RsaTokenAuthenticator{}
+	authenticator = okta.Authenticator(rsaTokenAuthenticator)
+	assert.NotNil(t, authenticator)
+
+	securityQuestionAuthenticator := okta.SecurityQuestionAuthenticator{}
+	authenticator = okta.Authenticator(securityQuestionAuthenticator)
+	assert.NotNil(t, authenticator)
+}
+
 func TestUpdateAuthenticator(t *testing.T) {
 	ctx, client, err := tests.NewClient(context.TODO())
 	require.NoError(t, err)
