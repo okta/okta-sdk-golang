@@ -32,6 +32,38 @@ import (
 	"github.com/okta/okta-sdk-golang/v2/tests"
 )
 
+func TestApplicationInstance(t *testing.T) {
+	application := okta.NewApplication()
+	assert.True(t, application.IsApplicationInstance())
+
+	autoLoginApplication := okta.NewAutoLoginApplication()
+	assert.True(t, autoLoginApplication.IsApplicationInstance())
+
+	basicAuthApplication := okta.NewBasicAuthApplication()
+	assert.True(t, basicAuthApplication.IsApplicationInstance())
+
+	bookmarkApplication := okta.NewBookmarkApplication()
+	assert.True(t, bookmarkApplication.IsApplicationInstance())
+
+	browserApplication := okta.NewBookmarkApplication()
+	assert.True(t, browserApplication.IsApplicationInstance())
+
+	openIdConnectApplication := okta.NewOpenIdConnectApplication()
+	assert.True(t, openIdConnectApplication.IsApplicationInstance())
+
+	radiusApplication := okta.NewRadiusApplication()
+	assert.True(t, radiusApplication.IsApplicationInstance())
+
+	samlApplication := okta.NewSamlApplication()
+	assert.True(t, samlApplication.IsApplicationInstance())
+
+	securePasswordStoreApplication := okta.NewSecurePasswordStoreApplication()
+	assert.True(t, securePasswordStoreApplication.IsApplicationInstance())
+
+	wsFederationApplication := okta.NewWsFederationApplication()
+	assert.True(t, wsFederationApplication.IsApplicationInstance())
+}
+
 func Test_can_get_application_by_id(t *testing.T) {
 	ctx, client, err := tests.NewClient(context.TODO())
 	require.NoError(t, err)
