@@ -18,7 +18,6 @@
 
 package okta
 
-type UserIdString struct {
-	Links  interface{} `json:"_links,omitempty"`
-	UserId string      `json:"userId,omitempty"`
+type ImageUploadResponse struct {
+	Url string `json:"url,omitempty"`
 }

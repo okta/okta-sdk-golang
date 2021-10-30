@@ -18,7 +18,14 @@
 
 package okta
 
-type UserIdString struct {
-	Links  interface{} `json:"_links,omitempty"`
-	UserId string      `json:"userId,omitempty"`
+type RadiusApplicationSettingsApplication struct {
+	RadiusAppInstanceId string `json:"radiusAppInstanceId,omitempty"`
+}
+
+func NewRadiusApplicationSettingsApplication() *RadiusApplicationSettingsApplication {
+	return &RadiusApplicationSettingsApplication{}
+}
+
+func (a *RadiusApplicationSettingsApplication) IsApplicationInstance() bool {
+	return true
 }

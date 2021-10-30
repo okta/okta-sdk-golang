@@ -255,6 +255,7 @@ func (m *ApplicationResource) GetCsrForApplication(ctx context.Context, appId st
 	return csr, resp, nil
 }
 
+// Updates the CSR with a signed X.509 certificate and adds it into the application key credentials
 func (m *ApplicationResource) PublishCerCert(ctx context.Context, appId string, csrId string, body string) (*JsonWebKey, *Response, error) {
 	url := fmt.Sprintf("/api/v1/apps/%v/credentials/csrs/%v/lifecycle/publish", appId, csrId)
 
@@ -275,6 +276,7 @@ func (m *ApplicationResource) PublishCerCert(ctx context.Context, appId string, 
 	return jsonWebKey, resp, nil
 }
 
+// Updates the CSR with a signed X.509 certificate and adds it into the application key credentials
 func (m *ApplicationResource) PublishBinaryCerCert(ctx context.Context, appId string, csrId string, body string) (*JsonWebKey, *Response, error) {
 	url := fmt.Sprintf("/api/v1/apps/%v/credentials/csrs/%v/lifecycle/publish", appId, csrId)
 
@@ -295,6 +297,7 @@ func (m *ApplicationResource) PublishBinaryCerCert(ctx context.Context, appId st
 	return jsonWebKey, resp, nil
 }
 
+// Updates the CSR with a signed X.509 certificate and adds it into the application key credentials
 func (m *ApplicationResource) PublishDerCert(ctx context.Context, appId string, csrId string, body string) (*JsonWebKey, *Response, error) {
 	url := fmt.Sprintf("/api/v1/apps/%v/credentials/csrs/%v/lifecycle/publish", appId, csrId)
 
@@ -315,6 +318,7 @@ func (m *ApplicationResource) PublishDerCert(ctx context.Context, appId string, 
 	return jsonWebKey, resp, nil
 }
 
+// Updates the CSR with a signed X.509 certificate and adds it into the application key credentials
 func (m *ApplicationResource) PublishBinaryDerCert(ctx context.Context, appId string, csrId string, body string) (*JsonWebKey, *Response, error) {
 	url := fmt.Sprintf("/api/v1/apps/%v/credentials/csrs/%v/lifecycle/publish", appId, csrId)
 
@@ -335,6 +339,7 @@ func (m *ApplicationResource) PublishBinaryDerCert(ctx context.Context, appId st
 	return jsonWebKey, resp, nil
 }
 
+// Updates the CSR with a signed X.509 certificate and adds it into the application key credentials
 func (m *ApplicationResource) PublishBinaryPemCert(ctx context.Context, appId string, csrId string, body string) (*JsonWebKey, *Response, error) {
 	url := fmt.Sprintf("/api/v1/apps/%v/credentials/csrs/%v/lifecycle/publish", appId, csrId)
 
