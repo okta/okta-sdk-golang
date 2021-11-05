@@ -1,7 +1,7 @@
 # Changelog
 Running changelog of releases since `2.0.0-rc.4`
 
-## v2.9.0
+## v2.9.1
 
 ### New Types / Models
 - `AccessPolicy`

@@ -18,23 +18,10 @@
 
 package okta
 
-import (
-	"time"
-)
-
 type AuthenticatorProviderConfiguration struct {
-	Links            interface{}                                      `json:"_links,omitempty"`
-	Created          *time.Time                                       `json:"created,omitempty"`
-	Id               string                                           `json:"id,omitempty"`
-	Key              string                                           `json:"key,omitempty"`
-	LastUpdated      *time.Time                                       `json:"lastUpdated,omitempty"`
-	Name             string                                           `json:"name,omitempty"`
-	Provider         *AuthenticatorProvider                           `json:"provider,omitempty"`
-	Settings         *AuthenticatorSettings                           `json:"settings,omitempty"`
-	Status           string                                           `json:"status,omitempty"`
-	Type             string                                           `json:"type,omitempty"`
 	AuthPort         int64                                            `json:"authPort,omitempty"`
 	HostName         string                                           `json:"hostName,omitempty"`
 	InstanceId       string                                           `json:"instanceId,omitempty"`
+	SharedSecret     string                                           `json:"sharedSecret,omitempty"`
 	UserNameTemplate *AuthenticatorProviderConfigurationUserNamePlate `json:"userNameTemplate,omitempty"`
 }
