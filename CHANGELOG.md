@@ -1,6 +1,85 @@
 # Changelog
 Running changelog of releases since `2.0.0-rc.4`
 
+## v2.9.0
+
+### New Types / Models
+- `AccessPolicy`
+- `AccessPolicyConstraint`
+- `AccessPolicyConstraints`
+- `AccessPolicyRule`
+- `AccessPolicyRuleActions`
+- `AccessPolicyRuleApplicationSignOn`
+- `AccessPolicyRuleConditions`
+- `AccessPolicyRuleCustomCondition`
+- `AuthenticatorProvider`
+- `AuthenticatorProviderConfiguration`
+- `AuthenticatorProviderConfigurationUserNamePlate`
+- `BrandResource`
+- `Brand`
+- `ChannelBinding`
+- `Compliance`
+- `DeviceAccessPolicyRuleCondition`
+- `EmailTemplateTouchPointVariant`
+- `EndUserDashboardTouchPointVariant`
+- `ErrorPageTouchPointVariant`
+- `FipsEnum`
+- `ImageUploadResponse`
+- `KnowledgeConstraint`
+- `PossessionConstraint`
+- `PreRegistrationInlineHook`
+- `ProfileEnrollmentPolicy`
+- `ProfileEnrollmentPolicyRule`
+- `ProfileEnrollmentPolicyRuleAction`
+- `ProfileEnrollmentPolicyRuleActions`
+- `ProfileEnrollmentPolicyRuleActivationRequirement`
+- `ProfileEnrollmentPolicyRuleProfileAttribute`
+- `RequiredEnum`
+- `SignInPageTouchPointVariant`
+- `ThemeResource`
+- `Theme`
+- `ThemeResponse`
+- `UserTypeCondition`
+- `UserVerificationEnum`
+- `VerificationMethod`
+
+### New Methods
+- `AuthenticatorResource`
+  - `GetAuthenticator`
+  - `UpdateAuthenticator`
+  - `ListAuthenticators`
+- `BrandResource`
+  - `GetBrand`
+  - `UpdateBrand`
+  - `ListBrands`
+  - `ListBrandThemes`
+  - `GetBrandTheme`
+  - `UpdateBrandTheme`
+  - `DeleteBrandThemeBackgroundImage`
+  - `UploadBrandThemeBackgroundImage`
+  - `DeleteBrandThemeFavicon`
+  - `UploadBrandThemeFavicon`
+  - `DeleteBrandThemeLogo`
+  - `UploadBrandThemeLogo`
+- `OrgSettingResource`
+  - `UpdateOrgLogo`
+  - `GetOrgPreferences`
+  - `HideOktaUIFooter`
+  - `ShowOktaUIFooter`
+  - `OptInUsersToOktaCommunicationEmails`
+  - `OptOutUsersFromOktaCommunicationEmails`
+  - `GetOrgOktaSupportSettings`
+  - `ExtendOktaSupport`
+  - `GrantOktaSupport`
+  - `RevokeOktaSupport`
+- `ThemeResource`
+  - `GetBrandTheme`
+  - `UpdateBrandTheme`
+
+### Updates
+- Updated Authenticators integration tests
+- Integration tests on `IdentityProviderResource`
+
 ## v2.8.0
 
 ### Updates
