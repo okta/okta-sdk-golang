@@ -39,7 +39,7 @@ type Params struct {
 	Mode                 string `json:"mode,omitempty"`
 	Search               string `json:"search,omitempty"`
 	RemoveUsers          *bool  `json:"removeUsers,omitempty"`
-	DisableNotifications string `json:"disableNotifications,omitempty"`
+	DisableNotifications *bool  `json:"disableNotifications,omitempty"`
 	Type                 string `json:"type,omitempty"`
 	TargetIdpId          string `json:"targetIdpId,omitempty"`
 	Since                string `json:"since,omitempty"`
@@ -170,9 +170,11 @@ func WithRemoveUsers(queryRemoveUsers bool) ParamOptions {
 	}
 }
 
-func WithDisableNotifications(queryDisableNotifications string) ParamOptions {
+func WithDisableNotifications(queryDisableNotifications bool) ParamOptions {
 	return func(p *Params) {
-		p.DisableNotifications = queryDisableNotifications
+		b := new(bool)
+		*b = queryDisableNotifications
+		p.DisableNotifications = b
 	}
 }
 
@@ -340,8 +342,8 @@ func (p *Params) String() string {
 	if p.RemoveUsers != nil {
 		qs.Add(`removeUsers`, strconv.FormatBool(*p.RemoveUsers))
 	}
-	if p.DisableNotifications != "" {
-		qs.Add(`disableNotifications`, p.DisableNotifications)
+	if p.DisableNotifications != nil {
+		qs.Add(`disableNotifications`, strconv.FormatBool(*p.DisableNotifications))
 	}
 	if p.Type != "" {
 		qs.Add(`type`, p.Type)

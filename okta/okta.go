@@ -32,7 +32,7 @@ import (
 	"gopkg.in/yaml.v3"
 )
 
-const Version = "2.8.0"
+const Version = "2.9.1"
 
 type Client struct {
 	config                     *config
@@ -41,6 +41,7 @@ type Client struct {
 	Application                *ApplicationResource
 	Authenticator              *AuthenticatorResource
 	AuthorizationServer        *AuthorizationServerResource
+	Brand                      *BrandResource
 	Domain                     *DomainResource
 	EventHook                  *EventHookResource
 	Feature                    *FeatureResource
@@ -110,6 +111,7 @@ func NewClient(ctx context.Context, conf ...ConfigSetter) (context.Context, *Cli
 	c.Application = (*ApplicationResource)(&c.resource)
 	c.Authenticator = (*AuthenticatorResource)(&c.resource)
 	c.AuthorizationServer = (*AuthorizationServerResource)(&c.resource)
+	c.Brand = (*BrandResource)(&c.resource)
 	c.Domain = (*DomainResource)(&c.resource)
 	c.EventHook = (*EventHookResource)(&c.resource)
 	c.Feature = (*FeatureResource)(&c.resource)

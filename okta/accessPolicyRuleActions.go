@@ -18,12 +18,11 @@
 
 package okta
 
-type SwaApplicationSettingsApplication struct {
-	ButtonField   string `json:"buttonField,omitempty"`
-	Checkbox      string `json:"checkbox,omitempty"`
-	LoginUrlRegex string `json:"loginUrlRegex,omitempty"`
-	PasswordField string `json:"passwordField,omitempty"`
-	RedirectUrl   string `json:"redirectUrl,omitempty"`
-	Url           string `json:"url,omitempty"`
-	UsernameField string `json:"usernameField,omitempty"`
+type AccessPolicyRuleActions struct {
+	Enroll                   *PolicyRuleActionsEnroll           `json:"enroll,omitempty"`
+	PasswordChange           *PasswordPolicyRuleAction          `json:"passwordChange,omitempty"`
+	SelfServicePasswordReset *PasswordPolicyRuleAction          `json:"selfServicePasswordReset,omitempty"`
+	SelfServiceUnlock        *PasswordPolicyRuleAction          `json:"selfServiceUnlock,omitempty"`
+	Signon                   *OktaSignOnPolicyRuleSignonActions `json:"signon,omitempty"`
+	AppSignOn                *AccessPolicyRuleApplicationSignOn `json:"appSignOn,omitempty"`
 }

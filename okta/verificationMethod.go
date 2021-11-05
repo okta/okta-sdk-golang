@@ -18,12 +18,9 @@
 
 package okta
 
-type SwaApplicationSettingsApplication struct {
-	ButtonField   string `json:"buttonField,omitempty"`
-	Checkbox      string `json:"checkbox,omitempty"`
-	LoginUrlRegex string `json:"loginUrlRegex,omitempty"`
-	PasswordField string `json:"passwordField,omitempty"`
-	RedirectUrl   string `json:"redirectUrl,omitempty"`
-	Url           string `json:"url,omitempty"`
-	UsernameField string `json:"usernameField,omitempty"`
+type VerificationMethod struct {
+	Constraints      []*AccessPolicyConstraints `json:"constraints,omitempty"`
+	FactorMode       string                     `json:"factorMode,omitempty"`
+	ReauthenticateIn string                     `json:"reauthenticateIn,omitempty"`
+	Type             string                     `json:"type,omitempty"`
 }

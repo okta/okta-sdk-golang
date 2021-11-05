@@ -19,6 +19,10 @@
 package okta
 
 type AuthenticatorSettings struct {
-	AllowedFor             string `json:"allowedFor,omitempty"`
-	TokenLifetimeInMinutes int64  `json:"tokenLifetimeInMinutes,omitempty"`
+	AllowedFor             string          `json:"allowedFor,omitempty"`
+	AppInstanceId          string          `json:"appInstanceId,omitempty"`
+	ChannelBinding         *ChannelBinding `json:"channelBinding,omitempty"`
+	Compliance             *Compliance     `json:"compliance,omitempty"`
+	TokenLifetimeInMinutes int64           `json:"tokenLifetimeInMinutes,omitempty"`
+	UserVerification       string          `json:"userVerification,omitempty"`
 }

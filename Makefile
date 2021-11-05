@@ -38,7 +38,7 @@ clean-files:
 
 generate-files:
 	@echo "$(COLOR_OKTA)Generating SDK Files...$(COLOR_NONE)"
-	cd openapi && npm install && yarn generator
+	cd openapi && yarn generator
 	@echo "$(COLOR_OK)Running goimports and gofumpt on generated files...$(COLOR_NONE)"
 	@make import
 	@make fmt
@@ -46,6 +46,7 @@ generate-files:
 
 pull-spec:
 	@echo "$(COLOR_OKTA)Pulling in latest spec...$(COLOR_NONE)"
+	cd openapi && npm install
 	rm -f openapi/spec.json
 	git clone --branch $(OPENAPI_SPEC_BRANCH) https://github.com/okta/okta-management-openapi-spec spec-raw
 	cp spec-raw/dist/spec.json openapi/spec.json

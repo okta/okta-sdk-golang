@@ -19,5 +19,6 @@
 package okta
 
 type UserIdString struct {
-	UserId string `json:"userId,omitempty"`
+	Links  interface{} `json:"_links,omitempty"`
+	UserId string      `json:"userId,omitempty"`
 }
