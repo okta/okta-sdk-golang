@@ -19,7 +19,8 @@
 package okta
 
 type ApplicationCredentialsUsernameTemplate struct {
-	Suffix   string `json:"suffix,omitempty"`
-	Template string `json:"template,omitempty"`
-	Type     string `json:"type,omitempty"`
+	PushStatus string `json:"pushStatus,omitempty"`
+	Suffix     string `json:"suffix,omitempty"`
+	Template   string `json:"template,omitempty"`
+	Type       string `json:"type,omitempty"`
 }

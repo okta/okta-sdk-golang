@@ -97,7 +97,7 @@ func (m *BrandResource) ListBrands(ctx context.Context) ([]*Brand, *Response, er
 }
 
 // List all the themes in your brand
-func (m *BrandResource) ListBrandThemes(ctx context.Context, brandId string) ([]*Theme, *Response, error) {
+func (m *BrandResource) ListBrandThemes(ctx context.Context, brandId string) ([]*ThemeResponse, *Response, error) {
 	url := fmt.Sprintf("/api/v1/brands/%v/themes", brandId)
 
 	rq := m.client.CloneRequestExecutor()
@@ -107,18 +107,18 @@ func (m *BrandResource) ListBrandThemes(ctx context.Context, brandId string) ([]
 		return nil, nil, err
 	}
 
-	var theme []*Theme
+	var themeResponse []*ThemeResponse
 
-	resp, err := rq.Do(ctx, req, &theme)
+	resp, err := rq.Do(ctx, req, &themeResponse)
 	if err != nil {
 		return nil, resp, err
 	}
 
-	return theme, resp, nil
+	return themeResponse, resp, nil
 }
 
 // Fetches a theme for a brand
-func (m *BrandResource) GetBrandTheme(ctx context.Context, brandId string, themeId string) (*Theme, *Response, error) {
+func (m *BrandResource) GetBrandTheme(ctx context.Context, brandId string, themeId string) (*ThemeResponse, *Response, error) {
 	url := fmt.Sprintf("/api/v1/brands/%v/themes/%v", brandId, themeId)
 
 	rq := m.client.CloneRequestExecutor()
@@ -128,18 +128,18 @@ func (m *BrandResource) GetBrandTheme(ctx context.Context, brandId string, theme
 		return nil, nil, err
 	}
 
-	var theme *Theme
+	var themeResponse *ThemeResponse
 
-	resp, err := rq.Do(ctx, req, &theme)
+	resp, err := rq.Do(ctx, req, &themeResponse)
 	if err != nil {
 		return nil, resp, err
 	}
 
-	return theme, resp, nil
+	return themeResponse, resp, nil
 }
 
 // Updates a theme for a brand
-func (m *BrandResource) UpdateBrandTheme(ctx context.Context, brandId string, themeId string, body Theme) (*Theme, *Response, error) {
+func (m *BrandResource) UpdateBrandTheme(ctx context.Context, brandId string, themeId string, body Theme) (*ThemeResponse, *Response, error) {
 	url := fmt.Sprintf("/api/v1/brands/%v/themes/%v", brandId, themeId)
 
 	rq := m.client.CloneRequestExecutor()
@@ -149,14 +149,14 @@ func (m *BrandResource) UpdateBrandTheme(ctx context.Context, brandId string, th
 		return nil, nil, err
 	}
 
-	var theme *Theme
+	var themeResponse *ThemeResponse
 
-	resp, err := rq.Do(ctx, req, &theme)
+	resp, err := rq.Do(ctx, req, &themeResponse)
 	if err != nil {
 		return nil, resp, err
 	}
 
-	return theme, resp, nil
+	return themeResponse, resp, nil
 }
 
 // Deletes a Theme background image

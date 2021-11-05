@@ -618,7 +618,7 @@ func (m *UserResource) ActivateUser(ctx context.Context, userId string, qp *quer
 	return userActivationToken, resp, nil
 }
 
-// Deactivates a user.  This operation can only be performed on users that do not have a &#x60;DEPROVISIONED&#x60; status.  Deactivation of a user is an asynchronous operation.  The user will have the &#x60;transitioningToStatus&#x60; property with a value of &#x60;DEPROVISIONED&#x60; during deactivation to indicate that the user hasn&#x27;t completed the asynchronous operation.  The user will have a status of &#x60;DEPROVISIONED&#x60; when the deactivation process is complete.
+// Deactivates a user. This operation can only be performed on users that do not have a &#x60;DEPROVISIONED&#x60; status. While the asynchronous operation (triggered by HTTP header &#x60;Prefer: respond-async&#x60;) is proceeding the user&#x27;s &#x60;transitioningToStatus&#x60; property is &#x60;DEPROVISIONED&#x60;. The user&#x27;s status is &#x60;DEPROVISIONED&#x60; when the deactivation process is complete.
 func (m *UserResource) DeactivateUser(ctx context.Context, userId string, qp *query.Params) (*Response, error) {
 	url := fmt.Sprintf("/api/v1/users/%v/lifecycle/deactivate", userId)
 	if qp != nil {

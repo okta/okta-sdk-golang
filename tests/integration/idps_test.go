@@ -42,7 +42,6 @@ func TestCreateIdentityProvider(t *testing.T) {
 	require.NoError(t, err, "creating an identity provider hook should not error")
 	tests.AssertResponse(t, response, "POST", "/api/v1/idps")
 	assert.Equal(t, idpName, resultIpd.Name)
-
 }
 
 func cleanupTestIdentityProvider(ctx context.Context, client *okta.Client, idp *okta.IdentityProvider) {
