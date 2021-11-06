@@ -27,11 +27,33 @@ import (
 type ThreatInsightConfigurationResource resource
 
 type ThreatInsightConfiguration struct {
-	Links        interface{} `json:"_links,omitempty"`
-	Action       string      `json:"action,omitempty"`
-	Created      *time.Time  `json:"created,omitempty"`
-	ExcludeZones []string    `json:"excludeZones,omitempty"`
-	LastUpdated  *time.Time  `json:"lastUpdated,omitempty"`
+	Links        interface{}                     `json:"_links,omitempty"`
+	Action       string                          `json:"action,omitempty"`
+	Created      *ThreatInsightConfigurationTime `json:"created,omitempty"`
+	ExcludeZones []string                        `json:"excludeZones,omitempty"`
+	LastUpdated  *ThreatInsightConfigurationTime `json:"lastUpdated,omitempty"`
+}
+
+type ThreatInsightConfigurationTime struct {
+	time.Time
+}
+
+const threatInsightConfigurationTimeFormat = "2006-01-02 15:04:05"
+
+func (m *ThreatInsightConfigurationTime) UnmarshalJSON(data []byte) error {
+	// Ignore null, like in the main JSON package.
+	if string(data) == "null" || string(data) == `""` {
+		return nil
+	}
+	tt, err := time.Parse(threatInsightConfigurationTimeFormat, string(data[1:len(data)-1]))
+	if err != nil {
+		tt, err = time.Parse(time.RFC3339, string(data[1:len(data)-1]))
+		if err != nil {
+			return err
+		}
+	}
+	*m = ThreatInsightConfigurationTime{tt}
+	return err
 }
 
 // Gets current ThreatInsight configuration

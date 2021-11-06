@@ -20,7 +20,7 @@ package okta
 
 type GroupSchemaAttribute struct {
 	Description       string                           `json:"description,omitempty"`
-	Enum              []string                         `json:"enum,omitempty"`
+	Enum              []interface{}                    `json:"enum,omitempty"`
 	ExternalName      string                           `json:"externalName,omitempty"`
 	ExternalNamespace string                           `json:"externalNamespace,omitempty"`
 	Items             *UserSchemaAttributeItems        `json:"items,omitempty"`

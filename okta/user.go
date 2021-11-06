@@ -874,7 +874,7 @@ func (m *UserResource) ListAssignedRolesForUser(ctx context.Context, userId stri
 }
 
 // Assigns a role to a user.
-func (m *UserResource) AssignRoleToUser(ctx context.Context, userId string, body AssignRoleRequest, qp *query.Params) (*Role, *Response, error) {
+func (m *UserResource) AssignRoleToUser(ctx context.Context, userId string, body *AssignRoleRequest, qp *query.Params) (*Role, *Response, error) {
 	url := fmt.Sprintf("/api/v1/users/%v/roles", userId)
 	if qp != nil {
 		url = url + qp.String()

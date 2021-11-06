@@ -348,7 +348,7 @@ func (m *GroupResource) ListGroupAssignedRoles(ctx context.Context, groupId stri
 }
 
 // Assigns a Role to a Group
-func (m *GroupResource) AssignRoleToGroup(ctx context.Context, groupId string, body AssignRoleRequest, qp *query.Params) (*Role, *Response, error) {
+func (m *GroupResource) AssignRoleToGroup(ctx context.Context, groupId string, body *AssignRoleRequest, qp *query.Params) (*Role, *Response, error) {
 	url := fmt.Sprintf("/api/v1/groups/%v/roles", groupId)
 	if qp != nil {
 		url = url + qp.String()

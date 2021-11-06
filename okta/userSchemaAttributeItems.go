@@ -19,7 +19,7 @@
 package okta
 
 type UserSchemaAttributeItems struct {
-	Enum  []string                   `json:"enum,omitempty"`
+	Enum  []interface{}              `json:"enum,omitempty"`
 	OneOf []*UserSchemaAttributeEnum `json:"oneOf,omitempty"`
 	Type  string                     `json:"type,omitempty"`
 }

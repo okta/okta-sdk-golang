@@ -19,7 +19,7 @@
 package okta
 
 type VerificationMethod struct {
-	Constraints      []*AccessPolicyConstraints `json:"constraints,omitempty"`
+	Constraints      []*AccessPolicyConstraints `json:"constraints"`
 	FactorMode       string                     `json:"factorMode,omitempty"`
 	ReauthenticateIn string                     `json:"reauthenticateIn,omitempty"`
 	Type             string                     `json:"type,omitempty"`

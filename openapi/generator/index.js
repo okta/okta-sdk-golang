@@ -37,6 +37,9 @@ function getType(obj, prefix = "") {
       }
       return String.raw`map[string]*` + obj.model;
     case 'array' :
+      if (obj.propertyName === "enum") {
+        return String.raw`[]interface{}`;
+      }
       if (obj.model === undefined || obj.model === "string") {
         return String.raw`[]string`;
       } else {
@@ -70,6 +73,9 @@ function getType(obj, prefix = "") {
         return obj.model;
       }
     default:
+      if (obj.propertyName === "const") {
+        return String.raw`interface{}`;
+      }
       if (obj.propertyName === "pattern" || obj.propertyName === "admin" || obj.propertyName === "enduser") {
         return String.raw`*string`;
       }
@@ -248,6 +254,10 @@ function operationArgumentBuilder(operation) {
 
     if (bodyModel === "String") {
       bodyModel = "string";
+    }
+
+    if (bodyModel === "AssignRoleRequest") {
+      bodyModel = "*AssignRoleRequest";
     }
 
     args.push(`body ` + bodyModel);
@@ -444,6 +454,7 @@ function createJsonTag(propertyName) {
     propertyName === "attributeStatements" ||
     propertyName === "admin" ||
     propertyName === "enduser" ||
+    propertyName === "constraints" ||
     propertyName === "maxSessionIdleMinutes") {
     return " `json:\"" + propertyName + "\"`"
   } else {
