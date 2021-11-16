@@ -32,7 +32,7 @@ import (
 	"github.com/okta/okta-sdk-golang/v2/tests"
 )
 
-func Test_can_get_application_by_id(t *testing.T) {
+func TestCanGetApplicationByID(t *testing.T) {
 	ctx, client, err := tests.NewClient(context.TODO())
 	require.NoError(t, err)
 
@@ -60,7 +60,7 @@ func Test_can_get_application_by_id(t *testing.T) {
 	require.NoError(t, err, "Deleting an application should not error")
 }
 
-func Test_can_update_application(t *testing.T) {
+func TestCanUpdateApplication(t *testing.T) {
 	ctx, client, err := tests.NewClient(context.TODO())
 	require.NoError(t, err)
 
@@ -98,7 +98,7 @@ func Test_can_update_application(t *testing.T) {
 	require.NoError(t, err, "Deleting an application should not error")
 }
 
-func Test_can_create_a_bookmark_application(t *testing.T) {
+func TestCanCreateABookmarkApplication(t *testing.T) {
 	ctx, client, err := tests.NewClient(context.TODO())
 	require.NoError(t, err)
 
@@ -123,7 +123,7 @@ func Test_can_create_a_bookmark_application(t *testing.T) {
 	require.NoError(t, err, "Deleting an application should not error")
 }
 
-func Test_can_create_a_basic_authentication_application(t *testing.T) {
+func TestCanCreateABasicAuthenticationApplication(t *testing.T) {
 	ctx, client, err := tests.NewClient(context.TODO())
 	require.NoError(t, err)
 
@@ -149,7 +149,7 @@ func Test_can_create_a_basic_authentication_application(t *testing.T) {
 	require.NoError(t, err, "Deleting an application should not error")
 }
 
-func Test_list_application_allows_casting_to_correct_type(t *testing.T) {
+func TestListApplicationAllowsCastingToCorrectType(t *testing.T) {
 	ctx, client, err := tests.NewClient(context.TODO())
 	require.NoError(t, err)
 
@@ -199,7 +199,7 @@ func Test_list_application_allows_casting_to_correct_type(t *testing.T) {
 	require.NoError(t, err, "Deleting an application should not error")
 }
 
-func Test_can_activate_application(t *testing.T) {
+func TestCanActivateApplication(t *testing.T) {
 	ctx, client, err := tests.NewClient(context.TODO())
 	require.NoError(t, err)
 
@@ -229,7 +229,7 @@ func Test_can_activate_application(t *testing.T) {
 	require.NoError(t, err, "Deleting an application should not error")
 }
 
-func Test_can_deactivate_application(t *testing.T) {
+func TestCanDeactivateApplication(t *testing.T) {
 	ctx, client, err := tests.NewClient(context.TODO())
 	require.NoError(t, err)
 
@@ -258,7 +258,7 @@ func Test_can_deactivate_application(t *testing.T) {
 	require.NoError(t, err, "Deleting an application should not error")
 }
 
-func Test_can_add_and_remove_application_users(t *testing.T) {
+func TestCanAddAndRemoveApplicationUsers(t *testing.T) {
 	ctx, client, err := tests.NewClient(context.TODO())
 	require.NoError(t, err)
 
@@ -330,7 +330,7 @@ func Test_can_add_and_remove_application_users(t *testing.T) {
 	client.User.DeactivateOrDeleteUser(ctx, user.Id, nil)
 }
 
-func Test_can_set_application_settings_during_creation(t *testing.T) {
+func TestCanSetApplicationSettingsDuringCreation(t *testing.T) {
 	ctx, client, err := tests.NewClient(context.TODO())
 	require.NoError(t, err)
 
@@ -356,7 +356,7 @@ func Test_can_set_application_settings_during_creation(t *testing.T) {
 	require.NoError(t, err, "Deleting an application should not error")
 }
 
-func Test_can_set_application_settings_during_update(t *testing.T) {
+func TestCanSetApplicationSettingsDuringUpdate(t *testing.T) {
 	ctx, client, err := tests.NewClient(context.TODO())
 	require.NoError(t, err)
 
@@ -392,11 +392,11 @@ func Test_can_set_application_settings_during_update(t *testing.T) {
 	require.NoError(t, err, "Deleting an application should not error")
 }
 
-func Test_can_create_csr_for_application(t *testing.T) {
+func TestCanCreateCSRForApplication(t *testing.T) {
 	ctx, client, err := tests.NewClient(context.TODO())
 	require.NoError(t, err)
 
-	application := create_application(t)
+	application := createApplication(t)
 
 	subject := okta.CsrMetadataSubject{
 		CountryName:            "US",
@@ -427,7 +427,7 @@ func Test_can_create_csr_for_application(t *testing.T) {
 	require.NoError(t, err, "Deleting an application should not error")
 }
 
-func create_application(t *testing.T) *okta.BasicAuthApplication {
+func createApplication(t *testing.T) *okta.BasicAuthApplication {
 	ctx, client, err := tests.NewClient(context.TODO())
 	require.NoError(t, err)
 
@@ -445,7 +445,7 @@ func create_application(t *testing.T) *okta.BasicAuthApplication {
 	return application.(*okta.BasicAuthApplication)
 }
 
-func delete_all_apps(t *testing.T) {
+func deleteAllApps(t *testing.T) {
 	ctx, client, err := tests.NewClient(context.TODO())
 	require.NoError(t, err)
 
