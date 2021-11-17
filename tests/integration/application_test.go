@@ -396,7 +396,7 @@ func TestCanCreateCSRForApplication(t *testing.T) {
 	ctx, client, err := tests.NewClient(context.TODO())
 	require.NoError(t, err)
 
-	application := createApplication(t)
+	application := createBasicAuthApplication(t)
 
 	subject := okta.CsrMetadataSubject{
 		CountryName:            "US",
@@ -427,7 +427,45 @@ func TestCanCreateCSRForApplication(t *testing.T) {
 	require.NoError(t, err, "Deleting an application should not error")
 }
 
-func createApplication(t *testing.T) *okta.BasicAuthApplication {
+func TestGetDefaultProvisioningConnectionForApplication(t *testing.T) {
+	ctx, client, err := tests.NewClient(context.TODO())
+	require.NoError(t, err)
+
+	application := createOrg2OrgApplication(t)
+
+	conn, _, err := client.Application.GetDefaultProvisioningConnectionForApplication(ctx, application.Id)
+	require.NoError(t, err, "getting default provisioning connection for application should not error.")
+	assert.NotEmpty(t, conn.AuthScheme, "connection auth scheme shouldn't be empty")
+	assert.NotEmpty(t, conn.Status, "connection status shouldn't be empty")
+
+	client.Application.DeactivateApplication(ctx, application.Id)
+	_, err = client.Application.DeleteApplication(ctx, application.Id)
+	require.NoError(t, err, "Deleting an application should not error")
+}
+
+func TestSetDefaultProvisioningConnectionForApplication(t *testing.T) {
+	ctx, client, err := tests.NewClient(context.TODO())
+	require.NoError(t, err)
+
+	application := createOrg2OrgApplication(t)
+
+	provisionConnectionRequest := okta.ProvisioningConnectionRequest{
+		Profile: &okta.ProvisioningConnectionProfile{
+			AuthScheme: "TOKEN",
+			Token:      "TEST",
+		},
+	}
+
+	conn, _, err := client.Application.SetDefaultProvisioningConnectionForApplication(ctx, application.Id, provisionConnectionRequest, query.NewQueryParams(query.WithActivate(false)))
+	require.NoError(t, err, "getting default provisioning connection for application should not error.")
+	assert.Equal(t, "TOKEN", conn.AuthScheme, "expected auth scheme %q, go %q", "TOKEN", conn.AuthScheme)
+
+	client.Application.DeactivateApplication(ctx, application.Id)
+	_, err = client.Application.DeleteApplication(ctx, application.Id)
+	require.NoError(t, err, "Deleting an application should not error")
+}
+
+func createBasicAuthApplication(t *testing.T) *okta.BasicAuthApplication {
 	ctx, client, err := tests.NewClient(context.TODO())
 	require.NoError(t, err)
 
@@ -443,6 +481,27 @@ func createApplication(t *testing.T) *okta.BasicAuthApplication {
 	require.NoError(t, err, "Creating an application should not error")
 
 	return application.(*okta.BasicAuthApplication)
+}
+
+func createOrg2OrgApplication(t *testing.T) *okta.Org2OrgApplication {
+	ctx, client, err := tests.NewClient(context.TODO())
+	require.NoError(t, err)
+
+	application := okta.NewOrg2OrgApplication()
+	application.Label = "Sample Okta Org2Org App"
+	application.Name = "okta_org2org"
+	application.Settings = &okta.Org2OrgApplicationSettings{
+		App: &okta.Org2OrgApplicationSettingsApp{
+			AcsUrl:         "https://example.okta.com/sso/saml2/exampleid",
+			AudRestriction: "https://www.okta.com/saml2/service-provider/exampleid",
+			BaseUrl:        "https://example.okta.com",
+		},
+	}
+
+	app, _, err := client.Application.CreateApplication(ctx, application, nil)
+	require.NoError(t, err, "Creating an application should not error")
+
+	return app.(*okta.Org2OrgApplication)
 }
 
 func deleteAllApps(t *testing.T) {
