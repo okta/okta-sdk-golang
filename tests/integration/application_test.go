@@ -19,6 +19,8 @@ package integration
 import (
 	"context"
 	"fmt"
+	"os"
+	"path"
 	"strings"
 	"testing"
 
@@ -501,6 +503,23 @@ func TestListFeaturesForApplication(t *testing.T) {
 	if !foundUserProvisiontingFeature {
 		assert.FailNow(t, "the org2org application should at least have USER_PROVISIONING feature")
 	}
+
+	client.Application.DeactivateApplication(ctx, application.Id)
+	_, err = client.Application.DeleteApplication(ctx, application.Id)
+	require.NoError(t, err, "Deleting an application should not error")
+}
+
+func TestUploadApplicationLogo(t *testing.T) {
+	ctx, client, err := tests.NewClient(context.TODO())
+	require.NoError(t, err)
+
+	application := createBasicAuthApplication(t)
+
+	fileDir, _ := os.Getwd()
+	fileName := "../fixtures/logo.png"
+	filePath := path.Join(fileDir, fileName)
+	_, err = client.Application.UploadApplicationLogo(ctx, application.Id, filePath)
+	require.NoError(t, err, "uploading application logo should not error.")
 
 	client.Application.DeactivateApplication(ctx, application.Id)
 	_, err = client.Application.DeleteApplication(ctx, application.Id)
