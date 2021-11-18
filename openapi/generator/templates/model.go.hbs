@@ -76,7 +76,11 @@ func (a *{{model.modelName}}) Is{{model.tags.[0]}}Instance() bool {
 {{/if}}
 {{/if}}
 {{#each operations as |operation|}}
+{{#if (and (ne operation.formData undefined) (ne operation.formData.length 0) ) }}
+{{> model.multipartFileMethod  operation=operation alias=alias modelName=../model.modelName}}
+{{else}}
 {{> model.defaultMethod  operation=operation alias=alias modelName=../model.modelName}}
+{{/if}}
 {{/each}}
 {{/if}}
 
