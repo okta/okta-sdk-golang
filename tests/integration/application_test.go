@@ -457,8 +457,50 @@ func TestSetDefaultProvisioningConnectionForApplication(t *testing.T) {
 	}
 
 	conn, _, err := client.Application.SetDefaultProvisioningConnectionForApplication(ctx, application.Id, provisionConnectionRequest, query.NewQueryParams(query.WithActivate(false)))
-	require.NoError(t, err, "getting default provisioning connection for application should not error.")
+	require.NoError(t, err, "setting default provisioning connection for application should not error.")
 	assert.Equal(t, "TOKEN", conn.AuthScheme, "expected auth scheme %q, go %q", "TOKEN", conn.AuthScheme)
+
+	client.Application.DeactivateApplication(ctx, application.Id)
+	_, err = client.Application.DeleteApplication(ctx, application.Id)
+	require.NoError(t, err, "Deleting an application should not error")
+}
+
+func TestListFeaturesForApplication(t *testing.T) {
+	t.Skip("listing application features is specific to an org2org")
+
+	ctx, client, err := tests.NewClient(context.TODO())
+	require.NoError(t, err)
+
+	application := createOrg2OrgApplication(t)
+
+	// FIXME this needs a second org to run against for this IT to work
+	// need to activate a provisioning connection between orgs
+	provisionConnectionRequest := okta.ProvisioningConnectionRequest{
+		Profile: &okta.ProvisioningConnectionProfile{
+			AuthScheme: "TOKEN",
+			Token:      "FIXME_WITH_REAL_ORG_TOKEN",
+		},
+	}
+	_, _, err = client.Application.SetDefaultProvisioningConnectionForApplication(ctx, application.Id, provisionConnectionRequest, query.NewQueryParams(query.WithActivate(false)))
+	require.NoError(t, err, "setting default provisioning connection for application should not error.")
+
+	features, _, err := client.Application.ListFeaturesForApplication(ctx, application.Id)
+	require.NoError(t, err, "listing features for application should not error.")
+
+	foundUserProvisiontingFeature := false
+	for _, feature := range features {
+		// NOTE: Provisioning must be enabled for the application. To activate
+		// provisioning, see Provisioning Connections. The only application
+		// Feature currently supported is USER_PROVISIONING.
+		// https://developer.okta.com/docs/reference/api/apps/#list-features-for-application
+		if feature.Name == "USER_PROVISIONING" {
+			foundUserProvisiontingFeature = true
+			break
+		}
+	}
+	if !foundUserProvisiontingFeature {
+		assert.FailNow(t, "the org2org application should at least have USER_PROVISIONING feature")
+	}
 
 	client.Application.DeactivateApplication(ctx, application.Id)
 	_, err = client.Application.DeleteApplication(ctx, application.Id)
@@ -490,6 +532,7 @@ func createOrg2OrgApplication(t *testing.T) *okta.Org2OrgApplication {
 	application := okta.NewOrg2OrgApplication()
 	application.Label = "Sample Okta Org2Org App"
 	application.Name = "okta_org2org"
+	application.SignOnMode = "SAML_2_0"
 	application.Settings = &okta.Org2OrgApplicationSettings{
 		App: &okta.Org2OrgApplicationSettingsApp{
 			AcsUrl:         "https://example.okta.com/sso/saml2/exampleid",
@@ -498,7 +541,7 @@ func createOrg2OrgApplication(t *testing.T) *okta.Org2OrgApplication {
 		},
 	}
 
-	app, _, err := client.Application.CreateApplication(ctx, application, nil)
+	app, _, err := client.Application.CreateApplication(ctx, application, query.NewQueryParams(query.WithActivate(true)))
 	require.NoError(t, err, "Creating an application should not error")
 
 	return app.(*okta.Org2OrgApplication)
