@@ -723,3 +723,38 @@ func TestCanPaginateAcrossUsers(t *testing.T) {
 	_, err = client.User.DeactivateOrDeleteUser(ctx, createdUser2.Id, nil)
 	require.NoError(t, err, "Should not error when deleting")
 }
+
+func TestListUserSubscriptions(t *testing.T) {
+	// FIXME list users is getting an API error due to this documentated limitation:
+	//
+	// List subscriptions of a User. Only lists subscriptions for current user.
+	// An AccessDeniedException message is sent if requests are made from other
+	// users.
+	//
+	// Have tried creating a user and getting the current user: GET /api/v1/users/me
+	t.Skip("Need to determine how to set up environment for ListUserSubscriptions")
+
+	ctx, client, err := tests.NewClient(context.TODO(), okta.WithCache(false))
+	require.NoError(t, err)
+
+	user, _, err := client.User.GetUser(ctx, "me")
+	require.NoError(t, err, "Getting the current user should not error")
+
+	subscriptions, _, err := client.User.ListUserSubscriptions(ctx, "me")
+	require.NoError(t, err, "Should not error listing user subscriptions")
+
+	assert.True(t, len(subscriptions) > 0, "User should have subscriptions")
+
+	// Deactivate the user → POST /api/v1/users/{{userId}}/lifecycle/deactivate
+	_, err = client.User.DeactivateUser(ctx, user.Id, nil)
+	require.NoError(t, err, "Should not error when deactivating")
+
+	// Delete the user → DELETE /api/v1/users/{{userId}}
+	_, err = client.User.DeactivateOrDeleteUser(ctx, user.Id, nil)
+	require.NoError(t, err, "Should not error when deleting")
+
+	// Verify that the user is deleted by calling get on user (Exception thrown with 404 error message) → GET /api/v1/users/{{userId}}
+	_, resp, err := client.User.GetUser(ctx, user.Id)
+	require.Error(t, err, "User should not exist, but does")
+	assert.Equal(t, http.StatusNotFound, resp.StatusCode, "Should not have been able to find user")
+}
