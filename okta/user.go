@@ -1156,7 +1156,7 @@ func (m *UserResource) ListUserSubscriptions(ctx context.Context, userId string)
 }
 
 // Get the subscriptions of a User with a specific notification type. Only gets subscriptions for current user. An AccessDeniedException message is sent if requests are made from other users.
-func (m *UserResource) GetUserSubscriptionByNotificationType(ctx context.Context, userId string, notificationType string) ([]*Subscription, *Response, error) {
+func (m *UserResource) GetUserSubscriptionByNotificationType(ctx context.Context, userId string, notificationType string) (*Subscription, *Response, error) {
 	url := fmt.Sprintf("/api/v1/users/%v/subscriptions/%v", userId, notificationType)
 
 	rq := m.client.CloneRequestExecutor()
@@ -1166,7 +1166,7 @@ func (m *UserResource) GetUserSubscriptionByNotificationType(ctx context.Context
 		return nil, nil, err
 	}
 
-	var subscription []*Subscription
+	var subscription *Subscription
 
 	resp, err := rq.Do(ctx, req, &subscription)
 	if err != nil {
