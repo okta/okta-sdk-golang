@@ -740,10 +740,47 @@ func TestListUserSubscriptions(t *testing.T) {
 	user, _, err := client.User.GetUser(ctx, "me")
 	require.NoError(t, err, "Getting the current user should not error")
 
-	subscriptions, _, err := client.User.ListUserSubscriptions(ctx, "me")
+	subscriptions, _, err := client.User.ListUserSubscriptions(ctx, user.Id)
 	require.NoError(t, err, "Should not error listing user subscriptions")
 
 	assert.True(t, len(subscriptions) > 0, "User should have subscriptions")
+
+	// Deactivate the user → POST /api/v1/users/{{userId}}/lifecycle/deactivate
+	_, err = client.User.DeactivateUser(ctx, user.Id, nil)
+	require.NoError(t, err, "Should not error when deactivating")
+
+	// Delete the user → DELETE /api/v1/users/{{userId}}
+	_, err = client.User.DeactivateOrDeleteUser(ctx, user.Id, nil)
+	require.NoError(t, err, "Should not error when deleting")
+
+	// Verify that the user is deleted by calling get on user (Exception thrown with 404 error message) → GET /api/v1/users/{{userId}}
+	_, resp, err := client.User.GetUser(ctx, user.Id)
+	require.Error(t, err, "User should not exist, but does")
+	assert.Equal(t, http.StatusNotFound, resp.StatusCode, "Should not have been able to find user")
+}
+
+func TestGetUserSubscriptionByNotificationType(t *testing.T) {
+	// FIXME get user subscriptions by notification type is getting an API error
+	// due to this documentated limitation:
+	//
+	// Get the subscriptions of a User with a specific notification type. Only
+	// gets subscriptions for current user. An AccessDeniedException message is
+	// sent if requests are made from other users.
+	//
+	// Have tried creating a user and getting the current user: GET /api/v1/users/me
+	t.Skip("Need to determine how to set up environment for GetUserSubscriptionByNotificationType")
+
+	ctx, client, err := tests.NewClient(context.TODO(), okta.WithCache(false))
+	require.NoError(t, err)
+
+	user, _, err := client.User.GetUser(ctx, "me")
+	require.NoError(t, err, "Getting the current user should not error")
+
+	expectedNotificationType := "OKTA_ANNOUNCEMENT"
+	subscription, _, err := client.User.GetUserSubscriptionByNotificationType(ctx, user.Id, expectedNotificationType)
+	require.NoError(t, err, "Should not error getting user subscription by notification types")
+
+	assert.True(t, subscription.NotificationType == "OKTA_ANNOUNCEMENT", "User should have subscription notification type %q, got %q", expectedNotificationType, subscription.NotificationType)
 
 	// Deactivate the user → POST /api/v1/users/{{userId}}/lifecycle/deactivate
 	_, err = client.User.DeactivateUser(ctx, user.Id, nil)
