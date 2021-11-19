@@ -194,7 +194,7 @@ func (m *SubscriptionResource) UnsubscribeRoleSubscriptionByNotificationType(ctx
 
 // Subscribes a User to a specific notification type. Only the current User can subscribe to a specific notification type. An AccessDeniedException message is sent if requests are made from other users.
 func (m *SubscriptionResource) SubscribeUserSubscriptionByNotificationType(ctx context.Context, userId string, notificationType string) (*Response, error) {
-	url := fmt.Sprintf("/api/v1/roles/%v/subscriptions/%v/subscribe", userId, notificationType)
+	url := fmt.Sprintf("/api/v1/users/%v/subscriptions/%v/subscribe", userId, notificationType)
 
 	rq := m.client.CloneRequestExecutor()
 
@@ -213,7 +213,7 @@ func (m *SubscriptionResource) SubscribeUserSubscriptionByNotificationType(ctx c
 
 // Unsubscribes a User from a specific notification type. Only the current User can unsubscribe from a specific notification type. An AccessDeniedException message is sent if requests are made from other users.
 func (m *SubscriptionResource) UnsubscribeUserSubscriptionByNotificationType(ctx context.Context, userId string, notificationType string) (*Response, error) {
-	url := fmt.Sprintf("/api/v1/roles/%v/subscriptions/%v/unsubscribe", userId, notificationType)
+	url := fmt.Sprintf("/api/v1/users/%v/subscriptions/%v/unsubscribe", userId, notificationType)
 
 	rq := m.client.CloneRequestExecutor()
 
