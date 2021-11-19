@@ -19,8 +19,12 @@
 package okta
 
 import (
+	"bytes"
 	"context"
 	"fmt"
+	"io"
+	"mime/multipart"
+	"os"
 	"time"
 )
 
@@ -174,12 +178,29 @@ func (m *OrgSettingResource) UpdateOrgContactUser(ctx context.Context, contactTy
 }
 
 // Updates the logo for your organization.
-func (m *OrgSettingResource) UpdateOrgLogo(ctx context.Context) (*Response, error) {
+func (m *OrgSettingResource) UpdateOrgLogo(ctx context.Context, file string) (*Response, error) {
 	url := fmt.Sprintf("/api/v1/org/logo")
 
 	rq := m.client.CloneRequestExecutor()
 
-	req, err := rq.WithAccept("application/json").WithContentType("multipart/form-data").NewRequest("POST", url, nil)
+	fo, err := os.Open(file)
+	if err != nil {
+		return nil, err
+	}
+	defer fo.Close()
+	body := &bytes.Buffer{}
+	writer := multipart.NewWriter(body)
+	fw, err := writer.CreateFormFile("file", file)
+	if err != nil {
+		return nil, err
+	}
+	_, err = io.Copy(fw, fo)
+	if err != nil {
+		return nil, err
+	}
+	_ = writer.Close()
+
+	req, err := rq.WithAccept("application/json").WithContentType(writer.FormDataContentType()).NewRequest("POST", url, body)
 	if err != nil {
 		return nil, err
 	}

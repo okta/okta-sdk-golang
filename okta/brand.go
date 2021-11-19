@@ -19,8 +19,12 @@
 package okta
 
 import (
+	"bytes"
 	"context"
 	"fmt"
+	"io"
+	"mime/multipart"
+	"os"
 )
 
 type BrandResource resource
@@ -179,12 +183,29 @@ func (m *BrandResource) DeleteBrandThemeBackgroundImage(ctx context.Context, bra
 }
 
 // Updates the background image for your Theme
-func (m *BrandResource) UploadBrandThemeBackgroundImage(ctx context.Context, brandId string, themeId string) (*ImageUploadResponse, *Response, error) {
+func (m *BrandResource) UploadBrandThemeBackgroundImage(ctx context.Context, brandId string, themeId string, file string) (*ImageUploadResponse, *Response, error) {
 	url := fmt.Sprintf("/api/v1/brands/%v/themes/%v/background-image", brandId, themeId)
 
 	rq := m.client.CloneRequestExecutor()
 
-	req, err := rq.WithAccept("application/json").WithContentType("multipart/form-data").NewRequest("POST", url, nil)
+	fo, err := os.Open(file)
+	if err != nil {
+		return nil, nil, err
+	}
+	defer fo.Close()
+	body := &bytes.Buffer{}
+	writer := multipart.NewWriter(body)
+	fw, err := writer.CreateFormFile("file", file)
+	if err != nil {
+		return nil, nil, err
+	}
+	_, err = io.Copy(fw, fo)
+	if err != nil {
+		return nil, nil, err
+	}
+	_ = writer.Close()
+
+	req, err := rq.WithAccept("application/json").WithContentType(writer.FormDataContentType()).NewRequest("POST", url, body)
 	if err != nil {
 		return nil, nil, err
 	}
@@ -219,12 +240,29 @@ func (m *BrandResource) DeleteBrandThemeFavicon(ctx context.Context, brandId str
 }
 
 // Updates the favicon for your theme
-func (m *BrandResource) UploadBrandThemeFavicon(ctx context.Context, brandId string, themeId string) (*ImageUploadResponse, *Response, error) {
+func (m *BrandResource) UploadBrandThemeFavicon(ctx context.Context, brandId string, themeId string, file string) (*ImageUploadResponse, *Response, error) {
 	url := fmt.Sprintf("/api/v1/brands/%v/themes/%v/favicon", brandId, themeId)
 
 	rq := m.client.CloneRequestExecutor()
 
-	req, err := rq.WithAccept("application/json").WithContentType("multipart/form-data").NewRequest("POST", url, nil)
+	fo, err := os.Open(file)
+	if err != nil {
+		return nil, nil, err
+	}
+	defer fo.Close()
+	body := &bytes.Buffer{}
+	writer := multipart.NewWriter(body)
+	fw, err := writer.CreateFormFile("file", file)
+	if err != nil {
+		return nil, nil, err
+	}
+	_, err = io.Copy(fw, fo)
+	if err != nil {
+		return nil, nil, err
+	}
+	_ = writer.Close()
+
+	req, err := rq.WithAccept("application/json").WithContentType(writer.FormDataContentType()).NewRequest("POST", url, body)
 	if err != nil {
 		return nil, nil, err
 	}
@@ -259,12 +297,29 @@ func (m *BrandResource) DeleteBrandThemeLogo(ctx context.Context, brandId string
 }
 
 // Updates the logo for your Theme
-func (m *BrandResource) UploadBrandThemeLogo(ctx context.Context, brandId string, themeId string) (*ImageUploadResponse, *Response, error) {
+func (m *BrandResource) UploadBrandThemeLogo(ctx context.Context, brandId string, themeId string, file string) (*ImageUploadResponse, *Response, error) {
 	url := fmt.Sprintf("/api/v1/brands/%v/themes/%v/logo", brandId, themeId)
 
 	rq := m.client.CloneRequestExecutor()
 
-	req, err := rq.WithAccept("application/json").WithContentType("multipart/form-data").NewRequest("POST", url, nil)
+	fo, err := os.Open(file)
+	if err != nil {
+		return nil, nil, err
+	}
+	defer fo.Close()
+	body := &bytes.Buffer{}
+	writer := multipart.NewWriter(body)
+	fw, err := writer.CreateFormFile("file", file)
+	if err != nil {
+		return nil, nil, err
+	}
+	_, err = io.Copy(fw, fo)
+	if err != nil {
+		return nil, nil, err
+	}
+	_ = writer.Close()
+
+	req, err := rq.WithAccept("application/json").WithContentType(writer.FormDataContentType()).NewRequest("POST", url, body)
 	if err != nil {
 		return nil, nil, err
 	}
