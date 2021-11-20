@@ -18,7 +18,4 @@
 
 package okta
 
-type GroupProfile struct {
-	Description string `json:"description,omitempty"`
-	Name        string `json:"name,omitempty"`
-}
+type GroupProfile map[string]interface{}
