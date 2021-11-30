@@ -225,6 +225,10 @@ function getImports(object) {
     imports.splice(imports.indexOf("fmt"), 1);
   }
 
+  if (object.model.modelName === "GroupProfile") {
+    imports.push("encoding/json");
+  }
+
   return imports;
 }
 

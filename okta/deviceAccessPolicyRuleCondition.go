@@ -19,6 +19,10 @@
 package okta
 
 type DeviceAccessPolicyRuleCondition struct {
-	Managed    *bool `json:"managed,omitempty"`
-	Registered *bool `json:"registered,omitempty"`
+	Migrated   *bool                              `json:"migrated,omitempty"`
+	Platform   *DevicePolicyRuleConditionPlatform `json:"platform,omitempty"`
+	Rooted     *bool                              `json:"rooted,omitempty"`
+	TrustLevel string                             `json:"trustLevel,omitempty"`
+	Managed    *bool                              `json:"managed,omitempty"`
+	Registered *bool                              `json:"registered,omitempty"`
 }

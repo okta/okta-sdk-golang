@@ -37,6 +37,10 @@ type {{model.modelName}}Resource resource
 type {{model.modelName}}Resource resource
 
 {{/if}}
+{{#if (eq model.modelName "GroupProfile")}}
+type {{model.modelName}}Map map[string]interface{}
+
+{{/if}}
 {{#if (eq model.modelName "ApplicationSettingsApplication")}}
 type {{model.modelName}} map[string]interface{}
 {{else if model.enum}}
@@ -44,6 +48,9 @@ type {{model.modelName}} string
 {{else}}
 type {{model.modelName}} struct {
 	{{{buildModelProperties model}}}
+{{#if (eq model.modelName "GroupProfile")}}
+    {{model.modelName}}Map
+{{/if}}
 }
 {{/if}}
 {{#if model.enum}}
@@ -71,4 +78,43 @@ func (a *{{model.modelName}}) Is{{model.tags.[0]}}Instance() bool {
 {{#each operations as |operation|}}
 {{> model.defaultMethod  operation=operation alias=alias modelName=../model.modelName}}
 {{/each}}
+{{/if}}
+
+{{#if (eq model.modelName "GroupProfile")}}
+func (a *{{model.modelName}}) UnmarshalJSON(data []byte) error {
+	if string(data) == "null" || string(data) == `""` {
+		return nil
+	}
+	var profile map[string]interface{}
+	err := json.Unmarshal(data, &profile)
+	if err != nil {
+		return err
+	}
+	a.Name, _ = profile["name"].(string)
+	a.Description, _ = profile["description"].(string)
+	delete(profile, "name")
+	delete(profile, "description")
+	a.{{model.modelName}}Map = profile
+	return nil
+}
+
+func (a {{model.modelName}}) MarshalJSON() ([]byte, error) {
+	if len(a.{{model.modelName}}Map) == 0 {
+		return  json.Marshal(&struct {
+			Name        string `json:"name"`
+			Description string `json:"description"`
+		}{
+			Name:        a.Name,
+			Description: a.Description,
+		})
+	}
+	if a.Name != "" {
+		a.{{model.modelName}}Map["name"] = a.Name
+	}
+	if a.Description != "" {
+		a.{{model.modelName}}Map["description"] = a.Description
+	}
+	return json.Marshal(a.{{model.modelName}}Map)
+}
+
 {{/if}}

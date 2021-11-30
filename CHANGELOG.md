@@ -1,6 +1,13 @@
 # Changelog
 Running changelog of releases since `2.0.0-rc.4`
 
+## v2.9.2
+
+### Updates
+- Adjustments were made the attributes on the `DeviceAccessPolicyRuleCondition` type.
+- Adding `GroupProfileMap` attribute to `GroupProfile` struct to support additional properties. See #268
+
+
 ## v2.9.1
 
 ### New Types / Models

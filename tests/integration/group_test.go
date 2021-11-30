@@ -18,6 +18,7 @@ package integration
 
 import (
 	"context"
+	"encoding/json"
 	"net/http"
 	"testing"
 	"time"
@@ -29,7 +30,7 @@ import (
 	"github.com/stretchr/testify/require"
 )
 
-func Test_can_get_a_group(t *testing.T) {
+func TestCanGetAGroup(t *testing.T) {
 	ctx, client, err := tests.NewClient(context.TODO())
 	require.NoError(t, err)
 	// Create a new group → POST /api/v1/groups
@@ -59,7 +60,7 @@ func Test_can_get_a_group(t *testing.T) {
 		"Should have resulted in a 404 when finding a deleted group")
 }
 
-func Test_can_list_groups(t *testing.T) {
+func TestCanListGroups(t *testing.T) {
 	ctx, client, err := tests.NewClient(context.TODO())
 	require.NoError(t, err)
 	// Create a new group → POST /api/v1/groups
@@ -89,7 +90,7 @@ func Test_can_list_groups(t *testing.T) {
 	require.NoError(t, err, "Should not error when deleting a group")
 }
 
-func Test_can_search_for_a_group(t *testing.T) {
+func TestCanSearchForAGroup(t *testing.T) {
 	ctx, client, err := tests.NewClient(context.TODO())
 	require.NoError(t, err)
 	// Create a new group → POST /api/v1/groups
@@ -121,7 +122,7 @@ func Test_can_search_for_a_group(t *testing.T) {
 	require.NoError(t, err, "Should not error when deleting a group")
 }
 
-func Test_can_update_a_group(t *testing.T) {
+func TestCanUpdateAGroup(t *testing.T) {
 	ctx, client, err := tests.NewClient(context.TODO())
 	require.NoError(t, err)
 	// Create a new group → POST /api/v1/groups
@@ -153,7 +154,7 @@ func Test_can_update_a_group(t *testing.T) {
 	require.NoError(t, err, "Should not error when deleting a group")
 }
 
-func Test_group_user_operations(t *testing.T) {
+func TestGroupUserOperations(t *testing.T) {
 	ctx, client, err := tests.NewClient(context.TODO())
 	require.NoError(t, err)
 	// Create a user with credentials → POST /api/v1/users?activate=false
@@ -218,7 +219,7 @@ func Test_group_user_operations(t *testing.T) {
 	require.NoError(t, err, "Should not error when deleting a group")
 }
 
-func Test_group_rule_operations(t *testing.T) {
+func TestGroupRuleOperations(t *testing.T) {
 	t.Skip("does not work properly in test org")
 	ctx, client, err := tests.NewClient(context.TODO(), okta.WithCache(false))
 	// Create a user with credentials, activated by default → POST /api/v1/users?activate=true
@@ -363,4 +364,31 @@ func Test_group_rule_operations(t *testing.T) {
 	// Delete the group rule → DELETE /api/v1/groups/rules/{{ruleId}}
 	_, err = client.Group.DeleteGroupRule(ctx, groupRule.Id, &query.Params{})
 	require.NoError(t, err, "Should not error when deleting Rule")
+}
+
+func TestGroupProfileSerialization(t *testing.T) {
+	gp := okta.GroupProfile{
+		Name:        "test",
+		Description: "tester",
+		GroupProfileMap: okta.GroupProfileMap{
+			"custom": "value",
+		},
+	}
+
+	gpExpected := okta.GroupProfile{
+		Name:        "test",
+		Description: "tester",
+		GroupProfileMap: okta.GroupProfileMap{
+			"custom": "value",
+		},
+	}
+
+	b, err := json.Marshal(&gp)
+	require.NoError(t, err)
+
+	var gpCopy okta.GroupProfile
+	err = json.Unmarshal(b, &gpCopy)
+	require.NoError(t, err)
+
+	assert.Equal(t, gpExpected, gpCopy, "expected marshal to unmarshal to produce exact copy of group profile")
 }
