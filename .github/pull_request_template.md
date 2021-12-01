@@ -20,6 +20,7 @@ Fixes #
 - [ ] New Feature (non-breaking changes that add new functionality)
 - [ ] Documentation update
 - [ ] Test Updates
+- [ ] Other (Please describe the type)
 
 ## Test Information
 <!-- Please fill out all information -->
