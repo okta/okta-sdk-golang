@@ -6,13 +6,13 @@ COLOR_OKTA=\x1B[34;01m
 GOFMT := gofumpt
 GOIMPORTS := goimports
 
+VERSION=$(shell grep -E -o '(0|[1-9]\d*)\.(0|[1-9]\d*)\.(0|[1-9]\d*)(?:-((?:0|[1-9]\d*|\d*[a-zA-Z-][0-9a-zA-Z-]*)(?:\.(?:0|[1-9]\d*|\d*[a-zA-Z-][0-9a-zA-Z-]*))*))?(?:\+([0-9a-zA-Z-]+(?:\.[0-9a-zA-Z-]+)*))?' ./okta/okta.go)
+
 ifndef OPENAPI_SPEC_BRANCH
 override OPENAPI_SPEC_BRANCH = master
 endif
 
-help:
-	@echo "$(COLOR_OK)Okta SDK for Golang$(COLOR_NONE)"
-	@echo ""
+help: header
 	@echo "$(COLOR_WARNING)Usage:$(COLOR_NONE)"
 	@echo "$(COLOR_OK)  make [command]$(COLOR_NONE)"
 	@echo ""
@@ -26,11 +26,14 @@ help:
 	@echo "$(COLOR_OK)  test:integration        Run only integration tests$(COLOR_NONE)"
 	@echo "$(COLOR_OK)  test:unit               Run only unit tests$(COLOR_NONE)"
 
+
 build:
 	@echo "$(COLOR_OKTA)Building SDK...$(COLOR_NONE)"
-	make clean-files
-	make generate-files
-	make test:all
+
+ifdef spec
+	@echo "$(COLOR_WARNING)Using the spec at $(spec)$(COLOR_NONE)"
+	swagger-codegen generate -i $(spec) -l go -o ./v3
+endif
 
 clean-files:
 	@echo "$(COLOR_OKTA)Cleaning Up Old Generated Files...$(COLOR_NONE)"
@@ -82,3 +85,14 @@ import: check-goimports
 
 check-goimports:
 	@which $(GOIMPORTS) > /dev/null || GO111MODULE=on go get golang.org/x/tools/cmd/goimports
+
+.PHONY: header
+header:
+	@echo "$(COLOR_OKTA)  ___  _  _______  _$(COLOR_NONE)"
+	@echo "$(COLOR_OKTA) / _ \| |/ /_   _|/ \ $(COLOR_NONE)"
+	@echo "$(COLOR_OKTA)| | | | ' /  | | / _ \ $(COLOR_NONE)"
+	@echo "$(COLOR_OKTA)| |_| | . \  | |/ ___ \ $(COLOR_NONE)"
+	@echo "$(COLOR_OKTA) \___/|_|\_\ |_/_/   \_\ $(COLOR_NONE)"
+	@echo ""
+	@echo "$(COLOR_OK)Okta SDK for Golang$(COLOR_NONE) version $(COLOR_WARNING)$(VERSION)$(COLOR_NONE)"
+	@echo ""
