@@ -551,7 +551,6 @@ func createOrg2OrgApplication(t *testing.T) *okta.Org2OrgApplication {
 	application := okta.NewOrg2OrgApplication()
 	application.Label = "Sample Okta Org2Org App"
 	application.Name = "okta_org2org"
-	application.SignOnMode = "SAML_2_0"
 	application.Settings = &okta.Org2OrgApplicationSettings{
 		App: &okta.Org2OrgApplicationSettingsApp{
 			AcsUrl:         "https://example.okta.com/sso/saml2/exampleid",

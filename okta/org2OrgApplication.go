@@ -23,6 +23,7 @@ import (
 )
 
 type Org2OrgApplication struct {
+	Settings      *Org2OrgApplicationSettings `json:"settings,omitempty"`
 	Embedded      interface{}                 `json:"_embedded,omitempty"`
 	Links         interface{}                 `json:"_links,omitempty"`
 	Accessibility *ApplicationAccessibility   `json:"accessibility,omitempty"`
@@ -35,7 +36,6 @@ type Org2OrgApplication struct {
 	Licensing     *ApplicationLicensing       `json:"licensing,omitempty"`
 	Name          string                      `json:"name,omitempty"`
 	Profile       interface{}                 `json:"profile,omitempty"`
-	Settings      *Org2OrgApplicationSettings `json:"settings,omitempty"`
 	SignOnMode    string                      `json:"signOnMode,omitempty"`
 	Status        string                      `json:"status,omitempty"`
 	Visibility    *ApplicationVisibility      `json:"visibility,omitempty"`
@@ -43,7 +43,7 @@ type Org2OrgApplication struct {
 
 func NewOrg2OrgApplication() *Org2OrgApplication {
 	return &Org2OrgApplication{
-		SignOnMode: "ORG2ORG",
+		Name: "okta_org2org",
 	}
 }
 
