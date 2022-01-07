@@ -89,7 +89,25 @@ github.com/okta/okta-sdk-golang` and import the package in your project with
 Construct a client instance by passing it your Okta domain name and API token:
 
 ```go
-ctx, client, err := okta.NewClient(context, okta.WithOrgUrl("https://{yourOktaDomain}"), okta.WithToken("{apiToken}"))
+import (
+	"fmt"
+	"context"
+	"github.com/okta/okta-sdk-golang/v2/okta"
+)
+
+func main() {
+  ctx, client, err := okta.NewClient(
+    context.TODO(),
+    okta.WithOrgUrl("https://{yourOktaDomain}"),
+    okta.WithToken("{apiToken}"),
+  )
+
+  if err != nil {
+    fmt.Errorf("Error: %v", err)
+  }
+
+  fmt.Printf("Context: %+v\n Client: %+v\n",ctx, client)
+)
 ```
 
 Hard-coding the Okta domain and API token works for quick tests, but for real
@@ -138,7 +156,27 @@ When creating your client, you can pass in these settings like you would with
 any other configuration.
 
 ```go
-ctx, client, err := okta.NewClient(context, okta.WithRequestTimeout(45), okta.WithRateLimitMaxRetries(3))
+import (
+	"fmt"
+	"context"
+	"github.com/okta/okta-sdk-golang/v2/okta"
+)
+
+func main() {
+  ctx, client, err := okta.NewClient(
+    context,
+    okta.WithOrgUrl("https://{yourOktaDomain}"),
+    okta.WithToken("{apiToken}"),
+    okta.WithRequestTimeout(45),
+    okta.WithRateLimitMaxRetries(3),
+  )
+
+  if err != nil {
+    fmt.Errorf("Error: %v", err)
+  }
+
+  fmt.Printf("Context: %+v\n Client: %+v\n",ctx, client)
+}
 ```
 
 ### Authenticate a User
@@ -150,213 +188,473 @@ should construct your own HTTP requests.
 ### Get a User
 
 ```go
-ctx, client, err := okta.NewClient(context, okta.WithOrgUrl("https://{yourOktaDomain}"), okta.WithToken("{apiToken}"))
-user, resp, err := client.User.GetUser(user.Id, nil)
+import (
+	"fmt"
+	"context"
+	"github.com/okta/okta-sdk-golang/v2/okta"
+)
+
+func main() {
+  ctx, client, err := okta.NewClient(
+    context.TODO(),
+    okta.WithOrgUrl("https://{yourOktaDomain}"),
+    okta.WithToken("{apiToken}"),
+  )
+
+  if err != nil {
+    fmt.Errorf("Error: %v", err)
+  }
+
+  fmt.Printf("Context: %+v\n Client: %+v\n",ctx, client)
+
+  user, resp, err := client.User.GetUser(ctx, "{UserId|Username|Email}")
+  if err != nil {
+    fmt.Errorf("Error Getting User: %v", err)
+  }
+  fmt.Printf("User: %+v\n Response: %+v\n\n",user, resp)
+}
 ```
 
 ### List all Users
 
 ```go
-ctx, client, err := okta.NewClient(context, okta.WithOrgUrl("https://{yourOktaDomain}"), okta.WithToken("{apiToken}"))
-users, resp, err := client.User.ListUsers()
+import (
+	"fmt"
+	"context"
+	"github.com/okta/okta-sdk-golang/v2/okta"
+)
+
+func main() {
+  ctx, client, err := okta.NewClient(
+    context.TODO(),
+    okta.WithOrgUrl("https://{yourOktaDomain}"),
+    okta.WithToken("{apiToken}"),
+  )
+
+  if err != nil {
+    fmt.Errorf("Error: %v", err)
+  }
+
+  fmt.Printf("Context: %+v\n Client: %+v\n",ctx, client)
+
+  users, resp, err := client.User.ListUsers(ctx, nil)
+  if err != nil {
+    fmt.Errorf("Error Getting Users: %v", err)
+  }
+  fmt.Printf("Users: %+v\n Response: %+v\n\n",users, resp)
+  for index, user := range users {
+    fmt.Printf("User %d: %+v\n", index, user)
+  }
+}
 ```
 
 ### Filter or search for Users
 
 ```go
-ctx, client, err := okta.NewClient(context, okta.WithOrgUrl("https://{yourOktaDomain}"), okta.WithToken("{apiToken}"))
+import (
+	"fmt"
+	"context"
+	"github.com/okta/okta-sdk-golang/v2/okta"
+	"github.com/okta/okta-sdk-golang/v2/okta/query"
+)
 
-filter := query.NewQueryParams(query.WithFilter("status eq \"ACTIVE\""))
+func main() {
+  ctx, client, err := okta.NewClient(
+    context.TODO(),
+    okta.WithOrgUrl("https://{yourOktaDomain}"),
+    okta.WithToken("{apiToken}"),
+  )
 
-users, resp, err := client.User.ListUsers(filter)
+  if err != nil {
+    fmt.Errorf("Error: %v", err)
+  }
+
+  fmt.Printf("Context: %+v\n Client: %+v\n",ctx, client)
+
+  filter := query.NewQueryParams(query.WithFilter("status eq \"ACTIVE\""))
+
+	filteredUsers, resp, err := client.User.ListUsers(ctx, filter)
+	if err != nil {
+		fmt.Errorf("Error Getting Users: %v", err)
+	}
+
+	fmt.Printf("Filtered Users: %+v\n Response: %+v\n\n", filteredUsers, resp)
+
+	for index, user := range filteredUsers {
+		fmt.Printf("User %d: %+v\n", index, user)
+	}
+}
 ```
 
 ### Create a User
 
 ```go
-ctx, client, err := okta.NewClient(context, okta.WithOrgUrl("https://{yourOktaDomain}"), okta.WithToken("{apiToken}"))
+import (
+	"fmt"
+	"context"
+	"github.com/okta/okta-sdk-golang/v2/okta"
+	"github.com/okta/okta-sdk-golang/v2/okta/query"
+)
 
-p := &okta.PasswordCredential{
-  Value: "Abcd1234",
+func main() {
+  ctx, client, err := okta.NewClient(
+    context.TODO(),
+    okta.WithOrgUrl("https://{yourOktaDomain}"),
+    okta.WithToken("{apiToken}"),
+  )
+
+  if err != nil {
+    fmt.Errorf("Error: %v", err)
+  }
+
+  fmt.Printf("Context: %+v\n Client: %+v\n",ctx, client)
+
+  password := &okta.PasswordCredential{
+		Value: "Abcd1234!",
+	}
+
+	userCredentials := &okta.UserCredentials{
+		Password: password,
+	}
+
+	profile := okta.UserProfile{}
+	profile["firstName"] = "Ben"
+	profile["lastName"] = "Solo"
+	profile["email"] = "ben-solo@example.com"
+	profile["login"] = "ben-solo@example.com"
+
+	createUserRequest := okta.CreateUserRequest{
+		Credentials: userCredentials,
+		Profile: &profile,
+	}
+
+
+	// activate user on create
+	queryParam := query.NewQueryParams(query.WithActivate(true))
+
+
+	user, resp, err := client.User.CreateUser(ctx, createUserRequest, queryParam)
+	if err != nil {
+		fmt.Errorf("Error Creating User: %v", err)
+	}
+
+	fmt.Printf("User: %+v\n Response: %+v\n\n", user, resp)
 }
-
-uc := &okta.UserCredentials{
-  Password: p,
-}
-
-profile := okta.UserProfile{}
-profile["firstName"] = "John"
-profile["lastName"] = "Activate"
-profile["email"] = "john-activate@example.com"
-profile["login"] = "john-activate@example.com"
-
-u := &okta.User{
-	Credentials: uc,
-	Profile:     &profile,
-}
-
-qp := query.NewQueryParams(query.WithActivate(true))
-
-user, resp, err := client.User.CreateUser(ctx, *u, qp)
 ```
 
 ### Update a User
 
 ```go
-ctx, client, err := okta.NewClient(context, okta.WithOrgUrl("https://{yourOktaDomain}"), okta.WithToken("{apiToken}"))
+import (
+	"fmt"
+	"context"
+	"github.com/okta/okta-sdk-golang/v2/okta"
+	"github.com/okta/okta-sdk-golang/v2/okta/query"
+)
 
-newProfile := *user.Profile
-newProfile["nickName"] = "Batman"
-updatedUser := &okta.User{
-  Profile: &newProfile,
+func main() {
+  ctx, client, err := okta.NewClient(
+    context.TODO(),
+    okta.WithOrgUrl("https://{yourOktaDomain}"),
+    okta.WithToken("{apiToken}"),
+  )
+
+  if err != nil {
+    fmt.Errorf("Error: %v", err)
+  }
+
+  fmt.Printf("Context: %+v\n Client: %+v\n",ctx, client)
+
+  	userToUpdate, resp, err := client.User.GetUser(ctx, "{userId}")
+	if err != nil {
+		fmt.Errorf("Error Getting User to update: %v", err)
+	}
+
+	fmt.Printf("User to update: %+v\n Response: %+v\n\n", userToUpdate, resp)
+
+	newProfile := *userToUpdate.Profile
+	newProfile["nickName"] = "Kylo Ren"
+	updateUser := &okta.User{
+		Profile: &newProfile,
+	}
+
+	updatedUser, resp, err := client.User.UpdateUser(ctx, userToUpdate.Id, *updateUser, nil)
+	if err != nil {
+		fmt.Errorf("Error updating user: %v", err)
+	}
+
+	fmt.Printf("Updated User: %+v\n Response: %+v\n\n", updatedUser, resp)
 }
-user, resp, err := client.User.UpdateUser(user.Id, *updatedUser, nil)
 ```
 
 ### Get and set custom attributes
 
 Custom attributes must first be defined in the Okta profile editor. Then, you
-can work with custom attributes on a user:
-
-```go
-ctx, client, err := okta.NewClient(context, okta.WithOrgUrl("https://{yourOktaDomain}"), okta.WithToken("{apiToken}"))
-user, resp, err := client.User.GetUser(user.Id, nil)
-
-nickName = user.Profile["nickName"]
-```
+can work with custom attributes on a user the same as any other profile attribute
 
 ### Remove a User
 
 You must first deactivate the user, and then you can delete the user.
 
 ```go
-ctx, client, err := okta.NewClient(context, okta.WithOrgUrl("https://{yourOktaDomain}"), okta.WithToken("{apiToken}"))
-resp, err := client.User.DeactivateUser(user.Id, nil)
+import (
+	"fmt"
+	"context"
+	"github.com/okta/okta-sdk-golang/v2/okta"
+)
 
-resp, err := client.User.DeactivateOrDeleteUser(user.Id, nil)
+func main() {
+  ctx, client, err := okta.NewClient(
+    context.TODO(),
+    okta.WithOrgUrl("https://{yourOktaDomain}"),
+    okta.WithToken("{apiToken}"),
+  )
+
+  if err != nil {
+    fmt.Errorf("Error: %v", err)
+  }
+
+  fmt.Printf("Context: %+v\n Client: %+v\n",ctx, client)
+
+  resp, err := client.User.DeactivateUser(ctx, "00u14ffhw5szVqide0h8", nil)
+	if err != nil {
+		fmt.Errorf("Error deactivating user: %v", err)
+	}
+
+	fmt.Printf("Response: %+v\n\n", resp)
+
+	resp, err = client.User.DeactivateOrDeleteUser(ctx, "00u14ffhw5szVqide0h8", nil)
+	if err != nil {
+		fmt.Errorf("Error deleting user: %v", err)
+	}
+
+	fmt.Printf("Response: %+v\n\n", resp)
+}
 ```
 
 ### List a User's Groups
 
 ```go
-ctx, client, err := okta.NewClient(context, okta.WithOrgUrl("https://{yourOktaDomain}"), okta.WithToken("{apiToken}"))
+import (
+	"fmt"
+	"context"
+	"github.com/okta/okta-sdk-golang/v2/okta"
+)
 
-groups, resp, err := client.User.ListUserGroups(user.Id, nil)
+func main() {
+  ctx, client, err := okta.NewClient(
+    context.TODO(),
+    okta.WithOrgUrl("https://{yourOktaDomain}"),
+    okta.WithToken("{apiToken}"),
+  )
+
+  if err != nil {
+    fmt.Errorf("Error: %v", err)
+  }
+
+  fmt.Printf("Context: %+v\n Client: %+v\n",ctx, client)
+
+  groups, resp, err := client.User.ListUserGroups(ctx, "00u14fg9ff4MExj5f0h8")
+	if err != nil {
+		fmt.Errorf("Error getting group list for user: %v", err)
+	}
+
+	fmt.Printf("Groups: %+v\n Response: %+v\n\n", groups, resp)
+
+	for index, group := range groups {
+		fmt.Printf("Group %d: %v\n", index, group)
+	}
+}
 ```
 
 ### Create a Group
 
 ```go
-ctx, client, err := okta.NewClient(context, okta.WithOrgUrl("https://{yourOktaDomain}"), okta.WithToken("{apiToken}"))
+import (
+	"fmt"
+	"context"
+	"github.com/okta/okta-sdk-golang/v2/okta"
+)
 
-gp := &okta.GroupProfile{
-  Name: "Get Test Group",
+func main() {
+  ctx, client, err := okta.NewClient(
+    context.TODO(),
+    okta.WithOrgUrl("https://{yourOktaDomain}"),
+    okta.WithToken("{apiToken}"),
+  )
+
+  if err != nil {
+    fmt.Errorf("Error: %v", err)
+  }
+
+  fmt.Printf("Context: %+v\n Client: %+v\n",ctx, client)
+
+  groupProfile := &okta.GroupProfile{
+		Name: "Sith",
+	}
+	groupToCreate := &okta.Group{
+		Profile: groupProfile,
+	}
+	group, resp, err := client.Group.CreateGroup(ctx, *groupToCreate)
+	if err != nil {
+		fmt.Errorf("Error creating group: %v", err)
+	}
+
+	fmt.Printf("Created Group: %+v\n Response: %+v\n\n", group, resp)
 }
-g := &okta.Group{
-  Profile: gp,
-}
-group, resp, err := client.Group.CreateGroup(*g, nil)
 ```
 
 ### Add a User to a Group
 
 ```go
-ctx, client, err := okta.NewClient(context, okta.WithOrgUrl("https://{yourOktaDomain}"), okta.WithToken("{apiToken}"))
+import (
+	"fmt"
+	"context"
+	"github.com/okta/okta-sdk-golang/v2/okta"
+)
 
-resp, err := client.Group.AddUserToGroup(group.Id, user.Id, nil)
-```
+func main() {
+  ctx, client, err := okta.NewClient(
+    context.TODO(),
+    okta.WithOrgUrl("https://{yourOktaDomain}"),
+    okta.WithToken("{apiToken}"),
+  )
 
-### List a User's enrolled Factors
+  if err != nil {
+    fmt.Errorf("Error: %v", err)
+  }
 
-```go
-ctx, client, err := okta.NewClient(context, okta.WithOrgUrl("https://{yourOktaDomain}"), okta.WithToken("{apiToken}"))
+  fmt.Printf("Context: %+v\n Client: %+v\n",ctx, client)
 
-allowedFactors, resp, err := client.Factor.ListSupportedFactors(user.Id)
-```
+  resp, err := client.Group.AddUserToGroup(ctx, "{groupId}", "{userId}")
+	if err != nil {
+		fmt.Errorf("Error adding user to group: %v", err)
+	}
 
-### Enroll a User in a new Factor
-
-```go
-ctx, client, err := okta.NewClient(context, okta.WithOrgUrl("https://{yourOktaDomain}"), okta.WithToken("{apiToken}"))
-
-factorProfile := okta.NewSmsFactorProfile()
-factorProfile.PhoneNumber = "5551234567"
-
-factor := okta.NewSmsFactor()
-factor.Profile = factorProfile
-
-addedFactor, resp, err := client.Factor.AddFactor(user.Id, factor, nil)
-```
-
-### Activate a Factor
-
-```go
-ctx, client, err := okta.NewClient(context, okta.WithOrgUrl("https://{yourOktaDomain}"), okta.WithToken("{apiToken}"))
-
-factor, resp, err := client.Factor.ActivateFactor(user.Id, factor.Id, nil)
-```
-
-### Verify a Factor
-
-```go
-ctx, client, err := okta.NewClient(context, okta.WithOrgUrl("https://{yourOktaDomain}"), okta.WithToken("{apiToken}"))
-
-verifyFactorRequest := okta.VerifyFactorRequest{
-  PassCode: "123456"
+	fmt.Printf("Response: %+v\n\n", resp)
 }
-verifyFactorResp, resp, err := client.Factor.VerifyFactor(user.Id, factor.Id, verifyFactorRequest, nil)
 ```
 
 ### List all Applications
 
 ```go
-ctx, client, err := okta.NewClient(context, okta.WithOrgUrl("https://{yourOktaDomain}"), okta.WithToken("{apiToken}"))
+import (
+	"fmt"
+	"context"
+	"github.com/okta/okta-sdk-golang/v2/okta"
+)
 
-applications, resp, err := client.Application.ListApplications(nil)
+func main() {
+  ctx, client, err := okta.NewClient(
+    context.TODO(),
+    okta.WithOrgUrl("https://{yourOktaDomain}"),
+    okta.WithToken("{apiToken}"),
+  )
 
-//applications will need to be cast from the interface into its concrete form before you can use it.
-for _, a := range applications {
-		if a.(*okta.Application).Name == "bookmark" {
-			if a.(*okta.Application).Id == app2.(okta.BookmarkApplication).Id {
-				application :=  *a.(*okta.BookmarkApplication) //This will cast it to a Bookmark Application
-			}
-		}
-		// continue for each type you want to work with.
+  if err != nil {
+    fmt.Errorf("Error: %v", err)
+  }
+
+  fmt.Printf("Context: %+v\n Client: %+v\n",ctx, client)
+
+  applicationList, resp, err := client.Application.ListApplications(ctx, nil)
+	if err != nil {
+		fmt.Errorf("Error listing applications: %v", err)
 	}
+
+	fmt.Printf("ApplicationList: %+v\n Response: %+v\n\n", applicationList, resp)
+
+	// Listing applications is mapped and returned as a interface. Once you
+	// get the list of applications, find the one you want to work on, and
+	// make a `GET` request with that ID and the concrete application type
+	for _, app := range applicationList {
+		if app.(*okta.Application).Name == "oidc_client" {
+			application, resp, err := client.Application.GetApplication(ctx, app.(*okta.Application).Id, okta.NewOpenIdConnectApplication(), nil)
+			if err != nil {
+				fmt.Errorf("Error getting application: %v", err)
+			}
+
+			fmt.Printf("Concrete Application: %+v\n Response: %+v\n\n", application, resp)
+		}
+	}
+}
 ```
 
 ### Get an Application
 
 ```go
-ctx, client, err := okta.NewClient(context, okta.WithOrgUrl("https://{yourOktaDomain}"), okta.WithToken("{apiToken}"))
+import (
+	"fmt"
+	"context"
+	"github.com/okta/okta-sdk-golang/v2/okta"
+)
 
-//Getting a Basic Auth Application
-application, resp, err = client.Application.GetApplication(appId, okta.NewBasicAuthApplication(), nil)
+func main() {
+  ctx, client, err := okta.NewClient(
+    context.TODO(),
+    okta.WithOrgUrl("https://{yourOktaDomain}"),
+    okta.WithToken("{apiToken}"),
+  )
 
-//To use the application, you must cast it to the type.
-app := application.(*okta.BasicAuthApplication)
+  if err != nil {
+    fmt.Errorf("Error: %v", err)
+  }
+
+  fmt.Printf("Context: %+v\n Client: %+v\n",ctx, client)
+
+  application, resp, err := client.Application.GetApplication(ctx, "0oaswjmkbtlpBDWpu0h7", okta.NewOpenIdConnectApplication(), nil)
+	if err != nil {
+		fmt.Errorf("Error getting application: %v", err)
+	}
+
+	fmt.Printf("Application: %+v\n Response: %+v\n\n", application, resp)
+
+}
 ```
 
-### Create a SWA Application
+### Create an Open ID Connect Application
 
 ```go
-ctx, client, err := okta.NewClient(context, okta.WithOrgUrl("https://{yourOktaDomain}"), okta.WithToken("{apiToken}"))
+import (
+	"fmt"
+	"context"
+	"github.com/okta/okta-sdk-golang/v2/okta"
+)
 
-swaAppSettingsApp := newSwaApplicationSettingsApplication()
-swaAppSettingsApp.ButtonField = "btn-login"
-swaAppSettingsApp.PasswordField = "txtbox-password"
-swaAppSettingsApp.UsernameField = "txtbox-username"
-swaAppSettingsApp.Url = "https://example.com/login.html"
-swaAppSettingsApp.LoginUrlRegex = "REGEX_EXPRESSION"
+func main() {
+  ctx, client, err := okta.NewClient(
+    context.TODO(),
+    okta.WithOrgUrl("https://{yourOktaDomain}"),
+    okta.WithToken("{apiToken}"),
+  )
 
-swaAppSettings := newSwaApplicationSettings()
-swaAppSettings.App = &swaAppSettingsApp
+  if err != nil {
+    fmt.Errorf("Error: %v", err)
+  }
 
-swaApp := newSwaApplication()
-swaApp.Label = "Test App"
-swaApp.Settings = &swaAppSettings
+  fmt.Printf("Context: %+v\n Client: %+v\n",ctx, client)
 
-application, resp, err := client.Application.CreateApplication(swaApp, nil)
+  swaApplicationSettingsApplication := okta.SwaApplicationSettingsApplication{
+		ButtonField: "btn-login",
+		PasswordField: "txtbox-password",
+		UsernameField: "txtbox-username",
+		Url: "http://example.com/login.html",
+	}
+	swaApplicationSettings := okta.SwaApplicationSettings{
+		App: &swaApplicationSettingsApplication,
+	}
+
+	swaApp := okta.NewSwaApplication()
+	swaApp.Label = "Empire Internals"
+	swaApp.Settings = &swaApplicationSettings
+
+	application, resp, err := client.Application.CreateApplication(ctx, swaApp, nil)
+	if err != nil {
+		fmt.Errorf("Error creating application: %v", err)
+	}
+
+	fmt.Printf("Application: %+v\n Response: %+v\n\n", application, resp)
+}
 ```
 
 ### Call other API endpoints
@@ -365,53 +663,77 @@ Not every API endpoint is represented by a method in this library. You can call
 any Okta management API endpoint using this generic syntax:
 
 ```go
-ctx, client, err := okta.NewClient(context, okta.WithOrgUrl("https://{yourOktaDomain}"), okta.WithToken("{apiToken}"))
+import (
+	"fmt"
+	"context"
+  "time"
+	"github.com/okta/okta-sdk-golang/v2/okta"
+)
 
-url := "https://golang.oktapreview.com/api/v1/authorizationServers
+func main() {
+  ctx, client, err := okta.NewClient(
+    context.TODO(),
+    okta.WithOrgUrl("https://{yourOktaDomain}"),
+    okta.WithToken("{apiToken}"),
+  )
 
-type Signing struct {
-	RotationMode string     `json:"rotationMode,omitempty"`
-	LastRotated  *time.Time `json:"lastRotated,omitempty"`
-	NextRotation *time.Time `json:"nextRotation,omitempty"`
-	Kid          string     `json:"kid,omitempty"`
+  if err != nil {
+    fmt.Errorf("Error: %v", err)
+  }
+
+  fmt.Printf("Context: %+v\n Client: %+v\n",ctx, client)
+
+  // The URL you want to call (org url will be automatically prefixed)
+  url := "/api/v1/authorizationServers"
+
+  // Set up the body of the request with structs and data
+	type Signing struct {
+		RotationMode string     `json:"rotationMode,omitempty"`
+		LastRotated  *time.Time `json:"lastRotated,omitempty"`
+		NextRotation *time.Time `json:"nextRotation,omitempty"`
+		Kid          string     `json:"kid,omitempty"`
+	}
+
+	type Credentials struct {
+		Signing *Signing `json:"signing,omitempty"`
+	}
+
+	type AuthorizationServer struct {
+		Id          string       `json:"id,omitempty"`
+		Name        string       `json:"name,omitempty"`
+		Description string       `json:"description,omitempty"`
+		Audiences   []string     `json:"audiences,omitempty"`
+		Issuer      string       `json:"issuer,omitempty"`
+		IssuerMode  string       `json:"issuerMode,omitempty"`
+		Status      string       `json:"status,omitempty"`
+		Created     *time.Time   `json:"created,omitempty"`
+		LastUpdated *time.Time   `json:"lastUpdated,omitempty"`
+		Credentials *Credentials `json:"credentials,omitempty"`
+		Embedded    interface{}  `json:"_embedded,omitempty"`
+		Links       interface{}  `json:"_links,omitempty"`
+	}
+
+	as := AuthorizationServer{
+	Name:        "Sample Authorization Server",
+	Description: "Sample Authorization Server description",
+	Audiences:   []string{"api://default"},
+	}
+
+  // create a new request using the cloned request executor
+	req, err := client.CloneRequestExecutor().NewRequest("POST", url, as)
+	if err != nil {
+		fmt.Printf("Error creating new request: %v", err)
+	}
+
+  // Make the request
+	var authServer *AuthorizationServer
+	resp, err := client.CloneRequestExecutor().Do(ctx, req, &authServer)
+	if err != nil {
+		fmt.Printf("Error executing request: %v", err)
+	}
+
+	fmt.Printf("Authorization Server: %v\n Response: %v\n\n", authServer, resp)
 }
-
-type Credentials struct {
-	Signing *Signing `json:"signing,omitempty"`
-}
-
-type AuthorizationServer struct {
-	Id          string       `json:"id,omitempty"`
-	Name        string       `json:"name,omitempty"`
-	Description string       `json:"description,omitempty"`
-	Audiences   []string     `json:"audiences,omitempty"`
-	Issuer      string       `json:"issuer,omitempty"`
-	IssuerMode  string       `json:"issuerMode,omitempty"`
-	Status      string       `json:"status,omitempty"`
-	Created     *time.Time   `json:"created,omitempty"`
-	LastUpdated *time.Time   `json:"lastUpdated,omitempty"`
-	Credentials *Credentials `json:"credentials,omitempty"`
-	Embedded    interface{}  `json:"_embedded,omitempty"`
-	Links       interface{}  `json:"_links,omitempty"`
-}
-
-as := AuthorizationServer{
-  Name:        "Sample Authorization Server",
-  Description: "Sample Authorization Server description",
-  Audiences:   []string{"api://default"},
-}
-
-req, err := m.client.requestExecutor.NewRequest("POST", url, as)
-if err != nil {
-  return nil, nil, err
-}
-
-var authServer *AuthorizationServer
-resp, err := m.client.requestExecutor.Do(req, &authServer)
-if err != nil {
-  return nil, resp, err
-}
-return authServer, resp, nil
 ```
 
 ### Access Request Executor
@@ -538,12 +860,19 @@ request an access token for you. In order to use OAuth 2.0, construct a client
 instance by passing the following parameters:
 
 ```go
-ctx, client, err := okta.NewClient(context,
+ctx := context.TODO()
+ctx, client, err := okta.NewClient(ctx,
+  okta.WithOrgUrl("https://{yourOktaDomain}"),
   okta.WithAuthorizationMode("PrivateKey"),
   okta.WithClientId("{{clientId}}"),
   okta.WithScopes(([]string{"okta.users.manage"})),
   okta.WithPrivateKey({{PEM PRIVATE KEY BLOCK}}) //when pasting blocks, use backticks and remove all space at beginning of each line.
 )
+if err != nil {
+  fmt.Errorf("Error: %v", err)
+}
+
+fmt.Printf("Context: %+v\n Client: %+v\n\n",ctx, client)
 ```
 
 #### Example
@@ -646,13 +975,15 @@ This way, if a JSON file like this one is created:
 The file can be read from Go and used directly in the client creation:
 
 ```go
-  ctx, client, err := okta.NewClient(context,
-    okta.WithOrgUrl("https://"+Oktadomain),
-    okta.WithAuthorizationMode("PrivateKey"),
-    okta.WithClientId(clientId),
-    okta.WithScopes(scopes),
-    okta.WithPrivateKey(privateKey),
-    )
+ctx := context.TODO()
+ctx, client, err := okta.NewClient(ctx,
+  okta.WithOrgUrl("https://{yourOktaDomain}"),
+  okta.WithAuthorizationMode("PrivateKey"),
+  okta.WithClientId("{client_id}"),
+  okta.WithScopes([]string{"{scopes}"}),
+  okta.WithPrivateKey("{private_key}"),
+  )
+
 ```
 
 ### Extending the Client
@@ -665,7 +996,13 @@ myClient := &http.Client{}
 
 myCache := NewCustomCacheDriver()
 
-ctx, client, err := okta.NewClient(context, okta.WithOrgUrl("https://{yourOktaDomain}"), okta.WithToken("{apiToken}"), okta.WithHttpClient(myClient), okta.WithCacheManager(myCache))
+ctx, client, err := okta.NewClient(
+  context.TODO(),
+  okta.WithOrgUrl("https://{yourOktaDomain}"),
+  okta.WithToken("{apiToken}"),
+  okta.WithHttpClient(myClient),
+  okta.WithCacheManager(myCache)
+)
 ```
 
 
@@ -708,12 +1045,13 @@ before your second `ListApplicationUsers` call, which will tell the call to
 delete the cache for this endpoint and make a new call.
 
 ```go
-appUserList, _, _ = client.Application.ListApplicationUsers(context.TODO(), appId, nil)
+appUserList, resp, err := client.Application.ListApplicationsUsers(ctx, nil)
 
 client.Application.DeleteApplicationUser(context.TODO(), appId, appUser.Id, nil)
 
 client.CloneRequestExecutor().RefreshNext()
-appUserList, _, _ = client.Application.ListApplicationUsers(context.TODO(), appId, nil)
+appUserList, resp, err := client.Application.ListApplicationsUsers(ctx, nil)
+
 ```
 
 ### Pagination
