@@ -34,7 +34,7 @@ func Test_can_create_user_type(t *testing.T) {
 	ut := okta.UserType{
 		Description: "My Custom User Type",
 		DisplayName: "Display Name",
-		Name:        "userTypeName",
+		Name:        randomTestString(),
 	}
 
 	userType, response, err := client.UserType.CreateUserType(ctx, ut)
