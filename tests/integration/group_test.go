@@ -220,8 +220,8 @@ func TestGroupUserOperations(t *testing.T) {
 }
 
 func TestGroupRuleOperations(t *testing.T) {
-	t.Skip("does not work properly in test org")
 	ctx, client, err := tests.NewClient(context.TODO(), okta.WithCache(false))
+	require.NoError(t, err)
 	// Create a user with credentials, activated by default → POST /api/v1/users?activate=true
 	p := &okta.PasswordCredential{
 		Value: "Abcd1234",
