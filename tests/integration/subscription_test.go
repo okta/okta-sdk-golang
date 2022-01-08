@@ -29,20 +29,7 @@ func TestGetRoleSubscriptions(t *testing.T) {
 	ctx, client, err := tests.NewClient(context.TODO())
 	require.NoError(t, err)
 
-	subscriptions, _, err := client.Subscription.GetCustomRoleSubscriptions(ctx, "SUPER_ADMIN")
-	require.NoError(t, err, "Getting subscriptions for a role should not error")
-
-	assert.True(t, len(subscriptions) > 0, "There should be subscriptions")
-}
-
-func TestGetCustomRoleSubscriptions(t *testing.T) {
-	t.Skip("Waiting on SDK method for GET /api/v1/iam/roles to help in test setup.")
-	ctx, client, err := tests.NewClient(context.TODO())
-	require.NoError(t, err)
-
-	// FIXME need to fetch roles GET /api/v1/iam/roles which is currently not in
-	// the API and then fetch the subscriptions on that role
-	subscriptions, _, err := client.Subscription.GetCustomRoleSubscriptions(ctx, "ROLD_ID")
+	subscriptions, _, err := client.Subscription.GetRoleSubscriptions(ctx, "SUPER_ADMIN")
 	require.NoError(t, err, "Getting subscriptions for a role should not error")
 
 	assert.True(t, len(subscriptions) > 0, "There should be subscriptions")
@@ -58,19 +45,6 @@ func TestGetRoleSubscriptionByNotificationType(t *testing.T) {
 	assert.True(t, subscription.NotificationType == "OKTA_ANNOUNCEMENT", "There should be a subscription")
 }
 
-func TestGetCustomRoleSubscriptionByNotificationType(t *testing.T) {
-	t.Skip("Waiting on SDK method for GET /api/v1/iam/roles to help in test setup.")
-	ctx, client, err := tests.NewClient(context.TODO())
-	require.NoError(t, err)
-
-	// FIXME need to fetch roles GET /api/v1/iam/roles which is currently not in
-	// the API and then fetch the subscriptions on that role
-	subscription, _, err := client.Subscription.GetCustomRoleSubscriptionByNotificationType(ctx, "ROLD_ID", "OKTA_ANNOUNCEMENT")
-	require.NoError(t, err, "Getting subscriptions for a role should not error")
-
-	assert.True(t, subscription.NotificationType == "OKTA_ANNOUNCEMENT", "There should be a subscription")
-}
-
 func TestSubscribeRoleSubscriptionByNotificationType(t *testing.T) {
 	ctx, client, err := tests.NewClient(context.TODO())
 	require.NoError(t, err)
@@ -79,33 +53,11 @@ func TestSubscribeRoleSubscriptionByNotificationType(t *testing.T) {
 	require.NoError(t, err, "Subscribing for a role by a notification type should not error")
 }
 
-func TestSubscribeCustomRoleSubscriptionByNotificationType(t *testing.T) {
-	t.Skip("Waiting on SDK method for GET /api/v1/iam/roles to help in test setup.")
-	ctx, client, err := tests.NewClient(context.TODO())
-	require.NoError(t, err)
-
-	// FIXME need to fetch roles GET /api/v1/iam/roles which is currently not in
-	// the API and then fetch the subscriptions on that role
-	_, err = client.Subscription.SubscribeCustomRoleSubscriptionByNotificationType(ctx, "ROLE_ID", "OKTA_ANNOUNCEMENT")
-	require.NoError(t, err, "Subscribing for a role by a notification type should not error")
-}
-
 func TestUnsubscribeRoleSubscriptionByNotificationType(t *testing.T) {
 	ctx, client, err := tests.NewClient(context.TODO())
 	require.NoError(t, err)
 
 	_, err = client.Subscription.UnsubscribeRoleSubscriptionByNotificationType(ctx, "SUPER_ADMIN", "OKTA_ANNOUNCEMENT")
-	require.NoError(t, err, "Unsubscribing for a role by a notification type should not error")
-}
-
-func TestUnsubscribeCustomRoleSubscriptionByNotificationType(t *testing.T) {
-	t.Skip("Waiting on SDK method for GET /api/v1/iam/roles to help in test setup.")
-	ctx, client, err := tests.NewClient(context.TODO())
-	require.NoError(t, err)
-
-	// FIXME need to fetch roles GET /api/v1/iam/roles which is currently not in
-	// the API and then fetch the subscriptions on that role
-	_, err = client.Subscription.UnsubscribeCustomRoleSubscriptionByNotificationType(ctx, "ROLE_ID", "OKTA_ANNOUNCEMENT")
 	require.NoError(t, err, "Unsubscribing for a role by a notification type should not error")
 }
 
