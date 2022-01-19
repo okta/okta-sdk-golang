@@ -546,6 +546,16 @@ function log(item) {
   console.log(item);
 }
 
+function missingProperty(name, properties) {
+  if (name === undefined || properties === undefined) {
+    return true;
+  }
+  var found = properties.some(function (item) {
+    return item.default !== undefined && item.propertyName === name;
+  });
+  return !found;
+}
+
 golang.process = ({spec, operations, models, handlebars}) => {
   golang.spec = spec;
   const templates = [];
@@ -672,7 +682,8 @@ golang.process = ({spec, operations, models, handlebars}) => {
     factorModelInterface,
     factorInstanceOperation,
     isInstance,
-    catalogApplicationInterface
+    catalogApplicationInterface,
+    missingProperty
   });
 
   handlebars.registerPartial('partials.copyHeader', fs.readFileSync('generator/templates/partials/copyHeader.hbs', 'utf8'));

@@ -58,15 +58,12 @@ type {{model.modelName}} struct {
 {{#if (isInstance model) }}
 func New{{model.modelName}}() *{{model.modelName}} {
 	return &{{model.modelName}}{
-		{{#if (eq model.modelName "Org2OrgApplication")}}
-		Name: "okta_org2org",
-		{{/if}}
 		{{#each model.properties as |prop|}}
 		{{#if (ne prop.default undefined) }}
 		{{structProp prop.propertyName}}: "{{prop.default}}",
 		{{/if}}
 		{{/each}}
-		{{#if (ne model.resolution undefined) }}
+		{{#if (and (ne model.resolution undefined) (missingProperty model.resolution.fieldName model.properties)) }}
 		{{structProp model.resolution.fieldName}}: "{{model.resolution.fieldValue}}",
 		{{/if}}
 	}
