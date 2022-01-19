@@ -94,6 +94,7 @@ func (m *UserFactorResource) ListFactors(ctx context.Context, userId string) ([]
 		factors[i] = &userFactor[i]
 	}
 	return factors, resp, nil
+
 }
 
 // Enrolls a user with a supported factor.
@@ -143,6 +144,7 @@ func (m *UserFactorResource) ListSupportedFactors(ctx context.Context, userId st
 		factors[i] = &userFactor[i]
 	}
 	return factors, resp, nil
+
 }
 
 // Enumerates all available security questions for a user&#x27;s &#x60;question&#x60; factor

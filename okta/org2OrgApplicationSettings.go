@@ -19,6 +19,7 @@
 package okta
 
 type Org2OrgApplicationSettings struct {
+	SignOn             *SamlApplicationSettingsSignOn    `json:"signOn,omitempty"`
 	App                *Org2OrgApplicationSettingsApp    `json:"app,omitempty"`
 	ImplicitAssignment *bool                             `json:"implicitAssignment,omitempty"`
 	InlineHookId       string                            `json:"inlineHookId,omitempty"`
