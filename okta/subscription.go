@@ -33,7 +33,7 @@ type Subscription struct {
 }
 
 // When roleType List all subscriptions of a Role. Else when roleId List subscriptions of a Custom Role
-func (m *SubscriptionResource) GetRoleSubscriptions(ctx context.Context, roleTypeOrRoleId string) ([]*Subscription, *Response, error) {
+func (m *SubscriptionResource) ListRoleSubscriptions(ctx context.Context, roleTypeOrRoleId string) ([]*Subscription, *Response, error) {
 	url := fmt.Sprintf("/api/v1/roles/%v/subscriptions", roleTypeOrRoleId)
 
 	rq := m.client.CloneRequestExecutor()

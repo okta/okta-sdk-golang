@@ -553,6 +553,48 @@ func (m *ApplicationResource) ListFeaturesForApplication(ctx context.Context, ap
 	return applicationFeature, resp, nil
 }
 
+// Fetches a Feature object for an application.
+func (m *ApplicationResource) GetFeatureForApplication(ctx context.Context, appId string, name string) (*ApplicationFeature, *Response, error) {
+	url := fmt.Sprintf("/api/v1/apps/%v/features/%v", appId, name)
+
+	rq := m.client.CloneRequestExecutor()
+
+	req, err := rq.WithAccept("application/json").WithContentType("application/json").NewRequest("GET", url, nil)
+	if err != nil {
+		return nil, nil, err
+	}
+
+	var applicationFeature *ApplicationFeature
+
+	resp, err := rq.Do(ctx, req, &applicationFeature)
+	if err != nil {
+		return nil, resp, err
+	}
+
+	return applicationFeature, resp, nil
+}
+
+// Updates a Feature object for an application.
+func (m *ApplicationResource) UpdateFeatureForApplication(ctx context.Context, appId string, name string, body CapabilitiesObject) (*ApplicationFeature, *Response, error) {
+	url := fmt.Sprintf("/api/v1/apps/%v/features/%v", appId, name)
+
+	rq := m.client.CloneRequestExecutor()
+
+	req, err := rq.WithAccept("application/json").WithContentType("application/json").NewRequest("PUT", url, body)
+	if err != nil {
+		return nil, nil, err
+	}
+
+	var applicationFeature *ApplicationFeature
+
+	resp, err := rq.Do(ctx, req, &applicationFeature)
+	if err != nil {
+		return nil, resp, err
+	}
+
+	return applicationFeature, resp, nil
+}
+
 // Lists all scope consent grants for the application
 func (m *ApplicationResource) ListScopeConsentGrants(ctx context.Context, appId string, qp *query.Params) ([]*OAuth2ScopeConsentGrant, *Response, error) {
 	url := fmt.Sprintf("/api/v1/apps/%v/grants", appId)
