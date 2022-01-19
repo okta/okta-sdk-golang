@@ -25,11 +25,11 @@ import (
 	"github.com/stretchr/testify/require"
 )
 
-func TestGetRoleSubscriptions(t *testing.T) {
+func TestListRoleSubscriptions(t *testing.T) {
 	ctx, client, err := tests.NewClient(context.TODO())
 	require.NoError(t, err)
 
-	subscriptions, _, err := client.Subscription.GetRoleSubscriptions(ctx, "SUPER_ADMIN")
+	subscriptions, _, err := client.Subscription.ListRoleSubscriptions(ctx, "SUPER_ADMIN")
 	require.NoError(t, err, "Getting subscriptions for a role should not error")
 
 	assert.True(t, len(subscriptions) > 0, "There should be subscriptions")
