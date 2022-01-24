@@ -1,6 +1,100 @@
 # Changelog
 Running changelog of releases since `2.0.0-rc.4`
 
+## v2.10.0
+
+Release of openapispec 2.10.0
+
+## Supported Endpoints
+* /api/v1/apps/{appId}/connections/default
+* /api/v1/apps/{appId}/connections/default/lifecycle/activate
+* /api/v1/apps/{appId}/connections/default/lifecycle/deactivate
+* /api/v1/apps/{appId}/features
+* /api/v1/apps/{appId}/features/{name}
+* /api/v1/apps/{appId}/logo
+* /api/v1/policies/{policyId}/rules/{ruleId}/lifecycle/activate
+* /api/v1/policies/{policyId}/rules/{ruleId}/lifecycle/deactivate
+* /api/v1/roles/{roleTypeOrRoleId}/subscriptions
+* /api/v1/roles/{roleTypeOrRoleId}/subscriptions/{notificationType}
+* /api/v1/roles/{roleTypeOrRoleId}/subscriptions/{notificationType}/subscribe
+* /api/v1/roles/{roleTypeOrRoleId}/subscriptions/{notificationType}/unsubscribe
+* /api/v1/users/{userId}/subscriptions
+* /api/v1/users/{userId}/subscriptions/{notificationType}
+* /api/v1/users/{userId}/subscriptions/{notificationType}/subscribe
+* /api/v1/users/{userId}/subscriptions/{notificationType}/unsubscribe
+
+## New Methods
+
+## ApplicationResource
+* ActivateDefaultProvisioningConnectionForApplication
+* DeactivateDefaultProvisioningConnectionForApplication
+* GetDefaultProvisioningConnectionForApplication
+* GetFeatureForApplication
+* ListFeaturesForApplication
+* SetDefaultProvisioningConnectionForApplication
+* UpdateFeatureForApplication
+* UploadApplicationLogo
+
+### BrandResource
+* UploadBrandThemeBackgroundImage
+* UploadBrandThemeFavicon
+* UploadBrandThemeLogo
+
+### OrgSettingResource
+* UpdateOrgLogo
+
+### SubscriptionResource
+* GetRoleSubscriptionByNotificationType(ctx context.Context, roleTypeOrRoleId string, notificationType string) (*Subscription, *Response, error) {
+* ListRoleSubscriptions
+* SubscribeRoleSubscriptionByNotificationType
+* SubscribeUserSubscriptionByNotificationType
+* UnsubscribeRoleSubscriptionByNotificationType
+* UnsubscribeUserSubscriptionByNotificationType
+
+### UserResource
+* GetUserSubscriptionByNotificationType
+* ListUserSubscriptions
+
+## New Constructors:
+* NewApplicationFeature
+* NewCapabilitiesCreateObject
+* NewCapabilitiesObject
+* NewCapabilitiesUpdateObject
+* NewLifecycleCreateSettingObject
+* NewLifecycleDeactivateSettingObject
+* NewOrg2OrgApplication
+* NewOrg2OrgApplicationSettings
+* NewOrg2OrgApplicationSettingsApp
+* NewPasswordSettingObject
+* NewProfileSettingObject
+* NewProvisioningConnection
+* NewProvisioningConnectionProfile
+* NewProvisioningConnectionRequest
+
+## New Models and/or Updated models
+* ApplicationFeature
+* CapabilitiesCreateObject
+* CapabilitiesObject
+* CapabilitiesUpdateObject
+* ChangeEnum
+* LifecycleCreateSettingObject
+* LifecycleDeactivateSettingObject
+* NotificationType
+* Org2OrgApplication
+* Org2OrgApplicationSettings
+* Org2OrgApplicationSettingsApp
+* PasswordSettingObject
+* ProfileSettingObject
+* ProvisioningConnection
+* ProvisioningConnectionAuthScheme
+* ProvisioningConnectionProfile
+* ProvisioningConnectionRequest
+* ProvisioningConnectionStatus
+* SeedEnum
+* Subscription
+* SubscriptionStatus
+
+
 ## v2.9.2
 
 ### Updates
