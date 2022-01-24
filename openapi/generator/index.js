@@ -162,6 +162,13 @@ function getImports(object) {
         imports.push("github.com/okta/okta-sdk-golang/v2/okta/query")
         imports.push("context");
       }
+
+      if (object.operations[operation].formData && object.operations[operation].formData.length) {
+        imports.push("os");
+        imports.push("bytes");
+        imports.push("io");
+        imports.push("mime/multipart");
+      }
     }
   }
 
@@ -265,6 +272,16 @@ function operationArgumentBuilder(operation) {
     operation.operationId === "activateFactor" ||
     operation.operationId === "verifyFactor") {
     args.push(`factorInstance Factor`);
+  }
+
+  if (operation.formData && operation.formData.length) {
+    for (let prop of operation.formData) {
+      let propType = prop.type;
+      if (propType == 'file') {
+        propType = "string"
+      }
+      args.push(prop.name + ` ` + propType)
+    }
   }
 
   if (operation.queryParams.length) {
@@ -529,6 +546,16 @@ function log(item) {
   console.log(item);
 }
 
+function missingProperty(name, properties) {
+  if (name === undefined || properties === undefined) {
+    return true;
+  }
+  var found = properties.some(function (item) {
+    return item.default !== undefined && item.propertyName === name;
+  });
+  return !found;
+}
+
 golang.process = ({spec, operations, models, handlebars}) => {
   golang.spec = spec;
   const templates = [];
@@ -655,13 +682,15 @@ golang.process = ({spec, operations, models, handlebars}) => {
     factorModelInterface,
     factorInstanceOperation,
     isInstance,
-    catalogApplicationInterface
+    catalogApplicationInterface,
+    missingProperty
   });
 
   handlebars.registerPartial('partials.copyHeader', fs.readFileSync('generator/templates/partials/copyHeader.hbs', 'utf8'));
   handlebars.registerPartial('struct.withProp', fs.readFileSync('generator/templates/struct/withProp.go.hbs', 'utf8'));
   handlebars.registerPartial('model.imports', fs.readFileSync('generator/templates/model/imports.go.hbs', 'utf8'));
   handlebars.registerPartial('model.defaultMethod', fs.readFileSync('generator/templates/model/defaultMethod.go.hbs', 'utf8'));
+  handlebars.registerPartial('model.multipartFileMethod', fs.readFileSync('generator/templates/model/multipartFileMethod.go.hbs', 'utf8'));
 
   fs.writeFile("generator/createdFiles.json", JSON.stringify(templates), function (error) {
     console.log(error);

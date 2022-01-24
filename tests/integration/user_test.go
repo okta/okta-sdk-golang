@@ -29,7 +29,7 @@ import (
 	"github.com/stretchr/testify/require"
 )
 
-func Test_can_get_a_user(t *testing.T) {
+func TestCanGetAUser(t *testing.T) {
 	ctx, client, err := tests.NewClient(context.TODO())
 	require.NoError(t, err)
 	// Create user with credentials → POST /api/v1/users?activate=false
@@ -76,7 +76,7 @@ func Test_can_get_a_user(t *testing.T) {
 	require.Error(t, err, "User should not exist, but does")
 }
 
-func Test_can_activate_a_user(t *testing.T) {
+func TestCanActivateAUser(t *testing.T) {
 	ctx, client, err := tests.NewClient(context.TODO())
 	require.NoError(t, err)
 	// Create user with credentials → POST /api/v1/users?activate=false
@@ -118,7 +118,7 @@ func Test_can_activate_a_user(t *testing.T) {
 	require.NoError(t, err, "Should not error when deleting")
 }
 
-func Test_can_update_user_profile(t *testing.T) {
+func TestCanUpdateUserProfile(t *testing.T) {
 	ctx, client, err := tests.NewClient(context.TODO())
 	require.NoError(t, err)
 	// Create user with credentials → POST /api/v1/users?activate=false
@@ -165,7 +165,7 @@ func Test_can_update_user_profile(t *testing.T) {
 	require.NoError(t, err, "Should not error when deleting")
 }
 
-func Test_can_suspend_a_user(t *testing.T) {
+func TestCanSuspendAUser(t *testing.T) {
 	ctx, client, err := tests.NewClient(context.TODO())
 	require.NoError(t, err)
 	// Create user with credentials → POST /api/v1/users?activate=true
@@ -230,7 +230,7 @@ func Test_can_suspend_a_user(t *testing.T) {
 	require.NoError(t, err, "Should not error when deleting")
 }
 
-func Test_can_change_users_password(t *testing.T) {
+func TestCanChangeUsersPassword(t *testing.T) {
 	ctx, client, err := tests.NewClient(context.TODO())
 	require.NoError(t, err)
 	// Create user with credentials → POST /api/v1/users?activate=true
@@ -290,7 +290,7 @@ func Test_can_change_users_password(t *testing.T) {
 	require.Error(t, err, "User should not exist, but does")
 }
 
-func Test_can_get_reset_password_link_for_user(t *testing.T) {
+func TestCanGetResetPasswordLinkForUser(t *testing.T) {
 	ctx, client, err := tests.NewClient(context.TODO())
 	require.NoError(t, err)
 	// Create user with credentials → POST /api/v1/users?activate=true
@@ -335,7 +335,7 @@ func Test_can_get_reset_password_link_for_user(t *testing.T) {
 	require.Error(t, err, "User should not exist, but does")
 }
 
-func Test_can_expire_a_users_password_and_get_a_temp_one(t *testing.T) {
+func TestCanExpireAUsersPasswordAndGetATempOne(t *testing.T) {
 	ctx, client, err := tests.NewClient(context.TODO())
 	require.NoError(t, err)
 	// Create a user with credentials, activated by default → POST /api/v1/users?activate=true
@@ -380,7 +380,7 @@ func Test_can_expire_a_users_password_and_get_a_temp_one(t *testing.T) {
 	require.Error(t, err, "User should not exist, but does")
 }
 
-func Test_can_change_user_recovery_question(t *testing.T) {
+func TestCanChangeUserRecoveryQuestion(t *testing.T) {
 	ctx, client, err := tests.NewClient(context.TODO())
 	require.NoError(t, err)
 	// Create a user with credentials, activated by default → POST /api/v1/users?activate=true
@@ -453,7 +453,7 @@ func Test_can_change_user_recovery_question(t *testing.T) {
 	require.Error(t, err, "User should not exist, but does")
 }
 
-func Test_can_assign_a_user_to_a_role(t *testing.T) {
+func TestCanAssignAUserToARole(t *testing.T) {
 	ctx, client, err := tests.NewClient(context.TODO(), okta.WithCache(false))
 	require.NoError(t, err)
 	// Create a user with credentials, activated by default → POST /api/v1/users?activate=true
@@ -526,7 +526,7 @@ func Test_can_assign_a_user_to_a_role(t *testing.T) {
 	assert.Equal(t, http.StatusNotFound, resp.StatusCode, "Should not have been able to find user")
 }
 
-func Test_user_group_target_role(t *testing.T) {
+func TestUserGroupTargetRole(t *testing.T) {
 	ctx, client, err := tests.NewClient(context.TODO())
 	require.NoError(t, err)
 	// Create a user with credentials, activated by default → POST /api/v1/users?activate=true
@@ -614,7 +614,7 @@ func Test_user_group_target_role(t *testing.T) {
 	client.Group.DeleteGroup(ctx, newgroup.Id)
 }
 
-func Test_can_get_user_with_cache_enabled(t *testing.T) {
+func TestCanGetUserWithCacheEnabled(t *testing.T) {
 	ctx, client, err := tests.NewClient(context.TODO())
 	require.NoError(t, err)
 
@@ -654,7 +654,7 @@ func Test_can_get_user_with_cache_enabled(t *testing.T) {
 	require.NoError(t, err, "Should not error when deleting")
 }
 
-func Test_can_paginate_across_users(t *testing.T) {
+func TestCanPaginateAcrossUsers(t *testing.T) {
 	ctx, client, err := tests.NewClient(context.TODO(), okta.WithCache(false))
 	require.NoError(t, err)
 
@@ -722,4 +722,76 @@ func Test_can_paginate_across_users(t *testing.T) {
 	// Delete the user → DELETE /api/v1/users/{{userId}}
 	_, err = client.User.DeactivateOrDeleteUser(ctx, createdUser2.Id, nil)
 	require.NoError(t, err, "Should not error when deleting")
+}
+
+func TestListUserSubscriptions(t *testing.T) {
+	// FIXME list users is getting an API error due to this documentated limitation:
+	//
+	// List subscriptions of a User. Only lists subscriptions for current user.
+	// An AccessDeniedException message is sent if requests are made from other
+	// users.
+	//
+	// Have tried creating a user and getting the current user: GET /api/v1/users/me
+	t.Skip("Need to determine how to set up environment for ListUserSubscriptions")
+
+	ctx, client, err := tests.NewClient(context.TODO(), okta.WithCache(false))
+	require.NoError(t, err)
+
+	user, _, err := client.User.GetUser(ctx, "me")
+	require.NoError(t, err, "Getting the current user should not error")
+
+	subscriptions, _, err := client.User.ListUserSubscriptions(ctx, user.Id)
+	require.NoError(t, err, "Should not error listing user subscriptions")
+
+	assert.True(t, len(subscriptions) > 0, "User should have subscriptions")
+
+	// Deactivate the user → POST /api/v1/users/{{userId}}/lifecycle/deactivate
+	_, err = client.User.DeactivateUser(ctx, user.Id, nil)
+	require.NoError(t, err, "Should not error when deactivating")
+
+	// Delete the user → DELETE /api/v1/users/{{userId}}
+	_, err = client.User.DeactivateOrDeleteUser(ctx, user.Id, nil)
+	require.NoError(t, err, "Should not error when deleting")
+
+	// Verify that the user is deleted by calling get on user (Exception thrown with 404 error message) → GET /api/v1/users/{{userId}}
+	_, resp, err := client.User.GetUser(ctx, user.Id)
+	require.Error(t, err, "User should not exist, but does")
+	assert.Equal(t, http.StatusNotFound, resp.StatusCode, "Should not have been able to find user")
+}
+
+func TestGetUserSubscriptionByNotificationType(t *testing.T) {
+	// FIXME get user subscriptions by notification type is getting an API error
+	// due to this documentated limitation:
+	//
+	// Get the subscriptions of a User with a specific notification type. Only
+	// gets subscriptions for current user. An AccessDeniedException message is
+	// sent if requests are made from other users.
+	//
+	// Have tried creating a user and getting the current user: GET /api/v1/users/me
+	t.Skip("Need to determine how to set up environment for GetUserSubscriptionByNotificationType")
+
+	ctx, client, err := tests.NewClient(context.TODO(), okta.WithCache(false))
+	require.NoError(t, err)
+
+	user, _, err := client.User.GetUser(ctx, "me")
+	require.NoError(t, err, "Getting the current user should not error")
+
+	expectedNotificationType := "OKTA_ANNOUNCEMENT"
+	subscription, _, err := client.User.GetUserSubscriptionByNotificationType(ctx, user.Id, expectedNotificationType)
+	require.NoError(t, err, "Should not error getting user subscription by notification types")
+
+	assert.True(t, subscription.NotificationType == "OKTA_ANNOUNCEMENT", "User should have subscription notification type %q, got %q", expectedNotificationType, subscription.NotificationType)
+
+	// Deactivate the user → POST /api/v1/users/{{userId}}/lifecycle/deactivate
+	_, err = client.User.DeactivateUser(ctx, user.Id, nil)
+	require.NoError(t, err, "Should not error when deactivating")
+
+	// Delete the user → DELETE /api/v1/users/{{userId}}
+	_, err = client.User.DeactivateOrDeleteUser(ctx, user.Id, nil)
+	require.NoError(t, err, "Should not error when deleting")
+
+	// Verify that the user is deleted by calling get on user (Exception thrown with 404 error message) → GET /api/v1/users/{{userId}}
+	_, resp, err := client.User.GetUser(ctx, user.Id)
+	require.Error(t, err, "User should not exist, but does")
+	assert.Equal(t, http.StatusNotFound, resp.StatusCode, "Should not have been able to find user")
 }

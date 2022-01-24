@@ -18,5 +18,14 @@
 
 package okta
 
-type InlineHookPayload struct {
+type LifecycleCreateSettingObject struct {
+	Status string `json:"status,omitempty"`
+}
+
+func NewLifecycleCreateSettingObject() *LifecycleCreateSettingObject {
+	return &LifecycleCreateSettingObject{}
+}
+
+func (a *LifecycleCreateSettingObject) IsApplicationInstance() bool {
+	return true
 }

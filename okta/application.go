@@ -19,8 +19,12 @@
 package okta
 
 import (
+	"bytes"
 	"context"
 	"fmt"
+	"io"
+	"mime/multipart"
+	"os"
 	"time"
 
 	"github.com/okta/okta-sdk-golang/v2/okta/query"
@@ -149,6 +153,7 @@ func (m *ApplicationResource) ListApplications(ctx context.Context, qp *query.Pa
 		apps[i] = &application[i]
 	}
 	return apps, resp, nil
+
 }
 
 // Adds a new application to your Okta organization.
@@ -173,6 +178,89 @@ func (m *ApplicationResource) CreateApplication(ctx context.Context, body App, q
 	}
 
 	return application, resp, nil
+}
+
+// Get default Provisioning Connection for application
+func (m *ApplicationResource) GetDefaultProvisioningConnectionForApplication(ctx context.Context, appId string) (*ProvisioningConnection, *Response, error) {
+	url := fmt.Sprintf("/api/v1/apps/%v/connections/default", appId)
+
+	rq := m.client.CloneRequestExecutor()
+
+	req, err := rq.WithAccept("application/json").WithContentType("application/json").NewRequest("GET", url, nil)
+	if err != nil {
+		return nil, nil, err
+	}
+
+	var provisioningConnection *ProvisioningConnection
+
+	resp, err := rq.Do(ctx, req, &provisioningConnection)
+	if err != nil {
+		return nil, resp, err
+	}
+
+	return provisioningConnection, resp, nil
+}
+
+// Set default Provisioning Connection for application
+func (m *ApplicationResource) SetDefaultProvisioningConnectionForApplication(ctx context.Context, appId string, body ProvisioningConnectionRequest, qp *query.Params) (*ProvisioningConnection, *Response, error) {
+	url := fmt.Sprintf("/api/v1/apps/%v/connections/default", appId)
+	if qp != nil {
+		url = url + qp.String()
+	}
+
+	rq := m.client.CloneRequestExecutor()
+
+	req, err := rq.WithAccept("application/json").WithContentType("application/json").NewRequest("POST", url, body)
+	if err != nil {
+		return nil, nil, err
+	}
+
+	var provisioningConnection *ProvisioningConnection
+
+	resp, err := rq.Do(ctx, req, &provisioningConnection)
+	if err != nil {
+		return nil, resp, err
+	}
+
+	return provisioningConnection, resp, nil
+}
+
+// Activates the default Provisioning Connection for an application.
+func (m *ApplicationResource) ActivateDefaultProvisioningConnectionForApplication(ctx context.Context, appId string) (*Response, error) {
+	url := fmt.Sprintf("/api/v1/apps/%v/connections/default/lifecycle/activate", appId)
+
+	rq := m.client.CloneRequestExecutor()
+
+	req, err := rq.WithAccept("application/json").WithContentType("application/json").NewRequest("POST", url, nil)
+	if err != nil {
+		return nil, err
+	}
+
+	resp, err := m.client.requestExecutor.Do(ctx, req, nil)
+	if err != nil {
+		return resp, err
+	}
+
+	return resp, nil
+}
+
+// Deactivates the default Provisioning Connection for an application.
+func (m *ApplicationResource) DeactivateDefaultProvisioningConnectionForApplication(ctx context.Context, appId string) (*Response, error) {
+	url := fmt.Sprintf("/api/v1/apps/%v/connections/default/lifecycle/deactivate", appId)
+
+	rq := m.client.CloneRequestExecutor()
+
+	req, err := rq.WithAccept("application/json").WithContentType("application/json").NewRequest("POST", url, nil)
+	if err != nil {
+		return nil, err
+	}
+
+	resp, err := m.client.requestExecutor.Do(ctx, req, nil)
+	if err != nil {
+		return resp, err
+	}
+
+	return resp, nil
 }
 
 // Enumerates Certificate Signing Requests for an application
@@ -445,6 +533,69 @@ func (m *ApplicationResource) CloneApplicationKey(ctx context.Context, appId str
 	return jsonWebKey, resp, nil
 }
 
+// List Features for application
+func (m *ApplicationResource) ListFeaturesForApplication(ctx context.Context, appId string) ([]*ApplicationFeature, *Response, error) {
+	url := fmt.Sprintf("/api/v1/apps/%v/features", appId)
+
+	rq := m.client.CloneRequestExecutor()
+
+	req, err := rq.WithAccept("application/json").WithContentType("application/json").NewRequest("GET", url, nil)
+	if err != nil {
+		return nil, nil, err
+	}
+
+	var applicationFeature []*ApplicationFeature
+
+	resp, err := rq.Do(ctx, req, &applicationFeature)
+	if err != nil {
+		return nil, resp, err
+	}
+
+	return applicationFeature, resp, nil
+}
+
+// Fetches a Feature object for an application.
+func (m *ApplicationResource) GetFeatureForApplication(ctx context.Context, appId string, name string) (*ApplicationFeature, *Response, error) {
+	url := fmt.Sprintf("/api/v1/apps/%v/features/%v", appId, name)
+
+	rq := m.client.CloneRequestExecutor()
+
+	req, err := rq.WithAccept("application/json").WithContentType("application/json").NewRequest("GET", url, nil)
+	if err != nil {
+		return nil, nil, err
+	}
+
+	var applicationFeature *ApplicationFeature
+
+	resp, err := rq.Do(ctx, req, &applicationFeature)
+	if err != nil {
+		return nil, resp, err
+	}
+
+	return applicationFeature, resp, nil
+}
+
+// Updates a Feature object for an application.
+func (m *ApplicationResource) UpdateFeatureForApplication(ctx context.Context, appId string, name string, body CapabilitiesObject) (*ApplicationFeature, *Response, error) {
+	url := fmt.Sprintf("/api/v1/apps/%v/features/%v", appId, name)
+
+	rq := m.client.CloneRequestExecutor()
+
+	req, err := rq.WithAccept("application/json").WithContentType("application/json").NewRequest("PUT", url, body)
+	if err != nil {
+		return nil, nil, err
+	}
+
+	var applicationFeature *ApplicationFeature
+
+	resp, err := rq.Do(ctx, req, &applicationFeature)
+	if err != nil {
+		return nil, resp, err
+	}
+
+	return applicationFeature, resp, nil
+}
+
 // Lists all scope consent grants for the application
 func (m *ApplicationResource) ListScopeConsentGrants(ctx context.Context, appId string, qp *query.Params) ([]*OAuth2ScopeConsentGrant, *Response, error) {
 	url := fmt.Sprintf("/api/v1/apps/%v/grants", appId)
@@ -647,6 +798,44 @@ func (m *ApplicationResource) DeactivateApplication(ctx context.Context, appId s
 	rq := m.client.CloneRequestExecutor()
 
 	req, err := rq.WithAccept("application/json").WithContentType("application/json").NewRequest("POST", url, nil)
+	if err != nil {
+		return nil, err
+	}
+
+	resp, err := m.client.requestExecutor.Do(ctx, req, nil)
+	if err != nil {
+		return resp, err
+	}
+
+	return resp, nil
+}
+
+// Update the logo for an application.
+func (m *ApplicationResource) UploadApplicationLogo(ctx context.Context, appId string, file string) (*Response, error) {
+	url := fmt.Sprintf("/api/v1/apps/%v/logo", appId)
+
+	rq := m.client.CloneRequestExecutor()
+
+	fo, err := os.Open(file)
+	if err != nil {
+		return nil, err
+	}
+	defer fo.Close()
+	body := &bytes.Buffer{}
+	writer := multipart.NewWriter(body)
+	fw, err := writer.CreateFormFile("file", file)
+
+	if err != nil {
+		return nil, err
+	}
+	_, err = io.Copy(fw, fo)
+	if err != nil {
+		return nil, err
+	}
+	_ = writer.Close()
+
+	req, err := rq.WithAccept("application/json").WithContentType(writer.FormDataContentType()).NewRequest("POST", url, body)
+
 	if err != nil {
 		return nil, err
 	}

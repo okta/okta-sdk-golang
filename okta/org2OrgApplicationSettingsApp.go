@@ -18,5 +18,16 @@
 
 package okta
 
-type InlineHookPayload struct {
+type Org2OrgApplicationSettingsApp struct {
+	AcsUrl         string `json:"acsUrl,omitempty"`
+	AudRestriction string `json:"audRestriction,omitempty"`
+	BaseUrl        string `json:"baseUrl,omitempty"`
+}
+
+func NewOrg2OrgApplicationSettingsApp() *Org2OrgApplicationSettingsApp {
+	return &Org2OrgApplicationSettingsApp{}
+}
+
+func (a *Org2OrgApplicationSettingsApp) IsApplicationInstance() bool {
+	return true
 }

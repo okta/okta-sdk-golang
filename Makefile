@@ -74,11 +74,11 @@ fmt: check-fmt # Format the code
 	@$(GOFMT) -l -w $$(find . -name '*.go' |grep -v vendor) > /dev/null
 
 check-fmt:
-	@which $(GOFMT) > /dev/null || GO111MODULE=on go get mvdan.cc/gofumpt
+	@which $(GOFMT) > /dev/null || GO111MODULE=on go install mvdan.cc/gofumpt@latest
 
 .PHONY: import
 import: check-goimports
 	@$(GOIMPORTS) -w $$(find . -path ./vendor -prune -o -name '*.go' -print) > /dev/null
 
 check-goimports:
-	@which $(GOIMPORTS) > /dev/null || GO111MODULE=on go get golang.org/x/tools/cmd/goimports
+	@which $(GOIMPORTS) > /dev/null || GO111MODULE=on go install golang.org/x/tools/cmd/goimports@latest

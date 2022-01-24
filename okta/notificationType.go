@@ -18,5 +18,4 @@
 
 package okta
 
-type InlineHookPayload struct {
-}
+type NotificationType string

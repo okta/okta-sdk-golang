@@ -19,6 +19,8 @@ package integration
 import (
 	"context"
 	"fmt"
+	"os"
+	"path"
 	"strings"
 	"testing"
 
@@ -32,7 +34,7 @@ import (
 	"github.com/okta/okta-sdk-golang/v2/tests"
 )
 
-func Test_can_get_application_by_id(t *testing.T) {
+func TestCanGetApplicationByID(t *testing.T) {
 	ctx, client, err := tests.NewClient(context.TODO())
 	require.NoError(t, err)
 
@@ -60,7 +62,7 @@ func Test_can_get_application_by_id(t *testing.T) {
 	require.NoError(t, err, "Deleting an application should not error")
 }
 
-func Test_can_update_application(t *testing.T) {
+func TestCanUpdateApplication(t *testing.T) {
 	ctx, client, err := tests.NewClient(context.TODO())
 	require.NoError(t, err)
 
@@ -98,7 +100,7 @@ func Test_can_update_application(t *testing.T) {
 	require.NoError(t, err, "Deleting an application should not error")
 }
 
-func Test_can_create_a_bookmark_application(t *testing.T) {
+func TestCanCreateABookmarkApplication(t *testing.T) {
 	ctx, client, err := tests.NewClient(context.TODO())
 	require.NoError(t, err)
 
@@ -123,7 +125,7 @@ func Test_can_create_a_bookmark_application(t *testing.T) {
 	require.NoError(t, err, "Deleting an application should not error")
 }
 
-func Test_can_create_a_basic_authentication_application(t *testing.T) {
+func TestCanCreateABasicAuthenticationApplication(t *testing.T) {
 	ctx, client, err := tests.NewClient(context.TODO())
 	require.NoError(t, err)
 
@@ -149,7 +151,7 @@ func Test_can_create_a_basic_authentication_application(t *testing.T) {
 	require.NoError(t, err, "Deleting an application should not error")
 }
 
-func Test_list_application_allows_casting_to_correct_type(t *testing.T) {
+func TestListApplicationAllowsCastingToCorrectType(t *testing.T) {
 	ctx, client, err := tests.NewClient(context.TODO())
 	require.NoError(t, err)
 
@@ -199,7 +201,7 @@ func Test_list_application_allows_casting_to_correct_type(t *testing.T) {
 	require.NoError(t, err, "Deleting an application should not error")
 }
 
-func Test_can_activate_application(t *testing.T) {
+func TestCanActivateApplication(t *testing.T) {
 	ctx, client, err := tests.NewClient(context.TODO())
 	require.NoError(t, err)
 
@@ -229,7 +231,7 @@ func Test_can_activate_application(t *testing.T) {
 	require.NoError(t, err, "Deleting an application should not error")
 }
 
-func Test_can_deactivate_application(t *testing.T) {
+func TestCanDeactivateApplication(t *testing.T) {
 	ctx, client, err := tests.NewClient(context.TODO())
 	require.NoError(t, err)
 
@@ -258,7 +260,7 @@ func Test_can_deactivate_application(t *testing.T) {
 	require.NoError(t, err, "Deleting an application should not error")
 }
 
-func Test_can_add_and_remove_application_users(t *testing.T) {
+func TestCanAddAndRemoveApplicationUsers(t *testing.T) {
 	ctx, client, err := tests.NewClient(context.TODO())
 	require.NoError(t, err)
 
@@ -330,7 +332,7 @@ func Test_can_add_and_remove_application_users(t *testing.T) {
 	client.User.DeactivateOrDeleteUser(ctx, user.Id, nil)
 }
 
-func Test_can_set_application_settings_during_creation(t *testing.T) {
+func TestCanSetApplicationSettingsDuringCreation(t *testing.T) {
 	ctx, client, err := tests.NewClient(context.TODO())
 	require.NoError(t, err)
 
@@ -356,7 +358,7 @@ func Test_can_set_application_settings_during_creation(t *testing.T) {
 	require.NoError(t, err, "Deleting an application should not error")
 }
 
-func Test_can_set_application_settings_during_update(t *testing.T) {
+func TestCanSetApplicationSettingsDuringUpdate(t *testing.T) {
 	ctx, client, err := tests.NewClient(context.TODO())
 	require.NoError(t, err)
 
@@ -392,11 +394,11 @@ func Test_can_set_application_settings_during_update(t *testing.T) {
 	require.NoError(t, err, "Deleting an application should not error")
 }
 
-func Test_can_create_csr_for_application(t *testing.T) {
+func TestCanCreateCSRForApplication(t *testing.T) {
 	ctx, client, err := tests.NewClient(context.TODO())
 	require.NoError(t, err)
 
-	application := create_application(t)
+	application := createBasicAuthApplication(t)
 
 	subject := okta.CsrMetadataSubject{
 		CountryName:            "US",
@@ -427,7 +429,104 @@ func Test_can_create_csr_for_application(t *testing.T) {
 	require.NoError(t, err, "Deleting an application should not error")
 }
 
-func create_application(t *testing.T) *okta.BasicAuthApplication {
+func TestGetDefaultProvisioningConnectionForApplication(t *testing.T) {
+	ctx, client, err := tests.NewClient(context.TODO())
+	require.NoError(t, err)
+
+	application := createOrg2OrgApplication(t)
+
+	conn, _, err := client.Application.GetDefaultProvisioningConnectionForApplication(ctx, application.Id)
+	require.NoError(t, err, "getting default provisioning connection for application should not error.")
+	assert.NotEmpty(t, conn.AuthScheme, "connection auth scheme shouldn't be empty")
+	assert.NotEmpty(t, conn.Status, "connection status shouldn't be empty")
+
+	client.Application.DeactivateApplication(ctx, application.Id)
+	_, err = client.Application.DeleteApplication(ctx, application.Id)
+	require.NoError(t, err, "Deleting an application should not error")
+}
+
+func TestSetDefaultProvisioningConnectionForApplication(t *testing.T) {
+	ctx, client, err := tests.NewClient(context.TODO())
+	require.NoError(t, err)
+
+	application := createOrg2OrgApplication(t)
+
+	provisionConnectionRequest := okta.ProvisioningConnectionRequest{
+		Profile: &okta.ProvisioningConnectionProfile{
+			AuthScheme: "TOKEN",
+			Token:      "TEST",
+		},
+	}
+
+	conn, _, err := client.Application.SetDefaultProvisioningConnectionForApplication(ctx, application.Id, provisionConnectionRequest, query.NewQueryParams(query.WithActivate(false)))
+	require.NoError(t, err, "setting default provisioning connection for application should not error.")
+	assert.Equal(t, "TOKEN", conn.AuthScheme, "expected auth scheme %q, go %q", "TOKEN", conn.AuthScheme)
+
+	client.Application.DeactivateApplication(ctx, application.Id)
+	_, err = client.Application.DeleteApplication(ctx, application.Id)
+	require.NoError(t, err, "Deleting an application should not error")
+}
+
+func TestListFeaturesForApplication(t *testing.T) {
+	t.Skip("listing application features is specific to an org2org")
+
+	ctx, client, err := tests.NewClient(context.TODO())
+	require.NoError(t, err)
+
+	application := createOrg2OrgApplication(t)
+
+	// FIXME this needs a second org to run against for this IT to work
+	// need to activate a provisioning connection between orgs
+	provisionConnectionRequest := okta.ProvisioningConnectionRequest{
+		Profile: &okta.ProvisioningConnectionProfile{
+			AuthScheme: "TOKEN",
+			Token:      "FIXME_WITH_REAL_ORG_TOKEN",
+		},
+	}
+	_, _, err = client.Application.SetDefaultProvisioningConnectionForApplication(ctx, application.Id, provisionConnectionRequest, query.NewQueryParams(query.WithActivate(false)))
+	require.NoError(t, err, "setting default provisioning connection for application should not error.")
+
+	features, _, err := client.Application.ListFeaturesForApplication(ctx, application.Id)
+	require.NoError(t, err, "listing features for application should not error.")
+
+	foundUserProvisiontingFeature := false
+	for _, feature := range features {
+		// NOTE: Provisioning must be enabled for the application. To activate
+		// provisioning, see Provisioning Connections. The only application
+		// Feature currently supported is USER_PROVISIONING.
+		// https://developer.okta.com/docs/reference/api/apps/#list-features-for-application
+		if feature.Name == "USER_PROVISIONING" {
+			foundUserProvisiontingFeature = true
+			break
+		}
+	}
+	if !foundUserProvisiontingFeature {
+		assert.FailNow(t, "the org2org application should at least have USER_PROVISIONING feature")
+	}
+
+	client.Application.DeactivateApplication(ctx, application.Id)
+	_, err = client.Application.DeleteApplication(ctx, application.Id)
+	require.NoError(t, err, "Deleting an application should not error")
+}
+
+func TestUploadApplicationLogo(t *testing.T) {
+	ctx, client, err := tests.NewClient(context.TODO())
+	require.NoError(t, err)
+
+	application := createBasicAuthApplication(t)
+
+	fileDir, _ := os.Getwd()
+	fileName := "../fixtures/logo.png"
+	filePath := path.Join(fileDir, fileName)
+	_, err = client.Application.UploadApplicationLogo(ctx, application.Id, filePath)
+	require.NoError(t, err, "uploading application logo should not error.")
+
+	client.Application.DeactivateApplication(ctx, application.Id)
+	_, err = client.Application.DeleteApplication(ctx, application.Id)
+	require.NoError(t, err, "Deleting an application should not error")
+}
+
+func createBasicAuthApplication(t *testing.T) *okta.BasicAuthApplication {
 	ctx, client, err := tests.NewClient(context.TODO())
 	require.NoError(t, err)
 
@@ -445,7 +544,28 @@ func create_application(t *testing.T) *okta.BasicAuthApplication {
 	return application.(*okta.BasicAuthApplication)
 }
 
-func delete_all_apps(t *testing.T) {
+func createOrg2OrgApplication(t *testing.T) *okta.Org2OrgApplication {
+	ctx, client, err := tests.NewClient(context.TODO())
+	require.NoError(t, err)
+
+	application := okta.NewOrg2OrgApplication()
+	application.Label = "Sample Okta Org2Org App"
+	application.Name = "okta_org2org"
+	application.Settings = &okta.Org2OrgApplicationSettings{
+		App: &okta.Org2OrgApplicationSettingsApp{
+			AcsUrl:         "https://example.okta.com/sso/saml2/exampleid",
+			AudRestriction: "https://www.okta.com/saml2/service-provider/exampleid",
+			BaseUrl:        "https://example.okta.com",
+		},
+	}
+
+	app, _, err := client.Application.CreateApplication(ctx, application, query.NewQueryParams(query.WithActivate(true)))
+	require.NoError(t, err, "Creating an application should not error")
+
+	return app.(*okta.Org2OrgApplication)
+}
+
+func deleteAllApps(t *testing.T) {
 	ctx, client, err := tests.NewClient(context.TODO())
 	require.NoError(t, err)
 

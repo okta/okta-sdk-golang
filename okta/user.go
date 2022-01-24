@@ -1133,3 +1133,45 @@ func (m *UserResource) ClearUserSessions(ctx context.Context, userId string, qp 
 
 	return resp, nil
 }
+
+// List subscriptions of a User. Only lists subscriptions for current user. An AccessDeniedException message is sent if requests are made from other users.
+func (m *UserResource) ListUserSubscriptions(ctx context.Context, userId string) ([]*Subscription, *Response, error) {
+	url := fmt.Sprintf("/api/v1/users/%v/subscriptions", userId)
+
+	rq := m.client.CloneRequestExecutor()
+
+	req, err := rq.WithAccept("application/json").WithContentType("application/json").NewRequest("GET", url, nil)
+	if err != nil {
+		return nil, nil, err
+	}
+
+	var subscription []*Subscription
+
+	resp, err := rq.Do(ctx, req, &subscription)
+	if err != nil {
+		return nil, resp, err
+	}
+
+	return subscription, resp, nil
+}
+
+// Get the subscriptions of a User with a specific notification type. Only gets subscriptions for current user. An AccessDeniedException message is sent if requests are made from other users.
+func (m *UserResource) GetUserSubscriptionByNotificationType(ctx context.Context, userId string, notificationType string) (*Subscription, *Response, error) {
+	url := fmt.Sprintf("/api/v1/users/%v/subscriptions/%v", userId, notificationType)
+
+	rq := m.client.CloneRequestExecutor()
+
+	req, err := rq.WithAccept("application/json").WithContentType("application/json").NewRequest("GET", url, nil)
+	if err != nil {
+		return nil, nil, err
+	}
+
+	var subscription *Subscription
+
+	resp, err := rq.Do(ctx, req, &subscription)
+	if err != nil {
+		return nil, resp, err
+	}
+
+	return subscription, resp, nil
+}

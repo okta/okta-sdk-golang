@@ -32,7 +32,7 @@ import (
 	"gopkg.in/yaml.v3"
 )
 
-const Version = "2.9.2"
+const Version = "2.10.0"
 
 type Client struct {
 	config                     *config
@@ -57,6 +57,7 @@ type Client struct {
 	ProfileMapping             *ProfileMappingResource
 	Session                    *SessionResource
 	SmsTemplate                *SmsTemplateResource
+	Subscription               *SubscriptionResource
 	ThreatInsightConfiguration *ThreatInsightConfigurationResource
 	TrustedOrigin              *TrustedOriginResource
 	User                       *UserResource
@@ -127,6 +128,7 @@ func NewClient(ctx context.Context, conf ...ConfigSetter) (context.Context, *Cli
 	c.ProfileMapping = (*ProfileMappingResource)(&c.resource)
 	c.Session = (*SessionResource)(&c.resource)
 	c.SmsTemplate = (*SmsTemplateResource)(&c.resource)
+	c.Subscription = (*SubscriptionResource)(&c.resource)
 	c.ThreatInsightConfiguration = (*ThreatInsightConfigurationResource)(&c.resource)
 	c.TrustedOrigin = (*TrustedOriginResource)(&c.resource)
 	c.User = (*UserResource)(&c.resource)

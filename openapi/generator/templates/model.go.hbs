@@ -63,7 +63,7 @@ func New{{model.modelName}}() *{{model.modelName}} {
 		{{structProp prop.propertyName}}: "{{prop.default}}",
 		{{/if}}
 		{{/each}}
-		{{#if (ne model.resolution undefined) }}
+		{{#if (and (ne model.resolution undefined) (missingProperty model.resolution.fieldName model.properties)) }}
 		{{structProp model.resolution.fieldName}}: "{{model.resolution.fieldValue}}",
 		{{/if}}
 	}
@@ -76,7 +76,11 @@ func (a *{{model.modelName}}) Is{{model.tags.[0]}}Instance() bool {
 {{/if}}
 {{/if}}
 {{#each operations as |operation|}}
+{{#if (and (ne operation.formData undefined) (ne operation.formData.length 0) ) }}
+{{> model.multipartFileMethod  operation=operation alias=alias modelName=../model.modelName}}
+{{else}}
 {{> model.defaultMethod  operation=operation alias=alias modelName=../model.modelName}}
+{{/if}}
 {{/each}}
 {{/if}}
 
