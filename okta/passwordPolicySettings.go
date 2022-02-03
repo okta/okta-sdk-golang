@@ -23,3 +23,11 @@ type PasswordPolicySettings struct {
 	Password   *PasswordPolicyPasswordSettings   `json:"password,omitempty"`
 	Recovery   *PasswordPolicyRecoverySettings   `json:"recovery,omitempty"`
 }
+
+func NewPasswordPolicySettings() *PasswordPolicySettings {
+	return &PasswordPolicySettings{}
+}
+
+func (a *PasswordPolicySettings) IsPolicyInstance() bool {
+	return true
+}

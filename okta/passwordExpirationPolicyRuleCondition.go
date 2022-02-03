@@ -22,3 +22,11 @@ type PasswordExpirationPolicyRuleCondition struct {
 	Number int64  `json:"number,omitempty"`
 	Unit   string `json:"unit,omitempty"`
 }
+
+func NewPasswordExpirationPolicyRuleCondition() *PasswordExpirationPolicyRuleCondition {
+	return &PasswordExpirationPolicyRuleCondition{}
+}
+
+func (a *PasswordExpirationPolicyRuleCondition) IsPolicyInstance() bool {
+	return true
+}

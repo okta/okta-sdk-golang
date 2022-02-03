@@ -23,3 +23,11 @@ type PolicyNetworkCondition struct {
 	Exclude    []string `json:"exclude,omitempty"`
 	Include    []string `json:"include,omitempty"`
 }
+
+func NewPolicyNetworkCondition() *PolicyNetworkCondition {
+	return &PolicyNetworkCondition{}
+}
+
+func (a *PolicyNetworkCondition) IsPolicyInstance() bool {
+	return true
+}

@@ -539,7 +539,8 @@ function isInstance(model) {
     return false
   }
 
-  return model.tags[0] === "Application" || model.tags[0] === "UserFactor";
+  var tag = model.tags[0];
+  return tag === "Application" || tag == "Policy" || tag === "UserFactor";
 }
 
 function log(item) {

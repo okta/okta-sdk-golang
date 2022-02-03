@@ -34,3 +34,15 @@ type PasswordPolicyRule struct {
 	System      *bool                         `json:"system,omitempty"`
 	Type        string                        `json:"type,omitempty"`
 }
+
+func NewPasswordPolicyRule() *PasswordPolicyRule {
+	return &PasswordPolicyRule{
+		Status: "ACTIVE",
+		System: boolPtr(false),
+		Type:   "PASSWORD",
+	}
+}
+
+func (a *PasswordPolicyRule) IsPolicyInstance() bool {
+	return true
+}

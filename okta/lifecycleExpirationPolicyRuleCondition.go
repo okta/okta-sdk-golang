@@ -23,3 +23,11 @@ type LifecycleExpirationPolicyRuleCondition struct {
 	Number          int64  `json:"number,omitempty"`
 	Unit            string `json:"unit,omitempty"`
 }
+
+func NewLifecycleExpirationPolicyRuleCondition() *LifecycleExpirationPolicyRuleCondition {
+	return &LifecycleExpirationPolicyRuleCondition{}
+}
+
+func (a *LifecycleExpirationPolicyRuleCondition) IsPolicyInstance() bool {
+	return true
+}

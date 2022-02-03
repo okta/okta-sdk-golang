@@ -25,3 +25,11 @@ type PolicySubject struct {
 	MatchType        string                  `json:"matchType,omitempty"`
 	UserNameTemplate *PolicyUserNameTemplate `json:"userNameTemplate,omitempty"`
 }
+
+func NewPolicySubject() *PolicySubject {
+	return &PolicySubject{}
+}
+
+func (a *PolicySubject) IsPolicyInstance() bool {
+	return true
+}

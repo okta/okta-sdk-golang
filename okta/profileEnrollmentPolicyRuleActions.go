@@ -26,3 +26,11 @@ type ProfileEnrollmentPolicyRuleActions struct {
 	Signon                   *OktaSignOnPolicyRuleSignonActions `json:"signon,omitempty"`
 	ProfileEnrollment        *ProfileEnrollmentPolicyRuleAction `json:"profileEnrollment,omitempty"`
 }
+
+func NewProfileEnrollmentPolicyRuleActions() *ProfileEnrollmentPolicyRuleActions {
+	return &ProfileEnrollmentPolicyRuleActions{}
+}
+
+func (a *ProfileEnrollmentPolicyRuleActions) IsPolicyInstance() bool {
+	return true
+}

@@ -40,3 +40,13 @@ type IdentityProviderPolicy struct {
 	Provisioning *Provisioning         `json:"provisioning,omitempty"`
 	Subject      *PolicySubject        `json:"subject,omitempty"`
 }
+
+func NewIdentityProviderPolicy() *IdentityProviderPolicy {
+	return &IdentityProviderPolicy{
+		Type: "IDP_DISCOVERY",
+	}
+}
+
+func (a *IdentityProviderPolicy) IsPolicyInstance() bool {
+	return true
+}

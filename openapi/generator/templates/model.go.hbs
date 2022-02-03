@@ -60,7 +60,15 @@ func New{{model.modelName}}() *{{model.modelName}} {
 	return &{{model.modelName}}{
 		{{#each model.properties as |prop|}}
 		{{#if (ne prop.default undefined) }}
+			{{#if (or (eq prop.commonType "string") (eq prop.commonType "object")) }}
 		{{structProp prop.propertyName}}: "{{prop.default}}",
+			{{else if (and (eq prop.commonType "array") (eq prop.model "string")) }}
+		{{structProp prop.propertyName}}: []string{},
+			{{else if (eq prop.commonType "boolean") }}
+		{{structProp prop.propertyName}}: boolPtr({{prop.default}}),
+			{{else}}
+		{{structProp prop.propertyName}}: {{prop.default}},
+			{{/if}}
 		{{/if}}
 		{{/each}}
 		{{#if (and (ne model.resolution undefined) (missingProperty model.resolution.fieldName model.properties)) }}

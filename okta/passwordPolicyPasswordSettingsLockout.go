@@ -24,3 +24,11 @@ type PasswordPolicyPasswordSettingsLockout struct {
 	ShowLockoutFailures             *bool    `json:"showLockoutFailures,omitempty"`
 	UserLockoutNotificationChannels []string `json:"userLockoutNotificationChannels,omitempty"`
 }
+
+func NewPasswordPolicyPasswordSettingsLockout() *PasswordPolicyPasswordSettingsLockout {
+	return &PasswordPolicyPasswordSettingsLockout{}
+}
+
+func (a *PasswordPolicyPasswordSettingsLockout) IsPolicyInstance() bool {
+	return true
+}

@@ -26,3 +26,11 @@ type DeviceAccessPolicyRuleCondition struct {
 	Managed    *bool                              `json:"managed,omitempty"`
 	Registered *bool                              `json:"registered,omitempty"`
 }
+
+func NewDeviceAccessPolicyRuleCondition() *DeviceAccessPolicyRuleCondition {
+	return &DeviceAccessPolicyRuleCondition{}
+}
+
+func (a *DeviceAccessPolicyRuleCondition) IsPolicyInstance() bool {
+	return true
+}

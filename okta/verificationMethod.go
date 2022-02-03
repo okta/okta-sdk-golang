@@ -24,3 +24,11 @@ type VerificationMethod struct {
 	ReauthenticateIn string                     `json:"reauthenticateIn,omitempty"`
 	Type             string                     `json:"type,omitempty"`
 }
+
+func NewVerificationMethod() *VerificationMethod {
+	return &VerificationMethod{}
+}
+
+func (a *VerificationMethod) IsPolicyInstance() bool {
+	return true
+}

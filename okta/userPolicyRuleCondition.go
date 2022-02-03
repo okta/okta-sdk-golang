@@ -26,3 +26,11 @@ type UserPolicyRuleCondition struct {
 	PasswordExpiration     *PasswordExpirationPolicyRuleCondition     `json:"passwordExpiration,omitempty"`
 	UserLifecycleAttribute *UserLifecycleAttributePolicyRuleCondition `json:"userLifecycleAttribute,omitempty"`
 }
+
+func NewUserPolicyRuleCondition() *UserPolicyRuleCondition {
+	return &UserPolicyRuleCondition{}
+}
+
+func (a *UserPolicyRuleCondition) IsPolicyInstance() bool {
+	return true
+}

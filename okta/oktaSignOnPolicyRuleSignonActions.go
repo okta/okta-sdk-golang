@@ -26,3 +26,14 @@ type OktaSignOnPolicyRuleSignonActions struct {
 	RequireFactor           *bool                                     `json:"requireFactor,omitempty"`
 	Session                 *OktaSignOnPolicyRuleSignonSessionActions `json:"session,omitempty"`
 }
+
+func NewOktaSignOnPolicyRuleSignonActions() *OktaSignOnPolicyRuleSignonActions {
+	return &OktaSignOnPolicyRuleSignonActions{
+		RememberDeviceByDefault: boolPtr(false),
+		RequireFactor:           boolPtr(false),
+	}
+}
+
+func (a *OktaSignOnPolicyRuleSignonActions) IsPolicyInstance() bool {
+	return true
+}

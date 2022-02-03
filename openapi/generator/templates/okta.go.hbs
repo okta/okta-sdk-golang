@@ -159,3 +159,7 @@ func readConfigFromEnvironment(c config) *config {
 	}
 	return &c
 }
+
+func boolPtr(b bool) *bool {
+	return &b
+}

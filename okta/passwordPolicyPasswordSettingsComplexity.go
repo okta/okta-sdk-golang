@@ -28,3 +28,19 @@ type PasswordPolicyPasswordSettingsComplexity struct {
 	MinSymbol         int64               `json:"minSymbol"`
 	MinUpperCase      int64               `json:"minUpperCase"`
 }
+
+func NewPasswordPolicyPasswordSettingsComplexity() *PasswordPolicyPasswordSettingsComplexity {
+	return &PasswordPolicyPasswordSettingsComplexity{
+		ExcludeAttributes: []string{},
+		ExcludeUsername:   boolPtr(true),
+		MinLength:         8,
+		MinLowerCase:      1,
+		MinNumber:         1,
+		MinSymbol:         1,
+		MinUpperCase:      1,
+	}
+}
+
+func (a *PasswordPolicyPasswordSettingsComplexity) IsPolicyInstance() bool {
+	return true
+}
