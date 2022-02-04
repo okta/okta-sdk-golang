@@ -159,15 +159,19 @@ func setupDisablePhoneNumberOnMFAEnrollPolicy() error {
 
 	// note: updating policy settings directly using generic golang structs
 	policy := policies[0].(map[string]interface{})
-	authenticators := policy["settings"].(map[string]interface{})["authenticators"].([]interface{})
-	for _, authenticator := range authenticators {
-		key := authenticator.(map[string]interface{})["key"]
-		if key != "phone_number" {
-			continue
+	if settings, ok := policy["settings"].(map[string]interface{}); ok {
+		if authenticators, ok := settings["authenticators"].([]interface{}); ok {
+			for _, authenticator := range authenticators {
+				key := authenticator.(map[string]interface{})["key"]
+				if key != "phone_number" {
+					continue
+				}
+				enroll := authenticator.(map[string]interface{})["enroll"].(map[string]interface{})
+				enroll["self"] = "NOT_ALLOWED"
+				break
+			}
+
 		}
-		enroll := authenticator.(map[string]interface{})["enroll"].(map[string]interface{})
-		enroll["self"] = "NOT_ALLOWED"
-		break
 	}
 
 	url = fmt.Sprintf("/api/v1/policies/%s", policy["id"])
