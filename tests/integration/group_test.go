@@ -224,7 +224,7 @@ func TestGroupRuleOperations(t *testing.T) {
 	require.NoError(t, err)
 	// Create a user with credentials, activated by default → POST /api/v1/users?activate=true
 	p := &okta.PasswordCredential{
-		Value: "Abcd1234",
+		Value: randomString(10),
 	}
 	uc := &okta.UserCredentials{
 		Password: p,
@@ -286,7 +286,7 @@ func TestGroupRuleOperations(t *testing.T) {
 	require.NoError(t, err, "Should not error when activating rule")
 
 	time.Sleep(30 * time.Second)
-	users, _, err := client.Group.ListGroupUsers(ctx, group.Id, nil)
+	users, _, _ := client.Group.ListGroupUsers(ctx, group.Id, nil)
 	found := false
 	for _, tmpuser := range users {
 		if tmpuser.Id == user.Id {
@@ -337,7 +337,7 @@ func TestGroupRuleOperations(t *testing.T) {
 	_, err = client.Group.ActivateGroupRule(ctx, newGroupRule.Id)
 	require.NoError(t, err, "Should not error when activating the group rule")
 	time.Sleep(5 * time.Second)
-	users, _, err = client.Group.ListGroupUsers(ctx, group.Id, nil)
+	users, _, _ = client.Group.ListGroupUsers(ctx, group.Id, nil)
 	found = false
 	for _, tmpuser := range users {
 		if tmpuser.Id == user.Id {

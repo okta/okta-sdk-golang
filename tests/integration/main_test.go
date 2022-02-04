@@ -143,6 +143,14 @@ func randomTestString() string {
 	return testPrefix + string(result)
 }
 
+func randomString(length int) string {
+	result := make([]byte, length)
+	for i := 0; i < length; i++ {
+		result[i] = charSetAlpha[rand.Intn(len(charSetAlpha))]
+	}
+	return string(result)
+}
+
 func testName(name string) string {
 	s := fmt.Sprintf("%s %s", randomTestString(), name)
 	if len(s) > 50 {
