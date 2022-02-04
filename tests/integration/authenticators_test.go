@@ -170,7 +170,6 @@ func setupDisablePhoneNumberOnMFAEnrollPolicy() error {
 				enroll["self"] = "NOT_ALLOWED"
 				break
 			}
-
 		}
 	}
 
