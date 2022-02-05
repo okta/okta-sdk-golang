@@ -36,3 +36,13 @@ type ProfileEnrollmentPolicy struct {
 	System      *bool                 `json:"system,omitempty"`
 	Type        string                `json:"type,omitempty"`
 }
+
+func NewProfileEnrollmentPolicy() *ProfileEnrollmentPolicy {
+	return &ProfileEnrollmentPolicy{
+		Type: "PROFILE_ENROLLMENT",
+	}
+}
+
+func (a *ProfileEnrollmentPolicy) IsPolicyInstance() bool {
+	return true
+}

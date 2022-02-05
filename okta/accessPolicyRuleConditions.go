@@ -43,3 +43,11 @@ type AccessPolicyRuleConditions struct {
 	ElCondition           *AccessPolicyRuleCustomCondition               `json:"elCondition,omitempty"`
 	UserType              *UserTypeCondition                             `json:"userType,omitempty"`
 }
+
+func NewAccessPolicyRuleConditions() *AccessPolicyRuleConditions {
+	return &AccessPolicyRuleConditions{}
+}
+
+func (a *AccessPolicyRuleConditions) IsPolicyInstance() bool {
+	return true
+}

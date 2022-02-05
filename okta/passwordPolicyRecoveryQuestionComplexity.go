@@ -21,3 +21,11 @@ package okta
 type PasswordPolicyRecoveryQuestionComplexity struct {
 	MinLength int64 `json:"minLength,omitempty"`
 }
+
+func NewPasswordPolicyRecoveryQuestionComplexity() *PasswordPolicyRecoveryQuestionComplexity {
+	return &PasswordPolicyRecoveryQuestionComplexity{}
+}
+
+func (a *PasswordPolicyRecoveryQuestionComplexity) IsPolicyInstance() bool {
+	return true
+}

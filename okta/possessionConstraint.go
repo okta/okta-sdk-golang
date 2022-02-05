@@ -27,3 +27,11 @@ type PossessionConstraint struct {
 	PhishingResistant  string   `json:"phishingResistant,omitempty"`
 	UserPresence       string   `json:"userPresence,omitempty"`
 }
+
+func NewPossessionConstraint() *PossessionConstraint {
+	return &PossessionConstraint{}
+}
+
+func (a *PossessionConstraint) IsPolicyInstance() bool {
+	return true
+}

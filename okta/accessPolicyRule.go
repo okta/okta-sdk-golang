@@ -34,3 +34,15 @@ type AccessPolicyRule struct {
 	System      *bool                       `json:"system,omitempty"`
 	Type        string                      `json:"type,omitempty"`
 }
+
+func NewAccessPolicyRule() *AccessPolicyRule {
+	return &AccessPolicyRule{
+		Status: "ACTIVE",
+		System: boolPtr(false),
+		Type:   "ACCESS_POLICY",
+	}
+}
+
+func (a *AccessPolicyRule) IsPolicyInstance() bool {
+	return true
+}

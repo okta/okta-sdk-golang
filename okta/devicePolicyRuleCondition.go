@@ -24,3 +24,11 @@ type DevicePolicyRuleCondition struct {
 	Rooted     *bool                              `json:"rooted,omitempty"`
 	TrustLevel string                             `json:"trustLevel,omitempty"`
 }
+
+func NewDevicePolicyRuleCondition() *DevicePolicyRuleCondition {
+	return &DevicePolicyRuleCondition{}
+}
+
+func (a *DevicePolicyRuleCondition) IsPolicyInstance() bool {
+	return true
+}

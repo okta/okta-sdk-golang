@@ -43,6 +43,14 @@ type Policy struct {
 	Type        string                `json:"type,omitempty"`
 }
 
+func NewPolicy() *Policy {
+	return &Policy{}
+}
+
+func (a *Policy) IsPolicyInstance() bool {
+	return true
+}
+
 // Gets a policy.
 func (m *PolicyResource) GetPolicy(ctx context.Context, policyId string, qp *query.Params) (*Policy, *Response, error) {
 	url := fmt.Sprintf("/api/v1/policies/%v", policyId)

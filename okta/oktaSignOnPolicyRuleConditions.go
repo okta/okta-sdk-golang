@@ -41,3 +41,11 @@ type OktaSignOnPolicyRuleConditions struct {
 	UserStatus            *UserStatusPolicyRuleCondition                 `json:"userStatus,omitempty"`
 	Users                 *UserPolicyRuleCondition                       `json:"users,omitempty"`
 }
+
+func NewOktaSignOnPolicyRuleConditions() *OktaSignOnPolicyRuleConditions {
+	return &OktaSignOnPolicyRuleConditions{}
+}
+
+func (a *OktaSignOnPolicyRuleConditions) IsPolicyInstance() bool {
+	return true
+}

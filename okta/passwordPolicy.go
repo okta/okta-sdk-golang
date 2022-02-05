@@ -37,3 +37,13 @@ type PasswordPolicy struct {
 	Type        string                    `json:"type,omitempty"`
 	Settings    *PasswordPolicySettings   `json:"settings,omitempty"`
 }
+
+func NewPasswordPolicy() *PasswordPolicy {
+	return &PasswordPolicy{
+		Type: "PASSWORD",
+	}
+}
+
+func (a *PasswordPolicy) IsPolicyInstance() bool {
+	return true
+}

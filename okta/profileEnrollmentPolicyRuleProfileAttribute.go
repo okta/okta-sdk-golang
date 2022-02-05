@@ -23,3 +23,11 @@ type ProfileEnrollmentPolicyRuleProfileAttribute struct {
 	Name     string `json:"name,omitempty"`
 	Required *bool  `json:"required,omitempty"`
 }
+
+func NewProfileEnrollmentPolicyRuleProfileAttribute() *ProfileEnrollmentPolicyRuleProfileAttribute {
+	return &ProfileEnrollmentPolicyRuleProfileAttribute{}
+}
+
+func (a *ProfileEnrollmentPolicyRuleProfileAttribute) IsPolicyInstance() bool {
+	return true
+}

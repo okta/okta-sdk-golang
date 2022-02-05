@@ -23,3 +23,11 @@ type PlatformConditionEvaluatorPlatformOperatingSystem struct {
 	Type       string                                                    `json:"type,omitempty"`
 	Version    *PlatformConditionEvaluatorPlatformOperatingSystemVersion `json:"version,omitempty"`
 }
+
+func NewPlatformConditionEvaluatorPlatformOperatingSystem() *PlatformConditionEvaluatorPlatformOperatingSystem {
+	return &PlatformConditionEvaluatorPlatformOperatingSystem{}
+}
+
+func (a *PlatformConditionEvaluatorPlatformOperatingSystem) IsPolicyInstance() bool {
+	return true
+}

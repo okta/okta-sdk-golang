@@ -24,3 +24,11 @@ type PasswordPolicyRecoveryFactors struct {
 	OktaSms          *PasswordPolicyRecoveryFactorSettings `json:"okta_sms,omitempty"`
 	RecoveryQuestion *PasswordPolicyRecoveryQuestion       `json:"recovery_question,omitempty"`
 }
+
+func NewPasswordPolicyRecoveryFactors() *PasswordPolicyRecoveryFactors {
+	return &PasswordPolicyRecoveryFactors{}
+}
+
+func (a *PasswordPolicyRecoveryFactors) IsPolicyInstance() bool {
+	return true
+}

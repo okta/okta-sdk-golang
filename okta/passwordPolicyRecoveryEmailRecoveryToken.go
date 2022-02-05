@@ -21,3 +21,13 @@ package okta
 type PasswordPolicyRecoveryEmailRecoveryToken struct {
 	TokenLifetimeMinutes int64 `json:"tokenLifetimeMinutes"`
 }
+
+func NewPasswordPolicyRecoveryEmailRecoveryToken() *PasswordPolicyRecoveryEmailRecoveryToken {
+	return &PasswordPolicyRecoveryEmailRecoveryToken{
+		TokenLifetimeMinutes: 10080,
+	}
+}
+
+func (a *PasswordPolicyRecoveryEmailRecoveryToken) IsPolicyInstance() bool {
+	return true
+}

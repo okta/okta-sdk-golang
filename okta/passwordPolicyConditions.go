@@ -41,3 +41,11 @@ type PasswordPolicyConditions struct {
 	UserStatus            *UserStatusPolicyRuleCondition                 `json:"userStatus,omitempty"`
 	Users                 *UserPolicyRuleCondition                       `json:"users,omitempty"`
 }
+
+func NewPasswordPolicyConditions() *PasswordPolicyConditions {
+	return &PasswordPolicyConditions{}
+}
+
+func (a *PasswordPolicyConditions) IsPolicyInstance() bool {
+	return true
+}

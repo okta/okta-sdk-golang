@@ -26,3 +26,11 @@ type AccessPolicyRuleActions struct {
 	Signon                   *OktaSignOnPolicyRuleSignonActions `json:"signon,omitempty"`
 	AppSignOn                *AccessPolicyRuleApplicationSignOn `json:"appSignOn,omitempty"`
 }
+
+func NewAccessPolicyRuleActions() *AccessPolicyRuleActions {
+	return &AccessPolicyRuleActions{}
+}
+
+func (a *AccessPolicyRuleActions) IsPolicyInstance() bool {
+	return true
+}

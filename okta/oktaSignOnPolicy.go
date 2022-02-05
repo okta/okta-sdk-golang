@@ -36,3 +36,13 @@ type OktaSignOnPolicy struct {
 	System      *bool                       `json:"system,omitempty"`
 	Type        string                      `json:"type,omitempty"`
 }
+
+func NewOktaSignOnPolicy() *OktaSignOnPolicy {
+	return &OktaSignOnPolicy{
+		Type: "OKTA_SIGN_ON",
+	}
+}
+
+func (a *OktaSignOnPolicy) IsPolicyInstance() bool {
+	return true
+}

@@ -26,3 +26,11 @@ type ProfileEnrollmentPolicyRuleAction struct {
 	TargetGroupIds             []string                                          `json:"targetGroupIds,omitempty"`
 	UnknownUserAction          string                                            `json:"unknownUserAction,omitempty"`
 }
+
+func NewProfileEnrollmentPolicyRuleAction() *ProfileEnrollmentPolicyRuleAction {
+	return &ProfileEnrollmentPolicyRuleAction{}
+}
+
+func (a *ProfileEnrollmentPolicyRuleAction) IsPolicyInstance() bool {
+	return true
+}

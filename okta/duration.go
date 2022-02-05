@@ -22,3 +22,11 @@ type Duration struct {
 	Number int64  `json:"number,omitempty"`
 	Unit   string `json:"unit,omitempty"`
 }
+
+func NewDuration() *Duration {
+	return &Duration{}
+}
+
+func (a *Duration) IsPolicyInstance() bool {
+	return true
+}

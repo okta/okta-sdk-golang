@@ -25,3 +25,11 @@ type PolicyRuleActions struct {
 	SelfServiceUnlock        *PasswordPolicyRuleAction          `json:"selfServiceUnlock,omitempty"`
 	Signon                   *OktaSignOnPolicyRuleSignonActions `json:"signon,omitempty"`
 }
+
+func NewPolicyRuleActions() *PolicyRuleActions {
+	return &PolicyRuleActions{}
+}
+
+func (a *PolicyRuleActions) IsPolicyInstance() bool {
+	return true
+}

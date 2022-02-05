@@ -24,3 +24,16 @@ type PasswordPolicyPasswordSettingsAge struct {
 	MaxAgeDays     int64 `json:"maxAgeDays,omitempty"`
 	MinAgeMinutes  int64 `json:"minAgeMinutes,omitempty"`
 }
+
+func NewPasswordPolicyPasswordSettingsAge() *PasswordPolicyPasswordSettingsAge {
+	return &PasswordPolicyPasswordSettingsAge{
+		ExpireWarnDays: 0,
+		HistoryCount:   0,
+		MaxAgeDays:     0,
+		MinAgeMinutes:  0,
+	}
+}
+
+func (a *PasswordPolicyPasswordSettingsAge) IsPolicyInstance() bool {
+	return true
+}

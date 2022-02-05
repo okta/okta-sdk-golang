@@ -60,7 +60,15 @@ func New{{model.modelName}}() *{{model.modelName}} {
 	return &{{model.modelName}}{
 		{{#each model.properties as |prop|}}
 		{{#if (ne prop.default undefined) }}
+			{{#if (or (eq prop.commonType "string") (eq prop.commonType "object")) }}
 		{{structProp prop.propertyName}}: "{{prop.default}}",
+			{{else if (and (eq prop.commonType "array") (eq prop.model "string")) }}
+		{{structProp prop.propertyName}}: []string{},
+			{{else if (eq prop.commonType "boolean") }}
+		{{structProp prop.propertyName}}: boolPtr({{prop.default}}),
+			{{else}}
+		{{structProp prop.propertyName}}: {{prop.default}},
+			{{/if}}
 		{{/if}}
 		{{/each}}
 		{{#if (and (ne model.resolution undefined) (missingProperty model.resolution.fieldName model.properties)) }}
@@ -119,6 +127,37 @@ func (a {{model.modelName}}) MarshalJSON() ([]byte, error) {
 		a.{{model.modelName}}Map["description"] = a.Description
 	}
 	return json.Marshal(a.{{model.modelName}}Map)
+}
+
+{{/if}}
+{{#if (eq model.modelName "SocialAuthToken")}}
+func (a *{{model.modelName}}) UnmarshalJSON(data []byte) error {
+	if string(data) == "null" || string(data) == `""` {
+		return nil
+	}
+	var token map[string]interface{}
+	err := json.Unmarshal(data, &token)
+	if err != nil {
+		return err
+	}
+	if ea, found := token["expiresAt"]; found {
+		if expiresAt, err := time.Parse(time.RFC3339, ea.(string)); err == nil {
+			a.ExpiresAt = &expiresAt
+		}
+	}
+	a.Id, _ = token["id"].(string)
+	if scopes, found := token["scopes"]; found {
+		_scopes := scopes.([]interface{})
+		a.Scopes = make([]string, len(_scopes))
+		for i, scope := range _scopes {
+			a.Scopes[i] = scope.(string)
+		}
+	}
+	a.Token, _ = token["token"].(string)
+	a.TokenAuthScheme, _ = token["tokenAuthScheme"].(string)
+	a.TokenType, _ = token["tokenType"].(string)
+
+	return nil
 }
 
 {{/if}}

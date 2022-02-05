@@ -39,6 +39,17 @@ type PolicyRule struct {
 	Type        string                `json:"type,omitempty"`
 }
 
+func NewPolicyRule() *PolicyRule {
+	return &PolicyRule{
+		Status: "ACTIVE",
+		System: boolPtr(false),
+	}
+}
+
+func (a *PolicyRule) IsPolicyInstance() bool {
+	return true
+}
+
 // Updates a policy rule.
 func (m *PolicyRuleResource) UpdatePolicyRule(ctx context.Context, policyId string, ruleId string, body PolicyRule) (*PolicyRule, *Response, error) {
 	url := fmt.Sprintf("/api/v1/policies/%v/rules/%v", policyId, ruleId)

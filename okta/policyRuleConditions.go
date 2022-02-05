@@ -41,3 +41,11 @@ type PolicyRuleConditions struct {
 	UserStatus            *UserStatusPolicyRuleCondition                 `json:"userStatus,omitempty"`
 	Users                 *UserPolicyRuleCondition                       `json:"users,omitempty"`
 }
+
+func NewPolicyRuleConditions() *PolicyRuleConditions {
+	return &PolicyRuleConditions{}
+}
+
+func (a *PolicyRuleConditions) IsPolicyInstance() bool {
+	return true
+}

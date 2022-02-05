@@ -23,3 +23,15 @@ type OktaSignOnPolicyRuleSignonSessionActions struct {
 	MaxSessionLifetimeMinutes int64 `json:"maxSessionLifetimeMinutes"`
 	UsePersistentCookie       *bool `json:"usePersistentCookie,omitempty"`
 }
+
+func NewOktaSignOnPolicyRuleSignonSessionActions() *OktaSignOnPolicyRuleSignonSessionActions {
+	return &OktaSignOnPolicyRuleSignonSessionActions{
+		MaxSessionIdleMinutes:     120,
+		MaxSessionLifetimeMinutes: 0,
+		UsePersistentCookie:       boolPtr(false),
+	}
+}
+
+func (a *OktaSignOnPolicyRuleSignonSessionActions) IsPolicyInstance() bool {
+	return true
+}

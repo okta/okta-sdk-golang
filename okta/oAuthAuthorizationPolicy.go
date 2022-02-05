@@ -36,3 +36,13 @@ type OAuthAuthorizationPolicy struct {
 	System      *bool                 `json:"system,omitempty"`
 	Type        string                `json:"type,omitempty"`
 }
+
+func NewOAuthAuthorizationPolicy() *OAuthAuthorizationPolicy {
+	return &OAuthAuthorizationPolicy{
+		Type: "OAUTH_AUTHORIZATION_POLICY",
+	}
+}
+
+func (a *OAuthAuthorizationPolicy) IsPolicyInstance() bool {
+	return true
+}

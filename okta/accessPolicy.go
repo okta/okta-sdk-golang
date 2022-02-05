@@ -36,3 +36,13 @@ type AccessPolicy struct {
 	System      *bool                 `json:"system,omitempty"`
 	Type        string                `json:"type,omitempty"`
 }
+
+func NewAccessPolicy() *AccessPolicy {
+	return &AccessPolicy{
+		Type: "ACCESS_POLICY",
+	}
+}
+
+func (a *AccessPolicy) IsPolicyInstance() bool {
+	return true
+}

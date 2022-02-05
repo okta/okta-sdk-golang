@@ -1,6 +1,16 @@
 # Changelog
 Running changelog of releases since `2.0.0-rc.4`
 
+## v2.10.1
+
+### Updates
+
+- Policy is first class parent with child policy types.
+
+### Bug fixes
+
+- Special case unmarshal for SocialAuthToken nullable expiresAt being blank from Okta API
+
 ## v2.10.0
 
 Release of openapispec 2.10.0

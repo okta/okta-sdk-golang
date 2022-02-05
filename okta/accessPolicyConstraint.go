@@ -23,3 +23,11 @@ type AccessPolicyConstraint struct {
 	ReauthenticateIn string   `json:"reauthenticateIn,omitempty"`
 	Types            []string `json:"types,omitempty"`
 }
+
+func NewAccessPolicyConstraint() *AccessPolicyConstraint {
+	return &AccessPolicyConstraint{}
+}
+
+func (a *AccessPolicyConstraint) IsPolicyInstance() bool {
+	return true
+}
