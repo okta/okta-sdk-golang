@@ -1,6 +1,21 @@
 # Changelog
 Running changelog of releases since `2.0.0-rc.4`
 
+## v2.11.0
+
+### Updates
+
+- New models
+  - `EmailTemplate`
+  - `EmailTemplateContent`
+  - `EmailTemplateCustomization`
+  - `EmailTemplateCustomizationRequest`
+  - `EmailTemplateResource`
+  - `EmailTemplateTestRequest`
+  - `EmailTemplateTouchPointVariant`
+  - `IdpPolicyRuleAction`
+  - `IdpPolicyRuleActionProvider`
+
 ## v2.10.1
 
 ### Updates
