@@ -69,6 +69,14 @@ test\:unit:
 	@echo "$(COLOR_OK)Running unit tests...$(COLOR_NONE)"
 	go test -failfast -race ./tests/unit -test.v
 
+test\:integration\:all:
+	@echo "$(COLOR_OKTA)Running integration tests...$(COLOR_NONE)"
+	go test -race ./tests/integration -test.v
+
+test\:unit\:all:
+	@echo "$(COLOR_OK)Running unit tests...$(COLOR_NONE)"
+	go test -race ./tests/unit -test.v
+
 .PHONY: fmt
 fmt: check-fmt # Format the code
 	@$(GOFMT) -l -w $$(find . -name '*.go' |grep -v vendor) > /dev/null
