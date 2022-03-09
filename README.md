@@ -819,6 +819,52 @@ variable name with the `_` (underscore) character:
 * `OKTA_CLIENT_TOKEN`
 * and so on
 
+### Configuration Setter Object
+
+The client is configured with a configuration setter object passed to the `NewClient` function.
+
+| function | description |
+|----------|-------------|
+| WithCache(cache bool) | Use request memory cache |
+| WithCacheManager(cacheManager cache.Cache) | Use custom cache object that implements the `cache.Cache` interface |
+| WithCacheTtl(i int32) | Cache time to live in seconds |
+| WithCacheTti(i int32) | Cache clean up interval in seconds |
+| WithConnectionTimeout(i int64) | HTTP connection timeout in seconds |
+| WithProxyPort(i int32) | HTTP proxy port |
+| WithProxyHost(host string) | HTTP proxy host |
+| WithProxyUsername(username string) | HTTP proxy username |
+| WithProxyPassword(pass string) | HTTP proxy password |
+| WithOrgUrl(url string) | Okta organization URL |
+| WithToken(token string) | Okta API token |
+| WithUserAgentExtra(userAgent string) | Append additional information to the HTTP User-Agent |
+| WithHttpClient(httpClient http.Client) | Custom net/http client |
+| WithHttpClientPtr(httpClient *http.Client) | pointer to custom net/http client |
+| WithTestingDisableHttpsCheck(httpsCheck bool) | Disable net/http SSL checks |
+| WithRequestTimeout(requestTimeout int64) | HTTP request time out in seconds |
+| WithRateLimitMaxRetries(maxRetries int32) | Number of request retries when http request times out |
+| WithRateLimitMaxBackOff(maxBackoff int64) | Max amount of time to wait on request back off | 
+| WithAuthorizationMode(authzMode string) | Okta API auth mode, `SSWS` (Okta based) or `PrivateKey` (OAuth app based) |
+| WithClientId(clientId string) | Okta App client id, used with `PrivateKey` oauth auth mode |
+| WithScopes(scopes []string) | Okta API app scopes |
+| WithPrivateKey(privateKey string) | Private key value |
+| WithPrivateKeySigner(signer jose.Signer) | Custom private key signer implementing the `jose.Signer` interface |
+
+### Okta Client Base Configuration
+
+The Okta Client's base configuration starts at
+
+| config setting |
+| WithConnectionTimeout(60) |
+| WithCache(true) |
+| WithCacheTtl(300) |
+| WithCacheTti(300),
+| WithUserAgentExtra("") |
+| WithTestingDisableHttpsCheck(false) |
+| WithRequestTimeout(0) |
+| WithRateLimitMaxBackOff(30) |
+| WithRateLimitMaxRetries(2) |
+| WithAuthorizationMode("SSWS") |
+
 ## Upgrading to 2.0.x
 
 The main purpose of this version is to include all documented,
