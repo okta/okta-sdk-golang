@@ -103,7 +103,7 @@ func main() {
   )
 
   if err != nil {
-    fmt.Errorf("Error: %v", err)
+    fmt.Printf("Error: %v\n", err)
   }
 
   fmt.Printf("Context: %+v\n Client: %+v\n",ctx, client)
@@ -172,7 +172,7 @@ func main() {
   )
 
   if err != nil {
-    fmt.Errorf("Error: %v", err)
+    fmt.Printf("Error: %v\n", err)
   }
 
   fmt.Printf("Context: %+v\n Client: %+v\n",ctx, client)
@@ -202,14 +202,14 @@ func main() {
   )
 
   if err != nil {
-    fmt.Errorf("Error: %v", err)
+    fmt.Printf("Error: %v\n", err)
   }
 
   fmt.Printf("Context: %+v\n Client: %+v\n",ctx, client)
 
   user, resp, err := client.User.GetUser(ctx, "{UserId|Username|Email}")
   if err != nil {
-    fmt.Errorf("Error Getting User: %v", err)
+    fmt.Printf("Error Getting User: %v\n", err)
   }
   fmt.Printf("User: %+v\n Response: %+v\n\n",user, resp)
 }
@@ -232,14 +232,14 @@ func main() {
   )
 
   if err != nil {
-    fmt.Errorf("Error: %v", err)
+    fmt.Printf("Error: %v\n", err)
   }
 
   fmt.Printf("Context: %+v\n Client: %+v\n",ctx, client)
 
   users, resp, err := client.User.ListUsers(ctx, nil)
   if err != nil {
-    fmt.Errorf("Error Getting Users: %v", err)
+    fmt.Printf("Error Getting Users: %v\n", err)
   }
   fmt.Printf("Users: %+v\n Response: %+v\n\n",users, resp)
   for index, user := range users {
@@ -266,7 +266,7 @@ func main() {
   )
 
   if err != nil {
-    fmt.Errorf("Error: %v", err)
+    fmt.Printf("Error: %v\n", err)
   }
 
   fmt.Printf("Context: %+v\n Client: %+v\n",ctx, client)
@@ -275,7 +275,7 @@ func main() {
 
 	filteredUsers, resp, err := client.User.ListUsers(ctx, filter)
 	if err != nil {
-		fmt.Errorf("Error Getting Users: %v", err)
+		fmt.Printf("Error Getting Users: %v\n", err)
 	}
 
 	fmt.Printf("Filtered Users: %+v\n Response: %+v\n\n", filteredUsers, resp)
@@ -304,7 +304,7 @@ func main() {
   )
 
   if err != nil {
-    fmt.Errorf("Error: %v", err)
+    fmt.Printf("Error: %v\n", err)
   }
 
   fmt.Printf("Context: %+v\n Client: %+v\n",ctx, client)
@@ -335,7 +335,7 @@ func main() {
 
 	user, resp, err := client.User.CreateUser(ctx, createUserRequest, queryParam)
 	if err != nil {
-		fmt.Errorf("Error Creating User: %v", err)
+		fmt.Printf("Error Creating User: %v\n", err)
 	}
 
 	fmt.Printf("User: %+v\n Response: %+v\n\n", user, resp)
@@ -360,14 +360,14 @@ func main() {
   )
 
   if err != nil {
-    fmt.Errorf("Error: %v", err)
+    fmt.Printf("Error: %v\n", err)
   }
 
   fmt.Printf("Context: %+v\n Client: %+v\n",ctx, client)
 
   	userToUpdate, resp, err := client.User.GetUser(ctx, "{userId}")
 	if err != nil {
-		fmt.Errorf("Error Getting User to update: %v", err)
+		fmt.Printf("Error Getting User to update: %v\n", err)
 	}
 
 	fmt.Printf("User to update: %+v\n Response: %+v\n\n", userToUpdate, resp)
@@ -380,7 +380,7 @@ func main() {
 
 	updatedUser, resp, err := client.User.UpdateUser(ctx, userToUpdate.Id, *updateUser, nil)
 	if err != nil {
-		fmt.Errorf("Error updating user: %v", err)
+		fmt.Printf("Error updating user: %v\n", err)
 	}
 
 	fmt.Printf("Updated User: %+v\n Response: %+v\n\n", updatedUser, resp)
@@ -411,21 +411,21 @@ func main() {
   )
 
   if err != nil {
-    fmt.Errorf("Error: %v", err)
+    fmt.Printf("Error: %v\n", err)
   }
 
   fmt.Printf("Context: %+v\n Client: %+v\n",ctx, client)
 
   resp, err := client.User.DeactivateUser(ctx, "00u14ffhw5szVqide0h8", nil)
 	if err != nil {
-		fmt.Errorf("Error deactivating user: %v", err)
+		fmt.Printf("Error deactivating user: %v\n", err)
 	}
 
 	fmt.Printf("Response: %+v\n\n", resp)
 
 	resp, err = client.User.DeactivateOrDeleteUser(ctx, "00u14ffhw5szVqide0h8", nil)
 	if err != nil {
-		fmt.Errorf("Error deleting user: %v", err)
+		fmt.Printf("Error deleting user: %v\n", err)
 	}
 
 	fmt.Printf("Response: %+v\n\n", resp)
@@ -449,14 +449,14 @@ func main() {
   )
 
   if err != nil {
-    fmt.Errorf("Error: %v", err)
+    fmt.Printf("Error: %v\n", err)
   }
 
   fmt.Printf("Context: %+v\n Client: %+v\n",ctx, client)
 
   groups, resp, err := client.User.ListUserGroups(ctx, "00u14fg9ff4MExj5f0h8")
 	if err != nil {
-		fmt.Errorf("Error getting group list for user: %v", err)
+		fmt.Printf("Error getting group list for user: %v\n", err)
 	}
 
 	fmt.Printf("Groups: %+v\n Response: %+v\n\n", groups, resp)
@@ -484,7 +484,7 @@ func main() {
   )
 
   if err != nil {
-    fmt.Errorf("Error: %v", err)
+    fmt.Printf("Error: %v\n", err)
   }
 
   fmt.Printf("Context: %+v\n Client: %+v\n",ctx, client)
@@ -497,7 +497,7 @@ func main() {
 	}
 	group, resp, err := client.Group.CreateGroup(ctx, *groupToCreate)
 	if err != nil {
-		fmt.Errorf("Error creating group: %v", err)
+		fmt.Printf("Error creating group: %v\n", err)
 	}
 
 	fmt.Printf("Created Group: %+v\n Response: %+v\n\n", group, resp)
@@ -521,14 +521,14 @@ func main() {
   )
 
   if err != nil {
-    fmt.Errorf("Error: %v", err)
+    fmt.Printf("Error: %v\n", err)
   }
 
   fmt.Printf("Context: %+v\n Client: %+v\n",ctx, client)
 
   resp, err := client.Group.AddUserToGroup(ctx, "{groupId}", "{userId}")
 	if err != nil {
-		fmt.Errorf("Error adding user to group: %v", err)
+		fmt.Printf("Error adding user to group: %v\n", err)
 	}
 
 	fmt.Printf("Response: %+v\n\n", resp)
@@ -552,14 +552,14 @@ func main() {
   )
 
   if err != nil {
-    fmt.Errorf("Error: %v", err)
+    fmt.Printf("Error: %v\n", err)
   }
 
   fmt.Printf("Context: %+v\n Client: %+v\n",ctx, client)
 
   applicationList, resp, err := client.Application.ListApplications(ctx, nil)
 	if err != nil {
-		fmt.Errorf("Error listing applications: %v", err)
+		fmt.Printf("Error listing applications: %v\n", err)
 	}
 
 	fmt.Printf("ApplicationList: %+v\n Response: %+v\n\n", applicationList, resp)
@@ -571,7 +571,7 @@ func main() {
 		if app.(*okta.Application).Name == "oidc_client" {
 			application, resp, err := client.Application.GetApplication(ctx, app.(*okta.Application).Id, okta.NewOpenIdConnectApplication(), nil)
 			if err != nil {
-				fmt.Errorf("Error getting application: %v", err)
+				fmt.Printf("Error getting application: %v\n", err)
 			}
 
 			fmt.Printf("Concrete Application: %+v\n Response: %+v\n\n", application, resp)
@@ -597,14 +597,14 @@ func main() {
   )
 
   if err != nil {
-    fmt.Errorf("Error: %v", err)
+    fmt.Printf("Error: %v\n", err)
   }
 
   fmt.Printf("Context: %+v\n Client: %+v\n",ctx, client)
 
   application, resp, err := client.Application.GetApplication(ctx, "0oaswjmkbtlpBDWpu0h7", okta.NewOpenIdConnectApplication(), nil)
 	if err != nil {
-		fmt.Errorf("Error getting application: %v", err)
+		fmt.Printf("Error getting application: %v\n", err)
 	}
 
 	fmt.Printf("Application: %+v\n Response: %+v\n\n", application, resp)
@@ -629,7 +629,7 @@ func main() {
   )
 
   if err != nil {
-    fmt.Errorf("Error: %v", err)
+    fmt.Printf("Error: %v\n", err)
   }
 
   fmt.Printf("Context: %+v\n Client: %+v\n",ctx, client)
@@ -650,7 +650,7 @@ func main() {
 
 	application, resp, err := client.Application.CreateApplication(ctx, swaApp, nil)
 	if err != nil {
-		fmt.Errorf("Error creating application: %v", err)
+		fmt.Printf("Error creating application: %v\n", err)
 	}
 
 	fmt.Printf("Application: %+v\n Response: %+v\n\n", application, resp)
@@ -678,7 +678,7 @@ func main() {
   )
 
   if err != nil {
-    fmt.Errorf("Error: %v", err)
+    fmt.Printf("Error: %v\n", err)
   }
 
   fmt.Printf("Context: %+v\n Client: %+v\n",ctx, client)
@@ -722,14 +722,14 @@ func main() {
   // create a new request using the cloned request executor
 	req, err := client.CloneRequestExecutor().NewRequest("POST", url, as)
 	if err != nil {
-		fmt.Printf("Error creating new request: %v", err)
+		fmt.Printf("Error creating new request: %v\n", err)
 	}
 
   // Make the request
 	var authServer *AuthorizationServer
 	resp, err := client.CloneRequestExecutor().Do(ctx, req, &authServer)
 	if err != nil {
-		fmt.Printf("Error executing request: %v", err)
+		fmt.Printf("Error executing request: %v\n", err)
 	}
 
 	fmt.Printf("Authorization Server: %v\n Response: %v\n\n", authServer, resp)
@@ -869,7 +869,7 @@ ctx, client, err := okta.NewClient(ctx,
   okta.WithPrivateKey({{PEM PRIVATE KEY BLOCK}}) //when pasting blocks, use backticks and remove all space at beginning of each line.
 )
 if err != nil {
-  fmt.Errorf("Error: %v", err)
+  fmt.Printf("Error: %v\n", err)
 }
 
 fmt.Printf("Context: %+v\n Client: %+v\n\n",ctx, client)
