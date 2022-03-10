@@ -127,6 +127,18 @@ example, methods that call the [Users
 API](https://developer.okta.com/docs/api/resources/users) are organized under
 `client.User`.
 
+## Caching
+
+In the default configuration the client utilizes a memory cache that has a time
+to live on its cached values. See [Configuration Setter
+Object](#configuration-setter-object)  `WithCache(cache bool)`,
+`WithCacheTtl(i int32)`, and `WithCacheTti(i int32)`.  This helps to
+keep HTTP requests to the Okta API at a minimum. In the case where the client
+needs to be certain it is accessing recent data; for instance, list items,
+delete an item, then list items again; be sure to make use of the refresh next
+facility to clear the request cache. See [Refreshing Cache for Specific
+Call](#refreshing-cache-for-specific-call). To completely disable the request
+memory cache configure the client with `WithCache(false)`.
 
 ## Connection Retry / Rate Limiting
 
@@ -854,6 +866,7 @@ The client is configured with a configuration setter object passed to the `NewCl
 The Okta Client's base configuration starts at
 
 | config setting |
+|----------------|
 | WithConnectionTimeout(60) |
 | WithCache(true) |
 | WithCacheTtl(300) |
