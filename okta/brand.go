@@ -333,24 +333,22 @@ func (m *BrandResource) GetEmailTemplateDefaultContentPreview(ctx context.Contex
 }
 
 // Send a test email to the current users primary and secondary email addresses. The email content is selected based on the following priority: An email customization specifically for the users locale. The default language of email customizations. The email templates default content.
-func (m *BrandResource) SendTestEmail(ctx context.Context, brandId string, templateName string, body EmailTemplateTestRequest) (*EmailTemplateContent, *Response, error) {
+func (m *BrandResource) SendTestEmail(ctx context.Context, brandId string, templateName string, body EmailTemplateTestRequest) (*Response, error) {
 	url := fmt.Sprintf("/api/v1/brands/%v/templates/email/%v/test", brandId, templateName)
 
 	rq := m.client.CloneRequestExecutor()
 
 	req, err := rq.WithAccept("application/json").WithContentType("application/json").NewRequest("POST", url, body)
 	if err != nil {
-		return nil, nil, err
+		return nil, err
 	}
 
-	var emailTemplateContent *EmailTemplateContent
-
-	resp, err := rq.Do(ctx, req, &emailTemplateContent)
+	resp, err := m.client.requestExecutor.Do(ctx, req, nil)
 	if err != nil {
-		return nil, resp, err
+		return resp, err
 	}
 
-	return emailTemplateContent, resp, nil
+	return resp, nil
 }
 
 // List all the themes in your brand

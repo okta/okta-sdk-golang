@@ -1,6 +1,13 @@
 # Changelog
 Running changelog of releases since `2.0.0-rc.4`
 
+## v2.11.1
+
+### Updates
+  - Changes `sendTestEmail` response to a `204 no content` instead of `200 success`
+  - Adds `privateKey` and `teamId` properties to `IdentityProviderCredentialsSigning` to support Apple devices
+  - Adds to `APPLE` to the enums in `FactorProvider' and `LogCredentialProvider
+
 ## v2.11.0
 
 ### Updates
