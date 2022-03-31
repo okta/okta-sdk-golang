@@ -1,6 +1,11 @@
 # Changelog
 Running changelog of releases since `2.0.0-rc.4`
 
+## v2.11.2
+
+### Updates
+  - Added missing `_links` property to `ResponseLinks` model
+
 ## v2.11.1
 
 ### Updates
