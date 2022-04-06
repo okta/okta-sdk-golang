@@ -51,7 +51,7 @@ func Test_trusted_origin_for_iframe_embedding(t *testing.T) {
 
 	require.NoError(t, err)
 
-	assert.IsType(t, okta.TrustedOrigin{}, to)
+	assert.IsType(t, &okta.TrustedOrigin{}, to)
 
 	client.TrustedOrigin.DeleteOrigin(ctx, to.Id)
 }
