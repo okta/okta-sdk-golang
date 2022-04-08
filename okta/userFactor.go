@@ -111,7 +111,7 @@ func (m *UserFactorResource) EnrollFactor(ctx context.Context, userId string, bo
 		return nil, nil, err
 	}
 
-	var userFactor *UserFactor
+	userFactor := body
 
 	resp, err := rq.Do(ctx, req, &userFactor)
 	if err != nil {
@@ -179,7 +179,7 @@ func (m *UserFactorResource) GetFactor(ctx context.Context, userId string, facto
 		return nil, nil, err
 	}
 
-	var userFactor *UserFactor
+	userFactor := factorInstance
 
 	resp, err := rq.Do(ctx, req, &userFactor)
 	if err != nil {
@@ -200,7 +200,7 @@ func (m *UserFactorResource) ActivateFactor(ctx context.Context, userId string, 
 		return nil, nil, err
 	}
 
-	var userFactor *UserFactor
+	userFactor := factorInstance
 
 	resp, err := rq.Do(ctx, req, &userFactor)
 	if err != nil {
