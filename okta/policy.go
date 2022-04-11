@@ -80,7 +80,7 @@ func (m *PolicyResource) GetPolicy(ctx context.Context, policyId string, policyI
 }
 
 // Updates a policy.
-func (m *PolicyResource) UpdatePolicy(ctx context.Context, policyId string, body Policies, policyInstance Policies) (Policies, *Response, error) {
+func (m *PolicyResource) UpdatePolicy(ctx context.Context, policyId string, body Policies) (Policies, *Response, error) {
 	url := fmt.Sprintf("/api/v1/policies/%v", policyId)
 
 	rq := m.client.CloneRequestExecutor()
@@ -90,7 +90,7 @@ func (m *PolicyResource) UpdatePolicy(ctx context.Context, policyId string, body
 		return nil, nil, err
 	}
 
-	policy := policyInstance
+	policy := body
 
 	resp, err := rq.Do(ctx, req, &policy)
 	if err != nil {

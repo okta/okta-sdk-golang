@@ -278,8 +278,7 @@ function operationArgumentBuilder(operation) {
     args.push(`factorInstance Factor`);
   }
 
-  if (operation.operationId === "getPolicy" ||
-    operation.operationId === "updatePolicy") {
+  if (operation.operationId === "getPolicy") {
     args.push(`policyInstance Policies`);
   }
 

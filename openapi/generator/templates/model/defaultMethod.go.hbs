@@ -52,7 +52,7 @@ func (m *{{modelName}}Resource) {{ucFirst operation.operationId}}({{operationArg
 	{{lowercaseFirstLetter operation.responseModel}} := appInstance
 	{{else if (factorInstanceOperation operation.operationId) }}
 	{{lowercaseFirstLetter operation.responseModel}} := factorInstance
-	{{else if (policyInstanceOperation operation.operationId) }}
+	{{else if (and (policyInstanceOperation operation.operationId) (eq operation.method "get"))  }}
 	{{lowercaseFirstLetter operation.responseModel}} := policyInstance
 	{{else}}
 	{{lowercaseFirstLetter operation.responseModel}} := body
