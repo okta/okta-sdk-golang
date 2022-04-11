@@ -26,6 +26,10 @@ import (
 	"github.com/okta/okta-sdk-golang/v2/okta/query"
 )
 
+type Policies interface {
+	IsPolicyInstance() bool
+}
+
 type PolicyResource resource
 
 type Policy struct {
@@ -52,7 +56,7 @@ func (a *Policy) IsPolicyInstance() bool {
 }
 
 // Gets a policy.
-func (m *PolicyResource) GetPolicy(ctx context.Context, policyId string, qp *query.Params) (*Policy, *Response, error) {
+func (m *PolicyResource) GetPolicy(ctx context.Context, policyId string, policyInstance Policies, qp *query.Params) (Policies, *Response, error) {
 	url := fmt.Sprintf("/api/v1/policies/%v", policyId)
 	if qp != nil {
 		url = url + qp.String()
@@ -65,7 +69,7 @@ func (m *PolicyResource) GetPolicy(ctx context.Context, policyId string, qp *que
 		return nil, nil, err
 	}
 
-	var policy *Policy
+	policy := policyInstance
 
 	resp, err := rq.Do(ctx, req, &policy)
 	if err != nil {
@@ -76,7 +80,7 @@ func (m *PolicyResource) GetPolicy(ctx context.Context, policyId string, qp *que
 }
 
 // Updates a policy.
-func (m *PolicyResource) UpdatePolicy(ctx context.Context, policyId string, body Policy) (*Policy, *Response, error) {
+func (m *PolicyResource) UpdatePolicy(ctx context.Context, policyId string, body Policies, policyInstance Policies) (Policies, *Response, error) {
 	url := fmt.Sprintf("/api/v1/policies/%v", policyId)
 
 	rq := m.client.CloneRequestExecutor()
@@ -86,7 +90,7 @@ func (m *PolicyResource) UpdatePolicy(ctx context.Context, policyId string, body
 		return nil, nil, err
 	}
 
-	var policy *Policy
+	policy := policyInstance
 
 	resp, err := rq.Do(ctx, req, &policy)
 	if err != nil {
@@ -116,7 +120,7 @@ func (m *PolicyResource) DeletePolicy(ctx context.Context, policyId string) (*Re
 }
 
 // Gets all policies with the specified type.
-func (m *PolicyResource) ListPolicies(ctx context.Context, qp *query.Params) ([]*Policy, *Response, error) {
+func (m *PolicyResource) ListPolicies(ctx context.Context, qp *query.Params) ([]Policies, *Response, error) {
 	url := fmt.Sprintf("/api/v1/policies")
 	if qp != nil {
 		url = url + qp.String()
@@ -129,7 +133,7 @@ func (m *PolicyResource) ListPolicies(ctx context.Context, qp *query.Params) ([]
 		return nil, nil, err
 	}
 
-	var policy []*Policy
+	var policy []Policies
 
 	resp, err := rq.Do(ctx, req, &policy)
 	if err != nil {
@@ -140,7 +144,7 @@ func (m *PolicyResource) ListPolicies(ctx context.Context, qp *query.Params) ([]
 }
 
 // Creates a policy.
-func (m *PolicyResource) CreatePolicy(ctx context.Context, body Policy, qp *query.Params) (*Policy, *Response, error) {
+func (m *PolicyResource) CreatePolicy(ctx context.Context, body Policies, qp *query.Params) (Policies, *Response, error) {
 	url := fmt.Sprintf("/api/v1/policies")
 	if qp != nil {
 		url = url + qp.String()
@@ -153,7 +157,7 @@ func (m *PolicyResource) CreatePolicy(ctx context.Context, body Policy, qp *quer
 		return nil, nil, err
 	}
 
-	var policy *Policy
+	policy := body
 
 	resp, err := rq.Do(ctx, req, &policy)
 	if err != nil {

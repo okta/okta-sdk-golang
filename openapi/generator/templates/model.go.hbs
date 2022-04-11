@@ -12,11 +12,14 @@ type App interface {
 	IsApplicationInstance() bool
 }
 
-{{/if}}
-
-{{#if (eq model.modelName "UserFactor")}}
+{{else if (eq model.modelName "UserFactor")}}
 type Factor interface {
 	IsUserFactorInstance() bool
+}
+
+{{else if (eq model.modelName "Policy")}}
+type Policies interface {
+	IsPolicyInstance() bool
 }
 
 {{/if}}

@@ -36,6 +36,8 @@ func (m *{{modelName}}Resource) {{ucFirst operation.operationId}}({{operationArg
 	var {{lowercaseFirstLetter operation.responseModel}} []Application
 	{{else if (factorModelInterface operation.operationId) }}
 	var {{lowercaseFirstLetter operation.responseModel}} []UserFactor
+	{{else if (policyModelInterface operation.operationId) }}
+	var {{lowercaseFirstLetter operation.responseModel}} []Policies
 	{{else if (catalogApplicationInterface operation.operationId) }}
     var {{lowercaseFirstLetter operation.responseModel}} []*CatalogApplication
 	{{else}}
@@ -45,11 +47,13 @@ func (m *{{modelName}}Resource) {{ucFirst operation.operationId}}({{operationArg
 	var {{lowercaseFirstLetter operation.responseModel}} []*{{operation.responseModel}}
 	{{/if}}
 	{{else}}
-	{{#if (or (eq operation.responseModel "Application") (or (eq operation.responseModel "Factor") (eq operation.responseModel "UserFactor")))}}
+	{{#if (or (or (eq operation.responseModel "Application") (eq operation.responseModel "Policy")) (or (eq operation.responseModel "Factor") (eq operation.responseModel "UserFactor")))}}
 	{{#if (eq operation.operationId "getApplication")}}
 	{{lowercaseFirstLetter operation.responseModel}} := appInstance
 	{{else if (factorInstanceOperation operation.operationId) }}
 	{{lowercaseFirstLetter operation.responseModel}} := factorInstance
+	{{else if (policyInstanceOperation operation.operationId) }}
+	{{lowercaseFirstLetter operation.responseModel}} := policyInstance
 	{{else}}
 	{{lowercaseFirstLetter operation.responseModel}} := body
 	{{/if}}
