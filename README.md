@@ -143,12 +143,12 @@ memory cache configure the client with `WithCache(false)`.
 ## Connection Retry / Rate Limiting
 
 By default this SDK retries requests that are returned with a 429 exception. To
-disable this functionality set `OKTA_CLIENT_REQUESTTIMEOUT` and
+disable this functionality set `OKTA_CLIENT_REQUEST_TIMEOUT` and
 `OKTA_CLIENT_RATELIMIT_MAXRETRIES` to `0`.
 
 Setting only one of the values to zero disables that check. Meaning, by
 default, four retry attempts will be made. If you set
-`OKTA_CLIENT_REQUESTTIMEOUT` to 45 seconds and
+`OKTA_CLIENT_REQUEST_TIMEOUT` to 45 seconds and
 `OKTA_CLIENT_RATELIMIT_MAXRETRIES` to `0`. This SDK will continue to retry
 indefinitely for 45 seconds. If both values are non zero, this SDK attempts to
 retry until either of the conditions are met (not both).
