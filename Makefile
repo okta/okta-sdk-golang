@@ -67,7 +67,7 @@ test\:integration:
 
 test\:unit:
 	@echo "$(COLOR_OK)Running unit tests...$(COLOR_NONE)"
-	go test -failfast -race ./tests/unit -test.v
+	go test -failfast -race ./tests/unit ./okta/query -test.v
 
 test\:integration\:all:
 	@echo "$(COLOR_OKTA)Running integration tests...$(COLOR_NONE)"
@@ -75,7 +75,7 @@ test\:integration\:all:
 
 test\:unit\:all:
 	@echo "$(COLOR_OK)Running unit tests...$(COLOR_NONE)"
-	go test -race ./tests/unit -test.v
+	go test -race ./tests/unit ./okta/query -test.v
 
 .PHONY: fmt
 fmt: check-fmt # Format the code
