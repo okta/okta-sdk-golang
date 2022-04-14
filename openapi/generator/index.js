@@ -127,6 +127,13 @@ function structProp(prop) {
   return prop;
 }
 
+function paramType(query) {
+  if (query.name === "provider") {
+    return "interface{}";
+  }
+  return query.type;
+}
+
 function getImports(object) {
   let imports = [];
 
@@ -691,6 +698,7 @@ golang.process = ({spec, operations, models, handlebars}) => {
   handlebars.registerHelper({
     getType,
     structProp,
+    paramType,
     log,
     ucFirst,
     operationArgumentBuilder,

@@ -54,3 +54,17 @@ func TestMultiple(t *testing.T) {
 		t.Fatalf("expected '?activate=true&limit=100&q=x' got '%s'", qs)
 	}
 }
+
+func TestWithProvider(t *testing.T) {
+	p := NewQueryParams(WithProvider(true))
+	qs := p.String()
+	if qs != "?provider=true" {
+		t.Fatalf("expected '?provider=true' got '%s'", qs)
+	}
+
+	p = NewQueryParams(WithProvider("FEDERATION"))
+	qs = p.String()
+	if qs != "?provider=FEDERATION" {
+		t.Fatalf("expected '?provider=FEDERATION' got '%s'", qs)
+	}
+}
