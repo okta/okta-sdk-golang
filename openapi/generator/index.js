@@ -257,6 +257,10 @@ function operationArgumentBuilder(operation) {
       bodyModel = "Factor";
     }
 
+    if (bodyModel === "Policy") {
+      bodyModel = "Policies";
+    }
+
     if (bodyModel === "String") {
       bodyModel = "string";
     }
@@ -272,6 +276,10 @@ function operationArgumentBuilder(operation) {
     operation.operationId === "activateFactor" ||
     operation.operationId === "verifyFactor") {
     args.push(`factorInstance Factor`);
+  }
+
+  if (operation.operationId === "getPolicy") {
+    args.push(`policyInstance Policies`);
   }
 
   if (operation.formData && operation.formData.length) {
@@ -325,6 +333,13 @@ function returnType(operation) {
         responseModel = "interface{}"
       }
     }
+    if (responseModel === "*Policy") {
+      if (policyModelInterface) {
+        responseModel = "Policies"
+      } else {
+        responseModel = "interface{}"
+      }
+    }
     if (operation.isArray !== undefined && operation.isArray === true) {
       return " ([]" + responseModel + ", *Response, error) ";
     }
@@ -350,6 +365,7 @@ function getClientTags(operations) {
 function responseModelInterface(operationId) {
   return operationId === "listFactors" ||
     operationId === "listSupportedFactors" ||
+    operationId === "listPolicies" ||
     operationId === "listApplications" ||
     operationId === "listAppTargetsForRole" ||
     operationId === "listApplicationTargetsForApplicationAdministratorRoleForGroup" ||
@@ -370,6 +386,10 @@ function factorModelInterface(operationId) {
     operationId === "listSupportedFactors";
 }
 
+function policyModelInterface(operationId) {
+  return operationId === "listPolicies";
+}
+
 function catalogApplicationInterface(operationId) {
   return operationId === "listApplicationTargetsForApplicationAdministratorRoleForGroup" ||
     operationId === "listApplicationTargetsForApplicationAdministratorRoleForUser";
@@ -379,6 +399,11 @@ function factorInstanceOperation(operationId) {
   return operationId === "getFactor" ||
     operationId === "activateFactor" ||
     operationId === "verifyFactor";
+}
+
+function policyInstanceOperation(operationId) {
+  return operationId === "getPolicy" ||
+    operationId === "updatePolicy";
 }
 
 function getClientTagResources(operations) {
@@ -681,7 +706,9 @@ golang.process = ({spec, operations, models, handlebars}) => {
     responseModelInterface,
     applicationModelInterface,
     factorModelInterface,
+    policyModelInterface,
     factorInstanceOperation,
+    policyInstanceOperation,
     isInstance,
     catalogApplicationInterface,
     missingProperty
