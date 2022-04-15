@@ -1,6 +1,12 @@
 # Changelog
 Running changelog of releases since `2.0.0-rc.4`
 
+## v2.12.1
+  - Corrected out of order method and API parameters
+    - `AuthorizationServerResource`
+      - `ListAuthorizationServerPolicyRules(ctx context.Context, authServerId string, policyId string)`
+      - `CreateAuthorizationServerPolicyRule(ctx context.Context, authServerId string, policyId string, body AuthorizationServerPolicyRule)`
+
 ## v2.12.0
 
 ### Updates
