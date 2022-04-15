@@ -24,40 +24,40 @@ import (
 )
 
 type Params struct {
-	Q                    string `json:"q,omitempty"`
-	After                string `json:"after,omitempty"`
-	Limit                int64  `json:"limit,omitempty"`
-	Filter               string `json:"filter,omitempty"`
-	Expand               string `json:"expand,omitempty"`
-	IncludeNonDeleted    *bool  `json:"includeNonDeleted,omitempty"`
-	Activate             *bool  `json:"activate,omitempty"`
-	ValidityYears        int64  `json:"validityYears,omitempty"`
-	TargetAid            string `json:"targetAid,omitempty"`
-	QueryScope           string `json:"query_scope,omitempty"`
-	SendEmail            *bool  `json:"sendEmail,omitempty"`
-	Cursor               string `json:"cursor,omitempty"`
-	Mode                 string `json:"mode,omitempty"`
-	Search               string `json:"search,omitempty"`
-	RemoveUsers          *bool  `json:"removeUsers,omitempty"`
-	DisableNotifications *bool  `json:"disableNotifications,omitempty"`
-	Type                 string `json:"type,omitempty"`
-	TargetIdpId          string `json:"targetIdpId,omitempty"`
-	Since                string `json:"since,omitempty"`
-	Until                string `json:"until,omitempty"`
-	SortOrder            string `json:"sortOrder,omitempty"`
-	SourceId             string `json:"sourceId,omitempty"`
-	TargetId             string `json:"targetId,omitempty"`
-	Status               string `json:"status,omitempty"`
-	TemplateType         string `json:"templateType,omitempty"`
-	SortBy               string `json:"sortBy,omitempty"`
-	Provider             *bool  `json:"provider,omitempty"`
-	NextLogin            string `json:"nextLogin,omitempty"`
-	Strict               *bool  `json:"strict,omitempty"`
-	UpdatePhone          *bool  `json:"updatePhone,omitempty"`
-	TemplateId           string `json:"templateId,omitempty"`
-	TokenLifetimeSeconds int64  `json:"tokenLifetimeSeconds,omitempty"`
-	ScopeId              string `json:"scopeId,omitempty"`
-	OauthTokens          *bool  `json:"oauthTokens,omitempty"`
+	Q                    string      `json:"q,omitempty"`
+	After                string      `json:"after,omitempty"`
+	Limit                int64       `json:"limit,omitempty"`
+	Filter               string      `json:"filter,omitempty"`
+	Expand               string      `json:"expand,omitempty"`
+	IncludeNonDeleted    *bool       `json:"includeNonDeleted,omitempty"`
+	Activate             *bool       `json:"activate,omitempty"`
+	ValidityYears        int64       `json:"validityYears,omitempty"`
+	TargetAid            string      `json:"targetAid,omitempty"`
+	QueryScope           string      `json:"query_scope,omitempty"`
+	SendEmail            *bool       `json:"sendEmail,omitempty"`
+	Cursor               string      `json:"cursor,omitempty"`
+	Mode                 string      `json:"mode,omitempty"`
+	Search               string      `json:"search,omitempty"`
+	RemoveUsers          *bool       `json:"removeUsers,omitempty"`
+	DisableNotifications *bool       `json:"disableNotifications,omitempty"`
+	Type                 string      `json:"type,omitempty"`
+	TargetIdpId          string      `json:"targetIdpId,omitempty"`
+	Since                string      `json:"since,omitempty"`
+	Until                string      `json:"until,omitempty"`
+	SortOrder            string      `json:"sortOrder,omitempty"`
+	SourceId             string      `json:"sourceId,omitempty"`
+	TargetId             string      `json:"targetId,omitempty"`
+	Status               string      `json:"status,omitempty"`
+	TemplateType         string      `json:"templateType,omitempty"`
+	SortBy               string      `json:"sortBy,omitempty"`
+	Provider             interface{} `json:"provider,omitempty"`
+	NextLogin            string      `json:"nextLogin,omitempty"`
+	Strict               *bool       `json:"strict,omitempty"`
+	UpdatePhone          *bool       `json:"updatePhone,omitempty"`
+	TemplateId           string      `json:"templateId,omitempty"`
+	TokenLifetimeSeconds int64       `json:"tokenLifetimeSeconds,omitempty"`
+	ScopeId              string      `json:"scopeId,omitempty"`
+	OauthTokens          *bool       `json:"oauthTokens,omitempty"`
 }
 
 func NewQueryParams(paramOpt ...ParamOptions) *Params {
@@ -212,11 +212,9 @@ func WithSortBy(querySortBy string) ParamOptions {
 		p.SortBy = querySortBy
 	}
 }
-func WithProvider(queryProvider bool) ParamOptions {
+func WithProvider(queryProvider interface{}) ParamOptions {
 	return func(p *Params) {
-		b := new(bool)
-		*b = queryProvider
-		p.Provider = b
+		p.Provider = queryProvider
 	}
 }
 func WithNextLogin(queryNextLogin string) ParamOptions {
@@ -343,7 +341,11 @@ func (p *Params) String() string {
 		qs.Add(`sortBy`, p.SortBy)
 	}
 	if p.Provider != nil {
-		qs.Add(`provider`, strconv.FormatBool(*p.Provider))
+		if b, ok := p.Provider.(bool); ok {
+			qs.Add(`provider`, strconv.FormatBool(b))
+		} else {
+			qs.Add(`provider`, p.Provider.(string))
+		}
 	}
 	if p.NextLogin != "" {
 		qs.Add(`nextLogin`, p.NextLogin)

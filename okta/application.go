@@ -848,6 +848,25 @@ func (m *ApplicationResource) UploadApplicationLogo(ctx context.Context, appId s
 	return resp, nil
 }
 
+// Assign an application to a specific policy. This unassigns the application from its currently assigned policy.
+func (m *ApplicationResource) UpdateApplicationPolicy(ctx context.Context, appId string, policyId string) (*Response, error) {
+	url := fmt.Sprintf("/api/v1/apps/%v/policies/%v", appId, policyId)
+
+	rq := m.client.CloneRequestExecutor()
+
+	req, err := rq.WithAccept("application/json").WithContentType("application/json").NewRequest("PUT", url, nil)
+	if err != nil {
+		return nil, err
+	}
+
+	resp, err := m.client.requestExecutor.Do(ctx, req, nil)
+	if err != nil {
+		return resp, err
+	}
+
+	return resp, nil
+}
+
 // Revokes all tokens for the specified application
 func (m *ApplicationResource) RevokeOAuth2TokensForApplication(ctx context.Context, appId string) (*Response, error) {
 	url := fmt.Sprintf("/api/v1/apps/%v/tokens", appId)

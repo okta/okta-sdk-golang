@@ -9,7 +9,9 @@ import (
 
 type Params struct {
 {{#each queryOptions as |query|}}
-	{{#if (eq query.type "bool")}}
+	{{#if (eq query.name "provider")}}
+	{{structProp query.name}} interface{} `json:"{{query.name}},omitempty"`
+	{{else if (eq query.type "bool")}}
 	{{structProp query.name}} *{{query.type}} `json:"{{query.name}},omitempty"`
 	{{else}}
 	{{structProp query.name}} {{query.type}} `json:"{{query.name}},omitempty"`
@@ -30,9 +32,11 @@ func NewQueryParams(paramOpt ...ParamOptions) *Params {
 type ParamOptions func(*Params)
 
 {{#each queryOptions as |query|}}
-func With{{structProp query.name}}(query{{structProp query.name}} {{query.type}}) ParamOptions {
+func With{{structProp query.name}}(query{{structProp query.name}} {{paramType query}}) ParamOptions {
 	return func(p *Params) {
-		{{#if (eq query.type "bool")}}
+		{{#if (eq query.name "provider")}}
+		p.{{structProp query.name}} = query{{structProp query.name}}
+		{{else if (eq query.type "bool")}}
 		b := new(bool)
 		*b = query{{structProp query.name}}
 		p.{{structProp query.name}} = b
@@ -47,7 +51,15 @@ func (p *Params) String() string {
 	qs := url.Values{}
 
 {{#each queryOptions as |query|}}
-	{{#if (eq query.type "bool")}}
+	{{#if (eq query.name "provider")}}
+	if (p.{{structProp query.name}} != nil) {
+		if b, ok := p.{{structProp query.name}}.(bool); ok {
+			qs.Add(`{{query.name}}`, strconv.FormatBool(b))
+		} else {
+			qs.Add(`{{query.name}}`, p.{{structProp query.name}}.(string))
+		}
+	}
+	{{else if (eq query.type "bool")}}
 	if (p.{{structProp query.name}} != nil) {
 		qs.Add(`{{query.name}}`, strconv.FormatBool(*p.{{structProp query.name}}))
 	}

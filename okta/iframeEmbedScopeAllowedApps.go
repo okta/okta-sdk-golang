@@ -18,8 +18,4 @@
 
 package okta
 
-type Scope struct {
-	AllowedOktaApps []*IframeEmbedScopeAllowedApps `json:"allowedOktaApps,omitempty"`
-	StringValue     string                         `json:"stringValue,omitempty"`
-	Type            string                         `json:"type,omitempty"`
-}
+type IframeEmbedScopeAllowedApps string

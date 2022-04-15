@@ -1,6 +1,28 @@
 # Changelog
 Running changelog of releases since `2.0.0-rc.4`
 
+## v2.12.0
+
+### Updates
+  - Update code generation to v2.12.0 of Okta's openapi spec
+  - Update to use trusted origins IFRAME_EMBED - IframeEmbedScopeAllowedApps in Scope
+  - Completed missing code generation of Policy related models
+    - Policy related models implement a `Policies` interface
+    - Correctly handle pass by reference in `CreatePolicy`, `UpdatePolicy`
+
+### Bug fixes
+  - Corrected env var typo on `OKTA_CLIENT_REQUEST_TIMEOUT` in README
+  - Corrected code generation pass by referrence of a Factor instance in `EnrollFactor`, `ActivateFactor`, and `VerifyFactor`
+  - Provider query parameter can be boolean or string
+  - Corrected out of order method and API parameters
+    - `AuthorizationServerResource`
+      - `DeleteAuthorizationServerPolicyRule(ctx context.Context, authServerId string, policyId string, ruleId string)`
+      - `GetAuthorizationServerPolicyRule(ctx context.Context, authServerId string, policyId string, ruleId string)`
+      - `UpdateAuthorizationServerPolicyRule(ctx context.Context, authServerId string, policyId string, ruleId string, body AuthorizationServerPolicyRule)`
+    - `AuthorizationServerPolicyRuleResource`
+      - `UpdateAuthorizationServerPolicyRule(ctx context.Context, authServerId string, policyId string, ruleId string, body AuthorizationServerPolicyRule)`
+      - `DeleteAuthorizationServerPolicyRule(ctx context.Context, authServerId string, policyId string, ruleId string)`
+
 ## v2.11.2
 
 ### Updates
