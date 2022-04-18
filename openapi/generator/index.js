@@ -17,6 +17,7 @@
 const _ = require('lodash');
 _.mixin(require('lodash-inflection'));
 const fs = require('fs');
+const path = require('path');
 
 const golang = module.exports;
 
@@ -251,7 +252,16 @@ function operationArgumentBuilder(operation) {
 
   args.push("ctx context.Context");
 
-  operation.pathParams.map((arg) => args.push(arg.name + " " + arg.type));
+  if (operation.path === '/api/v1/authorizationServers/{authServerId}/policies/{policyId}/rules') {
+      args.push('authServerId string');
+      args.push('policyId string');
+  } else if (operation.path === '/api/v1/authorizationServers/{authServerId}/policies/{policyId}/rules/{ruleId}') {
+      args.push('authServerId string');
+      args.push('policyId string');
+      args.push('ruleId string');
+  } else {
+    operation.pathParams.map((arg) => args.push(arg.name + " " + arg.type));
+  }
 
   if ((operation.method === 'post' || operation.method === 'put') && operation.bodyModel) {
     let bodyModel = ucFirst(_.camelCase(operation.bodyModel));
@@ -317,8 +327,17 @@ function getPath(operation) {
 
 function getPathParams(operation) {
   const args = []
-  for (let param of operation.pathParams) {
-    args.push(param.name)
+  if (operation.path === '/api/v1/authorizationServers/{authServerId}/policies/{policyId}/rules') {
+      args.push('authServerId');
+      args.push('policyId');
+  } else if (operation.path === '/api/v1/authorizationServers/{authServerId}/policies/{policyId}/rules/{ruleId}') {
+      args.push('authServerId');
+      args.push('policyId');
+      args.push('ruleId');
+  } else {
+    for (let param of operation.pathParams) {
+      args.push(param.name);
+    }
   }
   return args.join(', ');
 }
