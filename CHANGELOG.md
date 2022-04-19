@@ -6,6 +6,7 @@ Running changelog of releases since `2.0.0-rc.4`
     - `AuthorizationServerResource`
       - `ListAuthorizationServerPolicyRules(ctx context.Context, authServerId string, policyId string)`
       - `CreateAuthorizationServerPolicyRule(ctx context.Context, authServerId string, policyId string, body AuthorizationServerPolicyRule)`
+  - Corrected `ListPolicies` generation for new `Policies` interface.
 
 ## v2.12.0
 
