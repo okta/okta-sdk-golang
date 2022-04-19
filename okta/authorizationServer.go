@@ -556,8 +556,8 @@ func (m *AuthorizationServerResource) DeactivateAuthorizationServerPolicy(ctx co
 }
 
 // Enumerates all policy rules for the specified Custom Authorization Server and Policy.
-func (m *AuthorizationServerResource) ListAuthorizationServerPolicyRules(ctx context.Context, policyId string, authServerId string) ([]*AuthorizationServerPolicyRule, *Response, error) {
-	url := fmt.Sprintf("/api/v1/authorizationServers/%v/policies/%v/rules", policyId, authServerId)
+func (m *AuthorizationServerResource) ListAuthorizationServerPolicyRules(ctx context.Context, authServerId string, policyId string) ([]*AuthorizationServerPolicyRule, *Response, error) {
+	url := fmt.Sprintf("/api/v1/authorizationServers/%v/policies/%v/rules", authServerId, policyId)
 
 	rq := m.client.CloneRequestExecutor()
 
@@ -577,8 +577,8 @@ func (m *AuthorizationServerResource) ListAuthorizationServerPolicyRules(ctx con
 }
 
 // Creates a policy rule for the specified Custom Authorization Server and Policy.
-func (m *AuthorizationServerResource) CreateAuthorizationServerPolicyRule(ctx context.Context, policyId string, authServerId string, body AuthorizationServerPolicyRule) (*AuthorizationServerPolicyRule, *Response, error) {
-	url := fmt.Sprintf("/api/v1/authorizationServers/%v/policies/%v/rules", policyId, authServerId)
+func (m *AuthorizationServerResource) CreateAuthorizationServerPolicyRule(ctx context.Context, authServerId string, policyId string, body AuthorizationServerPolicyRule) (*AuthorizationServerPolicyRule, *Response, error) {
+	url := fmt.Sprintf("/api/v1/authorizationServers/%v/policies/%v/rules", authServerId, policyId)
 
 	rq := m.client.CloneRequestExecutor()
 

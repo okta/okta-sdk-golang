@@ -37,7 +37,7 @@ func (m *{{modelName}}Resource) {{ucFirst operation.operationId}}({{operationArg
 	{{else if (factorModelInterface operation.operationId) }}
 	var {{lowercaseFirstLetter operation.responseModel}} []UserFactor
 	{{else if (policyModelInterface operation.operationId) }}
-	var {{lowercaseFirstLetter operation.responseModel}} []Policies
+	var {{lowercaseFirstLetter operation.responseModel}} []Policy
 	{{else if (catalogApplicationInterface operation.operationId) }}
     var {{lowercaseFirstLetter operation.responseModel}} []*CatalogApplication
 	{{else}}
@@ -75,6 +75,13 @@ func (m *{{modelName}}Resource) {{ucFirst operation.operationId}}({{operationArg
 		apps[i] = &{{lowercaseFirstLetter operation.responseModel}}[i]
 	}
 	return apps, resp, nil
+
+	{{else if (policyModelInterface operation.operationId) }}
+	policies := make([]Policies, len({{lowercaseFirstLetter operation.responseModel}}))
+	for i := range {{lowercaseFirstLetter operation.responseModel}} {
+		policies[i] = &{{lowercaseFirstLetter operation.responseModel}}[i]
+	}
+	return policies, resp, nil
 
 	{{else if (factorModelInterface operation.operationId) }}
 	factors := make([]Factor, len({{lowercaseFirstLetter operation.responseModel}}))

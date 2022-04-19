@@ -133,14 +133,19 @@ func (m *PolicyResource) ListPolicies(ctx context.Context, qp *query.Params) ([]
 		return nil, nil, err
 	}
 
-	var policy []Policies
+	var policy []Policy
 
 	resp, err := rq.Do(ctx, req, &policy)
 	if err != nil {
 		return nil, resp, err
 	}
 
-	return policy, resp, nil
+	policies := make([]Policies, len(policy))
+	for i := range policy {
+		policies[i] = &policy[i]
+	}
+	return policies, resp, nil
+
 }
 
 // Creates a policy.
