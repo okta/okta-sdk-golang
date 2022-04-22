@@ -817,6 +817,7 @@ okta:
         THQdM5PIlot6XmeV1KUKuzw2ewDeb5zcasA4QHPcSVh2+KzbttPQ+RUXCUAr5t+r
         0r6gBc5Dy1IPjCFsqsPJXFwqe3RzUb...
         -----END RSA PRIVATE KEY-----
+    privateKeyId: "{JWK key id (kid}" # needed if Okta service application has more then a single JWK registered
     requestTimeout: 0 # seconds
     rateLimit:
       maxRetries: 4
@@ -859,6 +860,7 @@ The client is configured with a configuration setter object passed to the `NewCl
 | WithClientId(clientId string) | Okta App client id, used with `PrivateKey` oauth auth mode |
 | WithScopes(scopes []string) | Okta API app scopes |
 | WithPrivateKey(privateKey string) | Private key value |
+| WithPrivateKeyId(privateKeyId string) | Private key id (kid) value |
 | WithPrivateKeySigner(signer jose.Signer) | Custom private key signer implementing the `jose.Signer` interface |
 
 ### Okta Client Base Configuration
@@ -925,7 +927,8 @@ ctx, client, err := okta.NewClient(ctx,
   okta.WithAuthorizationMode("PrivateKey"),
   okta.WithClientId("{{clientId}}"),
   okta.WithScopes(([]string{"okta.users.manage"})),
-  okta.WithPrivateKey({{PEM PRIVATE KEY BLOCK}}) //when pasting blocks, use backticks and remove all space at beginning of each line.
+  okta.WithPrivateKey({{PEM PRIVATE KEY BLOCK}}), //when pasting blocks, use backticks and remove all space at beginning of each line.
+  okta.WithPrivateKeyId("{{private key id}}"),    //needed if Okta service application has more then a single JWK registered
 )
 if err != nil {
   fmt.Printf("Error: %v\n", err)
@@ -1041,6 +1044,7 @@ ctx, client, err := okta.NewClient(ctx,
   okta.WithClientId("{client_id}"),
   okta.WithScopes([]string{"{scopes}"}),
   okta.WithPrivateKey("{private_key}"),
+  okta.WithPrivateKeyId("{private key id}"), //needed if Okta service application has more then a single JWK registered
   )
 
 ```
