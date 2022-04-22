@@ -1,14 +1,8 @@
 language: go
 
-jobs:
-  include:
-    - stage: test_go_1.17
-      go: 1.17.x
-      script:
-        - go mod download
-        - make test
-    - stage: test_go_tip
-      go: tip
-      script:
-        - go mod download
-        - make test
+install:
+  - go get -d -v .
+
+script:
+  - go build -v ./
+
