@@ -1145,7 +1145,7 @@ guide](/okta/okta-sdk-golang/blob/master/CONTRIBUTING.md) to understand how to
 structure a contribution.
 
 [devforum]: https://devforum.okta.com/
-[sdkapiref]: https://godoc.org/github.com/okta/okta-sdk-golang/okta
+[sdkapiref]: https://godoc.org/github.com/okta/okta-sdk-golang/v2/okta
 [lang-landing]: https://developer.okta.com/code/go/
 [github-issues]: /okta/okta-sdk-golang/issues
 [github-releases]: /okta/okta-sdk-golang/releases
