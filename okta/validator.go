@@ -13,7 +13,7 @@ func validateConfig(c *config) (*config, error) {
 		return nil, err
 	}
 
-	if c.Okta.Client.AuthorizationMode == "SSWS" {
+	if c.Okta.Client.AuthorizationMode == "SSWS" || c.Okta.Client.AuthorizationMode == "Bearer" {
 		err = validateAPIToken(c)
 		if err != nil {
 			return nil, err
@@ -66,8 +66,9 @@ func validateAPIToken(c *config) error {
 
 func validateAuthorization(c *config) error {
 	if c.Okta.Client.AuthorizationMode != "SSWS" &&
-		c.Okta.Client.AuthorizationMode != "PrivateKey" {
-		return errors.New("the AuthorizaitonMode config option must be one of [SSWS, PrivateKey]. You provided the SDK with " + c.Okta.Client.AuthorizationMode)
+		c.Okta.Client.AuthorizationMode != "PrivateKey" &&
+		c.Okta.Client.AuthorizationMode != "Bearer" {
+		return errors.New("the AuthorizaitonMode config option must be one of [SSWS, Bearer, PrivateKey]. You provided the SDK with " + c.Okta.Client.AuthorizationMode)
 	}
 
 	if c.Okta.Client.AuthorizationMode == "PrivateKey" &&

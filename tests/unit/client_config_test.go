@@ -81,6 +81,11 @@ func Test_does_not_error_when_authorization_mode_is_valid(t *testing.T) {
 	assert.NoError(t, err, "Should not error when authorization mode is SSWS")
 }
 
+func Test_does_not_error_when_authorization_mode_is_brearer(t *testing.T) {
+	_, _, err := tests.NewClient(context.TODO(), okta.WithAuthorizationMode("Bearer"))
+	assert.NoError(t, err, "Should not error when authorization mode is Bearer")
+}
+
 func Test_will_error_if_private_key_authorization_type_with_missing_properties(t *testing.T) {
 	_, _, err := tests.NewClient(context.TODO(), okta.WithAuthorizationMode("PrivateKey"), okta.WithClientId(""))
 	assert.Error(t, err, "Does not error if private key selected with no other required options")

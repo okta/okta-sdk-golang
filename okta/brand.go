@@ -447,6 +447,7 @@ func (m *BrandResource) UploadBrandThemeBackgroundImage(ctx context.Context, bra
 	body := &bytes.Buffer{}
 	writer := multipart.NewWriter(body)
 	fw, err := writer.CreateFormFile("file", file)
+
 	if err != nil {
 		return nil, nil, err
 	}
@@ -457,6 +458,7 @@ func (m *BrandResource) UploadBrandThemeBackgroundImage(ctx context.Context, bra
 	_ = writer.Close()
 
 	req, err := rq.WithAccept("application/json").WithContentType(writer.FormDataContentType()).NewRequest("POST", url, body)
+
 	if err != nil {
 		return nil, nil, err
 	}
@@ -504,6 +506,7 @@ func (m *BrandResource) UploadBrandThemeFavicon(ctx context.Context, brandId str
 	body := &bytes.Buffer{}
 	writer := multipart.NewWriter(body)
 	fw, err := writer.CreateFormFile("file", file)
+
 	if err != nil {
 		return nil, nil, err
 	}
@@ -514,6 +517,7 @@ func (m *BrandResource) UploadBrandThemeFavicon(ctx context.Context, brandId str
 	_ = writer.Close()
 
 	req, err := rq.WithAccept("application/json").WithContentType(writer.FormDataContentType()).NewRequest("POST", url, body)
+
 	if err != nil {
 		return nil, nil, err
 	}
@@ -561,6 +565,7 @@ func (m *BrandResource) UploadBrandThemeLogo(ctx context.Context, brandId string
 	body := &bytes.Buffer{}
 	writer := multipart.NewWriter(body)
 	fw, err := writer.CreateFormFile("file", file)
+
 	if err != nil {
 		return nil, nil, err
 	}
@@ -571,6 +576,7 @@ func (m *BrandResource) UploadBrandThemeLogo(ctx context.Context, brandId string
 	_ = writer.Close()
 
 	req, err := rq.WithAccept("application/json").WithContentType(writer.FormDataContentType()).NewRequest("POST", url, body)
+
 	if err != nil {
 		return nil, nil, err
 	}

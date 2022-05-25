@@ -121,6 +121,10 @@ func (re *RequestExecutor) NewRequest(method string, url string, body interface{
 		req.Header.Add("Authorization", "SSWS "+re.config.Okta.Client.Token)
 	}
 
+	if re.config.Okta.Client.AuthorizationMode == "Bearer" {
+		req.Header.Add("Authorization", "Bearer "+re.config.Okta.Client.Token)
+	}
+
 	if re.config.Okta.Client.AuthorizationMode == "PrivateKey" {
 		if re.cache.Has(AccessTokenCacheKey) {
 			token := re.cache.GetString(AccessTokenCacheKey)

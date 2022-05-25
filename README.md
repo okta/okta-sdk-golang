@@ -855,7 +855,7 @@ The client is configured with a configuration setter object passed to the `NewCl
 | WithTestingDisableHttpsCheck(httpsCheck bool) | Disable net/http SSL checks |
 | WithRequestTimeout(requestTimeout int64) | HTTP request time out in seconds |
 | WithRateLimitMaxRetries(maxRetries int32) | Number of request retries when http request times out |
-| WithRateLimitMaxBackOff(maxBackoff int64) | Max amount of time to wait on request back off | 
+| WithRateLimitMaxBackOff(maxBackoff int64) | Max amount of time to wait on request back off |
 | WithAuthorizationMode(authzMode string) | Okta API auth mode, `SSWS` (Okta based) or `PrivateKey` (OAuth app based) |
 | WithClientId(clientId string) | Okta App client id, used with `PrivateKey` oauth auth mode |
 | WithScopes(scopes []string) | Okta API app scopes |
@@ -902,7 +902,7 @@ All methods now specify the `Accept` and `Content-Type` headers when creating a
 new request. This allows for future use of the SDK to handle multiple `Accept`
 types.
 
-### OAuth 2.0
+### OAuth 2.0 With Private Key
 
 Okta allows you to interact with Okta APIs using scoped OAuth 2.0 access
 tokens. Each access token enables the bearer to perform specific actions on
@@ -1048,6 +1048,37 @@ ctx, client, err := okta.NewClient(ctx,
   )
 
 ```
+### OAuth 2.0 With Bearer Token
+Okta SDK supports authorization using a `Bearer` token. A bearer token is an ephemeral token issued by Okta via supproted Okta apps. Exchanging provisioned credentials for a bearer token may involve external dependencies that are out of scope for the SDK to support natively.
+
+#### Bearer Token Scope
+A Bearer token may or may not have the permissions to perfrom all the API calls made available in the SDK. The scope of the bearer token is determined by the scope configured on the okta app __and__ the scope requested during the authorization. Care should be taken by the implementers to configure the okta app with the necessary scopes for the integration.
+
+#### Implementation Steps
+
+1. Create an Okta app based on your requirements. The following table lists the apps types that issue `Bearer` tokens.
+
+    | Sign-in method        | Application Type        | Details                                                                                                                                                                                                                                         |
+    |-----------------------|-------------------------|-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+    | OIDC - OpenID Connect | Web Application         | [Authorization code flow with client secret](https://developer.okta.com/docs/guides/implement-grant-type/authcode/main/)                                                                                                                        |
+    | OIDC - OpenID Connect | Single-Page Application | [Authorization code flow with PKCE](https://developer.okta.com/docs/guides/implement-grant-type/authcodepkce/main/)                                                                                                                             |
+    | OIDC - OpenID Connect | Native Application      | [Authorization code flow with client secret](https://developer.okta.com/docs/guides/implement-grant-type/authcode/main/) or [Authorization code flow with PKCE](https://developer.okta.com/docs/guides/implement-grant-type/authcodepkce/main/) |
+    | API Services          | N/A                     | Natively supported by SDK using `PrivateKey` Authorization mode                                                                                                                                                                                 |
+
+2. Make a call to the [Org Authorization Server](https://developer.okta.com/docs/concepts/auth-servers/#org-authorization-server) endpoint to get the authorization code.
+3. Exchange authorization code for a `Bearer` token.
+4. Instantiate and use Okta client with `Bearer` token.
+
+    ```go
+    ctx, client, err := okta.NewClient(
+        ctx,
+        okta.WithOrgUrl("https://{yourOktaDomain}"),
+        okta.WithAuthorizationMode("Bearer"),
+        okta.WithClientId("{client_id}"),
+        okta.WithToken("{token}"),
+      )
+    ```
+    A brearer token is scoped implicitly, so there is no need to provide `okta.WithScopes()` config setter method when initializing the Okta client.
 
 ### Extending the Client
 
