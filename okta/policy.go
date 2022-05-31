@@ -145,7 +145,6 @@ func (m *PolicyResource) ListPolicies(ctx context.Context, qp *query.Params) ([]
 		policies[i] = &policy[i]
 	}
 	return policies, resp, nil
-
 }
 
 // Creates a policy.
