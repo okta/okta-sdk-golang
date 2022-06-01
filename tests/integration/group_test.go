@@ -224,7 +224,7 @@ func TestGroupRuleOperations(t *testing.T) {
 	require.NoError(t, err)
 	// Create a user with credentials, activated by default → POST /api/v1/users?activate=true
 	p := &okta.PasswordCredential{
-		Value: randomString(10),
+		Value: testPassword(10),
 	}
 	uc := &okta.UserCredentials{
 		Password: p,
