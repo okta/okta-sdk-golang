@@ -77,23 +77,8 @@ func Test_error_when_authorization_mode_is_not_valid(t *testing.T) {
 }
 
 func Test_does_not_error_when_authorization_mode_is_valid(t *testing.T) {
-	_, _, err := tests.NewClient(
-		context.TODO(),
-		okta.WithAuthorizationMode("SSWS"),
-		okta.WithOrgUrl("https://test.okta.com"),
-		okta.WithToken("token"),
-	)
+	_, _, err := tests.NewClient(context.TODO(), okta.WithAuthorizationMode("SSWS"))
 	assert.NoError(t, err, "Should not error when authorization mode is SSWS")
-}
-
-func Test_does_not_error_when_authorization_mode_is_bearer(t *testing.T) {
-	_, _, err := tests.NewClient(
-		context.TODO(),
-		okta.WithAuthorizationMode("Bearer"),
-		okta.WithOrgUrl("https://test.okta.com"),
-		okta.WithToken("token"),
-	)
-	assert.NoError(t, err, "Should not error when authorization mode is Bearer")
 }
 
 func Test_will_error_if_private_key_authorization_type_with_missing_properties(t *testing.T) {

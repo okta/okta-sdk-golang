@@ -32,12 +32,7 @@ func Test_Create_Session(t *testing.T) {
 	httpmock.Activate()
 	defer httpmock.DeactivateAndReset()
 
-	ctx, client, err := tests.NewClient(
-		context.TODO(),
-		okta.WithOrgUrl("https://test.okta.com"),
-		okta.WithToken("token"),
-		okta.WithCache(false),
-	)
+	ctx, client, err := tests.NewClient(context.TODO(), okta.WithCache(false))
 	require.NoError(t, err, "failed to create client")
 
 	httpmock.RegisterResponder("POST", "/api/v1/sessions",
