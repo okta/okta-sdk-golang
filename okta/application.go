@@ -153,7 +153,6 @@ func (m *ApplicationResource) ListApplications(ctx context.Context, qp *query.Pa
 		apps[i] = &application[i]
 	}
 	return apps, resp, nil
-
 }
 
 // Adds a new application to your Okta organization.
@@ -824,7 +823,6 @@ func (m *ApplicationResource) UploadApplicationLogo(ctx context.Context, appId s
 	body := &bytes.Buffer{}
 	writer := multipart.NewWriter(body)
 	fw, err := writer.CreateFormFile("file", file)
-
 	if err != nil {
 		return nil, err
 	}
@@ -835,7 +833,6 @@ func (m *ApplicationResource) UploadApplicationLogo(ctx context.Context, appId s
 	_ = writer.Close()
 
 	req, err := rq.WithAccept("application/json").WithContentType(writer.FormDataContentType()).NewRequest("POST", url, body)
-
 	if err != nil {
 		return nil, err
 	}

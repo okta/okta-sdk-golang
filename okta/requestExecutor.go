@@ -142,10 +142,10 @@ func (re *RequestExecutor) NewRequest(method string, url string, body interface{
 					return nil, err
 				}
 
-                                var signerOptions *jose.SignerOptions
-                                if re.config.Okta.Client.PrivateKeyId != "" {
-                                        signerOptions = (&jose.SignerOptions{}).WithHeader("kid", re.config.Okta.Client.PrivateKeyId)
-                                }
+				var signerOptions *jose.SignerOptions
+				if re.config.Okta.Client.PrivateKeyId != "" {
+					signerOptions = (&jose.SignerOptions{}).WithHeader("kid", re.config.Okta.Client.PrivateKeyId)
+				}
 
 				re.config.PrivateKeySigner, err = jose.NewSigner(jose.SigningKey{Algorithm: jose.RS256, Key: parsedKey}, signerOptions)
 				if err != nil {
