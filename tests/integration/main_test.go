@@ -154,7 +154,7 @@ func testPassword(length int) string {
 	result[0] = charSetAlphaLower[rand.Intn(len(charSetAlphaLower))]
 	result[1] = charSetAlphaUpper[rand.Intn(len(charSetAlphaUpper))]
 	result[2] = charSetNumeric[rand.Intn(len(charSetNumeric))]
-	for i := 2; i < length; i++ {
+	for i := 3; i < length; i++ {
 		result[i] = charSetAlpha[rand.Intn(len(charSetAlpha))]
 	}
 	return string(result)
