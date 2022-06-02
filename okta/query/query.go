@@ -77,26 +77,31 @@ func WithQ(queryQ string) ParamOptions {
 		p.Q = queryQ
 	}
 }
+
 func WithAfter(queryAfter string) ParamOptions {
 	return func(p *Params) {
 		p.After = queryAfter
 	}
 }
+
 func WithLimit(queryLimit int64) ParamOptions {
 	return func(p *Params) {
 		p.Limit = queryLimit
 	}
 }
+
 func WithFilter(queryFilter string) ParamOptions {
 	return func(p *Params) {
 		p.Filter = queryFilter
 	}
 }
+
 func WithExpand(queryExpand string) ParamOptions {
 	return func(p *Params) {
 		p.Expand = queryExpand
 	}
 }
+
 func WithIncludeNonDeleted(queryIncludeNonDeleted bool) ParamOptions {
 	return func(p *Params) {
 		b := new(bool)
@@ -104,6 +109,7 @@ func WithIncludeNonDeleted(queryIncludeNonDeleted bool) ParamOptions {
 		p.IncludeNonDeleted = b
 	}
 }
+
 func WithActivate(queryActivate bool) ParamOptions {
 	return func(p *Params) {
 		b := new(bool)
@@ -111,21 +117,25 @@ func WithActivate(queryActivate bool) ParamOptions {
 		p.Activate = b
 	}
 }
+
 func WithValidityYears(queryValidityYears int64) ParamOptions {
 	return func(p *Params) {
 		p.ValidityYears = queryValidityYears
 	}
 }
+
 func WithTargetAid(queryTargetAid string) ParamOptions {
 	return func(p *Params) {
 		p.TargetAid = queryTargetAid
 	}
 }
+
 func WithQueryScope(queryQueryScope string) ParamOptions {
 	return func(p *Params) {
 		p.QueryScope = queryQueryScope
 	}
 }
+
 func WithSendEmail(querySendEmail bool) ParamOptions {
 	return func(p *Params) {
 		b := new(bool)
@@ -133,21 +143,25 @@ func WithSendEmail(querySendEmail bool) ParamOptions {
 		p.SendEmail = b
 	}
 }
+
 func WithCursor(queryCursor string) ParamOptions {
 	return func(p *Params) {
 		p.Cursor = queryCursor
 	}
 }
+
 func WithMode(queryMode string) ParamOptions {
 	return func(p *Params) {
 		p.Mode = queryMode
 	}
 }
+
 func WithSearch(querySearch string) ParamOptions {
 	return func(p *Params) {
 		p.Search = querySearch
 	}
 }
+
 func WithRemoveUsers(queryRemoveUsers bool) ParamOptions {
 	return func(p *Params) {
 		b := new(bool)
@@ -155,6 +169,7 @@ func WithRemoveUsers(queryRemoveUsers bool) ParamOptions {
 		p.RemoveUsers = b
 	}
 }
+
 func WithDisableNotifications(queryDisableNotifications bool) ParamOptions {
 	return func(p *Params) {
 		b := new(bool)
@@ -162,66 +177,79 @@ func WithDisableNotifications(queryDisableNotifications bool) ParamOptions {
 		p.DisableNotifications = b
 	}
 }
+
 func WithType(queryType string) ParamOptions {
 	return func(p *Params) {
 		p.Type = queryType
 	}
 }
+
 func WithTargetIdpId(queryTargetIdpId string) ParamOptions {
 	return func(p *Params) {
 		p.TargetIdpId = queryTargetIdpId
 	}
 }
+
 func WithSince(querySince string) ParamOptions {
 	return func(p *Params) {
 		p.Since = querySince
 	}
 }
+
 func WithUntil(queryUntil string) ParamOptions {
 	return func(p *Params) {
 		p.Until = queryUntil
 	}
 }
+
 func WithSortOrder(querySortOrder string) ParamOptions {
 	return func(p *Params) {
 		p.SortOrder = querySortOrder
 	}
 }
+
 func WithSourceId(querySourceId string) ParamOptions {
 	return func(p *Params) {
 		p.SourceId = querySourceId
 	}
 }
+
 func WithTargetId(queryTargetId string) ParamOptions {
 	return func(p *Params) {
 		p.TargetId = queryTargetId
 	}
 }
+
 func WithStatus(queryStatus string) ParamOptions {
 	return func(p *Params) {
 		p.Status = queryStatus
 	}
 }
+
 func WithTemplateType(queryTemplateType string) ParamOptions {
 	return func(p *Params) {
 		p.TemplateType = queryTemplateType
 	}
 }
+
 func WithSortBy(querySortBy string) ParamOptions {
 	return func(p *Params) {
 		p.SortBy = querySortBy
 	}
 }
+
 func WithProvider(queryProvider interface{}) ParamOptions {
 	return func(p *Params) {
 		p.Provider = queryProvider
 	}
 }
+
 func WithNextLogin(queryNextLogin string) ParamOptions {
 	return func(p *Params) {
 		p.NextLogin = queryNextLogin
 	}
 }
+
 func WithStrict(queryStrict bool) ParamOptions {
 	return func(p *Params) {
 		b := new(bool)
@@ -229,6 +257,7 @@ func WithStrict(queryStrict bool) ParamOptions {
 		p.Strict = b
 	}
 }
+
 func WithUpdatePhone(queryUpdatePhone bool) ParamOptions {
 	return func(p *Params) {
 		b := new(bool)
@@ -236,21 +265,25 @@ func WithUpdatePhone(queryUpdatePhone bool) ParamOptions {
 		p.UpdatePhone = b
 	}
 }
+
 func WithTemplateId(queryTemplateId string) ParamOptions {
 	return func(p *Params) {
 		p.TemplateId = queryTemplateId
 	}
 }
+
 func WithTokenLifetimeSeconds(queryTokenLifetimeSeconds int64) ParamOptions {
 	return func(p *Params) {
 		p.TokenLifetimeSeconds = queryTokenLifetimeSeconds
 	}
 }
+
 func WithScopeId(queryScopeId string) ParamOptions {
 	return func(p *Params) {
 		p.ScopeId = queryScopeId
 	}
 }
+
 func WithOauthTokens(queryOauthTokens bool) ParamOptions {
 	return func(p *Params) {
 		b := new(bool)
