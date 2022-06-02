@@ -322,7 +322,6 @@ func (m *GroupResource) ListAssignedApplicationsForGroup(ctx context.Context, gr
 		apps[i] = &application[i]
 	}
 	return apps, resp, nil
-
 }
 
 func (m *GroupResource) ListGroupAssignedRoles(ctx context.Context, groupId string, qp *query.Params) ([]*Role, *Response, error) {

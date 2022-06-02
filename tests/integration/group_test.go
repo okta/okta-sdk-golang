@@ -19,10 +19,12 @@ package integration
 import (
 	"context"
 	"encoding/json"
+	"fmt"
 	"net/http"
 	"testing"
 	"time"
 
+	"github.com/cenkalti/backoff/v4"
 	"github.com/okta/okta-sdk-golang/v2/okta"
 	"github.com/okta/okta-sdk-golang/v2/okta/query"
 	"github.com/okta/okta-sdk-golang/v2/tests"
@@ -224,7 +226,7 @@ func TestGroupRuleOperations(t *testing.T) {
 	require.NoError(t, err)
 	// Create a user with credentials, activated by default → POST /api/v1/users?activate=true
 	p := &okta.PasswordCredential{
-		Value: randomString(10),
+		Value: testPassword(10),
 	}
 	uc := &okta.UserCredentials{
 		Password: p,
@@ -285,20 +287,31 @@ func TestGroupRuleOperations(t *testing.T) {
 	_, err = client.Group.ActivateGroupRule(ctx, groupRule.Id)
 	require.NoError(t, err, "Should not error when activating rule")
 
-	time.Sleep(30 * time.Second)
-	users, _, _ := client.Group.ListGroupUsers(ctx, group.Id, nil)
-	found := false
-	for _, tmpuser := range users {
-		if tmpuser.Id == user.Id {
-			found = true
+	users := []*okta.User{}
+
+	// Use a backoff to check the user is in the group as there can be eventual
+	// consistency issues in adding users to groups.
+	operation := func() error {
+		users, _, err = client.Group.ListGroupUsers(ctx, group.Id, nil)
+		if err != nil {
+			return err
 		}
+		for _, tmpuser := range users {
+			if tmpuser.Id == user.Id {
+				return nil
+			}
+		}
+		return fmt.Errorf("returning error so backoff continues to looking for user being added")
 	}
-	assert.True(t, found, "Group rule execution did not happen")
+	bOff := backoff.NewExponentialBackOff()
+	bOff.MaxElapsedTime = 30 * time.Second
+	err = backoff.Retry(operation, bOff)
+	require.NoError(t, err, "Inspecting group for user addition had an issue.")
 
 	// List the group rules and validate the above rule is present → POST /api/v1/groups/rules
 	groupRules, _, err := client.Group.ListGroupRules(ctx, nil)
 	require.NoError(t, err, "Error should not happen when listing rules")
-	found = false
+	found := false
 	for _, tmpRules := range groupRules {
 		if tmpRules.Id == groupRule.Id {
 			found = true
@@ -336,15 +349,24 @@ func TestGroupRuleOperations(t *testing.T) {
 	// Activate the updated rule and verify that the user is removed from the group →  POST /api/v1/groups/rules/{{ruleId}}/lifecycle/activate
 	_, err = client.Group.ActivateGroupRule(ctx, newGroupRule.Id)
 	require.NoError(t, err, "Should not error when activating the group rule")
-	time.Sleep(5 * time.Second)
-	users, _, _ = client.Group.ListGroupUsers(ctx, group.Id, nil)
-	found = false
-	for _, tmpuser := range users {
-		if tmpuser.Id == user.Id {
-			found = true
+
+	bOff.Reset()
+	// Use a backoff to check the user has been removed from the group as there
+	// can be eventual consistency issues in removing users from groups.
+	operation = func() error {
+		users, _, err = client.Group.ListGroupUsers(ctx, group.Id, nil)
+		if err != nil {
+			return err
 		}
+		for _, tmpuser := range users {
+			if tmpuser.Id == user.Id {
+				return fmt.Errorf("returning error so backoff continues user still listed in group")
+			}
+		}
+		return nil
 	}
-	assert.False(t, found, "Group rule execution did not happen to remove user")
+	err = backoff.Retry(operation, bOff)
+	require.NoError(t, err, "Inspecting group for user removal had an issue.")
 
 	// Deactivate the user, group and group rule → POST /api/v1/users/{{userId}}/lifecycle/deactivate
 	_, err = client.Group.DeactivateGroupRule(ctx, newGroupRule.Id)
