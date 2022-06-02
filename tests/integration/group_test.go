@@ -33,7 +33,7 @@ import (
 )
 
 func TestCanGetAGroup(t *testing.T) {
-	ctx, client, err := tests.NewClient(context.TODO())
+	ctx, client, err := tests.NewClient(context.TODO(), okta.WithCache(false))
 	require.NoError(t, err)
 	// Create a new group → POST /api/v1/groups
 	gp := &okta.GroupProfile{
@@ -63,7 +63,7 @@ func TestCanGetAGroup(t *testing.T) {
 }
 
 func TestCanListGroups(t *testing.T) {
-	ctx, client, err := tests.NewClient(context.TODO())
+	ctx, client, err := tests.NewClient(context.TODO(), okta.WithCache(false))
 	require.NoError(t, err)
 	// Create a new group → POST /api/v1/groups
 	gp := &okta.GroupProfile{
@@ -93,7 +93,7 @@ func TestCanListGroups(t *testing.T) {
 }
 
 func TestCanSearchForAGroup(t *testing.T) {
-	ctx, client, err := tests.NewClient(context.TODO())
+	ctx, client, err := tests.NewClient(context.TODO(), okta.WithCache(false))
 	require.NoError(t, err)
 	// Create a new group → POST /api/v1/groups
 	groupName := testName("SDK_TEST Search Test Group")
@@ -125,7 +125,7 @@ func TestCanSearchForAGroup(t *testing.T) {
 }
 
 func TestCanUpdateAGroup(t *testing.T) {
-	ctx, client, err := tests.NewClient(context.TODO())
+	ctx, client, err := tests.NewClient(context.TODO(), okta.WithCache(false))
 	require.NoError(t, err)
 	// Create a new group → POST /api/v1/groups
 	groupName := testName("SDK_TEST Update Test Group")
@@ -157,7 +157,7 @@ func TestCanUpdateAGroup(t *testing.T) {
 }
 
 func TestGroupUserOperations(t *testing.T) {
-	ctx, client, err := tests.NewClient(context.TODO())
+	ctx, client, err := tests.NewClient(context.TODO(), okta.WithCache(false))
 	require.NoError(t, err)
 	// Create a user with credentials → POST /api/v1/users?activate=false
 	p := &okta.PasswordCredential{
@@ -413,4 +413,45 @@ func TestGroupProfileSerialization(t *testing.T) {
 	require.NoError(t, err)
 
 	assert.Equal(t, gpExpected, gpCopy, "expected marshal to unmarshal to produce exact copy of group profile")
+}
+
+func TestListAssignedApplicationsForGroup(t *testing.T) {
+	ctx, client, err := tests.NewClient(context.TODO(), okta.WithCache(false))
+	require.NoError(t, err)
+
+	gp := &okta.GroupProfile{
+		Name: testName("SDK_TEST Get Test Group"),
+	}
+	g := &okta.Group{
+		Profile: gp,
+	}
+	group, _, err := client.Group.CreateGroup(ctx, *g)
+	require.NoError(t, err, "Should not error when creating a group")
+	assert.IsType(t, &okta.Group{}, group)
+
+	apps, _, err := client.Group.ListAssignedApplicationsForGroup(ctx, group.Id, nil)
+	require.NoError(t, err, "Should not error when listing assigned apps for group")
+	assert.Equal(t, 0, len(apps), "there shouldn't be any apps assigned to group")
+
+	app := okta.NewBookmarkApplication()
+	app.Settings = &okta.BookmarkApplicationSettings{
+		App: &okta.BookmarkApplicationSettingsApplication{
+			RequestIntegration: new(bool),
+			Url:                "https://example.com/bookmark.htm",
+		},
+	}
+	_, _, err = client.Application.CreateApplication(ctx, app, nil)
+	require.NoError(t, err, "Creating an application should not error")
+
+	_, _, err = client.Application.CreateApplicationGroupAssignment(ctx, app.Id, group.Id, okta.ApplicationGroupAssignment{})
+	require.NoError(t, err, "Assigning application to group should not error")
+
+	apps, _, err = client.Group.ListAssignedApplicationsForGroup(ctx, group.Id, nil)
+	require.NoError(t, err, "Should not error when listing assigned apps for group")
+	assert.Equal(t, 1, len(apps), "there should be one app assigned to group")
+
+	// teardown
+	client.Application.DeactivateApplication(ctx, app.Id)
+	client.Application.DeleteApplication(ctx, app.Id)
+	client.Group.DeleteGroup(ctx, group.Id)
 }
