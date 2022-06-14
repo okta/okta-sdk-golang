@@ -18,4 +18,5 @@
 
 package okta
 
-type InlineHookPayload struct{}
+type InlineHookPayload struct {
+}

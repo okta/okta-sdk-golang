@@ -191,6 +191,7 @@ func (m *OrgSettingResource) UpdateOrgLogo(ctx context.Context, file string) (*R
 	body := &bytes.Buffer{}
 	writer := multipart.NewWriter(body)
 	fw, err := writer.CreateFormFile("file", file)
+
 	if err != nil {
 		return nil, err
 	}
@@ -201,6 +202,7 @@ func (m *OrgSettingResource) UpdateOrgLogo(ctx context.Context, file string) (*R
 	_ = writer.Close()
 
 	req, err := rq.WithAccept("application/json").WithContentType(writer.FormDataContentType()).NewRequest("POST", url, body)
+
 	if err != nil {
 		return nil, err
 	}
