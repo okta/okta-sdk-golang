@@ -857,7 +857,7 @@ The client is configured with a configuration setter object passed to the `NewCl
 | WithRateLimitMaxRetries(maxRetries int32) | Number of request retries when http request times out |
 | WithRateLimitMaxBackOff(maxBackoff int64) | Max amount of time to wait on request back off |
 | WithAuthorizationMode(authzMode string) | Okta API auth mode, `SSWS` (Okta based) or `PrivateKey` (OAuth app based) |
-| WithClientId(clientId string) | Okta App client id, used with `PrivateKey` oauth auth mode |
+| WithClientId(clientId string) | Okta App client id, used with `PrivateKey` OAuth auth mode |
 | WithScopes(scopes []string) | Okta API app scopes |
 | WithPrivateKey(privateKey string) | Private key value |
 | WithPrivateKeyId(privateKeyId string) | Private key id (kid) value |
@@ -1048,11 +1048,24 @@ ctx, client, err := okta.NewClient(ctx,
   )
 
 ```
+
 ### OAuth 2.0 With Bearer Token
-Okta SDK supports authorization using a `Bearer` token. A bearer token is an ephemeral token issued by Okta via supproted Okta apps. Exchanging provisioned credentials for a bearer token may involve external dependencies that are out of scope for the SDK to support natively.
+
+Okta SDK supports authorization using a `Bearer` token. A bearer token is an
+ephemeral token issued by Okta via supported Okta apps. Exchanging provisioned
+credentials for a bearer token may involve external dependencies that are out
+of scope for the SDK to support natively.
 
 #### Bearer Token Scope
-A Bearer token may or may not have the permissions to perfrom all the API calls made available in the SDK. The scope of the bearer token is determined by the scope configured on the okta app __and__ the scope requested during the authorization. Care should be taken by the implementers to configure the okta app with the necessary scopes for the integration.
+
+Bearer tokens are scoped to an application and not to the greater organization
+as is enabled when the SDK is initialized with an Okta SSWS token or an OAuth
+private key. Therefore a bearer token will not have the permissions to perform
+all of the API calls for organization management through the SDK. The scope of
+the bearer token is determined by the scope configured on the Okta app __and__
+the scope requested during the authorization. Care should be taken by the
+implementers to configure the Okta app with the necessary scopes for the
+integration.
 
 #### Implementation Steps
 
@@ -1068,7 +1081,6 @@ A Bearer token may or may not have the permissions to perfrom all the API calls 
 2. Make a call to the [Org Authorization Server](https://developer.okta.com/docs/concepts/auth-servers/#org-authorization-server) endpoint to get the authorization code.
 3. Exchange authorization code for a `Bearer` token.
 4. Instantiate and use Okta client with `Bearer` token.
-
     ```go
     ctx, client, err := okta.NewClient(
         ctx,
@@ -1078,7 +1090,8 @@ A Bearer token may or may not have the permissions to perfrom all the API calls 
         okta.WithToken("{token}"),
       )
     ```
-    A brearer token is scoped implicitly, so there is no need to provide `okta.WithScopes()` config setter method when initializing the Okta client.
+    A bearer token is scoped implicitly, so there is no need to provide
+    `okta.WithScopes()` config setter method when initializing the Okta client.
 
 ### Extending the Client
 
