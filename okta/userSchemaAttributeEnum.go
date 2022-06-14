@@ -19,6 +19,6 @@
 package okta
 
 type UserSchemaAttributeEnum struct {
-	Const string `json:"const,omitempty"`
-	Title string `json:"title,omitempty"`
+	Const interface{} `json:"const,omitempty"`
+	Title string      `json:"title,omitempty"`
 }

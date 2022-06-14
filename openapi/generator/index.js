@@ -38,6 +38,11 @@ function getType(obj, prefix = "") {
       }
       return String.raw`map[string]*` + obj.model;
     case 'array' :
+      if (obj.propertyName === "enum" && obj.model === "string") {
+        // edge case for property "enum" on GroupSchemaAttribute, UserSchemaAttribute, UserSchemaAttributeItems
+        // Slice values can be variable typed as string, number, boolean, integer, array
+        return String.raw`[]interface{}`;
+      }
       if (obj.model === undefined || obj.model === "string") {
         return String.raw`[]string`;
       } else {
@@ -73,6 +78,11 @@ function getType(obj, prefix = "") {
     default:
       if (obj.propertyName === "pattern" || obj.propertyName === "admin" || obj.propertyName === "enduser") {
         return String.raw`*string`;
+      }
+      // edge case for UserSchemaAttributeEnum property "const"
+      // Value can be variable typed as string, number, boolean, integer, array
+      if (obj.propertyName === "const") {
+        return "interface{}";
       }
       return obj.commonType;
   }
