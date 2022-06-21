@@ -58,7 +58,7 @@ func TestCanUpdateCustomGroupProperty(t *testing.T) {
 	gc.Definitions.Custom.Properties[testProperty1] = &okta.GroupSchemaAttribute{
 		Description: "testing",
 		Items: &okta.UserSchemaAttributeItems{
-			Enum: []string{"test", "1", "2"},
+			Enum: []interface{}{"test", "1", "2"},
 			OneOf: []*okta.UserSchemaAttributeEnum{
 				{
 					Const: "test",
@@ -135,4 +135,71 @@ func TestCanUpdateCustomGroupProperty(t *testing.T) {
 
 	assert.Nil(t, noCustomGC.Definitions.Custom.Properties[testProperty1], "property should be removed")
 	assert.Nil(t, noCustomGC.Definitions.Custom.Properties[testProperty2], "property should be removed")
+}
+
+func TestCanUpdateCustomGroupPropertyAsNumber(t *testing.T) {
+	ctx, client, err := tests.NewClient(context.TODO())
+	require.NoError(t, err)
+
+	gc, _, err := client.GroupSchema.GetGroupSchema(ctx)
+	require.NoError(t, err, "getting group schema must not error")
+	require.NotNil(t, gc, "group schema should not be nil")
+
+	testProperty1 := randomTestString()
+
+	gc.Definitions.Custom.Properties[testProperty1] = &okta.GroupSchemaAttribute{
+		Description: "testing",
+		Items: &okta.UserSchemaAttributeItems{
+			Enum: []interface{}{1.0, 2.0, 3.0},
+			OneOf: []*okta.UserSchemaAttributeEnum{
+				{
+					Const: 1.0,
+					Title: "one",
+				},
+				{
+					Const: 2.0,
+					Title: "two",
+				},
+				{
+					Const: 3.0,
+					Title: "three",
+				},
+			},
+			Type: "number",
+		},
+		Master: &okta.UserSchemaAttributeMaster{
+			Type: "OKTA",
+		},
+		Mutability: "READ_WRITE",
+		Permissions: []*okta.UserSchemaAttributePermission{
+			{
+				Action:    "READ_ONLY",
+				Principal: "SELF",
+			},
+		},
+		Scope: "NONE",
+		Title: "Property Title",
+		Type:  "array",
+	}
+	updatedGC, _, err := client.GroupSchema.UpdateGroupSchema(ctx, *gc)
+	require.NoError(t, err, "updating group schema must not error")
+	require.NotNil(t, updatedGC, "updated group schema should not be nil")
+
+	assert.Equal(t, "Property Title", updatedGC.Definitions.Custom.Properties[testProperty1].Title)
+	assert.Equal(t, 3, len(updatedGC.Definitions.Custom.Properties[testProperty1].Items.Enum))
+	oneNumber := updatedGC.Definitions.Custom.Properties[testProperty1].Items.Enum[0]
+	assert.Equal(t, 1.0, oneNumber)
+	assert.Equal(t, 3, len(updatedGC.Definitions.Custom.Properties[testProperty1].Items.OneOf))
+	oneConstNumber := updatedGC.Definitions.Custom.Properties[testProperty1].Items.OneOf[0]
+	assert.Equal(t, 1.0, oneConstNumber.Const)
+	assert.Equal(t, "one", oneConstNumber.Title)
+	assert.Equal(t, "number", updatedGC.Definitions.Custom.Properties[testProperty1].Items.Type)
+
+	updatedGC.Definitions.Custom.Properties[testProperty1] = nil
+
+	noCustomGC, _, err := client.GroupSchema.UpdateGroupSchema(ctx, *updatedGC)
+	require.NoError(t, err, "updating group schema must not error")
+	require.NotNil(t, noCustomGC, "updated group schema should not be nil")
+
+	assert.Nil(t, noCustomGC.Definitions.Custom.Properties[testProperty1], "property should be removed")
 }
