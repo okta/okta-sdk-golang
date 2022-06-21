@@ -1,6 +1,22 @@
 # Changelog
 Running changelog of releases since `2.0.0-rc.4`
 
+## v2.13.0
+
+Okta SDK Golang release in conjunction with [v2.13.0 of the Okta OpenAPI Specification (Management APIs)](https://github.com/okta/okta-management-openapi-spec/releases/tag/openapi-2.13.0)
+
+### Updates
+
+ - Added properties `host`, `integrationKey`, and `secretKey` to `AuthenticatorProviderConfiguration` model to support Duo Authenticator [openapi-2.13.0](https://github.com/okta/okta-management-openapi-spec/releases/tag/openapi-2.13.0)
+ - Renamed query parameter `search` to `filter` on `GET /api/v1/groups` endpoint [openapi-2.13.0](https://github.com/okta/okta-management-openapi-spec/releases/tag/openapi-2.13.0)
+ - New feature, SDK client can authenticate with Bearer token orienting the SDK client to the security scope of a specific application [#310](https://github.com/okta/okta-sdk-golang/pull/310)
+ - Added ability to specify JWT kid header  [#308](https://github.com/okta/okta-sdk-golang/pull/308)
+
+### Bug fixes
+
+ - Schema API calls with one of / enum values will have correct type when calling API [#312](https://github.com/okta/okta-sdk-golang/pull/312)
+
+
 ## v2.12.1
   - Corrected out of order method and API parameters
     - `AuthorizationServerResource`
