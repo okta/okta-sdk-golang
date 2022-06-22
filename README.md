@@ -1172,7 +1172,7 @@ Example of listing users 1 at a time:
 query := query.NewQueryParams(query.WithLimit(1))
 users, resp, err := client.User.ListUsers(ctx, query)
 // Do something with your users until you run out of users to iterate.
-if resp.HasNextPage() {
+for resp.HasNextPage() {
   var nextUserSet []*okta.User
   resp, err = resp.Next(ctx, &nextUserSet)
 }
