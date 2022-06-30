@@ -1,0 +1,15 @@
+generatorName: go
+templateDir: ./.generator/templates
+outputDir: ./okta/v3
+gitUserId: okta
+gitRepoId: okta-sdk-golang
+additionalProperties:
+  enumClassPrefix: true
+  generateInterfaces: true
+  packageName: okta
+  packageVersion: 3.0.0
+  useOneOfDiscriminatorLookup: true
+  disallowAdditionalPropertiesIfNotPresent: false
+files:
+  api_application_test.go: {}
+  configuration_test.go: {}
