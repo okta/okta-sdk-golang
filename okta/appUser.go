@@ -34,6 +34,7 @@ type AppUser struct {
 	Created         *time.Time          `json:"created,omitempty"`
 	Credentials     *AppUserCredentials `json:"credentials,omitempty"`
 	ExternalId      string              `json:"externalId,omitempty"`
+	Foo             string              `json:"foo,omitempty"`
 	Id              string              `json:"id,omitempty"`
 	LastSync        *time.Time          `json:"lastSync,omitempty"`
 	LastUpdated     *time.Time          `json:"lastUpdated,omitempty"`
