@@ -41,7 +41,7 @@ type {{model.modelName}}Resource resource
 
 {{/if}}
 {{#if (eq model.modelName "GroupProfile")}}
-type {{model.modelName}}Map map[string]interface{}
+// type {{model.modelName}}Map map[string]interface{}
 
 {{/if}}
 {{#if (eq model.modelName "ApplicationSettingsApplication")}}
@@ -52,7 +52,8 @@ type {{model.modelName}} string
 type {{model.modelName}} struct {
 	{{{buildModelProperties model}}}
 {{#if (eq model.modelName "GroupProfile")}}
-    {{model.modelName}}Map
+    // {{model.modelName}}Map
+    {{model.modelName}}Map sync.Map
 {{/if}}
 }
 {{/if}}
@@ -100,36 +101,57 @@ func (a *{{model.modelName}}) UnmarshalJSON(data []byte) error {
 	if string(data) == "null" || string(data) == `""` {
 		return nil
 	}
-	var profile map[string]interface{}
-	err := json.Unmarshal(data, &profile)
-	if err != nil {
-		return err
-	}
-	a.Name, _ = profile["name"].(string)
-	a.Description, _ = profile["description"].(string)
-	delete(profile, "name")
-	delete(profile, "description")
-	a.{{model.modelName}}Map = profile
+	// var profile map[string]interface{}
+	// err := json.Unmarshal(data, &profile)
+	// if err != nil {
+	// 	return err
+	// }
+	// a.Name, _ = profile["name"].(string)
+	// a.Description, _ = profile["description"].(string)
+	// delete(profile, "name")
+	// delete(profile, "description")
+	// a.{{model.modelName}}Map = profile
+
+	var m map[string]interface{}
+	if err := json.Unmarshal(data, &m); err != nil {
+        return err
+    }
+	a.Name, _ = m["name"].(string)
+	a.Description, _ = m["description"].(string)
+	for key, value := range m {
+		a.{{model.modelName}}Map.Store(key, value)
+    }
+	a.{{model.modelName}}Map.Delete("name")
+	a.{{model.modelName}}Map.Delete("description")
+
 	return nil
 }
 
 func (a {{model.modelName}}) MarshalJSON() ([]byte, error) {
-	if len(a.{{model.modelName}}Map) == 0 {
-		return  json.Marshal(&struct {
-			Name        string `json:"name"`
-			Description string `json:"description"`
-		}{
-			Name:        a.Name,
-			Description: a.Description,
-		})
-	}
+	// if len(a.{{model.modelName}}Map) == 0 {
+	// 	return  json.Marshal(&struct {
+	// 		Name        string `json:"name"`
+	// 		Description string `json:"description"`
+	// 	}{
+	// 		Name:        a.Name,
+	// 		Description: a.Description,
+	// 	})
+	// }
+
+	m := make(map[string]interface{})
 	if a.Name != "" {
-		a.{{model.modelName}}Map["name"] = a.Name
+		//a.{{model.modelName}}Map["name"] = a.Name
+		m["name"] = a.Name
 	}
 	if a.Description != "" {
-		a.{{model.modelName}}Map["description"] = a.Description
+		//a.{{model.modelName}}Map["description"] = a.Description
+		m["description"] = a.Description
 	}
-	return json.Marshal(a.{{model.modelName}}Map)
+	a.{{model.modelName}}Map.Range(func(k, v interface{}) bool {
+        m[k.(string)] = v
+        return true
+    })
+	return json.Marshal(m)
 }
 
 {{/if}}

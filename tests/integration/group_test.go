@@ -392,18 +392,19 @@ func TestGroupProfileSerialization(t *testing.T) {
 	gp := okta.GroupProfile{
 		Name:        "test",
 		Description: "tester",
-		GroupProfileMap: okta.GroupProfileMap{
-			"custom": "value",
-		},
+		//GroupProfileMap: okta.GroupProfileMap{
+		//	"custom": "value",
+		//},
 	}
+	gp.GroupProfileMap.Store("example", "test value")
 
-	gpExpected := okta.GroupProfile{
-		Name:        "test",
-		Description: "tester",
-		GroupProfileMap: okta.GroupProfileMap{
-			"custom": "value",
-		},
-	}
+	//gpExpected := okta.GroupProfile{
+	//	Name:        "test",
+	//	Description: "tester",
+	//	//GroupProfileMap: okta.GroupProfileMap{
+	//	//	"custom": "value",
+	//	//},
+	//}
 
 	b, err := json.Marshal(&gp)
 	require.NoError(t, err)
@@ -412,7 +413,18 @@ func TestGroupProfileSerialization(t *testing.T) {
 	err = json.Unmarshal(b, &gpCopy)
 	require.NoError(t, err)
 
-	assert.Equal(t, gpExpected, gpCopy, "expected marshal to unmarshal to produce exact copy of group profile")
+	// assert.Equal(t, gpExpected, gpCopy, "expected marshal to unmarshal to produce exact copy of group profile")
+	assert.Equal(t, "test", gpCopy.Name)
+	assert.Equal(t, "tester", gpCopy.Description)
+	value, found := gpCopy.GroupProfileMap.Load("example")
+	assert.True(t, found)
+	assert.Equal(t, value, "test value")
+	countedValues := 0
+	gpCopy.GroupProfileMap.Range(func(k, v interface{}) bool {
+		countedValues++
+		return true
+	})
+	assert.Equal(t, 1, countedValues)
 }
 
 func TestListAssignedApplicationsForGroup(t *testing.T) {
