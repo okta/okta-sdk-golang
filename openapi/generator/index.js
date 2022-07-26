@@ -252,6 +252,7 @@ function getImports(object) {
 
   if (object.model.modelName === "GroupProfile") {
     imports.push("encoding/json");
+    imports.push("sync");
   }
 
   return imports;

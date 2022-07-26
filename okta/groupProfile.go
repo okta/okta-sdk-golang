@@ -20,48 +20,71 @@ package okta
 
 import (
 	"encoding/json"
+	"sync"
 )
 
-type GroupProfileMap map[string]interface{}
+// type GroupProfileMap map[string]interface{}
 
 type GroupProfile struct {
 	Description string `json:"description,omitempty"`
 	Name        string `json:"name,omitempty"`
-	GroupProfileMap
+	// GroupProfileMap
+	GroupProfileMap sync.Map
 }
 
 func (a *GroupProfile) UnmarshalJSON(data []byte) error {
 	if string(data) == "null" || string(data) == `""` {
 		return nil
 	}
-	var profile map[string]interface{}
-	err := json.Unmarshal(data, &profile)
-	if err != nil {
+	// var profile map[string]interface{}
+	// err := json.Unmarshal(data, &profile)
+	// if err != nil {
+	// 	return err
+	// }
+	// a.Name, _ = profile["name"].(string)
+	// a.Description, _ = profile["description"].(string)
+	// delete(profile, "name")
+	// delete(profile, "description")
+	// a.GroupProfileMap = profile
+
+	var m map[string]interface{}
+	if err := json.Unmarshal(data, &m); err != nil {
 		return err
 	}
-	a.Name, _ = profile["name"].(string)
-	a.Description, _ = profile["description"].(string)
-	delete(profile, "name")
-	delete(profile, "description")
-	a.GroupProfileMap = profile
+	a.Name, _ = m["name"].(string)
+	a.Description, _ = m["description"].(string)
+	for key, value := range m {
+		a.GroupProfileMap.Store(key, value)
+	}
+	a.GroupProfileMap.Delete("name")
+	a.GroupProfileMap.Delete("description")
+
 	return nil
 }
 
 func (a GroupProfile) MarshalJSON() ([]byte, error) {
-	if len(a.GroupProfileMap) == 0 {
-		return json.Marshal(&struct {
-			Name        string `json:"name"`
-			Description string `json:"description"`
-		}{
-			Name:        a.Name,
-			Description: a.Description,
-		})
-	}
+	// if len(a.GroupProfileMap) == 0 {
+	// 	return  json.Marshal(&struct {
+	// 		Name        string `json:"name"`
+	// 		Description string `json:"description"`
+	// 	}{
+	// 		Name:        a.Name,
+	// 		Description: a.Description,
+	// 	})
+	// }
+
+	m := make(map[string]interface{})
 	if a.Name != "" {
-		a.GroupProfileMap["name"] = a.Name
+		// a.GroupProfileMap["name"] = a.Name
+		m["name"] = a.Name
 	}
 	if a.Description != "" {
-		a.GroupProfileMap["description"] = a.Description
+		// a.GroupProfileMap["description"] = a.Description
+		m["description"] = a.Description
 	}
-	return json.Marshal(a.GroupProfileMap)
+	a.GroupProfileMap.Range(func(k, v interface{}) bool {
+		m[k.(string)] = v
+		return true
+	})
+	return json.Marshal(m)
 }
