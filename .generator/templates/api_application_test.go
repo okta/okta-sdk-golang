@@ -11,17 +11,6 @@ var ctx context.Context
 var apiClient *APIClient
 
 func init() {
-	ctx = context.WithValue(
-		context.Background(),
-		ContextAPIKeys,
-		map[string]APIKey{
-			"API_Token": {
-				Key:    "***",
-				Prefix: "SSWS",
-			},
-		},
-	)
-
 	configuration := NewConfiguration()
 	configuration.Debug = false
 
@@ -31,7 +20,7 @@ func init() {
 func Test_Get_Applications(t *testing.T) {
 
 	t.Run("can get all applicaitons", func(t *testing.T) {
-		req := apiClient.ApplicationApi.ListApplications(ctx).Limit(2)
+		req := apiClient.ApplicationApi.ListApplications(apiClient.cfg.Context).Limit(2)
 		applications, _, _ := req.Execute()
 		assert.Equal(t, 2, len(applications))
 	})

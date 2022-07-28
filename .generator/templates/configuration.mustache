@@ -121,6 +121,7 @@ type Configuration struct {
 	Middleware       MiddlewareFunction
     {{/withCustomMiddlewareFunction}}
     UserAgentExtra   string
+	Context			 context.Context
     Okta struct {
 		Client struct {
 			Cache struct {
@@ -257,6 +258,18 @@ func NewConfiguration(conf ...ConfigSetter) *Configuration {
 		cfg.UserAgent = fmt.Sprintf("%s %s", cfg.UserAgent, cfg.UserAgentExtra)
 	}
 
+	ctx := context.WithValue(
+		context.Background(),
+		ContextAPIKeys,
+		map[string]APIKey{
+			"API_Token": {
+				Key:    cfg.Okta.Client.Token,
+				Prefix: cfg.Okta.Client.AuthorizationMode,
+			},
+		},
+	)
+
+	cfg.Context = ctx
 
 	return cfg
 }
