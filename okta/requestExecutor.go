@@ -125,12 +125,15 @@ func (re *RequestExecutor) NewRequest(method string, url string, body interface{
 		req.Header.Add("Authorization", "Bearer "+re.config.Okta.Client.Token)
 	}
 
-	if re.config.Okta.Client.AuthorizationMode == "PrivateKey" {
+	if re.config.Okta.Client.AuthorizationMode == "PrivateKey" || re.config.Okta.Client.AuthorizationMode == "JWT" {
 		if re.cache.Has(AccessTokenCacheKey) {
 			token := re.cache.GetString(AccessTokenCacheKey)
 			req.Header.Add("Authorization", "Bearer "+token)
 		} else {
-			if re.config.PrivateKeySigner == nil {
+			var clientAssertion string
+
+			switch {
+			case re.config.Okta.Client.PrivateKey != "":
 				priv := []byte(strings.ReplaceAll(re.config.Okta.Client.PrivateKey, `\n`, "\n"))
 
 				privPem, _ := pem.Decode(priv)
@@ -152,22 +155,33 @@ func (re *RequestExecutor) NewRequest(method string, url string, body interface{
 				}
 
 				re.config.PrivateKeySigner, err = jose.NewSigner(jose.SigningKey{Algorithm: jose.RS256, Key: parsedKey}, signerOptions)
+
 				if err != nil {
 					return nil, err
 				}
-			}
 
-			claims := ClientAssertionClaims{
-				Subject:  re.config.Okta.Client.ClientId,
-				IssuedAt: jwt.NewNumericDate(time.Now()),
-				Expiry:   jwt.NewNumericDate(time.Now().Add(time.Hour * time.Duration(1))),
-				Issuer:   re.config.Okta.Client.ClientId,
-				Audience: re.config.Okta.Client.OrgUrl + "/oauth2/v1/token",
-			}
-			jwtBuilder := jwt.Signed(re.config.PrivateKeySigner).Claims(claims)
-			clientAssertion, err := jwtBuilder.CompactSerialize()
-			if err != nil {
-				return nil, err
+				// now that we've set re.config.PrivateKeySigner, the following case statement will work
+				fallthrough
+
+			case re.config.PrivateKeySigner != nil:
+				claims := ClientAssertionClaims{
+					Subject:  re.config.Okta.Client.ClientId,
+					IssuedAt: jwt.NewNumericDate(time.Now()),
+					Expiry:   jwt.NewNumericDate(time.Now().Add(time.Hour * time.Duration(1))),
+					Issuer:   re.config.Okta.Client.ClientId,
+					Audience: re.config.Okta.Client.OrgUrl + "/oauth2/v1/token",
+				}
+
+				jwtBuilder := jwt.Signed(re.config.PrivateKeySigner).Claims(claims)
+
+				clientAssertion, err = jwtBuilder.CompactSerialize()
+
+				if err != nil {
+					return nil, err
+				}
+
+			case re.config.Okta.Client.AuthorizationMode == "JWT":
+				clientAssertion = re.config.Okta.Client.Token
 			}
 
 			var tokenRequestBuff io.ReadWriter
