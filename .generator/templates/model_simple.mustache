@@ -321,23 +321,24 @@ func (o *{{{classname}}}) UnmarshalJSON(bytes []byte) (err error) {
 	var{{{classname}}}WithoutEmbeddedStruct := {{{classname}}}WithoutEmbeddedStruct{}
 
 	err = json.Unmarshal(bytes, &var{{{classname}}}WithoutEmbeddedStruct)
-	if err != nil {
+	if err == nil {
+		var{{{classname}}} := _{{{classname}}}{}
+		{{#vars}}
+		var{{{classname}}}.{{{name}}} = var{{{classname}}}WithoutEmbeddedStruct.{{{name}}}
+		{{/vars}}
+		*o = {{{classname}}}(var{{{classname}}})
+	} else {
 		return err
 	}
-	var{{{classname}}} := _{{{classname}}}{}
-	{{#vars}}
-	var{{{classname}}}.{{{name}}} = var{{{classname}}}WithoutEmbeddedStruct.{{{name}}}
-	{{/vars}}
-	*o = {{{classname}}}(var{{{classname}}})
-
 
 	var{{{classname}}} := _{{{classname}}}{}
 
 	err = json.Unmarshal(bytes, &var{{{classname}}})
-	if err != nil {
+	if err == nil {
+		o.{{{parent}}} = var{{{classname}}}.{{{parent}}}
+	} else {
 		return err
 	}
-	o.{{{parent}}} = var{{{classname}}}.{{{parent}}}
 
 	additionalProperties := make(map[string]interface{})
 
@@ -370,26 +371,29 @@ func (o *{{{classname}}}) UnmarshalJSON(bytes []byte) (err error) {
 		return err
 	}
 
+	return err
 {{/isMap}}
 {{#isMap}}
 	var{{{classname}}} := _{{{classname}}}{}
 
 	err = json.Unmarshal(bytes, &var{{{classname}}})
-	if err != nil {
-		return
+	if err == nil {
+		*o = {{{classname}}}(var{{{classname}}})
+	} else {
+		return err
 	}
-	*o = {{{classname}}}(var{{{classname}}})
 
 	additionalProperties := make(map[string]interface{})
 
 	err = json.Unmarshal(bytes, &additionalProperties)
-	if err != nil {
+	if err == nil {
+		{{#vars}}
+		delete(additionalProperties, "{{{baseName}}}")
+		{{/vars}}
+		o.AdditionalProperties = additionalProperties
+	} else {
 		return err
 	}
-	{{#vars}}
-	delete(additionalProperties, "{{{baseName}}}")
-	{{/vars}}
-	o.AdditionalProperties = additionalProperties
 
 	return err
 {{/isMap}}
@@ -397,22 +401,24 @@ func (o *{{{classname}}}) UnmarshalJSON(bytes []byte) (err error) {
 {{^parent}}
 	var{{{classname}}} := _{{{classname}}}{}
 
-	err = json.Unmarshal(bytes, &var{{{classname}}}); 
-	if err != nil {
+	err = json.Unmarshal(bytes, &var{{{classname}}})
+	if err == nil {
+		*o = {{{classname}}}(var{{{classname}}})
+	} else {
 		return err
 	}
-	*o = {{{classname}}}(var{{{classname}}})
 
 	additionalProperties := make(map[string]interface{})
 
 	err = json.Unmarshal(bytes, &additionalProperties)
-	if err != nil {
+	if err == nil {
+		{{#vars}}
+		delete(additionalProperties, "{{{baseName}}}")
+		{{/vars}}
+		o.AdditionalProperties = additionalProperties
+	} else {
 		return err
 	}
-	{{#vars}}
-	delete(additionalProperties, "{{{baseName}}}")
-	{{/vars}}
-	o.AdditionalProperties = additionalProperties
 
 	return err
 {{/parent}}
