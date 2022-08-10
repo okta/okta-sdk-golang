@@ -154,13 +154,7 @@ func Test_Suspend_User(t *testing.T) {
 
 func Test_Change_User_Password(t *testing.T) {
 	t.Parallel()
-	req := apiClient.UserApi.CreateUser(apiClient.cfg.Context)
-	uc := testFactory.NewValidTestUserCredentialsWithPassword()
-	profile := testFactory.NewValidTestUserProfile()
-	profile.SetLastName("Change")
-	body := CreateUserRequest{Credentials: uc, Profile: profile}
-	req = req.Body(body)
-	user, _, err := req.Execute()
+	user, _, payload, err := setupUser(true)
 	require.NoError(t, err, "Creating a new user should not error")
 	time.Sleep(1 * time.Second)
 	t.Run("change users password", func(t *testing.T) {
@@ -168,7 +162,7 @@ func Test_Change_User_Password(t *testing.T) {
 		newPassword := NewPasswordCredential()
 		newPassword.SetValue(testPassword(10))
 		payload := ChangePasswordRequest{
-			OldPassword: uc.Password,
+			OldPassword: payload.GetCredentials().Password,
 			NewPassword: newPassword,
 		}
 		req = req.ChangePasswordRequest(payload)
@@ -349,13 +343,7 @@ func Test_User_Group_Target_Role(t *testing.T) {
 
 func Test_Get_User_With_Cache_Enabled(t *testing.T) {
 	t.Parallel()
-	req := apiClient.UserApi.CreateUser(apiClient.cfg.Context)
-	uc := testFactory.NewValidTestUserCredentialsWithPassword()
-	profile := testFactory.NewValidTestUserProfile()
-	profile.SetLastName("Cache")
-	body := CreateUserRequest{Credentials: uc, Profile: profile}
-	req = req.Body(body)
-	user, _, err := req.Execute()
+	user, _, _, err := setupUser(true)
 	require.NoError(t, err, "Creating a new user should not error")
 	t.Run("get user with cache", func(t *testing.T) {
 		for i := 0; i < 10; i++ {
