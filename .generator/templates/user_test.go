@@ -36,6 +36,15 @@ func cleanUpUser(userId string) error {
 	return err
 }
 
+func setupGroup(name string) (*Group, *http.Response, error) {
+	req := apiClient.GroupApi.CreateGroup(apiClient.cfg.Context)
+	gp := NewGroupProfile()
+	gp.SetName(name)
+	payload := Group{Profile: gp}
+	req = req.Group(payload)
+	return req.Execute()
+}
+
 func cleanUpGroup(groupId string) (err error) {
 	_, err = apiClient.GroupApi.DeleteGroup(apiClient.cfg.Context, groupId).Execute()
 	return
@@ -280,51 +289,20 @@ func Test_Assign_User_To_A_Role(t *testing.T) {
 	require.NoError(t, err, "Clean up user should not error")
 }
 
-func TestT(t *testing.T) {
-	err := cleanUpUser("SDK_TEST_iyipvpnzoqdkrvr@example.com")
-	t.Error(err)
-}
-
-func TestZ(t *testing.T) {
-	for i := 0; i < 5; i++ {
-		t.Error(randomEmail())
-	}
-}
-
-func setupGroup(name string) (*Group, *http.Response, error) {
-	req := apiClient.GroupApi.CreateGroup(apiClient.cfg.Context)
-	gp := NewGroupProfile()
-	gp.SetName("SDK_TEST Group-Target Test Group")
-	payload := Group{Profile: gp}
-	req = req.Group(payload)
-	return req.Execute()
-}
-
-func TestS(t *testing.T) {
-	group, res, err := setupGroup("SDK_TEST Group-Target Test Group")
-	t.Error(group)
-	t.Error(res.Body)
-	t.Error(err)
-}
-
-// TODU issue with create group?
 func Test_User_Group_Target_Role(t *testing.T) {
 	t.Parallel()
 	user, _, _, err := setupUser(true)
 	require.NoError(t, err, "Creating a new user should not error")
-	// var groupId string
-	// var roleId string
-	// var newGroupId string
+	var groupId string
+	var roleId string
+	var newGroupId string
 	t.Run("add group target to role", func(t *testing.T) {
 		greq := apiClient.GroupApi.CreateGroup(apiClient.cfg.Context)
 		gp := NewGroupProfile()
 		gp.SetName("SDK_TEST Group-Target Test Group")
 		gpayload := Group{Profile: gp}
 		greq = greq.Group(gpayload)
-		group, res, err := greq.Execute()
-		t.Error(group)
-		t.Error(res.Body)
-		t.Error(err)
+		group, _, err := greq.Execute()
 		require.NoError(t, err, "Creating an group should not error")
 		areq := apiClient.UserApi.AssignRoleToUser(apiClient.cfg.Context, user.GetId())
 		payload := NewAssignRoleRequest()
@@ -332,45 +310,41 @@ func Test_User_Group_Target_Role(t *testing.T) {
 		areq = areq.AssignRoleRequest(*payload)
 		role, _, err := areq.Execute()
 		require.NoError(t, err, "Should not have had an error when adding role to user")
-		res, err = apiClient.UserApi.AddGroupTargetToRole(apiClient.cfg.Context, user.GetId(), role.GetId(), group.GetId()).Execute()
-		t.Error(user.GetId())
-		t.Error(role.GetId())
-		t.Error(group.GetId())
-		t.Error(res)
+		_, err = apiClient.UserApi.AddGroupTargetToRole(apiClient.cfg.Context, user.GetId(), role.GetId(), group.GetId()).Execute()
 		require.NoError(t, err, "Should not have had an error when adding group target to role")
-		// groups, _, err := apiClient.UserApi.ListGroupTargetsForRole(apiClient.cfg.Context, user.GetId(), role.GetId()).Execute()
-		// require.NoError(t, err)
-		// var found bool
-		// for _, tmpgroup := range groups {
-		// 	if tmpgroup.GetId() == group.GetId() {
-		// 		found = true
-		// 		groupId = group.GetId()
-		// 		roleId = role.GetId()
-		// 		break
-		// 	}
-		// }
-		// assert.True(t, found, "Could not verify group target")
+		groups, _, err := apiClient.UserApi.ListGroupTargetsForRole(apiClient.cfg.Context, user.GetId(), role.GetId()).Execute()
+		require.NoError(t, err)
+		var found bool
+		for _, tmpgroup := range groups {
+			if tmpgroup.GetId() == group.GetId() {
+				found = true
+				groupId = group.GetId()
+				roleId = role.GetId()
+				break
+			}
+		}
+		assert.True(t, found, "Could not verify group target")
 	})
-	// t.Run("remove group target from role", func(t *testing.T) {
-	// 	greq := apiClient.GroupApi.CreateGroup(apiClient.cfg.Context)
-	// 	gp := NewGroupProfile()
-	// 	gp.SetName("SDK_TEST Group TMP-Target Test Group")
-	// 	gpayload := Group{Profile: gp}
-	// 	greq = greq.Group(gpayload)
-	// 	newGroup, _, err := greq.Execute()
-	// 	require.NoError(t, err, "Should not have had an error when adding role to user")
-	// 	newGroupId = newGroup.GetId()
-	// 	_, err = apiClient.UserApi.AddGroupTargetToRole(apiClient.cfg.Context, user.GetId(), roleId, newGroup.GetId()).Execute()
-	// 	require.NoError(t, err)
-	// 	_, err = apiClient.UserApi.RemoveGroupTargetFromRole(apiClient.cfg.Context, user.GetId(), roleId, groupId).Execute()
-	// 	require.NoError(t, err, "Should not have had an error when removing group target to role")
-	// })
+	t.Run("remove group target from role", func(t *testing.T) {
+		greq := apiClient.GroupApi.CreateGroup(apiClient.cfg.Context)
+		gp := NewGroupProfile()
+		gp.SetName("SDK_TEST Group TMP-Target Test Group")
+		gpayload := Group{Profile: gp}
+		greq = greq.Group(gpayload)
+		newGroup, _, err := greq.Execute()
+		require.NoError(t, err, "Should not have had an error when adding role to user")
+		newGroupId = newGroup.GetId()
+		_, err = apiClient.UserApi.AddGroupTargetToRole(apiClient.cfg.Context, user.GetId(), roleId, newGroup.GetId()).Execute()
+		require.NoError(t, err)
+		_, err = apiClient.UserApi.RemoveGroupTargetFromRole(apiClient.cfg.Context, user.GetId(), roleId, groupId).Execute()
+		require.NoError(t, err, "Should not have had an error when removing group target to role")
+	})
 	err = cleanUpUser(user.GetId())
 	require.NoError(t, err, "Clean up user should not error")
-	// err = cleanUpGroup(groupId)
-	// require.NoError(t, err, "Clean up group should not error")
-	// err = cleanUpGroup(newGroupId)
-	// require.NoError(t, err, "Clean up group should not error")
+	err = cleanUpGroup(groupId)
+	require.NoError(t, err, "Clean up group should not error")
+	err = cleanUpGroup(newGroupId)
+	require.NoError(t, err, "Clean up group should not error")
 }
 
 func Test_Get_User_With_Cache_Enabled(t *testing.T) {
@@ -395,31 +369,7 @@ func Test_Get_User_With_Cache_Enabled(t *testing.T) {
 	require.NoError(t, err, "Clean up user should not error")
 }
 
-// Paginate is not yet available
-// func Test_Paginate_Across_Users(t *testing.T) {
-// 	t.Parallel()
-// 	createdUser1, _, err := setupUser()
-// 	require.NoError(t, err, "Creating a new user should not error")
-// 	createdUser2, _, err := setupUser()
-// 	require.NoError(t, err, "Creating a new user should not error")
-// 	t.Run("get user pagination", func(t *testing.T) {
-// 		user1, resp, err := apiClient.UserApi.ListUsers(apiClient.cfg.Context).Limit(1).Execute()
-// 		require.NoError(t, err)
-// 		assert.Equal(t, 1, len(user1), "User1 did not reutrn 1 user")
-// 		user1Profile := *user1[0].Profile
-// 		var user2 []*User
-// 		require.NoError(t, err)
-
-// 		assert.Equal(t, 1, len(user2), "User2 did not reutrn 1 user")
-// 		user2Profile := *user2[0].Profile
-
-// 		assert.NotEqual(t, user2Profile.GetEmail(), user1Profile.GetEmail(), "Emails should not be the same")
-// 	})
-// 	err = cleanUpUser(createdUser1.GetId())
-// 	require.NoError(t, err, "Clean up user should not error")
-// 	err = cleanUpUser(createdUser2.GetId())
-// 	require.NoError(t, err, "Clean up user should not error")
-// }
+// TODO add test for pagination when available
 
 func Test_List_User_Subscriptions(t *testing.T) {
 	t.Parallel()
