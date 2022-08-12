@@ -44,7 +44,7 @@ type {{classname}} interface {
 	{{#isDeprecated}}
 	// Deprecated
 	{{/isDeprecated}}
-	{{nickname}}Execute(r {{#structPrefix}}{{&classname}}{{/structPrefix}}{{^structPrefix}}Api{{/structPrefix}}{{operationId}}Request) ({{#returnType}}{{^isArray}}{{^returnTypeIsPrimitive}}*{{/returnTypeIsPrimitive}}{{/isArray}}{{{.}}}, {{/returnType}}*http.Response, error)
+	{{nickname}}Execute(r {{#structPrefix}}{{&classname}}{{/structPrefix}}{{^structPrefix}}Api{{/structPrefix}}{{operationId}}Request) ({{#returnType}}{{^isArray}}{{^returnTypeIsPrimitive}}*{{/returnTypeIsPrimitive}}{{/isArray}}{{{.}}}, {{/returnType}}*APIResponse, error)
 	{{/operation}}
 }
 {{/generateInterfaces}}
@@ -80,7 +80,7 @@ func (r {{#structPrefix}}{{&classname}}{{/structPrefix}}{{^structPrefix}}Api{{/s
 
 {{/isPathParam}}
 {{/allParams}}
-func (r {{#structPrefix}}{{&classname}}{{/structPrefix}}{{^structPrefix}}Api{{/structPrefix}}{{operationId}}Request) Execute() ({{#returnType}}{{^isArray}}{{^returnTypeIsPrimitive}}*{{/returnTypeIsPrimitive}}{{/isArray}}{{{.}}}, {{/returnType}}*http.Response, error) {
+func (r {{#structPrefix}}{{&classname}}{{/structPrefix}}{{^structPrefix}}Api{{/structPrefix}}{{operationId}}Request) Execute() ({{#returnType}}{{^isArray}}{{^returnTypeIsPrimitive}}*{{/returnTypeIsPrimitive}}{{/isArray}}{{{.}}}, {{/returnType}}*APIResponse, error) {
 	return r.ApiService.{{nickname}}Execute(r)
 }
 
@@ -115,7 +115,7 @@ func (a *{{{classname}}}Service) {{{nickname}}}(ctx context.Context{{#pathParams
 {{#isDeprecated}}
 // Deprecated
 {{/isDeprecated}}
-func (a *{{{classname}}}Service) {{nickname}}Execute(r {{#structPrefix}}{{&classname}}{{/structPrefix}}{{^structPrefix}}Api{{/structPrefix}}{{operationId}}Request) ({{#returnType}}{{^isArray}}{{^returnTypeIsPrimitive}}*{{/returnTypeIsPrimitive}}{{/isArray}}{{{.}}}, {{/returnType}}*http.Response, error) {
+func (a *{{{classname}}}Service) {{nickname}}Execute(r {{#structPrefix}}{{&classname}}{{/structPrefix}}{{^structPrefix}}Api{{/structPrefix}}{{operationId}}Request) ({{#returnType}}{{^isArray}}{{^returnTypeIsPrimitive}}*{{/returnTypeIsPrimitive}}{{/isArray}}{{{.}}}, {{/returnType}}*APIResponse, error) {
 	var (
 		localVarHTTPMethod   = http.Method{{httpMethod}}
 		localVarPostBody     interface{}
@@ -124,6 +124,7 @@ func (a *{{{classname}}}Service) {{nickname}}Execute(r {{#structPrefix}}{{&class
 		localVarReturnValue  {{^isArray}}{{^returnTypeIsPrimitive}}*{{/returnTypeIsPrimitive}}{{/isArray}}{{{.}}}
 		{{/returnType}}
 		localVarHTTPResponse *http.Response
+		localAPIResponse     *APIResponse
 		err 				 error
 	)
 
@@ -390,14 +391,26 @@ func (a *{{{classname}}}Service) {{nickname}}Execute(r {{#structPrefix}}{{&class
 	}
 	err = backoff.Retry(operation, bOff)
 	if err != nil {
-		return {{#returnType}}localVarReturnValue, {{/returnType}}localVarHTTPResponse, &GenericOpenAPIError{error: err.Error()}
+		{{#returnType}}
+		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, {{#returnType}}localVarReturnValue{{/returnType}})
+		{{/returnType}}
+		{{^returnType}}
+		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
+		{{/returnType}}
+		return {{#returnType}}localVarReturnValue, {{/returnType}}localAPIResponse, &GenericOpenAPIError{error: err.Error()}
 	}
 
 	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
 	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
-		return {{#returnType}}localVarReturnValue, {{/returnType}}localVarHTTPResponse, err
+		{{#returnType}}
+		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, {{#returnType}}localVarReturnValue{{/returnType}})
+		{{/returnType}}
+		{{^returnType}}
+		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
+		{{/returnType}}
+		return {{#returnType}}localVarReturnValue, {{/returnType}}localAPIResponse, err
 	}
 
 	if localVarHTTPResponse.StatusCode >= 300 {
@@ -430,11 +443,23 @@ func (a *{{{classname}}}Service) {{nickname}}Execute(r {{#structPrefix}}{{&class
 			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
 			if err != nil {
 				newErr.error = err.Error()
-				return {{#returnType}}localVarReturnValue, {{/returnType}}localVarHTTPResponse, newErr
+				{{#returnType}}
+				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, {{#returnType}}localVarReturnValue{{/returnType}})
+				{{/returnType}}
+				{{^returnType}}
+				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
+				{{/returnType}}
+				return {{#returnType}}localVarReturnValue, {{/returnType}}localAPIResponse, newErr
 			}
 			newErr.model = v
 			{{^-last}}
-			return {{#returnType}}localVarReturnValue, {{/returnType}}localVarHTTPResponse, newErr
+			{{#returnType}}
+			localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, {{#returnType}}localVarReturnValue{{/returnType}})
+			{{/returnType}}
+			{{^returnType}}
+			localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
+			{{/returnType}}
+			return {{#returnType}}localVarReturnValue, {{/returnType}}localAPIResponse, newErr
 			{{/-last}}
 		{{^wildcard}}
 		}
@@ -443,7 +468,13 @@ func (a *{{{classname}}}Service) {{nickname}}Execute(r {{#structPrefix}}{{&class
 		{{/is1xx}}
 		{{/dataType}}
 		{{/responses}}
-		return {{#returnType}}localVarReturnValue, {{/returnType}}localVarHTTPResponse, newErr
+		{{#returnType}}
+		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, {{#returnType}}localVarReturnValue{{/returnType}})
+		{{/returnType}}
+		{{^returnType}}
+		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
+		{{/returnType}}
+		return {{#returnType}}localVarReturnValue, {{/returnType}}localAPIResponse, newErr
 	}
 
 	{{#returnType}}
@@ -453,11 +484,23 @@ func (a *{{{classname}}}Service) {{nickname}}Execute(r {{#structPrefix}}{{&class
 			body:  localVarBody,
 			error: err.Error(),
 		}
-		return {{#returnType}}localVarReturnValue, {{/returnType}}localVarHTTPResponse, newErr
+		{{#returnType}}
+		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, {{#returnType}}localVarReturnValue{{/returnType}})
+		{{/returnType}}
+		{{^returnType}}
+		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
+		{{/returnType}}
+		return {{#returnType}}localVarReturnValue, {{/returnType}}localAPIResponse, newErr
 	}
-
+	
 	{{/returnType}}
-	return {{#returnType}}localVarReturnValue, {{/returnType}}localVarHTTPResponse, nil
+	{{#returnType}}
+	localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, {{#returnType}}localVarReturnValue{{/returnType}})
+	{{/returnType}}
+	{{^returnType}}
+	localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
+	{{/returnType}}
+	return {{#returnType}}localVarReturnValue, {{/returnType}}localAPIResponse, nil
 }
 {{/operation}}
 {{/operations}}
