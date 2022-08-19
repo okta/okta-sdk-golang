@@ -373,6 +373,5 @@ func Test_List_User_Subscriptions(t *testing.T) {
 		subscription, _, err := apiClient.SubscriptionApi.GetUserSubscriptionByNotificationType(apiClient.cfg.Context, user.GetId(), expectedNotificationType).Execute()
 		require.NoError(t, err, "Should not error getting user subscription by notification types")
 		assert.True(t, subscription.GetNotificationType() == "OKTA_ANNOUNCEMENT", "User should have subscription notification type %q, got %q", expectedNotificationType, subscription.NotificationType)
-
 	})
 }
