@@ -26,7 +26,6 @@ import (
 	"errors"
 	"fmt"
 	"io"
-	"io/ioutil"
 	"net/http"
 	urlpkg "net/url"
 	"reflect"
@@ -210,11 +209,11 @@ func (re *RequestExecutor) NewRequest(method string, url string, body interface{
 				return nil, err
 			}
 
-			respBody, err := ioutil.ReadAll(tokenResponse.Body)
+			respBody, err := io.ReadAll(tokenResponse.Body)
 			if err != nil {
 				return nil, err
 			}
-			origResp := ioutil.NopCloser(bytes.NewBuffer(respBody))
+			origResp := io.NopCloser(bytes.NewBuffer(respBody))
 			tokenResponse.Body = origResp
 			var accessToken *RequestAccessToken
 
@@ -316,12 +315,12 @@ func (o *oktaBackoff) Context() context.Context {
 func (re *RequestExecutor) doWithRetries(ctx context.Context, req *http.Request) (*http.Response, error) {
 	var bodyReader func() io.ReadCloser
 	if req.Body != nil {
-		buf, err := ioutil.ReadAll(req.Body)
+		buf, err := io.ReadAll(req.Body)
 		if err != nil {
 			return nil, err
 		}
 		bodyReader = func() io.ReadCloser {
-			return ioutil.NopCloser(bytes.NewReader(buf))
+			return io.NopCloser(bytes.NewReader(buf))
 		}
 	}
 	var (
@@ -379,7 +378,7 @@ func tooManyRequests(resp *http.Response) bool {
 
 func tryDrainBody(body io.ReadCloser) error {
 	defer body.Close()
-	_, err := io.Copy(ioutil.Discard, io.LimitReader(body, 4096))
+	_, err := io.Copy(io.Discard, io.LimitReader(body, 4096))
 	return err
 }
 
@@ -470,11 +469,11 @@ func CheckResponseForError(resp *http.Response) error {
 			}
 		}
 	}
-	bodyBytes, _ := ioutil.ReadAll(resp.Body)
+	bodyBytes, _ := io.ReadAll(resp.Body)
 	copyBodyBytes := make([]byte, len(bodyBytes))
 	copy(copyBodyBytes, bodyBytes)
 	_ = resp.Body.Close()
-	resp.Body = ioutil.NopCloser(bytes.NewBuffer(bodyBytes))
+	resp.Body = io.NopCloser(bytes.NewBuffer(bodyBytes))
 	_ = json.NewDecoder(bytes.NewReader(copyBodyBytes)).Decode(&e)
 	if statusCode == http.StatusInternalServerError {
 		e.ErrorSummary += fmt.Sprintf(", x-okta-request-id=%s", resp.Header.Get("x-okta-request-id"))
@@ -489,11 +488,11 @@ func buildResponse(resp *http.Response, re *RequestExecutor, v interface{}) (*Re
 	if err != nil {
 		return response, err
 	}
-	bodyBytes, _ := ioutil.ReadAll(resp.Body)
+	bodyBytes, _ := io.ReadAll(resp.Body)
 	copyBodyBytes := make([]byte, len(bodyBytes))
 	copy(copyBodyBytes, bodyBytes)
-	_ = resp.Body.Close()                                    // close it to avoid memory leaks
-	resp.Body = ioutil.NopCloser(bytes.NewBuffer(bodyBytes)) // restore the original response body
+	_ = resp.Body.Close()                                // close it to avoid memory leaks
+	resp.Body = io.NopCloser(bytes.NewBuffer(bodyBytes)) // restore the original response body
 	if len(copyBodyBytes) == 0 {
 		return response, nil
 	}
