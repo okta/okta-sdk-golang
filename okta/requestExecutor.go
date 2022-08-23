@@ -37,6 +37,7 @@ import (
 	"github.com/BurntSushi/toml"
 	"github.com/cenkalti/backoff/v4"
 	"github.com/okta/okta-sdk-golang/v2/okta/cache"
+	goCache "github.com/patrickmn/go-cache"
 	"gopkg.in/square/go-jose.v2"
 	"gopkg.in/square/go-jose.v2/jwt"
 )
@@ -48,6 +49,7 @@ type RequestExecutor struct {
 	config            *config
 	BaseUrl           *urlpkg.URL
 	cache             cache.Cache
+	tokenCache        *goCache.Cache
 	binary            bool
 	headerAccept      string
 	headerContentType string
@@ -71,7 +73,10 @@ type RequestAccessToken struct {
 }
 
 func NewRequestExecutor(httpClient *http.Client, cache cache.Cache, config *config) *RequestExecutor {
-	re := RequestExecutor{}
+	re := RequestExecutor{
+		tokenCache: goCache.New(5*time.Minute, 10*time.Minute),
+	}
+
 	re.httpClient = httpClient
 	re.config = config
 	re.cache = cache
@@ -126,9 +131,11 @@ func (re *RequestExecutor) NewRequest(method string, url string, body interface{
 	}
 
 	if re.config.Okta.Client.AuthorizationMode == "PrivateKey" {
-		if re.cache.Has(AccessTokenCacheKey) {
-			token := re.cache.GetString(AccessTokenCacheKey)
-			req.Header.Add("Authorization", "Bearer "+token)
+		// OAuth tokens are always cached in a dedicated cache regardless of
+		// what SDK cache manager the request executor is initialized with
+		accessToken, hasToken := re.tokenCache.Get(AccessTokenCacheKey)
+		if hasToken {
+			req.Header.Add("Authorization", "Bearer "+accessToken.(string))
 		} else {
 			if re.config.PrivateKeySigner == nil {
 				priv := []byte(strings.ReplaceAll(re.config.Okta.Client.PrivateKey, `\n`, "\n"))
@@ -217,7 +224,10 @@ func (re *RequestExecutor) NewRequest(method string, url string, body interface{
 			}
 			req.Header.Add("Authorization", "Bearer "+accessToken.AccessToken)
 
-			re.cache.SetString(AccessTokenCacheKey, accessToken.AccessToken)
+			// Trim a couple of seconds off calculated expiry so cache expiry
+			// occures before Okta server side expiry.
+			expiration := accessToken.ExpiresIn - 2
+			re.tokenCache.Set(AccessTokenCacheKey, accessToken.AccessToken, time.Second*time.Duration(expiration))
 		}
 	}
 	req.Header.Add("User-Agent", NewUserAgent(re.config).String())
