@@ -24,7 +24,6 @@ import (
 )
 
 func TestUserAgent(t *testing.T) {
-
 	configuration := NewConfiguration()
 	userAgent := "okta-sdk-golang/" + VERSION + " golang/" + runtime.Version() + " " + runtime.GOOS + "/" + runtime.GOARCH
 	require.Equal(t, userAgent, configuration.UserAgent)
@@ -36,5 +35,4 @@ func TestUserAgentWithExtra(t *testing.T) {
 	)
 	userAgent := "okta-sdk-golang/" + VERSION + " golang/" + runtime.Version() + " " + runtime.GOOS + "/" + runtime.GOARCH + " extra/info"
 	require.Equal(t, userAgent, configuration.UserAgent)
-
 }

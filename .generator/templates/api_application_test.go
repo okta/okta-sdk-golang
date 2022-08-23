@@ -7,8 +7,10 @@ import (
 	"github.com/stretchr/testify/assert"
 )
 
-var ctx context.Context
-var apiClient *APIClient
+var (
+	ctx       context.Context
+	apiClient *APIClient
+)
 
 func init() {
 	configuration := NewConfiguration()
@@ -18,7 +20,6 @@ func init() {
 }
 
 func Test_Get_Applications(t *testing.T) {
-
 	t.Run("can get all applicaitons", func(t *testing.T) {
 		req := apiClient.ApplicationApi.ListApplications(apiClient.cfg.Context).Limit(2)
 		applications, _, _ := req.Execute()
@@ -38,6 +39,5 @@ func Test_OIDC_Application(t *testing.T) {
 		// 		},
 		// 	},
 		// )
-
 	})
 }
