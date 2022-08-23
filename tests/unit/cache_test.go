@@ -125,14 +125,13 @@ func Test_cache_can_be_cleared(t *testing.T) {
 }
 
 // TestOAuthTokensAlwaysCached demonstrates oauth tokens are always cached even
-// when the client is initialized with a noop cache manager.
+// when the client has request caching disabled.
 func TestOAuthTokensAlwaysCached(t *testing.T) {
 	httpmock.Activate()
 	defer httpmock.DeactivateAndReset()
 
-	cacheMgr := cache.NewNoOpCache()
 	ctx, client, err := tests.NewClient(context.TODO(),
-		okta.WithCacheManager(cacheMgr),
+		okta.WithCache(false),
 		okta.WithOrgUrl("https://testing.oktapreview.com"),
 		okta.WithAuthorizationMode("PrivateKey"),
 		okta.WithClientId("abc"),
