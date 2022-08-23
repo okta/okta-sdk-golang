@@ -140,6 +140,9 @@ facility to clear the request cache. See [Refreshing Cache for Specific
 Call](#refreshing-cache-for-specific-call). To completely disable the request
 memory cache configure the client with `WithCache(false)`.
 
+NOTE: Regardless of cache manager, Access Tokens from OAuth requests are always
+cached.
+
 ## Connection Retry / Rate Limiting
 
 By default this SDK retries requests that are returned with a 429 exception. To
@@ -908,6 +911,9 @@ Okta allows you to interact with Okta APIs using scoped OAuth 2.0 access
 tokens. Each access token enables the bearer to perform specific actions on
 specific Okta endpoints, with that ability controlled by which scopes the
 access token contains.
+
+Access Tokens are always cached and respect the `expires_in` value of an access
+token response.
 
 This SDK supports this feature only for service-to-service applications. Check
 out [our
