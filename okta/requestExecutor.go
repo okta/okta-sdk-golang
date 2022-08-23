@@ -65,7 +65,7 @@ type ClientAssertionClaims struct {
 
 type RequestAccessToken struct {
 	TokenType   string `json:"token_type,omitempty"`
-	ExpireIn    int    `json:"expire_in,omitempty"`
+	ExpiresIn   int    `json:"expires_in,omitempty"`
 	AccessToken string `json:"access_token,omitempty"`
 	Scope       string `json:"scope,omitempty"`
 }
