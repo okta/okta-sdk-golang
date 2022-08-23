@@ -100,11 +100,11 @@ func NewRequestExecutor(httpClient *http.Client, cache cache.Cache, config *conf
 func (re *RequestExecutor) NewRequest(method string, url string, body interface{}) (*http.Request, error) {
 	var buff io.ReadWriter
 	if body != nil {
-		switch body.(type) {
+		switch v := body.(type) {
 		case []byte:
-			buff = bytes.NewBuffer(body.([]byte))
+			buff = bytes.NewBuffer(v)
 		case *bytes.Buffer:
-			buff = body.(*bytes.Buffer)
+			buff = v
 		default:
 			buff = new(bytes.Buffer)
 			encoder := json.NewEncoder(buff)
