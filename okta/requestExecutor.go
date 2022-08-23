@@ -329,7 +329,9 @@ func (re *RequestExecutor) doWithRetries(ctx context.Context, req *http.Request)
 		err  error
 	)
 	if re.config.Okta.Client.RequestTimeout > 0 {
-		ctx, _ = context.WithTimeout(ctx, time.Second*time.Duration(re.config.Okta.Client.RequestTimeout))
+		var cancel context.CancelFunc
+		ctx, cancel = context.WithTimeout(ctx, time.Second*time.Duration(re.config.Okta.Client.RequestTimeout))
+		defer cancel()
 	}
 	bOff := &oktaBackoff{
 		ctx:        ctx,
