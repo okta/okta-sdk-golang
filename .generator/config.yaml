@@ -13,5 +13,6 @@ additionalProperties:
 files:
   api_application_test.go: {}
   configuration_test.go: {}
-  user_test.go: {}
   test_helpers.go: {}
+  user_schema_test.go: {}
+  user_test.go: {}
