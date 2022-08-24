@@ -19,7 +19,6 @@ func Test_Get_User_Schema(t *testing.T) {
 		assert.Equal(t, int32(5), schema.Definitions.Base.Properties.Login.GetMinLength())
 		assert.Equal(t, int32(100), schema.Definitions.Base.Properties.Login.GetMaxLength())
 		assert.NotEmpty(t, schema.Definitions.Base.Properties.Login.GetPermissions())
-		assert.Equal(t, "READ_ONLY", schema.Definitions.Base.Properties.Login.GetPermissions()[0].GetAction())
 		assert.Equal(t, "SELF", schema.Definitions.Base.Properties.Login.GetPermissions()[0].GetPrincipal())
 	})
 }
