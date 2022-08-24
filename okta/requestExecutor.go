@@ -26,7 +26,6 @@ import (
 	"errors"
 	"fmt"
 	"io"
-	"io/ioutil"
 	"net/http"
 	urlpkg "net/url"
 	"reflect"
@@ -37,6 +36,7 @@ import (
 	"github.com/BurntSushi/toml"
 	"github.com/cenkalti/backoff/v4"
 	"github.com/okta/okta-sdk-golang/v2/okta/cache"
+	goCache "github.com/patrickmn/go-cache"
 	"gopkg.in/square/go-jose.v2"
 	"gopkg.in/square/go-jose.v2/jwt"
 )
@@ -48,6 +48,7 @@ type RequestExecutor struct {
 	config            *config
 	BaseUrl           *urlpkg.URL
 	cache             cache.Cache
+	tokenCache        *goCache.Cache
 	binary            bool
 	headerAccept      string
 	headerContentType string
@@ -65,13 +66,16 @@ type ClientAssertionClaims struct {
 
 type RequestAccessToken struct {
 	TokenType   string `json:"token_type,omitempty"`
-	ExpireIn    int    `json:"expire_in,omitempty"`
+	ExpiresIn   int    `json:"expires_in,omitempty"`
 	AccessToken string `json:"access_token,omitempty"`
 	Scope       string `json:"scope,omitempty"`
 }
 
 func NewRequestExecutor(httpClient *http.Client, cache cache.Cache, config *config) *RequestExecutor {
-	re := RequestExecutor{}
+	re := RequestExecutor{
+		tokenCache: goCache.New(5*time.Minute, 10*time.Minute),
+	}
+
 	re.httpClient = httpClient
 	re.config = config
 	re.cache = cache
@@ -95,11 +99,11 @@ func NewRequestExecutor(httpClient *http.Client, cache cache.Cache, config *conf
 func (re *RequestExecutor) NewRequest(method string, url string, body interface{}) (*http.Request, error) {
 	var buff io.ReadWriter
 	if body != nil {
-		switch body.(type) {
+		switch v := body.(type) {
 		case []byte:
-			buff = bytes.NewBuffer(body.([]byte))
+			buff = bytes.NewBuffer(v)
 		case *bytes.Buffer:
-			buff = body.(*bytes.Buffer)
+			buff = v
 		default:
 			buff = new(bytes.Buffer)
 			encoder := json.NewEncoder(buff)
@@ -126,9 +130,11 @@ func (re *RequestExecutor) NewRequest(method string, url string, body interface{
 	}
 
 	if re.config.Okta.Client.AuthorizationMode == "PrivateKey" {
-		if re.cache.Has(AccessTokenCacheKey) {
-			token := re.cache.GetString(AccessTokenCacheKey)
-			req.Header.Add("Authorization", "Bearer "+token)
+		// OAuth tokens are always cached in a dedicated cache regardless of
+		// what SDK cache manager the request executor is initialized with
+		accessToken, hasToken := re.tokenCache.Get(AccessTokenCacheKey)
+		if hasToken {
+			req.Header.Add("Authorization", "Bearer "+accessToken.(string))
 		} else {
 			if re.config.PrivateKeySigner == nil {
 				priv := []byte(strings.ReplaceAll(re.config.Okta.Client.PrivateKey, `\n`, "\n"))
@@ -203,11 +209,11 @@ func (re *RequestExecutor) NewRequest(method string, url string, body interface{
 				return nil, err
 			}
 
-			respBody, err := ioutil.ReadAll(tokenResponse.Body)
+			respBody, err := io.ReadAll(tokenResponse.Body)
 			if err != nil {
 				return nil, err
 			}
-			origResp := ioutil.NopCloser(bytes.NewBuffer(respBody))
+			origResp := io.NopCloser(bytes.NewBuffer(respBody))
 			tokenResponse.Body = origResp
 			var accessToken *RequestAccessToken
 
@@ -217,7 +223,10 @@ func (re *RequestExecutor) NewRequest(method string, url string, body interface{
 			}
 			req.Header.Add("Authorization", "Bearer "+accessToken.AccessToken)
 
-			re.cache.SetString(AccessTokenCacheKey, accessToken.AccessToken)
+			// Trim a couple of seconds off calculated expiry so cache expiry
+			// occures before Okta server side expiry.
+			expiration := accessToken.ExpiresIn - 2
+			re.tokenCache.Set(AccessTokenCacheKey, accessToken.AccessToken, time.Second*time.Duration(expiration))
 		}
 	}
 	req.Header.Add("User-Agent", NewUserAgent(re.config).String())
@@ -306,12 +315,12 @@ func (o *oktaBackoff) Context() context.Context {
 func (re *RequestExecutor) doWithRetries(ctx context.Context, req *http.Request) (*http.Response, error) {
 	var bodyReader func() io.ReadCloser
 	if req.Body != nil {
-		buf, err := ioutil.ReadAll(req.Body)
+		buf, err := io.ReadAll(req.Body)
 		if err != nil {
 			return nil, err
 		}
 		bodyReader = func() io.ReadCloser {
-			return ioutil.NopCloser(bytes.NewReader(buf))
+			return io.NopCloser(bytes.NewReader(buf))
 		}
 	}
 	var (
@@ -319,7 +328,9 @@ func (re *RequestExecutor) doWithRetries(ctx context.Context, req *http.Request)
 		err  error
 	)
 	if re.config.Okta.Client.RequestTimeout > 0 {
-		ctx, _ = context.WithTimeout(ctx, time.Second*time.Duration(re.config.Okta.Client.RequestTimeout))
+		var cancel context.CancelFunc
+		ctx, cancel = context.WithTimeout(ctx, time.Second*time.Duration(re.config.Okta.Client.RequestTimeout))
+		defer cancel()
 	}
 	bOff := &oktaBackoff{
 		ctx:        ctx,
@@ -367,7 +378,7 @@ func tooManyRequests(resp *http.Response) bool {
 
 func tryDrainBody(body io.ReadCloser) error {
 	defer body.Close()
-	_, err := io.Copy(ioutil.Discard, io.LimitReader(body, 4096))
+	_, err := io.Copy(io.Discard, io.LimitReader(body, 4096))
 	return err
 }
 
@@ -458,11 +469,11 @@ func CheckResponseForError(resp *http.Response) error {
 			}
 		}
 	}
-	bodyBytes, _ := ioutil.ReadAll(resp.Body)
+	bodyBytes, _ := io.ReadAll(resp.Body)
 	copyBodyBytes := make([]byte, len(bodyBytes))
 	copy(copyBodyBytes, bodyBytes)
 	_ = resp.Body.Close()
-	resp.Body = ioutil.NopCloser(bytes.NewBuffer(bodyBytes))
+	resp.Body = io.NopCloser(bytes.NewBuffer(bodyBytes))
 	_ = json.NewDecoder(bytes.NewReader(copyBodyBytes)).Decode(&e)
 	if statusCode == http.StatusInternalServerError {
 		e.ErrorSummary += fmt.Sprintf(", x-okta-request-id=%s", resp.Header.Get("x-okta-request-id"))
@@ -477,11 +488,11 @@ func buildResponse(resp *http.Response, re *RequestExecutor, v interface{}) (*Re
 	if err != nil {
 		return response, err
 	}
-	bodyBytes, _ := ioutil.ReadAll(resp.Body)
+	bodyBytes, _ := io.ReadAll(resp.Body)
 	copyBodyBytes := make([]byte, len(bodyBytes))
 	copy(copyBodyBytes, bodyBytes)
-	_ = resp.Body.Close()                                    // close it to avoid memory leaks
-	resp.Body = ioutil.NopCloser(bytes.NewBuffer(bodyBytes)) // restore the original response body
+	_ = resp.Body.Close()                                // close it to avoid memory leaks
+	resp.Body = io.NopCloser(bytes.NewBuffer(bodyBytes)) // restore the original response body
 	if len(copyBodyBytes) == 0 {
 		return response, nil
 	}

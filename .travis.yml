@@ -2,13 +2,15 @@ language: go
 
 jobs:
   include:
-    - stage: test_go_1.17
-      go: 1.17.x
+    - stage: test_go_1.19
+      go: 1.19.x
       script:
         - go mod download
         - make test
-    - stage: test_go_tip
-      go: tip
-      script:
-        - go mod download
-        - make test
+
+    # go tip build is broken upstream on Travis
+    # - stage: test_go_tip
+    #   go: tip
+    #   script:
+    #     - go mod download
+    #     - make test

@@ -1,6 +1,13 @@
 # Changelog
 Running changelog of releases since `2.0.0-rc.4`
 
+## v2.14.0
+
+### Updates
+
+ - Added property `inactivityPeriod` to `VerificationMethod` model [openapi-2.14.0](https://github.com/okta/okta-management-openapi-spec/releases/tag/openapi-2.14.0)
+ - OAuth tokens are cached regardless of what request cache manager is utilized on the client.
+
 ## v2.13.0
 
 Okta SDK Golang release in conjunction with [v2.13.0 of the Okta OpenAPI Specification (Management APIs)](https://github.com/okta/okta-management-openapi-spec/releases/tag/openapi-2.13.0)
