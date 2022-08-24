@@ -6,10 +6,6 @@ COLOR_OKTA=\x1B[34;01m
 GOFMT := gofumpt
 GOIMPORTS := goimports
 
-ifndef OPENAPI_SPEC_BRANCH
-override OPENAPI_SPEC_BRANCH = master
-endif
-
 help:
 	@echo "$(COLOR_OK)Okta SDK for Golang$(COLOR_NONE)"
 	@echo ""
@@ -47,11 +43,14 @@ generate-files:
 pull-spec:
 	@echo "$(COLOR_OKTA)Pulling in latest spec...$(COLOR_NONE)"
 	cd openapi && npm install
+# Overwrite the spec.json file from npm if a git branch is specified by env variable.
+ifneq ($(origin OPENAPI_SPEC_BRANCH),undefined)
 	rm -f openapi/spec.json
 	git clone --branch $(OPENAPI_SPEC_BRANCH) https://github.com/okta/okta-management-openapi-spec spec-raw
 	cp spec-raw/dist/spec.json openapi/spec.json
 	cp spec-raw/dist/spec.json openapi/node_modules/@okta/openapi/dist/spec.json
 	rm -fr spec-raw
+endif
 
 test:
 	make test:all
