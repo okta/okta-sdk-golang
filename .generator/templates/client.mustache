@@ -578,6 +578,214 @@ func (c *APIClient) doWithRetries(ctx context.Context, req *http.Request) (*http
 	return resp, err
 }
 
+func (c *APIClient) NewRequest(method string, url string, body interface{}) (*http.Request, error) {
+	var buff io.ReadWriter
+	if body != nil {
+		switch body.(type) {
+		case []byte:
+			buff = bytes.NewBuffer(body.([]byte))
+		case *bytes.Buffer:
+			buff = body.(*bytes.Buffer)
+		default:
+			buff = new(bytes.Buffer)
+			encoder := json.NewEncoder(buff)
+			encoder.SetEscapeHTML(false)
+			err := encoder.Encode(body)
+			if err != nil {
+				return nil, err
+			}
+		}
+	}
+	url = c.cfg.Okta.Client.OrgUrl + url
+
+	req, err := http.NewRequest(method, url, buff)
+	if err != nil {
+		return nil, err
+	}
+
+	if c.cfg.Okta.Client.AuthorizationMode == "SSWS" {
+		req.Header.Add("Authorization", "SSWS "+c.cfg.Okta.Client.Token)
+	}
+
+	if c.cfg.Okta.Client.AuthorizationMode == "Bearer" {
+		req.Header.Add("Authorization", "Bearer "+c.cfg.Okta.Client.Token)
+	}
+
+	// if re.config.Okta.Client.AuthorizationMode == "PrivateKey" {
+	// 	if re.config.PrivateKeySigner == nil {
+	// 		priv := []byte(strings.ReplaceAll(re.config.Okta.Client.PrivateKey, `\n`, "\n"))
+
+	// 		privPem, _ := pem.Decode(priv)
+	// 		if privPem == nil {
+	// 			return nil, errors.New("invalid private key")
+	// 		}
+	// 		if privPem.Type != "RSA PRIVATE KEY" {
+	// 			return nil, fmt.Errorf("RSA private key is of the wrong type")
+	// 		}
+
+	// 		parsedKey, err := x509.ParsePKCS1PrivateKey(privPem.Bytes)
+	// 		if err != nil {
+	// 			return nil, err
+	// 		}
+
+	// 		var signerOptions *jose.SignerOptions
+	// 		if re.config.Okta.Client.PrivateKeyId != "" {
+	// 			signerOptions = (&jose.SignerOptions{}).WithHeader("kid", re.config.Okta.Client.PrivateKeyId)
+	// 		}
+
+	// 		re.config.PrivateKeySigner, err = jose.NewSigner(jose.SigningKey{Algorithm: jose.RS256, Key: parsedKey}, signerOptions)
+	// 		if err != nil {
+	// 			return nil, err
+	// 		}
+	// 	}
+
+	// 	claims := ClientAssertionClaims{
+	// 		Subject:  re.config.Okta.Client.ClientId,
+	// 		IssuedAt: jwt.NewNumericDate(time.Now()),
+	// 		Expiry:   jwt.NewNumericDate(time.Now().Add(time.Hour * time.Duration(1))),
+	// 		Issuer:   re.config.Okta.Client.ClientId,
+	// 		Audience: re.config.Okta.Client.OrgUrl + "/oauth2/v1/token",
+	// 	}
+	// 	jwtBuilder := jwt.Signed(re.config.PrivateKeySigner).Claims(claims)
+	// 	clientAssertion, err := jwtBuilder.CompactSerialize()
+	// 	if err != nil {
+	// 		return nil, err
+	// 	}
+
+	// 	var tokenRequestBuff io.ReadWriter
+	// 	query := urlpkg.Values{}
+	// 	tokenRequestURL := re.config.Okta.Client.OrgUrl + "/oauth2/v1/token"
+
+	// 	query.Add("grant_type", "client_credentials")
+	// 	query.Add("scope", strings.Join(re.config.Okta.Client.Scopes, " "))
+	// 	query.Add("client_assertion_type", "urn:ietf:params:oauth:client-assertion-type:jwt-bearer")
+	// 	query.Add("client_assertion", clientAssertion)
+	// 	tokenRequestURL += "?" + query.Encode()
+	// 	tokenRequest, err := http.NewRequest("POST", tokenRequestURL, tokenRequestBuff)
+	// 	if err != nil {
+	// 		return nil, err
+	// 	}
+
+	// 	tokenRequest.Header.Add("Accept", "application/json")
+	// 	tokenRequest.Header.Add("Content-Type", "application/x-www-form-urlencoded")
+
+	// 	bOff := &oktaBackoff{
+	// 		ctx:             context.TODO(),
+	// 		maxRetries:      re.config.Okta.Client.RateLimit.MaxRetries,
+	// 		backoffDuration: time.Duration(re.config.Okta.Client.RateLimit.MaxBackoff),
+	// 	}
+	// 	var tokenResponse *http.Response
+	// 	operation := func() error {
+	// 		tokenResponse, err = re.httpClient.Do(tokenRequest)
+	// 		bOff.retryCount++
+	// 		return err
+	// 	}
+	// 	err = backoff.Retry(operation, bOff)
+	// 	if err != nil {
+	// 		return nil, err
+	// 	}
+
+	// 	respBody, err := ioutil.ReadAll(tokenResponse.Body)
+	// 	if err != nil {
+	// 		return nil, err
+	// 	}
+	// 	origResp := ioutil.NopCloser(bytes.NewBuffer(respBody))
+	// 	tokenResponse.Body = origResp
+	// 	var accessToken *RequestAccessToken
+
+	// 	_, err = buildResponse(tokenResponse, nil, &accessToken)
+	// 	if err != nil {
+	// 		return nil, err
+	// 	}
+	// 	req.Header.Add("Authorization", "Bearer "+accessToken.AccessToken)
+
+	// 	re.cache.SetString(AccessTokenCacheKey, accessToken.AccessToken)
+	// }
+	req.Header.Add("User-Agent", c.cfg.UserAgent)
+	req.Header.Add("Accept", "application/json")
+		if body != nil {
+		req.Header.Set("Content-Type", "application/json")
+	}
+	// req.Header.Add("Accept", c.cfg.headerAccept)
+
+	// if body != nil {
+	// 	req.Header.Set("Content-Type", c.cfg.headerContentType)
+	// }
+
+	// Force reset defaults
+	// re.binary = false
+	// re.headerAccept = "application/json"
+	// re.headerContentType = "application/json"
+
+	return req, nil
+}
+
+func (c *APIClient) do(ctx context.Context, req *http.Request, v interface{})(*APIResponse, error){
+	resp, err := c.doWithRetries(ctx, req)
+	if err != nil {
+		return nil, err
+	}
+	return buildResponse(resp, c, &v)
+}
+
+func (c *APIClient) doWithRetries(ctx context.Context, req *http.Request) (*http.Response, error) {
+	var bodyReader func() io.ReadCloser
+	if req.Body != nil {
+		buf, err := ioutil.ReadAll(req.Body)
+		if err != nil {
+			return nil, err
+		}
+		bodyReader = func() io.ReadCloser {
+			return ioutil.NopCloser(bytes.NewReader(buf))
+		}
+	}
+	var (
+		resp *http.Response
+		err  error
+	)
+	if c.cfg.Okta.Client.RequestTimeout > 0 {
+		ctx, _ = context.WithTimeout(ctx, time.Second*time.Duration(c.cfg.Okta.Client.RequestTimeout))
+	}
+	bOff := &oktaBackoff{
+		ctx:        ctx,
+		maxRetries: c.cfg.Okta.Client.RateLimit.MaxRetries,
+	}
+	operation := func() error {
+		// Always rewind the request body when non-nil.
+		if bodyReader != nil {
+			req.Body = bodyReader()
+		}
+		resp, err = c.callAPI(req)
+		if errors.Is(err, io.EOF) {
+			// retry on EOF errors, which might be caused by network connectivity issues
+			return fmt.Errorf("network error: %w", err)
+		} else if err != nil {
+			// this is error is considered to be permanent and should not be retried
+			return backoff.Permanent(err)
+		}
+		if !tooManyRequests(resp) {
+			return nil
+		}
+		if err = tryDrainBody(resp.Body); err != nil {
+			return err
+		}
+		backoffDuration, err := Get429BackoffTime(resp)
+		if err != nil {
+			return err
+		}
+		if c.cfg.Okta.Client.RateLimit.MaxBackoff < backoffDuration {
+			backoffDuration = c.cfg.Okta.Client.RateLimit.MaxBackoff
+		}
+		bOff.backoffDuration = time.Second * time.Duration(backoffDuration)
+		bOff.retryCount++
+		req.Header.Add("X-Okta-Retry-For", resp.Header.Get("X-Okta-Request-Id"))
+		req.Header.Add("X-Okta-Retry-Count", fmt.Sprint(bOff.retryCount))
+		return errors.New("too many requests")
+	}
+	err = backoff.Retry(operation, bOff)
+	return resp, err
+}
+
 // Add a file to the multipart request
 func addFile(w *multipart.Writer, fieldName, path string) error {
 	file, err := os.Open(path)
