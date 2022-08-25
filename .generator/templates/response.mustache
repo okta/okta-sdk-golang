@@ -32,7 +32,6 @@ func newAPIResponse(r *http.Response, cli *APIClient, v interface{}) *APIRespons
 func buildResponse(resp *http.Response,cli *APIClient, v interface{}) (*APIResponse, error) {
 	ct := resp.Header.Get("Content-Type")
 	response := newAPIResponse(resp, cli, v)
-	// TODU
 	// err := CheckResponseForError(resp)
 	// if err != nil {
 	// 	return response, err
@@ -66,7 +65,7 @@ func buildResponse(resp *http.Response,cli *APIClient, v interface{}) (*APIRespo
 	return response, nil
 }
 
-// TODU
+// TODO check to use model_error
 // func CheckResponseForError(resp *http.Response) error {
 // 	statusCode := resp.StatusCode
 // 	if statusCode >= http.StatusOK && statusCode < http.StatusBadRequest {
@@ -91,7 +90,7 @@ func buildResponse(resp *http.Response,cli *APIClient, v interface{}) (*APIRespo
 // 	copy(copyBodyBytes, bodyBytes)
 // 	_ = resp.Body.Close()
 // 	resp.Body = ioutil.NopCloser(bytes.NewBuffer(bodyBytes))
-// 	_ = json.NewDecoder(bytes.NewReader(copyBodyBytes)).Decode(&e)
+//  _ = json.NewDecoder(bytes.NewReader(copyBodyBytes)).Decode(&e)
 // 	if statusCode == http.StatusInternalServerError {
 // 		e.ErrorSummary += fmt.Sprintf(", x-okta-request-id=%s", resp.Header.Get("x-okta-request-id"))
 // 	}
