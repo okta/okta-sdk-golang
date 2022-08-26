@@ -1,0 +1,233 @@
+{{>partial_header}}
+package {{packageName}}
+
+import (
+	"errors"
+	"net/http"
+	"net/url"
+	"io/ioutil"
+	"strings"
+	"bytes"
+	"encoding/xml"
+	"encoding/json"
+	"io"
+)
+
+
+// APIResponse stores the API response returned by the server.
+type APIResponse struct {
+	*http.Response
+	cli *APIClient
+	pg  Pagination
+}
+
+func newAPIResponse(r *http.Response, cli *APIClient, v interface{}) *APIResponse {
+	var pg Pagination
+	// switch v
+	pg = newPaginationInHeader(r)
+	response := &APIResponse{Response: r, cli: cli, pg: pg}
+	return response 
+}
+
+func buildResponse(resp *http.Response,cli *APIClient, v interface{}) (*APIResponse, error) {
+	ct := resp.Header.Get("Content-Type")
+	response := newAPIResponse(resp, cli, v)
+	// err := CheckResponseForError(resp)
+	// if err != nil {
+	// 	return response, err
+	// }
+	var err error
+	bodyBytes, _ := ioutil.ReadAll(resp.Body)
+	copyBodyBytes := make([]byte, len(bodyBytes))
+	copy(copyBodyBytes, bodyBytes)
+	_ = resp.Body.Close()                                    // close it to avoid memory leaks
+	resp.Body = ioutil.NopCloser(bytes.NewBuffer(bodyBytes)) // restore the original response body
+	if len(copyBodyBytes) == 0 {
+		return response, nil
+	}
+	switch {
+	case strings.Contains(ct, "application/xml"):
+		err = xml.NewDecoder(bytes.NewReader(copyBodyBytes)).Decode(v)
+	case strings.Contains(ct, "application/json"):
+		err = json.NewDecoder(bytes.NewReader(copyBodyBytes)).Decode(v)
+	case strings.Contains(ct, "application/octet-stream"):
+		// since the response is arbitrary binary data, we leave it to the user to decode it
+		return response, nil
+	default:
+		return nil, errors.New("could not build a response for type: " + ct)
+	}
+	if err == io.EOF {
+		err = nil
+	}
+	if err != nil {
+		return nil, err
+	}
+	return response, nil
+}
+
+// TODO check to use model_error
+// func CheckResponseForError(resp *http.Response) error {
+// 	statusCode := resp.StatusCode
+// 	if statusCode >= http.StatusOK && statusCode < http.StatusBadRequest {
+// 		return nil
+// 	}
+// 	e := Error{}
+// 	if (statusCode == http.StatusUnauthorized || statusCode == http.StatusForbidden) &&
+// 		strings.Contains(resp.Header.Get("Www-Authenticate"), "Bearer") {
+// 		for _, v := range strings.Split(resp.Header.Get("Www-Authenticate"), ", ") {
+// 			if strings.Contains(v, "error_description") {
+// 				_, err := toml.Decode(v, &e)
+// 				if err != nil {
+// 					message := "unauthorized"
+// 					e.ErrorSummary = &message
+// 				}
+// 				return &e
+// 			}
+// 		}
+// 	}
+// 	bodyBytes, _ := ioutil.ReadAll(resp.Body)
+// 	copyBodyBytes := make([]byte, len(bodyBytes))
+// 	copy(copyBodyBytes, bodyBytes)
+// 	_ = resp.Body.Close()
+// 	resp.Body = ioutil.NopCloser(bytes.NewBuffer(bodyBytes))
+//  _ = json.NewDecoder(bytes.NewReader(copyBodyBytes)).Decode(&e)
+// 	if statusCode == http.StatusInternalServerError {
+// 		e.ErrorSummary += fmt.Sprintf(", x-okta-request-id=%s", resp.Header.Get("x-okta-request-id"))
+// 	}
+// 	return &e
+// }
+
+func (res *APIResponse) Next(v interface{}) (*APIResponse, error) {
+	if res.cli == nil {
+		return nil, errors.New("no initial response provided from previous request")
+	}
+	req, err := res.cli.NewRequest(http.MethodGet, res.NextPage(), nil)
+		if err != nil {
+		return nil, err
+	}
+	return res.cli.do(res.cli.cfg.Context, req, v)
+}
+
+// func (res *APIResponse) Next(v interface{}) (*APIResponse, error) {
+// 	if res.cli == nil {
+// 		return nil, errors.New("no initial response provided from previous request")
+// 	}
+// 	localVarHeaderParams := make(map[string]string)
+// 	if auth, ok := res.cli.cfg.Context.Value(ContextAPIKeys).(map[string]APIKey); ok {
+// 		if apiKey, ok := auth["API_Token"]; ok {
+// 			var key string
+// 			if apiKey.Prefix != "" {
+// 				key = apiKey.Prefix + " " + apiKey.Key
+// 			} else {
+// 				key = apiKey.Key
+// 			}
+// 			localVarHeaderParams["Authorization"] = key
+// 		}
+// 	}
+// 	req, err := res.cli.prepareRequest(res.cli.cfg.Context, res.NextPage(), http.MethodGet, nil, localVarHeaderParams, nil, nil, nil)
+// 	if err != nil {
+// 		return nil, err
+// 	}
+// 	reqData, err := httputil.DumpRequest(req, true)
+// 	fmt.Println("66",string(reqData))
+// 	fmt.Println("67",err)
+// 	resp, err :=  res.cli.callAPI(req)
+// 	if err != nil {
+// 		return nil, err
+// 	}
+// 	respData, err := httputil.DumpResponse(resp, true)
+// 	fmt.Println("73",string(respData))
+// 	fmt.Println("74",err)
+// 	body, err := ioutil.ReadAll(resp.Body)
+// 	if err != nil {
+// 		return nil, err
+// 	}
+// 	resp.Body.Close()
+// 	fmt.Println(string(body))
+// 	err = res.cli.decode(&v, body, resp.Header.Get("Content-Type"))
+// 	if err != nil {
+// 		return nil, err
+// 	}
+// 	return newAPIResponse(resp,res.cli, &v), nil
+// }
+
+func (res *APIResponse) Self() string {
+	return res.pg.Self()
+}
+
+func (res *APIResponse) NextPage() string {
+	return res.pg.NextPage()
+}
+
+func (res *APIResponse) HasNextPage() bool {
+	return res.pg.NextPage() != ""
+}
+
+type Pagination interface {
+	Self() string
+	NextPage() string
+}
+
+type PaginationInHeader struct {
+	r *http.Response
+}
+
+func newPaginationInHeader(r *http.Response) *PaginationInHeader {
+	return &PaginationInHeader{r: r}
+}
+
+func (pg *PaginationInHeader) Self() (self string) {
+	links := pg.r.Header["Link"]
+	if len(links) > 0 {
+		for _, link := range links {
+			splitLinkHeader := strings.Split(link, ";")
+			if len(splitLinkHeader) < 2 {
+				continue
+			}
+			rawLink := strings.TrimRight(strings.TrimLeft(splitLinkHeader[0], "<"), ">")
+			rawURL, _ := url.Parse(rawLink)
+			rawURL.Scheme = ""
+			rawURL.Host = ""
+			if pg.r.Request != nil {
+				q := pg.r.Request.URL.Query()
+				for k, v := range rawURL.Query() {
+					q.Set(k, v[0])
+				}
+				rawURL.RawQuery = q.Encode()
+			}
+			if strings.Contains(link, `rel="self"`) {
+				self = rawURL.String()
+			}
+		}
+	}
+	return
+}
+
+func (pg *PaginationInHeader) NextPage() (next string) {
+	links := pg.r.Header["Link"]
+	if len(links) > 0 {
+		for _, link := range links {
+			splitLinkHeader := strings.Split(link, ";")
+			if len(splitLinkHeader) < 2 {
+				continue
+			}
+			rawLink := strings.TrimRight(strings.TrimLeft(splitLinkHeader[0], "<"), ">")
+			rawURL, _ := url.Parse(rawLink)
+			rawURL.Scheme = ""
+			rawURL.Host = ""
+			if pg.r.Request != nil {
+				q := pg.r.Request.URL.Query()
+				for k, v := range rawURL.Query() {
+					q.Set(k, v[0])
+				}
+				rawURL.RawQuery = q.Encode()
+			}
+			if strings.Contains(link, `rel="next"`) {
+				next = rawURL.String()
+			}
+		}
+	}
+	return
+}
+
+type PaginationInBody struct{}

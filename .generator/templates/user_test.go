@@ -1,6 +1,7 @@
 package okta
 
 import (
+	"io/ioutil"
 	"net/http"
 	"testing"
 	"time"
@@ -9,7 +10,7 @@ import (
 	"github.com/stretchr/testify/require"
 )
 
-func setupUser(activate bool) (*User, *http.Response, CreateUserRequest, error) {
+func setupUser(activate bool) (*User, *APIResponse, CreateUserRequest, error) {
 	req := apiClient.UserApi.CreateUser(apiClient.cfg.Context)
 	uc := testFactory.NewValidTestUserCredentialsWithPassword()
 	profile := testFactory.NewValidTestUserProfile()
@@ -36,7 +37,7 @@ func cleanUpUser(userId string) error {
 	return err
 }
 
-func setupGroup(name string) (*Group, *http.Response, error) {
+func setupGroup(name string) (*Group, *APIResponse, error) {
 	req := apiClient.GroupApi.CreateGroup(apiClient.cfg.Context)
 	gp := NewGroupProfile()
 	gp.SetName(name)
@@ -357,8 +358,6 @@ func Test_Get_User_With_Cache_Enabled(t *testing.T) {
 	require.NoError(t, err, "Clean up user should not error")
 }
 
-// TODO add test for pagination when available
-
 func Test_List_User_Subscriptions(t *testing.T) {
 	t.Parallel()
 	user, _, err := apiClient.UserApi.GetUser(apiClient.cfg.Context, "me").Execute()
@@ -374,4 +373,31 @@ func Test_List_User_Subscriptions(t *testing.T) {
 		require.NoError(t, err, "Should not error getting user subscription by notification types")
 		assert.True(t, subscription.GetNotificationType() == "OKTA_ANNOUNCEMENT", "User should have subscription notification type %q, got %q", expectedNotificationType, subscription.NotificationType)
 	})
+}
+
+func TestCanPaginateAcrossUsers(t *testing.T) {
+	createdUser1, _, _, err := setupUser(true)
+	require.NoError(t, err, "Creating a new user should not error")
+	createdUser2, _, _, err := setupUser(true)
+	require.NoError(t, err, "Creating a new user should not error")
+	user1, resp, err := apiClient.UserApi.ListUsers(apiClient.cfg.Context).Limit(1).Execute()
+	require.NoError(t, err)
+	assert.Equal(t, 1, len(user1), "User1 did not return 1 user")
+	user1Profile := user1[0].GetProfile()
+	hasNext := resp.HasNextPage()
+	assert.True(t, hasNext, "Should return true for HasNextPage")
+	var user2 []User
+	res, err := resp.Next(&user2)
+	require.NoError(t, err)
+	body, err := ioutil.ReadAll(res.Body)
+	res.Body.Close()
+	require.NoError(t, err)
+	assert.NotEmpty(t, string(body), "body is empty")
+	assert.Equal(t, 1, len(user2), "User2 did not return 1 user")
+	user2Profile := user2[0].GetProfile()
+	assert.NotEqual(t, user2Profile.GetEmail(), user1Profile.GetEmail(), "Emails should not be the same")
+	err = cleanUpUser(createdUser1.GetId())
+	require.NoError(t, err, "Should not error when deactivating")
+	err = cleanUpUser(createdUser2.GetId())
+	require.NoError(t, err, "Should not error when deactivating")
 }
