@@ -12,7 +12,7 @@
 name: release
 on:
   push:
-    branches: [ master ]
+    branches: [ oasv3-migration ]
     tags:
       - 'v*'
 jobs:
