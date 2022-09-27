@@ -12,8 +12,8 @@ before_install:
 
 jobs:
   include:
-    - stage: test_go_1.17
-      go: 1.17.x
+    - stage: test_go_1.18
+      go: 1.18.x
       script:
         - go mod download
         - go test ./...
