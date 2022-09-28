@@ -68,6 +68,15 @@ func NewAPIClient(cfg *Configuration) *APIClient {
 		cfg.HTTPClient = http.DefaultClient
 	}
 
+	if cfg.Okta.Client.Proxy.Host != "" {
+		var proxyURL url.URL
+		proxyURL.Host = fmt.Sprintf("%v:%v", cfg.Okta.Client.Proxy.Host, cfg.Okta.Client.Proxy.Port)
+		up := url.UserPassword(cfg.Okta.Client.Proxy.Username, cfg.Okta.Client.Proxy.Password)
+		proxyURL.User = up
+		transport := http.Transport{Proxy: http.ProxyURL(&proxyURL)}
+		cfg.HTTPClient = &http.Client{Transport: &transport}
+	}
+
 	c := &APIClient{}
 	c.cfg = cfg
 	c.common.client = c
