@@ -5,16 +5,12 @@ package {{packageName}}
 import (
 	"bytes"
 	"context"
-	"errors"
-	"fmt"
 	"io/ioutil"
 	"net/http"
 	"net/url"
 	"time"
 {{#imports}}	"{{import}}"
 {{/imports}}
-
-	"github.com/cenkalti/backoff/v4"
 )
 
 {{#generateInterfaces}}
@@ -133,12 +129,6 @@ func (a *{{{classname}}}Service) {{nickname}}Execute(r {{#structPrefix}}{{&class
 		r.ctx = localctx
 		defer cancel()
 	}
-
-	bOff := &oktaBackoff{
-		ctx:        r.ctx,
-		maxRetries: a.client.cfg.Okta.Client.RateLimit.MaxRetries,
-	}
-
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "{{{classname}}}Service.{{{nickname}}}")
 	if err != nil {
 		return {{#returnType}}localVarReturnValue, {{/returnType}}nil, &GenericOpenAPIError{error: err.Error()}
@@ -362,34 +352,7 @@ func (a *{{{classname}}}Service) {{nickname}}Execute(r {{#structPrefix}}{{&class
 	if err != nil {
 		return {{#returnType}}localVarReturnValue, {{/returnType}}nil, err
 	}
-
-	operation := func() error {
-		localVarHTTPResponse, err = a.client.callAPI(req)
-		if err != nil || localVarHTTPResponse == nil {
-			return err
-		} else if err != nil {
-			return backoff.Permanent(err)
-		}
-		if !tooManyRequests(localVarHTTPResponse) {
-			return nil
-		}
-		if err = tryDrainBody(localVarHTTPResponse.Body); err != nil {
-			return err
-		}
-		backoffDuration, err := Get429BackoffTime(localVarHTTPResponse)
-		if err != nil {
-			return err
-		}
-		if a.client.cfg.Okta.Client.RateLimit.MaxBackoff < backoffDuration {
-			backoffDuration = a.client.cfg.Okta.Client.RateLimit.MaxBackoff
-		}
-		bOff.backoffDuration = time.Second * time.Duration(backoffDuration)
-		bOff.retryCount++
-		req.Header.Add("X-Okta-Retry-For", localVarHTTPResponse.Header.Get("X-Okta-Request-Id"))
-		req.Header.Add("X-Okta-Retry-Count", fmt.Sprint(bOff.retryCount))
-		return errors.New("too many requests")
-	}
-	err = backoff.Retry(operation, bOff)
+	localVarHTTPResponse, err = a.client.do(r.ctx, req)
 	if err != nil {
 		{{#returnType}}
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, {{#returnType}}localVarReturnValue{{/returnType}})
@@ -418,7 +381,7 @@ func (a *{{{classname}}}Service) {{nickname}}Execute(r {{#structPrefix}}{{&class
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
-
+		
 		{{#responses}}
 		{{#dataType}}
 		{{^is1xx}}
