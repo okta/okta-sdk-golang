@@ -13,6 +13,7 @@ additionalProperties:
 files:
   api_application_test.go: {}
   configuration_test.go: {}
+  group_test.go: {}
   idp_test.go: {}
   main_test.go: {}
   proxy_test.go: {}
