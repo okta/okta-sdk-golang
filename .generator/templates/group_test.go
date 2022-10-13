@@ -49,11 +49,11 @@ func Test_Search_Group(t *testing.T) {
 	groupName := randomTestString()
 	group, _, err := setupGroup(groupName)
 	require.NoError(t, err, "Creating a new group should not error")
-	t.Run("get list group", func(t *testing.T) {
+	t.Run("search group", func(t *testing.T) {
 		req := apiClient.GroupApi.ListGroups(apiClient.cfg.Context)
 		req = req.Q(groupName)
 		gs, _, err := req.Execute()
-		require.NoError(t, err, "Could not get list group")
+		require.NoError(t, err, "Could not get result from search keyword")
 		var createdGroupInList bool
 		for _, g := range gs {
 			if group.GetId() == g.GetId() {
@@ -71,7 +71,7 @@ func Test_Update_Group(t *testing.T) {
 	oldGroupName := randomTestString()
 	group, _, err := setupGroup(oldGroupName)
 	require.NoError(t, err, "Creating a new group should not error")
-	t.Run("get list group", func(t *testing.T) {
+	t.Run("update group", func(t *testing.T) {
 		newGroupName := randomTestString()
 		ngp := GroupProfile{}
 		ngp.SetName(newGroupName)
