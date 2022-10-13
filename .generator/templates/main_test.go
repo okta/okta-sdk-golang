@@ -41,6 +41,10 @@ func sweep() (err error) {
 	if err != nil {
 		return
 	}
+	err = sweepGroupRules()
+	if err != nil {
+		return
+	}
 	return sweepIdps()
 }
 
@@ -118,6 +122,45 @@ func sweepIdps() error {
 		}
 		for _, idp := range idps {
 			if err := cleanUpIdp(idp.GetId()); err != nil {
+				return err
+			}
+		}
+	}
+	return nil
+}
+
+func sweepGroupRules() error {
+	req := apiClient.GroupApi.ListGroupRules(apiClient.cfg.Context).Limit(200)
+	req = req.Search("SDK_TEST")
+	groupRules, resp, err := req.Execute()
+	if err != nil {
+		return err
+	}
+	for _, gr := range groupRules {
+		if gr.GetStatus() == "ACTIVE" {
+			_, err = apiClient.GroupApi.DeactivateGroupRule(apiClient.cfg.Context, gr.GetId()).Execute()
+			if err != nil {
+				return err
+			}
+		}
+		if err := cleanUpGroupRule(gr.GetId()); err != nil {
+			return err
+		}
+	}
+	for resp.HasNextPage() {
+		var groupRules []*GroupRule
+		resp, err = resp.Next(&groupRules)
+		if err != nil {
+			return err
+		}
+		for _, gr := range groupRules {
+			if gr.GetStatus() == "ACTIVE" {
+				_, err = apiClient.GroupApi.DeactivateGroupRule(apiClient.cfg.Context, gr.GetId()).Execute()
+				if err != nil {
+					return err
+				}
+			}
+			if err := cleanUpGroupRule(gr.GetId()); err != nil {
 				return err
 			}
 		}
