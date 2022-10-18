@@ -241,3 +241,74 @@ func (t *TestFactory) NewValidTestCSRMetadata() *CsrMetadata {
 	}
 	return &csrm
 }
+
+func (t *TestFactory) NewValidBasicAuthApplication(label string) *BasicAuthApplication {
+	app := NewBasicApplicationSettingsApplication()
+	app.SetAuthURL("https://example.com/auth.html")
+	app.SetUrl("https://example.com/auth.html")
+	setting := NewBasicApplicationSettings()
+	setting.SetApp(*app)
+	res := BasicAuthApplication{}
+	res.SetSettings(*setting)
+	res.SetName("template_basic_auth")
+	res.SetSignOnMode("BASIC_AUTH")
+	res.SetLabel(label)
+	return &res
+}
+
+func (t *TestFactory) NewValidBookmarkApplication(label string) *BookmarkApplication {
+	app := NewBookmarkApplicationSettingsApplication()
+	app.SetRequestIntegration(false)
+	app.SetUrl("https://example.com/bookmark.html")
+	setting := NewBookmarkApplicationSettings()
+	setting.SetApp(*app)
+	res := BookmarkApplication{}
+	res.SetSettings(*setting)
+	res.SetName("bookmark")
+	res.SetSignOnMode("BOOKMARK")
+	res.SetLabel(label)
+	return &res
+}
+
+func (t *TestFactory) NewValidOrg2OrgApplication(label string) *SamlApplication {
+	app := NewSamlApplicationSettingsApplication()
+	app.SetAcsUrl("https://example.okta.com/sso/saml2/exampleid")
+	app.SetAudRestriction("https://www.okta.com/saml2/service-provider/examplei")
+	app.SetBaseUrl("https://example.okta.com")
+	setting := NewSamlApplicationSettings()
+	setting.SetApp(*app)
+	res := SamlApplication{}
+	res.SetSettings(*setting)
+	res.SetName("okta_org2org")
+	res.SetSignOnMode("SAML_2_0")
+	res.SetLabel(label)
+	return &res
+}
+
+func (t *TestFactory) NewValidOIDCApplication(label string) *OpenIdConnectApplication {
+	settingClient := NewOpenIdConnectApplicationSettingsClient()
+	settingClient.SetClientUri("https://example.com/client")
+	settingClient.SetLogoUri("https://example.com/assets/images/logo-new.png")
+	settingClient.SetResponseTypes([]string{"token", "id_token", "code"})
+	settingClient.SetRedirectUris([]string{"https://example.com/oauth2/callback", "myapp://callback"})
+	settingClient.SetPostLogoutRedirectUris([]string{"https://example.com/postlogout", "myapp://postlogoutcallback"})
+	settingClient.SetGrantTypes([]string{"implicit", "authorization_code"})
+	settingClient.SetApplicationType("native")
+	settingClient.SetTosUri("https://example.com/client/tos")
+	settingClient.SetPolicyUri("https://example.com/client/policy")
+	setting := NewOpenIdConnectApplicationSettings()
+	setting.SetOauthClient(*settingClient)
+	credClient := NewApplicationCredentialsOAuthClient()
+	credClient.SetTokenEndpointAuthMethod("client_secret_post")
+	credClient.SetClientId(randomTestString())
+	credClient.SetAutoKeyRotation(true)
+	credentials := NewOAuthApplicationCredentials()
+	credentials.SetOauthClient(*credClient)
+	res := OpenIdConnectApplication{}
+	res.SetSettings(*setting)
+	res.SetCredentials(*credentials)
+	res.SetName("oidc_client")
+	res.SetSignOnMode("OPENID_CONNECT")
+	res.SetLabel(label)
+	return &res
+}

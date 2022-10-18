@@ -1,6 +1,7 @@
 package okta
 
 import (
+	"errors"
 	"fmt"
 	"log"
 	"os"
@@ -45,6 +46,10 @@ func sweep() (err error) {
 	if err != nil {
 		return
 	}
+	// err = sweepApps()
+	// if err != nil {
+	// 	return
+	// }
 	return sweepIdps()
 }
 
@@ -166,4 +171,45 @@ func sweepGroupRules() error {
 		}
 	}
 	return nil
+}
+
+func sweepApps() error {
+	req := apiClient.ApplicationApi.ListApplications(apiClient.cfg.Context).Limit(200)
+	req = req.Q("SDK_TEST")
+	apps, _, err := req.Execute()
+	if err != nil {
+		return err
+	}
+	for _, a := range apps {
+		id, err := getAppId(a)
+		if err != nil {
+			fmt.Printf("unknown app type %v", a)
+			continue
+		}
+		if err := cleanUpApplication(id); err != nil {
+			return err
+		}
+	}
+	return nil
+}
+
+func getAppId(app ListApplications200ResponseInner) (string, error) {
+	if app.AutoLoginApplication != nil {
+		return app.AutoLoginApplication.GetId(), nil
+	} else if app.BasicAuthApplication != nil {
+		return app.BasicAuthApplication.GetId(), nil
+	} else if app.BookmarkApplication != nil {
+		return app.BookmarkApplication.GetId(), nil
+	} else if app.BrowserPluginApplication != nil {
+		return app.BrowserPluginApplication.GetId(), nil
+	} else if app.OpenIdConnectApplication != nil {
+		return app.OpenIdConnectApplication.GetId(), nil
+	} else if app.SamlApplication != nil {
+		return app.SamlApplication.GetId(), nil
+	} else if app.SecurePasswordStoreApplication != nil {
+		return app.SecurePasswordStoreApplication.GetId(), nil
+	} else if app.WsFederationApplication != nil {
+		return app.WsFederationApplication.GetId(), nil
+	}
+	return "", errors.New("unknown app type")
 }

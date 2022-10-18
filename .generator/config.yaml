@@ -11,6 +11,7 @@ additionalProperties:
   useOneOfDiscriminatorLookup: true
   disallowAdditionalPropertiesIfNotPresent: false
 files:
+  asset/logo.png: {}
   api_application_test.go: {}
   configuration_test.go: {}
   group_test.go: {}

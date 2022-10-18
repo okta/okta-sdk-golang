@@ -149,6 +149,10 @@ func Test_Clone_Signing_Key(t *testing.T) {
 		assert.NotNil(t, clonedKey)
 		assert.Equal(t, generatedKey.GetKid(), clonedKey.GetKid())
 	})
+	err = cleanUpIdp(createdIdp1.GetId())
+	require.NoError(t, err, "Clean up idp should not error")
+	err = cleanUpIdp(createdIdp2.GetId())
+	require.NoError(t, err, "Clean up idp should not error")
 }
 
 func Test_Get_CSR(t *testing.T) {
