@@ -58,6 +58,7 @@ func Test_can_get_an_authorizaiton_server(t *testing.T) {
 		Audiences:   []string{"api://default"},
 	}
 
+	// NOTE: Org needs FF API_ACCESS_MANAGEMENT else 401s will occur
 	authorizationServer, response, err := client.AuthorizationServer.CreateAuthorizationServer(ctx, as)
 	require.NoError(t, err, "creating an authorizaiton server should not error")
 	tests.AssertResponse(t, response, "POST", "/api/v1/authorizationServers")
