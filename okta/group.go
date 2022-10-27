@@ -531,7 +531,6 @@ func (m *GroupResource) ListGroupTargetsForGroupRole(ctx context.Context, groupI
 	return group, resp, nil
 }
 
-//
 func (m *GroupResource) RemoveGroupTargetFromGroupAdministratorRoleGivenToGroup(ctx context.Context, groupId string, roleId string, targetGroupId string) (*Response, error) {
 	url := fmt.Sprintf("/api/v1/groups/%v/roles/%v/targets/groups/%v", groupId, roleId, targetGroupId)
 
@@ -550,7 +549,6 @@ func (m *GroupResource) RemoveGroupTargetFromGroupAdministratorRoleGivenToGroup(
 	return resp, nil
 }
 
-//
 func (m *GroupResource) AddGroupTargetToGroupAdministratorRoleForGroup(ctx context.Context, groupId string, roleId string, targetGroupId string) (*Response, error) {
 	url := fmt.Sprintf("/api/v1/groups/%v/roles/%v/targets/groups/%v", groupId, roleId, targetGroupId)
 
