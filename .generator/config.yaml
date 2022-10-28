@@ -17,6 +17,7 @@ files:
   group_test.go: {}
   idp_test.go: {}
   main_test.go: {}
+  policy_test.go: {}
   private_key_test.go: {}
   proxy_test.go: {}
   retry_logic_test.go: {}

@@ -242,6 +242,18 @@ func (t *TestFactory) NewValidTestCSRMetadata() *CsrMetadata {
 	return &csrm
 }
 
+func (t *TestFactory) NewValidAccessPolicy(name string) *AccessPolicy {
+	policyRule := NewPolicyRuleConditions()
+	res := AccessPolicy{}
+	res.SetType("ACCESS_POLICY")
+	res.SetDescription(randomTestString())
+	res.SetPriority(int32(1))
+	res.SetConditions(*policyRule)
+	res.SetName(name)
+	return &res
+}
+
+
 func (t *TestFactory) NewValidBasicAuthApplication(label string) *BasicAuthApplication {
 	app := NewBasicApplicationSettingsApplication()
 	app.SetAuthURL("https://example.com/auth.html")

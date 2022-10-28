@@ -1294,6 +1294,31 @@ paths:
             - okta.apps.manage
       tags:
         - Application
+  /api/v1/apps/{appId}/policies/{policyId}:
+    put:
+      summary: Assign an application to a specific policy
+      description: Assign an application to a specific policy. This unassigns the application from its currently assigned policy.
+      operationId: assignApplicationPolicy
+      parameters:
+        - in: path
+          name: appId
+          required: true
+          schema:
+            type: string
+        - in: path
+          name: policyId
+          required: true
+          schema:
+            type: string
+      responses:
+        '204':
+          description: No Content
+      security:
+        - apiToken: []
+        - oauth2:
+          - okta.apps.manage
+      tags:
+        - Application
   /api/v1/apps/{appId}/features:
     get:
       summary: List all Features
