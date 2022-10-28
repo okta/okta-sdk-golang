@@ -74,12 +74,12 @@ func Test_exercise_factor_lifecycle(t *testing.T) {
 		addedFactor, resp, err := client.UserFactor.EnrollFactor(ctx, user.Id, factor, nil)
 		require.NotEmpty(t, resp, "Response should not be empty")
 		require.NoError(t, err, "Adding factor should not error")
-		assert.IsType(t, okta.NewUserFactor(), addedFactor)
+		assert.IsType(t, okta.NewSmsUserFactor(), addedFactor)
 
-		foundFactor, _, err := client.UserFactor.GetFactor(ctx, user.Id, addedFactor.(*okta.UserFactor).Id, okta.NewSmsUserFactor())
+		foundFactor, _, err := client.UserFactor.GetFactor(ctx, user.Id, addedFactor.(*okta.SmsUserFactor).Id, okta.NewSmsUserFactor())
 		require.NoError(t, err, "Getting the factor should not error")
 
-		client.UserFactor.DeleteFactor(ctx, user.Id, foundFactor.(*okta.UserFactor).Id)
+		client.UserFactor.DeleteFactor(ctx, user.Id, foundFactor.(*okta.SmsUserFactor).Id)
 	} else {
 		t.Skip("Skipping exercise factor lifecycle testing. SMS factor was not enabled")
 	}

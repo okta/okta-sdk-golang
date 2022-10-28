@@ -61,7 +61,6 @@ func (m *SessionResource) GetSession(ctx context.Context, sessionId string) (*Se
 	return session, resp, nil
 }
 
-//
 func (m *SessionResource) EndSession(ctx context.Context, sessionId string) (*Response, error) {
 	url := fmt.Sprintf("/api/v1/sessions/%v", sessionId)
 
@@ -101,7 +100,6 @@ func (m *SessionResource) CreateSession(ctx context.Context, body CreateSessionR
 	return session, resp, nil
 }
 
-//
 func (m *SessionResource) RefreshSession(ctx context.Context, sessionId string) (*Session, *Response, error) {
 	url := fmt.Sprintf("/api/v1/sessions/%v/lifecycle/refresh", sessionId)
 

@@ -32,7 +32,7 @@ import (
 	"gopkg.in/yaml.v3"
 )
 
-const Version = "2.14.0"
+const Version = "2.15.0"
 
 type Client struct {
 	config                     *config
