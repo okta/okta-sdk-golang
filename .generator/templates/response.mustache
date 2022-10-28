@@ -29,14 +29,13 @@ func newAPIResponse(r *http.Response, cli *APIClient, v interface{}) *APIRespons
 	return response 
 }
 
-func buildResponse(resp *http.Response,cli *APIClient, v interface{}) (*APIResponse, error) {
+func buildResponse(resp *http.Response, cli *APIClient, v interface{}) (*APIResponse, error) {
 	ct := resp.Header.Get("Content-Type")
 	response := newAPIResponse(resp, cli, v)
-	// err := CheckResponseForError(resp)
-	// if err != nil {
-	// 	return response, err
-	// }
-	var err error
+	err := cli.checkResponseForError(resp)
+	if err != nil {
+		return response, err
+	}
 	bodyBytes, _ := ioutil.ReadAll(resp.Body)
 	copyBodyBytes := make([]byte, len(bodyBytes))
 	copy(copyBodyBytes, bodyBytes)
@@ -66,90 +65,64 @@ func buildResponse(resp *http.Response,cli *APIClient, v interface{}) (*APIRespo
 }
 
 // TODO check to use model_error
-// func CheckResponseForError(resp *http.Response) error {
-// 	statusCode := resp.StatusCode
-// 	if statusCode >= http.StatusOK && statusCode < http.StatusBadRequest {
-// 		return nil
-// 	}
-// 	e := Error{}
-// 	if (statusCode == http.StatusUnauthorized || statusCode == http.StatusForbidden) &&
-// 		strings.Contains(resp.Header.Get("Www-Authenticate"), "Bearer") {
-// 		for _, v := range strings.Split(resp.Header.Get("Www-Authenticate"), ", ") {
-// 			if strings.Contains(v, "error_description") {
-// 				_, err := toml.Decode(v, &e)
-// 				if err != nil {
-// 					message := "unauthorized"
-// 					e.ErrorSummary = &message
-// 				}
-// 				return &e
-// 			}
-// 		}
-// 	}
-// 	bodyBytes, _ := ioutil.ReadAll(resp.Body)
-// 	copyBodyBytes := make([]byte, len(bodyBytes))
-// 	copy(copyBodyBytes, bodyBytes)
-// 	_ = resp.Body.Close()
-// 	resp.Body = ioutil.NopCloser(bytes.NewBuffer(bodyBytes))
-//  _ = json.NewDecoder(bytes.NewReader(copyBodyBytes)).Decode(&e)
-// 	if statusCode == http.StatusInternalServerError {
-// 		e.ErrorSummary += fmt.Sprintf(", x-okta-request-id=%s", resp.Header.Get("x-okta-request-id"))
-// 	}
-// 	return &e
-// }
+// TODO copy body
+func (c *APIClient) checkResponseForError(resp *http.Response) error {
+	localVarBody, _ := ioutil.ReadAll(resp.Body)
+	resp.Body.Close()
+	resp.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	if resp.StatusCode >= 300 {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: resp.Status,
+		}
+		if resp.StatusCode == 403 {
+			var v Error
+			err := c.decode(&v, localVarBody, resp.Header.Get("Content-Type"))
+			if err != nil {
+				newErr.error = err.Error()
+				return newErr
+			}
+			newErr.model = v
+			return  newErr
+		}
+		if resp.StatusCode == 404 {
+			var v Error
+			err := c.decode(&v, localVarBody, resp.Header.Get("Content-Type"))
+			if err != nil {
+				newErr.error = err.Error()
+				return newErr
+			}
+			newErr.model = v
+			return  newErr
+		}
+		if resp.StatusCode == 429 {
+			var v Error
+			err := c.decode(&v, localVarBody, resp.Header.Get("Content-Type"))
+			if err != nil {
+				newErr.error = err.Error()
+				return newErr
+			}
+			newErr.model = v
+			return  newErr
+		}
+	}
+	return nil
+}
 
 func (res *APIResponse) Next(v interface{}) (*APIResponse, error) {
 	if res.cli == nil {
 		return nil, errors.New("no initial response provided from previous request")
 	}
-	req, err := res.cli.NewRequest(http.MethodGet, res.NextPage(), nil)
-		if err != nil {
+	req, err := res.cli.prepareRequest(res.cli.cfg.Context, res.NextPage(), http.MethodGet, nil, map[string]string{"Accept": "application/json"},nil, nil, nil)
+	if err != nil {
 		return nil, err
 	}
-	return res.cli.do(res.cli.cfg.Context, req, v)
+	resp, err := res.cli.do(res.cli.cfg.Context, req)
+	if err != nil {
+		return nil, err
+	}
+	return buildResponse(resp, res.cli, v)
 }
-
-// func (res *APIResponse) Next(v interface{}) (*APIResponse, error) {
-// 	if res.cli == nil {
-// 		return nil, errors.New("no initial response provided from previous request")
-// 	}
-// 	localVarHeaderParams := make(map[string]string)
-// 	if auth, ok := res.cli.cfg.Context.Value(ContextAPIKeys).(map[string]APIKey); ok {
-// 		if apiKey, ok := auth["API_Token"]; ok {
-// 			var key string
-// 			if apiKey.Prefix != "" {
-// 				key = apiKey.Prefix + " " + apiKey.Key
-// 			} else {
-// 				key = apiKey.Key
-// 			}
-// 			localVarHeaderParams["Authorization"] = key
-// 		}
-// 	}
-// 	req, err := res.cli.prepareRequest(res.cli.cfg.Context, res.NextPage(), http.MethodGet, nil, localVarHeaderParams, nil, nil, nil)
-// 	if err != nil {
-// 		return nil, err
-// 	}
-// 	reqData, err := httputil.DumpRequest(req, true)
-// 	fmt.Println("66",string(reqData))
-// 	fmt.Println("67",err)
-// 	resp, err :=  res.cli.callAPI(req)
-// 	if err != nil {
-// 		return nil, err
-// 	}
-// 	respData, err := httputil.DumpResponse(resp, true)
-// 	fmt.Println("73",string(respData))
-// 	fmt.Println("74",err)
-// 	body, err := ioutil.ReadAll(resp.Body)
-// 	if err != nil {
-// 		return nil, err
-// 	}
-// 	resp.Body.Close()
-// 	fmt.Println(string(body))
-// 	err = res.cli.decode(&v, body, resp.Header.Get("Content-Type"))
-// 	if err != nil {
-// 		return nil, err
-// 	}
-// 	return newAPIResponse(resp,res.cli, &v), nil
-// }
 
 func (res *APIResponse) Self() string {
 	return res.pg.Self()
