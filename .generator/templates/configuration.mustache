@@ -3,17 +3,21 @@ package {{packageName}}
 
 import (
 	"context"
+	"errors"
 	"fmt"
 	"io/ioutil"
 	"net/http"
 	"net/url"
+	"os"
 	"os/user"
 	"path"
 	"path/filepath"
 	"runtime"
 	"strings"
+	"syscall"
 
 	"github.com/kelseyhightower/envconfig"
+	"gopkg.in/square/go-jose.v2"
 	"gopkg.in/yaml.v3"
 )
 
@@ -153,6 +157,7 @@ type Configuration struct {
 			DisableHttpsCheck bool `yaml:"disableHttpsCheck" envconfig:"OKTA_TESTING_DISABLE_HTTPS_CHECK"`
 		} `yaml:"testing"`
 	} `yaml:"okta"`
+	PrivateKeySigner jose.Signer
 }
 
 // NewConfiguration returns a new Configuration object
@@ -494,4 +499,43 @@ func WithScopes(scopes []string) ConfigSetter {
 	return func(c *Configuration) {
 		c.Okta.Client.Scopes = scopes
 	}
+}
+
+// WithPrivateKey sets private key key. Can be either a path to a private key or private key itself.
+func WithPrivateKey(privateKey string) ConfigSetter {
+	return func(c *Configuration) {
+		if fileExists(privateKey) {
+			content, err := ioutil.ReadFile(privateKey)
+			if err != nil {
+				fmt.Printf("failed to read from provided private key file path: %v", err)
+			}
+			c.Okta.Client.PrivateKey = string(content)
+		} else {
+			c.Okta.Client.PrivateKey = privateKey
+		}
+	}
+}
+
+func WithPrivateKeyId(privateKeyId string) ConfigSetter {
+	return func(c *Configuration) {
+		c.Okta.Client.PrivateKeyId = privateKeyId
+	}
+}
+
+func WithPrivateKeySigner(signer jose.Signer) ConfigSetter {
+	return func(c *Configuration) {
+		c.PrivateKeySigner = signer
+	}
+}
+
+func fileExists(filename string) bool {
+	info, err := os.Stat(filename)
+	if err != nil {
+		if os.IsNotExist(err) || errors.Is(err, syscall.ENAMETOOLONG) {
+			return false
+		}
+		fmt.Println("can not get information about the file containing private key, using provided value as the key itself")
+		return false
+	}
+	return !info.IsDir()
 }
