@@ -532,6 +532,129 @@ func (m *ApplicationResource) CloneApplicationKey(ctx context.Context, appId str
 	return jsonWebKey, resp, nil
 }
 
+// Enumerates the client&#x27;s collection of secrets
+func (m *ApplicationResource) ListClientSecretsForApplication(ctx context.Context, appId string) ([]*ClientSecret, *Response, error) {
+	url := fmt.Sprintf("/api/v1/apps/%v/credentials/secrets", appId)
+
+	rq := m.client.CloneRequestExecutor()
+
+	req, err := rq.WithAccept("application/json").WithContentType("application/json").NewRequest("GET", url, nil)
+	if err != nil {
+		return nil, nil, err
+	}
+
+	var clientSecret []*ClientSecret
+
+	resp, err := rq.Do(ctx, req, &clientSecret)
+	if err != nil {
+		return nil, resp, err
+	}
+
+	return clientSecret, resp, nil
+}
+
+// Adds a new secret to the client&#x27;s collection of secrets.
+func (m *ApplicationResource) CreateNewClientSecretForApplication(ctx context.Context, appId string, body ClientSecretMetadata) (*ClientSecret, *Response, error) {
+	url := fmt.Sprintf("/api/v1/apps/%v/credentials/secrets", appId)
+
+	rq := m.client.CloneRequestExecutor()
+
+	req, err := rq.WithAccept("application/json").WithContentType("application/json").NewRequest("POST", url, body)
+	if err != nil {
+		return nil, nil, err
+	}
+
+	var clientSecret *ClientSecret
+
+	resp, err := rq.Do(ctx, req, &clientSecret)
+	if err != nil {
+		return nil, resp, err
+	}
+
+	return clientSecret, resp, nil
+}
+
+func (m *ApplicationResource) DeleteClientSecretForApplication(ctx context.Context, appId string, secretId string) (*Response, error) {
+	url := fmt.Sprintf("/api/v1/apps/%v/credentials/secrets/%v", appId, secretId)
+
+	rq := m.client.CloneRequestExecutor()
+
+	req, err := rq.WithAccept("application/json").WithContentType("application/json").NewRequest("DELETE", url, nil)
+	if err != nil {
+		return nil, err
+	}
+
+	resp, err := m.client.requestExecutor.Do(ctx, req, nil)
+	if err != nil {
+		return resp, err
+	}
+
+	return resp, nil
+}
+
+// Gets a specific client secret by secretId
+func (m *ApplicationResource) GetClientSecretForApplication(ctx context.Context, appId string, secretId string) (*ClientSecret, *Response, error) {
+	url := fmt.Sprintf("/api/v1/apps/%v/credentials/secrets/%v", appId, secretId)
+
+	rq := m.client.CloneRequestExecutor()
+
+	req, err := rq.WithAccept("application/json").WithContentType("application/json").NewRequest("GET", url, nil)
+	if err != nil {
+		return nil, nil, err
+	}
+
+	var clientSecret *ClientSecret
+
+	resp, err := rq.Do(ctx, req, &clientSecret)
+	if err != nil {
+		return nil, resp, err
+	}
+
+	return clientSecret, resp, nil
+}
+
+// Activates a specific client secret by secretId
+func (m *ApplicationResource) ActivateClientSecretForApplication(ctx context.Context, appId string, secretId string) (*ClientSecret, *Response, error) {
+	url := fmt.Sprintf("/api/v1/apps/%v/credentials/secrets/%v/lifecycle/activate", appId, secretId)
+
+	rq := m.client.CloneRequestExecutor()
+
+	req, err := rq.WithAccept("application/json").WithContentType("application/json").NewRequest("POST", url, nil)
+	if err != nil {
+		return nil, nil, err
+	}
+
+	var clientSecret *ClientSecret
+
+	resp, err := rq.Do(ctx, req, &clientSecret)
+	if err != nil {
+		return nil, resp, err
+	}
+
+	return clientSecret, resp, nil
+}
+
+// Deactivates a specific client secret by secretId
+func (m *ApplicationResource) DeactivateClientSecretForApplication(ctx context.Context, appId string, secretId string) (*ClientSecret, *Response, error) {
+	url := fmt.Sprintf("/api/v1/apps/%v/credentials/secrets/%v/lifecycle/deactivate", appId, secretId)
+
+	rq := m.client.CloneRequestExecutor()
+
+	req, err := rq.WithAccept("application/json").WithContentType("application/json").NewRequest("POST", url, nil)
+	if err != nil {
+		return nil, nil, err
+	}
+
+	var clientSecret *ClientSecret
+
+	resp, err := rq.Do(ctx, req, &clientSecret)
+	if err != nil {
+		return nil, resp, err
+	}
+
+	return clientSecret, resp, nil
+}
+
 // List Features for application
 func (m *ApplicationResource) ListFeaturesForApplication(ctx context.Context, appId string) ([]*ApplicationFeature, *Response, error) {
 	url := fmt.Sprintf("/api/v1/apps/%v/features", appId)
