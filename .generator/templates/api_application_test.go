@@ -1,7 +1,7 @@
 package okta
 
 import (
-  "os"
+	"os"
 	"path"
 	"testing"
 
@@ -47,13 +47,12 @@ func cleanUpApplication(appId string) error {
 
 func randomWait() {
 	rand.Seed(time.Now().UnixNano())
-	min := 0
-	max := 10
+	min := 60
+	max := 100
 	time.Sleep(time.Duration((rand.Intn(max-min+1) + min)))
 }
 
 func Test_Get_Applications(t *testing.T) {
-	randomWait()
 	createdApp, _, err := setupBasicAuthApplication(randomTestString())
 	require.NoError(t, err, "Creating a new application should not error")
 	t.Run("get applications by id", func(t *testing.T) {
@@ -66,7 +65,6 @@ func Test_Get_Applications(t *testing.T) {
 }
 
 func Test_Get_List_Applications(t *testing.T) {
-	randomWait()
 	createdApp, _, err := setupBasicAuthApplication(randomTestString())
 	require.NoError(t, err, "Creating a new application should not error")
 	t.Run("get all applications", func(t *testing.T) {
@@ -86,7 +84,6 @@ func Test_Get_List_Applications(t *testing.T) {
 }
 
 func Test_Update_App(t *testing.T) {
-	randomWait()
 	createdApp, _, err := setupBasicAuthApplication(randomTestString())
 	require.NoError(t, err, "Creating a new application should not error")
 	t.Run("update applications", func(t *testing.T) {
@@ -106,7 +103,6 @@ func Test_Update_App(t *testing.T) {
 }
 
 func Test_Activate_Application(t *testing.T) {
-	randomWait()
 	createdApp, _, err := setupBasicAuthApplication(randomTestString())
 	require.NoError(t, err, "Creating a new application should not error")
 	t.Run("deactivate applications", func(t *testing.T) {
@@ -130,7 +126,6 @@ func Test_Activate_Application(t *testing.T) {
 }
 
 func Test_Application_Users_Operations(t *testing.T) {
-	randomWait()
 	createdApp, _, err := setupBasicAuthApplication(randomTestString())
 	require.NoError(t, err, "Creating a new application should not error")
 	appUserList, _, err := apiClient.ApplicationApi.ListApplicationUsers(apiClient.cfg.Context, createdApp.BasicAuthApplication.GetId()).Execute()
@@ -196,7 +191,10 @@ func Test_Application_Users_Operations(t *testing.T) {
 }
 
 func Test_Application_Groups_Operations(t *testing.T) {
-	randomWait()
+	if os.Getenv("OKTA_TRAVIS_CI") == "yes" {
+		fmt.Println("195")
+		randomWait()
+	}
 	createdApp, _, err := setupBasicAuthApplication(randomTestString())
 	require.NoError(t, err, "Creating a new application should not error")
 	group, _, err := setupGroup(randomTestString())
@@ -231,7 +229,9 @@ func Test_Application_Groups_Operations(t *testing.T) {
 }
 
 func Test_CSR_For_Application(t *testing.T) {
-	randomWait()
+	if os.Getenv("OKTA_TRAVIS_CI") == "yes" {
+		randomWait()
+	}
 	createdApp, _, err := setupBasicAuthApplication(randomTestString())
 	require.NoError(t, err, "Creating a new application should not error")
 	var generatedCsr *Csr
@@ -274,7 +274,9 @@ func Test_CSR_For_Application(t *testing.T) {
 }
 
 func TestGetDefaultProvisioningConnectionForApplication(t *testing.T) {
-	randomWait()
+	if os.Getenv("OKTA_TRAVIS_CI") == "yes" {
+		randomWait()
+	}
 	createdApp, _, err := setupOrg2OrgApplication(randomTestString())
 	require.NoError(t, err, "Creating a new application should not error")
 	t.Run("get provisioning", func(t *testing.T) {
@@ -323,7 +325,9 @@ func TestGetDefaultProvisioningConnectionForApplication(t *testing.T) {
 // }
 
 func Test_Upload_Application_Logo(t *testing.T) {
-	randomWait()
+	if os.Getenv("OKTA_TRAVIS_CI") == "yes" {
+		randomWait()
+	}
 	createdApp, _, err := setupBasicAuthApplication(randomTestString())
 	require.NoError(t, err, "Creating a new application should not error")
 	t.Run("upload application logo", func(t *testing.T) {
@@ -340,7 +344,9 @@ func Test_Upload_Application_Logo(t *testing.T) {
 }
 
 func Test_Application_Key_Operation(t *testing.T) {
-	randomWait()
+	if os.Getenv("OKTA_TRAVIS_CI") == "yes" {
+		randomWait()
+	}
 	createdApp1, _, err := setupBasicAuthApplication(randomTestString())
 	require.NoError(t, err, "Creating a new application should not error")
 	createdApp2, _, err := setupBasicAuthApplication(randomTestString())
@@ -377,7 +383,9 @@ func Test_Application_Key_Operation(t *testing.T) {
 }
 
 func Test_Scope_Consent_Grant_Operation_For_Application(t *testing.T) {
-	randomWait()
+	if os.Getenv("OKTA_TRAVIS_CI") == "yes" {
+		randomWait()
+	}
 	createdApp, _, err := setupOIDCApplication(randomTestString())
 	require.NoError(t, err, "Creating a new application should not error")
 	var grant *OAuth2ScopeConsentGrant
