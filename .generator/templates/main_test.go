@@ -24,6 +24,7 @@ func TestMain(m *testing.M) {
 		fmt.Printf("failed to clean up organization before integration tests: %v", err)
 	}
 	exitVal := m.Run()
+	apiClient = apiClient.RefreshNext()
 	err = sweep()
 	if err != nil {
 		fmt.Printf("failed to clean up organization after integration tests: %v", err)

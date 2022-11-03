@@ -12,10 +12,14 @@ additionalProperties:
   disallowAdditionalPropertiesIfNotPresent: false
 files:
   api_application_test.go: {}
+  cache_test.go: {}
+  cache.go: {}
   configuration_test.go: {}
+  gocache.go: {}
   group_test.go: {}
   idp_test.go: {}
   main_test.go: {}
+  noopcache.go: {}
   policy_test.go: {}
   private_key_test.go: {}
   proxy_test.go: {}
