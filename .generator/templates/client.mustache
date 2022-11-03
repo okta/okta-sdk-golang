@@ -34,6 +34,7 @@ import (
 	{{/withAWSV4Signature}}
 	"gopkg.in/square/go-jose.v2"
 	"gopkg.in/square/go-jose.v2/jwt"
+	goCache "github.com/patrickmn/go-cache"
 )
 
 var (
@@ -42,12 +43,16 @@ var (
 )
 
 const VERSION = "{{{packageVersion}}}"
+const AccessTokenCacheKey = "OKTA_ACCESS_TOKEN"
 
 // APIClient manages communication with the {{appName}} API v{{version}}
 // In most cases there should be only one, shared, APIClient.
 type APIClient struct {
 	cfg    *Configuration
 	common service // Reuse a single struct instead of allocating one for each service on the heap.
+	cache Cache
+	tokenCache *goCache.Cache
+	freshcache bool
 
 	// API Services
 {{#apiInfo}}
@@ -80,8 +85,22 @@ func NewAPIClient(cfg *Configuration) *APIClient {
 		cfg.HTTPClient = &http.Client{Transport: &transport}
 	}
 
+	var oktaCache Cache
+	if !cfg.Okta.Client.Cache.Enabled {
+		oktaCache = NewNoOpCache()
+	} else {
+		if cfg.CacheManager == nil {
+			oktaCache = NewGoCache(cfg.Okta.Client.Cache.DefaultTtl,
+				cfg.Okta.Client.Cache.DefaultTti)
+		} else {
+			oktaCache = cfg.CacheManager
+		}
+	}
+
 	c := &APIClient{}
 	c.cfg = cfg
+	c.cache = oktaCache
+	c.tokenCache = goCache.New(5*time.Minute, 10*time.Minute)
 	c.common.client = c
 
 {{#apiInfo}}
@@ -413,93 +432,101 @@ func (c *APIClient) prepareRequest(
 	}
 
 	if c.cfg.Okta.Client.AuthorizationMode == "PrivateKey" {
-		if c.cfg.PrivateKeySigner == nil {
-			priv := []byte(strings.ReplaceAll(c.cfg.Okta.Client.PrivateKey, `\n`, "\n"))
+		cachedToken, hasToken := c.tokenCache.Get(AccessTokenCacheKey)
+		if hasToken {
+			localVarRequest.Header.Set("Authorization", "Bearer "+cachedToken.(string))
+		} else {
+			if c.cfg.PrivateKeySigner == nil {
+				priv := []byte(strings.ReplaceAll(c.cfg.Okta.Client.PrivateKey, `\n`, "\n"))
 
-			privPem, _ := pem.Decode(priv)
-			if privPem == nil {
-				return nil, errors.New("invalid private key")
-			}
-			if privPem.Type != "RSA PRIVATE KEY" {
-				return nil, fmt.Errorf("RSA private key is of the wrong type")
+				privPem, _ := pem.Decode(priv)
+				if privPem == nil {
+					return nil, errors.New("invalid private key")
+				}
+				if privPem.Type != "RSA PRIVATE KEY" {
+					return nil, fmt.Errorf("RSA private key is of the wrong type")
+				}
+
+				parsedKey, err := x509.ParsePKCS1PrivateKey(privPem.Bytes)
+				if err != nil {
+					return nil, err
+				}
+
+				var signerOptions *jose.SignerOptions
+				if c.cfg.Okta.Client.PrivateKeyId != "" {
+					signerOptions = (&jose.SignerOptions{}).WithHeader("kid", c.cfg.Okta.Client.PrivateKeyId)
+				}
+
+				c.cfg.PrivateKeySigner, err = jose.NewSigner(jose.SigningKey{Algorithm: jose.RS256, Key: parsedKey}, signerOptions)
+				if err != nil {
+					return nil, err
+				}
 			}
 
-			parsedKey, err := x509.ParsePKCS1PrivateKey(privPem.Bytes)
+			claims := ClientAssertionClaims{
+				Subject:  c.cfg.Okta.Client.ClientId,
+				IssuedAt: jwt.NewNumericDate(time.Now()),
+				Expiry:   jwt.NewNumericDate(time.Now().Add(time.Hour * time.Duration(1))),
+				Issuer:   c.cfg.Okta.Client.ClientId,
+				Audience: c.cfg.Okta.Client.OrgUrl + "/oauth2/v1/token",
+			}
+			
+			jwtBuilder := jwt.Signed(c.cfg.PrivateKeySigner).Claims(claims)
+			clientAssertion, err := jwtBuilder.CompactSerialize()
 			if err != nil {
 				return nil, err
 			}
 
-			var signerOptions *jose.SignerOptions
-			if c.cfg.Okta.Client.PrivateKeyId != "" {
-				signerOptions = (&jose.SignerOptions{}).WithHeader("kid", c.cfg.Okta.Client.PrivateKeyId)
-			}
+			var tokenRequestBuff io.ReadWriter
+			query := url.Values{}
+			tokenRequestURL := c.cfg.Okta.Client.OrgUrl + "/oauth2/v1/token"
 
-			c.cfg.PrivateKeySigner, err = jose.NewSigner(jose.SigningKey{Algorithm: jose.RS256, Key: parsedKey}, signerOptions)
+			query.Add("grant_type", "client_credentials")
+			query.Add("scope", strings.Join(c.cfg.Okta.Client.Scopes, " "))
+			query.Add("client_assertion_type", "urn:ietf:params:oauth:client-assertion-type:jwt-bearer")
+			query.Add("client_assertion", clientAssertion)
+			tokenRequestURL += "?" + query.Encode()
+			tokenRequest, err := http.NewRequest("POST", tokenRequestURL, tokenRequestBuff)
 			if err != nil {
 				return nil, err
 			}
-		}
 
-		claims := ClientAssertionClaims{
-			Subject:  c.cfg.Okta.Client.ClientId,
-			IssuedAt: jwt.NewNumericDate(time.Now()),
-			Expiry:   jwt.NewNumericDate(time.Now().Add(time.Hour * time.Duration(1))),
-			Issuer:   c.cfg.Okta.Client.ClientId,
-			Audience: c.cfg.Okta.Client.OrgUrl + "/oauth2/v1/token",
-		}
-		
-		jwtBuilder := jwt.Signed(c.cfg.PrivateKeySigner).Claims(claims)
-		clientAssertion, err := jwtBuilder.CompactSerialize()
-		if err != nil {
-			return nil, err
-		}
+			tokenRequest.Header.Add("Accept", "application/json")
+			tokenRequest.Header.Add("Content-Type", "application/x-www-form-urlencoded")
 
-		var tokenRequestBuff io.ReadWriter
-		query := url.Values{}
-		tokenRequestURL := c.cfg.Okta.Client.OrgUrl + "/oauth2/v1/token"
+			bOff := &oktaBackoff{
+				ctx:             context.TODO(),
+				maxRetries:      c.cfg.Okta.Client.RateLimit.MaxRetries,
+				backoffDuration: time.Duration(c.cfg.Okta.Client.RateLimit.MaxBackoff),
+			}
+			var tokenResponse *http.Response
+			operation := func() error {
+				tokenResponse, err = c.cfg.HTTPClient.Do(tokenRequest)
+				bOff.retryCount++
+				return err
+			}
+			err = backoff.Retry(operation, bOff)
+			if err != nil {
+				return nil, err
+			}
 
-		query.Add("grant_type", "client_credentials")
-		query.Add("scope", strings.Join(c.cfg.Okta.Client.Scopes, " "))
-		query.Add("client_assertion_type", "urn:ietf:params:oauth:client-assertion-type:jwt-bearer")
-		query.Add("client_assertion", clientAssertion)
-		tokenRequestURL += "?" + query.Encode()
-		tokenRequest, err := http.NewRequest("POST", tokenRequestURL, tokenRequestBuff)
-		if err != nil {
-			return nil, err
-		}
+			respBody, err := io.ReadAll(tokenResponse.Body)
+			if err != nil {
+				return nil, err
+			}
+			origResp := io.NopCloser(bytes.NewBuffer(respBody))
+			tokenResponse.Body = origResp
+			var accessToken *RequestAccessToken
 
-		tokenRequest.Header.Add("Accept", "application/json")
-		tokenRequest.Header.Add("Content-Type", "application/x-www-form-urlencoded")
+			_, err = buildResponse(tokenResponse, nil, &accessToken)
+			if err != nil {
+				return nil, err
+			}
+			localVarRequest.Header.Set("Authorization", "Bearer "+accessToken.AccessToken)
 
-		bOff := &oktaBackoff{
-			ctx:             context.TODO(),
-			maxRetries:      c.cfg.Okta.Client.RateLimit.MaxRetries,
-			backoffDuration: time.Duration(c.cfg.Okta.Client.RateLimit.MaxBackoff),
+			expiration := accessToken.ExpiresIn - 2
+			c.tokenCache.Set(AccessTokenCacheKey, accessToken.AccessToken, time.Second*time.Duration(expiration))
 		}
-		var tokenResponse *http.Response
-		operation := func() error {
-			tokenResponse, err = c.cfg.HTTPClient.Do(tokenRequest)
-			bOff.retryCount++
-			return err
-		}
-		err = backoff.Retry(operation, bOff)
-		if err != nil {
-			return nil, err
-		}
-
-		respBody, err := io.ReadAll(tokenResponse.Body)
-		if err != nil {
-			return nil, err
-		}
-		origResp := io.NopCloser(bytes.NewBuffer(respBody))
-		tokenResponse.Body = origResp
-		var accessToken *RequestAccessToken
-
-		_, err = buildResponse(tokenResponse, nil, &accessToken)
-		if err != nil {
-			return nil, err
-		}
-		localVarRequest.Header.Set("Authorization", "Bearer "+accessToken.AccessToken)
 	}
 
 	for header, value := range c.cfg.DefaultHeader {
@@ -570,8 +597,33 @@ func (c *APIClient) decode(v interface{}, b []byte, contentType string) (err err
 	return errors.New("undefined response type")
 }
 
+func (c *APIClient) RefreshNext() *APIClient {
+	c.freshcache = true
+	return c
+}
+
 func (c *APIClient) do(ctx context.Context, req *http.Request)(*http.Response, error){
-	return c.doWithRetries(ctx, req)
+	cacheKey := CreateCacheKey(req)
+	if req.Method != http.MethodGet {
+		c.cache.Delete(cacheKey)
+	}
+	inCache := c.cache.Has(cacheKey)
+	if c.freshcache {
+		c.cache.Delete(cacheKey)
+		inCache = false
+		c.freshcache = false
+	}
+	if !inCache {
+		resp, err := c.doWithRetries(ctx, req)
+		if err != nil {
+			return nil, err
+		}
+		if resp.StatusCode >= 200 && resp.StatusCode <= 299 && req.Method == http.MethodGet {
+			c.cache.Set(cacheKey, resp)
+		}
+		return resp, err
+	}
+	return c.cache.Get(cacheKey), nil
 }
 
 func (c *APIClient) doWithRetries(ctx context.Context, req *http.Request) (*http.Response, error) {

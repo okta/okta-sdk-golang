@@ -158,6 +158,7 @@ type Configuration struct {
 		} `yaml:"testing"`
 	} `yaml:"okta"`
 	PrivateKeySigner jose.Signer
+	CacheManager     Cache
 }
 
 // NewConfiguration returns a new Configuration object
@@ -440,6 +441,60 @@ func (c *Configuration) ServerURLWithContext(ctx context.Context, endpoint strin
 }
 
 type ConfigSetter func(*Configuration)
+
+func WithCache(cache bool) ConfigSetter {
+	return func(c *Configuration) {
+		c.Okta.Client.Cache.Enabled = cache
+	}
+}
+
+func WithCacheManager(cacheManager Cache) ConfigSetter {
+	return func(c *Configuration) {
+		c.CacheManager = cacheManager
+	}
+}
+
+func WithCacheTtl(i int32) ConfigSetter {
+	return func(c *Configuration) {
+		c.Okta.Client.Cache.DefaultTtl = i
+	}
+}
+
+func WithCacheTti(i int32) ConfigSetter {
+	return func(c *Configuration) {
+		c.Okta.Client.Cache.DefaultTti = i
+	}
+}
+
+func WithConnectionTimeout(i int64) ConfigSetter {
+	return func(c *Configuration) {
+		c.Okta.Client.ConnectionTimeout = i
+	}
+}
+
+func WithProxyPort(i int32) ConfigSetter {
+	return func(c *Configuration) {
+		c.Okta.Client.Proxy.Port = i
+	}
+}
+
+func WithProxyHost(host string) ConfigSetter {
+	return func(c *Configuration) {
+		c.Okta.Client.Proxy.Host = host
+	}
+}
+
+func WithProxyUsername(username string) ConfigSetter {
+	return func(c *Configuration) {
+		c.Okta.Client.Proxy.Username = username
+	}
+}
+
+func WithProxyPassword(pass string) ConfigSetter {
+	return func(c *Configuration) {
+		c.Okta.Client.Proxy.Password = pass
+	}
+}
 
 func WithOrgUrl(rawUrl string) ConfigSetter {
 	return func(c *Configuration) {
