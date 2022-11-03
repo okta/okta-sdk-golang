@@ -46,10 +46,7 @@ func cleanUpApplication(appId string) error {
 }
 
 func randomWait() {
-	rand.Seed(time.Now().UnixNano())
-	min := 60
-	max := 100
-	time.Sleep(time.Duration((rand.Intn(max-min+1) + min)))
+	time.Sleep(time.Duration(90))
 }
 
 func Test_Get_Applications(t *testing.T) {
