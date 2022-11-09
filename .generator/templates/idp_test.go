@@ -52,16 +52,16 @@ func Test_Activate_Identity_Provider(t *testing.T) {
 	t.Parallel()
 	createdIdp, _, err := setupIdp(randomTestString())
 	require.NoError(t, err, "Creating a new idp should not error")
-	assert.Equal(t, "ACTIVE", createdIdp.GetStatus())
+	assert.Equal(t, LIFECYCLESTATUS_ACTIVE, createdIdp.GetStatus())
 	t.Run("deactivate idp", func(t *testing.T) {
 		didp, _, err := apiClient.IdentityProviderApi.DeactivateIdentityProvider(apiClient.cfg.Context, createdIdp.GetId()).Execute()
 		require.NoError(t, err, "Could not deactivate idp")
-		assert.Equal(t, "INACTIVE", didp.GetStatus())
+		assert.Equal(t, LIFECYCLESTATUS_INACTIVE, didp.GetStatus())
 	})
 	t.Run("activate idp", func(t *testing.T) {
 		aidp, _, err := apiClient.IdentityProviderApi.ActivateIdentityProvider(apiClient.cfg.Context, createdIdp.GetId()).Execute()
 		require.NoError(t, err, "Could not activate idp")
-		assert.Equal(t, "ACTIVE", aidp.GetStatus())
+		assert.Equal(t, LIFECYCLESTATUS_ACTIVE, aidp.GetStatus())
 	})
 	err = cleanUpIdp(createdIdp.GetId())
 	require.NoError(t, err, "Clean up idp should not error")
@@ -72,7 +72,7 @@ func Test_Update_Identity_Provider(t *testing.T) {
 	createdIdp, _, err := setupIdp(randomTestString())
 	require.NoError(t, err, "Creating a new idp should not error")
 	t.Run("update idp", func(t *testing.T) {
-		req := apiClient.IdentityProviderApi.UpdateIdentityProvider(apiClient.cfg.Context, createdIdp.GetId())
+		req := apiClient.IdentityProviderApi.ReplaceIdentityProvider(apiClient.cfg.Context, createdIdp.GetId())
 		createdIdp.SetName(fmt.Sprintf("%v%v", testPrefix, "Update"))
 		req = req.IdentityProvider(*createdIdp)
 		uidp, _, err := req.Execute()

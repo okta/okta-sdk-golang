@@ -4,6 +4,7 @@ import (
 	"os"
 	"path"
 	"testing"
+	"time"
 
 	"github.com/stretchr/testify/assert"
 	"github.com/stretchr/testify/require"
@@ -84,7 +85,7 @@ func Test_Update_App(t *testing.T) {
 		payload := testFactory.NewValidBasicAuthApplication(newName)
 		payload.Settings.App.SetAuthURL("https://example.org/auth.html")
 		payload.Settings.App.SetUrl("https://example.org/auth.html")
-		app, _, err := apiClient.ApplicationApi.UpdateApplication(apiClient.cfg.Context, createdApp.BasicAuthApplication.GetId()).Application(ListApplications200ResponseInner{BasicAuthApplication: payload}).Execute()
+		app, _, err := apiClient.ApplicationApi.ReplaceApplication(apiClient.cfg.Context, createdApp.BasicAuthApplication.GetId()).Application(ListApplications200ResponseInner{BasicAuthApplication: payload}).Execute()
 		require.NoError(t, err, "Could not update apps")
 		require.NotNil(t, app.BasicAuthApplication)
 		assert.Equal(t, newName, app.BasicAuthApplication.GetLabel())
@@ -104,15 +105,15 @@ func Test_Activate_Application(t *testing.T) {
 		app, _, err := apiClient.ApplicationApi.GetApplication(apiClient.cfg.Context, createdApp.BasicAuthApplication.GetId()).Execute()
 		require.NoError(t, err, "Could not get app by ID")
 		assert.Equal(t, createdApp.BasicAuthApplication.GetId(), app.BasicAuthApplication.GetId())
-		assert.Equal(t, "INACTIVE", app.BasicAuthApplication.GetStatus())
+		assert.Equal(t, APPLICATIONLIFECYCLESTATUS_INACTIVE, app.BasicAuthApplication.GetStatus())
 	})
 	t.Run("activate applications", func(t *testing.T) {
 		_, err = apiClient.ApplicationApi.ActivateApplication(apiClient.cfg.Context, createdApp.BasicAuthApplication.GetId()).Execute()
 		require.NoError(t, err, "Could not activate the app")
-		app, _, err := apiClient.ApplicationApi.GetApplication(apiClient.cfg.Context, createdApp.BasicAuthApplication.GetId()).Execute()
+		newapp, _, err := apiClient.ApplicationApi.GetApplication(apiClient.cfg.Context, createdApp.BasicAuthApplication.GetId()).Execute()
 		require.NoError(t, err, "Could not get app by ID")
-		assert.Equal(t, createdApp.BasicAuthApplication.GetId(), app.BasicAuthApplication.GetId())
-		assert.Equal(t, "ACTIVE", app.BasicAuthApplication.GetStatus())
+		assert.Equal(t, createdApp.BasicAuthApplication.GetId(), newapp.BasicAuthApplication.GetId())
+		assert.Equal(t, APPLICATIONLIFECYCLESTATUS_ACTIVE, newapp.BasicAuthApplication.GetStatus())
 	})
 	err = cleanUpApplication(createdApp.BasicAuthApplication.GetId())
 	require.NoError(t, err, "Clean up app should not error")
@@ -174,7 +175,7 @@ func Test_Application_Users_Operations(t *testing.T) {
 		assert.Equal(t, newUserName, updatedAppUser.Credentials.GetUserName())
 	})
 	t.Run("remove application from user", func(t *testing.T) {
-		_, err = apiClient.ApplicationApi.DeleteApplicationUser(apiClient.cfg.Context, createdApp.BasicAuthApplication.GetId(), user.GetId()).Execute()
+		_, err = apiClient.ApplicationApi.UnassignUserFromApplication(apiClient.cfg.Context, createdApp.BasicAuthApplication.GetId(), user.GetId()).Execute()
 		require.NoError(t, err, "Delete user to application should not error")
 		appUserList, _, err := apiClient.ApplicationApi.ListApplicationUsers(apiClient.cfg.Context, createdApp.BasicAuthApplication.GetId()).Execute()
 		require.NoError(t, err, "Could not get list apps")
@@ -197,7 +198,7 @@ func Test_Application_Groups_Operations(t *testing.T) {
 	t.Run("assign group to application", func(t *testing.T) {
 		payload := ApplicationGroupAssignment{}
 		payload.SetPriority(5)
-		appGroup, _, err := apiClient.ApplicationApi.CreateApplicationGroupAssignment(apiClient.cfg.Context, createdApp.BasicAuthApplication.GetId(), group.GetId()).ApplicationGroupAssignment(payload).Execute()
+		appGroup, _, err := apiClient.ApplicationApi.AssignGroupToApplication(apiClient.cfg.Context, createdApp.BasicAuthApplication.GetId(), group.GetId()).ApplicationGroupAssignment(payload).Execute()
 		require.NoError(t, err, "Create app group assignment should not error")
 		assert.NotNil(t, appGroup)
 	})
@@ -212,7 +213,7 @@ func Test_Application_Groups_Operations(t *testing.T) {
 		assert.NotEmpty(t, appGroupList)
 	})
 	t.Run("remove application from group", func(t *testing.T) {
-		_, err = apiClient.ApplicationApi.DeleteApplicationGroupAssignment(apiClient.cfg.Context, createdApp.BasicAuthApplication.GetId(), group.GetId()).Execute()
+		_, err = apiClient.ApplicationApi.UnassignApplicationFromGroup(apiClient.cfg.Context, createdApp.BasicAuthApplication.GetId(), group.GetId()).Execute()
 		require.NoError(t, err, "Delete app group assignment should not error")
 		_, _, err := apiClient.ApplicationApi.GetApplicationGroupAssignment(apiClient.cfg.Context, createdApp.BasicAuthApplication.GetId(), group.GetId()).Execute()
 		assert.Equal(t, "404 Not Found", err.Error())
@@ -285,9 +286,9 @@ func TestGetDefaultProvisioningConnectionForApplication(t *testing.T) {
 		profile.SetAuthScheme("TOKEN")
 		profile.SetToken("TEST")
 		payload := ProvisioningConnectionRequest{Profile: profile}
-		conn, _, err := apiClient.ApplicationApi.SetDefaultProvisioningConnectionForApplication(apiClient.cfg.Context, createdApp.SamlApplication.GetId()).ProvisioningConnectionRequest(payload).Activate(false).Execute()
+		conn, _, err := apiClient.ApplicationApi.UpdateDefaultProvisioningConnectionForApplication(apiClient.cfg.Context, createdApp.SamlApplication.GetId()).ProvisioningConnectionRequest(payload).Activate(false).Execute()
 		require.NoError(t, err, "setting default provisioning connection for application should not error.")
-		assert.Equal(t, "TOKEN", conn.GetAuthScheme())
+		assert.Equal(t, PROVISIONINGCONNECTIONAUTHSCHEME_TOKEN, conn.GetAuthScheme())
 	})
 	err = cleanUpApplication(createdApp.SamlApplication.GetId())
 	require.NoError(t, err, "Clean up app should not error")
