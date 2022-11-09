@@ -35,11 +35,12 @@ You can learn more on the [Okta + Golang][lang-landing] page in our documentatio
 This library uses semantic versioning and follows Okta's [library version
 policy](https://developer.okta.com/code/library-versions/).
 
-| Version | Status                             |
-| ------- | ---------------------------------- |
-| 0.x     |  :warning: Beta Release (Retired)  |
-| 1.x     |  :warning: Retiring on 2021-03-04  |
-| 2.x     |  :heavy_check_mark: Release        |
+| Version | Status                                          |
+| ------- | ----------------------------------------        |
+| 0.x     |  :warning: Beta Release (Retired)               |
+| 1.x     |  :warning: Retiring on 2021-03-04               |
+| 2.x     |  :warning: Retiring                             |
+| 3.x     |  :heavy_check_mark: Stable ([migration guide](MIGRATING.md)) 
 
 The latest release can always be found on the [releases page][github-releases].
 
