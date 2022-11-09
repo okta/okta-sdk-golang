@@ -7,6 +7,20 @@ import (
 	"github.com/stretchr/testify/require"
 )
 
+func setupGroup(name string) (*Group, *APIResponse, error) {
+	req := apiClient.GroupApi.CreateGroup(apiClient.cfg.Context)
+	gp := NewGroupProfile()
+	gp.SetName(name)
+	payload := Group{Profile: gp}
+	req = req.Group(payload)
+	return req.Execute()
+}
+
+func cleanUpGroup(groupId string) (err error) {
+	_, err = apiClient.GroupApi.DeleteGroup(apiClient.cfg.Context, groupId).Execute()
+	return
+}
+
 func cleanUpGroupRule(groupRuleId string) (err error) {
 	_, err = apiClient.GroupApi.DeleteGroupRule(apiClient.cfg.Context, groupRuleId).Execute()
 	return
@@ -77,7 +91,7 @@ func Test_Update_Group(t *testing.T) {
 		ngp.SetName(newGroupName)
 		ng := Group{}
 		ng.SetProfile(ngp)
-		req := apiClient.GroupApi.UpdateGroup(apiClient.cfg.Context, group.GetId())
+		req := apiClient.GroupApi.ReplaceGroup(apiClient.cfg.Context, group.GetId())
 		req = req.Group(ng)
 		g, _, err := req.Execute()
 		require.NoError(t, err, "Could not update group")
@@ -95,7 +109,7 @@ func Test_Group_User_Operation(t *testing.T) {
 	user, _, _, err := setupUser(true)
 	require.NoError(t, err, "Creating a new user should not error")
 	t.Run("add user to group", func(t *testing.T) {
-		_, err := apiClient.GroupApi.AddUserToGroup(apiClient.cfg.Context, group.GetId(), user.GetId()).Execute()
+		_, err := apiClient.GroupApi.AssignUserToGroup(apiClient.cfg.Context, group.GetId(), user.GetId()).Execute()
 		require.NoError(t, err, "Could not add user to group")
 		users, _, err := apiClient.GroupApi.ListGroupUsers(apiClient.cfg.Context, group.GetId()).Execute()
 		require.NoError(t, err)
@@ -108,7 +122,7 @@ func Test_Group_User_Operation(t *testing.T) {
 		assert.True(t, found, "Could not find user in group")
 	})
 	t.Run("remove user from group", func(t *testing.T) {
-		_, err := apiClient.GroupApi.RemoveUserFromGroup(apiClient.cfg.Context, group.GetId(), user.GetId()).Execute()
+		_, err := apiClient.GroupApi.UnassignUserFromGroup(apiClient.cfg.Context, group.GetId(), user.GetId()).Execute()
 		require.NoError(t, err, "Could not remove user from group")
 		users, _, err := apiClient.GroupApi.ListGroupUsers(apiClient.cfg.Context, group.GetId()).Execute()
 		require.NoError(t, err)
@@ -182,7 +196,7 @@ func Test_Group_Rule_Operation(t *testing.T) {
 		gr.SetConditions(*grc)
 		gr.SetType("group_rule")
 		gr.SetName(randomTestString())
-		req := apiClient.GroupApi.UpdateGroupRule(apiClient.cfg.Context, groupRule.GetId())
+		req := apiClient.GroupApi.ReplaceGroupRule(apiClient.cfg.Context, groupRule.GetId())
 		req = req.GroupRule(*gr)
 		newGroupRule, _, err := req.Execute()
 		require.NoError(t, err, "Should not error when updating rule")
@@ -203,22 +217,14 @@ func Test_List_Assigned_Applications_For_Group(t *testing.T) {
 	t.Parallel()
 	group, _, err := setupGroup(randomTestString())
 	require.NoError(t, err, "Creating a new group should not error")
+	var createdApp *ListApplications200ResponseInner
 	t.Run("get list assigned application for group", func(t *testing.T) {
 		apps, _, err := apiClient.GroupApi.ListAssignedApplicationsForGroup(apiClient.cfg.Context, group.GetId()).Execute()
 		require.NoError(t, err, "Should not error when listing assigned apps for group")
 		assert.Equal(t, 0, len(apps), "there shouldn't be any apps assigned to group")
-		body := NewBookmarkApplication()
-		setting := NewBookmarkApplicationSettings()
-		baa := NewBookmarkApplicationSettingsApplication()
-		baa.SetRequestIntegration(false)
-		baa.SetUrl("https://example.com/bookmark.htm")
-		setting.SetApp(*baa)
-		body.SetSettings(*setting)
-		areq := apiClient.ApplicationApi.CreateApplication(apiClient.cfg.Context)
-		areq = areq.Application(ListApplications200ResponseInner{BookmarkApplication: body})
-		app, _, err := areq.Execute()
+		createdApp, _, err = setupBookmarkApplication(randomTestString())
 		require.NoError(t, err, "Creating an application should not error")
-		aareq := apiClient.ApplicationApi.CreateApplicationGroupAssignment(apiClient.cfg.Context, app.BookmarkApplication.GetId(), group.GetId())
+		aareq := apiClient.ApplicationApi.AssignGroupToApplication(apiClient.cfg.Context, createdApp.BookmarkApplication.GetId(), group.GetId())
 		aareq.applicationGroupAssignment = NewApplicationGroupAssignment()
 		_, _, err = aareq.Execute()
 		require.NoError(t, err, "Assigning application to group should not error")
@@ -226,6 +232,10 @@ func Test_List_Assigned_Applications_For_Group(t *testing.T) {
 		require.NoError(t, err, "Should not error when listing assigned apps for group")
 		assert.Equal(t, 1, len(apps), "there shouldn't be any apps assigned to group")
 	})
+	err = cleanUpGroup(group.GetId())
+	require.NoError(t, err, "Clean up group should not error")
+	err = cleanUpApplication(createdApp.BookmarkApplication.GetId())
+	require.NoError(t, err, "Clean up group should not error")
 }
 
 func Test_Assigned_Role_To_Group_Operation(t *testing.T) {
@@ -234,13 +244,13 @@ func Test_Assigned_Role_To_Group_Operation(t *testing.T) {
 	require.NoError(t, err, "Creating a new group should not error")
 	var createdRole *Role
 	t.Run("assigned role to group", func(t *testing.T) {
-		req := apiClient.GroupApi.AssignRoleToGroup(apiClient.cfg.Context, group.GetId())
+		req := apiClient.RoleAssignmentApi.AssignRoleToGroup(apiClient.cfg.Context, group.GetId())
 		assignedRoleSA := NewAssignRoleRequest()
 		assignedRoleSA.SetType("SUPER_ADMIN")
 		req = req.AssignRoleRequest(*assignedRoleSA)
 		createdRole, _, err = req.Execute()
 		require.NoError(t, err, "Assigned role to group should not error")
-		roles, _, err := apiClient.GroupApi.ListGroupAssignedRoles(apiClient.cfg.Context, group.GetId()).Execute()
+		roles, _, err := apiClient.RoleAssignmentApi.ListGroupAssignedRoles(apiClient.cfg.Context, group.GetId()).Execute()
 		require.NoError(t, err, "Listing group assigned role should not error")
 		var found bool
 		for _, r := range roles {
@@ -251,9 +261,9 @@ func Test_Assigned_Role_To_Group_Operation(t *testing.T) {
 		assert.True(t, found)
 	})
 	t.Run("unassigned role to group", func(t *testing.T) {
-		_, err = apiClient.GroupApi.RemoveRoleFromGroup(apiClient.cfg.Context, group.GetId(), createdRole.GetId()).Execute()
+		_, err = apiClient.RoleAssignmentApi.UnassignRoleFromGroup(apiClient.cfg.Context, group.GetId(), createdRole.GetId()).Execute()
 		require.NoError(t, err, "Unassigned role to group should not error")
-		roles, _, err := apiClient.GroupApi.ListGroupAssignedRoles(apiClient.cfg.Context, group.GetId()).Execute()
+		roles, _, err := apiClient.RoleAssignmentApi.ListGroupAssignedRoles(apiClient.cfg.Context, group.GetId()).Execute()
 		require.NoError(t, err, "Listing group assigned role should not error")
 		assert.Empty(t, roles)
 	})

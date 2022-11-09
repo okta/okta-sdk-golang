@@ -13,7 +13,7 @@ var (
 )
 
 func init() {
-	configuration := NewConfiguration()
+	configuration := NewConfiguration(WithCache(false))
 	configuration.Debug = false
 
 	apiClient = NewAPIClient(configuration)

@@ -80,7 +80,7 @@ func Test_Update_Policies(t *testing.T) {
 	t.Run("update policy", func(t *testing.T) {
 		newName := randomTestString()
 		payload := testFactory.NewValidAccessPolicy(newName)
-		policy, _, err := apiClient.PolicyApi.UpdatePolicy(apiClient.cfg.Context, createdPolicy.AccessPolicy.GetId()).Policy(ListPolicies200ResponseInner{AccessPolicy: payload}).Execute()
+		policy, _, err := apiClient.PolicyApi.ReplacePolicy(apiClient.cfg.Context, createdPolicy.AccessPolicy.GetId()).Policy(ListPolicies200ResponseInner{AccessPolicy: payload}).Execute()
 		require.NoError(t, err, "Could not update policy")
 		require.NotNil(t, policy.AccessPolicy)
 		assert.Equal(t, newName, policy.AccessPolicy.GetName())
@@ -99,7 +99,7 @@ func Test_Activate_Policy(t *testing.T) {
 		policy, _, err := apiClient.PolicyApi.GetPolicy(apiClient.cfg.Context, createdPolicy.AccessPolicy.GetId()).Execute()
 		require.NoError(t, err, "Could not get policy by ID")
 		assert.Equal(t, createdPolicy.AccessPolicy.GetId(), policy.AccessPolicy.GetId())
-		assert.Equal(t, "INACTIVE", policy.AccessPolicy.GetStatus())
+		assert.Equal(t, LIFECYCLESTATUS_INACTIVE, policy.AccessPolicy.GetStatus())
 	})
 	t.Run("activate policy", func(t *testing.T) {
 		_, err = apiClient.PolicyApi.ActivatePolicy(apiClient.cfg.Context, createdPolicy.AccessPolicy.GetId()).Execute()
@@ -107,7 +107,7 @@ func Test_Activate_Policy(t *testing.T) {
 		policy, _, err := apiClient.PolicyApi.GetPolicy(apiClient.cfg.Context, createdPolicy.AccessPolicy.GetId()).Execute()
 		require.NoError(t, err, "Could not get policy by ID")
 		assert.Equal(t, createdPolicy.AccessPolicy.GetId(), policy.AccessPolicy.GetId())
-		assert.Equal(t, "ACTIVE", policy.AccessPolicy.GetStatus())
+		assert.Equal(t, LIFECYCLESTATUS_ACTIVE, policy.AccessPolicy.GetStatus())
 	})
 	err = cleanUpPolicy(createdPolicy.AccessPolicy.GetId())
 	require.NoError(t, err, "Clean up policy should not error")
@@ -138,7 +138,7 @@ func Test_Policy_Rules_Operation(t *testing.T) {
 	configuration.Debug = true
 	proxyClient := NewAPIClient(configuration)
 	accessPolicyRule := &AccessPolicyRule{}
-	accessPolicyRule.SetType("ACCESS_POLICY")
+	accessPolicyRule.SetType(POLICYRULETYPE_ACCESS_POLICY)
 	name := randomTestString()
 	accessPolicyRule.SetName(name)
 	payload := ListPolicyRules200ResponseInner{AccessPolicyRule: accessPolicyRule}
@@ -164,7 +164,7 @@ func Test_Policy_Rules_Operation(t *testing.T) {
 	t.Run("update policy rule", func(t *testing.T) {
 		newName := randomTestString()
 		createdPolicyRule.AccessPolicyRule.SetName(newName)
-		rpolicyRule, _, err := apiClient.PolicyApi.UpdatePolicyRule(apiClient.cfg.Context, createdPolicy.AccessPolicy.GetId(), createdPolicyRule.AccessPolicyRule.GetId()).PolicyRule(*createdPolicyRule).Execute()
+		rpolicyRule, _, err := apiClient.PolicyApi.ReplacePolicyRule(apiClient.cfg.Context, createdPolicy.AccessPolicy.GetId(), createdPolicyRule.AccessPolicyRule.GetId()).PolicyRule(*createdPolicyRule).Execute()
 		require.NoError(t, err, "Could not update policy rule")
 		assert.NotEqual(t, name, rpolicyRule.AccessPolicyRule.GetName())
 		assert.Equal(t, newName, rpolicyRule.AccessPolicyRule.GetName())
@@ -174,7 +174,7 @@ func Test_Policy_Rules_Operation(t *testing.T) {
 		require.NoError(t, err, "Could not deactivate policy rule")
 		rpolicyRule, _, err := apiClient.PolicyApi.GetPolicyRule(apiClient.cfg.Context, createdPolicy.AccessPolicy.GetId(), createdPolicyRule.AccessPolicyRule.GetId()).Execute()
 		require.NoError(t, err, "Could not get policy rule by ID")
-		assert.Equal(t, "INACTIVE", rpolicyRule.AccessPolicyRule.GetStatus())
+		assert.Equal(t, LIFECYCLESTATUS_INACTIVE, rpolicyRule.AccessPolicyRule.GetStatus())
 	})
 
 	t.Run("activate policy rule", func(t *testing.T) {
@@ -182,7 +182,7 @@ func Test_Policy_Rules_Operation(t *testing.T) {
 		require.NoError(t, err, "Could not activate policy rule")
 		rpolicyRule, _, err := apiClient.PolicyApi.GetPolicyRule(apiClient.cfg.Context, createdPolicy.AccessPolicy.GetId(), createdPolicyRule.AccessPolicyRule.GetId()).Execute()
 		require.NoError(t, err, "Could not get policy rule by ID")
-		assert.Equal(t, "ACTIVE", rpolicyRule.AccessPolicyRule.GetStatus())
+		assert.Equal(t, LIFECYCLESTATUS_ACTIVE, rpolicyRule.AccessPolicyRule.GetStatus())
 	})
 	err = cleanUpPolicyRule(createdPolicy.AccessPolicy.GetId(), createdPolicyRule.AccessPolicyRule.GetId())
 	require.NoError(t, err, "Clean up policy rule should not error")

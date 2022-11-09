@@ -26,7 +26,7 @@ func cleanUpUser(userId string) error {
 	if err != nil {
 		return err
 	}
-	_, err = apiClient.UserApi.DeactivateOrDeleteUser(apiClient.cfg.Context, userId).Execute()
+	_, err = apiClient.UserApi.DeleteUser(apiClient.cfg.Context, userId).Execute()
 	if err != nil {
 		return err
 	}
@@ -35,20 +35,6 @@ func cleanUpUser(userId string) error {
 		err = nil
 	}
 	return err
-}
-
-func setupGroup(name string) (*Group, *APIResponse, error) {
-	req := apiClient.GroupApi.CreateGroup(apiClient.cfg.Context)
-	gp := NewGroupProfile()
-	gp.SetName(name)
-	payload := Group{Profile: gp}
-	req = req.Group(payload)
-	return req.Execute()
-}
-
-func cleanUpGroup(groupId string) (err error) {
-	_, err = apiClient.GroupApi.DeleteGroup(apiClient.cfg.Context, groupId).Execute()
-	return
 }
 
 func Test_Get_User(t *testing.T) {
@@ -184,7 +170,7 @@ func Test_Get_Reset_Password_Link_User(t *testing.T) {
 	user, _, _, err := setupUser(true)
 	require.NoError(t, err, "Creating a new user should not error")
 	t.Run("reset password", func(t *testing.T) {
-		req := apiClient.UserApi.ResetPassword(apiClient.cfg.Context, user.GetId())
+		req := apiClient.UserApi.GenerateResetPasswordToken(apiClient.cfg.Context, user.GetId())
 		req = req.SendEmail(false)
 		rpt, _, err := req.Execute()
 		require.NoError(t, err, "Could not reset password")
@@ -238,6 +224,8 @@ func Test_Change_User_Recovery_Question(t *testing.T) {
 		assert.Equal(t, user.GetId(), ubid.GetId())
 		assert.True(t, ubid.GetPasswordChanged().After(user.GetPasswordChanged()), "Password change did not happen")
 	})
+	err = cleanUpUser(user.GetId())
+	require.NoError(t, err, "Clean up user should not error")
 }
 
 func Test_Assign_User_To_A_Role(t *testing.T) {
@@ -245,16 +233,16 @@ func Test_Assign_User_To_A_Role(t *testing.T) {
 	user, _, _, err := setupUser(true)
 	require.NoError(t, err, "Creating a new user should not error")
 	var roleId string
-	role := "USER_ADMIN"
+	role := ROLETYPE_USER_ADMIN
 	t.Run("add role to user", func(t *testing.T) {
-		req := apiClient.UserApi.AssignRoleToUser(apiClient.cfg.Context, user.GetId())
+		req := apiClient.RoleAssignmentApi.AssignRoleToUser(apiClient.cfg.Context, user.GetId())
 		payload := AssignRoleRequest{
 			Type: &role,
 		}
 		req = req.AssignRoleRequest(payload)
 		_, _, err = req.Execute()
 		require.NoError(t, err, "Should not have had an error when adding role to user")
-		listRoles, _, err := apiClient.UserApi.ListAssignedRolesForUser(apiClient.cfg.Context, user.GetId()).Execute()
+		listRoles, _, err := apiClient.RoleAssignmentApi.ListAssignedRolesForUser(apiClient.cfg.Context, user.GetId()).Execute()
 		require.NoError(t, err, "Should not have had an error when getting user's assigned role")
 		var found bool
 		for _, r := range listRoles {
@@ -267,9 +255,9 @@ func Test_Assign_User_To_A_Role(t *testing.T) {
 		assert.True(t, found, "Could not verify USER_ADMIN was added to the user")
 	})
 	t.Run("remove role from user", func(t *testing.T) {
-		_, err = apiClient.UserApi.RemoveRoleFromUser(apiClient.cfg.Context, user.GetId(), roleId).Execute()
+		_, err = apiClient.RoleAssignmentApi.UnassignRoleFromUser(apiClient.cfg.Context, user.GetId(), roleId).Execute()
 		require.NoError(t, err, "Should not have had an error when removing role to user")
-		listRoles, _, err := apiClient.UserApi.ListAssignedRolesForUser(apiClient.cfg.Context, user.GetId()).Execute()
+		listRoles, _, err := apiClient.RoleAssignmentApi.ListAssignedRolesForUser(apiClient.cfg.Context, user.GetId()).Execute()
 		require.NoError(t, err, "Should not have had an error when getting user's assigned role")
 		var found bool
 		for _, r := range listRoles {
@@ -299,15 +287,15 @@ func Test_User_Group_Target_Role(t *testing.T) {
 		greq = greq.Group(gpayload)
 		group, _, err := greq.Execute()
 		require.NoError(t, err, "Creating an group should not error")
-		areq := apiClient.UserApi.AssignRoleToUser(apiClient.cfg.Context, user.GetId())
+		areq := apiClient.RoleAssignmentApi.AssignRoleToUser(apiClient.cfg.Context, user.GetId())
 		payload := NewAssignRoleRequest()
 		payload.SetType("USER_ADMIN")
 		areq = areq.AssignRoleRequest(*payload)
 		role, _, err := areq.Execute()
 		require.NoError(t, err, "Should not have had an error when adding role to user")
-		_, err = apiClient.UserApi.AddGroupTargetToRole(apiClient.cfg.Context, user.GetId(), role.GetId(), group.GetId()).Execute()
+		_, err = apiClient.RoleTargetApi.AssignGroupTargetToUserRole(apiClient.cfg.Context, user.GetId(), role.GetId(), group.GetId()).Execute()
 		require.NoError(t, err, "Should not have had an error when adding group target to role")
-		groups, _, err := apiClient.UserApi.ListGroupTargetsForRole(apiClient.cfg.Context, user.GetId(), role.GetId()).Execute()
+		groups, _, err := apiClient.RoleTargetApi.ListGroupTargetsForRole(apiClient.cfg.Context, user.GetId(), role.GetId()).Execute()
 		require.NoError(t, err)
 		var found bool
 		for _, tmpgroup := range groups {
@@ -329,9 +317,9 @@ func Test_User_Group_Target_Role(t *testing.T) {
 		newGroup, _, err := greq.Execute()
 		require.NoError(t, err, "Should not have had an error when adding role to user")
 		newGroupId = newGroup.GetId()
-		_, err = apiClient.UserApi.AddGroupTargetToRole(apiClient.cfg.Context, user.GetId(), roleId, newGroup.GetId()).Execute()
+		_, err = apiClient.RoleTargetApi.AssignGroupTargetToUserRole(apiClient.cfg.Context, user.GetId(), roleId, newGroup.GetId()).Execute()
 		require.NoError(t, err)
-		_, err = apiClient.UserApi.RemoveGroupTargetFromRole(apiClient.cfg.Context, user.GetId(), roleId, groupId).Execute()
+		_, err = apiClient.RoleTargetApi.UnassignGroupTargetFromUserAdminRole(apiClient.cfg.Context, user.GetId(), roleId, groupId).Execute()
 		require.NoError(t, err, "Should not have had an error when removing group target to role")
 	})
 	err = cleanUpUser(user.GetId())
@@ -344,11 +332,14 @@ func Test_User_Group_Target_Role(t *testing.T) {
 
 func Test_Get_User_With_Cache_Enabled(t *testing.T) {
 	t.Parallel()
+	configuration := NewConfiguration()
+	configuration.Debug = true
+	cachedApiClient := NewAPIClient(configuration)
 	user, _, _, err := setupUser(true)
 	require.NoError(t, err, "Creating a new user should not error")
 	t.Run("get user with cache", func(t *testing.T) {
 		for i := 0; i < 10; i++ {
-			u, resp, err := apiClient.UserApi.GetUser(apiClient.cfg.Context, user.GetId()).Execute()
+			u, resp, err := cachedApiClient.UserApi.GetUser(apiClient.cfg.Context, user.GetId()).Execute()
 			assert.NoError(t, err, "Should not error when getting user")
 			assert.NotNil(t, u, "user should not be nil")
 			assert.NotNil(t, resp, "resp should not be nil")
@@ -369,9 +360,9 @@ func Test_List_User_Subscriptions(t *testing.T) {
 	})
 	t.Run("get user subscription by notification type", func(t *testing.T) {
 		expectedNotificationType := "OKTA_ANNOUNCEMENT"
-		subscription, _, err := apiClient.SubscriptionApi.GetUserSubscriptionByNotificationType(apiClient.cfg.Context, user.GetId(), expectedNotificationType).Execute()
+		subscription, _, err := apiClient.SubscriptionApi.ListUserSubscriptionsByNotificationType(apiClient.cfg.Context, user.GetId(), expectedNotificationType).Execute()
 		require.NoError(t, err, "Should not error getting user subscription by notification types")
-		assert.True(t, subscription.GetNotificationType() == "OKTA_ANNOUNCEMENT", "User should have subscription notification type %q, got %q", expectedNotificationType, subscription.NotificationType)
+		assert.Equal(t, subscription.GetNotificationType(), NOTIFICATIONTYPE_OKTA_ANNOUNCEMENT, "User should have subscription notification type %q, got %q", expectedNotificationType, subscription.NotificationType)
 	})
 }
 

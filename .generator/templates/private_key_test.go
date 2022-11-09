@@ -1,6 +1,7 @@
 package okta
 
 import (
+	"os"
 	"testing"
 
 	"github.com/stretchr/testify/assert"
@@ -8,6 +9,9 @@ import (
 )
 
 func Test_Private_Key_Request_Can_Create_User(t *testing.T) {
+	if os.Getenv("OKTA_TRAVIS_CI") != "yes" {
+		t.Skip("Skipping testing not in CI environment")
+	}
 	configuration := NewConfiguration(WithAuthorizationMode("PrivateKey"), WithScopes([]string{"okta.users.manage"}))
 	client := NewAPIClient(configuration)
 	uc := testFactory.NewValidTestUserCredentialsWithPassword()
