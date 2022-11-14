@@ -8,7 +8,8 @@ before_install:
   - npx @openapitools/openapi-generator-cli generate -c ./.generator/config.yaml -i .generator/okta-management-APIs-oasv3-enum-inheritance.yaml
   - make fmt
   - make import
-  # - cd okta/v3
+  - cd okta/v3
+  - mv go.mod go.sum ../../
 
 jobs:
   include:
