@@ -77,9 +77,6 @@ test\:unit\:all:
 	@echo "$(COLOR_OK)Running unit tests...$(COLOR_NONE)"
 	go test -race ./tests/unit ./okta/query -test.v
 
-v3-test:
-	go test -failfast -race ./okta/v3 -test.v
-
 .PHONY: fmt
 fmt: check-fmt # Format the code
 	@$(GOFMT) -l -w $$(find . -name '*.go' |grep -v vendor) > /dev/null
@@ -93,3 +90,13 @@ import: check-goimports
 
 check-goimports:
 	@which $(GOIMPORTS) > /dev/null || GO111MODULE=on go install golang.org/x/tools/cmd/goimports@latest
+
+v3-test:
+	go test -failfast -race ./okta/v3 -test.v
+
+v3-generate:
+  	nvm install 16.16.0
+  	nvm use 16.16.0
+  	npm install @openapitools/openapi-generator-cli -g
+  	openapi-generator-cli version-manager set 6.0.1
+  	npx @openapitools/openapi-generator-cli generate -c ./.generator/config.yaml -i .generator/okta-management-APIs-oasv3-enum-inheritance.yaml
