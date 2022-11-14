@@ -95,8 +95,4 @@ v3-test:
 	go test -failfast -race ./okta/v3 -test.v
 
 v3-generate:
-  	nvm install 16.16.0
-  	nvm use 16.16.0
-  	npm install @openapitools/openapi-generator-cli -g
-  	openapi-generator-cli version-manager set 6.0.1
-  	npx @openapitools/openapi-generator-cli generate -c ./.generator/config.yaml -i .generator/okta-management-APIs-oasv3-enum-inheritance.yaml
+	npx @openapitools/openapi-generator-cli generate -c ./.generator/config.yaml -i .generator/okta-management-APIs-oasv3-enum-inheritance.yaml
