@@ -77,6 +77,9 @@ test\:unit\:all:
 	@echo "$(COLOR_OK)Running unit tests...$(COLOR_NONE)"
 	go test -race ./tests/unit ./okta/query -test.v
 
+v3-test:
+	go test -failfast -race ./okta/v3 -test.v
+
 .PHONY: fmt
 fmt: check-fmt # Format the code
 	@$(GOFMT) -l -w $$(find . -name '*.go' |grep -v vendor) > /dev/null
