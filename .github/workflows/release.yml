@@ -42,7 +42,7 @@ jobs:
       # - run: ls
       # - run: cd go-client && ls
       # - run: cd okta/v3
-      - run: go-client
+      - run: cd go-client
       - run: mv go.mod go.sum ../
       - run: cd ../
       - run: ls
