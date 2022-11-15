@@ -40,7 +40,7 @@ jobs:
       - run: make fmt
       - run: make import
       - run: ls
-      - run: cd go-client
+      - run: cd go-client && ls
       # - run: cd okta/v3
       # - run: mv go.mod go.sum ../../
       # - run: cd ../../
