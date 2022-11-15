@@ -22,15 +22,22 @@ jobs:
       - 
         name: Checkout
         uses: actions/checkout@v2.4.0
-      - run: ls
-      - 
-        name: Generate Go Client
-        uses: openapi-generators/openapitools-generator-action@v1
+      -
+        name: Generate go client
+        uses: actions/setup-node@v3
         with:
-          generator: go
-          # config-file: .generator/config.yaml
-          # openapi-file: .generator/okta-management-APIs-oasv3-enum-inheritance.yaml
-          command-args: -c ./.generator/config.yaml -i .generator/okta-management-APIs-oasv3-enum-inheritance.yaml
+          node-version: 16.16.0
+      - run: npm install @openapitools/openapi-generator-cli -g
+      - run: openapi-generator-cli version-manager set 6.0.1 
+      # -
+      #   name: Generate Go Client
+      #   uses: openapi-generators/openapitools-generator-action@v1
+      #   with:
+      #     generator: go
+      #     # config-file: .generator/config.yaml
+      #     # openapi-file: .generator/okta-management-APIs-oasv3-enum-inheritance.yaml
+      #     command-args: -c ./.generator/config.yaml -i .generator/okta-management-APIs-oasv3-enum-inheritance.yaml
+      - run: make v3-generate
       - run: ls
       - 
         name: Set up Go
