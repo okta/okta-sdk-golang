@@ -28,8 +28,9 @@ jobs:
         uses: openapi-generators/openapitools-generator-action@v1
         with:
           generator: go
-          config-file: .generator/config.yaml
-          openapi-file: .generator/okta-management-APIs-oasv3-enum-inheritance.yaml
+          # config-file: .generator/config.yaml
+          # openapi-file: .generator/okta-management-APIs-oasv3-enum-inheritance.yaml
+          command-args: -c ./.generator/config.yaml -i .generator/okta-management-APIs-oasv3-enum-inheritance.yaml
       - run: ls
       - 
         name: Set up Go
