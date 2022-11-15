@@ -19,40 +19,29 @@ jobs:
   goreleaser:
     runs-on: ubuntu-latest
     steps:
-      # -
-      #   name: Generate file
-      #   uses: actions/setup-node@v3
-      #   with:
-      #     node-version: 16.16.0
-      # - run: npm install @openapitools/openapi-generator-cli -g
-      # - run: openapi-generator-cli version-manager set 6.0.1
-      -
-        name: Checkout
+      - name: Checkout
         uses: actions/checkout@v2.4.0
-      # - run: make v3-generate
-      # - run: make fmt
-      # - run: make import
-      # - run: cd okta/v3
-      # - run: mv go.mod go.sum ../../
-      # - run: cd ../../
       - run: ls
-      -
-        name: Generate Go Client
+      - name: Generate Go Client
         uses: openapi-generators/openapitools-generator-action@v1
         with:
           generator: go
           config-file: .generator/config.yaml
           openapi-file: .generator/okta-management-APIs-oasv3-enum-inheritance.yaml
-      -
-        name: Unshallow
+      - run: ls
+      - run: make fmt
+      - run: make import
+      - run: cd okta/v3
+      - run: mv go.mod go.sum ../../
+      - run: cd ../../
+      - run: ls
+      - name: Unshallow
         run: git fetch --prune --unshallow
-      -
-        name: Set up Go
+      - name: Set up Go
         uses: actions/setup-go@v2
         with:
           go-version: 1.17
-      -
-        name: Run GoReleaser
+      - name: Run GoReleaser
         uses: goreleaser/goreleaser-action@v2.8.1
         with:
           version: latest
