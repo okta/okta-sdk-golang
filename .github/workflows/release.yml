@@ -34,9 +34,6 @@ jobs:
         run: openapi-generator-cli version-manager set 6.0.1 
       - name: Generator go client
         run: make v3-generate
-      - run: ls
-      - run: cd okta && ls
-      - run: cd okta/v3 && ls
       - 
         name: Set up Go
         uses: actions/setup-go@v2
@@ -44,7 +41,7 @@ jobs:
           go-version: 1.18
       - run: make fmt
       - run: make import
-      # - run: cd okta/v3 && mv go.mod go.sum ../../
+      - run: cd okta/v3 && mv go.mod go.sum ../../
       - run: ls
       - 
         name: Unshallow
