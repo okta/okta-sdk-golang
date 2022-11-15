@@ -40,7 +40,7 @@ jobs:
         uses: openapi-generators/openapitools-generator-action@v1
         with:
           generator: go
-          config-file: .generator/config.yml
+          config-file: .generator/config.yaml
           template-dir: .generator/templates
       -
         name: Unshallow
