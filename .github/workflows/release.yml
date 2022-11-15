@@ -35,13 +35,14 @@ jobs:
       # - run: cd okta/v3
       # - run: mv go.mod go.sum ../../
       # - run: cd ../../
+      - run: ls
       -
         name: Generate Go Client
-        uses: openapi-generators/openapitools-generator-action@v1
+        uses: openapi-generators/openapitools-generator-action@v3
         with:
           generator: go
           config-file: .generator/config.yaml
-          template-dir: .generator/templates
+          openapi-file: .generator/okta-management-APIs-oasv3-enum-inheritance.yaml
       -
         name: Unshallow
         run: git fetch --prune --unshallow
