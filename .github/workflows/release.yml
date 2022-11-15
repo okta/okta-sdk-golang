@@ -26,6 +26,7 @@ jobs:
           node-version: 16.16.0
       - run: npm install @openapitools/openapi-generator-cli -g
       - run: openapi-generator-cli version-manager set 6.0.1
+      - run: ls
       - run: make v3-generate
       - run: make fmt
       - run: make import
