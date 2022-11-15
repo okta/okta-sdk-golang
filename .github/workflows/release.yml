@@ -38,7 +38,7 @@ jobs:
       - run: ls
       -
         name: Generate Go Client
-        uses: openapi-generators/openapitools-generator-action@v2
+        uses: openapi-generators/openapitools-generator-action@v1
         with:
           generator: go
           config-file: .generator/config.yaml
