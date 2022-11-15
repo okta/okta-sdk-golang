@@ -23,22 +23,20 @@ jobs:
         name: Checkout
         uses: actions/checkout@v2.4.0
       -
-        name: Generate go client
+        name: Setup node
         uses: actions/setup-node@v3
         with:
           node-version: 16.16.0
-      - run: npm install @openapitools/openapi-generator-cli -g
-      - run: openapi-generator-cli version-manager set 6.0.1 
-      # -
-      #   name: Generate Go Client
-      #   uses: openapi-generators/openapitools-generator-action@v1
-      #   with:
-      #     generator: go
-      #     # config-file: .generator/config.yaml
-      #     # openapi-file: .generator/okta-management-APIs-oasv3-enum-inheritance.yaml
-      #     command-args: -c ./.generator/config.yaml -i .generator/okta-management-APIs-oasv3-enum-inheritance.yaml
-      - run: make v3-generate
+      - 
+        name: Install openapi generator
+        run: npm install @openapitools/openapi-generator-cli -g
+      - name: Set openapi generator version
+        run: openapi-generator-cli version-manager set 6.0.1 
+      - name: Generator go client
+        run: make v3-generate
       - run: ls
+      - run: cd okta && ls
+      - run: cd okta/v3 && ls
       - 
         name: Set up Go
         uses: actions/setup-go@v2
@@ -46,14 +44,8 @@ jobs:
           go-version: 1.18
       - run: make fmt
       - run: make import
-      # - run: ls
-      # - run: cd go-client && ls
-      # - run: cd okta/v3
-      - run: cd go-client
-      - run: mv go.mod go.sum ../
-      - run: cd ../
+      # - run: cd okta/v3 && mv go.mod go.sum ../../
       - run: ls
-      - run: cd go-client && ls
       - 
         name: Unshallow
         run: git fetch --prune --unshallow
