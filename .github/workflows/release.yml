@@ -39,12 +39,14 @@ jobs:
           go-version: 1.18
       - run: make fmt
       - run: make import
+      # - run: ls
+      # - run: cd go-client && ls
+      # - run: cd okta/v3
+      - run: go-client
+      - run: mv go.mod go.sum ../
+      - run: cd ../
       - run: ls
       - run: cd go-client && ls
-      # - run: cd okta/v3
-      # - run: mv go.mod go.sum ../../
-      # - run: cd ../../
-      - run: ls
       - 
         name: Unshallow
         run: git fetch --prune --unshallow
