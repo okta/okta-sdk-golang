@@ -52,7 +52,7 @@ jobs:
         uses: goreleaser/goreleaser-action@v2.8.1
         with:
           version: latest
-          args: release --rm-dist
+          args: release --rm-dist --skip-validate
         env:
           GPG_FINGERPRINT: ${{ steps.import_gpg.outputs.fingerprint }}
           # GitHub sets this automatically

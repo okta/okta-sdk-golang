@@ -3,6 +3,4 @@
 .idea
 .okta.yaml
 .vscode/settings.json
-go.*
-/okta/v3
 openapitools.json
