@@ -31,6 +31,11 @@ jobs:
           config-file: .generator/config.yaml
           openapi-file: .generator/okta-management-APIs-oasv3-enum-inheritance.yaml
       - run: ls
+      - 
+        name: Set up Go
+        uses: actions/setup-go@v2
+        with:
+          go-version: 1.18
       - run: make fmt
       - run: make import
       - run: cd okta/v3
@@ -40,11 +45,6 @@ jobs:
       - 
         name: Unshallow
         run: git fetch --prune --unshallow
-      - 
-        name: Set up Go
-        uses: actions/setup-go@v2
-        with:
-          go-version: 1.17
       - 
         name: Run GoReleaser
         uses: goreleaser/goreleaser-action@v2.8.1
