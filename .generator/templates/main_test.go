@@ -8,9 +8,7 @@ import (
 	"testing"
 )
 
-var (
-	apiClient *APIClient
-)
+var apiClient *APIClient
 
 func init() {
 	configuration := NewConfiguration(WithCache(false))

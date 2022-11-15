@@ -159,7 +159,6 @@ func Test_Policy_Rules_Operation(t *testing.T) {
 			}
 		}
 		assert.True(t, found, "Found policy rule in list")
-
 	})
 	t.Run("update policy rule", func(t *testing.T) {
 		newName := randomTestString()
