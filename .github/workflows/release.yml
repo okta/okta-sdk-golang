@@ -38,9 +38,11 @@ jobs:
           go-version: 1.18
       - run: make fmt
       - run: make import
-      - run: cd okta/v3
-      - run: mv go.mod go.sum ../../
-      - run: cd ../../
+      - run: ls
+      - run: cd go-client
+      # - run: cd okta/v3
+      # - run: mv go.mod go.sum ../../
+      # - run: cd ../../
       - run: ls
       - 
         name: Unshallow
