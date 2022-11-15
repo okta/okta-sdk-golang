@@ -18,7 +18,6 @@ jobs:
       go: 1.18.x
       script:
         - go mod download
-        # - go test ./...
         - make v3-test
     # FIXME travis_setup_go starting failing on gimme fetching golang tip, this is upstream, nothing that we control
     # - stage: test_go_tip
