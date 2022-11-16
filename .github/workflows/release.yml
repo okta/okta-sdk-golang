@@ -45,7 +45,15 @@ jobs:
       - run: make import
       - run: cd okta/v3 && mv go.mod go.sum ../../
       - run: git status
-      - run: git diff
+      - 
+        name: Commit generated code
+        uses: EndBug/add-and-commit@v9
+        with:
+          add: '.'
+          default_author: github_actor
+          fetch: false
+          message: 'Add generated code'
+          new_branch: building-branch
       - 
         name: Unshallow
         run: git fetch --prune --unshallow
