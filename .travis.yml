@@ -10,9 +10,7 @@ before_install:
   - make import
   - cd okta/v3
   - mv go.mod go.sum ../../
-  - ls
-  - cd test && ls
-  - cd ../../../
+  - cd ../../
 
 jobs:
   include:
