@@ -18,10 +18,24 @@
 
 package okta
 
-type ApplicationCredentialsOAuthClient struct {
-	AutoKeyRotation         *bool  `json:"autoKeyRotation,omitempty"`
-	ClientId                string `json:"client_id,omitempty"`
-	ClientSecret            string `json:"client_secret,omitempty"`
-	PkceRequired            *bool  `json:"pkce_required,omitempty"`
-	TokenEndpointAuthMethod string `json:"token_endpoint_auth_method,omitempty"`
+import (
+	"time"
+)
+
+type ClientSecret struct {
+	Links        interface{} `json:"_links,omitempty"`
+	ClientSecret string      `json:"client_secret,omitempty"`
+	Created      *time.Time  `json:"created,omitempty"`
+	Id           string      `json:"id,omitempty"`
+	LastUpdated  *time.Time  `json:"lastUpdated,omitempty"`
+	SecretHash   string      `json:"secret_hash,omitempty"`
+	Status       string      `json:"status,omitempty"`
+}
+
+func NewClientSecret() *ClientSecret {
+	return &ClientSecret{}
+}
+
+func (a *ClientSecret) IsApplicationInstance() bool {
+	return true
 }

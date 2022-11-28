@@ -22,6 +22,8 @@ import (
 	"context"
 	"fmt"
 	"time"
+
+	"github.com/okta/okta-sdk-golang/v2/okta/query"
 )
 
 type AuthenticatorResource resource
@@ -80,6 +82,7 @@ func (m *AuthenticatorResource) UpdateAuthenticator(ctx context.Context, authent
 	return authenticator, resp, nil
 }
 
+// List Authenticators
 func (m *AuthenticatorResource) ListAuthenticators(ctx context.Context) ([]*Authenticator, *Response, error) {
 	url := fmt.Sprintf("/api/v1/authenticators")
 
@@ -91,6 +94,30 @@ func (m *AuthenticatorResource) ListAuthenticators(ctx context.Context) ([]*Auth
 	}
 
 	var authenticator []*Authenticator
+
+	resp, err := rq.Do(ctx, req, &authenticator)
+	if err != nil {
+		return nil, resp, err
+	}
+
+	return authenticator, resp, nil
+}
+
+// Create Authenticator
+func (m *AuthenticatorResource) CreateAuthenticator(ctx context.Context, body Authenticator, qp *query.Params) (*Authenticator, *Response, error) {
+	url := fmt.Sprintf("/api/v1/authenticators")
+	if qp != nil {
+		url = url + qp.String()
+	}
+
+	rq := m.client.CloneRequestExecutor()
+
+	req, err := rq.WithAccept("application/json").WithContentType("application/json").NewRequest("POST", url, body)
+	if err != nil {
+		return nil, nil, err
+	}
+
+	var authenticator *Authenticator
 
 	resp, err := rq.Do(ctx, req, &authenticator)
 	if err != nil {

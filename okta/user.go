@@ -136,7 +136,7 @@ func (m *UserResource) DeactivateOrDeleteUser(ctx context.Context, userId string
 	return resp, nil
 }
 
-// Lists users in your organization with pagination in most cases.  A subset of users can be returned that match a supported filter expression or search criteria.
+// Lists users that do not have a status of &#x27;DEPROVISIONED&#x27; (by default), up to the maximum (200 for most orgs), with pagination in most cases. A subset of users can be returned that match a supported filter expression or search criteria.
 func (m *UserResource) ListUsers(ctx context.Context, qp *query.Params) ([]*User, *Response, error) {
 	url := fmt.Sprintf("/api/v1/users")
 	if qp != nil {

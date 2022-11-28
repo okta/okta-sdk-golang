@@ -1,6 +1,22 @@
 # Changelog
 Running changelog of releases since `2.0.0-rc.4`
 
+## v2.15.0
+
+### Additions
+
+ - Added `POST /api/v1/authenticators` for `CreateAuthenticator` method to `AuthenticatorResource` model by @monde in  https://github.com/okta/okta-management-openapi-spec/pull/154
+ - Added `/api/v1/apps/${applicationId}/credentials/secrets` endpoints and `ClientSecret` model by @monde in https://github.com/okta/okta-management-openapi-spec/pull/146
+ - Added property `pkce_required` to the `ApplicationCredentialsOAuthClient` model by @monde in https://github.com/okta/okta-management-openapi-spec/pull/145
+ - Added `uiSchemaId` property to the `ProfileEnrollmentPolicyRuleAction` model by @emanor-okta in https://github.com/okta/okta-management-openapi-spec/pull/144
+
+### Bug fixes
+
+ - Corrected parameters order
+   - `/api/v1/authorizationServers/{authServerId}/policies/{policyId}/rules`
+   - `/api/v1/authorizationServers/{authServerId}/policies/{policyId}/rules/{ruleId}`
+   - By @monde https://github.com/okta/okta-management-openapi-spec/pull/131
+
 ## v2.14.0
 
 ### Updates
