@@ -1,0 +1,31 @@
+generatorName: go
+templateDir: ./.generator/templates
+outputDir: ./okta/v3
+gitUserId: okta
+gitRepoId: okta-sdk-golang
+versionName: v3
+additionalProperties:
+  enumClassPrefix: true
+  generateInterfaces: true
+  packageName: okta
+  packageVersion: 3.0.0
+  useOneOfDiscriminatorLookup: true
+  disallowAdditionalPropertiesIfNotPresent: false
+files:
+  asset/logo.png: {}
+  api_application_test.go: {}
+  api_group_test.go: {}
+  api_idp_test.go: {}
+  api_policy_test.go: {}
+  api_user_schema_test.go: {}
+  api_user_test.go: {}
+  cache_test.go: {}
+  cache.go: {}
+  configuration_test.go: {}
+  gocache.go: {}
+  main_test.go: {}
+  noopcache.go: {}
+  private_key_test.go: {}
+  proxy_test.go: {}
+  retry_logic_test.go: {}
+  test_helpers.go: {}

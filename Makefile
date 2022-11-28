@@ -89,3 +89,9 @@ import: check-goimports
 
 check-goimports:
 	@which $(GOIMPORTS) > /dev/null || GO111MODULE=on go install golang.org/x/tools/cmd/goimports@latest
+
+v3-test:
+	go test -failfast -race ./okta/v3 -test.v
+
+v3-generate:
+	npx @openapitools/openapi-generator-cli generate -c ./.generator/config.yaml -i .generator/okta-management-APIs-oasv3-enum-inheritance.yaml
