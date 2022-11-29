@@ -107,7 +107,7 @@ func main() {
   }
 
   fmt.Printf("Context: %+v\n Client: %+v\n",ctx, client)
-)
+}
 ```
 
 Hard-coding the Okta domain and API token works for quick tests, but for real
