@@ -69,6 +69,8 @@ func New{{model.modelName}}() *{{model.modelName}} {
 		{{structProp prop.propertyName}}: []string{},
 			{{else if (eq prop.commonType "boolean") }}
 		{{structProp prop.propertyName}}: boolPtr({{prop.default}}),
+			{{else if (eq prop.commonType "integer") }}
+		{{structProp prop.propertyName}}: int64Ptr({{prop.default}}),
 			{{else}}
 		{{structProp prop.propertyName}}: {{prop.default}},
 			{{/if}}

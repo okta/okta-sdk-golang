@@ -31,7 +31,7 @@ type ApplicationGroupAssignment struct {
 	Links       interface{} `json:"_links,omitempty"`
 	Id          string      `json:"id,omitempty"`
 	LastUpdated *time.Time  `json:"lastUpdated,omitempty"`
-	Priority    int64       `json:"priority,omitempty"`
+	Priority    *int64      `json:"priority,omitempty"`
 	Profile     interface{} `json:"profile,omitempty"`
 }
 

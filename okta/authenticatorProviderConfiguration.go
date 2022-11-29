@@ -19,7 +19,7 @@
 package okta
 
 type AuthenticatorProviderConfiguration struct {
-	AuthPort         int64                                            `json:"authPort,omitempty"`
+	AuthPort         *int64                                           `json:"authPort,omitempty"`
 	Host             string                                           `json:"host,omitempty"`
 	HostName         string                                           `json:"hostName,omitempty"`
 	InstanceId       string                                           `json:"instanceId,omitempty"`

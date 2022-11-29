@@ -19,18 +19,18 @@
 package okta
 
 type PasswordPolicyPasswordSettingsAge struct {
-	ExpireWarnDays int64 `json:"expireWarnDays,omitempty"`
-	HistoryCount   int64 `json:"historyCount,omitempty"`
-	MaxAgeDays     int64 `json:"maxAgeDays,omitempty"`
-	MinAgeMinutes  int64 `json:"minAgeMinutes,omitempty"`
+	ExpireWarnDays *int64 `json:"expireWarnDays,omitempty"`
+	HistoryCount   *int64 `json:"historyCount,omitempty"`
+	MaxAgeDays     *int64 `json:"maxAgeDays,omitempty"`
+	MinAgeMinutes  *int64 `json:"minAgeMinutes,omitempty"`
 }
 
 func NewPasswordPolicyPasswordSettingsAge() *PasswordPolicyPasswordSettingsAge {
 	return &PasswordPolicyPasswordSettingsAge{
-		ExpireWarnDays: 0,
-		HistoryCount:   0,
-		MaxAgeDays:     0,
-		MinAgeMinutes:  0,
+		ExpireWarnDays: int64Ptr(0),
+		HistoryCount:   int64Ptr(0),
+		MaxAgeDays:     int64Ptr(0),
+		MinAgeMinutes:  int64Ptr(0),
 	}
 }
 

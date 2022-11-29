@@ -25,8 +25,8 @@ type GroupSchemaAttribute struct {
 	ExternalNamespace string                           `json:"externalNamespace,omitempty"`
 	Items             *UserSchemaAttributeItems        `json:"items,omitempty"`
 	Master            *UserSchemaAttributeMaster       `json:"master,omitempty"`
-	MaxLength         int64                            `json:"maxLength,omitempty"`
-	MinLength         int64                            `json:"minLength,omitempty"`
+	MaxLength         *int64                           `json:"maxLength,omitempty"`
+	MinLength         *int64                           `json:"minLength,omitempty"`
 	Mutability        string                           `json:"mutability,omitempty"`
 	OneOf             []*UserSchemaAttributeEnum       `json:"oneOf,omitempty"`
 	Permissions       []*UserSchemaAttributePermission `json:"permissions,omitempty"`

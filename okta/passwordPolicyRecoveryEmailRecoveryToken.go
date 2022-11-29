@@ -19,12 +19,12 @@
 package okta
 
 type PasswordPolicyRecoveryEmailRecoveryToken struct {
-	TokenLifetimeMinutes int64 `json:"tokenLifetimeMinutes"`
+	TokenLifetimeMinutes *int64 `json:"tokenLifetimeMinutes"`
 }
 
 func NewPasswordPolicyRecoveryEmailRecoveryToken() *PasswordPolicyRecoveryEmailRecoveryToken {
 	return &PasswordPolicyRecoveryEmailRecoveryToken{
-		TokenLifetimeMinutes: 10080,
+		TokenLifetimeMinutes: int64Ptr(10080),
 	}
 }
 

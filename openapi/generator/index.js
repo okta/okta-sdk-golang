@@ -26,7 +26,7 @@ function getType(obj, prefix = "") {
     case 'dateTime' :
       return String.raw`*time.Time`;
     case 'integer' :
-      return String.raw`int64`;
+      return String.raw`*int64`;
     case 'boolean' :
       return String.raw`*bool`;
     case 'hash' :

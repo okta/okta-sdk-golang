@@ -19,5 +19,5 @@
 package okta
 
 type ApplicationLicensing struct {
-	SeatCount int64 `json:"seatCount,omitempty"`
+	SeatCount *int64 `json:"seatCount,omitempty"`
 }

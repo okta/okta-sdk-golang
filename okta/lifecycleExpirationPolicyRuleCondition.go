@@ -20,7 +20,7 @@ package okta
 
 type LifecycleExpirationPolicyRuleCondition struct {
 	LifecycleStatus string `json:"lifecycleStatus,omitempty"`
-	Number          int64  `json:"number,omitempty"`
+	Number          *int64 `json:"number,omitempty"`
 	Unit            string `json:"unit,omitempty"`
 }
 

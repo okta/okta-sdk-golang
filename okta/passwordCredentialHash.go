@@ -23,5 +23,5 @@ type PasswordCredentialHash struct {
 	Salt       string `json:"salt,omitempty"`
 	SaltOrder  string `json:"saltOrder,omitempty"`
 	Value      string `json:"value,omitempty"`
-	WorkFactor int64  `json:"workFactor,omitempty"`
+	WorkFactor *int64 `json:"workFactor,omitempty"`
 }
