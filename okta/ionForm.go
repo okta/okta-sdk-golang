@@ -24,7 +24,7 @@ type IonForm struct {
 	Method    string      `json:"method,omitempty"`
 	Name      string      `json:"name,omitempty"`
 	Produces  string      `json:"produces,omitempty"`
-	Refresh   int64       `json:"refresh,omitempty"`
+	Refresh   *int64      `json:"refresh,omitempty"`
 	Rel       []string    `json:"rel,omitempty"`
 	RelatesTo []string    `json:"relatesTo,omitempty"`
 	Value     []*IonField `json:"value,omitempty"`

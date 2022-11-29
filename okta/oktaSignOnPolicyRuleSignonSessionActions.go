@@ -19,15 +19,15 @@
 package okta
 
 type OktaSignOnPolicyRuleSignonSessionActions struct {
-	MaxSessionIdleMinutes     int64 `json:"maxSessionIdleMinutes"`
-	MaxSessionLifetimeMinutes int64 `json:"maxSessionLifetimeMinutes"`
-	UsePersistentCookie       *bool `json:"usePersistentCookie,omitempty"`
+	MaxSessionIdleMinutes     *int64 `json:"maxSessionIdleMinutes"`
+	MaxSessionLifetimeMinutes *int64 `json:"maxSessionLifetimeMinutes"`
+	UsePersistentCookie       *bool  `json:"usePersistentCookie,omitempty"`
 }
 
 func NewOktaSignOnPolicyRuleSignonSessionActions() *OktaSignOnPolicyRuleSignonSessionActions {
 	return &OktaSignOnPolicyRuleSignonSessionActions{
-		MaxSessionIdleMinutes:     120,
-		MaxSessionLifetimeMinutes: 0,
+		MaxSessionIdleMinutes:     int64Ptr(120),
+		MaxSessionLifetimeMinutes: int64Ptr(0),
 		UsePersistentCookie:       boolPtr(false),
 	}
 }

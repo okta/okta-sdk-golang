@@ -19,7 +19,7 @@
 package okta
 
 type LogSecurityContext struct {
-	AsNumber int64  `json:"asNumber,omitempty"`
+	AsNumber *int64 `json:"asNumber,omitempty"`
 	AsOrg    string `json:"asOrg,omitempty"`
 	Domain   string `json:"domain,omitempty"`
 	IsProxy  *bool  `json:"isProxy,omitempty"`

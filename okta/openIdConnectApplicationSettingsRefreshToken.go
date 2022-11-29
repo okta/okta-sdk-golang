@@ -19,6 +19,6 @@
 package okta
 
 type OpenIdConnectApplicationSettingsRefreshToken struct {
-	Leeway       int64  `json:"leeway"`
+	Leeway       *int64 `json:"leeway"`
 	RotationType string `json:"rotation_type,omitempty"`
 }

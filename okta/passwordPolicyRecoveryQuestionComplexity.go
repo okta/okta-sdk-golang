@@ -19,7 +19,7 @@
 package okta
 
 type PasswordPolicyRecoveryQuestionComplexity struct {
-	MinLength int64 `json:"minLength,omitempty"`
+	MinLength *int64 `json:"minLength,omitempty"`
 }
 
 func NewPasswordPolicyRecoveryQuestionComplexity() *PasswordPolicyRecoveryQuestionComplexity {

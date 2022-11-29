@@ -32,7 +32,7 @@ import (
 	"gopkg.in/yaml.v3"
 )
 
-const Version = "2.15.0"
+const Version = "2.16.0"
 
 type Client struct {
 	config                     *config
@@ -228,4 +228,8 @@ func readConfigFromEnvironment(c config) *config {
 
 func boolPtr(b bool) *bool {
 	return &b
+}
+
+func int64Ptr(i int64) *int64 {
+	return &i
 }

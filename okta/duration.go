@@ -19,7 +19,7 @@
 package okta
 
 type Duration struct {
-	Number int64  `json:"number,omitempty"`
+	Number *int64 `json:"number,omitempty"`
 	Unit   string `json:"unit,omitempty"`
 }
 
