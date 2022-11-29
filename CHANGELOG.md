@@ -1,6 +1,12 @@
 # Changelog
 Running changelog of releases since `2.0.0-rc.4`
 
+## v2.16.0
+
+ - All API integers, which previously had been typed as `int64`, are now typed
+   `*int64` so that serialization of actual `0` values are not ignored when
+   omitempty tags are present for serialization.
+
 ## v2.15.0
 
 ### Additions

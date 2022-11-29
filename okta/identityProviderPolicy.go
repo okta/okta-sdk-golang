@@ -31,12 +31,12 @@ type IdentityProviderPolicy struct {
 	Id           string                `json:"id,omitempty"`
 	LastUpdated  *time.Time            `json:"lastUpdated,omitempty"`
 	Name         string                `json:"name,omitempty"`
-	Priority     int64                 `json:"priority,omitempty"`
+	Priority     *int64                `json:"priority,omitempty"`
 	Status       string                `json:"status,omitempty"`
 	System       *bool                 `json:"system,omitempty"`
 	Type         string                `json:"type,omitempty"`
 	AccountLink  *PolicyAccountLink    `json:"accountLink,omitempty"`
-	MaxClockSkew int64                 `json:"maxClockSkew,omitempty"`
+	MaxClockSkew *int64                `json:"maxClockSkew,omitempty"`
 	Provisioning *Provisioning         `json:"provisioning,omitempty"`
 	Subject      *PolicySubject        `json:"subject,omitempty"`
 }

@@ -19,6 +19,6 @@
 package okta
 
 type AcsEndpoint struct {
-	Index int64  `json:"index,omitempty"`
+	Index *int64 `json:"index,omitempty"`
 	Url   string `json:"url,omitempty"`
 }

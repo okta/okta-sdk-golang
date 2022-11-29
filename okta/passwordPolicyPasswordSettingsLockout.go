@@ -19,8 +19,8 @@
 package okta
 
 type PasswordPolicyPasswordSettingsLockout struct {
-	AutoUnlockMinutes               int64    `json:"autoUnlockMinutes,omitempty"`
-	MaxAttempts                     int64    `json:"maxAttempts,omitempty"`
+	AutoUnlockMinutes               *int64   `json:"autoUnlockMinutes,omitempty"`
+	MaxAttempts                     *int64   `json:"maxAttempts,omitempty"`
 	ShowLockoutFailures             *bool    `json:"showLockoutFailures,omitempty"`
 	UserLockoutNotificationChannels []string `json:"userLockoutNotificationChannels,omitempty"`
 }
