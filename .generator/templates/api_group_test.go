@@ -27,7 +27,6 @@ func cleanUpGroupRule(groupRuleId string) (err error) {
 }
 
 func Test_Get_Group(t *testing.T) {
-	t.Parallel()
 	group, _, err := setupGroup(randomTestString())
 	require.NoError(t, err, "Creating a new group should not error")
 	t.Run("get group by id", func(t *testing.T) {
@@ -40,7 +39,6 @@ func Test_Get_Group(t *testing.T) {
 }
 
 func Test_Get_List_Group(t *testing.T) {
-	t.Parallel()
 	group, _, err := setupGroup(randomTestString())
 	require.NoError(t, err, "Creating a new group should not error")
 	t.Run("get list group", func(t *testing.T) {
@@ -59,7 +57,6 @@ func Test_Get_List_Group(t *testing.T) {
 }
 
 func Test_Search_Group(t *testing.T) {
-	t.Parallel()
 	groupName := randomTestString()
 	group, _, err := setupGroup(groupName)
 	require.NoError(t, err, "Creating a new group should not error")
@@ -81,7 +78,6 @@ func Test_Search_Group(t *testing.T) {
 }
 
 func Test_Update_Group(t *testing.T) {
-	t.Parallel()
 	oldGroupName := randomTestString()
 	group, _, err := setupGroup(oldGroupName)
 	require.NoError(t, err, "Creating a new group should not error")
@@ -103,7 +99,6 @@ func Test_Update_Group(t *testing.T) {
 }
 
 func Test_Group_User_Operation(t *testing.T) {
-	t.Parallel()
 	group, _, err := setupGroup(randomTestString())
 	require.NoError(t, err, "Creating a new group should not error")
 	user, _, _, err := setupUser(true)
@@ -141,7 +136,6 @@ func Test_Group_User_Operation(t *testing.T) {
 }
 
 func Test_Group_Rule_Operation(t *testing.T) {
-	t.Parallel()
 	group, _, err := setupGroup(randomTestString())
 	require.NoError(t, err, "Creating a new group should not error")
 	user, _, _, err := setupUser(true)
@@ -214,7 +208,6 @@ func Test_Group_Rule_Operation(t *testing.T) {
 }
 
 func Test_List_Assigned_Applications_For_Group(t *testing.T) {
-	t.Parallel()
 	group, _, err := setupGroup(randomTestString())
 	require.NoError(t, err, "Creating a new group should not error")
 	var createdApp *ListApplications200ResponseInner
@@ -239,7 +232,6 @@ func Test_List_Assigned_Applications_For_Group(t *testing.T) {
 }
 
 func Test_Assigned_Role_To_Group_Operation(t *testing.T) {
-	t.Parallel()
 	group, _, err := setupGroup(randomTestString())
 	require.NoError(t, err, "Creating a new group should not error")
 	var createdRole *Role

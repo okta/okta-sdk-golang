@@ -42,7 +42,6 @@ func cleanUpPolicyRule(policyId, policyRuleId string) (err error) {
 }
 
 func Test_Get_Policy(t *testing.T) {
-	t.Parallel()
 	createdPolicy, _, err := setupAccessPolicy(randomTestString())
 	require.NoError(t, err, "Creating a new policy should not error")
 	t.Run("get policy by id", func(t *testing.T) {
@@ -55,7 +54,6 @@ func Test_Get_Policy(t *testing.T) {
 }
 
 func Test_Get_List_Policies(t *testing.T) {
-	t.Parallel()
 	createdPolicy, _, err := setupAccessPolicy(randomTestString())
 	require.NoError(t, err, "Creating a new policy should not error")
 	t.Run("get all policy", func(t *testing.T) {
@@ -74,7 +72,6 @@ func Test_Get_List_Policies(t *testing.T) {
 }
 
 func Test_Update_Policies(t *testing.T) {
-	t.Parallel()
 	createdPolicy, _, err := setupAccessPolicy(randomTestString())
 	require.NoError(t, err, "Creating a new policy should not error")
 	t.Run("update policy", func(t *testing.T) {
@@ -90,7 +87,6 @@ func Test_Update_Policies(t *testing.T) {
 }
 
 func Test_Activate_Policy(t *testing.T) {
-	t.Parallel()
 	createdPolicy, _, err := setupAccessPolicy(randomTestString())
 	require.NoError(t, err, "Creating a new policy should not error")
 	t.Run("deactivate policy", func(t *testing.T) {
@@ -115,7 +111,6 @@ func Test_Activate_Policy(t *testing.T) {
 
 // ACCESS/AUTHENTICATION POLICY ONLY
 func Test_Clone_Policy(t *testing.T) {
-	t.Parallel()
 	createdPolicy, _, err := setupAccessPolicy(randomTestString())
 	require.NoError(t, err, "Creating a new policy should not error")
 	t.Run("clone policy", func(t *testing.T) {
@@ -131,7 +126,6 @@ func Test_Clone_Policy(t *testing.T) {
 }
 
 func Test_Policy_Rules_Operation(t *testing.T) {
-	t.Parallel()
 	createdPolicy, _, err := setupAccessPolicy(randomTestString())
 	require.NoError(t, err, "Creating a new policy should not error")
 	configuration := NewConfiguration()
@@ -191,7 +185,6 @@ func Test_Policy_Rules_Operation(t *testing.T) {
 
 // TODU
 // func Test_Policy_Mapping_Operations(t *testing.T) {
-// 	t.Parallel()
 // 	createdPolicy, _, err := setupAccessPolicy(randomTestString())
 // 	require.NoError(t, err, "Creating a new policy should not error")
 // 	createdApp, _, err := setupBasicAuthApplication(randomTestString())

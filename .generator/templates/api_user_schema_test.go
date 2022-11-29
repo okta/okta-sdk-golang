@@ -8,7 +8,6 @@ import (
 )
 
 func Test_Get_User_Schema(t *testing.T) {
-	t.Parallel()
 	t.Run("get default user schema", func(t *testing.T) {
 		schema, _, err := apiClient.SchemaApi.GetUserSchema(apiClient.cfg.Context, "default").Execute()
 		require.NoError(t, err, "Could not get default user schema")
@@ -24,7 +23,6 @@ func Test_Get_User_Schema(t *testing.T) {
 }
 
 func Test_Update_Property_To_User_Schema(t *testing.T) {
-	t.Parallel()
 	schema, _, err := apiClient.SchemaApi.GetUserSchema(apiClient.cfg.Context, "default").Execute()
 	require.NoError(t, err, "Could not get default user schema")
 	assert.NotEmpty(t, schema, "User schema is empty")

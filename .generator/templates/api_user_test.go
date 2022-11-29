@@ -38,7 +38,6 @@ func cleanUpUser(userId string) error {
 }
 
 func Test_Get_User(t *testing.T) {
-	t.Parallel()
 	user, _, _, err := setupUser(true)
 	require.NoError(t, err, "Creating a new user should not error")
 	t.Run("get user by id", func(t *testing.T) {
@@ -56,7 +55,6 @@ func Test_Get_User(t *testing.T) {
 }
 
 func Test_Activate_User(t *testing.T) {
-	t.Parallel()
 	user, _, _, err := setupUser(false)
 	require.NoError(t, err, "Creating a new user should not error")
 	t.Run("activate users", func(t *testing.T) {
@@ -77,7 +75,6 @@ func Test_Activate_User(t *testing.T) {
 }
 
 func Test_Update_User_Profile(t *testing.T) {
-	t.Parallel()
 	user, _, _, err := setupUser(true)
 	require.NoError(t, err, "Creating a new user should not error")
 	nickName := "Batman"
@@ -100,7 +97,6 @@ func Test_Update_User_Profile(t *testing.T) {
 }
 
 func Test_Suspend_User(t *testing.T) {
-	t.Parallel()
 	user, _, _, err := setupUser(true)
 	require.NoError(t, err, "Creating a new user should not error")
 	t.Run("suspend user", func(t *testing.T) {
@@ -140,7 +136,6 @@ func Test_Suspend_User(t *testing.T) {
 }
 
 func Test_Change_User_Password(t *testing.T) {
-	t.Parallel()
 	user, _, payload, err := setupUser(true)
 	require.NoError(t, err, "Creating a new user should not error")
 	time.Sleep(1 * time.Second)
@@ -166,7 +161,6 @@ func Test_Change_User_Password(t *testing.T) {
 }
 
 func Test_Get_Reset_Password_Link_User(t *testing.T) {
-	t.Parallel()
 	user, _, _, err := setupUser(true)
 	require.NoError(t, err, "Creating a new user should not error")
 	t.Run("reset password", func(t *testing.T) {
@@ -182,7 +176,6 @@ func Test_Get_Reset_Password_Link_User(t *testing.T) {
 }
 
 func Test_Expire_Password_User_Get_Temp(t *testing.T) {
-	t.Parallel()
 	user, _, _, err := setupUser(true)
 	require.NoError(t, err, "Creating a new user should not error")
 	t.Run("expire password", func(t *testing.T) {
@@ -196,7 +189,6 @@ func Test_Expire_Password_User_Get_Temp(t *testing.T) {
 }
 
 func Test_Change_User_Recovery_Question(t *testing.T) {
-	t.Parallel()
 	user, _, body, err := setupUser(true)
 	require.NoError(t, err, "Creating a new user should not error")
 	t.Run("change recovery question", func(t *testing.T) {
@@ -229,7 +221,6 @@ func Test_Change_User_Recovery_Question(t *testing.T) {
 }
 
 func Test_Assign_User_To_A_Role(t *testing.T) {
-	t.Parallel()
 	user, _, _, err := setupUser(true)
 	require.NoError(t, err, "Creating a new user should not error")
 	var roleId string
@@ -273,7 +264,6 @@ func Test_Assign_User_To_A_Role(t *testing.T) {
 }
 
 func Test_User_Group_Target_Role(t *testing.T) {
-	t.Parallel()
 	user, _, _, err := setupUser(true)
 	require.NoError(t, err, "Creating a new user should not error")
 	var groupId string
@@ -331,7 +321,6 @@ func Test_User_Group_Target_Role(t *testing.T) {
 }
 
 func Test_Get_User_With_Cache_Enabled(t *testing.T) {
-	t.Parallel()
 	configuration := NewConfiguration()
 	configuration.Debug = true
 	cachedApiClient := NewAPIClient(configuration)
@@ -350,7 +339,6 @@ func Test_Get_User_With_Cache_Enabled(t *testing.T) {
 }
 
 func Test_List_User_Subscriptions(t *testing.T) {
-	t.Parallel()
 	user, _, err := apiClient.UserApi.GetUser(apiClient.cfg.Context, "me").Execute()
 	require.NoError(t, err, "Getting the current user should not error")
 	t.Run("get user subscription", func(t *testing.T) {

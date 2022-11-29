@@ -22,7 +22,7 @@ jobs:
       script:
         - cd okta/v3
         - go mod download
-        - go test ./...
+        - go test -failfast -race ./ -test.v
 
     # go tip build is broken upstream on Travis
     # - stage: test_go_tip

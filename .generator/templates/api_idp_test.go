@@ -23,7 +23,6 @@ func cleanUpIdp(idpId string) (err error) {
 }
 
 func Test_Get_Identity_Provider(t *testing.T) {
-	t.Parallel()
 	createdIdp, _, err := setupIdp(randomTestString())
 	require.NoError(t, err, "Creating a new idp should not error")
 	t.Run("get idp by id", func(t *testing.T) {
@@ -49,7 +48,6 @@ func Test_Get_Identity_Provider(t *testing.T) {
 }
 
 func Test_Activate_Identity_Provider(t *testing.T) {
-	t.Parallel()
 	createdIdp, _, err := setupIdp(randomTestString())
 	require.NoError(t, err, "Creating a new idp should not error")
 	assert.Equal(t, LIFECYCLESTATUS_ACTIVE, createdIdp.GetStatus())
@@ -68,7 +66,6 @@ func Test_Activate_Identity_Provider(t *testing.T) {
 }
 
 func Test_Update_Identity_Provider(t *testing.T) {
-	t.Parallel()
 	createdIdp, _, err := setupIdp(randomTestString())
 	require.NoError(t, err, "Creating a new idp should not error")
 	t.Run("update idp", func(t *testing.T) {
@@ -84,7 +81,6 @@ func Test_Update_Identity_Provider(t *testing.T) {
 }
 
 func Test_Get_Key(t *testing.T) {
-	t.Parallel()
 	req := apiClient.IdentityProviderApi.CreateIdentityProviderKey(apiClient.cfg.Context)
 	payload := testFactory.NewValidTestJsonWebKey()
 	req = req.JsonWebKey(*payload)
@@ -105,7 +101,6 @@ func Test_Get_Key(t *testing.T) {
 }
 
 func Test_List_Signing_Keys(t *testing.T) {
-	t.Parallel()
 	createdIdp, _, err := setupIdp(randomTestString())
 	require.NoError(t, err, "Creating a new idp should not error")
 	var generatedKey *JsonWebKey
