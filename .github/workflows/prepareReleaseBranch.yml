@@ -42,6 +42,7 @@ jobs:
         run: make v3-generate
       - run: make fmt
       - run: make import
+      - run: cd okta/v3 && mv go.mod go.sum ../../
       - name: Commit generated code
         uses: EndBug/add-and-commit@v9
         with:
