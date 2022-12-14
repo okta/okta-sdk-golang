@@ -2,35 +2,53 @@
 # See: https://circleci.com/docs/2.0/configuration-reference
 version: 2.1
 
+orbs:
+  general-platform-helpers: okta/general-platform-helpers@1.0.1
+
 # Define a job to be invoked later in a workflow.
 # See: https://circleci.com/docs/2.0/configuration-reference/#jobs
 jobs:
-  build:
-    # Specify the execution environment. You can specify an image from Dockerhub or use one of our Convenience Images from CircleCI's Developer Hub.
-    # See: https://circleci.com/docs/2.0/configuration-reference/#docker-machine-macos-windows-executor
-    docker:
-      - image: cimg/base:stable
-    # Add steps to the job
-    # See: https://circleci.com/docs/2.0/configuration-reference/#steps
+  cache-secrets:
+    machine: true
+    resource_class: okta/generic-linux-x86
+    environment:
+      VAULT_ADDR: https://vault.aue1e.saasure.net
     steps:
       - checkout
       - run:
-          name: "build stage"
-          command: "echo build stage"
+          name: "Vault login"
+          command: |
+            vault login -method=userpass username=$vault_username password=$vault_password > /dev/null 2>&1
+      - general-platform-helpers/save-dependencies
+
+  load-secrets:
+    docker:
+      - image: cimg/openjdk:11.0
+    steps:
+      - checkout
+      - general-platform-helpers/load-dependencies
+
   test:
     docker:
-      - image: cimg/base:stable
+      - image: cimg/go:1.19.4
     steps:
+      - checkout
+      - run: go version
       - run:
           name: "test stage"
-          command: "echo test stage"
+          command: make test
 
 # Invoke jobs via workflows
 # See: https://circleci.com/docs/2.0/configuration-reference/#workflows
 workflows:
   "Circle CI Tests":
     jobs:
-      - build
+      - cache-secrets
+      - load-secrets:
+          requires:
+            - cache-secrets
       - test:
           requires:
-            - build
+            - load-secrets
+
+# VS Code Extension Version: 1.4.0

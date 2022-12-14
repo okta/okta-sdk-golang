@@ -1,0 +1,13 @@
+vault:
+  - GO111MODULE:
+      devex/okta-sdk-golang: GO111MODULE
+  - OKTA_CLIENT_CLIENTID:
+      devex/okta-sdk-golang: OKTA_CLIENT_CLIENTID
+  - OKTA_CLIENT_ORGURL:
+      devex/okta-sdk-golang: OKTA_CLIENT_ORGURL
+  - OKTA_CLIENT_PRIVATEKEY:
+      devex/okta-sdk-golang: OKTA_CLIENT_PRIVATEKEY
+  - OKTA_CLIENT_TOKEN:
+      devex/okta-sdk-golang: OKTA_CLIENT_TOKEN
+  - OKTA_TRAVIS_CI:
+      devex/okta-sdk-golang: OKTA_TRAVIS_CI
