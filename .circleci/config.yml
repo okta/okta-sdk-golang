@@ -28,7 +28,7 @@ jobs:
 # Invoke jobs via workflows
 # See: https://circleci.com/docs/2.0/configuration-reference/#workflows
 workflows:
-  build-and-test:
+  "Circle CI Tests":
     jobs:
       - build
       - test:
