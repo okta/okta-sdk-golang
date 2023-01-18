@@ -37,6 +37,7 @@ type SamlApplicationSettingsSignOn struct {
 	RecipientOverride         string                    `json:"recipientOverride"`
 	RequestCompressed         *bool                     `json:"requestCompressed,omitempty"`
 	ResponseSigned            *bool                     `json:"responseSigned,omitempty"`
+	SamlSignedRequestEnabled  *bool                     `json:"samlSignedRequestEnabled,omitempty"`
 	SignatureAlgorithm        string                    `json:"signatureAlgorithm,omitempty"`
 	Slo                       *SingleLogout             `json:"slo,omitempty"`
 	SpCertificate             *SpCertificate            `json:"spCertificate,omitempty"`
