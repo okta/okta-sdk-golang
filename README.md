@@ -859,7 +859,7 @@ The client is configured with a configuration setter object passed to the `NewCl
 | WithRequestTimeout(requestTimeout int64) | HTTP request time out in seconds |
 | WithRateLimitMaxRetries(maxRetries int32) | Number of request retries when http request times out |
 | WithRateLimitMaxBackOff(maxBackoff int64) | Max amount of time to wait on request back off |
-| WithAuthorizationMode(authzMode string) | Okta API auth mode, `SSWS` (Okta based) or `PrivateKey` (OAuth app based) |
+| WithAuthorizationMode(authzMode string) | Okta API auth mode, `SSWS` (Okta based), `PrivateKey` (OAuth app based) or `JWT` (OAuth app based) |
 | WithClientId(clientId string) | Okta App client id, used with `PrivateKey` OAuth auth mode |
 | WithScopes(scopes []string) | Okta API app scopes |
 | WithPrivateKey(privateKey string) | Private key value |
@@ -1054,6 +1054,8 @@ ctx, client, err := okta.NewClient(ctx,
   )
 
 ```
+
+### OAuth 2.0 With JWT Key
 
 ### OAuth 2.0 With Bearer Token
 

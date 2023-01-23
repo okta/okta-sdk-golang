@@ -55,6 +55,7 @@ type config struct {
 			Scopes            []string `yaml:"scopes" envconfig:"OKTA_CLIENT_SCOPES"`
 			PrivateKey        string   `yaml:"privateKey" envconfig:"OKTA_CLIENT_PRIVATEKEY"`
 			PrivateKeyId      string   `yaml:"privateKeyId" envconfig:"OKTA_CLIENT_PRIVATEKEYID"`
+			ClientAssertion   string   `yaml:"clientAssertion" envconfig:"OKTA_CLIENT_CLIENTASSERTION"`
 		} `yaml:"client"`
 		Testing struct {
 			DisableHttpsCheck bool `yaml:"disableHttpsCheck" envconfig:"OKTA_TESTING_DISABLE_HTTPS_CHECK"`
@@ -131,6 +132,12 @@ func WithOrgUrl(url string) ConfigSetter {
 func WithToken(token string) ConfigSetter {
 	return func(c *config) {
 		c.Okta.Client.Token = token
+	}
+}
+
+func WithClientAssertion(clientAssertion string) ConfigSetter {
+	return func(c *config) {
+		c.Okta.Client.ClientAssertion = clientAssertion
 	}
 }
 
