@@ -26,6 +26,7 @@ import (
 	"path"
 	"path/filepath"
 	"runtime"
+	"log"
 
 	"github.com/kelseyhightower/envconfig"
 	"github.com/okta/okta-sdk-golang/v2/okta/cache"
@@ -97,6 +98,9 @@ func NewClient(ctx context.Context, conf ...ConfigSetter) (context.Context, *Cli
 	}
 
 	config.CacheManager = oktaCache
+
+	log.Println("101", config)
+	fmt.Println("102", config)
 
 	config, err := validateConfig(config)
 	if err != nil {
