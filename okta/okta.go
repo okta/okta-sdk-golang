@@ -20,6 +20,7 @@ package okta
 
 import (
 	"context"
+	"encoding/json"
 	"fmt"
 	"io/ioutil"
 	"os/user"
@@ -72,22 +73,38 @@ type resource struct {
 
 type clientContextKey struct{}
 
+// TODU
+func prettyPrint(v interface{}) (err error) {
+	b, err := json.MarshalIndent(v, "", " ")
+	if err == nil {
+		fmt.Println(string(b))
+	}
+	return
+}
+
 func NewClient(ctx context.Context, conf ...ConfigSetter) (context.Context, *Client, error) {
 	config := &config{}
-	fmt.Println("77", conf)
+	prettyPrint(config)
 
 	setConfigDefaults(config)
-	fmt.Println("80", config.Okta.Client.OrgUrl)
+	fmt.Println("80")
+	prettyPrint(config)
 	config = readConfigFromSystem(*config)
-	fmt.Println("82", config.Okta.Client.OrgUrl)
+	fmt.Println("82")
+	prettyPrint(config)
 	config = readConfigFromApplication(*config)
-	fmt.Println("84", config.Okta.Client.OrgUrl)
+	fmt.Println("84")
+	prettyPrint(config)
 	config = readConfigFromEnvironment(*config)
-	fmt.Println("86", config.Okta.Client.OrgUrl)
+	fmt.Println("86")
+	prettyPrint(config)
 
 	for _, confSetter := range conf {
 		confSetter(config)
 	}
+
+	fmt.Println("106")
+	prettyPrint(config)
 
 	var oktaCache cache.Cache
 	if !config.Okta.Client.Cache.Enabled {
