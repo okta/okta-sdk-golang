@@ -28,7 +28,7 @@ jobs:
       - checkout
       - general-platform-helpers/load-dependencies
 
-  test:
+  test-v2:
     docker:
       - image: cimg/go:1.19.4
     steps:
@@ -37,6 +37,15 @@ jobs:
       - run:
           name: "test stage"
           command: make test
+  # test-v3:
+  #   docker:
+  #     - image: cimg/go:1.19.4
+  #   steps:
+  #     - checkout
+  #     - run: go version
+  #     - run:
+  #         name: "test stage"
+  #         command: make test
 
 # Invoke jobs via workflows
 # See: https://circleci.com/docs/2.0/configuration-reference/#workflows
@@ -47,8 +56,11 @@ workflows:
       - load-secrets:
           requires:
             - cache-secrets
-      - test:
+      - test-v2:
           requires:
             - load-secrets
+      # - test-v3:
+      #     requires:
+      #       - load-secrets
 
 # VS Code Extension Version: 1.4.0
