@@ -26,7 +26,6 @@ import (
 	"path"
 	"path/filepath"
 	"runtime"
-	"log"
 
 	"github.com/kelseyhightower/envconfig"
 	"github.com/okta/okta-sdk-golang/v2/okta/cache"
@@ -77,9 +76,13 @@ func NewClient(ctx context.Context, conf ...ConfigSetter) (context.Context, *Cli
 	config := &config{}
 
 	setConfigDefaults(config)
+	fmt.Println("80", config.Okta.Client.OrgUrl)
 	config = readConfigFromSystem(*config)
+	fmt.Println("82", config.Okta.Client.OrgUrl)
 	config = readConfigFromApplication(*config)
+	fmt.Println("84", config.Okta.Client.OrgUrl)
 	config = readConfigFromEnvironment(*config)
+	fmt.Println("86", config.Okta.Client.OrgUrl)
 
 	for _, confSetter := range conf {
 		confSetter(config)
@@ -99,8 +102,7 @@ func NewClient(ctx context.Context, conf ...ConfigSetter) (context.Context, *Cli
 
 	config.CacheManager = oktaCache
 
-	log.Println("101", config)
-	fmt.Println("102", config)
+	fmt.Println("106", config.Okta.Client.OrgUrl)
 
 	config, err := validateConfig(config)
 	if err != nil {
