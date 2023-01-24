@@ -74,6 +74,7 @@ type clientContextKey struct{}
 
 func NewClient(ctx context.Context, conf ...ConfigSetter) (context.Context, *Client, error) {
 	config := &config{}
+	fmt.Println("77", conf)
 
 	setConfigDefaults(config)
 	fmt.Println("80", config.Okta.Client.OrgUrl)
