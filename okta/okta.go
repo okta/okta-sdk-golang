@@ -23,6 +23,7 @@ import (
 	"encoding/json"
 	"fmt"
 	"io/ioutil"
+	"os"
 	"os/user"
 	"path"
 	"path/filepath"
@@ -90,14 +91,12 @@ func NewClient(ctx context.Context, conf ...ConfigSetter) (context.Context, *Cli
 	fmt.Println("80")
 	prettyPrint(config)
 	config = readConfigFromSystem(*config)
-	fmt.Println("82")
-	prettyPrint(config)
 	config = readConfigFromApplication(*config)
-	fmt.Println("84")
-	prettyPrint(config)
 	config = readConfigFromEnvironment(*config)
-	fmt.Println("86")
-	prettyPrint(config)
+	fmt.Println("96", os.Getenv("OKTA_CLIENT_ORGURL"))
+	fmt.Println("97", os.Getenv("OKTA_CLIENT_PRIVATEKEY"))
+	fmt.Println("98", os.Getenv("OKTA_CLIENT_TOKEN"))
+	fmt.Println("99", os.Getenv("OKTA_CLIENT_CLIENTID"))
 
 	for _, confSetter := range conf {
 		confSetter(config)
