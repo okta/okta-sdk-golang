@@ -57,7 +57,9 @@ jobs:
             echo ${GO111MODULE}
       - run:
           name: "test stage"
-          command: make test
+          command: |
+            source /home/circleci/.dependencycache/vault-cache/vault_items.sh
+            make test
   # test-v3:
   #   docker:
   #     - image: cimg/go:1.19.4
