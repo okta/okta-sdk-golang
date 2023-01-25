@@ -3,7 +3,7 @@
 version: 2.1
 
 orbs:
-  general-platform-helpers: okta/general-platform-helpers@dev:cef3a104764e51517745971d705158198e5ad79
+  general-platform-helpers: okta/general-platform-helpers@dev:cef3a104764e51517745971d705158198e5ad795
 
 # Define a job to be invoked later in a workflow.
 # See: https://circleci.com/docs/2.0/configuration-reference/#jobs
@@ -20,13 +20,6 @@ jobs:
           command: |
             vault login -method=userpass username=$vault_username password=$vault_password > /dev/null 2>&1
       - general-platform-helpers/save-dependencies
-
-  load-secrets:
-    docker:
-      - image: cimg/openjdk:11.0
-    steps:
-      - checkout
-      - general-platform-helpers/load-dependencies
 
   test-v2:
     docker:
