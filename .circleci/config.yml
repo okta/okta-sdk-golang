@@ -58,7 +58,7 @@ workflows:
       - cache-secrets
       - test-v2:
           requires:
-            - cachesecrets
+            - cache-secrets
       # - test-v3:
       #     requires:
       #       - load-secrets
