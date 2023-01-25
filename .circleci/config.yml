@@ -44,6 +44,7 @@ jobs:
     steps:
       - checkout
       - run: go version
+      - general-platform-helpers/load-dependencies
       - run:
           name: Show test env
           command: |
