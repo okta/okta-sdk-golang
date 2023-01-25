@@ -85,11 +85,8 @@ func prettyPrint(v interface{}) (err error) {
 
 func NewClient(ctx context.Context, conf ...ConfigSetter) (context.Context, *Client, error) {
 	config := &config{}
-	prettyPrint(config)
 
 	setConfigDefaults(config)
-	fmt.Println("80")
-	prettyPrint(config)
 	config = readConfigFromSystem(*config)
 	config = readConfigFromApplication(*config)
 	config = readConfigFromEnvironment(*config)
@@ -241,7 +238,7 @@ func readConfigFromApplication(c config) *config {
 }
 
 func readConfigFromEnvironment(c config) *config {
-	err := envconfig.Process("okta", &c)
+	err := envconfig.Process("", &c)
 	if err != nil {
 		fmt.Println("error parsing")
 		return &c
