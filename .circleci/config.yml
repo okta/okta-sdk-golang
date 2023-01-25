@@ -34,11 +34,12 @@ jobs:
     steps:
       - checkout
       - run: go version
-      - general-platform-helpers/load-dependencies
-      - run: source /home/circleci/.dependencycache/vault-cache/vault_items.sh
+      # - general-platform-helpers/load-dependencies
       - run:
           name: "test stage"
-          command: make test
+          command: |
+            source /home/circleci/.dependencycache/vault-cache/vault_items.sh
+            make test
   # test-v3:
   #   docker:
   #     - image: cimg/go:1.19.4
