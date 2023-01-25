@@ -94,6 +94,7 @@ func NewClient(ctx context.Context, conf ...ConfigSetter) (context.Context, *Cli
 	fmt.Println("97", os.Getenv("OKTA_CLIENT_PRIVATEKEY"))
 	fmt.Println("98", os.Getenv("OKTA_CLIENT_TOKEN"))
 	fmt.Println("99", os.Getenv("OKTA_CLIENT_CLIENTID"))
+	fmt.Println("100", os.Environ())
 
 	for _, confSetter := range conf {
 		confSetter(config)
