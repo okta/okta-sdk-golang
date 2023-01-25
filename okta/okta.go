@@ -238,7 +238,7 @@ func readConfigFromApplication(c config) *config {
 }
 
 func readConfigFromEnvironment(c config) *config {
-	err := envconfig.Process("", &c)
+	err := envconfig.Process("okta", &c)
 	if err != nil {
 		fmt.Println("error parsing")
 		return &c

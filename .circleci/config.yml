@@ -45,6 +45,25 @@ jobs:
       - checkout
       - run: go version
       - run:
+          name: Show test env
+          command: |
+            echo ${OKTA_CLIENT_ORGURL}
+            echo ${OKTA_TRAVIS_CI}
+            echo ${OKTA_CLIENT_CLIENTID}
+            echo ${OKTA_PRIVATEKEY}
+            echo ${OKTA_TOKEN}
+            echo ${GO111MODULE}
+      - run:
+          name: Show test secrets
+          command: |
+            source /home/circleci/.dependencycache/vault-cache/vault_items.sh
+            echo ${OKTA_CLIENT_ORGURL}
+            echo ${OKTA_TRAVIS_CI}
+            echo ${OKTA_CLIENT_CLIENTID}
+            echo ${OKTA_PRIVATEKEY}
+            echo ${OKTA_TOKEN}
+            echo ${GO111MODULE}
+      - run:
           name: "test stage"
           command: make test
   # test-v3:
