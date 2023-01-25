@@ -35,9 +35,15 @@ jobs:
       - checkout
       - run: go version
       - general-platform-helpers/load-dependencies
+      - run: echo ${OKTA_CLIENT_ORGURL}
+      - run: 
+          command: |
+            source /home/circleci/.dependencycache/vault-cache/vault_items.sh
+            echo ${OKTA_CLIENT_ORGURL}
       - run:
           name: "test stage"
-          command:
+          command: |
+            source /home/circleci/.dependencycache/vault-cache/vault_items.sh
             make test
   # test-v3:
   #   docker:
