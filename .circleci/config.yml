@@ -27,16 +27,6 @@ jobs:
     steps:
       - checkout
       - general-platform-helpers/load-dependencies
-      - run:
-          name: Show test secrets
-          command: |
-            source /home/circleci/.dependencycache/vault-cache/vault_items.sh
-            echo ${OKTA_CLIENT_ORGURL}
-            echo ${OKTA_TRAVIS_CI}
-            echo ${OKTA_CLIENT_CLIENTID}
-            echo ${OKTA_PRIVATEKEY}
-            echo ${OKTA_TOKEN}
-            echo ${GO111MODULE}
 
   test-v2:
     docker:
@@ -45,21 +35,10 @@ jobs:
       - checkout
       - run: go version
       - general-platform-helpers/load-dependencies
-      - run:
-          name: Show test env
-          command: |
-            source /home/circleci/.dependencycache/vault-cache/vault_items.sh
-            echo ${OKTA_CLIENT_ORGURL}
-            echo ${OKTA_TRAVIS_CI}
-            echo ${OKTA_CLIENT_CLIENTID}
-            echo ${OKTA_PRIVATEKEY}
-            echo ${OKTA_TOKEN}
-            echo ${GO111MODULE}
+      - run: source /home/circleci/.dependencycache/vault-cache/vault_items.sh
       - run:
           name: "test stage"
-          command: |
-            source /home/circleci/.dependencycache/vault-cache/vault_items.sh
-            make test
+          command: make test
   # test-v3:
   #   docker:
   #     - image: cimg/go:1.19.4
