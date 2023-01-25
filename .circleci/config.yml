@@ -56,12 +56,9 @@ workflows:
   "Circle CI Tests":
     jobs:
       - cache-secrets
-      - load-secrets:
-          requires:
-            - cache-secrets
       - test-v2:
           requires:
-            - load-secrets
+            - cachesecrets
       # - test-v3:
       #     requires:
       #       - load-secrets
