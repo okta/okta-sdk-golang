@@ -150,19 +150,6 @@ func (c *Client) GetConfig() *config {
 	return c.config
 }
 
-func (c *Client) SetConfig(conf ...ConfigSetter) (err error) {
-	config := c.config
-	for _, confSetter := range conf {
-		confSetter(config)
-	}
-	_, err = validateConfig(config)
-	if err != nil {
-		return
-	}
-	c.config = config
-	return 
-}
-
 // GetRequestExecutor returns underlying request executor
 // Deprecated: please use CloneRequestExecutor() to avoid race conditions
 func (c *Client) GetRequestExecutor() *RequestExecutor {
