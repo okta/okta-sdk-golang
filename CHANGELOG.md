@@ -1,10 +1,6 @@
 # Changelog
 Running changelog of releases since `2.0.0-rc.4`
 
-## v2.17.0
-
-  - New feature, SDK client can authenticate with pre-signed JWT [#362](https://github.com/okta/okta-sdk-golang/pull/362)
-
 ## v2.16.0
 
  - All API integers, which previously had been typed as `int64`, are now typed

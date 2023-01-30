@@ -135,12 +135,6 @@ func WithToken(token string) ConfigSetter {
 	}
 }
 
-func WithClientAssertion(clientAssertion string) ConfigSetter {
-	return func(c *config) {
-		c.Okta.Client.ClientAssertion = clientAssertion
-	}
-}
-
 func WithUserAgentExtra(userAgent string) ConfigSetter {
 	return func(c *config) {
 		c.UserAgentExtra = userAgent
@@ -193,6 +187,12 @@ func WithAuthorizationMode(authzMode string) ConfigSetter {
 func WithClientId(clientId string) ConfigSetter {
 	return func(c *config) {
 		c.Okta.Client.ClientId = clientId
+	}
+}
+
+func WithClientAssertion(clientAssertion string) ConfigSetter {
+	return func(c *config) {
+		c.Okta.Client.ClientAssertion = clientAssertion
 	}
 }
 

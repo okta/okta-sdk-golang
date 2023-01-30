@@ -861,6 +861,7 @@ The client is configured with a configuration setter object passed to the `NewCl
 | WithRateLimitMaxBackOff(maxBackoff int64) | Max amount of time to wait on request back off |
 | WithAuthorizationMode(authzMode string) | Okta API auth mode, `SSWS` (Okta based), `PrivateKey` (OAuth app based) or `JWT` (OAuth app based) |
 | WithClientId(clientId string) | Okta App client id, used with `PrivateKey` OAuth auth mode |
+| WithClientAssertion(clientAssertion string) | Okta App client assertion, used with `JWT` OAuth auth mode |
 | WithScopes(scopes []string) | Okta API app scopes |
 | WithPrivateKey(privateKey string) | Private key value |
 | WithPrivateKeyId(privateKeyId string) | Private key id (kid) value |
@@ -1056,6 +1057,41 @@ ctx, client, err := okta.NewClient(ctx,
 ```
 
 ### OAuth 2.0 With JWT Key
+Okta allows you to interact with Okta APIs using scoped OAuth 2.0 access
+tokens. Each access token enables the bearer to perform specific actions on
+specific Okta endpoints, with that ability controlled by which scopes the
+access token contains.
+
+Access Tokens are always cached and respect the `expires_in` value of an access
+token response.
+
+This SDK supports this feature only for service-to-service applications. Check
+out [our
+guides](https://developer.okta.com/docs/guides/implement-oauth-for-okta/overview/)
+to learn more about how to register a new service application using a private
+and public key pair. Otherwise, follow the example steps at the end of this
+topic.
+
+When using this approach you won't need an API Token because the SDK will
+request an access token for you. In order to use OAuth 2.0, construct a client
+instance by passing the following parameters:
+
+```go
+ctx := context.TODO()
+ctx, client, err := okta.NewClient(ctx,
+  okta.WithOrgUrl("https://{yourOktaDomain}"),
+  okta.WithAuthorizationMode("JWT"),
+  okta.WithClientAssertion("{{clientAssertion}}"),
+  okta.WithScopes(([]string{"okta.users.manage"})),
+)
+if err != nil {
+  fmt.Printf("Error: %v\n", err)
+}
+
+fmt.Printf("Context: %+v\n Client: %+v\n\n",ctx, client)
+```
+
+This is very similar to PrivateKey Authorization Mode with a caveat, instead of providing public/privatekey pair, you can use a pre-signed JWT instead
 
 ### OAuth 2.0 With Bearer Token
 
