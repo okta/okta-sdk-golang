@@ -40,6 +40,27 @@ func Test_private_key_request_contains_bearer_token(t *testing.T) {
 	assert.Contains(t, request.Header.Get("Authorization"), "Bearer", "does not contain a bearer token for the request")
 }
 
+func Test_jwt_request_contains_bearer_token(t *testing.T) {
+	var buff io.ReadWriter
+
+	_, client, err := tests.NewClient(context.TODO())
+	require.NoError(t, err)
+
+	privateKeySigner, err := okta.CreateKeySigner(client.GetConfig().Okta.Client.PrivateKey, client.GetConfig().Okta.Client.PrivateKeyId)
+	require.NoError(t, err)
+
+	clientAssertion, err := okta.CreateClientAssertion(client.GetConfig().Okta.Client.OrgUrl, client.GetConfig().Okta.Client.ClientId, privateKeySigner)
+	require.NoError(t, err)
+
+	err = client.SetConfig(okta.WithAuthorizationMode("JWT"), okta.WithScopes(([]string{"okta.users.manage"})), okta.WithClientAssertion(clientAssertion))
+	require.NoError(t, err)
+
+	request, err := client.CloneRequestExecutor().NewRequest("GET", "https://example.com/", buff)
+	require.NoError(t, err)
+
+	assert.Contains(t, request.Header.Get("Authorization"), "Bearer", "does not contain a bearer token for the request")
+}
+
 func Test_private_key_request_can_create_a_user(t *testing.T) {
 	ctx, client, err := tests.NewClient(context.TODO(), okta.WithAuthorizationMode("PrivateKey"), okta.WithScopes(([]string{"okta.users.manage"})))
 	require.NoError(t, err)

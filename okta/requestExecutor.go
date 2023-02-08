@@ -71,6 +71,254 @@ type RequestAccessToken struct {
 	Scope       string `json:"scope,omitempty"`
 }
 
+type Authorization interface {
+	Authorize() error
+}
+
+type SSWSAuth struct {
+	token string
+	req   *http.Request
+}
+
+func NewSSWSAuth(token string, req *http.Request) *SSWSAuth {
+	return &SSWSAuth{token: token, req: req}
+}
+
+func (a *SSWSAuth) Authorize() error {
+	a.req.Header.Add("Authorization", "SSWS "+a.token)
+	return nil
+}
+
+type BearerAuth struct {
+	token string
+	req   *http.Request
+}
+
+func NewBearerAuth(token string, req *http.Request) *BearerAuth {
+	return &BearerAuth{token: token, req: req}
+}
+
+func (a *BearerAuth) Authorize() error {
+	a.req.Header.Add("Authorization", "Bearer "+a.token)
+	return nil
+}
+
+type PrivateKeyAuth struct {
+	tokenCache       *goCache.Cache
+	httpClient       *http.Client
+	privateKeySigner jose.Signer
+	privateKey       string
+	privateKeyId     string
+	clientId         string
+	orgURL           string
+	scopes           []string
+	maxRetries       int32
+	maxBackoff       int64
+	req              *http.Request
+}
+
+type PrivateKeyAuthConfig struct {
+	TokenCache       *goCache.Cache
+	HttpClient       *http.Client
+	PrivateKeySigner jose.Signer
+	PrivateKey       string
+	PrivateKeyId     string
+	ClientId         string
+	OrgURL           string
+	Scopes           []string
+	MaxRetries       int32
+	MaxBackoff       int64
+	Req              *http.Request
+}
+
+func NewPrivateKeyAuth(config PrivateKeyAuthConfig) *PrivateKeyAuth {
+	return &PrivateKeyAuth{
+		tokenCache:       config.TokenCache,
+		httpClient:       config.HttpClient,
+		privateKeySigner: config.PrivateKeySigner,
+		privateKey:       config.PrivateKey,
+		privateKeyId:     config.PrivateKeyId,
+		clientId:         config.ClientId,
+		orgURL:           config.OrgURL,
+		scopes:           config.Scopes,
+		maxRetries:       config.MaxRetries,
+		maxBackoff:       config.MaxBackoff,
+		req:              config.Req,
+	}
+}
+
+func (a *PrivateKeyAuth) Authorize() error {
+	accessToken, hasToken := a.tokenCache.Get(AccessTokenCacheKey)
+	if hasToken {
+		a.req.Header.Add("Authorization", "Bearer "+accessToken.(string))
+	} else {
+		if a.privateKeySigner == nil {
+			var err error
+			a.privateKeySigner, err = CreateKeySigner(a.privateKey, a.privateKeyId)
+			if err != nil {
+				return err
+			}
+		}
+
+		clientAssertion, err := CreateClientAssertion(a.orgURL, a.clientId, a.privateKeySigner)
+		if err != nil {
+			return err
+		}
+
+		accessToken, err := getAccessTokenForPrivateKey(a.httpClient, a.orgURL, clientAssertion, a.scopes, a.maxRetries, a.maxBackoff)
+		if err != nil {
+			return err
+		}
+
+		a.req.Header.Add("Authorization", "Bearer "+accessToken.AccessToken)
+
+		// Trim a couple of seconds off calculated expiry so cache expiry
+		// occures before Okta server side expiry.
+		expiration := accessToken.ExpiresIn - 2
+		a.tokenCache.Set(AccessTokenCacheKey, accessToken.AccessToken, time.Second*time.Duration(expiration))
+	}
+	return nil
+}
+
+type JWTAuth struct {
+	tokenCache      *goCache.Cache
+	httpClient      *http.Client
+	orgURL          string
+	scopes          []string
+	clientAssertion string
+	maxRetries      int32
+	maxBackoff      int64
+	req             *http.Request
+}
+
+type JWTAuthConfig struct {
+	TokenCache      *goCache.Cache
+	HttpClient      *http.Client
+	OrgURL          string
+	Scopes          []string
+	ClientAssertion string
+	MaxRetries      int32
+	MaxBackoff      int64
+	Req             *http.Request
+}
+
+func NewJWTAuth(config JWTAuthConfig) *JWTAuth {
+	return &JWTAuth{
+		tokenCache:      config.TokenCache,
+		httpClient:      config.HttpClient,
+		orgURL:          config.OrgURL,
+		scopes:          config.Scopes,
+		clientAssertion: config.ClientAssertion,
+		maxRetries:      config.MaxRetries,
+		maxBackoff:      config.MaxBackoff,
+		req:             config.Req,
+	}
+}
+
+func (a *JWTAuth) Authorize() error {
+	accessToken, hasToken := a.tokenCache.Get(AccessTokenCacheKey)
+	if hasToken {
+		a.req.Header.Add("Authorization", "Bearer "+accessToken.(string))
+	} else {
+		accessToken, err := getAccessTokenForPrivateKey(a.httpClient, a.orgURL, a.clientAssertion, a.scopes, a.maxRetries, a.maxBackoff)
+		if err != nil {
+			return err
+		}
+		a.req.Header.Add("Authorization", "Bearer "+accessToken.AccessToken)
+
+		// Trim a couple of seconds off calculated expiry so cache expiry
+		// occures before Okta server side expiry.
+		expiration := accessToken.ExpiresIn - 2
+		a.tokenCache.Set(AccessTokenCacheKey, accessToken.AccessToken, time.Second*time.Duration(expiration))
+	}
+	return nil
+}
+
+func CreateKeySigner(privateKey, privateKeyID string) (jose.Signer, error) {
+	priv := []byte(strings.ReplaceAll(privateKey, `\n`, "\n"))
+
+	privPem, _ := pem.Decode(priv)
+	if privPem == nil {
+		return nil, errors.New("invalid private key")
+	}
+	if privPem.Type != "RSA PRIVATE KEY" {
+		return nil, fmt.Errorf("RSA private key is of the wrong type")
+	}
+
+	parsedKey, err := x509.ParsePKCS1PrivateKey(privPem.Bytes)
+	if err != nil {
+		return nil, err
+	}
+
+	var signerOptions *jose.SignerOptions
+	if privateKeyID != "" {
+		signerOptions = (&jose.SignerOptions{}).WithHeader("kid", privateKeyID)
+	}
+
+	return jose.NewSigner(jose.SigningKey{Algorithm: jose.RS256, Key: parsedKey}, signerOptions)
+}
+
+func CreateClientAssertion(orgURL, clientID string, privateKeySinger jose.Signer) (clientAssertion string, err error) {
+	claims := ClientAssertionClaims{
+		Subject:  clientID,
+		IssuedAt: jwt.NewNumericDate(time.Now()),
+		Expiry:   jwt.NewNumericDate(time.Now().Add(time.Hour * time.Duration(1))),
+		Issuer:   clientID,
+		Audience: orgURL + "/oauth2/v1/token",
+	}
+	jwtBuilder := jwt.Signed(privateKeySinger).Claims(claims)
+	return jwtBuilder.CompactSerialize()
+}
+
+func getAccessTokenForPrivateKey(httpClient *http.Client, orgURL, clientAssertion string, scopes []string, maxRetries int32, maxBackoff int64) (*RequestAccessToken, error) {
+	var tokenRequestBuff io.ReadWriter
+	query := urlpkg.Values{}
+	tokenRequestURL := orgURL + "/oauth2/v1/token"
+
+	query.Add("grant_type", "client_credentials")
+	query.Add("scope", strings.Join(scopes, " "))
+	query.Add("client_assertion_type", "urn:ietf:params:oauth:client-assertion-type:jwt-bearer")
+	query.Add("client_assertion", clientAssertion)
+	tokenRequestURL += "?" + query.Encode()
+	tokenRequest, err := http.NewRequest("POST", tokenRequestURL, tokenRequestBuff)
+	if err != nil {
+		return nil, err
+	}
+
+	tokenRequest.Header.Add("Accept", "application/json")
+	tokenRequest.Header.Add("Content-Type", "application/x-www-form-urlencoded")
+
+	bOff := &oktaBackoff{
+		ctx:             context.TODO(),
+		maxRetries:      maxRetries,
+		backoffDuration: time.Duration(maxBackoff),
+	}
+	var tokenResponse *http.Response
+	operation := func() error {
+		tokenResponse, err = httpClient.Do(tokenRequest)
+		bOff.retryCount++
+		return err
+	}
+	err = backoff.Retry(operation, bOff)
+	if err != nil {
+		return nil, err
+	}
+
+	respBody, err := io.ReadAll(tokenResponse.Body)
+	if err != nil {
+		return nil, err
+	}
+	origResp := io.NopCloser(bytes.NewBuffer(respBody))
+	tokenResponse.Body = origResp
+	var accessToken *RequestAccessToken
+
+	_, err = buildResponse(tokenResponse, nil, &accessToken)
+	if err != nil {
+		return nil, err
+	}
+	return accessToken, nil
+}
+
 func NewRequestExecutor(httpClient *http.Client, cache cache.Cache, config *config) *RequestExecutor {
 	re := RequestExecutor{
 		tokenCache: goCache.New(5*time.Minute, 10*time.Minute),
@@ -121,114 +369,47 @@ func (re *RequestExecutor) NewRequest(method string, url string, body interface{
 		return nil, err
 	}
 
-	if re.config.Okta.Client.AuthorizationMode == "SSWS" {
-		req.Header.Add("Authorization", "SSWS "+re.config.Okta.Client.Token)
+	var auth Authorization
+
+	switch re.config.Okta.Client.AuthorizationMode {
+	case "SSWS":
+		auth = NewSSWSAuth(re.config.Okta.Client.Token, req)
+	case "Bearer":
+		auth = NewBearerAuth(re.config.Okta.Client.Token, req)
+	case "PrivateKey":
+		auth = NewPrivateKeyAuth(PrivateKeyAuthConfig{
+			TokenCache:       re.tokenCache,
+			HttpClient:       re.httpClient,
+			PrivateKeySigner: re.config.PrivateKeySigner,
+			PrivateKey:       re.config.Okta.Client.PrivateKey,
+			PrivateKeyId:     re.config.Okta.Client.PrivateKeyId,
+			ClientId:         re.config.Okta.Client.ClientId,
+			OrgURL:           re.config.Okta.Client.OrgUrl,
+			Scopes:           re.config.Okta.Client.Scopes,
+			MaxRetries:       re.config.Okta.Client.RateLimit.MaxRetries,
+			MaxBackoff:       re.config.Okta.Client.RateLimit.MaxBackoff,
+			Req:              req,
+		})
+	case "JWT":
+		auth = NewJWTAuth(JWTAuthConfig{
+			TokenCache:      re.tokenCache,
+			HttpClient:      re.httpClient,
+			OrgURL:          re.config.Okta.Client.OrgUrl,
+			Scopes:          re.config.Okta.Client.Scopes,
+			ClientAssertion: re.config.Okta.Client.ClientAssertion,
+			MaxRetries:      re.config.Okta.Client.RateLimit.MaxRetries,
+			MaxBackoff:      re.config.Okta.Client.RateLimit.MaxBackoff,
+			Req:             req,
+		})
+	default:
+		return nil, fmt.Errorf("unknown authorization mode %v", re.config.Okta.Client.AuthorizationMode)
 	}
 
-	if re.config.Okta.Client.AuthorizationMode == "Bearer" {
-		req.Header.Add("Authorization", "Bearer "+re.config.Okta.Client.Token)
+	err = auth.Authorize()
+	if err != nil {
+		return nil, err
 	}
 
-	if re.config.Okta.Client.AuthorizationMode == "PrivateKey" {
-		// OAuth tokens are always cached in a dedicated cache regardless of
-		// what SDK cache manager the request executor is initialized with
-		accessToken, hasToken := re.tokenCache.Get(AccessTokenCacheKey)
-		if hasToken {
-			req.Header.Add("Authorization", "Bearer "+accessToken.(string))
-		} else {
-			if re.config.PrivateKeySigner == nil {
-				priv := []byte(strings.ReplaceAll(re.config.Okta.Client.PrivateKey, `\n`, "\n"))
-
-				privPem, _ := pem.Decode(priv)
-				if privPem == nil {
-					return nil, errors.New("invalid private key")
-				}
-				if privPem.Type != "RSA PRIVATE KEY" {
-					return nil, fmt.Errorf("RSA private key is of the wrong type")
-				}
-
-				parsedKey, err := x509.ParsePKCS1PrivateKey(privPem.Bytes)
-				if err != nil {
-					return nil, err
-				}
-
-				var signerOptions *jose.SignerOptions
-				if re.config.Okta.Client.PrivateKeyId != "" {
-					signerOptions = (&jose.SignerOptions{}).WithHeader("kid", re.config.Okta.Client.PrivateKeyId)
-				}
-
-				re.config.PrivateKeySigner, err = jose.NewSigner(jose.SigningKey{Algorithm: jose.RS256, Key: parsedKey}, signerOptions)
-				if err != nil {
-					return nil, err
-				}
-			}
-
-			claims := ClientAssertionClaims{
-				Subject:  re.config.Okta.Client.ClientId,
-				IssuedAt: jwt.NewNumericDate(time.Now()),
-				Expiry:   jwt.NewNumericDate(time.Now().Add(time.Hour * time.Duration(1))),
-				Issuer:   re.config.Okta.Client.ClientId,
-				Audience: re.config.Okta.Client.OrgUrl + "/oauth2/v1/token",
-			}
-			jwtBuilder := jwt.Signed(re.config.PrivateKeySigner).Claims(claims)
-			clientAssertion, err := jwtBuilder.CompactSerialize()
-			if err != nil {
-				return nil, err
-			}
-
-			var tokenRequestBuff io.ReadWriter
-			query := urlpkg.Values{}
-			tokenRequestURL := re.config.Okta.Client.OrgUrl + "/oauth2/v1/token"
-
-			query.Add("grant_type", "client_credentials")
-			query.Add("scope", strings.Join(re.config.Okta.Client.Scopes, " "))
-			query.Add("client_assertion_type", "urn:ietf:params:oauth:client-assertion-type:jwt-bearer")
-			query.Add("client_assertion", clientAssertion)
-			tokenRequestURL += "?" + query.Encode()
-			tokenRequest, err := http.NewRequest("POST", tokenRequestURL, tokenRequestBuff)
-			if err != nil {
-				return nil, err
-			}
-
-			tokenRequest.Header.Add("Accept", "application/json")
-			tokenRequest.Header.Add("Content-Type", "application/x-www-form-urlencoded")
-
-			bOff := &oktaBackoff{
-				ctx:             context.TODO(),
-				maxRetries:      re.config.Okta.Client.RateLimit.MaxRetries,
-				backoffDuration: time.Duration(re.config.Okta.Client.RateLimit.MaxBackoff),
-			}
-			var tokenResponse *http.Response
-			operation := func() error {
-				tokenResponse, err = re.httpClient.Do(tokenRequest)
-				bOff.retryCount++
-				return err
-			}
-			err = backoff.Retry(operation, bOff)
-			if err != nil {
-				return nil, err
-			}
-
-			respBody, err := io.ReadAll(tokenResponse.Body)
-			if err != nil {
-				return nil, err
-			}
-			origResp := io.NopCloser(bytes.NewBuffer(respBody))
-			tokenResponse.Body = origResp
-			var accessToken *RequestAccessToken
-
-			_, err = buildResponse(tokenResponse, nil, &accessToken)
-			if err != nil {
-				return nil, err
-			}
-			req.Header.Add("Authorization", "Bearer "+accessToken.AccessToken)
-
-			// Trim a couple of seconds off calculated expiry so cache expiry
-			// occures before Okta server side expiry.
-			expiration := accessToken.ExpiresIn - 2
-			re.tokenCache.Set(AccessTokenCacheKey, accessToken.AccessToken, time.Second*time.Duration(expiration))
-		}
-	}
 	req.Header.Add("User-Agent", NewUserAgent(re.config).String())
 	req.Header.Add("Accept", re.headerAccept)
 
@@ -240,7 +421,6 @@ func (re *RequestExecutor) NewRequest(method string, url string, body interface{
 	re.binary = false
 	re.headerAccept = "application/json"
 	re.headerContentType = "application/json"
-
 	return req, nil
 }
 
