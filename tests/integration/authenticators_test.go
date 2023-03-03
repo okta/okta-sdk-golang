@@ -65,7 +65,7 @@ func TestUpdateAuthenticator(t *testing.T) {
 	emailAuthenticator, err := fetchAuthenticator(EmailKey, ctx, client)
 	require.NoError(t, err)
 
-	tokenLifetimeInMinutes := *emailAuthenticator.Settings.TokenLifetimeInMinutes + 1
+	tokenLifetimeInMinutes := emailAuthenticator.Settings.TokenLifetimeInMinutes + 1
 	if tokenLifetimeInMinutes > 10 {
 		tokenLifetimeInMinutes = int64(5)
 	}
@@ -73,14 +73,14 @@ func TestUpdateAuthenticator(t *testing.T) {
 	updateAuthenticator := okta.Authenticator{
 		Name: emailAuthenticator.Name,
 		Settings: &okta.AuthenticatorSettings{
-			TokenLifetimeInMinutes: &tokenLifetimeInMinutes,
+			TokenLifetimeInMinutes: tokenLifetimeInMinutes,
 		},
 	}
 	authenticator, resp, err := client.Authenticator.UpdateAuthenticator(ctx, emailAuthenticator.Id, okta.Authenticator(updateAuthenticator))
 	require.NoError(t, err)
 	assert.Equal(t, resp.StatusCode, 200)
 	assert.Equal(t, authenticator.Id, emailAuthenticator.Id)
-	assert.Equal(t, *authenticator.Settings.TokenLifetimeInMinutes, tokenLifetimeInMinutes, "Expected authenticator token life in minutes to be updated.")
+	assert.Equal(t, authenticator.Settings.TokenLifetimeInMinutes, tokenLifetimeInMinutes, "Expected authenticator token life in minutes to be updated.")
 }
 
 func TestActivateDeactivateAuthenticator(t *testing.T) {
