@@ -32,11 +32,11 @@ type OktaSignOnPolicy struct {
 	Id          string                      `json:"id,omitempty"`
 	LastUpdated *time.Time                  `json:"lastUpdated,omitempty"`
 	Name        string                      `json:"name,omitempty"`
-	Priority    int64
-	PriorityPtr *int64 `json:"priority,omitempty"`
-	Status      string `json:"status,omitempty"`
-	System      *bool  `json:"system,omitempty"`
-	Type        string `json:"type,omitempty"`
+	Priority    int64                       `json:"-"`
+	PriorityPtr *int64                      `json:"priority,omitempty"`
+	Status      string                      `json:"status,omitempty"`
+	System      *bool                       `json:"system,omitempty"`
+	Type        string                      `json:"type,omitempty"`
 }
 
 func NewOktaSignOnPolicy() *OktaSignOnPolicy {

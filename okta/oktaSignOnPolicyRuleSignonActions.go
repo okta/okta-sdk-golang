@@ -21,8 +21,8 @@ package okta
 import "encoding/json"
 
 type OktaSignOnPolicyRuleSignonActions struct {
-	Access                  string `json:"access,omitempty"`
-	FactorLifetime          int64
+	Access                  string                                    `json:"access,omitempty"`
+	FactorLifetime          int64                                     `json:"-"`
 	FactorLifetimePtr       *int64                                    `json:"factorLifetime,omitempty"`
 	FactorPromptMode        string                                    `json:"factorPromptMode,omitempty"`
 	RememberDeviceByDefault *bool                                     `json:"rememberDeviceByDefault,omitempty"`

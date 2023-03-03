@@ -21,13 +21,13 @@ package okta
 import "encoding/json"
 
 type TokenAuthorizationServerPolicyRuleAction struct {
-	AccessTokenLifetimeMinutes     int64
+	AccessTokenLifetimeMinutes     int64                                               `json:"-"`
 	AccessTokenLifetimeMinutesPtr  *int64                                              `json:"accessTokenLifetimeMinutes"`
 	InlineHook                     *TokenAuthorizationServerPolicyRuleActionInlineHook `json:"inlineHook,omitempty"`
-	RefreshTokenLifetimeMinutes    int64
-	RefreshTokenLifetimeMinutesPtr *int64 `json:"refreshTokenLifetimeMinutes"`
-	RefreshTokenWindowMinutes      int64
-	RefreshTokenWindowMinutesPtr   *int64 `json:"refreshTokenWindowMinutes"`
+	RefreshTokenLifetimeMinutes    int64                                               `json:"-"`
+	RefreshTokenLifetimeMinutesPtr *int64                                              `json:"refreshTokenLifetimeMinutes"`
+	RefreshTokenWindowMinutes      int64                                               `json:"-"`
+	RefreshTokenWindowMinutesPtr   *int64                                              `json:"refreshTokenWindowMinutes"`
 }
 
 func (a *TokenAuthorizationServerPolicyRuleAction) MarshalJSON() ([]byte, error) {

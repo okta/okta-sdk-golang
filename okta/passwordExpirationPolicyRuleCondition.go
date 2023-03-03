@@ -21,7 +21,7 @@ package okta
 import "encoding/json"
 
 type PasswordExpirationPolicyRuleCondition struct {
-	Number    int64
+	Number    int64  `json:"-"`
 	NumberPtr *int64 `json:"number,omitempty"`
 	Unit      string `json:"unit,omitempty"`
 }

@@ -21,9 +21,9 @@ package okta
 import "encoding/json"
 
 type PasswordPolicyPasswordSettingsLockout struct {
-	AutoUnlockMinutes               int64
-	AutoUnlockMinutesPtr            *int64 `json:"autoUnlockMinutes,omitempty"`
-	MaxAttempts                     int64
+	AutoUnlockMinutes               int64    `json:"-"`
+	AutoUnlockMinutesPtr            *int64   `json:"autoUnlockMinutes,omitempty"`
+	MaxAttempts                     int64    `json:"-"`
 	MaxAttemptsPtr                  *int64   `json:"maxAttempts,omitempty"`
 	ShowLockoutFailures             *bool    `json:"showLockoutFailures,omitempty"`
 	UserLockoutNotificationChannels []string `json:"userLockoutNotificationChannels,omitempty"`

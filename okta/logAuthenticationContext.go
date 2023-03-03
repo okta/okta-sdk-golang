@@ -21,8 +21,8 @@ package okta
 import "encoding/json"
 
 type LogAuthenticationContext struct {
-	AuthenticationProvider string `json:"authenticationProvider,omitempty"`
-	AuthenticationStep     int64
+	AuthenticationProvider string     `json:"authenticationProvider,omitempty"`
+	AuthenticationStep     int64      `json:"-"`
 	AuthenticationStepPtr  *int64     `json:"authenticationStep,omitempty"`
 	CredentialProvider     string     `json:"credentialProvider,omitempty"`
 	CredentialType         string     `json:"credentialType,omitempty"`

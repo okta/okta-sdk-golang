@@ -21,7 +21,7 @@ package okta
 import "encoding/json"
 
 type ApplicationLicensing struct {
-	SeatCount    int64
+	SeatCount    int64  `json:"-"`
 	SeatCountPtr *int64 `json:"seatCount,omitempty"`
 }
 

@@ -22,7 +22,7 @@ import "encoding/json"
 
 type LifecycleExpirationPolicyRuleCondition struct {
 	LifecycleStatus string `json:"lifecycleStatus,omitempty"`
-	Number          int64
+	Number          int64  `json:"-"`
 	NumberPtr       *int64 `json:"number,omitempty"`
 	Unit            string `json:"unit,omitempty"`
 }

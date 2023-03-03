@@ -21,7 +21,7 @@ package okta
 import "encoding/json"
 
 type PasswordPolicyRecoveryQuestionComplexity struct {
-	MinLength    int64
+	MinLength    int64  `json:"-"`
 	MinLengthPtr *int64 `json:"minLength,omitempty"`
 }
 

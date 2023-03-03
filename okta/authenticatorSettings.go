@@ -25,9 +25,9 @@ type AuthenticatorSettings struct {
 	AppInstanceId             string          `json:"appInstanceId,omitempty"`
 	ChannelBinding            *ChannelBinding `json:"channelBinding,omitempty"`
 	Compliance                *Compliance     `json:"compliance,omitempty"`
-	TokenLifetimeInMinutes    int64
-	TokenLifetimeInMinutesPtr *int64 `json:"tokenLifetimeInMinutes,omitempty"`
-	UserVerification          string `json:"userVerification,omitempty"`
+	TokenLifetimeInMinutes    int64           `json:"-"`
+	TokenLifetimeInMinutesPtr *int64          `json:"tokenLifetimeInMinutes,omitempty"`
+	UserVerification          string          `json:"userVerification,omitempty"`
 }
 
 func (a *AuthenticatorSettings) MarshalJSON() ([]byte, error) {

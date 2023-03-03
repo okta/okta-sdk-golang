@@ -25,7 +25,7 @@ type IdentityProviderCredentialsTrust struct {
 	Issuer                     string `json:"issuer,omitempty"`
 	Kid                        string `json:"kid,omitempty"`
 	Revocation                 string `json:"revocation,omitempty"`
-	RevocationCacheLifetime    int64
+	RevocationCacheLifetime    int64  `json:"-"`
 	RevocationCacheLifetimePtr *int64 `json:"revocationCacheLifetime,omitempty"`
 }
 

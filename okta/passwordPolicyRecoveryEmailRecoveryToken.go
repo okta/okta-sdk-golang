@@ -21,7 +21,7 @@ package okta
 import "encoding/json"
 
 type PasswordPolicyRecoveryEmailRecoveryToken struct {
-	TokenLifetimeMinutes    int64
+	TokenLifetimeMinutes    int64  `json:"-"`
 	TokenLifetimeMinutesPtr *int64 `json:"tokenLifetimeMinutes"`
 }
 

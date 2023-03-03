@@ -21,7 +21,7 @@ package okta
 import "encoding/json"
 
 type LogSecurityContext struct {
-	AsNumber    int64
+	AsNumber    int64  `json:"-"`
 	AsNumberPtr *int64 `json:"asNumber,omitempty"`
 	AsOrg       string `json:"asOrg,omitempty"`
 	Domain      string `json:"domain,omitempty"`

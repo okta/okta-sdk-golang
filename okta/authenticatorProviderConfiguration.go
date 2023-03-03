@@ -21,7 +21,7 @@ package okta
 import "encoding/json"
 
 type AuthenticatorProviderConfiguration struct {
-	AuthPort         int64
+	AuthPort         int64                                            `json:"-"`
 	AuthPortPtr      *int64                                           `json:"authPort,omitempty"`
 	Host             string                                           `json:"host,omitempty"`
 	HostName         string                                           `json:"hostName,omitempty"`

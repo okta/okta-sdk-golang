@@ -21,12 +21,12 @@ package okta
 import "encoding/json"
 
 type IonForm struct {
-	Accepts    string `json:"accepts,omitempty"`
-	Href       string `json:"href,omitempty"`
-	Method     string `json:"method,omitempty"`
-	Name       string `json:"name,omitempty"`
-	Produces   string `json:"produces,omitempty"`
-	Refresh    int64
+	Accepts    string      `json:"accepts,omitempty"`
+	Href       string      `json:"href,omitempty"`
+	Method     string      `json:"method,omitempty"`
+	Name       string      `json:"name,omitempty"`
+	Produces   string      `json:"produces,omitempty"`
+	Refresh    int64       `json:"-"`
 	RefreshPtr *int64      `json:"refresh,omitempty"`
 	Rel        []string    `json:"rel,omitempty"`
 	RelatesTo  []string    `json:"relatesTo,omitempty"`

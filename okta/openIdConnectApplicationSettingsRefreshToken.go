@@ -21,7 +21,7 @@ package okta
 import "encoding/json"
 
 type OpenIdConnectApplicationSettingsRefreshToken struct {
-	Leeway       int64
+	Leeway       int64  `json:"-"`
 	LeewayPtr    *int64 `json:"leeway"`
 	RotationType string `json:"rotation_type,omitempty"`
 }

@@ -21,9 +21,9 @@ package okta
 import "encoding/json"
 
 type OktaSignOnPolicyRuleSignonSessionActions struct {
-	MaxSessionIdleMinutes        int64
+	MaxSessionIdleMinutes        int64  `json:"-"`
 	MaxSessionIdleMinutesPtr     *int64 `json:"maxSessionIdleMinutes"`
-	MaxSessionLifetimeMinutes    int64
+	MaxSessionLifetimeMinutes    int64  `json:"-"`
 	MaxSessionLifetimeMinutesPtr *int64 `json:"maxSessionLifetimeMinutes"`
 	UsePersistentCookie          *bool  `json:"usePersistentCookie,omitempty"`
 }

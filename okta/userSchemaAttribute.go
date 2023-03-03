@@ -21,15 +21,15 @@ package okta
 import "encoding/json"
 
 type UserSchemaAttribute struct {
-	Description       string                     `json:"description,omitempty"`
-	Enum              []interface{}              `json:"enum,omitempty"`
-	ExternalName      string                     `json:"externalName,omitempty"`
-	ExternalNamespace string                     `json:"externalNamespace,omitempty"`
-	Items             *UserSchemaAttributeItems  `json:"items,omitempty"`
-	Master            *UserSchemaAttributeMaster `json:"master,omitempty"`
-	MaxLength         int64
-	MaxLengthPtr      *int64 `json:"maxLength,omitempty"`
-	MinLength         int64
+	Description       string                           `json:"description,omitempty"`
+	Enum              []interface{}                    `json:"enum,omitempty"`
+	ExternalName      string                           `json:"externalName,omitempty"`
+	ExternalNamespace string                           `json:"externalNamespace,omitempty"`
+	Items             *UserSchemaAttributeItems        `json:"items,omitempty"`
+	Master            *UserSchemaAttributeMaster       `json:"master,omitempty"`
+	MaxLength         int64                            `json:"-"`
+	MaxLengthPtr      *int64                           `json:"maxLength,omitempty"`
+	MinLength         int64                            `json:"-"`
 	MinLengthPtr      *int64                           `json:"minLength,omitempty"`
 	Mutability        string                           `json:"mutability,omitempty"`
 	OneOf             []*UserSchemaAttributeEnum       `json:"oneOf,omitempty"`

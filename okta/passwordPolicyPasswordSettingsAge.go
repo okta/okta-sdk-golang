@@ -21,13 +21,13 @@ package okta
 import "encoding/json"
 
 type PasswordPolicyPasswordSettingsAge struct {
-	ExpireWarnDays    int64
+	ExpireWarnDays    int64  `json:"-"`
 	ExpireWarnDaysPtr *int64 `json:"expireWarnDays,omitempty"`
-	HistoryCount      int64
+	HistoryCount      int64  `json:"-"`
 	HistoryCountPtr   *int64 `json:"historyCount,omitempty"`
-	MaxAgeDays        int64
+	MaxAgeDays        int64  `json:"-"`
 	MaxAgeDaysPtr     *int64 `json:"maxAgeDays,omitempty"`
-	MinAgeMinutes     int64
+	MinAgeMinutes     int64  `json:"-"`
 	MinAgeMinutesPtr  *int64 `json:"minAgeMinutes,omitempty"`
 }
 

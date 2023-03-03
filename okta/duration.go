@@ -21,7 +21,7 @@ package okta
 import "encoding/json"
 
 type Duration struct {
-	Number    int64
+	Number    int64  `json:"-"`
 	NumberPtr *int64 `json:"number,omitempty"`
 	Unit      string `json:"unit,omitempty"`
 }

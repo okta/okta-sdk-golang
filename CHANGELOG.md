@@ -1,6 +1,25 @@
 # Changelog
 Running changelog of releases since `2.0.0-rc.4`
 
+## v2.17.0
+
+ - Revert integer values representation as integer pointers
+   - Original change was too agreesive for a minor release
+   - All integer fields have a parallel pointer field that can be used as an alternative to deal with 0 values during JSON marshaling
+     - Example `PasswordPolicy` model has fields int64 `Priority` and *int64 `PriorityPtr`
+     - This change will not break code from release v2.15.0 and earlier
+ - New models
+   - `MultifactorEnrollmentPolicy`
+   - `MultifactorEnrollmentPolicyAuthenticatorSettings`
+   - `MultifactorEnrollmentPolicyAuthenticatorStatus`
+   - `MultifactorEnrollmentPolicyAuthenticatorType`
+   - `MultifactorEnrollmentPolicySettings`
+   - `MultifactorEnrollmentPolicySettingsType`
+ - New methods / endpoints
+   - `Application` has `PreviewSAMLAppMetadata` method for `GET /api/v1/apps/{applicationId}/sso/saml/metadata` endpoint.
+ - Added parameters
+   - `Default` bool on `AuthorizationServer` model
+ 
 ## v2.16.0
 
  - All API integers, which previously had been typed as `int64`, are now typed

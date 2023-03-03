@@ -24,16 +24,16 @@ type PasswordPolicyPasswordSettingsComplexity struct {
 	Dictionary        *PasswordDictionary `json:"dictionary,omitempty"`
 	ExcludeAttributes []string            `json:"excludeAttributes,omitempty"`
 	ExcludeUsername   *bool               `json:"excludeUsername,omitempty"`
-	MinLength         int64
-	MinLengthPtr      *int64 `json:"minLength,omitempty"`
-	MinLowerCase      int64
-	MinLowerCasePtr   *int64 `json:"minLowerCase"`
-	MinNumber         int64
-	MinNumberPtr      *int64 `json:"minNumber"`
-	MinSymbol         int64
-	MinSymbolPtr      *int64 `json:"minSymbol"`
-	MinUpperCase      int64
-	MinUpperCasePtr   *int64 `json:"minUpperCase"`
+	MinLength         int64               `json:"-"`
+	MinLengthPtr      *int64              `json:"minLength,omitempty"`
+	MinLowerCase      int64               `json:"-"`
+	MinLowerCasePtr   *int64              `json:"minLowerCase"`
+	MinNumber         int64               `json:"-"`
+	MinNumberPtr      *int64              `json:"minNumber"`
+	MinSymbol         int64               `json:"-"`
+	MinSymbolPtr      *int64              `json:"minSymbol"`
+	MinUpperCase      int64               `json:"-"`
+	MinUpperCasePtr   *int64              `json:"minUpperCase"`
 }
 
 func NewPasswordPolicyPasswordSettingsComplexity() *PasswordPolicyPasswordSettingsComplexity {

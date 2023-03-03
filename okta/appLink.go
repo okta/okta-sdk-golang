@@ -30,7 +30,7 @@ type AppLink struct {
 	Label            string `json:"label,omitempty"`
 	LinkUrl          string `json:"linkUrl,omitempty"`
 	LogoUrl          string `json:"logoUrl,omitempty"`
-	SortOrder        int64
+	SortOrder        int64  `json:"-"`
 	SortOrderPtr     *int64 `json:"sortOrder,omitempty"`
 }
 

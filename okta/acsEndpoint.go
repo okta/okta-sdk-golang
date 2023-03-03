@@ -21,7 +21,7 @@ package okta
 import "encoding/json"
 
 type AcsEndpoint struct {
-	Index    int64
+	Index    int64  `json:"-"`
 	IndexPtr *int64 `json:"index,omitempty"`
 	Url      string `json:"url,omitempty"`
 }
