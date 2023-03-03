@@ -178,7 +178,7 @@ func (m *UserResource) SetLinkedObjectForUser(ctx context.Context, associatedUse
 	return resp, nil
 }
 
-// Fetch a user by &#x60;id&#x60;, &#x60;login&#x60;, or &#x60;login shortname&#x60; if the short name is unambiguous.
+// Update a user&#x27;s profile or credentials with partial update semantics.
 func (m *UserResource) PartialUpdateUser(ctx context.Context, userId string, body User, qp *query.Params) (*User, *Response, error) {
 	url := fmt.Sprintf("/api/v1/users/%v", userId)
 	if qp != nil {

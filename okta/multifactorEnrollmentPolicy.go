@@ -19,18 +19,16 @@
 package okta
 
 import (
-	"context"
 	"encoding/json"
-	"fmt"
 	"time"
 )
 
-type PolicyRuleResource resource
-
-type PolicyRule struct {
-	Actions     *PolicyRuleActions    `json:"actions,omitempty"`
+type MultifactorEnrollmentPolicy struct {
+	Embedded    interface{}           `json:"_embedded,omitempty"`
+	Links       interface{}           `json:"_links,omitempty"`
 	Conditions  *PolicyRuleConditions `json:"conditions,omitempty"`
 	Created     *time.Time            `json:"created,omitempty"`
+	Description string                `json:"description,omitempty"`
 	Id          string                `json:"id,omitempty"`
 	LastUpdated *time.Time            `json:"lastUpdated,omitempty"`
 	Name        string                `json:"name,omitempty"`
@@ -41,59 +39,18 @@ type PolicyRule struct {
 	Type        string `json:"type,omitempty"`
 }
 
-func NewPolicyRule() *PolicyRule {
-	return &PolicyRule{
-		Status: "ACTIVE",
-		System: boolPtr(false),
+func NewMultifactorEnrollmentPolicy() *MultifactorEnrollmentPolicy {
+	return &MultifactorEnrollmentPolicy{
+		Type: "MFA_ENROLL",
 	}
 }
 
-func (a *PolicyRule) IsPolicyInstance() bool {
+func (a *MultifactorEnrollmentPolicy) IsPolicyInstance() bool {
 	return true
 }
 
-// Updates a policy rule.
-func (m *PolicyRuleResource) UpdatePolicyRule(ctx context.Context, policyId string, ruleId string, body PolicyRule) (*PolicyRule, *Response, error) {
-	url := fmt.Sprintf("/api/v1/policies/%v/rules/%v", policyId, ruleId)
-
-	rq := m.client.CloneRequestExecutor()
-
-	req, err := rq.WithAccept("application/json").WithContentType("application/json").NewRequest("PUT", url, body)
-	if err != nil {
-		return nil, nil, err
-	}
-
-	var policyRule *PolicyRule
-
-	resp, err := rq.Do(ctx, req, &policyRule)
-	if err != nil {
-		return nil, resp, err
-	}
-
-	return policyRule, resp, nil
-}
-
-// Removes a policy rule.
-func (m *PolicyRuleResource) DeletePolicyRule(ctx context.Context, policyId string, ruleId string) (*Response, error) {
-	url := fmt.Sprintf("/api/v1/policies/%v/rules/%v", policyId, ruleId)
-
-	rq := m.client.CloneRequestExecutor()
-
-	req, err := rq.WithAccept("application/json").WithContentType("application/json").NewRequest("DELETE", url, nil)
-	if err != nil {
-		return nil, err
-	}
-
-	resp, err := m.client.requestExecutor.Do(ctx, req, nil)
-	if err != nil {
-		return resp, err
-	}
-
-	return resp, nil
-}
-
-func (a *PolicyRule) MarshalJSON() ([]byte, error) {
-	type Alias PolicyRule
+func (a *MultifactorEnrollmentPolicy) MarshalJSON() ([]byte, error) {
+	type Alias MultifactorEnrollmentPolicy
 	type local struct {
 		*Alias
 	}
@@ -104,8 +61,8 @@ func (a *PolicyRule) MarshalJSON() ([]byte, error) {
 	return json.Marshal(&result)
 }
 
-func (a *PolicyRule) UnmarshalJSON(data []byte) error {
-	type Alias PolicyRule
+func (a *MultifactorEnrollmentPolicy) UnmarshalJSON(data []byte) error {
+	type Alias MultifactorEnrollmentPolicy
 
 	result := &struct {
 		*Alias

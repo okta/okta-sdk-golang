@@ -507,7 +507,7 @@ function buildModelProperties(model) {
     var type = getType(properties[propKey], "");
     if (type === "int64") {
       finalProps.push(structProp(properties[propKey].propertyName) + " " +
-        getType(properties[propKey], "*"));
+        getType(properties[propKey], "*") + " `json:\"-\"`");
       finalProps.push(structProp(properties[propKey].propertyName) + "Ptr *" +
         getType(properties[propKey], "*") + createJsonTag(properties[propKey].propertyName));
     } else {

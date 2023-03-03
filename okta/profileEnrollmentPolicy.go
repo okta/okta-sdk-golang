@@ -19,6 +19,7 @@
 package okta
 
 import (
+	"encoding/json"
 	"time"
 )
 
@@ -31,10 +32,11 @@ type ProfileEnrollmentPolicy struct {
 	Id          string                `json:"id,omitempty"`
 	LastUpdated *time.Time            `json:"lastUpdated,omitempty"`
 	Name        string                `json:"name,omitempty"`
-	Priority    *int64                `json:"priority,omitempty"`
-	Status      string                `json:"status,omitempty"`
-	System      *bool                 `json:"system,omitempty"`
-	Type        string                `json:"type,omitempty"`
+	Priority    int64
+	PriorityPtr *int64 `json:"priority,omitempty"`
+	Status      string `json:"status,omitempty"`
+	System      *bool  `json:"system,omitempty"`
+	Type        string `json:"type,omitempty"`
 }
 
 func NewProfileEnrollmentPolicy() *ProfileEnrollmentPolicy {
@@ -45,4 +47,34 @@ func NewProfileEnrollmentPolicy() *ProfileEnrollmentPolicy {
 
 func (a *ProfileEnrollmentPolicy) IsPolicyInstance() bool {
 	return true
+}
+
+func (a *ProfileEnrollmentPolicy) MarshalJSON() ([]byte, error) {
+	type Alias ProfileEnrollmentPolicy
+	type local struct {
+		*Alias
+	}
+	result := local{Alias: (*Alias)(a)}
+	if a.Priority != 0 {
+		result.PriorityPtr = Int64Ptr(a.Priority)
+	}
+	return json.Marshal(&result)
+}
+
+func (a *ProfileEnrollmentPolicy) UnmarshalJSON(data []byte) error {
+	type Alias ProfileEnrollmentPolicy
+
+	result := &struct {
+		*Alias
+	}{
+		Alias: (*Alias)(a),
+	}
+	if err := json.Unmarshal(data, &result); err != nil {
+		return err
+	}
+	if result.PriorityPtr != nil {
+		a.Priority = *result.PriorityPtr
+		a.PriorityPtr = result.PriorityPtr
+	}
+	return nil
 }
