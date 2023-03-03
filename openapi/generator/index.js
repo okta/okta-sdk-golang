@@ -26,7 +26,7 @@ function getType(obj, prefix = "") {
     case 'dateTime' :
       return String.raw`*time.Time`;
     case 'integer' :
-      return String.raw`*int64`;
+      return String.raw`int64`;
     case 'boolean' :
       return String.raw`*bool`;
     case 'hash' :
@@ -476,9 +476,8 @@ function getNewClientTagProps(operations) {
   return tagResources.join("\n\t");
 }
 
-function buildModelProperties(model) {
+function buildProperties(model) {
   const properties = {};
-  const finalProps = [];
 
   if (model.parent !== undefined) {
     for (let parentProperty of model.parent.properties) {
@@ -497,12 +496,73 @@ function buildModelProperties(model) {
     }
   }
 
+  return properties;
+}
+
+function buildModelProperties(model) {
+  const finalProps = [];
+  const properties = buildProperties(model);
+
   for (let propKey in properties) {
-    finalProps.push(structProp(properties[propKey].propertyName) + " " +
-      getType(properties[propKey], "*") + createJsonTag(properties[propKey].propertyName));
+    var type = getType(properties[propKey], "");
+    if (type === "int64") {
+      finalProps.push(structProp(properties[propKey].propertyName) + " " +
+        getType(properties[propKey], "*"));
+      finalProps.push(structProp(properties[propKey].propertyName) + "Ptr *" +
+        getType(properties[propKey], "*") + createJsonTag(properties[propKey].propertyName));
+    } else {
+      finalProps.push(structProp(properties[propKey].propertyName) + " " +
+        getType(properties[propKey], "*") + createJsonTag(properties[propKey].propertyName));
+    }
   }
 
   return finalProps.join("\n\t");
+}
+
+function hasInt64Ptrs(model) {
+  const properties = buildProperties(model);
+
+  for (let propKey in properties) {
+    var type = getType(properties[propKey], "");
+    if (type === "int64") {
+      return true;
+    }
+  }
+
+  return false;
+}
+
+function buildModelPropertiesForMarshal(model) {
+  const lines = [];
+  const properties = buildProperties(model);
+  for (let propKey in properties) {
+    var type = getType(properties[propKey], "");
+    if (type === "int64") {
+      var propertyName = structProp(properties[propKey].propertyName);
+      var propertyNamePtr = structProp(properties[propKey].propertyName + "Ptr");
+      lines.push("\tif a." + propertyName + " != 0 {");
+      lines.push("\t\tresult." + propertyNamePtr + " = Int64Ptr(a." + propertyName + ")");
+      lines.push("\t}");
+    }
+  }
+  return lines.join("\n\t");
+}
+
+function buildModelPropertiesForUnmarshal(model) {
+  const lines = [];
+  const properties = buildProperties(model);
+  for (let propKey in properties) {
+    var type = getType(properties[propKey], "");
+    if (type === "int64") {
+      var propertyName = structProp(properties[propKey].propertyName);
+      var propertyNamePtr = structProp(properties[propKey].propertyName + "Ptr");
+      lines.push("\tif result." + propertyNamePtr + " != nil {");
+      lines.push("\t\ta." + propertyName + " = *result." + propertyNamePtr);
+      lines.push("\t\ta." + propertyNamePtr + " = result." + propertyNamePtr);
+      lines.push("\t}");
+    }
+  }
+  return lines.join("\n\t");
 }
 
 function createJsonTag(propertyName) {
@@ -740,6 +800,9 @@ golang.process = ({spec, operations, models, handlebars}) => {
     getClientTagResources,
     getNewClientTagProps,
     buildModelProperties,
+    hasInt64Ptrs,
+    buildModelPropertiesForMarshal,
+    buildModelPropertiesForUnmarshal,
     responseModelInterface,
     applicationModelInterface,
     factorModelInterface,
