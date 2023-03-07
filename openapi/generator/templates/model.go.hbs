@@ -70,7 +70,8 @@ func New{{model.modelName}}() *{{model.modelName}} {
 			{{else if (eq prop.commonType "boolean") }}
 		{{structProp prop.propertyName}}: boolPtr({{prop.default}}),
 			{{else if (eq prop.commonType "integer") }}
-		{{structProp prop.propertyName}}: int64Ptr({{prop.default}}),
+		{{structProp prop.propertyName}}: {{prop.default}},
+		{{structProp prop.propertyName}}Ptr: Int64Ptr({{prop.default}}),
 			{{else}}
 		{{structProp prop.propertyName}}: {{prop.default}},
 			{{/if}}
@@ -135,6 +136,35 @@ func (a {{model.modelName}}) MarshalJSON() ([]byte, error) {
 }
 
 {{/if}}
+{{#unless (eq model.modelName "GroupProfile")}}
+{{#if (hasInt64Ptrs model) }}
+func (a *{{model.modelName}}) MarshalJSON() ([]byte, error) {
+	type Alias {{model.modelName}}
+	type local struct {
+		*Alias
+	}
+	result := local{Alias: (*Alias)(a)}
+	{{{buildModelPropertiesForMarshal model}}}
+	return json.Marshal(&result)
+}
+
+func (a *{{model.modelName}}) UnmarshalJSON(data []byte) error {
+	type Alias {{model.modelName}}
+
+	result := &struct {
+		*Alias
+	}{
+		Alias: (*Alias)(a),
+	}
+	if err := json.Unmarshal(data, &result); err != nil {
+		return err
+	}
+	{{{buildModelPropertiesForUnmarshal model}}}
+	return nil
+}
+
+{{/if}}
+{{/unless}}
 {{#if (eq model.modelName "SocialAuthToken")}}
 func (a *{{model.modelName}}) UnmarshalJSON(data []byte) error {
 	if string(data) == "null" || string(data) == `""` {

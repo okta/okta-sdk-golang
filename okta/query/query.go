@@ -33,6 +33,7 @@ type Params struct {
 	Activate             *bool       `json:"activate,omitempty"`
 	ValidityYears        int64       `json:"validityYears,omitempty"`
 	TargetAid            string      `json:"targetAid,omitempty"`
+	Kid                  string      `json:"kid,omitempty"`
 	QueryScope           string      `json:"query_scope,omitempty"`
 	SendEmail            *bool       `json:"sendEmail,omitempty"`
 	Cursor               string      `json:"cursor,omitempty"`
@@ -127,6 +128,12 @@ func WithValidityYears(queryValidityYears int64) ParamOptions {
 func WithTargetAid(queryTargetAid string) ParamOptions {
 	return func(p *Params) {
 		p.TargetAid = queryTargetAid
+	}
+}
+
+func WithKid(queryKid string) ParamOptions {
+	return func(p *Params) {
+		p.Kid = queryKid
 	}
 }
 
@@ -321,6 +328,9 @@ func (p *Params) String() string {
 	}
 	if p.TargetAid != "" {
 		qs.Add(`targetAid`, p.TargetAid)
+	}
+	if p.Kid != "" {
+		qs.Add(`kid`, p.Kid)
 	}
 	if p.QueryScope != "" {
 		qs.Add(`query_scope`, p.QueryScope)

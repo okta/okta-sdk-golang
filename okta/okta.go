@@ -32,7 +32,7 @@ import (
 	"gopkg.in/yaml.v3"
 )
 
-const Version = "2.16.0"
+const Version = "2.17.0"
 
 type Client struct {
 	config                     *config
@@ -160,7 +160,7 @@ func (c *Client) SetConfig(conf ...ConfigSetter) (err error) {
 		return
 	}
 	c.config = config
-	return 
+	return
 }
 
 // GetRequestExecutor returns underlying request executor
@@ -243,6 +243,6 @@ func boolPtr(b bool) *bool {
 	return &b
 }
 
-func int64Ptr(i int64) *int64 {
+func Int64Ptr(i int64) *int64 {
 	return &i
 }

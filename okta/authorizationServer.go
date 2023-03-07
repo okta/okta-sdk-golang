@@ -33,6 +33,7 @@ type AuthorizationServer struct {
 	Audiences   []string                        `json:"audiences,omitempty"`
 	Created     *time.Time                      `json:"created,omitempty"`
 	Credentials *AuthorizationServerCredentials `json:"credentials,omitempty"`
+	Default     *bool                           `json:"default,omitempty"`
 	Description string                          `json:"description,omitempty"`
 	Id          string                          `json:"id,omitempty"`
 	Issuer      string                          `json:"issuer,omitempty"`

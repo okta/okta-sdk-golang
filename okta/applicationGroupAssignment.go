@@ -20,6 +20,7 @@ package okta
 
 import (
 	"context"
+	"encoding/json"
 	"fmt"
 	"time"
 )
@@ -31,7 +32,8 @@ type ApplicationGroupAssignment struct {
 	Links       interface{} `json:"_links,omitempty"`
 	Id          string      `json:"id,omitempty"`
 	LastUpdated *time.Time  `json:"lastUpdated,omitempty"`
-	Priority    *int64      `json:"priority,omitempty"`
+	Priority    int64       `json:"-"`
+	PriorityPtr *int64      `json:"priority,omitempty"`
 	Profile     interface{} `json:"profile,omitempty"`
 }
 
@@ -52,4 +54,34 @@ func (m *ApplicationGroupAssignmentResource) DeleteApplicationGroupAssignment(ct
 	}
 
 	return resp, nil
+}
+
+func (a *ApplicationGroupAssignment) MarshalJSON() ([]byte, error) {
+	type Alias ApplicationGroupAssignment
+	type local struct {
+		*Alias
+	}
+	result := local{Alias: (*Alias)(a)}
+	if a.Priority != 0 {
+		result.PriorityPtr = Int64Ptr(a.Priority)
+	}
+	return json.Marshal(&result)
+}
+
+func (a *ApplicationGroupAssignment) UnmarshalJSON(data []byte) error {
+	type Alias ApplicationGroupAssignment
+
+	result := &struct {
+		*Alias
+	}{
+		Alias: (*Alias)(a),
+	}
+	if err := json.Unmarshal(data, &result); err != nil {
+		return err
+	}
+	if result.PriorityPtr != nil {
+		a.Priority = *result.PriorityPtr
+		a.PriorityPtr = result.PriorityPtr
+	}
+	return nil
 }

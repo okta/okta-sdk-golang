@@ -20,6 +20,7 @@ package okta
 
 import (
 	"context"
+	"encoding/json"
 	"fmt"
 	"time"
 )
@@ -33,7 +34,8 @@ type PolicyRule struct {
 	Id          string                `json:"id,omitempty"`
 	LastUpdated *time.Time            `json:"lastUpdated,omitempty"`
 	Name        string                `json:"name,omitempty"`
-	Priority    *int64                `json:"priority,omitempty"`
+	Priority    int64                 `json:"-"`
+	PriorityPtr *int64                `json:"priority,omitempty"`
 	Status      string                `json:"status,omitempty"`
 	System      *bool                 `json:"system,omitempty"`
 	Type        string                `json:"type,omitempty"`
@@ -88,4 +90,34 @@ func (m *PolicyRuleResource) DeletePolicyRule(ctx context.Context, policyId stri
 	}
 
 	return resp, nil
+}
+
+func (a *PolicyRule) MarshalJSON() ([]byte, error) {
+	type Alias PolicyRule
+	type local struct {
+		*Alias
+	}
+	result := local{Alias: (*Alias)(a)}
+	if a.Priority != 0 {
+		result.PriorityPtr = Int64Ptr(a.Priority)
+	}
+	return json.Marshal(&result)
+}
+
+func (a *PolicyRule) UnmarshalJSON(data []byte) error {
+	type Alias PolicyRule
+
+	result := &struct {
+		*Alias
+	}{
+		Alias: (*Alias)(a),
+	}
+	if err := json.Unmarshal(data, &result); err != nil {
+		return err
+	}
+	if result.PriorityPtr != nil {
+		a.Priority = *result.PriorityPtr
+		a.PriorityPtr = result.PriorityPtr
+	}
+	return nil
 }

@@ -18,14 +18,47 @@
 
 package okta
 
+import "encoding/json"
+
 type IonForm struct {
-	Accepts   string      `json:"accepts,omitempty"`
-	Href      string      `json:"href,omitempty"`
-	Method    string      `json:"method,omitempty"`
-	Name      string      `json:"name,omitempty"`
-	Produces  string      `json:"produces,omitempty"`
-	Refresh   *int64      `json:"refresh,omitempty"`
-	Rel       []string    `json:"rel,omitempty"`
-	RelatesTo []string    `json:"relatesTo,omitempty"`
-	Value     []*IonField `json:"value,omitempty"`
+	Accepts    string      `json:"accepts,omitempty"`
+	Href       string      `json:"href,omitempty"`
+	Method     string      `json:"method,omitempty"`
+	Name       string      `json:"name,omitempty"`
+	Produces   string      `json:"produces,omitempty"`
+	Refresh    int64       `json:"-"`
+	RefreshPtr *int64      `json:"refresh,omitempty"`
+	Rel        []string    `json:"rel,omitempty"`
+	RelatesTo  []string    `json:"relatesTo,omitempty"`
+	Value      []*IonField `json:"value,omitempty"`
+}
+
+func (a *IonForm) MarshalJSON() ([]byte, error) {
+	type Alias IonForm
+	type local struct {
+		*Alias
+	}
+	result := local{Alias: (*Alias)(a)}
+	if a.Refresh != 0 {
+		result.RefreshPtr = Int64Ptr(a.Refresh)
+	}
+	return json.Marshal(&result)
+}
+
+func (a *IonForm) UnmarshalJSON(data []byte) error {
+	type Alias IonForm
+
+	result := &struct {
+		*Alias
+	}{
+		Alias: (*Alias)(a),
+	}
+	if err := json.Unmarshal(data, &result); err != nil {
+		return err
+	}
+	if result.RefreshPtr != nil {
+		a.Refresh = *result.RefreshPtr
+		a.RefreshPtr = result.RefreshPtr
+	}
+	return nil
 }
