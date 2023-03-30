@@ -467,6 +467,12 @@ func WithCacheTti(i int32) ConfigSetter {
 	}
 }
 
+func WithHttpClientPtr(httpClient *http.Client) ConfigSetter {
+	return func(c *Configuration) {
+		c.HTTPClient = httpClient
+	}
+}
+
 func WithConnectionTimeout(i int64) ConfigSetter {
 	return func(c *Configuration) {
 		c.Okta.Client.ConnectionTimeout = i
