@@ -19,6 +19,7 @@
 package okta
 
 import (
+	"encoding/json"
 	"time"
 )
 
@@ -29,7 +30,8 @@ type OktaSignOnPolicyRule struct {
 	Id          string                          `json:"id,omitempty"`
 	LastUpdated *time.Time                      `json:"lastUpdated,omitempty"`
 	Name        string                          `json:"name,omitempty"`
-	Priority    *int64                          `json:"priority,omitempty"`
+	Priority    int64                           `json:"-"`
+	PriorityPtr *int64                          `json:"priority,omitempty"`
 	Status      string                          `json:"status,omitempty"`
 	System      *bool                           `json:"system,omitempty"`
 	Type        string                          `json:"type,omitempty"`
@@ -45,4 +47,34 @@ func NewOktaSignOnPolicyRule() *OktaSignOnPolicyRule {
 
 func (a *OktaSignOnPolicyRule) IsPolicyInstance() bool {
 	return true
+}
+
+func (a *OktaSignOnPolicyRule) MarshalJSON() ([]byte, error) {
+	type Alias OktaSignOnPolicyRule
+	type local struct {
+		*Alias
+	}
+	result := local{Alias: (*Alias)(a)}
+	if a.Priority != 0 {
+		result.PriorityPtr = Int64Ptr(a.Priority)
+	}
+	return json.Marshal(&result)
+}
+
+func (a *OktaSignOnPolicyRule) UnmarshalJSON(data []byte) error {
+	type Alias OktaSignOnPolicyRule
+
+	result := &struct {
+		*Alias
+	}{
+		Alias: (*Alias)(a),
+	}
+	if err := json.Unmarshal(data, &result); err != nil {
+		return err
+	}
+	if result.PriorityPtr != nil {
+		a.Priority = *result.PriorityPtr
+		a.PriorityPtr = result.PriorityPtr
+	}
+	return nil
 }

@@ -18,9 +18,12 @@
 
 package okta
 
+import "encoding/json"
+
 type OktaSignOnPolicyRuleSignonActions struct {
 	Access                  string                                    `json:"access,omitempty"`
-	FactorLifetime          *int64                                    `json:"factorLifetime,omitempty"`
+	FactorLifetime          int64                                     `json:"-"`
+	FactorLifetimePtr       *int64                                    `json:"factorLifetime,omitempty"`
 	FactorPromptMode        string                                    `json:"factorPromptMode,omitempty"`
 	RememberDeviceByDefault *bool                                     `json:"rememberDeviceByDefault,omitempty"`
 	RequireFactor           *bool                                     `json:"requireFactor,omitempty"`
@@ -36,4 +39,34 @@ func NewOktaSignOnPolicyRuleSignonActions() *OktaSignOnPolicyRuleSignonActions {
 
 func (a *OktaSignOnPolicyRuleSignonActions) IsPolicyInstance() bool {
 	return true
+}
+
+func (a *OktaSignOnPolicyRuleSignonActions) MarshalJSON() ([]byte, error) {
+	type Alias OktaSignOnPolicyRuleSignonActions
+	type local struct {
+		*Alias
+	}
+	result := local{Alias: (*Alias)(a)}
+	if a.FactorLifetime != 0 {
+		result.FactorLifetimePtr = Int64Ptr(a.FactorLifetime)
+	}
+	return json.Marshal(&result)
+}
+
+func (a *OktaSignOnPolicyRuleSignonActions) UnmarshalJSON(data []byte) error {
+	type Alias OktaSignOnPolicyRuleSignonActions
+
+	result := &struct {
+		*Alias
+	}{
+		Alias: (*Alias)(a),
+	}
+	if err := json.Unmarshal(data, &result); err != nil {
+		return err
+	}
+	if result.FactorLifetimePtr != nil {
+		a.FactorLifetime = *result.FactorLifetimePtr
+		a.FactorLifetimePtr = result.FactorLifetimePtr
+	}
+	return nil
 }

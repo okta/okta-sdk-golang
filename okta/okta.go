@@ -32,7 +32,7 @@ import (
 	"gopkg.in/yaml.v3"
 )
 
-const Version = "2.16.0"
+const Version = "2.17.0"
 
 type Client struct {
 	config                     *config
@@ -150,6 +150,19 @@ func (c *Client) GetConfig() *config {
 	return c.config
 }
 
+func (c *Client) SetConfig(conf ...ConfigSetter) (err error) {
+	config := c.config
+	for _, confSetter := range conf {
+		confSetter(config)
+	}
+	_, err = validateConfig(config)
+	if err != nil {
+		return
+	}
+	c.config = config
+	return
+}
+
 // GetRequestExecutor returns underlying request executor
 // Deprecated: please use CloneRequestExecutor() to avoid race conditions
 func (c *Client) GetRequestExecutor() *RequestExecutor {
@@ -230,6 +243,6 @@ func boolPtr(b bool) *bool {
 	return &b
 }
 
-func int64Ptr(i int64) *int64 {
+func Int64Ptr(i int64) *int64 {
 	return &i
 }

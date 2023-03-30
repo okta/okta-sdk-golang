@@ -113,15 +113,19 @@ func Test_Activate_Policy(t *testing.T) {
 func Test_Clone_Policy(t *testing.T) {
 	createdPolicy, _, err := setupAccessPolicy(randomTestString())
 	require.NoError(t, err, "Creating a new policy should not error")
+	var policyID string
 	t.Run("clone policy", func(t *testing.T) {
 		policy, _, err := apiClient.PolicyApi.ClonePolicy(apiClient.cfg.Context, createdPolicy.AccessPolicy.GetId()).Execute()
 		require.NoError(t, err, "Could not get policy by ID")
+		policyID = policy.AccessPolicy.GetId()
 		assert.NotEqual(t, createdPolicy.AccessPolicy.GetId(), policy.AccessPolicy.GetId())
 		assert.Equal(t, fmt.Sprintf("[cloned] %v", createdPolicy.AccessPolicy.GetName()), policy.AccessPolicy.GetName())
 		assert.Equal(t, createdPolicy.AccessPolicy.GetDescription(), policy.AccessPolicy.GetDescription())
 		assert.Equal(t, createdPolicy.AccessPolicy.GetPriority(), policy.AccessPolicy.GetPriority())
 	})
 	err = cleanUpPolicy(createdPolicy.AccessPolicy.GetId())
+	require.NoError(t, err, "Clean up policy should not error")
+	err = cleanUpPolicy(policyID)
 	require.NoError(t, err, "Clean up policy should not error")
 }
 

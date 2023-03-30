@@ -1,0 +1,61 @@
+# Use the latest 2.1 version of CircleCI pipeline process engine.
+# See: https://circleci.com/docs/2.0/configuration-reference
+version: 2.1
+
+orbs:
+  platform-orb: okta/general-platform-helpers@1.2.2
+
+# Define a job to be invoked later in a workflow.
+# See: https://circleci.com/docs/2.0/configuration-reference/#jobs
+jobs:
+  cache-secrets:
+    machine: true
+    resource_class: okta/generic-linux-x86
+    environment:
+      VAULT_ADDR: https://vault.aue1e.saasure.net
+    steps:
+      - checkout
+      - run:
+          name: "Vault login"
+          command: |
+            vault login -method=userpass username=$vault_username password=$vault_password > /dev/null 2>&1
+      - platform-orb/save-dependencies
+
+  test-v2:
+    docker:
+      - image: cimg/go:1.19.4
+    steps:
+      - checkout
+      - run: go version
+      - platform-orb/load-dependencies
+      - run:
+          name: "test stage"
+          command: make test
+
+  test-v3:
+    docker:
+      - image: cimg/go:1.19.4
+    steps:
+      - checkout
+      - run: go version
+      - run:
+          name: "test stage"
+          command: |
+            cd okta/v3
+            go mod download
+            go test -failfast -race ./ -test.v
+
+# Invoke jobs via workflows
+# See: https://circleci.com/docs/2.0/configuration-reference/#workflows
+workflows:
+  "Circle CI Tests":
+    jobs:
+      - cache-secrets
+      - test-v2:
+          requires:
+            - cache-secrets
+      # - test-v3:
+      #     requires:
+      #       - cache-secrets
+
+# VS Code Extension Version: 1.4.0

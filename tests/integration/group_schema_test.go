@@ -97,8 +97,8 @@ func TestCanUpdateCustomGroupProperty(t *testing.T) {
 		Master: &okta.UserSchemaAttributeMaster{
 			Type: "PROFILE_MASTER",
 		},
-		MaxLength:  &max,
-		MinLength:  &min,
+		MaxLength:  max,
+		MinLength:  min,
 		Mutability: "READ_WRITE",
 		Permissions: []*okta.UserSchemaAttributePermission{
 			{
@@ -124,8 +124,8 @@ func TestCanUpdateCustomGroupProperty(t *testing.T) {
 	assert.Equal(t, "Twitter username", updatedGC.Definitions.Custom.Properties[testProperty2].Title)
 	assert.Nil(t, updatedGC.Definitions.Custom.Properties[testProperty2].Items)
 	// assert.Equal(t, "PROFILE_MASTER", updatedGC.Definitions.Custom.Properties[testProperty2].Master.Type)
-	assert.Equal(t, int64(1), *updatedGC.Definitions.Custom.Properties[testProperty2].MinLength)
-	assert.Equal(t, int64(20), *updatedGC.Definitions.Custom.Properties[testProperty2].MaxLength)
+	assert.Equal(t, int64(1), updatedGC.Definitions.Custom.Properties[testProperty2].MinLength)
+	assert.Equal(t, int64(20), updatedGC.Definitions.Custom.Properties[testProperty2].MaxLength)
 	assert.Equal(t, "UNIQUE_VALIDATED", updatedGC.Definitions.Custom.Properties[testProperty2].Unique)
 
 	updatedGC.Definitions.Custom.Properties[testProperty1] = nil

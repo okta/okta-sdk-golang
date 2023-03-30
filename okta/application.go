@@ -574,6 +574,7 @@ func (m *ApplicationResource) CreateNewClientSecretForApplication(ctx context.Co
 	return clientSecret, resp, nil
 }
 
+// Removes a secret from the client&#x27;s collection of secrets.
 func (m *ApplicationResource) DeleteClientSecretForApplication(ctx context.Context, appId string, secretId string) (*Response, error) {
 	url := fmt.Sprintf("/api/v1/apps/%v/credentials/secrets/%v", appId, secretId)
 
@@ -975,6 +976,28 @@ func (m *ApplicationResource) UpdateApplicationPolicy(ctx context.Context, appId
 	rq := m.client.CloneRequestExecutor()
 
 	req, err := rq.WithAccept("application/json").WithContentType("application/json").NewRequest("PUT", url, nil)
+	if err != nil {
+		return nil, err
+	}
+
+	resp, err := m.client.requestExecutor.Do(ctx, req, nil)
+	if err != nil {
+		return resp, err
+	}
+
+	return resp, nil
+}
+
+// Previews SAML metadata based on a specific key credential for an application
+func (m *ApplicationResource) PreviewSAMLAppMetadata(ctx context.Context, appId string, qp *query.Params) (*Response, error) {
+	url := fmt.Sprintf("/api/v1/apps/%v/sso/saml/metadata", appId)
+	if qp != nil {
+		url = url + qp.String()
+	}
+
+	rq := m.client.CloneRequestExecutor()
+
+	req, err := rq.WithAccept("application/xml").WithContentType("application/json").NewRequest("GET", url, nil)
 	if err != nil {
 		return nil, err
 	}

@@ -23,7 +23,7 @@ import (
 	"time"
 )
 
-type ProfileEnrollmentPolicy struct {
+type MultifactorEnrollmentPolicy struct {
 	Embedded    interface{}           `json:"_embedded,omitempty"`
 	Links       interface{}           `json:"_links,omitempty"`
 	Conditions  *PolicyRuleConditions `json:"conditions,omitempty"`
@@ -39,18 +39,18 @@ type ProfileEnrollmentPolicy struct {
 	Type        string                `json:"type,omitempty"`
 }
 
-func NewProfileEnrollmentPolicy() *ProfileEnrollmentPolicy {
-	return &ProfileEnrollmentPolicy{
-		Type: "PROFILE_ENROLLMENT",
+func NewMultifactorEnrollmentPolicy() *MultifactorEnrollmentPolicy {
+	return &MultifactorEnrollmentPolicy{
+		Type: "MFA_ENROLL",
 	}
 }
 
-func (a *ProfileEnrollmentPolicy) IsPolicyInstance() bool {
+func (a *MultifactorEnrollmentPolicy) IsPolicyInstance() bool {
 	return true
 }
 
-func (a *ProfileEnrollmentPolicy) MarshalJSON() ([]byte, error) {
-	type Alias ProfileEnrollmentPolicy
+func (a *MultifactorEnrollmentPolicy) MarshalJSON() ([]byte, error) {
+	type Alias MultifactorEnrollmentPolicy
 	type local struct {
 		*Alias
 	}
@@ -61,8 +61,8 @@ func (a *ProfileEnrollmentPolicy) MarshalJSON() ([]byte, error) {
 	return json.Marshal(&result)
 }
 
-func (a *ProfileEnrollmentPolicy) UnmarshalJSON(data []byte) error {
-	type Alias ProfileEnrollmentPolicy
+func (a *MultifactorEnrollmentPolicy) UnmarshalJSON(data []byte) error {
+	type Alias MultifactorEnrollmentPolicy
 
 	result := &struct {
 		*Alias
