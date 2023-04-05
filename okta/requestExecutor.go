@@ -456,6 +456,14 @@ func (re *RequestExecutor) Do(ctx context.Context, req *http.Request, v interfac
 		re.freshCache = false
 	}
 	if !inCache {
+		if re.config.Okta.Client.RequestTimeout > 0 {
+			// ref: https://groups.google.com/g/golang-nuts/c/2FKwG6oEvos
+			// this cancel function needs be called after response has been fully
+			// read (io.ReadAll -- in buildResponse)
+			var cancel context.CancelFunc
+			ctx, cancel = context.WithTimeout(ctx, time.Second*time.Duration(re.config.Okta.Client.RequestTimeout))
+			defer cancel()
+		}
 		resp, err := re.doWithRetries(ctx, req)
 		if err != nil {
 			return nil, err
@@ -507,11 +515,6 @@ func (re *RequestExecutor) doWithRetries(ctx context.Context, req *http.Request)
 		resp *http.Response
 		err  error
 	)
-	if re.config.Okta.Client.RequestTimeout > 0 {
-		var cancel context.CancelFunc
-		ctx, cancel = context.WithTimeout(ctx, time.Second*time.Duration(re.config.Okta.Client.RequestTimeout))
-		defer cancel()
-	}
 	bOff := &oktaBackoff{
 		ctx:        ctx,
 		maxRetries: re.config.Okta.Client.RateLimit.MaxRetries,
@@ -649,7 +652,10 @@ func CheckResponseForError(resp *http.Response) error {
 			}
 		}
 	}
-	bodyBytes, _ := io.ReadAll(resp.Body)
+	bodyBytes, err := io.ReadAll(resp.Body)
+	if err != nil {
+		return err
+	}
 	copyBodyBytes := make([]byte, len(bodyBytes))
 	copy(copyBodyBytes, bodyBytes)
 	_ = resp.Body.Close()
@@ -668,7 +674,10 @@ func buildResponse(resp *http.Response, re *RequestExecutor, v interface{}) (*Re
 	if err != nil {
 		return response, err
 	}
-	bodyBytes, _ := io.ReadAll(resp.Body)
+	bodyBytes, err := io.ReadAll(resp.Body)
+	if err != nil {
+		return nil, err
+	}
 	copyBodyBytes := make([]byte, len(bodyBytes))
 	copy(copyBodyBytes, bodyBytes)
 	_ = resp.Body.Close()                                // close it to avoid memory leaks
