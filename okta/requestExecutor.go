@@ -649,7 +649,10 @@ func CheckResponseForError(resp *http.Response) error {
 			}
 		}
 	}
-	bodyBytes, _ := io.ReadAll(resp.Body)
+	bodyBytes, err := io.ReadAll(resp.Body)
+	if err != nil {
+		return err
+	}
 	copyBodyBytes := make([]byte, len(bodyBytes))
 	copy(copyBodyBytes, bodyBytes)
 	_ = resp.Body.Close()
@@ -668,7 +671,10 @@ func buildResponse(resp *http.Response, re *RequestExecutor, v interface{}) (*Re
 	if err != nil {
 		return response, err
 	}
-	bodyBytes, _ := io.ReadAll(resp.Body)
+	bodyBytes, err := io.ReadAll(resp.Body)
+	if err != nil {
+		return nil, err
+	}
 	copyBodyBytes := make([]byte, len(bodyBytes))
 	copy(copyBodyBytes, bodyBytes)
 	_ = resp.Body.Close()                                // close it to avoid memory leaks

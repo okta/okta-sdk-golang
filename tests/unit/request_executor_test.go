@@ -23,15 +23,15 @@ func (r readerFun) Read(p []byte) (n int, err error) { return r(p) }
 type slowTransport struct{}
 
 // RoundTrip, part of http.Transport interface. This servers 42 as a JSON response, but slowly.
-// In particular, we serve the response immediately, but getting the body takes a second.
+// In particular, we serve the response immediately, but getting the body takes some milliseconds.
 func (t slowTransport) RoundTrip(req *http.Request) (*http.Response, error) {
 	realBody := strings.NewReader("42")
-	// This body takes 1 second to read. It also needs a valid context for the whole duration.
+	// This body takes 1 millisecond to read. It also needs a valid context for the whole duration.
 	slowBody := func(p []byte) (n int, err error) {
 		select {
 		case <-req.Context().Done():
 			return 0, req.Context().Err()
-		case <-time.After(1 * time.Second):
+		case <-time.After(1 * time.Millisecond):
 			return realBody.Read(p)
 		}
 	}
