@@ -18,8 +18,11 @@ package unit
 
 import (
 	"context"
+	"fmt"
+	"net/http"
 	"testing"
 
+	"github.com/jarcoal/httpmock"
 	"github.com/okta/okta-sdk-golang/v2/okta"
 
 	"github.com/okta/okta-sdk-golang/v2/tests"
@@ -89,4 +92,111 @@ func Test_does_not_error_when_authorization_mode_is_brearer(t *testing.T) {
 func Test_will_error_if_private_key_authorization_type_with_missing_properties(t *testing.T) {
 	_, _, err := tests.NewClient(context.TODO(), okta.WithAuthorizationMode("PrivateKey"), okta.WithClientId(""))
 	assert.Error(t, err, "Does not error if private key selected with no other required options")
+}
+
+type InterceptingRoundTripperTest struct {
+	Name                    string
+	Blocking                bool
+	Interceptor             func(*http.Request) error
+	ExpectedTransportCalls  int
+	ExpectInterceptorCalled bool
+	ExpectSdkErrorThrown    bool
+}
+
+func Test_Intercepting_RounTtripper(t *testing.T) {
+	interceptorCalled := false
+	testsToRun := []InterceptingRoundTripperTest{
+		{
+			Name:     "Calls interceptor",
+			Blocking: false,
+			Interceptor: func(r *http.Request) error {
+				interceptorCalled = true
+				return nil
+			},
+			ExpectedTransportCalls:  1,
+			ExpectInterceptorCalled: true,
+			ExpectSdkErrorThrown:    false,
+		},
+		{
+			Name:     "Does not call transport when interceptor panics when blocking",
+			Blocking: true,
+			Interceptor: func(r *http.Request) error {
+				interceptorCalled = true
+				panic("Some err")
+			},
+			ExpectedTransportCalls:  0,
+			ExpectInterceptorCalled: true,
+			ExpectSdkErrorThrown:    true,
+		},
+		{
+			Name:     "Calls transport when interceptor panics when non blocking",
+			Blocking: false,
+			Interceptor: func(r *http.Request) error {
+				interceptorCalled = true
+				panic("Some err")
+			},
+			ExpectedTransportCalls:  1,
+			ExpectInterceptorCalled: true,
+			ExpectSdkErrorThrown:    false,
+		},
+		{
+			Name:     "Does not call transport when interceptor throws err when blocking",
+			Blocking: true,
+			Interceptor: func(r *http.Request) error {
+				interceptorCalled = true
+				return fmt.Errorf("Some error")
+			},
+			ExpectedTransportCalls:  0,
+			ExpectInterceptorCalled: true,
+			ExpectSdkErrorThrown:    true,
+		},
+		{
+			Name:     "Calls transport when interceptor throws err when not blocking",
+			Blocking: false,
+			Interceptor: func(r *http.Request) error {
+				interceptorCalled = true
+				return fmt.Errorf("Some error")
+			},
+			ExpectedTransportCalls:  1,
+			ExpectInterceptorCalled: true,
+			ExpectSdkErrorThrown:    false,
+		},
+	}
+
+	for _, test := range testsToRun {
+		t.Run(
+			test.Name,
+			func(t *testing.T) {
+				mockHttpClient := http.DefaultClient
+				mockTransport := httpmock.DefaultTransport
+				mockTransport.RegisterNoResponder(func(r *http.Request) (*http.Response, error) {
+					return &http.Response{StatusCode: 200}, nil
+				})
+				mockHttpClient.Transport = mockTransport
+
+				_, oktaClient, err := tests.NewClient(
+					context.TODO(),
+					okta.WithHttpInterceptorAndHttpClientPtr(test.Interceptor, mockHttpClient, test.Blocking),
+				)
+				assert.NoError(t, err)
+
+				_, _, err = oktaClient.IdentityProvider.ActivateIdentityProvider(context.TODO(), "Anything")
+
+				if test.ExpectSdkErrorThrown {
+					assert.Error(t, err)
+				} else {
+					assert.NoError(t, err)
+				}
+
+				assert.Equal(t, test.ExpectInterceptorCalled, interceptorCalled)
+
+				callCount := mockTransport.GetTotalCallCount()
+
+				assert.Equal(t, test.ExpectedTransportCalls, callCount)
+
+				interceptorCalled = false
+				mockTransport.ZeroCallCounters()
+			},
+		)
+	}
 }
