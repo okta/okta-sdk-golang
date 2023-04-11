@@ -256,7 +256,6 @@ func fileExists(filename string) bool {
 }
 
 func (c *InterceptingRoundTripper) RoundTrip(req *http.Request) (*http.Response, error) {
-
 	interceptError := func() (err error) {
 		defer func() {
 			if panicked := recover(); panicked != nil {
