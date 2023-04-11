@@ -24,6 +24,7 @@ import (
 	"net/http"
 	"os"
 	"syscall"
+	"time"
 
 	"github.com/okta/okta-sdk-golang/v2/okta/cache"
 	"gopkg.in/square/go-jose.v2"
@@ -78,7 +79,16 @@ type InterceptingRoundTripper struct {
 
 func WithHttpInterceptorAndHttpClientPtr(interceptor func(*http.Request) error, httpClient *http.Client, blocking bool) ConfigSetter {
 	return func(c *config) {
-		c.HttpClient = httpClient
+		if httpClient == nil {
+			httpClient = http.DefaultClient
+		}
+
+		if httpClient.Transport == nil {
+			httpClient.Transport = &http.Transport{
+				IdleConnTimeout: 30 * time.Second,
+			}
+		}
+
 		c.HttpClient.Transport = NewInterceptingRoundTripper(interceptor, httpClient.Transport, blocking)
 	}
 }
@@ -273,8 +283,11 @@ func (c *InterceptingRoundTripper) RoundTrip(req *http.Request) (*http.Response,
 		return nil, interceptError
 	}
 
-	response, roundTripperErr := c.Transport.RoundTrip(req)
-	return response, roundTripperErr
+	if c.Transport != nil {
+		response, roundTripperErr := c.Transport.RoundTrip(req)
+		return response, roundTripperErr
+	}
+	return nil, fmt.Errorf("an error ocurred in Okta SDK, Transport was nil")
 }
 
 func NewInterceptingRoundTripper(interceptor func(*http.Request) error, transport http.RoundTripper, blocking bool) *InterceptingRoundTripper {
