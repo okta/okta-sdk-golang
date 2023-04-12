@@ -103,7 +103,7 @@ type InterceptingRoundTripperTest struct {
 	ExpectSdkErrorThrown    bool
 }
 
-func Test_Intercepting_RounTtripper(t *testing.T) {
+func Test_Intercepting_RoundTripper(t *testing.T) {
 	interceptorCalled := false
 	testsToRun := []InterceptingRoundTripperTest{
 		{
