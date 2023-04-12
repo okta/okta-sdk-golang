@@ -456,7 +456,8 @@ func (re *RequestExecutor) Do(ctx context.Context, req *http.Request, v interfac
 		re.freshCache = false
 	}
 	if !inCache {
-		resp, err := re.doWithRetries(ctx, req)
+		resp, done, err := re.doWithRetries(ctx, req)
+		defer done()
 		if err != nil {
 			return nil, err
 		}
@@ -492,12 +493,13 @@ func (o *oktaBackoff) Context() context.Context {
 	return o.ctx
 }
 
-func (re *RequestExecutor) doWithRetries(ctx context.Context, req *http.Request) (*http.Response, error) {
+func (re *RequestExecutor) doWithRetries(ctx context.Context, req *http.Request) (*http.Response, func(), error) {
 	var bodyReader func() io.ReadCloser
+	done := func() {}
 	if req.Body != nil {
 		buf, err := io.ReadAll(req.Body)
 		if err != nil {
-			return nil, err
+			return nil, done, err
 		}
 		bodyReader = func() io.ReadCloser {
 			return io.NopCloser(bytes.NewReader(buf))
@@ -508,9 +510,7 @@ func (re *RequestExecutor) doWithRetries(ctx context.Context, req *http.Request)
 		err  error
 	)
 	if re.config.Okta.Client.RequestTimeout > 0 {
-		var cancel context.CancelFunc
-		ctx, cancel = context.WithTimeout(ctx, time.Second*time.Duration(re.config.Okta.Client.RequestTimeout))
-		defer cancel()
+		ctx, done = context.WithTimeout(ctx, time.Second*time.Duration(re.config.Okta.Client.RequestTimeout))
 	}
 	bOff := &oktaBackoff{
 		ctx:        ctx,
@@ -549,7 +549,7 @@ func (re *RequestExecutor) doWithRetries(ctx context.Context, req *http.Request)
 		return errors.New("too many requests")
 	}
 	err = backoff.Retry(operation, bOff)
-	return resp, err
+	return resp, done, err
 }
 
 func tooManyRequests(resp *http.Response) bool {
@@ -649,7 +649,10 @@ func CheckResponseForError(resp *http.Response) error {
 			}
 		}
 	}
-	bodyBytes, _ := io.ReadAll(resp.Body)
+	bodyBytes, err := io.ReadAll(resp.Body)
+	if err != nil {
+		return err
+	}
 	copyBodyBytes := make([]byte, len(bodyBytes))
 	copy(copyBodyBytes, bodyBytes)
 	_ = resp.Body.Close()
@@ -668,7 +671,10 @@ func buildResponse(resp *http.Response, re *RequestExecutor, v interface{}) (*Re
 	if err != nil {
 		return response, err
 	}
-	bodyBytes, _ := io.ReadAll(resp.Body)
+	bodyBytes, err := io.ReadAll(resp.Body)
+	if err != nil {
+		return nil, err
+	}
 	copyBodyBytes := make([]byte, len(bodyBytes))
 	copy(copyBodyBytes, bodyBytes)
 	_ = resp.Body.Close()                                // close it to avoid memory leaks
