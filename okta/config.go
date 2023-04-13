@@ -270,9 +270,9 @@ func (c *InterceptingRoundTripper) RoundTrip(req *http.Request) (*http.Response,
 		defer func() {
 			if panicked := recover(); panicked != nil {
 				if panickedErrString, ok := panicked.(string); ok {
-					err = fmt.Errorf("Recovered panic in Okta %s", panickedErrString)
+					err = fmt.Errorf("recovered panic in Okta HTTP interceptor: %s", panickedErrString)
 				} else {
-					err = fmt.Errorf("Recovered panic in Okta HTTP interceptor, but failed to parse error string")
+					err = fmt.Errorf("recovered panic in Okta HTTP interceptor, but failed to parse error string")
 				}
 			}
 		}()
