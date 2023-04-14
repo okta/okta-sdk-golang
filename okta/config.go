@@ -18,11 +18,13 @@ package okta
 
 import (
 	"errors"
+	"fmt"
 	"io/ioutil"
 	"log"
 	"net/http"
 	"os"
 	"syscall"
+	"time"
 
 	"github.com/okta/okta-sdk-golang/v2/okta/cache"
 	"gopkg.in/square/go-jose.v2"
@@ -68,6 +70,28 @@ type config struct {
 }
 
 type ConfigSetter func(*config)
+
+type InterceptingRoundTripper struct {
+	Transport   http.RoundTripper
+	Interceptor func(*http.Request) error
+	Blocking    bool
+}
+
+func WithHttpInterceptorAndHttpClientPtr(interceptor func(*http.Request) error, httpClient *http.Client, blocking bool) ConfigSetter {
+	return func(c *config) {
+		if httpClient == nil {
+			httpClient = http.DefaultClient
+		}
+
+		if httpClient.Transport == nil {
+			httpClient.Transport = &http.Transport{
+				IdleConnTimeout: 30 * time.Second,
+			}
+		}
+
+		c.HttpClient.Transport = NewInterceptingRoundTripper(interceptor, httpClient.Transport, blocking)
+	}
+}
 
 func WithCache(cache bool) ConfigSetter {
 	return func(c *config) {
@@ -239,4 +263,37 @@ func fileExists(filename string) bool {
 		return false
 	}
 	return !info.IsDir()
+}
+
+func (c *InterceptingRoundTripper) RoundTrip(req *http.Request) (*http.Response, error) {
+	interceptError := func() (err error) {
+		defer func() {
+			if panicked := recover(); panicked != nil {
+				if panickedErrString, ok := panicked.(string); ok {
+					err = fmt.Errorf("recovered panic in Okta HTTP interceptor: %s", panickedErrString)
+				} else {
+					err = fmt.Errorf("recovered panic in Okta HTTP interceptor, but failed to parse error string")
+				}
+			}
+		}()
+		return c.Interceptor(req)
+	}()
+
+	if interceptError != nil && c.Blocking {
+		return nil, interceptError
+	}
+
+	if c.Transport != nil {
+		response, roundTripperErr := c.Transport.RoundTrip(req)
+		return response, roundTripperErr
+	}
+	return nil, fmt.Errorf("an error ocurred in Okta SDK, Transport was nil")
+}
+
+func NewInterceptingRoundTripper(interceptor func(*http.Request) error, transport http.RoundTripper, blocking bool) *InterceptingRoundTripper {
+	return &InterceptingRoundTripper{
+		Interceptor: interceptor,
+		Blocking:    blocking,
+		Transport:   transport,
+	}
 }
