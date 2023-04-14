@@ -1,6 +1,10 @@
 # Changelog
 Running changelog of releases since `2.0.0-rc.4`
 
+## v2.18.0
+ - Added `WithHttpInterceptorAndHttpClientPtr` (#371) Thanks @dnelson27
+ - Handle network errors and don't cancel context in request before reading response (#369) Thanks @ttimonen
+
 ## v2.17.0
 
  - Revert integer values representation as integer pointers
