@@ -69,7 +69,7 @@ func validateAuthorization(c *config) error {
 		c.Okta.Client.AuthorizationMode != "PrivateKey" &&
 		c.Okta.Client.AuthorizationMode != "Bearer" &&
 		c.Okta.Client.AuthorizationMode != "JWT" {
-		return errors.New("the AuthorizaitonMode config option must be one of [SSWS, Bearer, PrivateKey, JWT]. You provided the SDK with " + c.Okta.Client.AuthorizationMode)
+		return errors.New("the AuthorizationMode config option must be one of [SSWS, Bearer, PrivateKey, JWT]. You provided the SDK with " + c.Okta.Client.AuthorizationMode)
 	}
 
 	if c.Okta.Client.AuthorizationMode == "PrivateKey" &&
