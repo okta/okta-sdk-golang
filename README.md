@@ -1233,7 +1233,7 @@ build it yourself, you'll need these prerequisites:
 ## Contributing
 
 We're happy to accept contributions and PRs! Please see the [contribution
-guide](/okta/okta-sdk-golang/blob/master/CONTRIBUTING.md) to understand how to
+guide](/CONTRIBUTING.md) to understand how to
 structure a contribution.
 
 [devforum]: https://devforum.okta.com/
