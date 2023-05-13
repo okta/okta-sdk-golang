@@ -27,13 +27,13 @@ import (
 	"unicode/utf8"
 
 	"github.com/cenkalti/backoff/v4"
+	"github.com/go-jose/go-jose/v3"
+	"github.com/go-jose/go-jose/v3/jwt"
 	"golang.org/x/oauth2"
 	{{#withAWSV4Signature}}
 	awsv4 "github.com/aws/aws-sdk-go/aws/signer/v4"
 	awscredentials "github.com/aws/aws-sdk-go/aws/credentials"
 	{{/withAWSV4Signature}}
-	"gopkg.in/square/go-jose.v2"
-	"gopkg.in/square/go-jose.v2/jwt"
 	goCache "github.com/patrickmn/go-cache"
 )
 
@@ -670,7 +670,7 @@ func (c *APIClient) prepareRequest(
 		{{/withAWSV4Signature}}
 	}
 
-	// This will override the auth in context 
+	// This will override the auth in context
 	var auth Authorization
 	switch c.cfg.Okta.Client.AuthorizationMode {
 	case "SSWS":
