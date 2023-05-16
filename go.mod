@@ -10,7 +10,7 @@ require (
 	github.com/patrickmn/go-cache v0.0.0-20180815053127-5633e0862627
 	github.com/stretchr/testify v1.7.1
 	gopkg.in/square/go-jose.v2 v2.6.0
-	gopkg.in/yaml.v3 v3.0.0
+	gopkg.in/yaml.v3 v3.0.1
 )
 
 require (
