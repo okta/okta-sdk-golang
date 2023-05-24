@@ -56,7 +56,10 @@ func (c GoCache) Get(key string) *http.Response {
 }
 
 func (c GoCache) Set(key string, value *http.Response) {
-	cacheableResponse, _ := httputil.DumpResponse(value, true)
+	cacheableResponse, err := httputil.DumpResponse(value, true)
+	if err != nil {
+		return
+	}
 
 	c.rootLibrary.Set(key, cacheableResponse, c.ttl)
 }
