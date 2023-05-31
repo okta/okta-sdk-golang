@@ -250,6 +250,7 @@ func NewConfiguration(conf ...ConfigSetter) *Configuration {
 	cfg.Okta.Client.AuthorizationMode = "SSWS"
 
     cfg = readConfigFromSystem(*cfg)
+	cfg = readConfigFromWorkingDirectory(*cfg)
 	cfg = readConfigFromApplication(*cfg)
 	cfg = readConfigFromEnvironment(*cfg)
 
@@ -302,6 +303,14 @@ func readConfigFromSystem(c Configuration) *Configuration {
 		return &c
 	}
 	conf, err := readConfigFromFile(currUser.HomeDir+"/.okta/okta.yaml", c)
+	if err != nil {
+		return &c
+	}
+	return conf
+}
+
+func readConfigFromWorkingDirectory(c config) *config {
+	conf, err := readConfigFromFile(".okta.yaml", c)
 	if err != nil {
 		return &c
 	}
