@@ -770,6 +770,7 @@ This library looks for configuration in the following sources:
 
 0. An `okta.yaml` file in a `.okta` folder in the current user's home directory
    (`~/.okta/okta.yaml` or `%userprofile\.okta\okta.yaml`)
+0. A `.okta.yaml` file in the current working directory
 0. A `.okta.yaml` file in the application or project's root directory
 0. Environment variables
 0. Configuration explicitly passed to the constructor (see the example in
