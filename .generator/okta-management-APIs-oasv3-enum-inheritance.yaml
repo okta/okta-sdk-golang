@@ -6546,146 +6546,12 @@ paths:
       tags:
         - Domain
   /api/v1/email-domains:
+    parameters:
+      - $ref: '#/components/parameters/queryExpandEmailDomain'
     get:
-      summary: List all email domains
-      description: Lists all the email domains in your org
+      summary: List all Email Domains
+      description: Lists all the Email Domains in your org
       operationId: listEmailDomains
-      responses:
-        '200':
-          description: OK
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/EmailDomainListResponse'
-        '403':
-          $ref: '#/components/responses/ErrorAccessDenied403'
-        '429':
-          $ref: '#/components/responses/ErrorTooManyRequests429'
-      security:
-        - apiToken: []
-        - oauth2:
-            - okta.email-domains.read
-      tags:
-        - EmailDomain
-    post:
-      summary: Create an Email Domain
-      description: Creates a custom email domain
-      operationId: createEmailDomain
-      x-codegen-request-body-name: emailDomain
-      requestBody:
-        content:
-          application/json:
-            schema:
-              $ref: '#/components/schemas/EmailDomain'
-        required: true
-      responses:
-        '200':
-          description: Success
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/EmailDomainResponse'
-        '400':
-          $ref: '#/components/responses/ErrorApiValidationFailed400'
-        '403':
-          $ref: '#/components/responses/ErrorAccessDenied403'
-        '429':
-          $ref: '#/components/responses/ErrorTooManyRequests429'
-      security:
-        - apiToken: []
-        - oauth2:
-            - okta.email-domains.manage
-      tags:
-        - EmailDomain
-  /api/v1/email-domains/{emailDomainId}:
-    get:
-      summary: Retrieve a Email Domain
-      description: Retrieves an Email Domain by `emailDomainId`
-      operationId: getEmailDomain
-      parameters:
-        - $ref: '#/components/parameters/pathEmailDomainId'
-      responses:
-        '200':
-          description: Success
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/EmailDomainResponse'
-        '403':
-          $ref: '#/components/responses/ErrorAccessDenied403'
-        '404':
-          $ref: '#/components/responses/ErrorResourceNotFound404'
-        '429':
-          $ref: '#/components/responses/ErrorTooManyRequests429'
-      security:
-        - apiToken: []
-        - oauth2:
-            - okta.email-domains.read
-      tags:
-        - EmailDomain
-    put:
-      summary: Replace an Email Domain
-      description: Replaces an email domain by `emailDomainId`
-      operationId: replaceEmailDomain
-      parameters:
-        - $ref: '#/components/parameters/pathEmailDomainId'
-      x-codegen-request-body-name: updateEmailDomain
-      requestBody:
-        content:
-          application/json:
-            schema:
-              $ref: '#/components/schemas/UpdateEmailDomain'
-        required: true
-      responses:
-        '200':
-          description: OK
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/EmailDomainResponse'
-        '400':
-          $ref: '#/components/responses/ErrorApiValidationFailed400'
-        '403':
-          $ref: '#/components/responses/ErrorAccessDenied403'
-        '404':
-          $ref: '#/components/responses/ErrorResourceNotFound404'
-        '429':
-          $ref: '#/components/responses/ErrorTooManyRequests429'
-      security:
-        - apiToken: []
-        - oauth2:
-            - okta.email-domains.manage
-      tags:
-        - EmailDomain
-    delete:
-      summary: Delete an Email Domain
-      description: Deletes an Email Domain by `emailDomainId`
-      operationId: deleteEmailDomain
-      parameters:
-        - $ref: '#/components/parameters/pathEmailDomainId'
-      responses:
-        '204':
-          description: No Content
-          content: {}
-        '403':
-          $ref: '#/components/responses/ErrorAccessDenied403'
-        '404':
-          $ref: '#/components/responses/ErrorResourceNotFound404'
-        '429':
-          $ref: '#/components/responses/ErrorTooManyRequests429'
-      security:
-        - apiToken: []
-        - oauth2:
-            - okta.email-domains.manage
-      tags:
-        - EmailDomain
-  /api/v1/email-domains/{emailDomainId}/brands:
-    get:
-      summary: List all brands linked to an email domain
-      description: Lists all brands linked to an email domain
-      operationId: listEmailDomainBrands
-      parameters:
-        - $ref: '#/components/parameters/pathEmailDomainId'
       responses:
         '200':
           description: OK
@@ -6694,26 +6560,34 @@ paths:
               schema:
                 type: array
                 items:
-                  $ref: '#/components/schemas/Brand'
+                  $ref: '#/components/schemas/EmailDomainResponseWithEmbedded'
+              examples:
+                List email domain response:
+                  $ref: '#/components/examples/EmailDomainResponse'
         '403':
           $ref: '#/components/responses/ErrorAccessDenied403'
-        '404':
-          $ref: '#/components/responses/ErrorResourceNotFound404'
         '429':
           $ref: '#/components/responses/ErrorTooManyRequests429'
       security:
         - apiToken: []
         - oauth2:
-            - okta.email-domains.read
+            - okta.emailDomains.read
       tags:
         - EmailDomain
-  /api/v1/email-domains/{emailDomainId}/verify:
     post:
-      summary: Verify an Email Domain
-      description: Verifies an Email Domain by `emailDomainId`
-      operationId: verifyEmailDomain
-      parameters:
-        - $ref: '#/components/parameters/pathEmailDomainId'
+      summary: Create an Email Domain
+      description: Creates an Email Domain in your org
+      operationId: createEmailDomain
+      x-codegen-request-body-name: emailDomain
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/EmailDomain'
+            examples:
+              Create email domain request:
+                $ref: '#/components/examples/CreateEmailDomainRequest'
+        required: true
       responses:
         '200':
           description: Success
@@ -6721,6 +6595,50 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/EmailDomainResponse'
+              examples:
+                Create email domain response:
+                  $ref: '#/components/examples/EmailDomainResponse'
+        '400':
+          $ref: '#/components/responses/ErrorApiValidationFailed400'
+        '403':
+          $ref: '#/components/responses/ErrorAccessDenied403'
+        '404':
+          $ref: '#/components/responses/ErrorResourceNotFound404'
+        '409':
+          description: Conflict
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+              examples:
+                Email domain already exists:
+                  $ref: '#/components/examples/ErrorEmailDomainAlreadyExists'
+        '429':
+          $ref: '#/components/responses/ErrorTooManyRequests429'
+      security:
+        - apiToken: []
+        - oauth2:
+            - okta.emailDomains.manage
+      tags:
+        - EmailDomain
+  /api/v1/email-domains/{emailDomainId}:
+    parameters:
+      - $ref: '#/components/parameters/pathEmailDomainId'
+      - $ref: '#/components/parameters/queryExpandEmailDomain'
+    get:
+      summary: Retrieve an Email Domain
+      description: Retrieves an Email Domain by `emailDomainId`
+      operationId: getEmailDomain
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/EmailDomainResponseWithEmbedded'
+              examples:
+                Retrieve email domain response:
+                  $ref: '#/components/examples/EmailDomainResponse'
         '403':
           $ref: '#/components/responses/ErrorAccessDenied403'
         '404':
@@ -6730,7 +6648,114 @@ paths:
       security:
         - apiToken: []
         - oauth2:
-            - okta.email-domains.manage
+            - okta.emailDomains.read
+      tags:
+        - EmailDomain
+    put:
+      summary: Replace an Email Domain
+      description: Replaces associated username and sender display name by `emailDomainId`
+      operationId: replaceEmailDomain
+      x-codegen-request-body-name: updateEmailDomain
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UpdateEmailDomain'
+            examples:
+              Update email domain request:
+                $ref: '#/components/examples/UpdateEmailDomainRequest'
+        required: true
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/EmailDomainResponse'
+              examples:
+                Update email domain response:
+                  $ref: '#/components/examples/UpdatedEmailDomainResponse'
+        '400':
+          $ref: '#/components/responses/ErrorApiValidationFailed400'
+        '403':
+          $ref: '#/components/responses/ErrorAccessDenied403'
+        '404':
+          $ref: '#/components/responses/ErrorResourceNotFound404'
+        '429':
+          $ref: '#/components/responses/ErrorTooManyRequests429'
+      security:
+        - apiToken: []
+        - oauth2:
+            - okta.emailDomains.manage
+      tags:
+        - EmailDomain
+    delete:
+      summary: Delete an Email Domain
+      description: Deletes an Email Domain by `emailDomainId`
+      operationId: deleteEmailDomain
+      responses:
+        '204':
+          description: No Content
+          content: {}
+        '400':
+          description: Unable to delete custom email domain due to mail provider specific restrictions
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+              examples:
+                Email domain in use:
+                  $ref: '#/components/examples/ErrorEmailDomainInUse'
+        '403':
+          $ref: '#/components/responses/ErrorAccessDenied403'
+        '404':
+          $ref: '#/components/responses/ErrorResourceNotFound404'
+        '429':
+          $ref: '#/components/responses/ErrorTooManyRequests429'
+      security:
+        - apiToken: []
+        - oauth2:
+            - okta.emailDomains.manage
+      tags:
+        - EmailDomain
+  /api/v1/email-domains/{emailDomainId}/verify:
+    parameters:
+      - $ref: '#/components/parameters/pathEmailDomainId'
+    post:
+      summary: Verify an Email Domain
+      description: Verifies an Email Domain by `emailDomainId`
+      operationId: verifyEmailDomain
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/EmailDomainResponse'
+              examples:
+                Verified email domain response:
+                  $ref: '#/components/examples/VerifiedEmailDomainResponse'
+        '400':
+          description: Email domain could not be verified by mail provider
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+              examples:
+                Email domain could not be verified:
+                  $ref: '#/components/examples/ErrorEmailDomainNotVerified'
+                Email domain invalid status:
+                  $ref: '#/components/examples/ErrorEmailDomainInvalidStatus'
+        '403':
+          $ref: '#/components/responses/ErrorAccessDenied403'
+        '404':
+          $ref: '#/components/responses/ErrorResourceNotFound404'
+        '429':
+          $ref: '#/components/responses/ErrorTooManyRequests429'
+      security:
+        - apiToken: []
+        - oauth2:
+            - okta.emailDomains.manage
       tags:
         - EmailDomain
   /api/v1/eventHooks:
@@ -17297,6 +17322,12 @@ components:
             hints:
               allow:
                 - GET
+    CreateEmailDomainRequest:
+      value:
+        displayName: Admin
+        username: admin
+        domain: example.com
+        brandId: bnd100iSrkcN6aR680g1
     CreateUpdateEmailCustomizationRequest:
       value:
         language: fr
@@ -17626,6 +17657,34 @@ components:
         errorSummary: An email template customization for that language already exists.
         errorLink: E0000183
         errorId: oaeUcGELffqRay0u1OPdnPypw
+        errorCauses: []
+    ErrorEmailDomainAlreadyExists:
+      value:
+        errorCode: E0000197
+        errorSummary: Email domain already exists.
+        errorLink: E0000197
+        errorId: oaeEdRqprFuTyKokyYPbURJkA
+        errorCauses: []
+    ErrorEmailDomainInUse:
+      value:
+        errorCode: E0000216
+        errorSummary: Email domain can't be deleted due to mail provider restrictions.
+        errorLink: E0000216
+        errorId: oaeEdRqprFuTyKokyYPbURJkB
+        errorCauses: []
+    ErrorEmailDomainInvalidStatus:
+      value:
+        errorCode: E0000217
+        errorSummary: Invalid status. Can't validate email domain with current status.
+        errorLink: E0000217
+        errorId: oaeEdRqprFuTyKokyYPbURJkD
+        errorCauses: []
+    ErrorEmailDomainNotVerified:
+      value:
+        errorCode: E0000218
+        errorSummary: Email domain couldn't be verified by mail provider.
+        errorLink: E0000218
+        errorId: oaeEdRqprFuTyKokyYPbURJkC
         errorCauses: []
     ErrorInvalidEmailTemplateRecipients:
       value:
@@ -18529,6 +18588,30 @@ components:
             hints:
               allow:
                 - GET
+    UpdateEmailDomainRequest:
+      value:
+        displayName: IT Admin
+        username: noreply
+    UpdatedEmailDomainResponse:
+      value:
+        id: OeD114iNkrcN6aR680g4
+        validationStatus: NOT_STARTED
+        displayName: IT Admin
+        username: noreply
+        domain: example.com
+        dnsValidationRecords:
+          - recordType: TXT
+            fqdn: _oktaverification.example.com
+            verificationValue: 759080212bda43e3bc825a7d73b4bb64
+          - recordType: CNAME
+            fqdn: mail.example.com
+            verificationValue: u22224444.wl024.sendgrid.net
+          - recordType: CNAME
+            fqdn: t02._domainkey.example.com
+            verificationValue: t02.domainkey.u22224444.wl024.sendgrid.net
+          - recordType: CNAME
+            fqdn: t022._domainkey.example.com
+            verificationValue: t02.domainkey.u22224444.wl024.sendgrid.net
     UserSchemaAddRequest:
       value:
         definitions:
@@ -18621,6 +18704,26 @@ components:
             allOf:
               - $ref: '#/definitions/base'
               - $ref: '#/definitions/custom'
+    VerifiedEmailDomainResponse:
+    value:
+      id: OeD114iNkrcN6aR680g4
+      validationStatus: VERIFIED
+      displayName: IT Admin
+      username: noreply
+      domain: example.com
+      dnsValidationRecords:
+        - recordType: TXT
+          fqdn: _oktaverification.example.com
+          verificationValue: 759080212bda43e3bc825a7d73b4bb64
+        - recordType: CNAME
+          fqdn: mail.example.com
+          verificationValue: u22224444.wl024.sendgrid.net
+        - recordType: CNAME
+          fqdn: t02._domainkey.example.com
+          verificationValue: t02.domainkey.u22224444.wl024.sendgrid.net
+        - recordType: CNAME
+          fqdn: t022._domainkey.example.com
+          verificationValue: t02.domainkey.u22224444.wl024.sendgrid.net
     WellKnownOrgMetadataResponseClassic:
       value:
         id: 00o5rb5mt2H3d1TJd0h7
@@ -18836,6 +18939,19 @@ components:
       schema:
         type: string
       description: The cursor to use for pagination. It is an opaque string that specifies your current location in the list and is obtained from the `Link` response header. See [Pagination](/#pagination) for more information.
+    queryExpandEmailDomain:
+      name: expand
+      in: query
+      style: form
+      explode: false
+      required: false
+      schema:
+        type: array
+        items:
+          type: string
+          enum:
+            - brands
+      description: Specifies additional metadata to be included in the response
     queryExpandEmailTemplate:
       name: expand
       in: query
@@ -20870,22 +20986,18 @@ components:
                   $ref: '#/components/schemas/HrefObject'
               readOnly: true
               description: Links to resources related to this email template's default content.
-    EmailDomain:
+   EmailDomain:
       allOf:
         - $ref: '#/components/schemas/BaseEmailDomain'
       type: object
       properties:
+        brandId:
+          type: string
         domain:
           type: string
       required:
         - domain
-    EmailDomainListResponse:
-      type: object
-      properties:
-        email-domains:
-          type: array
-          items:
-            $ref: '#/components/schemas/EmailDomainResponse'
+        - brandId
     EmailDomainResponse:
       allOf:
         - $ref: '#/components/schemas/BaseEmailDomain'
@@ -20901,6 +21013,19 @@ components:
           type: string
         validationStatus:
           $ref: '#/components/schemas/EmailDomainStatus'
+    EmailDomainResponseWithEmbedded:
+      allOf:
+        - $ref: '#/components/schemas/EmailDomainResponse'
+      type: object
+      properties:
+        _embedded:
+          type: object
+          properties:
+            brands:
+              type: array
+              items:
+                $ref: '#/components/schemas/Brand'
+          readOnly: true
     EmailDomainStatus:
       type: string
       enum:
