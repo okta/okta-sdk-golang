@@ -1,6 +1,9 @@
 # Changelog
 Running changelog of releases since `2.0.0-rc.4`
 
+## v2.19.0
+ - Upgrade dependency (#378) Thanks [@duytiennguyen-okta]
+
 ## v2.18.0
  - Added `WithHttpInterceptorAndHttpClientPtr` (#371) Thanks @dnelson27
  - Handle network errors and don't cancel context in request before reading response (#369) Thanks @ttimonen
