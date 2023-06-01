@@ -18705,25 +18705,25 @@ components:
               - $ref: '#/definitions/base'
               - $ref: '#/definitions/custom'
     VerifiedEmailDomainResponse:
-    value:
-      id: OeD114iNkrcN6aR680g4
-      validationStatus: VERIFIED
-      displayName: IT Admin
-      username: noreply
-      domain: example.com
-      dnsValidationRecords:
-        - recordType: TXT
-          fqdn: _oktaverification.example.com
-          verificationValue: 759080212bda43e3bc825a7d73b4bb64
-        - recordType: CNAME
-          fqdn: mail.example.com
-          verificationValue: u22224444.wl024.sendgrid.net
-        - recordType: CNAME
-          fqdn: t02._domainkey.example.com
-          verificationValue: t02.domainkey.u22224444.wl024.sendgrid.net
-        - recordType: CNAME
-          fqdn: t022._domainkey.example.com
-          verificationValue: t02.domainkey.u22224444.wl024.sendgrid.net
+      value:
+        id: OeD114iNkrcN6aR680g4
+        validationStatus: VERIFIED
+        displayName: IT Admin
+        username: noreply
+        domain: example.com
+        dnsValidationRecords:
+          - recordType: TXT
+            fqdn: _oktaverification.example.com
+            verificationValue: 759080212bda43e3bc825a7d73b4bb64
+          - recordType: CNAME
+            fqdn: mail.example.com
+            verificationValue: u22224444.wl024.sendgrid.net
+          - recordType: CNAME
+            fqdn: t02._domainkey.example.com
+            verificationValue: t02.domainkey.u22224444.wl024.sendgrid.net
+          - recordType: CNAME
+            fqdn: t022._domainkey.example.com
+            verificationValue: t02.domainkey.u22224444.wl024.sendgrid.net
     WellKnownOrgMetadataResponseClassic:
       value:
         id: 00o5rb5mt2H3d1TJd0h7
