@@ -20986,7 +20986,7 @@ components:
                   $ref: '#/components/schemas/HrefObject'
               readOnly: true
               description: Links to resources related to this email template's default content.
-   EmailDomain:
+    EmailDomain:
       allOf:
         - $ref: '#/components/schemas/BaseEmailDomain'
       type: object
