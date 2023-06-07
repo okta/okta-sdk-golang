@@ -21014,10 +21014,22 @@ components:
         validationStatus:
           $ref: '#/components/schemas/EmailDomainStatus'
     EmailDomainResponseWithEmbedded:
-      allOf:
-        - $ref: '#/components/schemas/EmailDomainResponse'
       type: object
       properties:
+        displayName:
+          type: string
+        userName:
+          type: string
+        dnsValidationRecords:
+          type: array
+          items:
+            $ref: '#/components/schemas/DNSRecord'
+        domain:
+          type: string
+        id:
+          type: string
+        validationStatus:
+          $ref: '#/components/schemas/EmailDomainStatus'
         _embedded:
           type: object
           properties:
