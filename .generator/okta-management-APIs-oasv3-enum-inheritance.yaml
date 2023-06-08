@@ -20581,7 +20581,7 @@ components:
     DNSRecordType:
       type: string
       enum:
-        - CNAME
+        - cname
         - TXT
     Device:
       type: object
