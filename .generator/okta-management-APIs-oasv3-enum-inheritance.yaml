@@ -20239,6 +20239,8 @@ components:
               type: string
             appLinkName:
               type: string
+            classicApplicationUri:
+              type: string
         id:
           readOnly: true
           type: string
