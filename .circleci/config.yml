@@ -8,18 +8,6 @@ orbs:
 # Define a job to be invoked later in a workflow.
 # See: https://circleci.com/docs/2.0/configuration-reference/#jobs
 jobs:
-  # cache-secrets:
-  #   machine: true
-  #   resource_class: okta/generic-linux-x86
-  #   environment:
-  #     VAULT_ADDR: https://vault.aue1e.saasure.net
-  #   steps:
-  #     - checkout
-  #     - run:
-  #         name: "Vault login"
-  #         command: |
-  #           vault login -method=userpass username=$vault_username password=$vault_password > /dev/null 2>&1
-  #     - platform-orb/save-dependencies
 
   test-v2:
     docker:
