@@ -3,7 +3,7 @@
 version: 2.1
 
 orbs:
-  platform-orb: atko-eng/eng-services-platform-helpers-general@1.4
+  platform-orb: okta/general-platform-helpers@1.5
 
 # Define a job to be invoked later in a workflow.
 # See: https://circleci.com/docs/2.0/configuration-reference/#jobs
