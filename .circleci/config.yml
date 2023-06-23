@@ -52,7 +52,6 @@ workflows:
     jobs:
       - platform-orb/job-secrets-obtain:
           name: cache-secrets
-          org: okta
           secret-key: "GH_TOKEN"
       - test-v2:
           requires:
