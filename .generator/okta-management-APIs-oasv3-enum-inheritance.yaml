@@ -20576,10 +20576,8 @@ components:
           type: string
         recordType:
           $ref: '#/components/schemas/DNSRecordType'
-        values:
-          type: array
-          items:
-            type: string
+        verificationValue:
+          type: string
     DNSRecordType:
       type: string
       enum:
@@ -23465,6 +23463,8 @@ components:
         tos_uri:
           type: string
         wildcard_redirect:
+          type: string
+        jwks_uri:
           type: string
     OpenIdConnectApplicationSettingsClientKeys:
       type: object

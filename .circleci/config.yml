@@ -3,23 +3,11 @@
 version: 2.1
 
 orbs:
-  platform-orb: okta/general-platform-helpers@1.2.2
+  platform-orb: okta/general-platform-helpers@1.5
 
 # Define a job to be invoked later in a workflow.
 # See: https://circleci.com/docs/2.0/configuration-reference/#jobs
 jobs:
-  cache-secrets:
-    machine: true
-    resource_class: okta/generic-linux-x86
-    environment:
-      VAULT_ADDR: https://vault.aue1e.saasure.net
-    steps:
-      - checkout
-      - run:
-          name: "Vault login"
-          command: |
-            vault login -method=userpass username=$vault_username password=$vault_password > /dev/null 2>&1
-      - platform-orb/save-dependencies
 
   test-v2:
     docker:
@@ -50,7 +38,9 @@ jobs:
 workflows:
   "Circle CI Tests":
     jobs:
-      - cache-secrets
+      - platform-orb/job-secrets-obtain:
+          name: cache-secrets
+          secret-key: "GO111MODULE;OKTA_CLIENT_CLIENTID;OKTA_CLIENT_ORGURL;OKTA_CLIENT_PRIVATEKEY;OKTA_CLIENT_TOKEN;OKTA_CCI"
       - test-v2:
           requires:
             - cache-secrets
