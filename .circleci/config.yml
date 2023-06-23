@@ -3,7 +3,7 @@
 version: 2.1
 
 orbs:
-  platform-orb: okta/general-platform-helpers@1.2.2
+  platform-orb: okta/eng-services-platform-helpers-general@1.5
 
 # Define a job to be invoked later in a workflow.
 # See: https://circleci.com/docs/2.0/configuration-reference/#jobs
@@ -50,7 +50,10 @@ jobs:
 workflows:
   "Circle CI Tests":
     jobs:
-      - cache-secrets
+      - platform-orb/job-secrets-obtain:
+          name: cache-secrets
+          org: okta
+          secret-key: "GH_TOKEN"
       - test-v2:
           requires:
             - cache-secrets
