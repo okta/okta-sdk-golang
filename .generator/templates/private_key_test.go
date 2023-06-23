@@ -9,7 +9,7 @@ import (
 )
 
 func Test_Private_Key_Request_Can_Create_User(t *testing.T) {
-	if os.Getenv("OKTA_TRAVIS_CI") != "yes" {
+	if os.Getenv("OKTA_CCI") != "yes" {
 		t.Skip("Skipping testing not in CI environment")
 	}
 	configuration := NewConfiguration(WithAuthorizationMode("PrivateKey"), WithScopes([]string{"okta.users.manage"}))
@@ -23,7 +23,7 @@ func Test_Private_Key_Request_Can_Create_User(t *testing.T) {
 }
 
 func Test_JWT_Request_Can_Create_User(t *testing.T) {
-	if os.Getenv("OKTA_TRAVIS_CI") != "yes" {
+	if os.Getenv("OKTA_CCI") != "yes" {
 		t.Skip("Skipping testing not in CI environment")
 	}
 	configuration := NewConfiguration(WithAuthorizationMode("JWT"), WithScopes([]string{"okta.users.manage"}))

@@ -120,7 +120,7 @@ func Test_Activate_Application(t *testing.T) {
 }
 
 func Test_Application_Users_Operations(t *testing.T) {
-	if os.Getenv("OKTA_TRAVIS_CI") == "yes" {
+	if os.Getenv("OKTA_CCI") == "yes" {
 		time.Sleep(time.Duration(90))
 	}
 	createdApp, _, err := setupBasicAuthApplication(randomTestString())
@@ -188,7 +188,7 @@ func Test_Application_Users_Operations(t *testing.T) {
 }
 
 func Test_Application_Groups_Operations(t *testing.T) {
-	if os.Getenv("OKTA_TRAVIS_CI") == "yes" {
+	if os.Getenv("OKTA_CCI") == "yes" {
 		time.Sleep(time.Duration(90))
 	}
 	createdApp, _, err := setupBasicAuthApplication(randomTestString())
@@ -225,7 +225,7 @@ func Test_Application_Groups_Operations(t *testing.T) {
 }
 
 func Test_CSR_For_Application(t *testing.T) {
-	if os.Getenv("OKTA_TRAVIS_CI") == "yes" {
+	if os.Getenv("OKTA_CCI") == "yes" {
 		time.Sleep(time.Duration(90))
 	}
 	createdApp, _, err := setupBasicAuthApplication(randomTestString())
@@ -270,7 +270,7 @@ func Test_CSR_For_Application(t *testing.T) {
 }
 
 func TestGetDefaultProvisioningConnectionForApplication(t *testing.T) {
-	if os.Getenv("OKTA_TRAVIS_CI") == "yes" {
+	if os.Getenv("OKTA_CCI") == "yes" {
 		time.Sleep(time.Duration(90))
 	}
 	createdApp, _, err := setupOrg2OrgApplication(randomTestString())
@@ -321,7 +321,7 @@ func TestGetDefaultProvisioningConnectionForApplication(t *testing.T) {
 // }
 
 func Test_Upload_Application_Logo(t *testing.T) {
-	if os.Getenv("OKTA_TRAVIS_CI") == "yes" {
+	if os.Getenv("OKTA_CCI") == "yes" {
 		time.Sleep(time.Duration(180))
 	}
 	createdApp, _, err := setupBasicAuthApplication(randomTestString())
@@ -340,7 +340,7 @@ func Test_Upload_Application_Logo(t *testing.T) {
 }
 
 func Test_Application_Key_Operation(t *testing.T) {
-	if os.Getenv("OKTA_TRAVIS_CI") == "yes" {
+	if os.Getenv("OKTA_CCI") == "yes" {
 		time.Sleep(time.Duration(180))
 	}
 	createdApp1, _, err := setupBasicAuthApplication(randomTestString())
@@ -379,7 +379,7 @@ func Test_Application_Key_Operation(t *testing.T) {
 }
 
 func Test_Scope_Consent_Grant_Operation_For_Application(t *testing.T) {
-	if os.Getenv("OKTA_TRAVIS_CI") == "yes" {
+	if os.Getenv("OKTA_CCI") == "yes" {
 		time.Sleep(time.Duration(180))
 	}
 	createdApp, _, err := setupOIDCApplication(randomTestString())
