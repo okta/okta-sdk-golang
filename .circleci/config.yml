@@ -40,7 +40,7 @@ workflows:
     jobs:
       - platform-orb/job-secrets-obtain:
           name: cache-secrets
-          secret-key: "OKTA_CLIENT_ORGURL;OKTA_CLIENT_TOKEN;OKTA_CLIENT_CONNECTIONTIMEOUT;OKTA_IT_OPERATION_DELAY"
+          secret-key: "GO111MODULE;OKTA_CLIENT_CLIENTID;OKTA_CLIENT_ORGURL;OKTA_CLIENT_PRIVATEKEY;OKTA_CLIENT_TOKEN;OKTA_CCI"
       - test-v2:
           requires:
             - cache-secrets
