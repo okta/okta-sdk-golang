@@ -26,8 +26,8 @@ import (
 	"syscall"
 	"time"
 
+	"github.com/go-jose/go-jose/v3"
 	"github.com/okta/okta-sdk-golang/v2/okta/cache"
-	"gopkg.in/square/go-jose.v2"
 )
 
 type config struct {
