@@ -5983,7 +5983,20 @@ paths:
               schema:
                 type: array
                 items:
-                  $ref: '#/components/schemas/DeviceAssurance'
+                  oneOf: &ref_6
+                    - $ref: '#/components/schemas/DeviceAssuranceWindowsPlatform'
+                    - $ref: '#/components/schemas/DeviceAssuranceMacOSPlatform'
+                    - $ref: '#/components/schemas/DeviceAssuranceChromeOSPlatform'
+                    - $ref: '#/components/schemas/DeviceAssuranceIOSPlatform'
+                    - $ref: '#/components/schemas/DeviceAssuranceAndroidPlatform'
+                  discriminator: &ref_7
+                    propertyName: platform
+                    mapping:
+                      WINDOWS: '#/components/schemas/DeviceAssuranceWindowsPlatform'
+                      MACOS: '#/components/schemas/DeviceAssuranceMacOSPlatform'
+                      CHROMEOS: '#/components/schemas/DeviceAssuranceChromeOSPlatform'
+                      IOS: '#/components/schemas/DeviceAssuranceIOSPlatform'
+                      ANDROID: '#/components/schemas/DeviceAssuranceAndroidPlatform'
         '403':
           $ref: '#/components/responses/ErrorAccessDenied403'
         '429':
@@ -5994,6 +6007,11 @@ paths:
             - okta.deviceAssurance.read
       tags:
         - DeviceAssurance
+      x-okta-lifecycle:
+        lifecycle: LIMITED_GA
+        isGenerallyAvailable: false
+        SKUs:
+          - Okta Identity Engine
     post:
       summary: Create a Device Assurance Policy
       description: Creates a new Device Assurance Policy
@@ -6003,16 +6021,23 @@ paths:
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/DeviceAssurance'
+              oneOf: *ref_6
+              discriminator: *ref_7
             examples:
-              ANDROID:
+              Android:
                 $ref: '#/components/examples/DeviceAssuranceAndroidRequest'
-              MACOS:
-                $ref: '#/components/examples/DeviceAssuranceMacOSRequest'
-              WINDOWS:
-                $ref: '#/components/examples/DeviceAssuranceWindowsRequest'
-              IOS:
+              iOS:
                 $ref: '#/components/examples/DeviceAssuranceIosRequest'
+              MacOS:
+                $ref: '#/components/examples/DeviceAssuranceMacOSRequest'
+              Windows:
+                $ref: '#/components/examples/DeviceAssuranceWindowsRequest'
+              ChromeOSWithThirdPartySignalProviders:
+                $ref: '#/components/examples/DeviceAssuranceChromeOSWithThirdPartySignalProvidersRequest'
+              MacOSWithThirdPartySignalProviders:
+                $ref: '#/components/examples/DeviceAssuranceMacOSWithThirdPartySignalProvidersRequest'
+              WindowsWithThirdPartySignalProviders:
+                $ref: '#/components/examples/DeviceAssuranceWindowsWithThirdPartySignalProvidersRequest'
         required: true
       responses:
         '200':
@@ -6020,10 +6045,23 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/DeviceAssurance'
+                oneOf: *ref_6
+                discriminator: *ref_7
               examples:
-                DeviceAssuranceResponse:
-                  $ref: '#/components/examples/DeviceAssuranceResponse'
+                Android:
+                  $ref: '#/components/examples/DeviceAssuranceAndroidResponse'
+                iOS:
+                  $ref: '#/components/examples/DeviceAssuranceIosResponse'
+                MacOS:
+                  $ref: '#/components/examples/DeviceAssuranceMacOSResponse'
+                Windows:
+                  $ref: '#/components/examples/DeviceAssuranceWindowsResponse'
+                ChromeOSWithThirdPartySignalProviders:
+                  $ref: '#/components/examples/DeviceAssuranceChromeOSWithThirdPartySignalProvidersResponse'
+                MacOSWithThirdPartySignalProviders:
+                  $ref: '#/components/examples/DeviceAssuranceMacOSWithThirdPartySignalProvidersResponse'
+                WindowsWithThirdPartySignalProviders:
+                  $ref: '#/components/examples/DeviceAssuranceWindowsWithThirdPartySignalProvidersResponse'
         '400':
           $ref: '#/components/responses/ErrorApiValidationFailed400'
         '403':
@@ -6036,23 +6074,41 @@ paths:
             - okta.deviceAssurance.manage
       tags:
         - DeviceAssurance
+      x-okta-lifecycle:
+        lifecycle: LIMITED_GA
+        isGenerallyAvailable: false
+        SKUs:
+          - Okta Identity Engine
   /api/v1/device-assurances/{deviceAssuranceId}:
+    parameters:
+      - $ref: '#/components/parameters/pathDeviceAssuranceId'
     get:
       summary: Retrieve a Device Assurance Policy
       description: Retrieves a Device Assurance Policy by `deviceAssuranceId`
       operationId: getDeviceAssurancePolicy
-      parameters:
-        - $ref: '#/components/parameters/pathDeviceAssuranceId'
       responses:
         '200':
           description: OK
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/DeviceAssurance'
+                oneOf: *ref_6
+                discriminator: *ref_7
               examples:
-                DeviceAssuranceResponse:
-                  $ref: '#/components/examples/DeviceAssuranceResponse'
+                Android:
+                  $ref: '#/components/examples/DeviceAssuranceAndroidResponse'
+                iOS:
+                  $ref: '#/components/examples/DeviceAssuranceIosResponse'
+                MacOS:
+                  $ref: '#/components/examples/DeviceAssuranceMacOSResponse'
+                Windows:
+                  $ref: '#/components/examples/DeviceAssuranceWindowsResponse'
+                ChromeOSWithThirdPartySignalProviders:
+                  $ref: '#/components/examples/DeviceAssuranceChromeOSWithThirdPartySignalProvidersResponse'
+                MacOSWithThirdPartySignalProviders:
+                  $ref: '#/components/examples/DeviceAssuranceMacOSWithThirdPartySignalProvidersResponse'
+                WindowsWithThirdPartySignalProviders:
+                  $ref: '#/components/examples/DeviceAssuranceWindowsWithThirdPartySignalProvidersResponse'
         '403':
           $ref: '#/components/responses/ErrorAccessDenied403'
         '404':
@@ -6065,21 +6121,37 @@ paths:
             - okta.deviceAssurance.read
       tags:
         - DeviceAssurance
+      x-okta-lifecycle:
+        lifecycle: LIMITED_GA
+        isGenerallyAvailable: false
+        SKUs:
+          - Okta Identity Engine
     put:
       summary: Replace a Device Assurance Policy
       description: Replaces a Device Assurance Policy by `deviceAssuranceId`
       operationId: replaceDeviceAssurancePolicy
-      parameters:
-        - $ref: '#/components/parameters/pathDeviceAssuranceId'
       x-codegen-request-body-name: deviceAssurance
       requestBody:
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/DeviceAssurance'
+              oneOf: *ref_6
+              discriminator: *ref_7
             examples:
-              DeviceAssuranceResponse:
-                $ref: '#/components/examples/DeviceAssuranceResponse'
+              Android:
+                $ref: '#/components/examples/DeviceAssuranceAndroidRequest'
+              iOS:
+                $ref: '#/components/examples/DeviceAssuranceIosRequest'
+              MacOS:
+                $ref: '#/components/examples/DeviceAssuranceMacOSRequest'
+              Windows:
+                $ref: '#/components/examples/DeviceAssuranceWindowsRequest'
+              ChromeOSWithThirdPartySignalProviders:
+                $ref: '#/components/examples/DeviceAssuranceChromeOSWithThirdPartySignalProvidersRequest'
+              MacOSWithThirdPartySignalProviders:
+                $ref: '#/components/examples/DeviceAssuranceMacOSWithThirdPartySignalProvidersRequest'
+              WindowsWithThirdPartySignalProviders:
+                $ref: '#/components/examples/DeviceAssuranceWindowsWithThirdPartySignalProvidersRequest'
         required: true
       responses:
         '200':
@@ -6087,10 +6159,23 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/DeviceAssurance'
+                oneOf: *ref_6
+                discriminator: *ref_7
               examples:
-                DeviceAssuranceResponse:
-                  $ref: '#/components/examples/DeviceAssuranceResponse'
+                Android:
+                  $ref: '#/components/examples/DeviceAssuranceAndroidResponse'
+                iOS:
+                  $ref: '#/components/examples/DeviceAssuranceIosResponse'
+                MacOS:
+                  $ref: '#/components/examples/DeviceAssuranceMacOSResponse'
+                Windows:
+                  $ref: '#/components/examples/DeviceAssuranceWindowsResponse'
+                ChromeOSWithThirdPartySignalProviders:
+                  $ref: '#/components/examples/DeviceAssuranceChromeOSWithThirdPartySignalProvidersResponse'
+                MacOSWithThirdPartySignalProviders:
+                  $ref: '#/components/examples/DeviceAssuranceMacOSWithThirdPartySignalProvidersResponse'
+                WindowsWithThirdPartySignalProviders:
+                  $ref: '#/components/examples/DeviceAssuranceWindowsWithThirdPartySignalProvidersResponse'
         '400':
           $ref: '#/components/responses/ErrorApiValidationFailed400'
         '403':
@@ -6105,12 +6190,15 @@ paths:
             - okta.deviceAssurance.manage
       tags:
         - DeviceAssurance
+      x-okta-lifecycle:
+        lifecycle: LIMITED_GA
+        isGenerallyAvailable: false
+        SKUs:
+          - Okta Identity Engine
     delete:
       summary: Delete a Device Assurance Policy
       description: Deletes a Device Assurance Policy by `deviceAssuranceId`. If the Device Assurance Policy is currently being used in the org Authentication Policies, the delete will not be allowed.
       operationId: deleteDeviceAssurancePolicy
-      parameters:
-        - $ref: '#/components/parameters/pathDeviceAssuranceId'
       responses:
         '204':
           description: No Content
@@ -6126,7 +6214,7 @@ paths:
               schema:
                 $ref: '#/components/schemas/Error'
               examples:
-                Cannot delete device assurance policy in use by authentication policies:
+                ErrorDeviceAssuranceInUse:
                   $ref: '#/components/examples/ErrorDeviceAssuranceInUse'
         '429':
           $ref: '#/components/responses/ErrorTooManyRequests429'
@@ -6136,6 +6224,11 @@ paths:
             - okta.deviceAssurance.manage
       tags:
         - DeviceAssurance
+      x-okta-lifecycle:
+        lifecycle: LIMITED_GA
+        isGenerallyAvailable: false
+        SKUs:
+          - Okta Identity Engine
   /api/v1/devices:
     get:
       summary: List all Devices
@@ -17367,6 +17460,7 @@ components:
               allow:
                 - POST
     DeviceAssuranceAndroidRequest:
+      summary: Android request
       value:
         name: Device Assurance Android
         osVersion:
@@ -17382,8 +17476,9 @@ components:
             - BIOMETRIC
         secureHardwarePresent: true
     DeviceAssuranceIosRequest:
+      summary: iOS request
       value:
-        name: Device Assurance IOS
+        name: Device Assurance iOS
         osVersion:
           minimum: 12.4.5
         jailbreak: false
@@ -17392,6 +17487,7 @@ components:
           include:
             - BIOMETRIC
     DeviceAssuranceMacOSRequest:
+      summary: macOS request
       value:
         name: Device Assurance macOS
         osVersion:
@@ -17405,14 +17501,212 @@ components:
             - PASSCODE
             - BIOMETRIC
         secureHardwarePresent: true
-    DeviceAssuranceResponse:
+    DeviceAssuranceWindowsRequest:
+      summary: Windows request
       value:
-        id: dae3m8o4rWhwReDeM1c5
-        name: Device Assurance Example
-        lastUpdate: 2022-01-01T00:00:00.000Z
-        createdUpdate: 2022-01-01T00:00:00.000Z
-        lastUpdatedBy: 00u217pyf72CdUrBt1c5
-        createdBy: 00u217pyf72CdUrBt1c5
+        name: Device Assurance Windows
+        osVersion:
+          minimum: 12.4.5.9
+        diskEncryptionType:
+          include:
+            - ALL_INTERNAL_VOLUMES
+        platform: WINDOWS
+        screenLockType:
+          include:
+            - PASSCODE
+            - BIOMETRIC
+        secureHardwarePresent: true
+    DeviceAssuranceMacOSWithThirdPartySignalProvidersRequest:
+      x-okta-lifecycle:
+        features:
+          - GOOGLE_DEVICE_CONTEXT_CONNECTOR
+      summary: macOS with third-party signal providers request
+      value:
+        name: Device Assurance macOS
+        osVersion:
+          minimum: 12.4.5
+        diskEncryptionType:
+          include:
+            - ALL_INTERNAL_VOLUMES
+        platform: MACOS
+        screenLockType:
+          include:
+            - PASSCODE
+            - BIOMETRIC
+        secureHardwarePresent: true
+        thirdPartySignalProviders:
+          dtc:
+              osVersion:
+                  minimum: "10.0.19041.1110"
+              diskEncrypted: true
+              osFirewall: true
+              screenLockSecured: true
+              browserVersion:
+                  minimum: "15393.27.0"
+              deviceEnrollmentDomain": "testDomain"
+              builtInDnsClientEnabled": true
+              chromeRemoteDesktopAppBlocked": true
+              safeBrowsingProtectionLevel": true
+              siteIsolationEnabled": true
+              passwordProtectionWarningTrigger": "PASSWORD_PROTECTION_OFF"
+              realtimeUrlCheckMode": true
+    DeviceAssuranceWindowsWithThirdPartySignalProvidersRequest:
+      x-okta-lifecycle:
+        features:
+          - GOOGLE_DEVICE_CONTEXT_CONNECTOR
+      summary: Windows with third-party signal providers request
+      value:
+        name: Device Assurance Windows
+        osVersion:
+          minimum: 12.4.5.9
+        diskEncryptionType:
+          include:
+            - ALL_INTERNAL_VOLUMES
+        platform: WINDOWS
+        screenLockType:
+          include:
+            - PASSCODE
+            - BIOMETRIC
+        secureHardwarePresent: true
+        thirdPartySignalProviders:
+          dtc:
+            osVersion:
+              minimum: "10.0.19041.1110"
+            diskEncrypted: true
+            osFirewall: true
+            screenLockSecured: true
+            browserVersion:
+              minimum: "15393.27.0"
+            deviceEnrollmentDomain: "testDomain"
+            builtInDnsClientEnabled: true
+            chromeRemoteDesktopAppBlocked: true
+            safeBrowsingProtectionLevel: "ENHANCED_PROTECTION"
+            siteIsolationEnabled: true
+            passwordProtectionWarningTrigger: "PASSWORD_PROTECTION_OFF"
+            realtimeUrlCheckMode: true
+            secureBootEnabled: true
+            windowsMachineDomain: "testMachineDomain"
+            windowsUserDomain: "testUserDomain"
+            thirdPartyBlockingEnabled: true
+            crowdStrikeCustomerId: "testCustomerId"
+            crowdStrikeAgentId": "testAgentId"
+            keyTrustLevel: "CHROME_BROWSER_HW_KEY"
+    DeviceAssuranceChromeOSWithThirdPartySignalProvidersRequest:
+      x-okta-lifecycle:
+        features:
+          - GOOGLE_DEVICE_CONTEXT_CONNECTOR
+      summary: ChromeOS with third-party signal providers request
+      value:
+        name: Device Assurance ChromeOS
+        platform: CHROMEOS
+        thirdPartySignalProviders:
+          dtc:
+            osVersion:
+              minimum: "10.0.19041.1110"
+            diskEncrypted: true
+            osFirewall: true
+            screenLockSecured: true
+            allowScreenLock: true
+            browserVersion:
+              minimum: "15393.27.0"
+            deviceEnrollmentDomain: "testDomain"
+            builtInDnsClientEnabled: true
+            chromeRemoteDesktopAppBlocked: true
+            safeBrowsingProtectionLevel: "ENHANCED_PROTECTION"
+            siteIsolationEnabled: true
+            passwordProtectionWarningTrigger: "PASSWORD_PROTECTION_OFF"
+            realtimeUrlCheckMode: true
+            keyTrustLevel: "CHROME_OS_VERIFIED_MODE"
+    DeviceAssuranceAndroidResponse:
+      summary: Android response
+      value:
+        id: "dae3m8o4rWhwReDeM1c5"
+        name: "Device Assurance Android"
+        lastUpdate: "2022-01-01T00:00:00.000Z"
+        createdUpdate: "2022-01-01T00:00:00.000Z"
+        lastUpdatedBy: "00u217pyf72CdUrBt1c5"
+        createdBy: "00u217pyf72CdUrBt1c5"
+        osVersion:
+          minimum: 12.4.5
+        diskEncryptionType:
+          include:
+            - USER
+            - FULL
+        jailbreak: false
+        platform: ANDROID
+        screenLockType:
+          include:
+            - BIOMETRIC
+        secureHardwarePresent: true
+        _links:
+          self:
+            href: https://your-subdomain.okta.com/api/v1/device-assurances/dae3m8o4rWhwReDeM1c5
+            hints:
+              allow:
+                - DELETE
+                - GET
+                - PUT
+    DeviceAssuranceIosResponse:
+      summary: iOS response
+      value:
+        id: "dae3m8o4rWhwReDeM1c5"
+        name: "Device Assurance iOS"
+        lastUpdate: "2022-01-01T00:00:00.000Z"
+        createdUpdate: "2022-01-01T00:00:00.000Z"
+        lastUpdatedBy: "00u217pyf72CdUrBt1c5"
+        createdBy: "00u217pyf72CdUrBt1c5"
+        osVersion:
+          minimum: 12.4.5.9
+        jailbroken: false
+        platform: IOS
+        screenLockType:
+          include:
+            - BIOMETRIC
+        _links:
+          self:
+            href: https://your-subdomain.okta.com/api/v1/device-assurances/dae3m8o4rWhwReDeM1c5
+            hints:
+              allow:
+                - DELETE
+                - GET
+                - PUT
+    DeviceAssuranceMacOSResponse:
+      summary: macOS response
+      value:
+        id: "dae3m8o4rWhwReDeM1c5"
+        name: "Device Assurance macOS"
+        lastUpdate: "2022-01-01T00:00:00.000Z"
+        createdUpdate: "2022-01-01T00:00:00.000Z"
+        lastUpdatedBy: "00u217pyf72CdUrBt1c5"
+        createdBy: "00u217pyf72CdUrBt1c5"
+        osVersion:
+          minimum: 12.4.5
+        diskEncryptionType:
+          include:
+            - ALL_INTERNAL_VOLUMES
+        platform: MACOS
+        screenLockType:
+          include:
+            - PASSCODE
+            - BIOMETRIC
+        secureHardwarePresent: true
+        _links:
+          self:
+            href: https://your-subdomain.okta.com/api/v1/device-assurances/dae3m8o4rWhwReDeM1c5
+            hints:
+              allow:
+                - DELETE
+                - GET
+                - PUT
+    DeviceAssuranceWindowsResponse:
+      summary: Windows response
+      value:
+        id: "dae3m8o4rWhwReDeM1c5"
+        name: "Device Assurance Windows"
+        lastUpdate: "2022-01-01T00:00:00.000Z"
+        createdUpdate: "2022-01-01T00:00:00.000Z"
+        lastUpdatedBy: "00u217pyf72CdUrBt1c5"
+        createdBy: "00u217pyf72CdUrBt1c5"
         osVersion:
           minimum: 12.4.5.9
         diskEncryptionType:
@@ -17432,9 +17726,66 @@ components:
                 - DELETE
                 - GET
                 - PUT
-    DeviceAssuranceWindowsRequest:
+    DeviceAssuranceMacOSWithThirdPartySignalProvidersResponse:
+      x-okta-lifecycle:
+        features:
+          - GOOGLE_DEVICE_CONTEXT_CONNECTOR
+      summary: macOS with third-party signal providers response
       value:
+        id: "dae3m8o4rWhwReDeM1c5"
+        name: Device Assurance macOS
+        lastUpdate: "2022-01-01T00:00:00.000Z"
+        createdUpdate: "2022-01-01T00:00:00.000Z"
+        lastUpdatedBy: "00u217pyf72CdUrBt1c5"
+        createdBy: "00u217pyf72CdUrBt1c5"
+        osVersion:
+          minimum: 12.4.5.9
+        diskEncryptionType:
+          include:
+            - ALL_INTERNAL_VOLUMES
+        platform: MACOS
+        screenLockType:
+          include:
+            - PASSCODE
+            - BIOMETRIC
+        secureHardwarePresent: true
+        thirdPartySignalProviders:
+          dtc:
+            osVersion:
+                minimum: "10.0.19041.1110"
+            diskEncrypted: true
+            osFirewall: true
+            screenLockSecured: true
+            browserVersion:
+                minimum: "15393.27.0"
+            deviceEnrollmentDomain: "testDomain"
+            builtInDnsClientEnabled: true
+            chromeRemoteDesktopAppBlocked: true
+            safeBrowsingProtectionLevel: "ENHANCED_PROTECTION"
+            siteIsolationEnabled: true
+            passwordProtectionWarningTrigger: "PASSWORD_PROTECTION_OFF"
+            realtimeUrlCheckMode: true
+            keyTrustLevel: "CHROME_BROWSER_HW_KEY"
+        _links:
+          self:
+            href: https://your-subdomain.okta.com/api/v1/device-assurances/dae3m8o4rWhwReDeM1c5
+            hints:
+              allow:
+                - DELETE
+                - GET
+                - PUT
+    DeviceAssuranceWindowsWithThirdPartySignalProvidersResponse:
+      x-okta-lifecycle:
+        features:
+          - GOOGLE_DEVICE_CONTEXT_CONNECTOR
+      summary: Windows with third-party signal providers response
+      value:
+        id: "dae3m8o4rWhwReDeM1c5"
         name: Device Assurance Windows
+        lastUpdate: "2022-01-01T00:00:00.000Z"
+        createdUpdate: "2022-01-01T00:00:00.000Z"
+        lastUpdatedBy: "00u217pyf72CdUrBt1c5"
+        createdBy: "00u217pyf72CdUrBt1c5"
         osVersion:
           minimum: 12.4.5.9
         diskEncryptionType:
@@ -17446,6 +17797,76 @@ components:
             - PASSCODE
             - BIOMETRIC
         secureHardwarePresent: true
+        thirdPartySignalProviders:
+          dtc:
+            osVersion:
+                minimum: "10.0.19041.1110"
+            diskEncrypted: true
+            osFirewall: true
+            screenLockSecured: true
+            browserVersion:
+                minimum: "15393.27.0"
+            deviceEnrollmentDomain: "testDomain"
+            builtInDnsClientEnabled: true
+            chromeRemoteDesktopAppBlocked: true
+            safeBrowsingProtectionLevel: "ENHANCED_PROTECTION"
+            siteIsolationEnabled: true
+            passwordProtectionWarningTrigger: "PASSWORD_PROTECTION_OFF"
+            realtimeUrlCheckMode: true
+            secureBootEnabled: true
+            windowsMachineDomain: "testMachineDomain"
+            windowsUserDomain: "testUserDomain"
+            thirdPartyBlockingEnabled: true
+            crowdStrikeCustomerId: "testCustomerId"
+            crowdStrikeAgentId": "testAgentId"
+            keyTrustLevel: "CHROME_BROWSER_HW_KEY"
+        _links:
+          self:
+            href: https://your-subdomain.okta.com/api/v1/device-assurances/dae3m8o4rWhwReDeM1c5
+            hints:
+              allow:
+                - DELETE
+                - GET
+                - PUT
+    DeviceAssuranceChromeOSWithThirdPartySignalProvidersResponse:
+      x-okta-lifecycle:
+        features:
+          - GOOGLE_DEVICE_CONTEXT_CONNECTOR
+      summary: ChromeOS with third-party signal providers response
+      value:
+        id: "dae3m8o4rWhwReDeM1c5"
+        name: Device Assurance ChromeOS
+        lastUpdate: "2022-01-01T00:00:00.000Z"
+        createdUpdate: "2022-01-01T00:00:00.000Z"
+        lastUpdatedBy: "00u217pyf72CdUrBt1c5"
+        createdBy: "00u217pyf72CdUrBt1c5"
+        platform: "CHROMEOS"
+        thirdPartySignalProviders:
+          dtc:
+            osVersion:
+                minimum: "10.0.19041.1110"
+            diskEncrypted: true
+            osFirewall: true
+            screenLockSecured: true
+            allowScreenLock: true
+            browserVersion:
+                minimum: "15393.27.0"
+            deviceEnrollmentDomain: "testDomain"
+            builtInDnsClientEnabled: true
+            chromeRemoteDesktopAppBlocked: true
+            safeBrowsingProtectionLevel: "ENHANCED_PROTECTION"
+            siteIsolationEnabled: true
+            passwordProtectionWarningTrigger: "PASSWORD_PROTECTION_OFF"
+            realtimeUrlCheckMode: true
+            keyTrustLevel: "CHROME_OS_VERIFIED_MODE"
+        _links:
+          self:
+            href: https://your-subdomain.okta.com/api/v1/device-assurances/dae3m8o4rWhwReDeM1c5
+            hints:
+              allow:
+                - DELETE
+                - GET
+                - PUT
     DeviceResponse:
       value:
         id: guo8jx5vVoxfvJeLb0w4
@@ -20471,6 +20892,12 @@ components:
           properties:
             expression:
               type: string
+    ChromeBrowserVersion:
+      description: Current version of the Chrome Browser
+      type: object
+      properties:
+        minimum:
+          type: string
     CreateBrandDomainRequest:
       title: CreateBrandDomainRequest
       type: object
@@ -20652,18 +21079,9 @@ components:
         createdDate:
           type: string
           readOnly: true
-        diskEncryptionType:
-          type: object
-          properties:
-            include:
-              type: array
-              items:
-                $ref: '#/components/schemas/DiskEncryptionType'
         id:
           type: string
           readOnly: true
-        jailbreak:
-          type: boolean
         lastUpdatedBy:
           type: string
           readOnly: true
@@ -20673,25 +21091,146 @@ components:
         name:
           type: string
           description: Display name of the Device Assurance Policy
-        osVersion:
-          $ref: '#/components/schemas/VersionObject'
         platform:
           $ref: '#/components/schemas/Platform'
-        screenLockType:
-          type: object
-          properties:
-            include:
-              type: array
-              items:
-                $ref: '#/components/schemas/ScreenLockType'
-        secureHardwarePresent:
-          type: boolean
         _links:
-          type: object
+          $ref: '#/components/schemas/LinksSelf'
+      discriminator: *ref_7
+    DeviceAssuranceAndroidPlatform:
+      allOf:
+        - $ref: '#/components/schemas/DeviceAssurance'
+        - type: object
           properties:
-            self:
-              $ref: '#/components/schemas/HrefObject'
-          readOnly: true
+            diskEncryptionType:
+              type: object
+              properties:
+                include:
+                  type: array
+                  items:
+                    $ref: '#/components/schemas/DiskEncryptionType'
+            jailbreak:
+              type: boolean
+            osVersion:
+              $ref: '#/components/schemas/OSVersion'
+            screenLockType:
+              type: object
+              properties:
+                include:
+                  type: array
+                  items:
+                    $ref: '#/components/schemas/ScreenLockType'
+            secureHardwarePresent:
+              type: boolean
+    DeviceAssuranceChromeOSPlatform:
+      x-okta-lifecycle:
+        lifecycle: EA
+        isGenerallyAvailable: false
+        SKUs: []
+      allOf:
+        - $ref: '#/components/schemas/DeviceAssurance'
+        - type: object
+          properties:
+            thirdPartySignalProviders:
+              type: object
+              description: Settings for third-party signal providers (based on the `CHROMEOS` platform)
+              properties:
+                dtc:
+                  $ref: '#/components/schemas/DTCChromeOS'
+    DeviceAssuranceIOSPlatform:
+      allOf:
+        - $ref: '#/components/schemas/DeviceAssurance'
+        - type: object
+          properties:
+            diskEncryptionType:
+              type: object
+              properties:
+                include:
+                  type: array
+                  items:
+                    $ref: '#/components/schemas/DiskEncryptionType'
+            jailbreak:
+              type: boolean
+            osVersion:
+              $ref: '#/components/schemas/OSVersion'
+            screenLockType:
+              type: object
+              properties:
+                include:
+                  type: array
+                  items:
+                    $ref: '#/components/schemas/ScreenLockType'
+            secureHardwarePresent:
+              type: boolean
+    DeviceAssuranceMacOSPlatform:
+      allOf:
+        - $ref: '#/components/schemas/DeviceAssurance'
+        - type: object
+          properties:
+            diskEncryptionType:
+              type: object
+              properties:
+                include:
+                  type: array
+                  items:
+                    $ref: '#/components/schemas/DiskEncryptionType'
+            jailbreak:
+              type: boolean
+            osVersion:
+              $ref: '#/components/schemas/OSVersion'
+            screenLockType:
+              type: object
+              properties:
+                include:
+                  type: array
+                  items:
+                    $ref: '#/components/schemas/ScreenLockType'
+            secureHardwarePresent:
+              type: boolean
+            thirdPartySignalProviders:
+              x-okta-lifecycle:
+                lifecycle: EA
+                isGenerallyAvailable: false
+                SKUs: []
+              type: object
+              description: Settings for third-party signal providers (based on the `MACOS` platform)
+              properties:
+                dtc:
+                  $ref: '#/components/schemas/DTCMacOS'
+    DeviceAssuranceWindowsPlatform:
+      allOf:
+        - $ref: '#/components/schemas/DeviceAssurance'
+        - type: object
+          properties:
+            diskEncryptionType:
+              type: object
+              properties:
+                include:
+                  type: array
+                  items:
+                    $ref: '#/components/schemas/DiskEncryptionType'
+            jailbreak:
+              type: boolean
+            osVersion:
+              $ref: '#/components/schemas/OSVersion'
+            screenLockType:
+              type: object
+              properties:
+                include:
+                  type: array
+                  items:
+                    $ref: '#/components/schemas/ScreenLockType'
+            secureHardwarePresent:
+              type: boolean
+            thirdPartySignalProviders:
+              x-okta-lifecycle:
+                lifecycle: EA
+                isGenerallyAvailable: false
+                SKUs: []
+              type: object
+              description: Settings for third-party signal providers (based on the `WINDOWS` platform)
+              properties:
+                dtc:
+                  $ref: '#/components/schemas/DTCWindows'
     DeviceDisplayName:
       type: object
       properties:
@@ -20910,6 +21449,141 @@ components:
         - IN_PROGRESS
         - NOT_STARTED
         - VERIFIED
+    DTCChromeOS:
+      description: Google Chrome Device Trust Connector provider
+      type: object
+      properties:
+        allowScreenLock:
+          description: Indicates whether the AllowScreenLock enterprise policy is enabled
+          type: boolean
+        browserVersion:
+          $ref: '#/components/schemas/ChromeBrowserVersion'
+        builtInDnsClientEnabled:
+          description: Indicates if a software stack is used to communicate with the DNS server
+          type: boolean
+        chromeRemoteDesktopAppBlocked:
+          description: Indicates whether access to the Chrome Remote Desktop application is blocked through a policy
+          type: boolean
+        deviceEnrollmentDomain:
+          description: Enrollment domain of the customer that is currently managing the device
+          type: string
+        diskEnrypted:
+          description: Indicates whether the main disk is encrypted
+          type: boolean
+        keyTrustLevel:
+          $ref: '#/components/schemas/KeyTrustLevelOSMode'
+        osFirewall:
+          description: Indicates whether a firewall is enabled at the OS-level on the device
+          type: boolean
+        osVersion:
+          $ref: '#/components/schemas/OSVersion'
+        passwordProtectionWarningTrigger:
+          $ref: '#/components/schemas/PasswordProtectionWarningTrigger'
+        realtimeUrlCheckMode:
+          description: Indicates whether enterprise-grade (custom) unsafe URL scanning is enabled
+          type: boolean
+        safeBrowsingProtectionLevel:
+          $ref: '#/components/schemas/SafeBrowsingProtectionLevel'
+        screenLockSecured:
+          description: Indicates whether the device is password-protected
+          type: boolean
+        siteIsolationEnabled:
+          description: Indicates whether the Site Isolation (also known as **Site Per Process**) setting is enabled
+          type: boolean
+    DTCMacOS:
+      description: Google Chrome Device Trust Connector provider
+      type: object
+      properties:
+        browserVersion:
+          $ref: '#/components/schemas/ChromeBrowserVersion'
+        builtInDnsClientEnabled:
+          description: Indicates if a software stack is used to communicate with the DNS server
+          type: boolean
+        chromeRemoteDesktopAppBlocked:
+          description: Indicates whether access to the Chrome Remote Desktop application is blocked through a policy
+          type: boolean
+        deviceEnrollmentDomain:
+          description: Enrollment domain of the customer that is currently managing the device
+          type: string
+        diskEnrypted:
+          description: Indicates whether the main disk is encrypted
+          type: boolean
+        keyTrustLevel:
+          $ref: '#/components/schemas/KeyTrustLevelBrowserKey'
+        osFirewall:
+          description: Indicates whether a firewall is enabled at the OS-level on the device
+          type: boolean
+        osVersion:
+          $ref: '#/components/schemas/OSVersion'
+        passwordProtectionWarningTrigger:
+          $ref: '#/components/schemas/PasswordProtectionWarningTrigger'
+        realtimeUrlCheckMode:
+          description: Indicates whether enterprise-grade (custom) unsafe URL scanning is enabled
+          type: boolean
+        safeBrowsingProtectionLevel:
+          $ref: '#/components/schemas/SafeBrowsingProtectionLevel'
+        screenLockSecured:
+          description: Indicates whether the device is password-protected
+          type: boolean
+        siteIsolationEnabled:
+          description: Indicates whether the Site Isolation (also known as **Site Per Process**) setting is enabled
+          type: boolean
+    DTCWindows:
+      description: Google Chrome Device Trust Connector provider
+      type: object
+      properties:
+        browserVersion:
+          $ref: '#/components/schemas/ChromeBrowserVersion'
+        builtInDnsClientEnabled:
+          description: Indicates if a software stack is used to communicate with the DNS server
+          type: boolean
+        chromeRemoteDesktopAppBlocked:
+          description: Indicates whether access to the Chrome Remote Desktop application is blocked through a policy
+          type: boolean
+        crowdStrikeAgentId:
+          description: Agent ID of an installed CrowdStrike agent
+          type: string
+        crowdStrikeCustomerId:
+          description: Customer ID of an installed CrowdStrike agent
+          type: string
+        deviceEnrollmentDomain:
+          description: Enrollment domain of the customer that is currently managing the device
+          type: string
+        diskEnrypted:
+          description: Indicates whether the main disk is encrypted
+          type: boolean
+        keyTrustLevel:
+          $ref: '#/components/schemas/KeyTrustLevelBrowserKey'
+        osFirewall:
+          description: Indicates whether a firewall is enabled at the OS-level on the device
+          type: boolean
+        osVersion:
+          $ref: '#/components/schemas/OSVersion'
+        passwordProtectionWarningTrigger:
+          $ref: '#/components/schemas/PasswordProtectionWarningTrigger'
+        realtimeUrlCheckMode:
+          description: Indicates whether enterprise-grade (custom) unsafe URL scanning is enabled
+          type: boolean
+        safeBrowsingProtectionLevel:
+          $ref: '#/components/schemas/SafeBrowsingProtectionLevel'
+        screenLockSecured:
+          description: Indicates whether the device is password-protected
+          type: boolean
+        secureBootEnabled:
+          description: Indicates whether the device's startup software has its Secure Boot feature enabled
+          type: boolean
+        siteIsolationEnabled:
+          description: Indicates whether the Site Isolation (also known as **Site Per Process**) setting is enabled
+          type: boolean
+        thirdPartyBlockingEnabled:
+          description: Indicates whether Chrome is blocking third-party software injection
+          type: boolean
+        windowsMachineDomain:
+          description: Windows domain that the current machine has joined
+          type: string
+        windowsUserDomain:
+          description: Windows domain for the current OS user
+          type: string
     Duration:
       type: object
       properties:
@@ -21800,6 +22474,10 @@ components:
           description: The media type of the link. If omitted, it is implicitly `application/json`.
       required:
         - href
+    HrefObjectSelfLink:
+      allOf:
+        - $ref: '#/components/schemas/HrefObject'
+        - description: Link to the resource (self)
     HttpMethod:
       type: string
       enum:
@@ -22335,6 +23013,26 @@ components:
       properties:
         name:
           type: string
+    KeyTrustLevelBrowserKey:
+      description: Represents the attestation strength used by the Chrome Verified Access API
+      example: CHROME_BROWSER_HW_KEY
+      type: string
+      enum:
+        - CHROME_BROWSER_HW_KEY
+        - CHROME_BROWSER_OS_KEY
+      x-enumDescriptions:
+        CHROME_BROWSER_HW_KEY: Identity of the device was attested using a key pair that is OS encapsulated by a hardware layer
+        CHROME_BROWSER_OS_KEY: Identity of the device was attested using a key pair that is simply stored on the device but not in any specific hardware layer
+    KeyTrustLevelOSMode:
+      description: Represents the attestation strength used by the Chrome Verified Access API
+      type: string
+      enum: 
+        - CHROME_OS_VERIFIED_MODE
+        - CHROME_OS_DEVELOPER_MODE
+      example: CHROME_OS_VERIFIED_MODE
+      x-enumDescriptions:
+         CHROME_OS_VERIFIED_MODE: Identity of the device was attested using an enterprise-emitted certificate, and the device is in Verified mode
+         CHROME_OS_DEVELOPER_MODE: Identity of the device was attested using an enterprise-emitted certificate, and the device is in Developer mode
     KnowledgeConstraint:
       allOf:
         - $ref: '#/components/schemas/AccessPolicyConstraint'
@@ -22393,6 +23091,13 @@ components:
       type: string
       enum:
         - USER
+    LinksSelf:
+      description: Specifies link relations (see [Web Linking](https://www.rfc-editor.org/rfc/rfc8288)) available for the current status of an application using the [JSON Hypertext Application Language](https://datatracker.ietf.org/doc/html/draft-kelly-json-hal-06) specification. This object is used for dynamic discovery of related resources and lifecycle operations.
+      type: object
+      properties:
+        self:
+          $ref: '#/components/schemas/HrefObjectSelfLink'
+      readOnly: true
     LoadingPageTouchPointVariant:
       type: string
       enum:
@@ -23607,6 +24312,12 @@ components:
         _links:
           additionalProperties:
             type: object
+    OSVersion:
+      description: Current version of the operating system
+      type: object
+      properties:
+        minimum:
+          type: string
     PageRoot:
       type: object
       properties:
@@ -23890,6 +24601,18 @@ components:
           $ref: '#/components/schemas/PasswordPolicyPasswordSettings'
         recovery:
           $ref: '#/components/schemas/PasswordPolicyRecoverySettings'
+    PasswordProtectionWarningTrigger:
+      description: Indicates whether the Password Protection Warning feature is enabled
+      example: PHISHING_REUSE
+      type: string
+      enum:
+        - PASSWORD_PROTECTION_OFF
+        - PASSWORD_REUSE
+        - PHISHING_REUSE
+      x-enumDescriptions:
+        PASSWORD_PROTECTION_OFF: Password protection warning is off
+        PASSWORD_REUSE: Password protection warning is triggered by password reuse
+        PHISHING_REUSE: Password protection warning is triggered by password reuse on a phishing page
     PasswordSettingObject:
       type: object
       properties:
@@ -25140,6 +25863,18 @@ components:
         - REPORT_ADMIN
         - SUPER_ADMIN
         - USER_ADMIN
+    SafeBrowsingProtectionLevel:
+      description: Represents the current value of the Safe Browsing protection level
+      example: ENHANCED_PROTECTION
+      type: string
+      enum:
+        - ENHANCED_PROTECTION
+        - NO_SAFE_BROWSING
+        - STANDARD_PROTECTION
+      x-enumDescriptions:
+        NO_SAFE_BROWSING: Safe Browsing is never active
+        STANDARD_PROTECTION: Safe Browsing is active in the standard mode
+        ENHANCED_PROTECTION: Safe Browsing is active in the enhanced mode
     SamlApplication:
       allOf:
         - $ref: '#/components/schemas/Application'
