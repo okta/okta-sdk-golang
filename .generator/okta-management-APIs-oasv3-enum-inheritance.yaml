@@ -21085,7 +21085,7 @@ components:
         lastUpdatedBy:
           type: string
           readOnly: true
-        lastUpdatedDate:
+        lastUpdate:
           type: string
           readOnly: true
         name:
