@@ -1,8 +1,0 @@
-{{#each properties as |property|}}
-	{{#unless readOnly}}
-func (m *{{../modelName}}) With{{structProp propertyName}}(v {{getType this}}) *{{../modelName}} {
-	m.{{structProp propertyName}} = v
-	return m
-}
-	{{/unless}}
-{{/each}}
