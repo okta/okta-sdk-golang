@@ -24690,6 +24690,7 @@ components:
       type: string
       enum:
         - ANDROID
+        - CHROMEOS
         - IOS
         - MACOS
         - WINDOWS
