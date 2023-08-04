@@ -21467,7 +21467,7 @@ components:
         deviceEnrollmentDomain:
           description: Enrollment domain of the customer that is currently managing the device
           type: string
-        diskEnrypted:
+        diskEncrypted:
           description: Indicates whether the main disk is encrypted
           type: boolean
         keyTrustLevel:
@@ -21505,7 +21505,7 @@ components:
         deviceEnrollmentDomain:
           description: Enrollment domain of the customer that is currently managing the device
           type: string
-        diskEnrypted:
+        diskEncrypted:
           description: Indicates whether the main disk is encrypted
           type: boolean
         keyTrustLevel:
@@ -21549,7 +21549,7 @@ components:
         deviceEnrollmentDomain:
           description: Enrollment domain of the customer that is currently managing the device
           type: string
-        diskEnrypted:
+        diskEncrypted:
           description: Indicates whether the main disk is encrypted
           type: boolean
         keyTrustLevel:
