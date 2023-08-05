@@ -80,18 +80,23 @@ func Test_error_when_authorization_mode_is_not_valid(t *testing.T) {
 }
 
 func Test_does_not_error_when_authorization_mode_is_valid(t *testing.T) {
-	_, _, err := tests.NewClient(context.TODO(), okta.WithAuthorizationMode("SSWS"))
+	_, _, err := tests.NewClient(context.TODO(), okta.WithAuthorizationMode("SSWS"), okta.WithOrgUrl("https://test.okta.com"), okta.WithToken("faketoken"))
 	assert.NoError(t, err, "Should not error when authorization mode is SSWS")
 }
 
 func Test_does_not_error_when_authorization_mode_is_brearer(t *testing.T) {
-	_, _, err := tests.NewClient(context.TODO(), okta.WithAuthorizationMode("Bearer"))
+	_, _, err := tests.NewClient(context.TODO(), okta.WithAuthorizationMode("Bearer"), okta.WithOrgUrl("https://test.okta.com"), okta.WithToken("faketoken"))
 	assert.NoError(t, err, "Should not error when authorization mode is Bearer")
 }
 
 func Test_will_error_if_private_key_authorization_type_with_missing_properties(t *testing.T) {
 	_, _, err := tests.NewClient(context.TODO(), okta.WithAuthorizationMode("PrivateKey"), okta.WithClientId(""))
 	assert.Error(t, err, "Does not error if private key selected with no other required options")
+}
+
+func Test_will_error_if_secret_key_authorization_type_with_missing_properties(t *testing.T) {
+	_, _, err := tests.NewClient(context.TODO(), okta.WithAuthorizationMode("SecretKey"), okta.WithClientId(""))
+	assert.Error(t, err, "Does not error if secret key selected with no other required options")
 }
 
 type InterceptingRoundTripperTest struct {
@@ -176,6 +181,8 @@ func Test_Intercepting_RoundTripper(t *testing.T) {
 
 				_, oktaClient, err := tests.NewClient(
 					context.TODO(),
+					okta.WithOrgUrl("https://test.okta.com"),
+					okta.WithToken("faketoken"),
 					okta.WithHttpInterceptorAndHttpClientPtr(test.Interceptor, mockHttpClient, test.Blocking),
 				)
 				assert.NoError(t, err)
