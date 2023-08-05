@@ -75,6 +75,64 @@ type Authorization interface {
 	Authorize() error
 }
 
+type SecretKeyAuth struct {
+	tokenCache   *goCache.Cache
+	httpClient   *http.Client
+	clientSecret string
+	clientId     string
+	orgURL       string
+	scopes       []string
+	maxRetries   int32
+	maxBackoff   int64
+	req          *http.Request
+}
+
+type SecretKeyAuthConfig struct {
+	TokenCache   *goCache.Cache
+	HttpClient   *http.Client
+	ClientSecret string
+	ClientId     string
+	OrgURL       string
+	Scopes       []string
+	MaxRetries   int32
+	MaxBackoff   int64
+	Req          *http.Request
+}
+
+func NewSecretKeyAuth(config SecretKeyAuthConfig) *SecretKeyAuth {
+	return &SecretKeyAuth{
+		tokenCache:   config.TokenCache,
+		httpClient:   config.HttpClient,
+		clientSecret: config.ClientSecret,
+		clientId:     config.ClientId,
+		orgURL:       config.OrgURL,
+		scopes:       config.Scopes,
+		maxRetries:   config.MaxRetries,
+		maxBackoff:   config.MaxBackoff,
+		req:          config.Req,
+	}
+}
+
+func (a *SecretKeyAuth) Authorize() error {
+	accessToken, hasToken := a.tokenCache.Get(AccessTokenCacheKey)
+	if hasToken {
+		a.req.Header.Add("Authorization", "Bearer "+accessToken.(string))
+	} else {
+		accessToken, err := getAccessToken(a.httpClient, a.orgURL, getPostDataForSecretKey(a.clientId, a.clientSecret, a.scopes), a.maxRetries, a.maxBackoff)
+		if err != nil {
+			return err
+		}
+
+		a.req.Header.Add("Authorization", "Bearer "+accessToken.AccessToken)
+
+		// Trim a couple of seconds off calculated expiry so cache expiry
+		// occures before Okta server side expiry.
+		expiration := accessToken.ExpiresIn - 2
+		a.tokenCache.Set(AccessTokenCacheKey, accessToken.AccessToken, time.Second*time.Duration(expiration))
+	}
+	return nil
+}
+
 type SSWSAuth struct {
 	token string
 	req   *http.Request
@@ -165,7 +223,7 @@ func (a *PrivateKeyAuth) Authorize() error {
 			return err
 		}
 
-		accessToken, err := getAccessTokenForPrivateKey(a.httpClient, a.orgURL, clientAssertion, a.scopes, a.maxRetries, a.maxBackoff)
+		accessToken, err := getAccessToken(a.httpClient, a.orgURL, getPostDataForPrivateKey(clientAssertion, a.scopes), a.maxRetries, a.maxBackoff)
 		if err != nil {
 			return err
 		}
@@ -220,7 +278,7 @@ func (a *JWTAuth) Authorize() error {
 	if hasToken {
 		a.req.Header.Add("Authorization", "Bearer "+accessToken.(string))
 	} else {
-		accessToken, err := getAccessTokenForPrivateKey(a.httpClient, a.orgURL, a.clientAssertion, a.scopes, a.maxRetries, a.maxBackoff)
+		accessToken, err := getAccessToken(a.httpClient, a.orgURL, getPostDataForPrivateKey(a.clientAssertion, a.scopes), a.maxRetries, a.maxBackoff)
 		if err != nil {
 			return err
 		}
@@ -270,16 +328,29 @@ func CreateClientAssertion(orgURL, clientID string, privateKeySinger jose.Signer
 	return jwtBuilder.CompactSerialize()
 }
 
-func getAccessTokenForPrivateKey(httpClient *http.Client, orgURL, clientAssertion string, scopes []string, maxRetries int32, maxBackoff int64) (*RequestAccessToken, error) {
-	var tokenRequestBuff io.ReadWriter
+func getPostDataForSecretKey(clientId, clientSecret string, scopes []string) urlpkg.Values {
 	query := urlpkg.Values{}
-	tokenRequestURL := orgURL + "/oauth2/v1/token"
+	query.Add("grant_type", "client_credentials")
+	query.Add("scope", strings.Join(scopes, " "))
+	query.Add("client_id", clientId)
+	query.Add("client_secret", clientSecret)
+	return query
+}
 
+func getPostDataForPrivateKey(clientAssertion string, scopes []string) urlpkg.Values {
+	query := urlpkg.Values{}
 	query.Add("grant_type", "client_credentials")
 	query.Add("scope", strings.Join(scopes, " "))
 	query.Add("client_assertion_type", "urn:ietf:params:oauth:client-assertion-type:jwt-bearer")
 	query.Add("client_assertion", clientAssertion)
-	tokenRequestURL += "?" + query.Encode()
+	return query
+}
+
+func getAccessToken(httpClient *http.Client, orgURL string, postData urlpkg.Values, maxRetries int32, maxBackoff int64) (*RequestAccessToken, error) {
+	var tokenRequestBuff io.ReadWriter
+	tokenRequestURL := orgURL + "/oauth2/v1/token"
+
+	tokenRequestURL += "?" + postData.Encode()
 	tokenRequest, err := http.NewRequest("POST", tokenRequestURL, tokenRequestBuff)
 	if err != nil {
 		return nil, err
@@ -376,6 +447,18 @@ func (re *RequestExecutor) NewRequest(method string, url string, body interface{
 		auth = NewSSWSAuth(re.config.Okta.Client.Token, req)
 	case "Bearer":
 		auth = NewBearerAuth(re.config.Okta.Client.Token, req)
+	case "SecretKey":
+		auth = NewSecretKeyAuth(SecretKeyAuthConfig{
+			TokenCache:   re.tokenCache,
+			HttpClient:   re.httpClient,
+			ClientSecret: re.config.Okta.Client.ClientSecret,
+			ClientId:     re.config.Okta.Client.ClientId,
+			OrgURL:       re.config.Okta.Client.OrgUrl,
+			Scopes:       re.config.Okta.Client.Scopes,
+			MaxRetries:   re.config.Okta.Client.RateLimit.MaxRetries,
+			MaxBackoff:   re.config.Okta.Client.RateLimit.MaxBackoff,
+			Req:          req,
+		})
 	case "PrivateKey":
 		auth = NewPrivateKeyAuth(PrivateKeyAuthConfig{
 			TokenCache:       re.tokenCache,
