@@ -217,7 +217,7 @@ func Test_List_Assigned_Applications_For_Group(t *testing.T) {
 		assert.Equal(t, 0, len(apps), "there shouldn't be any apps assigned to group")
 		createdApp, _, err = setupBookmarkApplication(randomTestString())
 		require.NoError(t, err, "Creating an application should not error")
-		aareq := apiClient.ApplicationApi.AssignGroupToApplication(apiClient.cfg.Context, createdApp.BookmarkApplication.GetId(), group.GetId())
+		aareq := apiClient.ApplicationGroupsApi.AssignGroupToApplication(apiClient.cfg.Context, createdApp.BookmarkApplication.GetId(), group.GetId())
 		aareq.applicationGroupAssignment = NewApplicationGroupAssignment()
 		_, _, err = aareq.Execute()
 		require.NoError(t, err, "Assigning application to group should not error")
