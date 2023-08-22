@@ -212,10 +212,12 @@ func Test_Get_Linked_User(t *testing.T) {
 		require.NoError(t, err, "Could not get user's idp")
 		assert.Equal(t, createdUser.GetId(), linkUser.GetId())
 		var idpInLink bool
-		if idp, ok := linkUser.Links["idp"]; ok {
-			if href, ok := idp["href"]; ok {
-				if strings.Contains(fmt.Sprintf("%v", href), createdIdp.GetId()) {
-					idpInLink = true
+		if idp, ok := linkUser.Links.AdditionalProperties["idp"]; ok {
+			if hrefMap, ok := idp.(map[string]interface{}); ok {
+				if href, ok := hrefMap["href"]; ok {
+					if strings.Contains(fmt.Sprintf("%v", href), createdIdp.GetId()) {
+						idpInLink = true
+					}
 				}
 			}
 		}

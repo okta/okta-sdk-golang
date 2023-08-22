@@ -125,7 +125,7 @@ func Test_Application_Users_Operations(t *testing.T) {
 	}
 	createdApp, _, err := setupBasicAuthApplication(randomTestString())
 	require.NoError(t, err, "Creating a new application should not error")
-	appUserList, _, err := apiClient.ApplicationApi.ListApplicationUsers(apiClient.cfg.Context, createdApp.BasicAuthApplication.GetId()).Execute()
+	appUserList, _, err := apiClient.ApplicationUsersApi.ListApplicationUsers(apiClient.cfg.Context, createdApp.BasicAuthApplication.GetId()).Execute()
 	require.NoError(t, err, "Could not get list app users")
 	require.Empty(t, appUserList, "App User List should be empty")
 	user, _, _, err := setupUser(false)
@@ -139,9 +139,9 @@ func Test_Application_Users_Operations(t *testing.T) {
 		payload := AppUser{}
 		payload.SetId(user.GetId())
 		payload.SetCredentials(credentials)
-		appUser, _, err := apiClient.ApplicationApi.AssignUserToApplication(apiClient.cfg.Context, createdApp.BasicAuthApplication.GetId()).AppUser(payload).Execute()
+		appUser, _, err := apiClient.ApplicationUsersApi.AssignUserToApplication(apiClient.cfg.Context, createdApp.BasicAuthApplication.GetId()).AppUser(payload).Execute()
 		require.NoError(t, err, "Assigning user to application should not error")
-		appUserList, _, err := apiClient.ApplicationApi.ListApplicationUsers(apiClient.cfg.Context, createdApp.BasicAuthApplication.GetId()).Execute()
+		appUserList, _, err := apiClient.ApplicationUsersApi.ListApplicationUsers(apiClient.cfg.Context, createdApp.BasicAuthApplication.GetId()).Execute()
 		require.NoError(t, err, "Could not get list app users")
 		require.NotEmpty(t, appUserList, "App User List should not be empty")
 		var found bool
@@ -154,12 +154,12 @@ func Test_Application_Users_Operations(t *testing.T) {
 		assert.True(t, found)
 	})
 	t.Run("get application user", func(t *testing.T) {
-		appUser, _, err := apiClient.ApplicationApi.GetApplicationUser(apiClient.cfg.Context, createdApp.BasicAuthApplication.GetId(), user.GetId()).Execute()
+		appUser, _, err := apiClient.ApplicationUsersApi.GetApplicationUser(apiClient.cfg.Context, createdApp.BasicAuthApplication.GetId(), user.GetId()).Execute()
 		require.NoError(t, err, "Could not get app user")
 		assert.Equal(t, user.GetId(), appUser.GetId())
 	})
 	t.Run("update application user", func(t *testing.T) {
-		appUser, _, err := apiClient.ApplicationApi.GetApplicationUser(apiClient.cfg.Context, createdApp.BasicAuthApplication.GetId(), user.GetId()).Execute()
+		appUser, _, err := apiClient.ApplicationUsersApi.GetApplicationUser(apiClient.cfg.Context, createdApp.BasicAuthApplication.GetId(), user.GetId()).Execute()
 		require.NoError(t, err, "Could not get app user")
 		oldUserName := appUser.Credentials.GetUserName()
 		newUserName := randomTestString()
@@ -169,15 +169,15 @@ func Test_Application_Users_Operations(t *testing.T) {
 		credentials.SetPassword(pwcredentials)
 		credentials.SetUserName(newUserName)
 		appUser.SetCredentials(credentials)
-		updatedAppUser, _, err := apiClient.ApplicationApi.UpdateApplicationUser(apiClient.cfg.Context, createdApp.BasicAuthApplication.GetId(), user.GetId()).AppUser(*appUser).Execute()
+		updatedAppUser, _, err := apiClient.ApplicationUsersApi.UpdateApplicationUser(apiClient.cfg.Context, createdApp.BasicAuthApplication.GetId(), user.GetId()).AppUser(*appUser).Execute()
 		require.NoError(t, err, "Could not update app user")
 		assert.NotEqual(t, oldUserName, updatedAppUser.Credentials.GetUserName())
 		assert.Equal(t, newUserName, updatedAppUser.Credentials.GetUserName())
 	})
 	t.Run("remove application from user", func(t *testing.T) {
-		_, err = apiClient.ApplicationApi.UnassignUserFromApplication(apiClient.cfg.Context, createdApp.BasicAuthApplication.GetId(), user.GetId()).Execute()
+		_, err = apiClient.ApplicationUsersApi.UnassignUserFromApplication(apiClient.cfg.Context, createdApp.BasicAuthApplication.GetId(), user.GetId()).Execute()
 		require.NoError(t, err, "Delete user to application should not error")
-		appUserList, _, err := apiClient.ApplicationApi.ListApplicationUsers(apiClient.cfg.Context, createdApp.BasicAuthApplication.GetId()).Execute()
+		appUserList, _, err := apiClient.ApplicationUsersApi.ListApplicationUsers(apiClient.cfg.Context, createdApp.BasicAuthApplication.GetId()).Execute()
 		require.NoError(t, err, "Could not get list apps")
 		require.Empty(t, appUserList, "App User List should be empty")
 	})
@@ -198,24 +198,24 @@ func Test_Application_Groups_Operations(t *testing.T) {
 	t.Run("assign group to application", func(t *testing.T) {
 		payload := ApplicationGroupAssignment{}
 		payload.SetPriority(5)
-		appGroup, _, err := apiClient.ApplicationApi.AssignGroupToApplication(apiClient.cfg.Context, createdApp.BasicAuthApplication.GetId(), group.GetId()).ApplicationGroupAssignment(payload).Execute()
+		appGroup, _, err := apiClient.ApplicationGroupsApi.AssignGroupToApplication(apiClient.cfg.Context, createdApp.BasicAuthApplication.GetId(), group.GetId()).ApplicationGroupAssignment(payload).Execute()
 		require.NoError(t, err, "Create app group assignment should not error")
 		assert.NotNil(t, appGroup)
 	})
 	t.Run("get application group", func(t *testing.T) {
-		appGroup, _, err := apiClient.ApplicationApi.GetApplicationGroupAssignment(apiClient.cfg.Context, createdApp.BasicAuthApplication.GetId(), group.GetId()).Execute()
+		appGroup, _, err := apiClient.ApplicationGroupsApi.GetApplicationGroupAssignment(apiClient.cfg.Context, createdApp.BasicAuthApplication.GetId(), group.GetId()).Execute()
 		require.NoError(t, err, "Get app group assignment should not error")
 		assert.Equal(t, int32(5), appGroup.GetPriority())
 	})
 	t.Run("list application group", func(t *testing.T) {
-		appGroupList, _, err := apiClient.ApplicationApi.ListApplicationGroupAssignments(apiClient.cfg.Context, createdApp.BasicAuthApplication.GetId()).Execute()
+		appGroupList, _, err := apiClient.ApplicationGroupsApi.ListApplicationGroupAssignments(apiClient.cfg.Context, createdApp.BasicAuthApplication.GetId()).Execute()
 		require.NoError(t, err, "Get list app group assignment should not error")
 		assert.NotEmpty(t, appGroupList)
 	})
 	t.Run("remove application from group", func(t *testing.T) {
-		_, err = apiClient.ApplicationApi.UnassignApplicationFromGroup(apiClient.cfg.Context, createdApp.BasicAuthApplication.GetId(), group.GetId()).Execute()
+		_, err = apiClient.ApplicationGroupsApi.UnassignApplicationFromGroup(apiClient.cfg.Context, createdApp.BasicAuthApplication.GetId(), group.GetId()).Execute()
 		require.NoError(t, err, "Delete app group assignment should not error")
-		_, _, err := apiClient.ApplicationApi.GetApplicationGroupAssignment(apiClient.cfg.Context, createdApp.BasicAuthApplication.GetId(), group.GetId()).Execute()
+		_, _, err := apiClient.ApplicationGroupsApi.GetApplicationGroupAssignment(apiClient.cfg.Context, createdApp.BasicAuthApplication.GetId(), group.GetId()).Execute()
 		assert.Equal(t, "404 Not Found", err.Error())
 	})
 	err = cleanUpGroup(group.GetId())
@@ -232,21 +232,21 @@ func Test_CSR_For_Application(t *testing.T) {
 	require.NoError(t, err, "Creating a new application should not error")
 	var generatedCsr *Csr
 	t.Run("generate csr", func(t *testing.T) {
-		generatedCsr, _, err = apiClient.ApplicationApi.GenerateCsrForApplication(apiClient.cfg.Context, createdApp.BasicAuthApplication.GetId()).Metadata(*testFactory.NewValidTestCSRMetadata()).Execute()
+		generatedCsr, _, err = apiClient.ApplicationCredentialsApi.GenerateCsrForApplication(apiClient.cfg.Context, createdApp.BasicAuthApplication.GetId()).Metadata(*testFactory.NewValidTestCSRMetadata()).Execute()
 		require.NoError(t, err, "Generating a new csr should not error")
 		assert.NotNil(t, generatedCsr)
 		assert.Equal(t, "RSA", generatedCsr.GetKty())
 		assert.NotNil(t, generatedCsr.Csr)
 	})
 	t.Run("get CSR by ID", func(t *testing.T) {
-		rcsr, _, err := apiClient.ApplicationApi.GetCsrForApplication(apiClient.cfg.Context, createdApp.BasicAuthApplication.GetId(), generatedCsr.GetId()).Execute()
+		rcsr, _, err := apiClient.ApplicationCredentialsApi.GetCsrForApplication(apiClient.cfg.Context, createdApp.BasicAuthApplication.GetId(), generatedCsr.GetId()).Execute()
 		require.NoError(t, err, "Could not get csr by ID")
 		assert.NotNil(t, rcsr)
 		assert.Equal(t, generatedCsr.GetKty(), rcsr.GetKty())
 		assert.NotNil(t, generatedCsr.GetCsr(), rcsr.GetCsr())
 	})
 	t.Run("list CSR", func(t *testing.T) {
-		listCSRs, _, err := apiClient.ApplicationApi.ListCsrsForApplication(apiClient.cfg.Context, createdApp.BasicAuthApplication.GetId()).Execute()
+		listCSRs, _, err := apiClient.ApplicationCredentialsApi.ListCsrsForApplication(apiClient.cfg.Context, createdApp.BasicAuthApplication.GetId()).Execute()
 		require.NoError(t, err, "Could not list csr by app ID")
 		assert.NotEmpty(t, listCSRs)
 		var result bool
@@ -259,9 +259,9 @@ func Test_CSR_For_Application(t *testing.T) {
 		assert.True(t, result)
 	})
 	t.Run("revoke csr", func(t *testing.T) {
-		_, err := apiClient.ApplicationApi.RevokeCsrFromApplication(apiClient.cfg.Context, createdApp.BasicAuthApplication.GetId(), generatedCsr.GetId()).Execute()
+		_, err := apiClient.ApplicationCredentialsApi.RevokeCsrFromApplication(apiClient.cfg.Context, createdApp.BasicAuthApplication.GetId(), generatedCsr.GetId()).Execute()
 		require.NoError(t, err, "Unable to revoke csr")
-		listCSRs, _, err := apiClient.ApplicationApi.ListCsrsForApplication(apiClient.cfg.Context, createdApp.BasicAuthApplication.GetId()).Execute()
+		listCSRs, _, err := apiClient.ApplicationCredentialsApi.ListCsrsForApplication(apiClient.cfg.Context, createdApp.BasicAuthApplication.GetId()).Execute()
 		require.NoError(t, err, "Could not list csr by app ID")
 		assert.Empty(t, listCSRs)
 	})
@@ -276,17 +276,17 @@ func TestGetDefaultProvisioningConnectionForApplication(t *testing.T) {
 	createdApp, _, err := setupOrg2OrgApplication(randomTestString())
 	require.NoError(t, err, "Creating a new application should not error")
 	t.Run("get provisioning", func(t *testing.T) {
-		conn, _, err := apiClient.ApplicationApi.GetDefaultProvisioningConnectionForApplication(apiClient.cfg.Context, createdApp.SamlApplication.GetId()).Execute()
+		conn, _, err := apiClient.ApplicationConnectionsApi.GetDefaultProvisioningConnectionForApplication(apiClient.cfg.Context, createdApp.SamlApplication.GetId()).Execute()
 		require.NoError(t, err, "getting default provisioning connection for application should not error.")
 		assert.NotEmpty(t, conn.GetAuthScheme())
 		assert.NotEmpty(t, conn.GetStatus())
 	})
 	t.Run("set provisioning", func(t *testing.T) {
-		profile := &ProvisioningConnectionProfile{}
+		profile := ProvisioningConnectionProfile{}
 		profile.SetAuthScheme("TOKEN")
 		profile.SetToken("TEST")
 		payload := ProvisioningConnectionRequest{Profile: profile}
-		conn, _, err := apiClient.ApplicationApi.UpdateDefaultProvisioningConnectionForApplication(apiClient.cfg.Context, createdApp.SamlApplication.GetId()).ProvisioningConnectionRequest(payload).Activate(false).Execute()
+		conn, _, err := apiClient.ApplicationConnectionsApi.UpdateDefaultProvisioningConnectionForApplication(apiClient.cfg.Context, createdApp.SamlApplication.GetId()).ProvisioningConnectionRequest(payload).Activate(false).Execute()
 		require.NoError(t, err, "setting default provisioning connection for application should not error.")
 		assert.Equal(t, PROVISIONINGCONNECTIONAUTHSCHEME_TOKEN, conn.GetAuthScheme())
 	})
@@ -332,7 +332,7 @@ func Test_Upload_Application_Logo(t *testing.T) {
 		filePath := path.Join(fileDir, fileName)
 		file, err := os.Open(filePath)
 		require.NoError(t, err, "opening application logo should not error.")
-		_, err = apiClient.ApplicationApi.UploadApplicationLogo(apiClient.cfg.Context, createdApp.BasicAuthApplication.GetId()).File(file).Execute()
+		_, err = apiClient.ApplicationLogosApi.UploadApplicationLogo(apiClient.cfg.Context, createdApp.BasicAuthApplication.GetId()).File(file).Execute()
 		require.NoError(t, err, "uploading application logo should not error.")
 	})
 	err = cleanUpApplication(createdApp.BasicAuthApplication.GetId())
@@ -349,18 +349,18 @@ func Test_Application_Key_Operation(t *testing.T) {
 	require.NoError(t, err, "Creating a new application should not error")
 	var createdKey *JsonWebKey
 	t.Run("generate application key", func(t *testing.T) {
-		createdKey, _, err = apiClient.ApplicationApi.GenerateApplicationKey(apiClient.cfg.Context, createdApp1.BasicAuthApplication.GetId()).ValidityYears(2).Execute()
+		createdKey, _, err = apiClient.ApplicationCredentialsApi.GenerateApplicationKey(apiClient.cfg.Context, createdApp1.BasicAuthApplication.GetId()).ValidityYears(2).Execute()
 		assert.Nil(t, err, "generate new application key should not error")
 	})
 	t.Run("clone application key", func(t *testing.T) {
-		ckey, _, err := apiClient.ApplicationApi.CloneApplicationKey(apiClient.cfg.Context, createdApp1.BasicAuthApplication.GetId(), createdKey.GetKid()).TargetAid(createdApp2.BasicAuthApplication.GetId()).Execute()
+		ckey, _, err := apiClient.ApplicationCredentialsApi.CloneApplicationKey(apiClient.cfg.Context, createdApp1.BasicAuthApplication.GetId(), createdKey.GetKid()).TargetAid(createdApp2.BasicAuthApplication.GetId()).Execute()
 		require.NoError(t, err, "clone application key should not error")
 		assert.Equal(t, createdKey.GetKid(), ckey.GetKid())
 		assert.Equal(t, createdKey.GetExpiresAt(), ckey.GetExpiresAt())
 		assert.Equal(t, createdKey.GetX5c(), ckey.GetX5c())
 	})
 	t.Run("get application key credentials", func(t *testing.T) {
-		rkey, _, err := apiClient.ApplicationApi.GetApplicationKey(apiClient.cfg.Context, createdApp1.BasicAuthApplication.GetId(), createdKey.GetKid()).Execute()
+		rkey, _, err := apiClient.ApplicationCredentialsApi.GetApplicationKey(apiClient.cfg.Context, createdApp1.BasicAuthApplication.GetId(), createdKey.GetKid()).Execute()
 		require.NoError(t, err, "get application key should not error")
 		assert.Equal(t, createdKey.GetKid(), rkey.GetKid())
 		assert.Equal(t, createdKey.GetCreated(), rkey.GetCreated())
@@ -368,7 +368,7 @@ func Test_Application_Key_Operation(t *testing.T) {
 		assert.Equal(t, createdKey.GetX5c(), rkey.GetX5c())
 	})
 	t.Run("list application key credentials", func(t *testing.T) {
-		rkeys, _, err := apiClient.ApplicationApi.ListApplicationKeys(apiClient.cfg.Context, createdApp1.BasicAuthApplication.GetId()).Execute()
+		rkeys, _, err := apiClient.ApplicationCredentialsApi.ListApplicationKeys(apiClient.cfg.Context, createdApp1.BasicAuthApplication.GetId()).Execute()
 		require.NoError(t, err, "get application key should not error")
 		assert.Equal(t, 2, len(rkeys))
 	})
@@ -389,22 +389,22 @@ func Test_Scope_Consent_Grant_Operation_For_Application(t *testing.T) {
 		payload := OAuth2ScopeConsentGrant{}
 		payload.SetIssuer(apiClient.cfg.Okta.Client.OrgUrl)
 		payload.SetScopeId("okta.users.read")
-		grant, _, err = apiClient.ApplicationApi.GrantConsentToScope(apiClient.cfg.Context, createdApp.OpenIdConnectApplication.GetId()).OAuth2ScopeConsentGrant(payload).Execute()
+		grant, _, err = apiClient.ApplicationGrantsApi.GrantConsentToScope(apiClient.cfg.Context, createdApp.OpenIdConnectApplication.GetId()).OAuth2ScopeConsentGrant(payload).Execute()
 		assert.Nil(t, err, "grant consent to scope should not error")
 	})
 	t.Run("get scope consent grant", func(t *testing.T) {
-		rgrant, _, err := apiClient.ApplicationApi.GetScopeConsentGrant(apiClient.cfg.Context, createdApp.OpenIdConnectApplication.GetId(), grant.GetId()).Execute()
+		rgrant, _, err := apiClient.ApplicationGrantsApi.GetScopeConsentGrant(apiClient.cfg.Context, createdApp.OpenIdConnectApplication.GetId(), grant.GetId()).Execute()
 		require.NoError(t, err, "get scope consent grant should not error")
 		assert.Equal(t, grant.GetId(), rgrant.GetId())
 		assert.Equal(t, grant.GetClientId(), rgrant.GetClientId())
 	})
 	t.Run("list scope consent grant", func(t *testing.T) {
-		rgrants, _, err := apiClient.ApplicationApi.ListScopeConsentGrants(apiClient.cfg.Context, createdApp.OpenIdConnectApplication.GetId()).Execute()
+		rgrants, _, err := apiClient.ApplicationGrantsApi.ListScopeConsentGrants(apiClient.cfg.Context, createdApp.OpenIdConnectApplication.GetId()).Execute()
 		require.NoError(t, err, "list scope consent grant should not error")
 		assert.NotEmpty(t, rgrants)
 	})
 	t.Run("revoke consent grant", func(t *testing.T) {
-		_, err = apiClient.ApplicationApi.RevokeScopeConsentGrant(apiClient.cfg.Context, createdApp.OpenIdConnectApplication.GetId(), grant.GetId()).Execute()
+		_, err = apiClient.ApplicationGrantsApi.RevokeScopeConsentGrant(apiClient.cfg.Context, createdApp.OpenIdConnectApplication.GetId(), grant.GetId()).Execute()
 		assert.Nil(t, err, "revoke consent to scope should not error")
 	})
 	err = cleanUpApplication(createdApp.OpenIdConnectApplication.GetId())

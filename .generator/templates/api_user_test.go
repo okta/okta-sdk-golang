@@ -342,15 +342,14 @@ func Test_List_User_Subscriptions(t *testing.T) {
 	user, _, err := apiClient.UserApi.GetUser(apiClient.cfg.Context, "me").Execute()
 	require.NoError(t, err, "Getting the current user should not error")
 	t.Run("get user subscription", func(t *testing.T) {
-		subscriptions, _, err := apiClient.SubscriptionApi.ListUserSubscriptions(apiClient.cfg.Context, user.GetId()).Execute()
+		subscriptions, _, err := apiClient.SubscriptionApi.ListSubscriptionsUser(apiClient.cfg.Context, user.GetId()).Execute()
 		require.NoError(t, err, "Should not error listing user subscriptions")
 		assert.True(t, len(subscriptions) > 0, "User should have subscriptions")
 	})
 	t.Run("get user subscription by notification type", func(t *testing.T) {
-		expectedNotificationType := "OKTA_ANNOUNCEMENT"
-		subscription, _, err := apiClient.SubscriptionApi.ListUserSubscriptionsByNotificationType(apiClient.cfg.Context, user.GetId(), expectedNotificationType).Execute()
+		subscription, _, err := apiClient.SubscriptionApi.GetSubscriptionsNotificationTypeUser(apiClient.cfg.Context, NOTIFICATIONTYPE_OKTA_ANNOUNCEMENT, user.GetId()).Execute()
 		require.NoError(t, err, "Should not error getting user subscription by notification types")
-		assert.Equal(t, subscription.GetNotificationType(), NOTIFICATIONTYPE_OKTA_ANNOUNCEMENT, "User should have subscription notification type %q, got %q", expectedNotificationType, subscription.NotificationType)
+		assert.Equal(t, subscription.GetNotificationType(), NOTIFICATIONTYPE_OKTA_ANNOUNCEMENT, "User should have subscription notification type %q, got %q", NOTIFICATIONTYPE_OKTA_ANNOUNCEMENT, subscription.NotificationType)
 	})
 }
 
