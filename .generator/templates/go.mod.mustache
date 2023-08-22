@@ -1,6 +1,6 @@
 module {{gitHost}}/{{gitUserId}}/{{gitRepoId}}{{#isGoSubmodule}}/{{packageName}}{{/isGoSubmodule}}/{{versionName}}
 
-go 1.13
+go 1.20
 
 require (
 	{{#withAWSV4Signature}}
@@ -14,4 +14,14 @@ require (
 	github.com/stretchr/testify v1.7.1
 	golang.org/x/oauth2 v0.0.0-20210323180902-22b0adad7558
 	gopkg.in/yaml.v3 v3.0.1
+)
+
+require (
+	github.com/davecgh/go-spew v1.1.1 // indirect
+	github.com/golang/protobuf v1.4.2 // indirect
+	github.com/pmezard/go-difflib v1.0.0 // indirect
+	golang.org/x/crypto v0.0.0-20200622213623-75b288015ac9 // indirect
+	golang.org/x/net v0.0.0-20200822124328-c89045814202 // indirect
+	google.golang.org/appengine v1.6.6 // indirect
+	google.golang.org/protobuf v1.25.0 // indirect
 )
