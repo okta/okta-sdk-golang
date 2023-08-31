@@ -3,7 +3,7 @@
 version: 2.1
 
 orbs:
-  platform-orb: okta/general-platform-helpers@1.5
+  platform-orb: okta/general-platform-helpers@1.8
 
 # Define a job to be invoked later in a workflow.
 # See: https://circleci.com/docs/2.0/configuration-reference/#jobs
@@ -47,5 +47,14 @@ workflows:
       # - test-v3:
       #     requires:
       #       - cache-secrets
+  # See OKTA-624790
+  semgrep:
+    jobs:
+      - platform-orb/job-semgrep-prepare:
+          name: semgrep-prepare
+      - platform-orb/job-semgrep-scan:
+          name: "Scan with Semgrep"
+          requires:
+            - semgrep-prepare
 
 # VS Code Extension Version: 1.4.0
