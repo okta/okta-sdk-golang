@@ -18,6 +18,7 @@ package okta
 
 import (
 	"fmt"
+	"net/http"
 	"strings"
 )
 
@@ -29,6 +30,8 @@ type Error struct {
 	ErrorLink        string                   `json:"errorLink,omitempty"`
 	ErrorId          string                   `json:"errorId,omitempty"`
 	ErrorCauses      []map[string]interface{} `json:"errorCauses,omitempty"`
+	Header           http.Header              `json:"-"`
+	StatusCode       int                      `json:"-"`
 }
 
 func (e *Error) Error() string {
