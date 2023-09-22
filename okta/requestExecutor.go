@@ -629,7 +629,7 @@ func (re *RequestExecutor) doWithRetries(ctx context.Context, req *http.Request)
 		bOff.retryCount++
 		req.Header.Add("X-Okta-Retry-For", resp.Header.Get("X-Okta-Request-Id"))
 		req.Header.Add("X-Okta-Retry-Count", fmt.Sprint(bOff.retryCount))
-		return errors.New("too many requests")
+		return &Error{ErrorMessage: "too many requests", Header: resp.Header, StatusCode: resp.StatusCode}
 	}
 	err = backoff.Retry(operation, bOff)
 	return resp, done, err
@@ -719,7 +719,10 @@ func CheckResponseForError(resp *http.Response) error {
 	if statusCode >= http.StatusOK && statusCode < http.StatusBadRequest {
 		return nil
 	}
-	e := Error{}
+	e := Error{
+		Header:     resp.Header,
+		StatusCode: resp.StatusCode,
+	}
 	if (statusCode == http.StatusUnauthorized || statusCode == http.StatusForbidden) &&
 		strings.Contains(resp.Header.Get("Www-Authenticate"), "Bearer") {
 		for _, v := range strings.Split(resp.Header.Get("Www-Authenticate"), ", ") {
