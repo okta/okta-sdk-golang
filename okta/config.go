@@ -54,6 +54,7 @@ type config struct {
 			Token             string   `yaml:"token" envconfig:"OKTA_CLIENT_TOKEN"`
 			AuthorizationMode string   `yaml:"authorizationMode" envconfig:"OKTA_CLIENT_AUTHORIZATIONMODE"`
 			ClientId          string   `yaml:"clientId" envconfig:"OKTA_CLIENT_CLIENTID"`
+			ClientSecret      string   `yaml:"clientSecret" envconfig:"OKTA_CLIENT_CLIENTSECRET"`
 			Scopes            []string `yaml:"scopes" envconfig:"OKTA_CLIENT_SCOPES"`
 			PrivateKey        string   `yaml:"privateKey" envconfig:"OKTA_CLIENT_PRIVATEKEY"`
 			PrivateKeyId      string   `yaml:"privateKeyId" envconfig:"OKTA_CLIENT_PRIVATEKEYID"`
@@ -211,6 +212,12 @@ func WithAuthorizationMode(authzMode string) ConfigSetter {
 func WithClientId(clientId string) ConfigSetter {
 	return func(c *config) {
 		c.Okta.Client.ClientId = clientId
+	}
+}
+
+func WithClientSecret(clientSecret string) ConfigSetter {
+	return func(c *config) {
+		c.Okta.Client.ClientSecret = clientSecret
 	}
 }
 

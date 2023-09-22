@@ -30,7 +30,7 @@ func Test_429_Will_Automatically_Retry(t *testing.T) {
 	httpmock.Activate()
 	defer httpmock.DeactivateAndReset()
 
-	ctx, client, err := tests.NewClient(context.TODO(), okta.WithCache(false))
+	ctx, client, err := tests.NewClient(context.TODO(), okta.WithOrgUrl("https://test.okta.com"), okta.WithToken("faketoken"), okta.WithCache(false))
 	require.NoError(t, err, "failed to create client")
 
 	httpmock.RegisterResponder("GET", "/api/v1/users",
@@ -53,7 +53,7 @@ func Test_Will_Stop_Retrying_Based_On_Max_Retry_Configuration(t *testing.T) {
 	httpmock.Activate()
 	defer httpmock.DeactivateAndReset()
 
-	ctx, client, err := tests.NewClient(context.TODO(), okta.WithRequestTimeout(0), okta.WithRateLimitMaxRetries(1))
+	ctx, client, err := tests.NewClient(context.TODO(), okta.WithOrgUrl("https://test.okta.com"), okta.WithToken("faketoken"), okta.WithRequestTimeout(0), okta.WithRateLimitMaxRetries(1))
 	require.NoError(t, err)
 
 	httpmock.RegisterResponder("GET", "/api/v1/users",
@@ -77,7 +77,7 @@ func Test_Will_Handle_Backoff_Strategy_For_429(t *testing.T) {
 	httpmock.Activate()
 	defer httpmock.DeactivateAndReset()
 
-	ctx, client, err := tests.NewClient(context.TODO(), okta.WithRequestTimeout(1), okta.WithRateLimitMaxRetries(3))
+	ctx, client, err := tests.NewClient(context.TODO(), okta.WithOrgUrl("https://test.okta.com"), okta.WithToken("faketoken"), okta.WithRequestTimeout(1), okta.WithRateLimitMaxRetries(3))
 	require.NoError(t, err, "failed to create client")
 
 	httpmock.RegisterResponder("GET", "/api/v1/users",
@@ -102,7 +102,7 @@ func Test_a_429_with_x_reset_header_throws_error(t *testing.T) {
 	httpmock.Activate()
 	defer httpmock.DeactivateAndReset()
 
-	ctx, client, err := tests.NewClient(context.TODO())
+	ctx, client, err := tests.NewClient(context.TODO(), okta.WithOrgUrl("https://test.okta.com"), okta.WithToken("faketoken"))
 	require.NoError(t, err, "failed to create client")
 
 	httpmock.RegisterResponder("GET", "/api/v1/users",
@@ -120,7 +120,7 @@ func Test_a_429_with_no_date_header_throws_error(t *testing.T) {
 	httpmock.Activate()
 	defer httpmock.DeactivateAndReset()
 
-	ctx, client, err := tests.NewClient(context.TODO())
+	ctx, client, err := tests.NewClient(context.TODO(), okta.WithOrgUrl("https://test.okta.com"), okta.WithToken("faketoken"))
 	require.NoError(t, err, "failed to create client")
 
 	httpmock.RegisterResponder("GET", "/api/v1/users",

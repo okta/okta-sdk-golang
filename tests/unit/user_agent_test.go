@@ -28,7 +28,7 @@ import (
 )
 
 func TestUserAgent(t *testing.T) {
-	_, client, _ := tests.NewClient(context.TODO(), okta.WithOrgUrl("https://example.com"))
+	_, client, _ := tests.NewClient(context.TODO(), okta.WithOrgUrl("https://example.com"), okta.WithToken("faketoken"))
 	agent := okta.NewUserAgent(client.GetConfig())
 	userAgent := "okta-sdk-golang/" + okta.Version + " golang/" + runtime.Version() + " " + runtime.GOOS + "/" + runtime.GOARCH
 	require.Equal(t, userAgent, agent.String())
@@ -37,6 +37,7 @@ func TestUserAgent(t *testing.T) {
 func TestUserAgentWithExtra(t *testing.T) {
 	_, client, _ := tests.NewClient(context.TODO(),
 		okta.WithOrgUrl("https://example.com"),
+		okta.WithToken("faketoken"),
 		okta.WithUserAgentExtra("extra"),
 	)
 	agent := okta.NewUserAgent(client.GetConfig())

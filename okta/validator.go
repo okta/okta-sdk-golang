@@ -67,9 +67,17 @@ func validateAPIToken(c *config) error {
 func validateAuthorization(c *config) error {
 	if c.Okta.Client.AuthorizationMode != "SSWS" &&
 		c.Okta.Client.AuthorizationMode != "PrivateKey" &&
+		c.Okta.Client.AuthorizationMode != "SecretKey" &&
 		c.Okta.Client.AuthorizationMode != "Bearer" &&
 		c.Okta.Client.AuthorizationMode != "JWT" {
-		return errors.New("the AuthorizaitonMode config option must be one of [SSWS, Bearer, PrivateKey, JWT]. You provided the SDK with " + c.Okta.Client.AuthorizationMode)
+		return errors.New("the AuthorizaitonMode config option must be one of [SSWS, Bearer, SecretKey, PrivateKey, JWT]. You provided the SDK with " + c.Okta.Client.AuthorizationMode)
+	}
+
+	if c.Okta.Client.AuthorizationMode == "SecretKey" &&
+		(c.Okta.Client.ClientId == "" ||
+			c.Okta.Client.Scopes == nil ||
+			c.Okta.Client.ClientSecret == "") {
+		return errors.New("when using AuthorizationMode 'SecretKey', you must supply 'ClientId', 'Scopes', and 'ClientSecret'")
 	}
 
 	if c.Okta.Client.AuthorizationMode == "PrivateKey" &&
