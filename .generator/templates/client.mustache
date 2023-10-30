@@ -111,6 +111,7 @@ type PrivateKeyAuth struct {
 	privateKeyId     string
 	clientId         string
 	orgURL           string
+	userAgent 		 string
 	scopes           []string
 	maxRetries       int32
 	maxBackoff       int64
@@ -125,6 +126,7 @@ type PrivateKeyAuthConfig struct {
 	PrivateKeyId     string
 	ClientId         string
 	OrgURL           string
+	UserAgent 		 string
 	Scopes           []string
 	MaxRetries       int32
 	MaxBackoff       int64
@@ -140,6 +142,7 @@ func NewPrivateKeyAuth(config PrivateKeyAuthConfig) *PrivateKeyAuth {
 		privateKeyId:     config.PrivateKeyId,
 		clientId:         config.ClientId,
 		orgURL:           config.OrgURL,
+		userAgent:        config.UserAgent,
 		scopes:           config.Scopes,
 		maxRetries:       config.MaxRetries,
 		maxBackoff:       config.MaxBackoff,
@@ -165,7 +168,7 @@ func (a *PrivateKeyAuth) Authorize() error {
 			return err
 		}
 
-		accessToken, err := getAccessTokenForPrivateKey(a.httpClient, a.orgURL, clientAssertion, a.scopes, a.maxRetries, a.maxBackoff)
+		accessToken, err := getAccessTokenForPrivateKey(a.httpClient, a.orgURL, clientAssertion, a.userAgent, a.scopes, a.maxRetries, a.maxBackoff)
 		if err != nil {
 			return err
 		}
@@ -184,6 +187,7 @@ type JWTAuth struct {
 	tokenCache      *goCache.Cache
 	httpClient      *http.Client
 	orgURL          string
+	userAgent 		string
 	scopes          []string
 	clientAssertion string
 	maxRetries      int32
@@ -195,6 +199,7 @@ type JWTAuthConfig struct {
 	TokenCache      *goCache.Cache
 	HttpClient      *http.Client
 	OrgURL          string
+	UserAgent 		string
 	Scopes          []string
 	ClientAssertion string
 	MaxRetries      int32
@@ -207,6 +212,7 @@ func NewJWTAuth(config JWTAuthConfig) *JWTAuth {
 		tokenCache:      config.TokenCache,
 		httpClient:      config.HttpClient,
 		orgURL:          config.OrgURL,
+		userAgent: 		 config.UserAgent,
 		scopes:          config.Scopes,
 		clientAssertion: config.ClientAssertion,
 		maxRetries:      config.MaxRetries,
@@ -220,7 +226,7 @@ func (a *JWTAuth) Authorize() error {
 	if hasToken {
 		a.req.Header.Add("Authorization", "Bearer "+accessToken.(string))
 	} else {
-		accessToken, err := getAccessTokenForPrivateKey(a.httpClient, a.orgURL, a.clientAssertion, a.scopes, a.maxRetries, a.maxBackoff)
+		accessToken, err := getAccessTokenForPrivateKey(a.httpClient, a.orgURL, a.clientAssertion, a.userAgent, a.scopes, a.maxRetries, a.maxBackoff)
 		if err != nil {
 			return err
 		}
@@ -288,7 +294,7 @@ func createClientAssertion(orgURL, clientID string, privateKeySinger jose.Signer
 	return jwtBuilder.CompactSerialize()
 }
 
-func getAccessTokenForPrivateKey(httpClient *http.Client, orgURL, clientAssertion string, scopes []string, maxRetries int32, maxBackoff int64) (*RequestAccessToken, error) {
+func getAccessTokenForPrivateKey(httpClient *http.Client, orgURL, clientAssertion, userAgent string, scopes []string, maxRetries int32, maxBackoff int64) (*RequestAccessToken, error) {
 	var tokenRequestBuff io.ReadWriter
 	query := url.Values{}
 	tokenRequestURL := orgURL + "/oauth2/v1/token"
@@ -305,6 +311,7 @@ func getAccessTokenForPrivateKey(httpClient *http.Client, orgURL, clientAssertio
 
 	tokenRequest.Header.Add("Accept", "application/json")
 	tokenRequest.Header.Add("Content-Type", "application/x-www-form-urlencoded")
+	tokenRequest.Header.Add("User-Agent", userAgent)
 
 	bOff := &oktaBackoff{
 		ctx:             context.TODO(),
@@ -630,7 +637,7 @@ func (c *APIClient) prepareRequest(
 	}
 
 	// Add the user agent to the request.
-	localVarRequest.Header.Add("User-Agent", c.cfg.UserAgent)
+	localVarRequest.Header.Add("User-Agent", NewUserAgent(c.cfg).String())
 
 	if ctx != nil {
 		// add context to the request
@@ -706,6 +713,7 @@ func (c *APIClient) prepareRequest(
 			PrivateKeyId:     c.cfg.Okta.Client.PrivateKeyId,
 			ClientId:         c.cfg.Okta.Client.ClientId,
 			OrgURL:           c.cfg.Okta.Client.OrgUrl,
+			UserAgent: 		  NewUserAgent(c.cfg).String(),
 			Scopes:           c.cfg.Okta.Client.Scopes,
 			MaxRetries:       c.cfg.Okta.Client.RateLimit.MaxRetries,
 			MaxBackoff:       c.cfg.Okta.Client.RateLimit.MaxBackoff,
@@ -716,6 +724,7 @@ func (c *APIClient) prepareRequest(
 			TokenCache:      c.tokenCache,
 			HttpClient:      c.cfg.HTTPClient,
 			OrgURL:          c.cfg.Okta.Client.OrgUrl,
+			UserAgent: 		 NewUserAgent(c.cfg).String(),
 			Scopes:          c.cfg.Okta.Client.Scopes,
 			ClientAssertion: c.cfg.Okta.Client.ClientAssertion,
 			MaxRetries:      c.cfg.Okta.Client.RateLimit.MaxRetries,
