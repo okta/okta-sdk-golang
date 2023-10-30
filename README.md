@@ -920,10 +920,15 @@ This SDK supports this feature only for service-to-service applications. Check
 out [our
 guides](https://developer.okta.com/docs/guides/implement-oauth-for-okta/overview/)
 to learn more about how to register a new service application using a private
-and public key pair. Otherwise, follow the example steps at the end of this
-topic.
+and public key pair. 
 
-When using this approach you won't need an API Token because the SDK will
+Key pairs can only be used to manage certain Okta endpoints, using the scopes listed 
+[here](https://developer.okta.com/docs/guides/implement-oauth-for-okta/main/#scopes-and-supported-endpoints). 
+To manage Okta endpoints that are not listed
+[here](https://developer.okta.com/docs/guides/implement-oauth-for-okta/main/#scopes-and-supported-endpoints), 
+an API Token belonging to a user with appropriate permissions must be used instead.
+
+When using a keypair, you won't need an API Token because the SDK will
 request an access token for you. In order to use OAuth 2.0, construct a client
 instance by passing the following parameters:
 
