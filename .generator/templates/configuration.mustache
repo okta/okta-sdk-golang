@@ -163,7 +163,7 @@ type Configuration struct {
 }
 
 // NewConfiguration returns a new Configuration object
-func NewConfiguration(conf ...ConfigSetter) *Configuration {
+func NewConfiguration(conf ...ConfigSetter) (*Configuration, error) {
 	cfg := &Configuration{
 		DefaultHeader:    make(map[string]string),
 		UserAgent:        {{{httpUserAgent}}}{{^httpUserAgent}}fmt.Sprintf("okta-sdk-golang/%s golang/%s %s/%s", "{{{packageVersion}}}", runtime.Version(), runtime.GOOS, runtime.GOARCH){{/httpUserAgent}},
@@ -257,7 +257,10 @@ func NewConfiguration(conf ...ConfigSetter) *Configuration {
 		confSetter(cfg)
 	}
 
-    purl, _ := url.Parse(cfg.Okta.Client.OrgUrl)
+	purl, err := url.Parse(cfg.Okta.Client.OrgUrl)
+	if err != nil {
+		return nil, err
+	}
     cfg.Host = purl.Hostname()
 	cfg.Scheme = purl.Scheme
 
@@ -278,7 +281,7 @@ func NewConfiguration(conf ...ConfigSetter) *Configuration {
 
 	cfg.Context = ctx
 
-	return cfg
+	return cfg, nil
 }
 
 func readConfigFromFile(location string, c Configuration) (*Configuration, error) {

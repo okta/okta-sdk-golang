@@ -9,7 +9,7 @@ import (
 
 func Test_Get_User_Schema(t *testing.T) {
 	t.Run("get default user schema", func(t *testing.T) {
-		schema, _, err := apiClient.SchemaApi.GetUserSchema(apiClient.cfg.Context, "default").Execute()
+		schema, _, err := apiClient.SchemaAPI.GetUserSchema(apiClient.cfg.Context, "default").Execute()
 		require.NoError(t, err, "Could not get default user schema")
 		assert.NotEmpty(t, schema, "User schema is empty")
 		assert.Equal(t, "Username", schema.Definitions.Base.Properties.Login.GetTitle())
@@ -23,11 +23,11 @@ func Test_Get_User_Schema(t *testing.T) {
 }
 
 func Test_Update_Property_To_User_Schema(t *testing.T) {
-	schema, _, err := apiClient.SchemaApi.GetUserSchema(apiClient.cfg.Context, "default").Execute()
+	schema, _, err := apiClient.SchemaAPI.GetUserSchema(apiClient.cfg.Context, "default").Execute()
 	require.NoError(t, err, "Could not get default user schema")
 	assert.NotEmpty(t, schema, "User schema is empty")
 	t.Run("get update user schema", func(t *testing.T) {
-		req := apiClient.SchemaApi.UpdateUserProfile(apiClient.cfg.Context, "default")
+		req := apiClient.SchemaAPI.UpdateUserProfile(apiClient.cfg.Context, "default")
 		customAttributeName := testPrefix + randomTestString()
 		customAttributeDetail := UserSchemaAttribute{}
 		customAttributeDetail.SetTitle(customAttributeName)

@@ -20,7 +20,8 @@ func Test_Config_Proxy(t *testing.T) {
 	})
 	proxyServer := httptest.NewServer(mux)
 	defer proxyServer.Close()
-	configuration := NewConfiguration()
+	configuration, err := NewConfiguration()
+	require.NoError(t, err, "Creating a new config should not error")
 	configuration.Debug = false
 	proxyURL, err := url.Parse(proxyServer.URL)
 	require.NoError(t, err, "Parse url should not error")
