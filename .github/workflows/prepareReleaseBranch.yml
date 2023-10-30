@@ -37,7 +37,7 @@ jobs:
       - name: Install openapi generator
         run: npm install @openapitools/openapi-generator-cli -g
       - name: Set openapi generator version
-        run: openapi-generator-cli version-manager set 6.6.0
+        run: openapi-generator-cli version-manager set 7.0.1
       - name: Generate go client
         run: make v3-generate
       - run: make fmt

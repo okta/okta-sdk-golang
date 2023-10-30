@@ -11,7 +11,10 @@ import (
 var apiClient *APIClient
 
 func init() {
-	configuration := NewConfiguration(WithCache(false))
+	configuration, err := NewConfiguration(WithCache(false))
+	if err != nil {
+		fmt.Printf("Create new config should not be error %v", err)
+	}
 	configuration.Debug = false
 
 	apiClient = NewAPIClient(configuration)
@@ -53,7 +56,7 @@ func sweep() (err error) {
 }
 
 func sweepUsers() error {
-	req := apiClient.UserApi.ListUsers(apiClient.cfg.Context).Limit(200)
+	req := apiClient.UserAPI.ListUsers(apiClient.cfg.Context).Limit(200)
 	req = req.Q("SDK_TEST_")
 	users, resp, err := req.Execute()
 	if err != nil {
@@ -80,7 +83,7 @@ func sweepUsers() error {
 }
 
 func sweepGroups() error {
-	req := apiClient.GroupApi.ListGroups(apiClient.cfg.Context).Limit(200)
+	req := apiClient.GroupAPI.ListGroups(apiClient.cfg.Context).Limit(200)
 	req = req.Q("SDK_TEST")
 	groups, resp, err := req.Execute()
 	if err != nil {
@@ -107,7 +110,7 @@ func sweepGroups() error {
 }
 
 func sweepIdps() error {
-	req := apiClient.IdentityProviderApi.ListIdentityProviders(apiClient.cfg.Context).Limit(200)
+	req := apiClient.IdentityProviderAPI.ListIdentityProviders(apiClient.cfg.Context).Limit(200)
 	req = req.Q("SDK_TEST")
 	idps, resp, err := req.Execute()
 	if err != nil {
@@ -134,7 +137,7 @@ func sweepIdps() error {
 }
 
 func sweepGroupRules() error {
-	req := apiClient.GroupApi.ListGroupRules(apiClient.cfg.Context).Limit(200)
+	req := apiClient.GroupAPI.ListGroupRules(apiClient.cfg.Context).Limit(200)
 	req = req.Search("SDK_TEST")
 	groupRules, resp, err := req.Execute()
 	if err != nil {
@@ -142,7 +145,7 @@ func sweepGroupRules() error {
 	}
 	for _, gr := range groupRules {
 		if gr.GetStatus() == "ACTIVE" {
-			_, err = apiClient.GroupApi.DeactivateGroupRule(apiClient.cfg.Context, gr.GetId()).Execute()
+			_, err = apiClient.GroupAPI.DeactivateGroupRule(apiClient.cfg.Context, gr.GetId()).Execute()
 			if err != nil {
 				return err
 			}
@@ -159,7 +162,7 @@ func sweepGroupRules() error {
 		}
 		for _, gr := range groupRules {
 			if gr.GetStatus() == "ACTIVE" {
-				_, err = apiClient.GroupApi.DeactivateGroupRule(apiClient.cfg.Context, gr.GetId()).Execute()
+				_, err = apiClient.GroupAPI.DeactivateGroupRule(apiClient.cfg.Context, gr.GetId()).Execute()
 				if err != nil {
 					return err
 				}
@@ -173,7 +176,7 @@ func sweepGroupRules() error {
 }
 
 func sweepApps() error {
-	req := apiClient.ApplicationApi.ListApplications(apiClient.cfg.Context).Limit(200)
+	req := apiClient.ApplicationAPI.ListApplications(apiClient.cfg.Context).Limit(200)
 	req = req.Q("SDK_TEST")
 	apps, _, err := req.Execute()
 	if err != nil {

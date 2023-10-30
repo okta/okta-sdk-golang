@@ -14,7 +14,8 @@ import (
 func Test_429_Will_Automatically_Retry(t *testing.T) {
 	httpmock.Activate()
 	defer httpmock.DeactivateAndReset()
-	configuration := NewConfiguration()
+	configuration, err := NewConfiguration()
+	require.NoError(t, err, "Creating a new config should not error")
 	configuration.Okta.Client.RateLimit.MaxRetries = 2
 	configuration.Debug = true
 	proxyClient := NewAPIClient(configuration)
@@ -25,7 +26,7 @@ func Test_429_Will_Automatically_Retry(t *testing.T) {
 		),
 	)
 
-	_, resp, err := proxyClient.UserApi.ListUsers(apiClient.cfg.Context).Execute()
+	_, resp, err := proxyClient.UserAPI.ListUsers(apiClient.cfg.Context).Execute()
 	require.Nil(t, err, "Error should have been nil")
 	require.NotNil(t, resp, "Response was nil")
 

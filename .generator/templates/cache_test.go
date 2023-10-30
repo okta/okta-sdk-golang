@@ -79,7 +79,7 @@ func TestOAuthTokensAlwaysCached(t *testing.T) {
 	httpmock.Activate()
 	defer httpmock.DeactivateAndReset()
 	WithCache(false)
-	cfg := NewConfiguration(
+	cfg, err := NewConfiguration(
 		WithCache(false),
 		WithOrgUrl("https://testing.oktapreview.com"),
 		WithAuthorizationMode("PrivateKey"),
@@ -97,6 +97,7 @@ v/Ow5T0q5gIJAiEAyS4RaI9YG8EWx/2w0T67ZUVAw8eOMB6BIUg0Xcu+3okCIBOs
 		`),
 		WithScopes(([]string{"okta.users.read"})),
 	)
+	require.NoError(t, err, "Creating a new config should not error")
 
 	client := NewAPIClient(cfg)
 
@@ -135,14 +136,14 @@ v/Ow5T0q5gIJAiEAyS4RaI9YG8EWx/2w0T67ZUVAw8eOMB6BIUg0Xcu+3okCIBOs
 	httpmockDashboardRegex := `=~^https://testing\.oktapreview\.com/api/v1/apps?.*q\=Okta\+Dashboard.*\z`
 	httpmock.RegisterResponder("GET", httpmockDashboardRegex, jsonResp)
 
-	_, _, err = client.ApplicationApi.ListApplications(cfg.Context).Limit(1).Filter("status eq ACTIVE").Q("Okta Admin Console").Execute()
+	_, _, err = client.ApplicationAPI.ListApplications(cfg.Context).Limit(1).Filter("status eq ACTIVE").Q("Okta Admin Console").Execute()
 	require.NoError(t, err)
-	_, _, err = client.ApplicationApi.ListApplications(cfg.Context).Limit(1).Filter("status eq ACTIVE").Q("Okta Admin Console").Execute()
+	_, _, err = client.ApplicationAPI.ListApplications(cfg.Context).Limit(1).Filter("status eq ACTIVE").Q("Okta Admin Console").Execute()
 	require.NoError(t, err)
 
-	_, _, err = client.ApplicationApi.ListApplications(cfg.Context).Limit(1).Filter("status eq ACTIVE").Q("Okta Dashboard").Execute()
+	_, _, err = client.ApplicationAPI.ListApplications(cfg.Context).Limit(1).Filter("status eq ACTIVE").Q("Okta Dashboard").Execute()
 	require.NoError(t, err)
-	_, _, err = client.ApplicationApi.ListApplications(cfg.Context).Limit(1).Filter("status eq ACTIVE").Q("Okta Dashboard").Execute()
+	_, _, err = client.ApplicationAPI.ListApplications(cfg.Context).Limit(1).Filter("status eq ACTIVE").Q("Okta Dashboard").Execute()
 	require.NoError(t, err)
 
 	info := httpmock.GetCallCountInfo()
