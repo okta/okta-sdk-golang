@@ -29,3 +29,4 @@ files:
   proxy_test.go: {}
   retry_logic_test.go: {}
   test_helpers.go: {}
+  user_agent.go: {}
