@@ -29031,10 +29031,22 @@ components:
           description: The subdomain for the email sender's custom mail domain
           default: mail
     EmailDomainResponseWithEmbedded:
-      allOf:
-        - $ref: '#/components/schemas/EmailDomainResponse'
       type: object
       properties:
+        displayName:
+          type: string
+        userName:
+          type: string
+        dnsValidationRecords:
+          type: array
+          items:
+            $ref: '#/components/schemas/EmailDomainDNSRecord'
+        domain:
+          type: string
+        id:
+          type: string
+        validationStatus:
+          $ref: '#/components/schemas/EmailDomainStatus'
         _embedded:
           type: object
           properties:
