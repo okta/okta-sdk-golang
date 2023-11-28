@@ -17819,7 +17819,6 @@ paths:
             - okta.users.manage
       tags:
         - User
-        - UserFactor
       x-okta-lifecycle:
         isCorsEnabled: true
         lifecycle: GA
@@ -33755,12 +33754,8 @@ components:
       properties:
         authScheme:
           $ref: '#/components/schemas/ProvisioningConnectionAuthScheme'
-      discriminator:
-        propertyName: authScheme
-        mapping:
-          TOKEN: '#/components/schemas/ProvisioningConnectionProfileToken'
-          OAUTH2: '#/components/schemas/ProvisioningConnectionProfileOauth'
-          UNKNOWN: '#/components/schemas/ProvisioningConnectionProfileUnknown'
+        token:
+          type: string
     ProvisioningConnectionProfileOauth:
       description: |
         The app provisioning connection profile used to configure the method of authentication and the credentials.
@@ -36638,7 +36633,6 @@ components:
         nickName:
           type: string
           description: The casual way to address the user in real life
-          nullable: true
         organization:
           type: string
           description: Name of the the user's organization
