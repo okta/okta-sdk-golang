@@ -26705,9 +26705,6 @@ components:
         profile:
           type: object
           description: Contains any valid JSON schema for specifying properties that can be referenced from a request (only available to OAuth 2.0 client apps)
-          additionalProperties:
-            type: object
-            properties: {}
         signOnMode:
           $ref: '#/components/schemas/ApplicationSignOnMode'
         status:
@@ -35891,20 +35888,9 @@ components:
           readOnly: true
           nullable: true
         transitioningToStatus:
-          type: string
-          description: The target status of an in-progress asynchronous status transition. This property is only returned if the user's state is transitioning.
-          readOnly: true
-          nullable: true
-          enum:
-            - ACTIVE
-            - DEPROVISIONED
-            - PROVISIONED
+          $ref: '#/components/schemas/UserStatus'
         type:
-          type: string
-          description: |-
-            The user type that determines the schema for the user's profile. The `type` property is a map that identifies
-            the User Type (see [User Types](https://developer.okta.com/docs/api/openapi/okta-management/management/tag/UserType/#tag/UserType)). 
-            Currently it contains a single element, `id`. It can be specified when creating a new user, and may be updated by an administrator on a full replace of an existing user (but not a partial update).
+          $ref: '#/components/schemas/UserType'
         _embedded:
           type: object
           description: If specified, includes embedded resources related to the user
