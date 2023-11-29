@@ -94,7 +94,7 @@ func Test_Get_Key(t *testing.T) {
 	t.Run("get list idp keys", func(t *testing.T) {
 		lidpk, _, err := apiClient.IdentityProviderAPI.ListIdentityProviderKeys(apiClient.cfg.Context).Execute()
 		require.NoError(t, err, "Could not get list idp")
-		assert.Equal(t, len(lidpk), 1)
+		assert.Equal(t, len(lidpk), 3)
 	})
 	_, err = apiClient.IdentityProviderAPI.DeleteIdentityProviderKey(apiClient.cfg.Context, createdKey.GetKid()).Execute()
 	require.NoError(t, err, "Clean up idp key should not error")

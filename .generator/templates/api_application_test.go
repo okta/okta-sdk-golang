@@ -3,6 +3,7 @@ package okta
 import (
 	"os"
 	"path"
+	"strings"
 	"testing"
 	"time"
 
@@ -387,7 +388,7 @@ func Test_Scope_Consent_Grant_Operation_For_Application(t *testing.T) {
 	var grant *OAuth2ScopeConsentGrant
 	t.Run("grant consent to scope", func(t *testing.T) {
 		payload := OAuth2ScopeConsentGrant{}
-		payload.SetIssuer(apiClient.cfg.Okta.Client.OrgUrl)
+		payload.SetIssuer(strings.TrimRight(apiClient.cfg.Okta.Client.OrgUrl, "/"))
 		payload.SetScopeId("okta.users.read")
 		grant, _, err = apiClient.ApplicationGrantsAPI.GrantConsentToScope(apiClient.cfg.Context, createdApp.OpenIdConnectApplication.GetId()).OAuth2ScopeConsentGrant(payload).Execute()
 		assert.Nil(t, err, "grant consent to scope should not error")

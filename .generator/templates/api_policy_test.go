@@ -113,13 +113,14 @@ func Test_Activate_Policy(t *testing.T) {
 }
 
 // ACCESS/AUTHENTICATION POLICY ONLY
+// TODO Used to work, now fail with 401
 func Test_Clone_Policy(t *testing.T) {
 	createdPolicy, _, err := setupAccessPolicy(randomTestString())
 	require.NoError(t, err, "Creating a new policy should not error")
 	var policyID string
 	t.Run("clone policy", func(t *testing.T) {
 		policy, _, err := apiClient.PolicyAPI.ClonePolicy(apiClient.cfg.Context, createdPolicy.AccessPolicy.GetId()).Execute()
-		require.NoError(t, err, "Could not get policy by ID")
+		require.NoError(t, err, "Could not clone policy")
 		policyID = policy.AccessPolicy.GetId()
 		assert.NotEqual(t, createdPolicy.AccessPolicy.GetId(), policy.AccessPolicy.GetId())
 		assert.Equal(t, fmt.Sprintf("[cloned] %v", createdPolicy.AccessPolicy.GetName()), policy.AccessPolicy.GetName())
