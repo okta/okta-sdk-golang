@@ -3,7 +3,7 @@
 version: 2.1
 
 orbs:
-  platform-orb: okta/general-platform-helpers@1.8
+  platform-orb: okta/general-platform-helpers@1.9
 
 # Define a job to be invoked later in a workflow.
 # See: https://circleci.com/docs/2.0/configuration-reference/#jobs
@@ -15,7 +15,7 @@ jobs:
     steps:
       - checkout
       - run: go version
-      - platform-orb/load-dependencies
+      - platform-orb/step-load-dependencies
       - run:
           name: "test stage"
           command: make test
