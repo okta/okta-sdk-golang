@@ -15,7 +15,7 @@ jobs:
     steps:
       - checkout
       - run: go version
-      - platform-orb/load-dependencies
+      - platform-orb/step-load-dependencies
       - run:
           name: "test stage"
           command: make test
