@@ -33194,6 +33194,7 @@ components:
       enum:
         - ANDROID
         - ANY
+        - CHROMEOS
         - IOS
         - MACOS
         - OTHER

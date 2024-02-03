@@ -23968,6 +23968,7 @@ components:
       x-okta-known-values:
         - ANDROID
         - ANY
+        - CHROMEOS
         - IOS
         - MACOS
         - OTHER
