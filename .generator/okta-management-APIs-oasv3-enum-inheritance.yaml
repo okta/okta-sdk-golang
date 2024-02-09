@@ -72,6 +72,9 @@ tags:
       | <div style="width:200px">Feature</div> | Apps&nbsp;supported | Description   |
       | -------------------- | -------------- | ----------- |
       | `USER_PROVISIONING`  | `org2org` | Similar to the app **Provisioning** > **To App** setting in the Admin Console, this feature configures the **Create Users**, **Update User Attributes**, **Deactivate Users**, and **Sync Password** settings. |
+
+      > **Note:** You can't use the `USER_PROVISIONING` feature in an Okta Developer-Edition org because the `org2org` app isn't available in developer orgs.
+      > If you need to test this feature in your Developer-Edition org, contact your Okta account team.
   - name: ApplicationGrants
     x-displayName: Application Grants
     description: |
@@ -85,9 +88,15 @@ tags:
   - name: ApplicationLogos
     x-displayName: Application Logos
     description: Provides a resource to manage the application instance logo
+  - name: ApplicationOktaApplicationSettings
+    x-displayName: Okta Application Settings
+    description: The Okta Application Settings API provides operations to manage settings for Okta applications.
   - name: ApplicationPolicies
     x-displayName: Application Policies
     description: Provides a resource to manage authentication policies associated with an application
+  - name: ApplicationSSO
+    x-displayName: Application SSO
+    description: Provides a Single Sign-On (SSO) resource for an application
   - name: ApplicationTokens
     x-displayName: Application Tokens
     description: |
@@ -100,7 +109,7 @@ tags:
     description: Application user operations
   - name: AttackProtection
     x-displayName: Attack Protection
-    description: The Attack Protection API provides operations to configure the User Lockout Settings in your org to prevent brute-force attacks.
+    description: The Attack Protection API provides operations to configure the User Lockout Settings and the Authenticator Settings in your org to protect against password abuse.
   - name: Authenticator
     x-displayName: Authenticators
     description: |-
@@ -124,7 +133,24 @@ tags:
       * Custom App
   - name: AuthorizationServer
     x-displayName: Authorization Servers
-    description: Authorization Servers generate OAuth 2.0 and OpenID Connect tokens, including access tokens and ID tokens. The Okta Management API gives you the ability to configure and manage Authorization Servers and the security policies that are attached to them.
+    description: |-
+      Authorization Servers generate OAuth 2.0 and OpenID Connect tokens, including access tokens and ID tokens. The Okta Management API gives you the ability to configure and manage Authorization Servers and the security policies that are attached to them.
+
+      **Work with the Default Authorization Server**
+
+      Okta provides a pre-configured Custom Authorization Server with the name `default`. This Default Authorization Server includes a basic access policy and rule, which you can edit to control access. It allows you to specify `default` instead of the `authorizationServerId` in requests to it:
+
+      `https://${yourOktaDomain}/api/v1/authorizationServers/default`
+
+      vs
+
+      `https://${yourOktaDomain}/api/v1/authorizationServers/${authorizationServerId}` for other Custom Authorization Servers
+  - name: AuthorizationServerAssoc
+    x-displayName: Authorization Server Associated Servers
+    description: Associated authorization servers allow you to designate a trusted authorization server that you associate with another authorization server. This type of association provides a way to configure [token exchange](https://developer.okta.com/docs/guides/set-up-token-exchange/main/#trusted-servers) between other authorization servers under the same Okta tenant.
+  - name: AuthorizationServerClaims
+    x-displayName: Authorization Server Claims
+    description: Provides operations to manage custom token claims for the given `authServerId` and `claimId`
   - name: Behavior
     x-displayName: Behavior Rules
     description: The Behavior Rules API provides operations to manage the behavior detection rules for your organization.
@@ -173,7 +199,7 @@ tags:
     description: The Email Domains API provides operations to manage email domains for your organization.
   - name: EmailServer
     x-displayName: Email Servers
-    description: The Email Servers API provides operations to manage custom SMTP servers for your organization.  This is an Early Access feature. To enable it, contact [Okta Support](https://support.okta.com/help/s/).
+    description: The Email Servers API allows you to configure a custom external email provider to send email notifications. By default, notifications such as the welcome email or an account recovery email are sent through an Okta-managed SMTP server. Adding a custom email provider gives you more control over your email delivery.
   - name: EventHook
     x-displayName: Event Hooks
     description: |-
@@ -413,7 +439,7 @@ tags:
     description: |-
       The Okta UI Schema API allows you to control how inputs appear on an enrollment form. The UI Schema API is only available as a part of Okta Identity Engine.
 
-      If you’re not sure which solution you’re using, check the footer on any page of the Admin Console. The version number is appended with E for Identity Engine orgs and C for Classic Engine orgs.
+      If you're not sure which solution you're using, check the footer on any page of the Admin Console. The version number is appended with E for Identity Engine orgs and C for Classic Engine orgs.
   - name: User
     x-displayName: Users
     description: The User API provides operations to manage users in your organization.
@@ -423,6 +449,9 @@ tags:
   - name: UserType
     x-displayName: User Types
     description: The User Types API provides operations to manage User Types.
+  - name: WebAuthnPreregistration
+    x-displayName: WebAuthnPreregistration
+    description: The WebAuthn Preregistration API provides a flow to initiate and set up WebAuthn Preregistration authenticator enrollments through third-party providers.
 paths:
   /.well-known/app-authenticator-configuration:
     get:
@@ -1245,7 +1274,16 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/ProvisioningConnection'
+                oneOf:
+                  - $ref: '#/components/schemas/ProvisioningConnectionToken'
+                  - $ref: '#/components/schemas/ProvisioningConnectionOauth'
+                  - $ref: '#/components/schemas/ProvisioningConnectionUnknown'
+                discriminator: &ref_21
+                  propertyName: authScheme
+                  mapping:
+                    TOKEN: '#/components/schemas/ProvisioningConnectionToken'
+                    OAUTH2: '#/components/schemas/ProvisioningConnectionOauth'
+                    UNKNOWN: '#/components/schemas/ProvisioningConnectionUnknown'
               examples:
                 ProvisioningConnectionResponseExample:
                   $ref: '#/components/examples/ProvisioningConnectionTokenResponseEx'
@@ -1278,7 +1316,9 @@ paths:
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/ProvisioningConnectionRequest'
+              oneOf:
+                - $ref: '#/components/schemas/ProvisioningConnectionTokenRequest'
+                - $ref: '#/components/schemas/ProvisioningConnectionOauthRequest'
             examples:
               ProvisioningConnectionTokenExample:
                 $ref: '#/components/examples/ProvisioningConnectionTokenRequestEx'
@@ -2243,6 +2283,72 @@ paths:
         isGenerallyAvailable: false
         SKUs:
           - Okta Identity Engine
+  /api/v1/apps/{appId}/sso/saml/metadata:
+    parameters:
+      - $ref: '#/components/parameters/pathAppId'
+    get:
+      summary: Preview the application SAML metadata
+      description: Previews the SSO SAML metadata for an application
+      operationId: previewSAMLmetadataForApplication
+      responses:
+        '200':
+          description: OK
+          content:
+            text/xml:
+              schema:
+                type: string
+                description: SAML metadata in XML
+              examples:
+                previewSAML:
+                  summary: SAML metadata example
+                  value: |
+                    <?xml version="1.0" encoding="UTF-8"?>
+                      <md:EntityDescriptor xmlns:md="urn:oasis:names:tc:SAML:2.0:metadata" entityID="exk39sivhuytV2D8H0h7">
+                        <md:IDPSSODescriptor WantAuthnRequestsSigned="false" protocolSupportEnumeration="urn:oasis:names:tc:SAML:2.0:protocol">
+                            <md:KeyDescriptor use="signing">
+                                <ds:KeyInfo xmlns:ds="http://www.w3.org/2000/09/xmldsig#">
+                                    <ds:X509Data>
+                                        <ds:X509Certificate>MIIDqDCCApCgAwIBAgIGAVGNO4qeMA0GCSqGSIb3DQEBBQUAMIGUMQswCQYDVQQGEwJVUzETMBEG
+                    A1UECAwKQ2FsaWZvcm5pYTEWMBQGA1UEBwwNU2FuIEZyYW5jaXNjbzENMAsGA1UECgwET2t0YTEU
+                    MBIGA1UECwwLU1NPUHJvdmlkZXIxFTATBgNVBAMMDGJhbGFjb21wdGVzdDEcMBoGCSqGSIb3DQEJ
+                    ARYNaW5mb0Bva3RhLmNvbTAeFw0xNTEyMTAxODUwMDhaFw0xNzEyMTAxODUxMDdaMIGUMQswCQYD
+                    VQQGEwJVUzETMBEGA1UECAwKQ2FsaWZvcm5pYTEWMBQGA1UEBwwNU2FuIEZyYW5jaXNjbzENMAsG
+                    A1UECgwET2t0YTEUMBIGA1UECwwLU1NPUHJvdmlkZXIxFTATBgNVBAMMDGJhbGFjb21wdGVzdDEc
+                    MBoGCSqGSIb3DQEJARYNaW5mb0Bva3RhLmNvbTCCASIwDQYJKoZIhvcNAQEBBQADggEPADCCAQoC
+                    ggEBALAakG48bgcTWHdwmVLHig0mkiRejxIVm3wbzrNSJcBruTq2zCYZ1rGfVxTYON8kJqvkXPmv
+                    kzWKhpEkvhubL+mx29XpXY0AsNIfgcm5xIV56yhXSvlMdqzGo3ciRwoACaF+ClNLxmXK9UTZD89B
+                    bVVGCG5AEvja0eCQ0GYsO5i9aSI5aTroab8Aew31PuWl/RGQWmjVy8+7P4wwkKKJNKCpxMYDlhfa
+                    WRp0zwUSbUCO0qEyeAYdZx6CLES4FGrDi/7D6G+ewWC+kbz1tL1XpF2Dcg3+IOlHrV6VWzz3rG39
+                    v9zFIncjvoQJFDGWhpqGqcmXvgH0Ze3SVcVF01T+bK0CAwEAATANBgkqhkiG9w0BAQUFAAOCAQEA
+                    AHmnSZ4imjNrIf9wxfQIcqHXEBoJ+oJtd59cw1Ur/YQY9pKXxoglqCQ54ZmlIf4GghlcZhslLO+m
+                    NdkQVwSmWMh6KLxVM18/xAkq8zyKbMbvQnTjFB7x45bgokwbjhivWqrB5LYHHCVN7k/8mKlS4eCK
+                    Ci6RGEmErjojr4QN2xV0qAqP6CcGANgpepsQJCzlWucMFKAh0x9Kl8fmiQodfyLXyrebYsVnLrMf
+                    jxE1b6dg4jKvv975tf5wreQSYZ7m//g3/+NnuDKkN/03HqhV7hTNi1fyctXk8I5Nwgyr+pT5LT2k
+                    YoEdncuy+GQGzE9yLOhC4HNfHQXpqp2tMPdRlw==</ds:X509Certificate>
+                                    </ds:X509Data>
+                                </ds:KeyInfo>
+                            </md:KeyDescriptor>
+                            <md:NameIDFormat>urn:oasis:names:tc:SAML:1.1:nameid-format:emailAddress</md:NameIDFormat>
+                            <md:NameIDFormat>urn:oasis:names:tc:SAML:1.1:nameid-format:unspecified</md:NameIDFormat>
+                            <md:SingleSignOnService Binding="urn:oasis:names:tc:SAML:2.0:bindings:HTTP-POST" Location="https://{yourOktaDomain}/app/sample-app/exk39sivhuytV2D8H0h7/sso/saml"/>
+                            <md:SingleSignOnService Binding="urn:oasis:names:tc:SAML:2.0:bindings:HTTP-Redirect" Location="https://{yourOktaDomain}/app/sample-app/exk39sivhuytV2D8H0h7/sso/saml"/>
+                        </md:IDPSSODescriptor>
+                    </md:EntityDescriptor>
+        '403':
+          $ref: '#/components/responses/ErrorAccessDenied403'
+        '404':
+          $ref: '#/components/responses/ErrorResourceNotFound404'
+        '429':
+          $ref: '#/components/responses/ErrorTooManyRequests429'
+      security:
+        - apiToken: []
+        - oauth2:
+            - okta.apps.read
+      tags:
+        - ApplicationSSO
+      x-okta-lifecycle:
+        lifecycle: GA
+        isGenerallyAvailable: true
   /api/v1/apps/{appId}/tokens:
     parameters:
       - $ref: '#/components/parameters/pathAppId'
@@ -2948,21 +3054,25 @@ paths:
   /api/v1/authorizationServers:
     get:
       summary: List all Authorization Servers
-      description: Lists all authorization servers
+      description: Lists all custom authorization servers in the org
       operationId: listAuthorizationServers
       parameters:
         - name: q
           in: query
+          description: Searches the `name` and `audiences` of authorization servers for matching values
+          example: customasone
           schema:
             type: string
         - name: limit
           in: query
+          description: 'Specifies the number of authorization server results on a page. Maximum value: 200'
           schema:
             type: integer
             format: int32
             default: 200
         - name: after
           in: query
+          description: Specifies the pagination cursor for the next page of authorization servers. Treat as an opaque value and obtain through the next link relationship.
           schema:
             type: string
       responses:
@@ -2974,6 +3084,9 @@ paths:
                 type: array
                 items:
                   $ref: '#/components/schemas/AuthorizationServer'
+              examples:
+                ListAuthServers:
+                  $ref: '#/components/examples/ListAuthServersResponse'
         '403':
           $ref: '#/components/responses/ErrorAccessDenied403'
         '429':
@@ -2999,6 +3112,9 @@ paths:
           application/json:
             schema:
               $ref: '#/components/schemas/AuthorizationServer'
+            examples:
+              CreateAuthServer:
+                $ref: '#/components/examples/CreateAuthServerBody'
         required: true
       responses:
         '201':
@@ -3007,6 +3123,9 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/AuthorizationServer'
+              examples:
+                CreateAuthServer:
+                  $ref: '#/components/examples/CreateAuthServerResponse'
         '400':
           $ref: '#/components/responses/ErrorApiValidationFailed400'
         '403':
@@ -3038,6 +3157,9 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/AuthorizationServer'
+              examples:
+                RetrieveAuthServer:
+                  $ref: '#/components/examples/RetrieveAuthServerResponse'
         '403':
           $ref: '#/components/responses/ErrorAccessDenied403'
         '404':
@@ -3065,6 +3187,9 @@ paths:
           application/json:
             schema:
               $ref: '#/components/schemas/AuthorizationServer'
+            examples:
+              ReplaceAuthServer:
+                $ref: '#/components/examples/ReplaceAuthServerBody'
         required: true
       responses:
         '200':
@@ -3073,6 +3198,9 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/AuthorizationServer'
+              examples:
+                ReplaceAuthServer:
+                  $ref: '#/components/examples/ReplaceAuthServerResponse'
         '400':
           $ref: '#/components/responses/ErrorApiValidationFailed400'
         '403':
@@ -3121,18 +3249,19 @@ paths:
     parameters:
       - $ref: '#/components/parameters/pathAuthServerId'
     get:
-      summary: List all Associated Authorization Servers
-      description: Lists all associated authorization servers by trusted type for the given `authServerId`
+      summary: List all associated Authorization Servers
+      description: Lists all associated Authorization Servers by trusted type for the given `authServerId`
       operationId: listAssociatedServersByTrustedType
       parameters:
         - name: trusted
           in: query
-          description: Searches trusted authorization servers when true, or searches untrusted authorization servers when false
+          description: Searches trusted authorization servers when `true` or searches untrusted authorization servers when `false`
           schema:
             type: boolean
         - name: q
           in: query
-          description: Searches the name or audience of the associated authorization servers
+          description: Searches for the name or audience of the associated authorization servers
+          example: customasone
           schema:
             type: string
         - name: limit
@@ -3156,6 +3285,9 @@ paths:
                 type: array
                 items:
                   $ref: '#/components/schemas/AuthorizationServer'
+              examples:
+                ListAssocAuthServer:
+                  $ref: '#/components/examples/ListAssocAuthServerResponse'
         '403':
           $ref: '#/components/responses/ErrorAccessDenied403'
         '404':
@@ -3167,15 +3299,15 @@ paths:
         - oauth2:
             - okta.authorizationServers.read
       tags:
-        - AuthorizationServer
+        - AuthorizationServerAssoc
       x-okta-lifecycle:
         lifecycle: GA
         isGenerallyAvailable: false
         SKUs:
           - API Access Management
     post:
-      summary: Create the Associated Authorization Servers
-      description: Creates the trusted relationships between the given authorization server and other authorization servers
+      summary: Create an associated Authorization Server
+      description: Creates trusted relationships between the given authorization server and other authorization servers
       operationId: createAssociatedServers
       x-codegen-request-body-name: associatedServerMediated
       requestBody:
@@ -3183,6 +3315,9 @@ paths:
           application/json:
             schema:
               $ref: '#/components/schemas/AssociatedServerMediated'
+            examples:
+              CreateAssocAuthServer:
+                $ref: '#/components/examples/CreateAssocAuthServerBody'
         required: true
       responses:
         '200':
@@ -3193,6 +3328,9 @@ paths:
                 type: array
                 items:
                   $ref: '#/components/schemas/AuthorizationServer'
+              examples:
+                CreateAssocAuthServer:
+                  $ref: '#/components/examples/CreateAssocAuthServerResponse'
         '400':
           $ref: '#/components/responses/ErrorApiValidationFailed400'
         '403':
@@ -3206,7 +3344,7 @@ paths:
         - oauth2:
             - okta.authorizationServers.manage
       tags:
-        - AuthorizationServer
+        - AuthorizationServerAssoc
       x-okta-lifecycle:
         lifecycle: GA
         isGenerallyAvailable: false
@@ -3217,8 +3355,8 @@ paths:
       - $ref: '#/components/parameters/pathAuthServerId'
       - $ref: '#/components/parameters/pathAssociatedServerId'
     delete:
-      summary: Delete an Associated Authorization Server
-      description: Deletes an associated authorization server
+      summary: Delete an associated Authorization Server
+      description: Deletes an associated Authorization Server
       operationId: deleteAssociatedServer
       responses:
         '204':
@@ -3235,7 +3373,7 @@ paths:
         - oauth2:
             - okta.authorizationServers.manage
       tags:
-        - AuthorizationServer
+        - AuthorizationServerAssoc
       x-okta-lifecycle:
         lifecycle: GA
         isGenerallyAvailable: false
@@ -3245,8 +3383,8 @@ paths:
     parameters:
       - $ref: '#/components/parameters/pathAuthServerId'
     get:
-      summary: List all Custom Token Claims
-      description: Lists all custom token claims
+      summary: List all custom token Claims
+      description: Lists all custom token Claims defined for a specified custom authorization server
       operationId: listOAuth2Claims
       responses:
         '200':
@@ -3257,6 +3395,9 @@ paths:
                 type: array
                 items:
                   $ref: '#/components/schemas/OAuth2Claim'
+              examples:
+                ListCustomTokenClaims:
+                  $ref: '#/components/examples/ListCustomTokenClaimsResponse'
         '403':
           $ref: '#/components/responses/ErrorAccessDenied403'
         '404':
@@ -3268,15 +3409,15 @@ paths:
         - oauth2:
             - okta.authorizationServers.read
       tags:
-        - AuthorizationServer
+        - AuthorizationServerClaims
       x-okta-lifecycle:
         lifecycle: GA
         isGenerallyAvailable: false
         SKUs:
           - API Access Management
     post:
-      summary: Create a Custom Token Claim
-      description: Creates a custom token claim
+      summary: Create a custom token Claim
+      description: Creates a custom token Claim for a custom authorization server
       operationId: createOAuth2Claim
       x-codegen-request-body-name: oAuth2Claim
       requestBody:
@@ -3284,6 +3425,9 @@ paths:
           application/json:
             schema:
               $ref: '#/components/schemas/OAuth2Claim'
+            examples:
+              CreateCustomTokenClaim:
+                $ref: '#/components/examples/CreateCustomTokenClaimBody'
         required: true
       responses:
         '201':
@@ -3292,6 +3436,9 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/OAuth2Claim'
+              examples:
+                CreateCustomTokenClaim:
+                  $ref: '#/components/examples/CreateCustomTokenClaimResponse'
         '400':
           $ref: '#/components/responses/ErrorApiValidationFailed400'
         '403':
@@ -3305,7 +3452,7 @@ paths:
         - oauth2:
             - okta.authorizationServers.manage
       tags:
-        - AuthorizationServer
+        - AuthorizationServerClaims
       x-okta-lifecycle:
         lifecycle: GA
         isGenerallyAvailable: false
@@ -3316,8 +3463,8 @@ paths:
       - $ref: '#/components/parameters/pathAuthServerId'
       - $ref: '#/components/parameters/pathClaimId'
     get:
-      summary: Retrieve a Custom Token Claim
-      description: Retrieves a custom token claim
+      summary: Retrieve a custom token Claim
+      description: Retrieves a custom token Claim by the specified `claimId`
       operationId: getOAuth2Claim
       responses:
         '200':
@@ -3326,6 +3473,9 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/OAuth2Claim'
+              examples:
+                RetrieveCustomTokenClaim:
+                  $ref: '#/components/examples/RetrieveCustomTokenClaimResponse'
         '403':
           $ref: '#/components/responses/ErrorAccessDenied403'
         '404':
@@ -3337,15 +3487,15 @@ paths:
         - oauth2:
             - okta.authorizationServers.read
       tags:
-        - AuthorizationServer
+        - AuthorizationServerClaims
       x-okta-lifecycle:
         lifecycle: GA
         isGenerallyAvailable: false
         SKUs:
           - API Access Management
     put:
-      summary: Replace a Custom Token Claim
-      description: Replaces a custom token claim
+      summary: Replace a custom token Claim
+      description: Replaces a custom token Claim specified by the `claimId`
       operationId: replaceOAuth2Claim
       x-codegen-request-body-name: oAuth2Claim
       requestBody:
@@ -3353,6 +3503,9 @@ paths:
           application/json:
             schema:
               $ref: '#/components/schemas/OAuth2Claim'
+            examples:
+              ReplaceCustomTokenClaim:
+                $ref: '#/components/examples/ReplaceCustomTokenClaimBody'
         required: true
       responses:
         '200':
@@ -3361,6 +3514,9 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/OAuth2Claim'
+              examples:
+                ReplaceCustomTokenClaim:
+                  $ref: '#/components/examples/ReplaceCustomTokenClaimResponse'
         '400':
           $ref: '#/components/responses/ErrorApiValidationFailed400'
         '403':
@@ -3374,15 +3530,15 @@ paths:
         - oauth2:
             - okta.authorizationServers.manage
       tags:
-        - AuthorizationServer
+        - AuthorizationServerClaims
       x-okta-lifecycle:
         lifecycle: GA
         isGenerallyAvailable: false
         SKUs:
           - API Access Management
     delete:
-      summary: Delete a Custom Token Claim
-      description: Deletes a custom token claim
+      summary: Delete a custom token Claim
+      description: Deletes a custom token Claim specified by the `claimId`
       operationId: deleteOAuth2Claim
       responses:
         '204':
@@ -3399,7 +3555,7 @@ paths:
         - oauth2:
             - okta.authorizationServers.manage
       tags:
-        - AuthorizationServer
+        - AuthorizationServerClaims
       x-okta-lifecycle:
         lifecycle: GA
         isGenerallyAvailable: false
@@ -5500,7 +5656,10 @@ paths:
       - $ref: '#/components/parameters/pathTemplateName'
     get:
       summary: List all Email Customizations
-      description: Lists all customizations of an email template
+      description: |
+        Lists all customizations of an email template
+
+        <x-lifecycle class="ea"></x-lifecycle> If Custom languages for Okta Email Templates is enabled, all existing customizations are retrieved, including customizations for additional languages. If disabled, only customizations for Okta-supported languages are returned.
       operationId: listEmailCustomizations
       parameters:
         - $ref: '#/components/parameters/queryAfter'
@@ -5534,7 +5693,10 @@ paths:
         isGenerallyAvailable: true
     post:
       summary: Create an Email Customization
-      description: Creates a new email customization
+      description: |
+        Creates a new Email Customization
+
+        <x-lifecycle class="ea"></x-lifecycle> If Custom languages for Okta Email Templates is enabled, you can create a customization for any BCP47 language in addition to the Okta-supported languages.
       operationId: createEmailCustomization
       x-codegen-request-body-name: instance
       requestBody:
@@ -5585,7 +5747,10 @@ paths:
         isGenerallyAvailable: true
     delete:
       summary: Delete all Email Customizations
-      description: Deletes all customizations for an email template
+      description: |
+        Deletes all customizations for an email template
+
+        <x-lifecycle class="ea"></x-lifecycle> If Custom languages for Okta Email Templates is enabled, all customizations are deleted, including customizations for additional languages. If disabled, only customizations in Okta-supported languages are deleted.
       operationId: deleteAllCustomizations
       responses:
         '204':
@@ -5613,7 +5778,10 @@ paths:
       - $ref: '#/components/parameters/pathCustomizationId'
     get:
       summary: Retrieve an Email Customization
-      description: Retrieves an email customization by its unique identifier
+      description: |
+        Retrieves an email customization by its unique identifier
+
+        <x-lifecycle class="ea"></x-lifecycle> If Custom languages for Okta Email Templates is disabled, requests to retrieve an additional language customization by ID result in a `404 Not Found` error response.
       operationId: getEmailCustomization
       responses:
         '200':
@@ -5642,7 +5810,10 @@ paths:
         isGenerallyAvailable: true
     put:
       summary: Replace an Email Customization
-      description: Replaces an existing email customization using the property values provided
+      description: |
+        Replaces an email customization using property values
+
+        <x-lifecycle class="ea"></x-lifecycle> If Custom languages for Okta Email Templates is disabled, requests to update a customization for an additional language return a `404 Not Found` error response.
       operationId: replaceEmailCustomization
       x-codegen-request-body-name: instance
       requestBody:
@@ -5696,7 +5867,10 @@ paths:
         isGenerallyAvailable: true
     delete:
       summary: Delete an Email Customization
-      description: Deletes an email customization by its unique identifier
+      description: |
+        Deletes an Email Customization by its unique identifier
+
+        <x-lifecycle class="ea"></x-lifecycle> If Custom languages for Okta Email Templates is disabled, deletion of an existing additional language customization by ID doesn't register.
       operationId: deleteEmailCustomization
       responses:
         '204':
@@ -5733,7 +5907,10 @@ paths:
       - $ref: '#/components/parameters/pathCustomizationId'
     get:
       summary: Retrieve a Preview of an Email Customization
-      description: Retrieves a preview of an email customization. All variable references (e.g., `${user.profile.firstName}`) are populated using the current user's context.
+      description: |
+        Retrieves a Preview of an Email Customization. All variable references are populated from the current user's context. For example, `${user.profile.firstName}`.
+
+        <x-lifecycle class="ea"></x-lifecycle> If Custom languages for Okta Email Templates is disabled, requests for the preview of an additional language customization by ID return a `404 Not Found` error response.
       operationId: getCustomizationPreview
       responses:
         '200':
@@ -5766,7 +5943,12 @@ paths:
       - $ref: '#/components/parameters/pathTemplateName'
     get:
       summary: Retrieve an Email Template Default Content
-      description: Retrieves an email template's default content
+      description: |
+        Retrieves an email template's default content
+
+        <x-lifecycle class="ea"></x-lifecycle> Defaults to the current user's language given the following: 
+        - Custom languages for Okta Email Templates is enabled
+        - An additional language is specified for the `language` parameter
       operationId: getEmailDefaultContent
       parameters:
         - $ref: '#/components/parameters/queryLanguage'
@@ -5800,8 +5982,13 @@ paths:
       - $ref: '#/components/parameters/pathBrandId'
       - $ref: '#/components/parameters/pathTemplateName'
     get:
-      summary: Retrieve a Preview of the Email Template Default Content
-      description: Retrieves a preview of an email template's default content. All variable references (e.g., `${user.profile.firstName}`) are populated using the current user's context.
+      summary: Retrieve a Preview of the Email Template default content
+      description: |
+        Retrieves a preview of an Email Template's default content. All variable references are populated using the current user's context. For example, `${user.profile.firstName}`.
+
+        <x-lifecycle class="ea"></x-lifecycle> Defaults to the current user's language given the following:
+        - Custom languages for Okta Email Templates is enabled
+        - An additional language is specified for the `language` parameter
       operationId: getEmailDefaultPreview
       parameters:
         - $ref: '#/components/parameters/queryLanguage'
@@ -5910,6 +6097,7 @@ paths:
       description: |-
         Sends a test email to the current user’s primary and secondary email addresses. The email content is selected based on the following priority:
         1. The email customization for the language specified in the `language` query parameter.
+        <x-lifecycle class="ea"></x-lifecycle> If Custom languages for Okta Email Templates is enabled and the `language` parameter is an additional language, the test email uses the customization corresponding to the language.
         2. The email template's default customization.
         3. The email template’s default content, translated to the current user's language.
       operationId: sendTestEmail
@@ -6551,6 +6739,18 @@ paths:
                 $ref: '#/components/examples/DeviceAssuranceMacOSWithThirdPartySignalProvidersRequest'
               WindowsWithThirdPartySignalProviders:
                 $ref: '#/components/examples/DeviceAssuranceWindowsWithThirdPartySignalProvidersRequest'
+              AndroidWithDynamicVersionRequirement:
+                $ref: '#/components/examples/DeviceAssuranceAndroidWithDynamicVersionRequirementRequest'
+              iOSWithDynamicVersionRequirement:
+                $ref: '#/components/examples/DeviceAssuranceIosWithDynamicVersionRequirementRequest'
+              MacOSWithDynamicVersionRequirement:
+                $ref: '#/components/examples/DeviceAssuranceMacOSWithDynamicVersionRequirementRequest'
+              WindowsWithDynamicVersionRequirements:
+                $ref: '#/components/examples/DeviceAssuranceWindowsWithDynamicVersionRequirementsRequest'
+              WindowsWithWin11DynamicVersionRequirementAndWin10MinimumVersionString:
+                $ref: '#/components/examples/DeviceAssuranceWindowsWithWin11DynamicVersionRequirementAndWin10MinimumVersionStringRequest'
+              WindowsWithWin11MinimumVersionStringAndWin10DynamicVersionRequirement:
+                $ref: '#/components/examples/DeviceAssuranceWindowsWithWin11MinimumVersionStringAndWin10DynamicVersionRequirementRequest'
         required: true
       responses:
         '200':
@@ -6575,6 +6775,18 @@ paths:
                   $ref: '#/components/examples/DeviceAssuranceMacOSWithThirdPartySignalProvidersResponse'
                 WindowsWithThirdPartySignalProviders:
                   $ref: '#/components/examples/DeviceAssuranceWindowsWithThirdPartySignalProvidersResponse'
+                AndroidWithDynamicVersionRequirement:
+                  $ref: '#/components/examples/DeviceAssuranceAndroidWithDynamicVersionRequirementResponse'
+                iOSWithDynamicVersionRequirement:
+                  $ref: '#/components/examples/DeviceAssuranceIosWithDynamicVersionRequirementResponse'
+                MacOSWithDynamicVersionRequirement:
+                  $ref: '#/components/examples/DeviceAssuranceMacOSWithDynamicVersionRequirementResponse'
+                WindowsWithDynamicVersionRequirements:
+                  $ref: '#/components/examples/DeviceAssuranceWindowsWithDynamicVersionRequirementsResponse'
+                WindowsWithWin11DynamicVersionRequirementAndWin10MinimumVersionString:
+                  $ref: '#/components/examples/DeviceAssuranceWindowsWithWin11DynamicVersionRequirementAndWin10MinimumVersionStringResponse'
+                WindowsWithWin11MinimumVersionStringAndWin10DynamicVersionRequirement:
+                  $ref: '#/components/examples/DeviceAssuranceWindowsWithWin11MinimumVersionStringAndWin10DynamicVersionRequirementResponse'
         '400':
           $ref: '#/components/responses/ErrorApiValidationFailed400'
         '403':
@@ -6622,6 +6834,18 @@ paths:
                   $ref: '#/components/examples/DeviceAssuranceMacOSWithThirdPartySignalProvidersResponse'
                 WindowsWithThirdPartySignalProviders:
                   $ref: '#/components/examples/DeviceAssuranceWindowsWithThirdPartySignalProvidersResponse'
+                AndroidWithDynamicVersionRequirement:
+                  $ref: '#/components/examples/DeviceAssuranceAndroidWithDynamicVersionRequirementResponse'
+                iOSWithDynamicVersionRequirement:
+                  $ref: '#/components/examples/DeviceAssuranceIosWithDynamicVersionRequirementResponse'
+                MacOSWithDynamicVersionRequirement:
+                  $ref: '#/components/examples/DeviceAssuranceMacOSWithDynamicVersionRequirementResponse'
+                WindowsWithDynamicVersionRequirements:
+                  $ref: '#/components/examples/DeviceAssuranceWindowsWithDynamicVersionRequirementsResponse'
+                WindowsWithWin11DynamicVersionRequirementAndWin10MinimumVersionString:
+                  $ref: '#/components/examples/DeviceAssuranceWindowsWithWin11DynamicVersionRequirementAndWin10MinimumVersionStringResponse'
+                WindowsWithWin11MinimumVersionStringAndWin10DynamicVersionRequirement:
+                  $ref: '#/components/examples/DeviceAssuranceWindowsWithWin11MinimumVersionStringAndWin10DynamicVersionRequirementResponse'
         '403':
           $ref: '#/components/responses/ErrorAccessDenied403'
         '404':
@@ -6665,6 +6889,18 @@ paths:
                 $ref: '#/components/examples/DeviceAssuranceMacOSWithThirdPartySignalProvidersRequest'
               WindowsWithThirdPartySignalProviders:
                 $ref: '#/components/examples/DeviceAssuranceWindowsWithThirdPartySignalProvidersRequest'
+              AndroidWithDynamicVersionRequirement:
+                $ref: '#/components/examples/DeviceAssuranceAndroidWithDynamicVersionRequirementRequest'
+              iOSWithDynamicVersionRequirement:
+                $ref: '#/components/examples/DeviceAssuranceIosWithDynamicVersionRequirementRequest'
+              MacOSWithDynamicVersionRequirement:
+                $ref: '#/components/examples/DeviceAssuranceMacOSWithDynamicVersionRequirementRequest'
+              WindowsWithDynamicVersionRequirements:
+                $ref: '#/components/examples/DeviceAssuranceWindowsWithDynamicVersionRequirementsRequest'
+              WindowsWithWin11DynamicVersionRequirementAndWin10MinimumVersionString:
+                $ref: '#/components/examples/DeviceAssuranceWindowsWithWin11DynamicVersionRequirementAndWin10MinimumVersionStringRequest'
+              WindowsWithWin11MinimumVersionStringAndWin10DynamicVersionRequirement:
+                $ref: '#/components/examples/DeviceAssuranceWindowsWithWin11MinimumVersionStringAndWin10DynamicVersionRequirementRequest'
         required: true
       responses:
         '200':
@@ -6689,6 +6925,18 @@ paths:
                   $ref: '#/components/examples/DeviceAssuranceMacOSWithThirdPartySignalProvidersResponse'
                 WindowsWithThirdPartySignalProviders:
                   $ref: '#/components/examples/DeviceAssuranceWindowsWithThirdPartySignalProvidersResponse'
+                AndroidWithDynamicVersionRequirement:
+                  $ref: '#/components/examples/DeviceAssuranceAndroidWithDynamicVersionRequirementResponse'
+                iOSWithDynamicVersionRequirement:
+                  $ref: '#/components/examples/DeviceAssuranceIosWithDynamicVersionRequirementResponse'
+                MacOSWithDynamicVersionRequirement:
+                  $ref: '#/components/examples/DeviceAssuranceMacOSWithDynamicVersionRequirementResponse'
+                WindowsWithDynamicVersionRequirements:
+                  $ref: '#/components/examples/DeviceAssuranceWindowsWithDynamicVersionRequirementsResponse'
+                WindowsWithWin11DynamicVersionRequirementAndWin10MinimumVersionString:
+                  $ref: '#/components/examples/DeviceAssuranceWindowsWithWin11DynamicVersionRequirementAndWin10MinimumVersionStringResponse'
+                WindowsWithWin11MinimumVersionStringAndWin10DynamicVersionRequirement:
+                  $ref: '#/components/examples/DeviceAssuranceWindowsWithWin11MinimumVersionStringAndWin10DynamicVersionRequirementResponse'
         '400':
           $ref: '#/components/responses/ErrorApiValidationFailed400'
         '403':
@@ -7527,7 +7775,7 @@ paths:
       tags:
         - EmailServer
       x-okta-lifecycle:
-        lifecycle: EA
+        lifecycle: GA
         isGenerallyAvailable: false
         SKUs:
           - Okta Identity Engine
@@ -7560,7 +7808,7 @@ paths:
       tags:
         - EmailServer
       x-okta-lifecycle:
-        lifecycle: EA
+        lifecycle: GA
         isGenerallyAvailable: false
         SKUs:
           - Okta Identity Engine
@@ -7591,7 +7839,7 @@ paths:
       tags:
         - EmailServer
       x-okta-lifecycle:
-        lifecycle: EA
+        lifecycle: GA
         isGenerallyAvailable: false
         SKUs:
           - Okta Identity Engine
@@ -7626,7 +7874,7 @@ paths:
       tags:
         - EmailServer
       x-okta-lifecycle:
-        lifecycle: EA
+        lifecycle: GA
         isGenerallyAvailable: false
         SKUs:
           - Okta Identity Engine
@@ -7650,7 +7898,7 @@ paths:
       tags:
         - EmailServer
       x-okta-lifecycle:
-        lifecycle: EA
+        lifecycle: GA
         isGenerallyAvailable: false
         SKUs:
           - Okta Identity Engine
@@ -7684,7 +7932,7 @@ paths:
       tags:
         - EmailServer
       x-okta-lifecycle:
-        lifecycle: EA
+        lifecycle: GA
         isGenerallyAvailable: false
         SKUs:
           - Okta Identity Engine
@@ -8166,6 +8414,81 @@ paths:
             - okta.features.manage
       tags:
         - Feature
+      x-okta-lifecycle:
+        lifecycle: GA
+        isGenerallyAvailable: true
+  /api/v1/first-party-app-settings/{appName}:
+    parameters:
+      - $ref: '#/components/parameters/pathFirstPartyAppName'
+    get:
+      summary: Retrieve the Okta app settings
+      description: Retrieves the settings for the first party Okta app
+      operationId: getFirstPartyAppSettings
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AdminConsoleSettings'
+              examples:
+                exampleSettings:
+                  $ref: '#/components/examples/AdminConsoleSettingsExample'
+        '403':
+          $ref: '#/components/responses/ErrorAccessDenied403'
+        '429':
+          $ref: '#/components/responses/ErrorTooManyRequests429'
+      security:
+        - apiToken: []
+        - oauth2:
+            - okta.apps.read
+      tags:
+        - ApplicationOktaApplicationSettings
+      x-okta-lifecycle:
+        lifecycle: GA
+        isGenerallyAvailable: true
+    put:
+      summary: Replace the Okta app settings
+      description: Replaces the settings for the first party Okta app
+      operationId: replaceFirstPartyAppSettings
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/AdminConsoleSettings'
+            examples:
+              exampleSettings:
+                $ref: '#/components/examples/AdminConsoleSettingsExample'
+        required: true
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AdminConsoleSettings'
+              examples:
+                exampleSettings:
+                  $ref: '#/components/examples/AdminConsoleSettingsExample'
+        '400':
+          $ref: '#/components/responses/ErrorApiValidationFailed400'
+        '403':
+          description: Forbidden
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+              examples:
+                Access Denied:
+                  $ref: '#/components/examples/ErrorAccessDenied'
+        '429':
+          $ref: '#/components/responses/ErrorTooManyRequests429'
+      security:
+        - apiToken: []
+        - oauth2:
+            - okta.apps.manage
+      tags:
+        - ApplicationOktaApplicationSettings
       x-okta-lifecycle:
         lifecycle: GA
         isGenerallyAvailable: true
@@ -13761,7 +14084,7 @@ paths:
                 items:
                   oneOf: &ref_12
                     - $ref: '#/components/schemas/AccessPolicy'
-                    - $ref: '#/components/schemas/IdentityProviderPolicy'
+                    - $ref: '#/components/schemas/IdpDiscoveryPolicy'
                     - $ref: '#/components/schemas/MultifactorEnrollmentPolicy'
                     - $ref: '#/components/schemas/OktaSignOnPolicy'
                     - $ref: '#/components/schemas/PasswordPolicy'
@@ -13770,7 +14093,7 @@ paths:
                     propertyName: type
                     mapping:
                       ACCESS_POLICY: '#/components/schemas/AccessPolicy'
-                      IDP_DISCOVERY: '#/components/schemas/IdentityProviderPolicy'
+                      IDP_DISCOVERY: '#/components/schemas/IdpDiscoveryPolicy'
                       MFA_ENROLL: '#/components/schemas/MultifactorEnrollmentPolicy'
                       OKTA_SIGN_ON: '#/components/schemas/OktaSignOnPolicy'
                       PASSWORD: '#/components/schemas/PasswordPolicy'
@@ -14233,6 +14556,7 @@ paths:
                     - $ref: '#/components/schemas/ProfileEnrollmentPolicyRule'
                     - $ref: '#/components/schemas/AuthorizationServerPolicyRule'
                     - $ref: '#/components/schemas/OktaSignOnPolicyRule'
+                    - $ref: '#/components/schemas/IdpDiscoveryPolicyRule'
                   discriminator: &ref_15
                     propertyName: type
                     mapping:
@@ -14241,6 +14565,7 @@ paths:
                       PROFILE_ENROLLMENT: '#/components/schemas/ProfileEnrollmentPolicyRule'
                       RESOURCE_ACCESS: '#/components/schemas/AuthorizationServerPolicyRule'
                       SIGN_ON: '#/components/schemas/OktaSignOnPolicyRule'
+                      IDP_DISCOVERY: '#/components/schemas/IdpDiscoveryPolicyRule'
         '403':
           $ref: '#/components/responses/ErrorAccessDenied403'
         '404':
@@ -14274,6 +14599,12 @@ paths:
                 $ref: '#/components/examples/sspr-enabled-sso-step-up'
               EnableSsprNoStepUp:
                 $ref: '#/components/examples/sspr-enabled-no-step-up'
+              Enable2FAPreciseAuth:
+                $ref: '#/components/examples/twofa-enabled-disallow-password-allow-phishing'
+              EnableSpecificRoutingRule:
+                $ref: '#/components/examples/idp-discovery-specific-routing-rule'
+              EnableDynamicRoutingRule:
+                $ref: '#/components/examples/idp-discovery-dynamic-routing-rule'
               EnableSsprWithConstraints:
                 $ref: '#/components/examples/sspr-enabled-sso-step-up-with-constraints'
         required: true
@@ -14292,6 +14623,12 @@ paths:
                   $ref: '#/components/examples/sspr-enabled-sso-step-up-response'
                 EnableSsprNoStepUp:
                   $ref: '#/components/examples/sspr-enabled-no-step-up-response'
+                Enable2FAPreciseAuth:
+                  $ref: '#/components/examples/twofa-enabled-disallow-password-allow-phishing-response'
+                EnableSpecificRoutingRule:
+                  $ref: '#/components/examples/idp-discovery-specific-routing-rule-response'
+                EnableDynamicRoutingRule:
+                  $ref: '#/components/examples/idp-discovery-dynamic-routing-rule-response'
                 EnableSsprWithConstraints:
                   $ref: '#/components/examples/sspr-enabled-sso-step-up-with-constraints-response'
         '400':
@@ -17550,6 +17887,9 @@ paths:
       summary: List all Groups
       description: Lists all groups of which the user is a member
       operationId: listUserGroups
+      parameters:
+        - $ref: '#/components/parameters/queryAfter'
+        - $ref: '#/components/parameters/queryLimit'
       responses:
         '200':
           description: Success
@@ -17803,6 +18143,13 @@ paths:
       summary: Reset all Factors
       description: Resets all factors for the specified user. All MFA factor enrollments returned to the unenrolled state. The user's status remains ACTIVE. This link is present only if the user is currently enrolled in one or more MFA factors.
       operationId: resetFactors
+      parameters:
+        - name: removeRecoveryEnrollment
+          description: 'If `true`, removes the phone number as both a recovery method and a Factor. Supported Factors: `sms` and `call`'
+          in: query
+          schema:
+            type: boolean
+            default: false
       responses:
         '200':
           description: OK
@@ -19253,6 +19600,122 @@ paths:
   /integrations/api/v1/submissions/{submissionId}/testing:
     parameters:
       - $ref: '#/components/parameters/pathSubmissionId'
+  /webauthn-registration/api/v1/activate:
+    post:
+      summary: Activate a Preregistered WebAuthn Factor
+      description: Activates a preregistered WebAuthn Factor. As part of this operation, Okta first decrypts and verifies the Factor PIN and enrollment data sent by the fulfillment provider.
+      operationId: activatePreregistrationEnrollment
+      x-codegen-request-body-name: body
+      requestBody:
+        description: Enrollment Activation Request
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/EnrollmentActivationRequest'
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/EnrollmentActivationResponse'
+        '400':
+          description: PIN or Cred Requests Generation Failed
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+              examples:
+                NoDisable:
+                  $ref: '#/components/examples/ErrorPinOrCredResponsesProcessingFailure'
+        '403':
+          $ref: '#/components/responses/ErrorAccessDenied403'
+        '404':
+          $ref: '#/components/responses/ErrorResourceNotFound404'
+        '429':
+          $ref: '#/components/responses/ErrorTooManyRequests429'
+      security:
+        - apiToken: []
+        - oauth2:
+            - okta.users.manage
+      tags:
+        - WebAuthnPreregistration
+      x-okta-lifecycle:
+        lifecycle: GA
+        isGenerallyAvailable: true
+  /webauthn-registration/api/v1/enroll:
+    post:
+      summary: Enroll a Preregistered WebAuthn Factor
+      description: Enrolls a preregistered WebAuthn Factor. This WebAuthn Factor has a longer challenge timeout period to accommodate the fulfillment request process. As part of this operation, Okta generates EC key-pairs used to encrypt the Factor PIN and enrollment data sent by the fulfillment provider.
+      operationId: enrollPreregistrationEnrollment
+      x-codegen-request-body-name: body
+      requestBody:
+        description: Enrollment Initialization Request
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/EnrollmentInitializationRequest'
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/EnrollmentInitializationResponse'
+        '400':
+          description: PIN or Cred Requests Generation Failed
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+              examples:
+                NoDisable:
+                  $ref: '#/components/examples/ErrorPinOrCredRequestsGenerationFailure'
+        '403':
+          $ref: '#/components/responses/ErrorAccessDenied403'
+        '404':
+          $ref: '#/components/responses/ErrorResourceNotFound404'
+        '429':
+          $ref: '#/components/responses/ErrorTooManyRequests429'
+      security:
+        - apiToken: []
+        - oauth2:
+            - okta.users.manage
+      tags:
+        - WebAuthnPreregistration
+      x-okta-lifecycle:
+        lifecycle: GA
+        isGenerallyAvailable: true
+  /webauthn-registration/api/v1/initiate-fulfillment-request:
+    post:
+      summary: Generate a Fulfillment Request
+      description: Generates a fulfillment request by sending a WebAuthn Preregistration event to start the flow. The Okta Workflows WebAuthn preregistration integration uses this to populate the fulfillment request.
+      operationId: generateFulfillmentRequest
+      x-codegen-request-body-name: body
+      requestBody:
+        description: Fulfillment Request
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/FulfillmentRequest'
+      responses:
+        '204':
+          description: No Content
+        '403':
+          $ref: '#/components/responses/ErrorAccessDenied403'
+        '404':
+          $ref: '#/components/responses/ErrorResourceNotFound404'
+        '429':
+          $ref: '#/components/responses/ErrorTooManyRequests429'
+      security:
+        - apiToken: []
+        - oauth2:
+            - okta.users.manage
+      tags:
+        - WebAuthnPreregistration
+      x-okta-lifecycle:
+        lifecycle: GA
+        isGenerallyAvailable: true
 components:
   examples:
     APIDevicesListAllResponse:
@@ -19469,7 +19932,9 @@ components:
                   - GET
           _embedded:
             users:
-              - created: '2021-10-01T16:52:41.000Z'
+              - managementStatus: MANAGED
+                created: '2021-10-01T16:52:41.000Z'
+                screenLockType: BIOMETRIC
                 user:
                   id: 00u17vh0q8ov8IU881d7
                   realmId: 00u17vh0q8ov8IU8T0g5
@@ -20331,6 +20796,106 @@ components:
               type: HEADER
               key: Authorization
               value: my-shared-secret
+    CreateAssocAuthServerBody:
+      summary: Create a trusted relationship between authorization servers
+      value:
+        - trusted: '{authorizationServerId}'
+    CreateAssocAuthServerResponse:
+      summary: Create a trusted relationship between authorization servers
+      value:
+        - id: '{authorizationServerId}'
+          name: Sample Authorization Server
+          description: Sample Authorization Server description
+          audiences:
+            - https://api.resource.com
+          issuer: https://{yourOktaDomain}/oauth2/{authorizationServerId}
+          issuerMode: CUSTOM_URL
+          status: ACTIVE
+          created: '2023-05-17T22:25:57.000Z'
+          lastUpdated: '2023-05-17T22:25:57.000Z'
+          credentials:
+            signing:
+              rotationMode: AUTO
+              lastRotated: '2023-05-17T22:25:57.000Z'
+              nextRotation: '2023-08-15T22:25:57.000Z'
+              kid: WYQxoK4XAwGFn5Zw5AzLxFvqEKLP79BbsKmWeuc5TB4
+              use: sig
+          _links:
+            self:
+              href: https://{yourOktaDomain}/api/v1/authorizationServers/{authorizationServerId}
+              hints:
+                allow:
+                  - DELETE
+    CreateAuthServerBody:
+      summary: Create a custom authorization server
+      value:
+        name: Sample Authorization Server
+        description: Sample Authorization Server description
+        audiences:
+          - api://default
+    CreateAuthServerResponse:
+      summary: Create a custom authorization server
+      value:
+        id: '{authorizationServerId}'
+        name: Sample Authorization Server
+        description: Sample Authorization Server description
+        audiences:
+          - https://api.resource.com
+        issuer: https://{yourOktaDomain}/oauth2/{authorizationServerId}
+        issuerMode: ORG_URL
+        status: ACTIVE
+        created: '2023-05-17T22:25:57.000Z'
+        lastUpdated: '2023-05-17T22:25:57.000Z'
+        credentials:
+          signing:
+            rotationMode: AUTO
+            lastRotated: '2023-05-17T22:25:57.000Z'
+            nextRotation: '2023-08-15T22:25:57.000Z'
+            kid: WYQxoK4XAwGFn5Zw5AzLxFvqEKLP79BbsKmWeuc5TB4
+        _links:
+          scopes:
+            href: https://{yourOktaDomain}/api/v1/authorizationServers/{authorizationServerId}/scopes
+            hints:
+              allow:
+                - GET
+          claims:
+            href: https://{yourOktaDomain}/api/v1/authorizationServers/{authorizationServerId}/claims
+            hints:
+              allow:
+                - GET
+          policies:
+            href: https://{yourOktaDomain}/api/v1/authorizationServers/{authorizationServerId}/policies
+            hints:
+              allow:
+                - GET
+          self:
+            href: https://{yourOktaDomain}/api/v1/authorizationServers/{authorizationServerId}
+            hints:
+              allow:
+                - GET
+                - DELETE
+                - PUT
+          metadata:
+            - name: oauth-authorization-server
+              href: https://{yourOktaDomain}/oauth2/{authorizationServerId}/.well-known/oauth-authorization-server
+              hints:
+                allow:
+                  - GET
+            - name: openid-configuration
+              href: https://{yourOktaDomain}/oauth2/{authorizationServerId}/.well-known/openid-configuration
+              hints:
+                allow:
+                  - GET
+          rotateKey:
+            href: https://{yourOktaDomain}/api/v1/authorizationServers/{authorizationServerId}/credentials/lifecycle/keyRotate
+            hints:
+              allow:
+                - POST
+          deactivate:
+            href: https://{yourOktaDomain}/api/v1/authorizationServers/{authorizationServerId}/lifecycle/deactivate
+            hints:
+              allow:
+                - POST
     CreateBrandRequest:
       value:
         name: My Awesome Brand
@@ -20359,6 +20924,44 @@ components:
             hints:
               allow:
                 - GET
+    CreateCustomTokenClaimBody:
+      summary: Create a custom token Claim
+      value:
+        - alwaysIncludeInToken: true
+          claimType: IDENTITY
+          conditions:
+            scopes:
+              - profile
+          group_filter_type: CONTAINS
+          name: Support
+          status: ACTIVE
+          system: false
+          value: Support
+          valueType: GROUPS
+    CreateCustomTokenClaimResponse:
+      summary: Create a custom token Claim response
+      value:
+        - id: '{claimId}'
+          name: Support
+          status: ACTIVE
+          claimType: IDENTITY
+          valueType: GROUPS
+          value: Support
+          conditions:
+            scopes:
+              - profile
+          system: false
+          alwaysIncludeInToken: true
+          apiResourceId: null
+          group_filter_type: CONTAINS
+          _links:
+            self:
+              href: https://{yourOktaDomain}/api/v1/authorizationServers/{authorizationServerId}/claims/{claimId}
+              hints:
+                allow:
+                  - GET
+                  - PUT
+                  - DELETE
     CreateEmailDomainRequest:
       value:
         displayName: Admin
@@ -20735,6 +21338,63 @@ components:
                 - DELETE
                 - GET
                 - PUT
+    DeviceAssuranceAndroidWithDynamicVersionRequirementRequest:
+      x-okta-lifecycle:
+        lifecycle: EA
+        isGenerallyAvailable: false
+        SKUs: []
+      summary: Android with dynamic version requirement request
+      value:
+        name: Device Assurance Android
+        osVersion:
+          dynamicVersionRequirement:
+            type: MINIMUM
+            distanceFromLatestMajor: 0
+        diskEncryptionType:
+          include:
+            - USER
+            - FULL
+        jailbreak: false
+        platform: ANDROID
+        screenLockType:
+          include:
+            - BIOMETRIC
+        secureHardwarePresent: true
+    DeviceAssuranceAndroidWithDynamicVersionRequirementResponse:
+      x-okta-lifecycle:
+        lifecycle: EA
+        isGenerallyAvailable: false
+        SKUs: []
+      summary: Android with dynamic version requirement response
+      value:
+        id: dae3m8o4rWhwReDeM1c5
+        name: Device Assurance Android
+        lastUpdate: '2022-01-01T00:00:00.000Z'
+        createdUpdate: '2022-01-01T00:00:00.000Z'
+        lastUpdatedBy: 00u217pyf72CdUrBt1c5
+        createdBy: 00u217pyf72CdUrBt1c5
+        osVersion:
+          dynamicVersionRequirement:
+            type: MINIMUM
+            distanceFromLatestMajor: 0
+        diskEncryptionType:
+          include:
+            - USER
+            - FULL
+        jailbreak: false
+        platform: ANDROID
+        screenLockType:
+          include:
+            - BIOMETRIC
+        secureHardwarePresent: true
+        _links:
+          self:
+            href: https://your-subdomain.okta.com/api/v1/device-assurances/dae3m8o4rWhwReDeM1c5
+            hints:
+              allow:
+                - DELETE
+                - GET
+                - PUT
     DeviceAssuranceChromeOSWithThirdPartySignalProvidersRequest:
       x-okta-lifecycle:
         lifecycle: GA
@@ -20837,6 +21497,53 @@ components:
                 - DELETE
                 - GET
                 - PUT
+    DeviceAssuranceIosWithDynamicVersionRequirementRequest:
+      x-okta-lifecycle:
+        lifecycle: EA
+        isGenerallyAvailable: false
+        SKUs: []
+      summary: iOS with dynamic version requirement request
+      value:
+        name: Device Assurance iOS
+        osVersion:
+          dynamicVersionRequirement:
+            type: EXACT_ANY_SUPPORTED
+            latestSecurityPatch: true
+        jailbreak: false
+        platform: IOS
+        screenLockType:
+          include:
+            - BIOMETRIC
+    DeviceAssuranceIosWithDynamicVersionRequirementResponse:
+      x-okta-lifecycle:
+        lifecycle: EA
+        isGenerallyAvailable: false
+        SKUs: []
+      summary: iOS with dynamic version requirement response
+      value:
+        id: dae3m8o4rWhwReDeM1c5
+        name: Device Assurance iOS
+        lastUpdate: '2022-01-01T00:00:00.000Z'
+        createdUpdate: '2022-01-01T00:00:00.000Z'
+        lastUpdatedBy: 00u217pyf72CdUrBt1c5
+        createdBy: 00u217pyf72CdUrBt1c5
+        osVersion:
+          dynamicVersionRequirement:
+            type: EXACT_ANY_SUPPORTED
+            latestSecurityPatch: true
+        jailbroken: false
+        platform: IOS
+        screenLockType:
+          include:
+            - BIOMETRIC
+        _links:
+          self:
+            href: https://your-subdomain.okta.com/api/v1/device-assurances/dae3m8o4rWhwReDeM1c5
+            hints:
+              allow:
+                - DELETE
+                - GET
+                - PUT
     DeviceAssuranceMacOSRequest:
       summary: macOS request
       value:
@@ -20863,6 +21570,63 @@ components:
         createdBy: 00u217pyf72CdUrBt1c5
         osVersion:
           minimum: 12.4.5
+        diskEncryptionType:
+          include:
+            - ALL_INTERNAL_VOLUMES
+        platform: MACOS
+        screenLockType:
+          include:
+            - PASSCODE
+            - BIOMETRIC
+        secureHardwarePresent: true
+        _links:
+          self:
+            href: https://your-subdomain.okta.com/api/v1/device-assurances/dae3m8o4rWhwReDeM1c5
+            hints:
+              allow:
+                - DELETE
+                - GET
+                - PUT
+    DeviceAssuranceMacOSWithDynamicVersionRequirementRequest:
+      x-okta-lifecycle:
+        lifecycle: EA
+        isGenerallyAvailable: false
+        SKUs: []
+      summary: macOS with dynamic version requirement request
+      value:
+        name: Device Assurance macOS
+        osVersion:
+          dynamicVersionRequirement:
+            type: EXACT
+            distanceFromLatestMajor: 0
+            latestSecurityPatch: true
+        diskEncryptionType:
+          include:
+            - ALL_INTERNAL_VOLUMES
+        platform: MACOS
+        screenLockType:
+          include:
+            - PASSCODE
+            - BIOMETRIC
+        secureHardwarePresent: true
+    DeviceAssuranceMacOSWithDynamicVersionRequirementResponse:
+      x-okta-lifecycle:
+        lifecycle: EA
+        isGenerallyAvailable: false
+        SKUs: []
+      summary: macOS with dynamic version requirement response
+      value:
+        id: dae3m8o4rWhwReDeM1c5
+        name: Device Assurance macOS
+        lastUpdate: '2022-01-01T00:00:00.000Z'
+        createdUpdate: '2022-01-01T00:00:00.000Z'
+        lastUpdatedBy: 00u217pyf72CdUrBt1c5
+        createdBy: 00u217pyf72CdUrBt1c5
+        osVersion:
+          dynamicVersionRequirement:
+            type: EXACT
+            distanceFromLatestMajor: 0
+            latestSecurityPatch: true
         diskEncryptionType:
           include:
             - ALL_INTERNAL_VOLUMES
@@ -21007,6 +21771,71 @@ components:
                 - DELETE
                 - GET
                 - PUT
+    DeviceAssuranceWindowsWithDynamicVersionRequirementsRequest:
+      x-okta-lifecycle:
+        lifecycle: EA
+        isGenerallyAvailable: false
+        SKUs: []
+      summary: Windows with Windows 11 and Windows 10 dynamic version requirements request
+      value:
+        name: Device Assurance Windows
+        osVersionConstraints:
+          - majorVersionConstraint: WINDOWS_11
+            dynamicVersionRequirement:
+              type: MINIMUM
+              distanceFromLatestMajor: 1
+              latestSecurityPatch: true
+          - majorVersionConstraint: WINDOWS_10
+            dynamicVersionRequirement:
+              type: EXACT_ANY_SUPPORTED
+        diskEncryptionType:
+          include:
+            - ALL_INTERNAL_VOLUMES
+        platform: WINDOWS
+        screenLockType:
+          include:
+            - PASSCODE
+            - BIOMETRIC
+        secureHardwarePresent: true
+    DeviceAssuranceWindowsWithDynamicVersionRequirementsResponse:
+      x-okta-lifecycle:
+        lifecycle: EA
+        isGenerallyAvailable: false
+        SKUs: []
+      summary: Windows with Windows 11 and Windows 10 dynamic version requirements response
+      value:
+        id: dae3m8o4rWhwReDeM1c5
+        name: Device Assurance Windows
+        lastUpdate: '2022-01-01T00:00:00.000Z'
+        createdUpdate: '2022-01-01T00:00:00.000Z'
+        lastUpdatedBy: 00u217pyf72CdUrBt1c5
+        createdBy: 00u217pyf72CdUrBt1c5
+        osVersionConstraints:
+          - majorVersionConstraint: WINDOWS_11
+            dynamicVersionRequirement:
+              type: MINIMUM
+              distanceFromLatestMajor: 1
+              latestSecurityPatch: true
+          - majorVersionConstraint: WINDOWS_10
+            dynamicVersionRequirement:
+              type: EXACT_ANY_SUPPORTED
+        diskEncryptionType:
+          include:
+            - ALL_INTERNAL_VOLUMES
+        platform: WINDOWS
+        screenLockType:
+          include:
+            - PASSCODE
+            - BIOMETRIC
+        secureHardwarePresent: true
+        _links:
+          self:
+            href: https://your-subdomain.okta.com/api/v1/device-assurances/dae3m8o4rWhwReDeM1c5
+            hints:
+              allow:
+                - DELETE
+                - GET
+                - PUT
     DeviceAssuranceWindowsWithThirdPartySignalProvidersRequest:
       x-okta-lifecycle:
         lifecycle: GA
@@ -21096,6 +21925,126 @@ components:
             crowdStrikeCustomerId: testCustomerId
             crowdStrikeAgentId": testAgentId
             keyTrustLevel: CHROME_BROWSER_HW_KEY
+        _links:
+          self:
+            href: https://your-subdomain.okta.com/api/v1/device-assurances/dae3m8o4rWhwReDeM1c5
+            hints:
+              allow:
+                - DELETE
+                - GET
+                - PUT
+    DeviceAssuranceWindowsWithWin11DynamicVersionRequirementAndWin10MinimumVersionStringRequest:
+      x-okta-lifecycle:
+        lifecycle: EA
+        isGenerallyAvailable: false
+        SKUs: []
+      summary: Windows with Windows 11 dynamic version requirement and Windows 10 minimum version request
+      value:
+        name: Device Assurance Windows
+        osVersionConstraints:
+          - majorVersionConstraint: WINDOWS_11
+            dynamicVersionRequirement:
+              type: EXACT
+              distanceFromLatestMajor: 1
+          - majorVersionConstraint: WINDOWS_10
+            minimum: 10.0.19045.0
+        diskEncryptionType:
+          include:
+            - ALL_INTERNAL_VOLUMES
+        platform: WINDOWS
+        screenLockType:
+          include:
+            - PASSCODE
+            - BIOMETRIC
+        secureHardwarePresent: true
+    DeviceAssuranceWindowsWithWin11DynamicVersionRequirementAndWin10MinimumVersionStringResponse:
+      x-okta-lifecycle:
+        lifecycle: EA
+        isGenerallyAvailable: false
+        SKUs: []
+      summary: Windows with Windows 11 dynamic version requirement and Windows 10 minimum version response
+      value:
+        id: dae3m8o4rWhwReDeM1c5
+        name: Device Assurance Windows
+        lastUpdate: '2022-01-01T00:00:00.000Z'
+        createdUpdate: '2022-01-01T00:00:00.000Z'
+        lastUpdatedBy: 00u217pyf72CdUrBt1c5
+        createdBy: 00u217pyf72CdUrBt1c5
+        osVersionConstraints:
+          - majorVersionConstraint: WINDOWS_11
+            dynamicVersionRequirement:
+              type: EXACT
+              distanceFromLatestMajor: 1
+          - majorVersionConstraint: WINDOWS_10
+            minimum: 10.0.19045.0
+        diskEncryptionType:
+          include:
+            - ALL_INTERNAL_VOLUMES
+        platform: WINDOWS
+        screenLockType:
+          include:
+            - PASSCODE
+            - BIOMETRIC
+        secureHardwarePresent: true
+        _links:
+          self:
+            href: https://your-subdomain.okta.com/api/v1/device-assurances/dae3m8o4rWhwReDeM1c5
+            hints:
+              allow:
+                - DELETE
+                - GET
+                - PUT
+    DeviceAssuranceWindowsWithWin11MinimumVersionStringAndWin10DynamicVersionRequirementRequest:
+      x-okta-lifecycle:
+        lifecycle: EA
+        isGenerallyAvailable: false
+        SKUs: []
+      summary: Windows with Windows 11 minimum version and a Windows 10 dynamic version requirement request
+      value:
+        name: Device Assurance Windows
+        osVersionConstraints:
+          - majorVersionConstraint: WINDOWS_11
+            minimum: 10.0.22000.0
+          - majorVersionConstraint: WINDOWS_10
+            dynamicVersionRequirement:
+              type: NOT_ALLOWED
+        diskEncryptionType:
+          include:
+            - ALL_INTERNAL_VOLUMES
+        platform: WINDOWS
+        screenLockType:
+          include:
+            - PASSCODE
+            - BIOMETRIC
+        secureHardwarePresent: true
+    DeviceAssuranceWindowsWithWin11MinimumVersionStringAndWin10DynamicVersionRequirementResponse:
+      x-okta-lifecycle:
+        lifecycle: EA
+        isGenerallyAvailable: false
+        SKUs: []
+      summary: Windows with Windows 11 minimum version and Windows 10 dynamic version requirement response
+      value:
+        id: dae3m8o4rWhwReDeM1c5
+        name: Device Assurance Windows
+        lastUpdate: '2022-01-01T00:00:00.000Z'
+        createdUpdate: '2022-01-01T00:00:00.000Z'
+        lastUpdatedBy: 00u217pyf72CdUrBt1c5
+        createdBy: 00u217pyf72CdUrBt1c5
+        osVersionConstraints:
+          - majorVersionConstraint: WINDOWS_11
+            minimum: 10.0.22000.0
+          - majorVersionConstraint: WINDOWS_10
+            dynamicVersionRequirement:
+              type: NOT_ALLOWED
+        diskEncryptionType:
+          include:
+            - ALL_INTERNAL_VOLUMES
+        platform: WINDOWS
+        screenLockType:
+          include:
+            - PASSCODE
+            - BIOMETRIC
+        secureHardwarePresent: true
         _links:
           self:
             href: https://your-subdomain.okta.com/api/v1/device-assurances/dae3m8o4rWhwReDeM1c5
@@ -21410,6 +22359,24 @@ components:
         errorLink: E0000028
         errorId: sampleiCF-l7mr9XqM1NQ
         errorCauses: []
+    ErrorPinOrCredRequestsGenerationFailure:
+      summary: PIN or Cred Requests Generation Failed
+      value:
+        errorCode: E0000001
+        errorSummary: 'Api validation failed: pinRequest|credRequests'
+        errorLink: E0000001
+        errorId: oaehk3rssXQmOWDRsaFfxe8A
+        errorCauses:
+          errorSummary: There was a problem generating the pinRequest|credRequests.
+    ErrorPinOrCredResponsesProcessingFailure:
+      summary: PIN or Cred Response Processing Failed
+      value:
+        errorCode: E0000001
+        errorSummary: 'Api validation failed: pinResponse|credResponses'
+        errorLink: E0000001
+        errorId: oaehk3rssXQmOWDRsaFfxe8B
+        errorCauses:
+          errorSummary: There was a problem generating the pinResponse|credResponses.
     ErrorPushProviderUsedByCustomAppAuthenticator:
       value:
         errorCode: E0000187
@@ -21662,6 +22629,95 @@ components:
             client:
               href: https://{yourOktaDomain}/oauth2/v1/clients/{clientId}
               title: Client name
+    ListAssocAuthServerResponse:
+      summary: List associated Authorization Servers
+      value:
+        - id: '{authorizationServerId}'
+          name: Sample Authorization Server
+          description: Sample Authorization Server description
+          audiences:
+            - https://api.resource.com
+          issuer: https://{yourOktaDomain}/oauth2/{authorizationServerId}
+          issuerMode: CUSTOM_URL
+          status: ACTIVE
+          created: '2023-05-17T22:25:57.000Z'
+          lastUpdated: '2023-05-17T22:25:57.000Z'
+          credentials:
+            signing:
+              rotationMode: DYNAMIC
+              lastRotated: '2023-05-17T22:25:57.000Z'
+              nextRotation: '2023-08-15T22:25:57.000Z'
+              kid: WYQxoK4XAwGFn5Zw5AzLxFvqEKLP79BbsKmWeuc5TB4
+              use: sig
+          _links:
+            self:
+              href: https://{yourOktaDomain}/api/v1/authorizationServers/{authorizationServerId}
+              hints:
+                allow:
+                  - DELETE
+    ListAuthServersResponse:
+      summary: List all custom authorization servers in your org
+      value:
+        - id: '{authorizationServerId}'
+          name: Sample Authorization Server
+          description: Sample Authorization Server description
+          audiences:
+            - https://api.resource.com
+          issuer: https://{yourOktaDomain}/oauth2/{authorizationServerId}
+          issuerMode: ORG_URL
+          status: ACTIVE
+          created: '2023-05-17T22:25:57.000Z'
+          lastUpdated: '2023-05-17T22:25:57.000Z'
+          credentials:
+            signing:
+              rotationMode: AUTO
+              lastRotated: '2023-05-17T22:25:57.000Z'
+              nextRotation: '2023-08-15T22:25:57.000Z'
+              kid: WYQxoK4XAwGFn5Zw5AzLxFvqEKLP79BbsKmWeuc5TB4
+          _links:
+            scopes:
+              href: https://{yourOktaDomain}/api/v1/authorizationServers/{authorizationServerId}/scopes
+              hints:
+                allow:
+                  - GET
+            claims:
+              href: https://{yourOktaDomain}/api/v1/authorizationServers/{authorizationServerId}/claims
+              hints:
+                allow:
+                  - GET
+            policies:
+              href: https://{yourOktaDomain}/api/v1/authorizationServers/{authorizationServerId}/policies
+              hints:
+                allow:
+                  - GET
+            self:
+              href: https://{yourOktaDomain}/api/v1/authorizationServers/{authorizationServerId}
+              hints:
+                allow:
+                  - GET
+                  - DELETE
+                  - PUT
+            metadata:
+              - name: oauth-authorization-server
+                href: https://{yourOktaDomain}/oauth2/{authorizationServerId}/.well-known/oauth-authorization-server
+                hints:
+                  allow:
+                    - GET
+              - name: openid-configuration
+                href: https://{yourOktaDomain}/oauth2/{authorizationServerId}/.well-known/openid-configuration
+                hints:
+                  allow:
+                    - GET
+            rotateKey:
+              href: https://{yourOktaDomain}/api/v1/authorizationServers/{authorizationServerId}/credentials/lifecycle/keyRotate
+              hints:
+                allow:
+                  - POST
+            deactivate:
+              href: https://{yourOktaDomain}/api/v1/authorizationServers/{authorizationServerId}/lifecycle/deactivate
+              hints:
+                allow:
+                  - POST
     ListBrandsResponse:
       value:
         - id: bnd114iNkrcN6aR680g4
@@ -21688,6 +22744,29 @@ components:
               hints:
                 allow:
                   - GET
+    ListCustomTokenClaimsResponse:
+      summary: List all custom token Claims for an authorization server
+      value:
+        - id: '{claimId}'
+          name: sub
+          status: ACTIVE
+          claimType: RESOURCE
+          valueType: EXPRESSION
+          value: '(appuser != null) ? appuser.userName : app.clientId'
+          conditions:
+            scopes:
+              - profile
+          system: true
+          alwaysIncludeInToken: true
+          apiResourceId: null
+          _links:
+            self:
+              href: https://{yourOktaDomain}/api/v1/authorizationServers/{authorizationServerId}/claims/{claimId}
+              hints:
+                allow:
+                  - GET
+                  - PUT
+                  - DELETE
     ListEmailCustomizationResponse:
       value:
         - language: en
@@ -21917,6 +22996,7 @@ components:
           isDefault: false
           profile:
             name: Car Co
+            realmType: PARTNER
           _links:
             self:
               rel: self
@@ -23093,6 +24173,121 @@ components:
               type: HEADER
               key: Authorization
               value: my-shared-secret
+    ReplaceAuthServerBody:
+      summary: Replace a custom authorization server
+      value:
+        name: New Authorization Server
+        description: Authorization Server description
+        audiences:
+          - api://default
+        credentials:
+          signing:
+            rotationMode: AUTO
+            use: sig
+        issuer: https://{yourOktaDomain}/oauth2/{authorizationServerId}
+        issuerMode: ORG_URL
+        status: ACTIVE
+    ReplaceAuthServerResponse:
+      summary: Replace a custom authorization server
+      value:
+        id: '{authorizationServerId}'
+        name: Sample Authorization Server
+        description: Sample Authorization Server description
+        audiences:
+          - https://api.resource.com
+        issuer: https://{yourOktaDomain}/oauth2/{authorizationServerId}
+        issuerMode: ORG_URL
+        status: ACTIVE
+        created: '2023-05-17T22:25:57.000Z'
+        lastUpdated: '2023-05-17T22:25:57.000Z'
+        credentials:
+          signing:
+            rotationMode: AUTO
+            lastRotated: '2023-05-17T22:25:57.000Z'
+            nextRotation: '2023-08-15T22:25:57.000Z'
+            kid: WYQxoK4XAwGFn5Zw5AzLxFvqEKLP79BbsKmWeuc5TB4
+        _links:
+          scopes:
+            href: https://{yourOktaDomain}/api/v1/authorizationServers/{authorizationServerId}/scopes
+            hints:
+              allow:
+                - GET
+          claims:
+            href: https://{yourOktaDomain}/api/v1/authorizationServers/{authorizationServerId}/claims
+            hints:
+              allow:
+                - GET
+          policies:
+            href: https://{yourOktaDomain}/api/v1/authorizationServers/{authorizationServerId}/policies
+            hints:
+              allow:
+                - GET
+          self:
+            href: https://{yourOktaDomain}/api/v1/authorizationServers/{authorizationServerId}
+            hints:
+              allow:
+                - GET
+                - DELETE
+                - PUT
+          metadata:
+            - name: oauth-authorization-server
+              href: https://{yourOktaDomain}/oauth2/{authorizationServerId}/.well-known/oauth-authorization-server
+              hints:
+                allow:
+                  - GET
+            - name: openid-configuration
+              href: https://{yourOktaDomain}/oauth2/{authorizationServerId}/.well-known/openid-configuration
+              hints:
+                allow:
+                  - GET
+          rotateKey:
+            href: https://{yourOktaDomain}/api/v1/authorizationServers/{authorizationServerId}/credentials/lifecycle/keyRotate
+            hints:
+              allow:
+                - POST
+          deactivate:
+            href: https://{yourOktaDomain}/api/v1/authorizationServers/{authorizationServerId}/lifecycle/deactivate
+            hints:
+              allow:
+                - POST
+    ReplaceCustomTokenClaimBody:
+      summary: Replace a custom token Claim
+      value:
+        - alwaysIncludeInToken: true
+          claimType: IDENTITY
+          conditions:
+            scopes:
+              - profile
+          group_filter_type: CONTAINS
+          name: Knowledge_Base
+          status: ACTIVE
+          system: false
+          value: Knowledge Base
+          valueType: GROUPS
+    ReplaceCustomTokenClaimResponse:
+      summary: Replace a custom token Claim response
+      value:
+        - id: '{claimId}'
+          name: Knowledge_Base
+          status: ACTIVE
+          claimType: IDENTITY
+          valueType: GROUPS
+          value: Knowledge Base
+          conditions:
+            scopes:
+              - profile
+          system: false
+          alwaysIncludeInToken: true
+          apiResourceId: null
+          group_filter_type: CONTAINS
+          _links:
+            self:
+              href: https://{yourOktaDomain}/api/v1/authorizationServers/{authorizationServerId}/claims/{claimId}
+              hints:
+                allow:
+                  - GET
+                  - PUT
+                  - DELETE
     ReplaceKeyResponse:
       summary: Replace a key response example
       value:
@@ -23710,6 +24905,69 @@ components:
             hints:
               allow:
                 - POST
+    RetrieveAuthServerResponse:
+      summary: Retrieve a custom authorization server
+      value:
+        id: '{authorizationServerId}'
+        name: Sample Authorization Server
+        description: Sample Authorization Server description
+        audiences:
+          - https://api.resource.com
+        issuer: https://{yourOktaDomain}/oauth2/{authorizationServerId}
+        issuerMode: ORG_URL
+        status: ACTIVE
+        created: '2023-05-17T22:25:57.000Z'
+        lastUpdated: '2023-05-17T22:25:57.000Z'
+        credentials:
+          signing:
+            rotationMode: AUTO
+            lastRotated: '2023-05-17T22:25:57.000Z'
+            nextRotation: '2023-08-15T22:25:57.000Z'
+            kid: WYQxoK4XAwGFn5Zw5AzLxFvqEKLP79BbsKmWeuc5TB4
+        _links:
+          scopes:
+            href: https://{yourOktaDomain}/api/v1/authorizationServers/{authorizationServerId}/scopes
+            hints:
+              allow:
+                - GET
+          claims:
+            href: https://{yourOktaDomain}/api/v1/authorizationServers/{authorizationServerId}/claims
+            hints:
+              allow:
+                - GET
+          policies:
+            href: https://{yourOktaDomain}/api/v1/authorizationServers/{authorizationServerId}/policies
+            hints:
+              allow:
+                - GET
+          self:
+            href: https://{yourOktaDomain}/api/v1/authorizationServers/{authorizationServerId}
+            hints:
+              allow:
+                - GET
+                - DELETE
+                - PUT
+          metadata:
+            - name: oauth-authorization-server
+              href: https://{yourOktaDomain}/oauth2/{authorizationServerId}/.well-known/oauth-authorization-server
+              hints:
+                allow:
+                  - GET
+            - name: openid-configuration
+              href: https://{yourOktaDomain}/oauth2/{authorizationServerId}/.well-known/openid-configuration
+              hints:
+                allow:
+                  - GET
+          rotateKey:
+            href: https://{yourOktaDomain}/api/v1/authorizationServers/{authorizationServerId}/credentials/lifecycle/keyRotate
+            hints:
+              allow:
+                - POST
+          deactivate:
+            href: https://{yourOktaDomain}/api/v1/authorizationServers/{authorizationServerId}/lifecycle/deactivate
+            hints:
+              allow:
+                - POST
     RetrieveCurrentSessionResponse:
       summary: Retrieve current session
       value:
@@ -23744,6 +25002,30 @@ components:
                 - GET
             href: https://{yourOktaDomain}/api/v1/users/me
             name: User Name
+    RetrieveCustomTokenClaimResponse:
+      summary: Retrieve a custom token Claim response
+      value:
+        - id: '{claimId}'
+          name: Support
+          status: ACTIVE
+          claimType: IDENTITY
+          valueType: GROUPS
+          value: Support
+          conditions:
+            scopes:
+              - profile
+          system: false
+          alwaysIncludeInToken: true
+          apiResourceId: null
+          group_filter_type: CONTAINS
+          _links:
+            self:
+              href: https://{yourOktaDomain}/api/v1/authorizationServers/{authorizationServerId}/claims/{claimId}
+              hints:
+                allow:
+                  - GET
+                  - PUT
+                  - DELETE
     RetrieveFeaturesResponse:
       summary: Retrieve a feature by ID
       value:
@@ -24244,26 +25526,62 @@ components:
           lastUpdated: '2023-08-24T14:15:22.000Z'
           lastUpdatedBy: 00ub0oNGTSWTBKOLGLNR
           lastPublished: '2023-09-01T13:23:45.000Z'
-    TestInfoBase:
-      summary: Submission Testing Information example
+    TestInfoOidcRequest:
+      summary: OIDC SSO Submission Testing Information request
       value:
         testAccount:
           url: https://example.com/strawberry/login
           username: test@example.com
           password: sUperP@ssw0rd
-          instructions: Just open URL and input credentials
+          instructions: Go to your app URL from a browser and enter your credentials
+        escalationSupportContact: strawberry.support@example.com
+        oidcTestConfiguration:
+          jit: false
+          spInitiateUrl: https://test.example.com/strawberry/oidc/sp-init
+    TestInfoOidcResponse:
+      summary: OIDC SSO Submission Testing Information response
+      value:
+        testAccount:
+          url: https://example.com/strawberry/login
+          username: test@example.com
+          password: sUperP@ssw0rd
+          instructions: Go to your app URL from a browser and enter your credentials
+        escalationSupportContact: strawberry.support@example.com
+        oidcTestConfiguration:
+          idp: true
+          sp: true
+          jit: false
+          spInitiateUrl: https://test.example.com/strawberry/oidc/sp-init
+    TestInfoSamlRequest:
+      summary: SAML SSO Submission Testing Information request
+      value:
+        testAccount:
+          url: https://example.com/strawberry/login
+          username: test@example.com
+          password: sUperP@ssw0rd
+          instructions: Go to your app URL from a browser and enter your credentials
         escalationSupportContact: strawberry.support@example.com
         samlTestConfiguration:
           idp: true
           sp: true
           jit: false
           spInitiateUrl: https://test.example.com/strawberry/saml/sp-init
-          spInitiateDescription: Just open URL and provide your username
-        oidcTestConfiguration:
+          spInitiateDescription: Go to the app URL from a browser and enter your username
+    TestInfoSamlResponse:
+      summary: SAML SSO Submission Testing Information response
+      value:
+        testAccount:
+          url: https://example.com/strawberry/login
+          username: test@example.com
+          password: sUperP@ssw0rd
+          instructions: Go to your app URL from a browser and enter your credentials
+        escalationSupportContact: strawberry.support@example.com
+        samlTestConfiguration:
           idp: true
           sp: true
           jit: false
-          spInitiateUrl: https://test.example.com/strawberry/oidc/sp-init
+          spInitiateUrl: https://test.example.com/strawberry/saml/sp-init
+          spInitiateDescription: Go to the app URL from a browser and enter your username
     ThreatInsightResponseExample:
       summary: ThreatInsight response
       value:
@@ -24647,6 +25965,106 @@ components:
             hints:
               allow:
                 - POST
+    idp-discovery-dynamic-routing-rule:
+      summary: IdP discovery policy - Dynamic routing rule
+      description: This routing rule uses a dynamic Identity Provider.
+      value:
+        name: Dynamic routing rule
+        priority: 1
+        status: ACTIVE
+        conditions:
+          network:
+            connection: ANYWHERE
+        actions:
+          idp:
+            providers: []
+            idpSelectionType: DYNAMIC
+            matchCriteria:
+              - providerExpression: login.identifier.substringAfter('@')
+                propertyName: name
+        system: false
+        type: IDP_DISCOVERY
+    idp-discovery-dynamic-routing-rule-response:
+      summary: IdP discovery policy - Dynamic routing rule
+      value:
+        id: ruleId
+        _links:
+          self:
+            href: https://sampleorg.okta.com/api/v1/policies/{policyId}/rules/{ruleId}
+            hints:
+              allow:
+                - GET
+                - PUT
+                - DELETE
+          deactivate:
+            href: https://sampleorg.okta.com/api/v1/policies/{policyId}/rules/{ruleId}/lifecycle/deactivate
+            hints:
+              allow:
+                - POST
+        name: Dynamic routing rule
+        priority: 1
+        status: ACTIVE
+        conditions:
+          network:
+            connection: ANYWHERE
+        actions:
+          idp:
+            providers: []
+            idpSelectionType: DYNAMIC
+            matchCriteria:
+              - providerExpression: login.identifier.substringAfter('@')
+                propertyName: name
+        system: false
+        type: IDP_DISCOVERY
+    idp-discovery-specific-routing-rule:
+      summary: IdP discovery policy - Specific routing rule
+      description: This routing rule uses a specific Identity Provider.
+      value:
+        name: Specific routing rule
+        priority: 1
+        status: ACTIVE
+        conditions:
+          network:
+            connection: ANYWHERE
+        actions:
+          idp:
+            providers:
+              - type: GOOGLE
+                id: 0oa5ks3WmHLRh8Ivr0g4
+            idpSelectionType: SPECIFIC
+        system: false
+        type: IDP_DISCOVERY
+    idp-discovery-specific-routing-rule-response:
+      summary: IdP discovery policy - Specific routing rule
+      value:
+        id: ruleId
+        _links:
+          self:
+            href: https://sampleorg.okta.com/api/v1/policies/{policyId}/rules/{ruleId}
+            hints:
+              allow:
+                - GET
+                - PUT
+                - DELETE
+          deactivate:
+            href: https://sampleorg.okta.com/api/v1/policies/{policyId}/rules/{ruleId}/lifecycle/deactivate
+            hints:
+              allow:
+                - POST
+        name: Specific routing rule
+        priority: 1
+        status: ACTIVE
+        conditions:
+          network:
+            connection: ANYWHERE
+        actions:
+          idp:
+            providers:
+              - type: GOOGLE
+                id: 0oa5ks3WmHLRh8Ivr0g4
+            idpSelectionType: SPECIFIC
+        system: false
+        type: IDP_DISCOVERY
     inactiveAPIServiceIntegrationInstanceSecretResponse:
       summary: Deactivate Secret response example
       value:
@@ -24820,8 +26238,8 @@ components:
         system: false
         type: PASSWORD
     sspr-enabled-sq-step-up:
-      summary: Password policy - SSPR with security question as step up
-      description: This password policy permits self-service password change, reset, and unlock. Phone SMS and Okta Verify push are initial authenticators, and the secondary authentication is a security question.
+      summary: Password policy - SSPR with security question as step-up auth
+      description: This password policy permits self-service password change, reset, and unlock. Phone SMS and Okta Verify push are the initial authenticators, and the secondary authentication is a security question.
       value:
         name: SSPR Rule
         priority: 1
@@ -25144,6 +26562,62 @@ components:
             access: ALLOW
         system: false
         type: PASSWORD
+    twofa-enabled-disallow-password-allow-phishing:
+      summary: Authentication policy - 2FA with granular authentication
+      description: This two-factor authentication policy uses a rule to disallow passwords and require phishing resistance for possession authenticators for authentication.
+      value:
+        name: Passwordless 2FA
+        actions:
+          appSignOn:
+            access: ALLOW
+            verificationMethod:
+              factorMode: 2FA
+              type: ASSURANCE
+              reauthenticateIn: PT0S
+              constraints:
+                knowledge:
+                  excludedAuthenticationMethods:
+                    key: okta_password
+                possession:
+                  deviceBound: REQUIRED
+                  phishingREsistant: REQUIRED
+        type: ACCESS_POLICY
+    twofa-enabled-disallow-password-allow-phishing-response:
+      summary: Authentication policy - 2FA with granular authentication
+      description: The rule from a two-factor authentication policy that disallows passwords and requires phishing resistance
+      value:
+        id: rul7yut96gmsOzKAA1d6
+        status: ACTIVE
+        name: Passwordless 2FA
+        priority: 0
+        created: '2023-05-01T21:13:15.000Z'
+        lastUpdated: '2023-05-01T21:13:15.000Z'
+        system: false
+        conditions: null
+        actions:
+          appSignOn:
+            access: ALLOW
+            verificationMethod:
+              factorMode: 2FA
+              type: ASSURANCE
+              reauthenticateIn: PT0S
+              constraints:
+                knowledge:
+                  excludedAuthenticationMethods:
+                    key: okta_password
+                  required: false
+                possession:
+                  deviceBound: REQUIRED
+                  phishingREsistant: REQUIRED
+                  required: true
+        type: ACCESS_POLICY
+        _links:
+          self:
+            href: https://sampleorg.okta.com/api/v1/policies/rst7xus97faIAgmti1d7/rules/rul7yut96gmsOzKAA1d6
+            hints:
+              allow:
+                - GET
+                - PUT
   parameters:
     UISchemaId:
       name: id
@@ -25153,6 +26627,13 @@ components:
       schema:
         type: string
         example: uis4a7liocgcRgcxZ0g7
+    authenticatorEnrollmentId:
+      name: authenticatorEnrollmentId
+      in: path
+      required: true
+      description: ID for a WebAuthn Preregistration Factor in Okta
+      schema:
+        type: string
     pathApiServiceId:
       name: apiServiceId
       in: path
@@ -25252,6 +26733,14 @@ components:
       required: true
       schema:
         type: string
+    pathCredentialKeyId:
+      name: keyId
+      description: '`id` of the certificate key'
+      in: path
+      required: true
+      schema:
+        type: string
+        example: P7jXpG-LG2ObNgY9C0Mn2uf4InCQTmRZMDCZoVNxdrk
     pathCsrId:
       name: csrId
       description: '`id` of the CSR'
@@ -25686,7 +27175,7 @@ components:
         example: l7FbDVqS8zHSy65uJD85
     pathSubmissionId:
       name: submissionId
-      description: Submission ID
+      description: OIN Integration ID
       in: path
       required: true
       schema:
@@ -25779,7 +27268,7 @@ components:
       in: query
       schema:
         type: string
-      description: The cursor to use for pagination. It is an opaque string that specifies your current location in the list and is obtained from the `Link` response header. See [Pagination](/#pagination) for more information.
+      description: The cursor to use for pagination. It is an opaque string that specifies your current location in the list and is obtained from the `Link` response header. See [Pagination](/#pagination).
     queryAppAfter:
       name: after
       in: query
@@ -26158,15 +27647,67 @@ components:
     AccessPolicyConstraint:
       type: object
       properties:
+        authenticationMethods:
+          x-okta-lifecycle:
+            lifecycle: EA
+            isGenerallyAvailable: false
+            SKUs:
+              - Okta Identity Engine
+          description: <div class="x-lifecycle-container"><x-lifecycle class="ea"></x-lifecycle> <x-lifecycle class="oie"></x-lifecycle></div>This property specifies the precise authenticator and method for authentication.
+          type: array
+          items:
+            $ref: '#/components/schemas/AuthenticationMethodObject'
+        excludedAuthenticationMethods:
+          x-okta-lifecycle:
+            lifecycle: EA
+            isGenerallyAvailable: false
+            SKUs:
+              - Okta Identity Engine
+          description: <div class="x-lifecycle-container"><x-lifecycle class="ea"></x-lifecycle> <x-lifecycle class="oie"></x-lifecycle></div>This property specifies the precise authenticator and method to exclude from authentication.
+          items:
+            $ref: '#/components/schemas/AuthenticationMethodObject'
         methods:
+          description: The Authenticator methods that are permitted
           items:
             type: string
+            enum:
+              - PASSWORD
+              - SECURITY_QUESTION
+              - SMS
+              - VOICE
+              - EMAIL
+              - PUSH
+              - SIGNED_NONCE
+              - OTP
+              - TOTP
+              - WEBAUTHN
+              - DUO
+              - IDP
+              - CERT
           type: array
         reauthenticateIn:
+          description: The duration after which the user must re-authenticate regardless of user activity. This re-authentication interval overrides the Verification Method object's `reauthenticateIn` interval. The supported values use ISO 8601 period format for recurring time intervals (for example, `PT1H`).
           type: string
+        required:
+          x-okta-lifecycle:
+            lifecycle: EA
+            isGenerallyAvailable: false
+            SKUs:
+              - Okta Identity Engine
+          description: <div class="x-lifecycle-container"><x-lifecycle class="ea"></x-lifecycle> <x-lifecycle class="oie"></x-lifecycle></div>This property indicates whether the knowledge or possession factor is required by the assurance. It's optional in the request, but is always returned in the response. By default, this field is `true`. If the knowledge or possession constraint has values for`excludedAuthenticationMethods` the `required` value is false.
+          type: boolean
         types:
+          description: The Authenticator types that are permitted
           items:
             type: string
+            enum:
+              - SECURITY_KEY
+              - PHONE
+              - EMAIL
+              - PASSWORD
+              - SECURITY_QUESTION
+              - APP
+              - FEDERATED
           type: array
     AccessPolicyConstraints:
       type: object
@@ -26424,9 +27965,11 @@ components:
       properties:
         id:
           type: string
+          description: ID of the app
           readOnly: true
         name:
           type: string
+          description: Name of the app type
         type:
           $ref: '#/components/schemas/AppAndInstanceType'
     AppAndInstancePolicyRuleCondition:
@@ -26441,6 +27984,7 @@ components:
           items:
             $ref: '#/components/schemas/AppAndInstanceConditionEvaluatorAppOrInstance'
     AppAndInstanceType:
+      description: Type of app
       type: string
       enum:
         - APP
@@ -26750,6 +28294,9 @@ components:
           type: string
         client_secret:
           type: string
+        pkce_required:
+          type: boolean
+          description: Require Proof Key for Code Exchange (PKCE) for additional verification
         token_endpoint_auth_method:
           $ref: '#/components/schemas/OAuthEndpointAuthenticationMethod'
     ApplicationCredentialsScheme:
@@ -27052,6 +28599,51 @@ components:
           description: A list of the authorization server IDs
           items:
             type: string
+    AttackProtectionAuthenticatorSettings:
+      type: object
+      properties:
+        verifyKnowledgeSecondWhen2faRequired:
+          type: boolean
+          description: If true, requires users to verify a possession factor before verifying a knowledge factor when the assurance requires two-factor authentication (2FA).
+          default: false
+    AuthServerLinks:
+      allOf:
+        - $ref: '#/components/schemas/LinksSelf'
+        - type: object
+          properties:
+            claims:
+              allOf:
+                - description: Link to the authorization server claims
+                - $ref: '#/components/schemas/HrefObject'
+            deactivate:
+              allOf:
+                - $ref: '#/components/schemas/HrefObjectDeactivateLink'
+            metadata:
+              description: Link to the authorization server metadata
+              type: array
+              items:
+                $ref: '#/components/schemas/HrefObject'
+            policies:
+              allOf:
+                - description: Link to the authorization server policies
+                - $ref: '#/components/schemas/HrefObject'
+            rotateKey:
+              allOf:
+                - description: Link to the authorization server key rotation
+                - $ref: '#/components/schemas/HrefObject'
+            scopes:
+              allOf:
+                - description: Link to the authorization server scopes
+                - $ref: '#/components/schemas/HrefObject'
+    AuthenticationMethodObject:
+      type: object
+      properties:
+        key:
+          type: string
+          description: A label that identifies the authenticator
+        method:
+          type: string
+          description: Specifies the method used for the authenticator
     AuthenticationProvider:
       description: |-
         Specifies the authentication provider that validates the user's password credential. The user's current provider
@@ -27342,6 +28934,7 @@ components:
       properties:
         audiences:
           type: array
+          description: The recipients that the tokens are intended for. This becomes the `aud` claim in an access token. Okta currently supports only one audience.
           items:
             type: string
         created:
@@ -27352,29 +28945,46 @@ components:
           $ref: '#/components/schemas/AuthorizationServerCredentials'
         description:
           type: string
+          description: The description of the custom authorization server
         id:
           type: string
+          description: The ID of the custom authorization server
           readOnly: true
         issuer:
           type: string
+          description: The complete URL for the custom authorization server. This becomes the `iss` claim in an access token.
         issuerMode:
-          $ref: '#/components/schemas/IssuerMode'
+          type: string
+          description: |-
+            Indicates which value is specified in the issuer of the tokens that a custom authorization server returns: the Okta org domain URL or a custom domain URL.
+
+            `issuerMode` is visible if you have a custom URL domain configured or the Dynamic Issuer Mode feature enabled. If you have a custom URL domain configured, you can set a custom domain URL in a custom authorization server, and this property is returned in the appropriate responses.
+
+            When set to `ORG_URL`, then in responses, `issuer` is the Okta org domain URL: `https://${yourOktaDomain}`.
+
+            When set to `CUSTOM_URL`, then in responses, `issuer` is the custom domain URL configured in the administration user interface.
+
+            When set to `DYNAMIC`, then in responses, `issuer` is the custom domain URL if the OAuth 2.0 request was sent to the custom domain, or is the Okta org's domain URL if the OAuth 2.0 request was sent to the original Okta org domain.
+
+            After you configure a custom URL domain, all new custom authorization servers use `CUSTOM_URL` by default. If the Dynamic Issuer Mode feature is enabled, then all new custom authorization servers use `DYNAMIC` by default. All existing custom authorization servers continue to use the original value until they're changed using the Admin Console or the API. This way, existing integrations with the client and resource server continue to work after the feature is enabled.
         lastUpdated:
           type: string
           format: date-time
           readOnly: true
         name:
           type: string
+          description: The name of the custom authorization server
         status:
           $ref: '#/components/schemas/LifecycleStatus'
         _links:
-          $ref: '#/components/schemas/LinksSelf'
+          $ref: '#/components/schemas/AuthServerLinks'
     AuthorizationServerCredentials:
       type: object
       properties:
         signing:
           $ref: '#/components/schemas/AuthorizationServerCredentialsSigningConfig'
     AuthorizationServerCredentialsRotationMode:
+      description: The Key rotation mode for the authorization server
       type: string
       enum:
         - AUTO
@@ -27384,12 +28994,16 @@ components:
       properties:
         kid:
           type: string
+          description: The ID of the JSON Web Key used for signing tokens issued by the authorization server
+          readOnly: true
         lastRotated:
           type: string
+          description: The timestamp when the authorization server started using the `kid` for signing tokens
           format: date-time
           readOnly: true
         nextRotation:
           type: string
+          description: The timestamp when the authorization server changes the Key for signing tokens. This is only returned when `rotationMode` is set to `AUTO`.
           format: date-time
           readOnly: true
         rotationMode:
@@ -27397,6 +29011,7 @@ components:
         use:
           $ref: '#/components/schemas/AuthorizationServerCredentialsUse'
     AuthorizationServerCredentialsUse:
+      description: How the key is used
       type: string
       enum:
         - sig
@@ -27406,7 +29021,12 @@ components:
         - type: object
           properties:
             conditions:
-              $ref: '#/components/schemas/PolicyRuleConditions'
+              $ref: '#/components/schemas/AuthorizationServerPolicyConditions'
+    AuthorizationServerPolicyConditions:
+      type: object
+      properties:
+        clients:
+          $ref: '#/components/schemas/ClientPolicyCondition'
     AuthorizationServerPolicyRule:
       allOf:
         - $ref: '#/components/schemas/PolicyRule'
@@ -27424,18 +29044,16 @@ components:
             token:
               $ref: '#/components/schemas/TokenAuthorizationServerPolicyRuleAction'
     AuthorizationServerPolicyRuleConditions:
-      allOf:
-        - $ref: '#/components/schemas/PolicyRuleConditions'
-        - type: object
-          properties:
-            clients:
-              $ref: '#/components/schemas/ClientPolicyCondition'
-            grantTypes:
-              $ref: '#/components/schemas/GrantTypePolicyRuleCondition'
-            people:
-              $ref: '#/components/schemas/PolicyPeopleCondition'
-            scopes:
-              $ref: '#/components/schemas/OAuth2ScopesMediationPolicyRuleCondition'
+      type: object
+      properties:
+        clients:
+          $ref: '#/components/schemas/ClientPolicyCondition'
+        grantTypes:
+          $ref: '#/components/schemas/GrantTypePolicyRuleCondition'
+        people:
+          $ref: '#/components/schemas/PolicyPeopleCondition'
+        scopes:
+          $ref: '#/components/schemas/OAuth2ScopesMediationPolicyRuleCondition'
     AutoLoginApplication:
       allOf:
         - $ref: '#/components/schemas/Application'
@@ -28024,10 +29642,12 @@ components:
         minimum:
           type: string
     ClientPolicyCondition:
+      description: Specifies which clients are included in the Policy
       type: object
       properties:
         include:
           type: array
+          description: Which clients are included in the Policy
           items:
             type: string
     ClientPrivilegesSetting:
@@ -28153,7 +29773,15 @@ components:
         profile:
           $ref: '#/components/schemas/UserProfile'
         type:
-          $ref: '#/components/schemas/UserType'
+          type: object
+          description: |-
+            The ID of the user type. Add this value if you want to create a user with a non-default [user type](https://developer.okta.com/docs/api/openapi/okta-management/management/tag/UserType/).
+            The user type determines which [schema](https://developer.okta.com/docs/api/openapi/okta-management/management/tag/Schema/) applies to that user. After a user has been created, the user can 
+            only be assigned a different user type by an administrator through a full replacement (`PUT`) operation.
+          properties:
+            id:
+              type: string
+              description: The ID of the user type
       required:
         - profile
     Csr:
@@ -28466,7 +30094,7 @@ components:
             jailbreak:
               type: boolean
             osVersion:
-              $ref: '#/components/schemas/OSVersionFourComponents'
+              $ref: '#/components/schemas/OSVersion'
             screenLockType:
               type: object
               properties:
@@ -28499,7 +30127,7 @@ components:
             jailbreak:
               type: boolean
             osVersion:
-              $ref: '#/components/schemas/OSVersionThreeComponents'
+              $ref: '#/components/schemas/OSVersion'
             screenLockType:
               type: object
               properties:
@@ -28520,7 +30148,7 @@ components:
                   items:
                     $ref: '#/components/schemas/DiskEncryptionTypeDesktop'
             osVersion:
-              $ref: '#/components/schemas/OSVersionThreeComponents'
+              $ref: '#/components/schemas/OSVersion'
             screenLockType:
               type: object
               properties:
@@ -28554,6 +30182,24 @@ components:
                     $ref: '#/components/schemas/DiskEncryptionTypeDesktop'
             osVersion:
               $ref: '#/components/schemas/OSVersionFourComponents'
+            osVersionConstraints:
+              x-okta-lifecycle:
+                lifecycle: EA
+                isGenerallyAvailable: false
+                SKUs: []
+              type: array
+              description: |
+                <div class="x-lifecycle-container"><x-lifecycle class="ea"></x-lifecycle></div>Specifies the Windows version requirements for the assurance policy. Each requirement must correspond to a different major version (Windows 11 or Windows 10). If a requirement isn't specified for a major version, then devices on that major version satisfy the condition.
+
+                There are two types of OS requirements:
+                * **Static**: A specific Windows version requirement that doesn't change until you update the policy. A static OS Windows requirement is specified with `majorVersionConstraint` and `minimum`.
+                * **Dynamic**: A Windows version requirement that is relative to the latest major release and security patch. A dynamic OS Windows requirement is specified with `majorVersionConstraint` and `dynamicVersionRequirement`.
+
+                > **Note:** Dynamic OS requirements are available only if the **Dynamic OS version compliance** [self-service EA](/openapi/okta-management/guides/release-lifecycle/#early-access-ea) feature is enabled. The `osVersionConstraints` property is only supported for the Windows platform. You can't specify both `osVersion.minimum` and `osVersionConstraints` properties at the same time.
+              items:
+                $ref: '#/components/schemas/OSVersionConstraint'
+              minItems: 1
+              maxItems: 2
             screenLockType:
               type: object
               properties:
@@ -28912,15 +30558,65 @@ components:
           type: integer
         unit:
           type: string
+    ECKeyJWK:
+      description: Elliptic Curve Key in JWK format, currently used during enrollment to encrypt fulfillment requests to Yubico, or during activation to verify Yubico's JWS objects in fulfillment responses. The currently agreed protocol uses P-384.
+      type: object
+      properties:
+        crv:
+          type: string
+          enum:
+            - P-384
+        kid:
+          type: string
+          description: The unique identifier of the key
+        kty:
+          type: string
+          enum:
+            - EC
+          description: The type of public key
+        use:
+          type: string
+          description: The intended use for the key. The ECKeyJWK is always `enc` because Okta uses it to encrypt requests to Yubico.
+          enum:
+            - enc
+        x:
+          type: string
+          description: The public x coordinate for the elliptic curve point
+        'y':
+          type: string
+          description: The public y coordinate for the elliptic curve point
+      required:
+        - x
+        - 'y'
+        - kty
+        - crv
+        - use
+        - kid
     EmailContent:
       type: object
       properties:
         body:
           type: string
-          description: The email's HTML body. May contain [variable references](https://velocity.apache.org/engine/1.7/user-guide.html#references).
+          description: |
+            The HTML body of the email. May contain [variable references](https://velocity.apache.org/engine/1.7/user-guide.html#references). 
+
+            <x-lifecycle class="ea"></x-lifecycle> Not required if Custom languages for Okta Email Templates is enabled. A `null` body is replaced with a default value from one of the following in priority order:
+
+            1. An existing default email customization, if one exists
+            2. Okta-provided translated content for the specified language, if one exists
+            3. Okta-provided translated content for the brand locale, if it's set 
+            4. Okta-provided content in English
         subject:
           type: string
-          description: The email's subject. May contain [variable references](https://velocity.apache.org/engine/1.7/user-guide.html#references).
+          description: |
+            The email subject. May contain [variable references](https://velocity.apache.org/engine/1.7/user-guide.html#references).
+
+            <x-lifecycle class="ea"></x-lifecycle> Not required if Custom languages for Okta Email Templates is enabled. A `null` subject is replaced with a default value from one of the following in priority order:
+
+            1. An existing default email customization, if one exists
+            2. Okta-provided translated content for the specified language, if one exists
+            3. Okta-provided translated content for the brand locale, if it's set
+            4. Okta-provided content in English
       required:
         - subject
         - body
@@ -29183,6 +30879,93 @@ components:
         - LOGO_ON_FULL_WHITE_BACKGROUND
         - OKTA_DEFAULT
         - WHITE_LOGO_BACKGROUND
+    EnrollmentActivationRequest:
+      description: Enrollment Initialization Request
+      type: object
+      properties:
+        credResponses:
+          description: List of credential responses from the fulfillment provider
+          type: array
+          items:
+            $ref: '#/components/schemas/WebAuthnCredResponse'
+        fulfillmentProvider:
+          description: Name of the fulfillment provider for the WebAuthn Preregistration Factor
+          type: string
+          enum:
+            - yubico
+        pinResponseJwe:
+          description: Encrypted JWE of PIN response from the fulfillment provider
+          type: string
+        serial:
+          description: Serial number of the YubiKey
+          type: string
+        userId:
+          description: ID of an existing Okta user
+          type: string
+        version:
+          description: Firmware version of the YubiKey
+          type: string
+        yubicoSigningJwks:
+          description: List of usable signing keys from Yubico (in JWKS format) used to verify the JWS inside the JWE
+          type: array
+          items:
+            $ref: '#/components/schemas/ECKeyJWK'
+    EnrollmentActivationResponse:
+      description: Enrollment Initialization Response
+      type: object
+      properties:
+        authenticatorEnrollmentIds:
+          description: List of IDs for preregistered WebAuthn Factors in Okta
+          type: array
+          items:
+            type: string
+        fulfillmentProvider:
+          description: Name of the fulfillment provider for the WebAuthn Preregistration Factor
+          type: string
+          enum:
+            - yubico
+        userId:
+          description: ID of an existing Okta user
+          type: string
+    EnrollmentInitializationRequest:
+      description: Enrollment Initialization Request
+      type: object
+      properties:
+        enrollmentRpIds:
+          description: List of Relying Party hostnames to register on the YubiKey.
+          type: array
+          items:
+            type: string
+        fulfillmentProvider:
+          description: Name of the fulfillment provider for the WebAuthn Preregistration Factor
+          type: string
+          enum:
+            - yubico
+        userId:
+          description: ID of an existing Okta user
+          type: string
+        yubicoTransportKeyJWK:
+          $ref: '#/components/schemas/ECKeyJWK'
+    EnrollmentInitializationResponse:
+      description: Yubico Transport Key in the form of a JWK, used to encrypt our fulfillment request to Yubico. The currently agreed protocol uses P-384.
+      type: object
+      properties:
+        credRequests:
+          description: List of credential requests for the fulfillment provider
+          type: array
+          items:
+            $ref: '#/components/schemas/WebAuthnCredRequest'
+        fulfillmentProvider:
+          description: Name of the fulfillment provider for the WebAuthn Preregistration Factor
+          type: string
+          enum:
+            - yubico
+        pinRequestJwe:
+          description: Encrypted JWE of PIN request for the fulfillment provider
+          type: string
+        userId:
+          description: ID of an existing Okta user
+          type: string
     Error:
       title: Error
       type: object
@@ -29535,6 +31318,33 @@ components:
         resetPasswordUrl:
           type: string
           readOnly: true
+    FulfillmentData:
+      description: Fulfillment provider details
+      type: object
+      properties:
+        customizationId:
+          description: ID for the set of custom configurations of the requested Factor
+          type: string
+        inventoryProductId:
+          description: ID for the specific inventory bucket of the requested Factor
+          type: string
+        productId:
+          description: ID for the make and model of the requested Factor
+          type: string
+    FulfillmentRequest:
+      description: Fulfillment Request
+      type: object
+      properties:
+        fulfillmentData:
+          $ref: '#/components/schemas/FulfillmentData'
+        fulfillmentProvider:
+          description: Name of the fulfillment provider for the WebAuthn Preregistration Factor
+          type: string
+          enum:
+            - yubico
+        userId:
+          description: ID of an existing Okta user
+          type: string
     GoogleApplicationSettings:
       allOf:
         - $ref: '#/components/schemas/OINBaseSignOnModeApplicationSettings'
@@ -29565,10 +31375,12 @@ components:
         - REVOKED
       readOnly: true
     GrantTypePolicyRuleCondition:
+      description: Array of grant types that this condition includes. Determines the mechanism that Okta uses to authorize the creation of the tokens.
       type: object
       properties:
         include:
           type: array
+          description: Array of grant types thagt this condition includes.
           items:
             type: string
     Group:
@@ -29619,14 +31431,17 @@ components:
                 users:
                   $ref: '#/components/schemas/HrefObject'
     GroupCondition:
+      description: Specifies a set of Groups whose Users are to be included or excluded
       type: object
       properties:
         exclude:
           type: array
+          description: Groups to be excluded
           items:
             type: string
         include:
           type: array
+          description: Groups to be included
           items:
             type: string
     GroupOwner:
@@ -29667,14 +31482,17 @@ components:
         - GROUP
         - USER
     GroupPolicyRuleCondition:
+      description: Specifies a set of Groups whose Users are to be included or excluded
       type: object
       properties:
         exclude:
           type: array
+          description: Groups to be excluded
           items:
             type: string
         include:
           type: array
+          description: Groups to be included
           items:
             type: string
     GroupProfile:
@@ -30125,6 +31943,9 @@ components:
           type: string
         client_secret:
           type: string
+        pkce_required:
+          type: boolean
+          description: Require Proof Key for Code Exchange (PKCE) for additional verification
     IdentityProviderCredentialsSigning:
       type: object
       properties:
@@ -30151,16 +31972,13 @@ components:
         - OCSP
     IdentityProviderPolicy:
       allOf:
-        - $ref: '#/components/schemas/Policy'
         - type: object
           properties:
             accountLink:
               $ref: '#/components/schemas/PolicyAccountLink'
-            conditions:
-              $ref: '#/components/schemas/PolicyRuleConditions'
             mapAMRClaims:
               type: boolean
-              description: Enable mapping AMR from IdP to Okta to downstream apps
+              description: <div class="x-lifecycle-container"><x-lifecycle class="ea"></x-lifecycle> <x-lifecycle class="oie"></x-lifecycle></div>Enable mapping AMR from IdP to Okta to downstream apps
               default: false
               x-okta-lifecycle:
                 lifecycle: EA
@@ -30283,21 +32101,75 @@ components:
         userName:
           type: string
           maxLength: 100
+    IdpDiscoveryPolicy:
+      allOf:
+        - $ref: '#/components/schemas/Policy'
+    IdpDiscoveryPolicyRule:
+      allOf:
+        - $ref: '#/components/schemas/PolicyRule'
+        - type: object
+          properties:
+            actions:
+              $ref: '#/components/schemas/IdpPolicyRuleAction'
+            conditions:
+              $ref: '#/components/schemas/IdpDiscoveryPolicyRuleCondition'
+    IdpDiscoveryPolicyRuleCondition:
+      allOf:
+        - type: object
+          properties:
+            app:
+              $ref: '#/components/schemas/AppAndInstancePolicyRuleCondition'
+            network:
+              $ref: '#/components/schemas/PolicyNetworkCondition'
+            userIdentifier:
+              $ref: '#/components/schemas/UserIdentifierPolicyRuleCondition'
+            platform:
+              $ref: '#/components/schemas/PlatformPolicyRuleCondition'
     IdpPolicyRuleAction:
       type: object
       properties:
-        providers:
-          items:
-            $ref: '#/components/schemas/IdpPolicyRuleActionProvider'
-          type: array
+        idp:
+          type: object
+          properties:
+            providers:
+              items:
+                $ref: '#/components/schemas/IdpPolicyRuleActionProvider'
+              type: array
+              description: List of configured Identity Providers that a given Rule can route to. Ability to define multiple providers is a part of the Okta Identity Engine. This allows users to choose a Provider when they sign in. Contact support for information on the Identity Engine.
+            idpSelectionType:
+              description: Determines whether the rule should use expression language or a specific IdP
+              $ref: '#/components/schemas/IdpSelectionType'
+            matchCriteria:
+              items:
+                $ref: '#/components/schemas/IdpPolicyRuleActionMatchCriteria'
+              type: array
+              description: Required if `idpSelectionType` is set to `DYNAMIC`
+    IdpPolicyRuleActionMatchCriteria:
+      type: object
+      properties:
+        propertyName:
+          type: string
+          description: The IdP property that the evaluated string should match to
+        providerExpression:
+          type: string
+          description: |
+            You can provide an Okta Expression Language expression with the Login Context that's evaluated with the IdP. For example, the value `login.identifier` refers to the user's username. If the user is signing in with the username `john.doe@mycompany.com`, the expression `login.identifier.substringAfter(@))` is evaluated to the domain name of the user, for example: `mycompany.com`.
     IdpPolicyRuleActionProvider:
       type: object
       properties:
         id:
-          readOnly: true
           type: string
+          description: IdP types of `OKTA`, `AgentlessDSSO`, and `IWA` don't require an ID.
+        name:
+          type: string
+          description: Provider `name` in Okta. Optional. Supported in `IDENTITY ENGINE`.
         type:
-          type: string
+          $ref: '#/components/schemas/IdentityProviderType'
+    IdpSelectionType:
+      type: string
+      enum:
+        - DYNAMIC
+        - SPECIFIC
     IframeEmbedScopeAllowedApps:
       type: string
       enum:
@@ -30539,41 +32411,67 @@ components:
       type: object
       properties:
         alg:
+          description: 'The algorithm used with the Key. Valid value: `RS256`'
           type: string
         created:
           $ref: '#/components/schemas/createdProperty'
         e:
+          description: RSA key value (public exponent) for Key binding
           type: string
+          readOnly: true
         expiresAt:
+          description: Timestamp when the certificate expires
           type: string
           format: date-time
+          readOnly: true
         key_ops:
+          description: Identifies the operation(s) for which the key is intended to be used
           type: array
           items:
             type: string
         kid:
+          description: Unique identifier for the certificate
           type: string
+          readOnly: true
         kty:
+          description: 'Cryptographic algorithm family for the certificate''s keypair. Valid value: `RSA`'
           type: string
+          readOnly: true
         lastUpdated:
           type: string
           format: date-time
+          $ref: '#/components/schemas/lastUpdatedProperty'
         'n':
+          description: RSA modulus value that is used by both the public and private keys and provides a link between them
           type: string
         status:
+          description: |-
+            An `ACTIVE` Key is used to sign tokens issued by the authorization server. Supported values: `ACTIVE`, `NEXT`, or `EXPIRED`<br>
+            A `NEXT` Key is the next Key that the authorization server uses to sign tokens when Keys are rotated. The `NEXT` Key might not be listed if it hasn't been generated yet.
+            An `EXPIRED` Key is the previous Key that the authorization server used to sign tokens. The `EXPIRED` Key might not be listed if no Key has expired or the expired Key was deleted.
           type: string
         use:
+          description: 'Acceptable use of the certificate. Valid value: `sig`'
           type: string
+          readOnly: true
         x5c:
+          description: X.509 certificate chain that contains a chain of one or more certificates
           type: array
           items:
             type: string
+          readOnly: true
         x5t:
+          description: X.509 certificate SHA-1 thumbprint, which is the base64url-encoded SHA-1 thumbprint (digest) of the DER encoding of an X.509 certificate
           type: string
+          readOnly: true
         x5t#S256:
+          description: X.509 certificate SHA-256 thumbprint, which is the base64url-encoded SHA-256 thumbprint (digest) of the DER encoding of an X.509 certificate
           type: string
+          readOnly: true
         x5u:
+          description: A URI that refers to a resource for the X.509 public key certificate or certificate chain corresponding to the key used to digitally sign the JWS (JSON Web Signature)
           type: string
+          readOnly: true
         _links:
           $ref: '#/components/schemas/LinksSelf'
     JwkUse:
@@ -31517,6 +33415,7 @@ components:
       properties:
         alwaysIncludeInToken:
           type: boolean
+          description: Specifies whether to include Claims in the token. The value is always `TRUE` for access token Claims. If the value is set to `FALSE` for an ID token claim, the Claim isn't included in the ID token when the token is requested with the access token or with the `authorization_code`. The client instead uses the access token to get Claims from the `/userinfo` endpoint.
         claimType:
           $ref: '#/components/schemas/OAuth2ClaimType'
         conditions:
@@ -31525,20 +33424,25 @@ components:
           $ref: '#/components/schemas/OAuth2ClaimGroupFilterType'
         id:
           type: string
+          description: ID of the Claim
           readOnly: true
         name:
           type: string
+          description: Name of the Claim
         status:
           $ref: '#/components/schemas/LifecycleStatus'
         system:
+          description: When `true`, indicates that Okta created the Claim
           type: boolean
         value:
+          description: Specifies the value of the Claim. This value must be a string literal if `valueType` is `GROUPS`, and the string literal is matched with the selected `group_filter_type`. The value must be an Okta EL expression if `valueType` is `EXPRESSION`.
           type: string
         valueType:
           $ref: '#/components/schemas/OAuth2ClaimValueType'
         _links:
           $ref: '#/components/schemas/LinksSelf'
     OAuth2ClaimConditions:
+      description: Specifies the scopes for the Claim
       type: object
       properties:
         scopes:
@@ -31546,18 +33450,31 @@ components:
           items:
             type: string
     OAuth2ClaimGroupFilterType:
+      description: |-
+        Specifies the type of group filter if `valueType` is `GROUPS`
+
+        If `valueType` is `GROUPS`, then the groups returned are filtered according to the value of `group_filter_type`.
+
+        If you have complex filters for Groups, you can [create a Groups allowlist](https://developer.okta.com/docs/guides/customize-tokens-groups-claim/main/) to put them all in a Claim.
       type: string
       enum:
         - CONTAINS
         - EQUALS
         - REGEX
         - STARTS_WITH
+      x-enumDescriptions:
+        STARTS_WITH: Group names start with `value` (not case-sensitive). For example, if `value` is `group1`, then `group123` and `Group123` are included.
+        EQUALS: Group name is the same as `value` (not case-sensitive). For example, if `value` is `group1`, then `group1` and `Group1` are included, but `group123` isn't.
+        CONTAINS: Group names contain `value` (not case-sensitive). For example, if `value` is `group1`, then `MyGroup123` and `group1` are included.
+        REGEX: Group names match the regular expression in `value` (case-sensitive). For example if `value` is `/^[a-z0-9_-]{3,16}$/`, then any Group name that has at least three letters, no more than 16, and contains lowercase letters, a hyphen, or numbers is a match.
     OAuth2ClaimType:
+      description: Specifies whether the Claim is for an access token (`RESOURCE`) or an ID token (`IDENTITY`)
       type: string
       enum:
         - IDENTITY
         - RESOURCE
     OAuth2ClaimValueType:
+      description: Specifies whether the Claim is an Okta Expression Language (EL) expression (`EXPRESSION`), a set of groups (`GROUPS`), or a system claim (`SYSTEM`)
       type: string
       enum:
         - EXPRESSION
@@ -31567,15 +33484,18 @@ components:
       type: object
       properties:
         client_id:
+          description: Unique key for the client application. The `client_id` is immutable
           type: string
           readOnly: true
         client_name:
+          description: Human-readable string name of the client application
           type: string
           readOnly: true
         client_uri:
           type: string
           readOnly: true
         logo_uri:
+          description: URL string that references a logo for the client consent dialog (not the sign-in dialog)
           type: string
           readOnly: true
         _links:
@@ -31795,6 +33715,7 @@ components:
         - ALL_CLIENTS
         - NO_CLIENTS
     OAuth2ScopesMediationPolicyRuleCondition:
+      description: Array of scopes that the condition includes
       type: object
       properties:
         include:
@@ -32013,6 +33934,91 @@ components:
               type: array
               items:
                 $ref: '#/components/schemas/SamlAttributeStatement'
+    OSVersion:
+      description: |
+        Specifies the OS requirement for the policy.
+
+        There are two types of OS requirements:
+
+        * **Static**: A specific OS version requirement that doesn't change until you update the policy. A static OS requirement is specified with the `osVersion.minimum` property.
+        * **Dynamic**: An OS version requirement that is relative to the latest major OS release and security patch. A dynamic OS requirement is specified with the `osVersion.dynamicVersionRequirement` property.
+        > **Note:** Dynamic OS requirements are available only if the **Dynamic OS version compliance** [self-service EA](/openapi/okta-management/guides/release-lifecycle/#early-access-ea) feature is enabled. You can't specify both `osVersion.minimum` and `osVersion.dynamicVersionRequirement` properties at the same time.
+      type: object
+      properties:
+        dynamicVersionRequirement:
+          x-okta-lifecycle:
+            lifecycle: EA
+            isGenerallyAvailable: false
+            SKUs: []
+          description: <div class="x-lifecycle-container"><x-lifecycle class="ea"></x-lifecycle></div>Contains the necessary properties for a dynamic version requirement
+          type: object
+          properties:
+            type:
+              type: string
+              description: Indicates the type of the dynamic OS version requirement
+              enum:
+                - MINIMUM
+                - EXACT
+                - EXACT_ANY_SUPPORTED
+              x-enumDescriptions:
+                MINIMUM: The device version must be equal to or newer than the dynamically determined version. `distanceFromLatestMajor` must be specified for this type.
+                EXACT: The device version must be on the same major version as the dynamically determined version. `distanceFromLatestMajor` must be specified for this type.
+                EXACT_ANY_SUPPORTED: The device version must be on a major version which is supported. You can't specify `distanceFromLatestMajor` for this type.
+            distanceFromLatestMajor:
+              description: Indicates the distance from the latest major version
+              type: integer
+              minimum: 0
+              maximum: 1
+            latestSecurityPatch:
+              description: Indicates whether the device needs to be on the latest security patch
+              type: boolean
+        minimum:
+          description: The device version must be equal to or newer than the specified version string (maximum of three components for iOS and macOS, and maximum of four components for Android)
+          type: string
+          example: 12.4.5
+    OSVersionConstraint:
+      type: object
+      properties:
+        dynamicVersionRequirement:
+          type: object
+          description: Contains the necessary properties for a dynamic Windows version requirement
+          properties:
+            type:
+              type: string
+              description: Indicates the type of the dynamic Windows version requirement
+              enum:
+                - MINIMUM
+                - EXACT
+                - EXACT_ANY_SUPPORTED
+                - NOT_ALLOWED
+              x-enumDescriptions:
+                MINIMUM: The device version must be equal to or newer than the dynamically determined Windows version. `distanceFromLatestMajor` must be specified for this type.
+                EXACT: The device version must be on the same major version as the dynamically determined Windows version. `distanceFromLatestMajor` must be specified for this type.
+                EXACT_ANY_SUPPORTED: The device version must be on a Windows major version which is supported. You can't specify `distanceFromLatestMajor` for this type.
+                NOT_ALLOWED: The device version isn't allowed. You can't specify `distanceFromLatestMajor` or `latestSecurityPatch` for this type.
+            distanceFromLatestMajor:
+              description: Indicates the distance from the latest Windows major version
+              type: integer
+              minimum: 0
+              maximum: 1
+            latestSecurityPatch:
+              description: Indicates whether the policy requires Windows devices to be on the latest security patch
+              type: boolean
+        majorVersionConstraint:
+          type: string
+          description: Indicates the Windows major version
+          enum:
+            - WINDOWS_11
+            - WINDOWS_10
+          x-enumDescriptions:
+            WINDOWS_11: The device is on Windows 11
+            WINDOWS_10: The device is on Windows 10 or an older Windows version
+        minimum:
+          description: The Windows device version must be equal to or newer than the specified version
+          type: string
+          example: 12.4.5.9
+      required:
+        - majorVersionConstraint
     OSVersionFourComponents:
       description: Current version of the operating system (maximum of four components in the versioning scheme)
       type: object
@@ -32083,7 +34089,7 @@ components:
         doc:
           type: string
           format: uri
-          description: The URL to your customer-facing instructions for configuring your OIDC integration
+          description: The URL to your customer-facing instructions for configuring your OIDC integration. See [Customer configuration document guidelines](https://developer.okta.com/docs/guides/submit-app-prereq/main/#customer-configuration-document-guidelines).
           example: https://example.com/strawberry/help/oidcSetup
         initiateLoginUri:
           type: string
@@ -32957,6 +34963,21 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/Permission'
+    PinRequest:
+      description: Pin Request
+      type: object
+      properties:
+        authenticatorEnrollmentId:
+          description: ID for a WebAuthn Preregistration Factor in Okta
+          type: string
+        fulfillmentProvider:
+          description: Name of the fulfillment provider for the WebAuthn Preregistration Factor
+          type: string
+          enum:
+            - yubico
+        userId:
+          description: ID of an existing Okta user
+          type: string
     PipelineType:
       description: The authentication pipeline of the org. `idx` means the org is using the Identity Engine, while `v1` means the org is using the Classic authentication pipeline.
       type: string
@@ -33014,27 +35035,36 @@ components:
       type: object
       properties:
         created:
+          description: Timestamp when the Policy was created
           type: string
           format: date-time
           readOnly: true
         description:
+          description: Policy description
           type: string
         id:
+          description: Policy ID
           type: string
           readOnly: true
         lastUpdated:
+          description: Timestamp when the Policy was last updated
           type: string
           format: date-time
           readOnly: true
         name:
+          description: Policy name
           type: string
         priority:
+          description: Specifies the order in which this Policy is evaluated in relation to the other policies in a custom authorization server.
           type: integer
         status:
+          description: Specifies whether requests have access to this Policy
           $ref: '#/components/schemas/LifecycleStatus'
         system:
+          description: Specifies whether Okta created the Policy
           type: boolean
         type:
+          description: Indicates that the Policy is an authorization server policy (`OAUTH_AUTHORIZATION_POLICY`)
           $ref: '#/components/schemas/PolicyType'
         _embedded:
           type: object
@@ -33178,11 +35208,13 @@ components:
           items:
             type: string
     PolicyNetworkConnection:
+      description: Network selection mode
       type: string
       enum:
         - ANYWHERE
         - ZONE
     PolicyPeopleCondition:
+      description: Identifies Users and Groups that are used together
       type: object
       properties:
         groups:
@@ -33210,24 +35242,30 @@ components:
       properties:
         created:
           type: string
+          description: Timestamp when the rule was created
           format: date-time
           readOnly: true
           nullable: true
         id:
           type: string
+          description: Identifier for the rule
         lastUpdated:
           type: string
+          description: Timestamp when the rule was last modified
           format: date-time
           readOnly: true
           nullable: true
         name:
           type: string
+          description: Name of the rule
         priority:
           type: integer
+          description: Priority of the rule
         status:
           $ref: '#/components/schemas/LifecycleStatus'
         system:
           type: boolean
+          description: Specifies whether Okta created the Policy Rule (`system=true`). You can't delete Policy Rules that have `system` set to `true`.
           default: false
         type:
           $ref: '#/components/schemas/PolicyRuleType'
@@ -33301,6 +35339,7 @@ components:
         userStatus:
           $ref: '#/components/schemas/UserStatusPolicyRuleCondition'
     PolicyRuleType:
+      description: Rule type
       type: string
       enum:
         - ACCESS_POLICY
@@ -33333,6 +35372,7 @@ components:
         - USERNAME
         - USERNAME_OR_EMAIL
     PolicyType:
+      description: All Okta orgs contain only one IdP Discovery Policy with an immutable default Rule routing to your org's sign-in page. Creating or replacing a policy with `IDP_DISCOVERY` type isn't supported.
       type: string
       enum:
         - ACCESS_POLICY
@@ -33364,12 +35404,39 @@ components:
           properties:
             deviceBound:
               type: string
+              description: Indicates if device-bound Factors are required. This property is only set for `POSSESSION` constraints.
+              enum:
+                - OPTIONAL
+                - REQUIRED
+              default: OPTIONAL
             hardwareProtection:
               type: string
+              description: Indicates if any secrets or private keys used during authentication must be hardware protected and not exportable. This property is only set for `POSSESSION` constraints.
+              enum:
+                - OPTIONAL
+                - REQUIRED
+              default: OPTIONAL
             phishingResistant:
               type: string
+              description: Indicates if phishing-resistant Factors are required. This property is only set for `POSSESSION` constraints.
+              enum:
+                - OPTIONAL
+                - REQUIRED
+              default: OPTIONAL
             userPresence:
               type: string
+              description: Indicates if the user needs to approve an Okta Verify prompt or provide biometrics (meets NIST AAL2 requirements). This property is only set for `POSSESSION` constraints.
+              enum:
+                - OPTIONAL
+                - REQUIRED
+              default: REQUIRED
+            userVerification:
+              type: string
+              description: Indicates the user interaction requirement (PIN or biometrics) to ensure verification of a possession factor
+              enum:
+                - OPTIONAL
+                - REQUIRED
+              default: OPTIONAL
     PreRegistrationInlineHook:
       type: object
       properties:
@@ -33735,8 +35802,6 @@ components:
       properties:
         authScheme:
           $ref: '#/components/schemas/ProvisioningConnectionAuthScheme'
-        profile:
-          $ref: '#/components/schemas/ProvisioningConnectionProfile'
         status:
           $ref: '#/components/schemas/ProvisioningConnectionStatus'
         _links:
@@ -33744,6 +35809,7 @@ components:
       required:
         - authScheme
         - status
+      discriminator: *ref_21
     ProvisioningConnectionAuthScheme:
       description: Defines the method of authentication
       type: string
@@ -33755,6 +35821,20 @@ components:
         TOKEN: A token is used to authenticate with the app.
         OAUTH2: OAuth 2.0 is used to authenticate with the app.
         UNKNOWN: The authentication scheme used by the app isn't supported, or the app doesn't support provisioning.
+    ProvisioningConnectionOauth:
+      allOf:
+        - $ref: '#/components/schemas/ProvisioningConnection'
+        - type: object
+          properties:
+            profile:
+              $ref: '#/components/schemas/ProvisioningConnectionProfileOauth'
+    ProvisioningConnectionOauthRequest:
+      type: object
+      properties:
+        profile:
+          $ref: '#/components/schemas/ProvisioningConnectionProfileOauth'
+      required:
+        - profile
     ProvisioningConnectionProfile:
       description: |
         The profile used to configure the connection method of authentication and the credentials.
@@ -33763,8 +35843,8 @@ components:
       properties:
         authScheme:
           $ref: '#/components/schemas/ProvisioningConnectionAuthScheme'
-        token:
-          type: string
+      required:
+        - authScheme
     ProvisioningConnectionProfileOauth:
       description: |
         The app provisioning connection profile used to configure the method of authentication and the credentials.
@@ -33778,7 +35858,6 @@ components:
               description: Unique client identifier for the OAuth 2.0 service app from the target org
           required:
             - authScheme
-            - clientId
     ProvisioningConnectionProfileOauthSettings:
       title: Generic
       description: Specific settings aren't defined for generic OAuth 2.0 provisioning connections
@@ -33804,13 +35883,6 @@ components:
       allOf:
         - $ref: '#/components/schemas/ProvisioningConnectionProfile'
         - type: object
-    ProvisioningConnectionRequest:
-      type: object
-      properties:
-        profile:
-          $ref: '#/components/schemas/ProvisioningConnectionProfile'
-      required:
-        - profile
     ProvisioningConnectionStatus:
       description: Provisioning connection status
       default: DISABLED
@@ -33823,6 +35895,27 @@ components:
         DISABLED: The provisioning connection is disabled.
         ENABLED: The provisioning connection is enabled.
         UNKNOWN: Provisioning isn't supported by the app, or the authentication method is unknown.
+    ProvisioningConnectionToken:
+      allOf:
+        - $ref: '#/components/schemas/ProvisioningConnection'
+        - type: object
+          properties:
+            profile:
+              $ref: '#/components/schemas/ProvisioningConnectionProfileToken'
+    ProvisioningConnectionTokenRequest:
+      type: object
+      properties:
+        profile:
+          $ref: '#/components/schemas/ProvisioningConnectionProfileToken'
+      required:
+        - profile
+    ProvisioningConnectionUnknown:
+      allOf:
+        - $ref: '#/components/schemas/ProvisioningConnection'
+        - type: object
+          properties:
+            profile:
+              $ref: '#/components/schemas/ProvisioningConnectionProfileUnknown'
     ProvisioningDeprovisionedAction:
       type: string
       enum:
@@ -33979,6 +36072,17 @@ components:
         name:
           type: string
           description: Name of a Realm
+        realmType:
+          type: string
+          description: An optional parameter to specify type of a Realm (Only applicable for Partner use-case)
+          enum:
+            - PARTNER
+            - OTHER
+          x-enumDescriptions:
+            PARTNER: Realm with external partner portal
+            OTHER: Other
+      required:
+        - name
     RecoveryQuestionCredential:
       description: |-
         Specifies a secret question and answer that's validated (case insensitive) when a user forgets their
@@ -34559,7 +36663,7 @@ components:
         acs:
           type: array
           minItems: 1
-          description: 'List of Assertion Consumer Service (ACS) URLs. The default ACS URL is required and is indicated by a null index value. You can use the org properties you defined in the `config` array as variables in the URL. For example: `https://${org.subdomain}.example.com/saml/login`'
+          description: 'List of Assertion Consumer Service (ACS) URLs. The default ACS URL is required and is indicated by a null `index` value. You can use the org-level variables you defined in the `config` array in the URL. For example: `https://${org.subdomain}.example.com/saml/login`'
           items:
             type: object
             properties:
@@ -34567,7 +36671,7 @@ components:
                 type: number
                 minimum: 0
                 maximum: 65535
-                description: Index of ACS URL
+                description: Index of ACS URL. You can't reuse the same index in the ACS URL array.
                 example: 0
               url:
                 type: string
@@ -34578,11 +36682,11 @@ components:
         doc:
           type: string
           format: uri
-          description: The URL to your customer-facing instructions for configuring your SAML integration
+          description: The URL to your customer-facing instructions for configuring your SAML integration. See [Customer configuration document guidelines](https://developer.okta.com/docs/guides/submit-app-prereq/main/#customer-configuration-document-guidelines).
           example: https://example.com/strawberry/help/samlSetup
         entityId:
           type: string
-          description: Globally unique name for your SAML entity. For instance, your Identity Provider (IdP) or Service Provider (SP).
+          description: Globally unique name for your SAML entity. For instance, your Identity Provider (IdP) or Service Provider (SP) URL.
           example: https://${org.subdomain}.example.com
       required:
         - acs
@@ -35213,7 +37317,7 @@ components:
       type: string
       pattern: (?i)^[0-9a-f]{8}-[0-9a-f]{4}-[1-5][0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$
     Sso:
-      description: Supported SSO protocol configurations. You must configure at least one protocol.
+      description: 'Supported SSO protocol configurations. You must configure at least one protocol: `oidc` or `saml`'
       type: object
       properties:
         oidc:
@@ -35280,39 +37384,39 @@ components:
       properties:
         config:
           type: array
-          description: 'List of org-level properties used to set up the per-tenant configuration for your customers. For example the `subdomain` property can be used in the ACS URL: `https://${org.subdomain}.example.com/saml/login`.'
+          description: 'List of org-level variables for the customer per-tenant configuration. For example, a `subdomain` variable can be used in the ACS URL: `https://${org.subdomain}.example.com/saml/login`'
           items:
             type: object
             properties:
               label:
                 type: string
-                description: Display name of org property in the Admin Console.
+                description: Display name of the variable in the Admin Console
                 example: Subdomain
               name:
                 type: string
                 maxLength: 1024
                 minLength: 1
-                description: Name of the org property
+                description: Name of the variable
                 example: subdomain
         description:
           type: string
           maxLength: 1024
           minLength: 1
-          description: A general description of your application and value of the Okta integration
+          description: A general description of your application and the benefits provided to your customers
           example: Your one source for in-season strawberry deals. Okta's Strawberry Central integration allow users to securely access those sweet deals.
         id:
           type: string
-          description: ID of a Submission
+          description: OIN Integration ID
           readOnly: true
           example: acme_submissionapp_1
         lastPublished:
           type: string
-          description: Timestamp when the Submission was last published
+          description: Timestamp when the OIN Integration was last published
           readOnly: true
           example: '2023-08-24T14:15:22.000Z'
         lastUpdated:
           type: string
-          description: Timestamp when the Submission object was last updated
+          description: Timestamp when the OIN Integration instance was last updated
           readOnly: true
           example: '2023-08-24T14:15:22.000Z'
         lastUpdatedBy:
@@ -35323,7 +37427,7 @@ components:
         logo:
           type: string
           format: uri
-          description: URL to an uploaded application logo. This logo appears next to your app integration name in the OIN catalog.
+          description: URL to an uploaded application logo. This logo appears next to your app integration name in the OIN catalog. You must first [Upload an OIN Integration logo](/openapi/okta-management/management/tag/YourOinIntegrations/#tag/YourOinIntegrations/operation/uploadSubmissionLogo) to obtain the logo URL before you can specify this value.
           example: https://acme.okta.com/bc/image/fileStoreRecord?id=fs03xxd3KmkDBwJU80g4
         name:
           type: string
@@ -35335,7 +37439,7 @@ components:
           $ref: '#/components/schemas/Sso'
         status:
           type: string
-          description: Status of the Submission
+          description: Status of the OIN Integration submission
           readOnly: true
           example: New
     Subscription:
@@ -35444,11 +37548,11 @@ components:
           properties:
             idp:
               type: boolean
-              description: Indicates if your integration supports IdP-initiated sign-in flows
+              description: Read only.<br>Indicates if your integration supports IdP-initiated sign-in flows. If [`sso.oidc.initiateLoginUri`](/openapi/okta-management/management/tag/YourOinIntegrations/#tag/YourOinIntegrations/operation/createSubmission!path=sso/oidc/initiateLoginUri&t=request) is specified, this property is set to `true`. If [`sso.oidc.initiateLoginUri`](/openapi/okta-management/management/tag/YourOinIntegrations/#tag/YourOinIntegrations/operation/createSubmission!path=sso/oidc/initiateLoginUri&t=request) isn't set for the integration submission, this property is set to `false`
               readOnly: true
             sp:
               type: boolean
-              description: Indicates if your integration supports SP-initiated sign-in flows
+              description: Read only.<br>Indicates if your integration supports SP-initiated sign-in flows and is always set to `true` for OIDC SSO
               readOnly: true
             jit:
               type: boolean
@@ -35483,8 +37587,8 @@ components:
             spInitiateDescription:
               type: string
               maxLength: 2048
-              description: Instructions on how to sign in to your app using the SP-initiated flow
-              example: Just open URL and provide your username
+              description: Instructions on how to sign in to your app using the SP-initiated flow (required if `sp = true`)
+              example: Go to your app URL from a browser and enter your username
           required:
             - spInitiateUrl
         testAccount:
@@ -35511,7 +37615,7 @@ components:
               type: string
               maxLength: 2048
               description: Additional instructions to test the app integration, including instructions for obtaining test accounts
-              example: Just open URL and input credentials
+              example: Go to your app URL from a browser and enter your credentials
           required:
             - url
             - username
@@ -35634,12 +37738,15 @@ components:
       properties:
         accessTokenLifetimeMinutes:
           type: integer
+          description: Lifetime of the access token in minutes. The minimum is five minutes. The maximum is one day.
         inlineHook:
           $ref: '#/components/schemas/TokenAuthorizationServerPolicyRuleActionInlineHook'
         refreshTokenLifetimeMinutes:
           type: integer
+          description: Lifetime of the refresh token is the minimum access token lifetime.
         refreshTokenWindowMinutes:
           type: integer
+          description: Timeframe when the refresh token is valid. The minimum is 10 minutes. The maximum is five years (2,628,000 minutes).
     TokenAuthorizationServerPolicyRuleActionInlineHook:
       type: object
       properties:
@@ -35888,9 +37995,24 @@ components:
           readOnly: true
           nullable: true
         transitioningToStatus:
-          $ref: '#/components/schemas/UserStatus'
+          type: string
+          description: The target status of an in-progress asynchronous status transition. This property is only returned if the user's state is transitioning.
+          readOnly: true
+          nullable: true
+          enum:
+            - ACTIVE
+            - DEPROVISIONED
+            - PROVISIONED
         type:
-          $ref: '#/components/schemas/UserType'
+          type: object
+          description: |-
+            The user type that determines the schema for the user's profile. The `type` property is a map that identifies
+            the User Type (see [User Types](https://developer.okta.com/docs/api/openapi/okta-management/management/tag/UserType/#tag/UserType)).
+            Currently it contains a single element, `id`. It can be specified when creating a new user, and may be updated by an administrator on a full replace of an existing user (but not a partial update).
+          properties:
+            id:
+              type: string
+              description: The ID of the user type
         _embedded:
           type: object
           description: If specified, includes embedded resources related to the user
@@ -36000,13 +38122,16 @@ components:
           enum:
             - DEVICE_BASED
     UserCondition:
+      description: Specifies a set of Users to be included or excluded
       type: object
       properties:
         exclude:
+          description: Users to be excluded
           type: array
           items:
             type: string
         include:
+          description: Users to be included
           type: array
           items:
             type: string
@@ -36459,13 +38584,16 @@ components:
                   items:
                     $ref: '#/components/schemas/UserBlock'
     UserIdentifierConditionEvaluatorPattern:
+      description: Used in the User Identifier Condition object. Specifies the details of the patterns to match against.
       type: object
       properties:
         matchType:
           $ref: '#/components/schemas/UserIdentifierMatchType'
         value:
           type: string
+          description: The regex expression of a simple match string
     UserIdentifierMatchType:
+      description: The type of pattern. For regex, use `EXPRESSION`.
       type: string
       enum:
         - CONTAINS
@@ -36507,21 +38635,25 @@ components:
         preventBruteForceLockoutFromUnknownDevices:
           type: boolean
           description: Prevents brute-force lockout from unknown devices for the password authenticator.
+          default: false
     UserNextLogin:
       type: string
       enum:
         - changePassword
     UserPolicyRuleCondition:
+      description: Specifies a set of Users to be included or excluded
       type: object
       properties:
         exclude:
           type: array
+          description: Users to be excluded
           items:
             type: string
         inactivity:
           $ref: '#/components/schemas/InactivityPolicyRuleCondition'
         include:
           type: array
+          description: Users to be included
           items:
             type: string
         lifecycleExpiration:
@@ -36631,6 +38763,7 @@ components:
         nickName:
           type: string
           description: The casual way to address the user in real life
+          nullable: true
         organization:
           type: string
           description: Name of the the user's organization
@@ -37091,6 +39224,63 @@ components:
         - ANY
         - BUILT_IN
         - ROAMING
+    WebAuthnCredRequest:
+      description: Credential request object for the initialized credential, along with the enrollment and key identifiers to associate with the credential
+      type: object
+      properties:
+        authenticatorEnrollmentId:
+          description: ID for a WebAuthn Preregistration Factor in Okta
+          type: string
+        credRequestJwe:
+          description: Encrypted JWE of credential request for the fulfillment provider
+          type: string
+        keyId:
+          description: ID for the Okta response key-pair used to encrypt and decrypt credential requests and responses
+          type: string
+    WebAuthnCredResponse:
+      description: Credential response object for enrolled credential details, along with enrollment and key identifiers to associate the credential
+      type: object
+      properties:
+        authenticatorEnrollmentId:
+          description: ID for a WebAuthn Preregistration Factor in Okta
+          type: string
+        credResponseJWE:
+          description: Encrypted JWE of credential response from the fulfillment provider
+          type: string
+    WebAuthnPreregistrationFactor:
+      description: User Factor variant used for WebAuthn Preregistration Factors
+      type: object
+      properties:
+        created:
+          description: Timestamp indicating when the Factor was enrolled
+          type: string
+          format: date-time
+          readOnly: true
+        factorType:
+          $ref: '#/components/schemas/UserFactorType'
+        id:
+          description: ID of the Factor
+          type: string
+          readOnly: true
+        lastUpdated:
+          description: Timestamp indicating when the Factor was last updated
+          type: string
+          format: date-time
+          readOnly: true
+        profile:
+          type: object
+          description: Specific attributes related to the Factor
+        provider:
+          $ref: '#/components/schemas/UserFactorProvider'
+        status:
+          $ref: '#/components/schemas/UserFactorStatus'
+        vendorName:
+          description: Name of the Factor vendor. This is usually the same as the provider.
+          type: string
+          example: OKTA
+          readOnly: true
+        _links:
+          $ref: '#/components/schemas/LinksSelf'
     WellKnownAppAuthenticatorConfiguration:
       type: object
       properties:

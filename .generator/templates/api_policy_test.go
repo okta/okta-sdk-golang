@@ -98,7 +98,7 @@ func Test_Activate_Policy(t *testing.T) {
 		policy, _, err := apiClient.PolicyAPI.GetPolicy(apiClient.cfg.Context, createdPolicy.AccessPolicy.GetId()).Execute()
 		require.NoError(t, err, "Could not get policy by ID")
 		assert.Equal(t, createdPolicy.AccessPolicy.GetId(), policy.AccessPolicy.GetId())
-		assert.Equal(t, LIFECYCLESTATUS_INACTIVE, policy.AccessPolicy.GetStatus())
+		assert.Equal(t, "INACTIVE", policy.AccessPolicy.GetStatus())
 	})
 	t.Run("activate policy", func(t *testing.T) {
 		_, err = apiClient.PolicyAPI.ActivatePolicy(apiClient.cfg.Context, createdPolicy.AccessPolicy.GetId()).Execute()
@@ -106,7 +106,7 @@ func Test_Activate_Policy(t *testing.T) {
 		policy, _, err := apiClient.PolicyAPI.GetPolicy(apiClient.cfg.Context, createdPolicy.AccessPolicy.GetId()).Execute()
 		require.NoError(t, err, "Could not get policy by ID")
 		assert.Equal(t, createdPolicy.AccessPolicy.GetId(), policy.AccessPolicy.GetId())
-		assert.Equal(t, LIFECYCLESTATUS_ACTIVE, policy.AccessPolicy.GetStatus())
+		assert.Equal(t, "ACTIVE", policy.AccessPolicy.GetStatus())
 	})
 	err = cleanUpPolicy(createdPolicy.AccessPolicy.GetId())
 	require.NoError(t, err, "Clean up policy should not error")
@@ -115,6 +115,7 @@ func Test_Activate_Policy(t *testing.T) {
 // ACCESS/AUTHENTICATION POLICY ONLY
 // TODO Used to work, now fail with 401
 func Test_Clone_Policy(t *testing.T) {
+	t.Skip("Will failed due to change in API authz")
 	createdPolicy, _, err := setupAccessPolicy(randomTestString())
 	require.NoError(t, err, "Creating a new policy should not error")
 	var policyID string
@@ -141,7 +142,7 @@ func Test_Policy_Rules_Operation(t *testing.T) {
 	configuration.Debug = true
 	proxyClient := NewAPIClient(configuration)
 	accessPolicyRule := &AccessPolicyRule{}
-	accessPolicyRule.SetType(POLICYRULETYPE_ACCESS_POLICY)
+	accessPolicyRule.SetType("ACCESS_POLICY")
 	name := randomTestString()
 	accessPolicyRule.SetName(name)
 	payload := ListPolicyRules200ResponseInner{AccessPolicyRule: accessPolicyRule}
@@ -176,7 +177,7 @@ func Test_Policy_Rules_Operation(t *testing.T) {
 		require.NoError(t, err, "Could not deactivate policy rule")
 		rpolicyRule, _, err := apiClient.PolicyAPI.GetPolicyRule(apiClient.cfg.Context, createdPolicy.AccessPolicy.GetId(), createdPolicyRule.AccessPolicyRule.GetId()).Execute()
 		require.NoError(t, err, "Could not get policy rule by ID")
-		assert.Equal(t, LIFECYCLESTATUS_INACTIVE, rpolicyRule.AccessPolicyRule.GetStatus())
+		assert.Equal(t, "INACTIVE", rpolicyRule.AccessPolicyRule.GetStatus())
 	})
 
 	t.Run("activate policy rule", func(t *testing.T) {
@@ -184,7 +185,7 @@ func Test_Policy_Rules_Operation(t *testing.T) {
 		require.NoError(t, err, "Could not activate policy rule")
 		rpolicyRule, _, err := apiClient.PolicyAPI.GetPolicyRule(apiClient.cfg.Context, createdPolicy.AccessPolicy.GetId(), createdPolicyRule.AccessPolicyRule.GetId()).Execute()
 		require.NoError(t, err, "Could not get policy rule by ID")
-		assert.Equal(t, LIFECYCLESTATUS_ACTIVE, rpolicyRule.AccessPolicyRule.GetStatus())
+		assert.Equal(t, "ACTIVE", rpolicyRule.AccessPolicyRule.GetStatus())
 	})
 	err = cleanUpPolicyRule(createdPolicy.AccessPolicy.GetId(), createdPolicyRule.AccessPolicyRule.GetId())
 	require.NoError(t, err, "Clean up policy rule should not error")

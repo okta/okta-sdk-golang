@@ -14,7 +14,7 @@ func Test_Get_User_Schema(t *testing.T) {
 		assert.NotEmpty(t, schema, "User schema is empty")
 		assert.Equal(t, "Username", schema.Definitions.Base.Properties.Login.GetTitle())
 		assert.Equal(t, "READ_WRITE", schema.Definitions.Base.Properties.Login.GetMutability())
-		assert.Equal(t, USERSCHEMAATTRIBUTESCOPE_NONE, schema.Definitions.Base.Properties.Login.GetScope())
+		assert.Equal(t, "NONE", schema.Definitions.Base.Properties.Login.GetScope())
 		assert.Equal(t, int32(5), schema.Definitions.Base.Properties.Login.GetMinLength())
 		assert.Equal(t, int32(100), schema.Definitions.Base.Properties.Login.GetMaxLength())
 		assert.NotEmpty(t, schema.Definitions.Base.Properties.Login.GetPermissions())
@@ -31,7 +31,7 @@ func Test_Update_Property_To_User_Schema(t *testing.T) {
 		customAttributeName := testPrefix + randomTestString()
 		customAttributeDetail := UserSchemaAttribute{}
 		customAttributeDetail.SetTitle(customAttributeName)
-		customAttributeDetail.SetType(USERSCHEMAATTRIBUTETYPE_STRING)
+		customAttributeDetail.SetType("string")
 		customAttributeDetail.SetMinLength(1)
 		customAttributeDetail.SetMaxLength(20)
 		customAttribute := make(map[string]UserSchemaAttribute)
