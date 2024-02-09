@@ -1,6 +1,9 @@
 # Changelog
 Running changelog of releases since `2.0.0-rc.4`
 
+## v4.0.0
+ - Upgrade to version 4.0.0 using openapi spec v3 (#378) Thanks [@duytiennguyen-okta]
+
 ## v2.19.0
  - Upgrade dependency (#378) Thanks [@duytiennguyen-okta]
 

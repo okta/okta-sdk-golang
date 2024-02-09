@@ -3,7 +3,7 @@ templateDir: ./.generator/templates
 outputDir: ./okta/v3
 gitUserId: okta
 gitRepoId: okta-sdk-golang
-versionName: v3
+versionName: v4
 additionalProperties:
   enumClassPrefix: true
   generateInterfaces: true
