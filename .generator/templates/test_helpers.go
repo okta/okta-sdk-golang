@@ -96,7 +96,7 @@ func (t *TestFactory) NewValidTestRecoveryQuestionCredential() *RecoveryQuestion
 
 func (t *TestFactory) NewValidTestIdentityProvider() *IdentityProvider {
 	res := IdentityProvider{}
-	res.SetType(IDENTITYPROVIDERTYPE_OIDC)
+	res.SetType("OIDC")
 	res.SetName(randomTestString())
 	res.SetProtocol(*t.NewValidTestProtocol())
 	res.SetPolicy(*t.NewValidTestIdentityProviderPolicy())
@@ -245,7 +245,7 @@ func (t *TestFactory) NewValidTestCSRMetadata() *CsrMetadata {
 func (t *TestFactory) NewValidAccessPolicy(name string) *AccessPolicy {
 	policyRule := NewPolicyRuleConditions()
 	res := AccessPolicy{}
-	res.SetType(POLICYTYPE_ACCESS_POLICY)
+	res.SetType("ACCESS_POLICY")
 	res.SetDescription(randomTestString())
 	res.SetPriority(int32(1))
 	res.SetConditions(*policyRule)
@@ -262,7 +262,7 @@ func (t *TestFactory) NewValidBasicAuthApplication(label string) *BasicAuthAppli
 	res := BasicAuthApplication{}
 	res.SetSettings(*setting)
 	res.SetName("template_basic_auth")
-	res.SetSignOnMode(APPLICATIONSIGNONMODE_BASIC_AUTH)
+	res.SetSignOnMode("BASIC_AUTH")
 	res.SetLabel(label)
 	return &res
 }
@@ -276,7 +276,7 @@ func (t *TestFactory) NewValidBookmarkApplication(label string) *BookmarkApplica
 	res := BookmarkApplication{}
 	res.SetSettings(*setting)
 	res.SetName("bookmark")
-	res.SetSignOnMode(APPLICATIONSIGNONMODE_BOOKMARK)
+	res.SetSignOnMode("BOOKMARK")
 	res.SetLabel(label)
 	return &res
 }
@@ -291,7 +291,7 @@ func (t *TestFactory) NewValidOrg2OrgApplication(label string) *SamlApplication 
 	res := SamlApplication{}
 	res.SetSettings(*setting)
 	res.SetName("okta_org2org")
-	res.SetSignOnMode(APPLICATIONSIGNONMODE_SAML_2_0)
+	res.SetSignOnMode("SAML_2_0")
 	res.SetLabel(label)
 	return &res
 }
@@ -300,17 +300,17 @@ func (t *TestFactory) NewValidOIDCApplication(label string) *OpenIdConnectApplic
 	settingClient := NewOpenIdConnectApplicationSettingsClient()
 	settingClient.SetClientUri("https://example.com/client")
 	settingClient.SetLogoUri("https://example.com/assets/images/logo-new.png")
-	settingClient.SetResponseTypes([]OAuthResponseType{OAUTHRESPONSETYPE_TOKEN, OAUTHRESPONSETYPE_ID_TOKEN, OAUTHRESPONSETYPE_CODE})
+	settingClient.SetResponseTypes([]string{"token", "id_token", "code"})
 	settingClient.SetRedirectUris([]string{"https://example.com/oauth2/callback", "myapp://callback"})
 	settingClient.SetPostLogoutRedirectUris([]string{"https://example.com/postlogout", "myapp://postlogoutcallback"})
-	settingClient.SetGrantTypes([]OAuthGrantType{OAUTHGRANTTYPE_IMPLICIT, OAUTHGRANTTYPE_AUTHORIZATION_CODE})
-	settingClient.SetApplicationType(OPENIDCONNECTAPPLICATIONTYPE_NATIVE)
+	settingClient.SetGrantTypes([]string{"implicit", "authorization_code"})
+	settingClient.SetApplicationType("native")
 	settingClient.SetTosUri("https://example.com/client/tos")
 	settingClient.SetPolicyUri("https://example.com/client/policy")
 	setting := NewOpenIdConnectApplicationSettings()
 	setting.SetOauthClient(*settingClient)
 	credClient := NewApplicationCredentialsOAuthClient()
-	credClient.SetTokenEndpointAuthMethod(OAUTHENDPOINTAUTHENTICATIONMETHOD_CLIENT_SECRET_POST)
+	credClient.SetTokenEndpointAuthMethod("client_secret_post")
 	credClient.SetClientId(randomTestString())
 	credClient.SetAutoKeyRotation(true)
 	credentials := NewOAuthApplicationCredentials()
@@ -319,7 +319,7 @@ func (t *TestFactory) NewValidOIDCApplication(label string) *OpenIdConnectApplic
 	res.SetSettings(*setting)
 	res.SetCredentials(*credentials)
 	res.SetName("oidc_client")
-	res.SetSignOnMode(APPLICATIONSIGNONMODE_OPENID_CONNECT)
+	res.SetSignOnMode("OPENID_CONNECT")
 	res.SetLabel(label)
 	return &res
 }

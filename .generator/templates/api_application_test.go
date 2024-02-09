@@ -106,7 +106,7 @@ func Test_Activate_Application(t *testing.T) {
 		app, _, err := apiClient.ApplicationAPI.GetApplication(apiClient.cfg.Context, createdApp.BasicAuthApplication.GetId()).Execute()
 		require.NoError(t, err, "Could not get app by ID")
 		assert.Equal(t, createdApp.BasicAuthApplication.GetId(), app.BasicAuthApplication.GetId())
-		assert.Equal(t, APPLICATIONLIFECYCLESTATUS_INACTIVE, app.BasicAuthApplication.GetStatus())
+		assert.Equal(t, "INACTIVE", app.BasicAuthApplication.GetStatus())
 	})
 	t.Run("activate applications", func(t *testing.T) {
 		_, err = apiClient.ApplicationAPI.ActivateApplication(apiClient.cfg.Context, createdApp.BasicAuthApplication.GetId()).Execute()
@@ -114,7 +114,7 @@ func Test_Activate_Application(t *testing.T) {
 		newapp, _, err := apiClient.ApplicationAPI.GetApplication(apiClient.cfg.Context, createdApp.BasicAuthApplication.GetId()).Execute()
 		require.NoError(t, err, "Could not get app by ID")
 		assert.Equal(t, createdApp.BasicAuthApplication.GetId(), newapp.BasicAuthApplication.GetId())
-		assert.Equal(t, APPLICATIONLIFECYCLESTATUS_ACTIVE, newapp.BasicAuthApplication.GetStatus())
+		assert.Equal(t, "ACTIVE", newapp.BasicAuthApplication.GetStatus())
 	})
 	err = cleanUpApplication(createdApp.BasicAuthApplication.GetId())
 	require.NoError(t, err, "Clean up app should not error")
@@ -279,17 +279,18 @@ func TestGetDefaultProvisioningConnectionForApplication(t *testing.T) {
 	t.Run("get provisioning", func(t *testing.T) {
 		conn, _, err := apiClient.ApplicationConnectionsAPI.GetDefaultProvisioningConnectionForApplication(apiClient.cfg.Context, createdApp.SamlApplication.GetId()).Execute()
 		require.NoError(t, err, "getting default provisioning connection for application should not error.")
-		assert.NotEmpty(t, conn.GetAuthScheme())
-		assert.NotEmpty(t, conn.GetStatus())
+		assert.NotEmpty(t, conn.ProvisioningConnectionToken.GetAuthScheme())
+		assert.NotEmpty(t, conn.ProvisioningConnectionToken.GetStatus())
 	})
 	t.Run("set provisioning", func(t *testing.T) {
-		profile := ProvisioningConnectionProfile{}
+		profile := ProvisioningConnectionProfileToken{}
 		profile.SetAuthScheme("TOKEN")
 		profile.SetToken("TEST")
-		payload := ProvisioningConnectionRequest{Profile: profile}
-		conn, _, err := apiClient.ApplicationConnectionsAPI.UpdateDefaultProvisioningConnectionForApplication(apiClient.cfg.Context, createdApp.SamlApplication.GetId()).ProvisioningConnectionRequest(payload).Activate(false).Execute()
+		request := NewProvisioningConnectionTokenRequest(profile)
+		payload := UpdateDefaultProvisioningConnectionForApplicationRequest{ProvisioningConnectionTokenRequest: request}
+		conn, _, err := apiClient.ApplicationConnectionsAPI.UpdateDefaultProvisioningConnectionForApplication(apiClient.cfg.Context, createdApp.SamlApplication.GetId()).UpdateDefaultProvisioningConnectionForApplicationRequest(payload).Activate(false).Execute()
 		require.NoError(t, err, "setting default provisioning connection for application should not error.")
-		assert.Equal(t, PROVISIONINGCONNECTIONAUTHSCHEME_TOKEN, conn.GetAuthScheme())
+		assert.Equal(t, "TOKEN", conn.GetAuthScheme())
 	})
 	err = cleanUpApplication(createdApp.SamlApplication.GetId())
 	require.NoError(t, err, "Clean up app should not error")

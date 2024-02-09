@@ -80,7 +80,7 @@ func Test_Update_User_Profile(t *testing.T) {
 	nickName := "Batman"
 	t.Run("update user", func(t *testing.T) {
 		newProfile := user.Profile
-		newProfile.NickName = &nickName
+		newProfile.NickName = NullableString{value: &nickName, isSet: true}
 		req := apiClient.UserAPI.UpdateUser(apiClient.cfg.Context, user.GetId())
 		body := UpdateUserRequest{Profile: newProfile}
 		req = req.User(body)
@@ -90,7 +90,7 @@ func Test_Update_User_Profile(t *testing.T) {
 	t.Run("get user", func(t *testing.T) {
 		updatedUser, _, err := apiClient.UserAPI.GetUser(apiClient.cfg.Context, user.GetId()).Execute()
 		require.NoError(t, err, "Could not get user by ID")
-		assert.Equal(t, nickName, *updatedUser.Profile.NickName)
+		assert.Equal(t, nickName, updatedUser.Profile.GetNickName())
 	})
 	err = cleanUpUser(user.GetId())
 	require.NoError(t, err, "Clean up user should not error")
@@ -224,7 +224,7 @@ func Test_Assign_User_To_A_Role(t *testing.T) {
 	user, _, _, err := setupUser(true)
 	require.NoError(t, err, "Creating a new user should not error")
 	var roleId string
-	role := ROLETYPE_USER_ADMIN
+	role := "USER_ADMIN"
 	t.Run("add role to user", func(t *testing.T) {
 		req := apiClient.RoleAssignmentAPI.AssignRoleToUser(apiClient.cfg.Context, user.GetId())
 		payload := AssignRoleRequest{
@@ -348,9 +348,9 @@ func Test_List_User_Subscriptions(t *testing.T) {
 		assert.True(t, len(subscriptions) > 0, "User should have subscriptions")
 	})
 	t.Run("get user subscription by notification type", func(t *testing.T) {
-		subscription, _, err := apiClient.SubscriptionAPI.GetSubscriptionsNotificationTypeUser(apiClient.cfg.Context, NOTIFICATIONTYPE_OKTA_ANNOUNCEMENT, user.GetId()).Execute()
+		subscription, _, err := apiClient.SubscriptionAPI.GetSubscriptionsNotificationTypeUser(apiClient.cfg.Context, "OKTA_ANNOUNCEMENT", user.GetId()).Execute()
 		require.NoError(t, err, "Should not error getting user subscription by notification types")
-		assert.Equal(t, subscription.GetNotificationType(), NOTIFICATIONTYPE_OKTA_ANNOUNCEMENT, "User should have subscription notification type %q, got %q", NOTIFICATIONTYPE_OKTA_ANNOUNCEMENT, subscription.NotificationType)
+		assert.Equal(t, subscription.GetNotificationType(), "OKTA_ANNOUNCEMENT", "User should have subscription notification type %q, got %q", "OKTA_ANNOUNCEMENT", subscription.NotificationType)
 	})
 }
 

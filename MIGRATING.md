@@ -1,10 +1,10 @@
 # Okta Golang management SDK migration guide
 
-## Migrating from 2.x to 3.x
+## Migrating from 2.x to 4.x
 
 In releases prior to version 3 we use an Open API v2 specification, and an Okta custom client generator to partially generate our SDK. A new version of the Open API specification (V3) has been released, and new well-known generators are now available and well received by the community. Planning the future of this SDK, we consider this a good opportunity to modernize by aligning with established standards for API client generation. 
 
-We acknowledge that migrating from v2 to v3 will require considerable effort, but we expect this change to benefit our customers in the long term.
+We acknowledge that migrating from v2 to v4 will require considerable effort, but we expect this change to benefit our customers in the long term.
 
 With OpenAPI v3, we saw an opportunity for improvement in several areas:
 

@@ -1,14 +1,14 @@
 generatorName: go
 templateDir: ./.generator/templates
-outputDir: ./okta/v3
+outputDir: ./okta/v4
 gitUserId: okta
 gitRepoId: okta-sdk-golang
-versionName: v3
+versionName: v4
 additionalProperties:
   enumClassPrefix: true
   generateInterfaces: true
   packageName: okta
-  packageVersion: 3.0.19
+  packageVersion: 4.0.0
   useOneOfDiscriminatorLookup: true
   disallowAdditionalPropertiesIfNotPresent: false
 files:

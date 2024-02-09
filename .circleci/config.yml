@@ -20,18 +20,16 @@ jobs:
           name: "test stage"
           command: make test
 
-  test-v3:
+  test-v4:
     docker:
       - image: cimg/go:1.19.4
     steps:
       - checkout
       - run: go version
+      - platform-orb/step-load-dependencies
       - run:
           name: "test stage"
-          command: |
-            cd okta/v3
-            go mod download
-            go test -failfast -race ./ -test.v
+          command: make v4-test
 
 # Invoke jobs via workflows
 # See: https://circleci.com/docs/2.0/configuration-reference/#workflows
@@ -44,7 +42,7 @@ workflows:
       - test-v2:
           requires:
             - cache-secrets
-      # - test-v3:
+      # - test-v4:
       #     requires:
       #       - cache-secrets
   # See OKTA-624790
