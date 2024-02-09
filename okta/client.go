@@ -63,7 +63,7 @@ var (
 	xmlCheck  = regexp.MustCompile(`(?i:(?:application|text)/xml)`)
 )
 
-const VERSION = "3.0.19"
+const VERSION = "4.0.0"
 const AccessTokenCacheKey = "OKTA_ACCESS_TOKEN"
 
 // APIClient manages communication with the Okta Admin Management API v5.1.0
