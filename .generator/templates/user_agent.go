@@ -2,8 +2,6 @@ package okta
 
 import "runtime"
 
-const Version = "3.0.16"
-
 type UserAgent struct {
 	goVersion string
 
@@ -25,7 +23,7 @@ func NewUserAgent(config *Configuration) UserAgent {
 }
 
 func (ua UserAgent) String() string {
-	userAgentString := "okta-sdk-golang/" + Version + " "
+	userAgentString := "okta-sdk-golang/" + VERSION + " "
 	userAgentString += "golang/" + ua.goVersion + " "
 	userAgentString += ua.osName + "/" + ua.osVersion
 
