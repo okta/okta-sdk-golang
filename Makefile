@@ -81,7 +81,7 @@ fmt: check-fmt # Format the code
 	@$(GOFMT) -l -w $$(find . -name '*.go' |grep -v vendor) > /dev/null
 
 check-fmt:
-	@which $(GOFMT) > /dev/null || GO111MODULE=on go install mvdan.cc/gofumpt@latest
+	@which $(GOFMT) > /dev/null || GO111MODULE=on go install mvdan.cc/gofumpt@v0.5.0
 
 .PHONY: import
 import: check-goimports
