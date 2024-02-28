@@ -39,7 +39,9 @@ policy](https://developer.okta.com/code/library-versions/).
 | ------- | ---------------------------------- |
 | 0.x     |  :warning: Beta Release (Retired)  |
 | 1.x     |  :warning: Retiring on 2021-03-04  |
-| 2.x     |  :heavy_check_mark: Release        |
+| 2.x     |  :warning: Retiring                |
+| 3.x     |  :warning: Retiring                |
+| 4.x     |  :heavy_check_mark: Release ([migration guide](MIGRATING.md)) |
 
 The latest release can always be found on the [releases page][github-releases].
 
