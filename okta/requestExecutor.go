@@ -697,8 +697,7 @@ func buildResponse(resp *http.Response, re *RequestExecutor, v interface{}) (*Re
 	if err == io.EOF {
 		err = nil
 	}
-	if err != nil {
-		return nil, err
-	}
+	// return the response even if there was an error decoding the body
+	// so the user can inspect the response headers and status code
 	return response, nil
 }
