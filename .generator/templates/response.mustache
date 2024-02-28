@@ -58,14 +58,9 @@ func buildResponse(resp *http.Response, cli *APIClient, v interface{}) (*APIResp
 	if err == io.EOF {
 		err = nil
 	}
-	if err != nil {
-		return nil, err
-	}
-	return response, nil
+	return response, err
 }
 
-// TODO check to use model_error
-// TODO copy body
 func (c *APIClient) checkResponseForError(resp *http.Response) error {
 	localVarBody, _ := ioutil.ReadAll(resp.Body)
 	resp.Body.Close()
