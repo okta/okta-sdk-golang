@@ -11,7 +11,7 @@ Name | Type | Description | Notes
 **LastSync** | Pointer to **time.Time** | Timestamp of the last synchronization operation. This value is only updated for apps with the &#x60;IMPORT_PROFILE_UPDATES&#x60; or &#x60;PUSH PROFILE_UPDATES&#x60; feature. | [optional] [readonly] 
 **LastUpdated** | [**time.Time**](time.Time.md) |  | 
 **PasswordChanged** | Pointer to **NullableTime** | Timestamp when the App User password was last changed | [optional] [readonly] 
-**Profile** | Pointer to **map[string]map[string]interface{}** | App user profiles are app-specific and can be customized by the Profile Editor in the Admin Console. SSO apps typically don&#39;t support app user profiles, while apps with user provisioning features have app-specific profiles. Properties that are visible in the Admin Console for an app assignment can also be assigned through the API. Some properties are reference properties that are imported from the target app and can&#39;t be configured. | [optional] 
+**Profile** | Pointer to **map[string]interface{}** | App user profiles are app-specific and can be customized by the Profile Editor in the Admin Console. SSO apps typically don&#39;t support app user profiles, while apps with user provisioning features have app-specific profiles. Properties that are visible in the Admin Console for an app assignment can also be assigned through the API. Some properties are reference properties that are imported from the target app and can&#39;t be configured. | [optional] 
 **Scope** | **string** | Toggles the assignment between user or group scope | 
 **Status** | **string** | Status of an App User | [readonly] 
 **StatusChanged** | **time.Time** | Timestamp when the App User status was last changed | [readonly] 
@@ -215,20 +215,20 @@ HasPasswordChanged returns a boolean if a field has been set.
 UnsetPasswordChanged ensures that no value is present for PasswordChanged, not even an explicit nil
 ### GetProfile
 
-`func (o *AppUser) GetProfile() map[string]map[string]interface{}`
+`func (o *AppUser) GetProfile() map[string]interface{}`
 
 GetProfile returns the Profile field if non-nil, zero value otherwise.
 
 ### GetProfileOk
 
-`func (o *AppUser) GetProfileOk() (*map[string]map[string]interface{}, bool)`
+`func (o *AppUser) GetProfileOk() (*map[string]interface{}, bool)`
 
 GetProfileOk returns a tuple with the Profile field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetProfile
 
-`func (o *AppUser) SetProfile(v map[string]map[string]interface{})`
+`func (o *AppUser) SetProfile(v map[string]interface{})`
 
 SetProfile sets Profile field to given value.
 

@@ -34,7 +34,7 @@ type ApplicationGroupAssignment struct {
 	Id                   *string                           `json:"id,omitempty"`
 	LastUpdated          *time.Time                        `json:"lastUpdated,omitempty"`
 	Priority             *int32                            `json:"priority,omitempty"`
-	Profile              map[string]map[string]interface{} `json:"profile,omitempty"`
+	Profile              map[string]interface{}            `json:"profile,omitempty"`
 	Embedded             map[string]map[string]interface{} `json:"_embedded,omitempty"`
 	Links                *LinksSelf                        `json:"_links,omitempty"`
 	AdditionalProperties map[string]interface{}
@@ -156,9 +156,9 @@ func (o *ApplicationGroupAssignment) SetPriority(v int32) {
 }
 
 // GetProfile returns the Profile field value if set, zero value otherwise.
-func (o *ApplicationGroupAssignment) GetProfile() map[string]map[string]interface{} {
+func (o *ApplicationGroupAssignment) GetProfile() map[string]interface{} {
 	if o == nil || o.Profile == nil {
-		var ret map[string]map[string]interface{}
+		var ret map[string]interface{}
 		return ret
 	}
 	return o.Profile
@@ -166,7 +166,7 @@ func (o *ApplicationGroupAssignment) GetProfile() map[string]map[string]interfac
 
 // GetProfileOk returns a tuple with the Profile field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *ApplicationGroupAssignment) GetProfileOk() (map[string]map[string]interface{}, bool) {
+func (o *ApplicationGroupAssignment) GetProfileOk() (map[string]interface{}, bool) {
 	if o == nil || o.Profile == nil {
 		return nil, false
 	}
@@ -182,8 +182,8 @@ func (o *ApplicationGroupAssignment) HasProfile() bool {
 	return false
 }
 
-// SetProfile gets a reference to the given map[string]map[string]interface{} and assigns it to the Profile field.
-func (o *ApplicationGroupAssignment) SetProfile(v map[string]map[string]interface{}) {
+// SetProfile gets a reference to the given map[string]interface{} and assigns it to the Profile field.
+func (o *ApplicationGroupAssignment) SetProfile(v map[string]interface{}) {
 	o.Profile = v
 }
 

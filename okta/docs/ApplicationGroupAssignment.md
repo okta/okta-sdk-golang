@@ -7,7 +7,7 @@ Name | Type | Description | Notes
 **Id** | Pointer to **string** |  | [optional] [readonly] 
 **LastUpdated** | Pointer to **time.Time** |  | [optional] [readonly] 
 **Priority** | Pointer to **int32** |  | [optional] 
-**Profile** | Pointer to **map[string]map[string]interface{}** |  | [optional] 
+**Profile** | Pointer to **map[string]interface{}** |  | [optional] 
 **Embedded** | Pointer to **map[string]map[string]interface{}** |  | [optional] [readonly] 
 **Links** | Pointer to [**LinksSelf**](LinksSelf.md) |  | [optional] 
 
@@ -107,20 +107,20 @@ HasPriority returns a boolean if a field has been set.
 
 ### GetProfile
 
-`func (o *ApplicationGroupAssignment) GetProfile() map[string]map[string]interface{}`
+`func (o *ApplicationGroupAssignment) GetProfile() map[string]interface{}`
 
 GetProfile returns the Profile field if non-nil, zero value otherwise.
 
 ### GetProfileOk
 
-`func (o *ApplicationGroupAssignment) GetProfileOk() (*map[string]map[string]interface{}, bool)`
+`func (o *ApplicationGroupAssignment) GetProfileOk() (*map[string]interface{}, bool)`
 
 GetProfileOk returns a tuple with the Profile field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetProfile
 
-`func (o *ApplicationGroupAssignment) SetProfile(v map[string]map[string]interface{})`
+`func (o *ApplicationGroupAssignment) SetProfile(v map[string]interface{})`
 
 SetProfile sets Profile field to given value.
 

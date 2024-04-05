@@ -43,7 +43,7 @@ type AppUser struct {
 	// Timestamp when the App User password was last changed
 	PasswordChanged NullableTime `json:"passwordChanged,omitempty"`
 	// App user profiles are app-specific and can be customized by the Profile Editor in the Admin Console. SSO apps typically don't support app user profiles, while apps with user provisioning features have app-specific profiles. Properties that are visible in the Admin Console for an app assignment can also be assigned through the API. Some properties are reference properties that are imported from the target app and can't be configured.
-	Profile map[string]map[string]interface{} `json:"profile,omitempty"`
+	Profile map[string]interface{} `json:"profile,omitempty"`
 	// Toggles the assignment between user or group scope
 	Scope string `json:"scope"`
 	// Status of an App User
@@ -303,9 +303,9 @@ func (o *AppUser) UnsetPasswordChanged() {
 }
 
 // GetProfile returns the Profile field value if set, zero value otherwise.
-func (o *AppUser) GetProfile() map[string]map[string]interface{} {
+func (o *AppUser) GetProfile() map[string]interface{} {
 	if o == nil || o.Profile == nil {
-		var ret map[string]map[string]interface{}
+		var ret map[string]interface{}
 		return ret
 	}
 	return o.Profile
@@ -313,7 +313,7 @@ func (o *AppUser) GetProfile() map[string]map[string]interface{} {
 
 // GetProfileOk returns a tuple with the Profile field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *AppUser) GetProfileOk() (map[string]map[string]interface{}, bool) {
+func (o *AppUser) GetProfileOk() (map[string]interface{}, bool) {
 	if o == nil || o.Profile == nil {
 		return nil, false
 	}
@@ -329,8 +329,8 @@ func (o *AppUser) HasProfile() bool {
 	return false
 }
 
-// SetProfile gets a reference to the given map[string]map[string]interface{} and assigns it to the Profile field.
-func (o *AppUser) SetProfile(v map[string]map[string]interface{}) {
+// SetProfile gets a reference to the given map[string]interface{} and assigns it to the Profile field.
+func (o *AppUser) SetProfile(v map[string]interface{}) {
 	o.Profile = v
 }
 
