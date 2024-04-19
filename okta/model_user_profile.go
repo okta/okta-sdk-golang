@@ -93,6 +93,10 @@ type UserProfile struct {
 	// The ZIP code or postal code component of the user's address (`postalCode`)
 	ZipCode              NullableString `json:"zipCode,omitempty"`
 	AdditionalProperties map[string]interface{}
+	XpressdocsID NullableString  `json:"xpressdocs_id,omitempty"`
+	XpressdocsUserID NullableString  `json:"xpressdocs_user_id,omitempty"`
+	XpressdocsRole NullableString  `json:"xpressdocs_role,omitempty"`
+
 }
 
 type _UserProfile UserProfile
