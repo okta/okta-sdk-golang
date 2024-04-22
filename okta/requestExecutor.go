@@ -309,6 +309,13 @@ func getAccessTokenForPrivateKey(httpClient *http.Client, orgURL, clientAssertio
 	if err != nil {
 		return nil, err
 	}
+	if tokenResponse.StatusCode != http.StatusOK {
+		return nil, fmt.Errorf(
+			"access token request failed, satus code: %d, response: %s",
+			tokenResponse.StatusCode,
+			respBody,
+		)
+	}
 	origResp := io.NopCloser(bytes.NewBuffer(respBody))
 	tokenResponse.Body = origResp
 	var accessToken *RequestAccessToken
