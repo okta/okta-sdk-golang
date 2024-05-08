@@ -934,6 +934,8 @@ When using a keypair, you won't need an API Token because the SDK will
 request an access token for you. In order to use OAuth 2.0, construct a client
 instance by passing the following parameters:
 
+OAuth 2.0 flow is now support Dpop
+
 ```go
 ctx := context.TODO()
 ctx, client, err := okta.NewClient(ctx,
@@ -1244,7 +1246,7 @@ guide](/okta/okta-sdk-golang/blob/master/CONTRIBUTING.md) to understand how to
 structure a contribution.
 
 [devforum]: https://devforum.okta.com/
-[sdkapiref]: https://godoc.org/github.com/okta/okta-sdk-golang/v2/okta
+[sdkapiref]: https://godoc.org/github.com/okta/okta-sdk-golang/v4/okta
 [lang-landing]: https://developer.okta.com/code/go/
 [github-issues]: /okta/okta-sdk-golang/issues
 [github-releases]: /okta/okta-sdk-golang/releases

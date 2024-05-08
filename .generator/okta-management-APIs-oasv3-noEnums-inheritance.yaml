@@ -28160,9 +28160,7 @@ components:
         SSO apps typically don't support app user profiles, while apps with user provisioning features have app-specific profiles.
         Properties that are visible in the Admin Console for an app assignment can also be assigned through the API.
         Some properties are reference properties that are imported from the target app and can't be configured.
-      additionalProperties:
-        type: object
-        properties: {}
+      additionalProperties: true
       type: object
     AppUserStatus:
       description: Status of an App User
@@ -28249,6 +28247,7 @@ components:
         profile:
           type: object
           description: Contains any valid JSON schema for specifying properties that can be referenced from a request (only available to OAuth 2.0 client apps)
+          additionalProperties: true
         signOnMode:
           $ref: '#/components/schemas/ApplicationSignOnMode'
         status:
