@@ -28,7 +28,6 @@ import (
 	"encoding/json"
 	"reflect"
 	"strings"
-	"time"
 )
 
 // LogStreamAws struct for LogStreamAws

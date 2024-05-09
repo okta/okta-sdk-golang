@@ -45901,7 +45901,7 @@ components:
           user: null
         created: ""
         profile:
-          key: ""
+          key: "{}"
         syncState: SYNCHRONIZED
         externalId: 70c14cc17d3745e8a9f98d599a68329c
         lastUpdated: ""
@@ -45955,7 +45955,9 @@ components:
           readOnly: true
           type: string
         profile:
-          additionalProperties: true
+          additionalProperties:
+            properties: {}
+            type: object
           description: |-
             App user profiles are app-specific and can be customized by the Profile Editor in the Admin Console.
             SSO apps typically don't support app user profiles, while apps with user provisioning features have app-specific profiles.
@@ -46101,7 +46103,9 @@ components:
           writeOnly: true
       type: object
     AppUserProfile:
-      additionalProperties: true
+      additionalProperties:
+        properties: {}
+        type: object
       description: |-
         App user profiles are app-specific and can be customized by the Profile Editor in the Admin Console.
         SSO apps typically don't support app user profiles, while apps with user provisioning features have app-specific profiles.
@@ -46223,7 +46227,6 @@ components:
         licensing:
           $ref: '#/components/schemas/ApplicationLicensing'
         profile:
-          additionalProperties: true
           description: Contains any valid JSON schema for specifying properties that
             can be referenced from a request (only available to OAuth 2.0 client apps)
           type: object
