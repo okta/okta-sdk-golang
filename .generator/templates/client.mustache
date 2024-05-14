@@ -162,18 +162,22 @@ func NewPrivateKeyAuth(config PrivateKeyAuthConfig) *PrivateKeyAuth {
 func (a *PrivateKeyAuth) Authorize(method, URL string) error {
 	accessToken, hasToken := a.tokenCache.Get(AccessTokenCacheKey)
 	if hasToken {
+		accessTokenWithTokenType := accessToken.(string)
+		a.req.Header.Add("Authorization", accessTokenWithTokenType)
 		nonce, hasNonce := a.tokenCache.Get(DpopAccessTokenNonce)
-		if !hasNonce {
-			a.req.Header.Add("Authorization", "Bearer "+accessToken.(string))
-		} else {
-			a.req.Header.Add("Authorization", "DPoP "+accessToken.(string))
+		if hasNonce {
 			privateKey, ok := a.tokenCache.Get(DpopAccessTokenPrivateKey)
 			if ok {
-				dpopJWT, err := generateDpopJWT(privateKey.(*rsa.PrivateKey), method, URL, nonce.(string), accessToken.(string))
+				res := strings.Split(accessTokenWithTokenType, " ")
+				if len(res) != 2 {
+					return errors.New("Unidentified access token")
+				}
+				dpopJWT, err := generateDpopJWT(privateKey.(*rsa.PrivateKey), method, URL, nonce.(string), res[1])
 				if err != nil {
 					return err
 				}
 				a.req.Header.Set("Dpop", dpopJWT)
+				a.req.Header.Set("x-okta-user-agent-extended", "isDPoP:true")
 			}
 		}
 	} else {
@@ -202,12 +206,13 @@ func (a *PrivateKeyAuth) Authorize(method, URL string) error {
 				return err
 			}
 			a.req.Header.Set("Dpop", dpopJWT)
+			a.req.Header.Set("x-okta-user-agent-extended", "isDPoP:true")
 		}
 
 		// Trim a couple of seconds off calculated expiry so cache expiry
 		// occures before Okta server side expiry.
 		expiration := accessToken.ExpiresIn - 2
-		a.tokenCache.Set(AccessTokenCacheKey, accessToken.AccessToken, time.Second*time.Duration(expiration))
+		a.tokenCache.Set(AccessTokenCacheKey, fmt.Sprintf("%v %v", accessToken.TokenType, accessToken.AccessToken), time.Second*time.Duration(expiration))
 		a.tokenCache.Set(DpopAccessTokenNonce, nonce, time.Second*time.Duration(expiration))
 		a.tokenCache.Set(DpopAccessTokenPrivateKey, privateKey, time.Second*time.Duration(expiration))
 	}
@@ -255,18 +260,22 @@ func NewJWTAuth(config JWTAuthConfig) *JWTAuth {
 func (a *JWTAuth) Authorize(method, URL string) error {
 	accessToken, hasToken := a.tokenCache.Get(AccessTokenCacheKey)
 	if hasToken {
+		accessTokenWithTokenType := accessToken.(string)
+		a.req.Header.Add("Authorization", accessTokenWithTokenType)
 		nonce, hasNonce := a.tokenCache.Get(DpopAccessTokenNonce)
-		if !hasNonce {
-			a.req.Header.Add("Authorization", "Bearer "+accessToken.(string))
-		} else {
-			a.req.Header.Add("Authorization", "DPoP "+accessToken.(string))
+		if hasNonce {
 			privateKey, ok := a.tokenCache.Get(DpopAccessTokenPrivateKey)
 			if ok {
-				dpopJWT, err := generateDpopJWT(privateKey.(*rsa.PrivateKey), method, URL, nonce.(string), accessToken.(string))
+				res := strings.Split(accessTokenWithTokenType, " ")
+				if len(res) != 2 {
+					return errors.New("Unidentified access token")
+				}
+				dpopJWT, err := generateDpopJWT(privateKey.(*rsa.PrivateKey), method, URL, nonce.(string), res[1])
 				if err != nil {
 					return err
 				}
 				a.req.Header.Set("Dpop", dpopJWT)
+				a.req.Header.Set("x-okta-user-agent-extended", "isDPoP:true")
 			}
 		}
 	} else {
@@ -282,12 +291,13 @@ func (a *JWTAuth) Authorize(method, URL string) error {
 				return err
 			}
 			a.req.Header.Set("Dpop", dpopJWT)
+			a.req.Header.Set("x-okta-user-agent-extended", "isDPoP:true")
 		}
 
 		// Trim a couple of seconds off calculated expiry so cache expiry
 		// occures before Okta server side expiry.
 		expiration := accessToken.ExpiresIn - 2
-		a.tokenCache.Set(AccessTokenCacheKey, accessToken.AccessToken, time.Second*time.Duration(expiration))
+		a.tokenCache.Set(AccessTokenCacheKey, fmt.Sprintf("%v %v", accessToken.TokenType, accessToken.AccessToken), time.Second*time.Duration(expiration))
 		a.tokenCache.Set(DpopAccessTokenNonce, nonce, time.Second*time.Duration(expiration))
 		a.tokenCache.Set(DpopAccessTokenPrivateKey, privateKey, time.Second*time.Duration(expiration))
 	}
