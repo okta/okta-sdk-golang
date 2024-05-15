@@ -934,7 +934,7 @@ When using a keypair, you won't need an API Token because the SDK will
 request an access token for you. In order to use OAuth 2.0, construct a client
 instance by passing the following parameters:
 
-OAuth 2.0 flow is now support Dpop
+OAuth 2.0 flow now supports [DPoP](https://developer.okta.com/docs/guides/dpop/main/)
 
 ```go
 ctx := context.TODO()

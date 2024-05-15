@@ -28389,9 +28389,7 @@ components:
           type: integer
         profile:
           type: object
-          additionalProperties:
-            type: object
-            properties: {}
+          additionalProperties: true
         _embedded:
           type: object
           additionalProperties:
@@ -32747,9 +32745,7 @@ components:
       properties:
         debugData:
           type: object
-          additionalProperties:
-            type: object
-            properties: {}
+          additionalProperties: true
           readOnly: true
     LogEvent:
       type: object
