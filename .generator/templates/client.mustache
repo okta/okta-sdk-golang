@@ -396,8 +396,12 @@ func getAccessTokenForPrivateKey(httpClient *http.Client, orgURL, clientAssertio
 	tokenResponse.Body = origResp
 	var accessToken *RequestAccessToken
 
-	if tokenResponse.StatusCode >= 400 && strings.Contains(string(respBody), "invalid_dpop_proof") {
-		return getAccessTokenForDpopPrivateKey(tokenRequest, httpClient, orgURL, "", maxRetries, maxBackoff)
+	if tokenResponse.StatusCode >= 300 {
+		if strings.Contains(string(respBody), "invalid_dpop_proof") {
+			return getAccessTokenForDpopPrivateKey(tokenRequest, httpClient, orgURL, "", maxRetries, maxBackoff)
+		} else {
+			return nil, "", nil, err
+		}
 	}
 
 	_, err = buildResponse(tokenResponse, nil, &accessToken)
@@ -436,9 +440,14 @@ func getAccessTokenForDpopPrivateKey(tokenRequest *http.Request, httpClient *htt
 	if err != nil {
 		return nil, "", nil, err
 	}
-	if tokenResponse.StatusCode >= 400 && strings.Contains(string(respBody), "use_dpop_nonce") {
-		newNonce := tokenResponse.Header.Get("Dpop-Nonce")
-		return getAccessTokenForDpopPrivateKey(tokenRequest, httpClient, orgURL, newNonce, maxRetries, maxBackoff)
+
+	if tokenResponse.StatusCode >= 300 {
+		if strings.Contains(string(respBody), "use_dpop_nonce")  {
+			newNonce := tokenResponse.Header.Get("Dpop-Nonce")
+			return getAccessTokenForDpopPrivateKey(tokenRequest, httpClient, orgURL, newNonce, maxRetries, maxBackoff)
+		} else {
+			return nil, "", nil, err
+		}
 	}
 	origResp := io.NopCloser(bytes.NewBuffer(respBody))
 	tokenResponse.Body = origResp
