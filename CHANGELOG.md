@@ -1,8 +1,13 @@
 # Changelog
 Running changelog of releases since `2.0.0-rc.4`
 
+## v4.1.0
+ - Add support for dpop (#454) Thanks [@duytiennguyen-okta]
+ - Fix object that does not have additional properties (#456) Thanks [@duytiennguyen-okta]
+ - Fix header accept issue that only accept application/json (#457) Thanks [@duytiennguyen-okta]
+
 ## v4.0.0
- - Release v4 version of the sdk base on openapi spec v3 (#427) Thanks [@duytiennguyen-okta]
+ - Release v4 version of the sdk base on openapi spec v3 (#4) Thanks [@duytiennguyen-okta]
 
 ## v2.19.0
  - Upgrade dependency (#378) Thanks [@duytiennguyen-okta]
