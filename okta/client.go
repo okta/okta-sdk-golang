@@ -51,6 +51,7 @@ import (
 	"regexp"
 	"strconv"
 	"strings"
+	"sync"
 	"time"
 	"unicode/utf8"
 
@@ -75,6 +76,12 @@ const (
 	DpopAccessTokenPrivateKey = "DPOP_OKTA_ACCESS_TOKEN_PRIVATE_KEY"
 )
 
+type RateLimit struct {
+	Limit     int
+	Remaining int
+	Reset     int64
+}
+
 // APIClient manages communication with the Okta Admin Management API v5.1.0
 // In most cases there should be only one, shared, APIClient.
 type APIClient struct {
@@ -83,6 +90,9 @@ type APIClient struct {
 	cache      Cache
 	tokenCache *goCache.Cache
 	freshcache bool
+
+	rateLimit     *RateLimit
+	rateLimitLock sync.Mutex
 
 	// API Services
 
@@ -1068,6 +1078,26 @@ func (c *APIClient) RefreshNext() *APIClient {
 	return c
 }
 
+func parseRateLimit(resp *http.Response) (*RateLimit, error) {
+	limit, err := strconv.Atoi(resp.Header.Get("X-Rate-Limit-Limit"))
+	if err != nil {
+		return nil, err
+	}
+	remaining, err := strconv.Atoi(resp.Header.Get("X-Rate-Limit-Remaining"))
+	if err != nil {
+		return nil, err
+	}
+	reset, err := Get429BackoffTime(resp)
+	if err != nil {
+		return nil, err
+	}
+	return &RateLimit{
+		Limit:     limit,
+		Remaining: remaining,
+		Reset:     reset,
+	}, nil
+}
+
 func (c *APIClient) do(ctx context.Context, req *http.Request) (*http.Response, error) {
 	cacheKey := CreateCacheKey(req)
 	if req.Method != http.MethodGet {
@@ -1080,11 +1110,36 @@ func (c *APIClient) do(ctx context.Context, req *http.Request) (*http.Response, 
 		c.freshcache = false
 	}
 	if !inCache {
+		if c.cfg.Okta.Client.RateLimit.Prevent {
+			c.rateLimitLock.Lock()
+			limit := c.rateLimit
+			c.rateLimitLock.Unlock()
+			if limit != nil && limit.Remaining <= 0 {
+				timer := time.NewTimer(time.Second * time.Duration(limit.Reset))
+				select {
+				case <-ctx.Done():
+					if !timer.Stop() {
+						<-timer.C
+					}
+					return nil, ctx.Err()
+				case <-timer.C:
+				}
+			}
+		}
+
 		resp, err := c.doWithRetries(ctx, req)
 		if err != nil {
 			return nil, err
 		}
 		if resp.StatusCode >= 200 && resp.StatusCode <= 299 && req.Method == http.MethodGet {
+			if c.cfg.Okta.Client.RateLimit.Prevent {
+				c.rateLimitLock.Lock()
+				newLimit, err := parseRateLimit(resp)
+				if err == nil {
+					c.rateLimit = newLimit
+				}
+				c.rateLimitLock.Unlock()
+			}
 			c.cache.Set(cacheKey, resp)
 		}
 		return resp, err
