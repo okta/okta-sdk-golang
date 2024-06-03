@@ -161,13 +161,13 @@ func NewPrivateKeyAuth(config PrivateKeyAuthConfig) *PrivateKeyAuth {
 
 func (a *PrivateKeyAuth) Authorize(method, URL string) error {
 	accessToken, hasToken := a.tokenCache.Get(AccessTokenCacheKey)
-	if hasToken {
+	if hasToken && accessToken != "" {
 		accessTokenWithTokenType := accessToken.(string)
 		a.req.Header.Add("Authorization", accessTokenWithTokenType)
 		nonce, hasNonce := a.tokenCache.Get(DpopAccessTokenNonce)
-		if hasNonce {
+		if hasNonce && nonce != "" {
 			privateKey, ok := a.tokenCache.Get(DpopAccessTokenPrivateKey)
-			if ok {
+			if ok && privateKey != nil {
 				res := strings.Split(accessTokenWithTokenType, " ")
 				if len(res) != 2 {
 					return errors.New("Unidentified access token")
@@ -178,6 +178,8 @@ func (a *PrivateKeyAuth) Authorize(method, URL string) error {
 				}
 				a.req.Header.Set("Dpop", dpopJWT)
 				a.req.Header.Set("x-okta-user-agent-extended", "isDPoP:true")
+			} else {
+				return errors.New("Using Dpop but signing key not found")
 			}
 		}
 	} else {
@@ -259,13 +261,13 @@ func NewJWTAuth(config JWTAuthConfig) *JWTAuth {
 
 func (a *JWTAuth) Authorize(method, URL string) error {
 	accessToken, hasToken := a.tokenCache.Get(AccessTokenCacheKey)
-	if hasToken {
+	if hasToken && accessToken != "" {
 		accessTokenWithTokenType := accessToken.(string)
 		a.req.Header.Add("Authorization", accessTokenWithTokenType)
 		nonce, hasNonce := a.tokenCache.Get(DpopAccessTokenNonce)
-		if hasNonce {
+		if hasNonce && nonce != "" {
 			privateKey, ok := a.tokenCache.Get(DpopAccessTokenPrivateKey)
-			if ok {
+			if ok && privateKey != nil {
 				res := strings.Split(accessTokenWithTokenType, " ")
 				if len(res) != 2 {
 					return errors.New("Unidentified access token")
@@ -276,6 +278,8 @@ func (a *JWTAuth) Authorize(method, URL string) error {
 				}
 				a.req.Header.Set("Dpop", dpopJWT)
 				a.req.Header.Set("x-okta-user-agent-extended", "isDPoP:true")
+			} else {
+				return errors.New("Using Dpop but signing key not found")
 			}
 		}
 	} else {
