@@ -33112,9 +33112,7 @@ components:
           readOnly: true
         detailEntry:
           type: object
-          additionalProperties:
-            type: object
-            properties: {}
+          additionalProperties: true
           readOnly: true
         displayName:
           type: string

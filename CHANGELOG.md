@@ -2,6 +2,10 @@
 Running changelog of releases since `2.0.0-rc.4`
 
 ## v4.1.0
+ - Fix panic issue when using bearer token (#463) Thanks [@duytiennguyen-okta]
+ - Fix object that does not have additional properties (#463) Thanks [@duytiennguyen-okta]
+
+## v4.1.0
  - Add support for dpop (#454) Thanks [@duytiennguyen-okta]
  - Fix object that does not have additional properties (#456) Thanks [@duytiennguyen-okta]
  - Fix header accept issue that only accept application/json (#457) Thanks [@duytiennguyen-okta]
