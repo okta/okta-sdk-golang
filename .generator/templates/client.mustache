@@ -201,6 +201,10 @@ func (a *PrivateKeyAuth) Authorize(method, URL string) error {
 			return err
 		}
 
+		if accessToken == nil {
+			return errors.New("Empty access token")
+		}
+
 		a.req.Header.Set("Authorization", fmt.Sprintf("%v %v", accessToken.TokenType, accessToken.AccessToken))
 		if accessToken.TokenType == "DPoP" {
 			dpopJWT, err := generateDpopJWT(privateKey, method, URL, nonce, accessToken.AccessToken)
@@ -286,6 +290,10 @@ func (a *JWTAuth) Authorize(method, URL string) error {
 		accessToken, nonce, privateKey, err := getAccessTokenForPrivateKey(a.httpClient, a.orgURL, a.clientAssertion, a.userAgent, a.scopes, a.maxRetries, a.maxBackoff)
 		if err != nil {
 			return err
+		}
+
+		if accessToken == nil {
+			return errors.New("Empty access token")
 		}
 
 		a.req.Header.Set("Authorization", fmt.Sprintf("%v %v", accessToken.TokenType, accessToken.AccessToken))

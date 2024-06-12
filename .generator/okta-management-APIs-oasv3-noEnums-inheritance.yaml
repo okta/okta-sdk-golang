@@ -31913,9 +31913,7 @@ components:
           type: string
         profile:
           type: object
-          additionalProperties:
-            type: object
-            properties: {}
+          additionalProperties: true
         _embedded:
           type: object
           additionalProperties:
@@ -32658,9 +32656,7 @@ components:
           readOnly: true
         detailEntry:
           type: object
-          additionalProperties:
-            type: object
-            properties: {}
+          additionalProperties: true
           readOnly: true
         displayName:
           type: string
@@ -33128,9 +33124,7 @@ components:
       properties:
         detail:
           type: object
-          additionalProperties:
-            type: object
-            properties: {}
+          additionalProperties: true
           readOnly: true
         id:
           type: string
@@ -33827,9 +33821,7 @@ components:
         profile:
           type: object
           description: Contains any valid JSON schema for specifying properties that can be referenced from a request (only available to OAuth 2.0 client apps)
-          additionalProperties:
-            type: object
-            properties: {}
+          additionalProperties: true
         settings:
           $ref: '#/components/schemas/OINBaseSignOnModeApplicationSettings'
         signOnMode:

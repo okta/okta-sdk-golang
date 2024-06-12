@@ -566,6 +566,12 @@ func WithScopes(scopes []string) ConfigSetter {
 	}
 }
 
+func WithDebug(debug bool) ConfigSetter {
+	return func(c *Configuration) {
+		c.Debug = debug
+	}
+}
+
 // WithPrivateKey sets private key key. Can be either a path to a private key or private key itself.
 func WithPrivateKey(privateKey string) ConfigSetter {
 	return func(c *Configuration) {
