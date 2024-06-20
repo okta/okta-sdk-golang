@@ -77,6 +77,7 @@ func NewClient(ctx context.Context, conf ...ConfigSetter) (context.Context, *Cli
 
 	setConfigDefaults(config)
 	config = readConfigFromSystem(*config)
+	config = readConfigFromWorkingDirectory(*config)
 	config = readConfigFromApplication(*config)
 	config = readConfigFromEnvironment(*config)
 
@@ -214,6 +215,14 @@ func readConfigFromSystem(c config) *config {
 		return &c
 	}
 	conf, err := readConfigFromFile(currUser.HomeDir+"/.okta/okta.yaml", c)
+	if err != nil {
+		return &c
+	}
+	return conf
+}
+
+func readConfigFromWorkingDirectory(c config) *config {
+	conf, err := readConfigFromFile(".okta.yaml", c)
 	if err != nil {
 		return &c
 	}
