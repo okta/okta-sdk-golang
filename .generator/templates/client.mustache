@@ -316,6 +316,155 @@ func (a *JWTAuth) Authorize(method, URL string) error {
 	return nil
 }
 
+type JWKAuth struct {
+	tokenCache       *goCache.Cache
+	httpClient       *http.Client
+	jwk              string
+	encryptionType   string
+	privateKeySigner jose.Signer
+	privateKey       string
+	privateKeyId     string
+	clientId         string
+	orgURL           string
+	userAgent        string
+	scopes           []string
+	maxRetries       int32
+	maxBackoff       int64
+	req              *http.Request
+}
+
+type JWKAuthConfig struct {
+	TokenCache       *goCache.Cache
+	HttpClient       *http.Client
+	JWK 			 string
+	EncryptionType   string
+	PrivateKeySigner jose.Signer
+	PrivateKeyId     string
+	ClientId         string
+	OrgURL           string
+	UserAgent        string
+	Scopes           []string
+	MaxRetries       int32
+	MaxBackoff       int64
+	Req              *http.Request
+}
+
+func NewJWKAuth(config JWKAuthConfig) *JWKAuth {
+	return &JWKAuth{
+		tokenCache:       config.TokenCache,
+		httpClient:       config.HttpClient,
+		jwk: 		      config.JWK,
+		encryptionType: config.EncryptionType,
+		privateKeySigner: config.PrivateKeySigner,
+		privateKeyId:     config.PrivateKeyId,
+		clientId:         config.ClientId,
+		orgURL:           config.OrgURL,
+		userAgent:        config.UserAgent,
+		scopes:           config.Scopes,
+		maxRetries:       config.MaxRetries,
+		maxBackoff:       config.MaxBackoff,
+		req:              config.Req,
+	}
+}
+
+func (a *JWKAuth) Authorize(method, URL string) error {
+	accessToken, hasToken := a.tokenCache.Get(AccessTokenCacheKey)
+	if hasToken && accessToken != "" {
+		accessTokenWithTokenType := accessToken.(string)
+		a.req.Header.Add("Authorization", accessTokenWithTokenType)
+		nonce, hasNonce := a.tokenCache.Get(DpopAccessTokenNonce)
+		if hasNonce && nonce != "" {
+			privateKey, ok := a.tokenCache.Get(DpopAccessTokenPrivateKey)
+			if ok && privateKey != nil {
+				res := strings.Split(accessTokenWithTokenType, " ")
+				if len(res) != 2 {
+					return errors.New("Unidentified access token")
+				}
+				dpopJWT, err := generateDpopJWT(privateKey.(*rsa.PrivateKey), method, URL, nonce.(string), res[1])
+				if err != nil {
+					return err
+				}
+				a.req.Header.Set("Dpop", dpopJWT)
+				a.req.Header.Set("x-okta-user-agent-extended", "isDPoP:true")
+			} else {
+				return errors.New("Using Dpop but signing key not found")
+			}
+		}
+	} else {
+		privateKey, err := convertJWKToPrivateKey(a.jwk, a.encryptionType)
+		if err != nil {
+			return err
+		}
+		if a.privateKeySigner == nil {
+			var err error
+			a.privateKeySigner, err = createKeySigner(privateKey, a.privateKeyId)
+			if err != nil {
+				return err
+			}
+		}
+
+		clientAssertion, err := createClientAssertion(a.orgURL, a.clientId, a.privateKeySigner)
+		if err != nil {
+			return err
+		}
+
+		accessToken, nonce, dpopPrivateKey, err := getAccessTokenForPrivateKey(a.httpClient, a.orgURL, clientAssertion, a.userAgent, a.scopes, a.maxRetries, a.maxBackoff)
+		if err != nil {
+			return err
+		}
+
+		if accessToken == nil {
+			return errors.New("Empty access token")
+		}
+
+		a.req.Header.Set("Authorization", fmt.Sprintf("%v %v", accessToken.TokenType, accessToken.AccessToken))
+		if accessToken.TokenType == "DPoP" {
+			dpopJWT, err := generateDpopJWT(dpopPrivateKey, method, URL, nonce, accessToken.AccessToken)
+			if err != nil {
+				return err
+			}
+			a.req.Header.Set("Dpop", dpopJWT)
+			a.req.Header.Set("x-okta-user-agent-extended", "isDPoP:true")
+		}
+
+		// Trim a couple of seconds off calculated expiry so cache expiry
+		// occures before Okta server side expiry.
+		expiration := accessToken.ExpiresIn - 2
+		a.tokenCache.Set(AccessTokenCacheKey, fmt.Sprintf("%v %v", accessToken.TokenType, accessToken.AccessToken), time.Second*time.Duration(expiration))
+		a.tokenCache.Set(DpopAccessTokenNonce, nonce, time.Second*time.Duration(expiration))
+		a.tokenCache.Set(DpopAccessTokenPrivateKey, dpopPrivateKey, time.Second*time.Duration(expiration))
+	}
+	return nil
+}
+
+func convertJWKToPrivateKey(jwks, encryptionType string) (string, error) {
+	set, err := jwk.Parse([]byte(jwks))
+	if err != nil {
+		return "", err
+	}
+	for it := set.Iterate(context.Background()); it.Next(context.Background()); {
+		pair := it.Pair()
+		key := pair.Value.(jwk.Key)
+		var rawkey interface{} // This is the raw key, like *rsa.PrivateKey or *ecdsa.PrivateKey
+		err := key.Raw(&rawkey); 
+		if err != nil {
+			return "",err
+		}
+
+		switch encryptionType {
+		case "RSA":
+			rsaPrivateKey, ok := rawkey.(*rsa.PrivateKey)
+			if !ok {
+				return "",fmt.Errorf("expected rsa key, got %T", rawkey)
+			}
+			return string(privateKeyToBytes(rsaPrivateKey)), nil
+		default:
+			return "", fmt.Errorf("unknown encryptionType %v", encryptionType)
+		}
+	}
+	return "", fmt.Errorf("unknown encryptionType %v", encryptionType)
+}
+
 func createKeySigner(privateKey, privateKeyID string) (jose.Signer, error) {
 	var signerOptions *jose.SignerOptions
 	if privateKeyID != "" {
@@ -839,7 +988,7 @@ func (c *APIClient) prepareRequest(
 			PrivateKeyId:     c.cfg.Okta.Client.PrivateKeyId,
 			ClientId:         c.cfg.Okta.Client.ClientId,
 			OrgURL:           c.cfg.Okta.Client.OrgUrl,
-			UserAgent: 		  NewUserAgent(c.cfg).String(),
+			UserAgent:        NewUserAgent(c.cfg).String(),
 			Scopes:           c.cfg.Okta.Client.Scopes,
 			MaxRetries:       c.cfg.Okta.Client.RateLimit.MaxRetries,
 			MaxBackoff:       c.cfg.Okta.Client.RateLimit.MaxBackoff,
@@ -850,12 +999,28 @@ func (c *APIClient) prepareRequest(
 			TokenCache:      c.tokenCache,
 			HttpClient:      c.cfg.HTTPClient,
 			OrgURL:          c.cfg.Okta.Client.OrgUrl,
-			UserAgent: 		 NewUserAgent(c.cfg).String(),
+			UserAgent:       NewUserAgent(c.cfg).String(),
 			Scopes:          c.cfg.Okta.Client.Scopes,
 			ClientAssertion: c.cfg.Okta.Client.ClientAssertion,
 			MaxRetries:      c.cfg.Okta.Client.RateLimit.MaxRetries,
 			MaxBackoff:      c.cfg.Okta.Client.RateLimit.MaxBackoff,
 			Req:             localVarRequest,
+		})
+	case "JWK":
+		auth = NewJWKAuth(JWKAuthConfig{
+			TokenCache:       c.tokenCache,
+			HttpClient:       c.cfg.HTTPClient,
+			JWK:              c.cfg.Okta.Client.JWK,
+			EncryptionType:   c.cfg.Okta.Client.EncryptionType,
+			PrivateKeySigner: c.cfg.PrivateKeySigner,
+			PrivateKeyId:     c.cfg.Okta.Client.PrivateKeyId,
+			ClientId:         c.cfg.Okta.Client.ClientId,
+			OrgURL:           c.cfg.Okta.Client.OrgUrl,
+			UserAgent:        NewUserAgent(c.cfg).String(),
+			Scopes:           c.cfg.Okta.Client.Scopes,
+			MaxRetries:       c.cfg.Okta.Client.RateLimit.MaxRetries,
+			MaxBackoff:       c.cfg.Okta.Client.RateLimit.MaxBackoff,
+			Req:              localVarRequest,
 		})
 	default:
 		return nil, fmt.Errorf("unknown authorization mode %v", c.cfg.Okta.Client.AuthorizationMode)
