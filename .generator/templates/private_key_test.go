@@ -43,6 +43,21 @@ func Test_JWT_Request_Can_Create_User(t *testing.T) {
 	assert.NotNil(t, user, "User should not be nil")
 }
 
+func Test_JWK_Request_Can_Create_User(t *testing.T) {
+	if os.Getenv("OKTA_CCI") != "yes" {
+		t.Skip("Skipping testing not in CI environment")
+	}
+	configuration, err := NewConfiguration(WithAuthorizationMode("JWK"), WithScopes([]string{"okta.users.manage"}), WithJWK(""), WithEncryptionType("RSA"))
+	require.NoError(t, err, "Creating a new config should not error")
+	client := NewAPIClient(configuration)
+	uc := testFactory.NewValidTestUserCredentialsWithPassword()
+	profile := testFactory.NewValidTestUserProfile()
+	body := CreateUserRequest{Credentials: uc, Profile: profile}
+	user, _, err := client.UserAPI.CreateUser(apiClient.cfg.Context).Body(body).Execute()
+	require.NoError(t, err, "Creating a new user should not error")
+	assert.NotNil(t, user, "User should not be nil")
+}
+
 func Test_Dpop_Get_User(t *testing.T) {
 	configuration, err := NewConfiguration(WithAuthorizationMode("PrivateKey"), WithScopes([]string{"okta.users.manage", "okta.users.read"}))
 	require.NoError(t, err, "Creating a new config should not error")
