@@ -1,6 +1,7 @@
 package okta
 
 import (
+	"io/ioutil"
 	"os"
 	"testing"
 
@@ -85,4 +86,40 @@ func Test_Dpop_Get_User(t *testing.T) {
 	})
 	err = cleanUpUser(user.GetId())
 	require.NoError(t, err, "Clean up user should not error")
+}
+
+func Test_Dpop_Pagination(t *testing.T) {
+	configuration, err := NewConfiguration(WithAuthorizationMode("PrivateKey"), WithScopes([]string{"okta.users.manage", "okta.users.read"}))
+	require.NoError(t, err, "Creating a new config should not error")
+	client := NewAPIClient(configuration)
+	uc := testFactory.NewValidTestUserCredentialsWithPassword()
+	profile := testFactory.NewValidTestUserProfile()
+	body := CreateUserRequest{Credentials: uc, Profile: profile}
+	createdUser1, _, err := client.UserAPI.CreateUser(client.cfg.Context).Body(body).Activate(true).Execute()
+	require.NoError(t, err, "Creating a new user should not error")
+	uc = testFactory.NewValidTestUserCredentialsWithPassword()
+	profile = testFactory.NewValidTestUserProfile()
+	body = CreateUserRequest{Credentials: uc, Profile: profile}
+	createdUser2, _, err := client.UserAPI.CreateUser(client.cfg.Context).Body(body).Activate(true).Execute()
+	require.NoError(t, err, "Creating a new user should not error")
+	user1, resp, err := client.UserAPI.ListUsers(client.cfg.Context).Limit(1).Execute()
+	require.NoError(t, err)
+	assert.Equal(t, 1, len(user1), "User1 did not return 1 user")
+	user1Profile := user1[0].GetProfile()
+	hasNext := resp.HasNextPage()
+	assert.True(t, hasNext, "Should return true for HasNextPage")
+	var user2 []User
+	res, err := resp.Next(&user2)
+	require.NoError(t, err)
+	respBody, err := ioutil.ReadAll(res.Body)
+	res.Body.Close()
+	require.NoError(t, err)
+	assert.NotEmpty(t, string(respBody), "body is empty")
+	assert.Equal(t, 1, len(user2), "User2 did not return 1 user")
+	user2Profile := user2[0].GetProfile()
+	assert.NotEqual(t, user2Profile.GetEmail(), user1Profile.GetEmail(), "Emails should not be the same")
+	err = cleanUpUser(createdUser1.GetId())
+	require.NoError(t, err, "Should not error when deactivating")
+	err = cleanUpUser(createdUser2.GetId())
+	require.NoError(t, err, "Should not error when deactivating")
 }
