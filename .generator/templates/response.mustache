@@ -108,7 +108,11 @@ func (res *APIResponse) Next(v interface{}) (*APIResponse, error) {
 	if res.cli == nil {
 		return nil, errors.New("no initial response provided from previous request")
 	}
-	req, err := res.cli.prepareRequest(res.cli.cfg.Context, res.NextPage(), http.MethodGet, nil, map[string]string{"Accept": "application/json"},nil, nil, nil)
+	URL, err := url.Parse(res.NextPage())
+	if err != nil {
+		return nil, err
+	}
+	req, err := res.cli.prepareRequest(res.cli.cfg.Context, URL.Path, http.MethodGet, nil, map[string]string{"Accept": "application/json"}, URL.Query(), nil, nil)
 	if err != nil {
 		return nil, err
 	}
