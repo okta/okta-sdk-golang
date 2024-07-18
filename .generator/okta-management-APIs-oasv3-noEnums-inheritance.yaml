@@ -35760,7 +35760,7 @@ components:
       x-okta-known-values:
         - ANDROID
         - IOS
-        - OSX
+        - MACOS
         - WINDOWS
     DevicePolicyRuleCondition:
       type: object
@@ -41819,8 +41819,9 @@ components:
       x-okta-known-values:
         - ANDROID
         - ANY
+        - CHROMEOS
         - IOS
-        - OSX
+        - MACOS
         - OTHER
         - WINDOWS
     PolicyPlatformType:
