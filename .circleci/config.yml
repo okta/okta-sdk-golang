@@ -56,7 +56,7 @@ workflows:
           context:
             - static-analysis
           parameters:
-            resource-class: "medium"
+            - resource-class: "medium"
           requires:
             - semgrep-prepare
 
