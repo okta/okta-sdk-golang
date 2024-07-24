@@ -49,15 +49,10 @@ workflows:
   # See OKTA-729389
   semgrep:
     jobs:
-      - platform-orb/job-semgrep-prepare:
-          name: semgrep-prepare
       - platform-orb/job-semgrep-scan:
           name: "Scan with Semgrep"
+          resource-class: "medium"
           context:
             - static-analysis
-          parameters:
-            - resource-class: "medium"
-          requires:
-            - semgrep-prepare
 
 # VS Code Extension Version: 1.4.0
