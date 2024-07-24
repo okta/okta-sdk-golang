@@ -53,6 +53,10 @@ workflows:
           name: semgrep-prepare
       - platform-orb/job-semgrep-scan:
           name: "Scan with Semgrep"
+          context:
+            - static-analysis
+          parameters:
+            resource-class: "medium"
           requires:
             - semgrep-prepare
 
