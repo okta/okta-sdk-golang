@@ -10,7 +10,7 @@ info:
   license:
     name: Apache-2.0
     url: https://www.apache.org/licenses/LICENSE-2.0.html
-  version: 5.1.0
+  version: 2024.06.1
   x-logo:
     url: logo.svg
     backgroundColor: transparent
@@ -126,24 +126,22 @@ tags:
   - name: Authenticator
     x-displayName: Authenticators
     description: |-
-      The Authenticators Administration API provides operations to configure which Authenticators are available to end users for use when signing in to applications.
+      The Authenticators Administration API provides operations to configure which Authenticators are available to end users for use when they sign in to applications.
 
-      End users are required to use one or more Authenticators depending on the security requirements of the authentication policy.
+      End users are required to use one or more Authenticators based on the security requirements of the authentication policy.
 
       Okta Identity Engine currently supports Authenticators for the following factors:
 
       **Knowledge-based:**
-
       * Password
       * Security Question
 
       **Possession-based:**
-
-      * Phone (SMS, Voice Call)
+      * Phone (SMS, voice call)
       * Email
       * WebAuthn
       * Duo
-      * Custom App
+      * Custom app
   - name: AuthorizationServer
     x-displayName: Authorization Servers
     description: |-
@@ -450,7 +448,7 @@ tags:
     description: The Realm Assignments API provides operations to manage Realm Assignments
   - name: ResourceSet
     x-displayName: Resource Sets
-    description: The Resource Sets API provides operations to manage Resource Sets as custom collections of resources. You can use Resource Sets to assign Custom Roles to administrators who are scoped to the designated resources. See [Supported Resources](https://developer.okta.com/docs/concepts/role-assignment/#supported-resources).
+    description: The Resource Sets API provides operations to manage Resource Sets as custom collections of resources. You can use Resource Sets to assign Custom Roles to administrators who are scoped to the designated resources. See [Supported Resources](/openapi/okta-management/guides/roles/#supported-resources).
   - name: RiskEvent
     x-displayName: Risk Events
     description: The Risk Events API provides the ability for third-party risk providers to send risk events to Okta. See [Third-party risk provider integration](https://developer.okta.com/docs/guides/third-party-risk-integration/) for guidance on integrating third-party risk providers with Okta.
@@ -573,6 +571,16 @@ tags:
       > **Note:** Only SMS custom Templates are available through the API.
 
       SMS Templates customize the SMS message that is sent to users. One default SMS Template is provided. All custom Templates must have the variable `${code}` as part of the text. The `${code}` variable is replaced with the actual SMS code when the message is sent. Optionally, you can also use the variable `${org.name}`. If a Template contains `${org.name}`, it is replaced with the organization name before the SMS message is sent.
+
+      ### SMS Template macros
+
+      Only two macros are supported for SMS Templates:
+      | <div style="width:200px">Type</div> | Description   |
+      | -------------------- | ----------- |
+      | ${code}  | The one-time verification code that's required for a user to sign in. |
+      | ${org.name} | The Okta org name that the user is trying to authenticate into. |
+
+      >**Note:** The length of your SMS message can't exceed 160 characters. If the verification code portion of the message falls outside of the 160-character limit, your message isn't sent.
   - name: Themes
     x-displayName: Themes
     description: |-
@@ -656,7 +664,7 @@ paths:
         isGenerallyAvailable: false
         SKUs: []
       summary: Retrieve the Well-Known App Authenticator Configuration
-      description: Retrieves the well-known app authenticator configuration, which includes an app authenticator's settings, supported methods and various other configuration details
+      description: Retrieves the well-known app authenticator configuration. Includes an app authenticator's settings, supported methods, and other details.
       operationId: getWellKnownAppAuthenticatorConfiguration
       parameters:
         - name: oauthClientId
@@ -674,6 +682,9 @@ paths:
                 type: array
                 items:
                   $ref: '#/components/schemas/WellKnownAppAuthenticatorConfiguration'
+              examples:
+                AuthenticatorConfiguration:
+                  $ref: '#/components/examples/WellKnownAppAuthenticatorConfigurationCustomApp'
         '400':
           $ref: '#/components/responses/ErrorMissingRequiredParameter400'
         '429':
@@ -1359,6 +1370,7 @@ paths:
                     - $ref: '#/components/schemas/BookmarkApplication'
                     - $ref: '#/components/schemas/BrowserPluginApplication'
                     - $ref: '#/components/schemas/OpenIdConnectApplication'
+                    - $ref: '#/components/schemas/Saml11Application'
                     - $ref: '#/components/schemas/SamlApplication'
                     - $ref: '#/components/schemas/SecurePasswordStoreApplication'
                     - $ref: '#/components/schemas/WsFederationApplication'
@@ -1370,7 +1382,7 @@ paths:
                       BOOKMARK: '#/components/schemas/BookmarkApplication'
                       BROWSER_PLUGIN: '#/components/schemas/BrowserPluginApplication'
                       OPENID_CONNECT: '#/components/schemas/OpenIdConnectApplication'
-                      SAML_1_1: '#/components/schemas/SamlApplication'
+                      SAML_1_1: '#/components/schemas/Saml11Application'
                       SAML_2_0: '#/components/schemas/SamlApplication'
                       SECURE_PASSWORD_STORE: '#/components/schemas/SecurePasswordStoreApplication'
                       WS_FEDERATION: '#/components/schemas/WsFederationApplication'
@@ -3036,7 +3048,40 @@ paths:
             application/json:
               schema:
                 items:
-                  $ref: '#/components/schemas/Authenticator'
+                  oneOf:
+                    - $ref: '#/components/schemas/AuthenticatorKeyCustomApp'
+                    - $ref: '#/components/schemas/AuthenticatorKeyDuo'
+                    - $ref: '#/components/schemas/AuthenticatorKeyEmail'
+                    - $ref: '#/components/schemas/AuthenticatorKeyGoogleOtp'
+                    - $ref: '#/components/schemas/AuthenticatorKeyExternalIdp'
+                    - $ref: '#/components/schemas/AuthenticatorKeyPassword'
+                    - $ref: '#/components/schemas/AuthenticatorKeyOktaVerify'
+                    - $ref: '#/components/schemas/AuthenticatorKeyOnprem'
+                    - $ref: '#/components/schemas/AuthenticatorKeyPhone'
+                    - $ref: '#/components/schemas/AuthenticatorKeySecurityKey'
+                    - $ref: '#/components/schemas/AuthenticatorKeySecurityQuestion'
+                    - $ref: '#/components/schemas/AuthenticatorKeySymantecVip'
+                    - $ref: '#/components/schemas/AuthenticatorKeySmartCard'
+                    - $ref: '#/components/schemas/AuthenticatorKeyWebauthn'
+                    - $ref: '#/components/schemas/AuthenticatorKeyYubikey'
+                  discriminator: &ref_24
+                    propertyName: key
+                    mapping:
+                      custom_app: '#/components/schemas/AuthenticatorKeyCustomApp'
+                      duo: '#/components/schemas/AuthenticatorKeyDuo'
+                      okta_email: '#/components/schemas/AuthenticatorKeyEmail'
+                      google_otp: '#/components/schemas/AuthenticatorKeyGoogleOtp'
+                      external_idp: '#/components/schemas/AuthenticatorKeyExternalIdp'
+                      okta_password: '#/components/schemas/AuthenticatorKeyPassword'
+                      okta_verify: '#/components/schemas/AuthenticatorKeyOktaVerify'
+                      onprem_mfa: '#/components/schemas/AuthenticatorKeyOnprem'
+                      phone_number: '#/components/schemas/AuthenticatorKeyPhone'
+                      security_key: '#/components/schemas/AuthenticatorKeySecurityKey'
+                      security_question: '#/components/schemas/AuthenticatorKeySecurityQuestion'
+                      symantec_vip: '#/components/schemas/AuthenticatorKeySymantecVip'
+                      smart_card_idp: '#/components/schemas/AuthenticatorKeySmartCard'
+                      webauthn: '#/components/schemas/AuthenticatorKeyWebauthn'
+                      yubikey_token: '#/components/schemas/AuthenticatorKeyYubikey'
                 type: array
               examples:
                 OrgAuthenticatorsEx:
@@ -3182,7 +3227,7 @@ paths:
       operationId: deactivateAuthenticator
       responses:
         '200':
-          $ref: '#/components/responses/AuthenticatorResponse'
+          $ref: '#/components/responses/AuthenticatorResponseInactiveWebAuthn'
         '403':
           $ref: '#/components/responses/ErrorAccessDenied403'
         '404':
@@ -3205,7 +3250,14 @@ paths:
       - $ref: '#/components/parameters/pathAuthenticatorId'
     get:
       summary: List all Methods of an Authenticator
-      description: Lists all Methods of an Authenticator identified by `authenticatorId`
+      description: |-
+        Lists all Methods of an Authenticator identified by `authenticatorId`
+        > **Note:** <x-lifecycle class="ea"></x-lifecycle>
+        > The AAGUID Group object supports the Early Access (Self-Service) Allow List for FIDO2 (WebAuthn) Authenticators feature. Enable the feature for your org from the **Settings** > **Features** page in the Admin Console.
+        > This feature has several limitations when enrolling a security key:
+        > - Enrollment is currently unsupported on Firefox.
+        > - Enrollment is currently unsupported on Chrome if User Verification is set to DISCOURAGED and a PIN is set on the security key.
+        > - If prompted during enrollment, users must allow Okta to see the make and model of the security key.
       operationId: listAuthenticatorMethods
       responses:
         '200':
@@ -3239,6 +3291,11 @@ paths:
                       idp: '#/components/schemas/AuthenticatorMethodWithVerifiableProperties'
                       duo: '#/components/schemas/AuthenticatorMethodWithVerifiableProperties'
                       cert: '#/components/schemas/AuthenticatorMethodWithVerifiableProperties'
+              examples:
+                Phone:
+                  $ref: '#/components/examples/AuthenticatorMethodPhone'
+                WebAuthn:
+                  $ref: '#/components/examples/AuthenticatorMethodWebauth'
         '403':
           $ref: '#/components/responses/ErrorAccessDenied403'
         '404':
@@ -3262,7 +3319,14 @@ paths:
       - $ref: '#/components/parameters/pathMethodType'
     get:
       summary: Retrieve an Authenticator Method
-      description: Retrieves a Method identified by `methodType` of an Authenticator identified by `authenticatorId`
+      description: |-
+        Retrieves a Method identified by `methodType` of an Authenticator identified by `authenticatorId`
+        > **Note:** <x-lifecycle class="ea"></x-lifecycle>
+        > The AAGUID Group object supports the Early Access (Self-Service) Allow List for FIDO2 (WebAuthn) Authenticators feature. Enable the feature for your org from the **Settings** > **Features** page in the Admin Console.
+        > This feature has several limitations when enrolling a security key:
+        > - Enrollment is currently unsupported on Firefox.
+        > - Enrollment is currently unsupported on Chrome if User Verification is set to DISCOURAGED and a PIN is set on the security key.
+        > - If prompted during enrollment, users must allow Okta to see the make and model of the security key.
       operationId: getAuthenticatorMethod
       responses:
         '200':
@@ -3272,6 +3336,13 @@ paths:
               schema:
                 oneOf: *ref_4
                 discriminator: *ref_5
+              examples:
+                sms:
+                  $ref: '#/components/examples/AuthenticatorMethodSms'
+                voice:
+                  $ref: '#/components/examples/AuthenticatorMethodInactiveVoice'
+                webAuthn:
+                  $ref: '#/components/examples/AuthenticatorMethodWebauth'
         '403':
           $ref: '#/components/responses/ErrorAccessDenied403'
         '404':
@@ -3291,7 +3362,14 @@ paths:
           - Okta Identity Engine
     put:
       summary: Replace an Authenticator Method
-      description: Replaces a Method of `methodType` for an Authenticator identified by `authenticatorId`
+      description: |-
+        Replaces a Method of `methodType` for an Authenticator identified by `authenticatorId`
+        > **Note:** <x-lifecycle class="ea"></x-lifecycle>
+        > The AAGUID Group object supports the Early Access (Self-Service) Allow List for FIDO2 (WebAuthn) Authenticators feature. Enable the feature for your org from the **Settings** > **Features** page in the Admin Console.
+        > This feature has several limitations when enrolling a security key:
+        > - Enrollment is currently unsupported on Firefox.
+        > - Enrollment is currently unsupported on Chrome if User Verification is set to DISCOURAGED and a PIN is set on the security key.
+        > - If prompted during enrollment, users must allow Okta to see the make and model of the security key.
       operationId: replaceAuthenticatorMethod
       requestBody:
         content:
@@ -3307,6 +3385,13 @@ paths:
               schema:
                 oneOf: *ref_4
                 discriminator: *ref_5
+              examples:
+                sms:
+                  $ref: '#/components/examples/AuthenticatorMethodSms'
+                voice:
+                  $ref: '#/components/examples/AuthenticatorMethodInactiveVoice'
+                webAuthn:
+                  $ref: '#/components/examples/AuthenticatorMethodWebauth'
         '400':
           $ref: '#/components/responses/ErrorApiValidationFailed400'
         '403':
@@ -3332,7 +3417,14 @@ paths:
       - $ref: '#/components/parameters/pathMethodType'
     post:
       summary: Activate an Authenticator Method
-      description: Activates a Method for an Authenticator identified by `authenticatorId` and `methodType`
+      description: |-
+        Activates a Method for an Authenticator identified by `authenticatorId` and `methodType`
+        > **Note:** <x-lifecycle class="ea"></x-lifecycle>
+        > The AAGUID Group object supports the Early Access (Self-Service) Allow List for FIDO2 (WebAuthn) Authenticators feature. Enable the feature for your org from the **Settings** > **Features** page in the Admin Console.
+        > This feature has several limitations when enrolling a security key:
+        > - Enrollment is currently unsupported on Firefox.
+        > - Enrollment is currently unsupported on Chrome if User Verification is set to DISCOURAGED and a PIN is set on the security key.
+        > - If prompted during enrollment, users must allow Okta to see the make and model of the security key.
       operationId: activateAuthenticatorMethod
       responses:
         '200':
@@ -3342,6 +3434,11 @@ paths:
               schema:
                 oneOf: *ref_4
                 discriminator: *ref_5
+              examples:
+                sms:
+                  $ref: '#/components/examples/AuthenticatorMethodSms'
+                webAuthn:
+                  $ref: '#/components/examples/AuthenticatorMethodWebauth'
         '403':
           $ref: '#/components/responses/ErrorAccessDenied403'
         '404':
@@ -3365,7 +3462,14 @@ paths:
       - $ref: '#/components/parameters/pathMethodType'
     post:
       summary: Deactivate an Authenticator Method
-      description: Deactivates a Method for an Authenticator identified by `authenticatorId` and `methodType`
+      description: |-
+        Deactivates a Method for an Authenticator identified by `authenticatorId` and `methodType`
+        > **Note:** <x-lifecycle class="ea"></x-lifecycle>
+        > The AAGUID Group object supports the Early Access (Self-Service) Allow List for FIDO2 (WebAuthn) Authenticators feature. Enable the feature for your org from the **Settings** > **Features** page in the Admin Console.
+        > This feature has several limitations when enrolling a security key:
+        > - Enrollment is currently unsupported on Firefox.
+        > - Enrollment is currently unsupported on Chrome if User Verification is set to DISCOURAGED and a PIN is set on the security key.
+        > - If prompted during enrollment, users must allow Okta to see the make and model of the security key.
       operationId: deactivateAuthenticatorMethod
       responses:
         '200':
@@ -3375,6 +3479,9 @@ paths:
               schema:
                 oneOf: *ref_4
                 discriminator: *ref_5
+              examples:
+                voice:
+                  $ref: '#/components/examples/AuthenticatorMethodInactiveVoice'
         '403':
           $ref: '#/components/responses/ErrorAccessDenied403'
         '404':
@@ -9903,11 +10010,26 @@ paths:
       description: Lists all users that are a member of a group
       operationId: listGroupUsers
       parameters:
-        - name: after
+        - name: search
           in: query
-          description: Specifies the pagination cursor for the next page of users
+          description: Searches for users with a supported filtering expression for user name, primary email, or user name
           schema:
             type: string
+        - name: sortBy
+          in: query
+          description: Specifies which field to sort by. This can be any single property.
+          schema:
+            type: string
+            example: id
+        - name: sortOrder
+          in: query
+          description: |-
+            Specifies sort order: `asc` or `desc`. This parameter is ignored if `sortBy` is not present.
+            Users with the same value for the `sortBy` parameter are ordered by `id`.
+          schema:
+            type: string
+            default: asc
+        - $ref: '#/components/parameters/queryAfter'
         - name: limit
           in: query
           description: Specifies the number of user results in a page
@@ -9923,7 +10045,7 @@ paths:
               schema:
                 type: array
                 items:
-                  $ref: '#/components/schemas/User'
+                  $ref: '#/components/schemas/GroupMember'
         '403':
           $ref: '#/components/responses/ErrorAccessDenied403'
         '404':
@@ -10270,8 +10392,8 @@ paths:
     post:
       summary: Create a Resource Set
       description: |-
-        Creates a new Resource Set. See [Supported resources](https://developer.okta.com/docs/concepts/role-assignment/#supported-resources).
-        > **Note:** The maximum amount of `resources` allowed in a `resource set` object is 1000. Resources can either be identified by an Okta Resource Name (ORN) or by a REST URL format. See [Okta Resource Name](https://developer.okta.com/docs/concepts/role-assignment/#okta-resource-name-orn).
+        Creates a new Resource Set. See [Supported Resources](/openapi/okta-management/guides/roles/#supported-resources).
+        > **Note:** The maximum amount of `resources` allowed in a `resource set` object is 1000. Resources are identified by either an Okta Resource Name (ORN) or by a REST URL format. See [Okta Resource Name](/openapi/okta-management/guides/roles/#okta-resource-name-orn).
       operationId: createResourceSet
       x-codegen-request-body-name: instance
       requestBody:
@@ -12254,6 +12376,9 @@ paths:
                 type: array
                 items:
                   $ref: '#/components/schemas/InlineHook'
+              examples:
+                AuthenticatorConfiguration:
+                  $ref: '#/components/examples/InlineHookTelephony'
         '403':
           $ref: '#/components/responses/ErrorAccessDenied403'
         '429':
@@ -12314,6 +12439,9 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/InlineHook'
+              examples:
+                AuthenticatorConfiguration:
+                  $ref: '#/components/examples/InlineHookTelephony'
         '403':
           $ref: '#/components/responses/ErrorAccessDenied403'
         '404':
@@ -12324,6 +12452,41 @@ paths:
         - apiToken: []
         - oauth2:
             - okta.inlineHooks.read
+      tags:
+        - InlineHook
+      x-okta-lifecycle:
+        lifecycle: GA
+        isGenerallyAvailable: true
+    post:
+      summary: Update an Inline Hook
+      description: Updates an inline hook by `inlineHookId`
+      operationId: updateInlineHook
+      x-codegen-request-body-name: inlineHook
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/InlineHook'
+        required: true
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/InlineHook'
+        '400':
+          $ref: '#/components/responses/ErrorApiValidationFailed400'
+        '403':
+          $ref: '#/components/responses/ErrorAccessDenied403'
+        '404':
+          $ref: '#/components/responses/ErrorResourceNotFound404'
+        '429':
+          $ref: '#/components/responses/ErrorTooManyRequests429'
+      security:
+        - apiToken: []
+        - oauth2:
+            - okta.inlineHooks.manage
       tags:
         - InlineHook
       x-okta-lifecycle:
@@ -12634,7 +12797,7 @@ paths:
               oneOf:
                 - $ref: '#/components/schemas/LogStreamAwsPutSchema'
                 - $ref: '#/components/schemas/LogStreamSplunkPutSchema'
-              discriminator: &ref_24
+              discriminator: &ref_25
                 propertyName: type
                 mapping:
                   aws_eventbridge: '#/components/schemas/LogStreamAwsPutSchema'
@@ -17604,6 +17767,9 @@ paths:
                 type: array
                 items:
                   $ref: '#/components/schemas/SmsTemplate'
+              examples:
+                SMS Template List response:
+                  $ref: '#/components/examples/SMSTemplateListResponse'
         '403':
           $ref: '#/components/responses/ErrorAccessDenied403'
         '429':
@@ -17627,6 +17793,9 @@ paths:
           application/json:
             schema:
               $ref: '#/components/schemas/SmsTemplate'
+            examples:
+              Create an SMS Template request:
+                $ref: '#/components/examples/CreateOrReplaceSMSTemplateRequest'
         required: true
       responses:
         '200':
@@ -17635,6 +17804,9 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/SmsTemplate'
+              examples:
+                Create an SMS Template response:
+                  $ref: '#/components/examples/CreateOrReplaceSMSTemplateResponse'
         '400':
           $ref: '#/components/responses/ErrorApiValidationFailed400'
         '403':
@@ -17664,6 +17836,9 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/SmsTemplate'
+              examples:
+                Get an SMS template response:
+                  $ref: '#/components/examples/CreateOrReplaceSMSTemplateResponse'
         '403':
           $ref: '#/components/responses/ErrorAccessDenied403'
         '404':
@@ -17681,7 +17856,12 @@ paths:
         isGenerallyAvailable: true
     post:
       summary: Update an SMS Template
-      description: Updates an SMS template
+      description: |
+        Updates only some of the SMS Template properties:
+          * All properties within the custom SMS Template that have values are updated.
+          * Any translation that doesn't exist is added.
+          * Any translation with a null or empty value is removed.
+          * Any translation with non-empty/null value is updated.
       operationId: updateSmsTemplate
       x-codegen-request-body-name: smsTemplate
       requestBody:
@@ -17689,6 +17869,9 @@ paths:
           application/json:
             schema:
               $ref: '#/components/schemas/SmsTemplate'
+            examples:
+              Update an SMS Template request:
+                $ref: '#/components/examples/UpdateSMSTemplateRequest'
         required: true
       responses:
         '200':
@@ -17697,6 +17880,9 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/SmsTemplate'
+              examples:
+                Update an SMS Template response:
+                  $ref: '#/components/examples/UpdateSMSTemplateResponse'
         '400':
           $ref: '#/components/responses/ErrorApiValidationFailed400'
         '403':
@@ -17716,7 +17902,9 @@ paths:
         isGenerallyAvailable: true
     put:
       summary: Replace an SMS Template
-      description: Replaces the SMS template
+      description: |
+        Replaces the SMS Template
+        > **Notes:** You can't update the default SMS Template.
       operationId: replaceSmsTemplate
       x-codegen-request-body-name: smsTemplate
       requestBody:
@@ -17724,6 +17912,9 @@ paths:
           application/json:
             schema:
               $ref: '#/components/schemas/SmsTemplate'
+            examples:
+              Replace an SMS Template request:
+                $ref: '#/components/examples/CreateOrReplaceSMSTemplateRequest'
         required: true
       responses:
         '200':
@@ -17732,6 +17923,9 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/SmsTemplate'
+              examples:
+                Replace an SMS Template response:
+                  $ref: '#/components/examples/CreateOrReplaceSMSTemplateResponse'
         '400':
           $ref: '#/components/responses/ErrorApiValidationFailed400'
         '403':
@@ -19417,7 +19611,7 @@ paths:
                   - $ref: '#/components/schemas/UserFactorPushTransaction'
                   - $ref: '#/components/schemas/UserFactorPushTransactionRejected'
                   - $ref: '#/components/schemas/UserFactorPushTransactionTimeout'
-                discriminator: &ref_25
+                discriminator: &ref_26
                   propertyName: factorResult
                   mapping:
                     WAITING: '#/components/schemas/UserFactorPushTransactionWaiting'
@@ -21765,6 +21959,81 @@ paths:
     parameters:
       - $ref: '#/components/parameters/pathUserId'
       - $ref: '#/components/parameters/authenticatorEnrollmentId'
+x-webhooks:
+  CreateTelephonyInlineHook:
+    post:
+      summary: Create an Okta Telephony Inline Hook
+      description: |-
+        Creates an Okta Telephony inline hook request. This is an automated request from Okta to your third-party service endpoint.
+
+        The objects that you return in the JSON payload of your response to this Okta request are an array of one or more objects,
+        which specify the Okta commands to execute.
+
+        >**Note:** The size of your response payload must be less than 256 KB.
+
+        See also:
+        * For a general introduction to Okta inline hooks, see [Inline hooks](https://developer.okta.com/docs/concepts/inline-hooks/)
+        * For information on the API for registering external service endpoints with Okta, see [Inline Hooks Management API](https://developer.okta.com/docs/api/openapi/okta-management/management/tag/InlineHook/)
+        * For an example implementation of a telephony inline hook, see [Telephony inline hook ](https://developer.okta.com/docs/guides/telephony-inline-hook)
+
+        ### About
+
+        The Okta telephony inline hook allows you to integrate your own custom code into Okta flows that send SMS or voice call messages. You can integrate this hook with enrollment, authentication, and recovery flows that involve the phone authenticator. Okta uses your external provider to deliver the one-time passcode (OTP) to the Requester. The provider can respond with commands that indicate if the delivery was successful or not.
+
+        You can have only one active telephony inline hook per org.
+
+        When you create a telephony inline hook, you must include the `authScheme` parameter. See [Create inline hook](https://developer.okta.com/docs/api/openapi/okta-management/management/tag/InlineHook/#tag/InlineHook/operation/createInlineHook) and the [authScheme object](https://developer.okta.com/docs/api/openapi/okta-management/management/tag/InlineHook/#tag/InlineHook/operation/createInlineHook!path=channel/0/config/authScheme&t=request)
+
+        ### Timeout behavior
+
+        If the provider response times out, Okta attempts to send the OTP using the Okta telephony providers. See [Troubleshoot](https://developer.okta.com/docs/api/openapi/okta-management/management/tag/InlineHook/#tag/InlineHook/operation/createTelephonyInlineHook/#troubleshoot).
+
+        ### Troubleshoot
+
+        This section explains several common causes of failure for telephony inline hooks.
+
+        Note: Administrators can use the [Okta System Log](https://developer.okta.com/docs/reference/api/system-log/) to view errors. See the Troubleshooting section in the inline hooks topic for details on events captured by the Okta System Log.
+
+        | Issue                                                                               | Impact                                                                                          | Error Visibility                          | 
+        |-------------------------------------------------------------------------------------|-------------------------------------------------------------------------------------------------|-------------------------------------------|
+        |External service fails to communicate or times out                                   | Inline hook operation is skipped, OTP is sent to the Requester using an Okta telephony provider | Administrators only                       |
+        |External service responds with any HTTP status code besides `200`                    | Inline hook operation is skipped, OTP is sent to the Requester using an Okta telephony provider | Administrators only                       | 
+        |External service returns an error object                                             | Inline hook operation fails, OTP is sent to the Requester using an Okta telephony provider      | Administrators, developers, and end users |
+        |Hook response is malformed or can't be mapped to the expected API response           | Inline hook operation is skipped                                                                | Administrators only                       |
+        |Request header doesn't include an `authScheme`                                       | Inline hook operation is skipped                                                                | Administrators only                       |
+        |Response uses an invalid status                                                      | Inline hook operation is skipped                                                                | Administrators only                       |
+        |Operation adds an active telephony inline hook when a hook exists                    | Inline hook operation is skipped                                                                | Administrators only                       |
+      operationId: createTelephonyInlineHook
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              allOf:
+                - $ref: '#/components/schemas/InlineHookBasePayload'
+                - $ref: '#/components/schemas/TelephonyRequest'
+            examples:
+              TelephonyPayloadExample:
+                $ref: '#/components/examples/TelephonyPayloadExample'
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TelephonyResponse'
+              examples:
+                TelephonySuccessResponse:
+                  $ref: '#/components/examples/TelephonySuccessResponse'
+                TelephonyFailureResponse:
+                  $ref: '#/components/examples/TelephonyFailureResponse'
+        '403':
+          $ref: '#/components/responses/ErrorAccessDenied403'
+      security:
+        - apiToken: []
+        - oauth2: []
+      tags:
+        - InlineHook
 components:
   examples:
     APIDevicesListAllResponse:
@@ -22870,6 +23139,82 @@ components:
         originType: OKTA_DIRECTORY
         displayName: Oliver Putnam
         lastUpdated: Wed Mar 29 18:34:31 UTC 2023
+    AuthenticatorMethodInactiveVoice:
+      value:
+        type: voice
+        status: INACTIVE
+        _links:
+          self:
+            href: https://{yourOktaDomain}/api/v1/authenticators/aut1nd8PQhGcQtSxB0g4/methods/voice
+            hints:
+              allow:
+                - GET
+                - PUT
+          activate:
+            href: https://{yourOktaDomain}/api/v1/authenticators/aut1nd8PQhGcQtSxB0g4/methods/voice/lifecycle/activate
+            hints:
+              allow:
+                - POST
+    AuthenticatorMethodPhone:
+      value:
+        - type: sms
+          status: ACTIVE
+          _links:
+            self:
+              href: https://{yourOktaDomain}/api/v1/authenticators/aut1nd8PQhGcQtSxB0g4/methods/sms
+              hints:
+                allow:
+                  - GET
+                  - PUT
+            deactivate:
+              href: https://{yourOktaDomain}/api/v1/authenticators/aut1nd8PQhGcQtSxB0g4/methods/sms/lifecycle/deactivate
+              hints:
+                allow:
+                  - POST
+        - type: voice
+          status: INACTIVE
+          _links:
+            self:
+              href: https://{yourOktaDomain}/api/v1/authenticators/aut1nd8PQhGcQtSxB0g4/methods/voice
+              hints:
+                allow:
+                  - GET
+                  - PUT
+            activate:
+              href: https://{yourOktaDomain}/api/v1/authenticators/aut1nd8PQhGcQtSxB0g4/methods/voice/lifecycle/activate
+              hints:
+                allow:
+                  - POST
+    AuthenticatorMethodSms:
+      value:
+        type: sms
+        status: ACTIVE
+        _links:
+          self:
+            href: https://{yourOktaDomain}/api/v1/authenticators/aut1nd8PQhGcQtSxB0g4/methods/sms
+            hints:
+              allow:
+                - GET
+                - PUT
+          deactivate:
+            href: https://{yourOktaDomain}/api/v1/authenticators/aut1nd8PQhGcQtSxB0g4/methods/sms/lifecycle/deactivate
+            hints:
+              allow":
+                - POST
+    AuthenticatorMethodWebauth:
+      value:
+        type: webauthn
+        status: ACTIVE
+        settings:
+          userVerification: DISCOURAGED
+          attachment: ANY
+        _links:
+          self:
+            href: https://{yourOktaDomain}/api/v1/authenticators/aut1nd8PQhGcQtSxB0g4/methods/webauthn
+            hints:
+              allow:
+                - GET
+                - PUT
     AuthenticatorRequestDuo:
       value:
         key: duo
@@ -22941,6 +23286,32 @@ components:
                 - GET
           deactivate:
             href: https://{yourOktaDomain}/api/v1/authenticators/aut1nbsPHh7jNjjyP0g4/lifecycle/deactivate
+            hints:
+              allow:
+                - POST
+    AuthenticatorResponseInactiveWebAuthn:
+      value:
+        type: security_key
+        id: aut1nd8PQhGcQtSxB0g4
+        key: webauthn
+        status: INACTIVE
+        name: Security Key or Biometric
+        created: '2020-07-26T21:16:37.000Z'
+        lastUpdated: '2020-07-27T18:59:30.000Z'
+        _links:
+          self:
+            href: https://{yourOktaDomain}/api/v1/authenticators/aut1nd8PQhGcQtSxB0g4
+            hints:
+              allow:
+                - GET
+                - PUT
+          methods:
+            href: https://{yourOktaDomain}/api/v1/authenticators/aut1nd8PQhGcQtSxB0g4/methods
+            hints:
+              allow:
+                - GET
+          deactivate:
+            href: https://{yourOktaDomain}/api/v1/authenticators/aut1nd8PQhGcQtSxB0g4/lifecycle/deactivate
             hints:
               allow:
                 - POST
@@ -23048,106 +23419,102 @@ components:
     AuthenticatorsResponse:
       summary: Org Authenticators
       value:
-        - value:
-            type: email
-            id: aut1nbsPHh7jNjjyP0g4
-            key: okta_email
-            status: ACTIVE
-            name: Email
-            created: '2020-07-26T21:05:23.000Z'
-            lastUpdated: '2020-07-28T21:45:52.000Z'
-            settings:
-              allowedFor: any
-              tokenLifetimeInMinutes: 5
-            _links:
-              self:
-                href: https://{yourOktaDomain}/api/v1/authenticators/aut1nbsPHh7jNjjyP0g4
-                hints:
-                  allow:
-                    - GET
-                    - PUT
-              methods:
-                href: https://{yourOktaDomain}/api/v1/authenticators/aut1nbsPHh7jNjjyP0g4/methods
-                hints:
-                  allow:
-                    - GET
-              deactivate:
-                href: https://{yourOktaDomain}/api/v1/authenticators/aut1nbsPHh7jNjjyP0g4/lifecycle/deactivate
-                hints:
-                  allow:
-                    - POST
-        - value:
-            type: password
-            id: aut1nbtrJKKA9m45a0g4
-            key: okta_password
-            status: ACTIVE
-            name: Password
-            created: '2020-07-26T21:05:23.000Z'
-            lastUpdated: '2020-07-26T21:05:23.000Z'
-            _links:
-              self:
-                href: https://{yourOktaDomain}/api/v1/authenticators/aut1nbtrJKKA9m45a0g4
-                hints:
-                  allow:
-                    - GET
-                    - PUT
-              methods:
-                href: https://{yourOktaDomain}/api/v1/authenticators/aut1nbtrJKKA9m45a0g4/methods
-                hints:
-                  allow:
-                    - GET
-        - value:
-            type: phone
-            id: aut1nbuyD8m1ckAYc0g4
-            key: phone_number
-            status: INACTIVE
-            name: Phone
-            created: '2020-07-26T21:05:23.000Z'
-            lastUpdated: '2020-07-29T00:21:29.000Z'
-            settings:
-              allowedFor: none
-            _links:
-              self:
-                href: https://{yourOktaDomain}/api/v1/authenticators/aut1nbuyD8m1ckAYc0g4
-                hints:
-                  allow:
-                    - GET
-                    - PUT
-              methods:
-                href: https://{yourOktaDomain}/api/v1/authenticators/aut1nbuyD8m1ckAYc0g4/methods
-                hints:
-                  allow:
-                    - GET
-              activate:
-                href: https://{yourOktaDomain}/api/v1/authenticators/aut1nbuyD8m1ckAYc0g4/lifecycle/activate
-                hints:
-                  allow:
-                    - POST
-        - value:
-            type: security_key
-            id: aut1nd8PQhGcQtSxB0g4
-            key: webauthn
-            status: ACTIVE
-            name: Security Key or Biometric
-            created: '2020-07-26T21:16:37.000Z'
-            lastUpdated: '2020-07-27T18:59:30.000Z'
-            _links:
-              self:
-                href: https://{yourOktaDomain}/api/v1/authenticators/aut1nd8PQhGcQtSxB0g4
-                hints:
-                  allow:
-                    - GET
-                    - PUT
-              methods:
-                href: https://{yourOktaDomain}/api/v1/authenticators/aut1nd8PQhGcQtSxB0g4/methods
-                hints:
-                  allow:
-                    - GET
-              deactivate:
-                href: https://{yourOktaDomain}/api/v1/authenticators/aut1nd8PQhGcQtSxB0g4/lifecycle/deactivate
-                hints:
-                  allow:
-                    - POST
+        - type: email
+          id: aut1nbsPHh7jNjjyP0g4
+          key: okta_email
+          status: ACTIVE
+          name: Email
+          created: '2020-07-26T21:05:23.000Z'
+          lastUpdated: '2020-07-28T21:45:52.000Z'
+          settings:
+            allowedFor: any
+            tokenLifetimeInMinutes: 5
+          _links:
+            self:
+              href: https://{yourOktaDomain}/api/v1/authenticators/aut1nbsPHh7jNjjyP0g4
+              hints:
+                allow:
+                  - GET
+                  - PUT
+            methods:
+              href: https://{yourOktaDomain}/api/v1/authenticators/aut1nbsPHh7jNjjyP0g4/methods
+              hints:
+                allow:
+                  - GET
+            deactivate:
+              href: https://{yourOktaDomain}/api/v1/authenticators/aut1nbsPHh7jNjjyP0g4/lifecycle/deactivate
+              hints:
+                allow:
+                  - POST
+        - type: password
+          id: aut1nbtrJKKA9m45a0g4
+          key: okta_password
+          status: ACTIVE
+          name: Password
+          created: '2020-07-26T21:05:23.000Z'
+          lastUpdated: '2020-07-26T21:05:23.000Z'
+          _links:
+            self:
+              href: https://{yourOktaDomain}/api/v1/authenticators/aut1nbtrJKKA9m45a0g4
+              hints:
+                allow:
+                  - GET
+                  - PUT
+            methods:
+              href: https://{yourOktaDomain}/api/v1/authenticators/aut1nbtrJKKA9m45a0g4/methods
+              hints:
+                allow:
+                  - GET
+        - type: phone
+          id: aut1nbuyD8m1ckAYc0g4
+          key: phone_number
+          status: INACTIVE
+          name: Phone
+          created: '2020-07-26T21:05:23.000Z'
+          lastUpdated: '2020-07-29T00:21:29.000Z'
+          settings:
+            allowedFor: none
+          _links:
+            self:
+              href: https://{yourOktaDomain}/api/v1/authenticators/aut1nbuyD8m1ckAYc0g4
+              hints:
+                allow:
+                  - GET
+                  - PUT
+            methods:
+              href: https://{yourOktaDomain}/api/v1/authenticators/aut1nbuyD8m1ckAYc0g4/methods
+              hints:
+                allow:
+                  - GET
+            activate:
+              href: https://{yourOktaDomain}/api/v1/authenticators/aut1nbuyD8m1ckAYc0g4/lifecycle/activate
+              hints:
+                allow:
+                  - POST
+        - type: security_key
+          id: aut1nd8PQhGcQtSxB0g4
+          key: webauthn
+          status: ACTIVE
+          name: Security Key or Biometric
+          created: '2020-07-26T21:16:37.000Z'
+          lastUpdated: '2020-07-27T18:59:30.000Z'
+          _links:
+            self:
+              href: https://{yourOktaDomain}/api/v1/authenticators/aut1nd8PQhGcQtSxB0g4
+              hints:
+                allow:
+                  - GET
+                  - PUT
+            methods:
+              href: https://{yourOktaDomain}/api/v1/authenticators/aut1nd8PQhGcQtSxB0g4/methods
+              hints:
+                allow:
+                  - GET
+            deactivate:
+              href: https://{yourOktaDomain}/api/v1/authenticators/aut1nd8PQhGcQtSxB0g4/lifecycle/deactivate
+              hints:
+                allow:
+                  - POST
     BehaviorRuleRequest:
       value:
         name: My Behavior Rule
@@ -23644,6 +24011,27 @@ components:
         _links:
           self:
             href: http://your-subdomain.okta.com/api/v1/meta/schemas/user/linkedObjects/manager
+    CreateOrReplaceSMSTemplateRequest:
+      value:
+        name: Custom
+        type: SMS_VERIFY_CODE
+        template: '${org.name}: your verification code is ${code}'
+        translations:
+          es: '${org.name}: el código de verificación es ${code}'
+          fr: '${org.name}: votre code de vérification est ${code}'
+          it: '${org.name}: il codice di verifica è ${code}'
+    CreateOrReplaceSMSTemplateResponse:
+      value:
+        id: 6NQUJ5yR3bpgEiYmq8IC
+        name: Custom
+        type: SMS_VERIFY_CODE
+        template: '${org.name}: your verification code is ${code}'
+        translations:
+          es: '${org.name}: el código de verificación es ${code}'
+          fr: '${org.name}: votre code de vérification est ${code}'
+          it: '${org.name}: il codice di verifica è ${code}'
+        created: '2024-04-25T17:35:02.000Z'
+        lastUpdated: '2024-04-25T17:35:02.000Z'
     CreateSessionBody:
       summary: Create a new Session with a valid session token
       value:
@@ -25868,6 +26256,38 @@ components:
               href: https://{yourOktaDomain}/api/v1/groups/00g4cweckiXJaEqWl0g7/users
             apps:
               href: https://{yourOktaDomain}/api/v1/groups/00g4cweckiXJaEqWl0g7/apps
+    InlineHookTelephony:
+      value:
+        channel:
+          type: HTTP
+          version: 1.0.0
+          config:
+            uri: https://your-external-webservice/sendOtp
+            headers: []
+            method: POST
+            authScheme:
+              type: HEADER
+              key: x-telephony-key
+        created: '2024-03-28T17:30:25.000Z'
+        id: caldpyulr3nbET2du1d7
+        lastUpdated: '2024-05-07T16:35:18.000Z'
+        name: testTelephonyHook
+        status: ACTIVE
+        type: com.okta.telephony.provider
+        version: null
+        _links:
+          self:
+            href: https://{yourOktaDomain}/api/v1/inlineHooks/caldpyulr3nbET2du1d7
+          execute:
+            href: https://{yourOktaDomain}/api/v1/inlineHooks/caldpyulr3nbET2du1d7/execute
+            hints:
+              allow":
+                - POST
+          deactivate:
+            href: https://{yourOktaDomain}/api/v1/inlineHooks/caldpyulr3nbET2du1d7/lifecycle/deactivate
+            hints:
+              allow":
+                - POST
     ListAllKeysResponse:
       summary: List All Keys response example
       value:
@@ -29198,6 +29618,39 @@ components:
         _links:
           next:
             href: https://{yourOktaDomain}/api/v1/iam/roles?after=cr0Fw7HKcWIroo88m3r1
+    SMSTemplateEditablePropertyValues:
+      value:
+        name: Custom
+        type: SMS_VERIFY_CODE
+        template: '${org.name}: your verification code is ${code}'
+        translations:
+          es: '${org.name}: el código de verificación es ${code}'
+          fr: '${org.name}: votre code de vérification est ${code}'
+          it: '${org.name}: il codice di verifica è ${code}'
+    SMSTemplateListResponse:
+      value:
+        - id: 6NQUJ5yR3bpgEiYmq8IC
+          name: Custom
+          type: SMS_VERIFY_CODE
+          template: '${org.name}: your verification code is ${code}'
+          translations:
+            es: '${org.name}: el código de verificación es ${code}'
+            fr: '${org.name}: votre code de vérification est ${code}'
+            it: '${org.name}: il codice di verifica è ${code}'
+          created: '2024-04-25T17:35:02.000Z'
+          lastUpdated: '2024-04-25T17:35:02.000Z'
+    SMSTemplateResponseValues:
+      value:
+        id: 6NQUJ5yR3bpgEiYmq8IC
+        name: Custom
+        type: SMS_VERIFY_CODE
+        template: '${org.name}: your verification code is ${code}'
+        translations:
+          es: '${org.name}: el código de verificación es ${code}'
+          fr: '${org.name}: votre code de vérification est ${code}'
+          it: '${org.name}: il codice di verifica è ${code}'
+        created: '2024-04-25T17:35:02.000Z'
+        lastUpdated: '2024-04-25T17:35:02.000Z'
     SecurityEventsProviderRequestIssuerAndJwksUrl:
       summary: Provider with issuer and JWKS
       value:
@@ -29466,6 +29919,55 @@ components:
           lastUpdated: '2023-08-24T14:15:22.000Z'
           lastUpdatedBy: 00ub0oNGTSWTBKOLGLNR
           lastPublished: '2023-09-01T13:23:45.000Z'
+    TelephonyFailureResponse:
+      summary: A sample response for external webservice returning failure
+      value:
+        error:
+          - errorSummary: Failed to deliver SMS OTP to test.user@okta.com
+          - errorCauses:
+              errorSummary: Provider could not deliver OTP
+              reason: The content of the message is not supported
+              location: South Africa
+    TelephonyPayloadExample:
+      summary: An example Telephony inline hook request body
+      value:
+        eventId: uS5871kJThSsU8qlA1LTcg
+        eventTime: '2020-01-17T21:23:56.000Z'
+        eventType: com.okta.telephony.provider
+        eventTypeVersion: '1.0'
+        contentType: application/json
+        cloudEventVersion: '0.1'
+        source: https://${yourOktaDomain}/api/v1/inlineHooks/cbl2ad6phv9fsPLcF0g7
+        data:
+          context:
+            request:
+              id: reqRgSk8IBBRhuo0YdlEDTmUw
+              method: POST
+              url:
+                value: /api/internal/v1/inlineHooks/com.okta.telephony.provider/generatePreview
+              ipAddress: 127.0.0.1
+          userProfile:
+            firstName: test
+            lastName: user
+            login: test.user@okta.com
+            userId: 00uyxxSknGtK8022w0g3
+          messageProfile:
+            msgTemplate: (HOOK)Your code is 11111
+            phoneNumber: 9876543210
+            otpExpires: '2022-01-28T21:48:34.321Z'
+            deliveryChannel: SMS
+            otpCode: 11111
+            locale: EN-US
+    TelephonySuccessResponse:
+      summary: A sample response for external webservice returning success
+      value:
+        commands:
+          - type: com.okta.telephony.action
+          - value:
+              status: FAILURE
+              provider: VONAGE
+              transactionId: SM49a8ece2822d44e4adaccd7ed268f954
+              transactionMetadata: Duration=300ms
     TestInfoOidcRequest:
       summary: OIDC SSO Submission Testing Information request
       value:
@@ -30113,6 +30615,23 @@ components:
         _links:
           self:
             href: https://{yourOktaDomain}/api/v1/mappings/prm1k48weFSOnEUnw0g4
+    UpdateSMSTemplateRequest:
+      value:
+        translations:
+          de: '${org.name}: ihre bestätigungscode ist ${code}.'
+    UpdateSMSTemplateResponse:
+      value:
+        id: 6NQUJ5yR3bpgEiYmq8IC
+        name: Custom
+        type: SMS_VERIFY_CODE
+        template: '${org.name}: your verification code is ${code}'
+        translations:
+          es: '${org.name}: el código de verificación es ${code}'
+          fr: '${org.name}: votre code de vérification est ${code}'
+          it: '${org.name}: il codice di verifica è ${code}'
+          de: '${org.name}: ihre bestätigungscode ist ${code}.'
+        created: '2024-04-25T17:35:02.000Z'
+        lastUpdated: '2024-04-25T17:35:02.000Z'
     UpdateThemeRequest:
       value:
         primaryColorHex: '#1662dd'
@@ -30294,6 +30813,26 @@ components:
           - recordType: CNAME
             fqdn: t022._domainkey.example.com
             verificationValue: t02.domainkey.u22224444.wl024.sendgrid.net
+    WellKnownAppAuthenticatorConfigurationCustomApp:
+      value:
+        - authenticatorId: aut22f6xzargnJZYE3l7
+          orgId: 00o1vhf34q20MfCFC3l7
+          type: app
+          key: custom_app
+          name: EnergyAus Authenticator
+          createdDate: '2022-10-11T08:56:45.000Z'
+          lastUpdated: '2023-09-07T11:31:35.000Z'
+          settings:
+            userVerification: PREFERRED
+          supportedMethods:
+            - type: push
+              status: ACTIVE
+              settings:
+                algorithms:
+                  - RS256
+                  - ES256
+                keyProtection: ANY
+          appAuthenticatorEnrollEndpoint: https://{yourOktaDomain}/idp/myaccount/app-authenticators
     WellKnownOrgMetadataResponseClassic:
       value:
         id: 00o5rb5mt2H3d1TJd0h7
@@ -31660,7 +32199,7 @@ components:
       description: '`id` of a member'
     pathMethodType:
       name: methodType
-      description: Type of the authenticator method
+      description: Type of authenticator method
       in: path
       required: true
       schema:
@@ -31826,7 +32365,7 @@ components:
     pathRoleRef:
       name: roleRef
       in: path
-      description: A reference to an existing role. Standard roles require a `roleType`, while Custom Roles require a `roleId`. See [Standard Role Types](https://developer.okta.com/docs/concepts/role-assignment/#standard-role-types).
+      description: A reference to an existing role. Standard roles require a `roleType`, while Custom Roles require a `roleId`. See [Standard Roles](/openapi/okta-management/guides/roles/#standard-roles).
       required: true
       schema:
         oneOf:
@@ -32231,7 +32770,7 @@ components:
       content:
         application/json:
           schema:
-            $ref: '#/components/schemas/Authenticator'
+            $ref: '#/components/schemas/AuthenticatorBase'
           examples:
             Duo:
               $ref: '#/components/examples/AuthenticatorRequestDuo'
@@ -32264,7 +32803,7 @@ components:
       content:
         application/json:
           schema:
-            $ref: '#/components/schemas/Authenticator'
+            $ref: '#/components/schemas/AuthenticatorBase'
           examples:
             Duo:
               $ref: '#/components/examples/AuthenticatorResponseDuo'
@@ -32278,6 +32817,15 @@ components:
               $ref: '#/components/examples/AuthenticatorResponseWebAuthn'
             SecurityQuestion:
               $ref: '#/components/examples/AuthenticatorResponseSecurityQuestion'
+    AuthenticatorResponseInactiveWebAuthn:
+      description: OK
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/AuthenticatorBase'
+          examples:
+            WebAuthn:
+              $ref: '#/components/examples/AuthenticatorResponseInactiveWebAuthn'
     ErrorApiValidationFailed400:
       description: Bad Request
       content:
@@ -32369,6 +32917,26 @@ components:
             ResourceNotFound:
               $ref: '#/components/examples/NzErrorResourceNotFound'
   schemas:
+    AAGUIDGroupObject:
+      description: |
+        <x-lifecycle class="ea"></x-lifecycle>
+        The AAGUID Group object supports the Early Access (Self-Service) Allow List for FIDO2 (WebAuthn) Authenticators feature. Enable the feature for your org from the **Settings** > **Features** page in the Admin Console.
+
+        This feature has several limitations when enrolling a security key:
+          - Enrollment is currently unsupported on Firefox.
+          - Enrollment is currently unsupported on Chrome if User Verification is set to DISCOURAGED and a PIN is set on the security key.
+          - If prompted during enrollment, users must allow Okta to see the make and model of the security key.
+      type: object
+      properties:
+        aaguids:
+          description: A list of YubiKey hardware FIDO2 Authenticator Attestation Global Unique Identifiers (AAGUIDs). The available [AAGUIDs](https://support.yubico.com/hc/en-us/articles/360016648959-YubiKey-Hardware-FIDO2-AAGUIDs) (opens new window) are provided by the FIDO Alliance Metadata Service.
+          type: array
+          items:
+            type: string
+            description: AAGUID
+        name:
+          type: string
+          description: A name to identify the group of YubiKey hardware FIDO2 AAGUIDs
     APIServiceIntegrationInstance:
       type: object
       properties:
@@ -32677,7 +33245,6 @@ components:
           type: string
           description: ID of the AD group to update
         parameters:
-          type: object
           $ref: '#/components/schemas/Parameters'
     AgentPool:
       description: An AgentPool is a collection of agents that serve a common purpose. An AgentPool has a unique ID within an org, and contains a collection of agents disjoint to every other AgentPool (i.e. no two AgentPools share an Agent).
@@ -32778,6 +33345,7 @@ components:
         - Scheduled
         - Success
     AllowedForEnum:
+      description: The allowed types of uses for the Authenticator
       type: string
       x-okta-known-values:
         - any
@@ -33667,40 +34235,217 @@ components:
         - LDAP
         - OKTA
         - SOCIAL
-    Authenticator:
+    AuthenticatorBase:
       type: object
       properties:
         created:
+          description: Timestamp when the Authenticator was created
           format: date-time
           readOnly: true
           type: string
         id:
+          description: A unique identifier for the Authenticator
           readOnly: true
           type: string
         key:
-          type: string
+          $ref: '#/components/schemas/AuthenticatorKeyEnum'
         lastUpdated:
+          description: Timestamp when the Authenticator was last modified
           format: date-time
           readOnly: true
           type: string
         name:
+          description: Display name of the Authenticator
           type: string
-        provider:
-          $ref: '#/components/schemas/AuthenticatorProvider'
-        settings:
-          $ref: '#/components/schemas/AuthenticatorSettings'
         status:
+          description: Status of the Authenticator
           $ref: '#/components/schemas/LifecycleStatus'
         type:
           $ref: '#/components/schemas/AuthenticatorType'
         _links:
+          description: Link relations for this object
           $ref: '#/components/schemas/AuthenticatorLinks'
+      discriminator: *ref_24
     AuthenticatorIdentity:
       description: Represents a particular authenticator serving as a constraint on a method
       type: object
       properties:
         key:
           type: string
+    AuthenticatorKeyCustomApp:
+      allOf:
+        - $ref: '#/components/schemas/AuthenticatorSimple'
+        - type: object
+          properties:
+            agreeToTerms:
+              type: boolean
+              description: A value of `true` indicates that the administrator accepts the [terms](https://www.okta.com/privacy-policy/)for creating a new authenticator. Okta requires that you accept the terms when creating a new `custom_app` authenticator. Other authenticators don't require this field.
+            provider:
+              type: object
+              properties:
+                type:
+                  type: string
+                  description: Provider type
+                  enum:
+                    - PUSH
+                configuration:
+                  type: object
+                  description: The configuration of the provider
+                  properties:
+                    apns:
+                      type: object
+                      properties:
+                        id:
+                          type: string
+                          description: ID of the APNs (Apple Push Notification Service) [configurations](https://developer.okta.com/docs/reference/api/push-providers/)
+                        appBundleId:
+                          type: string
+                          description: AppBundleId of the APNs (Apple Push Notification Service) [configurations](https://developer.okta.com/docs/reference/api/push-providers/)
+                        debugAppBundleId:
+                          type: string
+                          description: DebugAppBundleId of the APNs (Apple Push Notification Service) [configurations](https://developer.okta.com/docs/reference/api/push-providers/)
+                    fcm:
+                      type: object
+                      properties:
+                        id:
+                          type: string
+                          description: ID of the FCM (Firebase Cloud Messaging Service) [configurations](https://developer.okta.com/docs/reference/api/push-providers/)
+            settings:
+              type: object
+              properties:
+                userVerification:
+                  $ref: '#/components/schemas/CustomAppUserVerificationEnum'
+                appInstanceId:
+                  type: string
+                  description: The application instance ID. For custom_app, you need to create an OIDC native app using the [Apps API](https://developer.okta.com/docs/reference/api/apps/) with `Authorization Code` and `Refresh Token` grant types. You can leave both `Sign-in redirect URIs` and `Sign-out redirect URIs` as the default values.
+    AuthenticatorKeyDuo:
+      allOf:
+        - $ref: '#/components/schemas/AuthenticatorSimple'
+        - type: object
+          properties:
+            provider:
+              type: object
+              properties:
+                type:
+                  type: string
+                  description: Provider type
+                  enum:
+                    - DUO
+                configuration:
+                  type: object
+                  properties:
+                    host:
+                      type: string
+                      description: The Duo Security API hostname
+                    integrationKey:
+                      type: string
+                      description: The Duo Security integration key
+                    secretKey:
+                      type: string
+                      description: The Duo Security secret key
+                    userNameTemplate:
+                      type: object
+                      properties:
+                        template:
+                          type: string
+                          description: The Duo Security user template name
+    AuthenticatorKeyEmail:
+      allOf:
+        - $ref: '#/components/schemas/AuthenticatorSimple'
+        - type: object
+          properties:
+            settings:
+              type: object
+              properties:
+                allowedFor:
+                  $ref: '#/components/schemas/AllowedForEnum'
+                tokenLifetimeInMinutes:
+                  description: Specifies the lifetime of an email token. Default value is 5 minutes.
+                  type: number
+                  default: 5
+    AuthenticatorKeyEnum:
+      description: A human-readable string that identifies the Authenticator
+      type: string
+      x-okta-known-values:
+        - custom_app
+        - duo
+        - external_idp
+        - google_otp
+        - okta_email
+        - okta_password
+        - okta_verify
+        - onprem_mfa
+        - phone_number
+        - security_key
+        - security_question
+        - smart_card_idp
+        - symantec_vip
+        - webauthn
+        - yubikey_token
+    AuthenticatorKeyExternalIdp:
+      allOf:
+        - $ref: '#/components/schemas/AuthenticatorSimple'
+    AuthenticatorKeyGoogleOtp:
+      allOf:
+        - $ref: '#/components/schemas/AuthenticatorSimple'
+    AuthenticatorKeyOktaVerify:
+      allOf:
+        - $ref: '#/components/schemas/AuthenticatorSimple'
+        - type: object
+          properties:
+            settings:
+              type: object
+              properties:
+                channelBinding:
+                  $ref: '#/components/schemas/ChannelBinding'
+                compliance:
+                  $ref: '#/components/schemas/Compliance'
+                userVerification:
+                  $ref: '#/components/schemas/UserVerificationEnum'
+                appInstanceId:
+                  type: string
+                  description: The application instance ID
+    AuthenticatorKeyOnprem:
+      allOf:
+        - $ref: '#/components/schemas/AuthenticatorSimple'
+    AuthenticatorKeyPassword:
+      allOf:
+        - $ref: '#/components/schemas/AuthenticatorSimple'
+    AuthenticatorKeyPhone:
+      allOf:
+        - $ref: '#/components/schemas/AuthenticatorSimple'
+        - type: object
+          properties:
+            settings:
+              type: object
+              properties:
+                allowedFor:
+                  $ref: '#/components/schemas/AllowedForEnum'
+    AuthenticatorKeySecurityKey:
+      allOf:
+        - $ref: '#/components/schemas/AuthenticatorSimple'
+    AuthenticatorKeySecurityQuestion:
+      allOf:
+        - $ref: '#/components/schemas/AuthenticatorSimple'
+        - type: object
+          properties:
+            settings:
+              type: object
+              properties:
+                allowedFor:
+                  $ref: '#/components/schemas/AllowedForEnum'
+    AuthenticatorKeySmartCard:
+      allOf:
+        - $ref: '#/components/schemas/AuthenticatorSimple'
+    AuthenticatorKeySymantecVip:
+      allOf:
+        - $ref: '#/components/schemas/AuthenticatorSimple'
+    AuthenticatorKeyWebauthn:
+      allOf:
+        - $ref: '#/components/schemas/AuthenticatorSimple'
+    AuthenticatorKeyYubikey:
+      allOf:
+        - $ref: '#/components/schemas/AuthenticatorSimple'
     AuthenticatorLinks:
       allOf:
         - $ref: '#/components/schemas/LinksSelfAndLifecycle'
@@ -33711,7 +34456,6 @@ components:
               allOf:
                 - $ref: '#/components/schemas/HrefObject'
     AuthenticatorMethodAlgorithm:
-      description: The encryption algorithm for this authenticator method
       type: string
       x-okta-known-values:
         - ES256
@@ -33720,6 +34464,7 @@ components:
       type: object
       properties:
         status:
+          description: The status of the authenticator method
           $ref: '#/components/schemas/LifecycleStatus'
         type:
           $ref: '#/components/schemas/AuthenticatorMethodType'
@@ -33744,6 +34489,7 @@ components:
           properties:
             acceptableAdjacentIntervals:
               type: integer
+              description: The number of acceptable adjacent intervals, also known as the clock drift interval. This setting allows you to build in tolerance for any time difference between the token and the server. For example, with a `timeIntervalInSeconds` of 60 seconds and an `acceptableAdjacentIntervals` value of 5, Okta accepts passcodes within 300 seconds (60 * 5) before or after the end user enters their code.
               minimum: 0
               maximum: 10
             algorithm:
@@ -33752,15 +34498,14 @@ components:
               $ref: '#/components/schemas/OtpTotpEncoding'
             factorProfileId:
               type: string
+              description: The `id` value of the factor profile
+              example: aut1nd8PQhGcQtSxB0g4
             passCodeLength:
-              type: integer
-              minimum: 6
-              maximum: 10
-              multipleOf: 2
+              $ref: '#/components/schemas/OtpTotpPassCodeLength'
             protocol:
               $ref: '#/components/schemas/OtpProtocol'
             timeIntervalInSeconds:
-              type: integer
+              $ref: '#/components/schemas/OtpTotpTimeIntervalInSeconds'
     AuthenticatorMethodProperty:
       type: string
       x-okta-known-values:
@@ -33815,19 +34560,20 @@ components:
               type: object
               properties:
                 timeIntervalInSeconds:
-                  type: integer
+                  $ref: '#/components/schemas/OtpTotpTimeIntervalInSeconds'
                 encoding:
-                  type: string
+                  $ref: '#/components/schemas/OtpTotpEncoding'
                 algorithm:
-                  type: string
+                  $ref: '#/components/schemas/OtpTotpAlgorithm'
                 passCodeLength:
-                  type: integer
+                  $ref: '#/components/schemas/OtpTotpPassCodeLength'
     AuthenticatorMethodTransactionType:
       type: string
       x-okta-known-values:
         - CIBA
         - LOGIN
     AuthenticatorMethodType:
+      description: The type of authenticator method
       type: string
       x-okta-known-values:
         - cert
@@ -33851,6 +34597,11 @@ components:
             settings:
               type: object
               properties:
+                aaguidGroups:
+                  description: <x-lifecycle class="ea"></x-lifecycle> The FIDO2 AAGUID groups available to the WebAuthn authenticator
+                  type: array
+                  items:
+                    $ref: '#/components/schemas/AAGUIDGroupObject'
                 userVerification:
                   $ref: '#/components/schemas/UserVerificationEnum'
                 attachment:
@@ -33864,44 +34615,11 @@ components:
               type: array
               items:
                 $ref: '#/components/schemas/AuthenticatorMethodProperty'
-    AuthenticatorProvider:
-      properties:
-        configuration:
-          $ref: '#/components/schemas/AuthenticatorProviderConfiguration'
-        type:
-          type: string
-    AuthenticatorProviderConfiguration:
-      properties:
-        authPort:
-          type: integer
-        hostName:
-          type: string
-        instanceId:
-          type: string
-        sharedSecret:
-          type: string
-        userNameTemplate:
-          $ref: '#/components/schemas/AuthenticatorProviderConfigurationUserNameTemplate'
-    AuthenticatorProviderConfigurationUserNameTemplate:
-      properties:
-        template:
-          type: string
-    AuthenticatorSettings:
-      type: object
-      properties:
-        allowedFor:
-          $ref: '#/components/schemas/AllowedForEnum'
-        appInstanceId:
-          type: string
-        channelBinding:
-          $ref: '#/components/schemas/ChannelBinding'
-        compliance:
-          $ref: '#/components/schemas/Compliance'
-        tokenLifetimeInMinutes:
-          type: integer
-        userVerification:
-          $ref: '#/components/schemas/UserVerificationEnum'
+    AuthenticatorSimple:
+      allOf:
+        - $ref: '#/components/schemas/AuthenticatorBase'
     AuthenticatorType:
+      description: The type of Authenticator
       type: string
       x-okta-known-values:
         - app
@@ -34661,7 +35379,6 @@ components:
             - type: object
               description: A localized message intended for the end user.<br>Either `reason_admin` or `reason_user` is required.
         subjects:
-          type: object
           $ref: '#/components/schemas/SecurityEventSubject'
       required:
         - event_timestamp
@@ -34695,7 +35412,6 @@ components:
             - type: object
               description: A localized message intended for the end user.<br>Either `reason_admin` or `reason_user` is required.
         subjects:
-          type: object
           $ref: '#/components/schemas/SecurityEventSubject'
       required:
         - event_timestamp
@@ -34744,7 +35460,6 @@ components:
             - type: object
               description: A localized message intended for the end user.<br>Either `reason_admin` or `reason_user` is required.
         subjects:
-          type: object
           $ref: '#/components/schemas/SecurityEventSubject'
       required:
         - event_timestamp
@@ -34907,6 +35622,8 @@ components:
           $ref: '#/components/schemas/RequiredEnum'
         style:
           type: string
+          enum:
+            - NUMBER_CHALLENGE
     ChromeBrowserVersion:
       description: Current version of the Chrome Browser
       type: object
@@ -35149,7 +35866,7 @@ components:
           description: Unique label for the role
         permissions:
           type: array
-          description: Array of permissions that the role will grant. See [Permission Types](https://developer.okta.com/docs/concepts/role-assignment/#permission-types).
+          description: Array of permissions that the role will grant. See [Permissions](/openapi/okta-management/guides/roles/#permission).
           items:
             $ref: '#/components/schemas/RolePermissionType'
       required:
@@ -35183,7 +35900,7 @@ components:
           description: Unique name for the Resource Set
         resources:
           type: array
-          description: The endpoint (URL) that references all resource objects included in the Resource Set. Resources can either be identified by an Okta Resource Name (ORN) or by a REST URL format. See [Okta Resource Name](https://developer.okta.com/docs/concepts/role-assignment/#okta-resource-name-orn).
+          description: The endpoint (URL) that references all resource objects included in the Resource Set. Resources are identified by either an Okta Resource Name (ORN) or by a REST URL format. See [Okta Resource Name](/openapi/okta-management/guides/roles/#okta-resource-name-orn).
           maximum: 1000
           items:
             type: string
@@ -35217,7 +35934,7 @@ components:
           $ref: '#/components/schemas/UserProfile'
         realmId:
           type: string
-          description: <div class="x-lifecycle-container"><a href="https://developer.okta.com/docs/api/openapi/okta-management/guides/release-lifecycle/#early-access-ea"><x-lifecycle class="ea"></x-lifecycle></a></div>The ID of the realm in which the user is residing
+          description: <div class="x-lifecycle-container"><x-lifecycle class="ea"></x-lifecycle></div>The ID of the Realm in which the user is residing
           example: guo1bfiNtSnZYILxO0g4
           x-okta-lifecycle:
             lifecycle: EA
@@ -35689,7 +36406,7 @@ components:
                 SKUs: []
               type: array
               description: |
-                <div class="x-lifecycle-container"><a href="https://developer.okta.com/docs/api/openapi/okta-management/guides/release-lifecycle/#early-access-ea"><x-lifecycle class="ea"></x-lifecycle></a></div>Specifies the Windows version requirements for the assurance policy. Each requirement must correspond to a different major version (Windows 11 or Windows 10). If a requirement isn't specified for a major version, then devices on that major version satisfy the condition.
+                <div class="x-lifecycle-container"><x-lifecycle class="ea"></x-lifecycle></div>Specifies the Windows version requirements for the assurance policy. Each requirement must correspond to a different major version (Windows 11 or Windows 10). If a requirement isn't specified for a major version, then devices on that major version satisfy the condition.
 
                 There are two types of OS requirements:
                 * **Static**: A specific Windows version requirement that doesn't change until you update the policy. A static OS Windows requirement is specified with `majorVersionConstraint` and `minimum`.
@@ -36065,9 +36782,10 @@ components:
         - type: object
           properties:
             asns:
-              allOf:
-                - $ref: '#/components/schemas/NetworkZoneAsns'
-                - description: An array of ASNs for a Network Zone
+              type: array
+              description: An array of ASNs for a Network Zone
+              items:
+                type: string
             proxyType:
               type: string
               description: The proxy type used for a Dynamic Network Zone
@@ -36082,9 +36800,12 @@ components:
                 Tor: Use Tor Anonymizer proxy for the Dynamic Zone.
                 NotTorAnonymizer: Use a non Tor Anonymizer proxy for the Dynamic Zone.
             locations:
-              allOf:
-                - $ref: '#/components/schemas/NetworkZoneLocationArray'
-                - description: An array of geolocations for a Dynamic Network Zone
+              type: array
+              items:
+                $ref: '#/components/schemas/NetworkZoneLocation'
+              maximum: 75
+              nullable: true
+              description: An array of geolocations for a Dynamic Network Zone
     ECKeyJWK:
       description: Elliptic Curve Key in JWK format, currently used during enrollment to encrypt fulfillment requests to Yubico, or during activation to verify Yubico's JWS objects in fulfillment responses. The currently agreed protocol uses P-384.
       type: object
@@ -36249,12 +36970,28 @@ components:
         validationSubdomain:
           type: string
           description: The subdomain for the email sender's custom mail domain
-          default: mail
+          default: mail  
     EmailDomainResponseWithEmbedded:
-      allOf:
-        - $ref: '#/components/schemas/EmailDomainResponse'
       type: object
       properties:
+        displayName:
+          type: string
+        userName:
+          type: string
+        dnsValidationRecords:
+          type: array
+          items:
+            $ref: '#/components/schemas/EmailDomainDNSRecord'
+        domain:
+          type: string
+        id:
+          type: string
+        validationStatus:
+          $ref: '#/components/schemas/EmailDomainStatus'
+        validationSubdomain:
+          type: string
+          description: The subdomain for the email sender's custom mail domain
+          default: mail
         _embedded:
           type: object
           properties:
@@ -36450,35 +37187,42 @@ components:
                 isGenerallyAvailable: false
                 SKUs: []
               type: object
-              description: <div class="x-lifecycle-container"><a href="https://developer.okta.com/docs/api/openapi/okta-management/guides/release-lifecycle/#early-access-ea"><x-lifecycle class="ea"></x-lifecycle></a></div>The list of ASNs associated with an Enhanced Dynamic Network Zone
+              description: <div class="x-lifecycle-container"><x-lifecycle class="ea"></x-lifecycle></div>The list of ASNs associated with an Enhanced Dynamic Network Zone
               properties:
                 include:
-                  allOf:
-                    - $ref: '#/components/schemas/NetworkZoneAsns'
-                    - description: An array of ASNs to include for an Enhanced Dynamic Network Zone
+                  type: array
+                  items:
+                    type: string
+                  description: An array of ASNs to include for an Enhanced Dynamic Network Zone
             locations:
               x-okta-lifecycle:
                 lifecycle: EA
                 isGenerallyAvailable: false
                 SKUs: []
               type: object
-              description: <div class="x-lifecycle-container"><a href="https://developer.okta.com/docs/api/openapi/okta-management/guides/release-lifecycle/#early-access-ea"><x-lifecycle class="ea"></x-lifecycle></a></div>The list of geolocations to include or exclude for an Enhanced Dynamic Network Zone
+              description: <div class="x-lifecycle-container"><x-lifecycle class="ea"></x-lifecycle></div>The list of geolocations to include or exclude for an Enhanced Dynamic Network Zone
               properties:
                 include:
-                  allOf:
-                    - $ref: '#/components/schemas/NetworkZoneLocationArray'
-                    - description: An array of geolocations to include for an Enhanced Dynamic Network Zone
+                  type: array
+                  items:
+                    $ref: '#/components/schemas/NetworkZoneLocation'
+                  maximum: 75
+                  nullable: true
+                  description: An array of geolocations to include for an Enhanced Dynamic Network Zone
                 exclude:
-                  allOf:
-                    - $ref: '#/components/schemas/NetworkZoneLocationArray'
-                    - description: An array of geolocations to exclude for an Enhanced Dynamic Network Zone
+                  type: array
+                  items:
+                    $ref: '#/components/schemas/NetworkZoneLocation'
+                  maximum: 75
+                  nullable: true
+                  description: An array of geolocations to exclude for an Enhanced Dynamic Network Zone
             ipServiceCategories:
               x-okta-lifecycle:
                 lifecycle: EA
                 isGenerallyAvailable: false
                 SKUs: []
               type: object
-              description: <div class="x-lifecycle-container"><a href="https://developer.okta.com/docs/api/openapi/okta-management/guides/release-lifecycle/#early-access-ea"><x-lifecycle class="ea"></x-lifecycle></a></div>IP services, such as a proxy or VPN, to include or exclude for an Enhanced Dynamic Network Zone
+              description: <div class="x-lifecycle-container"><x-lifecycle class="ea"></x-lifecycle></div>IP services, such as a proxy or VPN, to include or exclude for an Enhanced Dynamic Network Zone
               properties:
                 include:
                   type: array
@@ -36589,14 +37333,7 @@ components:
         value:
           type: string
         _links:
-          anyOf:
-            - properties:
-                group:
-                  $ref: '#/components/schemas/HrefObject'
-                app:
-                  $ref: '#/components/schemas/HrefObject'
-                resource-set:
-                  $ref: '#/components/schemas/HrefObject'
+          type: object
     EntitlementValuesResponse:
       type: object
       properties:
@@ -37308,6 +38045,16 @@ components:
           description: Groups to be included
           items:
             type: string
+    GroupMember:
+      allOf:
+        - $ref: '#/components/schemas/User'
+      type: object
+      properties:
+        groupRuleId:
+          type: string
+          description: The group rule ID
+          example: guo56h6ux7ibCPl2G0g7
+          readOnly: true
     GroupOwner:
       type: object
       properties:
@@ -37979,7 +38726,7 @@ components:
               $ref: '#/components/schemas/PolicyAccountLink'
             mapAMRClaims:
               type: boolean
-              description: <div class="x-lifecycle-container"><a href="https://developer.okta.com/docs/api/openapi/okta-management/guides/release-lifecycle/#early-access-ea"><x-lifecycle class="ea"></x-lifecycle></a> <a href="https://developer.okta.com/docs/concepts/oie-intro/"><x-lifecycle class="oie"></x-lifecycle></a></div>Enable mapping AMR from IdP to Okta to downstream apps
+              description: <div class="x-lifecycle-container"><x-lifecycle class="ea"></x-lifecycle> <x-lifecycle class="oie"></x-lifecycle></div>Enable mapping AMR from IdP to Okta to downstream apps
               default: false
               x-okta-lifecycle:
                 lifecycle: EA
@@ -38458,6 +39205,7 @@ components:
         - com.okta.import.transform
         - com.okta.oauth2.tokens.transform
         - com.okta.saml.tokens.transform
+        - com.okta.telephony.provider
         - com.okta.user.credential.password.import
         - com.okta.user.pre-registration
     IssuerMode:
@@ -39208,7 +39956,7 @@ components:
       required:
         - name
         - type
-      discriminator: *ref_24
+      discriminator: *ref_25
     LogStreamSchema:
       type: object
       properties:
@@ -39534,11 +40282,6 @@ components:
       x-okta-known-values:
         - CIDR
         - RANGE
-    NetworkZoneAsns:
-      items:
-        type: string
-      maximum: 75
-      type: array
     NetworkZoneLocation:
       type: object
       properties:
@@ -40015,7 +40758,7 @@ components:
           type: string
           description: URL of the authorization server's authorization endpoint.
         backchannel_authentication_request_signing_alg_values_supported:
-          description: <div class="x-lifecycle-container"><x-lifecycle class="lea"></x-lifecycle> <a href="https://developer.okta.com/docs/concepts/oie-intro/"><x-lifecycle class="oie"></x-lifecycle></a></div>A list of signing algorithms that this authorization server supports for signed requests.
+          description: <div class="x-lifecycle-container"><x-lifecycle class="lea"></x-lifecycle> <x-lifecycle class="oie"></x-lifecycle></div>A list of signing algorithms that this authorization server supports for signed requests.
           type: array
           items:
             $ref: '#/components/schemas/SigningAlgorithm'
@@ -40025,7 +40768,7 @@ components:
             SKUs:
               - Okta Identity Engine
         backchannel_token_delivery_modes_supported:
-          description: <div class="x-lifecycle-container"><x-lifecycle class="lea"></x-lifecycle> <a href="https://developer.okta.com/docs/concepts/oie-intro/"><x-lifecycle class="oie"></x-lifecycle></a></div>The delivery modes that this authorization server supports for Client-Initiated Backchannel Authentication.
+          description: <div class="x-lifecycle-container"><x-lifecycle class="lea"></x-lifecycle> <x-lifecycle class="oie"></x-lifecycle></div>The delivery modes that this authorization server supports for Client-Initiated Backchannel Authentication.
           type: array
           items:
             $ref: '#/components/schemas/TokenDeliveryMode'
@@ -40239,7 +40982,7 @@ components:
             lifecycle: EA
             isGenerallyAvailable: false
             SKUs: []
-          description: <div class="x-lifecycle-container"><a href="https://developer.okta.com/docs/api/openapi/okta-management/guides/release-lifecycle/#early-access-ea"><x-lifecycle class="ea"></x-lifecycle></a></div>Contains the necessary properties for a dynamic version requirement
+          description: <div class="x-lifecycle-container"><x-lifecycle class="ea"></x-lifecycle></div>Contains the necessary properties for a dynamic version requirement
           type: object
           properties:
             type:
@@ -40484,7 +41227,6 @@ components:
             - type: object
               description: A localized message intended for the end user.<br>Either `reason_admin` or `reason_user` is required.
         subjects:
-          type: object
           $ref: '#/components/schemas/SecurityEventSubject'
       required:
         - event_timestamp
@@ -40527,7 +41269,6 @@ components:
             - type: object
               description: A localized message intended for the end user.<br>Either `reason_admin` or `reason_user` is required.
         subjects:
-          type: object
           $ref: '#/components/schemas/SecurityEventSubject'
       required:
         - event_timestamp
@@ -40656,7 +41397,6 @@ components:
             - type: object
               description: A localized message intended for the end user.<br>Either `reason_admin` or `reason_user` is required.
         subjects:
-          type: object
           $ref: '#/components/schemas/SecurityEventSubject'
       required:
         - event_timestamp
@@ -41027,6 +41767,7 @@ components:
         _links:
           $ref: '#/components/schemas/LinksSelf'
     OtpProtocol:
+      description: The protocol used
       type: string
       x-okta-known-values:
         - SYMANTEC
@@ -41040,11 +41781,21 @@ components:
         - HMacSHA256
         - HMacSHA512
     OtpTotpEncoding:
+      description: The shared secret encoding
       type: string
       x-okta-known-values:
         - base32
         - base64
         - hexadecimal
+    OtpTotpPassCodeLength:
+      description: Number of digits in an OTP value
+      minimum: 6
+      maximum: 10
+      multipleOf: 2
+      type: integer
+    OtpTotpTimeIntervalInSeconds:
+      description: Time interval for TOTP in seconds
+      type: integer
     PageRoot:
       type: object
       properties:
@@ -42665,6 +43416,7 @@ components:
         action:
           $ref: '#/components/schemas/ProvisioningSuspendedAction'
     PushMethodKeyProtection:
+      description: Indicates whether you must use a hardware key store
       type: string
       x-okta-known-values:
         - ANY
@@ -43136,7 +43888,6 @@ components:
           description: The new identifier value
           example: new.email@okta.example.com
         subjects:
-          type: object
           $ref: '#/components/schemas/SecurityEventSubject'
       required:
         - event_timestamp
@@ -43305,6 +44056,7 @@ components:
         - GROUP
         - USER
     RolePermissionType:
+      description: Permission type
       type: string
       x-okta-known-values:
         - okta.apps.assignment.manage
@@ -43352,20 +44104,21 @@ components:
         - okta.users.read
         - okta.users.userprofile.manage
     RoleType:
+      description: Standard role type
       type: string
       x-enumDescriptions:
-        - API_ACCESS_MANAGEMENT_ADMIN: Access Management Administrator
-        - API_ADMIN: Access Management Administrator
-        - APP_ADMIN: Application Administrator
-        - CUSTOM: Custom Label specified by the client
-        - GROUP_MEMBERSHIP_ADMIN: Group Membership Administrator
-        - HELP_DESK_ADMIN: Help Desk Administrator
-        - MOBILE_ADMIN: Mobile Administrator
-        - ORG_ADMIN: Organizational Administrator
-        - READ_ONLY_ADMIN: Read-Only Administrator
-        - REPORT_ADMIN: Report Administrator
-        - SUPER_ADMIN: Super Administrator
-        - USER_ADMIN: Group Administrator
+        API_ACCESS_MANAGEMENT_ADMIN: Access Management Administrator
+        API_ADMIN: Access Management Administrator
+        APP_ADMIN: Application Administrator
+        CUSTOM: Custom label specified by the client
+        GROUP_MEMBERSHIP_ADMIN: Group Membership Administrator
+        HELP_DESK_ADMIN: Help Desk Administrator
+        MOBILE_ADMIN: Mobile Administrator
+        ORG_ADMIN: Organizational Administrator
+        READ_ONLY_ADMIN: Read-Only Administrator
+        REPORT_ADMIN: Report Administrator
+        SUPER_ADMIN: Super Administrator
+        USER_ADMIN: Group Administrator
       x-okta-known-values:
         - API_ACCESS_MANAGEMENT_ADMIN
         - API_ADMIN
@@ -43505,6 +44258,48 @@ components:
         - acs
         - entityId
         - doc
+    Saml11Application:
+      allOf:
+        - $ref: '#/components/schemas/Application'
+        - type: object
+          properties:
+            credentials:
+              $ref: '#/components/schemas/ApplicationCredentials'
+            name:
+              type: string
+              description: The key name for the SAML 1.1 app definition. You can't create a custom SAML 1.1 app integration instance. Only existing OIN SAML 1.1 app integrations are supported.
+            settings:
+              $ref: '#/components/schemas/Saml11ApplicationSettings'
+          required:
+            - name
+    Saml11ApplicationSettings:
+      allOf:
+        - $ref: '#/components/schemas/ApplicationSettings'
+        - type: object
+          properties:
+            app:
+              type: object
+              additionalProperties:
+                type: string
+            signOn:
+              $ref: '#/components/schemas/Saml11ApplicationSettingsSignOn'
+    Saml11ApplicationSettingsSignOn:
+      title: SAML 1.1 settings
+      description: SAML 1.1 sign-on mode attributes
+      type: object
+      properties:
+        audienceOverride:
+          type: string
+          description: The intended audience of the SAML assertion. This is usually the Entity ID of your application.
+        defaultRelayState:
+          type: string
+          description: The URL of the resource to direct users after they successfully sign in to the SP using SAML. See the SP documentation to check if you need to specify a RelayState. In most instances, you can leave this field blank.
+        recipientOverride:
+          type: string
+          description: The location where the application can present the SAML assertion. This is usually the Single Sign-On (SSO) URL.
+        ssoAcsUrlOverride:
+          type: string
+          description: Assertion Consumer Services (ACS) URL value for the Service Provider (SP). This URL is always used for Identity Provider (IdP) initiated sign-on requests.
     SamlApplication:
       allOf:
         - $ref: '#/components/schemas/Application'
@@ -43723,7 +44518,6 @@ components:
           description: The time of the event (UNIX timestamp)
           example: 1702448550
         subjects:
-          type: object
           $ref: '#/components/schemas/SecurityEventSubject'
       required:
         - event_timestamp
@@ -43782,7 +44576,6 @@ components:
           description: Audience
           example: https://receiverexample.okta.com/
         events:
-          type: object
           $ref: '#/components/schemas/SecurityEventTokenRequestJwtEvents'
         iat:
           type: integer
@@ -43808,22 +44601,16 @@ components:
       type: object
       properties:
         https://schemas.okta.com/secevent/okta/event-type/device-risk-change:
-          type: object
           $ref: '#/components/schemas/OktaDeviceRiskChangeEvent'
         https://schemas.okta.com/secevent/okta/event-type/ip-change:
-          type: object
           $ref: '#/components/schemas/OktaIpChangeEvent'
         https://schemas.okta.com/secevent/okta/event-type/user-risk-change:
-          type: object
           $ref: '#/components/schemas/OktaUserRiskChangeEvent'
         https://schemas.openid.net/secevent/caep/event-type/device-compliance-change:
-          type: object
           $ref: '#/components/schemas/CaepDeviceComplianceChangeEvent'
         https://schemas.openid.net/secevent/caep/event-type/session-revoked:
-          type: object
           $ref: '#/components/schemas/CaepSessionRevokedEvent'
         https://schemas.openid.net/secevent/risc/event-type/identifier-changed:
-          type: object
           $ref: '#/components/schemas/RiscIdentifierChangedEvent'
     SecurityEventTokenRequestJwtHeader:
       title: Security Event Token JWT header
@@ -43888,7 +44675,6 @@ components:
           maxLength: 100
           example: Target SSF Provider
         settings:
-          type: object
           description: Information about the Security Events Provider for signal ingestion
           $ref: '#/components/schemas/SecurityEventsProviderSettingsResponse'
         status:
@@ -44085,6 +44871,7 @@ components:
         - MFA_ENROLL
         - MFA_REQUIRED
     ShowSignInWithOV:
+      description: Controls whether to show the Sign in with Okta Verify button on the Sign-In Widget
       type: string
       x-okta-known-values:
         - ALWAYS
@@ -44382,16 +45169,28 @@ components:
           readOnly: true
         name:
           type: string
+          description: Human-readable name of the Template
+          maxLength: 50
+          minLength: 1
         template:
           type: string
+          description: Text of the Template, including any [macros](https://developer.okta.com/docs/api/openapi/okta-management/management/tag/Template/)
+          maxLength: 161
+          minLength: 1
         translations:
           $ref: '#/components/schemas/SmsTemplateTranslations'
         type:
           $ref: '#/components/schemas/SmsTemplateType'
     SmsTemplateTranslations:
+      description: |
+        - Template translations are optionally provided when you want to localize the SMS messages. Translations are provided as an object that contains `key:value` pairs: the language and the translated Template text. The key portion is a two-letter country code that conforms to [ISO 639-1](https://www.loc.gov/standards/iso639-2/php/code_list.php). The value is the translated SMS Template.
+        - Just like with regular SMS Templates, the length of the SMS message can't exceed 160 characters.
       type: object
       x-okta-extensible: true
     SmsTemplateType:
+      description: Type of the Template
+      maxLength: 50
+      minLength: 1
       type: string
       x-okta-known-values:
         - SMS_VERIFY_CODE
@@ -44533,7 +45332,6 @@ components:
             A read-only parameter that is set by the transmitter. If this parameter is included in the request, the value must match the expected value from the transmitter.
           example: https://example.com
         delivery:
-          type: object
           $ref: '#/components/schemas/StreamConfigurationDelivery'
         events_delivered:
           type: array
@@ -44602,7 +45400,6 @@ components:
       type: object
       properties:
         delivery:
-          type: object
           $ref: '#/components/schemas/StreamConfigurationDelivery'
         events_requested:
           type: array
@@ -44752,25 +45549,30 @@ components:
         - subscribed
         - unsubscribed
     SupportedMethods:
+      description: The supported methods of an Authenticator
       type: object
       properties:
         settings:
           type: object
           properties:
             keyProtection:
-              type: string
+              $ref: '#/components/schemas/PushMethodKeyProtection'
             algorithms:
+              description: The encryption algorithm for this authenticator method
               type: array
               items:
                 $ref: '#/components/schemas/AuthenticatorMethodAlgorithm'
             transactionTypes:
               type: array
+              description: The transaction type for this authenticator method
               items:
                 $ref: '#/components/schemas/AuthenticatorMethodTransactionType'
         status:
-          type: string
+          description: The status of the authenticator method
+          $ref: '#/components/schemas/LifecycleStatus'
         type:
           type: string
+          description: The type of authenticator method
           enum:
             - push
     SwaApplicationSettings:
@@ -44809,6 +45611,104 @@ components:
           type: string
         userNameSelector:
           type: string
+    TelephonyRequest:
+      type: object
+      properties:
+        data:
+          $ref: '#/components/schemas/TelephonyRequestData'
+        eventType:
+          type: string
+          description: The type of inline hook. The Telephony inline hook type is `com.okta.telephony.provider`.
+        requestType:
+          type: string
+          description: The type of inline hook request. For example, `com.okta.user.telephony.pre-enrollment`.
+        source:
+          description: The ID and URL of the Telephony inline hook
+          type: string
+    TelephonyRequestData:
+      type: object
+      properties:
+        context:
+          type: object
+          properties:
+            request:
+              $ref: '#/components/schemas/InlineHookRequestObject'
+        messageProfile:
+          type: object
+          description: Message profile specifies information about the telephony (sms/voice) message to be sent to the Okta user
+          properties:
+            msgTemplate:
+              description: Default or Okta org configured sms or voice message template
+              type: string
+            phoneNumber:
+              description: The Okta's user's phone number
+              type: string
+            otpExpires:
+              description: The time when OTP expires
+              type: string
+            deliveryChannel:
+              description: The channel for OTP delivery - SMS or voice
+              type: string
+            otpCode:
+              description: The OTP code requested by the Okta user
+              type: string
+            locale:
+              description: The locale associated with the Okta user
+              type: string
+        userProfile:
+          type: object
+          description: User profile specifies information about the Okta user
+          properties:
+            firstName:
+              description: The user's first name
+              type: string
+            lastName:
+              description: The user's last name
+              type: string
+            login:
+              description: The user's Okta login
+              type: string
+            userId:
+              description: The user's Okta user ID
+              type: string
+    TelephonyResponse:
+      type: object
+      properties:
+        commands:
+          description: The `commands` object specifies whether Okta accepts the end user's sign-in credentials as valid or not. For the Telephony inline hook, you typically only return one `commands` object with one array element in it.
+          type: array
+          items:
+            type: object
+            properties:
+              type:
+                description: The location where you specify the command. For the Telephony inline hook, there's only one command, `com.okta.telephony.action`.
+                type: string
+              value:
+                description: The status of the telephony operation along with optional additional information about the provider, transaction ID and any other transaction metadata.
+                type: array
+                items:
+                  type: object
+                  properties:
+                    status:
+                      type: string
+                      description: Status of telephony callout
+                      enum:
+                        - SUCCESSFUL
+                        - PENDING
+                        - FAILED
+                      x-enumDescriptions:
+                        SUCCESSFUL: External web service was able to deliver the OTP to the Requester.
+                        PENDING: External web service wasn't able to confirm delivery of the OTP to the Requester.
+                        FAILED: External web service was unable to deliver the OTP to the Requester.
+                    provider:
+                      type: string
+                      description: Telephony provider for sms/voice
+                    transactionId:
+                      type: string
+                      description: Transaction ID for sms/voice
+                    transactionMetadata:
+                      type: string
+                      description: Any relevant metadata for the telephony transaction
     TempPassword:
       type: object
       properties:
@@ -45363,7 +46263,7 @@ components:
           $ref: '#/components/schemas/UserProfile'
         realmId:
           type: string
-          description: <div class="x-lifecycle-container"><a href="https://developer.okta.com/docs/api/openapi/okta-management/guides/release-lifecycle/#early-access-ea"><x-lifecycle class="ea"></x-lifecycle></a></div>The ID of the realm in which the user is residing
+          description: <div class="x-lifecycle-container"><x-lifecycle class="ea"></x-lifecycle></div>The ID of the Realm in which the user is residing
           example: guo1bfiNtSnZYILxO0g4
           x-okta-lifecycle:
             lifecycle: EA
@@ -45410,7 +46310,7 @@ components:
           $ref: '#/components/schemas/UserProfile'
         realmId:
           type: string
-          description: <div class="x-lifecycle-container"><a href="https://developer.okta.com/docs/api/openapi/okta-management/guides/release-lifecycle/#early-access-ea"><x-lifecycle class="ea"></x-lifecycle></a></div>The ID of the realm in which the user is residing
+          description: <div class="x-lifecycle-container"><x-lifecycle class="ea"></x-lifecycle></div>The ID of the Realm in which the user is residing
           example: guo1bfiNtSnZYILxO0g4
           x-okta-lifecycle:
             lifecycle: EA
@@ -45438,7 +46338,7 @@ components:
           type: object
           description: |-
             The user type that determines the schema for the user's profile. The `type` property is a map that identifies
-            the User Type (see [User Types](https://developer.okta.com/docs/api/openapi/okta-management/management/tag/UserType/#tag/UserType)).
+            the [User Types](https://developer.okta.com/docs/api/openapi/okta-management/management/tag/UserType/#tag/UserType)).
             Currently it contains a single element, `id`. It can be specified when creating a new user, and may be updated by an administrator on a full replace of an existing user (but not a partial update).
           properties:
             id:
@@ -45457,69 +46357,69 @@ components:
             The Links object is used for dynamic discovery of related resources, lifecycle operations, and credential operations. The Links object is read-only.
 
             For an individual user result, the Links object contains a full set of link relations available for that user as determined by your policies.
-            For a collection of users, the Links object contains only the self link. Operations that return a collection of Users include List Users and List Group Members.
+            For a collection of users, the Links object contains only the `self` link. Operations that return a collection of Users include List Users and List Group Members.
           allOf:
             - $ref: '#/components/schemas/LinksSelf'
             - type: object
               properties:
                 self:
-                  description: Link to the individual user
+                  description: URL to the individual user
                   allOf:
                     - $ref: '#/components/schemas/HrefObject'
                 activate:
-                  description: Link to activate the user
+                  description: URL to activate the user
                   allOf:
                     - $ref: '#/components/schemas/HrefObject'
                 resetPassword:
-                  description: Link to reset the user's password
+                  description: URL to reset the user's password
                   allOf:
                     - $ref: '#/components/schemas/HrefObject'
                 resetFactors:
-                  description: Link to reset the user's factors
+                  description: URL to reset the user's factors
                   allOf:
                     - $ref: '#/components/schemas/HrefObject'
                 expirePassword:
-                  description: Link to expire the user's password
+                  description: URL to expire the user's password
                   allOf:
                     - $ref: '#/components/schemas/HrefObject'
                 forgotPassword:
-                  description: Link to initiate a forgot password operation
+                  description: URL to initiate a forgot password operation
                   allOf:
                     - $ref: '#/components/schemas/HrefObject'
                 changeRecoveryQuestion:
-                  description: Link to change the user's recovery question
+                  description: URL to change the user's recovery question
                   allOf:
                     - $ref: '#/components/schemas/HrefObject'
                 deactivate:
-                  description: Link to deactivate a user
+                  description: URL to deactivate a user
                   allOf:
                     - $ref: '#/components/schemas/HrefObject'
                 reactivate:
-                  description: Link to reactivate the user
+                  description: URL to reactivate the user
                   allOf:
                     - $ref: '#/components/schemas/HrefObject'
                 changePassword:
-                  description: Link to change the user's password
+                  description: URL to change the user's password
                   allOf:
                     - $ref: '#/components/schemas/HrefObject'
                 schema:
-                  description: Link to the user's profile schema
+                  description: URL to the user's profile schema
                   allOf:
                     - $ref: '#/components/schemas/HrefObject'
                 suspend:
-                  description: Link to suspend the user
+                  description: URL to suspend the user
                   allOf:
                     - $ref: '#/components/schemas/HrefObject'
                 unsuspend:
-                  description: Link to unsuspend the user
+                  description: URL to unsuspend the user
                   allOf:
                     - $ref: '#/components/schemas/HrefObject'
                 unlock:
-                  description: Link to unlock the locked-out user
+                  description: URL to unlock the locked-out user
                   allOf:
                     - $ref: '#/components/schemas/HrefObject'
                 type:
-                  description: Link to the user type
+                  description: URL to the user type
                   allOf:
                     - $ref: '#/components/schemas/HrefObject'
             - readOnly: true
@@ -45913,7 +46813,7 @@ components:
             - SUCCESS
             - REJECTED
             - TIMEOUT
-      discriminator: *ref_25
+      discriminator: *ref_26
     UserFactorPushTransactionRejected:
       allOf:
         - $ref: '#/components/schemas/UserFactorPushTransaction'
@@ -46995,7 +47895,7 @@ components:
         - displayName
         - description
     UserVerificationEnum:
-      description: User verification setting
+      description: User verification setting. Possible values `DISCOURAGED` (the authenticator isn't asked to perform user verification, but may do so at its discretion), `PREFERRED` (the client uses an authenticator capable of user verification if possible), or `REQUIRED`(the client uses only an authenticator capable of user verification)
       type: string
       x-okta-known-values:
         - DISCOURAGED
@@ -47019,6 +47919,7 @@ components:
       type: string
       pattern: ^(0|[1-9]\d*)\.(0|[1-9]\d*)\.(0|[1-9]\d*)(?:-((?:0|[1-9]\d*|\d*[a-zA-Z-][0-9a-zA-Z-]*)(?:\.(?:0|[1-9]\d*|\d*[a-zA-Z-][0-9a-zA-Z-]*))*))?(?:\+([0-9a-zA-Z-]+(?:\.[0-9a-zA-Z-]+)*))?$
     WebAuthnAttachment:
+      description: Method attachment
       type: string
       x-okta-known-values:
         - ANY
@@ -47086,27 +47987,30 @@ components:
       properties:
         appAuthenticatorEnrollEndpoint:
           type: string
+          description: The authenticator enrollment endpoint
         authenticatorId:
           type: string
           description: The unique identifier of the app authenticator
         createdDate:
           type: string
+          description: Timestamp when the Authenticator was created
           format: date-time
         key:
-          type: string
+          $ref: '#/components/schemas/AuthenticatorKeyEnum'
         lastUpdated:
           type: string
+          description: Timestamp when the Authenticator was last modified
           format: date-time
         name:
           type: string
           description: The authenticator display name
         orgId:
           type: string
+          description: The `id` of the Okta Org
         settings:
           type: object
           properties:
             userVerification:
-              type: string
               $ref: '#/components/schemas/CustomAppUserVerificationEnum'
         supportedMethods:
           type: array
@@ -47114,6 +48018,7 @@ components:
             $ref: '#/components/schemas/SupportedMethods'
         type:
           type: string
+          description: The type of Authenticator
           enum:
             - app
     WellKnownOrgMetadata:
