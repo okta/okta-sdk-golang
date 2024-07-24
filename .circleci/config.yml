@@ -39,21 +39,22 @@ workflows:
       - platform-orb/job-secrets-obtain:
           name: cache-secrets
           secret-key: "GO111MODULE;OKTA_CLIENT_CLIENTID;OKTA_CLIENT_ORGURL;OKTA_CLIENT_PRIVATEKEY;OKTA_CLIENT_TOKEN;OKTA_CCI"
-      - test-v2:
-          requires:
-            - cache-secrets
-      # - test-v4:
+      # - test-v2:
       #     requires:
       #       - cache-secrets
+      - test-v4:
+          requires:
+            - cache-secrets
   # See OKTA-624790
   # See OKTA-729389
   semgrep:
     jobs:
-      - general-platform-helpers/job-semgrep-prepare:
+      - platform-orb/job-semgrep-prepare:
           name: semgrep-prepare
-      - general-platform-helpers/job-semgrep-scan:
+      - platform-orb/job-semgrep-scan:
           name: "Scan with Semgrep"
-          requires:
-            - semgrep-prepare
+          resource-class: "medium"
+          context:
+            - static-analysis
 
 # VS Code Extension Version: 1.4.0
