@@ -39,11 +39,11 @@ jobs:
       - name: Set openapi generator version
         run: openapi-generator-cli version-manager set 7.0.1
       - name: Generate go client
-        run: make v4-generate
+        run: make generate
       - run: make fmt
       - run: make import
-      - run: cd okta/v4 && mv go.mod go.sum ../../
-      - run: cd okta && mv v4/* ./ && rm -rf v4
+      - run: cd okta/v5 && mv go.mod go.sum ../../
+      - run: cd okta && mv v5/* ./ && rm -rf v5
       - name: Commit generated code
         uses: EndBug/add-and-commit@v9
         with:
