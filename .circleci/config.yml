@@ -29,7 +29,7 @@ jobs:
       - platform-orb/step-load-dependencies
       - run:
           name: "test stage"
-          command: make v4-test
+          command: make test
 
 # Invoke jobs via workflows
 # See: https://circleci.com/docs/2.0/configuration-reference/#workflows

@@ -1,7 +1,14 @@
 # Changelog
 Running changelog of releases since `2.0.0-rc.4`
 
-## v4.1.0
+## v5.0.0
+ - Update newest spec (#463) Thanks [@duytiennguyen-okta]
+
+## v4.1.2
+ - Fix panic issue when using access token is empty (#466) Thanks [@duytiennguyen-okta]
+ - Fix object that does not have additional properties (#466) Thanks [@duytiennguyen-okta]
+
+## v4.1.1
  - Fix panic issue when using bearer token (#463) Thanks [@duytiennguyen-okta]
  - Fix object that does not have additional properties (#463) Thanks [@duytiennguyen-okta]
 

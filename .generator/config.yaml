@@ -1,9 +1,9 @@
 generatorName: go
 templateDir: ./.generator/templates
-outputDir: ./okta/v4
+outputDir: ./okta/v5
 gitUserId: okta
 gitRepoId: okta-sdk-golang
-versionName: v4
+versionName: v5
 additionalProperties:
   enumClassPrefix: true
   generateInterfaces: true

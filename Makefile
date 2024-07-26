@@ -52,30 +52,6 @@ ifneq ($(origin OPENAPI_SPEC_BRANCH),undefined)
 	rm -fr spec-raw
 endif
 
-test:
-	make test:all
-
-test\:all:
-	@echo "$(COLOR_OKTA)Running all tests...$(COLOR_NONE)"
-	@make test:unit
-	@make test:integration
-
-test\:integration:
-	@echo "$(COLOR_OKTA)Running integration tests...$(COLOR_NONE)"
-	go test -failfast -race ./tests/integration -test.v
-
-test\:unit:
-	@echo "$(COLOR_OK)Running unit tests...$(COLOR_NONE)"
-	go test -failfast -race ./tests/unit ./okta/query -test.v
-
-test\:integration\:all:
-	@echo "$(COLOR_OKTA)Running integration tests...$(COLOR_NONE)"
-	go test -race ./tests/integration -test.v
-
-test\:unit\:all:
-	@echo "$(COLOR_OK)Running unit tests...$(COLOR_NONE)"
-	go test -race ./tests/unit ./okta/query -test.v
-
 .PHONY: fmt
 fmt: check-fmt # Format the code
 	@$(GOFMT) -l -w $$(find . -name '*.go' |grep -v vendor) > /dev/null
@@ -90,8 +66,8 @@ import: check-goimports
 check-goimports:
 	@which $(GOIMPORTS) > /dev/null || GO111MODULE=on go install golang.org/x/tools/cmd/goimports@latest
 
-v4-test:
+test:
 	go test -failfast -race ./okta -test.v
 
-v4-generate:
+generate:
 	npx @openapitools/openapi-generator-cli generate -c ./.generator/config.yaml -i .generator/okta-management-APIs-oasv3-noEnums-inheritance.yaml
