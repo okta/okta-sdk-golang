@@ -36,7 +36,7 @@ jobs:
 workflows:
   "Circle CI Tests":
     jobs:
-      - test-v4:
+      - test-v4
   # See OKTA-624790
   # See OKTA-729389
   semgrep:
