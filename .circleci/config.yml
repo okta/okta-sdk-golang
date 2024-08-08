@@ -36,15 +36,7 @@ jobs:
 workflows:
   "Circle CI Tests":
     jobs:
-      - platform-orb/job-secrets-obtain:
-          name: cache-secrets
-          secret-key: "GO111MODULE;OKTA_CLIENT_CLIENTID;OKTA_CLIENT_ORGURL;OKTA_CLIENT_PRIVATEKEY;OKTA_CLIENT_TOKEN;OKTA_CCI"
-      # - test-v2:
-      #     requires:
-      #       - cache-secrets
-      - test-v4:
-          requires:
-            - cache-secrets
+      - test-v4
   # See OKTA-624790
   # See OKTA-729389
   semgrep:
