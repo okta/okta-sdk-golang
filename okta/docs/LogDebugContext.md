@@ -4,7 +4,7 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**DebugData** | Pointer to **map[string]map[string]interface{}** |  | [optional] [readonly] 
+**DebugData** | Pointer to **map[string]interface{}** |  | [optional] [readonly] 
 
 ## Methods
 
@@ -27,20 +27,20 @@ but it doesn't guarantee that properties required by API are set
 
 ### GetDebugData
 
-`func (o *LogDebugContext) GetDebugData() map[string]map[string]interface{}`
+`func (o *LogDebugContext) GetDebugData() map[string]interface{}`
 
 GetDebugData returns the DebugData field if non-nil, zero value otherwise.
 
 ### GetDebugDataOk
 
-`func (o *LogDebugContext) GetDebugDataOk() (*map[string]map[string]interface{}, bool)`
+`func (o *LogDebugContext) GetDebugDataOk() (*map[string]interface{}, bool)`
 
 GetDebugDataOk returns a tuple with the DebugData field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetDebugData
 
-`func (o *LogDebugContext) SetDebugData(v map[string]map[string]interface{})`
+`func (o *LogDebugContext) SetDebugData(v map[string]interface{})`
 
 SetDebugData sets DebugData field to given value.
 

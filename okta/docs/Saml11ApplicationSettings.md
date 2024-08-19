@@ -9,7 +9,7 @@ Name | Type | Description | Notes
 **InlineHookId** | Pointer to **string** |  | [optional] 
 **Notes** | Pointer to [**ApplicationSettingsNotes**](ApplicationSettingsNotes.md) |  | [optional] 
 **Notifications** | Pointer to [**ApplicationSettingsNotifications**](ApplicationSettingsNotifications.md) |  | [optional] 
-**App** | Pointer to **map[string]string** |  | [optional] 
+**App** | Pointer to **map[string]interface{}** |  | [optional] 
 **SignOn** | Pointer to [**Saml11ApplicationSettingsSignOn**](Saml11ApplicationSettingsSignOn.md) |  | [optional] 
 
 ## Methods
@@ -158,20 +158,20 @@ HasNotifications returns a boolean if a field has been set.
 
 ### GetApp
 
-`func (o *Saml11ApplicationSettings) GetApp() map[string]string`
+`func (o *Saml11ApplicationSettings) GetApp() map[string]interface{}`
 
 GetApp returns the App field if non-nil, zero value otherwise.
 
 ### GetAppOk
 
-`func (o *Saml11ApplicationSettings) GetAppOk() (*map[string]string, bool)`
+`func (o *Saml11ApplicationSettings) GetAppOk() (*map[string]interface{}, bool)`
 
 GetAppOk returns a tuple with the App field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetApp
 
-`func (o *Saml11ApplicationSettings) SetApp(v map[string]string)`
+`func (o *Saml11ApplicationSettings) SetApp(v map[string]interface{})`
 
 SetApp sets App field to given value.
 

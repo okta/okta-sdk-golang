@@ -35,7 +35,7 @@ type Saml11ApplicationSettings struct {
 	InlineHookId *string `json:"inlineHookId,omitempty"`
 	Notes *ApplicationSettingsNotes `json:"notes,omitempty"`
 	Notifications *ApplicationSettingsNotifications `json:"notifications,omitempty"`
-	App *map[string]string `json:"app,omitempty"`
+	App map[string]interface{} `json:"app,omitempty"`
 	SignOn *Saml11ApplicationSettingsSignOn `json:"signOn,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
@@ -220,17 +220,17 @@ func (o *Saml11ApplicationSettings) SetNotifications(v ApplicationSettingsNotifi
 }
 
 // GetApp returns the App field value if set, zero value otherwise.
-func (o *Saml11ApplicationSettings) GetApp() map[string]string {
+func (o *Saml11ApplicationSettings) GetApp() map[string]interface{} {
 	if o == nil || o.App == nil {
-		var ret map[string]string
+		var ret map[string]interface{}
 		return ret
 	}
-	return *o.App
+	return o.App
 }
 
 // GetAppOk returns a tuple with the App field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *Saml11ApplicationSettings) GetAppOk() (*map[string]string, bool) {
+func (o *Saml11ApplicationSettings) GetAppOk() (map[string]interface{}, bool) {
 	if o == nil || o.App == nil {
 		return nil, false
 	}
@@ -246,9 +246,9 @@ func (o *Saml11ApplicationSettings) HasApp() bool {
 	return false
 }
 
-// SetApp gets a reference to the given map[string]string and assigns it to the App field.
-func (o *Saml11ApplicationSettings) SetApp(v map[string]string) {
-	o.App = &v
+// SetApp gets a reference to the given map[string]interface{} and assigns it to the App field.
+func (o *Saml11ApplicationSettings) SetApp(v map[string]interface{}) {
+	o.App = v
 }
 
 // GetSignOn returns the SignOn field value if set, zero value otherwise.

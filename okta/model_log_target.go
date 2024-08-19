@@ -34,7 +34,7 @@ type LogTarget struct {
 	AlternateId *string `json:"alternateId,omitempty"`
 	ChangeDetails *LogTargetChangeDetails `json:"changeDetails,omitempty"`
 	// Further details on the target
-	DetailEntry map[string]map[string]interface{} `json:"detailEntry,omitempty"`
+	DetailEntry map[string]interface{} `json:"detailEntry,omitempty"`
 	// The display name of the target
 	DisplayName *string `json:"displayName,omitempty"`
 	// The ID of the target
@@ -128,9 +128,9 @@ func (o *LogTarget) SetChangeDetails(v LogTargetChangeDetails) {
 }
 
 // GetDetailEntry returns the DetailEntry field value if set, zero value otherwise.
-func (o *LogTarget) GetDetailEntry() map[string]map[string]interface{} {
+func (o *LogTarget) GetDetailEntry() map[string]interface{} {
 	if o == nil || o.DetailEntry == nil {
-		var ret map[string]map[string]interface{}
+		var ret map[string]interface{}
 		return ret
 	}
 	return o.DetailEntry
@@ -138,7 +138,7 @@ func (o *LogTarget) GetDetailEntry() map[string]map[string]interface{} {
 
 // GetDetailEntryOk returns a tuple with the DetailEntry field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *LogTarget) GetDetailEntryOk() (map[string]map[string]interface{}, bool) {
+func (o *LogTarget) GetDetailEntryOk() (map[string]interface{}, bool) {
 	if o == nil || o.DetailEntry == nil {
 		return nil, false
 	}
@@ -154,8 +154,8 @@ func (o *LogTarget) HasDetailEntry() bool {
 	return false
 }
 
-// SetDetailEntry gets a reference to the given map[string]map[string]interface{} and assigns it to the DetailEntry field.
-func (o *LogTarget) SetDetailEntry(v map[string]map[string]interface{}) {
+// SetDetailEntry gets a reference to the given map[string]interface{} and assigns it to the DetailEntry field.
+func (o *LogTarget) SetDetailEntry(v map[string]interface{}) {
 	o.DetailEntry = v
 }
 

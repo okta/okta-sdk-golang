@@ -4,8 +4,8 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**From** | Pointer to **map[string]map[string]interface{}** | The original properties of the target | [optional] 
-**To** | Pointer to **map[string]map[string]interface{}** | The updated properties of the target | [optional] 
+**From** | Pointer to **map[string]interface{}** | The original properties of the target | [optional] 
+**To** | Pointer to **map[string]interface{}** | The updated properties of the target | [optional] 
 
 ## Methods
 
@@ -28,20 +28,20 @@ but it doesn't guarantee that properties required by API are set
 
 ### GetFrom
 
-`func (o *LogTargetChangeDetails) GetFrom() map[string]map[string]interface{}`
+`func (o *LogTargetChangeDetails) GetFrom() map[string]interface{}`
 
 GetFrom returns the From field if non-nil, zero value otherwise.
 
 ### GetFromOk
 
-`func (o *LogTargetChangeDetails) GetFromOk() (*map[string]map[string]interface{}, bool)`
+`func (o *LogTargetChangeDetails) GetFromOk() (*map[string]interface{}, bool)`
 
 GetFromOk returns a tuple with the From field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetFrom
 
-`func (o *LogTargetChangeDetails) SetFrom(v map[string]map[string]interface{})`
+`func (o *LogTargetChangeDetails) SetFrom(v map[string]interface{})`
 
 SetFrom sets From field to given value.
 
@@ -53,20 +53,20 @@ HasFrom returns a boolean if a field has been set.
 
 ### GetTo
 
-`func (o *LogTargetChangeDetails) GetTo() map[string]map[string]interface{}`
+`func (o *LogTargetChangeDetails) GetTo() map[string]interface{}`
 
 GetTo returns the To field if non-nil, zero value otherwise.
 
 ### GetToOk
 
-`func (o *LogTargetChangeDetails) GetToOk() (*map[string]map[string]interface{}, bool)`
+`func (o *LogTargetChangeDetails) GetToOk() (*map[string]interface{}, bool)`
 
 GetToOk returns a tuple with the To field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetTo
 
-`func (o *LogTargetChangeDetails) SetTo(v map[string]map[string]interface{})`
+`func (o *LogTargetChangeDetails) SetTo(v map[string]interface{})`
 
 SetTo sets To field to given value.
 

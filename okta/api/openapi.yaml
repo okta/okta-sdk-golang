@@ -61265,16 +61265,14 @@ components:
         displayName: displayName
         id: id
         detailEntry:
-          key: "{}"
+          key: ""
         type: type
       properties:
         alternateId:
           readOnly: true
           type: string
         detailEntry:
-          additionalProperties:
-            properties: {}
-            type: object
+          additionalProperties: true
           readOnly: true
           type: object
         displayName:
@@ -61410,12 +61408,10 @@ components:
     LogDebugContext:
       example:
         debugData:
-          key: "{}"
+          key: ""
       properties:
         debugData:
-          additionalProperties:
-            properties: {}
-            type: object
+          additionalProperties: true
           readOnly: true
           type: object
       type: object
@@ -61471,34 +61467,34 @@ components:
           displayName: displayName
           id: id
           detailEntry:
-            key: "{}"
+            key: ""
           type: type
           changeDetails:
             from:
-              key: "{}"
+              key: ""
             to:
-              key: "{}"
+              key: ""
         - alternateId: alternateId
           displayName: displayName
           id: id
           detailEntry:
-            key: "{}"
+            key: ""
           type: type
           changeDetails:
             from:
-              key: "{}"
+              key: ""
             to:
-              key: "{}"
+              key: ""
         actor:
           alternateId: alternateId
           displayName: displayName
           id: id
           detailEntry:
-            key: "{}"
+            key: ""
           type: type
         debugContext:
           debugData:
-            key: "{}"
+            key: ""
         displayMessage: displayMessage
         client:
           zone: zone
@@ -61523,7 +61519,7 @@ components:
           reason: reason
         transaction:
           detail:
-            key: "{}"
+            key: ""
           id: id
           type: type
       properties:
@@ -62066,13 +62062,13 @@ components:
         displayName: displayName
         id: id
         detailEntry:
-          key: "{}"
+          key: ""
         type: type
         changeDetails:
           from:
-            key: "{}"
+            key: ""
           to:
-            key: "{}"
+            key: ""
       properties:
         alternateId:
           description: The alternate ID of the target
@@ -62081,9 +62077,7 @@ components:
         changeDetails:
           $ref: '#/components/schemas/LogTarget_changeDetails'
         detailEntry:
-          additionalProperties:
-            properties: {}
-            type: object
+          additionalProperties: true
           description: Further details on the target
           readOnly: true
           type: object
@@ -62103,14 +62097,12 @@ components:
     LogTransaction:
       example:
         detail:
-          key: "{}"
+          key: ""
         id: id
         type: type
       properties:
         detail:
-          additionalProperties:
-            properties: {}
-            type: object
+          additionalProperties: true
           readOnly: true
           type: object
         id:
@@ -67219,8 +67211,7 @@ components:
       - $ref: '#/components/schemas/ApplicationSettings'
       - properties:
           app:
-            additionalProperties:
-              type: string
+            additionalProperties: true
             type: object
           signOn:
             $ref: '#/components/schemas/Saml11ApplicationSettingsSignOn'
@@ -79312,20 +79303,16 @@ components:
         property within the object.
       example:
         from:
-          key: "{}"
+          key: ""
         to:
-          key: "{}"
+          key: ""
       properties:
         from:
-          additionalProperties:
-            properties: {}
-            type: object
+          additionalProperties: true
           description: The original properties of the target
           type: object
         to:
-          additionalProperties:
-            properties: {}
-            type: object
+          additionalProperties: true
           description: The updated properties of the target
           type: object
       type: object
