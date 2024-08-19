@@ -39616,9 +39616,7 @@ components:
           readOnly: true
         detailEntry:
           type: object
-          additionalProperties:
-            type: object
-            properties: {}
+          additionalProperties: true
           readOnly: true
         displayName:
           type: string
@@ -39703,9 +39701,7 @@ components:
       properties:
         debugData:
           type: object
-          additionalProperties:
-            type: object
-            properties: {}
+          additionalProperties: true
           readOnly: true
     LogEvent:
       type: object
@@ -40083,21 +40079,15 @@ components:
             from:
               type: object
               description: The original properties of the target
-              additionalProperties:
-                type: object
-                properties: {}
+              additionalProperties: true
             to:
               type: object
               description: The updated properties of the target
-              additionalProperties:
-                type: object
-                properties: {}
+              additionalProperties: true
         detailEntry:
           type: object
           description: Further details on the target
-          additionalProperties:
-            type: object
-            properties: {}
+          additionalProperties: true
           readOnly: true
         displayName:
           type: string
@@ -40116,9 +40106,7 @@ components:
       properties:
         detail:
           type: object
-          additionalProperties:
-            type: object
-            properties: {}
+          additionalProperties: true
           readOnly: true
         id:
           type: string
@@ -44279,8 +44267,7 @@ components:
           properties:
             app:
               type: object
-              additionalProperties:
-                type: string
+              additionalProperties: true
             signOn:
               $ref: '#/components/schemas/Saml11ApplicationSettingsSignOn'
     Saml11ApplicationSettingsSignOn:

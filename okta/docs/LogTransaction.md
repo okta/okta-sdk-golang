@@ -4,7 +4,7 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**Detail** | Pointer to **map[string]map[string]interface{}** |  | [optional] [readonly] 
+**Detail** | Pointer to **map[string]interface{}** |  | [optional] [readonly] 
 **Id** | Pointer to **string** |  | [optional] [readonly] 
 **Type** | Pointer to **string** |  | [optional] [readonly] 
 
@@ -29,20 +29,20 @@ but it doesn't guarantee that properties required by API are set
 
 ### GetDetail
 
-`func (o *LogTransaction) GetDetail() map[string]map[string]interface{}`
+`func (o *LogTransaction) GetDetail() map[string]interface{}`
 
 GetDetail returns the Detail field if non-nil, zero value otherwise.
 
 ### GetDetailOk
 
-`func (o *LogTransaction) GetDetailOk() (*map[string]map[string]interface{}, bool)`
+`func (o *LogTransaction) GetDetailOk() (*map[string]interface{}, bool)`
 
 GetDetailOk returns a tuple with the Detail field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetDetail
 
-`func (o *LogTransaction) SetDetail(v map[string]map[string]interface{})`
+`func (o *LogTransaction) SetDetail(v map[string]interface{})`
 
 SetDetail sets Detail field to given value.
 

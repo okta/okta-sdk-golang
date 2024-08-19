@@ -6,7 +6,7 @@ Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **AlternateId** | Pointer to **string** | The alternate ID of the target | [optional] [readonly] 
 **ChangeDetails** | Pointer to [**LogTargetChangeDetails**](LogTargetChangeDetails.md) |  | [optional] 
-**DetailEntry** | Pointer to **map[string]map[string]interface{}** | Further details on the target | [optional] [readonly] 
+**DetailEntry** | Pointer to **map[string]interface{}** | Further details on the target | [optional] [readonly] 
 **DisplayName** | Pointer to **string** | The display name of the target | [optional] [readonly] 
 **Id** | Pointer to **string** | The ID of the target | [optional] [readonly] 
 **Type** | Pointer to **string** | The type of target | [optional] [readonly] 
@@ -82,20 +82,20 @@ HasChangeDetails returns a boolean if a field has been set.
 
 ### GetDetailEntry
 
-`func (o *LogTarget) GetDetailEntry() map[string]map[string]interface{}`
+`func (o *LogTarget) GetDetailEntry() map[string]interface{}`
 
 GetDetailEntry returns the DetailEntry field if non-nil, zero value otherwise.
 
 ### GetDetailEntryOk
 
-`func (o *LogTarget) GetDetailEntryOk() (*map[string]map[string]interface{}, bool)`
+`func (o *LogTarget) GetDetailEntryOk() (*map[string]interface{}, bool)`
 
 GetDetailEntryOk returns a tuple with the DetailEntry field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetDetailEntry
 
-`func (o *LogTarget) SetDetailEntry(v map[string]map[string]interface{})`
+`func (o *LogTarget) SetDetailEntry(v map[string]interface{})`
 
 SetDetailEntry sets DetailEntry field to given value.
 

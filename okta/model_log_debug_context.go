@@ -30,7 +30,7 @@ import (
 
 // LogDebugContext struct for LogDebugContext
 type LogDebugContext struct {
-	DebugData map[string]map[string]interface{} `json:"debugData,omitempty"`
+	DebugData map[string]interface{} `json:"debugData,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -54,9 +54,9 @@ func NewLogDebugContextWithDefaults() *LogDebugContext {
 }
 
 // GetDebugData returns the DebugData field value if set, zero value otherwise.
-func (o *LogDebugContext) GetDebugData() map[string]map[string]interface{} {
+func (o *LogDebugContext) GetDebugData() map[string]interface{} {
 	if o == nil || o.DebugData == nil {
-		var ret map[string]map[string]interface{}
+		var ret map[string]interface{}
 		return ret
 	}
 	return o.DebugData
@@ -64,7 +64,7 @@ func (o *LogDebugContext) GetDebugData() map[string]map[string]interface{} {
 
 // GetDebugDataOk returns a tuple with the DebugData field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *LogDebugContext) GetDebugDataOk() (map[string]map[string]interface{}, bool) {
+func (o *LogDebugContext) GetDebugDataOk() (map[string]interface{}, bool) {
 	if o == nil || o.DebugData == nil {
 		return nil, false
 	}
@@ -80,8 +80,8 @@ func (o *LogDebugContext) HasDebugData() bool {
 	return false
 }
 
-// SetDebugData gets a reference to the given map[string]map[string]interface{} and assigns it to the DebugData field.
-func (o *LogDebugContext) SetDebugData(v map[string]map[string]interface{}) {
+// SetDebugData gets a reference to the given map[string]interface{} and assigns it to the DebugData field.
+func (o *LogDebugContext) SetDebugData(v map[string]interface{}) {
 	o.DebugData = v
 }
 

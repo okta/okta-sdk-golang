@@ -31,7 +31,7 @@ import (
 // LogActor struct for LogActor
 type LogActor struct {
 	AlternateId *string `json:"alternateId,omitempty"`
-	DetailEntry map[string]map[string]interface{} `json:"detailEntry,omitempty"`
+	DetailEntry map[string]interface{} `json:"detailEntry,omitempty"`
 	DisplayName *string `json:"displayName,omitempty"`
 	Id *string `json:"id,omitempty"`
 	Type *string `json:"type,omitempty"`
@@ -90,9 +90,9 @@ func (o *LogActor) SetAlternateId(v string) {
 }
 
 // GetDetailEntry returns the DetailEntry field value if set, zero value otherwise.
-func (o *LogActor) GetDetailEntry() map[string]map[string]interface{} {
+func (o *LogActor) GetDetailEntry() map[string]interface{} {
 	if o == nil || o.DetailEntry == nil {
-		var ret map[string]map[string]interface{}
+		var ret map[string]interface{}
 		return ret
 	}
 	return o.DetailEntry
@@ -100,7 +100,7 @@ func (o *LogActor) GetDetailEntry() map[string]map[string]interface{} {
 
 // GetDetailEntryOk returns a tuple with the DetailEntry field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *LogActor) GetDetailEntryOk() (map[string]map[string]interface{}, bool) {
+func (o *LogActor) GetDetailEntryOk() (map[string]interface{}, bool) {
 	if o == nil || o.DetailEntry == nil {
 		return nil, false
 	}
@@ -116,8 +116,8 @@ func (o *LogActor) HasDetailEntry() bool {
 	return false
 }
 
-// SetDetailEntry gets a reference to the given map[string]map[string]interface{} and assigns it to the DetailEntry field.
-func (o *LogActor) SetDetailEntry(v map[string]map[string]interface{}) {
+// SetDetailEntry gets a reference to the given map[string]interface{} and assigns it to the DetailEntry field.
+func (o *LogActor) SetDetailEntry(v map[string]interface{}) {
 	o.DetailEntry = v
 }
 

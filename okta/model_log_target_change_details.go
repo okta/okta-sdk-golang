@@ -31,9 +31,9 @@ import (
 // LogTargetChangeDetails Details on the target's changes. Not all event types support the `changeDetails` property, and not all target objects contain the `changeDetails` property.You must include a property within the object. When querying on this property, you can't search on the `to` or `from` objects alone. You must include a property within the object.
 type LogTargetChangeDetails struct {
 	// The original properties of the target
-	From map[string]map[string]interface{} `json:"from,omitempty"`
+	From map[string]interface{} `json:"from,omitempty"`
 	// The updated properties of the target
-	To map[string]map[string]interface{} `json:"to,omitempty"`
+	To map[string]interface{} `json:"to,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -57,9 +57,9 @@ func NewLogTargetChangeDetailsWithDefaults() *LogTargetChangeDetails {
 }
 
 // GetFrom returns the From field value if set, zero value otherwise.
-func (o *LogTargetChangeDetails) GetFrom() map[string]map[string]interface{} {
+func (o *LogTargetChangeDetails) GetFrom() map[string]interface{} {
 	if o == nil || o.From == nil {
-		var ret map[string]map[string]interface{}
+		var ret map[string]interface{}
 		return ret
 	}
 	return o.From
@@ -67,7 +67,7 @@ func (o *LogTargetChangeDetails) GetFrom() map[string]map[string]interface{} {
 
 // GetFromOk returns a tuple with the From field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *LogTargetChangeDetails) GetFromOk() (map[string]map[string]interface{}, bool) {
+func (o *LogTargetChangeDetails) GetFromOk() (map[string]interface{}, bool) {
 	if o == nil || o.From == nil {
 		return nil, false
 	}
@@ -83,15 +83,15 @@ func (o *LogTargetChangeDetails) HasFrom() bool {
 	return false
 }
 
-// SetFrom gets a reference to the given map[string]map[string]interface{} and assigns it to the From field.
-func (o *LogTargetChangeDetails) SetFrom(v map[string]map[string]interface{}) {
+// SetFrom gets a reference to the given map[string]interface{} and assigns it to the From field.
+func (o *LogTargetChangeDetails) SetFrom(v map[string]interface{}) {
 	o.From = v
 }
 
 // GetTo returns the To field value if set, zero value otherwise.
-func (o *LogTargetChangeDetails) GetTo() map[string]map[string]interface{} {
+func (o *LogTargetChangeDetails) GetTo() map[string]interface{} {
 	if o == nil || o.To == nil {
-		var ret map[string]map[string]interface{}
+		var ret map[string]interface{}
 		return ret
 	}
 	return o.To
@@ -99,7 +99,7 @@ func (o *LogTargetChangeDetails) GetTo() map[string]map[string]interface{} {
 
 // GetToOk returns a tuple with the To field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *LogTargetChangeDetails) GetToOk() (map[string]map[string]interface{}, bool) {
+func (o *LogTargetChangeDetails) GetToOk() (map[string]interface{}, bool) {
 	if o == nil || o.To == nil {
 		return nil, false
 	}
@@ -115,8 +115,8 @@ func (o *LogTargetChangeDetails) HasTo() bool {
 	return false
 }
 
-// SetTo gets a reference to the given map[string]map[string]interface{} and assigns it to the To field.
-func (o *LogTargetChangeDetails) SetTo(v map[string]map[string]interface{}) {
+// SetTo gets a reference to the given map[string]interface{} and assigns it to the To field.
+func (o *LogTargetChangeDetails) SetTo(v map[string]interface{}) {
 	o.To = v
 }
 

@@ -30,7 +30,7 @@ import (
 
 // LogTransaction struct for LogTransaction
 type LogTransaction struct {
-	Detail map[string]map[string]interface{} `json:"detail,omitempty"`
+	Detail map[string]interface{} `json:"detail,omitempty"`
 	Id *string `json:"id,omitempty"`
 	Type *string `json:"type,omitempty"`
 	AdditionalProperties map[string]interface{}
@@ -56,9 +56,9 @@ func NewLogTransactionWithDefaults() *LogTransaction {
 }
 
 // GetDetail returns the Detail field value if set, zero value otherwise.
-func (o *LogTransaction) GetDetail() map[string]map[string]interface{} {
+func (o *LogTransaction) GetDetail() map[string]interface{} {
 	if o == nil || o.Detail == nil {
-		var ret map[string]map[string]interface{}
+		var ret map[string]interface{}
 		return ret
 	}
 	return o.Detail
@@ -66,7 +66,7 @@ func (o *LogTransaction) GetDetail() map[string]map[string]interface{} {
 
 // GetDetailOk returns a tuple with the Detail field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *LogTransaction) GetDetailOk() (map[string]map[string]interface{}, bool) {
+func (o *LogTransaction) GetDetailOk() (map[string]interface{}, bool) {
 	if o == nil || o.Detail == nil {
 		return nil, false
 	}
@@ -82,8 +82,8 @@ func (o *LogTransaction) HasDetail() bool {
 	return false
 }
 
-// SetDetail gets a reference to the given map[string]map[string]interface{} and assigns it to the Detail field.
-func (o *LogTransaction) SetDetail(v map[string]map[string]interface{}) {
+// SetDetail gets a reference to the given map[string]interface{} and assigns it to the Detail field.
+func (o *LogTransaction) SetDetail(v map[string]interface{}) {
 	o.Detail = v
 }
 

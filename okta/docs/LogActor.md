@@ -5,7 +5,7 @@
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **AlternateId** | Pointer to **string** |  | [optional] [readonly] 
-**DetailEntry** | Pointer to **map[string]map[string]interface{}** |  | [optional] [readonly] 
+**DetailEntry** | Pointer to **map[string]interface{}** |  | [optional] [readonly] 
 **DisplayName** | Pointer to **string** |  | [optional] [readonly] 
 **Id** | Pointer to **string** |  | [optional] [readonly] 
 **Type** | Pointer to **string** |  | [optional] [readonly] 
@@ -56,20 +56,20 @@ HasAlternateId returns a boolean if a field has been set.
 
 ### GetDetailEntry
 
-`func (o *LogActor) GetDetailEntry() map[string]map[string]interface{}`
+`func (o *LogActor) GetDetailEntry() map[string]interface{}`
 
 GetDetailEntry returns the DetailEntry field if non-nil, zero value otherwise.
 
 ### GetDetailEntryOk
 
-`func (o *LogActor) GetDetailEntryOk() (*map[string]map[string]interface{}, bool)`
+`func (o *LogActor) GetDetailEntryOk() (*map[string]interface{}, bool)`
 
 GetDetailEntryOk returns a tuple with the DetailEntry field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetDetailEntry
 
-`func (o *LogActor) SetDetailEntry(v map[string]map[string]interface{})`
+`func (o *LogActor) SetDetailEntry(v map[string]interface{})`
 
 SetDetailEntry sets DetailEntry field to given value.
 
