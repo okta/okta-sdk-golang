@@ -122,4 +122,4 @@ The following features have been ported to 4.x:
 * OAuth for Okta
 
 ## Migrating from 4.x to 5.x
-Version 5x of the SDK is essentially name change
+Version 5x of the SDK is essentially a name change
