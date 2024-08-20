@@ -113,10 +113,13 @@ var accessPolicyHref = createdApp.Links.AccessPolicy.Href
 
 ### Features parity
 
-The following features have been ported to 6.x:
+The following features have been ported to 4.x:
 
 * Inline configuration, configuration via environment variables, appsettings.json or YAML files
 * Manual pagination for collections
 * Default retry strategy for 429 HTTP responses and ability to provide your own strategy
 * Web proxy 
 * OAuth for Okta
+
+## Migrating from 4.x to 5.x
+Version 5x of the SDK is essentially a name change
