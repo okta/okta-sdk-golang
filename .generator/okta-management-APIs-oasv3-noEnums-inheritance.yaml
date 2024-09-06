@@ -38068,7 +38068,7 @@ components:
         lastUpdated:
           description: Timestamp when the group owner was last updated
           type: string
-          format: date-time
+          pattern: ^\w{3} \w{3} \d{2} \d{2}:\d{2}:\d{2} \w{3} \d{4}$
           readOnly: true
         originId:
           description: The ID of the app instance if the `originType` is `APPLICATION`. This value is `NULL` if `originType` is `OKTA_DIRECTORY`.
