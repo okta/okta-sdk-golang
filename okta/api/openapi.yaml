@@ -58621,7 +58621,7 @@ components:
       type: object
     GroupOwner:
       example:
-        lastUpdated: 2000-01-23T04:56:07.000+00:00
+        lastUpdated: lastUpdated
         originType: originType
         originId: originId
         displayName: displayName
@@ -58638,7 +58638,7 @@ components:
           type: string
         lastUpdated:
           description: Timestamp when the group owner was last updated
-          format: date-time
+          pattern: "^\\w{3} \\w{3} \\d{2} \\d{2}:\\d{2}:\\d{2} \\w{3} \\d{4}$"
           readOnly: true
           type: string
         originId:

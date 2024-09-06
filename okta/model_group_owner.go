@@ -26,7 +26,6 @@ package okta
 
 import (
 	"encoding/json"
-	"time"
 )
 
 // GroupOwner struct for GroupOwner
@@ -36,7 +35,7 @@ type GroupOwner struct {
 	// The `id` of the group owner
 	Id *string `json:"id,omitempty"`
 	// Timestamp when the group owner was last updated
-	LastUpdated *time.Time `json:"lastUpdated,omitempty"`
+	LastUpdated *string `json:"lastUpdated,omitempty"`
 	// The ID of the app instance if the `originType` is `APPLICATION`. This value is `NULL` if `originType` is `OKTA_DIRECTORY`.
 	OriginId *string `json:"originId,omitempty"`
 	// The source where group ownership is managed
@@ -132,9 +131,9 @@ func (o *GroupOwner) SetId(v string) {
 }
 
 // GetLastUpdated returns the LastUpdated field value if set, zero value otherwise.
-func (o *GroupOwner) GetLastUpdated() time.Time {
+func (o *GroupOwner) GetLastUpdated() string {
 	if o == nil || o.LastUpdated == nil {
-		var ret time.Time
+		var ret string
 		return ret
 	}
 	return *o.LastUpdated
@@ -142,7 +141,7 @@ func (o *GroupOwner) GetLastUpdated() time.Time {
 
 // GetLastUpdatedOk returns a tuple with the LastUpdated field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *GroupOwner) GetLastUpdatedOk() (*time.Time, bool) {
+func (o *GroupOwner) GetLastUpdatedOk() (*string, bool) {
 	if o == nil || o.LastUpdated == nil {
 		return nil, false
 	}
@@ -158,8 +157,8 @@ func (o *GroupOwner) HasLastUpdated() bool {
 	return false
 }
 
-// SetLastUpdated gets a reference to the given time.Time and assigns it to the LastUpdated field.
-func (o *GroupOwner) SetLastUpdated(v time.Time) {
+// SetLastUpdated gets a reference to the given string and assigns it to the LastUpdated field.
+func (o *GroupOwner) SetLastUpdated(v string) {
 	o.LastUpdated = &v
 }
 
