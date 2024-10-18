@@ -15,7 +15,7 @@ func init() {
 	if err != nil {
 		fmt.Printf("Create new config should not be error %v", err)
 	}
-	configuration.Debug = false
+	configuration.Debug = true
 
 	apiClient = NewAPIClient(configuration)
 }
@@ -40,6 +40,7 @@ func sweep() (err error) {
 	if err != nil {
 		return
 	}
+	fmt.Println("43", apiClient.cfg.Host)
 	err = sweepGroups()
 	if err != nil {
 		return

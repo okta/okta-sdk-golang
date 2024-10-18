@@ -2,7 +2,7 @@
 Running changelog of releases since `2.0.0-rc.4`
 
 ## v5.0.2
- - Fix unmarshalling error for Group owner object lastUpdated (#484) Thanks [@duytiennguyen-okta]
+ - Fix unmarshalling error for Group owner object lastUpdated (#486) Thanks [@duytiennguyen-okta]
 
 ## v5.0.1
  - Fix unmarshalling error for Log object that does not have additional properties (#484) Thanks [@duytiennguyen-okta]
