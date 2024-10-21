@@ -62,7 +62,9 @@ jobs:
           eval "$(aws configure export-credentials --profile default --format env)" 2> /dev/null
       - run:
           name: Build binary to scan
-          command: go install
+          command: |
+            go mod vendor
+            go build
       - run:
           name: Run Reversing Labs Wrapper Scanner
           command: |
