@@ -36,7 +36,7 @@ jobs:
           name: Download Reverse Labs Scanner
           command: |
             curl https://dso-resources.oktasecurity.com/scanner \
-              -H "x-api-key: $RESOURCE_TOKEN" \
+              -H "x-api-key: $DSO_RLSECURE_TOKEN" \
               --output rl_wrapper-0.0.2+35ababa-py3-none-any.whl
       - run:
           name: Install RL Wrapper
@@ -84,6 +84,6 @@ workflows:
     jobs:
       - reversing-labs:
           context:
-            - okta-dcp
+            - static-analysis
 
 # VS Code Extension Version: 1.4.0
