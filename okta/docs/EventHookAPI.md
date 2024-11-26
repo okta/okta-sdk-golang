@@ -29,24 +29,24 @@ Activate an Event Hook
 package main
 
 import (
-    "context"
-    "fmt"
-    "os"
-    openapiclient "github.com/okta/okta-sdk-golang"
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/okta/okta-sdk-golang"
 )
 
 func main() {
-    eventHookId := "who8vt36qfNpCGz9H1e6" // string | `id` of the Event Hook
+	eventHookId := "who8vt36qfNpCGz9H1e6" // string | `id` of the Event Hook
 
-    configuration := openapiclient.NewConfiguration()
-    apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.EventHookAPI.ActivateEventHook(context.Background(), eventHookId).Execute()
-    if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `EventHookAPI.ActivateEventHook``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-    }
-    // response from `ActivateEventHook`: EventHook
-    fmt.Fprintf(os.Stdout, "Response from `EventHookAPI.ActivateEventHook`: %v\n", resp)
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.EventHookAPI.ActivateEventHook(context.Background(), eventHookId).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `EventHookAPI.ActivateEventHook``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `ActivateEventHook`: EventHook
+	fmt.Fprintf(os.Stdout, "Response from `EventHookAPI.ActivateEventHook`: %v\n", resp)
 }
 ```
 
@@ -99,24 +99,24 @@ Create an Event Hook
 package main
 
 import (
-    "context"
-    "fmt"
-    "os"
-    openapiclient "github.com/okta/okta-sdk-golang"
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/okta/okta-sdk-golang"
 )
 
 func main() {
-    eventHook := *openapiclient.NewEventHook(*openapiclient.NewEventHookChannel(*openapiclient.NewEventHookChannelConfig("Uri_example"), "Type_example", "Version_example"), *openapiclient.NewEventSubscriptions([]string{"Items_example"}, "Type_example"), "Name_example") // EventHook | 
+	eventHook := *openapiclient.NewEventHook(*openapiclient.NewEventHookChannel(*openapiclient.NewEventHookChannelConfig("Uri_example"), "Type_example", "Version_example"), *openapiclient.NewEventSubscriptions([]string{"Items_example"}, "Type_example"), "Name_example") // EventHook | 
 
-    configuration := openapiclient.NewConfiguration()
-    apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.EventHookAPI.CreateEventHook(context.Background()).EventHook(eventHook).Execute()
-    if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `EventHookAPI.CreateEventHook``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-    }
-    // response from `CreateEventHook`: EventHook
-    fmt.Fprintf(os.Stdout, "Response from `EventHookAPI.CreateEventHook`: %v\n", resp)
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.EventHookAPI.CreateEventHook(context.Background()).EventHook(eventHook).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `EventHookAPI.CreateEventHook``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `CreateEventHook`: EventHook
+	fmt.Fprintf(os.Stdout, "Response from `EventHookAPI.CreateEventHook`: %v\n", resp)
 }
 ```
 
@@ -165,24 +165,24 @@ Deactivate an Event Hook
 package main
 
 import (
-    "context"
-    "fmt"
-    "os"
-    openapiclient "github.com/okta/okta-sdk-golang"
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/okta/okta-sdk-golang"
 )
 
 func main() {
-    eventHookId := "who8vt36qfNpCGz9H1e6" // string | `id` of the Event Hook
+	eventHookId := "who8vt36qfNpCGz9H1e6" // string | `id` of the Event Hook
 
-    configuration := openapiclient.NewConfiguration()
-    apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.EventHookAPI.DeactivateEventHook(context.Background(), eventHookId).Execute()
-    if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `EventHookAPI.DeactivateEventHook``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-    }
-    // response from `DeactivateEventHook`: EventHook
-    fmt.Fprintf(os.Stdout, "Response from `EventHookAPI.DeactivateEventHook`: %v\n", resp)
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.EventHookAPI.DeactivateEventHook(context.Background(), eventHookId).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `EventHookAPI.DeactivateEventHook``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `DeactivateEventHook`: EventHook
+	fmt.Fprintf(os.Stdout, "Response from `EventHookAPI.DeactivateEventHook`: %v\n", resp)
 }
 ```
 
@@ -235,22 +235,22 @@ Delete an Event Hook
 package main
 
 import (
-    "context"
-    "fmt"
-    "os"
-    openapiclient "github.com/okta/okta-sdk-golang"
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/okta/okta-sdk-golang"
 )
 
 func main() {
-    eventHookId := "who8vt36qfNpCGz9H1e6" // string | `id` of the Event Hook
+	eventHookId := "who8vt36qfNpCGz9H1e6" // string | `id` of the Event Hook
 
-    configuration := openapiclient.NewConfiguration()
-    apiClient := openapiclient.NewAPIClient(configuration)
-    r, err := apiClient.EventHookAPI.DeleteEventHook(context.Background(), eventHookId).Execute()
-    if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `EventHookAPI.DeleteEventHook``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-    }
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	r, err := apiClient.EventHookAPI.DeleteEventHook(context.Background(), eventHookId).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `EventHookAPI.DeleteEventHook``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
 }
 ```
 
@@ -303,24 +303,24 @@ Retrieve an Event Hook
 package main
 
 import (
-    "context"
-    "fmt"
-    "os"
-    openapiclient "github.com/okta/okta-sdk-golang"
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/okta/okta-sdk-golang"
 )
 
 func main() {
-    eventHookId := "who8vt36qfNpCGz9H1e6" // string | `id` of the Event Hook
+	eventHookId := "who8vt36qfNpCGz9H1e6" // string | `id` of the Event Hook
 
-    configuration := openapiclient.NewConfiguration()
-    apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.EventHookAPI.GetEventHook(context.Background(), eventHookId).Execute()
-    if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `EventHookAPI.GetEventHook``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-    }
-    // response from `GetEventHook`: EventHook
-    fmt.Fprintf(os.Stdout, "Response from `EventHookAPI.GetEventHook`: %v\n", resp)
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.EventHookAPI.GetEventHook(context.Background(), eventHookId).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `EventHookAPI.GetEventHook``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `GetEventHook`: EventHook
+	fmt.Fprintf(os.Stdout, "Response from `EventHookAPI.GetEventHook`: %v\n", resp)
 }
 ```
 
@@ -373,23 +373,23 @@ List all Event Hooks
 package main
 
 import (
-    "context"
-    "fmt"
-    "os"
-    openapiclient "github.com/okta/okta-sdk-golang"
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/okta/okta-sdk-golang"
 )
 
 func main() {
 
-    configuration := openapiclient.NewConfiguration()
-    apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.EventHookAPI.ListEventHooks(context.Background()).Execute()
-    if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `EventHookAPI.ListEventHooks``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-    }
-    // response from `ListEventHooks`: []EventHook
-    fmt.Fprintf(os.Stdout, "Response from `EventHookAPI.ListEventHooks`: %v\n", resp)
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.EventHookAPI.ListEventHooks(context.Background()).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `EventHookAPI.ListEventHooks``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `ListEventHooks`: []EventHook
+	fmt.Fprintf(os.Stdout, "Response from `EventHookAPI.ListEventHooks`: %v\n", resp)
 }
 ```
 
@@ -434,25 +434,25 @@ Replace an Event Hook
 package main
 
 import (
-    "context"
-    "fmt"
-    "os"
-    openapiclient "github.com/okta/okta-sdk-golang"
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/okta/okta-sdk-golang"
 )
 
 func main() {
-    eventHookId := "who8vt36qfNpCGz9H1e6" // string | `id` of the Event Hook
-    eventHook := *openapiclient.NewEventHook(*openapiclient.NewEventHookChannel(*openapiclient.NewEventHookChannelConfig("Uri_example"), "Type_example", "Version_example"), *openapiclient.NewEventSubscriptions([]string{"Items_example"}, "Type_example"), "Name_example") // EventHook | 
+	eventHookId := "who8vt36qfNpCGz9H1e6" // string | `id` of the Event Hook
+	eventHook := *openapiclient.NewEventHook(*openapiclient.NewEventHookChannel(*openapiclient.NewEventHookChannelConfig("Uri_example"), "Type_example", "Version_example"), *openapiclient.NewEventSubscriptions([]string{"Items_example"}, "Type_example"), "Name_example") // EventHook | 
 
-    configuration := openapiclient.NewConfiguration()
-    apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.EventHookAPI.ReplaceEventHook(context.Background(), eventHookId).EventHook(eventHook).Execute()
-    if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `EventHookAPI.ReplaceEventHook``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-    }
-    // response from `ReplaceEventHook`: EventHook
-    fmt.Fprintf(os.Stdout, "Response from `EventHookAPI.ReplaceEventHook`: %v\n", resp)
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.EventHookAPI.ReplaceEventHook(context.Background(), eventHookId).EventHook(eventHook).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `EventHookAPI.ReplaceEventHook``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `ReplaceEventHook`: EventHook
+	fmt.Fprintf(os.Stdout, "Response from `EventHookAPI.ReplaceEventHook`: %v\n", resp)
 }
 ```
 
@@ -506,24 +506,24 @@ Verify an Event Hook
 package main
 
 import (
-    "context"
-    "fmt"
-    "os"
-    openapiclient "github.com/okta/okta-sdk-golang"
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/okta/okta-sdk-golang"
 )
 
 func main() {
-    eventHookId := "who8vt36qfNpCGz9H1e6" // string | `id` of the Event Hook
+	eventHookId := "who8vt36qfNpCGz9H1e6" // string | `id` of the Event Hook
 
-    configuration := openapiclient.NewConfiguration()
-    apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.EventHookAPI.VerifyEventHook(context.Background(), eventHookId).Execute()
-    if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `EventHookAPI.VerifyEventHook``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-    }
-    // response from `VerifyEventHook`: EventHook
-    fmt.Fprintf(os.Stdout, "Response from `EventHookAPI.VerifyEventHook`: %v\n", resp)
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.EventHookAPI.VerifyEventHook(context.Background(), eventHookId).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `EventHookAPI.VerifyEventHook``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `VerifyEventHook`: EventHook
+	fmt.Fprintf(os.Stdout, "Response from `EventHookAPI.VerifyEventHook`: %v\n", resp)
 }
 ```
 

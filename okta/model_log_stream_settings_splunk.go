@@ -35,7 +35,7 @@ type LogStreamSettingsSplunk struct {
 	// The domain name for your Splunk Cloud instance. Don't include `http` or `https` in the string. For example: `acme.splunkcloud.com`
 	Host string `json:"host"`
 	// The HEC token for your Splunk Cloud HTTP Event Collector. The token value is set at object creation, but isn't returned.
-	Token                string `json:"token"`
+	Token                string `json:"token" validate:"regexp=(?i)^[0-9a-f]{8}-[0-9a-f]{4}-[1-5][0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$"`
 	AdditionalProperties map[string]interface{}
 }
 

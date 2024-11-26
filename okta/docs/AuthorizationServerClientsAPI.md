@@ -26,27 +26,27 @@ Retrieve a refresh token for a Client
 package main
 
 import (
-    "context"
-    "fmt"
-    "os"
-    openapiclient "github.com/okta/okta-sdk-golang"
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/okta/okta-sdk-golang"
 )
 
 func main() {
-    authServerId := "GeGRTEr7f3yu2n7grw22" // string | `id` of the Authorization Server
-    clientId := "52Uy4BUWVBOjFItcg2jWsmnd83Ad8dD" // string | `client_id` of the app
-    tokenId := "sHHSth53yJAyNSTQKDJZ" // string | `id` of Token
-    expand := "expand_example" // string | Valid value: `scope`. If specified, scope details are included in the `_embedded` attribute. (optional)
+	authServerId := "GeGRTEr7f3yu2n7grw22" // string | `id` of the Authorization Server
+	clientId := "52Uy4BUWVBOjFItcg2jWsmnd83Ad8dD" // string | `client_id` of the app
+	tokenId := "sHHSth53yJAyNSTQKDJZ" // string | `id` of Token
+	expand := "expand_example" // string | Valid value: `scope`. If specified, scope details are included in the `_embedded` attribute. (optional)
 
-    configuration := openapiclient.NewConfiguration()
-    apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.AuthorizationServerClientsAPI.GetRefreshTokenForAuthorizationServerAndClient(context.Background(), authServerId, clientId, tokenId).Expand(expand).Execute()
-    if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `AuthorizationServerClientsAPI.GetRefreshTokenForAuthorizationServerAndClient``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-    }
-    // response from `GetRefreshTokenForAuthorizationServerAndClient`: OAuth2RefreshToken
-    fmt.Fprintf(os.Stdout, "Response from `AuthorizationServerClientsAPI.GetRefreshTokenForAuthorizationServerAndClient`: %v\n", resp)
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.AuthorizationServerClientsAPI.GetRefreshTokenForAuthorizationServerAndClient(context.Background(), authServerId, clientId, tokenId).Expand(expand).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `AuthorizationServerClientsAPI.GetRefreshTokenForAuthorizationServerAndClient``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `GetRefreshTokenForAuthorizationServerAndClient`: OAuth2RefreshToken
+	fmt.Fprintf(os.Stdout, "Response from `AuthorizationServerClientsAPI.GetRefreshTokenForAuthorizationServerAndClient`: %v\n", resp)
 }
 ```
 
@@ -104,24 +104,24 @@ List all Client resources for an authorization server
 package main
 
 import (
-    "context"
-    "fmt"
-    "os"
-    openapiclient "github.com/okta/okta-sdk-golang"
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/okta/okta-sdk-golang"
 )
 
 func main() {
-    authServerId := "GeGRTEr7f3yu2n7grw22" // string | `id` of the Authorization Server
+	authServerId := "GeGRTEr7f3yu2n7grw22" // string | `id` of the Authorization Server
 
-    configuration := openapiclient.NewConfiguration()
-    apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.AuthorizationServerClientsAPI.ListOAuth2ClientsForAuthorizationServer(context.Background(), authServerId).Execute()
-    if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `AuthorizationServerClientsAPI.ListOAuth2ClientsForAuthorizationServer``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-    }
-    // response from `ListOAuth2ClientsForAuthorizationServer`: []OAuth2Client
-    fmt.Fprintf(os.Stdout, "Response from `AuthorizationServerClientsAPI.ListOAuth2ClientsForAuthorizationServer`: %v\n", resp)
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.AuthorizationServerClientsAPI.ListOAuth2ClientsForAuthorizationServer(context.Background(), authServerId).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `AuthorizationServerClientsAPI.ListOAuth2ClientsForAuthorizationServer``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `ListOAuth2ClientsForAuthorizationServer`: []OAuth2Client
+	fmt.Fprintf(os.Stdout, "Response from `AuthorizationServerClientsAPI.ListOAuth2ClientsForAuthorizationServer`: %v\n", resp)
 }
 ```
 
@@ -174,28 +174,28 @@ List all refresh tokens for a Client
 package main
 
 import (
-    "context"
-    "fmt"
-    "os"
-    openapiclient "github.com/okta/okta-sdk-golang"
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/okta/okta-sdk-golang"
 )
 
 func main() {
-    authServerId := "GeGRTEr7f3yu2n7grw22" // string | `id` of the Authorization Server
-    clientId := "52Uy4BUWVBOjFItcg2jWsmnd83Ad8dD" // string | `client_id` of the app
-    expand := "expand_example" // string | Valid value: `scope`. If specified, scope details are included in the `_embedded` attribute. (optional)
-    after := "after_example" // string | Specifies the pagination cursor for the next page of tokens (optional)
-    limit := int32(56) // int32 | The maximum number of tokens to return (maximum 200) (optional) (default to -1)
+	authServerId := "GeGRTEr7f3yu2n7grw22" // string | `id` of the Authorization Server
+	clientId := "52Uy4BUWVBOjFItcg2jWsmnd83Ad8dD" // string | `client_id` of the app
+	expand := "expand_example" // string | Valid value: `scope`. If specified, scope details are included in the `_embedded` attribute. (optional)
+	after := "after_example" // string | Specifies the pagination cursor for the next page of tokens (optional)
+	limit := int32(56) // int32 | The maximum number of tokens to return (maximum 200) (optional) (default to -1)
 
-    configuration := openapiclient.NewConfiguration()
-    apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.AuthorizationServerClientsAPI.ListRefreshTokensForAuthorizationServerAndClient(context.Background(), authServerId, clientId).Expand(expand).After(after).Limit(limit).Execute()
-    if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `AuthorizationServerClientsAPI.ListRefreshTokensForAuthorizationServerAndClient``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-    }
-    // response from `ListRefreshTokensForAuthorizationServerAndClient`: []OAuth2RefreshToken
-    fmt.Fprintf(os.Stdout, "Response from `AuthorizationServerClientsAPI.ListRefreshTokensForAuthorizationServerAndClient`: %v\n", resp)
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.AuthorizationServerClientsAPI.ListRefreshTokensForAuthorizationServerAndClient(context.Background(), authServerId, clientId).Expand(expand).After(after).Limit(limit).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `AuthorizationServerClientsAPI.ListRefreshTokensForAuthorizationServerAndClient``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `ListRefreshTokensForAuthorizationServerAndClient`: []OAuth2RefreshToken
+	fmt.Fprintf(os.Stdout, "Response from `AuthorizationServerClientsAPI.ListRefreshTokensForAuthorizationServerAndClient`: %v\n", resp)
 }
 ```
 
@@ -253,24 +253,24 @@ Revoke a refresh token for a Client
 package main
 
 import (
-    "context"
-    "fmt"
-    "os"
-    openapiclient "github.com/okta/okta-sdk-golang"
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/okta/okta-sdk-golang"
 )
 
 func main() {
-    authServerId := "GeGRTEr7f3yu2n7grw22" // string | `id` of the Authorization Server
-    clientId := "52Uy4BUWVBOjFItcg2jWsmnd83Ad8dD" // string | `client_id` of the app
-    tokenId := "sHHSth53yJAyNSTQKDJZ" // string | `id` of Token
+	authServerId := "GeGRTEr7f3yu2n7grw22" // string | `id` of the Authorization Server
+	clientId := "52Uy4BUWVBOjFItcg2jWsmnd83Ad8dD" // string | `client_id` of the app
+	tokenId := "sHHSth53yJAyNSTQKDJZ" // string | `id` of Token
 
-    configuration := openapiclient.NewConfiguration()
-    apiClient := openapiclient.NewAPIClient(configuration)
-    r, err := apiClient.AuthorizationServerClientsAPI.RevokeRefreshTokenForAuthorizationServerAndClient(context.Background(), authServerId, clientId, tokenId).Execute()
-    if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `AuthorizationServerClientsAPI.RevokeRefreshTokenForAuthorizationServerAndClient``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-    }
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	r, err := apiClient.AuthorizationServerClientsAPI.RevokeRefreshTokenForAuthorizationServerAndClient(context.Background(), authServerId, clientId, tokenId).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `AuthorizationServerClientsAPI.RevokeRefreshTokenForAuthorizationServerAndClient``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
 }
 ```
 
@@ -327,23 +327,23 @@ Revoke all refresh tokens for a Client
 package main
 
 import (
-    "context"
-    "fmt"
-    "os"
-    openapiclient "github.com/okta/okta-sdk-golang"
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/okta/okta-sdk-golang"
 )
 
 func main() {
-    authServerId := "GeGRTEr7f3yu2n7grw22" // string | `id` of the Authorization Server
-    clientId := "52Uy4BUWVBOjFItcg2jWsmnd83Ad8dD" // string | `client_id` of the app
+	authServerId := "GeGRTEr7f3yu2n7grw22" // string | `id` of the Authorization Server
+	clientId := "52Uy4BUWVBOjFItcg2jWsmnd83Ad8dD" // string | `client_id` of the app
 
-    configuration := openapiclient.NewConfiguration()
-    apiClient := openapiclient.NewAPIClient(configuration)
-    r, err := apiClient.AuthorizationServerClientsAPI.RevokeRefreshTokensForAuthorizationServerAndClient(context.Background(), authServerId, clientId).Execute()
-    if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `AuthorizationServerClientsAPI.RevokeRefreshTokensForAuthorizationServerAndClient``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-    }
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	r, err := apiClient.AuthorizationServerClientsAPI.RevokeRefreshTokensForAuthorizationServerAndClient(context.Background(), authServerId, clientId).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `AuthorizationServerClientsAPI.RevokeRefreshTokensForAuthorizationServerAndClient``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
 }
 ```
 

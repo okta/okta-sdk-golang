@@ -72,18 +72,6 @@ func (dst *ListPushProviders200ResponseInner) UnmarshalJSON(data []byte) error {
 		}
 	}
 
-	// check if the discriminator value is 'APNSPushProvider'
-	if jsonDict["providerType"] == "APNSPushProvider" {
-		// try to unmarshal JSON data into APNSPushProvider
-		err = json.Unmarshal(data, &dst.APNSPushProvider)
-		if err == nil {
-			return nil // data stored in dst.APNSPushProvider, return on the first match
-		} else {
-			dst.APNSPushProvider = nil
-			return fmt.Errorf("Failed to unmarshal ListPushProviders200ResponseInner as APNSPushProvider: %s", err.Error())
-		}
-	}
-
 	// check if the discriminator value is 'FCM'
 	if jsonDict["providerType"] == "FCM" {
 		// try to unmarshal JSON data into FCMPushProvider
@@ -93,6 +81,18 @@ func (dst *ListPushProviders200ResponseInner) UnmarshalJSON(data []byte) error {
 		} else {
 			dst.FCMPushProvider = nil
 			return fmt.Errorf("Failed to unmarshal ListPushProviders200ResponseInner as FCMPushProvider: %s", err.Error())
+		}
+	}
+
+	// check if the discriminator value is 'APNSPushProvider'
+	if jsonDict["providerType"] == "APNSPushProvider" {
+		// try to unmarshal JSON data into APNSPushProvider
+		err = json.Unmarshal(data, &dst.APNSPushProvider)
+		if err == nil {
+			return nil // data stored in dst.APNSPushProvider, return on the first match
+		} else {
+			dst.APNSPushProvider = nil
+			return fmt.Errorf("Failed to unmarshal ListPushProviders200ResponseInner as APNSPushProvider: %s", err.Error())
 		}
 	}
 

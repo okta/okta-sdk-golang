@@ -39,7 +39,7 @@ type ApiToken struct {
 	Name        string           `json:"name"`
 	Network     *ApiTokenNetwork `json:"network,omitempty"`
 	// A time duration specified as an [ISO-8601 duration](https://en.wikipedia.org/wiki/ISO_8601#Durations).
-	TokenWindow          *string    `json:"tokenWindow,omitempty"`
+	TokenWindow          *string    `json:"tokenWindow,omitempty" validate:"regexp=^P(?:$)(\\\\d+Y)?(\\\\d+M)?(\\\\d+W)?(\\\\d+D)?(T(?:\\\\d)(\\\\d+H)?(\\\\d+M)?(\\\\d+S)?)?$"`
 	UserId               *string    `json:"userId,omitempty"`
 	Link                 *LinksSelf `json:"_link,omitempty"`
 	AdditionalProperties map[string]interface{}

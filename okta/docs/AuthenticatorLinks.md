@@ -7,7 +7,7 @@ Name | Type | Description | Notes
 **Self** | Pointer to [**HrefObjectSelfLink**](HrefObjectSelfLink.md) |  | [optional] 
 **Activate** | Pointer to [**HrefObjectActivateLink**](HrefObjectActivateLink.md) |  | [optional] 
 **Deactivate** | Pointer to [**HrefObjectDeactivateLink**](HrefObjectDeactivateLink.md) |  | [optional] 
-**Methods** | Pointer to [**HrefObject**](HrefObject.md) |  | [optional] 
+**Methods** | Pointer to [**HrefObject**](HrefObject.md) | Link to Authenticator methods | [optional] 
 
 ## Methods
 

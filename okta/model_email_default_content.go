@@ -33,8 +33,8 @@ type EmailDefaultContent struct {
 	// The HTML body of the email. May contain [variable references](https://velocity.apache.org/engine/1.7/user-guide.html#references).   <x-lifecycle class=\"ea\"></x-lifecycle> Not required if Custom languages for Okta Email Templates is enabled. A `null` body is replaced with a default value from one of the following in priority order:  1. An existing default email customization, if one exists 2. Okta-provided translated content for the specified language, if one exists 3. Okta-provided translated content for the brand locale, if it's set  4. Okta-provided content in English
 	Body string `json:"body"`
 	// The email subject. May contain [variable references](https://velocity.apache.org/engine/1.7/user-guide.html#references).  <x-lifecycle class=\"ea\"></x-lifecycle> Not required if Custom languages for Okta Email Templates is enabled. A `null` subject is replaced with a default value from one of the following in priority order:  1. An existing default email customization, if one exists 2. Okta-provided translated content for the specified language, if one exists 3. Okta-provided translated content for the brand locale, if it's set 4. Okta-provided content in English
-	Subject              string                         `json:"subject"`
-	Links                *EmailDefaultContentAllOfLinks `json:"_links,omitempty"`
+	Subject              string                 `json:"subject"`
+	Links                map[string]interface{} `json:"_links,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -108,17 +108,17 @@ func (o *EmailDefaultContent) SetSubject(v string) {
 }
 
 // GetLinks returns the Links field value if set, zero value otherwise.
-func (o *EmailDefaultContent) GetLinks() EmailDefaultContentAllOfLinks {
+func (o *EmailDefaultContent) GetLinks() map[string]interface{} {
 	if o == nil || o.Links == nil {
-		var ret EmailDefaultContentAllOfLinks
+		var ret map[string]interface{}
 		return ret
 	}
-	return *o.Links
+	return o.Links
 }
 
 // GetLinksOk returns a tuple with the Links field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *EmailDefaultContent) GetLinksOk() (*EmailDefaultContentAllOfLinks, bool) {
+func (o *EmailDefaultContent) GetLinksOk() (map[string]interface{}, bool) {
 	if o == nil || o.Links == nil {
 		return nil, false
 	}
@@ -134,9 +134,9 @@ func (o *EmailDefaultContent) HasLinks() bool {
 	return false
 }
 
-// SetLinks gets a reference to the given EmailDefaultContentAllOfLinks and assigns it to the Links field.
-func (o *EmailDefaultContent) SetLinks(v EmailDefaultContentAllOfLinks) {
-	o.Links = &v
+// SetLinks gets a reference to the given map[string]interface{} and assigns it to the Links field.
+func (o *EmailDefaultContent) SetLinks(v map[string]interface{}) {
+	o.Links = v
 }
 
 func (o EmailDefaultContent) MarshalJSON() ([]byte, error) {

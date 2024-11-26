@@ -33,7 +33,7 @@ type LogStreamSettingsAws struct {
 	// Your AWS account ID
 	AccountId string `json:"accountId"`
 	// An alphanumeric name (no spaces) to identify this event source in AWS EventBridge
-	EventSourceName string `json:"eventSourceName"`
+	EventSourceName string `json:"eventSourceName" validate:"regexp=^[a-zA-Z0-9.\\\\-_]$"`
 	// The destination AWS region where your event source is located
 	Region               string `json:"region"`
 	AdditionalProperties map[string]interface{}

@@ -26,24 +26,24 @@ Retrieve an API Token's Metadata
 package main
 
 import (
-    "context"
-    "fmt"
-    "os"
-    openapiclient "github.com/okta/okta-sdk-golang"
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/okta/okta-sdk-golang"
 )
 
 func main() {
-    apiTokenId := "00Tabcdefg1234567890" // string | id of the API Token
+	apiTokenId := "00Tabcdefg1234567890" // string | id of the API Token
 
-    configuration := openapiclient.NewConfiguration()
-    apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.ApiTokenAPI.GetApiToken(context.Background(), apiTokenId).Execute()
-    if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `ApiTokenAPI.GetApiToken``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-    }
-    // response from `GetApiToken`: ApiToken
-    fmt.Fprintf(os.Stdout, "Response from `ApiTokenAPI.GetApiToken`: %v\n", resp)
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.ApiTokenAPI.GetApiToken(context.Background(), apiTokenId).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `ApiTokenAPI.GetApiToken``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `GetApiToken`: ApiToken
+	fmt.Fprintf(os.Stdout, "Response from `ApiTokenAPI.GetApiToken`: %v\n", resp)
 }
 ```
 
@@ -96,23 +96,23 @@ List all API Token Metadata
 package main
 
 import (
-    "context"
-    "fmt"
-    "os"
-    openapiclient "github.com/okta/okta-sdk-golang"
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/okta/okta-sdk-golang"
 )
 
 func main() {
 
-    configuration := openapiclient.NewConfiguration()
-    apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.ApiTokenAPI.ListApiTokens(context.Background()).Execute()
-    if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `ApiTokenAPI.ListApiTokens``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-    }
-    // response from `ListApiTokens`: []ApiToken
-    fmt.Fprintf(os.Stdout, "Response from `ApiTokenAPI.ListApiTokens`: %v\n", resp)
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.ApiTokenAPI.ListApiTokens(context.Background()).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `ApiTokenAPI.ListApiTokens``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `ListApiTokens`: []ApiToken
+	fmt.Fprintf(os.Stdout, "Response from `ApiTokenAPI.ListApiTokens`: %v\n", resp)
 }
 ```
 
@@ -157,22 +157,22 @@ Revoke an API Token
 package main
 
 import (
-    "context"
-    "fmt"
-    "os"
-    openapiclient "github.com/okta/okta-sdk-golang"
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/okta/okta-sdk-golang"
 )
 
 func main() {
-    apiTokenId := "00Tabcdefg1234567890" // string | id of the API Token
+	apiTokenId := "00Tabcdefg1234567890" // string | id of the API Token
 
-    configuration := openapiclient.NewConfiguration()
-    apiClient := openapiclient.NewAPIClient(configuration)
-    r, err := apiClient.ApiTokenAPI.RevokeApiToken(context.Background(), apiTokenId).Execute()
-    if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `ApiTokenAPI.RevokeApiToken``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-    }
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	r, err := apiClient.ApiTokenAPI.RevokeApiToken(context.Background(), apiTokenId).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `ApiTokenAPI.RevokeApiToken``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
 }
 ```
 
@@ -225,21 +225,21 @@ Revoke the Current API Token
 package main
 
 import (
-    "context"
-    "fmt"
-    "os"
-    openapiclient "github.com/okta/okta-sdk-golang"
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/okta/okta-sdk-golang"
 )
 
 func main() {
 
-    configuration := openapiclient.NewConfiguration()
-    apiClient := openapiclient.NewAPIClient(configuration)
-    r, err := apiClient.ApiTokenAPI.RevokeCurrentApiToken(context.Background()).Execute()
-    if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `ApiTokenAPI.RevokeCurrentApiToken``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-    }
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	r, err := apiClient.ApiTokenAPI.RevokeCurrentApiToken(context.Background()).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `ApiTokenAPI.RevokeCurrentApiToken``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
 }
 ```
 
@@ -284,25 +284,25 @@ Upsert an API Token Network Condition
 package main
 
 import (
-    "context"
-    "fmt"
-    "os"
-    openapiclient "github.com/okta/okta-sdk-golang"
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/okta/okta-sdk-golang"
 )
 
 func main() {
-    apiTokenId := "00Tabcdefg1234567890" // string | id of the API Token
-    apiTokenUpdate := *openapiclient.NewApiTokenUpdate() // ApiTokenUpdate | 
+	apiTokenId := "00Tabcdefg1234567890" // string | id of the API Token
+	apiTokenUpdate := *openapiclient.NewApiTokenUpdate() // ApiTokenUpdate | 
 
-    configuration := openapiclient.NewConfiguration()
-    apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.ApiTokenAPI.UpsertApiToken(context.Background(), apiTokenId).ApiTokenUpdate(apiTokenUpdate).Execute()
-    if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `ApiTokenAPI.UpsertApiToken``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-    }
-    // response from `UpsertApiToken`: ApiToken
-    fmt.Fprintf(os.Stdout, "Response from `ApiTokenAPI.UpsertApiToken`: %v\n", resp)
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.ApiTokenAPI.UpsertApiToken(context.Background(), apiTokenId).ApiTokenUpdate(apiTokenUpdate).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `ApiTokenAPI.UpsertApiToken``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `UpsertApiToken`: ApiToken
+	fmt.Fprintf(os.Stdout, "Response from `ApiTokenAPI.UpsertApiToken`: %v\n", resp)
 }
 ```
 

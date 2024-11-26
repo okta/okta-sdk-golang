@@ -22,31 +22,31 @@ List all System Log Events
 package main
 
 import (
-    "context"
-    "fmt"
-    "os"
+	"context"
+	"fmt"
+	"os"
     "time"
-    openapiclient "github.com/okta/okta-sdk-golang"
+	openapiclient "github.com/okta/okta-sdk-golang"
 )
 
 func main() {
-    since := time.Now() // time.Time |  (optional)
-    until := time.Now() // time.Time |  (optional)
-    filter := "filter_example" // string |  (optional)
-    q := "q_example" // string |  (optional)
-    limit := int32(56) // int32 |  (optional) (default to 100)
-    sortOrder := "sortOrder_example" // string |  (optional) (default to "ASCENDING")
-    after := "after_example" // string |  (optional)
+	since := time.Now() // time.Time |  (optional)
+	until := time.Now() // time.Time |  (optional)
+	filter := "filter_example" // string |  (optional)
+	q := "q_example" // string |  (optional)
+	limit := int32(56) // int32 |  (optional) (default to 100)
+	sortOrder := "sortOrder_example" // string |  (optional) (default to "ASCENDING")
+	after := "after_example" // string |  (optional)
 
-    configuration := openapiclient.NewConfiguration()
-    apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.SystemLogAPI.ListLogEvents(context.Background()).Since(since).Until(until).Filter(filter).Q(q).Limit(limit).SortOrder(sortOrder).After(after).Execute()
-    if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `SystemLogAPI.ListLogEvents``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-    }
-    // response from `ListLogEvents`: []LogEvent
-    fmt.Fprintf(os.Stdout, "Response from `SystemLogAPI.ListLogEvents`: %v\n", resp)
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.SystemLogAPI.ListLogEvents(context.Background()).Since(since).Until(until).Filter(filter).Q(q).Limit(limit).SortOrder(sortOrder).After(after).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `SystemLogAPI.ListLogEvents``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `ListLogEvents`: []LogEvent
+	fmt.Fprintf(os.Stdout, "Response from `SystemLogAPI.ListLogEvents`: %v\n", resp)
 }
 ```
 

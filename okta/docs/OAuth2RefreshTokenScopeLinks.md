@@ -4,7 +4,7 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**Scope** | Pointer to [**AppCustomHrefObject**](AppCustomHrefObject.md) |  | [optional] 
+**Scope** | Pointer to [**AppCustomHrefObject**](AppCustomHrefObject.md) | Link to Scope resource | [optional] 
 
 ## Methods
 

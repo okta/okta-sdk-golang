@@ -128,18 +128,6 @@ func (dst *ListApplications200ResponseInner) UnmarshalJSON(data []byte) error {
 		}
 	}
 
-	// check if the discriminator value is 'AutoLoginApplication'
-	if jsonDict["signOnMode"] == "AutoLoginApplication" {
-		// try to unmarshal JSON data into AutoLoginApplication
-		err = json.Unmarshal(data, &dst.AutoLoginApplication)
-		if err == nil {
-			return nil // data stored in dst.AutoLoginApplication, return on the first match
-		} else {
-			dst.AutoLoginApplication = nil
-			return fmt.Errorf("Failed to unmarshal ListApplications200ResponseInner as AutoLoginApplication: %s", err.Error())
-		}
-	}
-
 	// check if the discriminator value is 'BASIC_AUTH'
 	if jsonDict["signOnMode"] == "BASIC_AUTH" {
 		// try to unmarshal JSON data into BasicAuthApplication
@@ -176,56 +164,8 @@ func (dst *ListApplications200ResponseInner) UnmarshalJSON(data []byte) error {
 		}
 	}
 
-	// check if the discriminator value is 'BasicAuthApplication'
-	if jsonDict["signOnMode"] == "BasicAuthApplication" {
-		// try to unmarshal JSON data into BasicAuthApplication
-		err = json.Unmarshal(data, &dst.BasicAuthApplication)
-		if err == nil {
-			return nil // data stored in dst.BasicAuthApplication, return on the first match
-		} else {
-			dst.BasicAuthApplication = nil
-			return fmt.Errorf("Failed to unmarshal ListApplications200ResponseInner as BasicAuthApplication: %s", err.Error())
-		}
-	}
-
-	// check if the discriminator value is 'BookmarkApplication'
-	if jsonDict["signOnMode"] == "BookmarkApplication" {
-		// try to unmarshal JSON data into BookmarkApplication
-		err = json.Unmarshal(data, &dst.BookmarkApplication)
-		if err == nil {
-			return nil // data stored in dst.BookmarkApplication, return on the first match
-		} else {
-			dst.BookmarkApplication = nil
-			return fmt.Errorf("Failed to unmarshal ListApplications200ResponseInner as BookmarkApplication: %s", err.Error())
-		}
-	}
-
-	// check if the discriminator value is 'BrowserPluginApplication'
-	if jsonDict["signOnMode"] == "BrowserPluginApplication" {
-		// try to unmarshal JSON data into BrowserPluginApplication
-		err = json.Unmarshal(data, &dst.BrowserPluginApplication)
-		if err == nil {
-			return nil // data stored in dst.BrowserPluginApplication, return on the first match
-		} else {
-			dst.BrowserPluginApplication = nil
-			return fmt.Errorf("Failed to unmarshal ListApplications200ResponseInner as BrowserPluginApplication: %s", err.Error())
-		}
-	}
-
 	// check if the discriminator value is 'OPENID_CONNECT'
 	if jsonDict["signOnMode"] == "OPENID_CONNECT" {
-		// try to unmarshal JSON data into OpenIdConnectApplication
-		err = json.Unmarshal(data, &dst.OpenIdConnectApplication)
-		if err == nil {
-			return nil // data stored in dst.OpenIdConnectApplication, return on the first match
-		} else {
-			dst.OpenIdConnectApplication = nil
-			return fmt.Errorf("Failed to unmarshal ListApplications200ResponseInner as OpenIdConnectApplication: %s", err.Error())
-		}
-	}
-
-	// check if the discriminator value is 'OpenIdConnectApplication'
-	if jsonDict["signOnMode"] == "OpenIdConnectApplication" {
 		// try to unmarshal JSON data into OpenIdConnectApplication
 		err = json.Unmarshal(data, &dst.OpenIdConnectApplication)
 		if err == nil {
@@ -272,6 +212,78 @@ func (dst *ListApplications200ResponseInner) UnmarshalJSON(data []byte) error {
 		}
 	}
 
+	// check if the discriminator value is 'WS_FEDERATION'
+	if jsonDict["signOnMode"] == "WS_FEDERATION" {
+		// try to unmarshal JSON data into WsFederationApplication
+		err = json.Unmarshal(data, &dst.WsFederationApplication)
+		if err == nil {
+			return nil // data stored in dst.WsFederationApplication, return on the first match
+		} else {
+			dst.WsFederationApplication = nil
+			return fmt.Errorf("Failed to unmarshal ListApplications200ResponseInner as WsFederationApplication: %s", err.Error())
+		}
+	}
+
+	// check if the discriminator value is 'AutoLoginApplication'
+	if jsonDict["signOnMode"] == "AutoLoginApplication" {
+		// try to unmarshal JSON data into AutoLoginApplication
+		err = json.Unmarshal(data, &dst.AutoLoginApplication)
+		if err == nil {
+			return nil // data stored in dst.AutoLoginApplication, return on the first match
+		} else {
+			dst.AutoLoginApplication = nil
+			return fmt.Errorf("Failed to unmarshal ListApplications200ResponseInner as AutoLoginApplication: %s", err.Error())
+		}
+	}
+
+	// check if the discriminator value is 'BasicAuthApplication'
+	if jsonDict["signOnMode"] == "BasicAuthApplication" {
+		// try to unmarshal JSON data into BasicAuthApplication
+		err = json.Unmarshal(data, &dst.BasicAuthApplication)
+		if err == nil {
+			return nil // data stored in dst.BasicAuthApplication, return on the first match
+		} else {
+			dst.BasicAuthApplication = nil
+			return fmt.Errorf("Failed to unmarshal ListApplications200ResponseInner as BasicAuthApplication: %s", err.Error())
+		}
+	}
+
+	// check if the discriminator value is 'BookmarkApplication'
+	if jsonDict["signOnMode"] == "BookmarkApplication" {
+		// try to unmarshal JSON data into BookmarkApplication
+		err = json.Unmarshal(data, &dst.BookmarkApplication)
+		if err == nil {
+			return nil // data stored in dst.BookmarkApplication, return on the first match
+		} else {
+			dst.BookmarkApplication = nil
+			return fmt.Errorf("Failed to unmarshal ListApplications200ResponseInner as BookmarkApplication: %s", err.Error())
+		}
+	}
+
+	// check if the discriminator value is 'BrowserPluginApplication'
+	if jsonDict["signOnMode"] == "BrowserPluginApplication" {
+		// try to unmarshal JSON data into BrowserPluginApplication
+		err = json.Unmarshal(data, &dst.BrowserPluginApplication)
+		if err == nil {
+			return nil // data stored in dst.BrowserPluginApplication, return on the first match
+		} else {
+			dst.BrowserPluginApplication = nil
+			return fmt.Errorf("Failed to unmarshal ListApplications200ResponseInner as BrowserPluginApplication: %s", err.Error())
+		}
+	}
+
+	// check if the discriminator value is 'OpenIdConnectApplication'
+	if jsonDict["signOnMode"] == "OpenIdConnectApplication" {
+		// try to unmarshal JSON data into OpenIdConnectApplication
+		err = json.Unmarshal(data, &dst.OpenIdConnectApplication)
+		if err == nil {
+			return nil // data stored in dst.OpenIdConnectApplication, return on the first match
+		} else {
+			dst.OpenIdConnectApplication = nil
+			return fmt.Errorf("Failed to unmarshal ListApplications200ResponseInner as OpenIdConnectApplication: %s", err.Error())
+		}
+	}
+
 	// check if the discriminator value is 'Saml11Application'
 	if jsonDict["signOnMode"] == "Saml11Application" {
 		// try to unmarshal JSON data into Saml11Application
@@ -305,18 +317,6 @@ func (dst *ListApplications200ResponseInner) UnmarshalJSON(data []byte) error {
 		} else {
 			dst.SecurePasswordStoreApplication = nil
 			return fmt.Errorf("Failed to unmarshal ListApplications200ResponseInner as SecurePasswordStoreApplication: %s", err.Error())
-		}
-	}
-
-	// check if the discriminator value is 'WS_FEDERATION'
-	if jsonDict["signOnMode"] == "WS_FEDERATION" {
-		// try to unmarshal JSON data into WsFederationApplication
-		err = json.Unmarshal(data, &dst.WsFederationApplication)
-		if err == nil {
-			return nil // data stored in dst.WsFederationApplication, return on the first match
-		} else {
-			dst.WsFederationApplication = nil
-			return fmt.Errorf("Failed to unmarshal ListApplications200ResponseInner as WsFederationApplication: %s", err.Error())
 		}
 	}
 

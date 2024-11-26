@@ -30,8 +30,10 @@ import (
 
 // OAuth2ScopeConsentGrantLinks struct for OAuth2ScopeConsentGrantLinks
 type OAuth2ScopeConsentGrantLinks struct {
-	Self                 *HrefObjectSelfLink  `json:"self,omitempty"`
-	App                  *AppCustomHrefObject `json:"app,omitempty"`
+	Self *HrefObjectSelfLink `json:"self,omitempty"`
+	// Link to the app resource
+	App *AppCustomHrefObject `json:"app,omitempty"`
+	// Link to the client resource
 	Client               *AppCustomHrefObject `json:"client,omitempty"`
 	AdditionalProperties map[string]interface{}
 }

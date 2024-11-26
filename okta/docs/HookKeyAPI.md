@@ -27,24 +27,24 @@ Create a key
 package main
 
 import (
-    "context"
-    "fmt"
-    "os"
-    openapiclient "github.com/okta/okta-sdk-golang"
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/okta/okta-sdk-golang"
 )
 
 func main() {
-    keyRequest := *openapiclient.NewKeyRequest() // KeyRequest | 
+	keyRequest := *openapiclient.NewKeyRequest() // KeyRequest | 
 
-    configuration := openapiclient.NewConfiguration()
-    apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.HookKeyAPI.CreateHookKey(context.Background()).KeyRequest(keyRequest).Execute()
-    if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `HookKeyAPI.CreateHookKey``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-    }
-    // response from `CreateHookKey`: HookKey
-    fmt.Fprintf(os.Stdout, "Response from `HookKeyAPI.CreateHookKey`: %v\n", resp)
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.HookKeyAPI.CreateHookKey(context.Background()).KeyRequest(keyRequest).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `HookKeyAPI.CreateHookKey``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `CreateHookKey`: HookKey
+	fmt.Fprintf(os.Stdout, "Response from `HookKeyAPI.CreateHookKey`: %v\n", resp)
 }
 ```
 
@@ -93,22 +93,22 @@ Delete a key
 package main
 
 import (
-    "context"
-    "fmt"
-    "os"
-    openapiclient "github.com/okta/okta-sdk-golang"
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/okta/okta-sdk-golang"
 )
 
 func main() {
-    hookKeyId := "XreKU5laGwBkjOTehusG" // string | `id` of the Hook Key
+	hookKeyId := "XreKU5laGwBkjOTehusG" // string | `id` of the Hook Key
 
-    configuration := openapiclient.NewConfiguration()
-    apiClient := openapiclient.NewAPIClient(configuration)
-    r, err := apiClient.HookKeyAPI.DeleteHookKey(context.Background(), hookKeyId).Execute()
-    if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `HookKeyAPI.DeleteHookKey``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-    }
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	r, err := apiClient.HookKeyAPI.DeleteHookKey(context.Background(), hookKeyId).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `HookKeyAPI.DeleteHookKey``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
 }
 ```
 
@@ -161,24 +161,24 @@ Retrieve a key
 package main
 
 import (
-    "context"
-    "fmt"
-    "os"
-    openapiclient "github.com/okta/okta-sdk-golang"
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/okta/okta-sdk-golang"
 )
 
 func main() {
-    hookKeyId := "XreKU5laGwBkjOTehusG" // string | `id` of the Hook Key
+	hookKeyId := "XreKU5laGwBkjOTehusG" // string | `id` of the Hook Key
 
-    configuration := openapiclient.NewConfiguration()
-    apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.HookKeyAPI.GetHookKey(context.Background(), hookKeyId).Execute()
-    if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `HookKeyAPI.GetHookKey``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-    }
-    // response from `GetHookKey`: HookKey
-    fmt.Fprintf(os.Stdout, "Response from `HookKeyAPI.GetHookKey`: %v\n", resp)
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.HookKeyAPI.GetHookKey(context.Background(), hookKeyId).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `HookKeyAPI.GetHookKey``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `GetHookKey`: HookKey
+	fmt.Fprintf(os.Stdout, "Response from `HookKeyAPI.GetHookKey`: %v\n", resp)
 }
 ```
 
@@ -231,24 +231,24 @@ Retrieve a public key
 package main
 
 import (
-    "context"
-    "fmt"
-    "os"
-    openapiclient "github.com/okta/okta-sdk-golang"
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/okta/okta-sdk-golang"
 )
 
 func main() {
-    publicKeyId := "FcH2P9Eg7wr0o8N2FuV0" // string | `id` of the Public Key
+	publicKeyId := "FcH2P9Eg7wr0o8N2FuV0" // string | `id` of the Public Key
 
-    configuration := openapiclient.NewConfiguration()
-    apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.HookKeyAPI.GetPublicKey(context.Background(), publicKeyId).Execute()
-    if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `HookKeyAPI.GetPublicKey``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-    }
-    // response from `GetPublicKey`: JsonWebKey
-    fmt.Fprintf(os.Stdout, "Response from `HookKeyAPI.GetPublicKey`: %v\n", resp)
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.HookKeyAPI.GetPublicKey(context.Background(), publicKeyId).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `HookKeyAPI.GetPublicKey``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `GetPublicKey`: JsonWebKey
+	fmt.Fprintf(os.Stdout, "Response from `HookKeyAPI.GetPublicKey`: %v\n", resp)
 }
 ```
 
@@ -301,23 +301,23 @@ List all keys
 package main
 
 import (
-    "context"
-    "fmt"
-    "os"
-    openapiclient "github.com/okta/okta-sdk-golang"
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/okta/okta-sdk-golang"
 )
 
 func main() {
 
-    configuration := openapiclient.NewConfiguration()
-    apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.HookKeyAPI.ListHookKeys(context.Background()).Execute()
-    if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `HookKeyAPI.ListHookKeys``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-    }
-    // response from `ListHookKeys`: []HookKey
-    fmt.Fprintf(os.Stdout, "Response from `HookKeyAPI.ListHookKeys`: %v\n", resp)
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.HookKeyAPI.ListHookKeys(context.Background()).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `HookKeyAPI.ListHookKeys``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `ListHookKeys`: []HookKey
+	fmt.Fprintf(os.Stdout, "Response from `HookKeyAPI.ListHookKeys`: %v\n", resp)
 }
 ```
 
@@ -362,25 +362,25 @@ Replace a key
 package main
 
 import (
-    "context"
-    "fmt"
-    "os"
-    openapiclient "github.com/okta/okta-sdk-golang"
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/okta/okta-sdk-golang"
 )
 
 func main() {
-    hookKeyId := "XreKU5laGwBkjOTehusG" // string | `id` of the Hook Key
-    keyRequest := *openapiclient.NewKeyRequest() // KeyRequest | 
+	hookKeyId := "XreKU5laGwBkjOTehusG" // string | `id` of the Hook Key
+	keyRequest := *openapiclient.NewKeyRequest() // KeyRequest | 
 
-    configuration := openapiclient.NewConfiguration()
-    apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.HookKeyAPI.ReplaceHookKey(context.Background(), hookKeyId).KeyRequest(keyRequest).Execute()
-    if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `HookKeyAPI.ReplaceHookKey``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-    }
-    // response from `ReplaceHookKey`: HookKey
-    fmt.Fprintf(os.Stdout, "Response from `HookKeyAPI.ReplaceHookKey`: %v\n", resp)
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.HookKeyAPI.ReplaceHookKey(context.Background(), hookKeyId).KeyRequest(keyRequest).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `HookKeyAPI.ReplaceHookKey``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `ReplaceHookKey`: HookKey
+	fmt.Fprintf(os.Stdout, "Response from `HookKeyAPI.ReplaceHookKey`: %v\n", resp)
 }
 ```
 

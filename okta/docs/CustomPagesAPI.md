@@ -40,22 +40,22 @@ Delete the Customized Error Page
 package main
 
 import (
-    "context"
-    "fmt"
-    "os"
-    openapiclient "github.com/okta/okta-sdk-golang"
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/okta/okta-sdk-golang"
 )
 
 func main() {
-    brandId := "brandId_example" // string | The ID of the brand
+	brandId := "brandId_example" // string | The ID of the brand
 
-    configuration := openapiclient.NewConfiguration()
-    apiClient := openapiclient.NewAPIClient(configuration)
-    r, err := apiClient.CustomPagesAPI.DeleteCustomizedErrorPage(context.Background(), brandId).Execute()
-    if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `CustomPagesAPI.DeleteCustomizedErrorPage``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-    }
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	r, err := apiClient.CustomPagesAPI.DeleteCustomizedErrorPage(context.Background(), brandId).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `CustomPagesAPI.DeleteCustomizedErrorPage``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
 }
 ```
 
@@ -108,22 +108,22 @@ Delete the Customized Sign-in Page
 package main
 
 import (
-    "context"
-    "fmt"
-    "os"
-    openapiclient "github.com/okta/okta-sdk-golang"
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/okta/okta-sdk-golang"
 )
 
 func main() {
-    brandId := "brandId_example" // string | The ID of the brand
+	brandId := "brandId_example" // string | The ID of the brand
 
-    configuration := openapiclient.NewConfiguration()
-    apiClient := openapiclient.NewAPIClient(configuration)
-    r, err := apiClient.CustomPagesAPI.DeleteCustomizedSignInPage(context.Background(), brandId).Execute()
-    if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `CustomPagesAPI.DeleteCustomizedSignInPage``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-    }
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	r, err := apiClient.CustomPagesAPI.DeleteCustomizedSignInPage(context.Background(), brandId).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `CustomPagesAPI.DeleteCustomizedSignInPage``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
 }
 ```
 
@@ -176,22 +176,22 @@ Delete the Preview Error Page
 package main
 
 import (
-    "context"
-    "fmt"
-    "os"
-    openapiclient "github.com/okta/okta-sdk-golang"
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/okta/okta-sdk-golang"
 )
 
 func main() {
-    brandId := "brandId_example" // string | The ID of the brand
+	brandId := "brandId_example" // string | The ID of the brand
 
-    configuration := openapiclient.NewConfiguration()
-    apiClient := openapiclient.NewAPIClient(configuration)
-    r, err := apiClient.CustomPagesAPI.DeletePreviewErrorPage(context.Background(), brandId).Execute()
-    if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `CustomPagesAPI.DeletePreviewErrorPage``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-    }
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	r, err := apiClient.CustomPagesAPI.DeletePreviewErrorPage(context.Background(), brandId).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `CustomPagesAPI.DeletePreviewErrorPage``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
 }
 ```
 
@@ -244,22 +244,22 @@ Delete the Preview Sign-in Page
 package main
 
 import (
-    "context"
-    "fmt"
-    "os"
-    openapiclient "github.com/okta/okta-sdk-golang"
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/okta/okta-sdk-golang"
 )
 
 func main() {
-    brandId := "brandId_example" // string | The ID of the brand
+	brandId := "brandId_example" // string | The ID of the brand
 
-    configuration := openapiclient.NewConfiguration()
-    apiClient := openapiclient.NewAPIClient(configuration)
-    r, err := apiClient.CustomPagesAPI.DeletePreviewSignInPage(context.Background(), brandId).Execute()
-    if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `CustomPagesAPI.DeletePreviewSignInPage``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-    }
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	r, err := apiClient.CustomPagesAPI.DeletePreviewSignInPage(context.Background(), brandId).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `CustomPagesAPI.DeletePreviewSignInPage``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
 }
 ```
 
@@ -312,24 +312,24 @@ Retrieve the Customized Error Page
 package main
 
 import (
-    "context"
-    "fmt"
-    "os"
-    openapiclient "github.com/okta/okta-sdk-golang"
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/okta/okta-sdk-golang"
 )
 
 func main() {
-    brandId := "brandId_example" // string | The ID of the brand
+	brandId := "brandId_example" // string | The ID of the brand
 
-    configuration := openapiclient.NewConfiguration()
-    apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.CustomPagesAPI.GetCustomizedErrorPage(context.Background(), brandId).Execute()
-    if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `CustomPagesAPI.GetCustomizedErrorPage``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-    }
-    // response from `GetCustomizedErrorPage`: ErrorPage
-    fmt.Fprintf(os.Stdout, "Response from `CustomPagesAPI.GetCustomizedErrorPage`: %v\n", resp)
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.CustomPagesAPI.GetCustomizedErrorPage(context.Background(), brandId).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `CustomPagesAPI.GetCustomizedErrorPage``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `GetCustomizedErrorPage`: ErrorPage
+	fmt.Fprintf(os.Stdout, "Response from `CustomPagesAPI.GetCustomizedErrorPage`: %v\n", resp)
 }
 ```
 
@@ -382,24 +382,24 @@ Retrieve the Customized Sign-in Page
 package main
 
 import (
-    "context"
-    "fmt"
-    "os"
-    openapiclient "github.com/okta/okta-sdk-golang"
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/okta/okta-sdk-golang"
 )
 
 func main() {
-    brandId := "brandId_example" // string | The ID of the brand
+	brandId := "brandId_example" // string | The ID of the brand
 
-    configuration := openapiclient.NewConfiguration()
-    apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.CustomPagesAPI.GetCustomizedSignInPage(context.Background(), brandId).Execute()
-    if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `CustomPagesAPI.GetCustomizedSignInPage``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-    }
-    // response from `GetCustomizedSignInPage`: SignInPage
-    fmt.Fprintf(os.Stdout, "Response from `CustomPagesAPI.GetCustomizedSignInPage`: %v\n", resp)
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.CustomPagesAPI.GetCustomizedSignInPage(context.Background(), brandId).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `CustomPagesAPI.GetCustomizedSignInPage``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `GetCustomizedSignInPage`: SignInPage
+	fmt.Fprintf(os.Stdout, "Response from `CustomPagesAPI.GetCustomizedSignInPage`: %v\n", resp)
 }
 ```
 
@@ -452,24 +452,24 @@ Retrieve the Default Error Page
 package main
 
 import (
-    "context"
-    "fmt"
-    "os"
-    openapiclient "github.com/okta/okta-sdk-golang"
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/okta/okta-sdk-golang"
 )
 
 func main() {
-    brandId := "brandId_example" // string | The ID of the brand
+	brandId := "brandId_example" // string | The ID of the brand
 
-    configuration := openapiclient.NewConfiguration()
-    apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.CustomPagesAPI.GetDefaultErrorPage(context.Background(), brandId).Execute()
-    if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `CustomPagesAPI.GetDefaultErrorPage``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-    }
-    // response from `GetDefaultErrorPage`: ErrorPage
-    fmt.Fprintf(os.Stdout, "Response from `CustomPagesAPI.GetDefaultErrorPage`: %v\n", resp)
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.CustomPagesAPI.GetDefaultErrorPage(context.Background(), brandId).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `CustomPagesAPI.GetDefaultErrorPage``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `GetDefaultErrorPage`: ErrorPage
+	fmt.Fprintf(os.Stdout, "Response from `CustomPagesAPI.GetDefaultErrorPage`: %v\n", resp)
 }
 ```
 
@@ -522,24 +522,24 @@ Retrieve the Default Sign-in Page
 package main
 
 import (
-    "context"
-    "fmt"
-    "os"
-    openapiclient "github.com/okta/okta-sdk-golang"
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/okta/okta-sdk-golang"
 )
 
 func main() {
-    brandId := "brandId_example" // string | The ID of the brand
+	brandId := "brandId_example" // string | The ID of the brand
 
-    configuration := openapiclient.NewConfiguration()
-    apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.CustomPagesAPI.GetDefaultSignInPage(context.Background(), brandId).Execute()
-    if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `CustomPagesAPI.GetDefaultSignInPage``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-    }
-    // response from `GetDefaultSignInPage`: SignInPage
-    fmt.Fprintf(os.Stdout, "Response from `CustomPagesAPI.GetDefaultSignInPage`: %v\n", resp)
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.CustomPagesAPI.GetDefaultSignInPage(context.Background(), brandId).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `CustomPagesAPI.GetDefaultSignInPage``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `GetDefaultSignInPage`: SignInPage
+	fmt.Fprintf(os.Stdout, "Response from `CustomPagesAPI.GetDefaultSignInPage`: %v\n", resp)
 }
 ```
 
@@ -592,25 +592,25 @@ Retrieve the Error Page Sub-Resources
 package main
 
 import (
-    "context"
-    "fmt"
-    "os"
-    openapiclient "github.com/okta/okta-sdk-golang"
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/okta/okta-sdk-golang"
 )
 
 func main() {
-    brandId := "brandId_example" // string | The ID of the brand
-    expand := []string{"Expand_example"} // []string | Specifies additional metadata to be included in the response (optional)
+	brandId := "brandId_example" // string | The ID of the brand
+	expand := []string{"Expand_example"} // []string | Specifies additional metadata to be included in the response (optional)
 
-    configuration := openapiclient.NewConfiguration()
-    apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.CustomPagesAPI.GetErrorPage(context.Background(), brandId).Expand(expand).Execute()
-    if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `CustomPagesAPI.GetErrorPage``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-    }
-    // response from `GetErrorPage`: PageRoot
-    fmt.Fprintf(os.Stdout, "Response from `CustomPagesAPI.GetErrorPage`: %v\n", resp)
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.CustomPagesAPI.GetErrorPage(context.Background(), brandId).Expand(expand).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `CustomPagesAPI.GetErrorPage``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `GetErrorPage`: PageRoot
+	fmt.Fprintf(os.Stdout, "Response from `CustomPagesAPI.GetErrorPage`: %v\n", resp)
 }
 ```
 
@@ -664,24 +664,24 @@ Retrieve the Preview Error Page Preview
 package main
 
 import (
-    "context"
-    "fmt"
-    "os"
-    openapiclient "github.com/okta/okta-sdk-golang"
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/okta/okta-sdk-golang"
 )
 
 func main() {
-    brandId := "brandId_example" // string | The ID of the brand
+	brandId := "brandId_example" // string | The ID of the brand
 
-    configuration := openapiclient.NewConfiguration()
-    apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.CustomPagesAPI.GetPreviewErrorPage(context.Background(), brandId).Execute()
-    if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `CustomPagesAPI.GetPreviewErrorPage``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-    }
-    // response from `GetPreviewErrorPage`: ErrorPage
-    fmt.Fprintf(os.Stdout, "Response from `CustomPagesAPI.GetPreviewErrorPage`: %v\n", resp)
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.CustomPagesAPI.GetPreviewErrorPage(context.Background(), brandId).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `CustomPagesAPI.GetPreviewErrorPage``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `GetPreviewErrorPage`: ErrorPage
+	fmt.Fprintf(os.Stdout, "Response from `CustomPagesAPI.GetPreviewErrorPage`: %v\n", resp)
 }
 ```
 
@@ -734,24 +734,24 @@ Retrieve the Preview Sign-in Page Preview
 package main
 
 import (
-    "context"
-    "fmt"
-    "os"
-    openapiclient "github.com/okta/okta-sdk-golang"
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/okta/okta-sdk-golang"
 )
 
 func main() {
-    brandId := "brandId_example" // string | The ID of the brand
+	brandId := "brandId_example" // string | The ID of the brand
 
-    configuration := openapiclient.NewConfiguration()
-    apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.CustomPagesAPI.GetPreviewSignInPage(context.Background(), brandId).Execute()
-    if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `CustomPagesAPI.GetPreviewSignInPage``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-    }
-    // response from `GetPreviewSignInPage`: SignInPage
-    fmt.Fprintf(os.Stdout, "Response from `CustomPagesAPI.GetPreviewSignInPage`: %v\n", resp)
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.CustomPagesAPI.GetPreviewSignInPage(context.Background(), brandId).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `CustomPagesAPI.GetPreviewSignInPage``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `GetPreviewSignInPage`: SignInPage
+	fmt.Fprintf(os.Stdout, "Response from `CustomPagesAPI.GetPreviewSignInPage`: %v\n", resp)
 }
 ```
 
@@ -804,25 +804,25 @@ Retrieve the Sign-in Page Sub-Resources
 package main
 
 import (
-    "context"
-    "fmt"
-    "os"
-    openapiclient "github.com/okta/okta-sdk-golang"
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/okta/okta-sdk-golang"
 )
 
 func main() {
-    brandId := "brandId_example" // string | The ID of the brand
-    expand := []string{"Expand_example"} // []string | Specifies additional metadata to be included in the response (optional)
+	brandId := "brandId_example" // string | The ID of the brand
+	expand := []string{"Expand_example"} // []string | Specifies additional metadata to be included in the response (optional)
 
-    configuration := openapiclient.NewConfiguration()
-    apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.CustomPagesAPI.GetSignInPage(context.Background(), brandId).Expand(expand).Execute()
-    if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `CustomPagesAPI.GetSignInPage``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-    }
-    // response from `GetSignInPage`: PageRoot
-    fmt.Fprintf(os.Stdout, "Response from `CustomPagesAPI.GetSignInPage`: %v\n", resp)
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.CustomPagesAPI.GetSignInPage(context.Background(), brandId).Expand(expand).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `CustomPagesAPI.GetSignInPage``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `GetSignInPage`: PageRoot
+	fmt.Fprintf(os.Stdout, "Response from `CustomPagesAPI.GetSignInPage`: %v\n", resp)
 }
 ```
 
@@ -876,24 +876,24 @@ Retrieve the Sign-out Page Settings
 package main
 
 import (
-    "context"
-    "fmt"
-    "os"
-    openapiclient "github.com/okta/okta-sdk-golang"
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/okta/okta-sdk-golang"
 )
 
 func main() {
-    brandId := "brandId_example" // string | The ID of the brand
+	brandId := "brandId_example" // string | The ID of the brand
 
-    configuration := openapiclient.NewConfiguration()
-    apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.CustomPagesAPI.GetSignOutPageSettings(context.Background(), brandId).Execute()
-    if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `CustomPagesAPI.GetSignOutPageSettings``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-    }
-    // response from `GetSignOutPageSettings`: HostedPage
-    fmt.Fprintf(os.Stdout, "Response from `CustomPagesAPI.GetSignOutPageSettings`: %v\n", resp)
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.CustomPagesAPI.GetSignOutPageSettings(context.Background(), brandId).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `CustomPagesAPI.GetSignOutPageSettings``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `GetSignOutPageSettings`: HostedPage
+	fmt.Fprintf(os.Stdout, "Response from `CustomPagesAPI.GetSignOutPageSettings`: %v\n", resp)
 }
 ```
 
@@ -946,24 +946,24 @@ List all Sign-in Widget Versions
 package main
 
 import (
-    "context"
-    "fmt"
-    "os"
-    openapiclient "github.com/okta/okta-sdk-golang"
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/okta/okta-sdk-golang"
 )
 
 func main() {
-    brandId := "brandId_example" // string | The ID of the brand
+	brandId := "brandId_example" // string | The ID of the brand
 
-    configuration := openapiclient.NewConfiguration()
-    apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.CustomPagesAPI.ListAllSignInWidgetVersions(context.Background(), brandId).Execute()
-    if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `CustomPagesAPI.ListAllSignInWidgetVersions``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-    }
-    // response from `ListAllSignInWidgetVersions`: []string
-    fmt.Fprintf(os.Stdout, "Response from `CustomPagesAPI.ListAllSignInWidgetVersions`: %v\n", resp)
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.CustomPagesAPI.ListAllSignInWidgetVersions(context.Background(), brandId).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `CustomPagesAPI.ListAllSignInWidgetVersions``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `ListAllSignInWidgetVersions`: []string
+	fmt.Fprintf(os.Stdout, "Response from `CustomPagesAPI.ListAllSignInWidgetVersions`: %v\n", resp)
 }
 ```
 
@@ -1016,25 +1016,25 @@ Replace the Customized Error Page
 package main
 
 import (
-    "context"
-    "fmt"
-    "os"
-    openapiclient "github.com/okta/okta-sdk-golang"
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/okta/okta-sdk-golang"
 )
 
 func main() {
-    brandId := "brandId_example" // string | The ID of the brand
-    errorPage := *openapiclient.NewErrorPage() // ErrorPage | 
+	brandId := "brandId_example" // string | The ID of the brand
+	errorPage := *openapiclient.NewErrorPage() // ErrorPage | 
 
-    configuration := openapiclient.NewConfiguration()
-    apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.CustomPagesAPI.ReplaceCustomizedErrorPage(context.Background(), brandId).ErrorPage(errorPage).Execute()
-    if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `CustomPagesAPI.ReplaceCustomizedErrorPage``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-    }
-    // response from `ReplaceCustomizedErrorPage`: ErrorPage
-    fmt.Fprintf(os.Stdout, "Response from `CustomPagesAPI.ReplaceCustomizedErrorPage`: %v\n", resp)
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.CustomPagesAPI.ReplaceCustomizedErrorPage(context.Background(), brandId).ErrorPage(errorPage).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `CustomPagesAPI.ReplaceCustomizedErrorPage``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `ReplaceCustomizedErrorPage`: ErrorPage
+	fmt.Fprintf(os.Stdout, "Response from `CustomPagesAPI.ReplaceCustomizedErrorPage`: %v\n", resp)
 }
 ```
 
@@ -1088,25 +1088,25 @@ Replace the Customized Sign-in Page
 package main
 
 import (
-    "context"
-    "fmt"
-    "os"
-    openapiclient "github.com/okta/okta-sdk-golang"
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/okta/okta-sdk-golang"
 )
 
 func main() {
-    brandId := "brandId_example" // string | The ID of the brand
-    signInPage := *openapiclient.NewSignInPage() // SignInPage | 
+	brandId := "brandId_example" // string | The ID of the brand
+	signInPage := *openapiclient.NewSignInPage() // SignInPage | 
 
-    configuration := openapiclient.NewConfiguration()
-    apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.CustomPagesAPI.ReplaceCustomizedSignInPage(context.Background(), brandId).SignInPage(signInPage).Execute()
-    if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `CustomPagesAPI.ReplaceCustomizedSignInPage``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-    }
-    // response from `ReplaceCustomizedSignInPage`: SignInPage
-    fmt.Fprintf(os.Stdout, "Response from `CustomPagesAPI.ReplaceCustomizedSignInPage`: %v\n", resp)
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.CustomPagesAPI.ReplaceCustomizedSignInPage(context.Background(), brandId).SignInPage(signInPage).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `CustomPagesAPI.ReplaceCustomizedSignInPage``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `ReplaceCustomizedSignInPage`: SignInPage
+	fmt.Fprintf(os.Stdout, "Response from `CustomPagesAPI.ReplaceCustomizedSignInPage`: %v\n", resp)
 }
 ```
 
@@ -1160,25 +1160,25 @@ Replace the Preview Error Page
 package main
 
 import (
-    "context"
-    "fmt"
-    "os"
-    openapiclient "github.com/okta/okta-sdk-golang"
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/okta/okta-sdk-golang"
 )
 
 func main() {
-    brandId := "brandId_example" // string | The ID of the brand
-    errorPage := *openapiclient.NewErrorPage() // ErrorPage | 
+	brandId := "brandId_example" // string | The ID of the brand
+	errorPage := *openapiclient.NewErrorPage() // ErrorPage | 
 
-    configuration := openapiclient.NewConfiguration()
-    apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.CustomPagesAPI.ReplacePreviewErrorPage(context.Background(), brandId).ErrorPage(errorPage).Execute()
-    if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `CustomPagesAPI.ReplacePreviewErrorPage``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-    }
-    // response from `ReplacePreviewErrorPage`: ErrorPage
-    fmt.Fprintf(os.Stdout, "Response from `CustomPagesAPI.ReplacePreviewErrorPage`: %v\n", resp)
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.CustomPagesAPI.ReplacePreviewErrorPage(context.Background(), brandId).ErrorPage(errorPage).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `CustomPagesAPI.ReplacePreviewErrorPage``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `ReplacePreviewErrorPage`: ErrorPage
+	fmt.Fprintf(os.Stdout, "Response from `CustomPagesAPI.ReplacePreviewErrorPage`: %v\n", resp)
 }
 ```
 
@@ -1232,25 +1232,25 @@ Replace the Preview Sign-in Page
 package main
 
 import (
-    "context"
-    "fmt"
-    "os"
-    openapiclient "github.com/okta/okta-sdk-golang"
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/okta/okta-sdk-golang"
 )
 
 func main() {
-    brandId := "brandId_example" // string | The ID of the brand
-    signInPage := *openapiclient.NewSignInPage() // SignInPage | 
+	brandId := "brandId_example" // string | The ID of the brand
+	signInPage := *openapiclient.NewSignInPage() // SignInPage | 
 
-    configuration := openapiclient.NewConfiguration()
-    apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.CustomPagesAPI.ReplacePreviewSignInPage(context.Background(), brandId).SignInPage(signInPage).Execute()
-    if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `CustomPagesAPI.ReplacePreviewSignInPage``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-    }
-    // response from `ReplacePreviewSignInPage`: SignInPage
-    fmt.Fprintf(os.Stdout, "Response from `CustomPagesAPI.ReplacePreviewSignInPage`: %v\n", resp)
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.CustomPagesAPI.ReplacePreviewSignInPage(context.Background(), brandId).SignInPage(signInPage).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `CustomPagesAPI.ReplacePreviewSignInPage``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `ReplacePreviewSignInPage`: SignInPage
+	fmt.Fprintf(os.Stdout, "Response from `CustomPagesAPI.ReplacePreviewSignInPage`: %v\n", resp)
 }
 ```
 
@@ -1304,25 +1304,25 @@ Replace the Sign-out Page Settings
 package main
 
 import (
-    "context"
-    "fmt"
-    "os"
-    openapiclient "github.com/okta/okta-sdk-golang"
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/okta/okta-sdk-golang"
 )
 
 func main() {
-    brandId := "brandId_example" // string | The ID of the brand
-    hostedPage := *openapiclient.NewHostedPage("Type_example") // HostedPage | 
+	brandId := "brandId_example" // string | The ID of the brand
+	hostedPage := *openapiclient.NewHostedPage("Type_example") // HostedPage | 
 
-    configuration := openapiclient.NewConfiguration()
-    apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.CustomPagesAPI.ReplaceSignOutPageSettings(context.Background(), brandId).HostedPage(hostedPage).Execute()
-    if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `CustomPagesAPI.ReplaceSignOutPageSettings``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-    }
-    // response from `ReplaceSignOutPageSettings`: HostedPage
-    fmt.Fprintf(os.Stdout, "Response from `CustomPagesAPI.ReplaceSignOutPageSettings`: %v\n", resp)
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.CustomPagesAPI.ReplaceSignOutPageSettings(context.Background(), brandId).HostedPage(hostedPage).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `CustomPagesAPI.ReplaceSignOutPageSettings``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `ReplaceSignOutPageSettings`: HostedPage
+	fmt.Fprintf(os.Stdout, "Response from `CustomPagesAPI.ReplaceSignOutPageSettings`: %v\n", resp)
 }
 ```
 

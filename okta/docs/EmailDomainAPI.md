@@ -27,25 +27,25 @@ Create an Email Domain
 package main
 
 import (
-    "context"
-    "fmt"
-    "os"
-    openapiclient "github.com/okta/okta-sdk-golang"
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/okta/okta-sdk-golang"
 )
 
 func main() {
-    emailDomain := *openapiclient.NewEmailDomain("BrandId_example", "Domain_example", "DisplayName_example", "UserName_example") // EmailDomain | 
-    expand := []string{"Expand_example"} // []string | Specifies additional metadata to be included in the response (optional)
+	emailDomain := *openapiclient.NewEmailDomain("BrandId_example", "Domain_example", "DisplayName_example", "UserName_example") // EmailDomain | 
+	expand := []string{"Expand_example"} // []string | Specifies additional metadata to be included in the response (optional)
 
-    configuration := openapiclient.NewConfiguration()
-    apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.EmailDomainAPI.CreateEmailDomain(context.Background()).EmailDomain(emailDomain).Expand(expand).Execute()
-    if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `EmailDomainAPI.CreateEmailDomain``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-    }
-    // response from `CreateEmailDomain`: EmailDomainResponse
-    fmt.Fprintf(os.Stdout, "Response from `EmailDomainAPI.CreateEmailDomain`: %v\n", resp)
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.EmailDomainAPI.CreateEmailDomain(context.Background()).EmailDomain(emailDomain).Expand(expand).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `EmailDomainAPI.CreateEmailDomain``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `CreateEmailDomain`: EmailDomainResponse
+	fmt.Fprintf(os.Stdout, "Response from `EmailDomainAPI.CreateEmailDomain`: %v\n", resp)
 }
 ```
 
@@ -95,23 +95,23 @@ Delete an Email Domain
 package main
 
 import (
-    "context"
-    "fmt"
-    "os"
-    openapiclient "github.com/okta/okta-sdk-golang"
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/okta/okta-sdk-golang"
 )
 
 func main() {
-    emailDomainId := "emailDomainId_example" // string | 
-    expand := []string{"Expand_example"} // []string | Specifies additional metadata to be included in the response (optional)
+	emailDomainId := "emailDomainId_example" // string | 
+	expand := []string{"Expand_example"} // []string | Specifies additional metadata to be included in the response (optional)
 
-    configuration := openapiclient.NewConfiguration()
-    apiClient := openapiclient.NewAPIClient(configuration)
-    r, err := apiClient.EmailDomainAPI.DeleteEmailDomain(context.Background(), emailDomainId).Expand(expand).Execute()
-    if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `EmailDomainAPI.DeleteEmailDomain``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-    }
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	r, err := apiClient.EmailDomainAPI.DeleteEmailDomain(context.Background(), emailDomainId).Expand(expand).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `EmailDomainAPI.DeleteEmailDomain``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
 }
 ```
 
@@ -165,25 +165,25 @@ Retrieve an Email Domain
 package main
 
 import (
-    "context"
-    "fmt"
-    "os"
-    openapiclient "github.com/okta/okta-sdk-golang"
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/okta/okta-sdk-golang"
 )
 
 func main() {
-    emailDomainId := "emailDomainId_example" // string | 
-    expand := []string{"Expand_example"} // []string | Specifies additional metadata to be included in the response (optional)
+	emailDomainId := "emailDomainId_example" // string | 
+	expand := []string{"Expand_example"} // []string | Specifies additional metadata to be included in the response (optional)
 
-    configuration := openapiclient.NewConfiguration()
-    apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.EmailDomainAPI.GetEmailDomain(context.Background(), emailDomainId).Expand(expand).Execute()
-    if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `EmailDomainAPI.GetEmailDomain``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-    }
-    // response from `GetEmailDomain`: EmailDomainResponseWithEmbedded
-    fmt.Fprintf(os.Stdout, "Response from `EmailDomainAPI.GetEmailDomain`: %v\n", resp)
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.EmailDomainAPI.GetEmailDomain(context.Background(), emailDomainId).Expand(expand).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `EmailDomainAPI.GetEmailDomain``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `GetEmailDomain`: EmailDomainResponseWithEmbedded
+	fmt.Fprintf(os.Stdout, "Response from `EmailDomainAPI.GetEmailDomain`: %v\n", resp)
 }
 ```
 
@@ -237,24 +237,24 @@ List all Email Domains
 package main
 
 import (
-    "context"
-    "fmt"
-    "os"
-    openapiclient "github.com/okta/okta-sdk-golang"
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/okta/okta-sdk-golang"
 )
 
 func main() {
-    expand := []string{"Expand_example"} // []string | Specifies additional metadata to be included in the response (optional)
+	expand := []string{"Expand_example"} // []string | Specifies additional metadata to be included in the response (optional)
 
-    configuration := openapiclient.NewConfiguration()
-    apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.EmailDomainAPI.ListEmailDomains(context.Background()).Expand(expand).Execute()
-    if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `EmailDomainAPI.ListEmailDomains``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-    }
-    // response from `ListEmailDomains`: []EmailDomainResponseWithEmbedded
-    fmt.Fprintf(os.Stdout, "Response from `EmailDomainAPI.ListEmailDomains`: %v\n", resp)
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.EmailDomainAPI.ListEmailDomains(context.Background()).Expand(expand).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `EmailDomainAPI.ListEmailDomains``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `ListEmailDomains`: []EmailDomainResponseWithEmbedded
+	fmt.Fprintf(os.Stdout, "Response from `EmailDomainAPI.ListEmailDomains`: %v\n", resp)
 }
 ```
 
@@ -303,26 +303,26 @@ Replace an Email Domain
 package main
 
 import (
-    "context"
-    "fmt"
-    "os"
-    openapiclient "github.com/okta/okta-sdk-golang"
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/okta/okta-sdk-golang"
 )
 
 func main() {
-    emailDomainId := "emailDomainId_example" // string | 
-    updateEmailDomain := *openapiclient.NewUpdateEmailDomain("DisplayName_example", "UserName_example") // UpdateEmailDomain | 
-    expand := []string{"Expand_example"} // []string | Specifies additional metadata to be included in the response (optional)
+	emailDomainId := "emailDomainId_example" // string | 
+	updateEmailDomain := *openapiclient.NewUpdateEmailDomain("DisplayName_example", "UserName_example") // UpdateEmailDomain | 
+	expand := []string{"Expand_example"} // []string | Specifies additional metadata to be included in the response (optional)
 
-    configuration := openapiclient.NewConfiguration()
-    apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.EmailDomainAPI.ReplaceEmailDomain(context.Background(), emailDomainId).UpdateEmailDomain(updateEmailDomain).Expand(expand).Execute()
-    if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `EmailDomainAPI.ReplaceEmailDomain``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-    }
-    // response from `ReplaceEmailDomain`: EmailDomainResponse
-    fmt.Fprintf(os.Stdout, "Response from `EmailDomainAPI.ReplaceEmailDomain`: %v\n", resp)
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.EmailDomainAPI.ReplaceEmailDomain(context.Background(), emailDomainId).UpdateEmailDomain(updateEmailDomain).Expand(expand).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `EmailDomainAPI.ReplaceEmailDomain``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `ReplaceEmailDomain`: EmailDomainResponse
+	fmt.Fprintf(os.Stdout, "Response from `EmailDomainAPI.ReplaceEmailDomain`: %v\n", resp)
 }
 ```
 
@@ -377,24 +377,24 @@ Verify an Email Domain
 package main
 
 import (
-    "context"
-    "fmt"
-    "os"
-    openapiclient "github.com/okta/okta-sdk-golang"
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/okta/okta-sdk-golang"
 )
 
 func main() {
-    emailDomainId := "emailDomainId_example" // string | 
+	emailDomainId := "emailDomainId_example" // string | 
 
-    configuration := openapiclient.NewConfiguration()
-    apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.EmailDomainAPI.VerifyEmailDomain(context.Background(), emailDomainId).Execute()
-    if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `EmailDomainAPI.VerifyEmailDomain``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-    }
-    // response from `VerifyEmailDomain`: EmailDomainResponse
-    fmt.Fprintf(os.Stdout, "Response from `EmailDomainAPI.VerifyEmailDomain`: %v\n", resp)
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.EmailDomainAPI.VerifyEmailDomain(context.Background(), emailDomainId).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `EmailDomainAPI.VerifyEmailDomain``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `VerifyEmailDomain`: EmailDomainResponse
+	fmt.Fprintf(os.Stdout, "Response from `EmailDomainAPI.VerifyEmailDomain`: %v\n", resp)
 }
 ```
 

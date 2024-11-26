@@ -27,24 +27,24 @@ Create an SMS Template
 package main
 
 import (
-    "context"
-    "fmt"
-    "os"
-    openapiclient "github.com/okta/okta-sdk-golang"
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/okta/okta-sdk-golang"
 )
 
 func main() {
-    smsTemplate := *openapiclient.NewSmsTemplate() // SmsTemplate | 
+	smsTemplate := *openapiclient.NewSmsTemplate() // SmsTemplate | 
 
-    configuration := openapiclient.NewConfiguration()
-    apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.TemplateAPI.CreateSmsTemplate(context.Background()).SmsTemplate(smsTemplate).Execute()
-    if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `TemplateAPI.CreateSmsTemplate``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-    }
-    // response from `CreateSmsTemplate`: SmsTemplate
-    fmt.Fprintf(os.Stdout, "Response from `TemplateAPI.CreateSmsTemplate`: %v\n", resp)
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.TemplateAPI.CreateSmsTemplate(context.Background()).SmsTemplate(smsTemplate).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `TemplateAPI.CreateSmsTemplate``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `CreateSmsTemplate`: SmsTemplate
+	fmt.Fprintf(os.Stdout, "Response from `TemplateAPI.CreateSmsTemplate`: %v\n", resp)
 }
 ```
 
@@ -93,22 +93,22 @@ Delete an SMS Template
 package main
 
 import (
-    "context"
-    "fmt"
-    "os"
-    openapiclient "github.com/okta/okta-sdk-golang"
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/okta/okta-sdk-golang"
 )
 
 func main() {
-    templateId := "6NQUJ5yR3bpgEiYmq8IC" // string | `id` of the Template
+	templateId := "6NQUJ5yR3bpgEiYmq8IC" // string | `id` of the Template
 
-    configuration := openapiclient.NewConfiguration()
-    apiClient := openapiclient.NewAPIClient(configuration)
-    r, err := apiClient.TemplateAPI.DeleteSmsTemplate(context.Background(), templateId).Execute()
-    if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `TemplateAPI.DeleteSmsTemplate``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-    }
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	r, err := apiClient.TemplateAPI.DeleteSmsTemplate(context.Background(), templateId).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `TemplateAPI.DeleteSmsTemplate``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
 }
 ```
 
@@ -161,24 +161,24 @@ Retrieve an SMS Template
 package main
 
 import (
-    "context"
-    "fmt"
-    "os"
-    openapiclient "github.com/okta/okta-sdk-golang"
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/okta/okta-sdk-golang"
 )
 
 func main() {
-    templateId := "6NQUJ5yR3bpgEiYmq8IC" // string | `id` of the Template
+	templateId := "6NQUJ5yR3bpgEiYmq8IC" // string | `id` of the Template
 
-    configuration := openapiclient.NewConfiguration()
-    apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.TemplateAPI.GetSmsTemplate(context.Background(), templateId).Execute()
-    if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `TemplateAPI.GetSmsTemplate``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-    }
-    // response from `GetSmsTemplate`: SmsTemplate
-    fmt.Fprintf(os.Stdout, "Response from `TemplateAPI.GetSmsTemplate`: %v\n", resp)
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.TemplateAPI.GetSmsTemplate(context.Background(), templateId).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `TemplateAPI.GetSmsTemplate``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `GetSmsTemplate`: SmsTemplate
+	fmt.Fprintf(os.Stdout, "Response from `TemplateAPI.GetSmsTemplate`: %v\n", resp)
 }
 ```
 
@@ -231,24 +231,24 @@ List all SMS Templates
 package main
 
 import (
-    "context"
-    "fmt"
-    "os"
-    openapiclient "github.com/okta/okta-sdk-golang"
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/okta/okta-sdk-golang"
 )
 
 func main() {
-    templateType := "templateType_example" // string |  (optional)
+	templateType := "templateType_example" // string |  (optional)
 
-    configuration := openapiclient.NewConfiguration()
-    apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.TemplateAPI.ListSmsTemplates(context.Background()).TemplateType(templateType).Execute()
-    if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `TemplateAPI.ListSmsTemplates``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-    }
-    // response from `ListSmsTemplates`: []SmsTemplate
-    fmt.Fprintf(os.Stdout, "Response from `TemplateAPI.ListSmsTemplates`: %v\n", resp)
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.TemplateAPI.ListSmsTemplates(context.Background()).TemplateType(templateType).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `TemplateAPI.ListSmsTemplates``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `ListSmsTemplates`: []SmsTemplate
+	fmt.Fprintf(os.Stdout, "Response from `TemplateAPI.ListSmsTemplates`: %v\n", resp)
 }
 ```
 
@@ -297,25 +297,25 @@ Replace an SMS Template
 package main
 
 import (
-    "context"
-    "fmt"
-    "os"
-    openapiclient "github.com/okta/okta-sdk-golang"
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/okta/okta-sdk-golang"
 )
 
 func main() {
-    templateId := "6NQUJ5yR3bpgEiYmq8IC" // string | `id` of the Template
-    smsTemplate := *openapiclient.NewSmsTemplate() // SmsTemplate | 
+	templateId := "6NQUJ5yR3bpgEiYmq8IC" // string | `id` of the Template
+	smsTemplate := *openapiclient.NewSmsTemplate() // SmsTemplate | 
 
-    configuration := openapiclient.NewConfiguration()
-    apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.TemplateAPI.ReplaceSmsTemplate(context.Background(), templateId).SmsTemplate(smsTemplate).Execute()
-    if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `TemplateAPI.ReplaceSmsTemplate``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-    }
-    // response from `ReplaceSmsTemplate`: SmsTemplate
-    fmt.Fprintf(os.Stdout, "Response from `TemplateAPI.ReplaceSmsTemplate`: %v\n", resp)
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.TemplateAPI.ReplaceSmsTemplate(context.Background(), templateId).SmsTemplate(smsTemplate).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `TemplateAPI.ReplaceSmsTemplate``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `ReplaceSmsTemplate`: SmsTemplate
+	fmt.Fprintf(os.Stdout, "Response from `TemplateAPI.ReplaceSmsTemplate`: %v\n", resp)
 }
 ```
 
@@ -369,25 +369,25 @@ Update an SMS Template
 package main
 
 import (
-    "context"
-    "fmt"
-    "os"
-    openapiclient "github.com/okta/okta-sdk-golang"
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/okta/okta-sdk-golang"
 )
 
 func main() {
-    templateId := "6NQUJ5yR3bpgEiYmq8IC" // string | `id` of the Template
-    smsTemplate := *openapiclient.NewSmsTemplate() // SmsTemplate | 
+	templateId := "6NQUJ5yR3bpgEiYmq8IC" // string | `id` of the Template
+	smsTemplate := *openapiclient.NewSmsTemplate() // SmsTemplate | 
 
-    configuration := openapiclient.NewConfiguration()
-    apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.TemplateAPI.UpdateSmsTemplate(context.Background(), templateId).SmsTemplate(smsTemplate).Execute()
-    if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `TemplateAPI.UpdateSmsTemplate``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-    }
-    // response from `UpdateSmsTemplate`: SmsTemplate
-    fmt.Fprintf(os.Stdout, "Response from `TemplateAPI.UpdateSmsTemplate`: %v\n", resp)
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.TemplateAPI.UpdateSmsTemplate(context.Background(), templateId).SmsTemplate(smsTemplate).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `TemplateAPI.UpdateSmsTemplate``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `UpdateSmsTemplate`: SmsTemplate
+	fmt.Fprintf(os.Stdout, "Response from `TemplateAPI.UpdateSmsTemplate`: %v\n", resp)
 }
 ```
 

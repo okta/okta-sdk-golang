@@ -31,6 +31,10 @@ import (
 // InlineHookOAuthClientSecretConfig struct for InlineHookOAuthClientSecretConfig
 type InlineHookOAuthClientSecretConfig struct {
 	ClientSecret         *string                            `json:"clientSecret,omitempty"`
+	AuthType             *string                            `json:"authType,omitempty"`
+	ClientId             *string                            `json:"clientId,omitempty"`
+	Scope                *string                            `json:"scope,omitempty"`
+	TokenUrl             *string                            `json:"tokenUrl,omitempty"`
 	AuthScheme           *InlineHookChannelConfigAuthScheme `json:"authScheme,omitempty"`
 	Headers              []InlineHookChannelConfigHeaders   `json:"headers,omitempty"`
 	Method               *string                            `json:"method,omitempty"`
@@ -87,6 +91,134 @@ func (o *InlineHookOAuthClientSecretConfig) HasClientSecret() bool {
 // SetClientSecret gets a reference to the given string and assigns it to the ClientSecret field.
 func (o *InlineHookOAuthClientSecretConfig) SetClientSecret(v string) {
 	o.ClientSecret = &v
+}
+
+// GetAuthType returns the AuthType field value if set, zero value otherwise.
+func (o *InlineHookOAuthClientSecretConfig) GetAuthType() string {
+	if o == nil || o.AuthType == nil {
+		var ret string
+		return ret
+	}
+	return *o.AuthType
+}
+
+// GetAuthTypeOk returns a tuple with the AuthType field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *InlineHookOAuthClientSecretConfig) GetAuthTypeOk() (*string, bool) {
+	if o == nil || o.AuthType == nil {
+		return nil, false
+	}
+	return o.AuthType, true
+}
+
+// HasAuthType returns a boolean if a field has been set.
+func (o *InlineHookOAuthClientSecretConfig) HasAuthType() bool {
+	if o != nil && o.AuthType != nil {
+		return true
+	}
+
+	return false
+}
+
+// SetAuthType gets a reference to the given string and assigns it to the AuthType field.
+func (o *InlineHookOAuthClientSecretConfig) SetAuthType(v string) {
+	o.AuthType = &v
+}
+
+// GetClientId returns the ClientId field value if set, zero value otherwise.
+func (o *InlineHookOAuthClientSecretConfig) GetClientId() string {
+	if o == nil || o.ClientId == nil {
+		var ret string
+		return ret
+	}
+	return *o.ClientId
+}
+
+// GetClientIdOk returns a tuple with the ClientId field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *InlineHookOAuthClientSecretConfig) GetClientIdOk() (*string, bool) {
+	if o == nil || o.ClientId == nil {
+		return nil, false
+	}
+	return o.ClientId, true
+}
+
+// HasClientId returns a boolean if a field has been set.
+func (o *InlineHookOAuthClientSecretConfig) HasClientId() bool {
+	if o != nil && o.ClientId != nil {
+		return true
+	}
+
+	return false
+}
+
+// SetClientId gets a reference to the given string and assigns it to the ClientId field.
+func (o *InlineHookOAuthClientSecretConfig) SetClientId(v string) {
+	o.ClientId = &v
+}
+
+// GetScope returns the Scope field value if set, zero value otherwise.
+func (o *InlineHookOAuthClientSecretConfig) GetScope() string {
+	if o == nil || o.Scope == nil {
+		var ret string
+		return ret
+	}
+	return *o.Scope
+}
+
+// GetScopeOk returns a tuple with the Scope field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *InlineHookOAuthClientSecretConfig) GetScopeOk() (*string, bool) {
+	if o == nil || o.Scope == nil {
+		return nil, false
+	}
+	return o.Scope, true
+}
+
+// HasScope returns a boolean if a field has been set.
+func (o *InlineHookOAuthClientSecretConfig) HasScope() bool {
+	if o != nil && o.Scope != nil {
+		return true
+	}
+
+	return false
+}
+
+// SetScope gets a reference to the given string and assigns it to the Scope field.
+func (o *InlineHookOAuthClientSecretConfig) SetScope(v string) {
+	o.Scope = &v
+}
+
+// GetTokenUrl returns the TokenUrl field value if set, zero value otherwise.
+func (o *InlineHookOAuthClientSecretConfig) GetTokenUrl() string {
+	if o == nil || o.TokenUrl == nil {
+		var ret string
+		return ret
+	}
+	return *o.TokenUrl
+}
+
+// GetTokenUrlOk returns a tuple with the TokenUrl field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *InlineHookOAuthClientSecretConfig) GetTokenUrlOk() (*string, bool) {
+	if o == nil || o.TokenUrl == nil {
+		return nil, false
+	}
+	return o.TokenUrl, true
+}
+
+// HasTokenUrl returns a boolean if a field has been set.
+func (o *InlineHookOAuthClientSecretConfig) HasTokenUrl() bool {
+	if o != nil && o.TokenUrl != nil {
+		return true
+	}
+
+	return false
+}
+
+// SetTokenUrl gets a reference to the given string and assigns it to the TokenUrl field.
+func (o *InlineHookOAuthClientSecretConfig) SetTokenUrl(v string) {
+	o.TokenUrl = &v
 }
 
 // GetAuthScheme returns the AuthScheme field value if set, zero value otherwise.
@@ -222,6 +354,18 @@ func (o InlineHookOAuthClientSecretConfig) MarshalJSON() ([]byte, error) {
 	if o.ClientSecret != nil {
 		toSerialize["clientSecret"] = o.ClientSecret
 	}
+	if o.AuthType != nil {
+		toSerialize["authType"] = o.AuthType
+	}
+	if o.ClientId != nil {
+		toSerialize["clientId"] = o.ClientId
+	}
+	if o.Scope != nil {
+		toSerialize["scope"] = o.Scope
+	}
+	if o.TokenUrl != nil {
+		toSerialize["tokenUrl"] = o.TokenUrl
+	}
 	if o.AuthScheme != nil {
 		toSerialize["authScheme"] = o.AuthScheme
 	}
@@ -257,6 +401,10 @@ func (o *InlineHookOAuthClientSecretConfig) UnmarshalJSON(bytes []byte) (err err
 	err = json.Unmarshal(bytes, &additionalProperties)
 	if err == nil {
 		delete(additionalProperties, "clientSecret")
+		delete(additionalProperties, "authType")
+		delete(additionalProperties, "clientId")
+		delete(additionalProperties, "scope")
+		delete(additionalProperties, "tokenUrl")
 		delete(additionalProperties, "authScheme")
 		delete(additionalProperties, "headers")
 		delete(additionalProperties, "method")

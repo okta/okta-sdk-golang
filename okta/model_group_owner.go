@@ -35,7 +35,7 @@ type GroupOwner struct {
 	// The `id` of the group owner
 	Id *string `json:"id,omitempty"`
 	// Timestamp when the group owner was last updated
-	LastUpdated *string `json:"lastUpdated,omitempty"`
+	LastUpdated *string `json:"lastUpdated,omitempty" validate:"regexp=^\\\\w{3} \\\\w{3} \\\\d{2} \\\\d{2}:\\\\d{2}:\\\\d{2} \\\\w{3} \\\\d{4}$"`
 	// The ID of the app instance if the `originType` is `APPLICATION`. This value is `NULL` if `originType` is `OKTA_DIRECTORY`.
 	OriginId *string `json:"originId,omitempty"`
 	// The source where group ownership is managed
