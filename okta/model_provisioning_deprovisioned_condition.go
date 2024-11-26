@@ -30,7 +30,7 @@ import (
 
 // ProvisioningDeprovisionedCondition Not supported with OIDC IdPs
 type ProvisioningDeprovisionedCondition struct {
-	Action *string `json:"action,omitempty"`
+	Action               *string `json:"action,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -156,4 +156,3 @@ func (v *NullableProvisioningDeprovisionedCondition) UnmarshalJSON(src []byte) e
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-

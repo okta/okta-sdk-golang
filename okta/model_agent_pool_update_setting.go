@@ -31,14 +31,14 @@ import (
 // AgentPoolUpdateSetting Setting for auto-update
 type AgentPoolUpdateSetting struct {
 	// Agent types that are being monitored
-	AgentType *string `json:"agentType,omitempty"`
-	ContinueOnError *bool `json:"continueOnError,omitempty"`
-	LatestVersion *string `json:"latestVersion,omitempty"`
+	AgentType               *string `json:"agentType,omitempty"`
+	ContinueOnError         *bool   `json:"continueOnError,omitempty"`
+	LatestVersion           *string `json:"latestVersion,omitempty"`
 	MinimalSupportedVersion *string `json:"minimalSupportedVersion,omitempty"`
-	PoolId *string `json:"poolId,omitempty"`
-	PoolName *string `json:"poolName,omitempty"`
+	PoolId                  *string `json:"poolId,omitempty"`
+	PoolName                *string `json:"poolName,omitempty"`
 	// Release channel for auto-update
-	ReleaseChannel *string `json:"releaseChannel,omitempty"`
+	ReleaseChannel       *string `json:"releaseChannel,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -380,4 +380,3 @@ func (v *NullableAgentPoolUpdateSetting) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-

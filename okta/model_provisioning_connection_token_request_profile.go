@@ -33,7 +33,7 @@ type ProvisioningConnectionTokenRequestProfile struct {
 	// A token is used to authenticate with the app. This property is only returned for the `TOKEN` authentication scheme.
 	AuthScheme string `json:"authScheme"`
 	// Token used to authenticate with the app
-	Token *string `json:"token,omitempty"`
+	Token                *string `json:"token,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -188,4 +188,3 @@ func (v *NullableProvisioningConnectionTokenRequestProfile) UnmarshalJSON(src []
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-

@@ -29,18 +29,18 @@ import (
 	"fmt"
 )
 
-//model_oneof.mustache
+// model_oneof.mustache
 // ListApplications200ResponseInner - struct for ListApplications200ResponseInner
 type ListApplications200ResponseInner struct {
-	AutoLoginApplication *AutoLoginApplication
-	BasicAuthApplication *BasicAuthApplication
-	BookmarkApplication *BookmarkApplication
-	BrowserPluginApplication *BrowserPluginApplication
-	OpenIdConnectApplication *OpenIdConnectApplication
-	Saml11Application *Saml11Application
-	SamlApplication *SamlApplication
+	AutoLoginApplication           *AutoLoginApplication
+	BasicAuthApplication           *BasicAuthApplication
+	BookmarkApplication            *BookmarkApplication
+	BrowserPluginApplication       *BrowserPluginApplication
+	OpenIdConnectApplication       *OpenIdConnectApplication
+	Saml11Application              *Saml11Application
+	SamlApplication                *SamlApplication
 	SecurePasswordStoreApplication *SecurePasswordStoreApplication
-	WsFederationApplication *WsFederationApplication
+	WsFederationApplication        *WsFederationApplication
 }
 
 // AutoLoginApplicationAsListApplications200ResponseInner is a convenience function that returns AutoLoginApplication wrapped in ListApplications200ResponseInner
@@ -105,7 +105,6 @@ func WsFederationApplicationAsListApplications200ResponseInner(v *WsFederationAp
 		WsFederationApplication: v,
 	}
 }
-
 
 // Unmarshal JSON data into one of the pointers in the struct  CUSTOM
 func (dst *ListApplications200ResponseInner) UnmarshalJSON(data []byte) error {
@@ -378,7 +377,7 @@ func (src ListApplications200ResponseInner) MarshalJSON() ([]byte, error) {
 }
 
 // Get the actual instance
-func (obj *ListApplications200ResponseInner) GetActualInstance() (interface{}) {
+func (obj *ListApplications200ResponseInner) GetActualInstance() interface{} {
 	if obj == nil {
 		return nil
 	}
@@ -457,4 +456,3 @@ func (v *NullableListApplications200ResponseInner) UnmarshalJSON(src []byte) err
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-

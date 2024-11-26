@@ -30,7 +30,7 @@ import (
 
 // LinksDeactivate struct for LinksDeactivate
 type LinksDeactivate struct {
-	Deactivate *LinksDeactivateDeactivate `json:"deactivate,omitempty"`
+	Deactivate           *LinksDeactivateDeactivate `json:"deactivate,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -156,4 +156,3 @@ func (v *NullableLinksDeactivate) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-

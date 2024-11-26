@@ -29,13 +29,13 @@ import (
 	"fmt"
 )
 
-//model_oneof.mustache
+// model_oneof.mustache
 // GetFactorTransactionStatus200Response - struct for GetFactorTransactionStatus200Response
 type GetFactorTransactionStatus200Response struct {
-	UserFactorPushTransaction *UserFactorPushTransaction
+	UserFactorPushTransaction         *UserFactorPushTransaction
 	UserFactorPushTransactionRejected *UserFactorPushTransactionRejected
-	UserFactorPushTransactionTimeout *UserFactorPushTransactionTimeout
-	UserFactorPushTransactionWaiting *UserFactorPushTransactionWaiting
+	UserFactorPushTransactionTimeout  *UserFactorPushTransactionTimeout
+	UserFactorPushTransactionWaiting  *UserFactorPushTransactionWaiting
 }
 
 // UserFactorPushTransactionAsGetFactorTransactionStatus200Response is a convenience function that returns UserFactorPushTransaction wrapped in GetFactorTransactionStatus200Response
@@ -65,7 +65,6 @@ func UserFactorPushTransactionWaitingAsGetFactorTransactionStatus200Response(v *
 		UserFactorPushTransactionWaiting: v,
 	}
 }
-
 
 // Unmarshal JSON data into one of the pointers in the struct  CUSTOM
 func (dst *GetFactorTransactionStatus200Response) UnmarshalJSON(data []byte) error {
@@ -198,7 +197,7 @@ func (src GetFactorTransactionStatus200Response) MarshalJSON() ([]byte, error) {
 }
 
 // Get the actual instance
-func (obj *GetFactorTransactionStatus200Response) GetActualInstance() (interface{}) {
+func (obj *GetFactorTransactionStatus200Response) GetActualInstance() interface{} {
 	if obj == nil {
 		return nil
 	}
@@ -257,4 +256,3 @@ func (v *NullableGetFactorTransactionStatus200Response) UnmarshalJSON(src []byte
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-

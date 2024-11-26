@@ -31,12 +31,12 @@ import (
 // AgentPool An AgentPool is a collection of agents that serve a common purpose. An AgentPool has a unique ID within an org, and contains a collection of agents disjoint to every other AgentPool (i.e. no two AgentPools share an Agent).
 type AgentPool struct {
 	Agents []Agent `json:"agents,omitempty"`
-	Id *string `json:"id,omitempty"`
-	Name *string `json:"name,omitempty"`
+	Id     *string `json:"id,omitempty"`
+	Name   *string `json:"name,omitempty"`
 	// Operational status of a given agent
 	OperationalStatus *string `json:"operationalStatus,omitempty"`
 	// Agent types that are being monitored
-	Type *string `json:"type,omitempty"`
+	Type                 *string `json:"type,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -306,4 +306,3 @@ func (v *NullableAgentPool) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-

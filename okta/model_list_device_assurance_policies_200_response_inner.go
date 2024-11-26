@@ -29,14 +29,14 @@ import (
 	"fmt"
 )
 
-//model_oneof.mustache
+// model_oneof.mustache
 // ListDeviceAssurancePolicies200ResponseInner - struct for ListDeviceAssurancePolicies200ResponseInner
 type ListDeviceAssurancePolicies200ResponseInner struct {
-	DeviceAssuranceAndroidPlatform *DeviceAssuranceAndroidPlatform
+	DeviceAssuranceAndroidPlatform  *DeviceAssuranceAndroidPlatform
 	DeviceAssuranceChromeOSPlatform *DeviceAssuranceChromeOSPlatform
-	DeviceAssuranceIOSPlatform *DeviceAssuranceIOSPlatform
-	DeviceAssuranceMacOSPlatform *DeviceAssuranceMacOSPlatform
-	DeviceAssuranceWindowsPlatform *DeviceAssuranceWindowsPlatform
+	DeviceAssuranceIOSPlatform      *DeviceAssuranceIOSPlatform
+	DeviceAssuranceMacOSPlatform    *DeviceAssuranceMacOSPlatform
+	DeviceAssuranceWindowsPlatform  *DeviceAssuranceWindowsPlatform
 }
 
 // DeviceAssuranceAndroidPlatformAsListDeviceAssurancePolicies200ResponseInner is a convenience function that returns DeviceAssuranceAndroidPlatform wrapped in ListDeviceAssurancePolicies200ResponseInner
@@ -73,7 +73,6 @@ func DeviceAssuranceWindowsPlatformAsListDeviceAssurancePolicies200ResponseInner
 		DeviceAssuranceWindowsPlatform: v,
 	}
 }
-
 
 // Unmarshal JSON data into one of the pointers in the struct  CUSTOM
 func (dst *ListDeviceAssurancePolicies200ResponseInner) UnmarshalJSON(data []byte) error {
@@ -234,7 +233,7 @@ func (src ListDeviceAssurancePolicies200ResponseInner) MarshalJSON() ([]byte, er
 }
 
 // Get the actual instance
-func (obj *ListDeviceAssurancePolicies200ResponseInner) GetActualInstance() (interface{}) {
+func (obj *ListDeviceAssurancePolicies200ResponseInner) GetActualInstance() interface{} {
 	if obj == nil {
 		return nil
 	}
@@ -297,4 +296,3 @@ func (v *NullableListDeviceAssurancePolicies200ResponseInner) UnmarshalJSON(src 
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-

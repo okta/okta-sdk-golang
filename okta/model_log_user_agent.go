@@ -30,9 +30,9 @@ import (
 
 // LogUserAgent struct for LogUserAgent
 type LogUserAgent struct {
-	Browser *string `json:"browser,omitempty"`
-	Os *string `json:"os,omitempty"`
-	RawUserAgent *string `json:"rawUserAgent,omitempty"`
+	Browser              *string `json:"browser,omitempty"`
+	Os                   *string `json:"os,omitempty"`
+	RawUserAgent         *string `json:"rawUserAgent,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -230,4 +230,3 @@ func (v *NullableLogUserAgent) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-

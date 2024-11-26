@@ -30,7 +30,7 @@ import (
 
 // PolicyRuleActionsEnroll struct for PolicyRuleActionsEnroll
 type PolicyRuleActionsEnroll struct {
-	Self *string `json:"self,omitempty"`
+	Self                 *string `json:"self,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -156,4 +156,3 @@ func (v *NullablePolicyRuleActionsEnroll) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-

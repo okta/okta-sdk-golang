@@ -35,7 +35,7 @@ type RiskEventSubject struct {
 	// Additional reasons for the risk level of the IP
 	Message *string `json:"message,omitempty"`
 	// The risk level associated with the IP
-	RiskLevel string `json:"riskLevel"`
+	RiskLevel            string `json:"riskLevel"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -219,4 +219,3 @@ func (v *NullableRiskEventSubject) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-

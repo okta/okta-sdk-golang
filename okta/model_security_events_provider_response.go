@@ -33,13 +33,13 @@ type SecurityEventsProviderResponse struct {
 	// The unique identifier of this instance
 	Id *string `json:"id,omitempty"`
 	// The name of the Security Events Provider instance
-	Name *string `json:"name,omitempty"`
+	Name     *string                                 `json:"name,omitempty"`
 	Settings *SecurityEventsProviderSettingsResponse `json:"settings,omitempty"`
 	// Indicates whether the Security Events Provider is active or not
 	Status *string `json:"status,omitempty"`
 	// The application type of the Security Events Provider
-	Type *string `json:"type,omitempty"`
-	Links *LinksSelfAndLifecycle `json:"_links,omitempty"`
+	Type                 *string                `json:"type,omitempty"`
+	Links                *LinksSelfAndLifecycle `json:"_links,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -345,4 +345,3 @@ func (v *NullableSecurityEventsProviderResponse) UnmarshalJSON(src []byte) error
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-

@@ -31,7 +31,7 @@ import (
 // LinkedHrefObject struct for LinkedHrefObject
 type LinkedHrefObject struct {
 	// Link URI
-	Href string `json:"href"`
+	Href                 string `json:"href"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -150,4 +150,3 @@ func (v *NullableLinkedHrefObject) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-

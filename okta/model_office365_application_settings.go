@@ -30,13 +30,13 @@ import (
 
 // Office365ApplicationSettings struct for Office365ApplicationSettings
 type Office365ApplicationSettings struct {
-	IdentityStoreId *string `json:"identityStoreId,omitempty"`
-	ImplicitAssignment *bool `json:"implicitAssignment,omitempty"`
-	InlineHookId *string `json:"inlineHookId,omitempty"`
-	Notes *ApplicationSettingsNotes `json:"notes,omitempty"`
-	Notifications *ApplicationSettingsNotifications `json:"notifications,omitempty"`
-	App Office365ApplicationSettingsApplication `json:"app"`
-	SignOn *OINSaml11ApplicationSettingsSignOn `json:"signOn,omitempty"`
+	IdentityStoreId      *string                                 `json:"identityStoreId,omitempty"`
+	ImplicitAssignment   *bool                                   `json:"implicitAssignment,omitempty"`
+	InlineHookId         *string                                 `json:"inlineHookId,omitempty"`
+	Notes                *ApplicationSettingsNotes               `json:"notes,omitempty"`
+	Notifications        *ApplicationSettingsNotifications       `json:"notifications,omitempty"`
+	App                  Office365ApplicationSettingsApplication `json:"app"`
+	SignOn               *OINSaml11ApplicationSettingsSignOn     `json:"signOn,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -371,4 +371,3 @@ func (v *NullableOffice365ApplicationSettings) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-

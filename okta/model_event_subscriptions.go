@@ -34,7 +34,7 @@ type EventSubscriptions struct {
 	// The subscribed event types that trigger the event hook. When you register an event hook you need to specify which events you want to subscribe to. To see the list of event types currently eligible for use in event hooks, use the [Event Types catalog](/docs/reference/api/event-types/#catalog) and search with the parameter `event-hook-eligible`.
 	Items []string `json:"items"`
 	// The events object type. Currently supports `EVENT_TYPE`.
-	Type string `json:"type"`
+	Type                 string `json:"type"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -91,6 +91,7 @@ func (o *EventSubscriptions) HasFilter() bool {
 func (o *EventSubscriptions) SetFilter(v EventHookFilters) {
 	o.Filter.Set(&v)
 }
+
 // SetFilterNil sets the value for Filter to be an explicit nil
 func (o *EventSubscriptions) SetFilterNil() {
 	o.Filter.Set(nil)
@@ -228,4 +229,3 @@ func (v *NullableEventSubscriptions) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-

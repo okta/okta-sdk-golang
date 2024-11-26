@@ -30,7 +30,7 @@ import (
 
 // SimulatePolicyEvaluationsEvaluated A list of evaluated but not matched policies and rules
 type SimulatePolicyEvaluationsEvaluated struct {
-	Policies []SimulateResultPoliciesItems `json:"policies,omitempty"`
+	Policies             []SimulateResultPoliciesItems `json:"policies,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -156,4 +156,3 @@ func (v *NullableSimulatePolicyEvaluationsEvaluated) UnmarshalJSON(src []byte) e
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-

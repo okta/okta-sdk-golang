@@ -29,12 +29,12 @@ import (
 	"fmt"
 )
 
-//model_oneof.mustache
+// model_oneof.mustache
 // ResendEnrollFactorRequest - struct for ResendEnrollFactorRequest
 type ResendEnrollFactorRequest struct {
-	UserFactorCall *UserFactorCall
+	UserFactorCall  *UserFactorCall
 	UserFactorEmail *UserFactorEmail
-	UserFactorSMS *UserFactorSMS
+	UserFactorSMS   *UserFactorSMS
 }
 
 // UserFactorCallAsResendEnrollFactorRequest is a convenience function that returns UserFactorCall wrapped in ResendEnrollFactorRequest
@@ -57,7 +57,6 @@ func UserFactorSMSAsResendEnrollFactorRequest(v *UserFactorSMS) ResendEnrollFact
 		UserFactorSMS: v,
 	}
 }
-
 
 // Unmarshal JSON data into one of the pointers in the struct  CUSTOM
 func (dst *ResendEnrollFactorRequest) UnmarshalJSON(data []byte) error {
@@ -162,7 +161,7 @@ func (src ResendEnrollFactorRequest) MarshalJSON() ([]byte, error) {
 }
 
 // Get the actual instance
-func (obj *ResendEnrollFactorRequest) GetActualInstance() (interface{}) {
+func (obj *ResendEnrollFactorRequest) GetActualInstance() interface{} {
 	if obj == nil {
 		return nil
 	}
@@ -217,4 +216,3 @@ func (v *NullableResendEnrollFactorRequest) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-

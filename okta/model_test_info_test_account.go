@@ -37,7 +37,7 @@ type TestInfoTestAccount struct {
 	// The password for your app admin account
 	Password string `json:"password"`
 	// Additional instructions to test the app integration, including instructions for obtaining test accounts
-	Instructions *string `json:"instructions,omitempty"`
+	Instructions         *string `json:"instructions,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -250,4 +250,3 @@ func (v *NullableTestInfoTestAccount) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-

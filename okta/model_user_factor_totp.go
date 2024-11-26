@@ -33,9 +33,9 @@ import (
 // UserFactorTOTP struct for UserFactorTOTP
 type UserFactorTOTP struct {
 	UserFactor
-	FactorType interface{} `json:"factorType,omitempty"`
-	Profile *UserFactorTOTPProfile `json:"profile,omitempty"`
-	Provider *string `json:"provider,omitempty"`
+	FactorType           interface{}            `json:"factorType,omitempty"`
+	Profile              *UserFactorTOTPProfile `json:"profile,omitempty"`
+	Provider             *string                `json:"provider,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -184,9 +184,9 @@ func (o UserFactorTOTP) MarshalJSON() ([]byte, error) {
 
 func (o *UserFactorTOTP) UnmarshalJSON(bytes []byte) (err error) {
 	type UserFactorTOTPWithoutEmbeddedStruct struct {
-		FactorType interface{} `json:"factorType,omitempty"`
-		Profile *UserFactorTOTPProfile `json:"profile,omitempty"`
-		Provider *string `json:"provider,omitempty"`
+		FactorType interface{}            `json:"factorType,omitempty"`
+		Profile    *UserFactorTOTPProfile `json:"profile,omitempty"`
+		Provider   *string                `json:"provider,omitempty"`
 	}
 
 	varUserFactorTOTPWithoutEmbeddedStruct := UserFactorTOTPWithoutEmbeddedStruct{}
@@ -280,4 +280,3 @@ func (v *NullableUserFactorTOTP) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-

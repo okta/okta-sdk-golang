@@ -37,7 +37,7 @@ type DomainCertificate struct {
 	// Certificate private key
 	PrivateKey string `json:"privateKey"`
 	// Certificate type
-	Type string `json:"type"`
+	Type                 string `json:"type"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -243,4 +243,3 @@ func (v *NullableDomainCertificate) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-

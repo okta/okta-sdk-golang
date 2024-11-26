@@ -31,7 +31,7 @@ import (
 // OINSaml20ApplicationSettingsSignOn Contains SAML 2.0 sign-on mode attributes. > **Note:** Set `destinationOverride` to configure any other SAML 2.0 attributes in this section.
 type OINSaml20ApplicationSettingsSignOn struct {
 	// Audience override for CASB configuration. See [CASB config guide](https://help.okta.com/en-us/Content/Topics/Apps/CASB-config-guide.htm).
-	AudienceOverride *string `json:"audienceOverride,omitempty"`
+	AudienceOverride              *string                  `json:"audienceOverride,omitempty"`
 	ConfiguredAttributeStatements []SamlAttributeStatement `json:"configuredAttributeStatements,omitempty"`
 	// Identifies a specific application resource in an IdP-initiated SSO scenario
 	DefaultRelayState *string `json:"defaultRelayState,omitempty"`
@@ -42,7 +42,7 @@ type OINSaml20ApplicationSettingsSignOn struct {
 	// Determines the SAML app session lifetimes with Okta
 	SamlAssertionLifetimeSeconds *int32 `json:"samlAssertionLifetimeSeconds,omitempty"`
 	// Assertion Consumer Service (ACS) URL override for CASB configuration. See [CASB config guide](https://help.okta.com/en-us/Content/Topics/Apps/CASB-config-guide.htm).
-	SsoAcsUrlOverride *string `json:"ssoAcsUrlOverride,omitempty"`
+	SsoAcsUrlOverride    *string `json:"ssoAcsUrlOverride,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -384,4 +384,3 @@ func (v *NullableOINSaml20ApplicationSettingsSignOn) UnmarshalJSON(src []byte) e
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-

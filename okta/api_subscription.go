@@ -30,22 +30,20 @@ import (
 	"io/ioutil"
 	"net/http"
 	"net/url"
-	"time"
 	"strings"
+	"time"
 )
 
-
 type SubscriptionAPI interface {
-
 	/*
-	GetSubscriptionsNotificationTypeRole Retrieve a Subscription for a Role
+		GetSubscriptionsNotificationTypeRole Retrieve a Subscription for a Role
 
-	Retrieves a subscription by `notificationType` for a specified Role
+		Retrieves a subscription by `notificationType` for a specified Role
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param roleRef A reference to an existing role. Standard roles require a `roleType`, while Custom Roles require a `roleId`. See [Standard Roles](/openapi/okta-management/guides/roles/#standard-roles).
-	@param notificationType
-	@return ApiGetSubscriptionsNotificationTypeRoleRequest
+		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+		@param roleRef A reference to an existing role. Standard roles require a `roleType`, while Custom Roles require a `roleId`. See [Standard Roles](/openapi/okta-management/guides/roles/#standard-roles).
+		@param notificationType
+		@return ApiGetSubscriptionsNotificationTypeRoleRequest
 	*/
 	GetSubscriptionsNotificationTypeRole(ctx context.Context, roleRef ListSubscriptionsRoleRoleRefParameter, notificationType string) ApiGetSubscriptionsNotificationTypeRoleRequest
 
@@ -54,14 +52,14 @@ type SubscriptionAPI interface {
 	GetSubscriptionsNotificationTypeRoleExecute(r ApiGetSubscriptionsNotificationTypeRoleRequest) (*Subscription, *APIResponse, error)
 
 	/*
-	GetSubscriptionsNotificationTypeUser Retrieve a Subscription for a User
+		GetSubscriptionsNotificationTypeUser Retrieve a Subscription for a User
 
-	Retrieves a subscription by `notificationType` for a specified User. Returns an `AccessDeniedException` message if requests are made for another user.
+		Retrieves a subscription by `notificationType` for a specified User. Returns an `AccessDeniedException` message if requests are made for another user.
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param notificationType
-	@param userId ID of an existing Okta user
-	@return ApiGetSubscriptionsNotificationTypeUserRequest
+		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+		@param notificationType
+		@param userId ID of an existing Okta user
+		@return ApiGetSubscriptionsNotificationTypeUserRequest
 	*/
 	GetSubscriptionsNotificationTypeUser(ctx context.Context, notificationType string, userId string) ApiGetSubscriptionsNotificationTypeUserRequest
 
@@ -70,13 +68,13 @@ type SubscriptionAPI interface {
 	GetSubscriptionsNotificationTypeUserExecute(r ApiGetSubscriptionsNotificationTypeUserRequest) (*Subscription, *APIResponse, error)
 
 	/*
-	ListSubscriptionsRole List all Subscriptions for a Role
+		ListSubscriptionsRole List all Subscriptions for a Role
 
-	Lists all subscriptions available to a specified Role
+		Lists all subscriptions available to a specified Role
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param roleRef A reference to an existing role. Standard roles require a `roleType`, while Custom Roles require a `roleId`. See [Standard Roles](/openapi/okta-management/guides/roles/#standard-roles).
-	@return ApiListSubscriptionsRoleRequest
+		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+		@param roleRef A reference to an existing role. Standard roles require a `roleType`, while Custom Roles require a `roleId`. See [Standard Roles](/openapi/okta-management/guides/roles/#standard-roles).
+		@return ApiListSubscriptionsRoleRequest
 	*/
 	ListSubscriptionsRole(ctx context.Context, roleRef ListSubscriptionsRoleRoleRefParameter) ApiListSubscriptionsRoleRequest
 
@@ -85,13 +83,13 @@ type SubscriptionAPI interface {
 	ListSubscriptionsRoleExecute(r ApiListSubscriptionsRoleRequest) ([]Subscription, *APIResponse, error)
 
 	/*
-	ListSubscriptionsUser List all Subscriptions for a User
+		ListSubscriptionsUser List all Subscriptions for a User
 
-	Lists all subscriptions available to a specified User. Returns an `AccessDeniedException` message if requests are made for another user.
+		Lists all subscriptions available to a specified User. Returns an `AccessDeniedException` message if requests are made for another user.
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param userId ID of an existing Okta user
-	@return ApiListSubscriptionsUserRequest
+		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+		@param userId ID of an existing Okta user
+		@return ApiListSubscriptionsUserRequest
 	*/
 	ListSubscriptionsUser(ctx context.Context, userId string) ApiListSubscriptionsUserRequest
 
@@ -100,14 +98,14 @@ type SubscriptionAPI interface {
 	ListSubscriptionsUserExecute(r ApiListSubscriptionsUserRequest) ([]Subscription, *APIResponse, error)
 
 	/*
-	SubscribeByNotificationTypeRole Subscribe a Role to a Specific Notification Type
+		SubscribeByNotificationTypeRole Subscribe a Role to a Specific Notification Type
 
-	Subscribes a Role to a specified notification type. Changes to Role subscriptions override the subscription status of any individual users with the Role.
+		Subscribes a Role to a specified notification type. Changes to Role subscriptions override the subscription status of any individual users with the Role.
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param roleRef A reference to an existing role. Standard roles require a `roleType`, while Custom Roles require a `roleId`. See [Standard Roles](/openapi/okta-management/guides/roles/#standard-roles).
-	@param notificationType
-	@return ApiSubscribeByNotificationTypeRoleRequest
+		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+		@param roleRef A reference to an existing role. Standard roles require a `roleType`, while Custom Roles require a `roleId`. See [Standard Roles](/openapi/okta-management/guides/roles/#standard-roles).
+		@param notificationType
+		@return ApiSubscribeByNotificationTypeRoleRequest
 	*/
 	SubscribeByNotificationTypeRole(ctx context.Context, roleRef ListSubscriptionsRoleRoleRefParameter, notificationType string) ApiSubscribeByNotificationTypeRoleRequest
 
@@ -115,14 +113,14 @@ type SubscriptionAPI interface {
 	SubscribeByNotificationTypeRoleExecute(r ApiSubscribeByNotificationTypeRoleRequest) (*APIResponse, error)
 
 	/*
-	SubscribeByNotificationTypeUser Subscribe a User to a Specific Notification Type
+		SubscribeByNotificationTypeUser Subscribe a User to a Specific Notification Type
 
-	Subscribes the current user to a specified notification type. Returns an `AccessDeniedException` message if requests are made for another user.
+		Subscribes the current user to a specified notification type. Returns an `AccessDeniedException` message if requests are made for another user.
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param notificationType
-	@param userId ID of an existing Okta user
-	@return ApiSubscribeByNotificationTypeUserRequest
+		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+		@param notificationType
+		@param userId ID of an existing Okta user
+		@return ApiSubscribeByNotificationTypeUserRequest
 	*/
 	SubscribeByNotificationTypeUser(ctx context.Context, notificationType string, userId string) ApiSubscribeByNotificationTypeUserRequest
 
@@ -130,14 +128,14 @@ type SubscriptionAPI interface {
 	SubscribeByNotificationTypeUserExecute(r ApiSubscribeByNotificationTypeUserRequest) (*APIResponse, error)
 
 	/*
-	UnsubscribeByNotificationTypeRole Unsubscribe a Role from a Specific Notification Type
+		UnsubscribeByNotificationTypeRole Unsubscribe a Role from a Specific Notification Type
 
-	Unsubscribes a Role from a specified notification type. Changes to Role subscriptions override the subscription status of any individual users with the Role.
+		Unsubscribes a Role from a specified notification type. Changes to Role subscriptions override the subscription status of any individual users with the Role.
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param roleRef A reference to an existing role. Standard roles require a `roleType`, while Custom Roles require a `roleId`. See [Standard Roles](/openapi/okta-management/guides/roles/#standard-roles).
-	@param notificationType
-	@return ApiUnsubscribeByNotificationTypeRoleRequest
+		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+		@param roleRef A reference to an existing role. Standard roles require a `roleType`, while Custom Roles require a `roleId`. See [Standard Roles](/openapi/okta-management/guides/roles/#standard-roles).
+		@param notificationType
+		@return ApiUnsubscribeByNotificationTypeRoleRequest
 	*/
 	UnsubscribeByNotificationTypeRole(ctx context.Context, roleRef ListSubscriptionsRoleRoleRefParameter, notificationType string) ApiUnsubscribeByNotificationTypeRoleRequest
 
@@ -145,14 +143,14 @@ type SubscriptionAPI interface {
 	UnsubscribeByNotificationTypeRoleExecute(r ApiUnsubscribeByNotificationTypeRoleRequest) (*APIResponse, error)
 
 	/*
-	UnsubscribeByNotificationTypeUser Unsubscribe a User from a Specific Notification Type
+		UnsubscribeByNotificationTypeUser Unsubscribe a User from a Specific Notification Type
 
-	Unsubscribes the current user from a specified notification type. Returns an `AccessDeniedException` message if requests are made for another user.
+		Unsubscribes the current user from a specified notification type. Returns an `AccessDeniedException` message if requests are made for another user.
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param notificationType
-	@param userId ID of an existing Okta user
-	@return ApiUnsubscribeByNotificationTypeUserRequest
+		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+		@param notificationType
+		@param userId ID of an existing Okta user
+		@return ApiUnsubscribeByNotificationTypeUserRequest
 	*/
 	UnsubscribeByNotificationTypeUser(ctx context.Context, notificationType string, userId string) ApiUnsubscribeByNotificationTypeUserRequest
 
@@ -164,11 +162,11 @@ type SubscriptionAPI interface {
 type SubscriptionAPIService service
 
 type ApiGetSubscriptionsNotificationTypeRoleRequest struct {
-	ctx context.Context
-	ApiService SubscriptionAPI
-	roleRef ListSubscriptionsRoleRoleRefParameter
+	ctx              context.Context
+	ApiService       SubscriptionAPI
+	roleRef          ListSubscriptionsRoleRoleRefParameter
 	notificationType string
-	retryCount int32
+	retryCount       int32
 }
 
 func (r ApiGetSubscriptionsNotificationTypeRoleRequest) Execute() (*Subscription, *APIResponse, error) {
@@ -180,23 +178,24 @@ GetSubscriptionsNotificationTypeRole Retrieve a Subscription for a Role
 
 Retrieves a subscription by `notificationType` for a specified Role
 
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @param roleRef A reference to an existing role. Standard roles require a `roleType`, while Custom Roles require a `roleId`. See [Standard Roles](/openapi/okta-management/guides/roles/#standard-roles).
- @param notificationType
- @return ApiGetSubscriptionsNotificationTypeRoleRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param roleRef A reference to an existing role. Standard roles require a `roleType`, while Custom Roles require a `roleId`. See [Standard Roles](/openapi/okta-management/guides/roles/#standard-roles).
+	@param notificationType
+	@return ApiGetSubscriptionsNotificationTypeRoleRequest
 */
 func (a *SubscriptionAPIService) GetSubscriptionsNotificationTypeRole(ctx context.Context, roleRef ListSubscriptionsRoleRoleRefParameter, notificationType string) ApiGetSubscriptionsNotificationTypeRoleRequest {
 	return ApiGetSubscriptionsNotificationTypeRoleRequest{
-		ApiService: a,
-		ctx: ctx,
-		roleRef: roleRef,
+		ApiService:       a,
+		ctx:              ctx,
+		roleRef:          roleRef,
 		notificationType: notificationType,
-		retryCount: 0,
+		retryCount:       0,
 	}
 }
 
 // Execute executes the request
-//  @return Subscription
+//
+//	@return Subscription
 func (a *SubscriptionAPIService) GetSubscriptionsNotificationTypeRoleExecute(r ApiGetSubscriptionsNotificationTypeRoleRequest) (*Subscription, *APIResponse, error) {
 	var (
 		localVarHTTPMethod   = http.MethodGet
@@ -205,7 +204,7 @@ func (a *SubscriptionAPIService) GetSubscriptionsNotificationTypeRoleExecute(r A
 		localVarReturnValue  *Subscription
 		localVarHTTPResponse *http.Response
 		localAPIResponse     *APIResponse
-		err 				 error
+		err                  error
 	)
 
 	if a.client.cfg.Okta.Client.RequestTimeout > 0 {
@@ -315,17 +314,17 @@ func (a *SubscriptionAPIService) GetSubscriptionsNotificationTypeRoleExecute(r A
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
 		return localVarReturnValue, localAPIResponse, newErr
 	}
-	
+
 	localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
 	return localVarReturnValue, localAPIResponse, nil
 }
 
 type ApiGetSubscriptionsNotificationTypeUserRequest struct {
-	ctx context.Context
-	ApiService SubscriptionAPI
+	ctx              context.Context
+	ApiService       SubscriptionAPI
 	notificationType string
-	userId string
-	retryCount int32
+	userId           string
+	retryCount       int32
 }
 
 func (r ApiGetSubscriptionsNotificationTypeUserRequest) Execute() (*Subscription, *APIResponse, error) {
@@ -337,23 +336,24 @@ GetSubscriptionsNotificationTypeUser Retrieve a Subscription for a User
 
 Retrieves a subscription by `notificationType` for a specified User. Returns an `AccessDeniedException` message if requests are made for another user.
 
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @param notificationType
- @param userId ID of an existing Okta user
- @return ApiGetSubscriptionsNotificationTypeUserRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param notificationType
+	@param userId ID of an existing Okta user
+	@return ApiGetSubscriptionsNotificationTypeUserRequest
 */
 func (a *SubscriptionAPIService) GetSubscriptionsNotificationTypeUser(ctx context.Context, notificationType string, userId string) ApiGetSubscriptionsNotificationTypeUserRequest {
 	return ApiGetSubscriptionsNotificationTypeUserRequest{
-		ApiService: a,
-		ctx: ctx,
+		ApiService:       a,
+		ctx:              ctx,
 		notificationType: notificationType,
-		userId: userId,
-		retryCount: 0,
+		userId:           userId,
+		retryCount:       0,
 	}
 }
 
 // Execute executes the request
-//  @return Subscription
+//
+//	@return Subscription
 func (a *SubscriptionAPIService) GetSubscriptionsNotificationTypeUserExecute(r ApiGetSubscriptionsNotificationTypeUserRequest) (*Subscription, *APIResponse, error) {
 	var (
 		localVarHTTPMethod   = http.MethodGet
@@ -362,7 +362,7 @@ func (a *SubscriptionAPIService) GetSubscriptionsNotificationTypeUserExecute(r A
 		localVarReturnValue  *Subscription
 		localVarHTTPResponse *http.Response
 		localAPIResponse     *APIResponse
-		err 				 error
+		err                  error
 	)
 
 	if a.client.cfg.Okta.Client.RequestTimeout > 0 {
@@ -472,15 +472,15 @@ func (a *SubscriptionAPIService) GetSubscriptionsNotificationTypeUserExecute(r A
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
 		return localVarReturnValue, localAPIResponse, newErr
 	}
-	
+
 	localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
 	return localVarReturnValue, localAPIResponse, nil
 }
 
 type ApiListSubscriptionsRoleRequest struct {
-	ctx context.Context
+	ctx        context.Context
 	ApiService SubscriptionAPI
-	roleRef ListSubscriptionsRoleRoleRefParameter
+	roleRef    ListSubscriptionsRoleRoleRefParameter
 	retryCount int32
 }
 
@@ -493,21 +493,22 @@ ListSubscriptionsRole List all Subscriptions for a Role
 
 Lists all subscriptions available to a specified Role
 
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @param roleRef A reference to an existing role. Standard roles require a `roleType`, while Custom Roles require a `roleId`. See [Standard Roles](/openapi/okta-management/guides/roles/#standard-roles).
- @return ApiListSubscriptionsRoleRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param roleRef A reference to an existing role. Standard roles require a `roleType`, while Custom Roles require a `roleId`. See [Standard Roles](/openapi/okta-management/guides/roles/#standard-roles).
+	@return ApiListSubscriptionsRoleRequest
 */
 func (a *SubscriptionAPIService) ListSubscriptionsRole(ctx context.Context, roleRef ListSubscriptionsRoleRoleRefParameter) ApiListSubscriptionsRoleRequest {
 	return ApiListSubscriptionsRoleRequest{
 		ApiService: a,
-		ctx: ctx,
-		roleRef: roleRef,
+		ctx:        ctx,
+		roleRef:    roleRef,
 		retryCount: 0,
 	}
 }
 
 // Execute executes the request
-//  @return []Subscription
+//
+//	@return []Subscription
 func (a *SubscriptionAPIService) ListSubscriptionsRoleExecute(r ApiListSubscriptionsRoleRequest) ([]Subscription, *APIResponse, error) {
 	var (
 		localVarHTTPMethod   = http.MethodGet
@@ -516,7 +517,7 @@ func (a *SubscriptionAPIService) ListSubscriptionsRoleExecute(r ApiListSubscript
 		localVarReturnValue  []Subscription
 		localVarHTTPResponse *http.Response
 		localAPIResponse     *APIResponse
-		err 				 error
+		err                  error
 	)
 
 	if a.client.cfg.Okta.Client.RequestTimeout > 0 {
@@ -625,15 +626,15 @@ func (a *SubscriptionAPIService) ListSubscriptionsRoleExecute(r ApiListSubscript
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
 		return localVarReturnValue, localAPIResponse, newErr
 	}
-	
+
 	localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
 	return localVarReturnValue, localAPIResponse, nil
 }
 
 type ApiListSubscriptionsUserRequest struct {
-	ctx context.Context
+	ctx        context.Context
 	ApiService SubscriptionAPI
-	userId string
+	userId     string
 	retryCount int32
 }
 
@@ -646,21 +647,22 @@ ListSubscriptionsUser List all Subscriptions for a User
 
 Lists all subscriptions available to a specified User. Returns an `AccessDeniedException` message if requests are made for another user.
 
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @param userId ID of an existing Okta user
- @return ApiListSubscriptionsUserRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param userId ID of an existing Okta user
+	@return ApiListSubscriptionsUserRequest
 */
 func (a *SubscriptionAPIService) ListSubscriptionsUser(ctx context.Context, userId string) ApiListSubscriptionsUserRequest {
 	return ApiListSubscriptionsUserRequest{
 		ApiService: a,
-		ctx: ctx,
-		userId: userId,
+		ctx:        ctx,
+		userId:     userId,
 		retryCount: 0,
 	}
 }
 
 // Execute executes the request
-//  @return []Subscription
+//
+//	@return []Subscription
 func (a *SubscriptionAPIService) ListSubscriptionsUserExecute(r ApiListSubscriptionsUserRequest) ([]Subscription, *APIResponse, error) {
 	var (
 		localVarHTTPMethod   = http.MethodGet
@@ -669,7 +671,7 @@ func (a *SubscriptionAPIService) ListSubscriptionsUserExecute(r ApiListSubscript
 		localVarReturnValue  []Subscription
 		localVarHTTPResponse *http.Response
 		localAPIResponse     *APIResponse
-		err 				 error
+		err                  error
 	)
 
 	if a.client.cfg.Okta.Client.RequestTimeout > 0 {
@@ -778,17 +780,17 @@ func (a *SubscriptionAPIService) ListSubscriptionsUserExecute(r ApiListSubscript
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
 		return localVarReturnValue, localAPIResponse, newErr
 	}
-	
+
 	localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
 	return localVarReturnValue, localAPIResponse, nil
 }
 
 type ApiSubscribeByNotificationTypeRoleRequest struct {
-	ctx context.Context
-	ApiService SubscriptionAPI
-	roleRef ListSubscriptionsRoleRoleRefParameter
+	ctx              context.Context
+	ApiService       SubscriptionAPI
+	roleRef          ListSubscriptionsRoleRoleRefParameter
 	notificationType string
-	retryCount int32
+	retryCount       int32
 }
 
 func (r ApiSubscribeByNotificationTypeRoleRequest) Execute() (*APIResponse, error) {
@@ -800,18 +802,18 @@ SubscribeByNotificationTypeRole Subscribe a Role to a Specific Notification Type
 
 Subscribes a Role to a specified notification type. Changes to Role subscriptions override the subscription status of any individual users with the Role.
 
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @param roleRef A reference to an existing role. Standard roles require a `roleType`, while Custom Roles require a `roleId`. See [Standard Roles](/openapi/okta-management/guides/roles/#standard-roles).
- @param notificationType
- @return ApiSubscribeByNotificationTypeRoleRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param roleRef A reference to an existing role. Standard roles require a `roleType`, while Custom Roles require a `roleId`. See [Standard Roles](/openapi/okta-management/guides/roles/#standard-roles).
+	@param notificationType
+	@return ApiSubscribeByNotificationTypeRoleRequest
 */
 func (a *SubscriptionAPIService) SubscribeByNotificationTypeRole(ctx context.Context, roleRef ListSubscriptionsRoleRoleRefParameter, notificationType string) ApiSubscribeByNotificationTypeRoleRequest {
 	return ApiSubscribeByNotificationTypeRoleRequest{
-		ApiService: a,
-		ctx: ctx,
-		roleRef: roleRef,
+		ApiService:       a,
+		ctx:              ctx,
+		roleRef:          roleRef,
 		notificationType: notificationType,
-		retryCount: 0,
+		retryCount:       0,
 	}
 }
 
@@ -823,7 +825,7 @@ func (a *SubscriptionAPIService) SubscribeByNotificationTypeRoleExecute(r ApiSub
 		formFiles            []formFile
 		localVarHTTPResponse *http.Response
 		localAPIResponse     *APIResponse
-		err 				 error
+		err                  error
 	)
 
 	if a.client.cfg.Okta.Client.RequestTimeout > 0 {
@@ -929,11 +931,11 @@ func (a *SubscriptionAPIService) SubscribeByNotificationTypeRoleExecute(r ApiSub
 }
 
 type ApiSubscribeByNotificationTypeUserRequest struct {
-	ctx context.Context
-	ApiService SubscriptionAPI
+	ctx              context.Context
+	ApiService       SubscriptionAPI
 	notificationType string
-	userId string
-	retryCount int32
+	userId           string
+	retryCount       int32
 }
 
 func (r ApiSubscribeByNotificationTypeUserRequest) Execute() (*APIResponse, error) {
@@ -945,18 +947,18 @@ SubscribeByNotificationTypeUser Subscribe a User to a Specific Notification Type
 
 Subscribes the current user to a specified notification type. Returns an `AccessDeniedException` message if requests are made for another user.
 
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @param notificationType
- @param userId ID of an existing Okta user
- @return ApiSubscribeByNotificationTypeUserRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param notificationType
+	@param userId ID of an existing Okta user
+	@return ApiSubscribeByNotificationTypeUserRequest
 */
 func (a *SubscriptionAPIService) SubscribeByNotificationTypeUser(ctx context.Context, notificationType string, userId string) ApiSubscribeByNotificationTypeUserRequest {
 	return ApiSubscribeByNotificationTypeUserRequest{
-		ApiService: a,
-		ctx: ctx,
+		ApiService:       a,
+		ctx:              ctx,
 		notificationType: notificationType,
-		userId: userId,
-		retryCount: 0,
+		userId:           userId,
+		retryCount:       0,
 	}
 }
 
@@ -968,7 +970,7 @@ func (a *SubscriptionAPIService) SubscribeByNotificationTypeUserExecute(r ApiSub
 		formFiles            []formFile
 		localVarHTTPResponse *http.Response
 		localAPIResponse     *APIResponse
-		err 				 error
+		err                  error
 	)
 
 	if a.client.cfg.Okta.Client.RequestTimeout > 0 {
@@ -1074,11 +1076,11 @@ func (a *SubscriptionAPIService) SubscribeByNotificationTypeUserExecute(r ApiSub
 }
 
 type ApiUnsubscribeByNotificationTypeRoleRequest struct {
-	ctx context.Context
-	ApiService SubscriptionAPI
-	roleRef ListSubscriptionsRoleRoleRefParameter
+	ctx              context.Context
+	ApiService       SubscriptionAPI
+	roleRef          ListSubscriptionsRoleRoleRefParameter
 	notificationType string
-	retryCount int32
+	retryCount       int32
 }
 
 func (r ApiUnsubscribeByNotificationTypeRoleRequest) Execute() (*APIResponse, error) {
@@ -1090,18 +1092,18 @@ UnsubscribeByNotificationTypeRole Unsubscribe a Role from a Specific Notificatio
 
 Unsubscribes a Role from a specified notification type. Changes to Role subscriptions override the subscription status of any individual users with the Role.
 
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @param roleRef A reference to an existing role. Standard roles require a `roleType`, while Custom Roles require a `roleId`. See [Standard Roles](/openapi/okta-management/guides/roles/#standard-roles).
- @param notificationType
- @return ApiUnsubscribeByNotificationTypeRoleRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param roleRef A reference to an existing role. Standard roles require a `roleType`, while Custom Roles require a `roleId`. See [Standard Roles](/openapi/okta-management/guides/roles/#standard-roles).
+	@param notificationType
+	@return ApiUnsubscribeByNotificationTypeRoleRequest
 */
 func (a *SubscriptionAPIService) UnsubscribeByNotificationTypeRole(ctx context.Context, roleRef ListSubscriptionsRoleRoleRefParameter, notificationType string) ApiUnsubscribeByNotificationTypeRoleRequest {
 	return ApiUnsubscribeByNotificationTypeRoleRequest{
-		ApiService: a,
-		ctx: ctx,
-		roleRef: roleRef,
+		ApiService:       a,
+		ctx:              ctx,
+		roleRef:          roleRef,
 		notificationType: notificationType,
-		retryCount: 0,
+		retryCount:       0,
 	}
 }
 
@@ -1113,7 +1115,7 @@ func (a *SubscriptionAPIService) UnsubscribeByNotificationTypeRoleExecute(r ApiU
 		formFiles            []formFile
 		localVarHTTPResponse *http.Response
 		localAPIResponse     *APIResponse
-		err 				 error
+		err                  error
 	)
 
 	if a.client.cfg.Okta.Client.RequestTimeout > 0 {
@@ -1219,11 +1221,11 @@ func (a *SubscriptionAPIService) UnsubscribeByNotificationTypeRoleExecute(r ApiU
 }
 
 type ApiUnsubscribeByNotificationTypeUserRequest struct {
-	ctx context.Context
-	ApiService SubscriptionAPI
+	ctx              context.Context
+	ApiService       SubscriptionAPI
 	notificationType string
-	userId string
-	retryCount int32
+	userId           string
+	retryCount       int32
 }
 
 func (r ApiUnsubscribeByNotificationTypeUserRequest) Execute() (*APIResponse, error) {
@@ -1235,18 +1237,18 @@ UnsubscribeByNotificationTypeUser Unsubscribe a User from a Specific Notificatio
 
 Unsubscribes the current user from a specified notification type. Returns an `AccessDeniedException` message if requests are made for another user.
 
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @param notificationType
- @param userId ID of an existing Okta user
- @return ApiUnsubscribeByNotificationTypeUserRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param notificationType
+	@param userId ID of an existing Okta user
+	@return ApiUnsubscribeByNotificationTypeUserRequest
 */
 func (a *SubscriptionAPIService) UnsubscribeByNotificationTypeUser(ctx context.Context, notificationType string, userId string) ApiUnsubscribeByNotificationTypeUserRequest {
 	return ApiUnsubscribeByNotificationTypeUserRequest{
-		ApiService: a,
-		ctx: ctx,
+		ApiService:       a,
+		ctx:              ctx,
 		notificationType: notificationType,
-		userId: userId,
-		retryCount: 0,
+		userId:           userId,
+		retryCount:       0,
 	}
 }
 
@@ -1258,7 +1260,7 @@ func (a *SubscriptionAPIService) UnsubscribeByNotificationTypeUserExecute(r ApiU
 		formFiles            []formFile
 		localVarHTTPResponse *http.Response
 		localAPIResponse     *APIResponse
-		err 				 error
+		err                  error
 	)
 
 	if a.client.cfg.Okta.Client.RequestTimeout > 0 {

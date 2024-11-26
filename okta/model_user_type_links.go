@@ -30,8 +30,8 @@ import (
 
 // UserTypeLinks struct for UserTypeLinks
 type UserTypeLinks struct {
-	Self *HrefObjectSelfLink `json:"self,omitempty"`
-	Schema *SourceLinksAllOfSchema `json:"schema,omitempty"`
+	Self                 *HrefObjectSelfLink     `json:"self,omitempty"`
+	Schema               *SourceLinksAllOfSchema `json:"schema,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -193,4 +193,3 @@ func (v *NullableUserTypeLinks) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-

@@ -36,17 +36,17 @@ type DeviceList struct {
 	// Unique key for the device
 	Id *string `json:"id,omitempty"`
 	// Timestamp when the device record was last updated. Updates occur when Okta collects and saves device signals during authentication, and when the lifecycle state of the device changes.
-	LastUpdated *time.Time `json:"lastUpdated,omitempty"`
-	Profile *DeviceProfile `json:"profile,omitempty"`
-	ResourceAlternateId *string `json:"resourceAlternateId,omitempty"`
+	LastUpdated         *time.Time         `json:"lastUpdated,omitempty"`
+	Profile             *DeviceProfile     `json:"profile,omitempty"`
+	ResourceAlternateId *string            `json:"resourceAlternateId,omitempty"`
 	ResourceDisplayName *DeviceDisplayName `json:"resourceDisplayName,omitempty"`
 	// Alternate key for the `id`
-	ResourceId *string `json:"resourceId,omitempty"`
+	ResourceId   *string `json:"resourceId,omitempty"`
 	ResourceType *string `json:"resourceType,omitempty"`
 	// The state object of the device
-	Status *string `json:"status,omitempty"`
-	Links *LinksSelfAndFullUsersLifecycle `json:"_links,omitempty"`
-	Embedded *DeviceListAllOfEmbedded `json:"_embedded,omitempty"`
+	Status               *string                         `json:"status,omitempty"`
+	Links                *LinksSelfAndFullUsersLifecycle `json:"_links,omitempty"`
+	Embedded             *DeviceListAllOfEmbedded        `json:"_embedded,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -532,4 +532,3 @@ func (v *NullableDeviceList) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-

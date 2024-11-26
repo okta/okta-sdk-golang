@@ -33,12 +33,12 @@ import (
 // DeviceAssuranceMacOSPlatform struct for DeviceAssuranceMacOSPlatform
 type DeviceAssuranceMacOSPlatform struct {
 	DeviceAssurance
-	DiskEncryptionType *DeviceAssuranceMacOSPlatformAllOfDiskEncryptionType `json:"diskEncryptionType,omitempty"`
-	OsVersion *OSVersion `json:"osVersion,omitempty"`
-	ScreenLockType *DeviceAssuranceAndroidPlatformAllOfScreenLockType `json:"screenLockType,omitempty"`
-	SecureHardwarePresent *bool `json:"secureHardwarePresent,omitempty"`
+	DiskEncryptionType        *DeviceAssuranceMacOSPlatformAllOfDiskEncryptionType        `json:"diskEncryptionType,omitempty"`
+	OsVersion                 *OSVersion                                                  `json:"osVersion,omitempty"`
+	ScreenLockType            *DeviceAssuranceAndroidPlatformAllOfScreenLockType          `json:"screenLockType,omitempty"`
+	SecureHardwarePresent     *bool                                                       `json:"secureHardwarePresent,omitempty"`
 	ThirdPartySignalProviders *DeviceAssuranceMacOSPlatformAllOfThirdPartySignalProviders `json:"thirdPartySignalProviders,omitempty"`
-	AdditionalProperties map[string]interface{}
+	AdditionalProperties      map[string]interface{}
 }
 
 type _DeviceAssuranceMacOSPlatform DeviceAssuranceMacOSPlatform
@@ -255,10 +255,10 @@ func (o DeviceAssuranceMacOSPlatform) MarshalJSON() ([]byte, error) {
 
 func (o *DeviceAssuranceMacOSPlatform) UnmarshalJSON(bytes []byte) (err error) {
 	type DeviceAssuranceMacOSPlatformWithoutEmbeddedStruct struct {
-		DiskEncryptionType *DeviceAssuranceMacOSPlatformAllOfDiskEncryptionType `json:"diskEncryptionType,omitempty"`
-		OsVersion *OSVersion `json:"osVersion,omitempty"`
-		ScreenLockType *DeviceAssuranceAndroidPlatformAllOfScreenLockType `json:"screenLockType,omitempty"`
-		SecureHardwarePresent *bool `json:"secureHardwarePresent,omitempty"`
+		DiskEncryptionType        *DeviceAssuranceMacOSPlatformAllOfDiskEncryptionType        `json:"diskEncryptionType,omitempty"`
+		OsVersion                 *OSVersion                                                  `json:"osVersion,omitempty"`
+		ScreenLockType            *DeviceAssuranceAndroidPlatformAllOfScreenLockType          `json:"screenLockType,omitempty"`
+		SecureHardwarePresent     *bool                                                       `json:"secureHardwarePresent,omitempty"`
 		ThirdPartySignalProviders *DeviceAssuranceMacOSPlatformAllOfThirdPartySignalProviders `json:"thirdPartySignalProviders,omitempty"`
 	}
 
@@ -357,4 +357,3 @@ func (v *NullableDeviceAssuranceMacOSPlatform) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-

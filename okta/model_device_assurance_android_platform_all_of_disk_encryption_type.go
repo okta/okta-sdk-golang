@@ -30,7 +30,7 @@ import (
 
 // DeviceAssuranceAndroidPlatformAllOfDiskEncryptionType struct for DeviceAssuranceAndroidPlatformAllOfDiskEncryptionType
 type DeviceAssuranceAndroidPlatformAllOfDiskEncryptionType struct {
-	Include []string `json:"include,omitempty"`
+	Include              []string `json:"include,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -156,4 +156,3 @@ func (v *NullableDeviceAssuranceAndroidPlatformAllOfDiskEncryptionType) Unmarsha
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-

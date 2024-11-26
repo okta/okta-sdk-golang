@@ -30,9 +30,9 @@ import (
 
 // UserIdentifierPolicyRuleCondition struct for UserIdentifierPolicyRuleCondition
 type UserIdentifierPolicyRuleCondition struct {
-	Attribute *string `json:"attribute,omitempty"`
-	Patterns []UserIdentifierConditionEvaluatorPattern `json:"patterns,omitempty"`
-	Type *string `json:"type,omitempty"`
+	Attribute            *string                                   `json:"attribute,omitempty"`
+	Patterns             []UserIdentifierConditionEvaluatorPattern `json:"patterns,omitempty"`
+	Type                 *string                                   `json:"type,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -230,4 +230,3 @@ func (v *NullableUserIdentifierPolicyRuleCondition) UnmarshalJSON(src []byte) er
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-

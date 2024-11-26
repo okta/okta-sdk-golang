@@ -74,8 +74,7 @@ func (o AuthenticatorSimple) MarshalJSON() ([]byte, error) {
 }
 
 func (o *AuthenticatorSimple) UnmarshalJSON(bytes []byte) (err error) {
-	type AuthenticatorSimpleWithoutEmbeddedStruct struct {
-	}
+	type AuthenticatorSimpleWithoutEmbeddedStruct struct{}
 
 	varAuthenticatorSimpleWithoutEmbeddedStruct := AuthenticatorSimpleWithoutEmbeddedStruct{}
 
@@ -162,4 +161,3 @@ func (v *NullableAuthenticatorSimple) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-

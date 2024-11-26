@@ -35,8 +35,8 @@ type AuthenticatorKeyDuoAllOfProviderConfiguration struct {
 	// The Duo Security integration key
 	IntegrationKey *string `json:"integrationKey,omitempty"`
 	// The Duo Security secret key
-	SecretKey *string `json:"secretKey,omitempty"`
-	UserNameTemplate *AuthenticatorKeyDuoAllOfProviderConfigurationUserNameTemplate `json:"userNameTemplate,omitempty"`
+	SecretKey            *string                                                        `json:"secretKey,omitempty"`
+	UserNameTemplate     *AuthenticatorKeyDuoAllOfProviderConfigurationUserNameTemplate `json:"userNameTemplate,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -270,4 +270,3 @@ func (v *NullableAuthenticatorKeyDuoAllOfProviderConfiguration) UnmarshalJSON(sr
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-

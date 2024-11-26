@@ -30,9 +30,9 @@ import (
 
 // PlatformConditionEvaluatorPlatformOperatingSystem struct for PlatformConditionEvaluatorPlatformOperatingSystem
 type PlatformConditionEvaluatorPlatformOperatingSystem struct {
-	Expression *string `json:"expression,omitempty"`
-	Type *string `json:"type,omitempty"`
-	Version *PlatformConditionEvaluatorPlatformOperatingSystemVersion `json:"version,omitempty"`
+	Expression           *string                                                   `json:"expression,omitempty"`
+	Type                 *string                                                   `json:"type,omitempty"`
+	Version              *PlatformConditionEvaluatorPlatformOperatingSystemVersion `json:"version,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -230,4 +230,3 @@ func (v *NullablePlatformConditionEvaluatorPlatformOperatingSystem) UnmarshalJSO
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-

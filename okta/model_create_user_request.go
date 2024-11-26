@@ -31,11 +31,11 @@ import (
 // CreateUserRequest struct for CreateUserRequest
 type CreateUserRequest struct {
 	Credentials *UserCredentials `json:"credentials,omitempty"`
-	GroupIds []string `json:"groupIds,omitempty"`
-	Profile UserProfile `json:"profile"`
+	GroupIds    []string         `json:"groupIds,omitempty"`
+	Profile     UserProfile      `json:"profile"`
 	// <div class=\"x-lifecycle-container\"><x-lifecycle class=\"ea\"></x-lifecycle></div>The ID of the Realm in which the user is residing
-	RealmId *string `json:"realmId,omitempty"`
-	Type *CreateUserRequestType `json:"type,omitempty"`
+	RealmId              *string                `json:"realmId,omitempty"`
+	Type                 *CreateUserRequestType `json:"type,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -298,4 +298,3 @@ func (v *NullableCreateUserRequest) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-

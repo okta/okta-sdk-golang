@@ -30,7 +30,7 @@ import (
 
 // TempPassword struct for TempPassword
 type TempPassword struct {
-	TempPassword *string `json:"tempPassword,omitempty"`
+	TempPassword         *string `json:"tempPassword,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -156,4 +156,3 @@ func (v *NullableTempPassword) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-

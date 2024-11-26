@@ -33,10 +33,10 @@ import (
 // UserFactorToken struct for UserFactorToken
 type UserFactorToken struct {
 	UserFactor
-	FactorType interface{} `json:"factorType,omitempty"`
-	Profile *UserFactorTokenProfile `json:"profile,omitempty"`
-	Provider *string `json:"provider,omitempty"`
-	Verify *UserFactorTokenAllOfVerify `json:"verify,omitempty"`
+	FactorType           interface{}                 `json:"factorType,omitempty"`
+	Profile              *UserFactorTokenProfile     `json:"profile,omitempty"`
+	Provider             *string                     `json:"provider,omitempty"`
+	Verify               *UserFactorTokenAllOfVerify `json:"verify,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -220,10 +220,10 @@ func (o UserFactorToken) MarshalJSON() ([]byte, error) {
 
 func (o *UserFactorToken) UnmarshalJSON(bytes []byte) (err error) {
 	type UserFactorTokenWithoutEmbeddedStruct struct {
-		FactorType interface{} `json:"factorType,omitempty"`
-		Profile *UserFactorTokenProfile `json:"profile,omitempty"`
-		Provider *string `json:"provider,omitempty"`
-		Verify *UserFactorTokenAllOfVerify `json:"verify,omitempty"`
+		FactorType interface{}                 `json:"factorType,omitempty"`
+		Profile    *UserFactorTokenProfile     `json:"profile,omitempty"`
+		Provider   *string                     `json:"provider,omitempty"`
+		Verify     *UserFactorTokenAllOfVerify `json:"verify,omitempty"`
 	}
 
 	varUserFactorTokenWithoutEmbeddedStruct := UserFactorTokenWithoutEmbeddedStruct{}
@@ -319,4 +319,3 @@ func (v *NullableUserFactorToken) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-

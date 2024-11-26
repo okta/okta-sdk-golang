@@ -31,7 +31,7 @@ import (
 // WellKnownAppAuthenticatorConfigurationSettings struct for WellKnownAppAuthenticatorConfigurationSettings
 type WellKnownAppAuthenticatorConfigurationSettings struct {
 	// User verification setting
-	UserVerification *string `json:"userVerification,omitempty"`
+	UserVerification     *string `json:"userVerification,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -157,4 +157,3 @@ func (v *NullableWellKnownAppAuthenticatorConfigurationSettings) UnmarshalJSON(s
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-

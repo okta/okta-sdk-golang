@@ -30,13 +30,13 @@ import (
 
 // SlackApplicationSettings struct for SlackApplicationSettings
 type SlackApplicationSettings struct {
-	IdentityStoreId *string `json:"identityStoreId,omitempty"`
-	ImplicitAssignment *bool `json:"implicitAssignment,omitempty"`
-	InlineHookId *string `json:"inlineHookId,omitempty"`
-	Notes *ApplicationSettingsNotes `json:"notes,omitempty"`
-	Notifications *ApplicationSettingsNotifications `json:"notifications,omitempty"`
-	App SlackApplicationSettingsApplication `json:"app"`
-	SignOn *OINSaml20ApplicationSettingsSignOn `json:"signOn,omitempty"`
+	IdentityStoreId      *string                             `json:"identityStoreId,omitempty"`
+	ImplicitAssignment   *bool                               `json:"implicitAssignment,omitempty"`
+	InlineHookId         *string                             `json:"inlineHookId,omitempty"`
+	Notes                *ApplicationSettingsNotes           `json:"notes,omitempty"`
+	Notifications        *ApplicationSettingsNotifications   `json:"notifications,omitempty"`
+	App                  SlackApplicationSettingsApplication `json:"app"`
+	SignOn               *OINSaml20ApplicationSettingsSignOn `json:"signOn,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -371,4 +371,3 @@ func (v *NullableSlackApplicationSettings) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-

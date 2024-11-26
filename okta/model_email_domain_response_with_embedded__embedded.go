@@ -30,7 +30,7 @@ import (
 
 // EmailDomainResponseWithEmbeddedEmbedded struct for EmailDomainResponseWithEmbeddedEmbedded
 type EmailDomainResponseWithEmbeddedEmbedded struct {
-	Brands []Brand `json:"brands,omitempty"`
+	Brands               []Brand `json:"brands,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -156,4 +156,3 @@ func (v *NullableEmailDomainResponseWithEmbeddedEmbedded) UnmarshalJSON(src []by
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-

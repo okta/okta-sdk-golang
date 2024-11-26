@@ -31,8 +31,8 @@ import (
 // UserFactorActivateResponse struct for UserFactorActivateResponse
 type UserFactorActivateResponse struct {
 	// Type of the Factor
-	FactorType *string `json:"factorType,omitempty"`
-	Links *UserFactorActivateResponseLinks `json:"_links,omitempty"`
+	FactorType           *string                          `json:"factorType,omitempty"`
+	Links                *UserFactorActivateResponseLinks `json:"_links,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -194,4 +194,3 @@ func (v *NullableUserFactorActivateResponse) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-

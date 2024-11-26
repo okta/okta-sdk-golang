@@ -33,7 +33,7 @@ type SecurityEventsProviderSettingsNonSSFCompliant struct {
 	// Issuer URL
 	Issuer string `json:"issuer"`
 	// The public URL where the JWKS public key is uploaded
-	JwksUrl string `json:"jwks_url"`
+	JwksUrl              string `json:"jwks_url"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -181,4 +181,3 @@ func (v *NullableSecurityEventsProviderSettingsNonSSFCompliant) UnmarshalJSON(sr
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-

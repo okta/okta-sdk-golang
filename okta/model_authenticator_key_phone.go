@@ -33,7 +33,7 @@ import (
 // AuthenticatorKeyPhone struct for AuthenticatorKeyPhone
 type AuthenticatorKeyPhone struct {
 	AuthenticatorSimple
-	Settings *AuthenticatorKeyPhoneAllOfSettings `json:"settings,omitempty"`
+	Settings             *AuthenticatorKeyPhoneAllOfSettings `json:"settings,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -201,4 +201,3 @@ func (v *NullableAuthenticatorKeyPhone) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-

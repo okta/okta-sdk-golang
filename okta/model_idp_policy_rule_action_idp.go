@@ -31,10 +31,10 @@ import (
 // IdpPolicyRuleActionIdp struct for IdpPolicyRuleActionIdp
 type IdpPolicyRuleActionIdp struct {
 	// List of configured Identity Providers that a given Rule can route to. Ability to define multiple providers is a part of the Okta Identity Engine. This allows users to choose a Provider when they sign in. Contact support for information on the Identity Engine.
-	Providers []IdpPolicyRuleActionProvider `json:"providers,omitempty"`
-	IdpSelectionType *string `json:"idpSelectionType,omitempty"`
+	Providers        []IdpPolicyRuleActionProvider `json:"providers,omitempty"`
+	IdpSelectionType *string                       `json:"idpSelectionType,omitempty"`
 	// Required if `idpSelectionType` is set to `DYNAMIC`
-	MatchCriteria []IdpPolicyRuleActionMatchCriteria `json:"matchCriteria,omitempty"`
+	MatchCriteria        []IdpPolicyRuleActionMatchCriteria `json:"matchCriteria,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -232,4 +232,3 @@ func (v *NullableIdpPolicyRuleActionIdp) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-

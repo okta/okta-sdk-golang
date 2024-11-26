@@ -30,22 +30,20 @@ import (
 	"io/ioutil"
 	"net/http"
 	"net/url"
-	"time"
 	"strings"
+	"time"
 )
 
-
 type RoleTargetAPI interface {
-
 	/*
-	AssignAllAppsAsTargetToRoleForUser Assign all Apps as Target to Role
+		AssignAllAppsAsTargetToRoleForUser Assign all Apps as Target to Role
 
-	Assigns all Apps as Target to Role
+		Assigns all Apps as Target to Role
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param userId ID of an existing Okta user
-	@param roleId `id` of the Role
-	@return ApiAssignAllAppsAsTargetToRoleForUserRequest
+		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+		@param userId ID of an existing Okta user
+		@param roleId `id` of the Role
+		@return ApiAssignAllAppsAsTargetToRoleForUserRequest
 	*/
 	AssignAllAppsAsTargetToRoleForUser(ctx context.Context, userId string, roleId string) ApiAssignAllAppsAsTargetToRoleForUserRequest
 
@@ -53,16 +51,16 @@ type RoleTargetAPI interface {
 	AssignAllAppsAsTargetToRoleForUserExecute(r ApiAssignAllAppsAsTargetToRoleForUserRequest) (*APIResponse, error)
 
 	/*
-	AssignAppInstanceTargetToAppAdminRoleForGroup Assign an Application Instance Target to Application Administrator Role
+		AssignAppInstanceTargetToAppAdminRoleForGroup Assign an Application Instance Target to Application Administrator Role
 
-	Assigns App Instance Target to App Administrator Role given to a Group
+		Assigns App Instance Target to App Administrator Role given to a Group
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param groupId The `id` of the group
-	@param roleId `id` of the Role
-	@param appName Application name for the app type
-	@param appId Application ID
-	@return ApiAssignAppInstanceTargetToAppAdminRoleForGroupRequest
+		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+		@param groupId The `id` of the group
+		@param roleId `id` of the Role
+		@param appName Application name for the app type
+		@param appId Application ID
+		@return ApiAssignAppInstanceTargetToAppAdminRoleForGroupRequest
 	*/
 	AssignAppInstanceTargetToAppAdminRoleForGroup(ctx context.Context, groupId string, roleId string, appName string, appId string) ApiAssignAppInstanceTargetToAppAdminRoleForGroupRequest
 
@@ -70,16 +68,16 @@ type RoleTargetAPI interface {
 	AssignAppInstanceTargetToAppAdminRoleForGroupExecute(r ApiAssignAppInstanceTargetToAppAdminRoleForGroupRequest) (*APIResponse, error)
 
 	/*
-	AssignAppInstanceTargetToAppAdminRoleForUser Assign an Application Instance Target to an Application Administrator Role
+		AssignAppInstanceTargetToAppAdminRoleForUser Assign an Application Instance Target to an Application Administrator Role
 
-	Assigns anapplication instance target to appplication administrator role
+		Assigns anapplication instance target to appplication administrator role
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param userId ID of an existing Okta user
-	@param roleId `id` of the Role
-	@param appName Application name for the app type
-	@param appId Application ID
-	@return ApiAssignAppInstanceTargetToAppAdminRoleForUserRequest
+		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+		@param userId ID of an existing Okta user
+		@param roleId `id` of the Role
+		@param appName Application name for the app type
+		@param appId Application ID
+		@return ApiAssignAppInstanceTargetToAppAdminRoleForUserRequest
 	*/
 	AssignAppInstanceTargetToAppAdminRoleForUser(ctx context.Context, userId string, roleId string, appName string, appId string) ApiAssignAppInstanceTargetToAppAdminRoleForUserRequest
 
@@ -87,16 +85,16 @@ type RoleTargetAPI interface {
 	AssignAppInstanceTargetToAppAdminRoleForUserExecute(r ApiAssignAppInstanceTargetToAppAdminRoleForUserRequest) (*APIResponse, error)
 
 	/*
-	AssignAppTargetInstanceRoleForClient Replace an App Instance Target for a Client
+		AssignAppTargetInstanceRoleForClient Replace an App Instance Target for a Client
 
-	Replaces an App Instance Target by `clientId`
+		Replaces an App Instance Target by `clientId`
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param clientId `client_id` of the app
-	@param roleId `id` of the Role
-	@param appName Application name for the app type
-	@param appInstanceId `id` of the application instance
-	@return ApiAssignAppTargetInstanceRoleForClientRequest
+		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+		@param clientId `client_id` of the app
+		@param roleId `id` of the Role
+		@param appName Application name for the app type
+		@param appInstanceId `id` of the application instance
+		@return ApiAssignAppTargetInstanceRoleForClientRequest
 	*/
 	AssignAppTargetInstanceRoleForClient(ctx context.Context, clientId string, roleId string, appName string, appInstanceId string) ApiAssignAppTargetInstanceRoleForClientRequest
 
@@ -104,15 +102,15 @@ type RoleTargetAPI interface {
 	AssignAppTargetInstanceRoleForClientExecute(r ApiAssignAppTargetInstanceRoleForClientRequest) (*APIResponse, error)
 
 	/*
-	AssignAppTargetRoleToClient Assign an App Target to a Client
+		AssignAppTargetRoleToClient Assign an App Target to a Client
 
-	Assigns an Application Target to a Client
+		Assigns an Application Target to a Client
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param clientId `client_id` of the app
-	@param roleId `id` of the Role
-	@param appName Application name for the app type
-	@return ApiAssignAppTargetRoleToClientRequest
+		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+		@param clientId `client_id` of the app
+		@param roleId `id` of the Role
+		@param appName Application name for the app type
+		@return ApiAssignAppTargetRoleToClientRequest
 	*/
 	AssignAppTargetRoleToClient(ctx context.Context, clientId string, roleId string, appName string) ApiAssignAppTargetRoleToClientRequest
 
@@ -120,15 +118,15 @@ type RoleTargetAPI interface {
 	AssignAppTargetRoleToClientExecute(r ApiAssignAppTargetRoleToClientRequest) (*APIResponse, error)
 
 	/*
-	AssignAppTargetToAdminRoleForGroup Assign an Application Target to Administrator Role
+		AssignAppTargetToAdminRoleForGroup Assign an Application Target to Administrator Role
 
-	Assigns an application target to administrator role
+		Assigns an application target to administrator role
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param groupId The `id` of the group
-	@param roleId `id` of the Role
-	@param appName Application name for the app type
-	@return ApiAssignAppTargetToAdminRoleForGroupRequest
+		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+		@param groupId The `id` of the group
+		@param roleId `id` of the Role
+		@param appName Application name for the app type
+		@return ApiAssignAppTargetToAdminRoleForGroupRequest
 	*/
 	AssignAppTargetToAdminRoleForGroup(ctx context.Context, groupId string, roleId string, appName string) ApiAssignAppTargetToAdminRoleForGroupRequest
 
@@ -136,15 +134,15 @@ type RoleTargetAPI interface {
 	AssignAppTargetToAdminRoleForGroupExecute(r ApiAssignAppTargetToAdminRoleForGroupRequest) (*APIResponse, error)
 
 	/*
-	AssignAppTargetToAdminRoleForUser Assign an Application Target to Administrator Role
+		AssignAppTargetToAdminRoleForUser Assign an Application Target to Administrator Role
 
-	Assigns an application target to administrator role
+		Assigns an application target to administrator role
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param userId ID of an existing Okta user
-	@param roleId `id` of the Role
-	@param appName Application name for the app type
-	@return ApiAssignAppTargetToAdminRoleForUserRequest
+		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+		@param userId ID of an existing Okta user
+		@param roleId `id` of the Role
+		@param appName Application name for the app type
+		@return ApiAssignAppTargetToAdminRoleForUserRequest
 	*/
 	AssignAppTargetToAdminRoleForUser(ctx context.Context, userId string, roleId string, appName string) ApiAssignAppTargetToAdminRoleForUserRequest
 
@@ -152,15 +150,15 @@ type RoleTargetAPI interface {
 	AssignAppTargetToAdminRoleForUserExecute(r ApiAssignAppTargetToAdminRoleForUserRequest) (*APIResponse, error)
 
 	/*
-	AssignGroupTargetRoleForClient Assign a Group Target to a Client
+		AssignGroupTargetRoleForClient Assign a Group Target to a Client
 
-	Assigns a Group Target to a Client
+		Assigns a Group Target to a Client
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param clientId `client_id` of the app
-	@param roleId `id` of the Role
-	@param groupId The `id` of the group
-	@return ApiAssignGroupTargetRoleForClientRequest
+		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+		@param clientId `client_id` of the app
+		@param roleId `id` of the Role
+		@param groupId The `id` of the group
+		@return ApiAssignGroupTargetRoleForClientRequest
 	*/
 	AssignGroupTargetRoleForClient(ctx context.Context, clientId string, roleId string, groupId string) ApiAssignGroupTargetRoleForClientRequest
 
@@ -168,15 +166,15 @@ type RoleTargetAPI interface {
 	AssignGroupTargetRoleForClientExecute(r ApiAssignGroupTargetRoleForClientRequest) (*APIResponse, error)
 
 	/*
-	AssignGroupTargetToGroupAdminRole Assign a Group Target to a Group Role
+		AssignGroupTargetToGroupAdminRole Assign a Group Target to a Group Role
 
-	Assigns a group target to a group role
+		Assigns a group target to a group role
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param groupId The `id` of the group
-	@param roleId `id` of the Role
-	@param targetGroupId
-	@return ApiAssignGroupTargetToGroupAdminRoleRequest
+		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+		@param groupId The `id` of the group
+		@param roleId `id` of the Role
+		@param targetGroupId
+		@return ApiAssignGroupTargetToGroupAdminRoleRequest
 	*/
 	AssignGroupTargetToGroupAdminRole(ctx context.Context, groupId string, roleId string, targetGroupId string) ApiAssignGroupTargetToGroupAdminRoleRequest
 
@@ -184,15 +182,15 @@ type RoleTargetAPI interface {
 	AssignGroupTargetToGroupAdminRoleExecute(r ApiAssignGroupTargetToGroupAdminRoleRequest) (*APIResponse, error)
 
 	/*
-	AssignGroupTargetToUserRole Assign a Group Target to Role
+		AssignGroupTargetToUserRole Assign a Group Target to Role
 
-	Assigns a Group Target to Role
+		Assigns a Group Target to Role
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param userId ID of an existing Okta user
-	@param roleId `id` of the Role
-	@param groupId The `id` of the group
-	@return ApiAssignGroupTargetToUserRoleRequest
+		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+		@param userId ID of an existing Okta user
+		@param roleId `id` of the Role
+		@param groupId The `id` of the group
+		@return ApiAssignGroupTargetToUserRoleRequest
 	*/
 	AssignGroupTargetToUserRole(ctx context.Context, userId string, roleId string, groupId string) ApiAssignGroupTargetToUserRoleRequest
 
@@ -200,14 +198,14 @@ type RoleTargetAPI interface {
 	AssignGroupTargetToUserRoleExecute(r ApiAssignGroupTargetToUserRoleRequest) (*APIResponse, error)
 
 	/*
-	ListAppTargetRoleToClient List all App Targets assigned to a Client
+		ListAppTargetRoleToClient List all App Targets assigned to a Client
 
-	Lists App Targets for Client and Role
+		Lists App Targets for Client and Role
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param clientId `client_id` of the app
-	@param roleId `id` of the Role
-	@return ApiListAppTargetRoleToClientRequest
+		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+		@param clientId `client_id` of the app
+		@param roleId `id` of the Role
+		@return ApiListAppTargetRoleToClientRequest
 	*/
 	ListAppTargetRoleToClient(ctx context.Context, clientId string, roleId string) ApiListAppTargetRoleToClientRequest
 
@@ -216,14 +214,14 @@ type RoleTargetAPI interface {
 	ListAppTargetRoleToClientExecute(r ApiListAppTargetRoleToClientRequest) (*Client, *APIResponse, error)
 
 	/*
-	ListApplicationTargetsForApplicationAdministratorRoleForGroup List all Application Targets for an Application Administrator Role
+		ListApplicationTargetsForApplicationAdministratorRoleForGroup List all Application Targets for an Application Administrator Role
 
-	Lists all App targets for an `APP_ADMIN` Role assigned to a Group. This methods return list may include full Applications or Instances. The response for an instance will have an `ID` value, while Application will not have an ID.
+		Lists all App targets for an `APP_ADMIN` Role assigned to a Group. This methods return list may include full Applications or Instances. The response for an instance will have an `ID` value, while Application will not have an ID.
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param groupId The `id` of the group
-	@param roleId `id` of the Role
-	@return ApiListApplicationTargetsForApplicationAdministratorRoleForGroupRequest
+		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+		@param groupId The `id` of the group
+		@param roleId `id` of the Role
+		@return ApiListApplicationTargetsForApplicationAdministratorRoleForGroupRequest
 	*/
 	ListApplicationTargetsForApplicationAdministratorRoleForGroup(ctx context.Context, groupId string, roleId string) ApiListApplicationTargetsForApplicationAdministratorRoleForGroupRequest
 
@@ -232,14 +230,14 @@ type RoleTargetAPI interface {
 	ListApplicationTargetsForApplicationAdministratorRoleForGroupExecute(r ApiListApplicationTargetsForApplicationAdministratorRoleForGroupRequest) ([]CatalogApplication, *APIResponse, error)
 
 	/*
-	ListApplicationTargetsForApplicationAdministratorRoleForUser List all Application Targets for Application Administrator Role
+		ListApplicationTargetsForApplicationAdministratorRoleForUser List all Application Targets for Application Administrator Role
 
-	Lists all App targets for an `APP_ADMIN` Role assigned to a User. This methods return list may include full Applications or Instances. The response for an instance will have an `ID` value, while Application will not have an ID.
+		Lists all App targets for an `APP_ADMIN` Role assigned to a User. This methods return list may include full Applications or Instances. The response for an instance will have an `ID` value, while Application will not have an ID.
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param userId ID of an existing Okta user
-	@param roleId `id` of the Role
-	@return ApiListApplicationTargetsForApplicationAdministratorRoleForUserRequest
+		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+		@param userId ID of an existing Okta user
+		@param roleId `id` of the Role
+		@return ApiListApplicationTargetsForApplicationAdministratorRoleForUserRequest
 	*/
 	ListApplicationTargetsForApplicationAdministratorRoleForUser(ctx context.Context, userId string, roleId string) ApiListApplicationTargetsForApplicationAdministratorRoleForUserRequest
 
@@ -248,14 +246,14 @@ type RoleTargetAPI interface {
 	ListApplicationTargetsForApplicationAdministratorRoleForUserExecute(r ApiListApplicationTargetsForApplicationAdministratorRoleForUserRequest) ([]CatalogApplication, *APIResponse, error)
 
 	/*
-	ListGroupTargetRoleForClient List all Group Targets for a Client
+		ListGroupTargetRoleForClient List all Group Targets for a Client
 
-	Lists all Group Targets by `clientId` and `roleId`
+		Lists all Group Targets by `clientId` and `roleId`
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param clientId `client_id` of the app
-	@param roleId `id` of the Role
-	@return ApiListGroupTargetRoleForClientRequest
+		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+		@param clientId `client_id` of the app
+		@param roleId `id` of the Role
+		@return ApiListGroupTargetRoleForClientRequest
 	*/
 	ListGroupTargetRoleForClient(ctx context.Context, clientId string, roleId string) ApiListGroupTargetRoleForClientRequest
 
@@ -264,14 +262,14 @@ type RoleTargetAPI interface {
 	ListGroupTargetRoleForClientExecute(r ApiListGroupTargetRoleForClientRequest) (*Client, *APIResponse, error)
 
 	/*
-	ListGroupTargetsForGroupRole List all Group Targets for a Group Role
+		ListGroupTargetsForGroupRole List all Group Targets for a Group Role
 
-	Lists all group targets for a group role
+		Lists all group targets for a group role
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param groupId The `id` of the group
-	@param roleId `id` of the Role
-	@return ApiListGroupTargetsForGroupRoleRequest
+		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+		@param groupId The `id` of the group
+		@param roleId `id` of the Role
+		@return ApiListGroupTargetsForGroupRoleRequest
 	*/
 	ListGroupTargetsForGroupRole(ctx context.Context, groupId string, roleId string) ApiListGroupTargetsForGroupRoleRequest
 
@@ -280,14 +278,14 @@ type RoleTargetAPI interface {
 	ListGroupTargetsForGroupRoleExecute(r ApiListGroupTargetsForGroupRoleRequest) ([]Group, *APIResponse, error)
 
 	/*
-	ListGroupTargetsForRole List all Group Targets for Role
+		ListGroupTargetsForRole List all Group Targets for Role
 
-	Lists all group targets for role
+		Lists all group targets for role
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param userId ID of an existing Okta user
-	@param roleId `id` of the Role
-	@return ApiListGroupTargetsForRoleRequest
+		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+		@param userId ID of an existing Okta user
+		@param roleId `id` of the Role
+		@return ApiListGroupTargetsForRoleRequest
 	*/
 	ListGroupTargetsForRole(ctx context.Context, userId string, roleId string) ApiListGroupTargetsForRoleRequest
 
@@ -296,16 +294,16 @@ type RoleTargetAPI interface {
 	ListGroupTargetsForRoleExecute(r ApiListGroupTargetsForRoleRequest) ([]Group, *APIResponse, error)
 
 	/*
-	RemoveAppTargetInstanceRoleForClient Delete an App Instance Target for a Client
+		RemoveAppTargetInstanceRoleForClient Delete an App Instance Target for a Client
 
-	Deletes an App Instance Target from a Client
+		Deletes an App Instance Target from a Client
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param clientId `client_id` of the app
-	@param roleId `id` of the Role
-	@param appName Application name for the app type
-	@param appInstanceId `id` of the application instance
-	@return ApiRemoveAppTargetInstanceRoleForClientRequest
+		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+		@param clientId `client_id` of the app
+		@param roleId `id` of the Role
+		@param appName Application name for the app type
+		@param appInstanceId `id` of the application instance
+		@return ApiRemoveAppTargetInstanceRoleForClientRequest
 	*/
 	RemoveAppTargetInstanceRoleForClient(ctx context.Context, clientId string, roleId string, appName string, appInstanceId string) ApiRemoveAppTargetInstanceRoleForClientRequest
 
@@ -313,15 +311,15 @@ type RoleTargetAPI interface {
 	RemoveAppTargetInstanceRoleForClientExecute(r ApiRemoveAppTargetInstanceRoleForClientRequest) (*APIResponse, error)
 
 	/*
-	RemoveAppTargetRoleFromClient Remove an App Target from a Client
+		RemoveAppTargetRoleFromClient Remove an App Target from a Client
 
-	Removes an Application Target by `clientId`
+		Removes an Application Target by `clientId`
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param clientId `client_id` of the app
-	@param roleId `id` of the Role
-	@param appName Application name for the app type
-	@return ApiRemoveAppTargetRoleFromClientRequest
+		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+		@param clientId `client_id` of the app
+		@param roleId `id` of the Role
+		@param appName Application name for the app type
+		@return ApiRemoveAppTargetRoleFromClientRequest
 	*/
 	RemoveAppTargetRoleFromClient(ctx context.Context, clientId string, roleId string, appName string) ApiRemoveAppTargetRoleFromClientRequest
 
@@ -329,15 +327,15 @@ type RoleTargetAPI interface {
 	RemoveAppTargetRoleFromClientExecute(r ApiRemoveAppTargetRoleFromClientRequest) (*APIResponse, error)
 
 	/*
-	RemoveGroupTargetRoleFromClient Delete a Group Target from a Client
+		RemoveGroupTargetRoleFromClient Delete a Group Target from a Client
 
-	Deletes a Group Target from a Client
+		Deletes a Group Target from a Client
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param clientId `client_id` of the app
-	@param roleId `id` of the Role
-	@param groupId The `id` of the group
-	@return ApiRemoveGroupTargetRoleFromClientRequest
+		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+		@param clientId `client_id` of the app
+		@param roleId `id` of the Role
+		@param groupId The `id` of the group
+		@return ApiRemoveGroupTargetRoleFromClientRequest
 	*/
 	RemoveGroupTargetRoleFromClient(ctx context.Context, clientId string, roleId string, groupId string) ApiRemoveGroupTargetRoleFromClientRequest
 
@@ -345,16 +343,16 @@ type RoleTargetAPI interface {
 	RemoveGroupTargetRoleFromClientExecute(r ApiRemoveGroupTargetRoleFromClientRequest) (*APIResponse, error)
 
 	/*
-	UnassignAppInstanceTargetFromAdminRoleForUser Unassign an Application Instance Target from an Application Administrator Role
+		UnassignAppInstanceTargetFromAdminRoleForUser Unassign an Application Instance Target from an Application Administrator Role
 
-	Unassigns an application instance target from an application administrator role
+		Unassigns an application instance target from an application administrator role
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param userId ID of an existing Okta user
-	@param roleId `id` of the Role
-	@param appName Application name for the app type
-	@param appId Application ID
-	@return ApiUnassignAppInstanceTargetFromAdminRoleForUserRequest
+		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+		@param userId ID of an existing Okta user
+		@param roleId `id` of the Role
+		@param appName Application name for the app type
+		@param appId Application ID
+		@return ApiUnassignAppInstanceTargetFromAdminRoleForUserRequest
 	*/
 	UnassignAppInstanceTargetFromAdminRoleForUser(ctx context.Context, userId string, roleId string, appName string, appId string) ApiUnassignAppInstanceTargetFromAdminRoleForUserRequest
 
@@ -362,16 +360,16 @@ type RoleTargetAPI interface {
 	UnassignAppInstanceTargetFromAdminRoleForUserExecute(r ApiUnassignAppInstanceTargetFromAdminRoleForUserRequest) (*APIResponse, error)
 
 	/*
-	UnassignAppInstanceTargetToAppAdminRoleForGroup Unassign an Application Instance Target from an Application Administrator Role
+		UnassignAppInstanceTargetToAppAdminRoleForGroup Unassign an Application Instance Target from an Application Administrator Role
 
-	Unassigns an application instance target from application administrator role
+		Unassigns an application instance target from application administrator role
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param groupId The `id` of the group
-	@param roleId `id` of the Role
-	@param appName Application name for the app type
-	@param appId Application ID
-	@return ApiUnassignAppInstanceTargetToAppAdminRoleForGroupRequest
+		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+		@param groupId The `id` of the group
+		@param roleId `id` of the Role
+		@param appName Application name for the app type
+		@param appId Application ID
+		@return ApiUnassignAppInstanceTargetToAppAdminRoleForGroupRequest
 	*/
 	UnassignAppInstanceTargetToAppAdminRoleForGroup(ctx context.Context, groupId string, roleId string, appName string, appId string) ApiUnassignAppInstanceTargetToAppAdminRoleForGroupRequest
 
@@ -379,15 +377,15 @@ type RoleTargetAPI interface {
 	UnassignAppInstanceTargetToAppAdminRoleForGroupExecute(r ApiUnassignAppInstanceTargetToAppAdminRoleForGroupRequest) (*APIResponse, error)
 
 	/*
-	UnassignAppTargetFromAppAdminRoleForUser Unassign an Application Target from an Application Administrator Role
+		UnassignAppTargetFromAppAdminRoleForUser Unassign an Application Target from an Application Administrator Role
 
-	Unassigns an application target from application administrator role
+		Unassigns an application target from application administrator role
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param userId ID of an existing Okta user
-	@param roleId `id` of the Role
-	@param appName Application name for the app type
-	@return ApiUnassignAppTargetFromAppAdminRoleForUserRequest
+		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+		@param userId ID of an existing Okta user
+		@param roleId `id` of the Role
+		@param appName Application name for the app type
+		@return ApiUnassignAppTargetFromAppAdminRoleForUserRequest
 	*/
 	UnassignAppTargetFromAppAdminRoleForUser(ctx context.Context, userId string, roleId string, appName string) ApiUnassignAppTargetFromAppAdminRoleForUserRequest
 
@@ -395,15 +393,15 @@ type RoleTargetAPI interface {
 	UnassignAppTargetFromAppAdminRoleForUserExecute(r ApiUnassignAppTargetFromAppAdminRoleForUserRequest) (*APIResponse, error)
 
 	/*
-	UnassignAppTargetToAdminRoleForGroup Unassign an Application Target from Application Administrator Role
+		UnassignAppTargetToAdminRoleForGroup Unassign an Application Target from Application Administrator Role
 
-	Unassigns an application target from application administrator role
+		Unassigns an application target from application administrator role
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param groupId The `id` of the group
-	@param roleId `id` of the Role
-	@param appName Application name for the app type
-	@return ApiUnassignAppTargetToAdminRoleForGroupRequest
+		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+		@param groupId The `id` of the group
+		@param roleId `id` of the Role
+		@param appName Application name for the app type
+		@return ApiUnassignAppTargetToAdminRoleForGroupRequest
 	*/
 	UnassignAppTargetToAdminRoleForGroup(ctx context.Context, groupId string, roleId string, appName string) ApiUnassignAppTargetToAdminRoleForGroupRequest
 
@@ -411,15 +409,15 @@ type RoleTargetAPI interface {
 	UnassignAppTargetToAdminRoleForGroupExecute(r ApiUnassignAppTargetToAdminRoleForGroupRequest) (*APIResponse, error)
 
 	/*
-	UnassignGroupTargetFromGroupAdminRole Unassign a Group Target from a Group Role
+		UnassignGroupTargetFromGroupAdminRole Unassign a Group Target from a Group Role
 
-	Unassigns a group target from a group role
+		Unassigns a group target from a group role
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param groupId The `id` of the group
-	@param roleId `id` of the Role
-	@param targetGroupId
-	@return ApiUnassignGroupTargetFromGroupAdminRoleRequest
+		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+		@param groupId The `id` of the group
+		@param roleId `id` of the Role
+		@param targetGroupId
+		@return ApiUnassignGroupTargetFromGroupAdminRoleRequest
 	*/
 	UnassignGroupTargetFromGroupAdminRole(ctx context.Context, groupId string, roleId string, targetGroupId string) ApiUnassignGroupTargetFromGroupAdminRoleRequest
 
@@ -427,15 +425,15 @@ type RoleTargetAPI interface {
 	UnassignGroupTargetFromGroupAdminRoleExecute(r ApiUnassignGroupTargetFromGroupAdminRoleRequest) (*APIResponse, error)
 
 	/*
-	UnassignGroupTargetFromUserAdminRole Unassign a Group Target from Role
+		UnassignGroupTargetFromUserAdminRole Unassign a Group Target from Role
 
-	Unassigns a Group Target from Role
+		Unassigns a Group Target from Role
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param userId ID of an existing Okta user
-	@param roleId `id` of the Role
-	@param groupId The `id` of the group
-	@return ApiUnassignGroupTargetFromUserAdminRoleRequest
+		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+		@param userId ID of an existing Okta user
+		@param roleId `id` of the Role
+		@param groupId The `id` of the group
+		@return ApiUnassignGroupTargetFromUserAdminRoleRequest
 	*/
 	UnassignGroupTargetFromUserAdminRole(ctx context.Context, userId string, roleId string, groupId string) ApiUnassignGroupTargetFromUserAdminRoleRequest
 
@@ -447,10 +445,10 @@ type RoleTargetAPI interface {
 type RoleTargetAPIService service
 
 type ApiAssignAllAppsAsTargetToRoleForUserRequest struct {
-	ctx context.Context
+	ctx        context.Context
 	ApiService RoleTargetAPI
-	userId string
-	roleId string
+	userId     string
+	roleId     string
 	retryCount int32
 }
 
@@ -463,17 +461,17 @@ AssignAllAppsAsTargetToRoleForUser Assign all Apps as Target to Role
 
 Assigns all Apps as Target to Role
 
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @param userId ID of an existing Okta user
- @param roleId `id` of the Role
- @return ApiAssignAllAppsAsTargetToRoleForUserRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param userId ID of an existing Okta user
+	@param roleId `id` of the Role
+	@return ApiAssignAllAppsAsTargetToRoleForUserRequest
 */
 func (a *RoleTargetAPIService) AssignAllAppsAsTargetToRoleForUser(ctx context.Context, userId string, roleId string) ApiAssignAllAppsAsTargetToRoleForUserRequest {
 	return ApiAssignAllAppsAsTargetToRoleForUserRequest{
 		ApiService: a,
-		ctx: ctx,
-		userId: userId,
-		roleId: roleId,
+		ctx:        ctx,
+		userId:     userId,
+		roleId:     roleId,
 		retryCount: 0,
 	}
 }
@@ -486,7 +484,7 @@ func (a *RoleTargetAPIService) AssignAllAppsAsTargetToRoleForUserExecute(r ApiAs
 		formFiles            []formFile
 		localVarHTTPResponse *http.Response
 		localAPIResponse     *APIResponse
-		err 				 error
+		err                  error
 	)
 
 	if a.client.cfg.Okta.Client.RequestTimeout > 0 {
@@ -604,12 +602,12 @@ func (a *RoleTargetAPIService) AssignAllAppsAsTargetToRoleForUserExecute(r ApiAs
 }
 
 type ApiAssignAppInstanceTargetToAppAdminRoleForGroupRequest struct {
-	ctx context.Context
+	ctx        context.Context
 	ApiService RoleTargetAPI
-	groupId string
-	roleId string
-	appName string
-	appId string
+	groupId    string
+	roleId     string
+	appName    string
+	appId      string
 	retryCount int32
 }
 
@@ -622,21 +620,21 @@ AssignAppInstanceTargetToAppAdminRoleForGroup Assign an Application Instance Tar
 
 Assigns App Instance Target to App Administrator Role given to a Group
 
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @param groupId The `id` of the group
- @param roleId `id` of the Role
- @param appName Application name for the app type
- @param appId Application ID
- @return ApiAssignAppInstanceTargetToAppAdminRoleForGroupRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param groupId The `id` of the group
+	@param roleId `id` of the Role
+	@param appName Application name for the app type
+	@param appId Application ID
+	@return ApiAssignAppInstanceTargetToAppAdminRoleForGroupRequest
 */
 func (a *RoleTargetAPIService) AssignAppInstanceTargetToAppAdminRoleForGroup(ctx context.Context, groupId string, roleId string, appName string, appId string) ApiAssignAppInstanceTargetToAppAdminRoleForGroupRequest {
 	return ApiAssignAppInstanceTargetToAppAdminRoleForGroupRequest{
 		ApiService: a,
-		ctx: ctx,
-		groupId: groupId,
-		roleId: roleId,
-		appName: appName,
-		appId: appId,
+		ctx:        ctx,
+		groupId:    groupId,
+		roleId:     roleId,
+		appName:    appName,
+		appId:      appId,
 		retryCount: 0,
 	}
 }
@@ -649,7 +647,7 @@ func (a *RoleTargetAPIService) AssignAppInstanceTargetToAppAdminRoleForGroupExec
 		formFiles            []formFile
 		localVarHTTPResponse *http.Response
 		localAPIResponse     *APIResponse
-		err 				 error
+		err                  error
 	)
 
 	if a.client.cfg.Okta.Client.RequestTimeout > 0 {
@@ -769,12 +767,12 @@ func (a *RoleTargetAPIService) AssignAppInstanceTargetToAppAdminRoleForGroupExec
 }
 
 type ApiAssignAppInstanceTargetToAppAdminRoleForUserRequest struct {
-	ctx context.Context
+	ctx        context.Context
 	ApiService RoleTargetAPI
-	userId string
-	roleId string
-	appName string
-	appId string
+	userId     string
+	roleId     string
+	appName    string
+	appId      string
 	retryCount int32
 }
 
@@ -787,21 +785,21 @@ AssignAppInstanceTargetToAppAdminRoleForUser Assign an Application Instance Targ
 
 Assigns anapplication instance target to appplication administrator role
 
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @param userId ID of an existing Okta user
- @param roleId `id` of the Role
- @param appName Application name for the app type
- @param appId Application ID
- @return ApiAssignAppInstanceTargetToAppAdminRoleForUserRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param userId ID of an existing Okta user
+	@param roleId `id` of the Role
+	@param appName Application name for the app type
+	@param appId Application ID
+	@return ApiAssignAppInstanceTargetToAppAdminRoleForUserRequest
 */
 func (a *RoleTargetAPIService) AssignAppInstanceTargetToAppAdminRoleForUser(ctx context.Context, userId string, roleId string, appName string, appId string) ApiAssignAppInstanceTargetToAppAdminRoleForUserRequest {
 	return ApiAssignAppInstanceTargetToAppAdminRoleForUserRequest{
 		ApiService: a,
-		ctx: ctx,
-		userId: userId,
-		roleId: roleId,
-		appName: appName,
-		appId: appId,
+		ctx:        ctx,
+		userId:     userId,
+		roleId:     roleId,
+		appName:    appName,
+		appId:      appId,
 		retryCount: 0,
 	}
 }
@@ -814,7 +812,7 @@ func (a *RoleTargetAPIService) AssignAppInstanceTargetToAppAdminRoleForUserExecu
 		formFiles            []formFile
 		localVarHTTPResponse *http.Response
 		localAPIResponse     *APIResponse
-		err 				 error
+		err                  error
 	)
 
 	if a.client.cfg.Okta.Client.RequestTimeout > 0 {
@@ -934,13 +932,13 @@ func (a *RoleTargetAPIService) AssignAppInstanceTargetToAppAdminRoleForUserExecu
 }
 
 type ApiAssignAppTargetInstanceRoleForClientRequest struct {
-	ctx context.Context
-	ApiService RoleTargetAPI
-	clientId string
-	roleId string
-	appName string
+	ctx           context.Context
+	ApiService    RoleTargetAPI
+	clientId      string
+	roleId        string
+	appName       string
 	appInstanceId string
-	retryCount int32
+	retryCount    int32
 }
 
 func (r ApiAssignAppTargetInstanceRoleForClientRequest) Execute() (*APIResponse, error) {
@@ -952,22 +950,22 @@ AssignAppTargetInstanceRoleForClient Replace an App Instance Target for a Client
 
 Replaces an App Instance Target by `clientId`
 
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @param clientId `client_id` of the app
- @param roleId `id` of the Role
- @param appName Application name for the app type
- @param appInstanceId `id` of the application instance
- @return ApiAssignAppTargetInstanceRoleForClientRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param clientId `client_id` of the app
+	@param roleId `id` of the Role
+	@param appName Application name for the app type
+	@param appInstanceId `id` of the application instance
+	@return ApiAssignAppTargetInstanceRoleForClientRequest
 */
 func (a *RoleTargetAPIService) AssignAppTargetInstanceRoleForClient(ctx context.Context, clientId string, roleId string, appName string, appInstanceId string) ApiAssignAppTargetInstanceRoleForClientRequest {
 	return ApiAssignAppTargetInstanceRoleForClientRequest{
-		ApiService: a,
-		ctx: ctx,
-		clientId: clientId,
-		roleId: roleId,
-		appName: appName,
+		ApiService:    a,
+		ctx:           ctx,
+		clientId:      clientId,
+		roleId:        roleId,
+		appName:       appName,
 		appInstanceId: appInstanceId,
-		retryCount: 0,
+		retryCount:    0,
 	}
 }
 
@@ -979,7 +977,7 @@ func (a *RoleTargetAPIService) AssignAppTargetInstanceRoleForClientExecute(r Api
 		formFiles            []formFile
 		localVarHTTPResponse *http.Response
 		localAPIResponse     *APIResponse
-		err 				 error
+		err                  error
 	)
 
 	if a.client.cfg.Okta.Client.RequestTimeout > 0 {
@@ -1099,11 +1097,11 @@ func (a *RoleTargetAPIService) AssignAppTargetInstanceRoleForClientExecute(r Api
 }
 
 type ApiAssignAppTargetRoleToClientRequest struct {
-	ctx context.Context
+	ctx        context.Context
 	ApiService RoleTargetAPI
-	clientId string
-	roleId string
-	appName string
+	clientId   string
+	roleId     string
+	appName    string
 	retryCount int32
 }
 
@@ -1116,19 +1114,19 @@ AssignAppTargetRoleToClient Assign an App Target to a Client
 
 Assigns an Application Target to a Client
 
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @param clientId `client_id` of the app
- @param roleId `id` of the Role
- @param appName Application name for the app type
- @return ApiAssignAppTargetRoleToClientRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param clientId `client_id` of the app
+	@param roleId `id` of the Role
+	@param appName Application name for the app type
+	@return ApiAssignAppTargetRoleToClientRequest
 */
 func (a *RoleTargetAPIService) AssignAppTargetRoleToClient(ctx context.Context, clientId string, roleId string, appName string) ApiAssignAppTargetRoleToClientRequest {
 	return ApiAssignAppTargetRoleToClientRequest{
 		ApiService: a,
-		ctx: ctx,
-		clientId: clientId,
-		roleId: roleId,
-		appName: appName,
+		ctx:        ctx,
+		clientId:   clientId,
+		roleId:     roleId,
+		appName:    appName,
 		retryCount: 0,
 	}
 }
@@ -1141,7 +1139,7 @@ func (a *RoleTargetAPIService) AssignAppTargetRoleToClientExecute(r ApiAssignApp
 		formFiles            []formFile
 		localVarHTTPResponse *http.Response
 		localAPIResponse     *APIResponse
-		err 				 error
+		err                  error
 	)
 
 	if a.client.cfg.Okta.Client.RequestTimeout > 0 {
@@ -1260,11 +1258,11 @@ func (a *RoleTargetAPIService) AssignAppTargetRoleToClientExecute(r ApiAssignApp
 }
 
 type ApiAssignAppTargetToAdminRoleForGroupRequest struct {
-	ctx context.Context
+	ctx        context.Context
 	ApiService RoleTargetAPI
-	groupId string
-	roleId string
-	appName string
+	groupId    string
+	roleId     string
+	appName    string
 	retryCount int32
 }
 
@@ -1277,19 +1275,19 @@ AssignAppTargetToAdminRoleForGroup Assign an Application Target to Administrator
 
 Assigns an application target to administrator role
 
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @param groupId The `id` of the group
- @param roleId `id` of the Role
- @param appName Application name for the app type
- @return ApiAssignAppTargetToAdminRoleForGroupRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param groupId The `id` of the group
+	@param roleId `id` of the Role
+	@param appName Application name for the app type
+	@return ApiAssignAppTargetToAdminRoleForGroupRequest
 */
 func (a *RoleTargetAPIService) AssignAppTargetToAdminRoleForGroup(ctx context.Context, groupId string, roleId string, appName string) ApiAssignAppTargetToAdminRoleForGroupRequest {
 	return ApiAssignAppTargetToAdminRoleForGroupRequest{
 		ApiService: a,
-		ctx: ctx,
-		groupId: groupId,
-		roleId: roleId,
-		appName: appName,
+		ctx:        ctx,
+		groupId:    groupId,
+		roleId:     roleId,
+		appName:    appName,
 		retryCount: 0,
 	}
 }
@@ -1302,7 +1300,7 @@ func (a *RoleTargetAPIService) AssignAppTargetToAdminRoleForGroupExecute(r ApiAs
 		formFiles            []formFile
 		localVarHTTPResponse *http.Response
 		localAPIResponse     *APIResponse
-		err 				 error
+		err                  error
 	)
 
 	if a.client.cfg.Okta.Client.RequestTimeout > 0 {
@@ -1421,11 +1419,11 @@ func (a *RoleTargetAPIService) AssignAppTargetToAdminRoleForGroupExecute(r ApiAs
 }
 
 type ApiAssignAppTargetToAdminRoleForUserRequest struct {
-	ctx context.Context
+	ctx        context.Context
 	ApiService RoleTargetAPI
-	userId string
-	roleId string
-	appName string
+	userId     string
+	roleId     string
+	appName    string
 	retryCount int32
 }
 
@@ -1438,19 +1436,19 @@ AssignAppTargetToAdminRoleForUser Assign an Application Target to Administrator 
 
 Assigns an application target to administrator role
 
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @param userId ID of an existing Okta user
- @param roleId `id` of the Role
- @param appName Application name for the app type
- @return ApiAssignAppTargetToAdminRoleForUserRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param userId ID of an existing Okta user
+	@param roleId `id` of the Role
+	@param appName Application name for the app type
+	@return ApiAssignAppTargetToAdminRoleForUserRequest
 */
 func (a *RoleTargetAPIService) AssignAppTargetToAdminRoleForUser(ctx context.Context, userId string, roleId string, appName string) ApiAssignAppTargetToAdminRoleForUserRequest {
 	return ApiAssignAppTargetToAdminRoleForUserRequest{
 		ApiService: a,
-		ctx: ctx,
-		userId: userId,
-		roleId: roleId,
-		appName: appName,
+		ctx:        ctx,
+		userId:     userId,
+		roleId:     roleId,
+		appName:    appName,
 		retryCount: 0,
 	}
 }
@@ -1463,7 +1461,7 @@ func (a *RoleTargetAPIService) AssignAppTargetToAdminRoleForUserExecute(r ApiAss
 		formFiles            []formFile
 		localVarHTTPResponse *http.Response
 		localAPIResponse     *APIResponse
-		err 				 error
+		err                  error
 	)
 
 	if a.client.cfg.Okta.Client.RequestTimeout > 0 {
@@ -1582,11 +1580,11 @@ func (a *RoleTargetAPIService) AssignAppTargetToAdminRoleForUserExecute(r ApiAss
 }
 
 type ApiAssignGroupTargetRoleForClientRequest struct {
-	ctx context.Context
+	ctx        context.Context
 	ApiService RoleTargetAPI
-	clientId string
-	roleId string
-	groupId string
+	clientId   string
+	roleId     string
+	groupId    string
 	retryCount int32
 }
 
@@ -1599,19 +1597,19 @@ AssignGroupTargetRoleForClient Assign a Group Target to a Client
 
 Assigns a Group Target to a Client
 
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @param clientId `client_id` of the app
- @param roleId `id` of the Role
- @param groupId The `id` of the group
- @return ApiAssignGroupTargetRoleForClientRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param clientId `client_id` of the app
+	@param roleId `id` of the Role
+	@param groupId The `id` of the group
+	@return ApiAssignGroupTargetRoleForClientRequest
 */
 func (a *RoleTargetAPIService) AssignGroupTargetRoleForClient(ctx context.Context, clientId string, roleId string, groupId string) ApiAssignGroupTargetRoleForClientRequest {
 	return ApiAssignGroupTargetRoleForClientRequest{
 		ApiService: a,
-		ctx: ctx,
-		clientId: clientId,
-		roleId: roleId,
-		groupId: groupId,
+		ctx:        ctx,
+		clientId:   clientId,
+		roleId:     roleId,
+		groupId:    groupId,
 		retryCount: 0,
 	}
 }
@@ -1624,7 +1622,7 @@ func (a *RoleTargetAPIService) AssignGroupTargetRoleForClientExecute(r ApiAssign
 		formFiles            []formFile
 		localVarHTTPResponse *http.Response
 		localAPIResponse     *APIResponse
-		err 				 error
+		err                  error
 	)
 
 	if a.client.cfg.Okta.Client.RequestTimeout > 0 {
@@ -1743,12 +1741,12 @@ func (a *RoleTargetAPIService) AssignGroupTargetRoleForClientExecute(r ApiAssign
 }
 
 type ApiAssignGroupTargetToGroupAdminRoleRequest struct {
-	ctx context.Context
-	ApiService RoleTargetAPI
-	groupId string
-	roleId string
+	ctx           context.Context
+	ApiService    RoleTargetAPI
+	groupId       string
+	roleId        string
 	targetGroupId string
-	retryCount int32
+	retryCount    int32
 }
 
 func (r ApiAssignGroupTargetToGroupAdminRoleRequest) Execute() (*APIResponse, error) {
@@ -1760,20 +1758,20 @@ AssignGroupTargetToGroupAdminRole Assign a Group Target to a Group Role
 
 Assigns a group target to a group role
 
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @param groupId The `id` of the group
- @param roleId `id` of the Role
- @param targetGroupId
- @return ApiAssignGroupTargetToGroupAdminRoleRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param groupId The `id` of the group
+	@param roleId `id` of the Role
+	@param targetGroupId
+	@return ApiAssignGroupTargetToGroupAdminRoleRequest
 */
 func (a *RoleTargetAPIService) AssignGroupTargetToGroupAdminRole(ctx context.Context, groupId string, roleId string, targetGroupId string) ApiAssignGroupTargetToGroupAdminRoleRequest {
 	return ApiAssignGroupTargetToGroupAdminRoleRequest{
-		ApiService: a,
-		ctx: ctx,
-		groupId: groupId,
-		roleId: roleId,
+		ApiService:    a,
+		ctx:           ctx,
+		groupId:       groupId,
+		roleId:        roleId,
 		targetGroupId: targetGroupId,
-		retryCount: 0,
+		retryCount:    0,
 	}
 }
 
@@ -1785,7 +1783,7 @@ func (a *RoleTargetAPIService) AssignGroupTargetToGroupAdminRoleExecute(r ApiAss
 		formFiles            []formFile
 		localVarHTTPResponse *http.Response
 		localAPIResponse     *APIResponse
-		err 				 error
+		err                  error
 	)
 
 	if a.client.cfg.Okta.Client.RequestTimeout > 0 {
@@ -1904,11 +1902,11 @@ func (a *RoleTargetAPIService) AssignGroupTargetToGroupAdminRoleExecute(r ApiAss
 }
 
 type ApiAssignGroupTargetToUserRoleRequest struct {
-	ctx context.Context
+	ctx        context.Context
 	ApiService RoleTargetAPI
-	userId string
-	roleId string
-	groupId string
+	userId     string
+	roleId     string
+	groupId    string
 	retryCount int32
 }
 
@@ -1921,19 +1919,19 @@ AssignGroupTargetToUserRole Assign a Group Target to Role
 
 Assigns a Group Target to Role
 
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @param userId ID of an existing Okta user
- @param roleId `id` of the Role
- @param groupId The `id` of the group
- @return ApiAssignGroupTargetToUserRoleRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param userId ID of an existing Okta user
+	@param roleId `id` of the Role
+	@param groupId The `id` of the group
+	@return ApiAssignGroupTargetToUserRoleRequest
 */
 func (a *RoleTargetAPIService) AssignGroupTargetToUserRole(ctx context.Context, userId string, roleId string, groupId string) ApiAssignGroupTargetToUserRoleRequest {
 	return ApiAssignGroupTargetToUserRoleRequest{
 		ApiService: a,
-		ctx: ctx,
-		userId: userId,
-		roleId: roleId,
-		groupId: groupId,
+		ctx:        ctx,
+		userId:     userId,
+		roleId:     roleId,
+		groupId:    groupId,
 		retryCount: 0,
 	}
 }
@@ -1946,7 +1944,7 @@ func (a *RoleTargetAPIService) AssignGroupTargetToUserRoleExecute(r ApiAssignGro
 		formFiles            []formFile
 		localVarHTTPResponse *http.Response
 		localAPIResponse     *APIResponse
-		err 				 error
+		err                  error
 	)
 
 	if a.client.cfg.Okta.Client.RequestTimeout > 0 {
@@ -2065,12 +2063,12 @@ func (a *RoleTargetAPIService) AssignGroupTargetToUserRoleExecute(r ApiAssignGro
 }
 
 type ApiListAppTargetRoleToClientRequest struct {
-	ctx context.Context
+	ctx        context.Context
 	ApiService RoleTargetAPI
-	clientId string
-	roleId string
-	after *string
-	limit *int32
+	clientId   string
+	roleId     string
+	after      *string
+	limit      *int32
 	retryCount int32
 }
 
@@ -2095,23 +2093,24 @@ ListAppTargetRoleToClient List all App Targets assigned to a Client
 
 Lists App Targets for Client and Role
 
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @param clientId `client_id` of the app
- @param roleId `id` of the Role
- @return ApiListAppTargetRoleToClientRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param clientId `client_id` of the app
+	@param roleId `id` of the Role
+	@return ApiListAppTargetRoleToClientRequest
 */
 func (a *RoleTargetAPIService) ListAppTargetRoleToClient(ctx context.Context, clientId string, roleId string) ApiListAppTargetRoleToClientRequest {
 	return ApiListAppTargetRoleToClientRequest{
 		ApiService: a,
-		ctx: ctx,
-		clientId: clientId,
-		roleId: roleId,
+		ctx:        ctx,
+		clientId:   clientId,
+		roleId:     roleId,
 		retryCount: 0,
 	}
 }
 
 // Execute executes the request
-//  @return Client
+//
+//	@return Client
 func (a *RoleTargetAPIService) ListAppTargetRoleToClientExecute(r ApiListAppTargetRoleToClientRequest) (*Client, *APIResponse, error) {
 	var (
 		localVarHTTPMethod   = http.MethodGet
@@ -2120,7 +2119,7 @@ func (a *RoleTargetAPIService) ListAppTargetRoleToClientExecute(r ApiListAppTarg
 		localVarReturnValue  *Client
 		localVarHTTPResponse *http.Response
 		localAPIResponse     *APIResponse
-		err 				 error
+		err                  error
 	)
 
 	if a.client.cfg.Okta.Client.RequestTimeout > 0 {
@@ -2248,18 +2247,18 @@ func (a *RoleTargetAPIService) ListAppTargetRoleToClientExecute(r ApiListAppTarg
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
 		return localVarReturnValue, localAPIResponse, newErr
 	}
-	
+
 	localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
 	return localVarReturnValue, localAPIResponse, nil
 }
 
 type ApiListApplicationTargetsForApplicationAdministratorRoleForGroupRequest struct {
-	ctx context.Context
+	ctx        context.Context
 	ApiService RoleTargetAPI
-	groupId string
-	roleId string
-	after *string
-	limit *int32
+	groupId    string
+	roleId     string
+	after      *string
+	limit      *int32
 	retryCount int32
 }
 
@@ -2282,23 +2281,24 @@ ListApplicationTargetsForApplicationAdministratorRoleForGroup List all Applicati
 
 Lists all App targets for an `APP_ADMIN` Role assigned to a Group. This methods return list may include full Applications or Instances. The response for an instance will have an `ID` value, while Application will not have an ID.
 
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @param groupId The `id` of the group
- @param roleId `id` of the Role
- @return ApiListApplicationTargetsForApplicationAdministratorRoleForGroupRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param groupId The `id` of the group
+	@param roleId `id` of the Role
+	@return ApiListApplicationTargetsForApplicationAdministratorRoleForGroupRequest
 */
 func (a *RoleTargetAPIService) ListApplicationTargetsForApplicationAdministratorRoleForGroup(ctx context.Context, groupId string, roleId string) ApiListApplicationTargetsForApplicationAdministratorRoleForGroupRequest {
 	return ApiListApplicationTargetsForApplicationAdministratorRoleForGroupRequest{
 		ApiService: a,
-		ctx: ctx,
-		groupId: groupId,
-		roleId: roleId,
+		ctx:        ctx,
+		groupId:    groupId,
+		roleId:     roleId,
 		retryCount: 0,
 	}
 }
 
 // Execute executes the request
-//  @return []CatalogApplication
+//
+//	@return []CatalogApplication
 func (a *RoleTargetAPIService) ListApplicationTargetsForApplicationAdministratorRoleForGroupExecute(r ApiListApplicationTargetsForApplicationAdministratorRoleForGroupRequest) ([]CatalogApplication, *APIResponse, error) {
 	var (
 		localVarHTTPMethod   = http.MethodGet
@@ -2307,7 +2307,7 @@ func (a *RoleTargetAPIService) ListApplicationTargetsForApplicationAdministrator
 		localVarReturnValue  []CatalogApplication
 		localVarHTTPResponse *http.Response
 		localAPIResponse     *APIResponse
-		err 				 error
+		err                  error
 	)
 
 	if a.client.cfg.Okta.Client.RequestTimeout > 0 {
@@ -2435,18 +2435,18 @@ func (a *RoleTargetAPIService) ListApplicationTargetsForApplicationAdministrator
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
 		return localVarReturnValue, localAPIResponse, newErr
 	}
-	
+
 	localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
 	return localVarReturnValue, localAPIResponse, nil
 }
 
 type ApiListApplicationTargetsForApplicationAdministratorRoleForUserRequest struct {
-	ctx context.Context
+	ctx        context.Context
 	ApiService RoleTargetAPI
-	userId string
-	roleId string
-	after *string
-	limit *int32
+	userId     string
+	roleId     string
+	after      *string
+	limit      *int32
 	retryCount int32
 }
 
@@ -2469,23 +2469,24 @@ ListApplicationTargetsForApplicationAdministratorRoleForUser List all Applicatio
 
 Lists all App targets for an `APP_ADMIN` Role assigned to a User. This methods return list may include full Applications or Instances. The response for an instance will have an `ID` value, while Application will not have an ID.
 
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @param userId ID of an existing Okta user
- @param roleId `id` of the Role
- @return ApiListApplicationTargetsForApplicationAdministratorRoleForUserRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param userId ID of an existing Okta user
+	@param roleId `id` of the Role
+	@return ApiListApplicationTargetsForApplicationAdministratorRoleForUserRequest
 */
 func (a *RoleTargetAPIService) ListApplicationTargetsForApplicationAdministratorRoleForUser(ctx context.Context, userId string, roleId string) ApiListApplicationTargetsForApplicationAdministratorRoleForUserRequest {
 	return ApiListApplicationTargetsForApplicationAdministratorRoleForUserRequest{
 		ApiService: a,
-		ctx: ctx,
-		userId: userId,
-		roleId: roleId,
+		ctx:        ctx,
+		userId:     userId,
+		roleId:     roleId,
 		retryCount: 0,
 	}
 }
 
 // Execute executes the request
-//  @return []CatalogApplication
+//
+//	@return []CatalogApplication
 func (a *RoleTargetAPIService) ListApplicationTargetsForApplicationAdministratorRoleForUserExecute(r ApiListApplicationTargetsForApplicationAdministratorRoleForUserRequest) ([]CatalogApplication, *APIResponse, error) {
 	var (
 		localVarHTTPMethod   = http.MethodGet
@@ -2494,7 +2495,7 @@ func (a *RoleTargetAPIService) ListApplicationTargetsForApplicationAdministrator
 		localVarReturnValue  []CatalogApplication
 		localVarHTTPResponse *http.Response
 		localAPIResponse     *APIResponse
-		err 				 error
+		err                  error
 	)
 
 	if a.client.cfg.Okta.Client.RequestTimeout > 0 {
@@ -2622,18 +2623,18 @@ func (a *RoleTargetAPIService) ListApplicationTargetsForApplicationAdministrator
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
 		return localVarReturnValue, localAPIResponse, newErr
 	}
-	
+
 	localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
 	return localVarReturnValue, localAPIResponse, nil
 }
 
 type ApiListGroupTargetRoleForClientRequest struct {
-	ctx context.Context
+	ctx        context.Context
 	ApiService RoleTargetAPI
-	clientId string
-	roleId string
-	after *string
-	limit *int32
+	clientId   string
+	roleId     string
+	after      *string
+	limit      *int32
 	retryCount int32
 }
 
@@ -2658,23 +2659,24 @@ ListGroupTargetRoleForClient List all Group Targets for a Client
 
 Lists all Group Targets by `clientId` and `roleId`
 
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @param clientId `client_id` of the app
- @param roleId `id` of the Role
- @return ApiListGroupTargetRoleForClientRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param clientId `client_id` of the app
+	@param roleId `id` of the Role
+	@return ApiListGroupTargetRoleForClientRequest
 */
 func (a *RoleTargetAPIService) ListGroupTargetRoleForClient(ctx context.Context, clientId string, roleId string) ApiListGroupTargetRoleForClientRequest {
 	return ApiListGroupTargetRoleForClientRequest{
 		ApiService: a,
-		ctx: ctx,
-		clientId: clientId,
-		roleId: roleId,
+		ctx:        ctx,
+		clientId:   clientId,
+		roleId:     roleId,
 		retryCount: 0,
 	}
 }
 
 // Execute executes the request
-//  @return Client
+//
+//	@return Client
 func (a *RoleTargetAPIService) ListGroupTargetRoleForClientExecute(r ApiListGroupTargetRoleForClientRequest) (*Client, *APIResponse, error) {
 	var (
 		localVarHTTPMethod   = http.MethodGet
@@ -2683,7 +2685,7 @@ func (a *RoleTargetAPIService) ListGroupTargetRoleForClientExecute(r ApiListGrou
 		localVarReturnValue  *Client
 		localVarHTTPResponse *http.Response
 		localAPIResponse     *APIResponse
-		err 				 error
+		err                  error
 	)
 
 	if a.client.cfg.Okta.Client.RequestTimeout > 0 {
@@ -2811,18 +2813,18 @@ func (a *RoleTargetAPIService) ListGroupTargetRoleForClientExecute(r ApiListGrou
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
 		return localVarReturnValue, localAPIResponse, newErr
 	}
-	
+
 	localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
 	return localVarReturnValue, localAPIResponse, nil
 }
 
 type ApiListGroupTargetsForGroupRoleRequest struct {
-	ctx context.Context
+	ctx        context.Context
 	ApiService RoleTargetAPI
-	groupId string
-	roleId string
-	after *string
-	limit *int32
+	groupId    string
+	roleId     string
+	after      *string
+	limit      *int32
 	retryCount int32
 }
 
@@ -2845,23 +2847,24 @@ ListGroupTargetsForGroupRole List all Group Targets for a Group Role
 
 Lists all group targets for a group role
 
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @param groupId The `id` of the group
- @param roleId `id` of the Role
- @return ApiListGroupTargetsForGroupRoleRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param groupId The `id` of the group
+	@param roleId `id` of the Role
+	@return ApiListGroupTargetsForGroupRoleRequest
 */
 func (a *RoleTargetAPIService) ListGroupTargetsForGroupRole(ctx context.Context, groupId string, roleId string) ApiListGroupTargetsForGroupRoleRequest {
 	return ApiListGroupTargetsForGroupRoleRequest{
 		ApiService: a,
-		ctx: ctx,
-		groupId: groupId,
-		roleId: roleId,
+		ctx:        ctx,
+		groupId:    groupId,
+		roleId:     roleId,
 		retryCount: 0,
 	}
 }
 
 // Execute executes the request
-//  @return []Group
+//
+//	@return []Group
 func (a *RoleTargetAPIService) ListGroupTargetsForGroupRoleExecute(r ApiListGroupTargetsForGroupRoleRequest) ([]Group, *APIResponse, error) {
 	var (
 		localVarHTTPMethod   = http.MethodGet
@@ -2870,7 +2873,7 @@ func (a *RoleTargetAPIService) ListGroupTargetsForGroupRoleExecute(r ApiListGrou
 		localVarReturnValue  []Group
 		localVarHTTPResponse *http.Response
 		localAPIResponse     *APIResponse
-		err 				 error
+		err                  error
 	)
 
 	if a.client.cfg.Okta.Client.RequestTimeout > 0 {
@@ -2998,18 +3001,18 @@ func (a *RoleTargetAPIService) ListGroupTargetsForGroupRoleExecute(r ApiListGrou
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
 		return localVarReturnValue, localAPIResponse, newErr
 	}
-	
+
 	localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
 	return localVarReturnValue, localAPIResponse, nil
 }
 
 type ApiListGroupTargetsForRoleRequest struct {
-	ctx context.Context
+	ctx        context.Context
 	ApiService RoleTargetAPI
-	userId string
-	roleId string
-	after *string
-	limit *int32
+	userId     string
+	roleId     string
+	after      *string
+	limit      *int32
 	retryCount int32
 }
 
@@ -3032,23 +3035,24 @@ ListGroupTargetsForRole List all Group Targets for Role
 
 Lists all group targets for role
 
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @param userId ID of an existing Okta user
- @param roleId `id` of the Role
- @return ApiListGroupTargetsForRoleRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param userId ID of an existing Okta user
+	@param roleId `id` of the Role
+	@return ApiListGroupTargetsForRoleRequest
 */
 func (a *RoleTargetAPIService) ListGroupTargetsForRole(ctx context.Context, userId string, roleId string) ApiListGroupTargetsForRoleRequest {
 	return ApiListGroupTargetsForRoleRequest{
 		ApiService: a,
-		ctx: ctx,
-		userId: userId,
-		roleId: roleId,
+		ctx:        ctx,
+		userId:     userId,
+		roleId:     roleId,
 		retryCount: 0,
 	}
 }
 
 // Execute executes the request
-//  @return []Group
+//
+//	@return []Group
 func (a *RoleTargetAPIService) ListGroupTargetsForRoleExecute(r ApiListGroupTargetsForRoleRequest) ([]Group, *APIResponse, error) {
 	var (
 		localVarHTTPMethod   = http.MethodGet
@@ -3057,7 +3061,7 @@ func (a *RoleTargetAPIService) ListGroupTargetsForRoleExecute(r ApiListGroupTarg
 		localVarReturnValue  []Group
 		localVarHTTPResponse *http.Response
 		localAPIResponse     *APIResponse
-		err 				 error
+		err                  error
 	)
 
 	if a.client.cfg.Okta.Client.RequestTimeout > 0 {
@@ -3185,19 +3189,19 @@ func (a *RoleTargetAPIService) ListGroupTargetsForRoleExecute(r ApiListGroupTarg
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
 		return localVarReturnValue, localAPIResponse, newErr
 	}
-	
+
 	localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
 	return localVarReturnValue, localAPIResponse, nil
 }
 
 type ApiRemoveAppTargetInstanceRoleForClientRequest struct {
-	ctx context.Context
-	ApiService RoleTargetAPI
-	clientId string
-	roleId string
-	appName string
+	ctx           context.Context
+	ApiService    RoleTargetAPI
+	clientId      string
+	roleId        string
+	appName       string
 	appInstanceId string
-	retryCount int32
+	retryCount    int32
 }
 
 func (r ApiRemoveAppTargetInstanceRoleForClientRequest) Execute() (*APIResponse, error) {
@@ -3209,22 +3213,22 @@ RemoveAppTargetInstanceRoleForClient Delete an App Instance Target for a Client
 
 Deletes an App Instance Target from a Client
 
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @param clientId `client_id` of the app
- @param roleId `id` of the Role
- @param appName Application name for the app type
- @param appInstanceId `id` of the application instance
- @return ApiRemoveAppTargetInstanceRoleForClientRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param clientId `client_id` of the app
+	@param roleId `id` of the Role
+	@param appName Application name for the app type
+	@param appInstanceId `id` of the application instance
+	@return ApiRemoveAppTargetInstanceRoleForClientRequest
 */
 func (a *RoleTargetAPIService) RemoveAppTargetInstanceRoleForClient(ctx context.Context, clientId string, roleId string, appName string, appInstanceId string) ApiRemoveAppTargetInstanceRoleForClientRequest {
 	return ApiRemoveAppTargetInstanceRoleForClientRequest{
-		ApiService: a,
-		ctx: ctx,
-		clientId: clientId,
-		roleId: roleId,
-		appName: appName,
+		ApiService:    a,
+		ctx:           ctx,
+		clientId:      clientId,
+		roleId:        roleId,
+		appName:       appName,
 		appInstanceId: appInstanceId,
-		retryCount: 0,
+		retryCount:    0,
 	}
 }
 
@@ -3236,7 +3240,7 @@ func (a *RoleTargetAPIService) RemoveAppTargetInstanceRoleForClientExecute(r Api
 		formFiles            []formFile
 		localVarHTTPResponse *http.Response
 		localAPIResponse     *APIResponse
-		err 				 error
+		err                  error
 	)
 
 	if a.client.cfg.Okta.Client.RequestTimeout > 0 {
@@ -3356,11 +3360,11 @@ func (a *RoleTargetAPIService) RemoveAppTargetInstanceRoleForClientExecute(r Api
 }
 
 type ApiRemoveAppTargetRoleFromClientRequest struct {
-	ctx context.Context
+	ctx        context.Context
 	ApiService RoleTargetAPI
-	clientId string
-	roleId string
-	appName string
+	clientId   string
+	roleId     string
+	appName    string
 	retryCount int32
 }
 
@@ -3373,19 +3377,19 @@ RemoveAppTargetRoleFromClient Remove an App Target from a Client
 
 Removes an Application Target by `clientId`
 
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @param clientId `client_id` of the app
- @param roleId `id` of the Role
- @param appName Application name for the app type
- @return ApiRemoveAppTargetRoleFromClientRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param clientId `client_id` of the app
+	@param roleId `id` of the Role
+	@param appName Application name for the app type
+	@return ApiRemoveAppTargetRoleFromClientRequest
 */
 func (a *RoleTargetAPIService) RemoveAppTargetRoleFromClient(ctx context.Context, clientId string, roleId string, appName string) ApiRemoveAppTargetRoleFromClientRequest {
 	return ApiRemoveAppTargetRoleFromClientRequest{
 		ApiService: a,
-		ctx: ctx,
-		clientId: clientId,
-		roleId: roleId,
-		appName: appName,
+		ctx:        ctx,
+		clientId:   clientId,
+		roleId:     roleId,
+		appName:    appName,
 		retryCount: 0,
 	}
 }
@@ -3398,7 +3402,7 @@ func (a *RoleTargetAPIService) RemoveAppTargetRoleFromClientExecute(r ApiRemoveA
 		formFiles            []formFile
 		localVarHTTPResponse *http.Response
 		localAPIResponse     *APIResponse
-		err 				 error
+		err                  error
 	)
 
 	if a.client.cfg.Okta.Client.RequestTimeout > 0 {
@@ -3517,11 +3521,11 @@ func (a *RoleTargetAPIService) RemoveAppTargetRoleFromClientExecute(r ApiRemoveA
 }
 
 type ApiRemoveGroupTargetRoleFromClientRequest struct {
-	ctx context.Context
+	ctx        context.Context
 	ApiService RoleTargetAPI
-	clientId string
-	roleId string
-	groupId string
+	clientId   string
+	roleId     string
+	groupId    string
 	retryCount int32
 }
 
@@ -3534,19 +3538,19 @@ RemoveGroupTargetRoleFromClient Delete a Group Target from a Client
 
 Deletes a Group Target from a Client
 
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @param clientId `client_id` of the app
- @param roleId `id` of the Role
- @param groupId The `id` of the group
- @return ApiRemoveGroupTargetRoleFromClientRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param clientId `client_id` of the app
+	@param roleId `id` of the Role
+	@param groupId The `id` of the group
+	@return ApiRemoveGroupTargetRoleFromClientRequest
 */
 func (a *RoleTargetAPIService) RemoveGroupTargetRoleFromClient(ctx context.Context, clientId string, roleId string, groupId string) ApiRemoveGroupTargetRoleFromClientRequest {
 	return ApiRemoveGroupTargetRoleFromClientRequest{
 		ApiService: a,
-		ctx: ctx,
-		clientId: clientId,
-		roleId: roleId,
-		groupId: groupId,
+		ctx:        ctx,
+		clientId:   clientId,
+		roleId:     roleId,
+		groupId:    groupId,
 		retryCount: 0,
 	}
 }
@@ -3559,7 +3563,7 @@ func (a *RoleTargetAPIService) RemoveGroupTargetRoleFromClientExecute(r ApiRemov
 		formFiles            []formFile
 		localVarHTTPResponse *http.Response
 		localAPIResponse     *APIResponse
-		err 				 error
+		err                  error
 	)
 
 	if a.client.cfg.Okta.Client.RequestTimeout > 0 {
@@ -3678,12 +3682,12 @@ func (a *RoleTargetAPIService) RemoveGroupTargetRoleFromClientExecute(r ApiRemov
 }
 
 type ApiUnassignAppInstanceTargetFromAdminRoleForUserRequest struct {
-	ctx context.Context
+	ctx        context.Context
 	ApiService RoleTargetAPI
-	userId string
-	roleId string
-	appName string
-	appId string
+	userId     string
+	roleId     string
+	appName    string
+	appId      string
 	retryCount int32
 }
 
@@ -3696,21 +3700,21 @@ UnassignAppInstanceTargetFromAdminRoleForUser Unassign an Application Instance T
 
 Unassigns an application instance target from an application administrator role
 
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @param userId ID of an existing Okta user
- @param roleId `id` of the Role
- @param appName Application name for the app type
- @param appId Application ID
- @return ApiUnassignAppInstanceTargetFromAdminRoleForUserRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param userId ID of an existing Okta user
+	@param roleId `id` of the Role
+	@param appName Application name for the app type
+	@param appId Application ID
+	@return ApiUnassignAppInstanceTargetFromAdminRoleForUserRequest
 */
 func (a *RoleTargetAPIService) UnassignAppInstanceTargetFromAdminRoleForUser(ctx context.Context, userId string, roleId string, appName string, appId string) ApiUnassignAppInstanceTargetFromAdminRoleForUserRequest {
 	return ApiUnassignAppInstanceTargetFromAdminRoleForUserRequest{
 		ApiService: a,
-		ctx: ctx,
-		userId: userId,
-		roleId: roleId,
-		appName: appName,
-		appId: appId,
+		ctx:        ctx,
+		userId:     userId,
+		roleId:     roleId,
+		appName:    appName,
+		appId:      appId,
 		retryCount: 0,
 	}
 }
@@ -3723,7 +3727,7 @@ func (a *RoleTargetAPIService) UnassignAppInstanceTargetFromAdminRoleForUserExec
 		formFiles            []formFile
 		localVarHTTPResponse *http.Response
 		localAPIResponse     *APIResponse
-		err 				 error
+		err                  error
 	)
 
 	if a.client.cfg.Okta.Client.RequestTimeout > 0 {
@@ -3843,12 +3847,12 @@ func (a *RoleTargetAPIService) UnassignAppInstanceTargetFromAdminRoleForUserExec
 }
 
 type ApiUnassignAppInstanceTargetToAppAdminRoleForGroupRequest struct {
-	ctx context.Context
+	ctx        context.Context
 	ApiService RoleTargetAPI
-	groupId string
-	roleId string
-	appName string
-	appId string
+	groupId    string
+	roleId     string
+	appName    string
+	appId      string
 	retryCount int32
 }
 
@@ -3861,21 +3865,21 @@ UnassignAppInstanceTargetToAppAdminRoleForGroup Unassign an Application Instance
 
 Unassigns an application instance target from application administrator role
 
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @param groupId The `id` of the group
- @param roleId `id` of the Role
- @param appName Application name for the app type
- @param appId Application ID
- @return ApiUnassignAppInstanceTargetToAppAdminRoleForGroupRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param groupId The `id` of the group
+	@param roleId `id` of the Role
+	@param appName Application name for the app type
+	@param appId Application ID
+	@return ApiUnassignAppInstanceTargetToAppAdminRoleForGroupRequest
 */
 func (a *RoleTargetAPIService) UnassignAppInstanceTargetToAppAdminRoleForGroup(ctx context.Context, groupId string, roleId string, appName string, appId string) ApiUnassignAppInstanceTargetToAppAdminRoleForGroupRequest {
 	return ApiUnassignAppInstanceTargetToAppAdminRoleForGroupRequest{
 		ApiService: a,
-		ctx: ctx,
-		groupId: groupId,
-		roleId: roleId,
-		appName: appName,
-		appId: appId,
+		ctx:        ctx,
+		groupId:    groupId,
+		roleId:     roleId,
+		appName:    appName,
+		appId:      appId,
 		retryCount: 0,
 	}
 }
@@ -3888,7 +3892,7 @@ func (a *RoleTargetAPIService) UnassignAppInstanceTargetToAppAdminRoleForGroupEx
 		formFiles            []formFile
 		localVarHTTPResponse *http.Response
 		localAPIResponse     *APIResponse
-		err 				 error
+		err                  error
 	)
 
 	if a.client.cfg.Okta.Client.RequestTimeout > 0 {
@@ -4008,11 +4012,11 @@ func (a *RoleTargetAPIService) UnassignAppInstanceTargetToAppAdminRoleForGroupEx
 }
 
 type ApiUnassignAppTargetFromAppAdminRoleForUserRequest struct {
-	ctx context.Context
+	ctx        context.Context
 	ApiService RoleTargetAPI
-	userId string
-	roleId string
-	appName string
+	userId     string
+	roleId     string
+	appName    string
 	retryCount int32
 }
 
@@ -4025,19 +4029,19 @@ UnassignAppTargetFromAppAdminRoleForUser Unassign an Application Target from an 
 
 Unassigns an application target from application administrator role
 
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @param userId ID of an existing Okta user
- @param roleId `id` of the Role
- @param appName Application name for the app type
- @return ApiUnassignAppTargetFromAppAdminRoleForUserRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param userId ID of an existing Okta user
+	@param roleId `id` of the Role
+	@param appName Application name for the app type
+	@return ApiUnassignAppTargetFromAppAdminRoleForUserRequest
 */
 func (a *RoleTargetAPIService) UnassignAppTargetFromAppAdminRoleForUser(ctx context.Context, userId string, roleId string, appName string) ApiUnassignAppTargetFromAppAdminRoleForUserRequest {
 	return ApiUnassignAppTargetFromAppAdminRoleForUserRequest{
 		ApiService: a,
-		ctx: ctx,
-		userId: userId,
-		roleId: roleId,
-		appName: appName,
+		ctx:        ctx,
+		userId:     userId,
+		roleId:     roleId,
+		appName:    appName,
 		retryCount: 0,
 	}
 }
@@ -4050,7 +4054,7 @@ func (a *RoleTargetAPIService) UnassignAppTargetFromAppAdminRoleForUserExecute(r
 		formFiles            []formFile
 		localVarHTTPResponse *http.Response
 		localAPIResponse     *APIResponse
-		err 				 error
+		err                  error
 	)
 
 	if a.client.cfg.Okta.Client.RequestTimeout > 0 {
@@ -4169,11 +4173,11 @@ func (a *RoleTargetAPIService) UnassignAppTargetFromAppAdminRoleForUserExecute(r
 }
 
 type ApiUnassignAppTargetToAdminRoleForGroupRequest struct {
-	ctx context.Context
+	ctx        context.Context
 	ApiService RoleTargetAPI
-	groupId string
-	roleId string
-	appName string
+	groupId    string
+	roleId     string
+	appName    string
 	retryCount int32
 }
 
@@ -4186,19 +4190,19 @@ UnassignAppTargetToAdminRoleForGroup Unassign an Application Target from Applica
 
 Unassigns an application target from application administrator role
 
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @param groupId The `id` of the group
- @param roleId `id` of the Role
- @param appName Application name for the app type
- @return ApiUnassignAppTargetToAdminRoleForGroupRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param groupId The `id` of the group
+	@param roleId `id` of the Role
+	@param appName Application name for the app type
+	@return ApiUnassignAppTargetToAdminRoleForGroupRequest
 */
 func (a *RoleTargetAPIService) UnassignAppTargetToAdminRoleForGroup(ctx context.Context, groupId string, roleId string, appName string) ApiUnassignAppTargetToAdminRoleForGroupRequest {
 	return ApiUnassignAppTargetToAdminRoleForGroupRequest{
 		ApiService: a,
-		ctx: ctx,
-		groupId: groupId,
-		roleId: roleId,
-		appName: appName,
+		ctx:        ctx,
+		groupId:    groupId,
+		roleId:     roleId,
+		appName:    appName,
 		retryCount: 0,
 	}
 }
@@ -4211,7 +4215,7 @@ func (a *RoleTargetAPIService) UnassignAppTargetToAdminRoleForGroupExecute(r Api
 		formFiles            []formFile
 		localVarHTTPResponse *http.Response
 		localAPIResponse     *APIResponse
-		err 				 error
+		err                  error
 	)
 
 	if a.client.cfg.Okta.Client.RequestTimeout > 0 {
@@ -4330,12 +4334,12 @@ func (a *RoleTargetAPIService) UnassignAppTargetToAdminRoleForGroupExecute(r Api
 }
 
 type ApiUnassignGroupTargetFromGroupAdminRoleRequest struct {
-	ctx context.Context
-	ApiService RoleTargetAPI
-	groupId string
-	roleId string
+	ctx           context.Context
+	ApiService    RoleTargetAPI
+	groupId       string
+	roleId        string
 	targetGroupId string
-	retryCount int32
+	retryCount    int32
 }
 
 func (r ApiUnassignGroupTargetFromGroupAdminRoleRequest) Execute() (*APIResponse, error) {
@@ -4347,20 +4351,20 @@ UnassignGroupTargetFromGroupAdminRole Unassign a Group Target from a Group Role
 
 Unassigns a group target from a group role
 
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @param groupId The `id` of the group
- @param roleId `id` of the Role
- @param targetGroupId
- @return ApiUnassignGroupTargetFromGroupAdminRoleRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param groupId The `id` of the group
+	@param roleId `id` of the Role
+	@param targetGroupId
+	@return ApiUnassignGroupTargetFromGroupAdminRoleRequest
 */
 func (a *RoleTargetAPIService) UnassignGroupTargetFromGroupAdminRole(ctx context.Context, groupId string, roleId string, targetGroupId string) ApiUnassignGroupTargetFromGroupAdminRoleRequest {
 	return ApiUnassignGroupTargetFromGroupAdminRoleRequest{
-		ApiService: a,
-		ctx: ctx,
-		groupId: groupId,
-		roleId: roleId,
+		ApiService:    a,
+		ctx:           ctx,
+		groupId:       groupId,
+		roleId:        roleId,
 		targetGroupId: targetGroupId,
-		retryCount: 0,
+		retryCount:    0,
 	}
 }
 
@@ -4372,7 +4376,7 @@ func (a *RoleTargetAPIService) UnassignGroupTargetFromGroupAdminRoleExecute(r Ap
 		formFiles            []formFile
 		localVarHTTPResponse *http.Response
 		localAPIResponse     *APIResponse
-		err 				 error
+		err                  error
 	)
 
 	if a.client.cfg.Okta.Client.RequestTimeout > 0 {
@@ -4491,11 +4495,11 @@ func (a *RoleTargetAPIService) UnassignGroupTargetFromGroupAdminRoleExecute(r Ap
 }
 
 type ApiUnassignGroupTargetFromUserAdminRoleRequest struct {
-	ctx context.Context
+	ctx        context.Context
 	ApiService RoleTargetAPI
-	userId string
-	roleId string
-	groupId string
+	userId     string
+	roleId     string
+	groupId    string
 	retryCount int32
 }
 
@@ -4508,19 +4512,19 @@ UnassignGroupTargetFromUserAdminRole Unassign a Group Target from Role
 
 Unassigns a Group Target from Role
 
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @param userId ID of an existing Okta user
- @param roleId `id` of the Role
- @param groupId The `id` of the group
- @return ApiUnassignGroupTargetFromUserAdminRoleRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param userId ID of an existing Okta user
+	@param roleId `id` of the Role
+	@param groupId The `id` of the group
+	@return ApiUnassignGroupTargetFromUserAdminRoleRequest
 */
 func (a *RoleTargetAPIService) UnassignGroupTargetFromUserAdminRole(ctx context.Context, userId string, roleId string, groupId string) ApiUnassignGroupTargetFromUserAdminRoleRequest {
 	return ApiUnassignGroupTargetFromUserAdminRoleRequest{
 		ApiService: a,
-		ctx: ctx,
-		userId: userId,
-		roleId: roleId,
-		groupId: groupId,
+		ctx:        ctx,
+		userId:     userId,
+		roleId:     roleId,
+		groupId:    groupId,
 		retryCount: 0,
 	}
 }
@@ -4533,7 +4537,7 @@ func (a *RoleTargetAPIService) UnassignGroupTargetFromUserAdminRoleExecute(r Api
 		formFiles            []formFile
 		localVarHTTPResponse *http.Response
 		localAPIResponse     *APIResponse
-		err 				 error
+		err                  error
 	)
 
 	if a.client.cfg.Okta.Client.RequestTimeout > 0 {

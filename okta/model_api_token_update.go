@@ -36,10 +36,10 @@ type ApiTokenUpdate struct {
 	// The creation date of the API Token
 	Created *time.Time `json:"created,omitempty"`
 	// The name associated with the API Token
-	Name *string `json:"name,omitempty"`
+	Name    *string          `json:"name,omitempty"`
 	Network *ApiTokenNetwork `json:"network,omitempty"`
 	// The userId of the user who created the API Token
-	UserId *string `json:"userId,omitempty"`
+	UserId               *string `json:"userId,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -309,4 +309,3 @@ func (v *NullableApiTokenUpdate) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-

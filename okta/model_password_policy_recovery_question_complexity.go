@@ -30,7 +30,7 @@ import (
 
 // PasswordPolicyRecoveryQuestionComplexity struct for PasswordPolicyRecoveryQuestionComplexity
 type PasswordPolicyRecoveryQuestionComplexity struct {
-	MinLength *int32 `json:"minLength,omitempty"`
+	MinLength            *int32 `json:"minLength,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -156,4 +156,3 @@ func (v *NullablePasswordPolicyRecoveryQuestionComplexity) UnmarshalJSON(src []b
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-

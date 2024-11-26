@@ -33,8 +33,8 @@ import (
 // AuthorizationServerPolicyRule struct for AuthorizationServerPolicyRule
 type AuthorizationServerPolicyRule struct {
 	PolicyRule
-	Actions *AuthorizationServerPolicyRuleActions `json:"actions,omitempty"`
-	Conditions *AuthorizationServerPolicyRuleConditions `json:"conditions,omitempty"`
+	Actions              *AuthorizationServerPolicyRuleActions    `json:"actions,omitempty"`
+	Conditions           *AuthorizationServerPolicyRuleConditions `json:"conditions,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -149,7 +149,7 @@ func (o AuthorizationServerPolicyRule) MarshalJSON() ([]byte, error) {
 
 func (o *AuthorizationServerPolicyRule) UnmarshalJSON(bytes []byte) (err error) {
 	type AuthorizationServerPolicyRuleWithoutEmbeddedStruct struct {
-		Actions *AuthorizationServerPolicyRuleActions `json:"actions,omitempty"`
+		Actions    *AuthorizationServerPolicyRuleActions    `json:"actions,omitempty"`
 		Conditions *AuthorizationServerPolicyRuleConditions `json:"conditions,omitempty"`
 	}
 
@@ -242,4 +242,3 @@ func (v *NullableAuthorizationServerPolicyRule) UnmarshalJSON(src []byte) error 
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-

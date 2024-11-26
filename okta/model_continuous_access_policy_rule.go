@@ -33,8 +33,8 @@ import (
 // ContinuousAccessPolicyRule struct for ContinuousAccessPolicyRule
 type ContinuousAccessPolicyRule struct {
 	PolicyRule
-	Actions *ContinuousAccessPolicyRuleAllOfActions `json:"actions,omitempty"`
-	Conditions *ContinuousAccessPolicyRuleAllOfConditions `json:"conditions,omitempty"`
+	Actions              *ContinuousAccessPolicyRuleAllOfActions    `json:"actions,omitempty"`
+	Conditions           *ContinuousAccessPolicyRuleAllOfConditions `json:"conditions,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -149,7 +149,7 @@ func (o ContinuousAccessPolicyRule) MarshalJSON() ([]byte, error) {
 
 func (o *ContinuousAccessPolicyRule) UnmarshalJSON(bytes []byte) (err error) {
 	type ContinuousAccessPolicyRuleWithoutEmbeddedStruct struct {
-		Actions *ContinuousAccessPolicyRuleAllOfActions `json:"actions,omitempty"`
+		Actions    *ContinuousAccessPolicyRuleAllOfActions    `json:"actions,omitempty"`
 		Conditions *ContinuousAccessPolicyRuleAllOfConditions `json:"conditions,omitempty"`
 	}
 
@@ -242,4 +242,3 @@ func (v *NullableContinuousAccessPolicyRule) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-

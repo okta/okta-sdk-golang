@@ -35,9 +35,9 @@ type PushProvider struct {
 	// Timestamp when the Push Provider was last modified
 	LastUpdatedDate *string `json:"lastUpdatedDate,omitempty"`
 	// Display name of the push provider
-	Name *string `json:"name,omitempty"`
-	ProviderType *string `json:"providerType,omitempty"`
-	Links *LinksSelf `json:"_links,omitempty"`
+	Name                 *string    `json:"name,omitempty"`
+	ProviderType         *string    `json:"providerType,omitempty"`
+	Links                *LinksSelf `json:"_links,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -307,4 +307,3 @@ func (v *NullablePushProvider) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-

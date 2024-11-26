@@ -30,21 +30,19 @@ import (
 	"io/ioutil"
 	"net/http"
 	"net/url"
-	"time"
 	"strings"
+	"time"
 )
 
-
 type PolicyAPI interface {
-
 	/*
-	ActivatePolicy Activate a Policy
+		ActivatePolicy Activate a Policy
 
-	Activates a policy
+		Activates a policy
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param policyId `id` of the Policy
-	@return ApiActivatePolicyRequest
+		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+		@param policyId `id` of the Policy
+		@return ApiActivatePolicyRequest
 	*/
 	ActivatePolicy(ctx context.Context, policyId string) ApiActivatePolicyRequest
 
@@ -52,14 +50,14 @@ type PolicyAPI interface {
 	ActivatePolicyExecute(r ApiActivatePolicyRequest) (*APIResponse, error)
 
 	/*
-	ActivatePolicyRule Activate a Policy Rule
+		ActivatePolicyRule Activate a Policy Rule
 
-	Activates a Policy Rule identified by `policyId` and `ruleId`
+		Activates a Policy Rule identified by `policyId` and `ruleId`
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param policyId `id` of the Policy
-	@param ruleId `id` of the Policy Rule
-	@return ApiActivatePolicyRuleRequest
+		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+		@param policyId `id` of the Policy
+		@param ruleId `id` of the Policy Rule
+		@return ApiActivatePolicyRuleRequest
 	*/
 	ActivatePolicyRule(ctx context.Context, policyId string, ruleId string) ApiActivatePolicyRuleRequest
 
@@ -67,13 +65,13 @@ type PolicyAPI interface {
 	ActivatePolicyRuleExecute(r ApiActivatePolicyRuleRequest) (*APIResponse, error)
 
 	/*
-	ClonePolicy Clone an existing Policy
+		ClonePolicy Clone an existing Policy
 
-	Clones an existing policy
+		Clones an existing policy
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param policyId `id` of the Policy
-	@return ApiClonePolicyRequest
+		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+		@param policyId `id` of the Policy
+		@return ApiClonePolicyRequest
 	*/
 	ClonePolicy(ctx context.Context, policyId string) ApiClonePolicyRequest
 
@@ -82,12 +80,12 @@ type PolicyAPI interface {
 	ClonePolicyExecute(r ApiClonePolicyRequest) (*ListPolicies200ResponseInner, *APIResponse, error)
 
 	/*
-	CreatePolicy Create a Policy
+		CreatePolicy Create a Policy
 
-	Creates a policy
+		Creates a policy
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@return ApiCreatePolicyRequest
+		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+		@return ApiCreatePolicyRequest
 	*/
 	CreatePolicy(ctx context.Context) ApiCreatePolicyRequest
 
@@ -96,13 +94,13 @@ type PolicyAPI interface {
 	CreatePolicyExecute(r ApiCreatePolicyRequest) (*ListPolicies200ResponseInner, *APIResponse, error)
 
 	/*
-	CreatePolicyRule Create a Policy Rule
+		CreatePolicyRule Create a Policy Rule
 
-	Creates a policy rule. **Note:** You can't create additional rules for the `PROFILE_ENROLLMENT` or `CONTINUOUS_ACCESS` policies.
+		Creates a policy rule. **Note:** You can't create additional rules for the `PROFILE_ENROLLMENT` or `CONTINUOUS_ACCESS` policies.
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param policyId `id` of the Policy
-	@return ApiCreatePolicyRuleRequest
+		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+		@param policyId `id` of the Policy
+		@return ApiCreatePolicyRuleRequest
 	*/
 	CreatePolicyRule(ctx context.Context, policyId string) ApiCreatePolicyRuleRequest
 
@@ -111,13 +109,13 @@ type PolicyAPI interface {
 	CreatePolicyRuleExecute(r ApiCreatePolicyRuleRequest) (*ListPolicyRules200ResponseInner, *APIResponse, error)
 
 	/*
-	CreatePolicySimulation Create a Policy Simulation
+			CreatePolicySimulation Create a Policy Simulation
 
-	Creates a policy or policy rule simulation. The access simulation evaluates policy and policy rules based on the existing policy rule configuration.
-The evaluation result simulates what the real-world authentication flow is and what policy rules have been applied or matched to the authentication flow.
+			Creates a policy or policy rule simulation. The access simulation evaluates policy and policy rules based on the existing policy rule configuration.
+		The evaluation result simulates what the real-world authentication flow is and what policy rules have been applied or matched to the authentication flow.
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@return ApiCreatePolicySimulationRequest
+			@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+			@return ApiCreatePolicySimulationRequest
 	*/
 	CreatePolicySimulation(ctx context.Context) ApiCreatePolicySimulationRequest
 
@@ -126,13 +124,13 @@ The evaluation result simulates what the real-world authentication flow is and w
 	CreatePolicySimulationExecute(r ApiCreatePolicySimulationRequest) ([]SimulatePolicyEvaluations, *APIResponse, error)
 
 	/*
-	DeactivatePolicy Deactivate a Policy
+		DeactivatePolicy Deactivate a Policy
 
-	Deactivates a policy
+		Deactivates a policy
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param policyId `id` of the Policy
-	@return ApiDeactivatePolicyRequest
+		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+		@param policyId `id` of the Policy
+		@return ApiDeactivatePolicyRequest
 	*/
 	DeactivatePolicy(ctx context.Context, policyId string) ApiDeactivatePolicyRequest
 
@@ -140,14 +138,14 @@ The evaluation result simulates what the real-world authentication flow is and w
 	DeactivatePolicyExecute(r ApiDeactivatePolicyRequest) (*APIResponse, error)
 
 	/*
-	DeactivatePolicyRule Deactivate a Policy Rule
+		DeactivatePolicyRule Deactivate a Policy Rule
 
-	Deactivates a Policy Rule identified by `policyId` and `ruleId`
+		Deactivates a Policy Rule identified by `policyId` and `ruleId`
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param policyId `id` of the Policy
-	@param ruleId `id` of the Policy Rule
-	@return ApiDeactivatePolicyRuleRequest
+		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+		@param policyId `id` of the Policy
+		@param ruleId `id` of the Policy Rule
+		@return ApiDeactivatePolicyRuleRequest
 	*/
 	DeactivatePolicyRule(ctx context.Context, policyId string, ruleId string) ApiDeactivatePolicyRuleRequest
 
@@ -155,13 +153,13 @@ The evaluation result simulates what the real-world authentication flow is and w
 	DeactivatePolicyRuleExecute(r ApiDeactivatePolicyRuleRequest) (*APIResponse, error)
 
 	/*
-	DeletePolicy Delete a Policy
+		DeletePolicy Delete a Policy
 
-	Deletes a policy
+		Deletes a policy
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param policyId `id` of the Policy
-	@return ApiDeletePolicyRequest
+		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+		@param policyId `id` of the Policy
+		@return ApiDeletePolicyRequest
 	*/
 	DeletePolicy(ctx context.Context, policyId string) ApiDeletePolicyRequest
 
@@ -169,14 +167,14 @@ The evaluation result simulates what the real-world authentication flow is and w
 	DeletePolicyExecute(r ApiDeletePolicyRequest) (*APIResponse, error)
 
 	/*
-	DeletePolicyResourceMapping Delete a policy resource Mapping
+		DeletePolicyResourceMapping Delete a policy resource Mapping
 
-	Deletes the resource Mapping for a Policy identified by  `policyId` and `mappingId`
+		Deletes the resource Mapping for a Policy identified by  `policyId` and `mappingId`
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param policyId `id` of the Policy
-	@param mappingId `id` of the policy resource Mapping
-	@return ApiDeletePolicyResourceMappingRequest
+		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+		@param policyId `id` of the Policy
+		@param mappingId `id` of the policy resource Mapping
+		@return ApiDeletePolicyResourceMappingRequest
 	*/
 	DeletePolicyResourceMapping(ctx context.Context, policyId string, mappingId string) ApiDeletePolicyResourceMappingRequest
 
@@ -184,14 +182,14 @@ The evaluation result simulates what the real-world authentication flow is and w
 	DeletePolicyResourceMappingExecute(r ApiDeletePolicyResourceMappingRequest) (*APIResponse, error)
 
 	/*
-	DeletePolicyRule Delete a Policy Rule
+		DeletePolicyRule Delete a Policy Rule
 
-	Deletes a Policy Rule identified by `policyId` and `ruleId`
+		Deletes a Policy Rule identified by `policyId` and `ruleId`
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param policyId `id` of the Policy
-	@param ruleId `id` of the Policy Rule
-	@return ApiDeletePolicyRuleRequest
+		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+		@param policyId `id` of the Policy
+		@param ruleId `id` of the Policy Rule
+		@return ApiDeletePolicyRuleRequest
 	*/
 	DeletePolicyRule(ctx context.Context, policyId string, ruleId string) ApiDeletePolicyRuleRequest
 
@@ -199,13 +197,13 @@ The evaluation result simulates what the real-world authentication flow is and w
 	DeletePolicyRuleExecute(r ApiDeletePolicyRuleRequest) (*APIResponse, error)
 
 	/*
-	GetPolicy Retrieve a Policy
+		GetPolicy Retrieve a Policy
 
-	Retrieves a policy
+		Retrieves a policy
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param policyId `id` of the Policy
-	@return ApiGetPolicyRequest
+		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+		@param policyId `id` of the Policy
+		@return ApiGetPolicyRequest
 	*/
 	GetPolicy(ctx context.Context, policyId string) ApiGetPolicyRequest
 
@@ -214,14 +212,14 @@ The evaluation result simulates what the real-world authentication flow is and w
 	GetPolicyExecute(r ApiGetPolicyRequest) (*ListPolicies200ResponseInner, *APIResponse, error)
 
 	/*
-	GetPolicyMapping Retrieve a policy resource Mapping
+		GetPolicyMapping Retrieve a policy resource Mapping
 
-	Retrieves a resource Mapping for a Policy identified by `policyId` and `mappingId`
+		Retrieves a resource Mapping for a Policy identified by `policyId` and `mappingId`
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param policyId `id` of the Policy
-	@param mappingId `id` of the policy resource Mapping
-	@return ApiGetPolicyMappingRequest
+		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+		@param policyId `id` of the Policy
+		@param mappingId `id` of the policy resource Mapping
+		@return ApiGetPolicyMappingRequest
 	*/
 	GetPolicyMapping(ctx context.Context, policyId string, mappingId string) ApiGetPolicyMappingRequest
 
@@ -230,14 +228,14 @@ The evaluation result simulates what the real-world authentication flow is and w
 	GetPolicyMappingExecute(r ApiGetPolicyMappingRequest) (*PolicyMapping, *APIResponse, error)
 
 	/*
-	GetPolicyRule Retrieve a Policy Rule
+		GetPolicyRule Retrieve a Policy Rule
 
-	Retrieves a policy rule
+		Retrieves a policy rule
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param policyId `id` of the Policy
-	@param ruleId `id` of the Policy Rule
-	@return ApiGetPolicyRuleRequest
+		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+		@param policyId `id` of the Policy
+		@param ruleId `id` of the Policy Rule
+		@return ApiGetPolicyRuleRequest
 	*/
 	GetPolicyRule(ctx context.Context, policyId string, ruleId string) ApiGetPolicyRuleRequest
 
@@ -246,12 +244,12 @@ The evaluation result simulates what the real-world authentication flow is and w
 	GetPolicyRuleExecute(r ApiGetPolicyRuleRequest) (*ListPolicyRules200ResponseInner, *APIResponse, error)
 
 	/*
-	ListPolicies List all Policies
+		ListPolicies List all Policies
 
-	Lists all policies with the specified type
+		Lists all policies with the specified type
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@return ApiListPoliciesRequest
+		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+		@return ApiListPoliciesRequest
 	*/
 	ListPolicies(ctx context.Context) ApiListPoliciesRequest
 
@@ -260,17 +258,17 @@ The evaluation result simulates what the real-world authentication flow is and w
 	ListPoliciesExecute(r ApiListPoliciesRequest) ([]ListPolicies200ResponseInner, *APIResponse, error)
 
 	/*
-	ListPolicyApps List all Applications mapped to a Policy
+			ListPolicyApps List all Applications mapped to a Policy
 
-	Lists all applications mapped to a policy identified by `policyId`
+			Lists all applications mapped to a policy identified by `policyId`
 
-> **Note:** Use [List all resources mapped to a Policy](https://developer.okta.com/docs/api/openapi/okta-management/management/tag/Policy/#tag/Policy/operation/listPolicyMappings) to list all applications mapped to a policy.
+		> **Note:** Use [List all resources mapped to a Policy](https://developer.okta.com/docs/api/openapi/okta-management/management/tag/Policy/#tag/Policy/operation/listPolicyMappings) to list all applications mapped to a policy.
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param policyId `id` of the Policy
-	@return ApiListPolicyAppsRequest
+			@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+			@param policyId `id` of the Policy
+			@return ApiListPolicyAppsRequest
 
-	Deprecated
+			Deprecated
 	*/
 	ListPolicyApps(ctx context.Context, policyId string) ApiListPolicyAppsRequest
 
@@ -280,13 +278,13 @@ The evaluation result simulates what the real-world authentication flow is and w
 	ListPolicyAppsExecute(r ApiListPolicyAppsRequest) ([]ListApplications200ResponseInner, *APIResponse, error)
 
 	/*
-	ListPolicyMappings List all resources mapped to a Policy
+		ListPolicyMappings List all resources mapped to a Policy
 
-	Lists all resources mapped to a Policy identified by `policyId`
+		Lists all resources mapped to a Policy identified by `policyId`
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param policyId `id` of the Policy
-	@return ApiListPolicyMappingsRequest
+		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+		@param policyId `id` of the Policy
+		@return ApiListPolicyMappingsRequest
 	*/
 	ListPolicyMappings(ctx context.Context, policyId string) ApiListPolicyMappingsRequest
 
@@ -295,13 +293,13 @@ The evaluation result simulates what the real-world authentication flow is and w
 	ListPolicyMappingsExecute(r ApiListPolicyMappingsRequest) ([]PolicyMapping, *APIResponse, error)
 
 	/*
-	ListPolicyRules List all Policy Rules
+		ListPolicyRules List all Policy Rules
 
-	Lists all policy rules
+		Lists all policy rules
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param policyId `id` of the Policy
-	@return ApiListPolicyRulesRequest
+		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+		@param policyId `id` of the Policy
+		@return ApiListPolicyRulesRequest
 	*/
 	ListPolicyRules(ctx context.Context, policyId string) ApiListPolicyRulesRequest
 
@@ -310,13 +308,13 @@ The evaluation result simulates what the real-world authentication flow is and w
 	ListPolicyRulesExecute(r ApiListPolicyRulesRequest) ([]ListPolicyRules200ResponseInner, *APIResponse, error)
 
 	/*
-	MapResourceToPolicy Map a resource to a Policy
+		MapResourceToPolicy Map a resource to a Policy
 
-	Maps a resource to a Policy identified by `policyId`
+		Maps a resource to a Policy identified by `policyId`
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param policyId `id` of the Policy
-	@return ApiMapResourceToPolicyRequest
+		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+		@param policyId `id` of the Policy
+		@return ApiMapResourceToPolicyRequest
 	*/
 	MapResourceToPolicy(ctx context.Context, policyId string) ApiMapResourceToPolicyRequest
 
@@ -325,13 +323,13 @@ The evaluation result simulates what the real-world authentication flow is and w
 	MapResourceToPolicyExecute(r ApiMapResourceToPolicyRequest) (*PolicyMapping, *APIResponse, error)
 
 	/*
-	ReplacePolicy Replace a Policy
+		ReplacePolicy Replace a Policy
 
-	Replaces the properties of a Policy identified by `policyId`
+		Replaces the properties of a Policy identified by `policyId`
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param policyId `id` of the Policy
-	@return ApiReplacePolicyRequest
+		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+		@param policyId `id` of the Policy
+		@return ApiReplacePolicyRequest
 	*/
 	ReplacePolicy(ctx context.Context, policyId string) ApiReplacePolicyRequest
 
@@ -340,14 +338,14 @@ The evaluation result simulates what the real-world authentication flow is and w
 	ReplacePolicyExecute(r ApiReplacePolicyRequest) (*ListPolicies200ResponseInner, *APIResponse, error)
 
 	/*
-	ReplacePolicyRule Replace a Policy Rule
+		ReplacePolicyRule Replace a Policy Rule
 
-	Replaces the properties for a Policy Rule identified by `policyId` and `ruleId`
+		Replaces the properties for a Policy Rule identified by `policyId` and `ruleId`
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param policyId `id` of the Policy
-	@param ruleId `id` of the Policy Rule
-	@return ApiReplacePolicyRuleRequest
+		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+		@param policyId `id` of the Policy
+		@param ruleId `id` of the Policy Rule
+		@return ApiReplacePolicyRuleRequest
 	*/
 	ReplacePolicyRule(ctx context.Context, policyId string, ruleId string) ApiReplacePolicyRuleRequest
 
@@ -360,9 +358,9 @@ The evaluation result simulates what the real-world authentication flow is and w
 type PolicyAPIService service
 
 type ApiActivatePolicyRequest struct {
-	ctx context.Context
+	ctx        context.Context
 	ApiService PolicyAPI
-	policyId string
+	policyId   string
 	retryCount int32
 }
 
@@ -375,15 +373,15 @@ ActivatePolicy Activate a Policy
 
 Activates a policy
 
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @param policyId `id` of the Policy
- @return ApiActivatePolicyRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param policyId `id` of the Policy
+	@return ApiActivatePolicyRequest
 */
 func (a *PolicyAPIService) ActivatePolicy(ctx context.Context, policyId string) ApiActivatePolicyRequest {
 	return ApiActivatePolicyRequest{
 		ApiService: a,
-		ctx: ctx,
-		policyId: policyId,
+		ctx:        ctx,
+		policyId:   policyId,
 		retryCount: 0,
 	}
 }
@@ -396,7 +394,7 @@ func (a *PolicyAPIService) ActivatePolicyExecute(r ApiActivatePolicyRequest) (*A
 		formFiles            []formFile
 		localVarHTTPResponse *http.Response
 		localAPIResponse     *APIResponse
-		err 				 error
+		err                  error
 	)
 
 	if a.client.cfg.Okta.Client.RequestTimeout > 0 {
@@ -513,10 +511,10 @@ func (a *PolicyAPIService) ActivatePolicyExecute(r ApiActivatePolicyRequest) (*A
 }
 
 type ApiActivatePolicyRuleRequest struct {
-	ctx context.Context
+	ctx        context.Context
 	ApiService PolicyAPI
-	policyId string
-	ruleId string
+	policyId   string
+	ruleId     string
 	retryCount int32
 }
 
@@ -529,17 +527,17 @@ ActivatePolicyRule Activate a Policy Rule
 
 Activates a Policy Rule identified by `policyId` and `ruleId`
 
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @param policyId `id` of the Policy
- @param ruleId `id` of the Policy Rule
- @return ApiActivatePolicyRuleRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param policyId `id` of the Policy
+	@param ruleId `id` of the Policy Rule
+	@return ApiActivatePolicyRuleRequest
 */
 func (a *PolicyAPIService) ActivatePolicyRule(ctx context.Context, policyId string, ruleId string) ApiActivatePolicyRuleRequest {
 	return ApiActivatePolicyRuleRequest{
 		ApiService: a,
-		ctx: ctx,
-		policyId: policyId,
-		ruleId: ruleId,
+		ctx:        ctx,
+		policyId:   policyId,
+		ruleId:     ruleId,
 		retryCount: 0,
 	}
 }
@@ -552,7 +550,7 @@ func (a *PolicyAPIService) ActivatePolicyRuleExecute(r ApiActivatePolicyRuleRequ
 		formFiles            []formFile
 		localVarHTTPResponse *http.Response
 		localAPIResponse     *APIResponse
-		err 				 error
+		err                  error
 	)
 
 	if a.client.cfg.Okta.Client.RequestTimeout > 0 {
@@ -670,9 +668,9 @@ func (a *PolicyAPIService) ActivatePolicyRuleExecute(r ApiActivatePolicyRuleRequ
 }
 
 type ApiClonePolicyRequest struct {
-	ctx context.Context
+	ctx        context.Context
 	ApiService PolicyAPI
-	policyId string
+	policyId   string
 	retryCount int32
 }
 
@@ -685,21 +683,22 @@ ClonePolicy Clone an existing Policy
 
 Clones an existing policy
 
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @param policyId `id` of the Policy
- @return ApiClonePolicyRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param policyId `id` of the Policy
+	@return ApiClonePolicyRequest
 */
 func (a *PolicyAPIService) ClonePolicy(ctx context.Context, policyId string) ApiClonePolicyRequest {
 	return ApiClonePolicyRequest{
 		ApiService: a,
-		ctx: ctx,
-		policyId: policyId,
+		ctx:        ctx,
+		policyId:   policyId,
 		retryCount: 0,
 	}
 }
 
 // Execute executes the request
-//  @return ListPolicies200ResponseInner
+//
+//	@return ListPolicies200ResponseInner
 func (a *PolicyAPIService) ClonePolicyExecute(r ApiClonePolicyRequest) (*ListPolicies200ResponseInner, *APIResponse, error) {
 	var (
 		localVarHTTPMethod   = http.MethodPost
@@ -708,7 +707,7 @@ func (a *PolicyAPIService) ClonePolicyExecute(r ApiClonePolicyRequest) (*ListPol
 		localVarReturnValue  *ListPolicies200ResponseInner
 		localVarHTTPResponse *http.Response
 		localAPIResponse     *APIResponse
-		err 				 error
+		err                  error
 	)
 
 	if a.client.cfg.Okta.Client.RequestTimeout > 0 {
@@ -841,16 +840,16 @@ func (a *PolicyAPIService) ClonePolicyExecute(r ApiClonePolicyRequest) (*ListPol
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
 		return localVarReturnValue, localAPIResponse, newErr
 	}
-	
+
 	localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
 	return localVarReturnValue, localAPIResponse, nil
 }
 
 type ApiCreatePolicyRequest struct {
-	ctx context.Context
+	ctx        context.Context
 	ApiService PolicyAPI
-	policy *ListPolicies200ResponseInner
-	activate *bool
+	policy     *ListPolicies200ResponseInner
+	activate   *bool
 	retryCount int32
 }
 
@@ -874,19 +873,20 @@ CreatePolicy Create a Policy
 
 Creates a policy
 
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @return ApiCreatePolicyRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@return ApiCreatePolicyRequest
 */
 func (a *PolicyAPIService) CreatePolicy(ctx context.Context) ApiCreatePolicyRequest {
 	return ApiCreatePolicyRequest{
 		ApiService: a,
-		ctx: ctx,
+		ctx:        ctx,
 		retryCount: 0,
 	}
 }
 
 // Execute executes the request
-//  @return ListPolicies200ResponseInner
+//
+//	@return ListPolicies200ResponseInner
 func (a *PolicyAPIService) CreatePolicyExecute(r ApiCreatePolicyRequest) (*ListPolicies200ResponseInner, *APIResponse, error) {
 	var (
 		localVarHTTPMethod   = http.MethodPost
@@ -895,7 +895,7 @@ func (a *PolicyAPIService) CreatePolicyExecute(r ApiCreatePolicyRequest) (*ListP
 		localVarReturnValue  *ListPolicies200ResponseInner
 		localVarHTTPResponse *http.Response
 		localAPIResponse     *APIResponse
-		err 				 error
+		err                  error
 	)
 
 	if a.client.cfg.Okta.Client.RequestTimeout > 0 {
@@ -1023,17 +1023,17 @@ func (a *PolicyAPIService) CreatePolicyExecute(r ApiCreatePolicyRequest) (*ListP
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
 		return localVarReturnValue, localAPIResponse, newErr
 	}
-	
+
 	localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
 	return localVarReturnValue, localAPIResponse, nil
 }
 
 type ApiCreatePolicyRuleRequest struct {
-	ctx context.Context
+	ctx        context.Context
 	ApiService PolicyAPI
-	policyId string
+	policyId   string
 	policyRule *ListPolicyRules200ResponseInner
-	activate *bool
+	activate   *bool
 	retryCount int32
 }
 
@@ -1057,21 +1057,22 @@ CreatePolicyRule Create a Policy Rule
 
 Creates a policy rule. **Note:** You can't create additional rules for the `PROFILE_ENROLLMENT` or `CONTINUOUS_ACCESS` policies.
 
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @param policyId `id` of the Policy
- @return ApiCreatePolicyRuleRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param policyId `id` of the Policy
+	@return ApiCreatePolicyRuleRequest
 */
 func (a *PolicyAPIService) CreatePolicyRule(ctx context.Context, policyId string) ApiCreatePolicyRuleRequest {
 	return ApiCreatePolicyRuleRequest{
 		ApiService: a,
-		ctx: ctx,
-		policyId: policyId,
+		ctx:        ctx,
+		policyId:   policyId,
 		retryCount: 0,
 	}
 }
 
 // Execute executes the request
-//  @return ListPolicyRules200ResponseInner
+//
+//	@return ListPolicyRules200ResponseInner
 func (a *PolicyAPIService) CreatePolicyRuleExecute(r ApiCreatePolicyRuleRequest) (*ListPolicyRules200ResponseInner, *APIResponse, error) {
 	var (
 		localVarHTTPMethod   = http.MethodPost
@@ -1080,7 +1081,7 @@ func (a *PolicyAPIService) CreatePolicyRuleExecute(r ApiCreatePolicyRuleRequest)
 		localVarReturnValue  *ListPolicyRules200ResponseInner
 		localVarHTTPResponse *http.Response
 		localAPIResponse     *APIResponse
-		err 				 error
+		err                  error
 	)
 
 	if a.client.cfg.Okta.Client.RequestTimeout > 0 {
@@ -1221,17 +1222,17 @@ func (a *PolicyAPIService) CreatePolicyRuleExecute(r ApiCreatePolicyRuleRequest)
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
 		return localVarReturnValue, localAPIResponse, newErr
 	}
-	
+
 	localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
 	return localVarReturnValue, localAPIResponse, nil
 }
 
 type ApiCreatePolicySimulationRequest struct {
-	ctx context.Context
-	ApiService PolicyAPI
+	ctx            context.Context
+	ApiService     PolicyAPI
 	simulatePolicy *[]SimulatePolicyBody
-	expand *string
-	retryCount int32
+	expand         *string
+	retryCount     int32
 }
 
 func (r ApiCreatePolicySimulationRequest) SimulatePolicy(simulatePolicy []SimulatePolicyBody) ApiCreatePolicySimulationRequest {
@@ -1255,19 +1256,20 @@ CreatePolicySimulation Create a Policy Simulation
 Creates a policy or policy rule simulation. The access simulation evaluates policy and policy rules based on the existing policy rule configuration.
 The evaluation result simulates what the real-world authentication flow is and what policy rules have been applied or matched to the authentication flow.
 
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @return ApiCreatePolicySimulationRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@return ApiCreatePolicySimulationRequest
 */
 func (a *PolicyAPIService) CreatePolicySimulation(ctx context.Context) ApiCreatePolicySimulationRequest {
 	return ApiCreatePolicySimulationRequest{
 		ApiService: a,
-		ctx: ctx,
+		ctx:        ctx,
 		retryCount: 0,
 	}
 }
 
 // Execute executes the request
-//  @return []SimulatePolicyEvaluations
+//
+//	@return []SimulatePolicyEvaluations
 func (a *PolicyAPIService) CreatePolicySimulationExecute(r ApiCreatePolicySimulationRequest) ([]SimulatePolicyEvaluations, *APIResponse, error) {
 	var (
 		localVarHTTPMethod   = http.MethodPost
@@ -1276,7 +1278,7 @@ func (a *PolicyAPIService) CreatePolicySimulationExecute(r ApiCreatePolicySimula
 		localVarReturnValue  []SimulatePolicyEvaluations
 		localVarHTTPResponse *http.Response
 		localAPIResponse     *APIResponse
-		err 				 error
+		err                  error
 	)
 
 	if a.client.cfg.Okta.Client.RequestTimeout > 0 {
@@ -1404,15 +1406,15 @@ func (a *PolicyAPIService) CreatePolicySimulationExecute(r ApiCreatePolicySimula
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
 		return localVarReturnValue, localAPIResponse, newErr
 	}
-	
+
 	localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
 	return localVarReturnValue, localAPIResponse, nil
 }
 
 type ApiDeactivatePolicyRequest struct {
-	ctx context.Context
+	ctx        context.Context
 	ApiService PolicyAPI
-	policyId string
+	policyId   string
 	retryCount int32
 }
 
@@ -1425,15 +1427,15 @@ DeactivatePolicy Deactivate a Policy
 
 Deactivates a policy
 
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @param policyId `id` of the Policy
- @return ApiDeactivatePolicyRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param policyId `id` of the Policy
+	@return ApiDeactivatePolicyRequest
 */
 func (a *PolicyAPIService) DeactivatePolicy(ctx context.Context, policyId string) ApiDeactivatePolicyRequest {
 	return ApiDeactivatePolicyRequest{
 		ApiService: a,
-		ctx: ctx,
-		policyId: policyId,
+		ctx:        ctx,
+		policyId:   policyId,
 		retryCount: 0,
 	}
 }
@@ -1446,7 +1448,7 @@ func (a *PolicyAPIService) DeactivatePolicyExecute(r ApiDeactivatePolicyRequest)
 		formFiles            []formFile
 		localVarHTTPResponse *http.Response
 		localAPIResponse     *APIResponse
-		err 				 error
+		err                  error
 	)
 
 	if a.client.cfg.Okta.Client.RequestTimeout > 0 {
@@ -1563,10 +1565,10 @@ func (a *PolicyAPIService) DeactivatePolicyExecute(r ApiDeactivatePolicyRequest)
 }
 
 type ApiDeactivatePolicyRuleRequest struct {
-	ctx context.Context
+	ctx        context.Context
 	ApiService PolicyAPI
-	policyId string
-	ruleId string
+	policyId   string
+	ruleId     string
 	retryCount int32
 }
 
@@ -1579,17 +1581,17 @@ DeactivatePolicyRule Deactivate a Policy Rule
 
 Deactivates a Policy Rule identified by `policyId` and `ruleId`
 
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @param policyId `id` of the Policy
- @param ruleId `id` of the Policy Rule
- @return ApiDeactivatePolicyRuleRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param policyId `id` of the Policy
+	@param ruleId `id` of the Policy Rule
+	@return ApiDeactivatePolicyRuleRequest
 */
 func (a *PolicyAPIService) DeactivatePolicyRule(ctx context.Context, policyId string, ruleId string) ApiDeactivatePolicyRuleRequest {
 	return ApiDeactivatePolicyRuleRequest{
 		ApiService: a,
-		ctx: ctx,
-		policyId: policyId,
-		ruleId: ruleId,
+		ctx:        ctx,
+		policyId:   policyId,
+		ruleId:     ruleId,
 		retryCount: 0,
 	}
 }
@@ -1602,7 +1604,7 @@ func (a *PolicyAPIService) DeactivatePolicyRuleExecute(r ApiDeactivatePolicyRule
 		formFiles            []formFile
 		localVarHTTPResponse *http.Response
 		localAPIResponse     *APIResponse
-		err 				 error
+		err                  error
 	)
 
 	if a.client.cfg.Okta.Client.RequestTimeout > 0 {
@@ -1720,9 +1722,9 @@ func (a *PolicyAPIService) DeactivatePolicyRuleExecute(r ApiDeactivatePolicyRule
 }
 
 type ApiDeletePolicyRequest struct {
-	ctx context.Context
+	ctx        context.Context
 	ApiService PolicyAPI
-	policyId string
+	policyId   string
 	retryCount int32
 }
 
@@ -1735,15 +1737,15 @@ DeletePolicy Delete a Policy
 
 Deletes a policy
 
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @param policyId `id` of the Policy
- @return ApiDeletePolicyRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param policyId `id` of the Policy
+	@return ApiDeletePolicyRequest
 */
 func (a *PolicyAPIService) DeletePolicy(ctx context.Context, policyId string) ApiDeletePolicyRequest {
 	return ApiDeletePolicyRequest{
 		ApiService: a,
-		ctx: ctx,
-		policyId: policyId,
+		ctx:        ctx,
+		policyId:   policyId,
 		retryCount: 0,
 	}
 }
@@ -1756,7 +1758,7 @@ func (a *PolicyAPIService) DeletePolicyExecute(r ApiDeletePolicyRequest) (*APIRe
 		formFiles            []formFile
 		localVarHTTPResponse *http.Response
 		localAPIResponse     *APIResponse
-		err 				 error
+		err                  error
 	)
 
 	if a.client.cfg.Okta.Client.RequestTimeout > 0 {
@@ -1873,10 +1875,10 @@ func (a *PolicyAPIService) DeletePolicyExecute(r ApiDeletePolicyRequest) (*APIRe
 }
 
 type ApiDeletePolicyResourceMappingRequest struct {
-	ctx context.Context
+	ctx        context.Context
 	ApiService PolicyAPI
-	policyId string
-	mappingId string
+	policyId   string
+	mappingId  string
 	retryCount int32
 }
 
@@ -1889,17 +1891,17 @@ DeletePolicyResourceMapping Delete a policy resource Mapping
 
 Deletes the resource Mapping for a Policy identified by  `policyId` and `mappingId`
 
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @param policyId `id` of the Policy
- @param mappingId `id` of the policy resource Mapping
- @return ApiDeletePolicyResourceMappingRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param policyId `id` of the Policy
+	@param mappingId `id` of the policy resource Mapping
+	@return ApiDeletePolicyResourceMappingRequest
 */
 func (a *PolicyAPIService) DeletePolicyResourceMapping(ctx context.Context, policyId string, mappingId string) ApiDeletePolicyResourceMappingRequest {
 	return ApiDeletePolicyResourceMappingRequest{
 		ApiService: a,
-		ctx: ctx,
-		policyId: policyId,
-		mappingId: mappingId,
+		ctx:        ctx,
+		policyId:   policyId,
+		mappingId:  mappingId,
 		retryCount: 0,
 	}
 }
@@ -1912,7 +1914,7 @@ func (a *PolicyAPIService) DeletePolicyResourceMappingExecute(r ApiDeletePolicyR
 		formFiles            []formFile
 		localVarHTTPResponse *http.Response
 		localAPIResponse     *APIResponse
-		err 				 error
+		err                  error
 	)
 
 	if a.client.cfg.Okta.Client.RequestTimeout > 0 {
@@ -2030,10 +2032,10 @@ func (a *PolicyAPIService) DeletePolicyResourceMappingExecute(r ApiDeletePolicyR
 }
 
 type ApiDeletePolicyRuleRequest struct {
-	ctx context.Context
+	ctx        context.Context
 	ApiService PolicyAPI
-	policyId string
-	ruleId string
+	policyId   string
+	ruleId     string
 	retryCount int32
 }
 
@@ -2046,17 +2048,17 @@ DeletePolicyRule Delete a Policy Rule
 
 Deletes a Policy Rule identified by `policyId` and `ruleId`
 
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @param policyId `id` of the Policy
- @param ruleId `id` of the Policy Rule
- @return ApiDeletePolicyRuleRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param policyId `id` of the Policy
+	@param ruleId `id` of the Policy Rule
+	@return ApiDeletePolicyRuleRequest
 */
 func (a *PolicyAPIService) DeletePolicyRule(ctx context.Context, policyId string, ruleId string) ApiDeletePolicyRuleRequest {
 	return ApiDeletePolicyRuleRequest{
 		ApiService: a,
-		ctx: ctx,
-		policyId: policyId,
-		ruleId: ruleId,
+		ctx:        ctx,
+		policyId:   policyId,
+		ruleId:     ruleId,
 		retryCount: 0,
 	}
 }
@@ -2069,7 +2071,7 @@ func (a *PolicyAPIService) DeletePolicyRuleExecute(r ApiDeletePolicyRuleRequest)
 		formFiles            []formFile
 		localVarHTTPResponse *http.Response
 		localAPIResponse     *APIResponse
-		err 				 error
+		err                  error
 	)
 
 	if a.client.cfg.Okta.Client.RequestTimeout > 0 {
@@ -2187,10 +2189,10 @@ func (a *PolicyAPIService) DeletePolicyRuleExecute(r ApiDeletePolicyRuleRequest)
 }
 
 type ApiGetPolicyRequest struct {
-	ctx context.Context
+	ctx        context.Context
 	ApiService PolicyAPI
-	policyId string
-	expand *string
+	policyId   string
+	expand     *string
 	retryCount int32
 }
 
@@ -2208,21 +2210,22 @@ GetPolicy Retrieve a Policy
 
 Retrieves a policy
 
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @param policyId `id` of the Policy
- @return ApiGetPolicyRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param policyId `id` of the Policy
+	@return ApiGetPolicyRequest
 */
 func (a *PolicyAPIService) GetPolicy(ctx context.Context, policyId string) ApiGetPolicyRequest {
 	return ApiGetPolicyRequest{
 		ApiService: a,
-		ctx: ctx,
-		policyId: policyId,
+		ctx:        ctx,
+		policyId:   policyId,
 		retryCount: 0,
 	}
 }
 
 // Execute executes the request
-//  @return ListPolicies200ResponseInner
+//
+//	@return ListPolicies200ResponseInner
 func (a *PolicyAPIService) GetPolicyExecute(r ApiGetPolicyRequest) (*ListPolicies200ResponseInner, *APIResponse, error) {
 	var (
 		localVarHTTPMethod   = http.MethodGet
@@ -2231,7 +2234,7 @@ func (a *PolicyAPIService) GetPolicyExecute(r ApiGetPolicyRequest) (*ListPolicie
 		localVarReturnValue  *ListPolicies200ResponseInner
 		localVarHTTPResponse *http.Response
 		localAPIResponse     *APIResponse
-		err 				 error
+		err                  error
 	)
 
 	if a.client.cfg.Okta.Client.RequestTimeout > 0 {
@@ -2355,16 +2358,16 @@ func (a *PolicyAPIService) GetPolicyExecute(r ApiGetPolicyRequest) (*ListPolicie
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
 		return localVarReturnValue, localAPIResponse, newErr
 	}
-	
+
 	localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
 	return localVarReturnValue, localAPIResponse, nil
 }
 
 type ApiGetPolicyMappingRequest struct {
-	ctx context.Context
+	ctx        context.Context
 	ApiService PolicyAPI
-	policyId string
-	mappingId string
+	policyId   string
+	mappingId  string
 	retryCount int32
 }
 
@@ -2377,23 +2380,24 @@ GetPolicyMapping Retrieve a policy resource Mapping
 
 Retrieves a resource Mapping for a Policy identified by `policyId` and `mappingId`
 
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @param policyId `id` of the Policy
- @param mappingId `id` of the policy resource Mapping
- @return ApiGetPolicyMappingRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param policyId `id` of the Policy
+	@param mappingId `id` of the policy resource Mapping
+	@return ApiGetPolicyMappingRequest
 */
 func (a *PolicyAPIService) GetPolicyMapping(ctx context.Context, policyId string, mappingId string) ApiGetPolicyMappingRequest {
 	return ApiGetPolicyMappingRequest{
 		ApiService: a,
-		ctx: ctx,
-		policyId: policyId,
-		mappingId: mappingId,
+		ctx:        ctx,
+		policyId:   policyId,
+		mappingId:  mappingId,
 		retryCount: 0,
 	}
 }
 
 // Execute executes the request
-//  @return PolicyMapping
+//
+//	@return PolicyMapping
 func (a *PolicyAPIService) GetPolicyMappingExecute(r ApiGetPolicyMappingRequest) (*PolicyMapping, *APIResponse, error) {
 	var (
 		localVarHTTPMethod   = http.MethodGet
@@ -2402,7 +2406,7 @@ func (a *PolicyAPIService) GetPolicyMappingExecute(r ApiGetPolicyMappingRequest)
 		localVarReturnValue  *PolicyMapping
 		localVarHTTPResponse *http.Response
 		localAPIResponse     *APIResponse
-		err 				 error
+		err                  error
 	)
 
 	if a.client.cfg.Okta.Client.RequestTimeout > 0 {
@@ -2524,16 +2528,16 @@ func (a *PolicyAPIService) GetPolicyMappingExecute(r ApiGetPolicyMappingRequest)
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
 		return localVarReturnValue, localAPIResponse, newErr
 	}
-	
+
 	localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
 	return localVarReturnValue, localAPIResponse, nil
 }
 
 type ApiGetPolicyRuleRequest struct {
-	ctx context.Context
+	ctx        context.Context
 	ApiService PolicyAPI
-	policyId string
-	ruleId string
+	policyId   string
+	ruleId     string
 	retryCount int32
 }
 
@@ -2546,23 +2550,24 @@ GetPolicyRule Retrieve a Policy Rule
 
 Retrieves a policy rule
 
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @param policyId `id` of the Policy
- @param ruleId `id` of the Policy Rule
- @return ApiGetPolicyRuleRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param policyId `id` of the Policy
+	@param ruleId `id` of the Policy Rule
+	@return ApiGetPolicyRuleRequest
 */
 func (a *PolicyAPIService) GetPolicyRule(ctx context.Context, policyId string, ruleId string) ApiGetPolicyRuleRequest {
 	return ApiGetPolicyRuleRequest{
 		ApiService: a,
-		ctx: ctx,
-		policyId: policyId,
-		ruleId: ruleId,
+		ctx:        ctx,
+		policyId:   policyId,
+		ruleId:     ruleId,
 		retryCount: 0,
 	}
 }
 
 // Execute executes the request
-//  @return ListPolicyRules200ResponseInner
+//
+//	@return ListPolicyRules200ResponseInner
 func (a *PolicyAPIService) GetPolicyRuleExecute(r ApiGetPolicyRuleRequest) (*ListPolicyRules200ResponseInner, *APIResponse, error) {
 	var (
 		localVarHTTPMethod   = http.MethodGet
@@ -2571,7 +2576,7 @@ func (a *PolicyAPIService) GetPolicyRuleExecute(r ApiGetPolicyRuleRequest) (*Lis
 		localVarReturnValue  *ListPolicyRules200ResponseInner
 		localVarHTTPResponse *http.Response
 		localAPIResponse     *APIResponse
-		err 				 error
+		err                  error
 	)
 
 	if a.client.cfg.Okta.Client.RequestTimeout > 0 {
@@ -2693,20 +2698,20 @@ func (a *PolicyAPIService) GetPolicyRuleExecute(r ApiGetPolicyRuleRequest) (*Lis
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
 		return localVarReturnValue, localAPIResponse, newErr
 	}
-	
+
 	localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
 	return localVarReturnValue, localAPIResponse, nil
 }
 
 type ApiListPoliciesRequest struct {
-	ctx context.Context
+	ctx        context.Context
 	ApiService PolicyAPI
-	type_ *string
-	status *string
-	expand *string
-	sortBy *string
-	limit *string
-	after *string
+	type_      *string
+	status     *string
+	expand     *string
+	sortBy     *string
+	limit      *string
+	after      *string
 	retryCount int32
 }
 
@@ -2754,19 +2759,20 @@ ListPolicies List all Policies
 
 Lists all policies with the specified type
 
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @return ApiListPoliciesRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@return ApiListPoliciesRequest
 */
 func (a *PolicyAPIService) ListPolicies(ctx context.Context) ApiListPoliciesRequest {
 	return ApiListPoliciesRequest{
 		ApiService: a,
-		ctx: ctx,
+		ctx:        ctx,
 		retryCount: 0,
 	}
 }
 
 // Execute executes the request
-//  @return []ListPolicies200ResponseInner
+//
+//	@return []ListPolicies200ResponseInner
 func (a *PolicyAPIService) ListPoliciesExecute(r ApiListPoliciesRequest) ([]ListPolicies200ResponseInner, *APIResponse, error) {
 	var (
 		localVarHTTPMethod   = http.MethodGet
@@ -2775,7 +2781,7 @@ func (a *PolicyAPIService) ListPoliciesExecute(r ApiListPoliciesRequest) ([]List
 		localVarReturnValue  []ListPolicies200ResponseInner
 		localVarHTTPResponse *http.Response
 		localAPIResponse     *APIResponse
-		err 				 error
+		err                  error
 	)
 
 	if a.client.cfg.Okta.Client.RequestTimeout > 0 {
@@ -2902,15 +2908,15 @@ func (a *PolicyAPIService) ListPoliciesExecute(r ApiListPoliciesRequest) ([]List
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
 		return localVarReturnValue, localAPIResponse, newErr
 	}
-	
+
 	localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
 	return localVarReturnValue, localAPIResponse, nil
 }
 
 type ApiListPolicyAppsRequest struct {
-	ctx context.Context
+	ctx        context.Context
 	ApiService PolicyAPI
-	policyId string
+	policyId   string
 	retryCount int32
 }
 
@@ -2925,23 +2931,25 @@ Lists all applications mapped to a policy identified by `policyId`
 
 > **Note:** Use [List all resources mapped to a Policy](https://developer.okta.com/docs/api/openapi/okta-management/management/tag/Policy/#tag/Policy/operation/listPolicyMappings) to list all applications mapped to a policy.
 
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @param policyId `id` of the Policy
- @return ApiListPolicyAppsRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param policyId `id` of the Policy
+	@return ApiListPolicyAppsRequest
 
 Deprecated
 */
 func (a *PolicyAPIService) ListPolicyApps(ctx context.Context, policyId string) ApiListPolicyAppsRequest {
 	return ApiListPolicyAppsRequest{
 		ApiService: a,
-		ctx: ctx,
-		policyId: policyId,
+		ctx:        ctx,
+		policyId:   policyId,
 		retryCount: 0,
 	}
 }
 
 // Execute executes the request
-//  @return []ListApplications200ResponseInner
+//
+//	@return []ListApplications200ResponseInner
+//
 // Deprecated
 func (a *PolicyAPIService) ListPolicyAppsExecute(r ApiListPolicyAppsRequest) ([]ListApplications200ResponseInner, *APIResponse, error) {
 	var (
@@ -2951,7 +2959,7 @@ func (a *PolicyAPIService) ListPolicyAppsExecute(r ApiListPolicyAppsRequest) ([]
 		localVarReturnValue  []ListApplications200ResponseInner
 		localVarHTTPResponse *http.Response
 		localAPIResponse     *APIResponse
-		err 				 error
+		err                  error
 	)
 
 	if a.client.cfg.Okta.Client.RequestTimeout > 0 {
@@ -3072,15 +3080,15 @@ func (a *PolicyAPIService) ListPolicyAppsExecute(r ApiListPolicyAppsRequest) ([]
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
 		return localVarReturnValue, localAPIResponse, newErr
 	}
-	
+
 	localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
 	return localVarReturnValue, localAPIResponse, nil
 }
 
 type ApiListPolicyMappingsRequest struct {
-	ctx context.Context
+	ctx        context.Context
 	ApiService PolicyAPI
-	policyId string
+	policyId   string
 	retryCount int32
 }
 
@@ -3093,21 +3101,22 @@ ListPolicyMappings List all resources mapped to a Policy
 
 Lists all resources mapped to a Policy identified by `policyId`
 
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @param policyId `id` of the Policy
- @return ApiListPolicyMappingsRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param policyId `id` of the Policy
+	@return ApiListPolicyMappingsRequest
 */
 func (a *PolicyAPIService) ListPolicyMappings(ctx context.Context, policyId string) ApiListPolicyMappingsRequest {
 	return ApiListPolicyMappingsRequest{
 		ApiService: a,
-		ctx: ctx,
-		policyId: policyId,
+		ctx:        ctx,
+		policyId:   policyId,
 		retryCount: 0,
 	}
 }
 
 // Execute executes the request
-//  @return []PolicyMapping
+//
+//	@return []PolicyMapping
 func (a *PolicyAPIService) ListPolicyMappingsExecute(r ApiListPolicyMappingsRequest) ([]PolicyMapping, *APIResponse, error) {
 	var (
 		localVarHTTPMethod   = http.MethodGet
@@ -3116,7 +3125,7 @@ func (a *PolicyAPIService) ListPolicyMappingsExecute(r ApiListPolicyMappingsRequ
 		localVarReturnValue  []PolicyMapping
 		localVarHTTPResponse *http.Response
 		localAPIResponse     *APIResponse
-		err 				 error
+		err                  error
 	)
 
 	if a.client.cfg.Okta.Client.RequestTimeout > 0 {
@@ -3237,15 +3246,15 @@ func (a *PolicyAPIService) ListPolicyMappingsExecute(r ApiListPolicyMappingsRequ
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
 		return localVarReturnValue, localAPIResponse, newErr
 	}
-	
+
 	localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
 	return localVarReturnValue, localAPIResponse, nil
 }
 
 type ApiListPolicyRulesRequest struct {
-	ctx context.Context
+	ctx        context.Context
 	ApiService PolicyAPI
-	policyId string
+	policyId   string
 	retryCount int32
 }
 
@@ -3258,21 +3267,22 @@ ListPolicyRules List all Policy Rules
 
 Lists all policy rules
 
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @param policyId `id` of the Policy
- @return ApiListPolicyRulesRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param policyId `id` of the Policy
+	@return ApiListPolicyRulesRequest
 */
 func (a *PolicyAPIService) ListPolicyRules(ctx context.Context, policyId string) ApiListPolicyRulesRequest {
 	return ApiListPolicyRulesRequest{
 		ApiService: a,
-		ctx: ctx,
-		policyId: policyId,
+		ctx:        ctx,
+		policyId:   policyId,
 		retryCount: 0,
 	}
 }
 
 // Execute executes the request
-//  @return []ListPolicyRules200ResponseInner
+//
+//	@return []ListPolicyRules200ResponseInner
 func (a *PolicyAPIService) ListPolicyRulesExecute(r ApiListPolicyRulesRequest) ([]ListPolicyRules200ResponseInner, *APIResponse, error) {
 	var (
 		localVarHTTPMethod   = http.MethodGet
@@ -3281,7 +3291,7 @@ func (a *PolicyAPIService) ListPolicyRulesExecute(r ApiListPolicyRulesRequest) (
 		localVarReturnValue  []ListPolicyRules200ResponseInner
 		localVarHTTPResponse *http.Response
 		localAPIResponse     *APIResponse
-		err 				 error
+		err                  error
 	)
 
 	if a.client.cfg.Okta.Client.RequestTimeout > 0 {
@@ -3402,17 +3412,17 @@ func (a *PolicyAPIService) ListPolicyRulesExecute(r ApiListPolicyRulesRequest) (
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
 		return localVarReturnValue, localAPIResponse, newErr
 	}
-	
+
 	localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
 	return localVarReturnValue, localAPIResponse, nil
 }
 
 type ApiMapResourceToPolicyRequest struct {
-	ctx context.Context
-	ApiService PolicyAPI
-	policyId string
+	ctx                  context.Context
+	ApiService           PolicyAPI
+	policyId             string
 	policyMappingRequest *PolicyMappingRequest
-	retryCount int32
+	retryCount           int32
 }
 
 func (r ApiMapResourceToPolicyRequest) PolicyMappingRequest(policyMappingRequest PolicyMappingRequest) ApiMapResourceToPolicyRequest {
@@ -3429,21 +3439,22 @@ MapResourceToPolicy Map a resource to a Policy
 
 Maps a resource to a Policy identified by `policyId`
 
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @param policyId `id` of the Policy
- @return ApiMapResourceToPolicyRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param policyId `id` of the Policy
+	@return ApiMapResourceToPolicyRequest
 */
 func (a *PolicyAPIService) MapResourceToPolicy(ctx context.Context, policyId string) ApiMapResourceToPolicyRequest {
 	return ApiMapResourceToPolicyRequest{
 		ApiService: a,
-		ctx: ctx,
-		policyId: policyId,
+		ctx:        ctx,
+		policyId:   policyId,
 		retryCount: 0,
 	}
 }
 
 // Execute executes the request
-//  @return PolicyMapping
+//
+//	@return PolicyMapping
 func (a *PolicyAPIService) MapResourceToPolicyExecute(r ApiMapResourceToPolicyRequest) (*PolicyMapping, *APIResponse, error) {
 	var (
 		localVarHTTPMethod   = http.MethodPost
@@ -3452,7 +3463,7 @@ func (a *PolicyAPIService) MapResourceToPolicyExecute(r ApiMapResourceToPolicyRe
 		localVarReturnValue  *PolicyMapping
 		localVarHTTPResponse *http.Response
 		localAPIResponse     *APIResponse
-		err 				 error
+		err                  error
 	)
 
 	if a.client.cfg.Okta.Client.RequestTimeout > 0 {
@@ -3590,16 +3601,16 @@ func (a *PolicyAPIService) MapResourceToPolicyExecute(r ApiMapResourceToPolicyRe
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
 		return localVarReturnValue, localAPIResponse, newErr
 	}
-	
+
 	localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
 	return localVarReturnValue, localAPIResponse, nil
 }
 
 type ApiReplacePolicyRequest struct {
-	ctx context.Context
+	ctx        context.Context
 	ApiService PolicyAPI
-	policyId string
-	policy *ListPolicies200ResponseInner
+	policyId   string
+	policy     *ListPolicies200ResponseInner
 	retryCount int32
 }
 
@@ -3617,21 +3628,22 @@ ReplacePolicy Replace a Policy
 
 Replaces the properties of a Policy identified by `policyId`
 
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @param policyId `id` of the Policy
- @return ApiReplacePolicyRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param policyId `id` of the Policy
+	@return ApiReplacePolicyRequest
 */
 func (a *PolicyAPIService) ReplacePolicy(ctx context.Context, policyId string) ApiReplacePolicyRequest {
 	return ApiReplacePolicyRequest{
 		ApiService: a,
-		ctx: ctx,
-		policyId: policyId,
+		ctx:        ctx,
+		policyId:   policyId,
 		retryCount: 0,
 	}
 }
 
 // Execute executes the request
-//  @return ListPolicies200ResponseInner
+//
+//	@return ListPolicies200ResponseInner
 func (a *PolicyAPIService) ReplacePolicyExecute(r ApiReplacePolicyRequest) (*ListPolicies200ResponseInner, *APIResponse, error) {
 	var (
 		localVarHTTPMethod   = http.MethodPut
@@ -3640,7 +3652,7 @@ func (a *PolicyAPIService) ReplacePolicyExecute(r ApiReplacePolicyRequest) (*Lis
 		localVarReturnValue  *ListPolicies200ResponseInner
 		localVarHTTPResponse *http.Response
 		localAPIResponse     *APIResponse
-		err 				 error
+		err                  error
 	)
 
 	if a.client.cfg.Okta.Client.RequestTimeout > 0 {
@@ -3778,16 +3790,16 @@ func (a *PolicyAPIService) ReplacePolicyExecute(r ApiReplacePolicyRequest) (*Lis
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
 		return localVarReturnValue, localAPIResponse, newErr
 	}
-	
+
 	localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
 	return localVarReturnValue, localAPIResponse, nil
 }
 
 type ApiReplacePolicyRuleRequest struct {
-	ctx context.Context
+	ctx        context.Context
 	ApiService PolicyAPI
-	policyId string
-	ruleId string
+	policyId   string
+	ruleId     string
 	policyRule *ListPolicyRules200ResponseInner
 	retryCount int32
 }
@@ -3806,23 +3818,24 @@ ReplacePolicyRule Replace a Policy Rule
 
 Replaces the properties for a Policy Rule identified by `policyId` and `ruleId`
 
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @param policyId `id` of the Policy
- @param ruleId `id` of the Policy Rule
- @return ApiReplacePolicyRuleRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param policyId `id` of the Policy
+	@param ruleId `id` of the Policy Rule
+	@return ApiReplacePolicyRuleRequest
 */
 func (a *PolicyAPIService) ReplacePolicyRule(ctx context.Context, policyId string, ruleId string) ApiReplacePolicyRuleRequest {
 	return ApiReplacePolicyRuleRequest{
 		ApiService: a,
-		ctx: ctx,
-		policyId: policyId,
-		ruleId: ruleId,
+		ctx:        ctx,
+		policyId:   policyId,
+		ruleId:     ruleId,
 		retryCount: 0,
 	}
 }
 
 // Execute executes the request
-//  @return ListPolicyRules200ResponseInner
+//
+//	@return ListPolicyRules200ResponseInner
 func (a *PolicyAPIService) ReplacePolicyRuleExecute(r ApiReplacePolicyRuleRequest) (*ListPolicyRules200ResponseInner, *APIResponse, error) {
 	var (
 		localVarHTTPMethod   = http.MethodPut
@@ -3831,7 +3844,7 @@ func (a *PolicyAPIService) ReplacePolicyRuleExecute(r ApiReplacePolicyRuleReques
 		localVarReturnValue  *ListPolicyRules200ResponseInner
 		localVarHTTPResponse *http.Response
 		localAPIResponse     *APIResponse
-		err 				 error
+		err                  error
 	)
 
 	if a.client.cfg.Okta.Client.RequestTimeout > 0 {
@@ -3970,7 +3983,7 @@ func (a *PolicyAPIService) ReplacePolicyRuleExecute(r ApiReplacePolicyRuleReques
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
 		return localVarReturnValue, localAPIResponse, newErr
 	}
-	
+
 	localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
 	return localVarReturnValue, localAPIResponse, nil
 }

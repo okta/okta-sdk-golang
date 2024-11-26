@@ -41,8 +41,8 @@ type UserFactorSupported struct {
 	// Name of the Factor vendor. This is usually the same as the provider except for On-Prem MFA where it depends on administrator settings.
 	VendorName *string `json:"vendorName,omitempty"`
 	// Embedded resources related to the Factor
-	Embedded map[string]map[string]interface{} `json:"_embedded,omitempty"`
-	Links *UserFactorLinks `json:"_links,omitempty"`
+	Embedded             map[string]map[string]interface{} `json:"_embedded,omitempty"`
+	Links                *UserFactorLinks                  `json:"_links,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -384,4 +384,3 @@ func (v *NullableUserFactorSupported) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-

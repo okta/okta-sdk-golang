@@ -31,8 +31,8 @@ import (
 // DevicePolicyRuleConditionPlatform struct for DevicePolicyRuleConditionPlatform
 type DevicePolicyRuleConditionPlatform struct {
 	SupportedMDMFrameworks []string `json:"supportedMDMFrameworks,omitempty"`
-	Types []string `json:"types,omitempty"`
-	AdditionalProperties map[string]interface{}
+	Types                  []string `json:"types,omitempty"`
+	AdditionalProperties   map[string]interface{}
 }
 
 type _DevicePolicyRuleConditionPlatform DevicePolicyRuleConditionPlatform
@@ -193,4 +193,3 @@ func (v *NullableDevicePolicyRuleConditionPlatform) UnmarshalJSON(src []byte) er
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-

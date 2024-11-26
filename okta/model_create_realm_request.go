@@ -30,7 +30,7 @@ import (
 
 // CreateRealmRequest struct for CreateRealmRequest
 type CreateRealmRequest struct {
-	Profile *RealmProfile `json:"profile,omitempty"`
+	Profile              *RealmProfile `json:"profile,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -156,4 +156,3 @@ func (v *NullableCreateRealmRequest) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-

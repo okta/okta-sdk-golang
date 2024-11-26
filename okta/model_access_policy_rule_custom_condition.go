@@ -30,7 +30,7 @@ import (
 
 // AccessPolicyRuleCustomCondition struct for AccessPolicyRuleCustomCondition
 type AccessPolicyRuleCustomCondition struct {
-	Condition *string `json:"condition,omitempty"`
+	Condition            *string `json:"condition,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -156,4 +156,3 @@ func (v *NullableAccessPolicyRuleCustomCondition) UnmarshalJSON(src []byte) erro
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-

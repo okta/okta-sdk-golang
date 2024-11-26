@@ -32,23 +32,23 @@ import (
 // Session struct for Session
 type Session struct {
 	// Authentication method reference
-	Amr []string `json:"amr,omitempty"`
+	Amr       []string   `json:"amr,omitempty"`
 	CreatedAt *time.Time `json:"createdAt,omitempty"`
 	// A timestamp when the Session expires
 	ExpiresAt *time.Time `json:"expiresAt,omitempty"`
 	// A unique key for the Session
-	Id *string `json:"id,omitempty"`
+	Id  *string                  `json:"id,omitempty"`
 	Idp *SessionIdentityProvider `json:"idp,omitempty"`
 	// A timestamp when the user last performed multifactor authentication
 	LastFactorVerification *time.Time `json:"lastFactorVerification,omitempty"`
 	// A timestamp when the user last performed the primary or step-up authentication with a password
 	LastPasswordVerification *time.Time `json:"lastPasswordVerification,omitempty"`
 	// A unique identifier for the user (username)
-	Login *string `json:"login,omitempty"`
+	Login  *string `json:"login,omitempty"`
 	Status *string `json:"status,omitempty"`
 	// A unique key for the user
-	UserId *string `json:"userId,omitempty"`
-	Links *LinksSelf `json:"_links,omitempty"`
+	UserId               *string    `json:"userId,omitempty"`
+	Links                *LinksSelf `json:"_links,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -534,4 +534,3 @@ func (v *NullableSession) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-

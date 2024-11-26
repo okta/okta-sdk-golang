@@ -30,22 +30,20 @@ import (
 	"io/ioutil"
 	"net/http"
 	"net/url"
-	"time"
 	"strings"
+	"time"
 )
 
-
 type ApplicationTokensAPI interface {
-
 	/*
-	GetOAuth2TokenForApplication Retrieve an application Token
+		GetOAuth2TokenForApplication Retrieve an application Token
 
-	Retrieves a refresh token for the specified app
+		Retrieves a refresh token for the specified app
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param appId Application ID
-	@param tokenId `id` of Token
-	@return ApiGetOAuth2TokenForApplicationRequest
+		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+		@param appId Application ID
+		@param tokenId `id` of Token
+		@return ApiGetOAuth2TokenForApplicationRequest
 	*/
 	GetOAuth2TokenForApplication(ctx context.Context, appId string, tokenId string) ApiGetOAuth2TokenForApplicationRequest
 
@@ -54,17 +52,17 @@ type ApplicationTokensAPI interface {
 	GetOAuth2TokenForApplicationExecute(r ApiGetOAuth2TokenForApplicationRequest) (*OAuth2RefreshToken, *APIResponse, error)
 
 	/*
-	ListOAuth2TokensForApplication List all application refresh Tokens
+			ListOAuth2TokensForApplication List all application refresh Tokens
 
-	Lists all refresh tokens for an app
+			Lists all refresh tokens for an app
 
-> **Note:** The results are [paginated](/#pagination) according to the `limit` parameter.
-> If there are multiple pages of results, the Link header contains a `next` link that you need to use as an opaque value (follow it, don't parse it).
+		> **Note:** The results are [paginated](/#pagination) according to the `limit` parameter.
+		> If there are multiple pages of results, the Link header contains a `next` link that you need to use as an opaque value (follow it, don't parse it).
 
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param appId Application ID
-	@return ApiListOAuth2TokensForApplicationRequest
+			@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+			@param appId Application ID
+			@return ApiListOAuth2TokensForApplicationRequest
 	*/
 	ListOAuth2TokensForApplication(ctx context.Context, appId string) ApiListOAuth2TokensForApplicationRequest
 
@@ -73,14 +71,14 @@ type ApplicationTokensAPI interface {
 	ListOAuth2TokensForApplicationExecute(r ApiListOAuth2TokensForApplicationRequest) ([]OAuth2RefreshToken, *APIResponse, error)
 
 	/*
-	RevokeOAuth2TokenForApplication Revoke an application Token
+		RevokeOAuth2TokenForApplication Revoke an application Token
 
-	Revokes the specified token for the specified app
+		Revokes the specified token for the specified app
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param appId Application ID
-	@param tokenId `id` of Token
-	@return ApiRevokeOAuth2TokenForApplicationRequest
+		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+		@param appId Application ID
+		@param tokenId `id` of Token
+		@return ApiRevokeOAuth2TokenForApplicationRequest
 	*/
 	RevokeOAuth2TokenForApplication(ctx context.Context, appId string, tokenId string) ApiRevokeOAuth2TokenForApplicationRequest
 
@@ -88,13 +86,13 @@ type ApplicationTokensAPI interface {
 	RevokeOAuth2TokenForApplicationExecute(r ApiRevokeOAuth2TokenForApplicationRequest) (*APIResponse, error)
 
 	/*
-	RevokeOAuth2TokensForApplication Revoke all application Tokens
+		RevokeOAuth2TokensForApplication Revoke all application Tokens
 
-	Revokes all OAuth 2.0 refresh tokens for the specified app. Any access tokens issued with these refresh tokens are also revoked, but access tokens issued without a refresh token aren't affected.
+		Revokes all OAuth 2.0 refresh tokens for the specified app. Any access tokens issued with these refresh tokens are also revoked, but access tokens issued without a refresh token aren't affected.
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param appId Application ID
-	@return ApiRevokeOAuth2TokensForApplicationRequest
+		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+		@param appId Application ID
+		@return ApiRevokeOAuth2TokensForApplicationRequest
 	*/
 	RevokeOAuth2TokensForApplication(ctx context.Context, appId string) ApiRevokeOAuth2TokensForApplicationRequest
 
@@ -106,11 +104,11 @@ type ApplicationTokensAPI interface {
 type ApplicationTokensAPIService service
 
 type ApiGetOAuth2TokenForApplicationRequest struct {
-	ctx context.Context
+	ctx        context.Context
 	ApiService ApplicationTokensAPI
-	appId string
-	tokenId string
-	expand *string
+	appId      string
+	tokenId    string
+	expand     *string
 	retryCount int32
 }
 
@@ -129,23 +127,24 @@ GetOAuth2TokenForApplication Retrieve an application Token
 
 Retrieves a refresh token for the specified app
 
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @param appId Application ID
- @param tokenId `id` of Token
- @return ApiGetOAuth2TokenForApplicationRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param appId Application ID
+	@param tokenId `id` of Token
+	@return ApiGetOAuth2TokenForApplicationRequest
 */
 func (a *ApplicationTokensAPIService) GetOAuth2TokenForApplication(ctx context.Context, appId string, tokenId string) ApiGetOAuth2TokenForApplicationRequest {
 	return ApiGetOAuth2TokenForApplicationRequest{
 		ApiService: a,
-		ctx: ctx,
-		appId: appId,
-		tokenId: tokenId,
+		ctx:        ctx,
+		appId:      appId,
+		tokenId:    tokenId,
 		retryCount: 0,
 	}
 }
 
 // Execute executes the request
-//  @return OAuth2RefreshToken
+//
+//	@return OAuth2RefreshToken
 func (a *ApplicationTokensAPIService) GetOAuth2TokenForApplicationExecute(r ApiGetOAuth2TokenForApplicationRequest) (*OAuth2RefreshToken, *APIResponse, error) {
 	var (
 		localVarHTTPMethod   = http.MethodGet
@@ -154,7 +153,7 @@ func (a *ApplicationTokensAPIService) GetOAuth2TokenForApplicationExecute(r ApiG
 		localVarReturnValue  *OAuth2RefreshToken
 		localVarHTTPResponse *http.Response
 		localAPIResponse     *APIResponse
-		err 				 error
+		err                  error
 	)
 
 	if a.client.cfg.Okta.Client.RequestTimeout > 0 {
@@ -279,18 +278,18 @@ func (a *ApplicationTokensAPIService) GetOAuth2TokenForApplicationExecute(r ApiG
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
 		return localVarReturnValue, localAPIResponse, newErr
 	}
-	
+
 	localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
 	return localVarReturnValue, localAPIResponse, nil
 }
 
 type ApiListOAuth2TokensForApplicationRequest struct {
-	ctx context.Context
+	ctx        context.Context
 	ApiService ApplicationTokensAPI
-	appId string
-	expand *string
-	after *string
-	limit *int32
+	appId      string
+	expand     *string
+	after      *string
+	limit      *int32
 	retryCount int32
 }
 
@@ -319,27 +318,27 @@ func (r ApiListOAuth2TokensForApplicationRequest) Execute() ([]OAuth2RefreshToke
 /*
 ListOAuth2TokensForApplication List all application refresh Tokens
 
-Lists all refresh tokens for an app
+# Lists all refresh tokens for an app
 
 > **Note:** The results are [paginated](/#pagination) according to the `limit` parameter.
 > If there are multiple pages of results, the Link header contains a `next` link that you need to use as an opaque value (follow it, don't parse it).
 
-
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @param appId Application ID
- @return ApiListOAuth2TokensForApplicationRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param appId Application ID
+	@return ApiListOAuth2TokensForApplicationRequest
 */
 func (a *ApplicationTokensAPIService) ListOAuth2TokensForApplication(ctx context.Context, appId string) ApiListOAuth2TokensForApplicationRequest {
 	return ApiListOAuth2TokensForApplicationRequest{
 		ApiService: a,
-		ctx: ctx,
-		appId: appId,
+		ctx:        ctx,
+		appId:      appId,
 		retryCount: 0,
 	}
 }
 
 // Execute executes the request
-//  @return []OAuth2RefreshToken
+//
+//	@return []OAuth2RefreshToken
 func (a *ApplicationTokensAPIService) ListOAuth2TokensForApplicationExecute(r ApiListOAuth2TokensForApplicationRequest) ([]OAuth2RefreshToken, *APIResponse, error) {
 	var (
 		localVarHTTPMethod   = http.MethodGet
@@ -348,7 +347,7 @@ func (a *ApplicationTokensAPIService) ListOAuth2TokensForApplicationExecute(r Ap
 		localVarReturnValue  []OAuth2RefreshToken
 		localVarHTTPResponse *http.Response
 		localAPIResponse     *APIResponse
-		err 				 error
+		err                  error
 	)
 
 	if a.client.cfg.Okta.Client.RequestTimeout > 0 {
@@ -478,16 +477,16 @@ func (a *ApplicationTokensAPIService) ListOAuth2TokensForApplicationExecute(r Ap
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
 		return localVarReturnValue, localAPIResponse, newErr
 	}
-	
+
 	localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
 	return localVarReturnValue, localAPIResponse, nil
 }
 
 type ApiRevokeOAuth2TokenForApplicationRequest struct {
-	ctx context.Context
+	ctx        context.Context
 	ApiService ApplicationTokensAPI
-	appId string
-	tokenId string
+	appId      string
+	tokenId    string
 	retryCount int32
 }
 
@@ -500,17 +499,17 @@ RevokeOAuth2TokenForApplication Revoke an application Token
 
 Revokes the specified token for the specified app
 
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @param appId Application ID
- @param tokenId `id` of Token
- @return ApiRevokeOAuth2TokenForApplicationRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param appId Application ID
+	@param tokenId `id` of Token
+	@return ApiRevokeOAuth2TokenForApplicationRequest
 */
 func (a *ApplicationTokensAPIService) RevokeOAuth2TokenForApplication(ctx context.Context, appId string, tokenId string) ApiRevokeOAuth2TokenForApplicationRequest {
 	return ApiRevokeOAuth2TokenForApplicationRequest{
 		ApiService: a,
-		ctx: ctx,
-		appId: appId,
-		tokenId: tokenId,
+		ctx:        ctx,
+		appId:      appId,
+		tokenId:    tokenId,
 		retryCount: 0,
 	}
 }
@@ -523,7 +522,7 @@ func (a *ApplicationTokensAPIService) RevokeOAuth2TokenForApplicationExecute(r A
 		formFiles            []formFile
 		localVarHTTPResponse *http.Response
 		localAPIResponse     *APIResponse
-		err 				 error
+		err                  error
 	)
 
 	if a.client.cfg.Okta.Client.RequestTimeout > 0 {
@@ -641,9 +640,9 @@ func (a *ApplicationTokensAPIService) RevokeOAuth2TokenForApplicationExecute(r A
 }
 
 type ApiRevokeOAuth2TokensForApplicationRequest struct {
-	ctx context.Context
+	ctx        context.Context
 	ApiService ApplicationTokensAPI
-	appId string
+	appId      string
 	retryCount int32
 }
 
@@ -656,15 +655,15 @@ RevokeOAuth2TokensForApplication Revoke all application Tokens
 
 Revokes all OAuth 2.0 refresh tokens for the specified app. Any access tokens issued with these refresh tokens are also revoked, but access tokens issued without a refresh token aren't affected.
 
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @param appId Application ID
- @return ApiRevokeOAuth2TokensForApplicationRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param appId Application ID
+	@return ApiRevokeOAuth2TokensForApplicationRequest
 */
 func (a *ApplicationTokensAPIService) RevokeOAuth2TokensForApplication(ctx context.Context, appId string) ApiRevokeOAuth2TokensForApplicationRequest {
 	return ApiRevokeOAuth2TokensForApplicationRequest{
 		ApiService: a,
-		ctx: ctx,
-		appId: appId,
+		ctx:        ctx,
+		appId:      appId,
 		retryCount: 0,
 	}
 }
@@ -677,7 +676,7 @@ func (a *ApplicationTokensAPIService) RevokeOAuth2TokensForApplicationExecute(r 
 		formFiles            []formFile
 		localVarHTTPResponse *http.Response
 		localAPIResponse     *APIResponse
-		err 				 error
+		err                  error
 	)
 
 	if a.client.cfg.Okta.Client.RequestTimeout > 0 {

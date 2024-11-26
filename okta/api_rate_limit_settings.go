@@ -33,16 +33,14 @@ import (
 	"time"
 )
 
-
 type RateLimitSettingsAPI interface {
-
 	/*
-	GetRateLimitSettingsAdminNotifications Retrieve the Rate Limit Admin Notification Settings
+		GetRateLimitSettingsAdminNotifications Retrieve the Rate Limit Admin Notification Settings
 
-	Retrieves the currently configured Rate Limit Admin Notification Settings
+		Retrieves the currently configured Rate Limit Admin Notification Settings
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@return ApiGetRateLimitSettingsAdminNotificationsRequest
+		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+		@return ApiGetRateLimitSettingsAdminNotificationsRequest
 	*/
 	GetRateLimitSettingsAdminNotifications(ctx context.Context) ApiGetRateLimitSettingsAdminNotificationsRequest
 
@@ -51,12 +49,12 @@ type RateLimitSettingsAPI interface {
 	GetRateLimitSettingsAdminNotificationsExecute(r ApiGetRateLimitSettingsAdminNotificationsRequest) (*RateLimitAdminNotifications, *APIResponse, error)
 
 	/*
-	GetRateLimitSettingsPerClient Retrieve the Per-Client Rate Limit Settings
+		GetRateLimitSettingsPerClient Retrieve the Per-Client Rate Limit Settings
 
-	Retrieves the currently configured Per-Client Rate Limit Settings
+		Retrieves the currently configured Per-Client Rate Limit Settings
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@return ApiGetRateLimitSettingsPerClientRequest
+		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+		@return ApiGetRateLimitSettingsPerClientRequest
 	*/
 	GetRateLimitSettingsPerClient(ctx context.Context) ApiGetRateLimitSettingsPerClientRequest
 
@@ -65,12 +63,12 @@ type RateLimitSettingsAPI interface {
 	GetRateLimitSettingsPerClientExecute(r ApiGetRateLimitSettingsPerClientRequest) (*PerClientRateLimitSettings, *APIResponse, error)
 
 	/*
-	GetRateLimitSettingsWarningThreshold Retrieve the Rate Limit Warning Threshold Percentage
+		GetRateLimitSettingsWarningThreshold Retrieve the Rate Limit Warning Threshold Percentage
 
-	Retrieves the currently configured threshold for warning notifications when the API's rate limit is exceeded
+		Retrieves the currently configured threshold for warning notifications when the API's rate limit is exceeded
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@return ApiGetRateLimitSettingsWarningThresholdRequest
+		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+		@return ApiGetRateLimitSettingsWarningThresholdRequest
 	*/
 	GetRateLimitSettingsWarningThreshold(ctx context.Context) ApiGetRateLimitSettingsWarningThresholdRequest
 
@@ -79,12 +77,12 @@ type RateLimitSettingsAPI interface {
 	GetRateLimitSettingsWarningThresholdExecute(r ApiGetRateLimitSettingsWarningThresholdRequest) (*RateLimitWarningThresholdResponse, *APIResponse, error)
 
 	/*
-	ReplaceRateLimitSettingsAdminNotifications Replace the Rate Limit Admin Notification Settings
+		ReplaceRateLimitSettingsAdminNotifications Replace the Rate Limit Admin Notification Settings
 
-	Replaces the Rate Limit Admin Notification Settings and returns the configured properties
+		Replaces the Rate Limit Admin Notification Settings and returns the configured properties
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@return ApiReplaceRateLimitSettingsAdminNotificationsRequest
+		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+		@return ApiReplaceRateLimitSettingsAdminNotificationsRequest
 	*/
 	ReplaceRateLimitSettingsAdminNotifications(ctx context.Context) ApiReplaceRateLimitSettingsAdminNotificationsRequest
 
@@ -93,12 +91,12 @@ type RateLimitSettingsAPI interface {
 	ReplaceRateLimitSettingsAdminNotificationsExecute(r ApiReplaceRateLimitSettingsAdminNotificationsRequest) (*RateLimitAdminNotifications, *APIResponse, error)
 
 	/*
-	ReplaceRateLimitSettingsPerClient Replace the Per-Client Rate Limit Settings
+		ReplaceRateLimitSettingsPerClient Replace the Per-Client Rate Limit Settings
 
-	Replaces the Per-Client Rate Limit Settings and returns the configured properties
+		Replaces the Per-Client Rate Limit Settings and returns the configured properties
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@return ApiReplaceRateLimitSettingsPerClientRequest
+		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+		@return ApiReplaceRateLimitSettingsPerClientRequest
 	*/
 	ReplaceRateLimitSettingsPerClient(ctx context.Context) ApiReplaceRateLimitSettingsPerClientRequest
 
@@ -107,12 +105,12 @@ type RateLimitSettingsAPI interface {
 	ReplaceRateLimitSettingsPerClientExecute(r ApiReplaceRateLimitSettingsPerClientRequest) (*PerClientRateLimitSettings, *APIResponse, error)
 
 	/*
-	ReplaceRateLimitSettingsWarningThreshold Replace the Rate Limit Warning Threshold Percentage
+		ReplaceRateLimitSettingsWarningThreshold Replace the Rate Limit Warning Threshold Percentage
 
-	Replaces the Rate Limit Warning Threshold Percentage and returns the configured property
+		Replaces the Rate Limit Warning Threshold Percentage and returns the configured property
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@return ApiReplaceRateLimitSettingsWarningThresholdRequest
+		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+		@return ApiReplaceRateLimitSettingsWarningThresholdRequest
 	*/
 	ReplaceRateLimitSettingsWarningThreshold(ctx context.Context) ApiReplaceRateLimitSettingsWarningThresholdRequest
 
@@ -125,7 +123,7 @@ type RateLimitSettingsAPI interface {
 type RateLimitSettingsAPIService service
 
 type ApiGetRateLimitSettingsAdminNotificationsRequest struct {
-	ctx context.Context
+	ctx        context.Context
 	ApiService RateLimitSettingsAPI
 	retryCount int32
 }
@@ -139,19 +137,20 @@ GetRateLimitSettingsAdminNotifications Retrieve the Rate Limit Admin Notificatio
 
 Retrieves the currently configured Rate Limit Admin Notification Settings
 
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @return ApiGetRateLimitSettingsAdminNotificationsRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@return ApiGetRateLimitSettingsAdminNotificationsRequest
 */
 func (a *RateLimitSettingsAPIService) GetRateLimitSettingsAdminNotifications(ctx context.Context) ApiGetRateLimitSettingsAdminNotificationsRequest {
 	return ApiGetRateLimitSettingsAdminNotificationsRequest{
 		ApiService: a,
-		ctx: ctx,
+		ctx:        ctx,
 		retryCount: 0,
 	}
 }
 
 // Execute executes the request
-//  @return RateLimitAdminNotifications
+//
+//	@return RateLimitAdminNotifications
 func (a *RateLimitSettingsAPIService) GetRateLimitSettingsAdminNotificationsExecute(r ApiGetRateLimitSettingsAdminNotificationsRequest) (*RateLimitAdminNotifications, *APIResponse, error) {
 	var (
 		localVarHTTPMethod   = http.MethodGet
@@ -160,7 +159,7 @@ func (a *RateLimitSettingsAPIService) GetRateLimitSettingsAdminNotificationsExec
 		localVarReturnValue  *RateLimitAdminNotifications
 		localVarHTTPResponse *http.Response
 		localAPIResponse     *APIResponse
-		err 				 error
+		err                  error
 	)
 
 	if a.client.cfg.Okta.Client.RequestTimeout > 0 {
@@ -268,13 +267,13 @@ func (a *RateLimitSettingsAPIService) GetRateLimitSettingsAdminNotificationsExec
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
 		return localVarReturnValue, localAPIResponse, newErr
 	}
-	
+
 	localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
 	return localVarReturnValue, localAPIResponse, nil
 }
 
 type ApiGetRateLimitSettingsPerClientRequest struct {
-	ctx context.Context
+	ctx        context.Context
 	ApiService RateLimitSettingsAPI
 	retryCount int32
 }
@@ -288,19 +287,20 @@ GetRateLimitSettingsPerClient Retrieve the Per-Client Rate Limit Settings
 
 Retrieves the currently configured Per-Client Rate Limit Settings
 
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @return ApiGetRateLimitSettingsPerClientRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@return ApiGetRateLimitSettingsPerClientRequest
 */
 func (a *RateLimitSettingsAPIService) GetRateLimitSettingsPerClient(ctx context.Context) ApiGetRateLimitSettingsPerClientRequest {
 	return ApiGetRateLimitSettingsPerClientRequest{
 		ApiService: a,
-		ctx: ctx,
+		ctx:        ctx,
 		retryCount: 0,
 	}
 }
 
 // Execute executes the request
-//  @return PerClientRateLimitSettings
+//
+//	@return PerClientRateLimitSettings
 func (a *RateLimitSettingsAPIService) GetRateLimitSettingsPerClientExecute(r ApiGetRateLimitSettingsPerClientRequest) (*PerClientRateLimitSettings, *APIResponse, error) {
 	var (
 		localVarHTTPMethod   = http.MethodGet
@@ -309,7 +309,7 @@ func (a *RateLimitSettingsAPIService) GetRateLimitSettingsPerClientExecute(r Api
 		localVarReturnValue  *PerClientRateLimitSettings
 		localVarHTTPResponse *http.Response
 		localAPIResponse     *APIResponse
-		err 				 error
+		err                  error
 	)
 
 	if a.client.cfg.Okta.Client.RequestTimeout > 0 {
@@ -417,13 +417,13 @@ func (a *RateLimitSettingsAPIService) GetRateLimitSettingsPerClientExecute(r Api
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
 		return localVarReturnValue, localAPIResponse, newErr
 	}
-	
+
 	localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
 	return localVarReturnValue, localAPIResponse, nil
 }
 
 type ApiGetRateLimitSettingsWarningThresholdRequest struct {
-	ctx context.Context
+	ctx        context.Context
 	ApiService RateLimitSettingsAPI
 	retryCount int32
 }
@@ -437,19 +437,20 @@ GetRateLimitSettingsWarningThreshold Retrieve the Rate Limit Warning Threshold P
 
 Retrieves the currently configured threshold for warning notifications when the API's rate limit is exceeded
 
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @return ApiGetRateLimitSettingsWarningThresholdRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@return ApiGetRateLimitSettingsWarningThresholdRequest
 */
 func (a *RateLimitSettingsAPIService) GetRateLimitSettingsWarningThreshold(ctx context.Context) ApiGetRateLimitSettingsWarningThresholdRequest {
 	return ApiGetRateLimitSettingsWarningThresholdRequest{
 		ApiService: a,
-		ctx: ctx,
+		ctx:        ctx,
 		retryCount: 0,
 	}
 }
 
 // Execute executes the request
-//  @return RateLimitWarningThresholdResponse
+//
+//	@return RateLimitWarningThresholdResponse
 func (a *RateLimitSettingsAPIService) GetRateLimitSettingsWarningThresholdExecute(r ApiGetRateLimitSettingsWarningThresholdRequest) (*RateLimitWarningThresholdResponse, *APIResponse, error) {
 	var (
 		localVarHTTPMethod   = http.MethodGet
@@ -458,7 +459,7 @@ func (a *RateLimitSettingsAPIService) GetRateLimitSettingsWarningThresholdExecut
 		localVarReturnValue  *RateLimitWarningThresholdResponse
 		localVarHTTPResponse *http.Response
 		localAPIResponse     *APIResponse
-		err 				 error
+		err                  error
 	)
 
 	if a.client.cfg.Okta.Client.RequestTimeout > 0 {
@@ -566,16 +567,16 @@ func (a *RateLimitSettingsAPIService) GetRateLimitSettingsWarningThresholdExecut
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
 		return localVarReturnValue, localAPIResponse, newErr
 	}
-	
+
 	localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
 	return localVarReturnValue, localAPIResponse, nil
 }
 
 type ApiReplaceRateLimitSettingsAdminNotificationsRequest struct {
-	ctx context.Context
-	ApiService RateLimitSettingsAPI
+	ctx                         context.Context
+	ApiService                  RateLimitSettingsAPI
 	rateLimitAdminNotifications *RateLimitAdminNotifications
-	retryCount int32
+	retryCount                  int32
 }
 
 func (r ApiReplaceRateLimitSettingsAdminNotificationsRequest) RateLimitAdminNotifications(rateLimitAdminNotifications RateLimitAdminNotifications) ApiReplaceRateLimitSettingsAdminNotificationsRequest {
@@ -592,19 +593,20 @@ ReplaceRateLimitSettingsAdminNotifications Replace the Rate Limit Admin Notifica
 
 Replaces the Rate Limit Admin Notification Settings and returns the configured properties
 
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @return ApiReplaceRateLimitSettingsAdminNotificationsRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@return ApiReplaceRateLimitSettingsAdminNotificationsRequest
 */
 func (a *RateLimitSettingsAPIService) ReplaceRateLimitSettingsAdminNotifications(ctx context.Context) ApiReplaceRateLimitSettingsAdminNotificationsRequest {
 	return ApiReplaceRateLimitSettingsAdminNotificationsRequest{
 		ApiService: a,
-		ctx: ctx,
+		ctx:        ctx,
 		retryCount: 0,
 	}
 }
 
 // Execute executes the request
-//  @return RateLimitAdminNotifications
+//
+//	@return RateLimitAdminNotifications
 func (a *RateLimitSettingsAPIService) ReplaceRateLimitSettingsAdminNotificationsExecute(r ApiReplaceRateLimitSettingsAdminNotificationsRequest) (*RateLimitAdminNotifications, *APIResponse, error) {
 	var (
 		localVarHTTPMethod   = http.MethodPut
@@ -613,7 +615,7 @@ func (a *RateLimitSettingsAPIService) ReplaceRateLimitSettingsAdminNotifications
 		localVarReturnValue  *RateLimitAdminNotifications
 		localVarHTTPResponse *http.Response
 		localAPIResponse     *APIResponse
-		err 				 error
+		err                  error
 	)
 
 	if a.client.cfg.Okta.Client.RequestTimeout > 0 {
@@ -738,16 +740,16 @@ func (a *RateLimitSettingsAPIService) ReplaceRateLimitSettingsAdminNotifications
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
 		return localVarReturnValue, localAPIResponse, newErr
 	}
-	
+
 	localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
 	return localVarReturnValue, localAPIResponse, nil
 }
 
 type ApiReplaceRateLimitSettingsPerClientRequest struct {
-	ctx context.Context
-	ApiService RateLimitSettingsAPI
+	ctx                        context.Context
+	ApiService                 RateLimitSettingsAPI
 	perClientRateLimitSettings *PerClientRateLimitSettings
-	retryCount int32
+	retryCount                 int32
 }
 
 func (r ApiReplaceRateLimitSettingsPerClientRequest) PerClientRateLimitSettings(perClientRateLimitSettings PerClientRateLimitSettings) ApiReplaceRateLimitSettingsPerClientRequest {
@@ -764,19 +766,20 @@ ReplaceRateLimitSettingsPerClient Replace the Per-Client Rate Limit Settings
 
 Replaces the Per-Client Rate Limit Settings and returns the configured properties
 
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @return ApiReplaceRateLimitSettingsPerClientRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@return ApiReplaceRateLimitSettingsPerClientRequest
 */
 func (a *RateLimitSettingsAPIService) ReplaceRateLimitSettingsPerClient(ctx context.Context) ApiReplaceRateLimitSettingsPerClientRequest {
 	return ApiReplaceRateLimitSettingsPerClientRequest{
 		ApiService: a,
-		ctx: ctx,
+		ctx:        ctx,
 		retryCount: 0,
 	}
 }
 
 // Execute executes the request
-//  @return PerClientRateLimitSettings
+//
+//	@return PerClientRateLimitSettings
 func (a *RateLimitSettingsAPIService) ReplaceRateLimitSettingsPerClientExecute(r ApiReplaceRateLimitSettingsPerClientRequest) (*PerClientRateLimitSettings, *APIResponse, error) {
 	var (
 		localVarHTTPMethod   = http.MethodPut
@@ -785,7 +788,7 @@ func (a *RateLimitSettingsAPIService) ReplaceRateLimitSettingsPerClientExecute(r
 		localVarReturnValue  *PerClientRateLimitSettings
 		localVarHTTPResponse *http.Response
 		localAPIResponse     *APIResponse
-		err 				 error
+		err                  error
 	)
 
 	if a.client.cfg.Okta.Client.RequestTimeout > 0 {
@@ -910,16 +913,16 @@ func (a *RateLimitSettingsAPIService) ReplaceRateLimitSettingsPerClientExecute(r
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
 		return localVarReturnValue, localAPIResponse, newErr
 	}
-	
+
 	localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
 	return localVarReturnValue, localAPIResponse, nil
 }
 
 type ApiReplaceRateLimitSettingsWarningThresholdRequest struct {
-	ctx context.Context
-	ApiService RateLimitSettingsAPI
+	ctx                       context.Context
+	ApiService                RateLimitSettingsAPI
 	rateLimitWarningThreshold *RateLimitWarningThresholdRequest
-	retryCount int32
+	retryCount                int32
 }
 
 func (r ApiReplaceRateLimitSettingsWarningThresholdRequest) RateLimitWarningThreshold(rateLimitWarningThreshold RateLimitWarningThresholdRequest) ApiReplaceRateLimitSettingsWarningThresholdRequest {
@@ -936,19 +939,20 @@ ReplaceRateLimitSettingsWarningThreshold Replace the Rate Limit Warning Threshol
 
 Replaces the Rate Limit Warning Threshold Percentage and returns the configured property
 
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @return ApiReplaceRateLimitSettingsWarningThresholdRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@return ApiReplaceRateLimitSettingsWarningThresholdRequest
 */
 func (a *RateLimitSettingsAPIService) ReplaceRateLimitSettingsWarningThreshold(ctx context.Context) ApiReplaceRateLimitSettingsWarningThresholdRequest {
 	return ApiReplaceRateLimitSettingsWarningThresholdRequest{
 		ApiService: a,
-		ctx: ctx,
+		ctx:        ctx,
 		retryCount: 0,
 	}
 }
 
 // Execute executes the request
-//  @return RateLimitWarningThresholdResponse
+//
+//	@return RateLimitWarningThresholdResponse
 func (a *RateLimitSettingsAPIService) ReplaceRateLimitSettingsWarningThresholdExecute(r ApiReplaceRateLimitSettingsWarningThresholdRequest) (*RateLimitWarningThresholdResponse, *APIResponse, error) {
 	var (
 		localVarHTTPMethod   = http.MethodPut
@@ -957,7 +961,7 @@ func (a *RateLimitSettingsAPIService) ReplaceRateLimitSettingsWarningThresholdEx
 		localVarReturnValue  *RateLimitWarningThresholdResponse
 		localVarHTTPResponse *http.Response
 		localAPIResponse     *APIResponse
-		err 				 error
+		err                  error
 	)
 
 	if a.client.cfg.Okta.Client.RequestTimeout > 0 {
@@ -1079,7 +1083,7 @@ func (a *RateLimitSettingsAPIService) ReplaceRateLimitSettingsWarningThresholdEx
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
 		return localVarReturnValue, localAPIResponse, newErr
 	}
-	
+
 	localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
 	return localVarReturnValue, localAPIResponse, nil
 }

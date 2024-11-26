@@ -30,13 +30,13 @@ import (
 
 // SchemeApplicationCredentials struct for SchemeApplicationCredentials
 type SchemeApplicationCredentials struct {
-	Signing *ApplicationCredentialsSigning `json:"signing,omitempty"`
+	Signing          *ApplicationCredentialsSigning          `json:"signing,omitempty"`
 	UserNameTemplate *ApplicationCredentialsUsernameTemplate `json:"userNameTemplate,omitempty"`
-	Password *PasswordCredential `json:"password,omitempty"`
+	Password         *PasswordCredential                     `json:"password,omitempty"`
 	// Allow users to securely see their password
-	RevealPassword *bool `json:"revealPassword,omitempty"`
-	Scheme *string `json:"scheme,omitempty"`
-	UserName *string `json:"userName,omitempty"`
+	RevealPassword       *bool   `json:"revealPassword,omitempty"`
+	Scheme               *string `json:"scheme,omitempty"`
+	UserName             *string `json:"userName,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -342,4 +342,3 @@ func (v *NullableSchemeApplicationCredentials) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-

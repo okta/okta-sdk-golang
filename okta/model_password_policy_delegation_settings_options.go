@@ -30,7 +30,7 @@ import (
 
 // PasswordPolicyDelegationSettingsOptions struct for PasswordPolicyDelegationSettingsOptions
 type PasswordPolicyDelegationSettingsOptions struct {
-	SkipUnlock *bool `json:"skipUnlock,omitempty"`
+	SkipUnlock           *bool `json:"skipUnlock,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -156,4 +156,3 @@ func (v *NullablePasswordPolicyDelegationSettingsOptions) UnmarshalJSON(src []by
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-

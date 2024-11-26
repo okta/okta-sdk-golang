@@ -74,8 +74,7 @@ func (o AuthenticatorKeyGoogleOtp) MarshalJSON() ([]byte, error) {
 }
 
 func (o *AuthenticatorKeyGoogleOtp) UnmarshalJSON(bytes []byte) (err error) {
-	type AuthenticatorKeyGoogleOtpWithoutEmbeddedStruct struct {
-	}
+	type AuthenticatorKeyGoogleOtpWithoutEmbeddedStruct struct{}
 
 	varAuthenticatorKeyGoogleOtpWithoutEmbeddedStruct := AuthenticatorKeyGoogleOtpWithoutEmbeddedStruct{}
 
@@ -162,4 +161,3 @@ func (v *NullableAuthenticatorKeyGoogleOtp) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-

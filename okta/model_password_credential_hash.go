@@ -45,7 +45,7 @@ type PasswordCredentialHash struct {
 	// For SHA-512, SHA-256, SHA-1, MD5, and PBKDF2, this is the actual base64-encoded hash of the password (and salt, if used). This is the Base64-encoded `value` of the SHA-512/SHA-256/SHA-1/MD5/PBKDF2 digest that was computed by either pre-fixing or post-fixing the `salt` to the `password`, depending on the `saltOrder`. If a `salt` was not used in the `source` system, then this should just be the Base64-encoded `value` of the password's SHA-512/SHA-256/SHA-1/MD5/PBKDF2 digest. For BCRYPT, this is the actual Radix-64 encoded hashed password.
 	Value *string `json:"value,omitempty"`
 	// Governs the strength of the hash and the time required to compute it. Only required for BCRYPT algorithm.
-	WorkFactor *int32 `json:"workFactor,omitempty"`
+	WorkFactor           *int32 `json:"workFactor,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -423,4 +423,3 @@ func (v *NullablePasswordCredentialHash) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-

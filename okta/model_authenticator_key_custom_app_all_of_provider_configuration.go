@@ -30,8 +30,8 @@ import (
 
 // AuthenticatorKeyCustomAppAllOfProviderConfiguration The configuration of the provider
 type AuthenticatorKeyCustomAppAllOfProviderConfiguration struct {
-	Apns *AuthenticatorKeyCustomAppAllOfProviderConfigurationApns `json:"apns,omitempty"`
-	Fcm *AuthenticatorKeyCustomAppAllOfProviderConfigurationFcm `json:"fcm,omitempty"`
+	Apns                 *AuthenticatorKeyCustomAppAllOfProviderConfigurationApns `json:"apns,omitempty"`
+	Fcm                  *AuthenticatorKeyCustomAppAllOfProviderConfigurationFcm  `json:"fcm,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -193,4 +193,3 @@ func (v *NullableAuthenticatorKeyCustomAppAllOfProviderConfiguration) UnmarshalJ
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-

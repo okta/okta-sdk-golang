@@ -74,8 +74,7 @@ func (o AuthenticatorKeySmartCard) MarshalJSON() ([]byte, error) {
 }
 
 func (o *AuthenticatorKeySmartCard) UnmarshalJSON(bytes []byte) (err error) {
-	type AuthenticatorKeySmartCardWithoutEmbeddedStruct struct {
-	}
+	type AuthenticatorKeySmartCardWithoutEmbeddedStruct struct{}
 
 	varAuthenticatorKeySmartCardWithoutEmbeddedStruct := AuthenticatorKeySmartCardWithoutEmbeddedStruct{}
 
@@ -162,4 +161,3 @@ func (v *NullableAuthenticatorKeySmartCard) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-

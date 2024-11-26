@@ -30,10 +30,10 @@ import (
 
 // PasswordPolicyRecoveryFactors struct for PasswordPolicyRecoveryFactors
 type PasswordPolicyRecoveryFactors struct {
-	OktaCall *PasswordPolicyRecoveryFactorSettings `json:"okta_call,omitempty"`
-	OktaEmail *PasswordPolicyRecoveryEmail `json:"okta_email,omitempty"`
-	OktaSms *PasswordPolicyRecoveryFactorSettings `json:"okta_sms,omitempty"`
-	RecoveryQuestion *PasswordPolicyRecoveryQuestion `json:"recovery_question,omitempty"`
+	OktaCall             *PasswordPolicyRecoveryFactorSettings `json:"okta_call,omitempty"`
+	OktaEmail            *PasswordPolicyRecoveryEmail          `json:"okta_email,omitempty"`
+	OktaSms              *PasswordPolicyRecoveryFactorSettings `json:"okta_sms,omitempty"`
+	RecoveryQuestion     *PasswordPolicyRecoveryQuestion       `json:"recovery_question,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -267,4 +267,3 @@ func (v *NullablePasswordPolicyRecoveryFactors) UnmarshalJSON(src []byte) error 
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-

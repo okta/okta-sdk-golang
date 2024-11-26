@@ -34,7 +34,7 @@ import (
 type ContinuousAccessPolicy struct {
 	Policy
 	// Policy conditions aren't supported for this policy type.
-	Conditions NullableString `json:"conditions,omitempty"`
+	Conditions           NullableString `json:"conditions,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -89,6 +89,7 @@ func (o *ContinuousAccessPolicy) HasConditions() bool {
 func (o *ContinuousAccessPolicy) SetConditions(v string) {
 	o.Conditions.Set(&v)
 }
+
 // SetConditionsNil sets the value for Conditions to be an explicit nil
 func (o *ContinuousAccessPolicy) SetConditionsNil() {
 	o.Conditions.Set(nil)
@@ -213,4 +214,3 @@ func (v *NullableContinuousAccessPolicy) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-

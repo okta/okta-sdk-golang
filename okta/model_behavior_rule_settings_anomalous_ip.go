@@ -30,9 +30,9 @@ import (
 
 // BehaviorRuleSettingsAnomalousIP struct for BehaviorRuleSettingsAnomalousIP
 type BehaviorRuleSettingsAnomalousIP struct {
-	MaxEventsUsedForEvaluation *int32 `json:"maxEventsUsedForEvaluation,omitempty"`
+	MaxEventsUsedForEvaluation   *int32 `json:"maxEventsUsedForEvaluation,omitempty"`
 	MinEventsNeededForEvaluation *int32 `json:"minEventsNeededForEvaluation,omitempty"`
-	AdditionalProperties map[string]interface{}
+	AdditionalProperties         map[string]interface{}
 }
 
 type _BehaviorRuleSettingsAnomalousIP BehaviorRuleSettingsAnomalousIP
@@ -201,4 +201,3 @@ func (v *NullableBehaviorRuleSettingsAnomalousIP) UnmarshalJSON(src []byte) erro
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-

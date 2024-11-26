@@ -60,8 +60,8 @@ type JsonWebKey struct {
 	// X.509 certificate SHA-256 thumbprint, which is the base64url-encoded SHA-256 thumbprint (digest) of the DER encoding of an X.509 certificate
 	X5tS256 *string `json:"x5t#S256,omitempty"`
 	// A URI that refers to a resource for the X.509 public key certificate or certificate chain corresponding to the key used to digitally sign the JWS (JSON Web Signature)
-	X5u *string `json:"x5u,omitempty"`
-	Links *LinksSelf `json:"_links,omitempty"`
+	X5u                  *string    `json:"x5u,omitempty"`
+	Links                *LinksSelf `json:"_links,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -727,4 +727,3 @@ func (v *NullableJsonWebKey) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-

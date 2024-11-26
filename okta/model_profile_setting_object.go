@@ -28,9 +28,9 @@ import (
 	"encoding/json"
 )
 
-// ProfileSettingObject This setting determines whether a user in the application gets updated when they're updated in Okta.  If enabled, Okta updates a user's attributes in the application when the application is assigned. Future changes made to the Okta user's profile automatically overwrite the corresponding attribute value in the application. 
+// ProfileSettingObject This setting determines whether a user in the application gets updated when they're updated in Okta.  If enabled, Okta updates a user's attributes in the application when the application is assigned. Future changes made to the Okta user's profile automatically overwrite the corresponding attribute value in the application.
 type ProfileSettingObject struct {
-	Status *string `json:"status,omitempty"`
+	Status               *string `json:"status,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -156,4 +156,3 @@ func (v *NullableProfileSettingObject) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-

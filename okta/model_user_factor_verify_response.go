@@ -36,9 +36,9 @@ type UserFactorVerifyResponse struct {
 	// Optional display message for Factor verification
 	FactorMessage NullableString `json:"factorMessage,omitempty"`
 	// Result of a Factor verification
-	FactorResult *string `json:"factorResult,omitempty"`
-	Embedded map[string]map[string]interface{} `json:"_embedded,omitempty"`
-	Links *UserFactorLinks `json:"_links,omitempty"`
+	FactorResult         *string                           `json:"factorResult,omitempty"`
+	Embedded             map[string]map[string]interface{} `json:"_embedded,omitempty"`
+	Links                *UserFactorLinks                  `json:"_links,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -125,6 +125,7 @@ func (o *UserFactorVerifyResponse) HasFactorMessage() bool {
 func (o *UserFactorVerifyResponse) SetFactorMessage(v string) {
 	o.FactorMessage.Set(&v)
 }
+
 // SetFactorMessageNil sets the value for FactorMessage to be an explicit nil
 func (o *UserFactorVerifyResponse) SetFactorMessageNil() {
 	o.FactorMessage.Set(nil)
@@ -318,4 +319,3 @@ func (v *NullableUserFactorVerifyResponse) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-

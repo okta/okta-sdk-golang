@@ -41,7 +41,7 @@ type CapabilitiesImportRulesUserCreateAndMatchObject struct {
 	// If set to `true`, partially matched users are automatically confirmed on activation. If set to `false`, partially matched users need to be confirmed manually.
 	AutoConfirmPartialMatch *bool `json:"autoConfirmPartialMatch,omitempty"`
 	// Determines the attribute to match users
-	ExactMatchCriteria *string `json:"exactMatchCriteria,omitempty"`
+	ExactMatchCriteria   *string `json:"exactMatchCriteria,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -347,4 +347,3 @@ func (v *NullableCapabilitiesImportRulesUserCreateAndMatchObject) UnmarshalJSON(
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-

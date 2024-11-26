@@ -30,13 +30,13 @@ import (
 
 // OktaSignOnPolicyRuleSignonActions struct for OktaSignOnPolicyRuleSignonActions
 type OktaSignOnPolicyRuleSignonActions struct {
-	Access *string `json:"access,omitempty"`
-	FactorLifetime *int32 `json:"factorLifetime,omitempty"`
-	FactorPromptMode *string `json:"factorPromptMode,omitempty"`
-	RememberDeviceByDefault *bool `json:"rememberDeviceByDefault,omitempty"`
-	RequireFactor *bool `json:"requireFactor,omitempty"`
-	Session *OktaSignOnPolicyRuleSignonSessionActions `json:"session,omitempty"`
-	AdditionalProperties map[string]interface{}
+	Access                  *string                                   `json:"access,omitempty"`
+	FactorLifetime          *int32                                    `json:"factorLifetime,omitempty"`
+	FactorPromptMode        *string                                   `json:"factorPromptMode,omitempty"`
+	RememberDeviceByDefault *bool                                     `json:"rememberDeviceByDefault,omitempty"`
+	RequireFactor           *bool                                     `json:"requireFactor,omitempty"`
+	Session                 *OktaSignOnPolicyRuleSignonSessionActions `json:"session,omitempty"`
+	AdditionalProperties    map[string]interface{}
 }
 
 type _OktaSignOnPolicyRuleSignonActions OktaSignOnPolicyRuleSignonActions
@@ -349,4 +349,3 @@ func (v *NullableOktaSignOnPolicyRuleSignonActions) UnmarshalJSON(src []byte) er
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-

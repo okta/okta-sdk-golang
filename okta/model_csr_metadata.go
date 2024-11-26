@@ -30,8 +30,8 @@ import (
 
 // CsrMetadata struct for CsrMetadata
 type CsrMetadata struct {
-	Subject *CsrMetadataSubject `json:"subject,omitempty"`
-	SubjectAltNames *CsrMetadataSubjectAltNames `json:"subjectAltNames,omitempty"`
+	Subject              *CsrMetadataSubject         `json:"subject,omitempty"`
+	SubjectAltNames      *CsrMetadataSubjectAltNames `json:"subjectAltNames,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -193,4 +193,3 @@ func (v *NullableCsrMetadata) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-

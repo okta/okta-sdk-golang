@@ -30,9 +30,9 @@ import (
 
 // AuthorizationServerPolicyRuleConditions struct for AuthorizationServerPolicyRuleConditions
 type AuthorizationServerPolicyRuleConditions struct {
-	GrantTypes *GrantTypePolicyRuleCondition `json:"grantTypes,omitempty"`
-	People *AuthorizationServerPolicyPeopleCondition `json:"people,omitempty"`
-	Scopes *OAuth2ScopesMediationPolicyRuleCondition `json:"scopes,omitempty"`
+	GrantTypes           *GrantTypePolicyRuleCondition             `json:"grantTypes,omitempty"`
+	People               *AuthorizationServerPolicyPeopleCondition `json:"people,omitempty"`
+	Scopes               *OAuth2ScopesMediationPolicyRuleCondition `json:"scopes,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -230,4 +230,3 @@ func (v *NullableAuthorizationServerPolicyRuleConditions) UnmarshalJSON(src []by
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-

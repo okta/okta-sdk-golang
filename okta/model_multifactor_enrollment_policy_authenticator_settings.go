@@ -30,9 +30,9 @@ import (
 
 // MultifactorEnrollmentPolicyAuthenticatorSettings struct for MultifactorEnrollmentPolicyAuthenticatorSettings
 type MultifactorEnrollmentPolicyAuthenticatorSettings struct {
-	Constraints NullableMultifactorEnrollmentPolicyAuthenticatorSettingsConstraints `json:"constraints,omitempty"`
-	Enroll *MultifactorEnrollmentPolicyAuthenticatorSettingsEnroll `json:"enroll,omitempty"`
-	Key *string `json:"key,omitempty"`
+	Constraints          NullableMultifactorEnrollmentPolicyAuthenticatorSettingsConstraints `json:"constraints,omitempty"`
+	Enroll               *MultifactorEnrollmentPolicyAuthenticatorSettingsEnroll             `json:"enroll,omitempty"`
+	Key                  *string                                                             `json:"key,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -87,6 +87,7 @@ func (o *MultifactorEnrollmentPolicyAuthenticatorSettings) HasConstraints() bool
 func (o *MultifactorEnrollmentPolicyAuthenticatorSettings) SetConstraints(v MultifactorEnrollmentPolicyAuthenticatorSettingsConstraints) {
 	o.Constraints.Set(&v)
 }
+
 // SetConstraintsNil sets the value for Constraints to be an explicit nil
 func (o *MultifactorEnrollmentPolicyAuthenticatorSettings) SetConstraintsNil() {
 	o.Constraints.Set(nil)
@@ -240,4 +241,3 @@ func (v *NullableMultifactorEnrollmentPolicyAuthenticatorSettings) UnmarshalJSON
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-

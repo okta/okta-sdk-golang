@@ -38,9 +38,9 @@ type Realm struct {
 	// Conveys whether the Realm is the default
 	IsDefault *bool `json:"isDefault,omitempty"`
 	// Timestamp when the Realm was last updated
-	LastUpdated *time.Time `json:"lastUpdated,omitempty"`
-	Profile *RealmProfile `json:"profile,omitempty"`
-	Links *LinksSelf `json:"_links,omitempty"`
+	LastUpdated          *time.Time    `json:"lastUpdated,omitempty"`
+	Profile              *RealmProfile `json:"profile,omitempty"`
+	Links                *LinksSelf    `json:"_links,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -346,4 +346,3 @@ func (v *NullableRealm) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-

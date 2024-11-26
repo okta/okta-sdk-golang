@@ -35,8 +35,8 @@ type BasicAuthApplication struct {
 	Application
 	Credentials *SchemeApplicationCredentials `json:"credentials,omitempty"`
 	// `template_basic_auth` is the key name for a basic authentication scheme app instance
-	Name string `json:"name"`
-	Settings BasicApplicationSettings `json:"settings"`
+	Name                 string                   `json:"name"`
+	Settings             BasicApplicationSettings `json:"settings"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -174,7 +174,7 @@ func (o *BasicAuthApplication) UnmarshalJSON(bytes []byte) (err error) {
 	type BasicAuthApplicationWithoutEmbeddedStruct struct {
 		Credentials *SchemeApplicationCredentials `json:"credentials,omitempty"`
 		// `template_basic_auth` is the key name for a basic authentication scheme app instance
-		Name string `json:"name"`
+		Name     string                   `json:"name"`
 		Settings BasicApplicationSettings `json:"settings"`
 	}
 
@@ -269,4 +269,3 @@ func (v *NullableBasicAuthApplication) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-

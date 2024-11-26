@@ -33,7 +33,7 @@ type RealmProfile struct {
 	// Name of a Realm
 	Name string `json:"name"`
 	// Used to store partner users. This must be set to Partner to access Okta's external partner portal.
-	RealmType *string `json:"realmType,omitempty"`
+	RealmType            *string `json:"realmType,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -188,4 +188,3 @@ func (v *NullableRealmProfile) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-

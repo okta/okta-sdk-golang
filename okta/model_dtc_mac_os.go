@@ -42,8 +42,8 @@ type DTCMacOS struct {
 	// Represents the attestation strength used by the Chrome Verified Access API
 	KeyTrustLevel *string `json:"keyTrustLevel,omitempty"`
 	// Indicates whether a firewall is enabled at the OS-level on the device
-	OsFirewall *bool `json:"osFirewall,omitempty"`
-	OsVersion *OSVersionThreeComponents `json:"osVersion,omitempty"`
+	OsFirewall *bool                     `json:"osFirewall,omitempty"`
+	OsVersion  *OSVersionThreeComponents `json:"osVersion,omitempty"`
 	// Indicates whether the Password Protection Warning feature is enabled
 	PasswordProtectionWarningTrigger *string `json:"passwordProtectionWarningTrigger,omitempty"`
 	// Indicates whether enterprise-grade (custom) unsafe URL scanning is enabled
@@ -611,4 +611,3 @@ func (v *NullableDTCMacOS) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-

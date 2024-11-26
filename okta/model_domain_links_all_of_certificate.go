@@ -38,7 +38,7 @@ type DomainLinksAllOfCertificate struct {
 	// Indicates whether the Link Object's `href` property is a URI template.
 	Templated *bool `json:"templated,omitempty"`
 	// The media type of the link. If omitted, it is implicitly `application/json`.
-	Type *string `json:"type,omitempty"`
+	Type                 *string `json:"type,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -301,4 +301,3 @@ func (v *NullableDomainLinksAllOfCertificate) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-

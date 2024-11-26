@@ -29,10 +29,10 @@ import (
 	"fmt"
 )
 
-//model_oneof.mustache
+// model_oneof.mustache
 // ReplaceLogStreamRequest - struct for ReplaceLogStreamRequest
 type ReplaceLogStreamRequest struct {
-	LogStreamAwsPutSchema *LogStreamAwsPutSchema
+	LogStreamAwsPutSchema    *LogStreamAwsPutSchema
 	LogStreamSplunkPutSchema *LogStreamSplunkPutSchema
 }
 
@@ -49,7 +49,6 @@ func LogStreamSplunkPutSchemaAsReplaceLogStreamRequest(v *LogStreamSplunkPutSche
 		LogStreamSplunkPutSchema: v,
 	}
 }
-
 
 // Unmarshal JSON data into one of the pointers in the struct  CUSTOM
 func (dst *ReplaceLogStreamRequest) UnmarshalJSON(data []byte) error {
@@ -126,7 +125,7 @@ func (src ReplaceLogStreamRequest) MarshalJSON() ([]byte, error) {
 }
 
 // Get the actual instance
-func (obj *ReplaceLogStreamRequest) GetActualInstance() (interface{}) {
+func (obj *ReplaceLogStreamRequest) GetActualInstance() interface{} {
 	if obj == nil {
 		return nil
 	}
@@ -177,4 +176,3 @@ func (v *NullableReplaceLogStreamRequest) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-

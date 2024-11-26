@@ -30,10 +30,10 @@ import (
 
 // AuthenticatorLinks struct for AuthenticatorLinks
 type AuthenticatorLinks struct {
-	Self *HrefObjectSelfLink `json:"self,omitempty"`
-	Activate *HrefObjectActivateLink `json:"activate,omitempty"`
-	Deactivate *HrefObjectDeactivateLink `json:"deactivate,omitempty"`
-	Methods *HrefObject `json:"methods,omitempty"`
+	Self                 *HrefObjectSelfLink       `json:"self,omitempty"`
+	Activate             *HrefObjectActivateLink   `json:"activate,omitempty"`
+	Deactivate           *HrefObjectDeactivateLink `json:"deactivate,omitempty"`
+	Methods              *HrefObject               `json:"methods,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -267,4 +267,3 @@ func (v *NullableAuthenticatorLinks) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-

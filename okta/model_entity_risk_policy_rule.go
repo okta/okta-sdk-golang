@@ -33,8 +33,8 @@ import (
 // EntityRiskPolicyRule struct for EntityRiskPolicyRule
 type EntityRiskPolicyRule struct {
 	PolicyRule
-	Actions *EntityRiskPolicyRuleAllOfActions `json:"actions,omitempty"`
-	Conditions *EntityRiskPolicyRuleAllOfConditions `json:"conditions,omitempty"`
+	Actions              *EntityRiskPolicyRuleAllOfActions    `json:"actions,omitempty"`
+	Conditions           *EntityRiskPolicyRuleAllOfConditions `json:"conditions,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -149,7 +149,7 @@ func (o EntityRiskPolicyRule) MarshalJSON() ([]byte, error) {
 
 func (o *EntityRiskPolicyRule) UnmarshalJSON(bytes []byte) (err error) {
 	type EntityRiskPolicyRuleWithoutEmbeddedStruct struct {
-		Actions *EntityRiskPolicyRuleAllOfActions `json:"actions,omitempty"`
+		Actions    *EntityRiskPolicyRuleAllOfActions    `json:"actions,omitempty"`
 		Conditions *EntityRiskPolicyRuleAllOfConditions `json:"conditions,omitempty"`
 	}
 
@@ -242,4 +242,3 @@ func (v *NullableEntityRiskPolicyRule) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-

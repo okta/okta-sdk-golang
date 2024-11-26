@@ -30,7 +30,7 @@ import (
 
 // PasswordDictionaryCommon struct for PasswordDictionaryCommon
 type PasswordDictionaryCommon struct {
-	Exclude *bool `json:"exclude,omitempty"`
+	Exclude              *bool `json:"exclude,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -160,4 +160,3 @@ func (v *NullablePasswordDictionaryCommon) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-

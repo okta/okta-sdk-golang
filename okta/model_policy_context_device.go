@@ -37,7 +37,7 @@ type PolicyContextDevice struct {
 	// If the device is managed
 	Managed *bool `json:"managed,omitempty"`
 	// The device assurance policy ID for the simulation
-	AssuranceId *string `json:"assuranceId,omitempty"`
+	AssuranceId          *string `json:"assuranceId,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -271,4 +271,3 @@ func (v *NullablePolicyContextDevice) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-

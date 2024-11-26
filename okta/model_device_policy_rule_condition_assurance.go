@@ -30,7 +30,7 @@ import (
 
 // DevicePolicyRuleConditionAssurance struct for DevicePolicyRuleConditionAssurance
 type DevicePolicyRuleConditionAssurance struct {
-	Include []string `json:"include,omitempty"`
+	Include              []string `json:"include,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -156,4 +156,3 @@ func (v *NullableDevicePolicyRuleConditionAssurance) UnmarshalJSON(src []byte) e
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-

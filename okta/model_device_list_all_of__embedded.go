@@ -31,7 +31,7 @@ import (
 // DeviceListAllOfEmbedded List of associated users for the device if the `expand=user` query parameter is specified in the request. Use `expand=userSummary` to get only a summary of each associated user for the device.
 type DeviceListAllOfEmbedded struct {
 	// Users for the device
-	Users []DeviceUser `json:"users,omitempty"`
+	Users                []DeviceUser `json:"users,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -157,4 +157,3 @@ func (v *NullableDeviceListAllOfEmbedded) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-

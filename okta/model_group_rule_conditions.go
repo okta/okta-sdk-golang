@@ -30,8 +30,8 @@ import (
 
 // GroupRuleConditions struct for GroupRuleConditions
 type GroupRuleConditions struct {
-	Expression *GroupRuleExpression `json:"expression,omitempty"`
-	People *GroupRulePeopleCondition `json:"people,omitempty"`
+	Expression           *GroupRuleExpression      `json:"expression,omitempty"`
+	People               *GroupRulePeopleCondition `json:"people,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -193,4 +193,3 @@ func (v *NullableGroupRuleConditions) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-

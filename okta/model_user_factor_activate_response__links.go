@@ -30,9 +30,9 @@ import (
 
 // UserFactorActivateResponseLinks struct for UserFactorActivateResponseLinks
 type UserFactorActivateResponseLinks struct {
-	Self *HrefObjectSelfLink `json:"self,omitempty"`
-	User *LinksUserUser `json:"user,omitempty"`
-	Verify *LinksVerifyVerify `json:"verify,omitempty"`
+	Self                 *HrefObjectSelfLink `json:"self,omitempty"`
+	User                 *LinksUserUser      `json:"user,omitempty"`
+	Verify               *LinksVerifyVerify  `json:"verify,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -230,4 +230,3 @@ func (v *NullableUserFactorActivateResponseLinks) UnmarshalJSON(src []byte) erro
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-

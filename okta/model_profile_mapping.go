@@ -31,11 +31,11 @@ import (
 // ProfileMapping The Profile Mapping object describes a mapping between an Okta User's and an App User's properties using [JSON Schema Draft 4](https://datatracker.ietf.org/doc/html/draft-zyp-json-schema-04).  > **Note:** Same type source/target mappings aren't supported by this API. Profile mappings must either be Okta->App or App->Okta.
 type ProfileMapping struct {
 	// Unique identifier for a profile mapping
-	Id *string `json:"id,omitempty"`
-	Properties *map[string]ProfileMappingProperty `json:"properties,omitempty"`
-	Source *ProfileMappingSource `json:"source,omitempty"`
-	Target *ProfileMappingTarget `json:"target,omitempty"`
-	Links *LinksSelf `json:"_links,omitempty"`
+	Id                   *string                            `json:"id,omitempty"`
+	Properties           *map[string]ProfileMappingProperty `json:"properties,omitempty"`
+	Source               *ProfileMappingSource              `json:"source,omitempty"`
+	Target               *ProfileMappingTarget              `json:"target,omitempty"`
+	Links                *LinksSelf                         `json:"_links,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -305,4 +305,3 @@ func (v *NullableProfileMapping) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-

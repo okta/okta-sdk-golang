@@ -39,7 +39,7 @@ type GovernanceBundlesResponseLinks struct {
 func (dst *GovernanceBundlesResponseLinks) UnmarshalJSON(data []byte) error {
 	var err error
 	// try to unmarshal JSON data into LinksNext
-	err = json.Unmarshal(data, &dst.LinksNext);
+	err = json.Unmarshal(data, &dst.LinksNext)
 	if err == nil {
 		jsonLinksNext, _ := json.Marshal(dst.LinksNext)
 		if string(jsonLinksNext) == "{}" { // empty struct
@@ -52,7 +52,7 @@ func (dst *GovernanceBundlesResponseLinks) UnmarshalJSON(data []byte) error {
 	}
 
 	// try to unmarshal JSON data into LinksSelf
-	err = json.Unmarshal(data, &dst.LinksSelf);
+	err = json.Unmarshal(data, &dst.LinksSelf)
 	if err == nil {
 		jsonLinksSelf, _ := json.Marshal(dst.LinksSelf)
 		if string(jsonLinksSelf) == "{}" { // empty struct
@@ -115,5 +115,3 @@ func (v *NullableGovernanceBundlesResponseLinks) UnmarshalJSON(src []byte) error
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-
-

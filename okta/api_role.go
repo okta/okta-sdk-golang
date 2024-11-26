@@ -30,20 +30,18 @@ import (
 	"io/ioutil"
 	"net/http"
 	"net/url"
-	"time"
 	"strings"
+	"time"
 )
 
-
 type RoleAPI interface {
-
 	/*
-	CreateRole Create a Role
+		CreateRole Create a Role
 
-	Creates a new role
+		Creates a new role
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@return ApiCreateRoleRequest
+		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+		@return ApiCreateRoleRequest
 	*/
 	CreateRole(ctx context.Context) ApiCreateRoleRequest
 
@@ -52,14 +50,14 @@ type RoleAPI interface {
 	CreateRoleExecute(r ApiCreateRoleRequest) (*IamRole, *APIResponse, error)
 
 	/*
-	CreateRolePermission Create a Permission
+		CreateRolePermission Create a Permission
 
-	Creates a permission specified by `permissionType` to the role
+		Creates a permission specified by `permissionType` to the role
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param roleIdOrLabel `id` or `label` of the role
-	@param permissionType An okta permission type
-	@return ApiCreateRolePermissionRequest
+		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+		@param roleIdOrLabel `id` or `label` of the role
+		@param permissionType An okta permission type
+		@return ApiCreateRolePermissionRequest
 	*/
 	CreateRolePermission(ctx context.Context, roleIdOrLabel string, permissionType string) ApiCreateRolePermissionRequest
 
@@ -67,13 +65,13 @@ type RoleAPI interface {
 	CreateRolePermissionExecute(r ApiCreateRolePermissionRequest) (*APIResponse, error)
 
 	/*
-	DeleteRole Delete a Role
+		DeleteRole Delete a Role
 
-	Deletes a role by `roleIdOrLabel`
+		Deletes a role by `roleIdOrLabel`
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param roleIdOrLabel `id` or `label` of the role
-	@return ApiDeleteRoleRequest
+		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+		@param roleIdOrLabel `id` or `label` of the role
+		@return ApiDeleteRoleRequest
 	*/
 	DeleteRole(ctx context.Context, roleIdOrLabel string) ApiDeleteRoleRequest
 
@@ -81,14 +79,14 @@ type RoleAPI interface {
 	DeleteRoleExecute(r ApiDeleteRoleRequest) (*APIResponse, error)
 
 	/*
-	DeleteRolePermission Delete a Permission
+		DeleteRolePermission Delete a Permission
 
-	Deletes a permission from a role by `permissionType`
+		Deletes a permission from a role by `permissionType`
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param roleIdOrLabel `id` or `label` of the role
-	@param permissionType An okta permission type
-	@return ApiDeleteRolePermissionRequest
+		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+		@param roleIdOrLabel `id` or `label` of the role
+		@param permissionType An okta permission type
+		@return ApiDeleteRolePermissionRequest
 	*/
 	DeleteRolePermission(ctx context.Context, roleIdOrLabel string, permissionType string) ApiDeleteRolePermissionRequest
 
@@ -96,13 +94,13 @@ type RoleAPI interface {
 	DeleteRolePermissionExecute(r ApiDeleteRolePermissionRequest) (*APIResponse, error)
 
 	/*
-	GetRole Retrieve a Role
+		GetRole Retrieve a Role
 
-	Retrieves a role by `roleIdOrLabel`
+		Retrieves a role by `roleIdOrLabel`
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param roleIdOrLabel `id` or `label` of the role
-	@return ApiGetRoleRequest
+		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+		@param roleIdOrLabel `id` or `label` of the role
+		@return ApiGetRoleRequest
 	*/
 	GetRole(ctx context.Context, roleIdOrLabel string) ApiGetRoleRequest
 
@@ -111,14 +109,14 @@ type RoleAPI interface {
 	GetRoleExecute(r ApiGetRoleRequest) (*IamRole, *APIResponse, error)
 
 	/*
-	GetRolePermission Retrieve a Permission
+		GetRolePermission Retrieve a Permission
 
-	Retrieves a permission by `permissionType`
+		Retrieves a permission by `permissionType`
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param roleIdOrLabel `id` or `label` of the role
-	@param permissionType An okta permission type
-	@return ApiGetRolePermissionRequest
+		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+		@param roleIdOrLabel `id` or `label` of the role
+		@param permissionType An okta permission type
+		@return ApiGetRolePermissionRequest
 	*/
 	GetRolePermission(ctx context.Context, roleIdOrLabel string, permissionType string) ApiGetRolePermissionRequest
 
@@ -127,13 +125,13 @@ type RoleAPI interface {
 	GetRolePermissionExecute(r ApiGetRolePermissionRequest) (*Permission, *APIResponse, error)
 
 	/*
-	ListRolePermissions List all Permissions
+		ListRolePermissions List all Permissions
 
-	Lists all permissions of the role by `roleIdOrLabel`
+		Lists all permissions of the role by `roleIdOrLabel`
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param roleIdOrLabel `id` or `label` of the role
-	@return ApiListRolePermissionsRequest
+		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+		@param roleIdOrLabel `id` or `label` of the role
+		@return ApiListRolePermissionsRequest
 	*/
 	ListRolePermissions(ctx context.Context, roleIdOrLabel string) ApiListRolePermissionsRequest
 
@@ -142,12 +140,12 @@ type RoleAPI interface {
 	ListRolePermissionsExecute(r ApiListRolePermissionsRequest) (*Permissions, *APIResponse, error)
 
 	/*
-	ListRoles List all Roles
+		ListRoles List all Roles
 
-	Lists all roles with pagination support
+		Lists all roles with pagination support
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@return ApiListRolesRequest
+		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+		@return ApiListRolesRequest
 	*/
 	ListRoles(ctx context.Context) ApiListRolesRequest
 
@@ -156,13 +154,13 @@ type RoleAPI interface {
 	ListRolesExecute(r ApiListRolesRequest) (*IamRoles, *APIResponse, error)
 
 	/*
-	ReplaceRole Replace a Role
+		ReplaceRole Replace a Role
 
-	Replaces a role by `roleIdOrLabel`
+		Replaces a role by `roleIdOrLabel`
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param roleIdOrLabel `id` or `label` of the role
-	@return ApiReplaceRoleRequest
+		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+		@param roleIdOrLabel `id` or `label` of the role
+		@return ApiReplaceRoleRequest
 	*/
 	ReplaceRole(ctx context.Context, roleIdOrLabel string) ApiReplaceRoleRequest
 
@@ -171,14 +169,14 @@ type RoleAPI interface {
 	ReplaceRoleExecute(r ApiReplaceRoleRequest) (*IamRole, *APIResponse, error)
 
 	/*
-	ReplaceRolePermission Replace a Permission
+		ReplaceRolePermission Replace a Permission
 
-	Replaces a permission specified by `permissionType` in the role
+		Replaces a permission specified by `permissionType` in the role
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param roleIdOrLabel `id` or `label` of the role
-	@param permissionType An okta permission type
-	@return ApiReplaceRolePermissionRequest
+		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+		@param roleIdOrLabel `id` or `label` of the role
+		@param permissionType An okta permission type
+		@return ApiReplaceRolePermissionRequest
 	*/
 	ReplaceRolePermission(ctx context.Context, roleIdOrLabel string, permissionType string) ApiReplaceRolePermissionRequest
 
@@ -191,9 +189,9 @@ type RoleAPI interface {
 type RoleAPIService service
 
 type ApiCreateRoleRequest struct {
-	ctx context.Context
+	ctx        context.Context
 	ApiService RoleAPI
-	instance *CreateIamRoleRequest
+	instance   *CreateIamRoleRequest
 	retryCount int32
 }
 
@@ -211,19 +209,20 @@ CreateRole Create a Role
 
 Creates a new role
 
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @return ApiCreateRoleRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@return ApiCreateRoleRequest
 */
 func (a *RoleAPIService) CreateRole(ctx context.Context) ApiCreateRoleRequest {
 	return ApiCreateRoleRequest{
 		ApiService: a,
-		ctx: ctx,
+		ctx:        ctx,
 		retryCount: 0,
 	}
 }
 
 // Execute executes the request
-//  @return IamRole
+//
+//	@return IamRole
 func (a *RoleAPIService) CreateRoleExecute(r ApiCreateRoleRequest) (*IamRole, *APIResponse, error) {
 	var (
 		localVarHTTPMethod   = http.MethodPost
@@ -232,7 +231,7 @@ func (a *RoleAPIService) CreateRoleExecute(r ApiCreateRoleRequest) (*IamRole, *A
 		localVarReturnValue  *IamRole
 		localVarHTTPResponse *http.Response
 		localAPIResponse     *APIResponse
-		err 				 error
+		err                  error
 	)
 
 	if a.client.cfg.Okta.Client.RequestTimeout > 0 {
@@ -357,18 +356,18 @@ func (a *RoleAPIService) CreateRoleExecute(r ApiCreateRoleRequest) (*IamRole, *A
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
 		return localVarReturnValue, localAPIResponse, newErr
 	}
-	
+
 	localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
 	return localVarReturnValue, localAPIResponse, nil
 }
 
 type ApiCreateRolePermissionRequest struct {
-	ctx context.Context
-	ApiService RoleAPI
-	roleIdOrLabel string
+	ctx            context.Context
+	ApiService     RoleAPI
+	roleIdOrLabel  string
 	permissionType string
-	instance *CreateUpdateIamRolePermissionRequest
-	retryCount int32
+	instance       *CreateUpdateIamRolePermissionRequest
+	retryCount     int32
 }
 
 func (r ApiCreateRolePermissionRequest) Instance(instance CreateUpdateIamRolePermissionRequest) ApiCreateRolePermissionRequest {
@@ -385,18 +384,18 @@ CreateRolePermission Create a Permission
 
 Creates a permission specified by `permissionType` to the role
 
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @param roleIdOrLabel `id` or `label` of the role
- @param permissionType An okta permission type
- @return ApiCreateRolePermissionRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param roleIdOrLabel `id` or `label` of the role
+	@param permissionType An okta permission type
+	@return ApiCreateRolePermissionRequest
 */
 func (a *RoleAPIService) CreateRolePermission(ctx context.Context, roleIdOrLabel string, permissionType string) ApiCreateRolePermissionRequest {
 	return ApiCreateRolePermissionRequest{
-		ApiService: a,
-		ctx: ctx,
-		roleIdOrLabel: roleIdOrLabel,
+		ApiService:     a,
+		ctx:            ctx,
+		roleIdOrLabel:  roleIdOrLabel,
 		permissionType: permissionType,
-		retryCount: 0,
+		retryCount:     0,
 	}
 }
 
@@ -408,7 +407,7 @@ func (a *RoleAPIService) CreateRolePermissionExecute(r ApiCreateRolePermissionRe
 		formFiles            []formFile
 		localVarHTTPResponse *http.Response
 		localAPIResponse     *APIResponse
-		err 				 error
+		err                  error
 	)
 
 	if a.client.cfg.Okta.Client.RequestTimeout > 0 {
@@ -540,10 +539,10 @@ func (a *RoleAPIService) CreateRolePermissionExecute(r ApiCreateRolePermissionRe
 }
 
 type ApiDeleteRoleRequest struct {
-	ctx context.Context
-	ApiService RoleAPI
+	ctx           context.Context
+	ApiService    RoleAPI
 	roleIdOrLabel string
-	retryCount int32
+	retryCount    int32
 }
 
 func (r ApiDeleteRoleRequest) Execute() (*APIResponse, error) {
@@ -555,16 +554,16 @@ DeleteRole Delete a Role
 
 Deletes a role by `roleIdOrLabel`
 
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @param roleIdOrLabel `id` or `label` of the role
- @return ApiDeleteRoleRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param roleIdOrLabel `id` or `label` of the role
+	@return ApiDeleteRoleRequest
 */
 func (a *RoleAPIService) DeleteRole(ctx context.Context, roleIdOrLabel string) ApiDeleteRoleRequest {
 	return ApiDeleteRoleRequest{
-		ApiService: a,
-		ctx: ctx,
+		ApiService:    a,
+		ctx:           ctx,
 		roleIdOrLabel: roleIdOrLabel,
-		retryCount: 0,
+		retryCount:    0,
 	}
 }
 
@@ -576,7 +575,7 @@ func (a *RoleAPIService) DeleteRoleExecute(r ApiDeleteRoleRequest) (*APIResponse
 		formFiles            []formFile
 		localVarHTTPResponse *http.Response
 		localAPIResponse     *APIResponse
-		err 				 error
+		err                  error
 	)
 
 	if a.client.cfg.Okta.Client.RequestTimeout > 0 {
@@ -693,11 +692,11 @@ func (a *RoleAPIService) DeleteRoleExecute(r ApiDeleteRoleRequest) (*APIResponse
 }
 
 type ApiDeleteRolePermissionRequest struct {
-	ctx context.Context
-	ApiService RoleAPI
-	roleIdOrLabel string
+	ctx            context.Context
+	ApiService     RoleAPI
+	roleIdOrLabel  string
 	permissionType string
-	retryCount int32
+	retryCount     int32
 }
 
 func (r ApiDeleteRolePermissionRequest) Execute() (*APIResponse, error) {
@@ -709,18 +708,18 @@ DeleteRolePermission Delete a Permission
 
 Deletes a permission from a role by `permissionType`
 
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @param roleIdOrLabel `id` or `label` of the role
- @param permissionType An okta permission type
- @return ApiDeleteRolePermissionRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param roleIdOrLabel `id` or `label` of the role
+	@param permissionType An okta permission type
+	@return ApiDeleteRolePermissionRequest
 */
 func (a *RoleAPIService) DeleteRolePermission(ctx context.Context, roleIdOrLabel string, permissionType string) ApiDeleteRolePermissionRequest {
 	return ApiDeleteRolePermissionRequest{
-		ApiService: a,
-		ctx: ctx,
-		roleIdOrLabel: roleIdOrLabel,
+		ApiService:     a,
+		ctx:            ctx,
+		roleIdOrLabel:  roleIdOrLabel,
 		permissionType: permissionType,
-		retryCount: 0,
+		retryCount:     0,
 	}
 }
 
@@ -732,7 +731,7 @@ func (a *RoleAPIService) DeleteRolePermissionExecute(r ApiDeleteRolePermissionRe
 		formFiles            []formFile
 		localVarHTTPResponse *http.Response
 		localAPIResponse     *APIResponse
-		err 				 error
+		err                  error
 	)
 
 	if a.client.cfg.Okta.Client.RequestTimeout > 0 {
@@ -850,10 +849,10 @@ func (a *RoleAPIService) DeleteRolePermissionExecute(r ApiDeleteRolePermissionRe
 }
 
 type ApiGetRoleRequest struct {
-	ctx context.Context
-	ApiService RoleAPI
+	ctx           context.Context
+	ApiService    RoleAPI
 	roleIdOrLabel string
-	retryCount int32
+	retryCount    int32
 }
 
 func (r ApiGetRoleRequest) Execute() (*IamRole, *APIResponse, error) {
@@ -865,21 +864,22 @@ GetRole Retrieve a Role
 
 Retrieves a role by `roleIdOrLabel`
 
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @param roleIdOrLabel `id` or `label` of the role
- @return ApiGetRoleRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param roleIdOrLabel `id` or `label` of the role
+	@return ApiGetRoleRequest
 */
 func (a *RoleAPIService) GetRole(ctx context.Context, roleIdOrLabel string) ApiGetRoleRequest {
 	return ApiGetRoleRequest{
-		ApiService: a,
-		ctx: ctx,
+		ApiService:    a,
+		ctx:           ctx,
 		roleIdOrLabel: roleIdOrLabel,
-		retryCount: 0,
+		retryCount:    0,
 	}
 }
 
 // Execute executes the request
-//  @return IamRole
+//
+//	@return IamRole
 func (a *RoleAPIService) GetRoleExecute(r ApiGetRoleRequest) (*IamRole, *APIResponse, error) {
 	var (
 		localVarHTTPMethod   = http.MethodGet
@@ -888,7 +888,7 @@ func (a *RoleAPIService) GetRoleExecute(r ApiGetRoleRequest) (*IamRole, *APIResp
 		localVarReturnValue  *IamRole
 		localVarHTTPResponse *http.Response
 		localAPIResponse     *APIResponse
-		err 				 error
+		err                  error
 	)
 
 	if a.client.cfg.Okta.Client.RequestTimeout > 0 {
@@ -1009,17 +1009,17 @@ func (a *RoleAPIService) GetRoleExecute(r ApiGetRoleRequest) (*IamRole, *APIResp
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
 		return localVarReturnValue, localAPIResponse, newErr
 	}
-	
+
 	localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
 	return localVarReturnValue, localAPIResponse, nil
 }
 
 type ApiGetRolePermissionRequest struct {
-	ctx context.Context
-	ApiService RoleAPI
-	roleIdOrLabel string
+	ctx            context.Context
+	ApiService     RoleAPI
+	roleIdOrLabel  string
 	permissionType string
-	retryCount int32
+	retryCount     int32
 }
 
 func (r ApiGetRolePermissionRequest) Execute() (*Permission, *APIResponse, error) {
@@ -1031,23 +1031,24 @@ GetRolePermission Retrieve a Permission
 
 Retrieves a permission by `permissionType`
 
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @param roleIdOrLabel `id` or `label` of the role
- @param permissionType An okta permission type
- @return ApiGetRolePermissionRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param roleIdOrLabel `id` or `label` of the role
+	@param permissionType An okta permission type
+	@return ApiGetRolePermissionRequest
 */
 func (a *RoleAPIService) GetRolePermission(ctx context.Context, roleIdOrLabel string, permissionType string) ApiGetRolePermissionRequest {
 	return ApiGetRolePermissionRequest{
-		ApiService: a,
-		ctx: ctx,
-		roleIdOrLabel: roleIdOrLabel,
+		ApiService:     a,
+		ctx:            ctx,
+		roleIdOrLabel:  roleIdOrLabel,
 		permissionType: permissionType,
-		retryCount: 0,
+		retryCount:     0,
 	}
 }
 
 // Execute executes the request
-//  @return Permission
+//
+//	@return Permission
 func (a *RoleAPIService) GetRolePermissionExecute(r ApiGetRolePermissionRequest) (*Permission, *APIResponse, error) {
 	var (
 		localVarHTTPMethod   = http.MethodGet
@@ -1056,7 +1057,7 @@ func (a *RoleAPIService) GetRolePermissionExecute(r ApiGetRolePermissionRequest)
 		localVarReturnValue  *Permission
 		localVarHTTPResponse *http.Response
 		localAPIResponse     *APIResponse
-		err 				 error
+		err                  error
 	)
 
 	if a.client.cfg.Okta.Client.RequestTimeout > 0 {
@@ -1178,16 +1179,16 @@ func (a *RoleAPIService) GetRolePermissionExecute(r ApiGetRolePermissionRequest)
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
 		return localVarReturnValue, localAPIResponse, newErr
 	}
-	
+
 	localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
 	return localVarReturnValue, localAPIResponse, nil
 }
 
 type ApiListRolePermissionsRequest struct {
-	ctx context.Context
-	ApiService RoleAPI
+	ctx           context.Context
+	ApiService    RoleAPI
 	roleIdOrLabel string
-	retryCount int32
+	retryCount    int32
 }
 
 func (r ApiListRolePermissionsRequest) Execute() (*Permissions, *APIResponse, error) {
@@ -1199,21 +1200,22 @@ ListRolePermissions List all Permissions
 
 Lists all permissions of the role by `roleIdOrLabel`
 
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @param roleIdOrLabel `id` or `label` of the role
- @return ApiListRolePermissionsRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param roleIdOrLabel `id` or `label` of the role
+	@return ApiListRolePermissionsRequest
 */
 func (a *RoleAPIService) ListRolePermissions(ctx context.Context, roleIdOrLabel string) ApiListRolePermissionsRequest {
 	return ApiListRolePermissionsRequest{
-		ApiService: a,
-		ctx: ctx,
+		ApiService:    a,
+		ctx:           ctx,
 		roleIdOrLabel: roleIdOrLabel,
-		retryCount: 0,
+		retryCount:    0,
 	}
 }
 
 // Execute executes the request
-//  @return Permissions
+//
+//	@return Permissions
 func (a *RoleAPIService) ListRolePermissionsExecute(r ApiListRolePermissionsRequest) (*Permissions, *APIResponse, error) {
 	var (
 		localVarHTTPMethod   = http.MethodGet
@@ -1222,7 +1224,7 @@ func (a *RoleAPIService) ListRolePermissionsExecute(r ApiListRolePermissionsRequ
 		localVarReturnValue  *Permissions
 		localVarHTTPResponse *http.Response
 		localAPIResponse     *APIResponse
-		err 				 error
+		err                  error
 	)
 
 	if a.client.cfg.Okta.Client.RequestTimeout > 0 {
@@ -1343,15 +1345,15 @@ func (a *RoleAPIService) ListRolePermissionsExecute(r ApiListRolePermissionsRequ
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
 		return localVarReturnValue, localAPIResponse, newErr
 	}
-	
+
 	localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
 	return localVarReturnValue, localAPIResponse, nil
 }
 
 type ApiListRolesRequest struct {
-	ctx context.Context
+	ctx        context.Context
 	ApiService RoleAPI
-	after *string
+	after      *string
 	retryCount int32
 }
 
@@ -1370,19 +1372,20 @@ ListRoles List all Roles
 
 Lists all roles with pagination support
 
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @return ApiListRolesRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@return ApiListRolesRequest
 */
 func (a *RoleAPIService) ListRoles(ctx context.Context) ApiListRolesRequest {
 	return ApiListRolesRequest{
 		ApiService: a,
-		ctx: ctx,
+		ctx:        ctx,
 		retryCount: 0,
 	}
 }
 
 // Execute executes the request
-//  @return IamRoles
+//
+//	@return IamRoles
 func (a *RoleAPIService) ListRolesExecute(r ApiListRolesRequest) (*IamRoles, *APIResponse, error) {
 	var (
 		localVarHTTPMethod   = http.MethodGet
@@ -1391,7 +1394,7 @@ func (a *RoleAPIService) ListRolesExecute(r ApiListRolesRequest) (*IamRoles, *AP
 		localVarReturnValue  *IamRoles
 		localVarHTTPResponse *http.Response
 		localAPIResponse     *APIResponse
-		err 				 error
+		err                  error
 	)
 
 	if a.client.cfg.Okta.Client.RequestTimeout > 0 {
@@ -1502,17 +1505,17 @@ func (a *RoleAPIService) ListRolesExecute(r ApiListRolesRequest) (*IamRoles, *AP
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
 		return localVarReturnValue, localAPIResponse, newErr
 	}
-	
+
 	localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
 	return localVarReturnValue, localAPIResponse, nil
 }
 
 type ApiReplaceRoleRequest struct {
-	ctx context.Context
-	ApiService RoleAPI
+	ctx           context.Context
+	ApiService    RoleAPI
 	roleIdOrLabel string
-	instance *UpdateIamRoleRequest
-	retryCount int32
+	instance      *UpdateIamRoleRequest
+	retryCount    int32
 }
 
 func (r ApiReplaceRoleRequest) Instance(instance UpdateIamRoleRequest) ApiReplaceRoleRequest {
@@ -1529,21 +1532,22 @@ ReplaceRole Replace a Role
 
 Replaces a role by `roleIdOrLabel`
 
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @param roleIdOrLabel `id` or `label` of the role
- @return ApiReplaceRoleRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param roleIdOrLabel `id` or `label` of the role
+	@return ApiReplaceRoleRequest
 */
 func (a *RoleAPIService) ReplaceRole(ctx context.Context, roleIdOrLabel string) ApiReplaceRoleRequest {
 	return ApiReplaceRoleRequest{
-		ApiService: a,
-		ctx: ctx,
+		ApiService:    a,
+		ctx:           ctx,
 		roleIdOrLabel: roleIdOrLabel,
-		retryCount: 0,
+		retryCount:    0,
 	}
 }
 
 // Execute executes the request
-//  @return IamRole
+//
+//	@return IamRole
 func (a *RoleAPIService) ReplaceRoleExecute(r ApiReplaceRoleRequest) (*IamRole, *APIResponse, error) {
 	var (
 		localVarHTTPMethod   = http.MethodPut
@@ -1552,7 +1556,7 @@ func (a *RoleAPIService) ReplaceRoleExecute(r ApiReplaceRoleRequest) (*IamRole, 
 		localVarReturnValue  *IamRole
 		localVarHTTPResponse *http.Response
 		localAPIResponse     *APIResponse
-		err 				 error
+		err                  error
 	)
 
 	if a.client.cfg.Okta.Client.RequestTimeout > 0 {
@@ -1690,18 +1694,18 @@ func (a *RoleAPIService) ReplaceRoleExecute(r ApiReplaceRoleRequest) (*IamRole, 
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
 		return localVarReturnValue, localAPIResponse, newErr
 	}
-	
+
 	localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
 	return localVarReturnValue, localAPIResponse, nil
 }
 
 type ApiReplaceRolePermissionRequest struct {
-	ctx context.Context
-	ApiService RoleAPI
-	roleIdOrLabel string
+	ctx            context.Context
+	ApiService     RoleAPI
+	roleIdOrLabel  string
 	permissionType string
-	instance *CreateUpdateIamRolePermissionRequest
-	retryCount int32
+	instance       *CreateUpdateIamRolePermissionRequest
+	retryCount     int32
 }
 
 func (r ApiReplaceRolePermissionRequest) Instance(instance CreateUpdateIamRolePermissionRequest) ApiReplaceRolePermissionRequest {
@@ -1718,23 +1722,24 @@ ReplaceRolePermission Replace a Permission
 
 Replaces a permission specified by `permissionType` in the role
 
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @param roleIdOrLabel `id` or `label` of the role
- @param permissionType An okta permission type
- @return ApiReplaceRolePermissionRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param roleIdOrLabel `id` or `label` of the role
+	@param permissionType An okta permission type
+	@return ApiReplaceRolePermissionRequest
 */
 func (a *RoleAPIService) ReplaceRolePermission(ctx context.Context, roleIdOrLabel string, permissionType string) ApiReplaceRolePermissionRequest {
 	return ApiReplaceRolePermissionRequest{
-		ApiService: a,
-		ctx: ctx,
-		roleIdOrLabel: roleIdOrLabel,
+		ApiService:     a,
+		ctx:            ctx,
+		roleIdOrLabel:  roleIdOrLabel,
 		permissionType: permissionType,
-		retryCount: 0,
+		retryCount:     0,
 	}
 }
 
 // Execute executes the request
-//  @return Permission
+//
+//	@return Permission
 func (a *RoleAPIService) ReplaceRolePermissionExecute(r ApiReplaceRolePermissionRequest) (*Permission, *APIResponse, error) {
 	var (
 		localVarHTTPMethod   = http.MethodPut
@@ -1743,7 +1748,7 @@ func (a *RoleAPIService) ReplaceRolePermissionExecute(r ApiReplaceRolePermission
 		localVarReturnValue  *Permission
 		localVarHTTPResponse *http.Response
 		localAPIResponse     *APIResponse
-		err 				 error
+		err                  error
 	)
 
 	if a.client.cfg.Okta.Client.RequestTimeout > 0 {
@@ -1879,7 +1884,7 @@ func (a *RoleAPIService) ReplaceRolePermissionExecute(r ApiReplaceRolePermission
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
 		return localVarReturnValue, localAPIResponse, newErr
 	}
-	
+
 	localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
 	return localVarReturnValue, localAPIResponse, nil
 }

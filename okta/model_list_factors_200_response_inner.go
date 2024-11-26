@@ -29,21 +29,21 @@ import (
 	"fmt"
 )
 
-//model_oneof.mustache
+// model_oneof.mustache
 // ListFactors200ResponseInner - struct for ListFactors200ResponseInner
 type ListFactors200ResponseInner struct {
-	UserFactorCall *UserFactorCall
-	UserFactorCustomHOTP *UserFactorCustomHOTP
-	UserFactorEmail *UserFactorEmail
-	UserFactorHardware *UserFactorHardware
-	UserFactorPush *UserFactorPush
-	UserFactorSMS *UserFactorSMS
+	UserFactorCall             *UserFactorCall
+	UserFactorCustomHOTP       *UserFactorCustomHOTP
+	UserFactorEmail            *UserFactorEmail
+	UserFactorHardware         *UserFactorHardware
+	UserFactorPush             *UserFactorPush
+	UserFactorSMS              *UserFactorSMS
 	UserFactorSecurityQuestion *UserFactorSecurityQuestion
-	UserFactorTOTP *UserFactorTOTP
-	UserFactorToken *UserFactorToken
-	UserFactorU2F *UserFactorU2F
-	UserFactorWeb *UserFactorWeb
-	UserFactorWebAuthn *UserFactorWebAuthn
+	UserFactorTOTP             *UserFactorTOTP
+	UserFactorToken            *UserFactorToken
+	UserFactorU2F              *UserFactorU2F
+	UserFactorWeb              *UserFactorWeb
+	UserFactorWebAuthn         *UserFactorWebAuthn
 }
 
 // UserFactorCallAsListFactors200ResponseInner is a convenience function that returns UserFactorCall wrapped in ListFactors200ResponseInner
@@ -129,7 +129,6 @@ func UserFactorWebAuthnAsListFactors200ResponseInner(v *UserFactorWebAuthn) List
 		UserFactorWebAuthn: v,
 	}
 }
-
 
 // Unmarshal JSON data into one of the pointers in the struct  CUSTOM
 func (dst *ListFactors200ResponseInner) UnmarshalJSON(data []byte) error {
@@ -498,7 +497,7 @@ func (src ListFactors200ResponseInner) MarshalJSON() ([]byte, error) {
 }
 
 // Get the actual instance
-func (obj *ListFactors200ResponseInner) GetActualInstance() (interface{}) {
+func (obj *ListFactors200ResponseInner) GetActualInstance() interface{} {
 	if obj == nil {
 		return nil
 	}
@@ -589,4 +588,3 @@ func (v *NullableListFactors200ResponseInner) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-

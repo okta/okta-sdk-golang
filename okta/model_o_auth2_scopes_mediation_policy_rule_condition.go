@@ -30,7 +30,7 @@ import (
 
 // OAuth2ScopesMediationPolicyRuleCondition Array of scopes that the condition includes
 type OAuth2ScopesMediationPolicyRuleCondition struct {
-	Include []string `json:"include,omitempty"`
+	Include              []string `json:"include,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -156,4 +156,3 @@ func (v *NullableOAuth2ScopesMediationPolicyRuleCondition) UnmarshalJSON(src []b
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-

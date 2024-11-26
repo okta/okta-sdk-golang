@@ -30,7 +30,7 @@ import (
 
 // IdpPolicyRuleAction struct for IdpPolicyRuleAction
 type IdpPolicyRuleAction struct {
-	Idp *IdpPolicyRuleActionIdp `json:"idp,omitempty"`
+	Idp                  *IdpPolicyRuleActionIdp `json:"idp,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -156,4 +156,3 @@ func (v *NullableIdpPolicyRuleAction) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-

@@ -29,12 +29,12 @@ import (
 	"fmt"
 )
 
-//model_oneof.mustache
+// model_oneof.mustache
 // ListNetworkZones200ResponseInner - struct for ListNetworkZones200ResponseInner
 type ListNetworkZones200ResponseInner struct {
-	DynamicNetworkZone *DynamicNetworkZone
+	DynamicNetworkZone         *DynamicNetworkZone
 	EnhancedDynamicNetworkZone *EnhancedDynamicNetworkZone
-	IPNetworkZone *IPNetworkZone
+	IPNetworkZone              *IPNetworkZone
 }
 
 // DynamicNetworkZoneAsListNetworkZones200ResponseInner is a convenience function that returns DynamicNetworkZone wrapped in ListNetworkZones200ResponseInner
@@ -57,7 +57,6 @@ func IPNetworkZoneAsListNetworkZones200ResponseInner(v *IPNetworkZone) ListNetwo
 		IPNetworkZone: v,
 	}
 }
-
 
 // Unmarshal JSON data into one of the pointers in the struct  CUSTOM
 func (dst *ListNetworkZones200ResponseInner) UnmarshalJSON(data []byte) error {
@@ -162,7 +161,7 @@ func (src ListNetworkZones200ResponseInner) MarshalJSON() ([]byte, error) {
 }
 
 // Get the actual instance
-func (obj *ListNetworkZones200ResponseInner) GetActualInstance() (interface{}) {
+func (obj *ListNetworkZones200ResponseInner) GetActualInstance() interface{} {
 	if obj == nil {
 		return nil
 	}
@@ -217,4 +216,3 @@ func (v *NullableListNetworkZones200ResponseInner) UnmarshalJSON(src []byte) err
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-

@@ -35,7 +35,7 @@ type LogStreamSettingsSplunk struct {
 	// The domain name for your Splunk Cloud instance. Don't include `http` or `https` in the string. For example: `acme.splunkcloud.com`
 	Host string `json:"host"`
 	// The HEC token for your Splunk Cloud HTTP Event Collector. The token value is set at object creation, but isn't returned.
-	Token string `json:"token"`
+	Token                string `json:"token"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -212,4 +212,3 @@ func (v *NullableLogStreamSettingsSplunk) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-

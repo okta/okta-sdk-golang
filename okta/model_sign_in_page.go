@@ -31,11 +31,11 @@ import (
 // SignInPage struct for SignInPage
 type SignInPage struct {
 	// The HTML for the page
-	PageContent *string `json:"pageContent,omitempty"`
-	ContentSecurityPolicySetting *ContentSecurityPolicySetting `json:"contentSecurityPolicySetting,omitempty"`
-	WidgetCustomizations *SignInPageAllOfWidgetCustomizations `json:"widgetCustomizations,omitempty"`
+	PageContent                  *string                              `json:"pageContent,omitempty"`
+	ContentSecurityPolicySetting *ContentSecurityPolicySetting        `json:"contentSecurityPolicySetting,omitempty"`
+	WidgetCustomizations         *SignInPageAllOfWidgetCustomizations `json:"widgetCustomizations,omitempty"`
 	// The version specified as a [Semantic Version](https://semver.org/).
-	WidgetVersion *string `json:"widgetVersion,omitempty"`
+	WidgetVersion        *string `json:"widgetVersion,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -269,4 +269,3 @@ func (v *NullableSignInPage) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-

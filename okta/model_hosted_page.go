@@ -30,8 +30,8 @@ import (
 
 // HostedPage struct for HostedPage
 type HostedPage struct {
-	Type string `json:"type"`
-	Url *string `json:"url,omitempty"`
+	Type                 string  `json:"type"`
+	Url                  *string `json:"url,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -186,4 +186,3 @@ func (v *NullableHostedPage) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-

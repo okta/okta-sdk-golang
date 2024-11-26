@@ -35,7 +35,7 @@ type Saml struct {
 	// The URL to your customer-facing instructions for configuring your SAML integration. See [Customer configuration document guidelines](https://developer.okta.com/docs/guides/submit-app-prereq/main/#customer-configuration-document-guidelines).
 	Doc string `json:"doc"`
 	// Globally unique name for your SAML entity. For instance, your Identity Provider (IdP) or Service Provider (SP) URL.
-	EntityId string `json:"entityId"`
+	EntityId             string `json:"entityId"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -212,4 +212,3 @@ func (v *NullableSaml) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-

@@ -29,24 +29,24 @@ import (
 	"fmt"
 )
 
-//model_oneof.mustache
+// model_oneof.mustache
 // ListAuthenticators200ResponseInner - struct for ListAuthenticators200ResponseInner
 type ListAuthenticators200ResponseInner struct {
-	AuthenticatorKeyCustomApp *AuthenticatorKeyCustomApp
-	AuthenticatorKeyDuo *AuthenticatorKeyDuo
-	AuthenticatorKeyEmail *AuthenticatorKeyEmail
-	AuthenticatorKeyExternalIdp *AuthenticatorKeyExternalIdp
-	AuthenticatorKeyGoogleOtp *AuthenticatorKeyGoogleOtp
-	AuthenticatorKeyOktaVerify *AuthenticatorKeyOktaVerify
-	AuthenticatorKeyOnprem *AuthenticatorKeyOnprem
-	AuthenticatorKeyPassword *AuthenticatorKeyPassword
-	AuthenticatorKeyPhone *AuthenticatorKeyPhone
-	AuthenticatorKeySecurityKey *AuthenticatorKeySecurityKey
+	AuthenticatorKeyCustomApp        *AuthenticatorKeyCustomApp
+	AuthenticatorKeyDuo              *AuthenticatorKeyDuo
+	AuthenticatorKeyEmail            *AuthenticatorKeyEmail
+	AuthenticatorKeyExternalIdp      *AuthenticatorKeyExternalIdp
+	AuthenticatorKeyGoogleOtp        *AuthenticatorKeyGoogleOtp
+	AuthenticatorKeyOktaVerify       *AuthenticatorKeyOktaVerify
+	AuthenticatorKeyOnprem           *AuthenticatorKeyOnprem
+	AuthenticatorKeyPassword         *AuthenticatorKeyPassword
+	AuthenticatorKeyPhone            *AuthenticatorKeyPhone
+	AuthenticatorKeySecurityKey      *AuthenticatorKeySecurityKey
 	AuthenticatorKeySecurityQuestion *AuthenticatorKeySecurityQuestion
-	AuthenticatorKeySmartCard *AuthenticatorKeySmartCard
-	AuthenticatorKeySymantecVip *AuthenticatorKeySymantecVip
-	AuthenticatorKeyWebauthn *AuthenticatorKeyWebauthn
-	AuthenticatorKeyYubikey *AuthenticatorKeyYubikey
+	AuthenticatorKeySmartCard        *AuthenticatorKeySmartCard
+	AuthenticatorKeySymantecVip      *AuthenticatorKeySymantecVip
+	AuthenticatorKeyWebauthn         *AuthenticatorKeyWebauthn
+	AuthenticatorKeyYubikey          *AuthenticatorKeyYubikey
 }
 
 // AuthenticatorKeyCustomAppAsListAuthenticators200ResponseInner is a convenience function that returns AuthenticatorKeyCustomApp wrapped in ListAuthenticators200ResponseInner
@@ -153,7 +153,6 @@ func AuthenticatorKeyYubikeyAsListAuthenticators200ResponseInner(v *Authenticato
 		AuthenticatorKeyYubikey: v,
 	}
 }
-
 
 // Unmarshal JSON data into one of the pointers in the struct  CUSTOM
 func (dst *ListAuthenticators200ResponseInner) UnmarshalJSON(data []byte) error {
@@ -594,7 +593,7 @@ func (src ListAuthenticators200ResponseInner) MarshalJSON() ([]byte, error) {
 }
 
 // Get the actual instance
-func (obj *ListAuthenticators200ResponseInner) GetActualInstance() (interface{}) {
+func (obj *ListAuthenticators200ResponseInner) GetActualInstance() interface{} {
 	if obj == nil {
 		return nil
 	}
@@ -697,4 +696,3 @@ func (v *NullableListAuthenticators200ResponseInner) UnmarshalJSON(src []byte) e
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-

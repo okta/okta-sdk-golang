@@ -30,9 +30,9 @@ import (
 
 // UserCredentials struct for UserCredentials
 type UserCredentials struct {
-	Password *PasswordCredential `json:"password,omitempty"`
-	Provider *AuthenticationProvider `json:"provider,omitempty"`
-	RecoveryQuestion *RecoveryQuestionCredential `json:"recovery_question,omitempty"`
+	Password             *PasswordCredential         `json:"password,omitempty"`
+	Provider             *AuthenticationProvider     `json:"provider,omitempty"`
+	RecoveryQuestion     *RecoveryQuestionCredential `json:"recovery_question,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -230,4 +230,3 @@ func (v *NullableUserCredentials) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-
