@@ -1,4 +1,4 @@
-module github.com/okta/okta-sdk-golang/v5
+github.com/unbiased-security/okta-sdk-golang/v5
 
 go 1.20
 
