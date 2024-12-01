@@ -40,7 +40,7 @@ jobs:
         run: openapi-generator-cli version-manager set 7.0.1
       - name: Generate go client
         run: make generate
-      - run: make fmt
+      # - run: make fmt
       - run: make import
       - run: cd okta/v5 && mv go.mod go.sum ../../
       - run: cd okta && mv v5/* ./ && rm -rf v5
