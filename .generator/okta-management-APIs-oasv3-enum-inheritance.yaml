@@ -30260,7 +30260,7 @@ components:
       enum:
         - ANDROID
         - IOS
-        - OSX
+        - MACOS
         - WINDOWS
     DevicePolicyRuleCondition:
       type: object
@@ -35226,8 +35226,9 @@ components:
       enum:
         - ANDROID
         - ANY
+        - CHROMEOS
         - IOS
-        - OSX
+        - MACOS
         - OTHER
         - WINDOWS
     PolicyPlatformType:
