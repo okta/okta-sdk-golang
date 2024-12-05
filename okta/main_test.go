@@ -15,7 +15,7 @@ func init() {
 	if err != nil {
 		fmt.Printf("Create new config should not be error %v", err)
 	}
-	configuration.Debug = true
+	configuration.Debug = false
 
 	apiClient = NewAPIClient(configuration)
 }
