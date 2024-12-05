@@ -1,7 +1,7 @@
 /*
 Okta Admin Management
 
-Allows customers to easily access the Okta Management APIs
+# Allows customers to easily access the Okta Management APIs
 
 Copyright 2018 - Present Okta, Inc.
 
@@ -9,7 +9,7 @@ Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
 You may obtain a copy of the License at
 
-    http://www.apache.org/licenses/LICENSE-2.0
+	http://www.apache.org/licenses/LICENSE-2.0
 
 Unless required by applicable law or agreed to in writing, software
 distributed under the License is distributed on an "AS IS" BASIS,
@@ -57,10 +57,10 @@ import (
 	"github.com/cenkalti/backoff/v4"
 	"github.com/go-jose/go-jose/v3"
 	"github.com/go-jose/go-jose/v3/jwt"
-	"golang.org/x/oauth2"
 	"github.com/google/uuid"
 	"github.com/lestrrat-go/jwx/jwk"
 	goCache "github.com/patrickmn/go-cache"
+	"golang.org/x/oauth2"
 )
 
 var (
@@ -69,7 +69,7 @@ var (
 )
 
 const (
-	VERSION                   =  "5.0.0"
+	VERSION                   = "5.0.0"
 	AccessTokenCacheKey       = "OKTA_ACCESS_TOKEN"
 	DpopAccessTokenNonce      = "DPOP_OKTA_ACCESS_TOKEN_NONCE"
 	DpopAccessTokenPrivateKey = "DPOP_OKTA_ACCESS_TOKEN_PRIVATE_KEY"
@@ -78,9 +78,9 @@ const (
 // APIClient manages communication with the Okta Admin Management API v2024.06.1
 // In most cases there should be only one, shared, APIClient.
 type APIClient struct {
-	cfg    *Configuration
-	common service // Reuse a single struct instead of allocating one for each service on the heap.
-	cache Cache
+	cfg        *Configuration
+	common     service // Reuse a single struct instead of allocating one for each service on the heap.
+	cache      Cache
 	tokenCache *goCache.Cache
 	freshcache bool
 
@@ -283,7 +283,7 @@ type PrivateKeyAuth struct {
 	privateKeyId     string
 	clientId         string
 	orgURL           string
-	userAgent 		 string
+	userAgent        string
 	scopes           []string
 	maxRetries       int32
 	maxBackoff       int64
@@ -298,7 +298,7 @@ type PrivateKeyAuthConfig struct {
 	PrivateKeyId     string
 	ClientId         string
 	OrgURL           string
-	UserAgent 		 string
+	UserAgent        string
 	Scopes           []string
 	MaxRetries       int32
 	MaxBackoff       int64
@@ -359,7 +359,7 @@ func (a *PrivateKeyAuth) Authorize(method, URL string) error {
 			return err
 		}
 
-		accessToken, nonce, privateKey, err := getAccessTokenForPrivateKey(a.httpClient, a.orgURL, clientAssertion, a.userAgent, a.scopes, a.maxRetries, a.maxBackoff)
+		accessToken, nonce, privateKey, err := getAccessTokenForPrivateKey(a.httpClient, a.orgURL, clientAssertion, a.userAgent, a.scopes, a.maxRetries, a.maxBackoff, a.clientId, a.privateKeySigner)
 		if err != nil {
 			return err
 		}
@@ -392,7 +392,7 @@ type JWTAuth struct {
 	tokenCache      *goCache.Cache
 	httpClient      *http.Client
 	orgURL          string
-	userAgent 		string
+	userAgent       string
 	scopes          []string
 	clientAssertion string
 	maxRetries      int32
@@ -404,7 +404,7 @@ type JWTAuthConfig struct {
 	TokenCache      *goCache.Cache
 	HttpClient      *http.Client
 	OrgURL          string
-	UserAgent 		string
+	UserAgent       string
 	Scopes          []string
 	ClientAssertion string
 	MaxRetries      int32
@@ -417,7 +417,7 @@ func NewJWTAuth(config JWTAuthConfig) *JWTAuth {
 		tokenCache:      config.TokenCache,
 		httpClient:      config.HttpClient,
 		orgURL:          config.OrgURL,
-		userAgent: 		 config.UserAgent,
+		userAgent:       config.UserAgent,
 		scopes:          config.Scopes,
 		clientAssertion: config.ClientAssertion,
 		maxRetries:      config.MaxRetries,
@@ -450,7 +450,7 @@ func (a *JWTAuth) Authorize(method, URL string) error {
 			}
 		}
 	} else {
-		accessToken, nonce, privateKey, err := getAccessTokenForPrivateKey(a.httpClient, a.orgURL, a.clientAssertion, a.userAgent, a.scopes, a.maxRetries, a.maxBackoff)
+		accessToken, nonce, privateKey, err := getAccessTokenForPrivateKey(a.httpClient, a.orgURL, a.clientAssertion, a.userAgent, a.scopes, a.maxRetries, a.maxBackoff, "", nil)
 		if err != nil {
 			return err
 		}
@@ -499,7 +499,7 @@ type JWKAuth struct {
 type JWKAuthConfig struct {
 	TokenCache       *goCache.Cache
 	HttpClient       *http.Client
-	JWK 			 string
+	JWK              string
 	EncryptionType   string
 	PrivateKeySigner jose.Signer
 	PrivateKeyId     string
@@ -516,8 +516,8 @@ func NewJWKAuth(config JWKAuthConfig) *JWKAuth {
 	return &JWKAuth{
 		tokenCache:       config.TokenCache,
 		httpClient:       config.HttpClient,
-		jwk: 		      config.JWK,
-		encryptionType: config.EncryptionType,
+		jwk:              config.JWK,
+		encryptionType:   config.EncryptionType,
 		privateKeySigner: config.PrivateKeySigner,
 		privateKeyId:     config.PrivateKeyId,
 		clientId:         config.ClientId,
@@ -571,7 +571,7 @@ func (a *JWKAuth) Authorize(method, URL string) error {
 			return err
 		}
 
-		accessToken, nonce, dpopPrivateKey, err := getAccessTokenForPrivateKey(a.httpClient, a.orgURL, clientAssertion, a.userAgent, a.scopes, a.maxRetries, a.maxBackoff)
+		accessToken, nonce, dpopPrivateKey, err := getAccessTokenForPrivateKey(a.httpClient, a.orgURL, clientAssertion, a.userAgent, a.scopes, a.maxRetries, a.maxBackoff, "", nil)
 		if err != nil {
 			return err
 		}
@@ -609,16 +609,16 @@ func convertJWKToPrivateKey(jwks, encryptionType string) (string, error) {
 		pair := it.Pair()
 		key := pair.Value.(jwk.Key)
 		var rawkey interface{} // This is the raw key, like *rsa.PrivateKey or *ecdsa.PrivateKey
-		err := key.Raw(&rawkey); 
+		err := key.Raw(&rawkey)
 		if err != nil {
-			return "",err
+			return "", err
 		}
 
 		switch encryptionType {
 		case "RSA":
 			rsaPrivateKey, ok := rawkey.(*rsa.PrivateKey)
 			if !ok {
-				return "",fmt.Errorf("expected rsa key, got %T", rawkey)
+				return "", fmt.Errorf("expected rsa key, got %T", rawkey)
 			}
 			return string(privateKeyToBytes(rsaPrivateKey)), nil
 		default:
@@ -677,13 +677,13 @@ func createClientAssertion(orgURL, clientID string, privateKeySinger jose.Signer
 		Expiry:   jwt.NewNumericDate(time.Now().Add(time.Hour * time.Duration(1))),
 		Issuer:   clientID,
 		Audience: orgURL + "/oauth2/v1/token",
+		ID:       uuid.New().String(),
 	}
 	jwtBuilder := jwt.Signed(privateKeySinger).Claims(claims)
 	return jwtBuilder.CompactSerialize()
 }
 
-func getAccessTokenForPrivateKey(httpClient *http.Client, orgURL, clientAssertion, userAgent string, scopes []string, maxRetries int32, maxBackoff int64) (*RequestAccessToken, string, *rsa.PrivateKey, error) {
-	var tokenRequestBuff io.ReadWriter
+func getAccessTokenForPrivateKey(httpClient *http.Client, orgURL, clientAssertion, userAgent string, scopes []string, maxRetries int32, maxBackoff int64, clientID string, signer jose.Signer) (*RequestAccessToken, string, *rsa.PrivateKey, error) {
 	query := url.Values{}
 	tokenRequestURL := orgURL + "/oauth2/v1/token"
 
@@ -691,12 +691,12 @@ func getAccessTokenForPrivateKey(httpClient *http.Client, orgURL, clientAssertio
 	query.Add("scope", strings.Join(scopes, " "))
 	query.Add("client_assertion_type", "urn:ietf:params:oauth:client-assertion-type:jwt-bearer")
 	query.Add("client_assertion", clientAssertion)
-	tokenRequestURL += "?" + query.Encode()
-	tokenRequest, err := http.NewRequest("POST", tokenRequestURL, tokenRequestBuff)
+
+	tokenRequest, err := http.NewRequest("POST", tokenRequestURL, strings.NewReader(query.Encode()))
 	if err != nil {
 		return nil, "", nil, err
 	}
-
+	
 	tokenRequest.Header.Add("Accept", "application/json")
 	tokenRequest.Header.Add("Content-Type", "application/x-www-form-urlencoded")
 	tokenRequest.Header.Add("User-Agent", userAgent)
@@ -715,14 +715,20 @@ func getAccessTokenForPrivateKey(httpClient *http.Client, orgURL, clientAssertio
 	if err != nil {
 		return nil, "", nil, err
 	}
+
 	respBody, err := io.ReadAll(tokenResponse.Body)
 	origResp := io.NopCloser(bytes.NewBuffer(respBody))
 	tokenResponse.Body = origResp
 	var accessToken *RequestAccessToken
 
+	newClientAssertion, err := createClientAssertion(orgURL, clientID, signer)
+	if err != nil {
+		return nil, "", nil, err
+	}
+
 	if tokenResponse.StatusCode >= 300 {
 		if strings.Contains(string(respBody), "invalid_dpop_proof") {
-			return getAccessTokenForDpopPrivateKey(tokenRequest, httpClient, orgURL, "", maxRetries, maxBackoff)
+			return getAccessTokenForDpopPrivateKey(tokenRequest, httpClient, orgURL, "", maxRetries, maxBackoff, newClientAssertion, strings.Join(scopes, " "), clientID, signer)
 		} else {
 			return nil, "", nil, err
 		}
@@ -735,7 +741,7 @@ func getAccessTokenForPrivateKey(httpClient *http.Client, orgURL, clientAssertio
 	return accessToken, "", nil, nil
 }
 
-func getAccessTokenForDpopPrivateKey(tokenRequest *http.Request, httpClient *http.Client, orgURL, nonce string, maxRetries int32, maxBackoff int64) (*RequestAccessToken, string, *rsa.PrivateKey, error) {
+func getAccessTokenForDpopPrivateKey(tokenRequest *http.Request, httpClient *http.Client, orgURL, nonce string, maxRetries int32, maxBackoff int64, clientAssertion string, scopes string, clientID string, signer jose.Signer) (*RequestAccessToken, string, *rsa.PrivateKey, error) {
 	privateKey, err := generatePrivateKey(2048)
 	if err != nil {
 		return nil, "", nil, err
@@ -744,7 +750,19 @@ func getAccessTokenForDpopPrivateKey(tokenRequest *http.Request, httpClient *htt
 	if err != nil {
 		return nil, "", nil, err
 	}
+	newClientAssertion, err := createClientAssertion(orgURL, clientID, signer)
+	if err != nil {
+		return nil, "", nil, err
+	}
+
+	query := url.Values{}
+	query.Add("grant_type", "client_credentials")
+	query.Add("scope", scopes)
+	query.Add("client_assertion_type", "urn:ietf:params:oauth:client-assertion-type:jwt-bearer")
+	query.Add("client_assertion", newClientAssertion)
+	tokenRequest.Body = io.NopCloser(strings.NewReader(query.Encode()))
 	tokenRequest.Header.Set("DPoP", dpopJWT)
+
 	bOff := &oktaBackoff{
 		ctx:             context.TODO(),
 		maxRetries:      maxRetries,
@@ -760,15 +778,16 @@ func getAccessTokenForDpopPrivateKey(tokenRequest *http.Request, httpClient *htt
 	if err != nil {
 		return nil, "", nil, err
 	}
+
 	respBody, err := io.ReadAll(tokenResponse.Body)
 	if err != nil {
 		return nil, "", nil, err
 	}
 
 	if tokenResponse.StatusCode >= 300 {
-		if strings.Contains(string(respBody), "use_dpop_nonce")  {
+		if strings.Contains(string(respBody), "use_dpop_nonce") {
 			newNonce := tokenResponse.Header.Get("Dpop-Nonce")
-			return getAccessTokenForDpopPrivateKey(tokenRequest, httpClient, orgURL, newNonce, maxRetries, maxBackoff)
+			return getAccessTokenForDpopPrivateKey(tokenRequest, httpClient, orgURL, newNonce, maxRetries, maxBackoff, clientAssertion, scopes, clientID, signer)
 		} else {
 			return nil, "", nil, err
 		}
@@ -1012,9 +1031,9 @@ func (c *APIClient) GetConfig() *Configuration {
 }
 
 type formFile struct {
-		fileBytes []byte
-		fileName string
-		formFileName string
+	fileBytes    []byte
+	fileName     string
+	formFileName string
 }
 
 // prepareRequest build the request
@@ -1068,11 +1087,11 @@ func (c *APIClient) prepareRequest(
 				w.Boundary()
 				part, err := w.CreateFormFile(formFile.formFileName, filepath.Base(formFile.fileName))
 				if err != nil {
-						return nil, err
+					return nil, err
 				}
 				_, err = part.Write(formFile.fileBytes)
 				if err != nil {
-						return nil, err
+					return nil, err
 				}
 			}
 		}
@@ -1111,7 +1130,7 @@ func (c *APIClient) prepareRequest(
 		URL.Scheme = c.cfg.Scheme
 	}
 
-	var urlWithoutQuery = *URL
+	urlWithoutQuery := *URL
 
 	// Adding Query Param
 	query := URL.Query()
@@ -1287,7 +1306,7 @@ func (c *APIClient) RefreshNext() *APIClient {
 	return c
 }
 
-func (c *APIClient) do(ctx context.Context, req *http.Request)(*http.Response, error){
+func (c *APIClient) do(ctx context.Context, req *http.Request) (*http.Response, error) {
 	cacheKey := CreateCacheKey(req)
 	if req.Method != http.MethodGet {
 		c.cache.Delete(cacheKey)
@@ -1527,9 +1546,9 @@ func (e GenericOpenAPIError) Model() interface{} {
 
 // Okta Backoff
 type oktaBackoff struct {
-    retryCount, maxRetries  int32
-    backoffDuration         time.Duration
-    ctx                     context.Context
+	retryCount, maxRetries int32
+	backoffDuration        time.Duration
+	ctx                    context.Context
 }
 
 // NextBackOff returns the duration to wait before retrying the operation,
@@ -1640,7 +1659,7 @@ func generateDpopJWT(privateKey *rsa.PrivateKey, httpMethod, URL, nonce, accessT
 		return "", err
 	}
 	key := jose.SigningKey{Algorithm: jose.RS256, Key: privateKey}
-	var signerOpts = jose.SignerOptions{}
+	signerOpts := jose.SignerOptions{}
 	signerOpts.WithType("dpop+jwt")
 	signerOpts.WithHeader("jwk", set)
 	rsaSigner, err := jose.NewSigner(key, &signerOpts)
