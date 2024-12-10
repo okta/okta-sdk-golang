@@ -216,7 +216,7 @@ func main() {
   }
   client := okta.NewAPIClient(config)
 
-  user, resp, err := client.UserAPI.GetUser(client.cfg.Context, "{UserId|Username|Email}").Execute()
+  user, resp, err := client.UserAPI.GetUser(client.GetConfg().Context, "{UserId|Username|Email}").Execute()
   if err != nil {
       fmt.Printf("Error Getting User: %v\n", err)
   }
@@ -243,7 +243,7 @@ func main() {
   }
   client := okta.NewAPIClient(config)
 
-  users, resp, err := client.UserAPI.ListUsers(client.cfg.Context).Execute()
+  users, resp, err := client.UserAPI.ListUsers(client.GetConfg().Context).Execute()
   if err != nil {
     fmt.Printf("Error Getting Users: %v\n", err)
   }
@@ -273,7 +273,7 @@ func main() {
   }
   client := okta.NewAPIClient(config)
 
-  users, resp, err := client.UserAPI.ListUsers(client.cfg.Context).Filter("status eq \"ACTIVE\"").Execute()
+  users, resp, err := client.UserAPI.ListUsers(client.GetConfg().Context).Filter("status eq \"ACTIVE\"").Execute()
   if err != nil {
     fmt.Printf("Error Getting Users: %v\n", err)
   }
@@ -324,7 +324,7 @@ func main() {
 		Profile: &profile,
 	}
 
-  users, resp, err := client.UserAPI.CreateUser(client.cfg.Context).Body(createUserRequest).Activate(true).Execute()
+  users, resp, err := client.UserAPI.CreateUser(client.GetConfg().Context).Body(createUserRequest).Activate(true).Execute()
   if err != nil {
     fmt.Printf("Error Creating Users: %v\n", err)
   }
@@ -352,7 +352,7 @@ func main() {
   }
   client := okta.NewAPIClient(config)
 
-  userToUpdate, resp, err := client.UserAPI.GetUser(client.cfg.Context, "{userId}")
+  userToUpdate, resp, err := client.UserAPI.GetUser(client.GetConfig().Context, "{userId}")
 	if err != nil {
 		fmt.Printf("Error Getting User to update: %v\n", err)
 	}
@@ -365,7 +365,7 @@ func main() {
 		Profile: &newProfile,
 	}
 
-	updatedUser, resp, err := client.UserAPI.UpdateUser(client.cfg.Context, userToUpdate.Id).Body(updateUser).Execute()
+	updatedUser, resp, err := client.UserAPI.UpdateUser(client.GetConfg().Context, userToUpdate.Id).Body(updateUser).Execute()
 	if err != nil {
 		fmt.Printf("Error updating user: %v\n", err)
 	}
@@ -400,14 +400,14 @@ func main() {
   }
   client := okta.NewAPIClient(config)
 
-  resp, err := client.UserAPI.DeactivateUser(client.cfg.Context, "00u14ffhw5szVqide0h8").Execute()
+  resp, err := client.UserAPI.DeactivateUser(client.GetConfg().Context, "00u14ffhw5szVqide0h8").Execute()
 	if err != nil {
 		fmt.Printf("Error deactivating user: %v\n", err)
 	}
 
 	fmt.Printf("Response: %+v\n\n", resp)
 
-	resp, err = client.UserAPI.DeleteUser(client.cfg.Context, "00u14ffhw5szVqide0h8").Execute()
+	resp, err = client.UserAPI.DeleteUser(client.GetConfg().Context, "00u14ffhw5szVqide0h8").Execute()
 	if err != nil {
 		fmt.Printf("Error deleting user: %v\n", err)
 	}
@@ -435,7 +435,7 @@ func main() {
   }
   client := okta.NewAPIClient(config)
 
-  groups, resp, err := client.UserAPI.ListUserGroups(client.cfg.Context, "00u14fg9ff4MExj5f0h8").Execute()
+  groups, resp, err := client.UserAPI.ListUserGroups(client.GetConfg().Context, "00u14fg9ff4MExj5f0h8").Execute()
 	if err != nil {
 		fmt.Printf("Error getting group list for user: %v\n", err)
 	}
@@ -473,7 +473,7 @@ func main() {
 	groupToCreate := &okta.Group{
 		Profile: groupProfile,
 	}
-	group, resp, err := client.GroupAPI.CreateGroup(client.cfg.Context, *groupToCreate).Execute()
+	group, resp, err := client.GroupAPI.CreateGroup(client.GetConfg().Context, *groupToCreate).Execute()
 	if err != nil {
 		fmt.Printf("Error creating group: %v\n", err)
 	}
@@ -501,7 +501,7 @@ func main() {
   }
   client := okta.NewAPIClient(config)
 
-  resp, err := client.GroupAPI.AssignUserToGroup(client.cfg.Context, "{groupId}", "{userId}").Execute()
+  resp, err := client.GroupAPI.AssignUserToGroup(client.GetConfg().Context, "{groupId}", "{userId}").Execute()
 	if err != nil {
 		fmt.Printf("Error adding user to group: %v\n", err)
 	}
@@ -529,7 +529,7 @@ func main() {
   }
   client := okta.NewAPIClient(config)
 
-  applicationList, resp, err := client.ApplicationAPI.ListApplications(client.cfg.Context).Execute()
+  applicationList, resp, err := client.ApplicationAPI.ListApplications(client.GetConfg().Context).Execute()
 	if err != nil {
 		fmt.Printf("Error listing applications: %v\n", err)
 	}
@@ -557,7 +557,7 @@ func main() {
   }
   client := okta.NewAPIClient(config)
 
-  application, resp, err := client.ApplicationAPI.GetApplication(client.cfg.Context, "0oaswjmkbtlpBDWpu0h7").Execute()
+  application, resp, err := client.ApplicationAPI.GetApplication(client.GetConfg().Context, "0oaswjmkbtlpBDWpu0h7").Execute()
 	if err != nil {
 		fmt.Printf("Error getting application: %v\n", err)
 	}
@@ -612,7 +612,7 @@ func main() {
 	res.SetLabel(label)
 
 
-	application, resp, err := client.ApplicationAPI.CreateApplication(client.cfg.Context, ListApplications200ResponseInner{OpenIdConnectApplication: res})
+	application, resp, err := client.ApplicationAPI.CreateApplication(client.GetConfg().Context, ListApplications200ResponseInner{OpenIdConnectApplication: res})
 	if err != nil {
 		fmt.Printf("Error creating application: %v\n", err)
 	}
