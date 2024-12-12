@@ -29,6 +29,7 @@ import (
 	"fmt"
 )
 
+
 //model_oneof.mustache
 // GetFactorTransactionStatus200Response - struct for GetFactorTransactionStatus200Response
 type GetFactorTransactionStatus200Response struct {
@@ -257,4 +258,5 @@ func (v *NullableGetFactorTransactionStatus200Response) UnmarshalJSON(src []byte
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
+
 

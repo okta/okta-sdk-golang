@@ -42391,9 +42391,7 @@ components:
           $ref: '#/components/schemas/PolicyType'
         _embedded:
           type: object
-          additionalProperties:
-            type: object
-            properties: {}
+          additionalProperties: true
           readOnly: true
         _links:
           $ref: '#/components/schemas/PolicyLinks'

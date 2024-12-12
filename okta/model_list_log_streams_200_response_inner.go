@@ -29,6 +29,7 @@ import (
 	"fmt"
 )
 
+
 //model_oneof.mustache
 // ListLogStreams200ResponseInner - struct for ListLogStreams200ResponseInner
 type ListLogStreams200ResponseInner struct {
@@ -177,4 +178,5 @@ func (v *NullableListLogStreams200ResponseInner) UnmarshalJSON(src []byte) error
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
+
 

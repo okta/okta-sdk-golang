@@ -29,6 +29,7 @@ import (
 	"fmt"
 )
 
+
 //model_oneof.mustache
 // ListFactors200ResponseInner - struct for ListFactors200ResponseInner
 type ListFactors200ResponseInner struct {
@@ -589,4 +590,5 @@ func (v *NullableListFactors200ResponseInner) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
+
 

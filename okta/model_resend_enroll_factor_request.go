@@ -29,6 +29,7 @@ import (
 	"fmt"
 )
 
+
 //model_oneof.mustache
 // ResendEnrollFactorRequest - struct for ResendEnrollFactorRequest
 type ResendEnrollFactorRequest struct {
@@ -217,4 +218,5 @@ func (v *NullableResendEnrollFactorRequest) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
+
 

@@ -29,6 +29,7 @@ import (
 	"fmt"
 )
 
+
 //model_oneof.mustache
 // ListSubscriptionsRoleRoleRefParameter - struct for ListSubscriptionsRoleRoleRefParameter
 type ListSubscriptionsRoleRoleRefParameter struct {
@@ -50,8 +51,8 @@ func (dst *ListSubscriptionsRoleRoleRefParameter) UnmarshalJSON(data []byte) err
         // try to unmarshal data into String
         err = json.Unmarshal(data, &dst.String)
         if err == nil {
-                jsonstring, _ := json.Marshal(dst.String)
-                if string(jsonstring) == "{}" { // empty struct
+                jsonString, _ := json.Marshal(dst.String)
+                if string(jsonString) == "{}" { // empty struct
                         dst.String = nil
                 } else {
                         match++
@@ -129,4 +130,5 @@ func (v *NullableListSubscriptionsRoleRoleRefParameter) UnmarshalJSON(src []byte
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
+
 

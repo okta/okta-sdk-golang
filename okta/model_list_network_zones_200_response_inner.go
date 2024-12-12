@@ -29,6 +29,7 @@ import (
 	"fmt"
 )
 
+
 //model_oneof.mustache
 // ListNetworkZones200ResponseInner - struct for ListNetworkZones200ResponseInner
 type ListNetworkZones200ResponseInner struct {
@@ -217,4 +218,5 @@ func (v *NullableListNetworkZones200ResponseInner) UnmarshalJSON(src []byte) err
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
+
 

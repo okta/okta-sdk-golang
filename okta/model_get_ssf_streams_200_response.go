@@ -29,6 +29,7 @@ import (
 	"fmt"
 )
 
+
 //model_oneof.mustache
 // GetSsfStreams200Response - struct for GetSsfStreams200Response
 type GetSsfStreams200Response struct {
@@ -71,8 +72,8 @@ func (dst *GetSsfStreams200Response) UnmarshalJSON(data []byte) error {
         // try to unmarshal data into ArrayOfStreamConfiguration
         err = json.Unmarshal(data, &dst.ArrayOfStreamConfiguration)
         if err == nil {
-                jsonStreamConfiguration, _ := json.Marshal(dst.ArrayOfStreamConfiguration)
-                if string(jsonStreamConfiguration) == "{}" { // empty struct
+                jsonArrayOfStreamConfiguration, _ := json.Marshal(dst.ArrayOfStreamConfiguration)
+                if string(jsonArrayOfStreamConfiguration) == "{}" { // empty struct
                         dst.ArrayOfStreamConfiguration = nil
                 } else {
                         match++
@@ -159,4 +160,5 @@ func (v *NullableGetSsfStreams200Response) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
+
 

@@ -29,6 +29,7 @@ import (
 	"fmt"
 )
 
+
 //model_oneof.mustache
 // ListApplications200ResponseInner - struct for ListApplications200ResponseInner
 type ListApplications200ResponseInner struct {
@@ -457,4 +458,5 @@ func (v *NullableListApplications200ResponseInner) UnmarshalJSON(src []byte) err
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
+
 

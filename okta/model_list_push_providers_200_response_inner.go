@@ -29,6 +29,7 @@ import (
 	"fmt"
 )
 
+
 //model_oneof.mustache
 // ListPushProviders200ResponseInner - struct for ListPushProviders200ResponseInner
 type ListPushProviders200ResponseInner struct {
@@ -177,4 +178,5 @@ func (v *NullableListPushProviders200ResponseInner) UnmarshalJSON(src []byte) er
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
+
 

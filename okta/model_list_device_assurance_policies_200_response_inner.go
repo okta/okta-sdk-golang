@@ -29,6 +29,7 @@ import (
 	"fmt"
 )
 
+
 //model_oneof.mustache
 // ListDeviceAssurancePolicies200ResponseInner - struct for ListDeviceAssurancePolicies200ResponseInner
 type ListDeviceAssurancePolicies200ResponseInner struct {
@@ -297,4 +298,5 @@ func (v *NullableListDeviceAssurancePolicies200ResponseInner) UnmarshalJSON(src 
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
+
 
