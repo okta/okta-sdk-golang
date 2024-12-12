@@ -64755,9 +64755,7 @@ components:
           - PROFILE_ENROLLMENT
           - RESOURCE_ACCESS
         _embedded:
-          additionalProperties:
-            properties: {}
-            type: object
+          additionalProperties: true
           readOnly: true
           type: object
         _links:

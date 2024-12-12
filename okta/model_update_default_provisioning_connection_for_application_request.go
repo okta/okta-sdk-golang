@@ -29,6 +29,7 @@ import (
 	"fmt"
 )
 
+
 //model_oneof.mustache
 // UpdateDefaultProvisioningConnectionForApplicationRequest - struct for UpdateDefaultProvisioningConnectionForApplicationRequest
 type UpdateDefaultProvisioningConnectionForApplicationRequest struct {
@@ -159,4 +160,5 @@ func (v *NullableUpdateDefaultProvisioningConnectionForApplicationRequest) Unmar
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
+
 

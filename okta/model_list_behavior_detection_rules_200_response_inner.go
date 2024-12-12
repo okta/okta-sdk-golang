@@ -29,6 +29,7 @@ import (
 	"fmt"
 )
 
+
 //model_oneof.mustache
 // ListBehaviorDetectionRules200ResponseInner - struct for ListBehaviorDetectionRules200ResponseInner
 type ListBehaviorDetectionRules200ResponseInner struct {
@@ -257,4 +258,5 @@ func (v *NullableListBehaviorDetectionRules200ResponseInner) UnmarshalJSON(src [
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
+
 

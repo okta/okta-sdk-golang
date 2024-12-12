@@ -29,6 +29,7 @@ import (
 	"fmt"
 )
 
+
 //model_oneof.mustache
 // SecurityEventsProviderRequestSettings - Information about the Security Events Provider for signal ingestion
 type SecurityEventsProviderRequestSettings struct {
@@ -159,4 +160,5 @@ func (v *NullableSecurityEventsProviderRequestSettings) UnmarshalJSON(src []byte
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
+
 

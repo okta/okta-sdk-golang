@@ -29,6 +29,7 @@ import (
 	"fmt"
 )
 
+
 //model_oneof.mustache
 // ListFeaturesForApplication200ResponseInner - struct for ListFeaturesForApplication200ResponseInner
 type ListFeaturesForApplication200ResponseInner struct {
@@ -177,4 +178,5 @@ func (v *NullableListFeaturesForApplication200ResponseInner) UnmarshalJSON(src [
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
+
 

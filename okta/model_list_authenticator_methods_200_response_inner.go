@@ -29,6 +29,7 @@ import (
 	"fmt"
 )
 
+
 //model_oneof.mustache
 // ListAuthenticatorMethods200ResponseInner - struct for ListAuthenticatorMethods200ResponseInner
 type ListAuthenticatorMethods200ResponseInner struct {
@@ -449,4 +450,5 @@ func (v *NullableListAuthenticatorMethods200ResponseInner) UnmarshalJSON(src []b
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
+
 

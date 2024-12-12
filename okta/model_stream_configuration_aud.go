@@ -29,6 +29,7 @@ import (
 	"fmt"
 )
 
+
 //model_oneof.mustache
 // StreamConfigurationAud - The audience used in the SET. This value is set as `aud` in the claim.  A read-only parameter that is set by the transmitter. If this parameter is included in the request, the value must match the expected value from the transmitter.
 type StreamConfigurationAud struct {
@@ -58,8 +59,8 @@ func (dst *StreamConfigurationAud) UnmarshalJSON(data []byte) error {
         // try to unmarshal data into ArrayOfString
         err = json.Unmarshal(data, &dst.ArrayOfString)
         if err == nil {
-                jsonstring, _ := json.Marshal(dst.ArrayOfString)
-                if string(jsonstring) == "{}" { // empty struct
+                jsonArrayOfString, _ := json.Marshal(dst.ArrayOfString)
+                if string(jsonArrayOfString) == "{}" { // empty struct
                         dst.ArrayOfString = nil
                 } else {
                         match++
@@ -71,8 +72,8 @@ func (dst *StreamConfigurationAud) UnmarshalJSON(data []byte) error {
         // try to unmarshal data into String
         err = json.Unmarshal(data, &dst.String)
         if err == nil {
-                jsonstring, _ := json.Marshal(dst.String)
-                if string(jsonstring) == "{}" { // empty struct
+                jsonString, _ := json.Marshal(dst.String)
+                if string(jsonString) == "{}" { // empty struct
                         dst.String = nil
                 } else {
                         match++
@@ -159,4 +160,5 @@ func (v *NullableStreamConfigurationAud) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
+
 

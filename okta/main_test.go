@@ -40,7 +40,6 @@ func sweep() (err error) {
 	if err != nil {
 		return
 	}
-	fmt.Println("43", apiClient.cfg.Host)
 	err = sweepGroups()
 	if err != nil {
 		return

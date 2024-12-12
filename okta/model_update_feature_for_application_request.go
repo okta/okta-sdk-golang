@@ -29,6 +29,7 @@ import (
 	"fmt"
 )
 
+
 //model_oneof.mustache
 // UpdateFeatureForApplicationRequest - struct for UpdateFeatureForApplicationRequest
 type UpdateFeatureForApplicationRequest struct {
@@ -159,4 +160,5 @@ func (v *NullableUpdateFeatureForApplicationRequest) UnmarshalJSON(src []byte) e
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
+
 
