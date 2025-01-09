@@ -32,7 +32,8 @@ jobs:
           command: |
             go mod vendor
             go install ./...
-
+      - attach_workspace:
+          at: .
 # Invoke jobs via workflows
 # See: https://circleci.com/docs/2.0/configuration-reference/#workflows
 workflows:
@@ -51,8 +52,6 @@ workflows:
   "Malware Scanner":
     jobs:
       - build-binaries
-      - attach_workspace:
-          at: .
       - platform-helpers/job-reversinglabs-scan:
           artifact-dir: ${CIRCLE_WORKING_DIRECTORY/#\~/$HOME}
           artifact-name: $CIRCLE_PROJECT_REPONAME
