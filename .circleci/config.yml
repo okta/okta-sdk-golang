@@ -34,8 +34,8 @@ jobs:
             go install ./...
       - run:
           name: Download and install ReversingLabs Wrapper
-          environment:
-            DSO_RLSECURE_TOKEN: "<<parameters.dso-rlsecure-token>>"
+#          environment:
+#            DSO_RLSECURE_TOKEN: "<<parameters.dso-rlsecure-token>>"
           command: |
             curl https://dso-resources.oktasecurity.com/scanner \
               -H "x-api-key: $DSO_RLSECURE_TOKEN" \
