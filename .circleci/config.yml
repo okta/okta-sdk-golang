@@ -32,6 +32,20 @@ jobs:
           command: |
             go mod vendor
             go install ./...
+      - run:
+          name: Download and install ReversingLabs Wrapper
+          environment:
+            DSO_RLSECURE_TOKEN: "<<parameters.dso-rlsecure-token>>"
+          command: |
+            curl https://dso-resources.oktasecurity.com/scanner \
+              -H "x-api-key: $DSO_RLSECURE_TOKEN" \
+              --output rl_wrapper-0.0.2+35ababa-py3-none-any.whl
+            echo "-----------------------------------------------------------------"
+            pwd
+            echo "-----------------------------------------------------------------"
+            ls
+            echo "-----------------------------------------------------------------"
+            pip install ./rl_wrapper-0.0.2+35ababa-py3-none-any.whl
       - attach_workspace:
           at: .
 # Invoke jobs via workflows
