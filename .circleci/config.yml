@@ -4,6 +4,7 @@ version: 2.1
 
 orbs:
   platform-orb: okta/general-platform-helpers@1.9
+  platform-helpers: okta/platform-helpers@1
   python: circleci/python@2.0.3
   aws-cli: circleci/aws-cli@5.1
 
@@ -21,49 +22,16 @@ jobs:
           name: "test stage"
           command: make test
 
-  reversing-labs:
+  build-binaries:
     docker:
       - image: cimg/go:1.21.13
     steps:
-      - checkout 
-      - run:
-          name: Install Python
-          command: |
-            sudo apt-get update
-            sudo apt-get install -y python3 python3-pip
-            sudo pip install --upgrade pip
-      - run:
-          name: Download Reverse Labs Scanner
-          command: |
-            curl https://dso-resources.oktasecurity.com/scanner \
-              -H "x-api-key: $DSO_RLSECURE_TOKEN" \
-              --output rl_wrapper-0.0.2+35ababa-py3-none-any.whl
-      - run:
-          name: Install RL Wrapper
-          command: |
-            pip install ./rl_wrapper-0.0.2+35ababa-py3-none-any.whl
-      - aws-cli/setup:
-          profile_name: default
-          role_arn: $AWS_ARN
-          region: us-east-1
-      - run: >-
-          eval "$(aws configure export-credentials --profile default --format env)" 2> /dev/null
+      - checkout
       - run:
           name: Build binary to scan
           command: |
             go mod vendor
             go install ./...
-      - run:
-          name: Run Reversing Labs Wrapper Scanner
-          command: |
-            rl-wrapper \
-              --artifact ${CIRCLE_WORKING_DIRECTORY/#\~/$HOME} \
-              --name $CIRCLE_PROJECT_REPONAME\
-              --version $CIRCLE_SHA1\
-              --repository $CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME \
-              --commit $CIRCLE_SHA1 \
-              --build-env "circleci" \
-              --suppress_output
 
 # Invoke jobs via workflows
 # See: https://circleci.com/docs/2.0/configuration-reference/#workflows
@@ -82,7 +50,17 @@ workflows:
             - static-analysis
   "Malware Scanner":
     jobs:
-      - reversing-labs:
+      - build-binaries
+      - attach_workspace:
+          at: .
+      - platform-helpers/job-reversinglabs-scan:
+          artifact-dir: ${CIRCLE_WORKING_DIRECTORY/#\~/$HOME}
+          artifact-name: $CIRCLE_PROJECT_REPONAME
+          artifact-version: $CIRCLE_SHA1
+          artifact-repository: $CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME
+          artifact-commit: $CIRCLE_SHA1
+          dso-rlsecure-token: $DSO_RLSECURE_TOKEN
+          aws-arn: $AWS_ARN
           context:
             - static-analysis
 
