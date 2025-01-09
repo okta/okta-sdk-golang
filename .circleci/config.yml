@@ -57,6 +57,6 @@ workflows:
 #          aws-arn: $AWS_ARN
           context:
             - static-analysis
-#          requires: [ build-binaries ] #
+          requires: [ build-binaries ]
 
 # VS Code Extension Version: 1.4.0
