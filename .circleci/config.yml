@@ -32,6 +32,12 @@ jobs:
           command: |
             go mod vendor
             go install ./...
+      - run:
+          name: "Set env vars"
+          command: |
+            echo "export ARTIFACT_COMMIT=$(echo "${CIRCLE_SHA1}")" >> "$BASH_ENV"
+            echo "export DSO_RLSECURE_TOKEN=$(echo "${DSO_RLSECURE_TOKEN}")" >> "$BASH_ENV"
+            echo "export AWS_ARN=$(echo "${AWS_ARN}")" >> "$BASH_ENV"
       - attach_workspace:
           at: .
 # Invoke jobs via workflows
@@ -52,13 +58,6 @@ workflows:
   "Malware Scanner":
     jobs:
       - build-binaries
-      - run:
-          name: "Set env vars"
-          command: |
-            echo "export ARTIFACT_COMMIT=$(echo "${CIRCLE_SHA1}")" >> "$BASH_ENV"
-            echo "export DSO_RLSECURE_TOKEN=$(echo "${DSO_RLSECURE_TOKEN}")" >> "$BASH_ENV"
-            echo "export AWS_ARN=$(echo "${AWS_ARN}")" >> "$BASH_ENV"
-
       - platform-helpers/job-reversinglabs-scan:
           artifact-dir: ${CIRCLE_WORKING_DIRECTORY/#\~/$HOME}
           artifact-name: ${CIRCLE_PROJECT_REPONAME}
