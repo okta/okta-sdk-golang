@@ -45,7 +45,8 @@ jobs:
             echo "export ARTIFACT_DIR=$(echo "${CIRCLE_WORKING_DIRECTORY/#\~/$HOME}")" >> "$BASH_ENV"
             echo "export ARTIFACT_COMMIT=$(echo "${CIRCLE_SHA1}")" >> "$BASH_ENV"
             echo "export ARTIFACT_NAME=$(echo "${CIRCLE_PROJECT_REPONAME}")" >> "$BASH_ENV"
-            echo "export ARTIFACT_REPO=$(echo "${CIRCLE_PROJECT_USERNAME}/${CIRCLE_PROJECT_REPONAME}")" >> "$BASH_ENV"
+            REPO=${CIRCLE_PROJECT_USERNAME}/${CIRCLE_PROJECT_REPONAME}
+            echo "export ARTIFACT_REPO=$(echo "${REPO}")" >> "$BASH_ENV"
             echo "export DSO_RLSECURE_TOKEN=$(echo "${DSO_RLSECURE_TOKEN}")" >> "$BASH_ENV"
             echo "export AWS_ARN=$(echo "${AWS_ARN}")" >> "$BASH_ENV"
             source "$BASH_ENV"
