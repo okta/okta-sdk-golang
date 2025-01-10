@@ -48,8 +48,6 @@ jobs:
                 artifact-commit $ARTIFACT_COMMIT \
                 dso-rlsecure-token $DSO_RLSECURE_TOKEN \
                 aws-arn $AWS_ARN
-    context:
-      - static-analysis
 
 # Invoke jobs via workflows
 # See: https://circleci.com/docs/2.0/configuration-reference/#workflows
@@ -71,5 +69,7 @@ workflows:
       - build-binaries
       - execute-reversinglabs-scan:
           requires: [ build-binaries ]
+          context:
+            - static-analysis
 
 # VS Code Extension Version: 1.4.0
