@@ -32,33 +32,24 @@ jobs:
           command: |
             go mod vendor
             go install ./...
-      - run:
-          name: "Set env vars"
-          command: |
-            echo "export ARTIFACT_COMMIT=$(echo "${CIRCLE_SHA1}")" >> "$BASH_ENV"
-            echo "export DSO_RLSECURE_TOKEN=$(echo "${DSO_RLSECURE_TOKEN}")" >> "$BASH_ENV"
-            echo "export AWS_ARN=$(echo "${AWS_ARN}")" >> "$BASH_ENV"
-      - run:
-          name: Print env vars
-          command: |
-            echo $ARTIFACT_COMMIT
-            echo $AWS_ARN
       - attach_workspace:
           at: .
 
-    execute-reversinglabs-scan:
-      name: Call orb job with environment variables to execute ReversingLabs Malware Scan
-      command: |
-        circleci orb execute platform-helpers/job-reversinglabs-scan \
-            artifact-dir ${CIRCLE_WORKING_DIRECTORY/#\~/$HOME} \
-            artifact-name ${CIRCLE_PROJECT_REPONAME} \
-            artifact-version $ARTIFACT_COMMIT \
-            artifact-repository ${CIRCLE_PROJECT_USERNAME}/${CIRCLE_PROJECT_REPONAME} \
-            artifact-commit $ARTIFACT_COMMIT \
-            dso-rlsecure-token $DSO_RLSECURE_TOKEN \
-            aws-arn $AWS_ARN
-      context:
-        - static-analysis
+  execute-reversinglabs-scan:
+    name: Call orb job with environment variables to execute ReversingLabs Malware Scan
+    steps:
+      - run:
+          command: |
+            circleci orb execute platform-helpers/job-reversinglabs-scan \
+                artifact-dir ${CIRCLE_WORKING_DIRECTORY/#\~/$HOME} \
+                artifact-name ${CIRCLE_PROJECT_REPONAME} \
+                artifact-version $ARTIFACT_COMMIT \
+                artifact-repository ${CIRCLE_PROJECT_USERNAME}/${CIRCLE_PROJECT_REPONAME} \
+                artifact-commit $ARTIFACT_COMMIT \
+                dso-rlsecure-token $DSO_RLSECURE_TOKEN \
+                aws-arn $AWS_ARN
+    context:
+      - static-analysis
 
 # Invoke jobs via workflows
 # See: https://circleci.com/docs/2.0/configuration-reference/#workflows
