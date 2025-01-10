@@ -36,6 +36,8 @@ jobs:
           at: .
 
   execute-reversinglabs-scan:
+    docker:
+      - image: cimg/go:1.21.13
     steps:
       - run:
           name: Call orb job with environment variables to execute ReversingLabs Malware Scan
