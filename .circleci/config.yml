@@ -46,7 +46,7 @@ jobs:
             echo "export ARTIFACT_COMMIT=$(echo "${CIRCLE_SHA1}")" >> "$BASH_ENV"
             echo "export ARTIFACT_NAME=$(echo "${CIRCLE_PROJECT_REPONAME}")" >> "$BASH_ENV"
             REPO=${CIRCLE_PROJECT_USERNAME}/${CIRCLE_PROJECT_REPONAME}
-            echo "export ARTIFACT_REPO=$(echo "${REPO}")" >> "$BASH_ENV"
+            echo "export ARTIFACT_REPOSITORY=$(echo "${REPO}")" >> "$BASH_ENV"
             echo "export DSO_RLSECURE_TOKEN=$(echo "${DSO_RLSECURE_TOKEN}")" >> "$BASH_ENV"
             echo "export AWS_ARN=$(echo "${AWS_ARN}")" >> "$BASH_ENV"
             source "$BASH_ENV"
@@ -55,7 +55,7 @@ jobs:
             artifact-dir: ${ARTIFACT_DIR}
             artifact-name: ${ARTIFACT_NAME}
             artifact-version: $ARTIFACT_COMMIT
-            artifact-repository: $ARTIFACT_REPO
+            artifact-repository: $ARTIFACT_REPOSITORY
             artifact-commit: $ARTIFACT_COMMIT
             dso-rlsecure-token: $DSO_RLSECURE_TOKEN
             aws-arn: $AWS_ARN
