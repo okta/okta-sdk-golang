@@ -38,6 +38,11 @@ jobs:
             echo "export ARTIFACT_COMMIT=$(echo "${CIRCLE_SHA1}")" >> "$BASH_ENV"
             echo "export DSO_RLSECURE_TOKEN=$(echo "${DSO_RLSECURE_TOKEN}")" >> "$BASH_ENV"
             echo "export AWS_ARN=$(echo "${AWS_ARN}")" >> "$BASH_ENV"
+      - run:
+          name: Print env vars
+          command: |
+            echo $ARTIFACT_COMMIT
+            echo $AWS_ARN
       - attach_workspace:
           at: .
 # Invoke jobs via workflows
@@ -68,6 +73,6 @@ workflows:
           aws-arn: $AWS_ARN
           context:
             - static-analysis
-          #requires: [ build-binaries ]
+          requires: [ build-binaries ]
 
 # VS Code Extension Version: 1.4.0
