@@ -36,9 +36,9 @@ jobs:
           at: .
 
   execute-reversinglabs-scan:
-    name: Call orb job with environment variables to execute ReversingLabs Malware Scan
     steps:
       - run:
+          name: Call orb job with environment variables to execute ReversingLabs Malware Scan
           command: |
             circleci orb execute platform-helpers/job-reversinglabs-scan \
                 artifact-dir ${CIRCLE_WORKING_DIRECTORY/#\~/$HOME} \
