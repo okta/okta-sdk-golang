@@ -53,10 +53,15 @@ workflows:
     jobs:
       - build-binaries
       - platform-helpers/job-reversinglabs-scan:
-#          dso-rlsecure-token: ${DSO_RLSECURE_TOKEN}
-#          aws-arn: $AWS_ARN
+          artifact-dir: ${CIRCLE_WORKING_DIRECTORY/#\~/$HOME}
+          artifact-name: ${CIRCLE_PROJECT_REPONAME}
+          artifact-version: ${CIRCLE_SHA1}
+          artifact-repository: ${CIRCLE_PROJECT_USERNAME}/${CIRCLE_PROJECT_REPONAME}
+          artifact-commit: << pipeline.parmaeters.CIRCLE_SHA1 >>
+          dso-rlsecure-token: ${DSO_RLSECURE_TOKEN}
+          aws-arn: $AWS_ARN
           context:
             - static-analysis
-          requires: [ build-binaries ] #
+          requires: [ build-binaries ]
 
 # VS Code Extension Version: 1.4.0
