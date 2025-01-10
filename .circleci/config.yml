@@ -57,7 +57,7 @@ workflows:
           artifact-name: ${CIRCLE_PROJECT_REPONAME}
           artifact-version: ${CIRCLE_SHA1}
           artifact-repository: ${CIRCLE_PROJECT_USERNAME}/${CIRCLE_PROJECT_REPONAME}
-          artifact-commit: << pipeline.parameters.CIRCLE_SHA1 >>
+          artifact-commit: ${CIRCLE_SHA1}
           dso-rlsecure-token: ${DSO_RLSECURE_TOKEN}
           aws-arn: $AWS_ARN
           context:
