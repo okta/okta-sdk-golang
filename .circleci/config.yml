@@ -55,9 +55,9 @@ workflows:
       - platform-helpers/job-reversinglabs-scan:
           artifact-dir: ${CIRCLE_WORKING_DIRECTORY/#\~/$HOME}
           artifact-name: ${CIRCLE_PROJECT_REPONAME}
-          artifact-version: ${CIRCLE_SHA1}
-          artifact-repository: ${CIRCLE_PROJECT_USERNAME}/${CIRCLE_PROJECT_REPONAME}
-          artifact-commit: ${CIRCLE_SHA1}
+          artifact-version: $CIRCLE_SHA1
+          artifact-repository: $CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME
+          artifact-commit: $CIRCLE_SHA1
           dso-rlsecure-token: ${DSO_RLSECURE_TOKEN}
           aws-arn: $AWS_ARN
           context:
