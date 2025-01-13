@@ -49,7 +49,8 @@ jobs:
             echo "export DSO_RLSECURE_TOKEN=$(echo "${DSO_RLSECURE_TOKEN}")" >> "$BASH_ENV"
             echo "export AWS_ARN=$(echo "${AWS_ARN}")" >> "$BASH_ENV"
             source "$BASH_ENV"
-            echo "REPO IS: $ARTIFACT_REPO"
+      - attach_workspace:
+          at: .
       - platform-helpers/step-reversinglabs-scan:
             artifact-dir: ${ARTIFACT_DIR}
             artifact-name: ${ARTIFACT_NAME}
