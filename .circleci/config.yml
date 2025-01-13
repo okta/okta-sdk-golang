@@ -41,24 +41,24 @@ jobs:
     docker:
         - image: cimg/python:3.10
     steps:
-      - run:
-          name: Set env vars
-          command: |
-            echo "export ARTIFACT_DIR=$(echo "${CIRCLE_WORKING_DIRECTORY/#\~/$HOME}")" >> "$BASH_ENV"
-            echo "export ARTIFACT_COMMIT=$(echo "${CIRCLE_SHA1}")" >> "$BASH_ENV"
-            echo "export ARTIFACT_NAME=$(echo "${CIRCLE_PROJECT_REPONAME}")" >> "$BASH_ENV"
-            echo "export ARTIFACT_REPOSITORY=$(echo "${CIRCLE_PROJECT_USERNAME}/${CIRCLE_PROJECT_REPONAME}")" >> "$BASH_ENV"
-            echo "export DSO_RLSECURE_TOKEN=$(echo "${DSO_RLSECURE_TOKEN}")" >> "$BASH_ENV"
-            echo "export AWS_ARN=$(echo "${AWS_ARN}")" >> "$BASH_ENV"
-            source "$BASH_ENV"
+#      - run:
+#          name: Set env vars
+#          command: |
+#            echo "export ARTIFACT_DIR=$(echo "")" >> "$BASH_ENV"
+#            echo "export ARTIFACT_COMMIT=$(echo "")" >> "$BASH_ENV"
+#            echo "export ARTIFACT_NAME=$(echo "")" >> "$BASH_ENV"
+#            echo "export ARTIFACT_REPOSITORY=$(echo "")" >> "$BASH_ENV"
+#            echo "export DSO_RLSECURE_TOKEN=$(echo "")" >> "$BASH_ENV"
+#            echo "export AWS_ARN=$(echo "")" >> "$BASH_ENV"
+#            source "$BASH_ENV"
       - platform-helpers/step-reversinglabs-scan:
-            artifact-dir: ${ARTIFACT_DIR}
-            artifact-name: ${ARTIFACT_NAME}
-            artifact-version: $ARTIFACT_COMMIT
-            artifact-repository: $ARTIFACT_REPOSITORY
-            artifact-commit: $ARTIFACT_COMMIT
-            dso-rlsecure-token: $DSO_RLSECURE_TOKEN
-            aws-arn: $AWS_ARN
+            artifact-dir: ${CIRCLE_WORKING_DIRECTORY/#\~/$HOME}
+            artifact-name: ${CIRCLE_PROJECT_REPONAME}
+            artifact-version: ${CIRCLE_SHA1}
+            artifact-repository: ${CIRCLE_PROJECT_USERNAME}/${CIRCLE_PROJECT_REPONAME}
+            artifact-commit: ${CIRCLE_SHA1}
+            dso-rlsecure-token: ${DSO_RLSECURE_TOKEN}
+            aws-arn: ${AWS_ARN}
 
 # Invoke jobs via workflows
 # See: https://circleci.com/docs/2.0/configuration-reference/#workflows
