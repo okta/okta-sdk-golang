@@ -41,16 +41,16 @@ jobs:
     docker:
         - image: cimg/python:3.10
     steps:
-#      - run:
-#          name: Set env vars
-#          command: |
+      - run:
+          name: Set env vars
+          command: |
 #            echo "export ARTIFACT_DIR=$(echo "")" >> "$BASH_ENV"
 #            echo "export ARTIFACT_COMMIT=$(echo "")" >> "$BASH_ENV"
 #            echo "export ARTIFACT_NAME=$(echo "")" >> "$BASH_ENV"
 #            echo "export ARTIFACT_REPOSITORY=$(echo "")" >> "$BASH_ENV"
-#            echo "export DSO_RLSECURE_TOKEN=$(echo "")" >> "$BASH_ENV"
-#            echo "export AWS_ARN=$(echo "")" >> "$BASH_ENV"
-#            source "$BASH_ENV"
+            echo "export DSO_RLSECURE_TOKEN=$(echo "")" >> "$BASH_ENV"
+            echo "export AWS_ARN=$(echo "")" >> "$BASH_ENV"
+            source "$BASH_ENV"
       - platform-helpers/step-reversinglabs-scan:
             artifact-dir: ${CIRCLE_WORKING_DIRECTORY/#\~/$HOME}
             artifact-name: ${CIRCLE_PROJECT_REPONAME}
