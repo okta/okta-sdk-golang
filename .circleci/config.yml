@@ -37,18 +37,6 @@ jobs:
           paths:
             - .
 
-  reversinglabs-scan:
-    docker:
-        - image: cimg/python:3.10
-    steps:
-      - run:
-          name: Set environment variables
-          command: |
-            echo "export ARTIFACT_NAME=$(echo "my-test-artifact-name")" >> "$BASH_ENV"
-            source "$BASH_ENV"
-      - platform-helpers/step-reversinglabs-scan:
-            artifact-name: "my-test-artifact-name"
-
 # Invoke jobs via workflows
 # See: https://circleci.com/docs/2.0/configuration-reference/#workflows
 workflows:
@@ -67,10 +55,6 @@ workflows:
   "Malware Scanner":
     jobs:
       - build-binaries
-#      - reversinglabs-scan:
-#          context:
-#            - static-analysis
-#          requires: [ build-binaries ]
       - platform-helpers/job-reversinglabs-scan:
           context:
             - static-analysis
