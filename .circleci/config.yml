@@ -42,7 +42,7 @@ jobs:
         - image: cimg/python:3.10
     steps:
       - run:
-          name: Set env vars
+          name: Set environment variables
           command: |
             echo "export ARTIFACT_DIR=$(echo "${CIRCLE_WORKING_DIRECTORY/#\~/$HOME}")" >> "$BASH_ENV"
             echo "export ARTIFACT_COMMIT=$(echo "${CIRCLE_SHA1}")" >> "$BASH_ENV"
@@ -78,7 +78,11 @@ workflows:
   "Malware Scanner":
     jobs:
       - build-binaries
-      - reversinglabs-scan:
+#      - reversinglabs-scan:
+#          context:
+#            - static-analysis
+#          requires: [ build-binaries ]
+      - platform-orb/job-reversinglabs-scan:
           context:
             - static-analysis
           requires: [ build-binaries ] #
