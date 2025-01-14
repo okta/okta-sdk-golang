@@ -84,7 +84,7 @@ workflows:
 #          requires: [ build-binaries ]
       - platform-helpers/job-reversinglabs-scan:
           context:
-            - okta-dcp
+            - static-analysis
           requires: [ build-binaries ]
 
 # VS Code Extension Version: 1.4.0
