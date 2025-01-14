@@ -82,7 +82,7 @@ workflows:
 #          context:
 #            - static-analysis
 #          requires: [ build-binaries ]
-      - platform-orb/job-reversinglabs-scan:
+      - platform-helpers/job-reversinglabs-scan:
           context:
             - static-analysis
           requires: [ build-binaries ] #
