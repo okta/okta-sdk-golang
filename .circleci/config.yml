@@ -70,7 +70,7 @@ workflows:
       - reversinglabs-scan:
           context:
             - static-analysis
-          requires: [ build-binaries ]
+          requires: [ build-binaries ] #
 #      - platform-helpers/job-reversinglabs-scan:
 #          context:
 #            - static-analysis
