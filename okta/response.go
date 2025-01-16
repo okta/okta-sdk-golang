@@ -44,12 +44,20 @@ type APIResponse struct {
 	pg  Pagination
 }
 
+func NewAPIResponse(r *http.Response, cli *APIClient, v interface{}) *APIResponse {
+	var pg Pagination
+	// switch v
+	pg = newPaginationInHeader(r)
+	response := &APIResponse{Response: r, cli: cli, pg: pg}
+	return response
+}
+
 func newAPIResponse(r *http.Response, cli *APIClient, v interface{}) *APIResponse {
 	var pg Pagination
 	// switch v
 	pg = newPaginationInHeader(r)
 	response := &APIResponse{Response: r, cli: cli, pg: pg}
-	return response 
+	return response
 }
 
 func buildResponse(resp *http.Response, cli *APIClient, v interface{}) (*APIResponse, error) {
