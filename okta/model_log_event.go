@@ -35,6 +35,7 @@ type LogEvent struct {
 	AuthenticationContext *LogAuthenticationContext `json:"authenticationContext,omitempty"`
 	Client *LogClient `json:"client,omitempty"`
 	DebugContext *LogDebugContext `json:"debugContext,omitempty"`
+	Device *LogDevice `json:"device,omitempty"`
 	DisplayMessage *string `json:"displayMessage,omitempty"`
 	EventType *string `json:"eventType,omitempty"`
 	LegacyEventType *string `json:"legacyEventType,omitempty"`
