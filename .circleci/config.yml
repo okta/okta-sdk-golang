@@ -3,7 +3,7 @@
 version: 2.1
 
 orbs:
-  platform-orb: okta/general-platform-helpers@1.9
+  general-platform-helpers: okta/general-platform-helpers@1.9.4
   python: circleci/python@2.0.3
   aws-cli: circleci/aws-cli@5.1
 
@@ -16,16 +16,27 @@ jobs:
     steps:
       - checkout
       - run: go version
-      - platform-orb/step-load-dependencies
+      - general-platform-helpers/step-load-dependencies
       - run:
           name: "test stage"
           command: make test
+
+  snyk-scan:
+    docker:
+      - image: cimg/go:1.19.4
+    steps:
+      - checkout
+      - general-platform-helpers/step-load-dependencies
+      - general-platform-helpers/step-run-snyk-monitor:
+          scan-all-projects: false
+          skip-unresolved: false
+          run-on-non-main: true
 
   reversing-labs:
     docker:
       - image: cimg/go:1.21.13
     steps:
-      - checkout 
+      - checkout
       - run:
           name: Install Python
           command: |
@@ -71,11 +82,15 @@ workflows:
   "Circle CI Tests":
     jobs:
       - test-v4
+      - snyk-scan:
+          name: execute-snyk
+          context:
+            - static-analysis
   # See OKTA-624790
   # See OKTA-729389
   semgrep:
     jobs:
-      - platform-orb/job-semgrep-scan:
+      - general-platform-helpers/job-semgrep-scan:
           name: "Scan with Semgrep"
           resource-class: "medium"
           context:
@@ -85,5 +100,4 @@ workflows:
       - reversing-labs:
           context:
             - static-analysis
-
 # VS Code Extension Version: 1.4.0
