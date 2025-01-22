@@ -13,7 +13,7 @@ type LogDevice struct {
 	DeviceIntegrator      *string `json:"device_integrator"`
 	DiskEncryptionType    *string `json:"disk_encryption_type"`
 	ScreenLockType        *string `json:"screen_lock_type"`
-	Jailbreak             *string `json:"jailbreak"`
+	Jailbreak             *bool   `json:"jailbreak"`
 	SecureHardwarePresent *bool   `json:"secure_hardware_present"`
 	AdditionalProperties  map[string]interface{}
 }
