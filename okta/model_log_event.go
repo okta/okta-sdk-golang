@@ -197,6 +197,38 @@ func (o *LogEvent) SetDebugContext(v LogDebugContext) {
 	o.DebugContext = &v
 }
 
+// GetDevice returns the Device field value if set, zero value otherwise.
+func (o *LogEvent) GetDevice() LogDevice {
+	if o == nil || o.Device == nil {
+		var ret LogDevice
+		return ret
+	}
+	return *o.Device
+}
+
+// GetDeviceOk returns a tuple with the Device field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *LogEvent) GetDeviceOk() (*LogDevice, bool) {
+	if o == nil || o.Device == nil {
+		return nil, false
+	}
+	return o.Device, true
+}
+
+// HasDevice returns a boolean if a field has been set.
+func (o *LogEvent) HasDevice() bool {
+	if o != nil && o.Device != nil {
+		return true
+	}
+
+	return false
+}
+
+// SetDevice gets a reference to the given LogDevice and assigns it to the Device field.
+func (o *LogEvent) SetDevice(v LogDevice) {
+	o.Device = &v
+}
+
 // GetDisplayMessage returns the DisplayMessage field value if set, zero value otherwise.
 func (o *LogEvent) GetDisplayMessage() string {
 	if o == nil || o.DisplayMessage == nil {
@@ -595,6 +627,9 @@ func (o LogEvent) MarshalJSON() ([]byte, error) {
 	if o.DebugContext != nil {
 		toSerialize["debugContext"] = o.DebugContext
 	}
+	if o.Device != nil {
+		toSerialize["device"] = o.Device
+	}
 	if o.DisplayMessage != nil {
 		toSerialize["displayMessage"] = o.DisplayMessage
 	}
@@ -657,6 +692,7 @@ func (o *LogEvent) UnmarshalJSON(bytes []byte) (err error) {
 		delete(additionalProperties, "authenticationContext")
 		delete(additionalProperties, "client")
 		delete(additionalProperties, "debugContext")
+		delete(additionalProperties, "device")
 		delete(additionalProperties, "displayMessage")
 		delete(additionalProperties, "eventType")
 		delete(additionalProperties, "legacyEventType")
