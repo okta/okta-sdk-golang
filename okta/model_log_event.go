@@ -217,7 +217,7 @@ func (o *LogEvent) GetDeviceOk() (*LogDevice, bool) {
 }
 
 // HasDevice returns a boolean if a field has been set.
-func (o *LogEvent) HasDeviceContext() bool {
+func (o *LogEvent) HasDevice() bool {
 	if o != nil && o.Device != nil {
 		return true
 	}
@@ -226,7 +226,7 @@ func (o *LogEvent) HasDeviceContext() bool {
 }
 
 // SetDevice gets a reference to the given LogDevice and assigns it to the Device field.
-func (o *LogEvent) SetDeviceContext(v LogDevice) {
+func (o *LogEvent) SetDevice(v LogDevice) {
 	o.Device = &v
 }
 
