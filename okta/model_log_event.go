@@ -693,7 +693,7 @@ func (o *LogEvent) UnmarshalJSON(bytes []byte) (err error) {
 		delete(additionalProperties, "authenticationContext")
 		delete(additionalProperties, "client")
 		delete(additionalProperties, "debugContext")
-		delete(additionalProperties, "device"
+		delete(additionalProperties, "device")
 		delete(additionalProperties, "displayMessage")
 		delete(additionalProperties, "eventType")
 		delete(additionalProperties, "legacyEventType")
