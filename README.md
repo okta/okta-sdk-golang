@@ -35,14 +35,14 @@ You can learn more on the [Okta + Golang][lang-landing] page in our documentatio
 This library uses semantic versioning and follows Okta's [library version
 policy](https://developer.okta.com/code/library-versions/).
 
-| Version | Status                             |
-| ------- | ---------------------------------- |
-| 0.x     |  :warning: Beta Release (Retired)  |
-| 1.x     |  :warning: Retiring on 2021-03-04  |
-| 2.x     |  :warning: Retiring                |
-| 3.x     |  :warning: Retiring                |
-| 4.x     |  :warning: Retiring                |
-| 5.x     |  :heavy_check_mark: Release ([migration guide](MIGRATING.md)) |
+| Version | Status                                                       |
+| ------- |--------------------------------------------------------------|
+| 0.x     | :warning: Beta Release (Retired)                             |
+| 1.x     | :warning: Retired
+| 2.x     | :warning: Retired                                            |
+| 3.x     | :warning: Retired                                            |
+| 4.x     | :warning: Retiring                                           |
+| 5.x     | :heavy_check_mark: Release ([migration guide](MIGRATING.md)) |
 
 The latest release can always be found on the [releases page][github-releases].
 
@@ -71,12 +71,12 @@ To install the Okta Golang SDK in your project:
 
 ### Installing legacy version
 
-Although we do not suggest using the 1.x version of the SDK, you can still use
-it. Version 1.x is *retiring* and will not be supported past March 4, 2021. It
-will likely remain working after that date, but you should make a plan to
-migrate to the new 2.x version.
+Although we do not suggest using the 2.x, 3.x, and 4.x version of the SDK, you can still use
+it. The earlier versions are either retired or in an unsupported state. It
+will likely remain working currently, but you should make a plan to
+migrate to the new 5.x version.
 
-You can install v1 of the SDK by running `go get
+You can install the latest version of the SDK by running `go get
 github.com/okta/okta-sdk-golang@latest` and import the package in your project
 with `import "github.com/okta/okta-sdk-golang"`
 
@@ -631,18 +631,18 @@ re := client.CloneRequestExecutor()
 ```
 
 Doing this will provide you with the ability to create your own requests for
-the Okta API and call the `Do` method that handles all of the headers for you
+the Okta API and call the `Do` method that handles all the headers for you
 based on the configuration.
 
 ## Configuration reference
 
 This library looks for configuration in the following sources:
 
-0. An `okta.yaml` file in a `.okta` folder in the current user's home directory
+1. An `okta.yaml` file in a `.okta` folder in the current user's home directory
    (`~/.okta/okta.yaml` or `%userprofile\.okta\okta.yaml`)
-0. A `.okta.yaml` file in the application or project's root directory
-0. Environment variables
-0. Configuration explicitly passed to the constructor (see the example in
+2. A `.okta.yaml` file in the application or project's root directory
+3. Environment variables
+4. Configuration explicitly passed to the constructor (see the example in
    [Getting started](#getting-started))
 
 Higher numbers win. In other words, configuration passed via the constructor
@@ -790,12 +790,12 @@ This SDK supports this feature only for service-to-service applications. Check
 out [our
 guides](https://developer.okta.com/docs/guides/implement-oauth-for-okta/overview/)
 to learn more about how to register a new service application using a private
-and public key pair. 
+and public key pair.
 
-Key pairs can only be used to manage certain Okta endpoints, using the scopes listed 
-[here](https://developer.okta.com/docs/guides/implement-oauth-for-okta/main/#scopes-and-supported-endpoints). 
+Key pairs can only be used to manage certain Okta endpoints, using the scopes listed
+[here](https://developer.okta.com/docs/guides/implement-oauth-for-okta/main/#scopes-and-supported-endpoints).
 To manage Okta endpoints that are not listed
-[here](https://developer.okta.com/docs/guides/implement-oauth-for-okta/main/#scopes-and-supported-endpoints), 
+[here](https://developer.okta.com/docs/guides/implement-oauth-for-okta/main/#scopes-and-supported-endpoints),
 an API Token belonging to a user with appropriate permissions must be used instead.
 
 When using a keypair, you won't need an API Token because the SDK will
