@@ -754,12 +754,6 @@ The Okta Client's base configuration starts at
 | WithRateLimitMaxRetries(2) |
 | WithAuthorizationMode("SSWS") |
 
-## Upgrading to 2.0.x
-
-The main purpose of this version is to include all documented,
-`application/json` content-type endpoints to the SDK. During this update we
-have made many changes to method names, as well as method signatures.
-
 ### Context
 
 Every method that calls the API now has the ability to pass `context.Context`
