@@ -37,22 +37,22 @@ Activate a Group Rule
 package main
 
 import (
-	"context"
-	"fmt"
-	"os"
-	openapiclient "github.com/okta/okta-sdk-golang"
+    "context"
+    "fmt"
+    "os"
+    openapiclient "github.com/okta/okta-sdk-golang"
 )
 
 func main() {
-	groupRuleId := "0pr3f7zMZZHPgUoWO0g4" // string | The `id` of the group rule
+    groupRuleId := "0pr3f7zMZZHPgUoWO0g4" // string | The `id` of the group rule
 
-	configuration := openapiclient.NewConfiguration()
-	apiClient := openapiclient.NewAPIClient(configuration)
-	r, err := apiClient.GroupAPI.ActivateGroupRule(context.Background(), groupRuleId).Execute()
-	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `GroupAPI.ActivateGroupRule``: %v\n", err)
-		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-	}
+    configuration := openapiclient.NewConfiguration()
+    apiClient := openapiclient.NewAPIClient(configuration)
+    r, err := apiClient.GroupAPI.ActivateGroupRule(context.Background(), groupRuleId).Execute()
+    if err != nil {
+        fmt.Fprintf(os.Stderr, "Error when calling `GroupAPI.ActivateGroupRule``: %v\n", err)
+        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+    }
 }
 ```
 
@@ -105,23 +105,23 @@ Assign a User
 package main
 
 import (
-	"context"
-	"fmt"
-	"os"
-	openapiclient "github.com/okta/okta-sdk-golang"
+    "context"
+    "fmt"
+    "os"
+    openapiclient "github.com/okta/okta-sdk-golang"
 )
 
 func main() {
-	groupId := "00g1emaKYZTWRYYRRTSK" // string | The `id` of the group
-	userId := "userId_example" // string | ID of an existing Okta user
+    groupId := "00g1emaKYZTWRYYRRTSK" // string | The `id` of the group
+    userId := "userId_example" // string | ID of an existing Okta user
 
-	configuration := openapiclient.NewConfiguration()
-	apiClient := openapiclient.NewAPIClient(configuration)
-	r, err := apiClient.GroupAPI.AssignUserToGroup(context.Background(), groupId, userId).Execute()
-	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `GroupAPI.AssignUserToGroup``: %v\n", err)
-		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-	}
+    configuration := openapiclient.NewConfiguration()
+    apiClient := openapiclient.NewAPIClient(configuration)
+    r, err := apiClient.GroupAPI.AssignUserToGroup(context.Background(), groupId, userId).Execute()
+    if err != nil {
+        fmt.Fprintf(os.Stderr, "Error when calling `GroupAPI.AssignUserToGroup``: %v\n", err)
+        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+    }
 }
 ```
 
@@ -176,24 +176,24 @@ Create a Group
 package main
 
 import (
-	"context"
-	"fmt"
-	"os"
-	openapiclient "github.com/okta/okta-sdk-golang"
+    "context"
+    "fmt"
+    "os"
+    openapiclient "github.com/okta/okta-sdk-golang"
 )
 
 func main() {
-	group := *openapiclient.NewGroup() // Group | 
+    group := *openapiclient.NewGroup() // Group | 
 
-	configuration := openapiclient.NewConfiguration()
-	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.GroupAPI.CreateGroup(context.Background()).Group(group).Execute()
-	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `GroupAPI.CreateGroup``: %v\n", err)
-		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-	}
-	// response from `CreateGroup`: Group
-	fmt.Fprintf(os.Stdout, "Response from `GroupAPI.CreateGroup`: %v\n", resp)
+    configuration := openapiclient.NewConfiguration()
+    apiClient := openapiclient.NewAPIClient(configuration)
+    resp, r, err := apiClient.GroupAPI.CreateGroup(context.Background()).Group(group).Execute()
+    if err != nil {
+        fmt.Fprintf(os.Stderr, "Error when calling `GroupAPI.CreateGroup``: %v\n", err)
+        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+    }
+    // response from `CreateGroup`: Group
+    fmt.Fprintf(os.Stdout, "Response from `GroupAPI.CreateGroup`: %v\n", resp)
 }
 ```
 
@@ -242,24 +242,24 @@ Create a Group Rule
 package main
 
 import (
-	"context"
-	"fmt"
-	"os"
-	openapiclient "github.com/okta/okta-sdk-golang"
+    "context"
+    "fmt"
+    "os"
+    openapiclient "github.com/okta/okta-sdk-golang"
 )
 
 func main() {
-	groupRule := *openapiclient.NewGroupRule() // GroupRule | 
+    groupRule := *openapiclient.NewGroupRule() // GroupRule | 
 
-	configuration := openapiclient.NewConfiguration()
-	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.GroupAPI.CreateGroupRule(context.Background()).GroupRule(groupRule).Execute()
-	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `GroupAPI.CreateGroupRule``: %v\n", err)
-		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-	}
-	// response from `CreateGroupRule`: GroupRule
-	fmt.Fprintf(os.Stdout, "Response from `GroupAPI.CreateGroupRule`: %v\n", resp)
+    configuration := openapiclient.NewConfiguration()
+    apiClient := openapiclient.NewAPIClient(configuration)
+    resp, r, err := apiClient.GroupAPI.CreateGroupRule(context.Background()).GroupRule(groupRule).Execute()
+    if err != nil {
+        fmt.Fprintf(os.Stderr, "Error when calling `GroupAPI.CreateGroupRule``: %v\n", err)
+        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+    }
+    // response from `CreateGroupRule`: GroupRule
+    fmt.Fprintf(os.Stdout, "Response from `GroupAPI.CreateGroupRule`: %v\n", resp)
 }
 ```
 
@@ -308,22 +308,22 @@ Deactivate a Group Rule
 package main
 
 import (
-	"context"
-	"fmt"
-	"os"
-	openapiclient "github.com/okta/okta-sdk-golang"
+    "context"
+    "fmt"
+    "os"
+    openapiclient "github.com/okta/okta-sdk-golang"
 )
 
 func main() {
-	groupRuleId := "0pr3f7zMZZHPgUoWO0g4" // string | The `id` of the group rule
+    groupRuleId := "0pr3f7zMZZHPgUoWO0g4" // string | The `id` of the group rule
 
-	configuration := openapiclient.NewConfiguration()
-	apiClient := openapiclient.NewAPIClient(configuration)
-	r, err := apiClient.GroupAPI.DeactivateGroupRule(context.Background(), groupRuleId).Execute()
-	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `GroupAPI.DeactivateGroupRule``: %v\n", err)
-		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-	}
+    configuration := openapiclient.NewConfiguration()
+    apiClient := openapiclient.NewAPIClient(configuration)
+    r, err := apiClient.GroupAPI.DeactivateGroupRule(context.Background(), groupRuleId).Execute()
+    if err != nil {
+        fmt.Fprintf(os.Stderr, "Error when calling `GroupAPI.DeactivateGroupRule``: %v\n", err)
+        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+    }
 }
 ```
 
@@ -376,22 +376,22 @@ Delete a Group
 package main
 
 import (
-	"context"
-	"fmt"
-	"os"
-	openapiclient "github.com/okta/okta-sdk-golang"
+    "context"
+    "fmt"
+    "os"
+    openapiclient "github.com/okta/okta-sdk-golang"
 )
 
 func main() {
-	groupId := "00g1emaKYZTWRYYRRTSK" // string | The `id` of the group
+    groupId := "00g1emaKYZTWRYYRRTSK" // string | The `id` of the group
 
-	configuration := openapiclient.NewConfiguration()
-	apiClient := openapiclient.NewAPIClient(configuration)
-	r, err := apiClient.GroupAPI.DeleteGroup(context.Background(), groupId).Execute()
-	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `GroupAPI.DeleteGroup``: %v\n", err)
-		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-	}
+    configuration := openapiclient.NewConfiguration()
+    apiClient := openapiclient.NewAPIClient(configuration)
+    r, err := apiClient.GroupAPI.DeleteGroup(context.Background(), groupId).Execute()
+    if err != nil {
+        fmt.Fprintf(os.Stderr, "Error when calling `GroupAPI.DeleteGroup``: %v\n", err)
+        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+    }
 }
 ```
 
@@ -444,23 +444,23 @@ Delete a group Rule
 package main
 
 import (
-	"context"
-	"fmt"
-	"os"
-	openapiclient "github.com/okta/okta-sdk-golang"
+    "context"
+    "fmt"
+    "os"
+    openapiclient "github.com/okta/okta-sdk-golang"
 )
 
 func main() {
-	groupRuleId := "0pr3f7zMZZHPgUoWO0g4" // string | The `id` of the group rule
-	removeUsers := true // bool | Indicates whether to keep or remove users from groups assigned by this rule. (optional)
+    groupRuleId := "0pr3f7zMZZHPgUoWO0g4" // string | The `id` of the group rule
+    removeUsers := true // bool | Indicates whether to keep or remove users from groups assigned by this rule. (optional)
 
-	configuration := openapiclient.NewConfiguration()
-	apiClient := openapiclient.NewAPIClient(configuration)
-	r, err := apiClient.GroupAPI.DeleteGroupRule(context.Background(), groupRuleId).RemoveUsers(removeUsers).Execute()
-	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `GroupAPI.DeleteGroupRule``: %v\n", err)
-		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-	}
+    configuration := openapiclient.NewConfiguration()
+    apiClient := openapiclient.NewAPIClient(configuration)
+    r, err := apiClient.GroupAPI.DeleteGroupRule(context.Background(), groupRuleId).RemoveUsers(removeUsers).Execute()
+    if err != nil {
+        fmt.Fprintf(os.Stderr, "Error when calling `GroupAPI.DeleteGroupRule``: %v\n", err)
+        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+    }
 }
 ```
 
@@ -514,24 +514,24 @@ Retrieve a Group
 package main
 
 import (
-	"context"
-	"fmt"
-	"os"
-	openapiclient "github.com/okta/okta-sdk-golang"
+    "context"
+    "fmt"
+    "os"
+    openapiclient "github.com/okta/okta-sdk-golang"
 )
 
 func main() {
-	groupId := "00g1emaKYZTWRYYRRTSK" // string | The `id` of the group
+    groupId := "00g1emaKYZTWRYYRRTSK" // string | The `id` of the group
 
-	configuration := openapiclient.NewConfiguration()
-	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.GroupAPI.GetGroup(context.Background(), groupId).Execute()
-	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `GroupAPI.GetGroup``: %v\n", err)
-		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-	}
-	// response from `GetGroup`: Group
-	fmt.Fprintf(os.Stdout, "Response from `GroupAPI.GetGroup`: %v\n", resp)
+    configuration := openapiclient.NewConfiguration()
+    apiClient := openapiclient.NewAPIClient(configuration)
+    resp, r, err := apiClient.GroupAPI.GetGroup(context.Background(), groupId).Execute()
+    if err != nil {
+        fmt.Fprintf(os.Stderr, "Error when calling `GroupAPI.GetGroup``: %v\n", err)
+        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+    }
+    // response from `GetGroup`: Group
+    fmt.Fprintf(os.Stdout, "Response from `GroupAPI.GetGroup`: %v\n", resp)
 }
 ```
 
@@ -584,25 +584,25 @@ Retrieve a Group Rule
 package main
 
 import (
-	"context"
-	"fmt"
-	"os"
-	openapiclient "github.com/okta/okta-sdk-golang"
+    "context"
+    "fmt"
+    "os"
+    openapiclient "github.com/okta/okta-sdk-golang"
 )
 
 func main() {
-	groupRuleId := "0pr3f7zMZZHPgUoWO0g4" // string | The `id` of the group rule
-	expand := "expand_example" // string |  (optional)
+    groupRuleId := "0pr3f7zMZZHPgUoWO0g4" // string | The `id` of the group rule
+    expand := "expand_example" // string |  (optional)
 
-	configuration := openapiclient.NewConfiguration()
-	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.GroupAPI.GetGroupRule(context.Background(), groupRuleId).Expand(expand).Execute()
-	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `GroupAPI.GetGroupRule``: %v\n", err)
-		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-	}
-	// response from `GetGroupRule`: GroupRule
-	fmt.Fprintf(os.Stdout, "Response from `GroupAPI.GetGroupRule`: %v\n", resp)
+    configuration := openapiclient.NewConfiguration()
+    apiClient := openapiclient.NewAPIClient(configuration)
+    resp, r, err := apiClient.GroupAPI.GetGroupRule(context.Background(), groupRuleId).Expand(expand).Execute()
+    if err != nil {
+        fmt.Fprintf(os.Stderr, "Error when calling `GroupAPI.GetGroupRule``: %v\n", err)
+        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+    }
+    // response from `GetGroupRule`: GroupRule
+    fmt.Fprintf(os.Stdout, "Response from `GroupAPI.GetGroupRule`: %v\n", resp)
 }
 ```
 
@@ -656,26 +656,26 @@ List all Assigned Applications
 package main
 
 import (
-	"context"
-	"fmt"
-	"os"
-	openapiclient "github.com/okta/okta-sdk-golang"
+    "context"
+    "fmt"
+    "os"
+    openapiclient "github.com/okta/okta-sdk-golang"
 )
 
 func main() {
-	groupId := "00g1emaKYZTWRYYRRTSK" // string | The `id` of the group
-	after := "after_example" // string | Specifies the pagination cursor for the next page of apps (optional)
-	limit := int32(56) // int32 | Specifies the number of app results for a page (optional) (default to 20)
+    groupId := "00g1emaKYZTWRYYRRTSK" // string | The `id` of the group
+    after := "after_example" // string | Specifies the pagination cursor for the next page of apps (optional)
+    limit := int32(56) // int32 | Specifies the number of app results for a page (optional) (default to 20)
 
-	configuration := openapiclient.NewConfiguration()
-	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.GroupAPI.ListAssignedApplicationsForGroup(context.Background(), groupId).After(after).Limit(limit).Execute()
-	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `GroupAPI.ListAssignedApplicationsForGroup``: %v\n", err)
-		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-	}
-	// response from `ListAssignedApplicationsForGroup`: []ListApplications200ResponseInner
-	fmt.Fprintf(os.Stdout, "Response from `GroupAPI.ListAssignedApplicationsForGroup`: %v\n", resp)
+    configuration := openapiclient.NewConfiguration()
+    apiClient := openapiclient.NewAPIClient(configuration)
+    resp, r, err := apiClient.GroupAPI.ListAssignedApplicationsForGroup(context.Background(), groupId).After(after).Limit(limit).Execute()
+    if err != nil {
+        fmt.Fprintf(os.Stderr, "Error when calling `GroupAPI.ListAssignedApplicationsForGroup``: %v\n", err)
+        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+    }
+    // response from `ListAssignedApplicationsForGroup`: []ListApplications200ResponseInner
+    fmt.Fprintf(os.Stdout, "Response from `GroupAPI.ListAssignedApplicationsForGroup`: %v\n", resp)
 }
 ```
 
@@ -730,27 +730,27 @@ List all Group Rules
 package main
 
 import (
-	"context"
-	"fmt"
-	"os"
-	openapiclient "github.com/okta/okta-sdk-golang"
+    "context"
+    "fmt"
+    "os"
+    openapiclient "github.com/okta/okta-sdk-golang"
 )
 
 func main() {
-	limit := int32(56) // int32 | Specifies the number of rule results in a page (optional) (default to 50)
-	after := "after_example" // string | Specifies the pagination cursor for the next page of rules (optional)
-	search := "search_example" // string | Specifies the keyword to search fules for (optional)
-	expand := "expand_example" // string | If specified as `groupIdToGroupNameMap`, then show group names (optional)
+    limit := int32(56) // int32 | Specifies the number of rule results in a page (optional) (default to 50)
+    after := "after_example" // string | Specifies the pagination cursor for the next page of rules (optional)
+    search := "search_example" // string | Specifies the keyword to search fules for (optional)
+    expand := "expand_example" // string | If specified as `groupIdToGroupNameMap`, then show group names (optional)
 
-	configuration := openapiclient.NewConfiguration()
-	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.GroupAPI.ListGroupRules(context.Background()).Limit(limit).After(after).Search(search).Expand(expand).Execute()
-	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `GroupAPI.ListGroupRules``: %v\n", err)
-		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-	}
-	// response from `ListGroupRules`: []GroupRule
-	fmt.Fprintf(os.Stdout, "Response from `GroupAPI.ListGroupRules`: %v\n", resp)
+    configuration := openapiclient.NewConfiguration()
+    apiClient := openapiclient.NewAPIClient(configuration)
+    resp, r, err := apiClient.GroupAPI.ListGroupRules(context.Background()).Limit(limit).After(after).Search(search).Expand(expand).Execute()
+    if err != nil {
+        fmt.Fprintf(os.Stderr, "Error when calling `GroupAPI.ListGroupRules``: %v\n", err)
+        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+    }
+    // response from `ListGroupRules`: []GroupRule
+    fmt.Fprintf(os.Stdout, "Response from `GroupAPI.ListGroupRules`: %v\n", resp)
 }
 ```
 
@@ -802,29 +802,29 @@ List all Member Users
 package main
 
 import (
-	"context"
-	"fmt"
-	"os"
-	openapiclient "github.com/okta/okta-sdk-golang"
+    "context"
+    "fmt"
+    "os"
+    openapiclient "github.com/okta/okta-sdk-golang"
 )
 
 func main() {
-	groupId := "00g1emaKYZTWRYYRRTSK" // string | The `id` of the group
-	search := "search_example" // string | Searches for users with a supported filtering expression for user name, primary email, or user name (optional)
-	sortBy := "id" // string | Specifies which field to sort by. This can be any single property. (optional)
-	sortOrder := "sortOrder_example" // string | Specifies sort order: `asc` or `desc`. This parameter is ignored if `sortBy` is not present. Users with the same value for the `sortBy` parameter are ordered by `id`. (optional) (default to "asc")
-	after := "after_example" // string | The cursor to use for pagination. It is an opaque string that specifies your current location in the list and is obtained from the `Link` response header. See [Pagination](/#pagination). (optional)
-	limit := int32(56) // int32 | Specifies the number of user results in a page (optional) (default to 1000)
+    groupId := "00g1emaKYZTWRYYRRTSK" // string | The `id` of the group
+    search := "search_example" // string | Searches for users with a supported filtering expression for user name, primary email, or user name (optional)
+    sortBy := "id" // string | Specifies which field to sort by. This can be any single property. (optional)
+    sortOrder := "sortOrder_example" // string | Specifies sort order: `asc` or `desc`. This parameter is ignored if `sortBy` is not present. Users with the same value for the `sortBy` parameter are ordered by `id`. (optional) (default to "asc")
+    after := "after_example" // string | The cursor to use for pagination. It is an opaque string that specifies your current location in the list and is obtained from the `Link` response header. See [Pagination](/#pagination). (optional)
+    limit := int32(56) // int32 | Specifies the number of user results in a page (optional) (default to 1000)
 
-	configuration := openapiclient.NewConfiguration()
-	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.GroupAPI.ListGroupUsers(context.Background(), groupId).Search(search).SortBy(sortBy).SortOrder(sortOrder).After(after).Limit(limit).Execute()
-	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `GroupAPI.ListGroupUsers``: %v\n", err)
-		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-	}
-	// response from `ListGroupUsers`: []GroupMember
-	fmt.Fprintf(os.Stdout, "Response from `GroupAPI.ListGroupUsers`: %v\n", resp)
+    configuration := openapiclient.NewConfiguration()
+    apiClient := openapiclient.NewAPIClient(configuration)
+    resp, r, err := apiClient.GroupAPI.ListGroupUsers(context.Background(), groupId).Search(search).SortBy(sortBy).SortOrder(sortOrder).After(after).Limit(limit).Execute()
+    if err != nil {
+        fmt.Fprintf(os.Stderr, "Error when calling `GroupAPI.ListGroupUsers``: %v\n", err)
+        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+    }
+    // response from `ListGroupUsers`: []GroupMember
+    fmt.Fprintf(os.Stdout, "Response from `GroupAPI.ListGroupUsers`: %v\n", resp)
 }
 ```
 
@@ -882,31 +882,31 @@ List all Groups
 package main
 
 import (
-	"context"
-	"fmt"
-	"os"
-	openapiclient "github.com/okta/okta-sdk-golang"
+    "context"
+    "fmt"
+    "os"
+    openapiclient "github.com/okta/okta-sdk-golang"
 )
 
 func main() {
-	q := "q_example" // string | Searches the name property of groups for matching value (optional)
-	filter := "filter_example" // string | Filter expression for groups (optional)
-	after := "after_example" // string | Specifies the pagination cursor for the next page of groups (optional)
-	limit := int32(56) // int32 | Specifies the number of group results in a page (optional) (default to 10000)
-	expand := "expand_example" // string | If specified, it causes additional metadata to be included in the response. (optional)
-	search := "search_example" // string | Searches for groups with a supported filtering expression for all attributes except for _embedded, _links, and objectClass (optional)
-	sortBy := "lastUpdated" // string | Specifies field to sort by and can be any single property (for search queries only). (optional)
-	sortOrder := "sortOrder_example" // string | Specifies sort order `asc` or `desc` (for search queries only). This parameter is ignored if `sortBy` is not present. Groups with the same value for the `sortBy` parameter are ordered by `id`. (optional) (default to "asc")
+    q := "q_example" // string | Searches the name property of groups for matching value (optional)
+    filter := "filter_example" // string | Filter expression for groups (optional)
+    after := "after_example" // string | Specifies the pagination cursor for the next page of groups (optional)
+    limit := int32(56) // int32 | Specifies the number of group results in a page (optional) (default to 10000)
+    expand := "expand_example" // string | If specified, it causes additional metadata to be included in the response. (optional)
+    search := "search_example" // string | Searches for groups with a supported filtering expression for all attributes except for _embedded, _links, and objectClass (optional)
+    sortBy := "lastUpdated" // string | Specifies field to sort by and can be any single property (for search queries only). (optional)
+    sortOrder := "sortOrder_example" // string | Specifies sort order `asc` or `desc` (for search queries only). This parameter is ignored if `sortBy` is not present. Groups with the same value for the `sortBy` parameter are ordered by `id`. (optional) (default to "asc")
 
-	configuration := openapiclient.NewConfiguration()
-	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.GroupAPI.ListGroups(context.Background()).Q(q).Filter(filter).After(after).Limit(limit).Expand(expand).Search(search).SortBy(sortBy).SortOrder(sortOrder).Execute()
-	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `GroupAPI.ListGroups``: %v\n", err)
-		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-	}
-	// response from `ListGroups`: []Group
-	fmt.Fprintf(os.Stdout, "Response from `GroupAPI.ListGroups`: %v\n", resp)
+    configuration := openapiclient.NewConfiguration()
+    apiClient := openapiclient.NewAPIClient(configuration)
+    resp, r, err := apiClient.GroupAPI.ListGroups(context.Background()).Q(q).Filter(filter).After(after).Limit(limit).Expand(expand).Search(search).SortBy(sortBy).SortOrder(sortOrder).Execute()
+    if err != nil {
+        fmt.Fprintf(os.Stderr, "Error when calling `GroupAPI.ListGroups``: %v\n", err)
+        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+    }
+    // response from `ListGroups`: []Group
+    fmt.Fprintf(os.Stdout, "Response from `GroupAPI.ListGroups`: %v\n", resp)
 }
 ```
 
@@ -962,25 +962,25 @@ Replace a Group
 package main
 
 import (
-	"context"
-	"fmt"
-	"os"
-	openapiclient "github.com/okta/okta-sdk-golang"
+    "context"
+    "fmt"
+    "os"
+    openapiclient "github.com/okta/okta-sdk-golang"
 )
 
 func main() {
-	groupId := "00g1emaKYZTWRYYRRTSK" // string | The `id` of the group
-	group := *openapiclient.NewGroup() // Group | 
+    groupId := "00g1emaKYZTWRYYRRTSK" // string | The `id` of the group
+    group := *openapiclient.NewGroup() // Group | 
 
-	configuration := openapiclient.NewConfiguration()
-	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.GroupAPI.ReplaceGroup(context.Background(), groupId).Group(group).Execute()
-	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `GroupAPI.ReplaceGroup``: %v\n", err)
-		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-	}
-	// response from `ReplaceGroup`: Group
-	fmt.Fprintf(os.Stdout, "Response from `GroupAPI.ReplaceGroup`: %v\n", resp)
+    configuration := openapiclient.NewConfiguration()
+    apiClient := openapiclient.NewAPIClient(configuration)
+    resp, r, err := apiClient.GroupAPI.ReplaceGroup(context.Background(), groupId).Group(group).Execute()
+    if err != nil {
+        fmt.Fprintf(os.Stderr, "Error when calling `GroupAPI.ReplaceGroup``: %v\n", err)
+        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+    }
+    // response from `ReplaceGroup`: Group
+    fmt.Fprintf(os.Stdout, "Response from `GroupAPI.ReplaceGroup`: %v\n", resp)
 }
 ```
 
@@ -1034,25 +1034,25 @@ Replace a Group Rule
 package main
 
 import (
-	"context"
-	"fmt"
-	"os"
-	openapiclient "github.com/okta/okta-sdk-golang"
+    "context"
+    "fmt"
+    "os"
+    openapiclient "github.com/okta/okta-sdk-golang"
 )
 
 func main() {
-	groupRuleId := "0pr3f7zMZZHPgUoWO0g4" // string | The `id` of the group rule
-	groupRule := *openapiclient.NewGroupRule() // GroupRule | 
+    groupRuleId := "0pr3f7zMZZHPgUoWO0g4" // string | The `id` of the group rule
+    groupRule := *openapiclient.NewGroupRule() // GroupRule | 
 
-	configuration := openapiclient.NewConfiguration()
-	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.GroupAPI.ReplaceGroupRule(context.Background(), groupRuleId).GroupRule(groupRule).Execute()
-	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `GroupAPI.ReplaceGroupRule``: %v\n", err)
-		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-	}
-	// response from `ReplaceGroupRule`: GroupRule
-	fmt.Fprintf(os.Stdout, "Response from `GroupAPI.ReplaceGroupRule`: %v\n", resp)
+    configuration := openapiclient.NewConfiguration()
+    apiClient := openapiclient.NewAPIClient(configuration)
+    resp, r, err := apiClient.GroupAPI.ReplaceGroupRule(context.Background(), groupRuleId).GroupRule(groupRule).Execute()
+    if err != nil {
+        fmt.Fprintf(os.Stderr, "Error when calling `GroupAPI.ReplaceGroupRule``: %v\n", err)
+        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+    }
+    // response from `ReplaceGroupRule`: GroupRule
+    fmt.Fprintf(os.Stdout, "Response from `GroupAPI.ReplaceGroupRule`: %v\n", resp)
 }
 ```
 
@@ -1106,23 +1106,23 @@ Unassign a User
 package main
 
 import (
-	"context"
-	"fmt"
-	"os"
-	openapiclient "github.com/okta/okta-sdk-golang"
+    "context"
+    "fmt"
+    "os"
+    openapiclient "github.com/okta/okta-sdk-golang"
 )
 
 func main() {
-	groupId := "00g1emaKYZTWRYYRRTSK" // string | The `id` of the group
-	userId := "userId_example" // string | ID of an existing Okta user
+    groupId := "00g1emaKYZTWRYYRRTSK" // string | The `id` of the group
+    userId := "userId_example" // string | ID of an existing Okta user
 
-	configuration := openapiclient.NewConfiguration()
-	apiClient := openapiclient.NewAPIClient(configuration)
-	r, err := apiClient.GroupAPI.UnassignUserFromGroup(context.Background(), groupId, userId).Execute()
-	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `GroupAPI.UnassignUserFromGroup``: %v\n", err)
-		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-	}
+    configuration := openapiclient.NewConfiguration()
+    apiClient := openapiclient.NewAPIClient(configuration)
+    r, err := apiClient.GroupAPI.UnassignUserFromGroup(context.Background(), groupId, userId).Execute()
+    if err != nil {
+        fmt.Fprintf(os.Stderr, "Error when calling `GroupAPI.UnassignUserFromGroup``: %v\n", err)
+        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+    }
 }
 ```
 

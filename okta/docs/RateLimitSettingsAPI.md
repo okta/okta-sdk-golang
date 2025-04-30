@@ -27,23 +27,23 @@ Retrieve the Rate Limit Admin Notification Settings
 package main
 
 import (
-	"context"
-	"fmt"
-	"os"
-	openapiclient "github.com/okta/okta-sdk-golang"
+    "context"
+    "fmt"
+    "os"
+    openapiclient "github.com/okta/okta-sdk-golang"
 )
 
 func main() {
 
-	configuration := openapiclient.NewConfiguration()
-	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.RateLimitSettingsAPI.GetRateLimitSettingsAdminNotifications(context.Background()).Execute()
-	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `RateLimitSettingsAPI.GetRateLimitSettingsAdminNotifications``: %v\n", err)
-		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-	}
-	// response from `GetRateLimitSettingsAdminNotifications`: RateLimitAdminNotifications
-	fmt.Fprintf(os.Stdout, "Response from `RateLimitSettingsAPI.GetRateLimitSettingsAdminNotifications`: %v\n", resp)
+    configuration := openapiclient.NewConfiguration()
+    apiClient := openapiclient.NewAPIClient(configuration)
+    resp, r, err := apiClient.RateLimitSettingsAPI.GetRateLimitSettingsAdminNotifications(context.Background()).Execute()
+    if err != nil {
+        fmt.Fprintf(os.Stderr, "Error when calling `RateLimitSettingsAPI.GetRateLimitSettingsAdminNotifications``: %v\n", err)
+        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+    }
+    // response from `GetRateLimitSettingsAdminNotifications`: RateLimitAdminNotifications
+    fmt.Fprintf(os.Stdout, "Response from `RateLimitSettingsAPI.GetRateLimitSettingsAdminNotifications`: %v\n", resp)
 }
 ```
 
@@ -88,23 +88,23 @@ Retrieve the Per-Client Rate Limit Settings
 package main
 
 import (
-	"context"
-	"fmt"
-	"os"
-	openapiclient "github.com/okta/okta-sdk-golang"
+    "context"
+    "fmt"
+    "os"
+    openapiclient "github.com/okta/okta-sdk-golang"
 )
 
 func main() {
 
-	configuration := openapiclient.NewConfiguration()
-	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.RateLimitSettingsAPI.GetRateLimitSettingsPerClient(context.Background()).Execute()
-	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `RateLimitSettingsAPI.GetRateLimitSettingsPerClient``: %v\n", err)
-		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-	}
-	// response from `GetRateLimitSettingsPerClient`: PerClientRateLimitSettings
-	fmt.Fprintf(os.Stdout, "Response from `RateLimitSettingsAPI.GetRateLimitSettingsPerClient`: %v\n", resp)
+    configuration := openapiclient.NewConfiguration()
+    apiClient := openapiclient.NewAPIClient(configuration)
+    resp, r, err := apiClient.RateLimitSettingsAPI.GetRateLimitSettingsPerClient(context.Background()).Execute()
+    if err != nil {
+        fmt.Fprintf(os.Stderr, "Error when calling `RateLimitSettingsAPI.GetRateLimitSettingsPerClient``: %v\n", err)
+        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+    }
+    // response from `GetRateLimitSettingsPerClient`: PerClientRateLimitSettings
+    fmt.Fprintf(os.Stdout, "Response from `RateLimitSettingsAPI.GetRateLimitSettingsPerClient`: %v\n", resp)
 }
 ```
 
@@ -149,23 +149,23 @@ Retrieve the Rate Limit Warning Threshold Percentage
 package main
 
 import (
-	"context"
-	"fmt"
-	"os"
-	openapiclient "github.com/okta/okta-sdk-golang"
+    "context"
+    "fmt"
+    "os"
+    openapiclient "github.com/okta/okta-sdk-golang"
 )
 
 func main() {
 
-	configuration := openapiclient.NewConfiguration()
-	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.RateLimitSettingsAPI.GetRateLimitSettingsWarningThreshold(context.Background()).Execute()
-	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `RateLimitSettingsAPI.GetRateLimitSettingsWarningThreshold``: %v\n", err)
-		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-	}
-	// response from `GetRateLimitSettingsWarningThreshold`: RateLimitWarningThresholdResponse
-	fmt.Fprintf(os.Stdout, "Response from `RateLimitSettingsAPI.GetRateLimitSettingsWarningThreshold`: %v\n", resp)
+    configuration := openapiclient.NewConfiguration()
+    apiClient := openapiclient.NewAPIClient(configuration)
+    resp, r, err := apiClient.RateLimitSettingsAPI.GetRateLimitSettingsWarningThreshold(context.Background()).Execute()
+    if err != nil {
+        fmt.Fprintf(os.Stderr, "Error when calling `RateLimitSettingsAPI.GetRateLimitSettingsWarningThreshold``: %v\n", err)
+        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+    }
+    // response from `GetRateLimitSettingsWarningThreshold`: RateLimitWarningThresholdResponse
+    fmt.Fprintf(os.Stdout, "Response from `RateLimitSettingsAPI.GetRateLimitSettingsWarningThreshold`: %v\n", resp)
 }
 ```
 
@@ -210,24 +210,24 @@ Replace the Rate Limit Admin Notification Settings
 package main
 
 import (
-	"context"
-	"fmt"
-	"os"
-	openapiclient "github.com/okta/okta-sdk-golang"
+    "context"
+    "fmt"
+    "os"
+    openapiclient "github.com/okta/okta-sdk-golang"
 )
 
 func main() {
-	rateLimitAdminNotifications := *openapiclient.NewRateLimitAdminNotifications(false) // RateLimitAdminNotifications | 
+    rateLimitAdminNotifications := *openapiclient.NewRateLimitAdminNotifications(false) // RateLimitAdminNotifications | 
 
-	configuration := openapiclient.NewConfiguration()
-	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.RateLimitSettingsAPI.ReplaceRateLimitSettingsAdminNotifications(context.Background()).RateLimitAdminNotifications(rateLimitAdminNotifications).Execute()
-	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `RateLimitSettingsAPI.ReplaceRateLimitSettingsAdminNotifications``: %v\n", err)
-		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-	}
-	// response from `ReplaceRateLimitSettingsAdminNotifications`: RateLimitAdminNotifications
-	fmt.Fprintf(os.Stdout, "Response from `RateLimitSettingsAPI.ReplaceRateLimitSettingsAdminNotifications`: %v\n", resp)
+    configuration := openapiclient.NewConfiguration()
+    apiClient := openapiclient.NewAPIClient(configuration)
+    resp, r, err := apiClient.RateLimitSettingsAPI.ReplaceRateLimitSettingsAdminNotifications(context.Background()).RateLimitAdminNotifications(rateLimitAdminNotifications).Execute()
+    if err != nil {
+        fmt.Fprintf(os.Stderr, "Error when calling `RateLimitSettingsAPI.ReplaceRateLimitSettingsAdminNotifications``: %v\n", err)
+        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+    }
+    // response from `ReplaceRateLimitSettingsAdminNotifications`: RateLimitAdminNotifications
+    fmt.Fprintf(os.Stdout, "Response from `RateLimitSettingsAPI.ReplaceRateLimitSettingsAdminNotifications`: %v\n", resp)
 }
 ```
 
@@ -276,24 +276,24 @@ Replace the Per-Client Rate Limit Settings
 package main
 
 import (
-	"context"
-	"fmt"
-	"os"
-	openapiclient "github.com/okta/okta-sdk-golang"
+    "context"
+    "fmt"
+    "os"
+    openapiclient "github.com/okta/okta-sdk-golang"
 )
 
 func main() {
-	perClientRateLimitSettings := *openapiclient.NewPerClientRateLimitSettings("DefaultMode_example") // PerClientRateLimitSettings | 
+    perClientRateLimitSettings := *openapiclient.NewPerClientRateLimitSettings("DefaultMode_example") // PerClientRateLimitSettings | 
 
-	configuration := openapiclient.NewConfiguration()
-	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.RateLimitSettingsAPI.ReplaceRateLimitSettingsPerClient(context.Background()).PerClientRateLimitSettings(perClientRateLimitSettings).Execute()
-	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `RateLimitSettingsAPI.ReplaceRateLimitSettingsPerClient``: %v\n", err)
-		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-	}
-	// response from `ReplaceRateLimitSettingsPerClient`: PerClientRateLimitSettings
-	fmt.Fprintf(os.Stdout, "Response from `RateLimitSettingsAPI.ReplaceRateLimitSettingsPerClient`: %v\n", resp)
+    configuration := openapiclient.NewConfiguration()
+    apiClient := openapiclient.NewAPIClient(configuration)
+    resp, r, err := apiClient.RateLimitSettingsAPI.ReplaceRateLimitSettingsPerClient(context.Background()).PerClientRateLimitSettings(perClientRateLimitSettings).Execute()
+    if err != nil {
+        fmt.Fprintf(os.Stderr, "Error when calling `RateLimitSettingsAPI.ReplaceRateLimitSettingsPerClient``: %v\n", err)
+        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+    }
+    // response from `ReplaceRateLimitSettingsPerClient`: PerClientRateLimitSettings
+    fmt.Fprintf(os.Stdout, "Response from `RateLimitSettingsAPI.ReplaceRateLimitSettingsPerClient`: %v\n", resp)
 }
 ```
 
@@ -342,24 +342,24 @@ Replace the Rate Limit Warning Threshold Percentage
 package main
 
 import (
-	"context"
-	"fmt"
-	"os"
-	openapiclient "github.com/okta/okta-sdk-golang"
+    "context"
+    "fmt"
+    "os"
+    openapiclient "github.com/okta/okta-sdk-golang"
 )
 
 func main() {
-	rateLimitWarningThreshold := *openapiclient.NewRateLimitWarningThresholdRequest(int32(123)) // RateLimitWarningThresholdRequest |  (optional)
+    rateLimitWarningThreshold := *openapiclient.NewRateLimitWarningThresholdRequest(int32(123)) // RateLimitWarningThresholdRequest |  (optional)
 
-	configuration := openapiclient.NewConfiguration()
-	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.RateLimitSettingsAPI.ReplaceRateLimitSettingsWarningThreshold(context.Background()).RateLimitWarningThreshold(rateLimitWarningThreshold).Execute()
-	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `RateLimitSettingsAPI.ReplaceRateLimitSettingsWarningThreshold``: %v\n", err)
-		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-	}
-	// response from `ReplaceRateLimitSettingsWarningThreshold`: RateLimitWarningThresholdResponse
-	fmt.Fprintf(os.Stdout, "Response from `RateLimitSettingsAPI.ReplaceRateLimitSettingsWarningThreshold`: %v\n", resp)
+    configuration := openapiclient.NewConfiguration()
+    apiClient := openapiclient.NewAPIClient(configuration)
+    resp, r, err := apiClient.RateLimitSettingsAPI.ReplaceRateLimitSettingsWarningThreshold(context.Background()).RateLimitWarningThreshold(rateLimitWarningThreshold).Execute()
+    if err != nil {
+        fmt.Fprintf(os.Stderr, "Error when calling `RateLimitSettingsAPI.ReplaceRateLimitSettingsWarningThreshold``: %v\n", err)
+        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+    }
+    // response from `ReplaceRateLimitSettingsWarningThreshold`: RateLimitWarningThresholdResponse
+    fmt.Fprintf(os.Stdout, "Response from `RateLimitSettingsAPI.ReplaceRateLimitSettingsWarningThreshold`: %v\n", resp)
 }
 ```
 

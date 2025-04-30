@@ -22,22 +22,22 @@ Send multiple Risk Events
 package main
 
 import (
-	"context"
-	"fmt"
-	"os"
-	openapiclient "github.com/okta/okta-sdk-golang"
+    "context"
+    "fmt"
+    "os"
+    openapiclient "github.com/okta/okta-sdk-golang"
 )
 
 func main() {
-	instance := []openapiclient.RiskEvent{*openapiclient.NewRiskEvent([]openapiclient.RiskEventSubject{*openapiclient.NewRiskEventSubject("Ip_example", "RiskLevel_example")})} // []RiskEvent | 
+    instance := []openapiclient.RiskEvent{*openapiclient.NewRiskEvent([]openapiclient.RiskEventSubject{*openapiclient.NewRiskEventSubject("Ip_example", "RiskLevel_example")})} // []RiskEvent | 
 
-	configuration := openapiclient.NewConfiguration()
-	apiClient := openapiclient.NewAPIClient(configuration)
-	r, err := apiClient.RiskEventAPI.SendRiskEvents(context.Background()).Instance(instance).Execute()
-	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `RiskEventAPI.SendRiskEvents``: %v\n", err)
-		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-	}
+    configuration := openapiclient.NewConfiguration()
+    apiClient := openapiclient.NewAPIClient(configuration)
+    r, err := apiClient.RiskEventAPI.SendRiskEvents(context.Background()).Instance(instance).Execute()
+    if err != nil {
+        fmt.Fprintf(os.Stderr, "Error when calling `RiskEventAPI.SendRiskEvents``: %v\n", err)
+        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+    }
 }
 ```
 

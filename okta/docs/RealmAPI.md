@@ -26,24 +26,24 @@ Create a Realm
 package main
 
 import (
-	"context"
-	"fmt"
-	"os"
-	openapiclient "github.com/okta/okta-sdk-golang"
+    "context"
+    "fmt"
+    "os"
+    openapiclient "github.com/okta/okta-sdk-golang"
 )
 
 func main() {
-	body := *openapiclient.NewCreateRealmRequest() // CreateRealmRequest | 
+    body := *openapiclient.NewCreateRealmRequest() // CreateRealmRequest | 
 
-	configuration := openapiclient.NewConfiguration()
-	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.RealmAPI.CreateRealm(context.Background()).Body(body).Execute()
-	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `RealmAPI.CreateRealm``: %v\n", err)
-		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-	}
-	// response from `CreateRealm`: Realm
-	fmt.Fprintf(os.Stdout, "Response from `RealmAPI.CreateRealm`: %v\n", resp)
+    configuration := openapiclient.NewConfiguration()
+    apiClient := openapiclient.NewAPIClient(configuration)
+    resp, r, err := apiClient.RealmAPI.CreateRealm(context.Background()).Body(body).Execute()
+    if err != nil {
+        fmt.Fprintf(os.Stderr, "Error when calling `RealmAPI.CreateRealm``: %v\n", err)
+        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+    }
+    // response from `CreateRealm`: Realm
+    fmt.Fprintf(os.Stdout, "Response from `RealmAPI.CreateRealm`: %v\n", resp)
 }
 ```
 
@@ -92,22 +92,22 @@ Delete a Realm
 package main
 
 import (
-	"context"
-	"fmt"
-	"os"
-	openapiclient "github.com/okta/okta-sdk-golang"
+    "context"
+    "fmt"
+    "os"
+    openapiclient "github.com/okta/okta-sdk-golang"
 )
 
 func main() {
-	realmId := "vvrcFogtKCrK9aYq3fgV" // string | `id` of the Realm
+    realmId := "vvrcFogtKCrK9aYq3fgV" // string | `id` of the Realm
 
-	configuration := openapiclient.NewConfiguration()
-	apiClient := openapiclient.NewAPIClient(configuration)
-	r, err := apiClient.RealmAPI.DeleteRealm(context.Background(), realmId).Execute()
-	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `RealmAPI.DeleteRealm``: %v\n", err)
-		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-	}
+    configuration := openapiclient.NewConfiguration()
+    apiClient := openapiclient.NewAPIClient(configuration)
+    r, err := apiClient.RealmAPI.DeleteRealm(context.Background(), realmId).Execute()
+    if err != nil {
+        fmt.Fprintf(os.Stderr, "Error when calling `RealmAPI.DeleteRealm``: %v\n", err)
+        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+    }
 }
 ```
 
@@ -160,24 +160,24 @@ Retrieve a Realm
 package main
 
 import (
-	"context"
-	"fmt"
-	"os"
-	openapiclient "github.com/okta/okta-sdk-golang"
+    "context"
+    "fmt"
+    "os"
+    openapiclient "github.com/okta/okta-sdk-golang"
 )
 
 func main() {
-	realmId := "vvrcFogtKCrK9aYq3fgV" // string | `id` of the Realm
+    realmId := "vvrcFogtKCrK9aYq3fgV" // string | `id` of the Realm
 
-	configuration := openapiclient.NewConfiguration()
-	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.RealmAPI.GetRealm(context.Background(), realmId).Execute()
-	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `RealmAPI.GetRealm``: %v\n", err)
-		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-	}
-	// response from `GetRealm`: Realm
-	fmt.Fprintf(os.Stdout, "Response from `RealmAPI.GetRealm`: %v\n", resp)
+    configuration := openapiclient.NewConfiguration()
+    apiClient := openapiclient.NewAPIClient(configuration)
+    resp, r, err := apiClient.RealmAPI.GetRealm(context.Background(), realmId).Execute()
+    if err != nil {
+        fmt.Fprintf(os.Stderr, "Error when calling `RealmAPI.GetRealm``: %v\n", err)
+        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+    }
+    // response from `GetRealm`: Realm
+    fmt.Fprintf(os.Stdout, "Response from `RealmAPI.GetRealm`: %v\n", resp)
 }
 ```
 
@@ -230,28 +230,28 @@ List all Realms
 package main
 
 import (
-	"context"
-	"fmt"
-	"os"
-	openapiclient "github.com/okta/okta-sdk-golang"
+    "context"
+    "fmt"
+    "os"
+    openapiclient "github.com/okta/okta-sdk-golang"
 )
 
 func main() {
-	limit := int32(56) // int32 | Specifies the number of results returned. Defaults to 10 if `search` is provided. (optional) (default to 200)
-	after := "after_example" // string | The cursor to use for pagination. It is an opaque string that specifies your current location in the list and is obtained from the `Link` response header. See [Pagination](/#pagination). (optional)
-	search := "search_example" // string | Searches for Realms with a supported filtering expression for most properties (optional)
-	sortBy := "profile.name" // string | Specifies field to sort by and can be any single property (for search queries only). (optional)
-	sortOrder := "sortOrder_example" // string | Specifies sort order `asc` or `desc` (for search queries only). This parameter is ignored if `sortBy` isn't present. (optional) (default to "asc")
+    limit := int32(56) // int32 | Specifies the number of results returned. Defaults to 10 if `search` is provided. (optional) (default to 200)
+    after := "after_example" // string | The cursor to use for pagination. It is an opaque string that specifies your current location in the list and is obtained from the `Link` response header. See [Pagination](/#pagination). (optional)
+    search := "search_example" // string | Searches for Realms with a supported filtering expression for most properties (optional)
+    sortBy := "profile.name" // string | Specifies field to sort by and can be any single property (for search queries only). (optional)
+    sortOrder := "sortOrder_example" // string | Specifies sort order `asc` or `desc` (for search queries only). This parameter is ignored if `sortBy` isn't present. (optional) (default to "asc")
 
-	configuration := openapiclient.NewConfiguration()
-	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.RealmAPI.ListRealms(context.Background()).Limit(limit).After(after).Search(search).SortBy(sortBy).SortOrder(sortOrder).Execute()
-	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `RealmAPI.ListRealms``: %v\n", err)
-		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-	}
-	// response from `ListRealms`: []Realm
-	fmt.Fprintf(os.Stdout, "Response from `RealmAPI.ListRealms`: %v\n", resp)
+    configuration := openapiclient.NewConfiguration()
+    apiClient := openapiclient.NewAPIClient(configuration)
+    resp, r, err := apiClient.RealmAPI.ListRealms(context.Background()).Limit(limit).After(after).Search(search).SortBy(sortBy).SortOrder(sortOrder).Execute()
+    if err != nil {
+        fmt.Fprintf(os.Stderr, "Error when calling `RealmAPI.ListRealms``: %v\n", err)
+        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+    }
+    // response from `ListRealms`: []Realm
+    fmt.Fprintf(os.Stdout, "Response from `RealmAPI.ListRealms`: %v\n", resp)
 }
 ```
 
@@ -304,25 +304,25 @@ Replace the realm profile
 package main
 
 import (
-	"context"
-	"fmt"
-	"os"
-	openapiclient "github.com/okta/okta-sdk-golang"
+    "context"
+    "fmt"
+    "os"
+    openapiclient "github.com/okta/okta-sdk-golang"
 )
 
 func main() {
-	realmId := "vvrcFogtKCrK9aYq3fgV" // string | `id` of the Realm
-	body := *openapiclient.NewUpdateRealmRequest() // UpdateRealmRequest | 
+    realmId := "vvrcFogtKCrK9aYq3fgV" // string | `id` of the Realm
+    body := *openapiclient.NewUpdateRealmRequest() // UpdateRealmRequest | 
 
-	configuration := openapiclient.NewConfiguration()
-	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.RealmAPI.ReplaceRealm(context.Background(), realmId).Body(body).Execute()
-	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `RealmAPI.ReplaceRealm``: %v\n", err)
-		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-	}
-	// response from `ReplaceRealm`: Realm
-	fmt.Fprintf(os.Stdout, "Response from `RealmAPI.ReplaceRealm`: %v\n", resp)
+    configuration := openapiclient.NewConfiguration()
+    apiClient := openapiclient.NewAPIClient(configuration)
+    resp, r, err := apiClient.RealmAPI.ReplaceRealm(context.Background(), realmId).Body(body).Execute()
+    if err != nil {
+        fmt.Fprintf(os.Stderr, "Error when calling `RealmAPI.ReplaceRealm``: %v\n", err)
+        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+    }
+    // response from `ReplaceRealm`: Realm
+    fmt.Fprintf(os.Stdout, "Response from `RealmAPI.ReplaceRealm`: %v\n", resp)
 }
 ```
 

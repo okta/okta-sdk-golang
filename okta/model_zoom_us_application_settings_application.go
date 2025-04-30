@@ -25,7 +25,6 @@ package okta
 
 import (
 	"encoding/json"
-	"fmt"
 )
 
 // ZoomUsApplicationSettingsApplication Zoom app instance properties

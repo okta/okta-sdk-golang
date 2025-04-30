@@ -26,7 +26,6 @@ package okta
 import (
 	"encoding/json"
 	"time"
-	"fmt"
 )
 
 // EmailCustomization struct for EmailCustomization

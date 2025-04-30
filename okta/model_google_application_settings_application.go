@@ -25,7 +25,6 @@ package okta
 
 import (
 	"encoding/json"
-	"fmt"
 )
 
 // GoogleApplicationSettingsApplication Google app instance properties

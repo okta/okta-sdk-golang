@@ -27,24 +27,24 @@ Create a User Type
 package main
 
 import (
-	"context"
-	"fmt"
-	"os"
-	openapiclient "github.com/okta/okta-sdk-golang"
+    "context"
+    "fmt"
+    "os"
+    openapiclient "github.com/okta/okta-sdk-golang"
 )
 
 func main() {
-	userType := *openapiclient.NewUserType() // UserType | 
+    userType := *openapiclient.NewUserType() // UserType | 
 
-	configuration := openapiclient.NewConfiguration()
-	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.UserTypeAPI.CreateUserType(context.Background()).UserType(userType).Execute()
-	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `UserTypeAPI.CreateUserType``: %v\n", err)
-		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-	}
-	// response from `CreateUserType`: UserType
-	fmt.Fprintf(os.Stdout, "Response from `UserTypeAPI.CreateUserType`: %v\n", resp)
+    configuration := openapiclient.NewConfiguration()
+    apiClient := openapiclient.NewAPIClient(configuration)
+    resp, r, err := apiClient.UserTypeAPI.CreateUserType(context.Background()).UserType(userType).Execute()
+    if err != nil {
+        fmt.Fprintf(os.Stderr, "Error when calling `UserTypeAPI.CreateUserType``: %v\n", err)
+        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+    }
+    // response from `CreateUserType`: UserType
+    fmt.Fprintf(os.Stdout, "Response from `UserTypeAPI.CreateUserType`: %v\n", resp)
 }
 ```
 
@@ -93,22 +93,22 @@ Delete a User Type
 package main
 
 import (
-	"context"
-	"fmt"
-	"os"
-	openapiclient "github.com/okta/okta-sdk-golang"
+    "context"
+    "fmt"
+    "os"
+    openapiclient "github.com/okta/okta-sdk-golang"
 )
 
 func main() {
-	typeId := "typeId_example" // string | 
+    typeId := "typeId_example" // string | 
 
-	configuration := openapiclient.NewConfiguration()
-	apiClient := openapiclient.NewAPIClient(configuration)
-	r, err := apiClient.UserTypeAPI.DeleteUserType(context.Background(), typeId).Execute()
-	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `UserTypeAPI.DeleteUserType``: %v\n", err)
-		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-	}
+    configuration := openapiclient.NewConfiguration()
+    apiClient := openapiclient.NewAPIClient(configuration)
+    r, err := apiClient.UserTypeAPI.DeleteUserType(context.Background(), typeId).Execute()
+    if err != nil {
+        fmt.Fprintf(os.Stderr, "Error when calling `UserTypeAPI.DeleteUserType``: %v\n", err)
+        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+    }
 }
 ```
 
@@ -161,24 +161,24 @@ Retrieve a User Type
 package main
 
 import (
-	"context"
-	"fmt"
-	"os"
-	openapiclient "github.com/okta/okta-sdk-golang"
+    "context"
+    "fmt"
+    "os"
+    openapiclient "github.com/okta/okta-sdk-golang"
 )
 
 func main() {
-	typeId := "typeId_example" // string | 
+    typeId := "typeId_example" // string | 
 
-	configuration := openapiclient.NewConfiguration()
-	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.UserTypeAPI.GetUserType(context.Background(), typeId).Execute()
-	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `UserTypeAPI.GetUserType``: %v\n", err)
-		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-	}
-	// response from `GetUserType`: UserType
-	fmt.Fprintf(os.Stdout, "Response from `UserTypeAPI.GetUserType`: %v\n", resp)
+    configuration := openapiclient.NewConfiguration()
+    apiClient := openapiclient.NewAPIClient(configuration)
+    resp, r, err := apiClient.UserTypeAPI.GetUserType(context.Background(), typeId).Execute()
+    if err != nil {
+        fmt.Fprintf(os.Stderr, "Error when calling `UserTypeAPI.GetUserType``: %v\n", err)
+        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+    }
+    // response from `GetUserType`: UserType
+    fmt.Fprintf(os.Stdout, "Response from `UserTypeAPI.GetUserType`: %v\n", resp)
 }
 ```
 
@@ -231,23 +231,23 @@ List all User Types
 package main
 
 import (
-	"context"
-	"fmt"
-	"os"
-	openapiclient "github.com/okta/okta-sdk-golang"
+    "context"
+    "fmt"
+    "os"
+    openapiclient "github.com/okta/okta-sdk-golang"
 )
 
 func main() {
 
-	configuration := openapiclient.NewConfiguration()
-	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.UserTypeAPI.ListUserTypes(context.Background()).Execute()
-	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `UserTypeAPI.ListUserTypes``: %v\n", err)
-		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-	}
-	// response from `ListUserTypes`: []UserType
-	fmt.Fprintf(os.Stdout, "Response from `UserTypeAPI.ListUserTypes`: %v\n", resp)
+    configuration := openapiclient.NewConfiguration()
+    apiClient := openapiclient.NewAPIClient(configuration)
+    resp, r, err := apiClient.UserTypeAPI.ListUserTypes(context.Background()).Execute()
+    if err != nil {
+        fmt.Fprintf(os.Stderr, "Error when calling `UserTypeAPI.ListUserTypes``: %v\n", err)
+        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+    }
+    // response from `ListUserTypes`: []UserType
+    fmt.Fprintf(os.Stdout, "Response from `UserTypeAPI.ListUserTypes`: %v\n", resp)
 }
 ```
 
@@ -292,25 +292,25 @@ Replace a User Type
 package main
 
 import (
-	"context"
-	"fmt"
-	"os"
-	openapiclient "github.com/okta/okta-sdk-golang"
+    "context"
+    "fmt"
+    "os"
+    openapiclient "github.com/okta/okta-sdk-golang"
 )
 
 func main() {
-	typeId := "typeId_example" // string | 
-	userType := *openapiclient.NewUserTypePutRequest("Description_example", "DisplayName_example", "Name_example") // UserTypePutRequest |  (optional)
+    typeId := "typeId_example" // string | 
+    userType := *openapiclient.NewUserTypePutRequest("Description_example", "DisplayName_example", "Name_example") // UserTypePutRequest |  (optional)
 
-	configuration := openapiclient.NewConfiguration()
-	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.UserTypeAPI.ReplaceUserType(context.Background(), typeId).UserType(userType).Execute()
-	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `UserTypeAPI.ReplaceUserType``: %v\n", err)
-		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-	}
-	// response from `ReplaceUserType`: UserType
-	fmt.Fprintf(os.Stdout, "Response from `UserTypeAPI.ReplaceUserType`: %v\n", resp)
+    configuration := openapiclient.NewConfiguration()
+    apiClient := openapiclient.NewAPIClient(configuration)
+    resp, r, err := apiClient.UserTypeAPI.ReplaceUserType(context.Background(), typeId).UserType(userType).Execute()
+    if err != nil {
+        fmt.Fprintf(os.Stderr, "Error when calling `UserTypeAPI.ReplaceUserType``: %v\n", err)
+        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+    }
+    // response from `ReplaceUserType`: UserType
+    fmt.Fprintf(os.Stdout, "Response from `UserTypeAPI.ReplaceUserType`: %v\n", resp)
 }
 ```
 
@@ -364,25 +364,25 @@ Update a User Type
 package main
 
 import (
-	"context"
-	"fmt"
-	"os"
-	openapiclient "github.com/okta/okta-sdk-golang"
+    "context"
+    "fmt"
+    "os"
+    openapiclient "github.com/okta/okta-sdk-golang"
 )
 
 func main() {
-	typeId := "typeId_example" // string | 
-	userType := *openapiclient.NewUserTypePostRequest() // UserTypePostRequest | 
+    typeId := "typeId_example" // string | 
+    userType := *openapiclient.NewUserTypePostRequest() // UserTypePostRequest | 
 
-	configuration := openapiclient.NewConfiguration()
-	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.UserTypeAPI.UpdateUserType(context.Background(), typeId).UserType(userType).Execute()
-	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `UserTypeAPI.UpdateUserType``: %v\n", err)
-		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-	}
-	// response from `UpdateUserType`: UserType
-	fmt.Fprintf(os.Stdout, "Response from `UserTypeAPI.UpdateUserType`: %v\n", resp)
+    configuration := openapiclient.NewConfiguration()
+    apiClient := openapiclient.NewAPIClient(configuration)
+    resp, r, err := apiClient.UserTypeAPI.UpdateUserType(context.Background(), typeId).UserType(userType).Execute()
+    if err != nil {
+        fmt.Fprintf(os.Stderr, "Error when calling `UserTypeAPI.UpdateUserType``: %v\n", err)
+        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+    }
+    // response from `UpdateUserType`: UserType
+    fmt.Fprintf(os.Stdout, "Response from `UserTypeAPI.UpdateUserType`: %v\n", resp)
 }
 ```
 

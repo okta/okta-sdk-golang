@@ -25,7 +25,6 @@ package okta
 
 import (
 	"encoding/json"
-	"fmt"
 )
 
 // SimulatePolicyBody The request body required for a simulate policy operation.

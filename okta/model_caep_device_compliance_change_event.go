@@ -25,7 +25,6 @@ package okta
 
 import (
 	"encoding/json"
-	"fmt"
 )
 
 // CaepDeviceComplianceChangeEvent The subject's device compliance was revoked

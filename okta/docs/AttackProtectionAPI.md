@@ -25,23 +25,23 @@ Retrieve the Authenticator Settings
 package main
 
 import (
-	"context"
-	"fmt"
-	"os"
-	openapiclient "github.com/okta/okta-sdk-golang"
+    "context"
+    "fmt"
+    "os"
+    openapiclient "github.com/okta/okta-sdk-golang"
 )
 
 func main() {
 
-	configuration := openapiclient.NewConfiguration()
-	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.AttackProtectionAPI.GetAuthenticatorSettings(context.Background()).Execute()
-	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `AttackProtectionAPI.GetAuthenticatorSettings``: %v\n", err)
-		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-	}
-	// response from `GetAuthenticatorSettings`: []AttackProtectionAuthenticatorSettings
-	fmt.Fprintf(os.Stdout, "Response from `AttackProtectionAPI.GetAuthenticatorSettings`: %v\n", resp)
+    configuration := openapiclient.NewConfiguration()
+    apiClient := openapiclient.NewAPIClient(configuration)
+    resp, r, err := apiClient.AttackProtectionAPI.GetAuthenticatorSettings(context.Background()).Execute()
+    if err != nil {
+        fmt.Fprintf(os.Stderr, "Error when calling `AttackProtectionAPI.GetAuthenticatorSettings``: %v\n", err)
+        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+    }
+    // response from `GetAuthenticatorSettings`: []AttackProtectionAuthenticatorSettings
+    fmt.Fprintf(os.Stdout, "Response from `AttackProtectionAPI.GetAuthenticatorSettings`: %v\n", resp)
 }
 ```
 
@@ -86,23 +86,23 @@ Retrieve the User Lockout Settings
 package main
 
 import (
-	"context"
-	"fmt"
-	"os"
-	openapiclient "github.com/okta/okta-sdk-golang"
+    "context"
+    "fmt"
+    "os"
+    openapiclient "github.com/okta/okta-sdk-golang"
 )
 
 func main() {
 
-	configuration := openapiclient.NewConfiguration()
-	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.AttackProtectionAPI.GetUserLockoutSettings(context.Background()).Execute()
-	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `AttackProtectionAPI.GetUserLockoutSettings``: %v\n", err)
-		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-	}
-	// response from `GetUserLockoutSettings`: []UserLockoutSettings
-	fmt.Fprintf(os.Stdout, "Response from `AttackProtectionAPI.GetUserLockoutSettings`: %v\n", resp)
+    configuration := openapiclient.NewConfiguration()
+    apiClient := openapiclient.NewAPIClient(configuration)
+    resp, r, err := apiClient.AttackProtectionAPI.GetUserLockoutSettings(context.Background()).Execute()
+    if err != nil {
+        fmt.Fprintf(os.Stderr, "Error when calling `AttackProtectionAPI.GetUserLockoutSettings``: %v\n", err)
+        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+    }
+    // response from `GetUserLockoutSettings`: []UserLockoutSettings
+    fmt.Fprintf(os.Stdout, "Response from `AttackProtectionAPI.GetUserLockoutSettings`: %v\n", resp)
 }
 ```
 
@@ -147,24 +147,24 @@ Replace the Authenticator Settings
 package main
 
 import (
-	"context"
-	"fmt"
-	"os"
-	openapiclient "github.com/okta/okta-sdk-golang"
+    "context"
+    "fmt"
+    "os"
+    openapiclient "github.com/okta/okta-sdk-golang"
 )
 
 func main() {
-	authenticatorSettings := *openapiclient.NewAttackProtectionAuthenticatorSettings() // AttackProtectionAuthenticatorSettings | 
+    authenticatorSettings := *openapiclient.NewAttackProtectionAuthenticatorSettings() // AttackProtectionAuthenticatorSettings | 
 
-	configuration := openapiclient.NewConfiguration()
-	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.AttackProtectionAPI.ReplaceAuthenticatorSettings(context.Background()).AuthenticatorSettings(authenticatorSettings).Execute()
-	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `AttackProtectionAPI.ReplaceAuthenticatorSettings``: %v\n", err)
-		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-	}
-	// response from `ReplaceAuthenticatorSettings`: AttackProtectionAuthenticatorSettings
-	fmt.Fprintf(os.Stdout, "Response from `AttackProtectionAPI.ReplaceAuthenticatorSettings`: %v\n", resp)
+    configuration := openapiclient.NewConfiguration()
+    apiClient := openapiclient.NewAPIClient(configuration)
+    resp, r, err := apiClient.AttackProtectionAPI.ReplaceAuthenticatorSettings(context.Background()).AuthenticatorSettings(authenticatorSettings).Execute()
+    if err != nil {
+        fmt.Fprintf(os.Stderr, "Error when calling `AttackProtectionAPI.ReplaceAuthenticatorSettings``: %v\n", err)
+        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+    }
+    // response from `ReplaceAuthenticatorSettings`: AttackProtectionAuthenticatorSettings
+    fmt.Fprintf(os.Stdout, "Response from `AttackProtectionAPI.ReplaceAuthenticatorSettings`: %v\n", resp)
 }
 ```
 
@@ -213,24 +213,24 @@ Replace the User Lockout Settings
 package main
 
 import (
-	"context"
-	"fmt"
-	"os"
-	openapiclient "github.com/okta/okta-sdk-golang"
+    "context"
+    "fmt"
+    "os"
+    openapiclient "github.com/okta/okta-sdk-golang"
 )
 
 func main() {
-	lockoutSettings := *openapiclient.NewUserLockoutSettings() // UserLockoutSettings | 
+    lockoutSettings := *openapiclient.NewUserLockoutSettings() // UserLockoutSettings | 
 
-	configuration := openapiclient.NewConfiguration()
-	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.AttackProtectionAPI.ReplaceUserLockoutSettings(context.Background()).LockoutSettings(lockoutSettings).Execute()
-	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `AttackProtectionAPI.ReplaceUserLockoutSettings``: %v\n", err)
-		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-	}
-	// response from `ReplaceUserLockoutSettings`: UserLockoutSettings
-	fmt.Fprintf(os.Stdout, "Response from `AttackProtectionAPI.ReplaceUserLockoutSettings`: %v\n", resp)
+    configuration := openapiclient.NewConfiguration()
+    apiClient := openapiclient.NewAPIClient(configuration)
+    resp, r, err := apiClient.AttackProtectionAPI.ReplaceUserLockoutSettings(context.Background()).LockoutSettings(lockoutSettings).Execute()
+    if err != nil {
+        fmt.Fprintf(os.Stderr, "Error when calling `AttackProtectionAPI.ReplaceUserLockoutSettings``: %v\n", err)
+        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+    }
+    // response from `ReplaceUserLockoutSettings`: UserLockoutSettings
+    fmt.Fprintf(os.Stdout, "Response from `AttackProtectionAPI.ReplaceUserLockoutSettings`: %v\n", resp)
 }
 ```
 

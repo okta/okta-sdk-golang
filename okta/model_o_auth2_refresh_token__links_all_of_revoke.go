@@ -25,7 +25,6 @@ package okta
 
 import (
 	"encoding/json"
-	"fmt"
 )
 
 // OAuth2RefreshTokenLinksAllOfRevoke Link to revoke the refresh Token

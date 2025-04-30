@@ -26,25 +26,25 @@ Create a Custom Token Scope
 package main
 
 import (
-	"context"
-	"fmt"
-	"os"
-	openapiclient "github.com/okta/okta-sdk-golang"
+    "context"
+    "fmt"
+    "os"
+    openapiclient "github.com/okta/okta-sdk-golang"
 )
 
 func main() {
-	authServerId := "GeGRTEr7f3yu2n7grw22" // string | `id` of the Authorization Server
-	oAuth2Scope := *openapiclient.NewOAuth2Scope() // OAuth2Scope | 
+    authServerId := "GeGRTEr7f3yu2n7grw22" // string | `id` of the Authorization Server
+    oAuth2Scope := *openapiclient.NewOAuth2Scope() // OAuth2Scope | 
 
-	configuration := openapiclient.NewConfiguration()
-	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.AuthorizationServerScopesAPI.CreateOAuth2Scope(context.Background(), authServerId).OAuth2Scope(oAuth2Scope).Execute()
-	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `AuthorizationServerScopesAPI.CreateOAuth2Scope``: %v\n", err)
-		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-	}
-	// response from `CreateOAuth2Scope`: OAuth2Scope
-	fmt.Fprintf(os.Stdout, "Response from `AuthorizationServerScopesAPI.CreateOAuth2Scope`: %v\n", resp)
+    configuration := openapiclient.NewConfiguration()
+    apiClient := openapiclient.NewAPIClient(configuration)
+    resp, r, err := apiClient.AuthorizationServerScopesAPI.CreateOAuth2Scope(context.Background(), authServerId).OAuth2Scope(oAuth2Scope).Execute()
+    if err != nil {
+        fmt.Fprintf(os.Stderr, "Error when calling `AuthorizationServerScopesAPI.CreateOAuth2Scope``: %v\n", err)
+        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+    }
+    // response from `CreateOAuth2Scope`: OAuth2Scope
+    fmt.Fprintf(os.Stdout, "Response from `AuthorizationServerScopesAPI.CreateOAuth2Scope`: %v\n", resp)
 }
 ```
 
@@ -98,23 +98,23 @@ Delete a Custom Token Scope
 package main
 
 import (
-	"context"
-	"fmt"
-	"os"
-	openapiclient "github.com/okta/okta-sdk-golang"
+    "context"
+    "fmt"
+    "os"
+    openapiclient "github.com/okta/okta-sdk-golang"
 )
 
 func main() {
-	authServerId := "GeGRTEr7f3yu2n7grw22" // string | `id` of the Authorization Server
-	scopeId := "0TMRpCWXRKFjP7HiPFNM" // string | `id` of Scope
+    authServerId := "GeGRTEr7f3yu2n7grw22" // string | `id` of the Authorization Server
+    scopeId := "0TMRpCWXRKFjP7HiPFNM" // string | `id` of Scope
 
-	configuration := openapiclient.NewConfiguration()
-	apiClient := openapiclient.NewAPIClient(configuration)
-	r, err := apiClient.AuthorizationServerScopesAPI.DeleteOAuth2Scope(context.Background(), authServerId, scopeId).Execute()
-	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `AuthorizationServerScopesAPI.DeleteOAuth2Scope``: %v\n", err)
-		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-	}
+    configuration := openapiclient.NewConfiguration()
+    apiClient := openapiclient.NewAPIClient(configuration)
+    r, err := apiClient.AuthorizationServerScopesAPI.DeleteOAuth2Scope(context.Background(), authServerId, scopeId).Execute()
+    if err != nil {
+        fmt.Fprintf(os.Stderr, "Error when calling `AuthorizationServerScopesAPI.DeleteOAuth2Scope``: %v\n", err)
+        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+    }
 }
 ```
 
@@ -169,25 +169,25 @@ Retrieve a Custom Token Scope
 package main
 
 import (
-	"context"
-	"fmt"
-	"os"
-	openapiclient "github.com/okta/okta-sdk-golang"
+    "context"
+    "fmt"
+    "os"
+    openapiclient "github.com/okta/okta-sdk-golang"
 )
 
 func main() {
-	authServerId := "GeGRTEr7f3yu2n7grw22" // string | `id` of the Authorization Server
-	scopeId := "0TMRpCWXRKFjP7HiPFNM" // string | `id` of Scope
+    authServerId := "GeGRTEr7f3yu2n7grw22" // string | `id` of the Authorization Server
+    scopeId := "0TMRpCWXRKFjP7HiPFNM" // string | `id` of Scope
 
-	configuration := openapiclient.NewConfiguration()
-	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.AuthorizationServerScopesAPI.GetOAuth2Scope(context.Background(), authServerId, scopeId).Execute()
-	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `AuthorizationServerScopesAPI.GetOAuth2Scope``: %v\n", err)
-		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-	}
-	// response from `GetOAuth2Scope`: OAuth2Scope
-	fmt.Fprintf(os.Stdout, "Response from `AuthorizationServerScopesAPI.GetOAuth2Scope`: %v\n", resp)
+    configuration := openapiclient.NewConfiguration()
+    apiClient := openapiclient.NewAPIClient(configuration)
+    resp, r, err := apiClient.AuthorizationServerScopesAPI.GetOAuth2Scope(context.Background(), authServerId, scopeId).Execute()
+    if err != nil {
+        fmt.Fprintf(os.Stderr, "Error when calling `AuthorizationServerScopesAPI.GetOAuth2Scope``: %v\n", err)
+        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+    }
+    // response from `GetOAuth2Scope`: OAuth2Scope
+    fmt.Fprintf(os.Stdout, "Response from `AuthorizationServerScopesAPI.GetOAuth2Scope`: %v\n", resp)
 }
 ```
 
@@ -242,28 +242,28 @@ List all Custom Token Scopes
 package main
 
 import (
-	"context"
-	"fmt"
-	"os"
-	openapiclient "github.com/okta/okta-sdk-golang"
+    "context"
+    "fmt"
+    "os"
+    openapiclient "github.com/okta/okta-sdk-golang"
 )
 
 func main() {
-	authServerId := "GeGRTEr7f3yu2n7grw22" // string | `id` of the Authorization Server
-	q := "q_example" // string |  (optional)
-	filter := "filter_example" // string |  (optional)
-	after := "after_example" // string |  (optional)
-	limit := int32(56) // int32 |  (optional) (default to -1)
+    authServerId := "GeGRTEr7f3yu2n7grw22" // string | `id` of the Authorization Server
+    q := "q_example" // string |  (optional)
+    filter := "filter_example" // string |  (optional)
+    after := "after_example" // string |  (optional)
+    limit := int32(56) // int32 |  (optional) (default to -1)
 
-	configuration := openapiclient.NewConfiguration()
-	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.AuthorizationServerScopesAPI.ListOAuth2Scopes(context.Background(), authServerId).Q(q).Filter(filter).After(after).Limit(limit).Execute()
-	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `AuthorizationServerScopesAPI.ListOAuth2Scopes``: %v\n", err)
-		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-	}
-	// response from `ListOAuth2Scopes`: []OAuth2Scope
-	fmt.Fprintf(os.Stdout, "Response from `AuthorizationServerScopesAPI.ListOAuth2Scopes`: %v\n", resp)
+    configuration := openapiclient.NewConfiguration()
+    apiClient := openapiclient.NewAPIClient(configuration)
+    resp, r, err := apiClient.AuthorizationServerScopesAPI.ListOAuth2Scopes(context.Background(), authServerId).Q(q).Filter(filter).After(after).Limit(limit).Execute()
+    if err != nil {
+        fmt.Fprintf(os.Stderr, "Error when calling `AuthorizationServerScopesAPI.ListOAuth2Scopes``: %v\n", err)
+        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+    }
+    // response from `ListOAuth2Scopes`: []OAuth2Scope
+    fmt.Fprintf(os.Stdout, "Response from `AuthorizationServerScopesAPI.ListOAuth2Scopes`: %v\n", resp)
 }
 ```
 
@@ -320,26 +320,26 @@ Replace a Custom Token Scope
 package main
 
 import (
-	"context"
-	"fmt"
-	"os"
-	openapiclient "github.com/okta/okta-sdk-golang"
+    "context"
+    "fmt"
+    "os"
+    openapiclient "github.com/okta/okta-sdk-golang"
 )
 
 func main() {
-	authServerId := "GeGRTEr7f3yu2n7grw22" // string | `id` of the Authorization Server
-	scopeId := "0TMRpCWXRKFjP7HiPFNM" // string | `id` of Scope
-	oAuth2Scope := *openapiclient.NewOAuth2Scope() // OAuth2Scope | 
+    authServerId := "GeGRTEr7f3yu2n7grw22" // string | `id` of the Authorization Server
+    scopeId := "0TMRpCWXRKFjP7HiPFNM" // string | `id` of Scope
+    oAuth2Scope := *openapiclient.NewOAuth2Scope() // OAuth2Scope | 
 
-	configuration := openapiclient.NewConfiguration()
-	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.AuthorizationServerScopesAPI.ReplaceOAuth2Scope(context.Background(), authServerId, scopeId).OAuth2Scope(oAuth2Scope).Execute()
-	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `AuthorizationServerScopesAPI.ReplaceOAuth2Scope``: %v\n", err)
-		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-	}
-	// response from `ReplaceOAuth2Scope`: OAuth2Scope
-	fmt.Fprintf(os.Stdout, "Response from `AuthorizationServerScopesAPI.ReplaceOAuth2Scope`: %v\n", resp)
+    configuration := openapiclient.NewConfiguration()
+    apiClient := openapiclient.NewAPIClient(configuration)
+    resp, r, err := apiClient.AuthorizationServerScopesAPI.ReplaceOAuth2Scope(context.Background(), authServerId, scopeId).OAuth2Scope(oAuth2Scope).Execute()
+    if err != nil {
+        fmt.Fprintf(os.Stderr, "Error when calling `AuthorizationServerScopesAPI.ReplaceOAuth2Scope``: %v\n", err)
+        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+    }
+    // response from `ReplaceOAuth2Scope`: OAuth2Scope
+    fmt.Fprintf(os.Stdout, "Response from `AuthorizationServerScopesAPI.ReplaceOAuth2Scope`: %v\n", resp)
 }
 ```
 

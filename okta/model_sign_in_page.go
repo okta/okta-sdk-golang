@@ -34,7 +34,7 @@ type SignInPage struct {
 	ContentSecurityPolicySetting *ContentSecurityPolicySetting `json:"contentSecurityPolicySetting,omitempty"`
 	WidgetCustomizations *SignInPageAllOfWidgetCustomizations `json:"widgetCustomizations,omitempty"`
 	// The version specified as a [Semantic Version](https://semver.org/).
-	WidgetVersion *string `json:"widgetVersion,omitempty" validate:"regexp=^(0|[1-9]\\\\d*)\\\\.(0|[1-9]\\\\d*)\\\\.(0|[1-9]\\\\d*)(?:-((?:0|[1-9]\\\\d*|\\\\d*[a-zA-Z-][0-9a-zA-Z-]*)(?:\\\\.(?:0|[1-9]\\\\d*|\\\\d*[a-zA-Z-][0-9a-zA-Z-]*))*))?(?:\\\\+([0-9a-zA-Z-]+(?:\\\\.[0-9a-zA-Z-]+)*))?$"`
+	WidgetVersion *string `json:"widgetVersion,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 

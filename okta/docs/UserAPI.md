@@ -60,25 +60,25 @@ Activate a User
 package main
 
 import (
-	"context"
-	"fmt"
-	"os"
-	openapiclient "github.com/okta/okta-sdk-golang"
+    "context"
+    "fmt"
+    "os"
+    openapiclient "github.com/okta/okta-sdk-golang"
 )
 
 func main() {
-	userId := "userId_example" // string | ID of an existing Okta user
-	sendEmail := true // bool | Sends an activation email to the user if true (default to true)
+    userId := "userId_example" // string | ID of an existing Okta user
+    sendEmail := true // bool | Sends an activation email to the user if true (default to true)
 
-	configuration := openapiclient.NewConfiguration()
-	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.UserAPI.ActivateUser(context.Background(), userId).SendEmail(sendEmail).Execute()
-	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `UserAPI.ActivateUser``: %v\n", err)
-		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-	}
-	// response from `ActivateUser`: UserActivationToken
-	fmt.Fprintf(os.Stdout, "Response from `UserAPI.ActivateUser`: %v\n", resp)
+    configuration := openapiclient.NewConfiguration()
+    apiClient := openapiclient.NewAPIClient(configuration)
+    resp, r, err := apiClient.UserAPI.ActivateUser(context.Background(), userId).SendEmail(sendEmail).Execute()
+    if err != nil {
+        fmt.Fprintf(os.Stderr, "Error when calling `UserAPI.ActivateUser``: %v\n", err)
+        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+    }
+    // response from `ActivateUser`: UserActivationToken
+    fmt.Fprintf(os.Stdout, "Response from `UserAPI.ActivateUser`: %v\n", resp)
 }
 ```
 
@@ -132,26 +132,26 @@ Change Password
 package main
 
 import (
-	"context"
-	"fmt"
-	"os"
-	openapiclient "github.com/okta/okta-sdk-golang"
+    "context"
+    "fmt"
+    "os"
+    openapiclient "github.com/okta/okta-sdk-golang"
 )
 
 func main() {
-	userId := "userId_example" // string | ID of an existing Okta user
-	changePasswordRequest := *openapiclient.NewChangePasswordRequest() // ChangePasswordRequest | 
-	strict := true // bool |  (optional)
+    userId := "userId_example" // string | ID of an existing Okta user
+    changePasswordRequest := *openapiclient.NewChangePasswordRequest() // ChangePasswordRequest | 
+    strict := true // bool |  (optional)
 
-	configuration := openapiclient.NewConfiguration()
-	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.UserAPI.ChangePassword(context.Background(), userId).ChangePasswordRequest(changePasswordRequest).Strict(strict).Execute()
-	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `UserAPI.ChangePassword``: %v\n", err)
-		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-	}
-	// response from `ChangePassword`: UserCredentials
-	fmt.Fprintf(os.Stdout, "Response from `UserAPI.ChangePassword`: %v\n", resp)
+    configuration := openapiclient.NewConfiguration()
+    apiClient := openapiclient.NewAPIClient(configuration)
+    resp, r, err := apiClient.UserAPI.ChangePassword(context.Background(), userId).ChangePasswordRequest(changePasswordRequest).Strict(strict).Execute()
+    if err != nil {
+        fmt.Fprintf(os.Stderr, "Error when calling `UserAPI.ChangePassword``: %v\n", err)
+        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+    }
+    // response from `ChangePassword`: UserCredentials
+    fmt.Fprintf(os.Stdout, "Response from `UserAPI.ChangePassword`: %v\n", resp)
 }
 ```
 
@@ -206,25 +206,25 @@ Change Recovery Question
 package main
 
 import (
-	"context"
-	"fmt"
-	"os"
-	openapiclient "github.com/okta/okta-sdk-golang"
+    "context"
+    "fmt"
+    "os"
+    openapiclient "github.com/okta/okta-sdk-golang"
 )
 
 func main() {
-	userId := "userId_example" // string | ID of an existing Okta user
-	userCredentials := *openapiclient.NewUserCredentials() // UserCredentials | 
+    userId := "userId_example" // string | ID of an existing Okta user
+    userCredentials := *openapiclient.NewUserCredentials() // UserCredentials | 
 
-	configuration := openapiclient.NewConfiguration()
-	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.UserAPI.ChangeRecoveryQuestion(context.Background(), userId).UserCredentials(userCredentials).Execute()
-	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `UserAPI.ChangeRecoveryQuestion``: %v\n", err)
-		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-	}
-	// response from `ChangeRecoveryQuestion`: UserCredentials
-	fmt.Fprintf(os.Stdout, "Response from `UserAPI.ChangeRecoveryQuestion`: %v\n", resp)
+    configuration := openapiclient.NewConfiguration()
+    apiClient := openapiclient.NewAPIClient(configuration)
+    resp, r, err := apiClient.UserAPI.ChangeRecoveryQuestion(context.Background(), userId).UserCredentials(userCredentials).Execute()
+    if err != nil {
+        fmt.Fprintf(os.Stderr, "Error when calling `UserAPI.ChangeRecoveryQuestion``: %v\n", err)
+        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+    }
+    // response from `ChangeRecoveryQuestion`: UserCredentials
+    fmt.Fprintf(os.Stdout, "Response from `UserAPI.ChangeRecoveryQuestion`: %v\n", resp)
 }
 ```
 
@@ -278,27 +278,27 @@ Create a User
 package main
 
 import (
-	"context"
-	"fmt"
-	"os"
-	openapiclient "github.com/okta/okta-sdk-golang"
+    "context"
+    "fmt"
+    "os"
+    openapiclient "github.com/okta/okta-sdk-golang"
 )
 
 func main() {
-	body := *openapiclient.NewCreateUserRequest(*openapiclient.NewUserProfile()) // CreateUserRequest | 
-	activate := true // bool | Executes activation lifecycle operation when creating the user (optional) (default to true)
-	provider := true // bool | Indicates whether to create a user with a specified authentication provider (optional) (default to false)
-	nextLogin := "nextLogin_example" // string | With activate=true, set nextLogin to \"changePassword\" to have the password be EXPIRED, so user must change it the next time they log in. (optional)
+    body := *openapiclient.NewCreateUserRequest(*openapiclient.NewUserProfile()) // CreateUserRequest | 
+    activate := true // bool | Executes activation lifecycle operation when creating the user (optional) (default to true)
+    provider := true // bool | Indicates whether to create a user with a specified authentication provider (optional) (default to false)
+    nextLogin := "nextLogin_example" // string | With activate=true, set nextLogin to \"changePassword\" to have the password be EXPIRED, so user must change it the next time they log in. (optional)
 
-	configuration := openapiclient.NewConfiguration()
-	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.UserAPI.CreateUser(context.Background()).Body(body).Activate(activate).Provider(provider).NextLogin(nextLogin).Execute()
-	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `UserAPI.CreateUser``: %v\n", err)
-		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-	}
-	// response from `CreateUser`: User
-	fmt.Fprintf(os.Stdout, "Response from `UserAPI.CreateUser`: %v\n", resp)
+    configuration := openapiclient.NewConfiguration()
+    apiClient := openapiclient.NewAPIClient(configuration)
+    resp, r, err := apiClient.UserAPI.CreateUser(context.Background()).Body(body).Activate(activate).Provider(provider).NextLogin(nextLogin).Execute()
+    if err != nil {
+        fmt.Fprintf(os.Stderr, "Error when calling `UserAPI.CreateUser``: %v\n", err)
+        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+    }
+    // response from `CreateUser`: User
+    fmt.Fprintf(os.Stdout, "Response from `UserAPI.CreateUser`: %v\n", resp)
 }
 ```
 
@@ -350,23 +350,23 @@ Deactivate a User
 package main
 
 import (
-	"context"
-	"fmt"
-	"os"
-	openapiclient "github.com/okta/okta-sdk-golang"
+    "context"
+    "fmt"
+    "os"
+    openapiclient "github.com/okta/okta-sdk-golang"
 )
 
 func main() {
-	userId := "userId_example" // string | ID of an existing Okta user
-	sendEmail := true // bool |  (optional) (default to false)
+    userId := "userId_example" // string | ID of an existing Okta user
+    sendEmail := true // bool |  (optional) (default to false)
 
-	configuration := openapiclient.NewConfiguration()
-	apiClient := openapiclient.NewAPIClient(configuration)
-	r, err := apiClient.UserAPI.DeactivateUser(context.Background(), userId).SendEmail(sendEmail).Execute()
-	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `UserAPI.DeactivateUser``: %v\n", err)
-		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-	}
+    configuration := openapiclient.NewConfiguration()
+    apiClient := openapiclient.NewAPIClient(configuration)
+    r, err := apiClient.UserAPI.DeactivateUser(context.Background(), userId).SendEmail(sendEmail).Execute()
+    if err != nil {
+        fmt.Fprintf(os.Stderr, "Error when calling `UserAPI.DeactivateUser``: %v\n", err)
+        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+    }
 }
 ```
 
@@ -420,23 +420,23 @@ Delete a Linked Object
 package main
 
 import (
-	"context"
-	"fmt"
-	"os"
-	openapiclient "github.com/okta/okta-sdk-golang"
+    "context"
+    "fmt"
+    "os"
+    openapiclient "github.com/okta/okta-sdk-golang"
 )
 
 func main() {
-	userIdOrLogin := "userIdOrLogin_example" // string | User ID or login value of the user assigned the `associated` relationship
-	relationshipName := "relationshipName_example" // string | Name of the `primary` or `associated` relationship being queried
+    userIdOrLogin := "userIdOrLogin_example" // string | User ID or login value of the user assigned the `associated` relationship
+    relationshipName := "relationshipName_example" // string | Name of the `primary` or `associated` relationship being queried
 
-	configuration := openapiclient.NewConfiguration()
-	apiClient := openapiclient.NewAPIClient(configuration)
-	r, err := apiClient.UserAPI.DeleteLinkedObjectForUser(context.Background(), userIdOrLogin, relationshipName).Execute()
-	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `UserAPI.DeleteLinkedObjectForUser``: %v\n", err)
-		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-	}
+    configuration := openapiclient.NewConfiguration()
+    apiClient := openapiclient.NewAPIClient(configuration)
+    r, err := apiClient.UserAPI.DeleteLinkedObjectForUser(context.Background(), userIdOrLogin, relationshipName).Execute()
+    if err != nil {
+        fmt.Fprintf(os.Stderr, "Error when calling `UserAPI.DeleteLinkedObjectForUser``: %v\n", err)
+        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+    }
 }
 ```
 
@@ -491,23 +491,23 @@ Delete a User
 package main
 
 import (
-	"context"
-	"fmt"
-	"os"
-	openapiclient "github.com/okta/okta-sdk-golang"
+    "context"
+    "fmt"
+    "os"
+    openapiclient "github.com/okta/okta-sdk-golang"
 )
 
 func main() {
-	userId := "userId_example" // string | ID of an existing Okta user
-	sendEmail := true // bool |  (optional) (default to false)
+    userId := "userId_example" // string | ID of an existing Okta user
+    sendEmail := true // bool |  (optional) (default to false)
 
-	configuration := openapiclient.NewConfiguration()
-	apiClient := openapiclient.NewAPIClient(configuration)
-	r, err := apiClient.UserAPI.DeleteUser(context.Background(), userId).SendEmail(sendEmail).Execute()
-	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `UserAPI.DeleteUser``: %v\n", err)
-		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-	}
+    configuration := openapiclient.NewConfiguration()
+    apiClient := openapiclient.NewAPIClient(configuration)
+    r, err := apiClient.UserAPI.DeleteUser(context.Background(), userId).SendEmail(sendEmail).Execute()
+    if err != nil {
+        fmt.Fprintf(os.Stderr, "Error when calling `UserAPI.DeleteUser``: %v\n", err)
+        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+    }
 }
 ```
 
@@ -561,24 +561,24 @@ Expire Password
 package main
 
 import (
-	"context"
-	"fmt"
-	"os"
-	openapiclient "github.com/okta/okta-sdk-golang"
+    "context"
+    "fmt"
+    "os"
+    openapiclient "github.com/okta/okta-sdk-golang"
 )
 
 func main() {
-	userId := "userId_example" // string | ID of an existing Okta user
+    userId := "userId_example" // string | ID of an existing Okta user
 
-	configuration := openapiclient.NewConfiguration()
-	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.UserAPI.ExpirePassword(context.Background(), userId).Execute()
-	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `UserAPI.ExpirePassword``: %v\n", err)
-		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-	}
-	// response from `ExpirePassword`: User
-	fmt.Fprintf(os.Stdout, "Response from `UserAPI.ExpirePassword`: %v\n", resp)
+    configuration := openapiclient.NewConfiguration()
+    apiClient := openapiclient.NewAPIClient(configuration)
+    resp, r, err := apiClient.UserAPI.ExpirePassword(context.Background(), userId).Execute()
+    if err != nil {
+        fmt.Fprintf(os.Stderr, "Error when calling `UserAPI.ExpirePassword``: %v\n", err)
+        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+    }
+    // response from `ExpirePassword`: User
+    fmt.Fprintf(os.Stdout, "Response from `UserAPI.ExpirePassword`: %v\n", resp)
 }
 ```
 
@@ -631,25 +631,25 @@ Expire Password and Set Temporary Password
 package main
 
 import (
-	"context"
-	"fmt"
-	"os"
-	openapiclient "github.com/okta/okta-sdk-golang"
+    "context"
+    "fmt"
+    "os"
+    openapiclient "github.com/okta/okta-sdk-golang"
 )
 
 func main() {
-	userId := "userId_example" // string | ID of an existing Okta user
-	revokeSessions := true // bool | When set to `true` (and the session is a user session), all user sessions are revoked except the current session. (optional) (default to false)
+    userId := "userId_example" // string | ID of an existing Okta user
+    revokeSessions := true // bool | When set to `true` (and the session is a user session), all user sessions are revoked except the current session. (optional) (default to false)
 
-	configuration := openapiclient.NewConfiguration()
-	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.UserAPI.ExpirePasswordAndGetTemporaryPassword(context.Background(), userId).RevokeSessions(revokeSessions).Execute()
-	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `UserAPI.ExpirePasswordAndGetTemporaryPassword``: %v\n", err)
-		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-	}
-	// response from `ExpirePasswordAndGetTemporaryPassword`: TempPassword
-	fmt.Fprintf(os.Stdout, "Response from `UserAPI.ExpirePasswordAndGetTemporaryPassword`: %v\n", resp)
+    configuration := openapiclient.NewConfiguration()
+    apiClient := openapiclient.NewAPIClient(configuration)
+    resp, r, err := apiClient.UserAPI.ExpirePasswordAndGetTemporaryPassword(context.Background(), userId).RevokeSessions(revokeSessions).Execute()
+    if err != nil {
+        fmt.Fprintf(os.Stderr, "Error when calling `UserAPI.ExpirePasswordAndGetTemporaryPassword``: %v\n", err)
+        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+    }
+    // response from `ExpirePasswordAndGetTemporaryPassword`: TempPassword
+    fmt.Fprintf(os.Stdout, "Response from `UserAPI.ExpirePasswordAndGetTemporaryPassword`: %v\n", resp)
 }
 ```
 
@@ -703,25 +703,25 @@ Initiate Forgot Password
 package main
 
 import (
-	"context"
-	"fmt"
-	"os"
-	openapiclient "github.com/okta/okta-sdk-golang"
+    "context"
+    "fmt"
+    "os"
+    openapiclient "github.com/okta/okta-sdk-golang"
 )
 
 func main() {
-	userId := "userId_example" // string | ID of an existing Okta user
-	sendEmail := true // bool |  (optional) (default to true)
+    userId := "userId_example" // string | ID of an existing Okta user
+    sendEmail := true // bool |  (optional) (default to true)
 
-	configuration := openapiclient.NewConfiguration()
-	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.UserAPI.ForgotPassword(context.Background(), userId).SendEmail(sendEmail).Execute()
-	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `UserAPI.ForgotPassword``: %v\n", err)
-		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-	}
-	// response from `ForgotPassword`: ForgotPasswordResponse
-	fmt.Fprintf(os.Stdout, "Response from `UserAPI.ForgotPassword`: %v\n", resp)
+    configuration := openapiclient.NewConfiguration()
+    apiClient := openapiclient.NewAPIClient(configuration)
+    resp, r, err := apiClient.UserAPI.ForgotPassword(context.Background(), userId).SendEmail(sendEmail).Execute()
+    if err != nil {
+        fmt.Fprintf(os.Stderr, "Error when calling `UserAPI.ForgotPassword``: %v\n", err)
+        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+    }
+    // response from `ForgotPassword`: ForgotPasswordResponse
+    fmt.Fprintf(os.Stdout, "Response from `UserAPI.ForgotPassword`: %v\n", resp)
 }
 ```
 
@@ -775,26 +775,26 @@ Reset Password with Recovery Question
 package main
 
 import (
-	"context"
-	"fmt"
-	"os"
-	openapiclient "github.com/okta/okta-sdk-golang"
+    "context"
+    "fmt"
+    "os"
+    openapiclient "github.com/okta/okta-sdk-golang"
 )
 
 func main() {
-	userId := "userId_example" // string | ID of an existing Okta user
-	userCredentials := *openapiclient.NewUserCredentials() // UserCredentials | 
-	sendEmail := true // bool |  (optional) (default to true)
+    userId := "userId_example" // string | ID of an existing Okta user
+    userCredentials := *openapiclient.NewUserCredentials() // UserCredentials | 
+    sendEmail := true // bool |  (optional) (default to true)
 
-	configuration := openapiclient.NewConfiguration()
-	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.UserAPI.ForgotPasswordSetNewPassword(context.Background(), userId).UserCredentials(userCredentials).SendEmail(sendEmail).Execute()
-	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `UserAPI.ForgotPasswordSetNewPassword``: %v\n", err)
-		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-	}
-	// response from `ForgotPasswordSetNewPassword`: UserCredentials
-	fmt.Fprintf(os.Stdout, "Response from `UserAPI.ForgotPasswordSetNewPassword`: %v\n", resp)
+    configuration := openapiclient.NewConfiguration()
+    apiClient := openapiclient.NewAPIClient(configuration)
+    resp, r, err := apiClient.UserAPI.ForgotPasswordSetNewPassword(context.Background(), userId).UserCredentials(userCredentials).SendEmail(sendEmail).Execute()
+    if err != nil {
+        fmt.Fprintf(os.Stderr, "Error when calling `UserAPI.ForgotPasswordSetNewPassword``: %v\n", err)
+        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+    }
+    // response from `ForgotPasswordSetNewPassword`: UserCredentials
+    fmt.Fprintf(os.Stdout, "Response from `UserAPI.ForgotPasswordSetNewPassword`: %v\n", resp)
 }
 ```
 
@@ -849,26 +849,26 @@ Generate a Reset Password Token
 package main
 
 import (
-	"context"
-	"fmt"
-	"os"
-	openapiclient "github.com/okta/okta-sdk-golang"
+    "context"
+    "fmt"
+    "os"
+    openapiclient "github.com/okta/okta-sdk-golang"
 )
 
 func main() {
-	userId := "userId_example" // string | ID of an existing Okta user
-	sendEmail := true // bool | 
-	revokeSessions := true // bool | When set to `true` (and the session is a user session), all user sessions are revoked except the current session. (optional) (default to false)
+    userId := "userId_example" // string | ID of an existing Okta user
+    sendEmail := true // bool | 
+    revokeSessions := true // bool | When set to `true` (and the session is a user session), all user sessions are revoked except the current session. (optional) (default to false)
 
-	configuration := openapiclient.NewConfiguration()
-	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.UserAPI.GenerateResetPasswordToken(context.Background(), userId).SendEmail(sendEmail).RevokeSessions(revokeSessions).Execute()
-	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `UserAPI.GenerateResetPasswordToken``: %v\n", err)
-		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-	}
-	// response from `GenerateResetPasswordToken`: ResetPasswordToken
-	fmt.Fprintf(os.Stdout, "Response from `UserAPI.GenerateResetPasswordToken`: %v\n", resp)
+    configuration := openapiclient.NewConfiguration()
+    apiClient := openapiclient.NewAPIClient(configuration)
+    resp, r, err := apiClient.UserAPI.GenerateResetPasswordToken(context.Background(), userId).SendEmail(sendEmail).RevokeSessions(revokeSessions).Execute()
+    if err != nil {
+        fmt.Fprintf(os.Stderr, "Error when calling `UserAPI.GenerateResetPasswordToken``: %v\n", err)
+        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+    }
+    // response from `GenerateResetPasswordToken`: ResetPasswordToken
+    fmt.Fprintf(os.Stdout, "Response from `UserAPI.GenerateResetPasswordToken`: %v\n", resp)
 }
 ```
 
@@ -923,29 +923,29 @@ Retrieve a Refresh Token for a Client
 package main
 
 import (
-	"context"
-	"fmt"
-	"os"
-	openapiclient "github.com/okta/okta-sdk-golang"
+    "context"
+    "fmt"
+    "os"
+    openapiclient "github.com/okta/okta-sdk-golang"
 )
 
 func main() {
-	userId := "userId_example" // string | ID of an existing Okta user
-	clientId := "52Uy4BUWVBOjFItcg2jWsmnd83Ad8dD" // string | `client_id` of the app
-	tokenId := "sHHSth53yJAyNSTQKDJZ" // string | `id` of Token
-	expand := "expand_example" // string |  (optional)
-	limit := int32(56) // int32 |  (optional) (default to 20)
-	after := "after_example" // string |  (optional)
+    userId := "userId_example" // string | ID of an existing Okta user
+    clientId := "52Uy4BUWVBOjFItcg2jWsmnd83Ad8dD" // string | `client_id` of the app
+    tokenId := "sHHSth53yJAyNSTQKDJZ" // string | `id` of Token
+    expand := "expand_example" // string |  (optional)
+    limit := int32(56) // int32 |  (optional) (default to 20)
+    after := "after_example" // string |  (optional)
 
-	configuration := openapiclient.NewConfiguration()
-	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.UserAPI.GetRefreshTokenForUserAndClient(context.Background(), userId, clientId, tokenId).Expand(expand).Limit(limit).After(after).Execute()
-	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `UserAPI.GetRefreshTokenForUserAndClient``: %v\n", err)
-		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-	}
-	// response from `GetRefreshTokenForUserAndClient`: OAuth2RefreshToken
-	fmt.Fprintf(os.Stdout, "Response from `UserAPI.GetRefreshTokenForUserAndClient`: %v\n", resp)
+    configuration := openapiclient.NewConfiguration()
+    apiClient := openapiclient.NewAPIClient(configuration)
+    resp, r, err := apiClient.UserAPI.GetRefreshTokenForUserAndClient(context.Background(), userId, clientId, tokenId).Expand(expand).Limit(limit).After(after).Execute()
+    if err != nil {
+        fmt.Fprintf(os.Stderr, "Error when calling `UserAPI.GetRefreshTokenForUserAndClient``: %v\n", err)
+        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+    }
+    // response from `GetRefreshTokenForUserAndClient`: OAuth2RefreshToken
+    fmt.Fprintf(os.Stdout, "Response from `UserAPI.GetRefreshTokenForUserAndClient`: %v\n", resp)
 }
 ```
 
@@ -1005,25 +1005,25 @@ Retrieve a User
 package main
 
 import (
-	"context"
-	"fmt"
-	"os"
-	openapiclient "github.com/okta/okta-sdk-golang"
+    "context"
+    "fmt"
+    "os"
+    openapiclient "github.com/okta/okta-sdk-golang"
 )
 
 func main() {
-	userId := "userId_example" // string | ID of an existing Okta user
-	expand := "blocks" // string | An optional parameter to include metadata in the `_embedded` attribute. Valid value: `blocks` (optional)
+    userId := "userId_example" // string | ID of an existing Okta user
+    expand := "blocks" // string | An optional parameter to include metadata in the `_embedded` attribute. Valid value: `blocks` (optional)
 
-	configuration := openapiclient.NewConfiguration()
-	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.UserAPI.GetUser(context.Background(), userId).Expand(expand).Execute()
-	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `UserAPI.GetUser``: %v\n", err)
-		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-	}
-	// response from `GetUser`: UserGetSingleton
-	fmt.Fprintf(os.Stdout, "Response from `UserAPI.GetUser`: %v\n", resp)
+    configuration := openapiclient.NewConfiguration()
+    apiClient := openapiclient.NewAPIClient(configuration)
+    resp, r, err := apiClient.UserAPI.GetUser(context.Background(), userId).Expand(expand).Execute()
+    if err != nil {
+        fmt.Fprintf(os.Stderr, "Error when calling `UserAPI.GetUser``: %v\n", err)
+        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+    }
+    // response from `GetUser`: UserGetSingleton
+    fmt.Fprintf(os.Stdout, "Response from `UserAPI.GetUser`: %v\n", resp)
 }
 ```
 
@@ -1077,26 +1077,26 @@ Retrieve a User Grant
 package main
 
 import (
-	"context"
-	"fmt"
-	"os"
-	openapiclient "github.com/okta/okta-sdk-golang"
+    "context"
+    "fmt"
+    "os"
+    openapiclient "github.com/okta/okta-sdk-golang"
 )
 
 func main() {
-	userId := "userId_example" // string | ID of an existing Okta user
-	grantId := "iJoqkwx50mrgX4T9LcaH" // string | Grant ID
-	expand := "expand_example" // string |  (optional)
+    userId := "userId_example" // string | ID of an existing Okta user
+    grantId := "iJoqkwx50mrgX4T9LcaH" // string | Grant ID
+    expand := "expand_example" // string |  (optional)
 
-	configuration := openapiclient.NewConfiguration()
-	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.UserAPI.GetUserGrant(context.Background(), userId, grantId).Expand(expand).Execute()
-	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `UserAPI.GetUserGrant``: %v\n", err)
-		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-	}
-	// response from `GetUserGrant`: OAuth2ScopeConsentGrant
-	fmt.Fprintf(os.Stdout, "Response from `UserAPI.GetUserGrant`: %v\n", resp)
+    configuration := openapiclient.NewConfiguration()
+    apiClient := openapiclient.NewAPIClient(configuration)
+    resp, r, err := apiClient.UserAPI.GetUserGrant(context.Background(), userId, grantId).Expand(expand).Execute()
+    if err != nil {
+        fmt.Fprintf(os.Stderr, "Error when calling `UserAPI.GetUserGrant``: %v\n", err)
+        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+    }
+    // response from `GetUserGrant`: OAuth2ScopeConsentGrant
+    fmt.Fprintf(os.Stdout, "Response from `UserAPI.GetUserGrant`: %v\n", resp)
 }
 ```
 
@@ -1152,24 +1152,24 @@ List all Assigned Application Links
 package main
 
 import (
-	"context"
-	"fmt"
-	"os"
-	openapiclient "github.com/okta/okta-sdk-golang"
+    "context"
+    "fmt"
+    "os"
+    openapiclient "github.com/okta/okta-sdk-golang"
 )
 
 func main() {
-	userId := "userId_example" // string | ID of an existing Okta user
+    userId := "userId_example" // string | ID of an existing Okta user
 
-	configuration := openapiclient.NewConfiguration()
-	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.UserAPI.ListAppLinks(context.Background(), userId).Execute()
-	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `UserAPI.ListAppLinks``: %v\n", err)
-		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-	}
-	// response from `ListAppLinks`: []AppLink
-	fmt.Fprintf(os.Stdout, "Response from `UserAPI.ListAppLinks`: %v\n", resp)
+    configuration := openapiclient.NewConfiguration()
+    apiClient := openapiclient.NewAPIClient(configuration)
+    resp, r, err := apiClient.UserAPI.ListAppLinks(context.Background(), userId).Execute()
+    if err != nil {
+        fmt.Fprintf(os.Stderr, "Error when calling `UserAPI.ListAppLinks``: %v\n", err)
+        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+    }
+    // response from `ListAppLinks`: []AppLink
+    fmt.Fprintf(os.Stdout, "Response from `UserAPI.ListAppLinks`: %v\n", resp)
 }
 ```
 
@@ -1222,28 +1222,28 @@ List all Grants for a Client
 package main
 
 import (
-	"context"
-	"fmt"
-	"os"
-	openapiclient "github.com/okta/okta-sdk-golang"
+    "context"
+    "fmt"
+    "os"
+    openapiclient "github.com/okta/okta-sdk-golang"
 )
 
 func main() {
-	userId := "userId_example" // string | ID of an existing Okta user
-	clientId := "52Uy4BUWVBOjFItcg2jWsmnd83Ad8dD" // string | `client_id` of the app
-	expand := "expand_example" // string |  (optional)
-	after := "after_example" // string |  (optional)
-	limit := int32(56) // int32 |  (optional) (default to 20)
+    userId := "userId_example" // string | ID of an existing Okta user
+    clientId := "52Uy4BUWVBOjFItcg2jWsmnd83Ad8dD" // string | `client_id` of the app
+    expand := "expand_example" // string |  (optional)
+    after := "after_example" // string |  (optional)
+    limit := int32(56) // int32 |  (optional) (default to 20)
 
-	configuration := openapiclient.NewConfiguration()
-	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.UserAPI.ListGrantsForUserAndClient(context.Background(), userId, clientId).Expand(expand).After(after).Limit(limit).Execute()
-	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `UserAPI.ListGrantsForUserAndClient``: %v\n", err)
-		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-	}
-	// response from `ListGrantsForUserAndClient`: []OAuth2ScopeConsentGrant
-	fmt.Fprintf(os.Stdout, "Response from `UserAPI.ListGrantsForUserAndClient`: %v\n", resp)
+    configuration := openapiclient.NewConfiguration()
+    apiClient := openapiclient.NewAPIClient(configuration)
+    resp, r, err := apiClient.UserAPI.ListGrantsForUserAndClient(context.Background(), userId, clientId).Expand(expand).After(after).Limit(limit).Execute()
+    if err != nil {
+        fmt.Fprintf(os.Stderr, "Error when calling `UserAPI.ListGrantsForUserAndClient``: %v\n", err)
+        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+    }
+    // response from `ListGrantsForUserAndClient`: []OAuth2ScopeConsentGrant
+    fmt.Fprintf(os.Stdout, "Response from `UserAPI.ListGrantsForUserAndClient`: %v\n", resp)
 }
 ```
 
@@ -1301,27 +1301,27 @@ List the primary or all of the associated Linked Object values
 package main
 
 import (
-	"context"
-	"fmt"
-	"os"
-	openapiclient "github.com/okta/okta-sdk-golang"
+    "context"
+    "fmt"
+    "os"
+    openapiclient "github.com/okta/okta-sdk-golang"
 )
 
 func main() {
-	userIdOrLogin := "userIdOrLogin_example" // string | User ID or login value of the user assigned the `associated` relationship
-	relationshipName := "relationshipName_example" // string | Name of the `primary` or `associated` relationship being queried
-	after := "after_example" // string |  (optional)
-	limit := int32(56) // int32 |  (optional) (default to -1)
+    userIdOrLogin := "userIdOrLogin_example" // string | User ID or login value of the user assigned the `associated` relationship
+    relationshipName := "relationshipName_example" // string | Name of the `primary` or `associated` relationship being queried
+    after := "after_example" // string |  (optional)
+    limit := int32(56) // int32 |  (optional) (default to -1)
 
-	configuration := openapiclient.NewConfiguration()
-	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.UserAPI.ListLinkedObjectsForUser(context.Background(), userIdOrLogin, relationshipName).After(after).Limit(limit).Execute()
-	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `UserAPI.ListLinkedObjectsForUser``: %v\n", err)
-		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-	}
-	// response from `ListLinkedObjectsForUser`: []map[string]interface{}
-	fmt.Fprintf(os.Stdout, "Response from `UserAPI.ListLinkedObjectsForUser`: %v\n", resp)
+    configuration := openapiclient.NewConfiguration()
+    apiClient := openapiclient.NewAPIClient(configuration)
+    resp, r, err := apiClient.UserAPI.ListLinkedObjectsForUser(context.Background(), userIdOrLogin, relationshipName).After(after).Limit(limit).Execute()
+    if err != nil {
+        fmt.Fprintf(os.Stderr, "Error when calling `UserAPI.ListLinkedObjectsForUser``: %v\n", err)
+        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+    }
+    // response from `ListLinkedObjectsForUser`: []map[string]interface{}
+    fmt.Fprintf(os.Stdout, "Response from `UserAPI.ListLinkedObjectsForUser`: %v\n", resp)
 }
 ```
 
@@ -1378,28 +1378,28 @@ List all Refresh Tokens for a Client
 package main
 
 import (
-	"context"
-	"fmt"
-	"os"
-	openapiclient "github.com/okta/okta-sdk-golang"
+    "context"
+    "fmt"
+    "os"
+    openapiclient "github.com/okta/okta-sdk-golang"
 )
 
 func main() {
-	userId := "userId_example" // string | ID of an existing Okta user
-	clientId := "52Uy4BUWVBOjFItcg2jWsmnd83Ad8dD" // string | `client_id` of the app
-	expand := "expand_example" // string |  (optional)
-	after := "after_example" // string |  (optional)
-	limit := int32(56) // int32 |  (optional) (default to 20)
+    userId := "userId_example" // string | ID of an existing Okta user
+    clientId := "52Uy4BUWVBOjFItcg2jWsmnd83Ad8dD" // string | `client_id` of the app
+    expand := "expand_example" // string |  (optional)
+    after := "after_example" // string |  (optional)
+    limit := int32(56) // int32 |  (optional) (default to 20)
 
-	configuration := openapiclient.NewConfiguration()
-	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.UserAPI.ListRefreshTokensForUserAndClient(context.Background(), userId, clientId).Expand(expand).After(after).Limit(limit).Execute()
-	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `UserAPI.ListRefreshTokensForUserAndClient``: %v\n", err)
-		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-	}
-	// response from `ListRefreshTokensForUserAndClient`: []OAuth2RefreshToken
-	fmt.Fprintf(os.Stdout, "Response from `UserAPI.ListRefreshTokensForUserAndClient`: %v\n", resp)
+    configuration := openapiclient.NewConfiguration()
+    apiClient := openapiclient.NewAPIClient(configuration)
+    resp, r, err := apiClient.UserAPI.ListRefreshTokensForUserAndClient(context.Background(), userId, clientId).Expand(expand).After(after).Limit(limit).Execute()
+    if err != nil {
+        fmt.Fprintf(os.Stderr, "Error when calling `UserAPI.ListRefreshTokensForUserAndClient``: %v\n", err)
+        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+    }
+    // response from `ListRefreshTokensForUserAndClient`: []OAuth2RefreshToken
+    fmt.Fprintf(os.Stdout, "Response from `UserAPI.ListRefreshTokensForUserAndClient`: %v\n", resp)
 }
 ```
 
@@ -1457,24 +1457,24 @@ List all User Blocks
 package main
 
 import (
-	"context"
-	"fmt"
-	"os"
-	openapiclient "github.com/okta/okta-sdk-golang"
+    "context"
+    "fmt"
+    "os"
+    openapiclient "github.com/okta/okta-sdk-golang"
 )
 
 func main() {
-	userId := "userId_example" // string | ID of an existing Okta user
+    userId := "userId_example" // string | ID of an existing Okta user
 
-	configuration := openapiclient.NewConfiguration()
-	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.UserAPI.ListUserBlocks(context.Background(), userId).Execute()
-	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `UserAPI.ListUserBlocks``: %v\n", err)
-		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-	}
-	// response from `ListUserBlocks`: []UserBlock
-	fmt.Fprintf(os.Stdout, "Response from `UserAPI.ListUserBlocks`: %v\n", resp)
+    configuration := openapiclient.NewConfiguration()
+    apiClient := openapiclient.NewAPIClient(configuration)
+    resp, r, err := apiClient.UserAPI.ListUserBlocks(context.Background(), userId).Execute()
+    if err != nil {
+        fmt.Fprintf(os.Stderr, "Error when calling `UserAPI.ListUserBlocks``: %v\n", err)
+        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+    }
+    // response from `ListUserBlocks`: []UserBlock
+    fmt.Fprintf(os.Stdout, "Response from `UserAPI.ListUserBlocks`: %v\n", resp)
 }
 ```
 
@@ -1527,24 +1527,24 @@ List all Clients
 package main
 
 import (
-	"context"
-	"fmt"
-	"os"
-	openapiclient "github.com/okta/okta-sdk-golang"
+    "context"
+    "fmt"
+    "os"
+    openapiclient "github.com/okta/okta-sdk-golang"
 )
 
 func main() {
-	userId := "userId_example" // string | ID of an existing Okta user
+    userId := "userId_example" // string | ID of an existing Okta user
 
-	configuration := openapiclient.NewConfiguration()
-	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.UserAPI.ListUserClients(context.Background(), userId).Execute()
-	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `UserAPI.ListUserClients``: %v\n", err)
-		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-	}
-	// response from `ListUserClients`: []OAuth2Client
-	fmt.Fprintf(os.Stdout, "Response from `UserAPI.ListUserClients`: %v\n", resp)
+    configuration := openapiclient.NewConfiguration()
+    apiClient := openapiclient.NewAPIClient(configuration)
+    resp, r, err := apiClient.UserAPI.ListUserClients(context.Background(), userId).Execute()
+    if err != nil {
+        fmt.Fprintf(os.Stderr, "Error when calling `UserAPI.ListUserClients``: %v\n", err)
+        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+    }
+    // response from `ListUserClients`: []OAuth2Client
+    fmt.Fprintf(os.Stdout, "Response from `UserAPI.ListUserClients`: %v\n", resp)
 }
 ```
 
@@ -1597,28 +1597,28 @@ List all User Grants
 package main
 
 import (
-	"context"
-	"fmt"
-	"os"
-	openapiclient "github.com/okta/okta-sdk-golang"
+    "context"
+    "fmt"
+    "os"
+    openapiclient "github.com/okta/okta-sdk-golang"
 )
 
 func main() {
-	userId := "userId_example" // string | ID of an existing Okta user
-	scopeId := "scopeId_example" // string |  (optional)
-	expand := "expand_example" // string |  (optional)
-	after := "after_example" // string |  (optional)
-	limit := int32(56) // int32 |  (optional) (default to 20)
+    userId := "userId_example" // string | ID of an existing Okta user
+    scopeId := "scopeId_example" // string |  (optional)
+    expand := "expand_example" // string |  (optional)
+    after := "after_example" // string |  (optional)
+    limit := int32(56) // int32 |  (optional) (default to 20)
 
-	configuration := openapiclient.NewConfiguration()
-	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.UserAPI.ListUserGrants(context.Background(), userId).ScopeId(scopeId).Expand(expand).After(after).Limit(limit).Execute()
-	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `UserAPI.ListUserGrants``: %v\n", err)
-		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-	}
-	// response from `ListUserGrants`: []OAuth2ScopeConsentGrant
-	fmt.Fprintf(os.Stdout, "Response from `UserAPI.ListUserGrants`: %v\n", resp)
+    configuration := openapiclient.NewConfiguration()
+    apiClient := openapiclient.NewAPIClient(configuration)
+    resp, r, err := apiClient.UserAPI.ListUserGrants(context.Background(), userId).ScopeId(scopeId).Expand(expand).After(after).Limit(limit).Execute()
+    if err != nil {
+        fmt.Fprintf(os.Stderr, "Error when calling `UserAPI.ListUserGrants``: %v\n", err)
+        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+    }
+    // response from `ListUserGrants`: []OAuth2ScopeConsentGrant
+    fmt.Fprintf(os.Stdout, "Response from `UserAPI.ListUserGrants`: %v\n", resp)
 }
 ```
 
@@ -1675,26 +1675,26 @@ List all Groups
 package main
 
 import (
-	"context"
-	"fmt"
-	"os"
-	openapiclient "github.com/okta/okta-sdk-golang"
+    "context"
+    "fmt"
+    "os"
+    openapiclient "github.com/okta/okta-sdk-golang"
 )
 
 func main() {
-	userId := "userId_example" // string | ID of an existing Okta user
-	after := "after_example" // string | The cursor to use for pagination. It is an opaque string that specifies your current location in the list and is obtained from the `Link` response header. See [Pagination](/#pagination). (optional)
-	limit := int32(56) // int32 | A limit on the number of objects to return (optional) (default to 20)
+    userId := "userId_example" // string | ID of an existing Okta user
+    after := "after_example" // string | The cursor to use for pagination. It is an opaque string that specifies your current location in the list and is obtained from the `Link` response header. See [Pagination](/#pagination). (optional)
+    limit := int32(56) // int32 | A limit on the number of objects to return (optional) (default to 20)
 
-	configuration := openapiclient.NewConfiguration()
-	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.UserAPI.ListUserGroups(context.Background(), userId).After(after).Limit(limit).Execute()
-	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `UserAPI.ListUserGroups``: %v\n", err)
-		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-	}
-	// response from `ListUserGroups`: []Group
-	fmt.Fprintf(os.Stdout, "Response from `UserAPI.ListUserGroups`: %v\n", resp)
+    configuration := openapiclient.NewConfiguration()
+    apiClient := openapiclient.NewAPIClient(configuration)
+    resp, r, err := apiClient.UserAPI.ListUserGroups(context.Background(), userId).After(after).Limit(limit).Execute()
+    if err != nil {
+        fmt.Fprintf(os.Stderr, "Error when calling `UserAPI.ListUserGroups``: %v\n", err)
+        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+    }
+    // response from `ListUserGroups`: []Group
+    fmt.Fprintf(os.Stdout, "Response from `UserAPI.ListUserGroups`: %v\n", resp)
 }
 ```
 
@@ -1749,24 +1749,24 @@ List all Identity Providers
 package main
 
 import (
-	"context"
-	"fmt"
-	"os"
-	openapiclient "github.com/okta/okta-sdk-golang"
+    "context"
+    "fmt"
+    "os"
+    openapiclient "github.com/okta/okta-sdk-golang"
 )
 
 func main() {
-	userId := "userId_example" // string | ID of an existing Okta user
+    userId := "userId_example" // string | ID of an existing Okta user
 
-	configuration := openapiclient.NewConfiguration()
-	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.UserAPI.ListUserIdentityProviders(context.Background(), userId).Execute()
-	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `UserAPI.ListUserIdentityProviders``: %v\n", err)
-		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-	}
-	// response from `ListUserIdentityProviders`: []IdentityProvider
-	fmt.Fprintf(os.Stdout, "Response from `UserAPI.ListUserIdentityProviders`: %v\n", resp)
+    configuration := openapiclient.NewConfiguration()
+    apiClient := openapiclient.NewAPIClient(configuration)
+    resp, r, err := apiClient.UserAPI.ListUserIdentityProviders(context.Background(), userId).Execute()
+    if err != nil {
+        fmt.Fprintf(os.Stderr, "Error when calling `UserAPI.ListUserIdentityProviders``: %v\n", err)
+        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+    }
+    // response from `ListUserIdentityProviders`: []IdentityProvider
+    fmt.Fprintf(os.Stdout, "Response from `UserAPI.ListUserIdentityProviders`: %v\n", resp)
 }
 ```
 
@@ -1819,30 +1819,30 @@ List all Users
 package main
 
 import (
-	"context"
-	"fmt"
-	"os"
-	openapiclient "github.com/okta/okta-sdk-golang"
+    "context"
+    "fmt"
+    "os"
+    openapiclient "github.com/okta/okta-sdk-golang"
 )
 
 func main() {
-	q := "q_example" // string | Finds a user that matches firstName, lastName, and email properties (optional)
-	after := "after_example" // string | The cursor to use for pagination. It is an opaque string that specifies your current location in the list and is obtained from the `Link` response header. See [Pagination](/#pagination). (optional)
-	limit := int32(56) // int32 | Specifies the number of results returned. Defaults to 10 if `q` is provided. (optional) (default to 200)
-	filter := "filter_example" // string | Filters users with a supported expression for a subset of properties (optional)
-	search := "search_example" // string | Searches for users with a supported filtering expression for most properties. Okta recommends using this parameter for search for best performance. (optional)
-	sortBy := "sortBy_example" // string |  (optional)
-	sortOrder := "sortOrder_example" // string | Sorting is done in ASCII sort order (that is, by ASCII character value), but isn't case sensitive. (optional)
+    q := "q_example" // string | Finds a user that matches firstName, lastName, and email properties (optional)
+    after := "after_example" // string | The cursor to use for pagination. It is an opaque string that specifies your current location in the list and is obtained from the `Link` response header. See [Pagination](/#pagination). (optional)
+    limit := int32(56) // int32 | Specifies the number of results returned. Defaults to 10 if `q` is provided. (optional) (default to 200)
+    filter := "filter_example" // string | Filters users with a supported expression for a subset of properties (optional)
+    search := "search_example" // string | Searches for users with a supported filtering expression for most properties. Okta recommends using this parameter for search for best performance. (optional)
+    sortBy := "sortBy_example" // string |  (optional)
+    sortOrder := "sortOrder_example" // string | Sorting is done in ASCII sort order (that is, by ASCII character value), but isn't case sensitive. (optional)
 
-	configuration := openapiclient.NewConfiguration()
-	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.UserAPI.ListUsers(context.Background()).Q(q).After(after).Limit(limit).Filter(filter).Search(search).SortBy(sortBy).SortOrder(sortOrder).Execute()
-	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `UserAPI.ListUsers``: %v\n", err)
-		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-	}
-	// response from `ListUsers`: []User
-	fmt.Fprintf(os.Stdout, "Response from `UserAPI.ListUsers`: %v\n", resp)
+    configuration := openapiclient.NewConfiguration()
+    apiClient := openapiclient.NewAPIClient(configuration)
+    resp, r, err := apiClient.UserAPI.ListUsers(context.Background()).Q(q).After(after).Limit(limit).Filter(filter).Search(search).SortBy(sortBy).SortOrder(sortOrder).Execute()
+    if err != nil {
+        fmt.Fprintf(os.Stderr, "Error when calling `UserAPI.ListUsers``: %v\n", err)
+        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+    }
+    // response from `ListUsers`: []User
+    fmt.Fprintf(os.Stdout, "Response from `UserAPI.ListUsers`: %v\n", resp)
 }
 ```
 
@@ -1897,25 +1897,25 @@ Reactivate a User
 package main
 
 import (
-	"context"
-	"fmt"
-	"os"
-	openapiclient "github.com/okta/okta-sdk-golang"
+    "context"
+    "fmt"
+    "os"
+    openapiclient "github.com/okta/okta-sdk-golang"
 )
 
 func main() {
-	userId := "userId_example" // string | ID of an existing Okta user
-	sendEmail := true // bool | Sends an activation email to the user if true (optional) (default to false)
+    userId := "userId_example" // string | ID of an existing Okta user
+    sendEmail := true // bool | Sends an activation email to the user if true (optional) (default to false)
 
-	configuration := openapiclient.NewConfiguration()
-	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.UserAPI.ReactivateUser(context.Background(), userId).SendEmail(sendEmail).Execute()
-	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `UserAPI.ReactivateUser``: %v\n", err)
-		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-	}
-	// response from `ReactivateUser`: UserActivationToken
-	fmt.Fprintf(os.Stdout, "Response from `UserAPI.ReactivateUser`: %v\n", resp)
+    configuration := openapiclient.NewConfiguration()
+    apiClient := openapiclient.NewAPIClient(configuration)
+    resp, r, err := apiClient.UserAPI.ReactivateUser(context.Background(), userId).SendEmail(sendEmail).Execute()
+    if err != nil {
+        fmt.Fprintf(os.Stderr, "Error when calling `UserAPI.ReactivateUser``: %v\n", err)
+        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+    }
+    // response from `ReactivateUser`: UserActivationToken
+    fmt.Fprintf(os.Stdout, "Response from `UserAPI.ReactivateUser`: %v\n", resp)
 }
 ```
 
@@ -1969,24 +1969,24 @@ Replace the Linked Object value for `primary`
 package main
 
 import (
-	"context"
-	"fmt"
-	"os"
-	openapiclient "github.com/okta/okta-sdk-golang"
+    "context"
+    "fmt"
+    "os"
+    openapiclient "github.com/okta/okta-sdk-golang"
 )
 
 func main() {
-	userIdOrLogin := "userIdOrLogin_example" // string | User ID or login value of the user assigned the `associated` relationship
-	primaryRelationshipName := "primaryRelationshipName_example" // string | Name of the `primary` relationship being assigned
-	primaryUserId := "ctxeQ5JnAVdGFBB7Zr7W" // string | User ID to be assigned to the `primary` relationship for the `associated` user
+    userIdOrLogin := "userIdOrLogin_example" // string | User ID or login value of the user assigned the `associated` relationship
+    primaryRelationshipName := "primaryRelationshipName_example" // string | Name of the `primary` relationship being assigned
+    primaryUserId := "ctxeQ5JnAVdGFBB7Zr7W" // string | User ID to be assigned to the `primary` relationship for the `associated` user
 
-	configuration := openapiclient.NewConfiguration()
-	apiClient := openapiclient.NewAPIClient(configuration)
-	r, err := apiClient.UserAPI.ReplaceLinkedObjectForUser(context.Background(), userIdOrLogin, primaryRelationshipName, primaryUserId).Execute()
-	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `UserAPI.ReplaceLinkedObjectForUser``: %v\n", err)
-		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-	}
+    configuration := openapiclient.NewConfiguration()
+    apiClient := openapiclient.NewAPIClient(configuration)
+    r, err := apiClient.UserAPI.ReplaceLinkedObjectForUser(context.Background(), userIdOrLogin, primaryRelationshipName, primaryUserId).Execute()
+    if err != nil {
+        fmt.Fprintf(os.Stderr, "Error when calling `UserAPI.ReplaceLinkedObjectForUser``: %v\n", err)
+        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+    }
 }
 ```
 
@@ -2043,26 +2043,26 @@ Replace a User
 package main
 
 import (
-	"context"
-	"fmt"
-	"os"
-	openapiclient "github.com/okta/okta-sdk-golang"
+    "context"
+    "fmt"
+    "os"
+    openapiclient "github.com/okta/okta-sdk-golang"
 )
 
 func main() {
-	userId := "userId_example" // string | ID of an existing Okta user
-	user := *openapiclient.NewUser() // User | 
-	strict := true // bool |  (optional)
+    userId := "userId_example" // string | ID of an existing Okta user
+    user := *openapiclient.NewUser() // User | 
+    strict := true // bool |  (optional)
 
-	configuration := openapiclient.NewConfiguration()
-	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.UserAPI.ReplaceUser(context.Background(), userId).User(user).Strict(strict).Execute()
-	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `UserAPI.ReplaceUser``: %v\n", err)
-		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-	}
-	// response from `ReplaceUser`: User
-	fmt.Fprintf(os.Stdout, "Response from `UserAPI.ReplaceUser`: %v\n", resp)
+    configuration := openapiclient.NewConfiguration()
+    apiClient := openapiclient.NewAPIClient(configuration)
+    resp, r, err := apiClient.UserAPI.ReplaceUser(context.Background(), userId).User(user).Strict(strict).Execute()
+    if err != nil {
+        fmt.Fprintf(os.Stderr, "Error when calling `UserAPI.ReplaceUser``: %v\n", err)
+        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+    }
+    // response from `ReplaceUser`: User
+    fmt.Fprintf(os.Stdout, "Response from `UserAPI.ReplaceUser`: %v\n", resp)
 }
 ```
 
@@ -2117,23 +2117,23 @@ Reset all Factors
 package main
 
 import (
-	"context"
-	"fmt"
-	"os"
-	openapiclient "github.com/okta/okta-sdk-golang"
+    "context"
+    "fmt"
+    "os"
+    openapiclient "github.com/okta/okta-sdk-golang"
 )
 
 func main() {
-	userId := "userId_example" // string | ID of an existing Okta user
-	removeRecoveryEnrollment := true // bool | If `true`, removes the phone number as both a recovery method and a Factor. Supported Factors: `sms` and `call` (optional) (default to false)
+    userId := "userId_example" // string | ID of an existing Okta user
+    removeRecoveryEnrollment := true // bool | If `true`, removes the phone number as both a recovery method and a Factor. Supported Factors: `sms` and `call` (optional) (default to false)
 
-	configuration := openapiclient.NewConfiguration()
-	apiClient := openapiclient.NewAPIClient(configuration)
-	r, err := apiClient.UserAPI.ResetFactors(context.Background(), userId).RemoveRecoveryEnrollment(removeRecoveryEnrollment).Execute()
-	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `UserAPI.ResetFactors``: %v\n", err)
-		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-	}
+    configuration := openapiclient.NewConfiguration()
+    apiClient := openapiclient.NewAPIClient(configuration)
+    r, err := apiClient.UserAPI.ResetFactors(context.Background(), userId).RemoveRecoveryEnrollment(removeRecoveryEnrollment).Execute()
+    if err != nil {
+        fmt.Fprintf(os.Stderr, "Error when calling `UserAPI.ResetFactors``: %v\n", err)
+        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+    }
 }
 ```
 
@@ -2187,23 +2187,23 @@ Revoke all Grants for a Client
 package main
 
 import (
-	"context"
-	"fmt"
-	"os"
-	openapiclient "github.com/okta/okta-sdk-golang"
+    "context"
+    "fmt"
+    "os"
+    openapiclient "github.com/okta/okta-sdk-golang"
 )
 
 func main() {
-	userId := "userId_example" // string | ID of an existing Okta user
-	clientId := "52Uy4BUWVBOjFItcg2jWsmnd83Ad8dD" // string | `client_id` of the app
+    userId := "userId_example" // string | ID of an existing Okta user
+    clientId := "52Uy4BUWVBOjFItcg2jWsmnd83Ad8dD" // string | `client_id` of the app
 
-	configuration := openapiclient.NewConfiguration()
-	apiClient := openapiclient.NewAPIClient(configuration)
-	r, err := apiClient.UserAPI.RevokeGrantsForUserAndClient(context.Background(), userId, clientId).Execute()
-	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `UserAPI.RevokeGrantsForUserAndClient``: %v\n", err)
-		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-	}
+    configuration := openapiclient.NewConfiguration()
+    apiClient := openapiclient.NewAPIClient(configuration)
+    r, err := apiClient.UserAPI.RevokeGrantsForUserAndClient(context.Background(), userId, clientId).Execute()
+    if err != nil {
+        fmt.Fprintf(os.Stderr, "Error when calling `UserAPI.RevokeGrantsForUserAndClient``: %v\n", err)
+        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+    }
 }
 ```
 
@@ -2258,24 +2258,24 @@ Revoke a Token for a Client
 package main
 
 import (
-	"context"
-	"fmt"
-	"os"
-	openapiclient "github.com/okta/okta-sdk-golang"
+    "context"
+    "fmt"
+    "os"
+    openapiclient "github.com/okta/okta-sdk-golang"
 )
 
 func main() {
-	userId := "userId_example" // string | ID of an existing Okta user
-	clientId := "52Uy4BUWVBOjFItcg2jWsmnd83Ad8dD" // string | `client_id` of the app
-	tokenId := "sHHSth53yJAyNSTQKDJZ" // string | `id` of Token
+    userId := "userId_example" // string | ID of an existing Okta user
+    clientId := "52Uy4BUWVBOjFItcg2jWsmnd83Ad8dD" // string | `client_id` of the app
+    tokenId := "sHHSth53yJAyNSTQKDJZ" // string | `id` of Token
 
-	configuration := openapiclient.NewConfiguration()
-	apiClient := openapiclient.NewAPIClient(configuration)
-	r, err := apiClient.UserAPI.RevokeTokenForUserAndClient(context.Background(), userId, clientId, tokenId).Execute()
-	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `UserAPI.RevokeTokenForUserAndClient``: %v\n", err)
-		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-	}
+    configuration := openapiclient.NewConfiguration()
+    apiClient := openapiclient.NewAPIClient(configuration)
+    r, err := apiClient.UserAPI.RevokeTokenForUserAndClient(context.Background(), userId, clientId, tokenId).Execute()
+    if err != nil {
+        fmt.Fprintf(os.Stderr, "Error when calling `UserAPI.RevokeTokenForUserAndClient``: %v\n", err)
+        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+    }
 }
 ```
 
@@ -2332,23 +2332,23 @@ Revoke all Refresh Tokens for a Client
 package main
 
 import (
-	"context"
-	"fmt"
-	"os"
-	openapiclient "github.com/okta/okta-sdk-golang"
+    "context"
+    "fmt"
+    "os"
+    openapiclient "github.com/okta/okta-sdk-golang"
 )
 
 func main() {
-	userId := "userId_example" // string | ID of an existing Okta user
-	clientId := "52Uy4BUWVBOjFItcg2jWsmnd83Ad8dD" // string | `client_id` of the app
+    userId := "userId_example" // string | ID of an existing Okta user
+    clientId := "52Uy4BUWVBOjFItcg2jWsmnd83Ad8dD" // string | `client_id` of the app
 
-	configuration := openapiclient.NewConfiguration()
-	apiClient := openapiclient.NewAPIClient(configuration)
-	r, err := apiClient.UserAPI.RevokeTokensForUserAndClient(context.Background(), userId, clientId).Execute()
-	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `UserAPI.RevokeTokensForUserAndClient``: %v\n", err)
-		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-	}
+    configuration := openapiclient.NewConfiguration()
+    apiClient := openapiclient.NewAPIClient(configuration)
+    r, err := apiClient.UserAPI.RevokeTokensForUserAndClient(context.Background(), userId, clientId).Execute()
+    if err != nil {
+        fmt.Fprintf(os.Stderr, "Error when calling `UserAPI.RevokeTokensForUserAndClient``: %v\n", err)
+        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+    }
 }
 ```
 
@@ -2403,23 +2403,23 @@ Revoke a User Grant
 package main
 
 import (
-	"context"
-	"fmt"
-	"os"
-	openapiclient "github.com/okta/okta-sdk-golang"
+    "context"
+    "fmt"
+    "os"
+    openapiclient "github.com/okta/okta-sdk-golang"
 )
 
 func main() {
-	userId := "userId_example" // string | ID of an existing Okta user
-	grantId := "iJoqkwx50mrgX4T9LcaH" // string | Grant ID
+    userId := "userId_example" // string | ID of an existing Okta user
+    grantId := "iJoqkwx50mrgX4T9LcaH" // string | Grant ID
 
-	configuration := openapiclient.NewConfiguration()
-	apiClient := openapiclient.NewAPIClient(configuration)
-	r, err := apiClient.UserAPI.RevokeUserGrant(context.Background(), userId, grantId).Execute()
-	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `UserAPI.RevokeUserGrant``: %v\n", err)
-		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-	}
+    configuration := openapiclient.NewConfiguration()
+    apiClient := openapiclient.NewAPIClient(configuration)
+    r, err := apiClient.UserAPI.RevokeUserGrant(context.Background(), userId, grantId).Execute()
+    if err != nil {
+        fmt.Fprintf(os.Stderr, "Error when calling `UserAPI.RevokeUserGrant``: %v\n", err)
+        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+    }
 }
 ```
 
@@ -2474,22 +2474,22 @@ Revoke all User Grants
 package main
 
 import (
-	"context"
-	"fmt"
-	"os"
-	openapiclient "github.com/okta/okta-sdk-golang"
+    "context"
+    "fmt"
+    "os"
+    openapiclient "github.com/okta/okta-sdk-golang"
 )
 
 func main() {
-	userId := "userId_example" // string | ID of an existing Okta user
+    userId := "userId_example" // string | ID of an existing Okta user
 
-	configuration := openapiclient.NewConfiguration()
-	apiClient := openapiclient.NewAPIClient(configuration)
-	r, err := apiClient.UserAPI.RevokeUserGrants(context.Background(), userId).Execute()
-	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `UserAPI.RevokeUserGrants``: %v\n", err)
-		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-	}
+    configuration := openapiclient.NewConfiguration()
+    apiClient := openapiclient.NewAPIClient(configuration)
+    r, err := apiClient.UserAPI.RevokeUserGrants(context.Background(), userId).Execute()
+    if err != nil {
+        fmt.Fprintf(os.Stderr, "Error when calling `UserAPI.RevokeUserGrants``: %v\n", err)
+        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+    }
 }
 ```
 
@@ -2542,23 +2542,23 @@ Revoke all User Sessions
 package main
 
 import (
-	"context"
-	"fmt"
-	"os"
-	openapiclient "github.com/okta/okta-sdk-golang"
+    "context"
+    "fmt"
+    "os"
+    openapiclient "github.com/okta/okta-sdk-golang"
 )
 
 func main() {
-	userId := "userId_example" // string | ID of an existing Okta user
-	oauthTokens := true // bool | Revoke issued OpenID Connect and OAuth refresh and access tokens (optional) (default to false)
+    userId := "userId_example" // string | ID of an existing Okta user
+    oauthTokens := true // bool | Revoke issued OpenID Connect and OAuth refresh and access tokens (optional) (default to false)
 
-	configuration := openapiclient.NewConfiguration()
-	apiClient := openapiclient.NewAPIClient(configuration)
-	r, err := apiClient.UserAPI.RevokeUserSessions(context.Background(), userId).OauthTokens(oauthTokens).Execute()
-	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `UserAPI.RevokeUserSessions``: %v\n", err)
-		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-	}
+    configuration := openapiclient.NewConfiguration()
+    apiClient := openapiclient.NewAPIClient(configuration)
+    r, err := apiClient.UserAPI.RevokeUserSessions(context.Background(), userId).OauthTokens(oauthTokens).Execute()
+    if err != nil {
+        fmt.Fprintf(os.Stderr, "Error when calling `UserAPI.RevokeUserSessions``: %v\n", err)
+        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+    }
 }
 ```
 
@@ -2612,22 +2612,22 @@ Suspend a User
 package main
 
 import (
-	"context"
-	"fmt"
-	"os"
-	openapiclient "github.com/okta/okta-sdk-golang"
+    "context"
+    "fmt"
+    "os"
+    openapiclient "github.com/okta/okta-sdk-golang"
 )
 
 func main() {
-	userId := "userId_example" // string | ID of an existing Okta user
+    userId := "userId_example" // string | ID of an existing Okta user
 
-	configuration := openapiclient.NewConfiguration()
-	apiClient := openapiclient.NewAPIClient(configuration)
-	r, err := apiClient.UserAPI.SuspendUser(context.Background(), userId).Execute()
-	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `UserAPI.SuspendUser``: %v\n", err)
-		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-	}
+    configuration := openapiclient.NewConfiguration()
+    apiClient := openapiclient.NewAPIClient(configuration)
+    r, err := apiClient.UserAPI.SuspendUser(context.Background(), userId).Execute()
+    if err != nil {
+        fmt.Fprintf(os.Stderr, "Error when calling `UserAPI.SuspendUser``: %v\n", err)
+        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+    }
 }
 ```
 
@@ -2680,22 +2680,22 @@ Unlock a User
 package main
 
 import (
-	"context"
-	"fmt"
-	"os"
-	openapiclient "github.com/okta/okta-sdk-golang"
+    "context"
+    "fmt"
+    "os"
+    openapiclient "github.com/okta/okta-sdk-golang"
 )
 
 func main() {
-	userId := "userId_example" // string | ID of an existing Okta user
+    userId := "userId_example" // string | ID of an existing Okta user
 
-	configuration := openapiclient.NewConfiguration()
-	apiClient := openapiclient.NewAPIClient(configuration)
-	r, err := apiClient.UserAPI.UnlockUser(context.Background(), userId).Execute()
-	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `UserAPI.UnlockUser``: %v\n", err)
-		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-	}
+    configuration := openapiclient.NewConfiguration()
+    apiClient := openapiclient.NewAPIClient(configuration)
+    r, err := apiClient.UserAPI.UnlockUser(context.Background(), userId).Execute()
+    if err != nil {
+        fmt.Fprintf(os.Stderr, "Error when calling `UserAPI.UnlockUser``: %v\n", err)
+        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+    }
 }
 ```
 
@@ -2748,22 +2748,22 @@ Unsuspend a User
 package main
 
 import (
-	"context"
-	"fmt"
-	"os"
-	openapiclient "github.com/okta/okta-sdk-golang"
+    "context"
+    "fmt"
+    "os"
+    openapiclient "github.com/okta/okta-sdk-golang"
 )
 
 func main() {
-	userId := "userId_example" // string | ID of an existing Okta user
+    userId := "userId_example" // string | ID of an existing Okta user
 
-	configuration := openapiclient.NewConfiguration()
-	apiClient := openapiclient.NewAPIClient(configuration)
-	r, err := apiClient.UserAPI.UnsuspendUser(context.Background(), userId).Execute()
-	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `UserAPI.UnsuspendUser``: %v\n", err)
-		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-	}
+    configuration := openapiclient.NewConfiguration()
+    apiClient := openapiclient.NewAPIClient(configuration)
+    r, err := apiClient.UserAPI.UnsuspendUser(context.Background(), userId).Execute()
+    if err != nil {
+        fmt.Fprintf(os.Stderr, "Error when calling `UserAPI.UnsuspendUser``: %v\n", err)
+        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+    }
 }
 ```
 
@@ -2816,26 +2816,26 @@ Update a User
 package main
 
 import (
-	"context"
-	"fmt"
-	"os"
-	openapiclient "github.com/okta/okta-sdk-golang"
+    "context"
+    "fmt"
+    "os"
+    openapiclient "github.com/okta/okta-sdk-golang"
 )
 
 func main() {
-	userId := "userId_example" // string | ID of an existing Okta user
-	user := *openapiclient.NewUpdateUserRequest() // UpdateUserRequest | 
-	strict := true // bool |  (optional)
+    userId := "userId_example" // string | ID of an existing Okta user
+    user := *openapiclient.NewUpdateUserRequest() // UpdateUserRequest | 
+    strict := true // bool |  (optional)
 
-	configuration := openapiclient.NewConfiguration()
-	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.UserAPI.UpdateUser(context.Background(), userId).User(user).Strict(strict).Execute()
-	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `UserAPI.UpdateUser``: %v\n", err)
-		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-	}
-	// response from `UpdateUser`: User
-	fmt.Fprintf(os.Stdout, "Response from `UserAPI.UpdateUser`: %v\n", resp)
+    configuration := openapiclient.NewConfiguration()
+    apiClient := openapiclient.NewAPIClient(configuration)
+    resp, r, err := apiClient.UserAPI.UpdateUser(context.Background(), userId).User(user).Strict(strict).Execute()
+    if err != nil {
+        fmt.Fprintf(os.Stderr, "Error when calling `UserAPI.UpdateUser``: %v\n", err)
+        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+    }
+    // response from `UpdateUser`: User
+    fmt.Fprintf(os.Stdout, "Response from `UserAPI.UpdateUser`: %v\n", resp)
 }
 ```
 

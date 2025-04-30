@@ -25,7 +25,6 @@ package okta
 
 import (
 	"encoding/json"
-	"fmt"
 )
 
 // OktaDeviceRiskChangeEvent The device risk level changed

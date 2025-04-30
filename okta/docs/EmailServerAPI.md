@@ -27,24 +27,24 @@ Create a custom SMTP server
 package main
 
 import (
-	"context"
-	"fmt"
-	"os"
-	openapiclient "github.com/okta/okta-sdk-golang"
+    "context"
+    "fmt"
+    "os"
+    openapiclient "github.com/okta/okta-sdk-golang"
 )
 
 func main() {
-	emailServerPost := *openapiclient.NewEmailServerPost("CustomServer1", "192.168.160.1", int32(587), "aUser", "Password_example") // EmailServerPost |  (optional)
+    emailServerPost := *openapiclient.NewEmailServerPost("CustomServer1", "192.168.160.1", int32(587), "aUser", "Password_example") // EmailServerPost |  (optional)
 
-	configuration := openapiclient.NewConfiguration()
-	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.EmailServerAPI.CreateEmailServer(context.Background()).EmailServerPost(emailServerPost).Execute()
-	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `EmailServerAPI.CreateEmailServer``: %v\n", err)
-		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-	}
-	// response from `CreateEmailServer`: EmailServerResponse
-	fmt.Fprintf(os.Stdout, "Response from `EmailServerAPI.CreateEmailServer`: %v\n", resp)
+    configuration := openapiclient.NewConfiguration()
+    apiClient := openapiclient.NewAPIClient(configuration)
+    resp, r, err := apiClient.EmailServerAPI.CreateEmailServer(context.Background()).EmailServerPost(emailServerPost).Execute()
+    if err != nil {
+        fmt.Fprintf(os.Stderr, "Error when calling `EmailServerAPI.CreateEmailServer``: %v\n", err)
+        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+    }
+    // response from `CreateEmailServer`: EmailServerResponse
+    fmt.Fprintf(os.Stdout, "Response from `EmailServerAPI.CreateEmailServer`: %v\n", resp)
 }
 ```
 
@@ -93,22 +93,22 @@ Delete an SMTP Server configuration
 package main
 
 import (
-	"context"
-	"fmt"
-	"os"
-	openapiclient "github.com/okta/okta-sdk-golang"
+    "context"
+    "fmt"
+    "os"
+    openapiclient "github.com/okta/okta-sdk-golang"
 )
 
 func main() {
-	emailServerId := "emailServerId_example" // string | 
+    emailServerId := "emailServerId_example" // string | 
 
-	configuration := openapiclient.NewConfiguration()
-	apiClient := openapiclient.NewAPIClient(configuration)
-	r, err := apiClient.EmailServerAPI.DeleteEmailServer(context.Background(), emailServerId).Execute()
-	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `EmailServerAPI.DeleteEmailServer``: %v\n", err)
-		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-	}
+    configuration := openapiclient.NewConfiguration()
+    apiClient := openapiclient.NewAPIClient(configuration)
+    r, err := apiClient.EmailServerAPI.DeleteEmailServer(context.Background(), emailServerId).Execute()
+    if err != nil {
+        fmt.Fprintf(os.Stderr, "Error when calling `EmailServerAPI.DeleteEmailServer``: %v\n", err)
+        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+    }
 }
 ```
 
@@ -161,24 +161,24 @@ Retrieve an SMTP Server configuration
 package main
 
 import (
-	"context"
-	"fmt"
-	"os"
-	openapiclient "github.com/okta/okta-sdk-golang"
+    "context"
+    "fmt"
+    "os"
+    openapiclient "github.com/okta/okta-sdk-golang"
 )
 
 func main() {
-	emailServerId := "emailServerId_example" // string | 
+    emailServerId := "emailServerId_example" // string | 
 
-	configuration := openapiclient.NewConfiguration()
-	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.EmailServerAPI.GetEmailServer(context.Background(), emailServerId).Execute()
-	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `EmailServerAPI.GetEmailServer``: %v\n", err)
-		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-	}
-	// response from `GetEmailServer`: EmailServerListResponse
-	fmt.Fprintf(os.Stdout, "Response from `EmailServerAPI.GetEmailServer`: %v\n", resp)
+    configuration := openapiclient.NewConfiguration()
+    apiClient := openapiclient.NewAPIClient(configuration)
+    resp, r, err := apiClient.EmailServerAPI.GetEmailServer(context.Background(), emailServerId).Execute()
+    if err != nil {
+        fmt.Fprintf(os.Stderr, "Error when calling `EmailServerAPI.GetEmailServer``: %v\n", err)
+        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+    }
+    // response from `GetEmailServer`: EmailServerListResponse
+    fmt.Fprintf(os.Stdout, "Response from `EmailServerAPI.GetEmailServer`: %v\n", resp)
 }
 ```
 
@@ -231,23 +231,23 @@ List all enrolled SMTP servers
 package main
 
 import (
-	"context"
-	"fmt"
-	"os"
-	openapiclient "github.com/okta/okta-sdk-golang"
+    "context"
+    "fmt"
+    "os"
+    openapiclient "github.com/okta/okta-sdk-golang"
 )
 
 func main() {
 
-	configuration := openapiclient.NewConfiguration()
-	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.EmailServerAPI.ListEmailServers(context.Background()).Execute()
-	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `EmailServerAPI.ListEmailServers``: %v\n", err)
-		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-	}
-	// response from `ListEmailServers`: EmailServerListResponse
-	fmt.Fprintf(os.Stdout, "Response from `EmailServerAPI.ListEmailServers`: %v\n", resp)
+    configuration := openapiclient.NewConfiguration()
+    apiClient := openapiclient.NewAPIClient(configuration)
+    resp, r, err := apiClient.EmailServerAPI.ListEmailServers(context.Background()).Execute()
+    if err != nil {
+        fmt.Fprintf(os.Stderr, "Error when calling `EmailServerAPI.ListEmailServers``: %v\n", err)
+        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+    }
+    // response from `ListEmailServers`: EmailServerListResponse
+    fmt.Fprintf(os.Stdout, "Response from `EmailServerAPI.ListEmailServers`: %v\n", resp)
 }
 ```
 
@@ -292,23 +292,23 @@ Test an SMTP Server configuration
 package main
 
 import (
-	"context"
-	"fmt"
-	"os"
-	openapiclient "github.com/okta/okta-sdk-golang"
+    "context"
+    "fmt"
+    "os"
+    openapiclient "github.com/okta/okta-sdk-golang"
 )
 
 func main() {
-	emailServerId := "emailServerId_example" // string | 
-	emailTestAddresses := *openapiclient.NewEmailTestAddresses("sender@host.com", "receiver@host.com") // EmailTestAddresses |  (optional)
+    emailServerId := "emailServerId_example" // string | 
+    emailTestAddresses := *openapiclient.NewEmailTestAddresses("sender@host.com", "receiver@host.com") // EmailTestAddresses |  (optional)
 
-	configuration := openapiclient.NewConfiguration()
-	apiClient := openapiclient.NewAPIClient(configuration)
-	r, err := apiClient.EmailServerAPI.TestEmailServer(context.Background(), emailServerId).EmailTestAddresses(emailTestAddresses).Execute()
-	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `EmailServerAPI.TestEmailServer``: %v\n", err)
-		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-	}
+    configuration := openapiclient.NewConfiguration()
+    apiClient := openapiclient.NewAPIClient(configuration)
+    r, err := apiClient.EmailServerAPI.TestEmailServer(context.Background(), emailServerId).EmailTestAddresses(emailTestAddresses).Execute()
+    if err != nil {
+        fmt.Fprintf(os.Stderr, "Error when calling `EmailServerAPI.TestEmailServer``: %v\n", err)
+        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+    }
 }
 ```
 
@@ -362,25 +362,25 @@ Update an SMTP Server configuration
 package main
 
 import (
-	"context"
-	"fmt"
-	"os"
-	openapiclient "github.com/okta/okta-sdk-golang"
+    "context"
+    "fmt"
+    "os"
+    openapiclient "github.com/okta/okta-sdk-golang"
 )
 
 func main() {
-	emailServerId := "emailServerId_example" // string | 
-	emailServerRequest := *openapiclient.NewEmailServerRequest() // EmailServerRequest |  (optional)
+    emailServerId := "emailServerId_example" // string | 
+    emailServerRequest := *openapiclient.NewEmailServerRequest() // EmailServerRequest |  (optional)
 
-	configuration := openapiclient.NewConfiguration()
-	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.EmailServerAPI.UpdateEmailServer(context.Background(), emailServerId).EmailServerRequest(emailServerRequest).Execute()
-	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `EmailServerAPI.UpdateEmailServer``: %v\n", err)
-		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-	}
-	// response from `UpdateEmailServer`: EmailServerResponse
-	fmt.Fprintf(os.Stdout, "Response from `EmailServerAPI.UpdateEmailServer`: %v\n", resp)
+    configuration := openapiclient.NewConfiguration()
+    apiClient := openapiclient.NewAPIClient(configuration)
+    resp, r, err := apiClient.EmailServerAPI.UpdateEmailServer(context.Background(), emailServerId).EmailServerRequest(emailServerRequest).Execute()
+    if err != nil {
+        fmt.Fprintf(os.Stderr, "Error when calling `EmailServerAPI.UpdateEmailServer``: %v\n", err)
+        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+    }
+    // response from `UpdateEmailServer`: EmailServerResponse
+    fmt.Fprintf(os.Stdout, "Response from `EmailServerAPI.UpdateEmailServer`: %v\n", resp)
 }
 ```
 

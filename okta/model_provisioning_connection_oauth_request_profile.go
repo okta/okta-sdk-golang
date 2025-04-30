@@ -25,7 +25,6 @@ package okta
 
 import (
 	"encoding/json"
-	"fmt"
 )
 
 // ProvisioningConnectionOauthRequestProfile struct for ProvisioningConnectionOauthRequestProfile

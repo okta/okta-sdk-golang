@@ -25,7 +25,6 @@ package okta
 
 import (
 	"encoding/json"
-	"fmt"
 )
 
 // Office365ProvisioningSettings Settings required for the Microsoft Office 365 Provisioning Connection

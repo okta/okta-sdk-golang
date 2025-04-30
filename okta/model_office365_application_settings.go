@@ -25,7 +25,6 @@ package okta
 
 import (
 	"encoding/json"
-	"fmt"
 )
 
 // Office365ApplicationSettings struct for Office365ApplicationSettings

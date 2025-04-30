@@ -25,7 +25,6 @@ package okta
 
 import (
 	"encoding/json"
-	"fmt"
 )
 
 // CaepSessionRevokedEvent The session of the subject was revoked

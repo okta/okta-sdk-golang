@@ -25,7 +25,6 @@ package okta
 
 import (
 	"encoding/json"
-	"fmt"
 )
 
 // SlackApplication Schema for the Slack app (key name: `slack`)  To create a Slack app, use the [Create an Application](/openapi/okta-management/management/tag/Application/#tag/Application/operation/createApplication) request with the following parameters in the request body. > **Note:** The Slack app only supports `BROWSER_PLUGIN` and `SAML_2_0` sign-on modes. 

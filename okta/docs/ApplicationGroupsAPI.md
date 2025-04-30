@@ -26,26 +26,26 @@ Assign an Application Group
 package main
 
 import (
-	"context"
-	"fmt"
-	"os"
-	openapiclient "github.com/okta/okta-sdk-golang"
+    "context"
+    "fmt"
+    "os"
+    openapiclient "github.com/okta/okta-sdk-golang"
 )
 
 func main() {
-	appId := "0oafxqCAJWWGELFTYASJ" // string | Application ID
-	groupId := "00g1emaKYZTWRYYRRTSK" // string | The `id` of the group
-	applicationGroupAssignment := *openapiclient.NewApplicationGroupAssignment() // ApplicationGroupAssignment |  (optional)
+    appId := "0oafxqCAJWWGELFTYASJ" // string | Application ID
+    groupId := "00g1emaKYZTWRYYRRTSK" // string | The `id` of the group
+    applicationGroupAssignment := *openapiclient.NewApplicationGroupAssignment() // ApplicationGroupAssignment |  (optional)
 
-	configuration := openapiclient.NewConfiguration()
-	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.ApplicationGroupsAPI.AssignGroupToApplication(context.Background(), appId, groupId).ApplicationGroupAssignment(applicationGroupAssignment).Execute()
-	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `ApplicationGroupsAPI.AssignGroupToApplication``: %v\n", err)
-		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-	}
-	// response from `AssignGroupToApplication`: ApplicationGroupAssignment
-	fmt.Fprintf(os.Stdout, "Response from `ApplicationGroupsAPI.AssignGroupToApplication`: %v\n", resp)
+    configuration := openapiclient.NewConfiguration()
+    apiClient := openapiclient.NewAPIClient(configuration)
+    resp, r, err := apiClient.ApplicationGroupsAPI.AssignGroupToApplication(context.Background(), appId, groupId).ApplicationGroupAssignment(applicationGroupAssignment).Execute()
+    if err != nil {
+        fmt.Fprintf(os.Stderr, "Error when calling `ApplicationGroupsAPI.AssignGroupToApplication``: %v\n", err)
+        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+    }
+    // response from `AssignGroupToApplication`: ApplicationGroupAssignment
+    fmt.Fprintf(os.Stdout, "Response from `ApplicationGroupsAPI.AssignGroupToApplication`: %v\n", resp)
 }
 ```
 
@@ -101,26 +101,26 @@ Retrieve an Application Group
 package main
 
 import (
-	"context"
-	"fmt"
-	"os"
-	openapiclient "github.com/okta/okta-sdk-golang"
+    "context"
+    "fmt"
+    "os"
+    openapiclient "github.com/okta/okta-sdk-golang"
 )
 
 func main() {
-	appId := "0oafxqCAJWWGELFTYASJ" // string | Application ID
-	groupId := "00g1emaKYZTWRYYRRTSK" // string | The `id` of the group
-	expand := "group" // string | An optional query parameter to return the corresponding assigned [Group](/openapi/okta-management/management/tag/Group/) or  the group assignment metadata details in the `_embedded` property.  (optional)
+    appId := "0oafxqCAJWWGELFTYASJ" // string | Application ID
+    groupId := "00g1emaKYZTWRYYRRTSK" // string | The `id` of the group
+    expand := "group" // string | An optional query parameter to return the corresponding assigned [Group](/openapi/okta-management/management/tag/Group/) or  the group assignment metadata details in the `_embedded` property.  (optional)
 
-	configuration := openapiclient.NewConfiguration()
-	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.ApplicationGroupsAPI.GetApplicationGroupAssignment(context.Background(), appId, groupId).Expand(expand).Execute()
-	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `ApplicationGroupsAPI.GetApplicationGroupAssignment``: %v\n", err)
-		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-	}
-	// response from `GetApplicationGroupAssignment`: ApplicationGroupAssignment
-	fmt.Fprintf(os.Stdout, "Response from `ApplicationGroupsAPI.GetApplicationGroupAssignment`: %v\n", resp)
+    configuration := openapiclient.NewConfiguration()
+    apiClient := openapiclient.NewAPIClient(configuration)
+    resp, r, err := apiClient.ApplicationGroupsAPI.GetApplicationGroupAssignment(context.Background(), appId, groupId).Expand(expand).Execute()
+    if err != nil {
+        fmt.Fprintf(os.Stderr, "Error when calling `ApplicationGroupsAPI.GetApplicationGroupAssignment``: %v\n", err)
+        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+    }
+    // response from `GetApplicationGroupAssignment`: ApplicationGroupAssignment
+    fmt.Fprintf(os.Stdout, "Response from `ApplicationGroupsAPI.GetApplicationGroupAssignment`: %v\n", resp)
 }
 ```
 
@@ -176,28 +176,28 @@ List all Application Groups
 package main
 
 import (
-	"context"
-	"fmt"
-	"os"
-	openapiclient "github.com/okta/okta-sdk-golang"
+    "context"
+    "fmt"
+    "os"
+    openapiclient "github.com/okta/okta-sdk-golang"
 )
 
 func main() {
-	appId := "0oafxqCAJWWGELFTYASJ" // string | Application ID
-	q := "test" // string | Specifies a filter for a list of assigned groups returned based on their names. The value of `q` is matched against the group `name`.  This filter only supports the `startsWith` operation that matches the `q` string against the beginning of the [Group name](https://developer.okta.com/docs/api/openapi/okta-management/management/tag/Group/#tag/Group/operation/listGroups!c=200&path=profile/name&t=response). (optional)
-	after := "16275000448691" // string | Specifies the pagination cursor for the `next` page of results. Treat this as an opaque value obtained through the next link relationship. See [Pagination](https://developer.okta.com/docs/api/#pagination). (optional)
-	limit := int32(20) // int32 | Specifies the number of objects to return per page. If there are multiple pages of results, the Link header contains a `next` link that you need to use as an opaque value (follow it, don't parse it). See [Pagination](/#pagination). (optional) (default to 20)
-	expand := "group" // string | An optional query parameter to return the corresponding assigned [Group](/openapi/okta-management/management/tag/Group/) or  the group assignment metadata details in the `_embedded` property.  (optional)
+    appId := "0oafxqCAJWWGELFTYASJ" // string | Application ID
+    q := "test" // string | Specifies a filter for a list of assigned groups returned based on their names. The value of `q` is matched against the group `name`.  This filter only supports the `startsWith` operation that matches the `q` string against the beginning of the [Group name](https://developer.okta.com/docs/api/openapi/okta-management/management/tag/Group/#tag/Group/operation/listGroups!c=200&path=profile/name&t=response). (optional)
+    after := "16275000448691" // string | Specifies the pagination cursor for the `next` page of results. Treat this as an opaque value obtained through the next link relationship. See [Pagination](https://developer.okta.com/docs/api/#pagination). (optional)
+    limit := int32(20) // int32 | Specifies the number of objects to return per page. If there are multiple pages of results, the Link header contains a `next` link that you need to use as an opaque value (follow it, don't parse it). See [Pagination](/#pagination). (optional) (default to 20)
+    expand := "group" // string | An optional query parameter to return the corresponding assigned [Group](/openapi/okta-management/management/tag/Group/) or  the group assignment metadata details in the `_embedded` property.  (optional)
 
-	configuration := openapiclient.NewConfiguration()
-	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.ApplicationGroupsAPI.ListApplicationGroupAssignments(context.Background(), appId).Q(q).After(after).Limit(limit).Expand(expand).Execute()
-	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `ApplicationGroupsAPI.ListApplicationGroupAssignments``: %v\n", err)
-		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-	}
-	// response from `ListApplicationGroupAssignments`: []ApplicationGroupAssignment
-	fmt.Fprintf(os.Stdout, "Response from `ApplicationGroupsAPI.ListApplicationGroupAssignments`: %v\n", resp)
+    configuration := openapiclient.NewConfiguration()
+    apiClient := openapiclient.NewAPIClient(configuration)
+    resp, r, err := apiClient.ApplicationGroupsAPI.ListApplicationGroupAssignments(context.Background(), appId).Q(q).After(after).Limit(limit).Expand(expand).Execute()
+    if err != nil {
+        fmt.Fprintf(os.Stderr, "Error when calling `ApplicationGroupsAPI.ListApplicationGroupAssignments``: %v\n", err)
+        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+    }
+    // response from `ListApplicationGroupAssignments`: []ApplicationGroupAssignment
+    fmt.Fprintf(os.Stdout, "Response from `ApplicationGroupsAPI.ListApplicationGroupAssignments`: %v\n", resp)
 }
 ```
 
@@ -254,23 +254,23 @@ Unassign an Application Group
 package main
 
 import (
-	"context"
-	"fmt"
-	"os"
-	openapiclient "github.com/okta/okta-sdk-golang"
+    "context"
+    "fmt"
+    "os"
+    openapiclient "github.com/okta/okta-sdk-golang"
 )
 
 func main() {
-	appId := "0oafxqCAJWWGELFTYASJ" // string | Application ID
-	groupId := "00g1emaKYZTWRYYRRTSK" // string | The `id` of the group
+    appId := "0oafxqCAJWWGELFTYASJ" // string | Application ID
+    groupId := "00g1emaKYZTWRYYRRTSK" // string | The `id` of the group
 
-	configuration := openapiclient.NewConfiguration()
-	apiClient := openapiclient.NewAPIClient(configuration)
-	r, err := apiClient.ApplicationGroupsAPI.UnassignApplicationFromGroup(context.Background(), appId, groupId).Execute()
-	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `ApplicationGroupsAPI.UnassignApplicationFromGroup``: %v\n", err)
-		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-	}
+    configuration := openapiclient.NewConfiguration()
+    apiClient := openapiclient.NewAPIClient(configuration)
+    r, err := apiClient.ApplicationGroupsAPI.UnassignApplicationFromGroup(context.Background(), appId, groupId).Execute()
+    if err != nil {
+        fmt.Fprintf(os.Stderr, "Error when calling `ApplicationGroupsAPI.UnassignApplicationFromGroup``: %v\n", err)
+        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+    }
 }
 ```
 
@@ -325,26 +325,26 @@ Update an Application Group
 package main
 
 import (
-	"context"
-	"fmt"
-	"os"
-	openapiclient "github.com/okta/okta-sdk-golang"
+    "context"
+    "fmt"
+    "os"
+    openapiclient "github.com/okta/okta-sdk-golang"
 )
 
 func main() {
-	appId := "0oafxqCAJWWGELFTYASJ" // string | Application ID
-	groupId := "00g1emaKYZTWRYYRRTSK" // string | The `id` of the group
-	jsonPatchOperation := []openapiclient.JsonPatchOperation{*openapiclient.NewJsonPatchOperation()} // []JsonPatchOperation |  (optional)
+    appId := "0oafxqCAJWWGELFTYASJ" // string | Application ID
+    groupId := "00g1emaKYZTWRYYRRTSK" // string | The `id` of the group
+    jsonPatchOperation := []openapiclient.JsonPatchOperation{*openapiclient.NewJsonPatchOperation()} // []JsonPatchOperation |  (optional)
 
-	configuration := openapiclient.NewConfiguration()
-	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.ApplicationGroupsAPI.UpdateGroupAssignmentToApplication(context.Background(), appId, groupId).JsonPatchOperation(jsonPatchOperation).Execute()
-	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `ApplicationGroupsAPI.UpdateGroupAssignmentToApplication``: %v\n", err)
-		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-	}
-	// response from `UpdateGroupAssignmentToApplication`: ApplicationGroupAssignment
-	fmt.Fprintf(os.Stdout, "Response from `ApplicationGroupsAPI.UpdateGroupAssignmentToApplication`: %v\n", resp)
+    configuration := openapiclient.NewConfiguration()
+    apiClient := openapiclient.NewAPIClient(configuration)
+    resp, r, err := apiClient.ApplicationGroupsAPI.UpdateGroupAssignmentToApplication(context.Background(), appId, groupId).JsonPatchOperation(jsonPatchOperation).Execute()
+    if err != nil {
+        fmt.Fprintf(os.Stderr, "Error when calling `ApplicationGroupsAPI.UpdateGroupAssignmentToApplication``: %v\n", err)
+        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+    }
+    // response from `UpdateGroupAssignmentToApplication`: ApplicationGroupAssignment
+    fmt.Fprintf(os.Stdout, "Response from `ApplicationGroupsAPI.UpdateGroupAssignmentToApplication`: %v\n", resp)
 }
 ```
 

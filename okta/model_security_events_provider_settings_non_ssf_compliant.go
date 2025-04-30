@@ -25,7 +25,6 @@ package okta
 
 import (
 	"encoding/json"
-	"fmt"
 )
 
 // SecurityEventsProviderSettingsNonSSFCompliant Security Events Provider with issuer and JWKS settings for signal ingestion

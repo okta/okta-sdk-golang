@@ -34,25 +34,25 @@ Assign Role to Client
 package main
 
 import (
-	"context"
-	"fmt"
-	"os"
-	openapiclient "github.com/okta/okta-sdk-golang"
+    "context"
+    "fmt"
+    "os"
+    openapiclient "github.com/okta/okta-sdk-golang"
 )
 
 func main() {
-	clientId := "52Uy4BUWVBOjFItcg2jWsmnd83Ad8dD" // string | `client_id` of the app
-	assignRoleToClientRequest := openapiclient.assignRoleToClient_request{CustomRoleAssignmentSchema: openapiclient.NewCustomRoleAssignmentSchema()} // AssignRoleToClientRequest | 
+    clientId := "52Uy4BUWVBOjFItcg2jWsmnd83Ad8dD" // string | `client_id` of the app
+    assignRoleToClientRequest := openapiclient.assignRoleToClient_request{CustomRoleAssignmentSchema: openapiclient.NewCustomRoleAssignmentSchema()} // AssignRoleToClientRequest | 
 
-	configuration := openapiclient.NewConfiguration()
-	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.RoleAssignmentAPI.AssignRoleToClient(context.Background(), clientId).AssignRoleToClientRequest(assignRoleToClientRequest).Execute()
-	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `RoleAssignmentAPI.AssignRoleToClient``: %v\n", err)
-		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-	}
-	// response from `AssignRoleToClient`: Client
-	fmt.Fprintf(os.Stdout, "Response from `RoleAssignmentAPI.AssignRoleToClient`: %v\n", resp)
+    configuration := openapiclient.NewConfiguration()
+    apiClient := openapiclient.NewAPIClient(configuration)
+    resp, r, err := apiClient.RoleAssignmentAPI.AssignRoleToClient(context.Background(), clientId).AssignRoleToClientRequest(assignRoleToClientRequest).Execute()
+    if err != nil {
+        fmt.Fprintf(os.Stderr, "Error when calling `RoleAssignmentAPI.AssignRoleToClient``: %v\n", err)
+        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+    }
+    // response from `AssignRoleToClient`: Client
+    fmt.Fprintf(os.Stdout, "Response from `RoleAssignmentAPI.AssignRoleToClient`: %v\n", resp)
 }
 ```
 
@@ -106,26 +106,26 @@ Assign a Role to a Group
 package main
 
 import (
-	"context"
-	"fmt"
-	"os"
-	openapiclient "github.com/okta/okta-sdk-golang"
+    "context"
+    "fmt"
+    "os"
+    openapiclient "github.com/okta/okta-sdk-golang"
 )
 
 func main() {
-	groupId := "00g1emaKYZTWRYYRRTSK" // string | The `id` of the group
-	assignRoleRequest := *openapiclient.NewAssignRoleRequest() // AssignRoleRequest | 
-	disableNotifications := true // bool | Setting this to `true` grants the group third-party admin status (optional)
+    groupId := "00g1emaKYZTWRYYRRTSK" // string | The `id` of the group
+    assignRoleRequest := *openapiclient.NewAssignRoleRequest() // AssignRoleRequest | 
+    disableNotifications := true // bool | Setting this to `true` grants the group third-party admin status (optional)
 
-	configuration := openapiclient.NewConfiguration()
-	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.RoleAssignmentAPI.AssignRoleToGroup(context.Background(), groupId).AssignRoleRequest(assignRoleRequest).DisableNotifications(disableNotifications).Execute()
-	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `RoleAssignmentAPI.AssignRoleToGroup``: %v\n", err)
-		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-	}
-	// response from `AssignRoleToGroup`: Role
-	fmt.Fprintf(os.Stdout, "Response from `RoleAssignmentAPI.AssignRoleToGroup`: %v\n", resp)
+    configuration := openapiclient.NewConfiguration()
+    apiClient := openapiclient.NewAPIClient(configuration)
+    resp, r, err := apiClient.RoleAssignmentAPI.AssignRoleToGroup(context.Background(), groupId).AssignRoleRequest(assignRoleRequest).DisableNotifications(disableNotifications).Execute()
+    if err != nil {
+        fmt.Fprintf(os.Stderr, "Error when calling `RoleAssignmentAPI.AssignRoleToGroup``: %v\n", err)
+        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+    }
+    // response from `AssignRoleToGroup`: Role
+    fmt.Fprintf(os.Stdout, "Response from `RoleAssignmentAPI.AssignRoleToGroup`: %v\n", resp)
 }
 ```
 
@@ -180,26 +180,26 @@ Assign a Role to a User
 package main
 
 import (
-	"context"
-	"fmt"
-	"os"
-	openapiclient "github.com/okta/okta-sdk-golang"
+    "context"
+    "fmt"
+    "os"
+    openapiclient "github.com/okta/okta-sdk-golang"
 )
 
 func main() {
-	userId := "userId_example" // string | ID of an existing Okta user
-	assignRoleRequest := *openapiclient.NewAssignRoleRequest() // AssignRoleRequest | 
-	disableNotifications := true // bool | Setting this to `true` grants the user third-party admin status (optional)
+    userId := "userId_example" // string | ID of an existing Okta user
+    assignRoleRequest := *openapiclient.NewAssignRoleRequest() // AssignRoleRequest | 
+    disableNotifications := true // bool | Setting this to `true` grants the user third-party admin status (optional)
 
-	configuration := openapiclient.NewConfiguration()
-	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.RoleAssignmentAPI.AssignRoleToUser(context.Background(), userId).AssignRoleRequest(assignRoleRequest).DisableNotifications(disableNotifications).Execute()
-	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `RoleAssignmentAPI.AssignRoleToUser``: %v\n", err)
-		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-	}
-	// response from `AssignRoleToUser`: Role
-	fmt.Fprintf(os.Stdout, "Response from `RoleAssignmentAPI.AssignRoleToUser`: %v\n", resp)
+    configuration := openapiclient.NewConfiguration()
+    apiClient := openapiclient.NewAPIClient(configuration)
+    resp, r, err := apiClient.RoleAssignmentAPI.AssignRoleToUser(context.Background(), userId).AssignRoleRequest(assignRoleRequest).DisableNotifications(disableNotifications).Execute()
+    if err != nil {
+        fmt.Fprintf(os.Stderr, "Error when calling `RoleAssignmentAPI.AssignRoleToUser``: %v\n", err)
+        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+    }
+    // response from `AssignRoleToUser`: Role
+    fmt.Fprintf(os.Stdout, "Response from `RoleAssignmentAPI.AssignRoleToUser`: %v\n", resp)
 }
 ```
 
@@ -254,23 +254,23 @@ Unassign a Role from a Client
 package main
 
 import (
-	"context"
-	"fmt"
-	"os"
-	openapiclient "github.com/okta/okta-sdk-golang"
+    "context"
+    "fmt"
+    "os"
+    openapiclient "github.com/okta/okta-sdk-golang"
 )
 
 func main() {
-	clientId := "52Uy4BUWVBOjFItcg2jWsmnd83Ad8dD" // string | `client_id` of the app
-	roleId := "3Vg1Pjp3qzw4qcCK5EdO" // string | `id` of the Role
+    clientId := "52Uy4BUWVBOjFItcg2jWsmnd83Ad8dD" // string | `client_id` of the app
+    roleId := "3Vg1Pjp3qzw4qcCK5EdO" // string | `id` of the Role
 
-	configuration := openapiclient.NewConfiguration()
-	apiClient := openapiclient.NewAPIClient(configuration)
-	r, err := apiClient.RoleAssignmentAPI.DeleteRoleFromClient(context.Background(), clientId, roleId).Execute()
-	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `RoleAssignmentAPI.DeleteRoleFromClient``: %v\n", err)
-		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-	}
+    configuration := openapiclient.NewConfiguration()
+    apiClient := openapiclient.NewAPIClient(configuration)
+    r, err := apiClient.RoleAssignmentAPI.DeleteRoleFromClient(context.Background(), clientId, roleId).Execute()
+    if err != nil {
+        fmt.Fprintf(os.Stderr, "Error when calling `RoleAssignmentAPI.DeleteRoleFromClient``: %v\n", err)
+        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+    }
 }
 ```
 
@@ -325,25 +325,25 @@ Retrieve a Role assigned to Group
 package main
 
 import (
-	"context"
-	"fmt"
-	"os"
-	openapiclient "github.com/okta/okta-sdk-golang"
+    "context"
+    "fmt"
+    "os"
+    openapiclient "github.com/okta/okta-sdk-golang"
 )
 
 func main() {
-	groupId := "00g1emaKYZTWRYYRRTSK" // string | The `id` of the group
-	roleId := "3Vg1Pjp3qzw4qcCK5EdO" // string | `id` of the Role
+    groupId := "00g1emaKYZTWRYYRRTSK" // string | The `id` of the group
+    roleId := "3Vg1Pjp3qzw4qcCK5EdO" // string | `id` of the Role
 
-	configuration := openapiclient.NewConfiguration()
-	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.RoleAssignmentAPI.GetGroupAssignedRole(context.Background(), groupId, roleId).Execute()
-	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `RoleAssignmentAPI.GetGroupAssignedRole``: %v\n", err)
-		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-	}
-	// response from `GetGroupAssignedRole`: Role
-	fmt.Fprintf(os.Stdout, "Response from `RoleAssignmentAPI.GetGroupAssignedRole`: %v\n", resp)
+    configuration := openapiclient.NewConfiguration()
+    apiClient := openapiclient.NewAPIClient(configuration)
+    resp, r, err := apiClient.RoleAssignmentAPI.GetGroupAssignedRole(context.Background(), groupId, roleId).Execute()
+    if err != nil {
+        fmt.Fprintf(os.Stderr, "Error when calling `RoleAssignmentAPI.GetGroupAssignedRole``: %v\n", err)
+        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+    }
+    // response from `GetGroupAssignedRole`: Role
+    fmt.Fprintf(os.Stdout, "Response from `RoleAssignmentAPI.GetGroupAssignedRole`: %v\n", resp)
 }
 ```
 
@@ -398,25 +398,25 @@ Retrieve a Role assigned to a User
 package main
 
 import (
-	"context"
-	"fmt"
-	"os"
-	openapiclient "github.com/okta/okta-sdk-golang"
+    "context"
+    "fmt"
+    "os"
+    openapiclient "github.com/okta/okta-sdk-golang"
 )
 
 func main() {
-	userId := "userId_example" // string | ID of an existing Okta user
-	roleId := "3Vg1Pjp3qzw4qcCK5EdO" // string | `id` of the Role
+    userId := "userId_example" // string | ID of an existing Okta user
+    roleId := "3Vg1Pjp3qzw4qcCK5EdO" // string | `id` of the Role
 
-	configuration := openapiclient.NewConfiguration()
-	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.RoleAssignmentAPI.GetUserAssignedRole(context.Background(), userId, roleId).Execute()
-	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `RoleAssignmentAPI.GetUserAssignedRole``: %v\n", err)
-		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-	}
-	// response from `GetUserAssignedRole`: Role
-	fmt.Fprintf(os.Stdout, "Response from `RoleAssignmentAPI.GetUserAssignedRole`: %v\n", resp)
+    configuration := openapiclient.NewConfiguration()
+    apiClient := openapiclient.NewAPIClient(configuration)
+    resp, r, err := apiClient.RoleAssignmentAPI.GetUserAssignedRole(context.Background(), userId, roleId).Execute()
+    if err != nil {
+        fmt.Fprintf(os.Stderr, "Error when calling `RoleAssignmentAPI.GetUserAssignedRole``: %v\n", err)
+        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+    }
+    // response from `GetUserAssignedRole`: Role
+    fmt.Fprintf(os.Stdout, "Response from `RoleAssignmentAPI.GetUserAssignedRole`: %v\n", resp)
 }
 ```
 
@@ -471,25 +471,25 @@ List all Roles assigned to a User
 package main
 
 import (
-	"context"
-	"fmt"
-	"os"
-	openapiclient "github.com/okta/okta-sdk-golang"
+    "context"
+    "fmt"
+    "os"
+    openapiclient "github.com/okta/okta-sdk-golang"
 )
 
 func main() {
-	userId := "userId_example" // string | ID of an existing Okta user
-	expand := "expand_example" // string |  (optional)
+    userId := "userId_example" // string | ID of an existing Okta user
+    expand := "expand_example" // string |  (optional)
 
-	configuration := openapiclient.NewConfiguration()
-	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.RoleAssignmentAPI.ListAssignedRolesForUser(context.Background(), userId).Expand(expand).Execute()
-	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `RoleAssignmentAPI.ListAssignedRolesForUser``: %v\n", err)
-		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-	}
-	// response from `ListAssignedRolesForUser`: []Role
-	fmt.Fprintf(os.Stdout, "Response from `RoleAssignmentAPI.ListAssignedRolesForUser`: %v\n", resp)
+    configuration := openapiclient.NewConfiguration()
+    apiClient := openapiclient.NewAPIClient(configuration)
+    resp, r, err := apiClient.RoleAssignmentAPI.ListAssignedRolesForUser(context.Background(), userId).Expand(expand).Execute()
+    if err != nil {
+        fmt.Fprintf(os.Stderr, "Error when calling `RoleAssignmentAPI.ListAssignedRolesForUser``: %v\n", err)
+        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+    }
+    // response from `ListAssignedRolesForUser`: []Role
+    fmt.Fprintf(os.Stdout, "Response from `RoleAssignmentAPI.ListAssignedRolesForUser`: %v\n", resp)
 }
 ```
 
@@ -543,25 +543,25 @@ List all Assigned Roles of Group
 package main
 
 import (
-	"context"
-	"fmt"
-	"os"
-	openapiclient "github.com/okta/okta-sdk-golang"
+    "context"
+    "fmt"
+    "os"
+    openapiclient "github.com/okta/okta-sdk-golang"
 )
 
 func main() {
-	groupId := "00g1emaKYZTWRYYRRTSK" // string | The `id` of the group
-	expand := "expand_example" // string |  (optional)
+    groupId := "00g1emaKYZTWRYYRRTSK" // string | The `id` of the group
+    expand := "expand_example" // string |  (optional)
 
-	configuration := openapiclient.NewConfiguration()
-	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.RoleAssignmentAPI.ListGroupAssignedRoles(context.Background(), groupId).Expand(expand).Execute()
-	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `RoleAssignmentAPI.ListGroupAssignedRoles``: %v\n", err)
-		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-	}
-	// response from `ListGroupAssignedRoles`: []Role
-	fmt.Fprintf(os.Stdout, "Response from `RoleAssignmentAPI.ListGroupAssignedRoles`: %v\n", resp)
+    configuration := openapiclient.NewConfiguration()
+    apiClient := openapiclient.NewAPIClient(configuration)
+    resp, r, err := apiClient.RoleAssignmentAPI.ListGroupAssignedRoles(context.Background(), groupId).Expand(expand).Execute()
+    if err != nil {
+        fmt.Fprintf(os.Stderr, "Error when calling `RoleAssignmentAPI.ListGroupAssignedRoles``: %v\n", err)
+        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+    }
+    // response from `ListGroupAssignedRoles`: []Role
+    fmt.Fprintf(os.Stdout, "Response from `RoleAssignmentAPI.ListGroupAssignedRoles`: %v\n", resp)
 }
 ```
 
@@ -615,24 +615,24 @@ List all Roles for a Client
 package main
 
 import (
-	"context"
-	"fmt"
-	"os"
-	openapiclient "github.com/okta/okta-sdk-golang"
+    "context"
+    "fmt"
+    "os"
+    openapiclient "github.com/okta/okta-sdk-golang"
 )
 
 func main() {
-	clientId := "52Uy4BUWVBOjFItcg2jWsmnd83Ad8dD" // string | `client_id` of the app
+    clientId := "52Uy4BUWVBOjFItcg2jWsmnd83Ad8dD" // string | `client_id` of the app
 
-	configuration := openapiclient.NewConfiguration()
-	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.RoleAssignmentAPI.ListRolesForClient(context.Background(), clientId).Execute()
-	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `RoleAssignmentAPI.ListRolesForClient``: %v\n", err)
-		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-	}
-	// response from `ListRolesForClient`: Client
-	fmt.Fprintf(os.Stdout, "Response from `RoleAssignmentAPI.ListRolesForClient`: %v\n", resp)
+    configuration := openapiclient.NewConfiguration()
+    apiClient := openapiclient.NewAPIClient(configuration)
+    resp, r, err := apiClient.RoleAssignmentAPI.ListRolesForClient(context.Background(), clientId).Execute()
+    if err != nil {
+        fmt.Fprintf(os.Stderr, "Error when calling `RoleAssignmentAPI.ListRolesForClient``: %v\n", err)
+        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+    }
+    // response from `ListRolesForClient`: Client
+    fmt.Fprintf(os.Stdout, "Response from `RoleAssignmentAPI.ListRolesForClient`: %v\n", resp)
 }
 ```
 
@@ -685,25 +685,25 @@ List all Users with Role Assignments
 package main
 
 import (
-	"context"
-	"fmt"
-	"os"
-	openapiclient "github.com/okta/okta-sdk-golang"
+    "context"
+    "fmt"
+    "os"
+    openapiclient "github.com/okta/okta-sdk-golang"
 )
 
 func main() {
-	after := "after_example" // string |  (optional)
-	limit := int32(56) // int32 | Specifies the number of results returned. Defaults to `100`. (optional) (default to 100)
+    after := "after_example" // string |  (optional)
+    limit := int32(56) // int32 | Specifies the number of results returned. Defaults to `100`. (optional) (default to 100)
 
-	configuration := openapiclient.NewConfiguration()
-	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.RoleAssignmentAPI.ListUsersWithRoleAssignments(context.Background()).After(after).Limit(limit).Execute()
-	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `RoleAssignmentAPI.ListUsersWithRoleAssignments``: %v\n", err)
-		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-	}
-	// response from `ListUsersWithRoleAssignments`: RoleAssignedUsers
-	fmt.Fprintf(os.Stdout, "Response from `RoleAssignmentAPI.ListUsersWithRoleAssignments`: %v\n", resp)
+    configuration := openapiclient.NewConfiguration()
+    apiClient := openapiclient.NewAPIClient(configuration)
+    resp, r, err := apiClient.RoleAssignmentAPI.ListUsersWithRoleAssignments(context.Background()).After(after).Limit(limit).Execute()
+    if err != nil {
+        fmt.Fprintf(os.Stderr, "Error when calling `RoleAssignmentAPI.ListUsersWithRoleAssignments``: %v\n", err)
+        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+    }
+    // response from `ListUsersWithRoleAssignments`: RoleAssignedUsers
+    fmt.Fprintf(os.Stdout, "Response from `RoleAssignmentAPI.ListUsersWithRoleAssignments`: %v\n", resp)
 }
 ```
 
@@ -753,25 +753,25 @@ Retrieve a Client Role
 package main
 
 import (
-	"context"
-	"fmt"
-	"os"
-	openapiclient "github.com/okta/okta-sdk-golang"
+    "context"
+    "fmt"
+    "os"
+    openapiclient "github.com/okta/okta-sdk-golang"
 )
 
 func main() {
-	clientId := "52Uy4BUWVBOjFItcg2jWsmnd83Ad8dD" // string | `client_id` of the app
-	roleId := "3Vg1Pjp3qzw4qcCK5EdO" // string | `id` of the Role
+    clientId := "52Uy4BUWVBOjFItcg2jWsmnd83Ad8dD" // string | `client_id` of the app
+    roleId := "3Vg1Pjp3qzw4qcCK5EdO" // string | `id` of the Role
 
-	configuration := openapiclient.NewConfiguration()
-	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.RoleAssignmentAPI.RetrieveClientRole(context.Background(), clientId, roleId).Execute()
-	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `RoleAssignmentAPI.RetrieveClientRole``: %v\n", err)
-		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-	}
-	// response from `RetrieveClientRole`: Client
-	fmt.Fprintf(os.Stdout, "Response from `RoleAssignmentAPI.RetrieveClientRole`: %v\n", resp)
+    configuration := openapiclient.NewConfiguration()
+    apiClient := openapiclient.NewAPIClient(configuration)
+    resp, r, err := apiClient.RoleAssignmentAPI.RetrieveClientRole(context.Background(), clientId, roleId).Execute()
+    if err != nil {
+        fmt.Fprintf(os.Stderr, "Error when calling `RoleAssignmentAPI.RetrieveClientRole``: %v\n", err)
+        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+    }
+    // response from `RetrieveClientRole`: Client
+    fmt.Fprintf(os.Stdout, "Response from `RoleAssignmentAPI.RetrieveClientRole`: %v\n", resp)
 }
 ```
 
@@ -826,23 +826,23 @@ Unassign a Role from a Group
 package main
 
 import (
-	"context"
-	"fmt"
-	"os"
-	openapiclient "github.com/okta/okta-sdk-golang"
+    "context"
+    "fmt"
+    "os"
+    openapiclient "github.com/okta/okta-sdk-golang"
 )
 
 func main() {
-	groupId := "00g1emaKYZTWRYYRRTSK" // string | The `id` of the group
-	roleId := "3Vg1Pjp3qzw4qcCK5EdO" // string | `id` of the Role
+    groupId := "00g1emaKYZTWRYYRRTSK" // string | The `id` of the group
+    roleId := "3Vg1Pjp3qzw4qcCK5EdO" // string | `id` of the Role
 
-	configuration := openapiclient.NewConfiguration()
-	apiClient := openapiclient.NewAPIClient(configuration)
-	r, err := apiClient.RoleAssignmentAPI.UnassignRoleFromGroup(context.Background(), groupId, roleId).Execute()
-	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `RoleAssignmentAPI.UnassignRoleFromGroup``: %v\n", err)
-		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-	}
+    configuration := openapiclient.NewConfiguration()
+    apiClient := openapiclient.NewAPIClient(configuration)
+    r, err := apiClient.RoleAssignmentAPI.UnassignRoleFromGroup(context.Background(), groupId, roleId).Execute()
+    if err != nil {
+        fmt.Fprintf(os.Stderr, "Error when calling `RoleAssignmentAPI.UnassignRoleFromGroup``: %v\n", err)
+        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+    }
 }
 ```
 
@@ -897,23 +897,23 @@ Unassign a Role from a User
 package main
 
 import (
-	"context"
-	"fmt"
-	"os"
-	openapiclient "github.com/okta/okta-sdk-golang"
+    "context"
+    "fmt"
+    "os"
+    openapiclient "github.com/okta/okta-sdk-golang"
 )
 
 func main() {
-	userId := "userId_example" // string | ID of an existing Okta user
-	roleId := "3Vg1Pjp3qzw4qcCK5EdO" // string | `id` of the Role
+    userId := "userId_example" // string | ID of an existing Okta user
+    roleId := "3Vg1Pjp3qzw4qcCK5EdO" // string | `id` of the Role
 
-	configuration := openapiclient.NewConfiguration()
-	apiClient := openapiclient.NewAPIClient(configuration)
-	r, err := apiClient.RoleAssignmentAPI.UnassignRoleFromUser(context.Background(), userId, roleId).Execute()
-	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `RoleAssignmentAPI.UnassignRoleFromUser``: %v\n", err)
-		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-	}
+    configuration := openapiclient.NewConfiguration()
+    apiClient := openapiclient.NewAPIClient(configuration)
+    r, err := apiClient.RoleAssignmentAPI.UnassignRoleFromUser(context.Background(), userId, roleId).Execute()
+    if err != nil {
+        fmt.Fprintf(os.Stderr, "Error when calling `RoleAssignmentAPI.UnassignRoleFromUser``: %v\n", err)
+        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+    }
 }
 ```
 

@@ -30,7 +30,7 @@ import (
 // UserFactorSMSProfile struct for UserFactorSMSProfile
 type UserFactorSMSProfile struct {
 	// Phone number of the Factor. You should format phone numbers to use the [E.164 standard](https://www.itu.int/rec/T-REC-E.164/).
-	PhoneNumber *string `json:"phoneNumber,omitempty" validate:"regexp=^\\\\+[1-9]\\\\d{1,14}$"`
+	PhoneNumber *string `json:"phoneNumber,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 

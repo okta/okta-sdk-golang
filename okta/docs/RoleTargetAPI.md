@@ -46,23 +46,23 @@ Assign all Apps as Target to Role
 package main
 
 import (
-	"context"
-	"fmt"
-	"os"
-	openapiclient "github.com/okta/okta-sdk-golang"
+    "context"
+    "fmt"
+    "os"
+    openapiclient "github.com/okta/okta-sdk-golang"
 )
 
 func main() {
-	userId := "userId_example" // string | ID of an existing Okta user
-	roleId := "3Vg1Pjp3qzw4qcCK5EdO" // string | `id` of the Role
+    userId := "userId_example" // string | ID of an existing Okta user
+    roleId := "3Vg1Pjp3qzw4qcCK5EdO" // string | `id` of the Role
 
-	configuration := openapiclient.NewConfiguration()
-	apiClient := openapiclient.NewAPIClient(configuration)
-	r, err := apiClient.RoleTargetAPI.AssignAllAppsAsTargetToRoleForUser(context.Background(), userId, roleId).Execute()
-	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `RoleTargetAPI.AssignAllAppsAsTargetToRoleForUser``: %v\n", err)
-		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-	}
+    configuration := openapiclient.NewConfiguration()
+    apiClient := openapiclient.NewAPIClient(configuration)
+    r, err := apiClient.RoleTargetAPI.AssignAllAppsAsTargetToRoleForUser(context.Background(), userId, roleId).Execute()
+    if err != nil {
+        fmt.Fprintf(os.Stderr, "Error when calling `RoleTargetAPI.AssignAllAppsAsTargetToRoleForUser``: %v\n", err)
+        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+    }
 }
 ```
 
@@ -117,25 +117,25 @@ Assign an Application Instance Target to Application Administrator Role
 package main
 
 import (
-	"context"
-	"fmt"
-	"os"
-	openapiclient "github.com/okta/okta-sdk-golang"
+    "context"
+    "fmt"
+    "os"
+    openapiclient "github.com/okta/okta-sdk-golang"
 )
 
 func main() {
-	groupId := "00g1emaKYZTWRYYRRTSK" // string | The `id` of the group
-	roleId := "3Vg1Pjp3qzw4qcCK5EdO" // string | `id` of the Role
-	appName := "oidc_client" // string | Application name for the app type
-	appId := "0oafxqCAJWWGELFTYASJ" // string | Application ID
+    groupId := "00g1emaKYZTWRYYRRTSK" // string | The `id` of the group
+    roleId := "3Vg1Pjp3qzw4qcCK5EdO" // string | `id` of the Role
+    appName := "oidc_client" // string | Application name for the app type
+    appId := "0oafxqCAJWWGELFTYASJ" // string | Application ID
 
-	configuration := openapiclient.NewConfiguration()
-	apiClient := openapiclient.NewAPIClient(configuration)
-	r, err := apiClient.RoleTargetAPI.AssignAppInstanceTargetToAppAdminRoleForGroup(context.Background(), groupId, roleId, appName, appId).Execute()
-	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `RoleTargetAPI.AssignAppInstanceTargetToAppAdminRoleForGroup``: %v\n", err)
-		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-	}
+    configuration := openapiclient.NewConfiguration()
+    apiClient := openapiclient.NewAPIClient(configuration)
+    r, err := apiClient.RoleTargetAPI.AssignAppInstanceTargetToAppAdminRoleForGroup(context.Background(), groupId, roleId, appName, appId).Execute()
+    if err != nil {
+        fmt.Fprintf(os.Stderr, "Error when calling `RoleTargetAPI.AssignAppInstanceTargetToAppAdminRoleForGroup``: %v\n", err)
+        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+    }
 }
 ```
 
@@ -194,25 +194,25 @@ Assign an Application Instance Target to an Application Administrator Role
 package main
 
 import (
-	"context"
-	"fmt"
-	"os"
-	openapiclient "github.com/okta/okta-sdk-golang"
+    "context"
+    "fmt"
+    "os"
+    openapiclient "github.com/okta/okta-sdk-golang"
 )
 
 func main() {
-	userId := "userId_example" // string | ID of an existing Okta user
-	roleId := "3Vg1Pjp3qzw4qcCK5EdO" // string | `id` of the Role
-	appName := "oidc_client" // string | Application name for the app type
-	appId := "0oafxqCAJWWGELFTYASJ" // string | Application ID
+    userId := "userId_example" // string | ID of an existing Okta user
+    roleId := "3Vg1Pjp3qzw4qcCK5EdO" // string | `id` of the Role
+    appName := "oidc_client" // string | Application name for the app type
+    appId := "0oafxqCAJWWGELFTYASJ" // string | Application ID
 
-	configuration := openapiclient.NewConfiguration()
-	apiClient := openapiclient.NewAPIClient(configuration)
-	r, err := apiClient.RoleTargetAPI.AssignAppInstanceTargetToAppAdminRoleForUser(context.Background(), userId, roleId, appName, appId).Execute()
-	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `RoleTargetAPI.AssignAppInstanceTargetToAppAdminRoleForUser``: %v\n", err)
-		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-	}
+    configuration := openapiclient.NewConfiguration()
+    apiClient := openapiclient.NewAPIClient(configuration)
+    r, err := apiClient.RoleTargetAPI.AssignAppInstanceTargetToAppAdminRoleForUser(context.Background(), userId, roleId, appName, appId).Execute()
+    if err != nil {
+        fmt.Fprintf(os.Stderr, "Error when calling `RoleTargetAPI.AssignAppInstanceTargetToAppAdminRoleForUser``: %v\n", err)
+        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+    }
 }
 ```
 
@@ -271,25 +271,25 @@ Replace an App Instance Target for a Client
 package main
 
 import (
-	"context"
-	"fmt"
-	"os"
-	openapiclient "github.com/okta/okta-sdk-golang"
+    "context"
+    "fmt"
+    "os"
+    openapiclient "github.com/okta/okta-sdk-golang"
 )
 
 func main() {
-	clientId := "52Uy4BUWVBOjFItcg2jWsmnd83Ad8dD" // string | `client_id` of the app
-	roleId := "3Vg1Pjp3qzw4qcCK5EdO" // string | `id` of the Role
-	appName := "oidc_client" // string | Application name for the app type
-	appInstanceId := "appInstanceId_example" // string | `id` of the application instance
+    clientId := "52Uy4BUWVBOjFItcg2jWsmnd83Ad8dD" // string | `client_id` of the app
+    roleId := "3Vg1Pjp3qzw4qcCK5EdO" // string | `id` of the Role
+    appName := "oidc_client" // string | Application name for the app type
+    appInstanceId := "appInstanceId_example" // string | `id` of the application instance
 
-	configuration := openapiclient.NewConfiguration()
-	apiClient := openapiclient.NewAPIClient(configuration)
-	r, err := apiClient.RoleTargetAPI.AssignAppTargetInstanceRoleForClient(context.Background(), clientId, roleId, appName, appInstanceId).Execute()
-	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `RoleTargetAPI.AssignAppTargetInstanceRoleForClient``: %v\n", err)
-		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-	}
+    configuration := openapiclient.NewConfiguration()
+    apiClient := openapiclient.NewAPIClient(configuration)
+    r, err := apiClient.RoleTargetAPI.AssignAppTargetInstanceRoleForClient(context.Background(), clientId, roleId, appName, appInstanceId).Execute()
+    if err != nil {
+        fmt.Fprintf(os.Stderr, "Error when calling `RoleTargetAPI.AssignAppTargetInstanceRoleForClient``: %v\n", err)
+        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+    }
 }
 ```
 
@@ -348,24 +348,24 @@ Assign an App Target to a Client
 package main
 
 import (
-	"context"
-	"fmt"
-	"os"
-	openapiclient "github.com/okta/okta-sdk-golang"
+    "context"
+    "fmt"
+    "os"
+    openapiclient "github.com/okta/okta-sdk-golang"
 )
 
 func main() {
-	clientId := "52Uy4BUWVBOjFItcg2jWsmnd83Ad8dD" // string | `client_id` of the app
-	roleId := "3Vg1Pjp3qzw4qcCK5EdO" // string | `id` of the Role
-	appName := "oidc_client" // string | Application name for the app type
+    clientId := "52Uy4BUWVBOjFItcg2jWsmnd83Ad8dD" // string | `client_id` of the app
+    roleId := "3Vg1Pjp3qzw4qcCK5EdO" // string | `id` of the Role
+    appName := "oidc_client" // string | Application name for the app type
 
-	configuration := openapiclient.NewConfiguration()
-	apiClient := openapiclient.NewAPIClient(configuration)
-	r, err := apiClient.RoleTargetAPI.AssignAppTargetRoleToClient(context.Background(), clientId, roleId, appName).Execute()
-	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `RoleTargetAPI.AssignAppTargetRoleToClient``: %v\n", err)
-		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-	}
+    configuration := openapiclient.NewConfiguration()
+    apiClient := openapiclient.NewAPIClient(configuration)
+    r, err := apiClient.RoleTargetAPI.AssignAppTargetRoleToClient(context.Background(), clientId, roleId, appName).Execute()
+    if err != nil {
+        fmt.Fprintf(os.Stderr, "Error when calling `RoleTargetAPI.AssignAppTargetRoleToClient``: %v\n", err)
+        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+    }
 }
 ```
 
@@ -422,24 +422,24 @@ Assign an Application Target to Administrator Role
 package main
 
 import (
-	"context"
-	"fmt"
-	"os"
-	openapiclient "github.com/okta/okta-sdk-golang"
+    "context"
+    "fmt"
+    "os"
+    openapiclient "github.com/okta/okta-sdk-golang"
 )
 
 func main() {
-	groupId := "00g1emaKYZTWRYYRRTSK" // string | The `id` of the group
-	roleId := "3Vg1Pjp3qzw4qcCK5EdO" // string | `id` of the Role
-	appName := "oidc_client" // string | Application name for the app type
+    groupId := "00g1emaKYZTWRYYRRTSK" // string | The `id` of the group
+    roleId := "3Vg1Pjp3qzw4qcCK5EdO" // string | `id` of the Role
+    appName := "oidc_client" // string | Application name for the app type
 
-	configuration := openapiclient.NewConfiguration()
-	apiClient := openapiclient.NewAPIClient(configuration)
-	r, err := apiClient.RoleTargetAPI.AssignAppTargetToAdminRoleForGroup(context.Background(), groupId, roleId, appName).Execute()
-	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `RoleTargetAPI.AssignAppTargetToAdminRoleForGroup``: %v\n", err)
-		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-	}
+    configuration := openapiclient.NewConfiguration()
+    apiClient := openapiclient.NewAPIClient(configuration)
+    r, err := apiClient.RoleTargetAPI.AssignAppTargetToAdminRoleForGroup(context.Background(), groupId, roleId, appName).Execute()
+    if err != nil {
+        fmt.Fprintf(os.Stderr, "Error when calling `RoleTargetAPI.AssignAppTargetToAdminRoleForGroup``: %v\n", err)
+        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+    }
 }
 ```
 
@@ -496,24 +496,24 @@ Assign an Application Target to Administrator Role
 package main
 
 import (
-	"context"
-	"fmt"
-	"os"
-	openapiclient "github.com/okta/okta-sdk-golang"
+    "context"
+    "fmt"
+    "os"
+    openapiclient "github.com/okta/okta-sdk-golang"
 )
 
 func main() {
-	userId := "userId_example" // string | ID of an existing Okta user
-	roleId := "3Vg1Pjp3qzw4qcCK5EdO" // string | `id` of the Role
-	appName := "oidc_client" // string | Application name for the app type
+    userId := "userId_example" // string | ID of an existing Okta user
+    roleId := "3Vg1Pjp3qzw4qcCK5EdO" // string | `id` of the Role
+    appName := "oidc_client" // string | Application name for the app type
 
-	configuration := openapiclient.NewConfiguration()
-	apiClient := openapiclient.NewAPIClient(configuration)
-	r, err := apiClient.RoleTargetAPI.AssignAppTargetToAdminRoleForUser(context.Background(), userId, roleId, appName).Execute()
-	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `RoleTargetAPI.AssignAppTargetToAdminRoleForUser``: %v\n", err)
-		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-	}
+    configuration := openapiclient.NewConfiguration()
+    apiClient := openapiclient.NewAPIClient(configuration)
+    r, err := apiClient.RoleTargetAPI.AssignAppTargetToAdminRoleForUser(context.Background(), userId, roleId, appName).Execute()
+    if err != nil {
+        fmt.Fprintf(os.Stderr, "Error when calling `RoleTargetAPI.AssignAppTargetToAdminRoleForUser``: %v\n", err)
+        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+    }
 }
 ```
 
@@ -570,24 +570,24 @@ Assign a Group Target to a Client
 package main
 
 import (
-	"context"
-	"fmt"
-	"os"
-	openapiclient "github.com/okta/okta-sdk-golang"
+    "context"
+    "fmt"
+    "os"
+    openapiclient "github.com/okta/okta-sdk-golang"
 )
 
 func main() {
-	clientId := "52Uy4BUWVBOjFItcg2jWsmnd83Ad8dD" // string | `client_id` of the app
-	roleId := "3Vg1Pjp3qzw4qcCK5EdO" // string | `id` of the Role
-	groupId := "00g1emaKYZTWRYYRRTSK" // string | The `id` of the group
+    clientId := "52Uy4BUWVBOjFItcg2jWsmnd83Ad8dD" // string | `client_id` of the app
+    roleId := "3Vg1Pjp3qzw4qcCK5EdO" // string | `id` of the Role
+    groupId := "00g1emaKYZTWRYYRRTSK" // string | The `id` of the group
 
-	configuration := openapiclient.NewConfiguration()
-	apiClient := openapiclient.NewAPIClient(configuration)
-	r, err := apiClient.RoleTargetAPI.AssignGroupTargetRoleForClient(context.Background(), clientId, roleId, groupId).Execute()
-	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `RoleTargetAPI.AssignGroupTargetRoleForClient``: %v\n", err)
-		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-	}
+    configuration := openapiclient.NewConfiguration()
+    apiClient := openapiclient.NewAPIClient(configuration)
+    r, err := apiClient.RoleTargetAPI.AssignGroupTargetRoleForClient(context.Background(), clientId, roleId, groupId).Execute()
+    if err != nil {
+        fmt.Fprintf(os.Stderr, "Error when calling `RoleTargetAPI.AssignGroupTargetRoleForClient``: %v\n", err)
+        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+    }
 }
 ```
 
@@ -644,24 +644,24 @@ Assign a Group Target to a Group Role
 package main
 
 import (
-	"context"
-	"fmt"
-	"os"
-	openapiclient "github.com/okta/okta-sdk-golang"
+    "context"
+    "fmt"
+    "os"
+    openapiclient "github.com/okta/okta-sdk-golang"
 )
 
 func main() {
-	groupId := "00g1emaKYZTWRYYRRTSK" // string | The `id` of the group
-	roleId := "3Vg1Pjp3qzw4qcCK5EdO" // string | `id` of the Role
-	targetGroupId := "00g1e9dfjHeLAsdX983d" // string | 
+    groupId := "00g1emaKYZTWRYYRRTSK" // string | The `id` of the group
+    roleId := "3Vg1Pjp3qzw4qcCK5EdO" // string | `id` of the Role
+    targetGroupId := "00g1e9dfjHeLAsdX983d" // string | 
 
-	configuration := openapiclient.NewConfiguration()
-	apiClient := openapiclient.NewAPIClient(configuration)
-	r, err := apiClient.RoleTargetAPI.AssignGroupTargetToGroupAdminRole(context.Background(), groupId, roleId, targetGroupId).Execute()
-	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `RoleTargetAPI.AssignGroupTargetToGroupAdminRole``: %v\n", err)
-		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-	}
+    configuration := openapiclient.NewConfiguration()
+    apiClient := openapiclient.NewAPIClient(configuration)
+    r, err := apiClient.RoleTargetAPI.AssignGroupTargetToGroupAdminRole(context.Background(), groupId, roleId, targetGroupId).Execute()
+    if err != nil {
+        fmt.Fprintf(os.Stderr, "Error when calling `RoleTargetAPI.AssignGroupTargetToGroupAdminRole``: %v\n", err)
+        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+    }
 }
 ```
 
@@ -718,24 +718,24 @@ Assign a Group Target to Role
 package main
 
 import (
-	"context"
-	"fmt"
-	"os"
-	openapiclient "github.com/okta/okta-sdk-golang"
+    "context"
+    "fmt"
+    "os"
+    openapiclient "github.com/okta/okta-sdk-golang"
 )
 
 func main() {
-	userId := "userId_example" // string | ID of an existing Okta user
-	roleId := "3Vg1Pjp3qzw4qcCK5EdO" // string | `id` of the Role
-	groupId := "00g1emaKYZTWRYYRRTSK" // string | The `id` of the group
+    userId := "userId_example" // string | ID of an existing Okta user
+    roleId := "3Vg1Pjp3qzw4qcCK5EdO" // string | `id` of the Role
+    groupId := "00g1emaKYZTWRYYRRTSK" // string | The `id` of the group
 
-	configuration := openapiclient.NewConfiguration()
-	apiClient := openapiclient.NewAPIClient(configuration)
-	r, err := apiClient.RoleTargetAPI.AssignGroupTargetToUserRole(context.Background(), userId, roleId, groupId).Execute()
-	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `RoleTargetAPI.AssignGroupTargetToUserRole``: %v\n", err)
-		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-	}
+    configuration := openapiclient.NewConfiguration()
+    apiClient := openapiclient.NewAPIClient(configuration)
+    r, err := apiClient.RoleTargetAPI.AssignGroupTargetToUserRole(context.Background(), userId, roleId, groupId).Execute()
+    if err != nil {
+        fmt.Fprintf(os.Stderr, "Error when calling `RoleTargetAPI.AssignGroupTargetToUserRole``: %v\n", err)
+        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+    }
 }
 ```
 
@@ -792,27 +792,27 @@ List all App Targets assigned to a Client
 package main
 
 import (
-	"context"
-	"fmt"
-	"os"
-	openapiclient "github.com/okta/okta-sdk-golang"
+    "context"
+    "fmt"
+    "os"
+    openapiclient "github.com/okta/okta-sdk-golang"
 )
 
 func main() {
-	clientId := "52Uy4BUWVBOjFItcg2jWsmnd83Ad8dD" // string | `client_id` of the app
-	roleId := "3Vg1Pjp3qzw4qcCK5EdO" // string | `id` of the Role
-	after := "after_example" // string | The cursor to use for pagination. It is an opaque string that specifies your current location in the list and is obtained from the `Link` response header. See [Pagination](/#pagination). (optional)
-	limit := int32(56) // int32 | A limit on the number of objects to return (optional) (default to 20)
+    clientId := "52Uy4BUWVBOjFItcg2jWsmnd83Ad8dD" // string | `client_id` of the app
+    roleId := "3Vg1Pjp3qzw4qcCK5EdO" // string | `id` of the Role
+    after := "after_example" // string | The cursor to use for pagination. It is an opaque string that specifies your current location in the list and is obtained from the `Link` response header. See [Pagination](/#pagination). (optional)
+    limit := int32(56) // int32 | A limit on the number of objects to return (optional) (default to 20)
 
-	configuration := openapiclient.NewConfiguration()
-	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.RoleTargetAPI.ListAppTargetRoleToClient(context.Background(), clientId, roleId).After(after).Limit(limit).Execute()
-	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `RoleTargetAPI.ListAppTargetRoleToClient``: %v\n", err)
-		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-	}
-	// response from `ListAppTargetRoleToClient`: Client
-	fmt.Fprintf(os.Stdout, "Response from `RoleTargetAPI.ListAppTargetRoleToClient`: %v\n", resp)
+    configuration := openapiclient.NewConfiguration()
+    apiClient := openapiclient.NewAPIClient(configuration)
+    resp, r, err := apiClient.RoleTargetAPI.ListAppTargetRoleToClient(context.Background(), clientId, roleId).After(after).Limit(limit).Execute()
+    if err != nil {
+        fmt.Fprintf(os.Stderr, "Error when calling `RoleTargetAPI.ListAppTargetRoleToClient``: %v\n", err)
+        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+    }
+    // response from `ListAppTargetRoleToClient`: Client
+    fmt.Fprintf(os.Stdout, "Response from `RoleTargetAPI.ListAppTargetRoleToClient`: %v\n", resp)
 }
 ```
 
@@ -869,27 +869,27 @@ List all Application Targets for an Application Administrator Role
 package main
 
 import (
-	"context"
-	"fmt"
-	"os"
-	openapiclient "github.com/okta/okta-sdk-golang"
+    "context"
+    "fmt"
+    "os"
+    openapiclient "github.com/okta/okta-sdk-golang"
 )
 
 func main() {
-	groupId := "00g1emaKYZTWRYYRRTSK" // string | The `id` of the group
-	roleId := "3Vg1Pjp3qzw4qcCK5EdO" // string | `id` of the Role
-	after := "after_example" // string |  (optional)
-	limit := int32(56) // int32 |  (optional) (default to 20)
+    groupId := "00g1emaKYZTWRYYRRTSK" // string | The `id` of the group
+    roleId := "3Vg1Pjp3qzw4qcCK5EdO" // string | `id` of the Role
+    after := "after_example" // string |  (optional)
+    limit := int32(56) // int32 |  (optional) (default to 20)
 
-	configuration := openapiclient.NewConfiguration()
-	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.RoleTargetAPI.ListApplicationTargetsForApplicationAdministratorRoleForGroup(context.Background(), groupId, roleId).After(after).Limit(limit).Execute()
-	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `RoleTargetAPI.ListApplicationTargetsForApplicationAdministratorRoleForGroup``: %v\n", err)
-		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-	}
-	// response from `ListApplicationTargetsForApplicationAdministratorRoleForGroup`: []CatalogApplication
-	fmt.Fprintf(os.Stdout, "Response from `RoleTargetAPI.ListApplicationTargetsForApplicationAdministratorRoleForGroup`: %v\n", resp)
+    configuration := openapiclient.NewConfiguration()
+    apiClient := openapiclient.NewAPIClient(configuration)
+    resp, r, err := apiClient.RoleTargetAPI.ListApplicationTargetsForApplicationAdministratorRoleForGroup(context.Background(), groupId, roleId).After(after).Limit(limit).Execute()
+    if err != nil {
+        fmt.Fprintf(os.Stderr, "Error when calling `RoleTargetAPI.ListApplicationTargetsForApplicationAdministratorRoleForGroup``: %v\n", err)
+        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+    }
+    // response from `ListApplicationTargetsForApplicationAdministratorRoleForGroup`: []CatalogApplication
+    fmt.Fprintf(os.Stdout, "Response from `RoleTargetAPI.ListApplicationTargetsForApplicationAdministratorRoleForGroup`: %v\n", resp)
 }
 ```
 
@@ -946,27 +946,27 @@ List all Application Targets for Application Administrator Role
 package main
 
 import (
-	"context"
-	"fmt"
-	"os"
-	openapiclient "github.com/okta/okta-sdk-golang"
+    "context"
+    "fmt"
+    "os"
+    openapiclient "github.com/okta/okta-sdk-golang"
 )
 
 func main() {
-	userId := "userId_example" // string | ID of an existing Okta user
-	roleId := "3Vg1Pjp3qzw4qcCK5EdO" // string | `id` of the Role
-	after := "after_example" // string |  (optional)
-	limit := int32(56) // int32 |  (optional) (default to 20)
+    userId := "userId_example" // string | ID of an existing Okta user
+    roleId := "3Vg1Pjp3qzw4qcCK5EdO" // string | `id` of the Role
+    after := "after_example" // string |  (optional)
+    limit := int32(56) // int32 |  (optional) (default to 20)
 
-	configuration := openapiclient.NewConfiguration()
-	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.RoleTargetAPI.ListApplicationTargetsForApplicationAdministratorRoleForUser(context.Background(), userId, roleId).After(after).Limit(limit).Execute()
-	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `RoleTargetAPI.ListApplicationTargetsForApplicationAdministratorRoleForUser``: %v\n", err)
-		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-	}
-	// response from `ListApplicationTargetsForApplicationAdministratorRoleForUser`: []CatalogApplication
-	fmt.Fprintf(os.Stdout, "Response from `RoleTargetAPI.ListApplicationTargetsForApplicationAdministratorRoleForUser`: %v\n", resp)
+    configuration := openapiclient.NewConfiguration()
+    apiClient := openapiclient.NewAPIClient(configuration)
+    resp, r, err := apiClient.RoleTargetAPI.ListApplicationTargetsForApplicationAdministratorRoleForUser(context.Background(), userId, roleId).After(after).Limit(limit).Execute()
+    if err != nil {
+        fmt.Fprintf(os.Stderr, "Error when calling `RoleTargetAPI.ListApplicationTargetsForApplicationAdministratorRoleForUser``: %v\n", err)
+        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+    }
+    // response from `ListApplicationTargetsForApplicationAdministratorRoleForUser`: []CatalogApplication
+    fmt.Fprintf(os.Stdout, "Response from `RoleTargetAPI.ListApplicationTargetsForApplicationAdministratorRoleForUser`: %v\n", resp)
 }
 ```
 
@@ -1023,27 +1023,27 @@ List all Group Targets for a Client
 package main
 
 import (
-	"context"
-	"fmt"
-	"os"
-	openapiclient "github.com/okta/okta-sdk-golang"
+    "context"
+    "fmt"
+    "os"
+    openapiclient "github.com/okta/okta-sdk-golang"
 )
 
 func main() {
-	clientId := "52Uy4BUWVBOjFItcg2jWsmnd83Ad8dD" // string | `client_id` of the app
-	roleId := "3Vg1Pjp3qzw4qcCK5EdO" // string | `id` of the Role
-	after := "after_example" // string | The cursor to use for pagination. It is an opaque string that specifies your current location in the list and is obtained from the `Link` response header. See [Pagination](/#pagination). (optional)
-	limit := int32(56) // int32 | A limit on the number of objects to return (optional) (default to 20)
+    clientId := "52Uy4BUWVBOjFItcg2jWsmnd83Ad8dD" // string | `client_id` of the app
+    roleId := "3Vg1Pjp3qzw4qcCK5EdO" // string | `id` of the Role
+    after := "after_example" // string | The cursor to use for pagination. It is an opaque string that specifies your current location in the list and is obtained from the `Link` response header. See [Pagination](/#pagination). (optional)
+    limit := int32(56) // int32 | A limit on the number of objects to return (optional) (default to 20)
 
-	configuration := openapiclient.NewConfiguration()
-	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.RoleTargetAPI.ListGroupTargetRoleForClient(context.Background(), clientId, roleId).After(after).Limit(limit).Execute()
-	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `RoleTargetAPI.ListGroupTargetRoleForClient``: %v\n", err)
-		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-	}
-	// response from `ListGroupTargetRoleForClient`: Client
-	fmt.Fprintf(os.Stdout, "Response from `RoleTargetAPI.ListGroupTargetRoleForClient`: %v\n", resp)
+    configuration := openapiclient.NewConfiguration()
+    apiClient := openapiclient.NewAPIClient(configuration)
+    resp, r, err := apiClient.RoleTargetAPI.ListGroupTargetRoleForClient(context.Background(), clientId, roleId).After(after).Limit(limit).Execute()
+    if err != nil {
+        fmt.Fprintf(os.Stderr, "Error when calling `RoleTargetAPI.ListGroupTargetRoleForClient``: %v\n", err)
+        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+    }
+    // response from `ListGroupTargetRoleForClient`: Client
+    fmt.Fprintf(os.Stdout, "Response from `RoleTargetAPI.ListGroupTargetRoleForClient`: %v\n", resp)
 }
 ```
 
@@ -1100,27 +1100,27 @@ List all Group Targets for a Group Role
 package main
 
 import (
-	"context"
-	"fmt"
-	"os"
-	openapiclient "github.com/okta/okta-sdk-golang"
+    "context"
+    "fmt"
+    "os"
+    openapiclient "github.com/okta/okta-sdk-golang"
 )
 
 func main() {
-	groupId := "00g1emaKYZTWRYYRRTSK" // string | The `id` of the group
-	roleId := "3Vg1Pjp3qzw4qcCK5EdO" // string | `id` of the Role
-	after := "after_example" // string |  (optional)
-	limit := int32(56) // int32 |  (optional) (default to 20)
+    groupId := "00g1emaKYZTWRYYRRTSK" // string | The `id` of the group
+    roleId := "3Vg1Pjp3qzw4qcCK5EdO" // string | `id` of the Role
+    after := "after_example" // string |  (optional)
+    limit := int32(56) // int32 |  (optional) (default to 20)
 
-	configuration := openapiclient.NewConfiguration()
-	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.RoleTargetAPI.ListGroupTargetsForGroupRole(context.Background(), groupId, roleId).After(after).Limit(limit).Execute()
-	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `RoleTargetAPI.ListGroupTargetsForGroupRole``: %v\n", err)
-		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-	}
-	// response from `ListGroupTargetsForGroupRole`: []Group
-	fmt.Fprintf(os.Stdout, "Response from `RoleTargetAPI.ListGroupTargetsForGroupRole`: %v\n", resp)
+    configuration := openapiclient.NewConfiguration()
+    apiClient := openapiclient.NewAPIClient(configuration)
+    resp, r, err := apiClient.RoleTargetAPI.ListGroupTargetsForGroupRole(context.Background(), groupId, roleId).After(after).Limit(limit).Execute()
+    if err != nil {
+        fmt.Fprintf(os.Stderr, "Error when calling `RoleTargetAPI.ListGroupTargetsForGroupRole``: %v\n", err)
+        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+    }
+    // response from `ListGroupTargetsForGroupRole`: []Group
+    fmt.Fprintf(os.Stdout, "Response from `RoleTargetAPI.ListGroupTargetsForGroupRole`: %v\n", resp)
 }
 ```
 
@@ -1177,27 +1177,27 @@ List all Group Targets for Role
 package main
 
 import (
-	"context"
-	"fmt"
-	"os"
-	openapiclient "github.com/okta/okta-sdk-golang"
+    "context"
+    "fmt"
+    "os"
+    openapiclient "github.com/okta/okta-sdk-golang"
 )
 
 func main() {
-	userId := "userId_example" // string | ID of an existing Okta user
-	roleId := "3Vg1Pjp3qzw4qcCK5EdO" // string | `id` of the Role
-	after := "after_example" // string |  (optional)
-	limit := int32(56) // int32 |  (optional) (default to 20)
+    userId := "userId_example" // string | ID of an existing Okta user
+    roleId := "3Vg1Pjp3qzw4qcCK5EdO" // string | `id` of the Role
+    after := "after_example" // string |  (optional)
+    limit := int32(56) // int32 |  (optional) (default to 20)
 
-	configuration := openapiclient.NewConfiguration()
-	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.RoleTargetAPI.ListGroupTargetsForRole(context.Background(), userId, roleId).After(after).Limit(limit).Execute()
-	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `RoleTargetAPI.ListGroupTargetsForRole``: %v\n", err)
-		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-	}
-	// response from `ListGroupTargetsForRole`: []Group
-	fmt.Fprintf(os.Stdout, "Response from `RoleTargetAPI.ListGroupTargetsForRole`: %v\n", resp)
+    configuration := openapiclient.NewConfiguration()
+    apiClient := openapiclient.NewAPIClient(configuration)
+    resp, r, err := apiClient.RoleTargetAPI.ListGroupTargetsForRole(context.Background(), userId, roleId).After(after).Limit(limit).Execute()
+    if err != nil {
+        fmt.Fprintf(os.Stderr, "Error when calling `RoleTargetAPI.ListGroupTargetsForRole``: %v\n", err)
+        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+    }
+    // response from `ListGroupTargetsForRole`: []Group
+    fmt.Fprintf(os.Stdout, "Response from `RoleTargetAPI.ListGroupTargetsForRole`: %v\n", resp)
 }
 ```
 
@@ -1254,25 +1254,25 @@ Delete an App Instance Target for a Client
 package main
 
 import (
-	"context"
-	"fmt"
-	"os"
-	openapiclient "github.com/okta/okta-sdk-golang"
+    "context"
+    "fmt"
+    "os"
+    openapiclient "github.com/okta/okta-sdk-golang"
 )
 
 func main() {
-	clientId := "52Uy4BUWVBOjFItcg2jWsmnd83Ad8dD" // string | `client_id` of the app
-	roleId := "3Vg1Pjp3qzw4qcCK5EdO" // string | `id` of the Role
-	appName := "oidc_client" // string | Application name for the app type
-	appInstanceId := "appInstanceId_example" // string | `id` of the application instance
+    clientId := "52Uy4BUWVBOjFItcg2jWsmnd83Ad8dD" // string | `client_id` of the app
+    roleId := "3Vg1Pjp3qzw4qcCK5EdO" // string | `id` of the Role
+    appName := "oidc_client" // string | Application name for the app type
+    appInstanceId := "appInstanceId_example" // string | `id` of the application instance
 
-	configuration := openapiclient.NewConfiguration()
-	apiClient := openapiclient.NewAPIClient(configuration)
-	r, err := apiClient.RoleTargetAPI.RemoveAppTargetInstanceRoleForClient(context.Background(), clientId, roleId, appName, appInstanceId).Execute()
-	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `RoleTargetAPI.RemoveAppTargetInstanceRoleForClient``: %v\n", err)
-		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-	}
+    configuration := openapiclient.NewConfiguration()
+    apiClient := openapiclient.NewAPIClient(configuration)
+    r, err := apiClient.RoleTargetAPI.RemoveAppTargetInstanceRoleForClient(context.Background(), clientId, roleId, appName, appInstanceId).Execute()
+    if err != nil {
+        fmt.Fprintf(os.Stderr, "Error when calling `RoleTargetAPI.RemoveAppTargetInstanceRoleForClient``: %v\n", err)
+        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+    }
 }
 ```
 
@@ -1331,24 +1331,24 @@ Remove an App Target from a Client
 package main
 
 import (
-	"context"
-	"fmt"
-	"os"
-	openapiclient "github.com/okta/okta-sdk-golang"
+    "context"
+    "fmt"
+    "os"
+    openapiclient "github.com/okta/okta-sdk-golang"
 )
 
 func main() {
-	clientId := "52Uy4BUWVBOjFItcg2jWsmnd83Ad8dD" // string | `client_id` of the app
-	roleId := "3Vg1Pjp3qzw4qcCK5EdO" // string | `id` of the Role
-	appName := "oidc_client" // string | Application name for the app type
+    clientId := "52Uy4BUWVBOjFItcg2jWsmnd83Ad8dD" // string | `client_id` of the app
+    roleId := "3Vg1Pjp3qzw4qcCK5EdO" // string | `id` of the Role
+    appName := "oidc_client" // string | Application name for the app type
 
-	configuration := openapiclient.NewConfiguration()
-	apiClient := openapiclient.NewAPIClient(configuration)
-	r, err := apiClient.RoleTargetAPI.RemoveAppTargetRoleFromClient(context.Background(), clientId, roleId, appName).Execute()
-	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `RoleTargetAPI.RemoveAppTargetRoleFromClient``: %v\n", err)
-		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-	}
+    configuration := openapiclient.NewConfiguration()
+    apiClient := openapiclient.NewAPIClient(configuration)
+    r, err := apiClient.RoleTargetAPI.RemoveAppTargetRoleFromClient(context.Background(), clientId, roleId, appName).Execute()
+    if err != nil {
+        fmt.Fprintf(os.Stderr, "Error when calling `RoleTargetAPI.RemoveAppTargetRoleFromClient``: %v\n", err)
+        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+    }
 }
 ```
 
@@ -1405,24 +1405,24 @@ Delete a Group Target from a Client
 package main
 
 import (
-	"context"
-	"fmt"
-	"os"
-	openapiclient "github.com/okta/okta-sdk-golang"
+    "context"
+    "fmt"
+    "os"
+    openapiclient "github.com/okta/okta-sdk-golang"
 )
 
 func main() {
-	clientId := "52Uy4BUWVBOjFItcg2jWsmnd83Ad8dD" // string | `client_id` of the app
-	roleId := "3Vg1Pjp3qzw4qcCK5EdO" // string | `id` of the Role
-	groupId := "00g1emaKYZTWRYYRRTSK" // string | The `id` of the group
+    clientId := "52Uy4BUWVBOjFItcg2jWsmnd83Ad8dD" // string | `client_id` of the app
+    roleId := "3Vg1Pjp3qzw4qcCK5EdO" // string | `id` of the Role
+    groupId := "00g1emaKYZTWRYYRRTSK" // string | The `id` of the group
 
-	configuration := openapiclient.NewConfiguration()
-	apiClient := openapiclient.NewAPIClient(configuration)
-	r, err := apiClient.RoleTargetAPI.RemoveGroupTargetRoleFromClient(context.Background(), clientId, roleId, groupId).Execute()
-	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `RoleTargetAPI.RemoveGroupTargetRoleFromClient``: %v\n", err)
-		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-	}
+    configuration := openapiclient.NewConfiguration()
+    apiClient := openapiclient.NewAPIClient(configuration)
+    r, err := apiClient.RoleTargetAPI.RemoveGroupTargetRoleFromClient(context.Background(), clientId, roleId, groupId).Execute()
+    if err != nil {
+        fmt.Fprintf(os.Stderr, "Error when calling `RoleTargetAPI.RemoveGroupTargetRoleFromClient``: %v\n", err)
+        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+    }
 }
 ```
 
@@ -1479,25 +1479,25 @@ Unassign an Application Instance Target from an Application Administrator Role
 package main
 
 import (
-	"context"
-	"fmt"
-	"os"
-	openapiclient "github.com/okta/okta-sdk-golang"
+    "context"
+    "fmt"
+    "os"
+    openapiclient "github.com/okta/okta-sdk-golang"
 )
 
 func main() {
-	userId := "userId_example" // string | ID of an existing Okta user
-	roleId := "3Vg1Pjp3qzw4qcCK5EdO" // string | `id` of the Role
-	appName := "oidc_client" // string | Application name for the app type
-	appId := "0oafxqCAJWWGELFTYASJ" // string | Application ID
+    userId := "userId_example" // string | ID of an existing Okta user
+    roleId := "3Vg1Pjp3qzw4qcCK5EdO" // string | `id` of the Role
+    appName := "oidc_client" // string | Application name for the app type
+    appId := "0oafxqCAJWWGELFTYASJ" // string | Application ID
 
-	configuration := openapiclient.NewConfiguration()
-	apiClient := openapiclient.NewAPIClient(configuration)
-	r, err := apiClient.RoleTargetAPI.UnassignAppInstanceTargetFromAdminRoleForUser(context.Background(), userId, roleId, appName, appId).Execute()
-	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `RoleTargetAPI.UnassignAppInstanceTargetFromAdminRoleForUser``: %v\n", err)
-		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-	}
+    configuration := openapiclient.NewConfiguration()
+    apiClient := openapiclient.NewAPIClient(configuration)
+    r, err := apiClient.RoleTargetAPI.UnassignAppInstanceTargetFromAdminRoleForUser(context.Background(), userId, roleId, appName, appId).Execute()
+    if err != nil {
+        fmt.Fprintf(os.Stderr, "Error when calling `RoleTargetAPI.UnassignAppInstanceTargetFromAdminRoleForUser``: %v\n", err)
+        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+    }
 }
 ```
 
@@ -1556,25 +1556,25 @@ Unassign an Application Instance Target from an Application Administrator Role
 package main
 
 import (
-	"context"
-	"fmt"
-	"os"
-	openapiclient "github.com/okta/okta-sdk-golang"
+    "context"
+    "fmt"
+    "os"
+    openapiclient "github.com/okta/okta-sdk-golang"
 )
 
 func main() {
-	groupId := "00g1emaKYZTWRYYRRTSK" // string | The `id` of the group
-	roleId := "3Vg1Pjp3qzw4qcCK5EdO" // string | `id` of the Role
-	appName := "oidc_client" // string | Application name for the app type
-	appId := "0oafxqCAJWWGELFTYASJ" // string | Application ID
+    groupId := "00g1emaKYZTWRYYRRTSK" // string | The `id` of the group
+    roleId := "3Vg1Pjp3qzw4qcCK5EdO" // string | `id` of the Role
+    appName := "oidc_client" // string | Application name for the app type
+    appId := "0oafxqCAJWWGELFTYASJ" // string | Application ID
 
-	configuration := openapiclient.NewConfiguration()
-	apiClient := openapiclient.NewAPIClient(configuration)
-	r, err := apiClient.RoleTargetAPI.UnassignAppInstanceTargetToAppAdminRoleForGroup(context.Background(), groupId, roleId, appName, appId).Execute()
-	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `RoleTargetAPI.UnassignAppInstanceTargetToAppAdminRoleForGroup``: %v\n", err)
-		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-	}
+    configuration := openapiclient.NewConfiguration()
+    apiClient := openapiclient.NewAPIClient(configuration)
+    r, err := apiClient.RoleTargetAPI.UnassignAppInstanceTargetToAppAdminRoleForGroup(context.Background(), groupId, roleId, appName, appId).Execute()
+    if err != nil {
+        fmt.Fprintf(os.Stderr, "Error when calling `RoleTargetAPI.UnassignAppInstanceTargetToAppAdminRoleForGroup``: %v\n", err)
+        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+    }
 }
 ```
 
@@ -1633,24 +1633,24 @@ Unassign an Application Target from an Application Administrator Role
 package main
 
 import (
-	"context"
-	"fmt"
-	"os"
-	openapiclient "github.com/okta/okta-sdk-golang"
+    "context"
+    "fmt"
+    "os"
+    openapiclient "github.com/okta/okta-sdk-golang"
 )
 
 func main() {
-	userId := "userId_example" // string | ID of an existing Okta user
-	roleId := "3Vg1Pjp3qzw4qcCK5EdO" // string | `id` of the Role
-	appName := "oidc_client" // string | Application name for the app type
+    userId := "userId_example" // string | ID of an existing Okta user
+    roleId := "3Vg1Pjp3qzw4qcCK5EdO" // string | `id` of the Role
+    appName := "oidc_client" // string | Application name for the app type
 
-	configuration := openapiclient.NewConfiguration()
-	apiClient := openapiclient.NewAPIClient(configuration)
-	r, err := apiClient.RoleTargetAPI.UnassignAppTargetFromAppAdminRoleForUser(context.Background(), userId, roleId, appName).Execute()
-	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `RoleTargetAPI.UnassignAppTargetFromAppAdminRoleForUser``: %v\n", err)
-		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-	}
+    configuration := openapiclient.NewConfiguration()
+    apiClient := openapiclient.NewAPIClient(configuration)
+    r, err := apiClient.RoleTargetAPI.UnassignAppTargetFromAppAdminRoleForUser(context.Background(), userId, roleId, appName).Execute()
+    if err != nil {
+        fmt.Fprintf(os.Stderr, "Error when calling `RoleTargetAPI.UnassignAppTargetFromAppAdminRoleForUser``: %v\n", err)
+        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+    }
 }
 ```
 
@@ -1707,24 +1707,24 @@ Unassign an Application Target from Application Administrator Role
 package main
 
 import (
-	"context"
-	"fmt"
-	"os"
-	openapiclient "github.com/okta/okta-sdk-golang"
+    "context"
+    "fmt"
+    "os"
+    openapiclient "github.com/okta/okta-sdk-golang"
 )
 
 func main() {
-	groupId := "00g1emaKYZTWRYYRRTSK" // string | The `id` of the group
-	roleId := "3Vg1Pjp3qzw4qcCK5EdO" // string | `id` of the Role
-	appName := "oidc_client" // string | Application name for the app type
+    groupId := "00g1emaKYZTWRYYRRTSK" // string | The `id` of the group
+    roleId := "3Vg1Pjp3qzw4qcCK5EdO" // string | `id` of the Role
+    appName := "oidc_client" // string | Application name for the app type
 
-	configuration := openapiclient.NewConfiguration()
-	apiClient := openapiclient.NewAPIClient(configuration)
-	r, err := apiClient.RoleTargetAPI.UnassignAppTargetToAdminRoleForGroup(context.Background(), groupId, roleId, appName).Execute()
-	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `RoleTargetAPI.UnassignAppTargetToAdminRoleForGroup``: %v\n", err)
-		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-	}
+    configuration := openapiclient.NewConfiguration()
+    apiClient := openapiclient.NewAPIClient(configuration)
+    r, err := apiClient.RoleTargetAPI.UnassignAppTargetToAdminRoleForGroup(context.Background(), groupId, roleId, appName).Execute()
+    if err != nil {
+        fmt.Fprintf(os.Stderr, "Error when calling `RoleTargetAPI.UnassignAppTargetToAdminRoleForGroup``: %v\n", err)
+        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+    }
 }
 ```
 
@@ -1781,24 +1781,24 @@ Unassign a Group Target from a Group Role
 package main
 
 import (
-	"context"
-	"fmt"
-	"os"
-	openapiclient "github.com/okta/okta-sdk-golang"
+    "context"
+    "fmt"
+    "os"
+    openapiclient "github.com/okta/okta-sdk-golang"
 )
 
 func main() {
-	groupId := "00g1emaKYZTWRYYRRTSK" // string | The `id` of the group
-	roleId := "3Vg1Pjp3qzw4qcCK5EdO" // string | `id` of the Role
-	targetGroupId := "00g1e9dfjHeLAsdX983d" // string | 
+    groupId := "00g1emaKYZTWRYYRRTSK" // string | The `id` of the group
+    roleId := "3Vg1Pjp3qzw4qcCK5EdO" // string | `id` of the Role
+    targetGroupId := "00g1e9dfjHeLAsdX983d" // string | 
 
-	configuration := openapiclient.NewConfiguration()
-	apiClient := openapiclient.NewAPIClient(configuration)
-	r, err := apiClient.RoleTargetAPI.UnassignGroupTargetFromGroupAdminRole(context.Background(), groupId, roleId, targetGroupId).Execute()
-	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `RoleTargetAPI.UnassignGroupTargetFromGroupAdminRole``: %v\n", err)
-		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-	}
+    configuration := openapiclient.NewConfiguration()
+    apiClient := openapiclient.NewAPIClient(configuration)
+    r, err := apiClient.RoleTargetAPI.UnassignGroupTargetFromGroupAdminRole(context.Background(), groupId, roleId, targetGroupId).Execute()
+    if err != nil {
+        fmt.Fprintf(os.Stderr, "Error when calling `RoleTargetAPI.UnassignGroupTargetFromGroupAdminRole``: %v\n", err)
+        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+    }
 }
 ```
 
@@ -1855,24 +1855,24 @@ Unassign a Group Target from Role
 package main
 
 import (
-	"context"
-	"fmt"
-	"os"
-	openapiclient "github.com/okta/okta-sdk-golang"
+    "context"
+    "fmt"
+    "os"
+    openapiclient "github.com/okta/okta-sdk-golang"
 )
 
 func main() {
-	userId := "userId_example" // string | ID of an existing Okta user
-	roleId := "3Vg1Pjp3qzw4qcCK5EdO" // string | `id` of the Role
-	groupId := "00g1emaKYZTWRYYRRTSK" // string | The `id` of the group
+    userId := "userId_example" // string | ID of an existing Okta user
+    roleId := "3Vg1Pjp3qzw4qcCK5EdO" // string | `id` of the Role
+    groupId := "00g1emaKYZTWRYYRRTSK" // string | The `id` of the group
 
-	configuration := openapiclient.NewConfiguration()
-	apiClient := openapiclient.NewAPIClient(configuration)
-	r, err := apiClient.RoleTargetAPI.UnassignGroupTargetFromUserAdminRole(context.Background(), userId, roleId, groupId).Execute()
-	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `RoleTargetAPI.UnassignGroupTargetFromUserAdminRole``: %v\n", err)
-		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-	}
+    configuration := openapiclient.NewConfiguration()
+    apiClient := openapiclient.NewAPIClient(configuration)
+    r, err := apiClient.RoleTargetAPI.UnassignGroupTargetFromUserAdminRole(context.Background(), userId, roleId, groupId).Execute()
+    if err != nil {
+        fmt.Fprintf(os.Stderr, "Error when calling `RoleTargetAPI.UnassignGroupTargetFromUserAdminRole``: %v\n", err)
+        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+    }
 }
 ```
 

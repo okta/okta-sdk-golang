@@ -35,26 +35,26 @@ Create an Email Customization
 package main
 
 import (
-	"context"
-	"fmt"
-	"os"
-	openapiclient "github.com/okta/okta-sdk-golang"
+    "context"
+    "fmt"
+    "os"
+    openapiclient "github.com/okta/okta-sdk-golang"
 )
 
 func main() {
-	brandId := "brandId_example" // string | The ID of the brand
-	templateName := "templateName_example" // string | The name of the email template
-	instance := *openapiclient.NewEmailCustomization("Body_example", "Subject_example", "Language_example") // EmailCustomization |  (optional)
+    brandId := "brandId_example" // string | The ID of the brand
+    templateName := "templateName_example" // string | The name of the email template
+    instance := *openapiclient.NewEmailCustomization("Body_example", "Subject_example", "Language_example") // EmailCustomization |  (optional)
 
-	configuration := openapiclient.NewConfiguration()
-	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.CustomTemplatesAPI.CreateEmailCustomization(context.Background(), brandId, templateName).Instance(instance).Execute()
-	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `CustomTemplatesAPI.CreateEmailCustomization``: %v\n", err)
-		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-	}
-	// response from `CreateEmailCustomization`: EmailCustomization
-	fmt.Fprintf(os.Stdout, "Response from `CustomTemplatesAPI.CreateEmailCustomization`: %v\n", resp)
+    configuration := openapiclient.NewConfiguration()
+    apiClient := openapiclient.NewAPIClient(configuration)
+    resp, r, err := apiClient.CustomTemplatesAPI.CreateEmailCustomization(context.Background(), brandId, templateName).Instance(instance).Execute()
+    if err != nil {
+        fmt.Fprintf(os.Stderr, "Error when calling `CustomTemplatesAPI.CreateEmailCustomization``: %v\n", err)
+        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+    }
+    // response from `CreateEmailCustomization`: EmailCustomization
+    fmt.Fprintf(os.Stdout, "Response from `CustomTemplatesAPI.CreateEmailCustomization`: %v\n", resp)
 }
 ```
 
@@ -110,23 +110,23 @@ Delete all Email Customizations
 package main
 
 import (
-	"context"
-	"fmt"
-	"os"
-	openapiclient "github.com/okta/okta-sdk-golang"
+    "context"
+    "fmt"
+    "os"
+    openapiclient "github.com/okta/okta-sdk-golang"
 )
 
 func main() {
-	brandId := "brandId_example" // string | The ID of the brand
-	templateName := "templateName_example" // string | The name of the email template
+    brandId := "brandId_example" // string | The ID of the brand
+    templateName := "templateName_example" // string | The name of the email template
 
-	configuration := openapiclient.NewConfiguration()
-	apiClient := openapiclient.NewAPIClient(configuration)
-	r, err := apiClient.CustomTemplatesAPI.DeleteAllCustomizations(context.Background(), brandId, templateName).Execute()
-	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `CustomTemplatesAPI.DeleteAllCustomizations``: %v\n", err)
-		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-	}
+    configuration := openapiclient.NewConfiguration()
+    apiClient := openapiclient.NewAPIClient(configuration)
+    r, err := apiClient.CustomTemplatesAPI.DeleteAllCustomizations(context.Background(), brandId, templateName).Execute()
+    if err != nil {
+        fmt.Fprintf(os.Stderr, "Error when calling `CustomTemplatesAPI.DeleteAllCustomizations``: %v\n", err)
+        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+    }
 }
 ```
 
@@ -181,24 +181,24 @@ Delete an Email Customization
 package main
 
 import (
-	"context"
-	"fmt"
-	"os"
-	openapiclient "github.com/okta/okta-sdk-golang"
+    "context"
+    "fmt"
+    "os"
+    openapiclient "github.com/okta/okta-sdk-golang"
 )
 
 func main() {
-	brandId := "brandId_example" // string | The ID of the brand
-	templateName := "templateName_example" // string | The name of the email template
-	customizationId := "customizationId_example" // string | The ID of the email customization
+    brandId := "brandId_example" // string | The ID of the brand
+    templateName := "templateName_example" // string | The name of the email template
+    customizationId := "customizationId_example" // string | The ID of the email customization
 
-	configuration := openapiclient.NewConfiguration()
-	apiClient := openapiclient.NewAPIClient(configuration)
-	r, err := apiClient.CustomTemplatesAPI.DeleteEmailCustomization(context.Background(), brandId, templateName, customizationId).Execute()
-	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `CustomTemplatesAPI.DeleteEmailCustomization``: %v\n", err)
-		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-	}
+    configuration := openapiclient.NewConfiguration()
+    apiClient := openapiclient.NewAPIClient(configuration)
+    r, err := apiClient.CustomTemplatesAPI.DeleteEmailCustomization(context.Background(), brandId, templateName, customizationId).Execute()
+    if err != nil {
+        fmt.Fprintf(os.Stderr, "Error when calling `CustomTemplatesAPI.DeleteEmailCustomization``: %v\n", err)
+        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+    }
 }
 ```
 
@@ -255,26 +255,26 @@ Retrieve a Preview of an Email Customization
 package main
 
 import (
-	"context"
-	"fmt"
-	"os"
-	openapiclient "github.com/okta/okta-sdk-golang"
+    "context"
+    "fmt"
+    "os"
+    openapiclient "github.com/okta/okta-sdk-golang"
 )
 
 func main() {
-	brandId := "brandId_example" // string | The ID of the brand
-	templateName := "templateName_example" // string | The name of the email template
-	customizationId := "customizationId_example" // string | The ID of the email customization
+    brandId := "brandId_example" // string | The ID of the brand
+    templateName := "templateName_example" // string | The name of the email template
+    customizationId := "customizationId_example" // string | The ID of the email customization
 
-	configuration := openapiclient.NewConfiguration()
-	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.CustomTemplatesAPI.GetCustomizationPreview(context.Background(), brandId, templateName, customizationId).Execute()
-	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `CustomTemplatesAPI.GetCustomizationPreview``: %v\n", err)
-		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-	}
-	// response from `GetCustomizationPreview`: EmailPreview
-	fmt.Fprintf(os.Stdout, "Response from `CustomTemplatesAPI.GetCustomizationPreview`: %v\n", resp)
+    configuration := openapiclient.NewConfiguration()
+    apiClient := openapiclient.NewAPIClient(configuration)
+    resp, r, err := apiClient.CustomTemplatesAPI.GetCustomizationPreview(context.Background(), brandId, templateName, customizationId).Execute()
+    if err != nil {
+        fmt.Fprintf(os.Stderr, "Error when calling `CustomTemplatesAPI.GetCustomizationPreview``: %v\n", err)
+        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+    }
+    // response from `GetCustomizationPreview`: EmailPreview
+    fmt.Fprintf(os.Stdout, "Response from `CustomTemplatesAPI.GetCustomizationPreview`: %v\n", resp)
 }
 ```
 
@@ -331,26 +331,26 @@ Retrieve an Email Customization
 package main
 
 import (
-	"context"
-	"fmt"
-	"os"
-	openapiclient "github.com/okta/okta-sdk-golang"
+    "context"
+    "fmt"
+    "os"
+    openapiclient "github.com/okta/okta-sdk-golang"
 )
 
 func main() {
-	brandId := "brandId_example" // string | The ID of the brand
-	templateName := "templateName_example" // string | The name of the email template
-	customizationId := "customizationId_example" // string | The ID of the email customization
+    brandId := "brandId_example" // string | The ID of the brand
+    templateName := "templateName_example" // string | The name of the email template
+    customizationId := "customizationId_example" // string | The ID of the email customization
 
-	configuration := openapiclient.NewConfiguration()
-	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.CustomTemplatesAPI.GetEmailCustomization(context.Background(), brandId, templateName, customizationId).Execute()
-	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `CustomTemplatesAPI.GetEmailCustomization``: %v\n", err)
-		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-	}
-	// response from `GetEmailCustomization`: EmailCustomization
-	fmt.Fprintf(os.Stdout, "Response from `CustomTemplatesAPI.GetEmailCustomization`: %v\n", resp)
+    configuration := openapiclient.NewConfiguration()
+    apiClient := openapiclient.NewAPIClient(configuration)
+    resp, r, err := apiClient.CustomTemplatesAPI.GetEmailCustomization(context.Background(), brandId, templateName, customizationId).Execute()
+    if err != nil {
+        fmt.Fprintf(os.Stderr, "Error when calling `CustomTemplatesAPI.GetEmailCustomization``: %v\n", err)
+        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+    }
+    // response from `GetEmailCustomization`: EmailCustomization
+    fmt.Fprintf(os.Stdout, "Response from `CustomTemplatesAPI.GetEmailCustomization`: %v\n", resp)
 }
 ```
 
@@ -407,26 +407,26 @@ Retrieve an Email Template Default Content
 package main
 
 import (
-	"context"
-	"fmt"
-	"os"
-	openapiclient "github.com/okta/okta-sdk-golang"
+    "context"
+    "fmt"
+    "os"
+    openapiclient "github.com/okta/okta-sdk-golang"
 )
 
 func main() {
-	brandId := "brandId_example" // string | The ID of the brand
-	templateName := "templateName_example" // string | The name of the email template
-	language := "language_example" // string | The language to use for the email. Defaults to the current user's language if unspecified. (optional)
+    brandId := "brandId_example" // string | The ID of the brand
+    templateName := "templateName_example" // string | The name of the email template
+    language := "language_example" // string | The language to use for the email. Defaults to the current user's language if unspecified. (optional)
 
-	configuration := openapiclient.NewConfiguration()
-	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.CustomTemplatesAPI.GetEmailDefaultContent(context.Background(), brandId, templateName).Language(language).Execute()
-	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `CustomTemplatesAPI.GetEmailDefaultContent``: %v\n", err)
-		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-	}
-	// response from `GetEmailDefaultContent`: EmailDefaultContent
-	fmt.Fprintf(os.Stdout, "Response from `CustomTemplatesAPI.GetEmailDefaultContent`: %v\n", resp)
+    configuration := openapiclient.NewConfiguration()
+    apiClient := openapiclient.NewAPIClient(configuration)
+    resp, r, err := apiClient.CustomTemplatesAPI.GetEmailDefaultContent(context.Background(), brandId, templateName).Language(language).Execute()
+    if err != nil {
+        fmt.Fprintf(os.Stderr, "Error when calling `CustomTemplatesAPI.GetEmailDefaultContent``: %v\n", err)
+        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+    }
+    // response from `GetEmailDefaultContent`: EmailDefaultContent
+    fmt.Fprintf(os.Stdout, "Response from `CustomTemplatesAPI.GetEmailDefaultContent`: %v\n", resp)
 }
 ```
 
@@ -482,26 +482,26 @@ Retrieve a Preview of the Email Template default content
 package main
 
 import (
-	"context"
-	"fmt"
-	"os"
-	openapiclient "github.com/okta/okta-sdk-golang"
+    "context"
+    "fmt"
+    "os"
+    openapiclient "github.com/okta/okta-sdk-golang"
 )
 
 func main() {
-	brandId := "brandId_example" // string | The ID of the brand
-	templateName := "templateName_example" // string | The name of the email template
-	language := "language_example" // string | The language to use for the email. Defaults to the current user's language if unspecified. (optional)
+    brandId := "brandId_example" // string | The ID of the brand
+    templateName := "templateName_example" // string | The name of the email template
+    language := "language_example" // string | The language to use for the email. Defaults to the current user's language if unspecified. (optional)
 
-	configuration := openapiclient.NewConfiguration()
-	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.CustomTemplatesAPI.GetEmailDefaultPreview(context.Background(), brandId, templateName).Language(language).Execute()
-	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `CustomTemplatesAPI.GetEmailDefaultPreview``: %v\n", err)
-		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-	}
-	// response from `GetEmailDefaultPreview`: EmailPreview
-	fmt.Fprintf(os.Stdout, "Response from `CustomTemplatesAPI.GetEmailDefaultPreview`: %v\n", resp)
+    configuration := openapiclient.NewConfiguration()
+    apiClient := openapiclient.NewAPIClient(configuration)
+    resp, r, err := apiClient.CustomTemplatesAPI.GetEmailDefaultPreview(context.Background(), brandId, templateName).Language(language).Execute()
+    if err != nil {
+        fmt.Fprintf(os.Stderr, "Error when calling `CustomTemplatesAPI.GetEmailDefaultPreview``: %v\n", err)
+        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+    }
+    // response from `GetEmailDefaultPreview`: EmailPreview
+    fmt.Fprintf(os.Stdout, "Response from `CustomTemplatesAPI.GetEmailDefaultPreview`: %v\n", resp)
 }
 ```
 
@@ -557,25 +557,25 @@ Retrieve the Email Template Settings
 package main
 
 import (
-	"context"
-	"fmt"
-	"os"
-	openapiclient "github.com/okta/okta-sdk-golang"
+    "context"
+    "fmt"
+    "os"
+    openapiclient "github.com/okta/okta-sdk-golang"
 )
 
 func main() {
-	brandId := "brandId_example" // string | The ID of the brand
-	templateName := "templateName_example" // string | The name of the email template
+    brandId := "brandId_example" // string | The ID of the brand
+    templateName := "templateName_example" // string | The name of the email template
 
-	configuration := openapiclient.NewConfiguration()
-	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.CustomTemplatesAPI.GetEmailSettings(context.Background(), brandId, templateName).Execute()
-	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `CustomTemplatesAPI.GetEmailSettings``: %v\n", err)
-		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-	}
-	// response from `GetEmailSettings`: EmailSettingsResponse
-	fmt.Fprintf(os.Stdout, "Response from `CustomTemplatesAPI.GetEmailSettings`: %v\n", resp)
+    configuration := openapiclient.NewConfiguration()
+    apiClient := openapiclient.NewAPIClient(configuration)
+    resp, r, err := apiClient.CustomTemplatesAPI.GetEmailSettings(context.Background(), brandId, templateName).Execute()
+    if err != nil {
+        fmt.Fprintf(os.Stderr, "Error when calling `CustomTemplatesAPI.GetEmailSettings``: %v\n", err)
+        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+    }
+    // response from `GetEmailSettings`: EmailSettingsResponse
+    fmt.Fprintf(os.Stdout, "Response from `CustomTemplatesAPI.GetEmailSettings`: %v\n", resp)
 }
 ```
 
@@ -630,26 +630,26 @@ Retrieve an Email Template
 package main
 
 import (
-	"context"
-	"fmt"
-	"os"
-	openapiclient "github.com/okta/okta-sdk-golang"
+    "context"
+    "fmt"
+    "os"
+    openapiclient "github.com/okta/okta-sdk-golang"
 )
 
 func main() {
-	brandId := "brandId_example" // string | The ID of the brand
-	templateName := "templateName_example" // string | The name of the email template
-	expand := []string{"Expand_example"} // []string | Specifies additional metadata to be included in the response (optional)
+    brandId := "brandId_example" // string | The ID of the brand
+    templateName := "templateName_example" // string | The name of the email template
+    expand := []string{"Expand_example"} // []string | Specifies additional metadata to be included in the response (optional)
 
-	configuration := openapiclient.NewConfiguration()
-	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.CustomTemplatesAPI.GetEmailTemplate(context.Background(), brandId, templateName).Expand(expand).Execute()
-	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `CustomTemplatesAPI.GetEmailTemplate``: %v\n", err)
-		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-	}
-	// response from `GetEmailTemplate`: EmailTemplateResponse
-	fmt.Fprintf(os.Stdout, "Response from `CustomTemplatesAPI.GetEmailTemplate`: %v\n", resp)
+    configuration := openapiclient.NewConfiguration()
+    apiClient := openapiclient.NewAPIClient(configuration)
+    resp, r, err := apiClient.CustomTemplatesAPI.GetEmailTemplate(context.Background(), brandId, templateName).Expand(expand).Execute()
+    if err != nil {
+        fmt.Fprintf(os.Stderr, "Error when calling `CustomTemplatesAPI.GetEmailTemplate``: %v\n", err)
+        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+    }
+    // response from `GetEmailTemplate`: EmailTemplateResponse
+    fmt.Fprintf(os.Stdout, "Response from `CustomTemplatesAPI.GetEmailTemplate`: %v\n", resp)
 }
 ```
 
@@ -705,27 +705,27 @@ List all Email Customizations
 package main
 
 import (
-	"context"
-	"fmt"
-	"os"
-	openapiclient "github.com/okta/okta-sdk-golang"
+    "context"
+    "fmt"
+    "os"
+    openapiclient "github.com/okta/okta-sdk-golang"
 )
 
 func main() {
-	brandId := "brandId_example" // string | The ID of the brand
-	templateName := "templateName_example" // string | The name of the email template
-	after := "after_example" // string | The cursor to use for pagination. It is an opaque string that specifies your current location in the list and is obtained from the `Link` response header. See [Pagination](/#pagination). (optional)
-	limit := int32(56) // int32 | A limit on the number of objects to return (optional) (default to 20)
+    brandId := "brandId_example" // string | The ID of the brand
+    templateName := "templateName_example" // string | The name of the email template
+    after := "after_example" // string | The cursor to use for pagination. It is an opaque string that specifies your current location in the list and is obtained from the `Link` response header. See [Pagination](/#pagination). (optional)
+    limit := int32(56) // int32 | A limit on the number of objects to return (optional) (default to 20)
 
-	configuration := openapiclient.NewConfiguration()
-	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.CustomTemplatesAPI.ListEmailCustomizations(context.Background(), brandId, templateName).After(after).Limit(limit).Execute()
-	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `CustomTemplatesAPI.ListEmailCustomizations``: %v\n", err)
-		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-	}
-	// response from `ListEmailCustomizations`: []EmailCustomization
-	fmt.Fprintf(os.Stdout, "Response from `CustomTemplatesAPI.ListEmailCustomizations`: %v\n", resp)
+    configuration := openapiclient.NewConfiguration()
+    apiClient := openapiclient.NewAPIClient(configuration)
+    resp, r, err := apiClient.CustomTemplatesAPI.ListEmailCustomizations(context.Background(), brandId, templateName).After(after).Limit(limit).Execute()
+    if err != nil {
+        fmt.Fprintf(os.Stderr, "Error when calling `CustomTemplatesAPI.ListEmailCustomizations``: %v\n", err)
+        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+    }
+    // response from `ListEmailCustomizations`: []EmailCustomization
+    fmt.Fprintf(os.Stdout, "Response from `CustomTemplatesAPI.ListEmailCustomizations`: %v\n", resp)
 }
 ```
 
@@ -782,27 +782,27 @@ List all Email Templates
 package main
 
 import (
-	"context"
-	"fmt"
-	"os"
-	openapiclient "github.com/okta/okta-sdk-golang"
+    "context"
+    "fmt"
+    "os"
+    openapiclient "github.com/okta/okta-sdk-golang"
 )
 
 func main() {
-	brandId := "brandId_example" // string | The ID of the brand
-	after := "after_example" // string | The cursor to use for pagination. It is an opaque string that specifies your current location in the list and is obtained from the `Link` response header. See [Pagination](/#pagination). (optional)
-	limit := int32(56) // int32 | A limit on the number of objects to return (optional) (default to 20)
-	expand := []string{"Expand_example"} // []string | Specifies additional metadata to be included in the response (optional)
+    brandId := "brandId_example" // string | The ID of the brand
+    after := "after_example" // string | The cursor to use for pagination. It is an opaque string that specifies your current location in the list and is obtained from the `Link` response header. See [Pagination](/#pagination). (optional)
+    limit := int32(56) // int32 | A limit on the number of objects to return (optional) (default to 20)
+    expand := []string{"Expand_example"} // []string | Specifies additional metadata to be included in the response (optional)
 
-	configuration := openapiclient.NewConfiguration()
-	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.CustomTemplatesAPI.ListEmailTemplates(context.Background(), brandId).After(after).Limit(limit).Expand(expand).Execute()
-	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `CustomTemplatesAPI.ListEmailTemplates``: %v\n", err)
-		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-	}
-	// response from `ListEmailTemplates`: []EmailTemplateResponse
-	fmt.Fprintf(os.Stdout, "Response from `CustomTemplatesAPI.ListEmailTemplates`: %v\n", resp)
+    configuration := openapiclient.NewConfiguration()
+    apiClient := openapiclient.NewAPIClient(configuration)
+    resp, r, err := apiClient.CustomTemplatesAPI.ListEmailTemplates(context.Background(), brandId).After(after).Limit(limit).Expand(expand).Execute()
+    if err != nil {
+        fmt.Fprintf(os.Stderr, "Error when calling `CustomTemplatesAPI.ListEmailTemplates``: %v\n", err)
+        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+    }
+    // response from `ListEmailTemplates`: []EmailTemplateResponse
+    fmt.Fprintf(os.Stdout, "Response from `CustomTemplatesAPI.ListEmailTemplates`: %v\n", resp)
 }
 ```
 
@@ -858,27 +858,27 @@ Replace an Email Customization
 package main
 
 import (
-	"context"
-	"fmt"
-	"os"
-	openapiclient "github.com/okta/okta-sdk-golang"
+    "context"
+    "fmt"
+    "os"
+    openapiclient "github.com/okta/okta-sdk-golang"
 )
 
 func main() {
-	brandId := "brandId_example" // string | The ID of the brand
-	templateName := "templateName_example" // string | The name of the email template
-	customizationId := "customizationId_example" // string | The ID of the email customization
-	instance := *openapiclient.NewEmailCustomization("Body_example", "Subject_example", "Language_example") // EmailCustomization | Request (optional)
+    brandId := "brandId_example" // string | The ID of the brand
+    templateName := "templateName_example" // string | The name of the email template
+    customizationId := "customizationId_example" // string | The ID of the email customization
+    instance := *openapiclient.NewEmailCustomization("Body_example", "Subject_example", "Language_example") // EmailCustomization | Request (optional)
 
-	configuration := openapiclient.NewConfiguration()
-	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.CustomTemplatesAPI.ReplaceEmailCustomization(context.Background(), brandId, templateName, customizationId).Instance(instance).Execute()
-	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `CustomTemplatesAPI.ReplaceEmailCustomization``: %v\n", err)
-		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-	}
-	// response from `ReplaceEmailCustomization`: EmailCustomization
-	fmt.Fprintf(os.Stdout, "Response from `CustomTemplatesAPI.ReplaceEmailCustomization`: %v\n", resp)
+    configuration := openapiclient.NewConfiguration()
+    apiClient := openapiclient.NewAPIClient(configuration)
+    resp, r, err := apiClient.CustomTemplatesAPI.ReplaceEmailCustomization(context.Background(), brandId, templateName, customizationId).Instance(instance).Execute()
+    if err != nil {
+        fmt.Fprintf(os.Stderr, "Error when calling `CustomTemplatesAPI.ReplaceEmailCustomization``: %v\n", err)
+        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+    }
+    // response from `ReplaceEmailCustomization`: EmailCustomization
+    fmt.Fprintf(os.Stdout, "Response from `CustomTemplatesAPI.ReplaceEmailCustomization`: %v\n", resp)
 }
 ```
 
@@ -936,26 +936,26 @@ Replace the Email Template Settings
 package main
 
 import (
-	"context"
-	"fmt"
-	"os"
-	openapiclient "github.com/okta/okta-sdk-golang"
+    "context"
+    "fmt"
+    "os"
+    openapiclient "github.com/okta/okta-sdk-golang"
 )
 
 func main() {
-	brandId := "brandId_example" // string | The ID of the brand
-	templateName := "templateName_example" // string | The name of the email template
-	emailSettings := *openapiclient.NewEmailSettings("Recipients_example") // EmailSettings |  (optional)
+    brandId := "brandId_example" // string | The ID of the brand
+    templateName := "templateName_example" // string | The name of the email template
+    emailSettings := *openapiclient.NewEmailSettings("Recipients_example") // EmailSettings |  (optional)
 
-	configuration := openapiclient.NewConfiguration()
-	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.CustomTemplatesAPI.ReplaceEmailSettings(context.Background(), brandId, templateName).EmailSettings(emailSettings).Execute()
-	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `CustomTemplatesAPI.ReplaceEmailSettings``: %v\n", err)
-		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-	}
-	// response from `ReplaceEmailSettings`: EmailSettings
-	fmt.Fprintf(os.Stdout, "Response from `CustomTemplatesAPI.ReplaceEmailSettings`: %v\n", resp)
+    configuration := openapiclient.NewConfiguration()
+    apiClient := openapiclient.NewAPIClient(configuration)
+    resp, r, err := apiClient.CustomTemplatesAPI.ReplaceEmailSettings(context.Background(), brandId, templateName).EmailSettings(emailSettings).Execute()
+    if err != nil {
+        fmt.Fprintf(os.Stderr, "Error when calling `CustomTemplatesAPI.ReplaceEmailSettings``: %v\n", err)
+        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+    }
+    // response from `ReplaceEmailSettings`: EmailSettings
+    fmt.Fprintf(os.Stdout, "Response from `CustomTemplatesAPI.ReplaceEmailSettings`: %v\n", resp)
 }
 ```
 
@@ -1011,24 +1011,24 @@ Send a Test Email
 package main
 
 import (
-	"context"
-	"fmt"
-	"os"
-	openapiclient "github.com/okta/okta-sdk-golang"
+    "context"
+    "fmt"
+    "os"
+    openapiclient "github.com/okta/okta-sdk-golang"
 )
 
 func main() {
-	brandId := "brandId_example" // string | The ID of the brand
-	templateName := "templateName_example" // string | The name of the email template
-	language := "language_example" // string | The language to use for the email. Defaults to the current user's language if unspecified. (optional)
+    brandId := "brandId_example" // string | The ID of the brand
+    templateName := "templateName_example" // string | The name of the email template
+    language := "language_example" // string | The language to use for the email. Defaults to the current user's language if unspecified. (optional)
 
-	configuration := openapiclient.NewConfiguration()
-	apiClient := openapiclient.NewAPIClient(configuration)
-	r, err := apiClient.CustomTemplatesAPI.SendTestEmail(context.Background(), brandId, templateName).Language(language).Execute()
-	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `CustomTemplatesAPI.SendTestEmail``: %v\n", err)
-		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-	}
+    configuration := openapiclient.NewConfiguration()
+    apiClient := openapiclient.NewAPIClient(configuration)
+    r, err := apiClient.CustomTemplatesAPI.SendTestEmail(context.Background(), brandId, templateName).Language(language).Execute()
+    if err != nil {
+        fmt.Fprintf(os.Stderr, "Error when calling `CustomTemplatesAPI.SendTestEmail``: %v\n", err)
+        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+    }
 }
 ```
 

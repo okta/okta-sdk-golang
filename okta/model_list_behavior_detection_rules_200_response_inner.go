@@ -113,18 +113,6 @@ func (dst *ListBehaviorDetectionRules200ResponseInner) UnmarshalJSON(data []byte
 		}
 	}
 
-	// check if the discriminator value is 'VELOCITY'
-	if jsonDict["type"] == "VELOCITY" {
-		// try to unmarshal JSON data into BehaviorRuleVelocity
-		err = json.Unmarshal(data, &dst.BehaviorRuleVelocity)
-		if err == nil {
-			return nil // data stored in dst.BehaviorRuleVelocity, return on the first match
-		} else {
-			dst.BehaviorRuleVelocity = nil
-			return fmt.Errorf("Failed to unmarshal ListBehaviorDetectionRules200ResponseInner as BehaviorRuleVelocity: %s", err.Error())
-		}
-	}
-
 	// check if the discriminator value is 'BehaviorRuleAnomalousDevice'
 	if jsonDict["type"] == "BehaviorRuleAnomalousDevice" {
 		// try to unmarshal JSON data into BehaviorRuleAnomalousDevice
@@ -163,6 +151,18 @@ func (dst *ListBehaviorDetectionRules200ResponseInner) UnmarshalJSON(data []byte
 
 	// check if the discriminator value is 'BehaviorRuleVelocity'
 	if jsonDict["type"] == "BehaviorRuleVelocity" {
+		// try to unmarshal JSON data into BehaviorRuleVelocity
+		err = json.Unmarshal(data, &dst.BehaviorRuleVelocity)
+		if err == nil {
+			return nil // data stored in dst.BehaviorRuleVelocity, return on the first match
+		} else {
+			dst.BehaviorRuleVelocity = nil
+			return fmt.Errorf("Failed to unmarshal ListBehaviorDetectionRules200ResponseInner as BehaviorRuleVelocity: %s", err.Error())
+		}
+	}
+
+	// check if the discriminator value is 'VELOCITY'
+	if jsonDict["type"] == "VELOCITY" {
 		// try to unmarshal JSON data into BehaviorRuleVelocity
 		err = json.Unmarshal(data, &dst.BehaviorRuleVelocity)
 		if err == nil {

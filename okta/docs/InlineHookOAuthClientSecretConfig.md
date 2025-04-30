@@ -5,10 +5,6 @@
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **ClientSecret** | Pointer to **string** |  | [optional] 
-**AuthType** | Pointer to **string** |  | [optional] 
-**ClientId** | Pointer to **string** |  | [optional] 
-**Scope** | Pointer to **string** |  | [optional] 
-**TokenUrl** | Pointer to **string** |  | [optional] 
 **AuthScheme** | Pointer to [**InlineHookChannelConfigAuthScheme**](InlineHookChannelConfigAuthScheme.md) |  | [optional] 
 **Headers** | Pointer to [**[]InlineHookChannelConfigHeaders**](InlineHookChannelConfigHeaders.md) |  | [optional] 
 **Method** | Pointer to **string** |  | [optional] 
@@ -57,106 +53,6 @@ SetClientSecret sets ClientSecret field to given value.
 `func (o *InlineHookOAuthClientSecretConfig) HasClientSecret() bool`
 
 HasClientSecret returns a boolean if a field has been set.
-
-### GetAuthType
-
-`func (o *InlineHookOAuthClientSecretConfig) GetAuthType() string`
-
-GetAuthType returns the AuthType field if non-nil, zero value otherwise.
-
-### GetAuthTypeOk
-
-`func (o *InlineHookOAuthClientSecretConfig) GetAuthTypeOk() (*string, bool)`
-
-GetAuthTypeOk returns a tuple with the AuthType field if it's non-nil, zero value otherwise
-and a boolean to check if the value has been set.
-
-### SetAuthType
-
-`func (o *InlineHookOAuthClientSecretConfig) SetAuthType(v string)`
-
-SetAuthType sets AuthType field to given value.
-
-### HasAuthType
-
-`func (o *InlineHookOAuthClientSecretConfig) HasAuthType() bool`
-
-HasAuthType returns a boolean if a field has been set.
-
-### GetClientId
-
-`func (o *InlineHookOAuthClientSecretConfig) GetClientId() string`
-
-GetClientId returns the ClientId field if non-nil, zero value otherwise.
-
-### GetClientIdOk
-
-`func (o *InlineHookOAuthClientSecretConfig) GetClientIdOk() (*string, bool)`
-
-GetClientIdOk returns a tuple with the ClientId field if it's non-nil, zero value otherwise
-and a boolean to check if the value has been set.
-
-### SetClientId
-
-`func (o *InlineHookOAuthClientSecretConfig) SetClientId(v string)`
-
-SetClientId sets ClientId field to given value.
-
-### HasClientId
-
-`func (o *InlineHookOAuthClientSecretConfig) HasClientId() bool`
-
-HasClientId returns a boolean if a field has been set.
-
-### GetScope
-
-`func (o *InlineHookOAuthClientSecretConfig) GetScope() string`
-
-GetScope returns the Scope field if non-nil, zero value otherwise.
-
-### GetScopeOk
-
-`func (o *InlineHookOAuthClientSecretConfig) GetScopeOk() (*string, bool)`
-
-GetScopeOk returns a tuple with the Scope field if it's non-nil, zero value otherwise
-and a boolean to check if the value has been set.
-
-### SetScope
-
-`func (o *InlineHookOAuthClientSecretConfig) SetScope(v string)`
-
-SetScope sets Scope field to given value.
-
-### HasScope
-
-`func (o *InlineHookOAuthClientSecretConfig) HasScope() bool`
-
-HasScope returns a boolean if a field has been set.
-
-### GetTokenUrl
-
-`func (o *InlineHookOAuthClientSecretConfig) GetTokenUrl() string`
-
-GetTokenUrl returns the TokenUrl field if non-nil, zero value otherwise.
-
-### GetTokenUrlOk
-
-`func (o *InlineHookOAuthClientSecretConfig) GetTokenUrlOk() (*string, bool)`
-
-GetTokenUrlOk returns a tuple with the TokenUrl field if it's non-nil, zero value otherwise
-and a boolean to check if the value has been set.
-
-### SetTokenUrl
-
-`func (o *InlineHookOAuthClientSecretConfig) SetTokenUrl(v string)`
-
-SetTokenUrl sets TokenUrl field to given value.
-
-### HasTokenUrl
-
-`func (o *InlineHookOAuthClientSecretConfig) HasTokenUrl() bool`
-
-HasTokenUrl returns a boolean if a field has been set.
 
 ### GetAuthScheme
 

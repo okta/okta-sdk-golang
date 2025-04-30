@@ -25,7 +25,6 @@ package okta
 
 import (
 	"encoding/json"
-	"fmt"
 )
 
 // DomainLinksAllOfBrand struct for DomainLinksAllOfBrand

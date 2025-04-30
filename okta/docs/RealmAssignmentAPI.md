@@ -30,22 +30,22 @@ Activate a Realm Assignment
 package main
 
 import (
-	"context"
-	"fmt"
-	"os"
-	openapiclient "github.com/okta/okta-sdk-golang"
+    "context"
+    "fmt"
+    "os"
+    openapiclient "github.com/okta/okta-sdk-golang"
 )
 
 func main() {
-	assignmentId := "rul2jy7jLUlnO3ng00g4" // string | `id` of the Realm Assignment
+    assignmentId := "rul2jy7jLUlnO3ng00g4" // string | `id` of the Realm Assignment
 
-	configuration := openapiclient.NewConfiguration()
-	apiClient := openapiclient.NewAPIClient(configuration)
-	r, err := apiClient.RealmAssignmentAPI.ActivateRealmAssignment(context.Background(), assignmentId).Execute()
-	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `RealmAssignmentAPI.ActivateRealmAssignment``: %v\n", err)
-		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-	}
+    configuration := openapiclient.NewConfiguration()
+    apiClient := openapiclient.NewAPIClient(configuration)
+    r, err := apiClient.RealmAssignmentAPI.ActivateRealmAssignment(context.Background(), assignmentId).Execute()
+    if err != nil {
+        fmt.Fprintf(os.Stderr, "Error when calling `RealmAssignmentAPI.ActivateRealmAssignment``: %v\n", err)
+        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+    }
 }
 ```
 
@@ -98,24 +98,24 @@ Create a Realm Assignment
 package main
 
 import (
-	"context"
-	"fmt"
-	"os"
-	openapiclient "github.com/okta/okta-sdk-golang"
+    "context"
+    "fmt"
+    "os"
+    openapiclient "github.com/okta/okta-sdk-golang"
 )
 
 func main() {
-	body := *openapiclient.NewCreateRealmAssignmentRequest() // CreateRealmAssignmentRequest | 
+    body := *openapiclient.NewCreateRealmAssignmentRequest() // CreateRealmAssignmentRequest | 
 
-	configuration := openapiclient.NewConfiguration()
-	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.RealmAssignmentAPI.CreateRealmAssignment(context.Background()).Body(body).Execute()
-	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `RealmAssignmentAPI.CreateRealmAssignment``: %v\n", err)
-		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-	}
-	// response from `CreateRealmAssignment`: RealmAssignment
-	fmt.Fprintf(os.Stdout, "Response from `RealmAssignmentAPI.CreateRealmAssignment`: %v\n", resp)
+    configuration := openapiclient.NewConfiguration()
+    apiClient := openapiclient.NewAPIClient(configuration)
+    resp, r, err := apiClient.RealmAssignmentAPI.CreateRealmAssignment(context.Background()).Body(body).Execute()
+    if err != nil {
+        fmt.Fprintf(os.Stderr, "Error when calling `RealmAssignmentAPI.CreateRealmAssignment``: %v\n", err)
+        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+    }
+    // response from `CreateRealmAssignment`: RealmAssignment
+    fmt.Fprintf(os.Stdout, "Response from `RealmAssignmentAPI.CreateRealmAssignment`: %v\n", resp)
 }
 ```
 
@@ -164,22 +164,22 @@ Deactivate a Realm Assignment
 package main
 
 import (
-	"context"
-	"fmt"
-	"os"
-	openapiclient "github.com/okta/okta-sdk-golang"
+    "context"
+    "fmt"
+    "os"
+    openapiclient "github.com/okta/okta-sdk-golang"
 )
 
 func main() {
-	assignmentId := "rul2jy7jLUlnO3ng00g4" // string | `id` of the Realm Assignment
+    assignmentId := "rul2jy7jLUlnO3ng00g4" // string | `id` of the Realm Assignment
 
-	configuration := openapiclient.NewConfiguration()
-	apiClient := openapiclient.NewAPIClient(configuration)
-	r, err := apiClient.RealmAssignmentAPI.DeactivateRealmAssignment(context.Background(), assignmentId).Execute()
-	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `RealmAssignmentAPI.DeactivateRealmAssignment``: %v\n", err)
-		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-	}
+    configuration := openapiclient.NewConfiguration()
+    apiClient := openapiclient.NewAPIClient(configuration)
+    r, err := apiClient.RealmAssignmentAPI.DeactivateRealmAssignment(context.Background(), assignmentId).Execute()
+    if err != nil {
+        fmt.Fprintf(os.Stderr, "Error when calling `RealmAssignmentAPI.DeactivateRealmAssignment``: %v\n", err)
+        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+    }
 }
 ```
 
@@ -232,22 +232,22 @@ Delete a Realm Assignment
 package main
 
 import (
-	"context"
-	"fmt"
-	"os"
-	openapiclient "github.com/okta/okta-sdk-golang"
+    "context"
+    "fmt"
+    "os"
+    openapiclient "github.com/okta/okta-sdk-golang"
 )
 
 func main() {
-	assignmentId := "rul2jy7jLUlnO3ng00g4" // string | `id` of the Realm Assignment
+    assignmentId := "rul2jy7jLUlnO3ng00g4" // string | `id` of the Realm Assignment
 
-	configuration := openapiclient.NewConfiguration()
-	apiClient := openapiclient.NewAPIClient(configuration)
-	r, err := apiClient.RealmAssignmentAPI.DeleteRealmAssignment(context.Background(), assignmentId).Execute()
-	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `RealmAssignmentAPI.DeleteRealmAssignment``: %v\n", err)
-		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-	}
+    configuration := openapiclient.NewConfiguration()
+    apiClient := openapiclient.NewAPIClient(configuration)
+    r, err := apiClient.RealmAssignmentAPI.DeleteRealmAssignment(context.Background(), assignmentId).Execute()
+    if err != nil {
+        fmt.Fprintf(os.Stderr, "Error when calling `RealmAssignmentAPI.DeleteRealmAssignment``: %v\n", err)
+        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+    }
 }
 ```
 
@@ -300,24 +300,24 @@ Execute a Realm Assignment
 package main
 
 import (
-	"context"
-	"fmt"
-	"os"
-	openapiclient "github.com/okta/okta-sdk-golang"
+    "context"
+    "fmt"
+    "os"
+    openapiclient "github.com/okta/okta-sdk-golang"
 )
 
 func main() {
-	body := *openapiclient.NewOperationRequest() // OperationRequest | 
+    body := *openapiclient.NewOperationRequest() // OperationRequest | 
 
-	configuration := openapiclient.NewConfiguration()
-	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.RealmAssignmentAPI.ExecuteRealmAssignment(context.Background()).Body(body).Execute()
-	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `RealmAssignmentAPI.ExecuteRealmAssignment``: %v\n", err)
-		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-	}
-	// response from `ExecuteRealmAssignment`: OperationResponse
-	fmt.Fprintf(os.Stdout, "Response from `RealmAssignmentAPI.ExecuteRealmAssignment`: %v\n", resp)
+    configuration := openapiclient.NewConfiguration()
+    apiClient := openapiclient.NewAPIClient(configuration)
+    resp, r, err := apiClient.RealmAssignmentAPI.ExecuteRealmAssignment(context.Background()).Body(body).Execute()
+    if err != nil {
+        fmt.Fprintf(os.Stderr, "Error when calling `RealmAssignmentAPI.ExecuteRealmAssignment``: %v\n", err)
+        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+    }
+    // response from `ExecuteRealmAssignment`: OperationResponse
+    fmt.Fprintf(os.Stdout, "Response from `RealmAssignmentAPI.ExecuteRealmAssignment`: %v\n", resp)
 }
 ```
 
@@ -366,24 +366,24 @@ Retrieve a Realm Assignment
 package main
 
 import (
-	"context"
-	"fmt"
-	"os"
-	openapiclient "github.com/okta/okta-sdk-golang"
+    "context"
+    "fmt"
+    "os"
+    openapiclient "github.com/okta/okta-sdk-golang"
 )
 
 func main() {
-	assignmentId := "rul2jy7jLUlnO3ng00g4" // string | `id` of the Realm Assignment
+    assignmentId := "rul2jy7jLUlnO3ng00g4" // string | `id` of the Realm Assignment
 
-	configuration := openapiclient.NewConfiguration()
-	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.RealmAssignmentAPI.GetRealmAssignment(context.Background(), assignmentId).Execute()
-	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `RealmAssignmentAPI.GetRealmAssignment``: %v\n", err)
-		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-	}
-	// response from `GetRealmAssignment`: RealmAssignment
-	fmt.Fprintf(os.Stdout, "Response from `RealmAssignmentAPI.GetRealmAssignment`: %v\n", resp)
+    configuration := openapiclient.NewConfiguration()
+    apiClient := openapiclient.NewAPIClient(configuration)
+    resp, r, err := apiClient.RealmAssignmentAPI.GetRealmAssignment(context.Background(), assignmentId).Execute()
+    if err != nil {
+        fmt.Fprintf(os.Stderr, "Error when calling `RealmAssignmentAPI.GetRealmAssignment``: %v\n", err)
+        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+    }
+    // response from `GetRealmAssignment`: RealmAssignment
+    fmt.Fprintf(os.Stdout, "Response from `RealmAssignmentAPI.GetRealmAssignment`: %v\n", resp)
 }
 ```
 
@@ -436,25 +436,25 @@ List all Realm Assignment operations
 package main
 
 import (
-	"context"
-	"fmt"
-	"os"
-	openapiclient "github.com/okta/okta-sdk-golang"
+    "context"
+    "fmt"
+    "os"
+    openapiclient "github.com/okta/okta-sdk-golang"
 )
 
 func main() {
-	limit := int32(56) // int32 | A limit on the number of objects to return (optional) (default to 20)
-	after := "after_example" // string | The cursor to use for pagination. It is an opaque string that specifies your current location in the list and is obtained from the `Link` response header. See [Pagination](/#pagination). (optional)
+    limit := int32(56) // int32 | A limit on the number of objects to return (optional) (default to 20)
+    after := "after_example" // string | The cursor to use for pagination. It is an opaque string that specifies your current location in the list and is obtained from the `Link` response header. See [Pagination](/#pagination). (optional)
 
-	configuration := openapiclient.NewConfiguration()
-	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.RealmAssignmentAPI.ListRealmAssignmentOperations(context.Background()).Limit(limit).After(after).Execute()
-	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `RealmAssignmentAPI.ListRealmAssignmentOperations``: %v\n", err)
-		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-	}
-	// response from `ListRealmAssignmentOperations`: []OperationResponse
-	fmt.Fprintf(os.Stdout, "Response from `RealmAssignmentAPI.ListRealmAssignmentOperations`: %v\n", resp)
+    configuration := openapiclient.NewConfiguration()
+    apiClient := openapiclient.NewAPIClient(configuration)
+    resp, r, err := apiClient.RealmAssignmentAPI.ListRealmAssignmentOperations(context.Background()).Limit(limit).After(after).Execute()
+    if err != nil {
+        fmt.Fprintf(os.Stderr, "Error when calling `RealmAssignmentAPI.ListRealmAssignmentOperations``: %v\n", err)
+        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+    }
+    // response from `ListRealmAssignmentOperations`: []OperationResponse
+    fmt.Fprintf(os.Stdout, "Response from `RealmAssignmentAPI.ListRealmAssignmentOperations`: %v\n", resp)
 }
 ```
 
@@ -504,25 +504,25 @@ List all Realm Assignments
 package main
 
 import (
-	"context"
-	"fmt"
-	"os"
-	openapiclient "github.com/okta/okta-sdk-golang"
+    "context"
+    "fmt"
+    "os"
+    openapiclient "github.com/okta/okta-sdk-golang"
 )
 
 func main() {
-	limit := int32(56) // int32 | A limit on the number of objects to return (optional) (default to 20)
-	after := "after_example" // string | The cursor to use for pagination. It is an opaque string that specifies your current location in the list and is obtained from the `Link` response header. See [Pagination](/#pagination). (optional)
+    limit := int32(56) // int32 | A limit on the number of objects to return (optional) (default to 20)
+    after := "after_example" // string | The cursor to use for pagination. It is an opaque string that specifies your current location in the list and is obtained from the `Link` response header. See [Pagination](/#pagination). (optional)
 
-	configuration := openapiclient.NewConfiguration()
-	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.RealmAssignmentAPI.ListRealmAssignments(context.Background()).Limit(limit).After(after).Execute()
-	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `RealmAssignmentAPI.ListRealmAssignments``: %v\n", err)
-		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-	}
-	// response from `ListRealmAssignments`: []RealmAssignment
-	fmt.Fprintf(os.Stdout, "Response from `RealmAssignmentAPI.ListRealmAssignments`: %v\n", resp)
+    configuration := openapiclient.NewConfiguration()
+    apiClient := openapiclient.NewAPIClient(configuration)
+    resp, r, err := apiClient.RealmAssignmentAPI.ListRealmAssignments(context.Background()).Limit(limit).After(after).Execute()
+    if err != nil {
+        fmt.Fprintf(os.Stderr, "Error when calling `RealmAssignmentAPI.ListRealmAssignments``: %v\n", err)
+        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+    }
+    // response from `ListRealmAssignments`: []RealmAssignment
+    fmt.Fprintf(os.Stdout, "Response from `RealmAssignmentAPI.ListRealmAssignments`: %v\n", resp)
 }
 ```
 
@@ -572,25 +572,25 @@ Replace a Realm Assignment
 package main
 
 import (
-	"context"
-	"fmt"
-	"os"
-	openapiclient "github.com/okta/okta-sdk-golang"
+    "context"
+    "fmt"
+    "os"
+    openapiclient "github.com/okta/okta-sdk-golang"
 )
 
 func main() {
-	assignmentId := "rul2jy7jLUlnO3ng00g4" // string | `id` of the Realm Assignment
-	body := *openapiclient.NewUpdateRealmAssignmentRequest() // UpdateRealmAssignmentRequest | 
+    assignmentId := "rul2jy7jLUlnO3ng00g4" // string | `id` of the Realm Assignment
+    body := *openapiclient.NewUpdateRealmAssignmentRequest() // UpdateRealmAssignmentRequest | 
 
-	configuration := openapiclient.NewConfiguration()
-	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.RealmAssignmentAPI.ReplaceRealmAssignment(context.Background(), assignmentId).Body(body).Execute()
-	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `RealmAssignmentAPI.ReplaceRealmAssignment``: %v\n", err)
-		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-	}
-	// response from `ReplaceRealmAssignment`: RealmAssignment
-	fmt.Fprintf(os.Stdout, "Response from `RealmAssignmentAPI.ReplaceRealmAssignment`: %v\n", resp)
+    configuration := openapiclient.NewConfiguration()
+    apiClient := openapiclient.NewAPIClient(configuration)
+    resp, r, err := apiClient.RealmAssignmentAPI.ReplaceRealmAssignment(context.Background(), assignmentId).Body(body).Execute()
+    if err != nil {
+        fmt.Fprintf(os.Stderr, "Error when calling `RealmAssignmentAPI.ReplaceRealmAssignment``: %v\n", err)
+        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+    }
+    // response from `ReplaceRealmAssignment`: RealmAssignment
+    fmt.Fprintf(os.Stdout, "Response from `RealmAssignmentAPI.ReplaceRealmAssignment`: %v\n", resp)
 }
 ```
 

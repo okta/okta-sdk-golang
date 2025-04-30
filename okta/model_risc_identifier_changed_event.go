@@ -25,7 +25,6 @@ package okta
 
 import (
 	"encoding/json"
-	"fmt"
 )
 
 // RiscIdentifierChangedEvent The subject's identifier has changed, which is either an email address or a phone number change

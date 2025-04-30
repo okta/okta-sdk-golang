@@ -23,24 +23,24 @@ List all Credential Keys
 package main
 
 import (
-	"context"
-	"fmt"
-	"os"
-	openapiclient "github.com/okta/okta-sdk-golang"
+    "context"
+    "fmt"
+    "os"
+    openapiclient "github.com/okta/okta-sdk-golang"
 )
 
 func main() {
-	authServerId := "GeGRTEr7f3yu2n7grw22" // string | `id` of the Authorization Server
+    authServerId := "GeGRTEr7f3yu2n7grw22" // string | `id` of the Authorization Server
 
-	configuration := openapiclient.NewConfiguration()
-	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.AuthorizationServerKeysAPI.ListAuthorizationServerKeys(context.Background(), authServerId).Execute()
-	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `AuthorizationServerKeysAPI.ListAuthorizationServerKeys``: %v\n", err)
-		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-	}
-	// response from `ListAuthorizationServerKeys`: []AuthorizationServerJsonWebKey
-	fmt.Fprintf(os.Stdout, "Response from `AuthorizationServerKeysAPI.ListAuthorizationServerKeys`: %v\n", resp)
+    configuration := openapiclient.NewConfiguration()
+    apiClient := openapiclient.NewAPIClient(configuration)
+    resp, r, err := apiClient.AuthorizationServerKeysAPI.ListAuthorizationServerKeys(context.Background(), authServerId).Execute()
+    if err != nil {
+        fmt.Fprintf(os.Stderr, "Error when calling `AuthorizationServerKeysAPI.ListAuthorizationServerKeys``: %v\n", err)
+        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+    }
+    // response from `ListAuthorizationServerKeys`: []AuthorizationServerJsonWebKey
+    fmt.Fprintf(os.Stdout, "Response from `AuthorizationServerKeysAPI.ListAuthorizationServerKeys`: %v\n", resp)
 }
 ```
 
@@ -93,25 +93,25 @@ Rotate all Credential Keys
 package main
 
 import (
-	"context"
-	"fmt"
-	"os"
-	openapiclient "github.com/okta/okta-sdk-golang"
+    "context"
+    "fmt"
+    "os"
+    openapiclient "github.com/okta/okta-sdk-golang"
 )
 
 func main() {
-	authServerId := "GeGRTEr7f3yu2n7grw22" // string | `id` of the Authorization Server
-	use := *openapiclient.NewJwkUse() // JwkUse | 
+    authServerId := "GeGRTEr7f3yu2n7grw22" // string | `id` of the Authorization Server
+    use := *openapiclient.NewJwkUse() // JwkUse | 
 
-	configuration := openapiclient.NewConfiguration()
-	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.AuthorizationServerKeysAPI.RotateAuthorizationServerKeys(context.Background(), authServerId).Use(use).Execute()
-	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `AuthorizationServerKeysAPI.RotateAuthorizationServerKeys``: %v\n", err)
-		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-	}
-	// response from `RotateAuthorizationServerKeys`: []AuthorizationServerJsonWebKey
-	fmt.Fprintf(os.Stdout, "Response from `AuthorizationServerKeysAPI.RotateAuthorizationServerKeys`: %v\n", resp)
+    configuration := openapiclient.NewConfiguration()
+    apiClient := openapiclient.NewAPIClient(configuration)
+    resp, r, err := apiClient.AuthorizationServerKeysAPI.RotateAuthorizationServerKeys(context.Background(), authServerId).Use(use).Execute()
+    if err != nil {
+        fmt.Fprintf(os.Stderr, "Error when calling `AuthorizationServerKeysAPI.RotateAuthorizationServerKeys``: %v\n", err)
+        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+    }
+    // response from `RotateAuthorizationServerKeys`: []AuthorizationServerJsonWebKey
+    fmt.Fprintf(os.Stdout, "Response from `AuthorizationServerKeysAPI.RotateAuthorizationServerKeys`: %v\n", resp)
 }
 ```
 

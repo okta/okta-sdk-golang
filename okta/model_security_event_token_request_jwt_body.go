@@ -25,7 +25,6 @@ package okta
 
 import (
 	"encoding/json"
-	"fmt"
 )
 
 // SecurityEventTokenRequestJwtBody JSON Web Token body payload for a Security Event Token

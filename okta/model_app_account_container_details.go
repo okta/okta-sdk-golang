@@ -25,7 +25,6 @@ package okta
 
 import (
 	"encoding/json"
-	"fmt"
 )
 
 // AppAccountContainerDetails Container details for resource type APP_ACCOUNT

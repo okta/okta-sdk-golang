@@ -30,24 +30,24 @@ Activate an Inline Hook
 package main
 
 import (
-	"context"
-	"fmt"
-	"os"
-	openapiclient "github.com/okta/okta-sdk-golang"
+    "context"
+    "fmt"
+    "os"
+    openapiclient "github.com/okta/okta-sdk-golang"
 )
 
 func main() {
-	inlineHookId := "Y7Rzrd4g4xj6WdKzrBHH" // string | `id` of the Inline Hook
+    inlineHookId := "Y7Rzrd4g4xj6WdKzrBHH" // string | `id` of the Inline Hook
 
-	configuration := openapiclient.NewConfiguration()
-	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.InlineHookAPI.ActivateInlineHook(context.Background(), inlineHookId).Execute()
-	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `InlineHookAPI.ActivateInlineHook``: %v\n", err)
-		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-	}
-	// response from `ActivateInlineHook`: InlineHook
-	fmt.Fprintf(os.Stdout, "Response from `InlineHookAPI.ActivateInlineHook`: %v\n", resp)
+    configuration := openapiclient.NewConfiguration()
+    apiClient := openapiclient.NewAPIClient(configuration)
+    resp, r, err := apiClient.InlineHookAPI.ActivateInlineHook(context.Background(), inlineHookId).Execute()
+    if err != nil {
+        fmt.Fprintf(os.Stderr, "Error when calling `InlineHookAPI.ActivateInlineHook``: %v\n", err)
+        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+    }
+    // response from `ActivateInlineHook`: InlineHook
+    fmt.Fprintf(os.Stdout, "Response from `InlineHookAPI.ActivateInlineHook`: %v\n", resp)
 }
 ```
 
@@ -100,24 +100,24 @@ Create an Inline Hook
 package main
 
 import (
-	"context"
-	"fmt"
-	"os"
-	openapiclient "github.com/okta/okta-sdk-golang"
+    "context"
+    "fmt"
+    "os"
+    openapiclient "github.com/okta/okta-sdk-golang"
 )
 
 func main() {
-	inlineHook := *openapiclient.NewInlineHook() // InlineHook | 
+    inlineHook := *openapiclient.NewInlineHook() // InlineHook | 
 
-	configuration := openapiclient.NewConfiguration()
-	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.InlineHookAPI.CreateInlineHook(context.Background()).InlineHook(inlineHook).Execute()
-	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `InlineHookAPI.CreateInlineHook``: %v\n", err)
-		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-	}
-	// response from `CreateInlineHook`: InlineHook
-	fmt.Fprintf(os.Stdout, "Response from `InlineHookAPI.CreateInlineHook`: %v\n", resp)
+    configuration := openapiclient.NewConfiguration()
+    apiClient := openapiclient.NewAPIClient(configuration)
+    resp, r, err := apiClient.InlineHookAPI.CreateInlineHook(context.Background()).InlineHook(inlineHook).Execute()
+    if err != nil {
+        fmt.Fprintf(os.Stderr, "Error when calling `InlineHookAPI.CreateInlineHook``: %v\n", err)
+        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+    }
+    // response from `CreateInlineHook`: InlineHook
+    fmt.Fprintf(os.Stdout, "Response from `InlineHookAPI.CreateInlineHook`: %v\n", resp)
 }
 ```
 
@@ -166,24 +166,24 @@ Deactivate an Inline Hook
 package main
 
 import (
-	"context"
-	"fmt"
-	"os"
-	openapiclient "github.com/okta/okta-sdk-golang"
+    "context"
+    "fmt"
+    "os"
+    openapiclient "github.com/okta/okta-sdk-golang"
 )
 
 func main() {
-	inlineHookId := "Y7Rzrd4g4xj6WdKzrBHH" // string | `id` of the Inline Hook
+    inlineHookId := "Y7Rzrd4g4xj6WdKzrBHH" // string | `id` of the Inline Hook
 
-	configuration := openapiclient.NewConfiguration()
-	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.InlineHookAPI.DeactivateInlineHook(context.Background(), inlineHookId).Execute()
-	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `InlineHookAPI.DeactivateInlineHook``: %v\n", err)
-		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-	}
-	// response from `DeactivateInlineHook`: InlineHook
-	fmt.Fprintf(os.Stdout, "Response from `InlineHookAPI.DeactivateInlineHook`: %v\n", resp)
+    configuration := openapiclient.NewConfiguration()
+    apiClient := openapiclient.NewAPIClient(configuration)
+    resp, r, err := apiClient.InlineHookAPI.DeactivateInlineHook(context.Background(), inlineHookId).Execute()
+    if err != nil {
+        fmt.Fprintf(os.Stderr, "Error when calling `InlineHookAPI.DeactivateInlineHook``: %v\n", err)
+        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+    }
+    // response from `DeactivateInlineHook`: InlineHook
+    fmt.Fprintf(os.Stdout, "Response from `InlineHookAPI.DeactivateInlineHook`: %v\n", resp)
 }
 ```
 
@@ -236,22 +236,22 @@ Delete an Inline Hook
 package main
 
 import (
-	"context"
-	"fmt"
-	"os"
-	openapiclient "github.com/okta/okta-sdk-golang"
+    "context"
+    "fmt"
+    "os"
+    openapiclient "github.com/okta/okta-sdk-golang"
 )
 
 func main() {
-	inlineHookId := "Y7Rzrd4g4xj6WdKzrBHH" // string | `id` of the Inline Hook
+    inlineHookId := "Y7Rzrd4g4xj6WdKzrBHH" // string | `id` of the Inline Hook
 
-	configuration := openapiclient.NewConfiguration()
-	apiClient := openapiclient.NewAPIClient(configuration)
-	r, err := apiClient.InlineHookAPI.DeleteInlineHook(context.Background(), inlineHookId).Execute()
-	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `InlineHookAPI.DeleteInlineHook``: %v\n", err)
-		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-	}
+    configuration := openapiclient.NewConfiguration()
+    apiClient := openapiclient.NewAPIClient(configuration)
+    r, err := apiClient.InlineHookAPI.DeleteInlineHook(context.Background(), inlineHookId).Execute()
+    if err != nil {
+        fmt.Fprintf(os.Stderr, "Error when calling `InlineHookAPI.DeleteInlineHook``: %v\n", err)
+        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+    }
 }
 ```
 
@@ -304,25 +304,25 @@ Execute an Inline Hook
 package main
 
 import (
-	"context"
-	"fmt"
-	"os"
-	openapiclient "github.com/okta/okta-sdk-golang"
+    "context"
+    "fmt"
+    "os"
+    openapiclient "github.com/okta/okta-sdk-golang"
 )
 
 func main() {
-	inlineHookId := "Y7Rzrd4g4xj6WdKzrBHH" // string | `id` of the Inline Hook
-	payloadData := map[string]interface{}{ ... } // map[string]interface{} | 
+    inlineHookId := "Y7Rzrd4g4xj6WdKzrBHH" // string | `id` of the Inline Hook
+    payloadData := map[string]interface{}{ ... } // map[string]interface{} | 
 
-	configuration := openapiclient.NewConfiguration()
-	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.InlineHookAPI.ExecuteInlineHook(context.Background(), inlineHookId).PayloadData(payloadData).Execute()
-	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `InlineHookAPI.ExecuteInlineHook``: %v\n", err)
-		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-	}
-	// response from `ExecuteInlineHook`: InlineHookResponse
-	fmt.Fprintf(os.Stdout, "Response from `InlineHookAPI.ExecuteInlineHook`: %v\n", resp)
+    configuration := openapiclient.NewConfiguration()
+    apiClient := openapiclient.NewAPIClient(configuration)
+    resp, r, err := apiClient.InlineHookAPI.ExecuteInlineHook(context.Background(), inlineHookId).PayloadData(payloadData).Execute()
+    if err != nil {
+        fmt.Fprintf(os.Stderr, "Error when calling `InlineHookAPI.ExecuteInlineHook``: %v\n", err)
+        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+    }
+    // response from `ExecuteInlineHook`: InlineHookResponse
+    fmt.Fprintf(os.Stdout, "Response from `InlineHookAPI.ExecuteInlineHook`: %v\n", resp)
 }
 ```
 
@@ -376,24 +376,24 @@ Retrieve an Inline Hook
 package main
 
 import (
-	"context"
-	"fmt"
-	"os"
-	openapiclient "github.com/okta/okta-sdk-golang"
+    "context"
+    "fmt"
+    "os"
+    openapiclient "github.com/okta/okta-sdk-golang"
 )
 
 func main() {
-	inlineHookId := "Y7Rzrd4g4xj6WdKzrBHH" // string | `id` of the Inline Hook
+    inlineHookId := "Y7Rzrd4g4xj6WdKzrBHH" // string | `id` of the Inline Hook
 
-	configuration := openapiclient.NewConfiguration()
-	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.InlineHookAPI.GetInlineHook(context.Background(), inlineHookId).Execute()
-	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `InlineHookAPI.GetInlineHook``: %v\n", err)
-		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-	}
-	// response from `GetInlineHook`: InlineHook
-	fmt.Fprintf(os.Stdout, "Response from `InlineHookAPI.GetInlineHook`: %v\n", resp)
+    configuration := openapiclient.NewConfiguration()
+    apiClient := openapiclient.NewAPIClient(configuration)
+    resp, r, err := apiClient.InlineHookAPI.GetInlineHook(context.Background(), inlineHookId).Execute()
+    if err != nil {
+        fmt.Fprintf(os.Stderr, "Error when calling `InlineHookAPI.GetInlineHook``: %v\n", err)
+        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+    }
+    // response from `GetInlineHook`: InlineHook
+    fmt.Fprintf(os.Stdout, "Response from `InlineHookAPI.GetInlineHook`: %v\n", resp)
 }
 ```
 
@@ -446,24 +446,24 @@ List all Inline Hooks
 package main
 
 import (
-	"context"
-	"fmt"
-	"os"
-	openapiclient "github.com/okta/okta-sdk-golang"
+    "context"
+    "fmt"
+    "os"
+    openapiclient "github.com/okta/okta-sdk-golang"
 )
 
 func main() {
-	type_ := "type__example" // string |  (optional)
+    type_ := "type__example" // string |  (optional)
 
-	configuration := openapiclient.NewConfiguration()
-	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.InlineHookAPI.ListInlineHooks(context.Background()).Type_(type_).Execute()
-	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `InlineHookAPI.ListInlineHooks``: %v\n", err)
-		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-	}
-	// response from `ListInlineHooks`: []InlineHook
-	fmt.Fprintf(os.Stdout, "Response from `InlineHookAPI.ListInlineHooks`: %v\n", resp)
+    configuration := openapiclient.NewConfiguration()
+    apiClient := openapiclient.NewAPIClient(configuration)
+    resp, r, err := apiClient.InlineHookAPI.ListInlineHooks(context.Background()).Type_(type_).Execute()
+    if err != nil {
+        fmt.Fprintf(os.Stderr, "Error when calling `InlineHookAPI.ListInlineHooks``: %v\n", err)
+        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+    }
+    // response from `ListInlineHooks`: []InlineHook
+    fmt.Fprintf(os.Stdout, "Response from `InlineHookAPI.ListInlineHooks`: %v\n", resp)
 }
 ```
 
@@ -512,25 +512,25 @@ Replace an Inline Hook
 package main
 
 import (
-	"context"
-	"fmt"
-	"os"
-	openapiclient "github.com/okta/okta-sdk-golang"
+    "context"
+    "fmt"
+    "os"
+    openapiclient "github.com/okta/okta-sdk-golang"
 )
 
 func main() {
-	inlineHookId := "Y7Rzrd4g4xj6WdKzrBHH" // string | `id` of the Inline Hook
-	inlineHook := *openapiclient.NewInlineHook() // InlineHook | 
+    inlineHookId := "Y7Rzrd4g4xj6WdKzrBHH" // string | `id` of the Inline Hook
+    inlineHook := *openapiclient.NewInlineHook() // InlineHook | 
 
-	configuration := openapiclient.NewConfiguration()
-	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.InlineHookAPI.ReplaceInlineHook(context.Background(), inlineHookId).InlineHook(inlineHook).Execute()
-	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `InlineHookAPI.ReplaceInlineHook``: %v\n", err)
-		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-	}
-	// response from `ReplaceInlineHook`: InlineHook
-	fmt.Fprintf(os.Stdout, "Response from `InlineHookAPI.ReplaceInlineHook`: %v\n", resp)
+    configuration := openapiclient.NewConfiguration()
+    apiClient := openapiclient.NewAPIClient(configuration)
+    resp, r, err := apiClient.InlineHookAPI.ReplaceInlineHook(context.Background(), inlineHookId).InlineHook(inlineHook).Execute()
+    if err != nil {
+        fmt.Fprintf(os.Stderr, "Error when calling `InlineHookAPI.ReplaceInlineHook``: %v\n", err)
+        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+    }
+    // response from `ReplaceInlineHook`: InlineHook
+    fmt.Fprintf(os.Stdout, "Response from `InlineHookAPI.ReplaceInlineHook`: %v\n", resp)
 }
 ```
 
@@ -584,25 +584,25 @@ Update an Inline Hook
 package main
 
 import (
-	"context"
-	"fmt"
-	"os"
-	openapiclient "github.com/okta/okta-sdk-golang"
+    "context"
+    "fmt"
+    "os"
+    openapiclient "github.com/okta/okta-sdk-golang"
 )
 
 func main() {
-	inlineHookId := "Y7Rzrd4g4xj6WdKzrBHH" // string | `id` of the Inline Hook
-	inlineHook := *openapiclient.NewInlineHook() // InlineHook | 
+    inlineHookId := "Y7Rzrd4g4xj6WdKzrBHH" // string | `id` of the Inline Hook
+    inlineHook := *openapiclient.NewInlineHook() // InlineHook | 
 
-	configuration := openapiclient.NewConfiguration()
-	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.InlineHookAPI.UpdateInlineHook(context.Background(), inlineHookId).InlineHook(inlineHook).Execute()
-	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `InlineHookAPI.UpdateInlineHook``: %v\n", err)
-		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-	}
-	// response from `UpdateInlineHook`: InlineHook
-	fmt.Fprintf(os.Stdout, "Response from `InlineHookAPI.UpdateInlineHook`: %v\n", resp)
+    configuration := openapiclient.NewConfiguration()
+    apiClient := openapiclient.NewAPIClient(configuration)
+    resp, r, err := apiClient.InlineHookAPI.UpdateInlineHook(context.Background(), inlineHookId).InlineHook(inlineHook).Execute()
+    if err != nil {
+        fmt.Fprintf(os.Stderr, "Error when calling `InlineHookAPI.UpdateInlineHook``: %v\n", err)
+        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+    }
+    // response from `UpdateInlineHook`: InlineHook
+    fmt.Fprintf(os.Stdout, "Response from `InlineHookAPI.UpdateInlineHook`: %v\n", resp)
 }
 ```
 

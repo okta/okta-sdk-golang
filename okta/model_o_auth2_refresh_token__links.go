@@ -30,14 +30,10 @@ import (
 // OAuth2RefreshTokenLinks struct for OAuth2RefreshTokenLinks
 type OAuth2RefreshTokenLinks struct {
 	Self *HrefObjectSelfLink `json:"self,omitempty"`
-	// Link to the app resource
 	App *AppCustomHrefObject `json:"app,omitempty"`
 	Revoke *OAuth2RefreshTokenLinksAllOfRevoke `json:"revoke,omitempty"`
-	// Link to the client resource
 	Client *AppCustomHrefObject `json:"client,omitempty"`
-	// Link to the user resource
 	User *AppCustomHrefObject `json:"user,omitempty"`
-	// Link to the Token authorization server resource
 	AuthorizationServer *AppCustomHrefObject `json:"authorizationServer,omitempty"`
 	AdditionalProperties map[string]interface{}
 }

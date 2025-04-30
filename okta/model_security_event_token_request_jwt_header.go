@@ -25,7 +25,6 @@ package okta
 
 import (
 	"encoding/json"
-	"fmt"
 )
 
 // SecurityEventTokenRequestJwtHeader JSON Web Token header for a Security Event Token

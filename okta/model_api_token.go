@@ -26,7 +26,6 @@ package okta
 import (
 	"encoding/json"
 	"time"
-	"fmt"
 )
 
 // ApiToken An API token for an Okta User. This token is NOT scoped any further and can be used for any API the user has permissions to call.
@@ -39,7 +38,7 @@ type ApiToken struct {
 	Name string `json:"name"`
 	Network *ApiTokenNetwork `json:"network,omitempty"`
 	// A time duration specified as an [ISO-8601 duration](https://en.wikipedia.org/wiki/ISO_8601#Durations).
-	TokenWindow *string `json:"tokenWindow,omitempty" validate:"regexp=^P(?:$)(\\\\d+Y)?(\\\\d+M)?(\\\\d+W)?(\\\\d+D)?(T(?:\\\\d)(\\\\d+H)?(\\\\d+M)?(\\\\d+S)?)?$"`
+	TokenWindow *string `json:"tokenWindow,omitempty"`
 	UserId *string `json:"userId,omitempty"`
 	Link *LinksSelf `json:"_link,omitempty"`
 	AdditionalProperties map[string]interface{}

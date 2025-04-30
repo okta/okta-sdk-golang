@@ -23,23 +23,23 @@ Retrieve the ThreatInsight Configuration
 package main
 
 import (
-	"context"
-	"fmt"
-	"os"
-	openapiclient "github.com/okta/okta-sdk-golang"
+    "context"
+    "fmt"
+    "os"
+    openapiclient "github.com/okta/okta-sdk-golang"
 )
 
 func main() {
 
-	configuration := openapiclient.NewConfiguration()
-	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.ThreatInsightAPI.GetCurrentConfiguration(context.Background()).Execute()
-	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `ThreatInsightAPI.GetCurrentConfiguration``: %v\n", err)
-		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-	}
-	// response from `GetCurrentConfiguration`: ThreatInsightConfiguration
-	fmt.Fprintf(os.Stdout, "Response from `ThreatInsightAPI.GetCurrentConfiguration`: %v\n", resp)
+    configuration := openapiclient.NewConfiguration()
+    apiClient := openapiclient.NewAPIClient(configuration)
+    resp, r, err := apiClient.ThreatInsightAPI.GetCurrentConfiguration(context.Background()).Execute()
+    if err != nil {
+        fmt.Fprintf(os.Stderr, "Error when calling `ThreatInsightAPI.GetCurrentConfiguration``: %v\n", err)
+        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+    }
+    // response from `GetCurrentConfiguration`: ThreatInsightConfiguration
+    fmt.Fprintf(os.Stdout, "Response from `ThreatInsightAPI.GetCurrentConfiguration`: %v\n", resp)
 }
 ```
 
@@ -84,24 +84,24 @@ Update the ThreatInsight Configuration
 package main
 
 import (
-	"context"
-	"fmt"
-	"os"
-	openapiclient "github.com/okta/okta-sdk-golang"
+    "context"
+    "fmt"
+    "os"
+    openapiclient "github.com/okta/okta-sdk-golang"
 )
 
 func main() {
-	threatInsightConfiguration := *openapiclient.NewThreatInsightConfiguration("none") // ThreatInsightConfiguration | 
+    threatInsightConfiguration := *openapiclient.NewThreatInsightConfiguration("none") // ThreatInsightConfiguration | 
 
-	configuration := openapiclient.NewConfiguration()
-	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.ThreatInsightAPI.UpdateConfiguration(context.Background()).ThreatInsightConfiguration(threatInsightConfiguration).Execute()
-	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `ThreatInsightAPI.UpdateConfiguration``: %v\n", err)
-		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-	}
-	// response from `UpdateConfiguration`: ThreatInsightConfiguration
-	fmt.Fprintf(os.Stdout, "Response from `ThreatInsightAPI.UpdateConfiguration`: %v\n", resp)
+    configuration := openapiclient.NewConfiguration()
+    apiClient := openapiclient.NewAPIClient(configuration)
+    resp, r, err := apiClient.ThreatInsightAPI.UpdateConfiguration(context.Background()).ThreatInsightConfiguration(threatInsightConfiguration).Execute()
+    if err != nil {
+        fmt.Fprintf(os.Stderr, "Error when calling `ThreatInsightAPI.UpdateConfiguration``: %v\n", err)
+        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+    }
+    // response from `UpdateConfiguration`: ThreatInsightConfiguration
+    fmt.Fprintf(os.Stdout, "Response from `ThreatInsightAPI.UpdateConfiguration`: %v\n", resp)
 }
 ```
 

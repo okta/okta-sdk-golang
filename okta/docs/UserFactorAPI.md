@@ -31,26 +31,26 @@ Activate a Factor
 package main
 
 import (
-	"context"
-	"fmt"
-	"os"
-	openapiclient "github.com/okta/okta-sdk-golang"
+    "context"
+    "fmt"
+    "os"
+    openapiclient "github.com/okta/okta-sdk-golang"
 )
 
 func main() {
-	userId := "userId_example" // string | ID of an existing Okta user
-	factorId := "zAgrsaBe0wVGRugDYtdv" // string | ID of an existing user Factor
-	body := openapiclient.UserFactorActivateRequest{Call: openapiclient.NewCall()} // UserFactorActivateRequest |  (optional)
+    userId := "userId_example" // string | ID of an existing Okta user
+    factorId := "zAgrsaBe0wVGRugDYtdv" // string | ID of an existing user Factor
+    body := map[string]interface{}{ ... } // map[string]interface{} |  (optional)
 
-	configuration := openapiclient.NewConfiguration()
-	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.UserFactorAPI.ActivateFactor(context.Background(), userId, factorId).Body(body).Execute()
-	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `UserFactorAPI.ActivateFactor``: %v\n", err)
-		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-	}
-	// response from `ActivateFactor`: ListFactors200ResponseInner
-	fmt.Fprintf(os.Stdout, "Response from `UserFactorAPI.ActivateFactor`: %v\n", resp)
+    configuration := openapiclient.NewConfiguration()
+    apiClient := openapiclient.NewAPIClient(configuration)
+    resp, r, err := apiClient.UserFactorAPI.ActivateFactor(context.Background(), userId, factorId).Body(body).Execute()
+    if err != nil {
+        fmt.Fprintf(os.Stderr, "Error when calling `UserFactorAPI.ActivateFactor``: %v\n", err)
+        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+    }
+    // response from `ActivateFactor`: ListFactors200ResponseInner
+    fmt.Fprintf(os.Stdout, "Response from `UserFactorAPI.ActivateFactor`: %v\n", resp)
 }
 ```
 
@@ -72,7 +72,7 @@ Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 
 
- **body** | [**UserFactorActivateRequest**](UserFactorActivateRequest.md) |  | 
+ **body** | **map[string]interface{}** |  | 
 
 ### Return type
 
@@ -106,30 +106,30 @@ Enroll a Factor
 package main
 
 import (
-	"context"
-	"fmt"
-	"os"
-	openapiclient "github.com/okta/okta-sdk-golang"
+    "context"
+    "fmt"
+    "os"
+    openapiclient "github.com/okta/okta-sdk-golang"
 )
 
 func main() {
-	userId := "userId_example" // string | ID of an existing Okta user
-	body := openapiclient.listFactors_200_response_inner{UserFactorCall: openapiclient.NewUserFactorCall()} // ListFactors200ResponseInner | Factor
-	updatePhone := true // bool | If `true`, indicates you are replacing the currently registered phone number for the specified user. This parameter is ignored if the existing phone number is used by an activated Factor. (optional) (default to false)
-	templateId := "cstk2flOtuCMDJK4b0g3" // string | ID of an existing custom SMS template. See the [SMS Templates API](../Template). Only used by `sms` Factors. If the provided ID doesn't exist, the default template is used instead. (optional)
-	tokenLifetimeSeconds := int32(56) // int32 | Defines how long the token remains valid (optional) (default to 300)
-	activate := true // bool | If `true`, the `sms` Factor is immediately activated as part of the enrollment. An activation text message isn't sent to the device. (optional) (default to false)
-	acceptLanguage := "fr" // string | An ISO 639-1 two-letter language code that defines a localized message to send. Only used by `sms` Factors. If a localized message doesn't exist or the `templateId` is incorrect, the default template is used instead. (optional)
+    userId := "userId_example" // string | ID of an existing Okta user
+    body := openapiclient.listFactors_200_response_inner{UserFactorCall: openapiclient.NewUserFactorCall()} // ListFactors200ResponseInner | Factor
+    updatePhone := true // bool | If `true`, indicates you are replacing the currently registered phone number for the specified user. This parameter is ignored if the existing phone number is used by an activated Factor. (optional) (default to false)
+    templateId := "cstk2flOtuCMDJK4b0g3" // string | ID of an existing custom SMS template. See the [SMS Templates API](../Template). Only used by `sms` Factors. If the provided ID doesn't exist, the default template is used instead. (optional)
+    tokenLifetimeSeconds := int32(56) // int32 | Defines how long the token remains valid (optional) (default to 300)
+    activate := true // bool | If `true`, the `sms` Factor is immediately activated as part of the enrollment. An activation text message isn't sent to the device. (optional) (default to false)
+    acceptLanguage := "fr" // string | An ISO 639-1 two-letter language code that defines a localized message to send. Only used by `sms` Factors. If a localized message doesn't exist or the `templateId` is incorrect, the default template is used instead. (optional)
 
-	configuration := openapiclient.NewConfiguration()
-	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.UserFactorAPI.EnrollFactor(context.Background(), userId).Body(body).UpdatePhone(updatePhone).TemplateId(templateId).TokenLifetimeSeconds(tokenLifetimeSeconds).Activate(activate).AcceptLanguage(acceptLanguage).Execute()
-	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `UserFactorAPI.EnrollFactor``: %v\n", err)
-		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-	}
-	// response from `EnrollFactor`: ListFactors200ResponseInner
-	fmt.Fprintf(os.Stdout, "Response from `UserFactorAPI.EnrollFactor`: %v\n", resp)
+    configuration := openapiclient.NewConfiguration()
+    apiClient := openapiclient.NewAPIClient(configuration)
+    resp, r, err := apiClient.UserFactorAPI.EnrollFactor(context.Background(), userId).Body(body).UpdatePhone(updatePhone).TemplateId(templateId).TokenLifetimeSeconds(tokenLifetimeSeconds).Activate(activate).AcceptLanguage(acceptLanguage).Execute()
+    if err != nil {
+        fmt.Fprintf(os.Stderr, "Error when calling `UserFactorAPI.EnrollFactor``: %v\n", err)
+        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+    }
+    // response from `EnrollFactor`: ListFactors200ResponseInner
+    fmt.Fprintf(os.Stdout, "Response from `UserFactorAPI.EnrollFactor`: %v\n", resp)
 }
 ```
 
@@ -188,25 +188,25 @@ Retrieve a Factor
 package main
 
 import (
-	"context"
-	"fmt"
-	"os"
-	openapiclient "github.com/okta/okta-sdk-golang"
+    "context"
+    "fmt"
+    "os"
+    openapiclient "github.com/okta/okta-sdk-golang"
 )
 
 func main() {
-	userId := "userId_example" // string | ID of an existing Okta user
-	factorId := "zAgrsaBe0wVGRugDYtdv" // string | ID of an existing user Factor
+    userId := "userId_example" // string | ID of an existing Okta user
+    factorId := "zAgrsaBe0wVGRugDYtdv" // string | ID of an existing user Factor
 
-	configuration := openapiclient.NewConfiguration()
-	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.UserFactorAPI.GetFactor(context.Background(), userId, factorId).Execute()
-	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `UserFactorAPI.GetFactor``: %v\n", err)
-		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-	}
-	// response from `GetFactor`: ListFactors200ResponseInner
-	fmt.Fprintf(os.Stdout, "Response from `UserFactorAPI.GetFactor`: %v\n", resp)
+    configuration := openapiclient.NewConfiguration()
+    apiClient := openapiclient.NewAPIClient(configuration)
+    resp, r, err := apiClient.UserFactorAPI.GetFactor(context.Background(), userId, factorId).Execute()
+    if err != nil {
+        fmt.Fprintf(os.Stderr, "Error when calling `UserFactorAPI.GetFactor``: %v\n", err)
+        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+    }
+    // response from `GetFactor`: ListFactors200ResponseInner
+    fmt.Fprintf(os.Stdout, "Response from `UserFactorAPI.GetFactor`: %v\n", resp)
 }
 ```
 
@@ -261,26 +261,26 @@ Retrieve a Factor transaction status
 package main
 
 import (
-	"context"
-	"fmt"
-	"os"
-	openapiclient "github.com/okta/okta-sdk-golang"
+    "context"
+    "fmt"
+    "os"
+    openapiclient "github.com/okta/okta-sdk-golang"
 )
 
 func main() {
-	userId := "userId_example" // string | ID of an existing Okta user
-	factorId := "zAgrsaBe0wVGRugDYtdv" // string | ID of an existing user Factor
-	transactionId := "gPAQcN3NDjSGOCAeG2Jv" // string | ID of an existing Factor verification transaction
+    userId := "userId_example" // string | ID of an existing Okta user
+    factorId := "zAgrsaBe0wVGRugDYtdv" // string | ID of an existing user Factor
+    transactionId := "gPAQcN3NDjSGOCAeG2Jv" // string | ID of an existing Factor verification transaction
 
-	configuration := openapiclient.NewConfiguration()
-	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.UserFactorAPI.GetFactorTransactionStatus(context.Background(), userId, factorId, transactionId).Execute()
-	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `UserFactorAPI.GetFactorTransactionStatus``: %v\n", err)
-		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-	}
-	// response from `GetFactorTransactionStatus`: GetFactorTransactionStatus200Response
-	fmt.Fprintf(os.Stdout, "Response from `UserFactorAPI.GetFactorTransactionStatus`: %v\n", resp)
+    configuration := openapiclient.NewConfiguration()
+    apiClient := openapiclient.NewAPIClient(configuration)
+    resp, r, err := apiClient.UserFactorAPI.GetFactorTransactionStatus(context.Background(), userId, factorId, transactionId).Execute()
+    if err != nil {
+        fmt.Fprintf(os.Stderr, "Error when calling `UserFactorAPI.GetFactorTransactionStatus``: %v\n", err)
+        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+    }
+    // response from `GetFactorTransactionStatus`: GetFactorTransactionStatus200Response
+    fmt.Fprintf(os.Stdout, "Response from `UserFactorAPI.GetFactorTransactionStatus`: %v\n", resp)
 }
 ```
 
@@ -337,24 +337,24 @@ List all enrolled Factors
 package main
 
 import (
-	"context"
-	"fmt"
-	"os"
-	openapiclient "github.com/okta/okta-sdk-golang"
+    "context"
+    "fmt"
+    "os"
+    openapiclient "github.com/okta/okta-sdk-golang"
 )
 
 func main() {
-	userId := "userId_example" // string | ID of an existing Okta user
+    userId := "userId_example" // string | ID of an existing Okta user
 
-	configuration := openapiclient.NewConfiguration()
-	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.UserFactorAPI.ListFactors(context.Background(), userId).Execute()
-	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `UserFactorAPI.ListFactors``: %v\n", err)
-		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-	}
-	// response from `ListFactors`: []ListFactors200ResponseInner
-	fmt.Fprintf(os.Stdout, "Response from `UserFactorAPI.ListFactors`: %v\n", resp)
+    configuration := openapiclient.NewConfiguration()
+    apiClient := openapiclient.NewAPIClient(configuration)
+    resp, r, err := apiClient.UserFactorAPI.ListFactors(context.Background(), userId).Execute()
+    if err != nil {
+        fmt.Fprintf(os.Stderr, "Error when calling `UserFactorAPI.ListFactors``: %v\n", err)
+        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+    }
+    // response from `ListFactors`: []ListFactors200ResponseInner
+    fmt.Fprintf(os.Stdout, "Response from `UserFactorAPI.ListFactors`: %v\n", resp)
 }
 ```
 
@@ -407,24 +407,24 @@ List all supported Factors
 package main
 
 import (
-	"context"
-	"fmt"
-	"os"
-	openapiclient "github.com/okta/okta-sdk-golang"
+    "context"
+    "fmt"
+    "os"
+    openapiclient "github.com/okta/okta-sdk-golang"
 )
 
 func main() {
-	userId := "userId_example" // string | ID of an existing Okta user
+    userId := "userId_example" // string | ID of an existing Okta user
 
-	configuration := openapiclient.NewConfiguration()
-	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.UserFactorAPI.ListSupportedFactors(context.Background(), userId).Execute()
-	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `UserFactorAPI.ListSupportedFactors``: %v\n", err)
-		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-	}
-	// response from `ListSupportedFactors`: []UserFactorSupported
-	fmt.Fprintf(os.Stdout, "Response from `UserFactorAPI.ListSupportedFactors`: %v\n", resp)
+    configuration := openapiclient.NewConfiguration()
+    apiClient := openapiclient.NewAPIClient(configuration)
+    resp, r, err := apiClient.UserFactorAPI.ListSupportedFactors(context.Background(), userId).Execute()
+    if err != nil {
+        fmt.Fprintf(os.Stderr, "Error when calling `UserFactorAPI.ListSupportedFactors``: %v\n", err)
+        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+    }
+    // response from `ListSupportedFactors`: []UserFactorSupported
+    fmt.Fprintf(os.Stdout, "Response from `UserFactorAPI.ListSupportedFactors`: %v\n", resp)
 }
 ```
 
@@ -477,24 +477,24 @@ List all supported Security Questions
 package main
 
 import (
-	"context"
-	"fmt"
-	"os"
-	openapiclient "github.com/okta/okta-sdk-golang"
+    "context"
+    "fmt"
+    "os"
+    openapiclient "github.com/okta/okta-sdk-golang"
 )
 
 func main() {
-	userId := "userId_example" // string | ID of an existing Okta user
+    userId := "userId_example" // string | ID of an existing Okta user
 
-	configuration := openapiclient.NewConfiguration()
-	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.UserFactorAPI.ListSupportedSecurityQuestions(context.Background(), userId).Execute()
-	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `UserFactorAPI.ListSupportedSecurityQuestions``: %v\n", err)
-		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-	}
-	// response from `ListSupportedSecurityQuestions`: []UserFactorSecurityQuestionProfile
-	fmt.Fprintf(os.Stdout, "Response from `UserFactorAPI.ListSupportedSecurityQuestions`: %v\n", resp)
+    configuration := openapiclient.NewConfiguration()
+    apiClient := openapiclient.NewAPIClient(configuration)
+    resp, r, err := apiClient.UserFactorAPI.ListSupportedSecurityQuestions(context.Background(), userId).Execute()
+    if err != nil {
+        fmt.Fprintf(os.Stderr, "Error when calling `UserFactorAPI.ListSupportedSecurityQuestions``: %v\n", err)
+        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+    }
+    // response from `ListSupportedSecurityQuestions`: []UserFactorSecurityQuestionProfile
+    fmt.Fprintf(os.Stdout, "Response from `UserFactorAPI.ListSupportedSecurityQuestions`: %v\n", resp)
 }
 ```
 
@@ -547,27 +547,27 @@ Resend a Factor enrollment
 package main
 
 import (
-	"context"
-	"fmt"
-	"os"
-	openapiclient "github.com/okta/okta-sdk-golang"
+    "context"
+    "fmt"
+    "os"
+    openapiclient "github.com/okta/okta-sdk-golang"
 )
 
 func main() {
-	userId := "userId_example" // string | ID of an existing Okta user
-	factorId := "zAgrsaBe0wVGRugDYtdv" // string | ID of an existing user Factor
-	resendEnrollFactorRequest := openapiclient.resendEnrollFactor_request{UserFactorCall: openapiclient.NewUserFactorCall()} // ResendEnrollFactorRequest | 
-	templateId := "cstk2flOtuCMDJK4b0g3" // string | ID of an existing custom SMS template. See the [SMS Templates API](../Template). Only used by `sms` Factors. (optional)
+    userId := "userId_example" // string | ID of an existing Okta user
+    factorId := "zAgrsaBe0wVGRugDYtdv" // string | ID of an existing user Factor
+    resendEnrollFactorRequest := openapiclient.resendEnrollFactor_request{UserFactorCall: openapiclient.NewUserFactorCall()} // ResendEnrollFactorRequest | 
+    templateId := "cstk2flOtuCMDJK4b0g3" // string | ID of an existing custom SMS template. See the [SMS Templates API](../Template). Only used by `sms` Factors. (optional)
 
-	configuration := openapiclient.NewConfiguration()
-	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.UserFactorAPI.ResendEnrollFactor(context.Background(), userId, factorId).ResendEnrollFactorRequest(resendEnrollFactorRequest).TemplateId(templateId).Execute()
-	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `UserFactorAPI.ResendEnrollFactor``: %v\n", err)
-		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-	}
-	// response from `ResendEnrollFactor`: ResendEnrollFactorRequest
-	fmt.Fprintf(os.Stdout, "Response from `UserFactorAPI.ResendEnrollFactor`: %v\n", resp)
+    configuration := openapiclient.NewConfiguration()
+    apiClient := openapiclient.NewAPIClient(configuration)
+    resp, r, err := apiClient.UserFactorAPI.ResendEnrollFactor(context.Background(), userId, factorId).ResendEnrollFactorRequest(resendEnrollFactorRequest).TemplateId(templateId).Execute()
+    if err != nil {
+        fmt.Fprintf(os.Stderr, "Error when calling `UserFactorAPI.ResendEnrollFactor``: %v\n", err)
+        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+    }
+    // response from `ResendEnrollFactor`: ResendEnrollFactorRequest
+    fmt.Fprintf(os.Stdout, "Response from `UserFactorAPI.ResendEnrollFactor`: %v\n", resp)
 }
 ```
 
@@ -624,24 +624,24 @@ Unenroll a Factor
 package main
 
 import (
-	"context"
-	"fmt"
-	"os"
-	openapiclient "github.com/okta/okta-sdk-golang"
+    "context"
+    "fmt"
+    "os"
+    openapiclient "github.com/okta/okta-sdk-golang"
 )
 
 func main() {
-	userId := "userId_example" // string | ID of an existing Okta user
-	factorId := "zAgrsaBe0wVGRugDYtdv" // string | ID of an existing user Factor
-	removeRecoveryEnrollment := true // bool | If `true`, removes the the phone number as both a recovery method and a Factor. Only used for `sms` and `call` Factors. (optional) (default to false)
+    userId := "userId_example" // string | ID of an existing Okta user
+    factorId := "zAgrsaBe0wVGRugDYtdv" // string | ID of an existing user Factor
+    removeRecoveryEnrollment := true // bool | If `true`, removes the the phone number as both a recovery method and a Factor. Only used for `sms` and `call` Factors. (optional) (default to false)
 
-	configuration := openapiclient.NewConfiguration()
-	apiClient := openapiclient.NewAPIClient(configuration)
-	r, err := apiClient.UserFactorAPI.UnenrollFactor(context.Background(), userId, factorId).RemoveRecoveryEnrollment(removeRecoveryEnrollment).Execute()
-	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `UserFactorAPI.UnenrollFactor``: %v\n", err)
-		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-	}
+    configuration := openapiclient.NewConfiguration()
+    apiClient := openapiclient.NewAPIClient(configuration)
+    r, err := apiClient.UserFactorAPI.UnenrollFactor(context.Background(), userId, factorId).RemoveRecoveryEnrollment(removeRecoveryEnrollment).Execute()
+    if err != nil {
+        fmt.Fprintf(os.Stderr, "Error when calling `UserFactorAPI.UnenrollFactor``: %v\n", err)
+        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+    }
 }
 ```
 
@@ -697,31 +697,31 @@ Verify a Factor
 package main
 
 import (
-	"context"
-	"fmt"
-	"os"
-	openapiclient "github.com/okta/okta-sdk-golang"
+    "context"
+    "fmt"
+    "os"
+    openapiclient "github.com/okta/okta-sdk-golang"
 )
 
 func main() {
-	userId := "userId_example" // string | ID of an existing Okta user
-	factorId := "zAgrsaBe0wVGRugDYtdv" // string | ID of an existing user Factor
-	templateId := "cstk2flOtuCMDJK4b0g3" // string | ID of an existing custom SMS template. See the [SMS Templates API](../Template). Only used by `sms` Factors. (optional)
-	tokenLifetimeSeconds := int32(56) // int32 | Defines how long the token remains valid (optional) (default to 300)
-	xForwardedFor := "xForwardedFor_example" // string | Public IP address for the user agent (optional)
-	userAgent := "userAgent_example" // string | Type of user agent detected when the request is made. Required to verify `push` Factors. (optional)
-	acceptLanguage := "fr" // string | An ISO 639-1 two-letter language code that defines a localized message to send. Only used by `sms` Factors. If a localized message doesn't exist or the `templateId` is incorrect, the default template is used instead. (optional)
-	body := openapiclient.UserFactorVerifyRequest{Call1: openapiclient.NewCall1()} // UserFactorVerifyRequest | Some Factors (`call`, `email`, `push`, `sms`, `u2f`, and `webauthn`) must first issue a challenge before you can verify the Factor. Do this by making a request without a body. After a challenge is issued, make another request to verify the Factor. (optional)
+    userId := "userId_example" // string | ID of an existing Okta user
+    factorId := "zAgrsaBe0wVGRugDYtdv" // string | ID of an existing user Factor
+    templateId := "cstk2flOtuCMDJK4b0g3" // string | ID of an existing custom SMS template. See the [SMS Templates API](../Template). Only used by `sms` Factors. (optional)
+    tokenLifetimeSeconds := int32(56) // int32 | Defines how long the token remains valid (optional) (default to 300)
+    xForwardedFor := "xForwardedFor_example" // string | Public IP address for the user agent (optional)
+    userAgent := "userAgent_example" // string | Type of user agent detected when the request is made. Required to verify `push` Factors. (optional)
+    acceptLanguage := "fr" // string | An ISO 639-1 two-letter language code that defines a localized message to send. Only used by `sms` Factors. If a localized message doesn't exist or the `templateId` is incorrect, the default template is used instead. (optional)
+    body := map[string]interface{}{ ... } // map[string]interface{} | Some Factors (`call`, `email`, `push`, `sms`, `u2f`, and `webauthn`) must first issue a challenge before you can verify the Factor. Do this by making a request without a body. After a challenge is issued, make another request to verify the Factor. (optional)
 
-	configuration := openapiclient.NewConfiguration()
-	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.UserFactorAPI.VerifyFactor(context.Background(), userId, factorId).TemplateId(templateId).TokenLifetimeSeconds(tokenLifetimeSeconds).XForwardedFor(xForwardedFor).UserAgent(userAgent).AcceptLanguage(acceptLanguage).Body(body).Execute()
-	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `UserFactorAPI.VerifyFactor``: %v\n", err)
-		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-	}
-	// response from `VerifyFactor`: UserFactorVerifyResponse
-	fmt.Fprintf(os.Stdout, "Response from `UserFactorAPI.VerifyFactor`: %v\n", resp)
+    configuration := openapiclient.NewConfiguration()
+    apiClient := openapiclient.NewAPIClient(configuration)
+    resp, r, err := apiClient.UserFactorAPI.VerifyFactor(context.Background(), userId, factorId).TemplateId(templateId).TokenLifetimeSeconds(tokenLifetimeSeconds).XForwardedFor(xForwardedFor).UserAgent(userAgent).AcceptLanguage(acceptLanguage).Body(body).Execute()
+    if err != nil {
+        fmt.Fprintf(os.Stderr, "Error when calling `UserFactorAPI.VerifyFactor``: %v\n", err)
+        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+    }
+    // response from `VerifyFactor`: UserFactorVerifyResponse
+    fmt.Fprintf(os.Stdout, "Response from `UserFactorAPI.VerifyFactor`: %v\n", resp)
 }
 ```
 
@@ -748,7 +748,7 @@ Name | Type | Description  | Notes
  **xForwardedFor** | **string** | Public IP address for the user agent | 
  **userAgent** | **string** | Type of user agent detected when the request is made. Required to verify &#x60;push&#x60; Factors. | 
  **acceptLanguage** | **string** | An ISO 639-1 two-letter language code that defines a localized message to send. Only used by &#x60;sms&#x60; Factors. If a localized message doesn&#39;t exist or the &#x60;templateId&#x60; is incorrect, the default template is used instead. | 
- **body** | [**UserFactorVerifyRequest**](UserFactorVerifyRequest.md) | Some Factors (&#x60;call&#x60;, &#x60;email&#x60;, &#x60;push&#x60;, &#x60;sms&#x60;, &#x60;u2f&#x60;, and &#x60;webauthn&#x60;) must first issue a challenge before you can verify the Factor. Do this by making a request without a body. After a challenge is issued, make another request to verify the Factor. | 
+ **body** | **map[string]interface{}** | Some Factors (&#x60;call&#x60;, &#x60;email&#x60;, &#x60;push&#x60;, &#x60;sms&#x60;, &#x60;u2f&#x60;, and &#x60;webauthn&#x60;) must first issue a challenge before you can verify the Factor. Do this by making a request without a body. After a challenge is issued, make another request to verify the Factor. | 
 
 ### Return type
 

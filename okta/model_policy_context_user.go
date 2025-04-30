@@ -25,7 +25,6 @@ package okta
 
 import (
 	"encoding/json"
-	"fmt"
 )
 
 // PolicyContextUser The user ID for the simulate operation. Only user IDs or Group IDs are allowed, not both.
