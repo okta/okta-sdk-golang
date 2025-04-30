@@ -5946,7 +5946,7 @@ paths:
       description: |
         Retrieves an email template's default content
 
-        <x-lifecycle class="ea"></x-lifecycle> Defaults to the current user's language given the following: 
+        <x-lifecycle class="ea"></x-lifecycle> Defaults to the current user's language given the following:
         - Custom languages for Okta Email Templates is enabled
         - An additional language is specified for the `language` parameter
       operationId: getEmailDefaultContent
@@ -15800,9 +15800,9 @@ paths:
     get:
       summary: Retrieve the current Session
       description: |-
-        Retrieves Session information for the current user. Use this method in a browser-based application to determine if the user is signed in. 
+        Retrieves Session information for the current user. Use this method in a browser-based application to determine if the user is signed in.
 
-        > **Note:** This operation requires a session cookie for the user. An API token isn't allowed for this operation. 
+        > **Note:** This operation requires a session cookie for the user. An API token isn't allowed for this operation.
       operationId: getCurrentSession
       parameters:
         - in: header
@@ -20392,8 +20392,8 @@ components:
         properties:
           profile:
             allOf:
-              - $ref: '#/definitions/base'
-              - $ref: '#/definitions/custom'
+#              - $ref: '#/definitions/base'
+#              - $ref: '#/definitions/custom'
     AssignGroupOwnerRequest:
       summary: Assign a group owner request example
       value:
@@ -22553,8 +22553,8 @@ components:
         properties:
           profile:
             allOf:
-              - $ref: '#/definitions/custom'
-              - $ref: '#/definitions/base'
+#              - $ref: '#/definitions/custom'
+#              - $ref: '#/definitions/base'
         title: Okta group
         type: object
     ListAllKeysResponse:
@@ -25903,8 +25903,8 @@ components:
         properties:
           profile:
             allOf:
-              - $ref: '#/definitions/base'
-              - $ref: '#/definitions/custom'
+#              - $ref: '#/definitions/base'
+#              - $ref: '#/definitions/custom'
     VerifiedEmailDomainResponse:
       value:
         id: OeD114iNkrcN6aR680g4
@@ -29776,7 +29776,7 @@ components:
           type: object
           description: |-
             The ID of the user type. Add this value if you want to create a user with a non-default [user type](https://developer.okta.com/docs/api/openapi/okta-management/management/tag/UserType/).
-            The user type determines which [schema](https://developer.okta.com/docs/api/openapi/okta-management/management/tag/Schema/) applies to that user. After a user has been created, the user can 
+            The user type determines which [schema](https://developer.okta.com/docs/api/openapi/okta-management/management/tag/Schema/) applies to that user. After a user has been created, the user can
             only be assigned a different user type by an administrator through a full replacement (`PUT`) operation.
           properties:
             id:
@@ -30598,13 +30598,13 @@ components:
         body:
           type: string
           description: |
-            The HTML body of the email. May contain [variable references](https://velocity.apache.org/engine/1.7/user-guide.html#references). 
+            The HTML body of the email. May contain [variable references](https://velocity.apache.org/engine/1.7/user-guide.html#references).
 
             <x-lifecycle class="ea"></x-lifecycle> Not required if Custom languages for Okta Email Templates is enabled. A `null` body is replaced with a default value from one of the following in priority order:
 
             1. An existing default email customization, if one exists
             2. Okta-provided translated content for the specified language, if one exists
-            3. Okta-provided translated content for the brand locale, if it's set 
+            3. Okta-provided translated content for the brand locale, if it's set
             4. Okta-provided content in English
         subject:
           type: string
@@ -34583,7 +34583,7 @@ components:
     PasswordCredential:
       description: |-
         When a user has a valid password, imported hashed password, or password hook, and a response object contains
-        a password credential, then the password object is a bare object without the value property defined (for example, `password: {}`). This 
+        a password credential, then the password object is a bare object without the value property defined (for example, `password: {}`). This
         indicates that a password value exists. You can modify password policy requirements in the Admin Console by editing the Password
         authenticator:  **Security** > **Authenticators** > **Password** (or for Okta Classic orgs, use **Security** > **Authentication** > **Password**).
       type: object
@@ -38668,7 +38668,7 @@ components:
         Specifies the default and custom profile properties for a user.
 
         The default user profile is based on the [System for Cross-domain Identity Management: Core Schema](https://datatracker.ietf.org/doc/html/rfc7643).
-        The only permitted customizations of the default profile are to update permissions, change whether the `firstName` and `lastName` properties are nullable, and 
+        The only permitted customizations of the default profile are to update permissions, change whether the `firstName` and `lastName` properties are nullable, and
         specify a [pattern](https://developer.okta.com/docs/reference/api/schemas/#login-pattern-validation) for `login`. You can use the Profile Editor in the administrator UI
         or the [Schemas API](https://developer.okta.com/docs/api/openapi/okta-management/management/tag/UISchema/#tag/UISchema) to make schema modifications.
 
@@ -39143,7 +39143,7 @@ components:
         name:
           type: string
           description: |-
-            The name of the User Type. The name must start with A-Z or a-z and contain only A-Z, a-z, 0-9, or underscore (_) characters. 
+            The name of the User Type. The name must start with A-Z or a-z and contain only A-Z, a-z, 0-9, or underscore (_) characters.
              This value becomes read-only after creation and can't be updated.
         _links:
           $ref: '#/components/schemas/UserTypeLinks'
