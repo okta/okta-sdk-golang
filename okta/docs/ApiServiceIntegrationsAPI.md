@@ -30,25 +30,25 @@ Activate an API Service Integration instance Secret
 package main
 
 import (
-    "context"
-    "fmt"
-    "os"
-    openapiclient "github.com/okta/okta-sdk-golang"
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/okta/okta-sdk-golang"
 )
 
 func main() {
-    apiServiceId := "000lr2rLjZ6NsGn1P0g3" // string | `id` of the API Service Integration instance
-    secretId := "ocs2f4zrZbs8nUa7p0g4" // string | `id` of the API Service Integration instance Secret
+	apiServiceId := "000lr2rLjZ6NsGn1P0g3" // string | `id` of the API Service Integration instance
+	secretId := "ocs2f4zrZbs8nUa7p0g4" // string | `id` of the API Service Integration instance Secret
 
-    configuration := openapiclient.NewConfiguration()
-    apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.ApiServiceIntegrationsAPI.ActivateApiServiceIntegrationInstanceSecret(context.Background(), apiServiceId, secretId).Execute()
-    if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `ApiServiceIntegrationsAPI.ActivateApiServiceIntegrationInstanceSecret``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-    }
-    // response from `ActivateApiServiceIntegrationInstanceSecret`: APIServiceIntegrationInstanceSecret
-    fmt.Fprintf(os.Stdout, "Response from `ApiServiceIntegrationsAPI.ActivateApiServiceIntegrationInstanceSecret`: %v\n", resp)
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.ApiServiceIntegrationsAPI.ActivateApiServiceIntegrationInstanceSecret(context.Background(), apiServiceId, secretId).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `ApiServiceIntegrationsAPI.ActivateApiServiceIntegrationInstanceSecret``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `ActivateApiServiceIntegrationInstanceSecret`: APIServiceIntegrationInstanceSecret
+	fmt.Fprintf(os.Stdout, "Response from `ApiServiceIntegrationsAPI.ActivateApiServiceIntegrationInstanceSecret`: %v\n", resp)
 }
 ```
 
@@ -103,24 +103,24 @@ Create an API Service Integration instance
 package main
 
 import (
-    "context"
-    "fmt"
-    "os"
-    openapiclient "github.com/okta/okta-sdk-golang"
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/okta/okta-sdk-golang"
 )
 
 func main() {
-    postAPIServiceIntegrationInstanceRequest := *openapiclient.NewPostAPIServiceIntegrationInstanceRequest([]string{"GrantedScopes_example"}, "my_app_cie") // PostAPIServiceIntegrationInstanceRequest | 
+	postAPIServiceIntegrationInstanceRequest := *openapiclient.NewPostAPIServiceIntegrationInstanceRequest([]string{"GrantedScopes_example"}, "my_app_cie") // PostAPIServiceIntegrationInstanceRequest | 
 
-    configuration := openapiclient.NewConfiguration()
-    apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.ApiServiceIntegrationsAPI.CreateApiServiceIntegrationInstance(context.Background()).PostAPIServiceIntegrationInstanceRequest(postAPIServiceIntegrationInstanceRequest).Execute()
-    if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `ApiServiceIntegrationsAPI.CreateApiServiceIntegrationInstance``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-    }
-    // response from `CreateApiServiceIntegrationInstance`: PostAPIServiceIntegrationInstance
-    fmt.Fprintf(os.Stdout, "Response from `ApiServiceIntegrationsAPI.CreateApiServiceIntegrationInstance`: %v\n", resp)
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.ApiServiceIntegrationsAPI.CreateApiServiceIntegrationInstance(context.Background()).PostAPIServiceIntegrationInstanceRequest(postAPIServiceIntegrationInstanceRequest).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `ApiServiceIntegrationsAPI.CreateApiServiceIntegrationInstance``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `CreateApiServiceIntegrationInstance`: PostAPIServiceIntegrationInstance
+	fmt.Fprintf(os.Stdout, "Response from `ApiServiceIntegrationsAPI.CreateApiServiceIntegrationInstance`: %v\n", resp)
 }
 ```
 
@@ -169,24 +169,24 @@ Create an API Service Integration instance Secret
 package main
 
 import (
-    "context"
-    "fmt"
-    "os"
-    openapiclient "github.com/okta/okta-sdk-golang"
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/okta/okta-sdk-golang"
 )
 
 func main() {
-    apiServiceId := "000lr2rLjZ6NsGn1P0g3" // string | `id` of the API Service Integration instance
+	apiServiceId := "000lr2rLjZ6NsGn1P0g3" // string | `id` of the API Service Integration instance
 
-    configuration := openapiclient.NewConfiguration()
-    apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.ApiServiceIntegrationsAPI.CreateApiServiceIntegrationInstanceSecret(context.Background(), apiServiceId).Execute()
-    if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `ApiServiceIntegrationsAPI.CreateApiServiceIntegrationInstanceSecret``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-    }
-    // response from `CreateApiServiceIntegrationInstanceSecret`: APIServiceIntegrationInstanceSecret
-    fmt.Fprintf(os.Stdout, "Response from `ApiServiceIntegrationsAPI.CreateApiServiceIntegrationInstanceSecret`: %v\n", resp)
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.ApiServiceIntegrationsAPI.CreateApiServiceIntegrationInstanceSecret(context.Background(), apiServiceId).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `ApiServiceIntegrationsAPI.CreateApiServiceIntegrationInstanceSecret``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `CreateApiServiceIntegrationInstanceSecret`: APIServiceIntegrationInstanceSecret
+	fmt.Fprintf(os.Stdout, "Response from `ApiServiceIntegrationsAPI.CreateApiServiceIntegrationInstanceSecret`: %v\n", resp)
 }
 ```
 
@@ -239,25 +239,25 @@ Deactivate an API Service Integration instance Secret
 package main
 
 import (
-    "context"
-    "fmt"
-    "os"
-    openapiclient "github.com/okta/okta-sdk-golang"
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/okta/okta-sdk-golang"
 )
 
 func main() {
-    apiServiceId := "000lr2rLjZ6NsGn1P0g3" // string | `id` of the API Service Integration instance
-    secretId := "ocs2f4zrZbs8nUa7p0g4" // string | `id` of the API Service Integration instance Secret
+	apiServiceId := "000lr2rLjZ6NsGn1P0g3" // string | `id` of the API Service Integration instance
+	secretId := "ocs2f4zrZbs8nUa7p0g4" // string | `id` of the API Service Integration instance Secret
 
-    configuration := openapiclient.NewConfiguration()
-    apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.ApiServiceIntegrationsAPI.DeactivateApiServiceIntegrationInstanceSecret(context.Background(), apiServiceId, secretId).Execute()
-    if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `ApiServiceIntegrationsAPI.DeactivateApiServiceIntegrationInstanceSecret``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-    }
-    // response from `DeactivateApiServiceIntegrationInstanceSecret`: APIServiceIntegrationInstanceSecret
-    fmt.Fprintf(os.Stdout, "Response from `ApiServiceIntegrationsAPI.DeactivateApiServiceIntegrationInstanceSecret`: %v\n", resp)
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.ApiServiceIntegrationsAPI.DeactivateApiServiceIntegrationInstanceSecret(context.Background(), apiServiceId, secretId).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `ApiServiceIntegrationsAPI.DeactivateApiServiceIntegrationInstanceSecret``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `DeactivateApiServiceIntegrationInstanceSecret`: APIServiceIntegrationInstanceSecret
+	fmt.Fprintf(os.Stdout, "Response from `ApiServiceIntegrationsAPI.DeactivateApiServiceIntegrationInstanceSecret`: %v\n", resp)
 }
 ```
 
@@ -312,22 +312,22 @@ Delete an API Service Integration instance
 package main
 
 import (
-    "context"
-    "fmt"
-    "os"
-    openapiclient "github.com/okta/okta-sdk-golang"
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/okta/okta-sdk-golang"
 )
 
 func main() {
-    apiServiceId := "000lr2rLjZ6NsGn1P0g3" // string | `id` of the API Service Integration instance
+	apiServiceId := "000lr2rLjZ6NsGn1P0g3" // string | `id` of the API Service Integration instance
 
-    configuration := openapiclient.NewConfiguration()
-    apiClient := openapiclient.NewAPIClient(configuration)
-    r, err := apiClient.ApiServiceIntegrationsAPI.DeleteApiServiceIntegrationInstance(context.Background(), apiServiceId).Execute()
-    if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `ApiServiceIntegrationsAPI.DeleteApiServiceIntegrationInstance``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-    }
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	r, err := apiClient.ApiServiceIntegrationsAPI.DeleteApiServiceIntegrationInstance(context.Background(), apiServiceId).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `ApiServiceIntegrationsAPI.DeleteApiServiceIntegrationInstance``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
 }
 ```
 
@@ -380,23 +380,23 @@ Delete an API Service Integration instance Secret
 package main
 
 import (
-    "context"
-    "fmt"
-    "os"
-    openapiclient "github.com/okta/okta-sdk-golang"
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/okta/okta-sdk-golang"
 )
 
 func main() {
-    apiServiceId := "000lr2rLjZ6NsGn1P0g3" // string | `id` of the API Service Integration instance
-    secretId := "ocs2f4zrZbs8nUa7p0g4" // string | `id` of the API Service Integration instance Secret
+	apiServiceId := "000lr2rLjZ6NsGn1P0g3" // string | `id` of the API Service Integration instance
+	secretId := "ocs2f4zrZbs8nUa7p0g4" // string | `id` of the API Service Integration instance Secret
 
-    configuration := openapiclient.NewConfiguration()
-    apiClient := openapiclient.NewAPIClient(configuration)
-    r, err := apiClient.ApiServiceIntegrationsAPI.DeleteApiServiceIntegrationInstanceSecret(context.Background(), apiServiceId, secretId).Execute()
-    if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `ApiServiceIntegrationsAPI.DeleteApiServiceIntegrationInstanceSecret``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-    }
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	r, err := apiClient.ApiServiceIntegrationsAPI.DeleteApiServiceIntegrationInstanceSecret(context.Background(), apiServiceId, secretId).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `ApiServiceIntegrationsAPI.DeleteApiServiceIntegrationInstanceSecret``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
 }
 ```
 
@@ -451,24 +451,24 @@ Retrieve an API Service Integration instance
 package main
 
 import (
-    "context"
-    "fmt"
-    "os"
-    openapiclient "github.com/okta/okta-sdk-golang"
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/okta/okta-sdk-golang"
 )
 
 func main() {
-    apiServiceId := "000lr2rLjZ6NsGn1P0g3" // string | `id` of the API Service Integration instance
+	apiServiceId := "000lr2rLjZ6NsGn1P0g3" // string | `id` of the API Service Integration instance
 
-    configuration := openapiclient.NewConfiguration()
-    apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.ApiServiceIntegrationsAPI.GetApiServiceIntegrationInstance(context.Background(), apiServiceId).Execute()
-    if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `ApiServiceIntegrationsAPI.GetApiServiceIntegrationInstance``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-    }
-    // response from `GetApiServiceIntegrationInstance`: APIServiceIntegrationInstance
-    fmt.Fprintf(os.Stdout, "Response from `ApiServiceIntegrationsAPI.GetApiServiceIntegrationInstance`: %v\n", resp)
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.ApiServiceIntegrationsAPI.GetApiServiceIntegrationInstance(context.Background(), apiServiceId).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `ApiServiceIntegrationsAPI.GetApiServiceIntegrationInstance``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `GetApiServiceIntegrationInstance`: APIServiceIntegrationInstance
+	fmt.Fprintf(os.Stdout, "Response from `ApiServiceIntegrationsAPI.GetApiServiceIntegrationInstance`: %v\n", resp)
 }
 ```
 
@@ -521,24 +521,24 @@ List all API Service Integration instance Secrets
 package main
 
 import (
-    "context"
-    "fmt"
-    "os"
-    openapiclient "github.com/okta/okta-sdk-golang"
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/okta/okta-sdk-golang"
 )
 
 func main() {
-    apiServiceId := "000lr2rLjZ6NsGn1P0g3" // string | `id` of the API Service Integration instance
+	apiServiceId := "000lr2rLjZ6NsGn1P0g3" // string | `id` of the API Service Integration instance
 
-    configuration := openapiclient.NewConfiguration()
-    apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.ApiServiceIntegrationsAPI.ListApiServiceIntegrationInstanceSecrets(context.Background(), apiServiceId).Execute()
-    if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `ApiServiceIntegrationsAPI.ListApiServiceIntegrationInstanceSecrets``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-    }
-    // response from `ListApiServiceIntegrationInstanceSecrets`: []APIServiceIntegrationInstanceSecret
-    fmt.Fprintf(os.Stdout, "Response from `ApiServiceIntegrationsAPI.ListApiServiceIntegrationInstanceSecrets`: %v\n", resp)
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.ApiServiceIntegrationsAPI.ListApiServiceIntegrationInstanceSecrets(context.Background(), apiServiceId).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `ApiServiceIntegrationsAPI.ListApiServiceIntegrationInstanceSecrets``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `ListApiServiceIntegrationInstanceSecrets`: []APIServiceIntegrationInstanceSecret
+	fmt.Fprintf(os.Stdout, "Response from `ApiServiceIntegrationsAPI.ListApiServiceIntegrationInstanceSecrets`: %v\n", resp)
 }
 ```
 
@@ -591,24 +591,24 @@ List all API Service Integration instances
 package main
 
 import (
-    "context"
-    "fmt"
-    "os"
-    openapiclient "github.com/okta/okta-sdk-golang"
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/okta/okta-sdk-golang"
 )
 
 func main() {
-    after := "after_example" // string | The cursor to use for pagination. It is an opaque string that specifies your current location in the list and is obtained from the `Link` response header. See [Pagination](/#pagination). (optional)
+	after := "after_example" // string | The cursor to use for pagination. It is an opaque string that specifies your current location in the list and is obtained from the `Link` response header. See [Pagination](/#pagination). (optional)
 
-    configuration := openapiclient.NewConfiguration()
-    apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.ApiServiceIntegrationsAPI.ListApiServiceIntegrationInstances(context.Background()).After(after).Execute()
-    if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `ApiServiceIntegrationsAPI.ListApiServiceIntegrationInstances``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-    }
-    // response from `ListApiServiceIntegrationInstances`: []APIServiceIntegrationInstance
-    fmt.Fprintf(os.Stdout, "Response from `ApiServiceIntegrationsAPI.ListApiServiceIntegrationInstances`: %v\n", resp)
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.ApiServiceIntegrationsAPI.ListApiServiceIntegrationInstances(context.Background()).After(after).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `ApiServiceIntegrationsAPI.ListApiServiceIntegrationInstances``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `ListApiServiceIntegrationInstances`: []APIServiceIntegrationInstance
+	fmt.Fprintf(os.Stdout, "Response from `ApiServiceIntegrationsAPI.ListApiServiceIntegrationInstances`: %v\n", resp)
 }
 ```
 

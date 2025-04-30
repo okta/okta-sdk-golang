@@ -27,24 +27,24 @@ Create an SSF Stream
 package main
 
 import (
-    "context"
-    "fmt"
-    "os"
-    openapiclient "github.com/okta/okta-sdk-golang"
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/okta/okta-sdk-golang"
 )
 
 func main() {
-    instance := *openapiclient.NewStreamConfigurationCreateRequest(*openapiclient.NewStreamConfigurationDelivery("https://example.com/", "Method_example"), []string{"EventsRequested_example"}) // StreamConfigurationCreateRequest | 
+	instance := *openapiclient.NewStreamConfigurationCreateRequest(*openapiclient.NewStreamConfigurationDelivery("https://example.com/", "Method_example"), []string{"EventsRequested_example"}) // StreamConfigurationCreateRequest | 
 
-    configuration := openapiclient.NewConfiguration()
-    apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.SSFTransmitterAPI.CreateSsfStream(context.Background()).Instance(instance).Execute()
-    if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `SSFTransmitterAPI.CreateSsfStream``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-    }
-    // response from `CreateSsfStream`: StreamConfiguration
-    fmt.Fprintf(os.Stdout, "Response from `SSFTransmitterAPI.CreateSsfStream`: %v\n", resp)
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.SSFTransmitterAPI.CreateSsfStream(context.Background()).Instance(instance).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `SSFTransmitterAPI.CreateSsfStream``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `CreateSsfStream`: StreamConfiguration
+	fmt.Fprintf(os.Stdout, "Response from `SSFTransmitterAPI.CreateSsfStream`: %v\n", resp)
 }
 ```
 
@@ -93,22 +93,22 @@ Delete an SSF Stream
 package main
 
 import (
-    "context"
-    "fmt"
-    "os"
-    openapiclient "github.com/okta/okta-sdk-golang"
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/okta/okta-sdk-golang"
 )
 
 func main() {
-    streamId := "esc1k235GIIztAuGK0g5" // string | The ID of the specified SSF Stream configuration (optional)
+	streamId := "esc1k235GIIztAuGK0g5" // string | The ID of the specified SSF Stream configuration (optional)
 
-    configuration := openapiclient.NewConfiguration()
-    apiClient := openapiclient.NewAPIClient(configuration)
-    r, err := apiClient.SSFTransmitterAPI.DeleteSsfStream(context.Background()).StreamId(streamId).Execute()
-    if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `SSFTransmitterAPI.DeleteSsfStream``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-    }
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	r, err := apiClient.SSFTransmitterAPI.DeleteSsfStream(context.Background()).StreamId(streamId).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `SSFTransmitterAPI.DeleteSsfStream``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
 }
 ```
 
@@ -157,24 +157,24 @@ Retrieve the SSF Stream configuration(s)
 package main
 
 import (
-    "context"
-    "fmt"
-    "os"
-    openapiclient "github.com/okta/okta-sdk-golang"
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/okta/okta-sdk-golang"
 )
 
 func main() {
-    streamId := "esc1k235GIIztAuGK0g5" // string | The ID of the specified SSF Stream configuration (optional)
+	streamId := "esc1k235GIIztAuGK0g5" // string | The ID of the specified SSF Stream configuration (optional)
 
-    configuration := openapiclient.NewConfiguration()
-    apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.SSFTransmitterAPI.GetSsfStreams(context.Background()).StreamId(streamId).Execute()
-    if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `SSFTransmitterAPI.GetSsfStreams``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-    }
-    // response from `GetSsfStreams`: GetSsfStreams200Response
-    fmt.Fprintf(os.Stdout, "Response from `SSFTransmitterAPI.GetSsfStreams`: %v\n", resp)
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.SSFTransmitterAPI.GetSsfStreams(context.Background()).StreamId(streamId).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `SSFTransmitterAPI.GetSsfStreams``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `GetSsfStreams`: GetSsfStreams200Response
+	fmt.Fprintf(os.Stdout, "Response from `SSFTransmitterAPI.GetSsfStreams`: %v\n", resp)
 }
 ```
 
@@ -223,23 +223,23 @@ Retrieve the SSF Transmitter metadata
 package main
 
 import (
-    "context"
-    "fmt"
-    "os"
-    openapiclient "github.com/okta/okta-sdk-golang"
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/okta/okta-sdk-golang"
 )
 
 func main() {
 
-    configuration := openapiclient.NewConfiguration()
-    apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.SSFTransmitterAPI.GetWellknownSsfMetadata(context.Background()).Execute()
-    if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `SSFTransmitterAPI.GetWellknownSsfMetadata``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-    }
-    // response from `GetWellknownSsfMetadata`: WellKnownSSFMetadata
-    fmt.Fprintf(os.Stdout, "Response from `SSFTransmitterAPI.GetWellknownSsfMetadata`: %v\n", resp)
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.SSFTransmitterAPI.GetWellknownSsfMetadata(context.Background()).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `SSFTransmitterAPI.GetWellknownSsfMetadata``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `GetWellknownSsfMetadata`: WellKnownSSFMetadata
+	fmt.Fprintf(os.Stdout, "Response from `SSFTransmitterAPI.GetWellknownSsfMetadata`: %v\n", resp)
 }
 ```
 
@@ -284,24 +284,24 @@ Replace an SSF Stream
 package main
 
 import (
-    "context"
-    "fmt"
-    "os"
-    openapiclient "github.com/okta/okta-sdk-golang"
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/okta/okta-sdk-golang"
 )
 
 func main() {
-    instance := *openapiclient.NewStreamConfiguration(*openapiclient.NewStreamConfigurationDelivery("https://example.com/", "Method_example"), []string{"EventsRequested_example"}) // StreamConfiguration | 
+	instance := *openapiclient.NewStreamConfiguration(*openapiclient.NewStreamConfigurationDelivery("https://example.com/", "Method_example"), []string{"EventsRequested_example"}) // StreamConfiguration | 
 
-    configuration := openapiclient.NewConfiguration()
-    apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.SSFTransmitterAPI.ReplaceSsfStream(context.Background()).Instance(instance).Execute()
-    if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `SSFTransmitterAPI.ReplaceSsfStream``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-    }
-    // response from `ReplaceSsfStream`: StreamConfiguration
-    fmt.Fprintf(os.Stdout, "Response from `SSFTransmitterAPI.ReplaceSsfStream`: %v\n", resp)
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.SSFTransmitterAPI.ReplaceSsfStream(context.Background()).Instance(instance).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `SSFTransmitterAPI.ReplaceSsfStream``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `ReplaceSsfStream`: StreamConfiguration
+	fmt.Fprintf(os.Stdout, "Response from `SSFTransmitterAPI.ReplaceSsfStream`: %v\n", resp)
 }
 ```
 
@@ -350,24 +350,24 @@ Update an SSF Stream
 package main
 
 import (
-    "context"
-    "fmt"
-    "os"
-    openapiclient "github.com/okta/okta-sdk-golang"
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/okta/okta-sdk-golang"
 )
 
 func main() {
-    instance := *openapiclient.NewStreamConfiguration(*openapiclient.NewStreamConfigurationDelivery("https://example.com/", "Method_example"), []string{"EventsRequested_example"}) // StreamConfiguration | 
+	instance := *openapiclient.NewStreamConfiguration(*openapiclient.NewStreamConfigurationDelivery("https://example.com/", "Method_example"), []string{"EventsRequested_example"}) // StreamConfiguration | 
 
-    configuration := openapiclient.NewConfiguration()
-    apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.SSFTransmitterAPI.UpdateSsfStream(context.Background()).Instance(instance).Execute()
-    if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `SSFTransmitterAPI.UpdateSsfStream``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-    }
-    // response from `UpdateSsfStream`: StreamConfiguration
-    fmt.Fprintf(os.Stdout, "Response from `SSFTransmitterAPI.UpdateSsfStream`: %v\n", resp)
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.SSFTransmitterAPI.UpdateSsfStream(context.Background()).Instance(instance).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `SSFTransmitterAPI.UpdateSsfStream``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `UpdateSsfStream`: StreamConfiguration
+	fmt.Fprintf(os.Stdout, "Response from `SSFTransmitterAPI.UpdateSsfStream`: %v\n", resp)
 }
 ```
 

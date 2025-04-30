@@ -22,23 +22,23 @@ Update an AD Group membership
 package main
 
 import (
-    "context"
-    "fmt"
-    "os"
-    openapiclient "github.com/okta/okta-sdk-golang"
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/okta/okta-sdk-golang"
 )
 
 func main() {
-    appInstanceId := "appInstanceId_example" // string | ID of the AD AppInstance in Okta
-    agentAction := *openapiclient.NewAgentAction() // AgentAction | 
+	appInstanceId := "appInstanceId_example" // string | ID of the AD AppInstance in Okta
+	agentAction := *openapiclient.NewAgentAction() // AgentAction | 
 
-    configuration := openapiclient.NewConfiguration()
-    apiClient := openapiclient.NewAPIClient(configuration)
-    r, err := apiClient.DirectoriesIntegrationAPI.UpdateADGroupMembership(context.Background(), appInstanceId).AgentAction(agentAction).Execute()
-    if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `DirectoriesIntegrationAPI.UpdateADGroupMembership``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-    }
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	r, err := apiClient.DirectoriesIntegrationAPI.UpdateADGroupMembership(context.Background(), appInstanceId).AgentAction(agentAction).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `DirectoriesIntegrationAPI.UpdateADGroupMembership``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
 }
 ```
 

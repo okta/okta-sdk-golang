@@ -37,26 +37,26 @@ Add more Members to a binding
 package main
 
 import (
-    "context"
-    "fmt"
-    "os"
-    openapiclient "github.com/okta/okta-sdk-golang"
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/okta/okta-sdk-golang"
 )
 
 func main() {
-    resourceSetId := "iamoJDFKaJxGIr0oamd9g" // string | `id` of a Resource Set
-    roleIdOrLabel := "cr0Yq6IJxGIr0ouum0g3" // string | `id` or `label` of the role
-    instance := *openapiclient.NewResourceSetBindingAddMembersRequest() // ResourceSetBindingAddMembersRequest | 
+	resourceSetId := "iamoJDFKaJxGIr0oamd9g" // string | `id` of a Resource Set
+	roleIdOrLabel := "cr0Yq6IJxGIr0ouum0g3" // string | `id` or `label` of the role
+	instance := *openapiclient.NewResourceSetBindingAddMembersRequest() // ResourceSetBindingAddMembersRequest | 
 
-    configuration := openapiclient.NewConfiguration()
-    apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.ResourceSetAPI.AddMembersToBinding(context.Background(), resourceSetId, roleIdOrLabel).Instance(instance).Execute()
-    if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `ResourceSetAPI.AddMembersToBinding``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-    }
-    // response from `AddMembersToBinding`: ResourceSetBindingResponse
-    fmt.Fprintf(os.Stdout, "Response from `ResourceSetAPI.AddMembersToBinding`: %v\n", resp)
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.ResourceSetAPI.AddMembersToBinding(context.Background(), resourceSetId, roleIdOrLabel).Instance(instance).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `ResourceSetAPI.AddMembersToBinding``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `AddMembersToBinding`: ResourceSetBindingResponse
+	fmt.Fprintf(os.Stdout, "Response from `ResourceSetAPI.AddMembersToBinding`: %v\n", resp)
 }
 ```
 
@@ -112,25 +112,25 @@ Add more Resource to a Resource Set
 package main
 
 import (
-    "context"
-    "fmt"
-    "os"
-    openapiclient "github.com/okta/okta-sdk-golang"
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/okta/okta-sdk-golang"
 )
 
 func main() {
-    resourceSetId := "iamoJDFKaJxGIr0oamd9g" // string | `id` of a Resource Set
-    instance := *openapiclient.NewResourceSetResourcePatchRequest() // ResourceSetResourcePatchRequest | 
+	resourceSetId := "iamoJDFKaJxGIr0oamd9g" // string | `id` of a Resource Set
+	instance := *openapiclient.NewResourceSetResourcePatchRequest() // ResourceSetResourcePatchRequest | 
 
-    configuration := openapiclient.NewConfiguration()
-    apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.ResourceSetAPI.AddResourceSetResource(context.Background(), resourceSetId).Instance(instance).Execute()
-    if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `ResourceSetAPI.AddResourceSetResource``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-    }
-    // response from `AddResourceSetResource`: ResourceSet
-    fmt.Fprintf(os.Stdout, "Response from `ResourceSetAPI.AddResourceSetResource`: %v\n", resp)
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.ResourceSetAPI.AddResourceSetResource(context.Background(), resourceSetId).Instance(instance).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `ResourceSetAPI.AddResourceSetResource``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `AddResourceSetResource`: ResourceSet
+	fmt.Fprintf(os.Stdout, "Response from `ResourceSetAPI.AddResourceSetResource`: %v\n", resp)
 }
 ```
 
@@ -184,24 +184,24 @@ Create a Resource Set
 package main
 
 import (
-    "context"
-    "fmt"
-    "os"
-    openapiclient "github.com/okta/okta-sdk-golang"
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/okta/okta-sdk-golang"
 )
 
 func main() {
-    instance := *openapiclient.NewCreateResourceSetRequest() // CreateResourceSetRequest | 
+	instance := *openapiclient.NewCreateResourceSetRequest() // CreateResourceSetRequest | 
 
-    configuration := openapiclient.NewConfiguration()
-    apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.ResourceSetAPI.CreateResourceSet(context.Background()).Instance(instance).Execute()
-    if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `ResourceSetAPI.CreateResourceSet``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-    }
-    // response from `CreateResourceSet`: ResourceSet
-    fmt.Fprintf(os.Stdout, "Response from `ResourceSetAPI.CreateResourceSet`: %v\n", resp)
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.ResourceSetAPI.CreateResourceSet(context.Background()).Instance(instance).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `ResourceSetAPI.CreateResourceSet``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `CreateResourceSet`: ResourceSet
+	fmt.Fprintf(os.Stdout, "Response from `ResourceSetAPI.CreateResourceSet`: %v\n", resp)
 }
 ```
 
@@ -250,25 +250,25 @@ Create a Resource Set Binding
 package main
 
 import (
-    "context"
-    "fmt"
-    "os"
-    openapiclient "github.com/okta/okta-sdk-golang"
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/okta/okta-sdk-golang"
 )
 
 func main() {
-    resourceSetId := "iamoJDFKaJxGIr0oamd9g" // string | `id` of a Resource Set
-    instance := *openapiclient.NewResourceSetBindingCreateRequest() // ResourceSetBindingCreateRequest | 
+	resourceSetId := "iamoJDFKaJxGIr0oamd9g" // string | `id` of a Resource Set
+	instance := *openapiclient.NewResourceSetBindingCreateRequest() // ResourceSetBindingCreateRequest | 
 
-    configuration := openapiclient.NewConfiguration()
-    apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.ResourceSetAPI.CreateResourceSetBinding(context.Background(), resourceSetId).Instance(instance).Execute()
-    if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `ResourceSetAPI.CreateResourceSetBinding``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-    }
-    // response from `CreateResourceSetBinding`: ResourceSetBindingResponse
-    fmt.Fprintf(os.Stdout, "Response from `ResourceSetAPI.CreateResourceSetBinding`: %v\n", resp)
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.ResourceSetAPI.CreateResourceSetBinding(context.Background(), resourceSetId).Instance(instance).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `ResourceSetAPI.CreateResourceSetBinding``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `CreateResourceSetBinding`: ResourceSetBindingResponse
+	fmt.Fprintf(os.Stdout, "Response from `ResourceSetAPI.CreateResourceSetBinding`: %v\n", resp)
 }
 ```
 
@@ -322,23 +322,23 @@ Delete a Binding
 package main
 
 import (
-    "context"
-    "fmt"
-    "os"
-    openapiclient "github.com/okta/okta-sdk-golang"
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/okta/okta-sdk-golang"
 )
 
 func main() {
-    resourceSetId := "iamoJDFKaJxGIr0oamd9g" // string | `id` of a Resource Set
-    roleIdOrLabel := "cr0Yq6IJxGIr0ouum0g3" // string | `id` or `label` of the role
+	resourceSetId := "iamoJDFKaJxGIr0oamd9g" // string | `id` of a Resource Set
+	roleIdOrLabel := "cr0Yq6IJxGIr0ouum0g3" // string | `id` or `label` of the role
 
-    configuration := openapiclient.NewConfiguration()
-    apiClient := openapiclient.NewAPIClient(configuration)
-    r, err := apiClient.ResourceSetAPI.DeleteBinding(context.Background(), resourceSetId, roleIdOrLabel).Execute()
-    if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `ResourceSetAPI.DeleteBinding``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-    }
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	r, err := apiClient.ResourceSetAPI.DeleteBinding(context.Background(), resourceSetId, roleIdOrLabel).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `ResourceSetAPI.DeleteBinding``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
 }
 ```
 
@@ -393,22 +393,22 @@ Delete a Resource Set
 package main
 
 import (
-    "context"
-    "fmt"
-    "os"
-    openapiclient "github.com/okta/okta-sdk-golang"
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/okta/okta-sdk-golang"
 )
 
 func main() {
-    resourceSetId := "iamoJDFKaJxGIr0oamd9g" // string | `id` of a Resource Set
+	resourceSetId := "iamoJDFKaJxGIr0oamd9g" // string | `id` of a Resource Set
 
-    configuration := openapiclient.NewConfiguration()
-    apiClient := openapiclient.NewAPIClient(configuration)
-    r, err := apiClient.ResourceSetAPI.DeleteResourceSet(context.Background(), resourceSetId).Execute()
-    if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `ResourceSetAPI.DeleteResourceSet``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-    }
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	r, err := apiClient.ResourceSetAPI.DeleteResourceSet(context.Background(), resourceSetId).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `ResourceSetAPI.DeleteResourceSet``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
 }
 ```
 
@@ -461,23 +461,23 @@ Delete a Resource from a Resource Set
 package main
 
 import (
-    "context"
-    "fmt"
-    "os"
-    openapiclient "github.com/okta/okta-sdk-golang"
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/okta/okta-sdk-golang"
 )
 
 func main() {
-    resourceSetId := "iamoJDFKaJxGIr0oamd9g" // string | `id` of a Resource Set
-    resourceId := "ire106sQKoHoXXsAe0g4" // string | `id` of a resource
+	resourceSetId := "iamoJDFKaJxGIr0oamd9g" // string | `id` of a Resource Set
+	resourceId := "ire106sQKoHoXXsAe0g4" // string | `id` of a resource
 
-    configuration := openapiclient.NewConfiguration()
-    apiClient := openapiclient.NewAPIClient(configuration)
-    r, err := apiClient.ResourceSetAPI.DeleteResourceSetResource(context.Background(), resourceSetId, resourceId).Execute()
-    if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `ResourceSetAPI.DeleteResourceSetResource``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-    }
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	r, err := apiClient.ResourceSetAPI.DeleteResourceSetResource(context.Background(), resourceSetId, resourceId).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `ResourceSetAPI.DeleteResourceSetResource``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
 }
 ```
 
@@ -532,25 +532,25 @@ Retrieve a Binding
 package main
 
 import (
-    "context"
-    "fmt"
-    "os"
-    openapiclient "github.com/okta/okta-sdk-golang"
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/okta/okta-sdk-golang"
 )
 
 func main() {
-    resourceSetId := "iamoJDFKaJxGIr0oamd9g" // string | `id` of a Resource Set
-    roleIdOrLabel := "cr0Yq6IJxGIr0ouum0g3" // string | `id` or `label` of the role
+	resourceSetId := "iamoJDFKaJxGIr0oamd9g" // string | `id` of a Resource Set
+	roleIdOrLabel := "cr0Yq6IJxGIr0ouum0g3" // string | `id` or `label` of the role
 
-    configuration := openapiclient.NewConfiguration()
-    apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.ResourceSetAPI.GetBinding(context.Background(), resourceSetId, roleIdOrLabel).Execute()
-    if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `ResourceSetAPI.GetBinding``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-    }
-    // response from `GetBinding`: ResourceSetBindingResponse
-    fmt.Fprintf(os.Stdout, "Response from `ResourceSetAPI.GetBinding`: %v\n", resp)
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.ResourceSetAPI.GetBinding(context.Background(), resourceSetId, roleIdOrLabel).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `ResourceSetAPI.GetBinding``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `GetBinding`: ResourceSetBindingResponse
+	fmt.Fprintf(os.Stdout, "Response from `ResourceSetAPI.GetBinding`: %v\n", resp)
 }
 ```
 
@@ -605,26 +605,26 @@ Retrieve a Member of a binding
 package main
 
 import (
-    "context"
-    "fmt"
-    "os"
-    openapiclient "github.com/okta/okta-sdk-golang"
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/okta/okta-sdk-golang"
 )
 
 func main() {
-    resourceSetId := "iamoJDFKaJxGIr0oamd9g" // string | `id` of a Resource Set
-    roleIdOrLabel := "cr0Yq6IJxGIr0ouum0g3" // string | `id` or `label` of the role
-    memberId := "irb1qe6PGuMc7Oh8N0g4" // string | `id` of a member
+	resourceSetId := "iamoJDFKaJxGIr0oamd9g" // string | `id` of a Resource Set
+	roleIdOrLabel := "cr0Yq6IJxGIr0ouum0g3" // string | `id` or `label` of the role
+	memberId := "irb1qe6PGuMc7Oh8N0g4" // string | `id` of a member
 
-    configuration := openapiclient.NewConfiguration()
-    apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.ResourceSetAPI.GetMemberOfBinding(context.Background(), resourceSetId, roleIdOrLabel, memberId).Execute()
-    if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `ResourceSetAPI.GetMemberOfBinding``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-    }
-    // response from `GetMemberOfBinding`: ResourceSetBindingMember
-    fmt.Fprintf(os.Stdout, "Response from `ResourceSetAPI.GetMemberOfBinding`: %v\n", resp)
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.ResourceSetAPI.GetMemberOfBinding(context.Background(), resourceSetId, roleIdOrLabel, memberId).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `ResourceSetAPI.GetMemberOfBinding``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `GetMemberOfBinding`: ResourceSetBindingMember
+	fmt.Fprintf(os.Stdout, "Response from `ResourceSetAPI.GetMemberOfBinding`: %v\n", resp)
 }
 ```
 
@@ -681,24 +681,24 @@ Retrieve a Resource Set
 package main
 
 import (
-    "context"
-    "fmt"
-    "os"
-    openapiclient "github.com/okta/okta-sdk-golang"
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/okta/okta-sdk-golang"
 )
 
 func main() {
-    resourceSetId := "iamoJDFKaJxGIr0oamd9g" // string | `id` of a Resource Set
+	resourceSetId := "iamoJDFKaJxGIr0oamd9g" // string | `id` of a Resource Set
 
-    configuration := openapiclient.NewConfiguration()
-    apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.ResourceSetAPI.GetResourceSet(context.Background(), resourceSetId).Execute()
-    if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `ResourceSetAPI.GetResourceSet``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-    }
-    // response from `GetResourceSet`: ResourceSet
-    fmt.Fprintf(os.Stdout, "Response from `ResourceSetAPI.GetResourceSet`: %v\n", resp)
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.ResourceSetAPI.GetResourceSet(context.Background(), resourceSetId).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `ResourceSetAPI.GetResourceSet``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `GetResourceSet`: ResourceSet
+	fmt.Fprintf(os.Stdout, "Response from `ResourceSetAPI.GetResourceSet`: %v\n", resp)
 }
 ```
 
@@ -751,25 +751,25 @@ List all Bindings
 package main
 
 import (
-    "context"
-    "fmt"
-    "os"
-    openapiclient "github.com/okta/okta-sdk-golang"
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/okta/okta-sdk-golang"
 )
 
 func main() {
-    resourceSetId := "iamoJDFKaJxGIr0oamd9g" // string | `id` of a Resource Set
-    after := "after_example" // string | The cursor to use for pagination. It is an opaque string that specifies your current location in the list and is obtained from the `Link` response header. See [Pagination](/#pagination). (optional)
+	resourceSetId := "iamoJDFKaJxGIr0oamd9g" // string | `id` of a Resource Set
+	after := "after_example" // string | The cursor to use for pagination. It is an opaque string that specifies your current location in the list and is obtained from the `Link` response header. See [Pagination](/#pagination). (optional)
 
-    configuration := openapiclient.NewConfiguration()
-    apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.ResourceSetAPI.ListBindings(context.Background(), resourceSetId).After(after).Execute()
-    if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `ResourceSetAPI.ListBindings``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-    }
-    // response from `ListBindings`: ResourceSetBindings
-    fmt.Fprintf(os.Stdout, "Response from `ResourceSetAPI.ListBindings`: %v\n", resp)
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.ResourceSetAPI.ListBindings(context.Background(), resourceSetId).After(after).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `ResourceSetAPI.ListBindings``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `ListBindings`: ResourceSetBindings
+	fmt.Fprintf(os.Stdout, "Response from `ResourceSetAPI.ListBindings`: %v\n", resp)
 }
 ```
 
@@ -823,26 +823,26 @@ List all Members of a binding
 package main
 
 import (
-    "context"
-    "fmt"
-    "os"
-    openapiclient "github.com/okta/okta-sdk-golang"
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/okta/okta-sdk-golang"
 )
 
 func main() {
-    resourceSetId := "iamoJDFKaJxGIr0oamd9g" // string | `id` of a Resource Set
-    roleIdOrLabel := "cr0Yq6IJxGIr0ouum0g3" // string | `id` or `label` of the role
-    after := "after_example" // string | The cursor to use for pagination. It is an opaque string that specifies your current location in the list and is obtained from the `Link` response header. See [Pagination](/#pagination). (optional)
+	resourceSetId := "iamoJDFKaJxGIr0oamd9g" // string | `id` of a Resource Set
+	roleIdOrLabel := "cr0Yq6IJxGIr0ouum0g3" // string | `id` or `label` of the role
+	after := "after_example" // string | The cursor to use for pagination. It is an opaque string that specifies your current location in the list and is obtained from the `Link` response header. See [Pagination](/#pagination). (optional)
 
-    configuration := openapiclient.NewConfiguration()
-    apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.ResourceSetAPI.ListMembersOfBinding(context.Background(), resourceSetId, roleIdOrLabel).After(after).Execute()
-    if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `ResourceSetAPI.ListMembersOfBinding``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-    }
-    // response from `ListMembersOfBinding`: ResourceSetBindingMembers
-    fmt.Fprintf(os.Stdout, "Response from `ResourceSetAPI.ListMembersOfBinding`: %v\n", resp)
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.ResourceSetAPI.ListMembersOfBinding(context.Background(), resourceSetId, roleIdOrLabel).After(after).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `ResourceSetAPI.ListMembersOfBinding``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `ListMembersOfBinding`: ResourceSetBindingMembers
+	fmt.Fprintf(os.Stdout, "Response from `ResourceSetAPI.ListMembersOfBinding`: %v\n", resp)
 }
 ```
 
@@ -898,24 +898,24 @@ List all Resources of a Resource Set
 package main
 
 import (
-    "context"
-    "fmt"
-    "os"
-    openapiclient "github.com/okta/okta-sdk-golang"
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/okta/okta-sdk-golang"
 )
 
 func main() {
-    resourceSetId := "iamoJDFKaJxGIr0oamd9g" // string | `id` of a Resource Set
+	resourceSetId := "iamoJDFKaJxGIr0oamd9g" // string | `id` of a Resource Set
 
-    configuration := openapiclient.NewConfiguration()
-    apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.ResourceSetAPI.ListResourceSetResources(context.Background(), resourceSetId).Execute()
-    if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `ResourceSetAPI.ListResourceSetResources``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-    }
-    // response from `ListResourceSetResources`: ResourceSetResources
-    fmt.Fprintf(os.Stdout, "Response from `ResourceSetAPI.ListResourceSetResources`: %v\n", resp)
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.ResourceSetAPI.ListResourceSetResources(context.Background(), resourceSetId).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `ResourceSetAPI.ListResourceSetResources``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `ListResourceSetResources`: ResourceSetResources
+	fmt.Fprintf(os.Stdout, "Response from `ResourceSetAPI.ListResourceSetResources`: %v\n", resp)
 }
 ```
 
@@ -968,24 +968,24 @@ List all Resource Sets
 package main
 
 import (
-    "context"
-    "fmt"
-    "os"
-    openapiclient "github.com/okta/okta-sdk-golang"
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/okta/okta-sdk-golang"
 )
 
 func main() {
-    after := "after_example" // string | The cursor to use for pagination. It is an opaque string that specifies your current location in the list and is obtained from the `Link` response header. See [Pagination](/#pagination). (optional)
+	after := "after_example" // string | The cursor to use for pagination. It is an opaque string that specifies your current location in the list and is obtained from the `Link` response header. See [Pagination](/#pagination). (optional)
 
-    configuration := openapiclient.NewConfiguration()
-    apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.ResourceSetAPI.ListResourceSets(context.Background()).After(after).Execute()
-    if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `ResourceSetAPI.ListResourceSets``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-    }
-    // response from `ListResourceSets`: ResourceSets
-    fmt.Fprintf(os.Stdout, "Response from `ResourceSetAPI.ListResourceSets`: %v\n", resp)
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.ResourceSetAPI.ListResourceSets(context.Background()).After(after).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `ResourceSetAPI.ListResourceSets``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `ListResourceSets`: ResourceSets
+	fmt.Fprintf(os.Stdout, "Response from `ResourceSetAPI.ListResourceSets`: %v\n", resp)
 }
 ```
 
@@ -1034,25 +1034,25 @@ Replace a Resource Set
 package main
 
 import (
-    "context"
-    "fmt"
-    "os"
-    openapiclient "github.com/okta/okta-sdk-golang"
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/okta/okta-sdk-golang"
 )
 
 func main() {
-    resourceSetId := "iamoJDFKaJxGIr0oamd9g" // string | `id` of a Resource Set
-    instance := *openapiclient.NewResourceSet() // ResourceSet | 
+	resourceSetId := "iamoJDFKaJxGIr0oamd9g" // string | `id` of a Resource Set
+	instance := *openapiclient.NewResourceSet() // ResourceSet | 
 
-    configuration := openapiclient.NewConfiguration()
-    apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.ResourceSetAPI.ReplaceResourceSet(context.Background(), resourceSetId).Instance(instance).Execute()
-    if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `ResourceSetAPI.ReplaceResourceSet``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-    }
-    // response from `ReplaceResourceSet`: ResourceSet
-    fmt.Fprintf(os.Stdout, "Response from `ResourceSetAPI.ReplaceResourceSet`: %v\n", resp)
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.ResourceSetAPI.ReplaceResourceSet(context.Background(), resourceSetId).Instance(instance).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `ResourceSetAPI.ReplaceResourceSet``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `ReplaceResourceSet`: ResourceSet
+	fmt.Fprintf(os.Stdout, "Response from `ResourceSetAPI.ReplaceResourceSet`: %v\n", resp)
 }
 ```
 
@@ -1106,24 +1106,24 @@ Unassign a Member from a binding
 package main
 
 import (
-    "context"
-    "fmt"
-    "os"
-    openapiclient "github.com/okta/okta-sdk-golang"
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/okta/okta-sdk-golang"
 )
 
 func main() {
-    resourceSetId := "iamoJDFKaJxGIr0oamd9g" // string | `id` of a Resource Set
-    roleIdOrLabel := "cr0Yq6IJxGIr0ouum0g3" // string | `id` or `label` of the role
-    memberId := "irb1qe6PGuMc7Oh8N0g4" // string | `id` of a member
+	resourceSetId := "iamoJDFKaJxGIr0oamd9g" // string | `id` of a Resource Set
+	roleIdOrLabel := "cr0Yq6IJxGIr0ouum0g3" // string | `id` or `label` of the role
+	memberId := "irb1qe6PGuMc7Oh8N0g4" // string | `id` of a member
 
-    configuration := openapiclient.NewConfiguration()
-    apiClient := openapiclient.NewAPIClient(configuration)
-    r, err := apiClient.ResourceSetAPI.UnassignMemberFromBinding(context.Background(), resourceSetId, roleIdOrLabel, memberId).Execute()
-    if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `ResourceSetAPI.UnassignMemberFromBinding``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-    }
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	r, err := apiClient.ResourceSetAPI.UnassignMemberFromBinding(context.Background(), resourceSetId, roleIdOrLabel, memberId).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `ResourceSetAPI.UnassignMemberFromBinding``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
 }
 ```
 

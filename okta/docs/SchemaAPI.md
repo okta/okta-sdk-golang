@@ -29,24 +29,24 @@ Retrieve the default Application User Schema for an Application
 package main
 
 import (
-    "context"
-    "fmt"
-    "os"
-    openapiclient "github.com/okta/okta-sdk-golang"
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/okta/okta-sdk-golang"
 )
 
 func main() {
-    appId := "0oafxqCAJWWGELFTYASJ" // string | Application ID
+	appId := "0oafxqCAJWWGELFTYASJ" // string | Application ID
 
-    configuration := openapiclient.NewConfiguration()
-    apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.SchemaAPI.GetApplicationUserSchema(context.Background(), appId).Execute()
-    if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `SchemaAPI.GetApplicationUserSchema``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-    }
-    // response from `GetApplicationUserSchema`: UserSchema
-    fmt.Fprintf(os.Stdout, "Response from `SchemaAPI.GetApplicationUserSchema`: %v\n", resp)
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.SchemaAPI.GetApplicationUserSchema(context.Background(), appId).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `SchemaAPI.GetApplicationUserSchema``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `GetApplicationUserSchema`: UserSchema
+	fmt.Fprintf(os.Stdout, "Response from `SchemaAPI.GetApplicationUserSchema`: %v\n", resp)
 }
 ```
 
@@ -99,23 +99,23 @@ Retrieve the default Group Schema
 package main
 
 import (
-    "context"
-    "fmt"
-    "os"
-    openapiclient "github.com/okta/okta-sdk-golang"
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/okta/okta-sdk-golang"
 )
 
 func main() {
 
-    configuration := openapiclient.NewConfiguration()
-    apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.SchemaAPI.GetGroupSchema(context.Background()).Execute()
-    if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `SchemaAPI.GetGroupSchema``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-    }
-    // response from `GetGroupSchema`: GroupSchema
-    fmt.Fprintf(os.Stdout, "Response from `SchemaAPI.GetGroupSchema`: %v\n", resp)
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.SchemaAPI.GetGroupSchema(context.Background()).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `SchemaAPI.GetGroupSchema``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `GetGroupSchema`: GroupSchema
+	fmt.Fprintf(os.Stdout, "Response from `SchemaAPI.GetGroupSchema`: %v\n", resp)
 }
 ```
 
@@ -160,24 +160,24 @@ Retrieve the Log Stream Schema for the schema type
 package main
 
 import (
-    "context"
-    "fmt"
-    "os"
-    openapiclient "github.com/okta/okta-sdk-golang"
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/okta/okta-sdk-golang"
 )
 
 func main() {
-    logStreamType := "logStreamType_example" // string | 
+	logStreamType := "logStreamType_example" // string | 
 
-    configuration := openapiclient.NewConfiguration()
-    apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.SchemaAPI.GetLogStreamSchema(context.Background(), logStreamType).Execute()
-    if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `SchemaAPI.GetLogStreamSchema``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-    }
-    // response from `GetLogStreamSchema`: LogStreamSchema
-    fmt.Fprintf(os.Stdout, "Response from `SchemaAPI.GetLogStreamSchema`: %v\n", resp)
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.SchemaAPI.GetLogStreamSchema(context.Background(), logStreamType).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `SchemaAPI.GetLogStreamSchema``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `GetLogStreamSchema`: LogStreamSchema
+	fmt.Fprintf(os.Stdout, "Response from `SchemaAPI.GetLogStreamSchema`: %v\n", resp)
 }
 ```
 
@@ -230,24 +230,24 @@ Retrieve a User Schema
 package main
 
 import (
-    "context"
-    "fmt"
-    "os"
-    openapiclient "github.com/okta/okta-sdk-golang"
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/okta/okta-sdk-golang"
 )
 
 func main() {
-    schemaId := "schemaId_example" // string | 
+	schemaId := "schemaId_example" // string | 
 
-    configuration := openapiclient.NewConfiguration()
-    apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.SchemaAPI.GetUserSchema(context.Background(), schemaId).Execute()
-    if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `SchemaAPI.GetUserSchema``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-    }
-    // response from `GetUserSchema`: UserSchema
-    fmt.Fprintf(os.Stdout, "Response from `SchemaAPI.GetUserSchema`: %v\n", resp)
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.SchemaAPI.GetUserSchema(context.Background(), schemaId).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `SchemaAPI.GetUserSchema``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `GetUserSchema`: UserSchema
+	fmt.Fprintf(os.Stdout, "Response from `SchemaAPI.GetUserSchema`: %v\n", resp)
 }
 ```
 
@@ -300,23 +300,23 @@ List the Log Stream Schemas
 package main
 
 import (
-    "context"
-    "fmt"
-    "os"
-    openapiclient "github.com/okta/okta-sdk-golang"
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/okta/okta-sdk-golang"
 )
 
 func main() {
 
-    configuration := openapiclient.NewConfiguration()
-    apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.SchemaAPI.ListLogStreamSchemas(context.Background()).Execute()
-    if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `SchemaAPI.ListLogStreamSchemas``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-    }
-    // response from `ListLogStreamSchemas`: []LogStreamSchema
-    fmt.Fprintf(os.Stdout, "Response from `SchemaAPI.ListLogStreamSchemas`: %v\n", resp)
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.SchemaAPI.ListLogStreamSchemas(context.Background()).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `SchemaAPI.ListLogStreamSchemas``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `ListLogStreamSchemas`: []LogStreamSchema
+	fmt.Fprintf(os.Stdout, "Response from `SchemaAPI.ListLogStreamSchemas`: %v\n", resp)
 }
 ```
 
@@ -361,25 +361,25 @@ Update the default Application User Schema for an Application
 package main
 
 import (
-    "context"
-    "fmt"
-    "os"
-    openapiclient "github.com/okta/okta-sdk-golang"
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/okta/okta-sdk-golang"
 )
 
 func main() {
-    appId := "0oafxqCAJWWGELFTYASJ" // string | Application ID
-    body := *openapiclient.NewUserSchema() // UserSchema |  (optional)
+	appId := "0oafxqCAJWWGELFTYASJ" // string | Application ID
+	body := *openapiclient.NewUserSchema() // UserSchema |  (optional)
 
-    configuration := openapiclient.NewConfiguration()
-    apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.SchemaAPI.UpdateApplicationUserProfile(context.Background(), appId).Body(body).Execute()
-    if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `SchemaAPI.UpdateApplicationUserProfile``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-    }
-    // response from `UpdateApplicationUserProfile`: UserSchema
-    fmt.Fprintf(os.Stdout, "Response from `SchemaAPI.UpdateApplicationUserProfile`: %v\n", resp)
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.SchemaAPI.UpdateApplicationUserProfile(context.Background(), appId).Body(body).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `SchemaAPI.UpdateApplicationUserProfile``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `UpdateApplicationUserProfile`: UserSchema
+	fmt.Fprintf(os.Stdout, "Response from `SchemaAPI.UpdateApplicationUserProfile`: %v\n", resp)
 }
 ```
 
@@ -433,24 +433,24 @@ Update the default Group Schema
 package main
 
 import (
-    "context"
-    "fmt"
-    "os"
-    openapiclient "github.com/okta/okta-sdk-golang"
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/okta/okta-sdk-golang"
 )
 
 func main() {
-    groupSchema := *openapiclient.NewGroupSchema() // GroupSchema |  (optional)
+	groupSchema := *openapiclient.NewGroupSchema() // GroupSchema |  (optional)
 
-    configuration := openapiclient.NewConfiguration()
-    apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.SchemaAPI.UpdateGroupSchema(context.Background()).GroupSchema(groupSchema).Execute()
-    if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `SchemaAPI.UpdateGroupSchema``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-    }
-    // response from `UpdateGroupSchema`: GroupSchema
-    fmt.Fprintf(os.Stdout, "Response from `SchemaAPI.UpdateGroupSchema`: %v\n", resp)
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.SchemaAPI.UpdateGroupSchema(context.Background()).GroupSchema(groupSchema).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `SchemaAPI.UpdateGroupSchema``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `UpdateGroupSchema`: GroupSchema
+	fmt.Fprintf(os.Stdout, "Response from `SchemaAPI.UpdateGroupSchema`: %v\n", resp)
 }
 ```
 
@@ -499,25 +499,25 @@ Update a User Schema
 package main
 
 import (
-    "context"
-    "fmt"
-    "os"
-    openapiclient "github.com/okta/okta-sdk-golang"
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/okta/okta-sdk-golang"
 )
 
 func main() {
-    schemaId := "schemaId_example" // string | 
-    userSchema := *openapiclient.NewUserSchema() // UserSchema | 
+	schemaId := "schemaId_example" // string | 
+	userSchema := *openapiclient.NewUserSchema() // UserSchema | 
 
-    configuration := openapiclient.NewConfiguration()
-    apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.SchemaAPI.UpdateUserProfile(context.Background(), schemaId).UserSchema(userSchema).Execute()
-    if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `SchemaAPI.UpdateUserProfile``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-    }
-    // response from `UpdateUserProfile`: UserSchema
-    fmt.Fprintf(os.Stdout, "Response from `SchemaAPI.UpdateUserProfile`: %v\n", resp)
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.SchemaAPI.UpdateUserProfile(context.Background(), schemaId).UserSchema(userSchema).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `SchemaAPI.UpdateUserProfile``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `UpdateUserProfile`: UserSchema
+	fmt.Fprintf(os.Stdout, "Response from `SchemaAPI.UpdateUserProfile`: %v\n", resp)
 }
 ```
 

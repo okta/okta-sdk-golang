@@ -9,7 +9,7 @@ Name | Type | Description | Notes
 **Deactivate** | Pointer to [**HrefObjectDeactivateLink**](HrefObjectDeactivateLink.md) |  | [optional] 
 **Suspend** | Pointer to [**HrefObjectSuspendLink**](HrefObjectSuspendLink.md) |  | [optional] 
 **Unsuspend** | Pointer to [**HrefObjectUnsuspendLink**](HrefObjectUnsuspendLink.md) |  | [optional] 
-**Users** | Pointer to [**HrefObject**](HrefObject.md) |  | [optional] 
+**Users** | Pointer to [**HrefObject**](HrefObject.md) | Link to Device users | [optional] 
 
 ## Methods
 

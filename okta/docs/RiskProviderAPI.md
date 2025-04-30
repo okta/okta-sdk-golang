@@ -26,24 +26,24 @@ Create a Risk Provider
 package main
 
 import (
-    "context"
-    "fmt"
-    "os"
-    openapiclient "github.com/okta/okta-sdk-golang"
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/okta/okta-sdk-golang"
 )
 
 func main() {
-    instance := *openapiclient.NewRiskProvider("Action_example", "00cjkjjkkgjkdkjdkkljjsd", "00rp12r4skkjkjgsn", "Risk-Partner-X", *openapiclient.NewLinksSelf()) // RiskProvider | 
+	instance := *openapiclient.NewRiskProvider("Action_example", "00cjkjjkkgjkdkjdkkljjsd", "00rp12r4skkjkjgsn", "Risk-Partner-X", *openapiclient.NewLinksSelf()) // RiskProvider | 
 
-    configuration := openapiclient.NewConfiguration()
-    apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.RiskProviderAPI.CreateRiskProvider(context.Background()).Instance(instance).Execute()
-    if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `RiskProviderAPI.CreateRiskProvider``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-    }
-    // response from `CreateRiskProvider`: RiskProvider
-    fmt.Fprintf(os.Stdout, "Response from `RiskProviderAPI.CreateRiskProvider`: %v\n", resp)
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.RiskProviderAPI.CreateRiskProvider(context.Background()).Instance(instance).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `RiskProviderAPI.CreateRiskProvider``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `CreateRiskProvider`: RiskProvider
+	fmt.Fprintf(os.Stdout, "Response from `RiskProviderAPI.CreateRiskProvider`: %v\n", resp)
 }
 ```
 
@@ -92,22 +92,22 @@ Delete a Risk Provider
 package main
 
 import (
-    "context"
-    "fmt"
-    "os"
-    openapiclient "github.com/okta/okta-sdk-golang"
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/okta/okta-sdk-golang"
 )
 
 func main() {
-    riskProviderId := "00rp12r4skkjkjgsn" // string | `id` of the Risk Provider object
+	riskProviderId := "00rp12r4skkjkjgsn" // string | `id` of the Risk Provider object
 
-    configuration := openapiclient.NewConfiguration()
-    apiClient := openapiclient.NewAPIClient(configuration)
-    r, err := apiClient.RiskProviderAPI.DeleteRiskProvider(context.Background(), riskProviderId).Execute()
-    if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `RiskProviderAPI.DeleteRiskProvider``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-    }
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	r, err := apiClient.RiskProviderAPI.DeleteRiskProvider(context.Background(), riskProviderId).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `RiskProviderAPI.DeleteRiskProvider``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
 }
 ```
 
@@ -160,24 +160,24 @@ Retrieve a Risk Provider
 package main
 
 import (
-    "context"
-    "fmt"
-    "os"
-    openapiclient "github.com/okta/okta-sdk-golang"
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/okta/okta-sdk-golang"
 )
 
 func main() {
-    riskProviderId := "00rp12r4skkjkjgsn" // string | `id` of the Risk Provider object
+	riskProviderId := "00rp12r4skkjkjgsn" // string | `id` of the Risk Provider object
 
-    configuration := openapiclient.NewConfiguration()
-    apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.RiskProviderAPI.GetRiskProvider(context.Background(), riskProviderId).Execute()
-    if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `RiskProviderAPI.GetRiskProvider``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-    }
-    // response from `GetRiskProvider`: RiskProvider
-    fmt.Fprintf(os.Stdout, "Response from `RiskProviderAPI.GetRiskProvider`: %v\n", resp)
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.RiskProviderAPI.GetRiskProvider(context.Background(), riskProviderId).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `RiskProviderAPI.GetRiskProvider``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `GetRiskProvider`: RiskProvider
+	fmt.Fprintf(os.Stdout, "Response from `RiskProviderAPI.GetRiskProvider`: %v\n", resp)
 }
 ```
 
@@ -230,23 +230,23 @@ List all Risk Providers
 package main
 
 import (
-    "context"
-    "fmt"
-    "os"
-    openapiclient "github.com/okta/okta-sdk-golang"
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/okta/okta-sdk-golang"
 )
 
 func main() {
 
-    configuration := openapiclient.NewConfiguration()
-    apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.RiskProviderAPI.ListRiskProviders(context.Background()).Execute()
-    if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `RiskProviderAPI.ListRiskProviders``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-    }
-    // response from `ListRiskProviders`: []RiskProvider
-    fmt.Fprintf(os.Stdout, "Response from `RiskProviderAPI.ListRiskProviders`: %v\n", resp)
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.RiskProviderAPI.ListRiskProviders(context.Background()).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `RiskProviderAPI.ListRiskProviders``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `ListRiskProviders`: []RiskProvider
+	fmt.Fprintf(os.Stdout, "Response from `RiskProviderAPI.ListRiskProviders`: %v\n", resp)
 }
 ```
 
@@ -291,25 +291,25 @@ Replace a Risk Provider
 package main
 
 import (
-    "context"
-    "fmt"
-    "os"
-    openapiclient "github.com/okta/okta-sdk-golang"
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/okta/okta-sdk-golang"
 )
 
 func main() {
-    riskProviderId := "00rp12r4skkjkjgsn" // string | `id` of the Risk Provider object
-    instance := *openapiclient.NewRiskProvider("Action_example", "00cjkjjkkgjkdkjdkkljjsd", "00rp12r4skkjkjgsn", "Risk-Partner-X", *openapiclient.NewLinksSelf()) // RiskProvider | 
+	riskProviderId := "00rp12r4skkjkjgsn" // string | `id` of the Risk Provider object
+	instance := *openapiclient.NewRiskProvider("Action_example", "00cjkjjkkgjkdkjdkkljjsd", "00rp12r4skkjkjgsn", "Risk-Partner-X", *openapiclient.NewLinksSelf()) // RiskProvider | 
 
-    configuration := openapiclient.NewConfiguration()
-    apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.RiskProviderAPI.ReplaceRiskProvider(context.Background(), riskProviderId).Instance(instance).Execute()
-    if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `RiskProviderAPI.ReplaceRiskProvider``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-    }
-    // response from `ReplaceRiskProvider`: RiskProvider
-    fmt.Fprintf(os.Stdout, "Response from `RiskProviderAPI.ReplaceRiskProvider`: %v\n", resp)
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.RiskProviderAPI.ReplaceRiskProvider(context.Background(), riskProviderId).Instance(instance).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `RiskProviderAPI.ReplaceRiskProvider``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `ReplaceRiskProvider`: RiskProvider
+	fmt.Fprintf(os.Stdout, "Response from `RiskProviderAPI.ReplaceRiskProvider`: %v\n", resp)
 }
 ```
 

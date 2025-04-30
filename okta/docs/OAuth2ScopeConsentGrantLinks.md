@@ -5,8 +5,8 @@
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **Self** | Pointer to [**HrefObjectSelfLink**](HrefObjectSelfLink.md) |  | [optional] 
-**App** | Pointer to [**AppCustomHrefObject**](AppCustomHrefObject.md) |  | [optional] 
-**Client** | Pointer to [**AppCustomHrefObject**](AppCustomHrefObject.md) |  | [optional] 
+**App** | Pointer to [**AppCustomHrefObject**](AppCustomHrefObject.md) | Link to the app resource | [optional] 
+**Client** | Pointer to [**AppCustomHrefObject**](AppCustomHrefObject.md) | Link to the client resource | [optional] 
 
 ## Methods
 
