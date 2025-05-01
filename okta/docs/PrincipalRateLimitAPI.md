@@ -25,24 +25,24 @@ Create a Principal Rate Limit
 package main
 
 import (
-    "context"
-    "fmt"
-    "os"
-    openapiclient "github.com/okta/okta-sdk-golang"
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/okta/okta-sdk-golang"
 )
 
 func main() {
-    entity := *openapiclient.NewPrincipalRateLimitEntity("PrincipalId_example", "PrincipalType_example") // PrincipalRateLimitEntity | 
+	entity := *openapiclient.NewPrincipalRateLimitEntity("PrincipalId_example", "PrincipalType_example") // PrincipalRateLimitEntity | 
 
-    configuration := openapiclient.NewConfiguration()
-    apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.PrincipalRateLimitAPI.CreatePrincipalRateLimitEntity(context.Background()).Entity(entity).Execute()
-    if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `PrincipalRateLimitAPI.CreatePrincipalRateLimitEntity``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-    }
-    // response from `CreatePrincipalRateLimitEntity`: PrincipalRateLimitEntity
-    fmt.Fprintf(os.Stdout, "Response from `PrincipalRateLimitAPI.CreatePrincipalRateLimitEntity`: %v\n", resp)
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.PrincipalRateLimitAPI.CreatePrincipalRateLimitEntity(context.Background()).Entity(entity).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `PrincipalRateLimitAPI.CreatePrincipalRateLimitEntity``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `CreatePrincipalRateLimitEntity`: PrincipalRateLimitEntity
+	fmt.Fprintf(os.Stdout, "Response from `PrincipalRateLimitAPI.CreatePrincipalRateLimitEntity`: %v\n", resp)
 }
 ```
 
@@ -91,24 +91,24 @@ Retrieve a Principal Rate Limit
 package main
 
 import (
-    "context"
-    "fmt"
-    "os"
-    openapiclient "github.com/okta/okta-sdk-golang"
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/okta/okta-sdk-golang"
 )
 
 func main() {
-    principalRateLimitId := "abcd1234" // string | id of the Principal Rate Limit
+	principalRateLimitId := "abcd1234" // string | id of the Principal Rate Limit
 
-    configuration := openapiclient.NewConfiguration()
-    apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.PrincipalRateLimitAPI.GetPrincipalRateLimitEntity(context.Background(), principalRateLimitId).Execute()
-    if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `PrincipalRateLimitAPI.GetPrincipalRateLimitEntity``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-    }
-    // response from `GetPrincipalRateLimitEntity`: PrincipalRateLimitEntity
-    fmt.Fprintf(os.Stdout, "Response from `PrincipalRateLimitAPI.GetPrincipalRateLimitEntity`: %v\n", resp)
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.PrincipalRateLimitAPI.GetPrincipalRateLimitEntity(context.Background(), principalRateLimitId).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `PrincipalRateLimitAPI.GetPrincipalRateLimitEntity``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `GetPrincipalRateLimitEntity`: PrincipalRateLimitEntity
+	fmt.Fprintf(os.Stdout, "Response from `PrincipalRateLimitAPI.GetPrincipalRateLimitEntity`: %v\n", resp)
 }
 ```
 
@@ -161,26 +161,26 @@ List all Principal Rate Limits
 package main
 
 import (
-    "context"
-    "fmt"
-    "os"
-    openapiclient "github.com/okta/okta-sdk-golang"
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/okta/okta-sdk-golang"
 )
 
 func main() {
-    filter := "filter_example" // string |  (optional)
-    after := "after_example" // string |  (optional)
-    limit := int32(56) // int32 |  (optional) (default to 20)
+	filter := "filter_example" // string |  (optional)
+	after := "after_example" // string |  (optional)
+	limit := int32(56) // int32 |  (optional) (default to 20)
 
-    configuration := openapiclient.NewConfiguration()
-    apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.PrincipalRateLimitAPI.ListPrincipalRateLimitEntities(context.Background()).Filter(filter).After(after).Limit(limit).Execute()
-    if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `PrincipalRateLimitAPI.ListPrincipalRateLimitEntities``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-    }
-    // response from `ListPrincipalRateLimitEntities`: []PrincipalRateLimitEntity
-    fmt.Fprintf(os.Stdout, "Response from `PrincipalRateLimitAPI.ListPrincipalRateLimitEntities`: %v\n", resp)
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.PrincipalRateLimitAPI.ListPrincipalRateLimitEntities(context.Background()).Filter(filter).After(after).Limit(limit).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `PrincipalRateLimitAPI.ListPrincipalRateLimitEntities``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `ListPrincipalRateLimitEntities`: []PrincipalRateLimitEntity
+	fmt.Fprintf(os.Stdout, "Response from `PrincipalRateLimitAPI.ListPrincipalRateLimitEntities`: %v\n", resp)
 }
 ```
 
@@ -231,25 +231,25 @@ Replace a Principal Rate Limit
 package main
 
 import (
-    "context"
-    "fmt"
-    "os"
-    openapiclient "github.com/okta/okta-sdk-golang"
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/okta/okta-sdk-golang"
 )
 
 func main() {
-    principalRateLimitId := "abcd1234" // string | id of the Principal Rate Limit
-    entity := *openapiclient.NewPrincipalRateLimitEntity("PrincipalId_example", "PrincipalType_example") // PrincipalRateLimitEntity | 
+	principalRateLimitId := "abcd1234" // string | id of the Principal Rate Limit
+	entity := *openapiclient.NewPrincipalRateLimitEntity("PrincipalId_example", "PrincipalType_example") // PrincipalRateLimitEntity | 
 
-    configuration := openapiclient.NewConfiguration()
-    apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.PrincipalRateLimitAPI.ReplacePrincipalRateLimitEntity(context.Background(), principalRateLimitId).Entity(entity).Execute()
-    if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `PrincipalRateLimitAPI.ReplacePrincipalRateLimitEntity``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-    }
-    // response from `ReplacePrincipalRateLimitEntity`: PrincipalRateLimitEntity
-    fmt.Fprintf(os.Stdout, "Response from `PrincipalRateLimitAPI.ReplacePrincipalRateLimitEntity`: %v\n", resp)
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.PrincipalRateLimitAPI.ReplacePrincipalRateLimitEntity(context.Background(), principalRateLimitId).Entity(entity).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `PrincipalRateLimitAPI.ReplacePrincipalRateLimitEntity``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `ReplacePrincipalRateLimitEntity`: PrincipalRateLimitEntity
+	fmt.Fprintf(os.Stdout, "Response from `PrincipalRateLimitAPI.ReplacePrincipalRateLimitEntity`: %v\n", resp)
 }
 ```
 

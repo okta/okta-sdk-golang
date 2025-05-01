@@ -4,7 +4,7 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**Activate** | Pointer to [**LinksActivateActivate**](LinksActivateActivate.md) |  | [optional] 
+**Activate** | Pointer to [**HrefObject**](HrefObject.md) |  | [optional] 
 
 ## Methods
 
@@ -27,20 +27,20 @@ but it doesn't guarantee that properties required by API are set
 
 ### GetActivate
 
-`func (o *LinksActivate) GetActivate() LinksActivateActivate`
+`func (o *LinksActivate) GetActivate() HrefObject`
 
 GetActivate returns the Activate field if non-nil, zero value otherwise.
 
 ### GetActivateOk
 
-`func (o *LinksActivate) GetActivateOk() (*LinksActivateActivate, bool)`
+`func (o *LinksActivate) GetActivateOk() (*HrefObject, bool)`
 
 GetActivateOk returns a tuple with the Activate field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetActivate
 
-`func (o *LinksActivate) SetActivate(v LinksActivateActivate)`
+`func (o *LinksActivate) SetActivate(v HrefObject)`
 
 SetActivate sets Activate field to given value.
 

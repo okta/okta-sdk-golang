@@ -4,19 +4,19 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**Activate** | Pointer to [**LinksActivateActivate**](LinksActivateActivate.md) |  | [optional] 
-**Cancel** | Pointer to [**LinksCancelCancel**](LinksCancelCancel.md) |  | [optional] 
-**Deactivate** | Pointer to [**LinksDeactivateDeactivate**](LinksDeactivateDeactivate.md) |  | [optional] 
-**Enroll** | Pointer to [**LinksEnrollEnroll**](LinksEnrollEnroll.md) |  | [optional] 
-**Factor** | Pointer to [**LinksFactorFactor**](LinksFactorFactor.md) |  | [optional] 
-**Poll** | Pointer to [**LinksPollPoll**](LinksPollPoll.md) |  | [optional] 
-**Qrcode** | Pointer to [**LinksQrcodeQrcode**](LinksQrcodeQrcode.md) |  | [optional] 
-**Question** | Pointer to [**LinksQuestionsQuestion**](LinksQuestionsQuestion.md) |  | [optional] 
-**Resend** | Pointer to [**LinksResendResend**](LinksResendResend.md) |  | [optional] 
-**Send** | Pointer to [**LinksSendSend**](LinksSendSend.md) |  | [optional] 
+**Activate** | Pointer to [**HrefObject**](HrefObject.md) |  | [optional] 
+**Cancel** | Pointer to [**HrefObject**](HrefObject.md) |  | [optional] 
+**Deactivate** | Pointer to [**HrefObject**](HrefObject.md) |  | [optional] 
+**Enroll** | Pointer to [**HrefObject**](HrefObject.md) |  | [optional] 
+**Factor** | Pointer to [**HrefObject**](HrefObject.md) |  | [optional] 
+**Poll** | Pointer to [**HrefObject**](HrefObject.md) |  | [optional] 
+**Qrcode** | Pointer to [**HrefObject**](HrefObject.md) |  | [optional] 
+**Question** | Pointer to [**HrefObject**](HrefObject.md) |  | [optional] 
+**Resend** | Pointer to [**HrefObject**](HrefObject.md) |  | [optional] 
+**Send** | Pointer to [**HrefObject**](HrefObject.md) |  | [optional] 
 **Self** | Pointer to [**HrefObjectSelfLink**](HrefObjectSelfLink.md) |  | [optional] 
-**User** | Pointer to [**LinksUserUser**](LinksUserUser.md) |  | [optional] 
-**Verify** | Pointer to [**LinksVerifyVerify**](LinksVerifyVerify.md) |  | [optional] 
+**User** | Pointer to [**HrefObject**](HrefObject.md) |  | [optional] 
+**Verify** | Pointer to [**HrefObject**](HrefObject.md) |  | [optional] 
 
 ## Methods
 
@@ -39,20 +39,20 @@ but it doesn't guarantee that properties required by API are set
 
 ### GetActivate
 
-`func (o *UserFactorLinks) GetActivate() LinksActivateActivate`
+`func (o *UserFactorLinks) GetActivate() HrefObject`
 
 GetActivate returns the Activate field if non-nil, zero value otherwise.
 
 ### GetActivateOk
 
-`func (o *UserFactorLinks) GetActivateOk() (*LinksActivateActivate, bool)`
+`func (o *UserFactorLinks) GetActivateOk() (*HrefObject, bool)`
 
 GetActivateOk returns a tuple with the Activate field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetActivate
 
-`func (o *UserFactorLinks) SetActivate(v LinksActivateActivate)`
+`func (o *UserFactorLinks) SetActivate(v HrefObject)`
 
 SetActivate sets Activate field to given value.
 
@@ -64,20 +64,20 @@ HasActivate returns a boolean if a field has been set.
 
 ### GetCancel
 
-`func (o *UserFactorLinks) GetCancel() LinksCancelCancel`
+`func (o *UserFactorLinks) GetCancel() HrefObject`
 
 GetCancel returns the Cancel field if non-nil, zero value otherwise.
 
 ### GetCancelOk
 
-`func (o *UserFactorLinks) GetCancelOk() (*LinksCancelCancel, bool)`
+`func (o *UserFactorLinks) GetCancelOk() (*HrefObject, bool)`
 
 GetCancelOk returns a tuple with the Cancel field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetCancel
 
-`func (o *UserFactorLinks) SetCancel(v LinksCancelCancel)`
+`func (o *UserFactorLinks) SetCancel(v HrefObject)`
 
 SetCancel sets Cancel field to given value.
 
@@ -89,20 +89,20 @@ HasCancel returns a boolean if a field has been set.
 
 ### GetDeactivate
 
-`func (o *UserFactorLinks) GetDeactivate() LinksDeactivateDeactivate`
+`func (o *UserFactorLinks) GetDeactivate() HrefObject`
 
 GetDeactivate returns the Deactivate field if non-nil, zero value otherwise.
 
 ### GetDeactivateOk
 
-`func (o *UserFactorLinks) GetDeactivateOk() (*LinksDeactivateDeactivate, bool)`
+`func (o *UserFactorLinks) GetDeactivateOk() (*HrefObject, bool)`
 
 GetDeactivateOk returns a tuple with the Deactivate field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetDeactivate
 
-`func (o *UserFactorLinks) SetDeactivate(v LinksDeactivateDeactivate)`
+`func (o *UserFactorLinks) SetDeactivate(v HrefObject)`
 
 SetDeactivate sets Deactivate field to given value.
 
@@ -114,20 +114,20 @@ HasDeactivate returns a boolean if a field has been set.
 
 ### GetEnroll
 
-`func (o *UserFactorLinks) GetEnroll() LinksEnrollEnroll`
+`func (o *UserFactorLinks) GetEnroll() HrefObject`
 
 GetEnroll returns the Enroll field if non-nil, zero value otherwise.
 
 ### GetEnrollOk
 
-`func (o *UserFactorLinks) GetEnrollOk() (*LinksEnrollEnroll, bool)`
+`func (o *UserFactorLinks) GetEnrollOk() (*HrefObject, bool)`
 
 GetEnrollOk returns a tuple with the Enroll field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetEnroll
 
-`func (o *UserFactorLinks) SetEnroll(v LinksEnrollEnroll)`
+`func (o *UserFactorLinks) SetEnroll(v HrefObject)`
 
 SetEnroll sets Enroll field to given value.
 
@@ -139,20 +139,20 @@ HasEnroll returns a boolean if a field has been set.
 
 ### GetFactor
 
-`func (o *UserFactorLinks) GetFactor() LinksFactorFactor`
+`func (o *UserFactorLinks) GetFactor() HrefObject`
 
 GetFactor returns the Factor field if non-nil, zero value otherwise.
 
 ### GetFactorOk
 
-`func (o *UserFactorLinks) GetFactorOk() (*LinksFactorFactor, bool)`
+`func (o *UserFactorLinks) GetFactorOk() (*HrefObject, bool)`
 
 GetFactorOk returns a tuple with the Factor field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetFactor
 
-`func (o *UserFactorLinks) SetFactor(v LinksFactorFactor)`
+`func (o *UserFactorLinks) SetFactor(v HrefObject)`
 
 SetFactor sets Factor field to given value.
 
@@ -164,20 +164,20 @@ HasFactor returns a boolean if a field has been set.
 
 ### GetPoll
 
-`func (o *UserFactorLinks) GetPoll() LinksPollPoll`
+`func (o *UserFactorLinks) GetPoll() HrefObject`
 
 GetPoll returns the Poll field if non-nil, zero value otherwise.
 
 ### GetPollOk
 
-`func (o *UserFactorLinks) GetPollOk() (*LinksPollPoll, bool)`
+`func (o *UserFactorLinks) GetPollOk() (*HrefObject, bool)`
 
 GetPollOk returns a tuple with the Poll field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetPoll
 
-`func (o *UserFactorLinks) SetPoll(v LinksPollPoll)`
+`func (o *UserFactorLinks) SetPoll(v HrefObject)`
 
 SetPoll sets Poll field to given value.
 
@@ -189,20 +189,20 @@ HasPoll returns a boolean if a field has been set.
 
 ### GetQrcode
 
-`func (o *UserFactorLinks) GetQrcode() LinksQrcodeQrcode`
+`func (o *UserFactorLinks) GetQrcode() HrefObject`
 
 GetQrcode returns the Qrcode field if non-nil, zero value otherwise.
 
 ### GetQrcodeOk
 
-`func (o *UserFactorLinks) GetQrcodeOk() (*LinksQrcodeQrcode, bool)`
+`func (o *UserFactorLinks) GetQrcodeOk() (*HrefObject, bool)`
 
 GetQrcodeOk returns a tuple with the Qrcode field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetQrcode
 
-`func (o *UserFactorLinks) SetQrcode(v LinksQrcodeQrcode)`
+`func (o *UserFactorLinks) SetQrcode(v HrefObject)`
 
 SetQrcode sets Qrcode field to given value.
 
@@ -214,20 +214,20 @@ HasQrcode returns a boolean if a field has been set.
 
 ### GetQuestion
 
-`func (o *UserFactorLinks) GetQuestion() LinksQuestionsQuestion`
+`func (o *UserFactorLinks) GetQuestion() HrefObject`
 
 GetQuestion returns the Question field if non-nil, zero value otherwise.
 
 ### GetQuestionOk
 
-`func (o *UserFactorLinks) GetQuestionOk() (*LinksQuestionsQuestion, bool)`
+`func (o *UserFactorLinks) GetQuestionOk() (*HrefObject, bool)`
 
 GetQuestionOk returns a tuple with the Question field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetQuestion
 
-`func (o *UserFactorLinks) SetQuestion(v LinksQuestionsQuestion)`
+`func (o *UserFactorLinks) SetQuestion(v HrefObject)`
 
 SetQuestion sets Question field to given value.
 
@@ -239,20 +239,20 @@ HasQuestion returns a boolean if a field has been set.
 
 ### GetResend
 
-`func (o *UserFactorLinks) GetResend() LinksResendResend`
+`func (o *UserFactorLinks) GetResend() HrefObject`
 
 GetResend returns the Resend field if non-nil, zero value otherwise.
 
 ### GetResendOk
 
-`func (o *UserFactorLinks) GetResendOk() (*LinksResendResend, bool)`
+`func (o *UserFactorLinks) GetResendOk() (*HrefObject, bool)`
 
 GetResendOk returns a tuple with the Resend field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetResend
 
-`func (o *UserFactorLinks) SetResend(v LinksResendResend)`
+`func (o *UserFactorLinks) SetResend(v HrefObject)`
 
 SetResend sets Resend field to given value.
 
@@ -264,20 +264,20 @@ HasResend returns a boolean if a field has been set.
 
 ### GetSend
 
-`func (o *UserFactorLinks) GetSend() LinksSendSend`
+`func (o *UserFactorLinks) GetSend() HrefObject`
 
 GetSend returns the Send field if non-nil, zero value otherwise.
 
 ### GetSendOk
 
-`func (o *UserFactorLinks) GetSendOk() (*LinksSendSend, bool)`
+`func (o *UserFactorLinks) GetSendOk() (*HrefObject, bool)`
 
 GetSendOk returns a tuple with the Send field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetSend
 
-`func (o *UserFactorLinks) SetSend(v LinksSendSend)`
+`func (o *UserFactorLinks) SetSend(v HrefObject)`
 
 SetSend sets Send field to given value.
 
@@ -314,20 +314,20 @@ HasSelf returns a boolean if a field has been set.
 
 ### GetUser
 
-`func (o *UserFactorLinks) GetUser() LinksUserUser`
+`func (o *UserFactorLinks) GetUser() HrefObject`
 
 GetUser returns the User field if non-nil, zero value otherwise.
 
 ### GetUserOk
 
-`func (o *UserFactorLinks) GetUserOk() (*LinksUserUser, bool)`
+`func (o *UserFactorLinks) GetUserOk() (*HrefObject, bool)`
 
 GetUserOk returns a tuple with the User field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetUser
 
-`func (o *UserFactorLinks) SetUser(v LinksUserUser)`
+`func (o *UserFactorLinks) SetUser(v HrefObject)`
 
 SetUser sets User field to given value.
 
@@ -339,20 +339,20 @@ HasUser returns a boolean if a field has been set.
 
 ### GetVerify
 
-`func (o *UserFactorLinks) GetVerify() LinksVerifyVerify`
+`func (o *UserFactorLinks) GetVerify() HrefObject`
 
 GetVerify returns the Verify field if non-nil, zero value otherwise.
 
 ### GetVerifyOk
 
-`func (o *UserFactorLinks) GetVerifyOk() (*LinksVerifyVerify, bool)`
+`func (o *UserFactorLinks) GetVerifyOk() (*HrefObject, bool)`
 
 GetVerifyOk returns a tuple with the Verify field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetVerify
 
-`func (o *UserFactorLinks) SetVerify(v LinksVerifyVerify)`
+`func (o *UserFactorLinks) SetVerify(v HrefObject)`
 
 SetVerify sets Verify field to given value.
 

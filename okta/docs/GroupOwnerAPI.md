@@ -24,25 +24,25 @@ Assign a Group Owner
 package main
 
 import (
-    "context"
-    "fmt"
-    "os"
-    openapiclient "github.com/okta/okta-sdk-golang"
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/okta/okta-sdk-golang"
 )
 
 func main() {
-    groupId := "00g1emaKYZTWRYYRRTSK" // string | The `id` of the group
-    assignGroupOwnerRequestBody := *openapiclient.NewAssignGroupOwnerRequestBody() // AssignGroupOwnerRequestBody | 
+	groupId := "00g1emaKYZTWRYYRRTSK" // string | The `id` of the group
+	assignGroupOwnerRequestBody := *openapiclient.NewAssignGroupOwnerRequestBody() // AssignGroupOwnerRequestBody | 
 
-    configuration := openapiclient.NewConfiguration()
-    apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.GroupOwnerAPI.AssignGroupOwner(context.Background(), groupId).AssignGroupOwnerRequestBody(assignGroupOwnerRequestBody).Execute()
-    if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `GroupOwnerAPI.AssignGroupOwner``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-    }
-    // response from `AssignGroupOwner`: GroupOwner
-    fmt.Fprintf(os.Stdout, "Response from `GroupOwnerAPI.AssignGroupOwner`: %v\n", resp)
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.GroupOwnerAPI.AssignGroupOwner(context.Background(), groupId).AssignGroupOwnerRequestBody(assignGroupOwnerRequestBody).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `GroupOwnerAPI.AssignGroupOwner``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `AssignGroupOwner`: GroupOwner
+	fmt.Fprintf(os.Stdout, "Response from `GroupOwnerAPI.AssignGroupOwner`: %v\n", resp)
 }
 ```
 
@@ -96,23 +96,23 @@ Delete a Group Owner
 package main
 
 import (
-    "context"
-    "fmt"
-    "os"
-    openapiclient "github.com/okta/okta-sdk-golang"
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/okta/okta-sdk-golang"
 )
 
 func main() {
-    groupId := "00g1emaKYZTWRYYRRTSK" // string | The `id` of the group
-    ownerId := "00u1emaK22TWRYd3TtG" // string | The `id` of the group owner
+	groupId := "00g1emaKYZTWRYYRRTSK" // string | The `id` of the group
+	ownerId := "00u1emaK22TWRYd3TtG" // string | The `id` of the group owner
 
-    configuration := openapiclient.NewConfiguration()
-    apiClient := openapiclient.NewAPIClient(configuration)
-    r, err := apiClient.GroupOwnerAPI.DeleteGroupOwner(context.Background(), groupId, ownerId).Execute()
-    if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `GroupOwnerAPI.DeleteGroupOwner``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-    }
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	r, err := apiClient.GroupOwnerAPI.DeleteGroupOwner(context.Background(), groupId, ownerId).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `GroupOwnerAPI.DeleteGroupOwner``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
 }
 ```
 
@@ -167,27 +167,27 @@ List all Group Owners
 package main
 
 import (
-    "context"
-    "fmt"
-    "os"
-    openapiclient "github.com/okta/okta-sdk-golang"
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/okta/okta-sdk-golang"
 )
 
 func main() {
-    groupId := "00g1emaKYZTWRYYRRTSK" // string | The `id` of the group
-    search := "search_example" // string | SCIM Filter expression for group owners. Allows to filter owners by type. (optional)
-    after := "after_example" // string | Specifies the pagination cursor for the next page of owners (optional)
-    limit := int32(56) // int32 | Specifies the number of owner results in a page (optional) (default to 1000)
+	groupId := "00g1emaKYZTWRYYRRTSK" // string | The `id` of the group
+	search := "search_example" // string | SCIM Filter expression for group owners. Allows to filter owners by type. (optional)
+	after := "after_example" // string | Specifies the pagination cursor for the next page of owners (optional)
+	limit := int32(56) // int32 | Specifies the number of owner results in a page (optional) (default to 1000)
 
-    configuration := openapiclient.NewConfiguration()
-    apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.GroupOwnerAPI.ListGroupOwners(context.Background(), groupId).Search(search).After(after).Limit(limit).Execute()
-    if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `GroupOwnerAPI.ListGroupOwners``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-    }
-    // response from `ListGroupOwners`: []GroupOwner
-    fmt.Fprintf(os.Stdout, "Response from `GroupOwnerAPI.ListGroupOwners`: %v\n", resp)
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.GroupOwnerAPI.ListGroupOwners(context.Background(), groupId).Search(search).After(after).Limit(limit).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `GroupOwnerAPI.ListGroupOwners``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `ListGroupOwners`: []GroupOwner
+	fmt.Fprintf(os.Stdout, "Response from `GroupOwnerAPI.ListGroupOwners`: %v\n", resp)
 }
 ```
 

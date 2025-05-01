@@ -4,8 +4,8 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**Poll** | Pointer to [**LinksPollPoll**](LinksPollPoll.md) |  | [optional] 
-**Cancel** | Pointer to [**LinksCancelCancel**](LinksCancelCancel.md) |  | [optional] 
+**Poll** | Pointer to [**HrefObject**](HrefObject.md) |  | [optional] 
+**Cancel** | Pointer to [**HrefObject**](HrefObject.md) |  | [optional] 
 
 ## Methods
 
@@ -28,20 +28,20 @@ but it doesn't guarantee that properties required by API are set
 
 ### GetPoll
 
-`func (o *UserFactorPushTransactionWaitingAllOfLinks) GetPoll() LinksPollPoll`
+`func (o *UserFactorPushTransactionWaitingAllOfLinks) GetPoll() HrefObject`
 
 GetPoll returns the Poll field if non-nil, zero value otherwise.
 
 ### GetPollOk
 
-`func (o *UserFactorPushTransactionWaitingAllOfLinks) GetPollOk() (*LinksPollPoll, bool)`
+`func (o *UserFactorPushTransactionWaitingAllOfLinks) GetPollOk() (*HrefObject, bool)`
 
 GetPollOk returns a tuple with the Poll field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetPoll
 
-`func (o *UserFactorPushTransactionWaitingAllOfLinks) SetPoll(v LinksPollPoll)`
+`func (o *UserFactorPushTransactionWaitingAllOfLinks) SetPoll(v HrefObject)`
 
 SetPoll sets Poll field to given value.
 
@@ -53,20 +53,20 @@ HasPoll returns a boolean if a field has been set.
 
 ### GetCancel
 
-`func (o *UserFactorPushTransactionWaitingAllOfLinks) GetCancel() LinksCancelCancel`
+`func (o *UserFactorPushTransactionWaitingAllOfLinks) GetCancel() HrefObject`
 
 GetCancel returns the Cancel field if non-nil, zero value otherwise.
 
 ### GetCancelOk
 
-`func (o *UserFactorPushTransactionWaitingAllOfLinks) GetCancelOk() (*LinksCancelCancel, bool)`
+`func (o *UserFactorPushTransactionWaitingAllOfLinks) GetCancelOk() (*HrefObject, bool)`
 
 GetCancelOk returns a tuple with the Cancel field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetCancel
 
-`func (o *UserFactorPushTransactionWaitingAllOfLinks) SetCancel(v LinksCancelCancel)`
+`func (o *UserFactorPushTransactionWaitingAllOfLinks) SetCancel(v HrefObject)`
 
 SetCancel sets Cancel field to given value.
 

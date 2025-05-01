@@ -6,7 +6,7 @@ Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **Body** | **string** | The HTML body of the email. May contain [variable references](https://velocity.apache.org/engine/1.7/user-guide.html#references).   &lt;x-lifecycle class&#x3D;\&quot;ea\&quot;&gt;&lt;/x-lifecycle&gt; Not required if Custom languages for Okta Email Templates is enabled. A &#x60;null&#x60; body is replaced with a default value from one of the following in priority order:  1. An existing default email customization, if one exists 2. Okta-provided translated content for the specified language, if one exists 3. Okta-provided translated content for the brand locale, if it&#39;s set  4. Okta-provided content in English  | 
 **Subject** | **string** | The email subject. May contain [variable references](https://velocity.apache.org/engine/1.7/user-guide.html#references).  &lt;x-lifecycle class&#x3D;\&quot;ea\&quot;&gt;&lt;/x-lifecycle&gt; Not required if Custom languages for Okta Email Templates is enabled. A &#x60;null&#x60; subject is replaced with a default value from one of the following in priority order:  1. An existing default email customization, if one exists 2. Okta-provided translated content for the specified language, if one exists 3. Okta-provided translated content for the brand locale, if it&#39;s set 4. Okta-provided content in English  | 
-**Links** | Pointer to [**EmailDefaultContentAllOfLinks**](EmailDefaultContentAllOfLinks.md) |  | [optional] 
+**Links** | Pointer to **map[string]interface{}** |  | [optional] 
 
 ## Methods
 
@@ -69,20 +69,20 @@ SetSubject sets Subject field to given value.
 
 ### GetLinks
 
-`func (o *EmailDefaultContent) GetLinks() EmailDefaultContentAllOfLinks`
+`func (o *EmailDefaultContent) GetLinks() map[string]interface{}`
 
 GetLinks returns the Links field if non-nil, zero value otherwise.
 
 ### GetLinksOk
 
-`func (o *EmailDefaultContent) GetLinksOk() (*EmailDefaultContentAllOfLinks, bool)`
+`func (o *EmailDefaultContent) GetLinksOk() (*map[string]interface{}, bool)`
 
 GetLinksOk returns a tuple with the Links field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetLinks
 
-`func (o *EmailDefaultContent) SetLinks(v EmailDefaultContentAllOfLinks)`
+`func (o *EmailDefaultContent) SetLinks(v map[string]interface{})`
 
 SetLinks sets Links field to given value.
 

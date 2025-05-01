@@ -5,6 +5,10 @@
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **HookKeyId** | Pointer to **string** |  | [optional] 
+**AuthType** | Pointer to **string** |  | [optional] 
+**ClientId** | Pointer to **string** |  | [optional] 
+**Scope** | Pointer to **string** |  | [optional] 
+**TokenUrl** | Pointer to **string** |  | [optional] 
 **AuthScheme** | Pointer to [**InlineHookChannelConfigAuthScheme**](InlineHookChannelConfigAuthScheme.md) |  | [optional] 
 **Headers** | Pointer to [**[]InlineHookChannelConfigHeaders**](InlineHookChannelConfigHeaders.md) |  | [optional] 
 **Method** | Pointer to **string** |  | [optional] 
@@ -53,6 +57,106 @@ SetHookKeyId sets HookKeyId field to given value.
 `func (o *InlineHookOAuthPrivateKeyJwtConfig) HasHookKeyId() bool`
 
 HasHookKeyId returns a boolean if a field has been set.
+
+### GetAuthType
+
+`func (o *InlineHookOAuthPrivateKeyJwtConfig) GetAuthType() string`
+
+GetAuthType returns the AuthType field if non-nil, zero value otherwise.
+
+### GetAuthTypeOk
+
+`func (o *InlineHookOAuthPrivateKeyJwtConfig) GetAuthTypeOk() (*string, bool)`
+
+GetAuthTypeOk returns a tuple with the AuthType field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetAuthType
+
+`func (o *InlineHookOAuthPrivateKeyJwtConfig) SetAuthType(v string)`
+
+SetAuthType sets AuthType field to given value.
+
+### HasAuthType
+
+`func (o *InlineHookOAuthPrivateKeyJwtConfig) HasAuthType() bool`
+
+HasAuthType returns a boolean if a field has been set.
+
+### GetClientId
+
+`func (o *InlineHookOAuthPrivateKeyJwtConfig) GetClientId() string`
+
+GetClientId returns the ClientId field if non-nil, zero value otherwise.
+
+### GetClientIdOk
+
+`func (o *InlineHookOAuthPrivateKeyJwtConfig) GetClientIdOk() (*string, bool)`
+
+GetClientIdOk returns a tuple with the ClientId field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetClientId
+
+`func (o *InlineHookOAuthPrivateKeyJwtConfig) SetClientId(v string)`
+
+SetClientId sets ClientId field to given value.
+
+### HasClientId
+
+`func (o *InlineHookOAuthPrivateKeyJwtConfig) HasClientId() bool`
+
+HasClientId returns a boolean if a field has been set.
+
+### GetScope
+
+`func (o *InlineHookOAuthPrivateKeyJwtConfig) GetScope() string`
+
+GetScope returns the Scope field if non-nil, zero value otherwise.
+
+### GetScopeOk
+
+`func (o *InlineHookOAuthPrivateKeyJwtConfig) GetScopeOk() (*string, bool)`
+
+GetScopeOk returns a tuple with the Scope field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetScope
+
+`func (o *InlineHookOAuthPrivateKeyJwtConfig) SetScope(v string)`
+
+SetScope sets Scope field to given value.
+
+### HasScope
+
+`func (o *InlineHookOAuthPrivateKeyJwtConfig) HasScope() bool`
+
+HasScope returns a boolean if a field has been set.
+
+### GetTokenUrl
+
+`func (o *InlineHookOAuthPrivateKeyJwtConfig) GetTokenUrl() string`
+
+GetTokenUrl returns the TokenUrl field if non-nil, zero value otherwise.
+
+### GetTokenUrlOk
+
+`func (o *InlineHookOAuthPrivateKeyJwtConfig) GetTokenUrlOk() (*string, bool)`
+
+GetTokenUrlOk returns a tuple with the TokenUrl field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetTokenUrl
+
+`func (o *InlineHookOAuthPrivateKeyJwtConfig) SetTokenUrl(v string)`
+
+SetTokenUrl sets TokenUrl field to given value.
+
+### HasTokenUrl
+
+`func (o *InlineHookOAuthPrivateKeyJwtConfig) HasTokenUrl() bool`
+
+HasTokenUrl returns a boolean if a field has been set.
 
 ### GetAuthScheme
 

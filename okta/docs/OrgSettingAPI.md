@@ -44,24 +44,24 @@ Assign the Super Admin role to a public client app
 package main
 
 import (
-    "context"
-    "fmt"
-    "os"
-    openapiclient "github.com/okta/okta-sdk-golang"
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/okta/okta-sdk-golang"
 )
 
 func main() {
-    clientPrivilegesSetting := *openapiclient.NewClientPrivilegesSetting() // ClientPrivilegesSetting |  (optional)
+	clientPrivilegesSetting := *openapiclient.NewClientPrivilegesSetting() // ClientPrivilegesSetting |  (optional)
 
-    configuration := openapiclient.NewConfiguration()
-    apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.OrgSettingAPI.AssignClientPrivilegesSetting(context.Background()).ClientPrivilegesSetting(clientPrivilegesSetting).Execute()
-    if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `OrgSettingAPI.AssignClientPrivilegesSetting``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-    }
-    // response from `AssignClientPrivilegesSetting`: ClientPrivilegesSetting
-    fmt.Fprintf(os.Stdout, "Response from `OrgSettingAPI.AssignClientPrivilegesSetting`: %v\n", resp)
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.OrgSettingAPI.AssignClientPrivilegesSetting(context.Background()).ClientPrivilegesSetting(clientPrivilegesSetting).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `OrgSettingAPI.AssignClientPrivilegesSetting``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `AssignClientPrivilegesSetting`: ClientPrivilegesSetting
+	fmt.Fprintf(os.Stdout, "Response from `OrgSettingAPI.AssignClientPrivilegesSetting`: %v\n", resp)
 }
 ```
 
@@ -110,24 +110,24 @@ Remove Emails from Email Provider Bounce List
 package main
 
 import (
-    "context"
-    "fmt"
-    "os"
-    openapiclient "github.com/okta/okta-sdk-golang"
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/okta/okta-sdk-golang"
 )
 
 func main() {
-    bouncesRemoveListObj := *openapiclient.NewBouncesRemoveListObj() // BouncesRemoveListObj |  (optional)
+	bouncesRemoveListObj := *openapiclient.NewBouncesRemoveListObj() // BouncesRemoveListObj |  (optional)
 
-    configuration := openapiclient.NewConfiguration()
-    apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.OrgSettingAPI.BulkRemoveEmailAddressBounces(context.Background()).BouncesRemoveListObj(bouncesRemoveListObj).Execute()
-    if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `OrgSettingAPI.BulkRemoveEmailAddressBounces``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-    }
-    // response from `BulkRemoveEmailAddressBounces`: BouncesRemoveListResult
-    fmt.Fprintf(os.Stdout, "Response from `OrgSettingAPI.BulkRemoveEmailAddressBounces`: %v\n", resp)
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.OrgSettingAPI.BulkRemoveEmailAddressBounces(context.Background()).BouncesRemoveListObj(bouncesRemoveListObj).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `OrgSettingAPI.BulkRemoveEmailAddressBounces``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `BulkRemoveEmailAddressBounces`: BouncesRemoveListResult
+	fmt.Fprintf(os.Stdout, "Response from `OrgSettingAPI.BulkRemoveEmailAddressBounces`: %v\n", resp)
 }
 ```
 
@@ -176,23 +176,23 @@ Extend Okta Support Access
 package main
 
 import (
-    "context"
-    "fmt"
-    "os"
-    openapiclient "github.com/okta/okta-sdk-golang"
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/okta/okta-sdk-golang"
 )
 
 func main() {
 
-    configuration := openapiclient.NewConfiguration()
-    apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.OrgSettingAPI.ExtendOktaSupport(context.Background()).Execute()
-    if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `OrgSettingAPI.ExtendOktaSupport``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-    }
-    // response from `ExtendOktaSupport`: OrgOktaSupportSettingsObj
-    fmt.Fprintf(os.Stdout, "Response from `OrgSettingAPI.ExtendOktaSupport`: %v\n", resp)
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.OrgSettingAPI.ExtendOktaSupport(context.Background()).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `OrgSettingAPI.ExtendOktaSupport``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `ExtendOktaSupport`: OrgOktaSupportSettingsObj
+	fmt.Fprintf(os.Stdout, "Response from `OrgSettingAPI.ExtendOktaSupport`: %v\n", resp)
 }
 ```
 
@@ -237,23 +237,23 @@ Retrieve the Org settings to assign the Super Admin role
 package main
 
 import (
-    "context"
-    "fmt"
-    "os"
-    openapiclient "github.com/okta/okta-sdk-golang"
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/okta/okta-sdk-golang"
 )
 
 func main() {
 
-    configuration := openapiclient.NewConfiguration()
-    apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.OrgSettingAPI.GetClientPrivilegesSetting(context.Background()).Execute()
-    if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `OrgSettingAPI.GetClientPrivilegesSetting``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-    }
-    // response from `GetClientPrivilegesSetting`: ClientPrivilegesSetting
-    fmt.Fprintf(os.Stdout, "Response from `OrgSettingAPI.GetClientPrivilegesSetting`: %v\n", resp)
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.OrgSettingAPI.GetClientPrivilegesSetting(context.Background()).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `OrgSettingAPI.GetClientPrivilegesSetting``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `GetClientPrivilegesSetting`: ClientPrivilegesSetting
+	fmt.Fprintf(os.Stdout, "Response from `OrgSettingAPI.GetClientPrivilegesSetting`: %v\n", resp)
 }
 ```
 
@@ -298,23 +298,23 @@ Retrieve the Okta Communication Settings
 package main
 
 import (
-    "context"
-    "fmt"
-    "os"
-    openapiclient "github.com/okta/okta-sdk-golang"
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/okta/okta-sdk-golang"
 )
 
 func main() {
 
-    configuration := openapiclient.NewConfiguration()
-    apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.OrgSettingAPI.GetOktaCommunicationSettings(context.Background()).Execute()
-    if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `OrgSettingAPI.GetOktaCommunicationSettings``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-    }
-    // response from `GetOktaCommunicationSettings`: OrgOktaCommunicationSetting
-    fmt.Fprintf(os.Stdout, "Response from `OrgSettingAPI.GetOktaCommunicationSettings`: %v\n", resp)
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.OrgSettingAPI.GetOktaCommunicationSettings(context.Background()).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `OrgSettingAPI.GetOktaCommunicationSettings``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `GetOktaCommunicationSettings`: OrgOktaCommunicationSetting
+	fmt.Fprintf(os.Stdout, "Response from `OrgSettingAPI.GetOktaCommunicationSettings`: %v\n", resp)
 }
 ```
 
@@ -359,23 +359,23 @@ Retrieve the Org Contact Types
 package main
 
 import (
-    "context"
-    "fmt"
-    "os"
-    openapiclient "github.com/okta/okta-sdk-golang"
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/okta/okta-sdk-golang"
 )
 
 func main() {
 
-    configuration := openapiclient.NewConfiguration()
-    apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.OrgSettingAPI.GetOrgContactTypes(context.Background()).Execute()
-    if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `OrgSettingAPI.GetOrgContactTypes``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-    }
-    // response from `GetOrgContactTypes`: []OrgContactTypeObj
-    fmt.Fprintf(os.Stdout, "Response from `OrgSettingAPI.GetOrgContactTypes`: %v\n", resp)
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.OrgSettingAPI.GetOrgContactTypes(context.Background()).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `OrgSettingAPI.GetOrgContactTypes``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `GetOrgContactTypes`: []OrgContactTypeObj
+	fmt.Fprintf(os.Stdout, "Response from `OrgSettingAPI.GetOrgContactTypes`: %v\n", resp)
 }
 ```
 
@@ -420,24 +420,24 @@ Retrieve the User of the Contact Type
 package main
 
 import (
-    "context"
-    "fmt"
-    "os"
-    openapiclient "github.com/okta/okta-sdk-golang"
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/okta/okta-sdk-golang"
 )
 
 func main() {
-    contactType := "contactType_example" // string | 
+	contactType := "contactType_example" // string | 
 
-    configuration := openapiclient.NewConfiguration()
-    apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.OrgSettingAPI.GetOrgContactUser(context.Background(), contactType).Execute()
-    if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `OrgSettingAPI.GetOrgContactUser``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-    }
-    // response from `GetOrgContactUser`: OrgContactUser
-    fmt.Fprintf(os.Stdout, "Response from `OrgSettingAPI.GetOrgContactUser`: %v\n", resp)
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.OrgSettingAPI.GetOrgContactUser(context.Background(), contactType).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `OrgSettingAPI.GetOrgContactUser``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `GetOrgContactUser`: OrgContactUser
+	fmt.Fprintf(os.Stdout, "Response from `OrgSettingAPI.GetOrgContactUser`: %v\n", resp)
 }
 ```
 
@@ -490,23 +490,23 @@ Retrieve the Okta Support Settings
 package main
 
 import (
-    "context"
-    "fmt"
-    "os"
-    openapiclient "github.com/okta/okta-sdk-golang"
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/okta/okta-sdk-golang"
 )
 
 func main() {
 
-    configuration := openapiclient.NewConfiguration()
-    apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.OrgSettingAPI.GetOrgOktaSupportSettings(context.Background()).Execute()
-    if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `OrgSettingAPI.GetOrgOktaSupportSettings``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-    }
-    // response from `GetOrgOktaSupportSettings`: OrgOktaSupportSettingsObj
-    fmt.Fprintf(os.Stdout, "Response from `OrgSettingAPI.GetOrgOktaSupportSettings`: %v\n", resp)
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.OrgSettingAPI.GetOrgOktaSupportSettings(context.Background()).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `OrgSettingAPI.GetOrgOktaSupportSettings``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `GetOrgOktaSupportSettings`: OrgOktaSupportSettingsObj
+	fmt.Fprintf(os.Stdout, "Response from `OrgSettingAPI.GetOrgOktaSupportSettings`: %v\n", resp)
 }
 ```
 
@@ -551,23 +551,23 @@ Retrieve the Org Preferences
 package main
 
 import (
-    "context"
-    "fmt"
-    "os"
-    openapiclient "github.com/okta/okta-sdk-golang"
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/okta/okta-sdk-golang"
 )
 
 func main() {
 
-    configuration := openapiclient.NewConfiguration()
-    apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.OrgSettingAPI.GetOrgPreferences(context.Background()).Execute()
-    if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `OrgSettingAPI.GetOrgPreferences``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-    }
-    // response from `GetOrgPreferences`: OrgPreferences
-    fmt.Fprintf(os.Stdout, "Response from `OrgSettingAPI.GetOrgPreferences`: %v\n", resp)
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.OrgSettingAPI.GetOrgPreferences(context.Background()).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `OrgSettingAPI.GetOrgPreferences``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `GetOrgPreferences`: OrgPreferences
+	fmt.Fprintf(os.Stdout, "Response from `OrgSettingAPI.GetOrgPreferences`: %v\n", resp)
 }
 ```
 
@@ -612,23 +612,23 @@ Retrieve the Org Settings
 package main
 
 import (
-    "context"
-    "fmt"
-    "os"
-    openapiclient "github.com/okta/okta-sdk-golang"
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/okta/okta-sdk-golang"
 )
 
 func main() {
 
-    configuration := openapiclient.NewConfiguration()
-    apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.OrgSettingAPI.GetOrgSettings(context.Background()).Execute()
-    if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `OrgSettingAPI.GetOrgSettings``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-    }
-    // response from `GetOrgSettings`: OrgSetting
-    fmt.Fprintf(os.Stdout, "Response from `OrgSettingAPI.GetOrgSettings`: %v\n", resp)
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.OrgSettingAPI.GetOrgSettings(context.Background()).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `OrgSettingAPI.GetOrgSettings``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `GetOrgSettings`: OrgSetting
+	fmt.Fprintf(os.Stdout, "Response from `OrgSettingAPI.GetOrgSettings`: %v\n", resp)
 }
 ```
 
@@ -673,23 +673,23 @@ Retrieve the Org Third-Party Admin setting
 package main
 
 import (
-    "context"
-    "fmt"
-    "os"
-    openapiclient "github.com/okta/okta-sdk-golang"
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/okta/okta-sdk-golang"
 )
 
 func main() {
 
-    configuration := openapiclient.NewConfiguration()
-    apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.OrgSettingAPI.GetThirdPartyAdminSetting(context.Background()).Execute()
-    if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `OrgSettingAPI.GetThirdPartyAdminSetting``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-    }
-    // response from `GetThirdPartyAdminSetting`: ThirdPartyAdminSetting
-    fmt.Fprintf(os.Stdout, "Response from `OrgSettingAPI.GetThirdPartyAdminSetting`: %v\n", resp)
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.OrgSettingAPI.GetThirdPartyAdminSetting(context.Background()).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `OrgSettingAPI.GetThirdPartyAdminSetting``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `GetThirdPartyAdminSetting`: ThirdPartyAdminSetting
+	fmt.Fprintf(os.Stdout, "Response from `OrgSettingAPI.GetThirdPartyAdminSetting`: %v\n", resp)
 }
 ```
 
@@ -734,23 +734,23 @@ Retrieve the Well-Known Org Metadata
 package main
 
 import (
-    "context"
-    "fmt"
-    "os"
-    openapiclient "github.com/okta/okta-sdk-golang"
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/okta/okta-sdk-golang"
 )
 
 func main() {
 
-    configuration := openapiclient.NewConfiguration()
-    apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.OrgSettingAPI.GetWellknownOrgMetadata(context.Background()).Execute()
-    if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `OrgSettingAPI.GetWellknownOrgMetadata``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-    }
-    // response from `GetWellknownOrgMetadata`: WellKnownOrgMetadata
-    fmt.Fprintf(os.Stdout, "Response from `OrgSettingAPI.GetWellknownOrgMetadata`: %v\n", resp)
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.OrgSettingAPI.GetWellknownOrgMetadata(context.Background()).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `OrgSettingAPI.GetWellknownOrgMetadata``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `GetWellknownOrgMetadata`: WellKnownOrgMetadata
+	fmt.Fprintf(os.Stdout, "Response from `OrgSettingAPI.GetWellknownOrgMetadata`: %v\n", resp)
 }
 ```
 
@@ -795,23 +795,23 @@ Grant Okta Support Access to your Org
 package main
 
 import (
-    "context"
-    "fmt"
-    "os"
-    openapiclient "github.com/okta/okta-sdk-golang"
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/okta/okta-sdk-golang"
 )
 
 func main() {
 
-    configuration := openapiclient.NewConfiguration()
-    apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.OrgSettingAPI.GrantOktaSupport(context.Background()).Execute()
-    if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `OrgSettingAPI.GrantOktaSupport``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-    }
-    // response from `GrantOktaSupport`: OrgOktaSupportSettingsObj
-    fmt.Fprintf(os.Stdout, "Response from `OrgSettingAPI.GrantOktaSupport`: %v\n", resp)
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.OrgSettingAPI.GrantOktaSupport(context.Background()).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `OrgSettingAPI.GrantOktaSupport``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `GrantOktaSupport`: OrgOktaSupportSettingsObj
+	fmt.Fprintf(os.Stdout, "Response from `OrgSettingAPI.GrantOktaSupport`: %v\n", resp)
 }
 ```
 
@@ -856,23 +856,23 @@ Opt in all Users to Okta Communication emails
 package main
 
 import (
-    "context"
-    "fmt"
-    "os"
-    openapiclient "github.com/okta/okta-sdk-golang"
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/okta/okta-sdk-golang"
 )
 
 func main() {
 
-    configuration := openapiclient.NewConfiguration()
-    apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.OrgSettingAPI.OptInUsersToOktaCommunicationEmails(context.Background()).Execute()
-    if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `OrgSettingAPI.OptInUsersToOktaCommunicationEmails``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-    }
-    // response from `OptInUsersToOktaCommunicationEmails`: OrgOktaCommunicationSetting
-    fmt.Fprintf(os.Stdout, "Response from `OrgSettingAPI.OptInUsersToOktaCommunicationEmails`: %v\n", resp)
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.OrgSettingAPI.OptInUsersToOktaCommunicationEmails(context.Background()).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `OrgSettingAPI.OptInUsersToOktaCommunicationEmails``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `OptInUsersToOktaCommunicationEmails`: OrgOktaCommunicationSetting
+	fmt.Fprintf(os.Stdout, "Response from `OrgSettingAPI.OptInUsersToOktaCommunicationEmails`: %v\n", resp)
 }
 ```
 
@@ -917,23 +917,23 @@ Opt out all Users from Okta Communication emails
 package main
 
 import (
-    "context"
-    "fmt"
-    "os"
-    openapiclient "github.com/okta/okta-sdk-golang"
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/okta/okta-sdk-golang"
 )
 
 func main() {
 
-    configuration := openapiclient.NewConfiguration()
-    apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.OrgSettingAPI.OptOutUsersFromOktaCommunicationEmails(context.Background()).Execute()
-    if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `OrgSettingAPI.OptOutUsersFromOktaCommunicationEmails``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-    }
-    // response from `OptOutUsersFromOktaCommunicationEmails`: OrgOktaCommunicationSetting
-    fmt.Fprintf(os.Stdout, "Response from `OrgSettingAPI.OptOutUsersFromOktaCommunicationEmails`: %v\n", resp)
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.OrgSettingAPI.OptOutUsersFromOktaCommunicationEmails(context.Background()).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `OrgSettingAPI.OptOutUsersFromOktaCommunicationEmails``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `OptOutUsersFromOktaCommunicationEmails`: OrgOktaCommunicationSetting
+	fmt.Fprintf(os.Stdout, "Response from `OrgSettingAPI.OptOutUsersFromOktaCommunicationEmails`: %v\n", resp)
 }
 ```
 
@@ -978,25 +978,25 @@ Replace the User of the Contact Type
 package main
 
 import (
-    "context"
-    "fmt"
-    "os"
-    openapiclient "github.com/okta/okta-sdk-golang"
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/okta/okta-sdk-golang"
 )
 
 func main() {
-    contactType := "contactType_example" // string | 
-    orgContactUser := *openapiclient.NewOrgContactUser() // OrgContactUser | 
+	contactType := "contactType_example" // string | 
+	orgContactUser := *openapiclient.NewOrgContactUser() // OrgContactUser | 
 
-    configuration := openapiclient.NewConfiguration()
-    apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.OrgSettingAPI.ReplaceOrgContactUser(context.Background(), contactType).OrgContactUser(orgContactUser).Execute()
-    if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `OrgSettingAPI.ReplaceOrgContactUser``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-    }
-    // response from `ReplaceOrgContactUser`: OrgContactUser
-    fmt.Fprintf(os.Stdout, "Response from `OrgSettingAPI.ReplaceOrgContactUser`: %v\n", resp)
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.OrgSettingAPI.ReplaceOrgContactUser(context.Background(), contactType).OrgContactUser(orgContactUser).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `OrgSettingAPI.ReplaceOrgContactUser``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `ReplaceOrgContactUser`: OrgContactUser
+	fmt.Fprintf(os.Stdout, "Response from `OrgSettingAPI.ReplaceOrgContactUser`: %v\n", resp)
 }
 ```
 
@@ -1050,24 +1050,24 @@ Replace the Org Settings
 package main
 
 import (
-    "context"
-    "fmt"
-    "os"
-    openapiclient "github.com/okta/okta-sdk-golang"
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/okta/okta-sdk-golang"
 )
 
 func main() {
-    orgSetting := *openapiclient.NewOrgSetting() // OrgSetting | 
+	orgSetting := *openapiclient.NewOrgSetting() // OrgSetting | 
 
-    configuration := openapiclient.NewConfiguration()
-    apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.OrgSettingAPI.ReplaceOrgSettings(context.Background()).OrgSetting(orgSetting).Execute()
-    if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `OrgSettingAPI.ReplaceOrgSettings``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-    }
-    // response from `ReplaceOrgSettings`: OrgSetting
-    fmt.Fprintf(os.Stdout, "Response from `OrgSettingAPI.ReplaceOrgSettings`: %v\n", resp)
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.OrgSettingAPI.ReplaceOrgSettings(context.Background()).OrgSetting(orgSetting).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `OrgSettingAPI.ReplaceOrgSettings``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `ReplaceOrgSettings`: OrgSetting
+	fmt.Fprintf(os.Stdout, "Response from `OrgSettingAPI.ReplaceOrgSettings`: %v\n", resp)
 }
 ```
 
@@ -1116,23 +1116,23 @@ Revoke Okta Support Access
 package main
 
 import (
-    "context"
-    "fmt"
-    "os"
-    openapiclient "github.com/okta/okta-sdk-golang"
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/okta/okta-sdk-golang"
 )
 
 func main() {
 
-    configuration := openapiclient.NewConfiguration()
-    apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.OrgSettingAPI.RevokeOktaSupport(context.Background()).Execute()
-    if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `OrgSettingAPI.RevokeOktaSupport``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-    }
-    // response from `RevokeOktaSupport`: OrgOktaSupportSettingsObj
-    fmt.Fprintf(os.Stdout, "Response from `OrgSettingAPI.RevokeOktaSupport`: %v\n", resp)
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.OrgSettingAPI.RevokeOktaSupport(context.Background()).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `OrgSettingAPI.RevokeOktaSupport``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `RevokeOktaSupport`: OrgOktaSupportSettingsObj
+	fmt.Fprintf(os.Stdout, "Response from `OrgSettingAPI.RevokeOktaSupport`: %v\n", resp)
 }
 ```
 
@@ -1177,23 +1177,23 @@ Update the Preference to Hide the Okta Dashboard Footer
 package main
 
 import (
-    "context"
-    "fmt"
-    "os"
-    openapiclient "github.com/okta/okta-sdk-golang"
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/okta/okta-sdk-golang"
 )
 
 func main() {
 
-    configuration := openapiclient.NewConfiguration()
-    apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.OrgSettingAPI.UpdateOrgHideOktaUIFooter(context.Background()).Execute()
-    if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `OrgSettingAPI.UpdateOrgHideOktaUIFooter``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-    }
-    // response from `UpdateOrgHideOktaUIFooter`: OrgPreferences
-    fmt.Fprintf(os.Stdout, "Response from `OrgSettingAPI.UpdateOrgHideOktaUIFooter`: %v\n", resp)
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.OrgSettingAPI.UpdateOrgHideOktaUIFooter(context.Background()).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `OrgSettingAPI.UpdateOrgHideOktaUIFooter``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `UpdateOrgHideOktaUIFooter`: OrgPreferences
+	fmt.Fprintf(os.Stdout, "Response from `OrgSettingAPI.UpdateOrgHideOktaUIFooter`: %v\n", resp)
 }
 ```
 
@@ -1238,24 +1238,24 @@ Update the Org Settings
 package main
 
 import (
-    "context"
-    "fmt"
-    "os"
-    openapiclient "github.com/okta/okta-sdk-golang"
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/okta/okta-sdk-golang"
 )
 
 func main() {
-    orgSetting := *openapiclient.NewOrgSetting() // OrgSetting |  (optional)
+	orgSetting := *openapiclient.NewOrgSetting() // OrgSetting |  (optional)
 
-    configuration := openapiclient.NewConfiguration()
-    apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.OrgSettingAPI.UpdateOrgSettings(context.Background()).OrgSetting(orgSetting).Execute()
-    if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `OrgSettingAPI.UpdateOrgSettings``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-    }
-    // response from `UpdateOrgSettings`: OrgSetting
-    fmt.Fprintf(os.Stdout, "Response from `OrgSettingAPI.UpdateOrgSettings`: %v\n", resp)
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.OrgSettingAPI.UpdateOrgSettings(context.Background()).OrgSetting(orgSetting).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `OrgSettingAPI.UpdateOrgSettings``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `UpdateOrgSettings`: OrgSetting
+	fmt.Fprintf(os.Stdout, "Response from `OrgSettingAPI.UpdateOrgSettings`: %v\n", resp)
 }
 ```
 
@@ -1304,23 +1304,23 @@ Update the Preference to Show the Okta Dashboard Footer
 package main
 
 import (
-    "context"
-    "fmt"
-    "os"
-    openapiclient "github.com/okta/okta-sdk-golang"
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/okta/okta-sdk-golang"
 )
 
 func main() {
 
-    configuration := openapiclient.NewConfiguration()
-    apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.OrgSettingAPI.UpdateOrgShowOktaUIFooter(context.Background()).Execute()
-    if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `OrgSettingAPI.UpdateOrgShowOktaUIFooter``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-    }
-    // response from `UpdateOrgShowOktaUIFooter`: OrgPreferences
-    fmt.Fprintf(os.Stdout, "Response from `OrgSettingAPI.UpdateOrgShowOktaUIFooter`: %v\n", resp)
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.OrgSettingAPI.UpdateOrgShowOktaUIFooter(context.Background()).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `OrgSettingAPI.UpdateOrgShowOktaUIFooter``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `UpdateOrgShowOktaUIFooter`: OrgPreferences
+	fmt.Fprintf(os.Stdout, "Response from `OrgSettingAPI.UpdateOrgShowOktaUIFooter`: %v\n", resp)
 }
 ```
 
@@ -1365,23 +1365,23 @@ Update the Org Third-Party Admin setting
 package main
 
 import (
-    "context"
-    "fmt"
-    "os"
-    openapiclient "github.com/okta/okta-sdk-golang"
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/okta/okta-sdk-golang"
 )
 
 func main() {
 
-    configuration := openapiclient.NewConfiguration()
-    apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.OrgSettingAPI.UpdateThirdPartyAdminSetting(context.Background()).Execute()
-    if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `OrgSettingAPI.UpdateThirdPartyAdminSetting``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-    }
-    // response from `UpdateThirdPartyAdminSetting`: ThirdPartyAdminSetting
-    fmt.Fprintf(os.Stdout, "Response from `OrgSettingAPI.UpdateThirdPartyAdminSetting`: %v\n", resp)
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.OrgSettingAPI.UpdateThirdPartyAdminSetting(context.Background()).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `OrgSettingAPI.UpdateThirdPartyAdminSetting``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `UpdateThirdPartyAdminSetting`: ThirdPartyAdminSetting
+	fmt.Fprintf(os.Stdout, "Response from `OrgSettingAPI.UpdateThirdPartyAdminSetting`: %v\n", resp)
 }
 ```
 
@@ -1426,22 +1426,22 @@ Upload the Org Logo
 package main
 
 import (
-    "context"
-    "fmt"
-    "os"
-    openapiclient "github.com/okta/okta-sdk-golang"
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/okta/okta-sdk-golang"
 )
 
 func main() {
-    file := os.NewFile(1234, "some_file") // *os.File | 
+	file := os.NewFile(1234, "some_file") // *os.File | 
 
-    configuration := openapiclient.NewConfiguration()
-    apiClient := openapiclient.NewAPIClient(configuration)
-    r, err := apiClient.OrgSettingAPI.UploadOrgLogo(context.Background()).File(file).Execute()
-    if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `OrgSettingAPI.UploadOrgLogo``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-    }
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	r, err := apiClient.OrgSettingAPI.UploadOrgLogo(context.Background()).File(file).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `OrgSettingAPI.UploadOrgLogo``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
 }
 ```
 

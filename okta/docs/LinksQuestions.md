@@ -4,7 +4,7 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**Question** | Pointer to [**LinksQuestionsQuestion**](LinksQuestionsQuestion.md) |  | [optional] 
+**Question** | Pointer to [**HrefObject**](HrefObject.md) |  | [optional] 
 
 ## Methods
 
@@ -27,20 +27,20 @@ but it doesn't guarantee that properties required by API are set
 
 ### GetQuestion
 
-`func (o *LinksQuestions) GetQuestion() LinksQuestionsQuestion`
+`func (o *LinksQuestions) GetQuestion() HrefObject`
 
 GetQuestion returns the Question field if non-nil, zero value otherwise.
 
 ### GetQuestionOk
 
-`func (o *LinksQuestions) GetQuestionOk() (*LinksQuestionsQuestion, bool)`
+`func (o *LinksQuestions) GetQuestionOk() (*HrefObject, bool)`
 
 GetQuestionOk returns a tuple with the Question field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetQuestion
 
-`func (o *LinksQuestions) SetQuestion(v LinksQuestionsQuestion)`
+`func (o *LinksQuestions) SetQuestion(v HrefObject)`
 
 SetQuestion sets Question field to given value.
 

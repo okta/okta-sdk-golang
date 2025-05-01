@@ -4,7 +4,7 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**Deactivate** | Pointer to [**LinksDeactivateDeactivate**](LinksDeactivateDeactivate.md) |  | [optional] 
+**Deactivate** | Pointer to [**HrefObject**](HrefObject.md) |  | [optional] 
 
 ## Methods
 
@@ -27,20 +27,20 @@ but it doesn't guarantee that properties required by API are set
 
 ### GetDeactivate
 
-`func (o *LinksDeactivate) GetDeactivate() LinksDeactivateDeactivate`
+`func (o *LinksDeactivate) GetDeactivate() HrefObject`
 
 GetDeactivate returns the Deactivate field if non-nil, zero value otherwise.
 
 ### GetDeactivateOk
 
-`func (o *LinksDeactivate) GetDeactivateOk() (*LinksDeactivateDeactivate, bool)`
+`func (o *LinksDeactivate) GetDeactivateOk() (*HrefObject, bool)`
 
 GetDeactivateOk returns a tuple with the Deactivate field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetDeactivate
 
-`func (o *LinksDeactivate) SetDeactivate(v LinksDeactivateDeactivate)`
+`func (o *LinksDeactivate) SetDeactivate(v HrefObject)`
 
 SetDeactivate sets Deactivate field to given value.
 

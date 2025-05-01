@@ -26,24 +26,24 @@ Create a Device Assurance Policy
 package main
 
 import (
-    "context"
-    "fmt"
-    "os"
-    openapiclient "github.com/okta/okta-sdk-golang"
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/okta/okta-sdk-golang"
 )
 
 func main() {
-    deviceAssurance := openapiclient.listDeviceAssurancePolicies_200_response_inner{DeviceAssuranceAndroidPlatform: openapiclient.NewDeviceAssuranceAndroidPlatform()} // ListDeviceAssurancePolicies200ResponseInner | 
+	deviceAssurance := openapiclient.listDeviceAssurancePolicies_200_response_inner{DeviceAssuranceAndroidPlatform: openapiclient.NewDeviceAssuranceAndroidPlatform()} // ListDeviceAssurancePolicies200ResponseInner | 
 
-    configuration := openapiclient.NewConfiguration()
-    apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.DeviceAssuranceAPI.CreateDeviceAssurancePolicy(context.Background()).DeviceAssurance(deviceAssurance).Execute()
-    if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `DeviceAssuranceAPI.CreateDeviceAssurancePolicy``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-    }
-    // response from `CreateDeviceAssurancePolicy`: ListDeviceAssurancePolicies200ResponseInner
-    fmt.Fprintf(os.Stdout, "Response from `DeviceAssuranceAPI.CreateDeviceAssurancePolicy`: %v\n", resp)
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.DeviceAssuranceAPI.CreateDeviceAssurancePolicy(context.Background()).DeviceAssurance(deviceAssurance).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `DeviceAssuranceAPI.CreateDeviceAssurancePolicy``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `CreateDeviceAssurancePolicy`: ListDeviceAssurancePolicies200ResponseInner
+	fmt.Fprintf(os.Stdout, "Response from `DeviceAssuranceAPI.CreateDeviceAssurancePolicy`: %v\n", resp)
 }
 ```
 
@@ -92,22 +92,22 @@ Delete a Device Assurance Policy
 package main
 
 import (
-    "context"
-    "fmt"
-    "os"
-    openapiclient "github.com/okta/okta-sdk-golang"
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/okta/okta-sdk-golang"
 )
 
 func main() {
-    deviceAssuranceId := "deviceAssuranceId_example" // string | Id of the Device Assurance Policy
+	deviceAssuranceId := "deviceAssuranceId_example" // string | Id of the Device Assurance Policy
 
-    configuration := openapiclient.NewConfiguration()
-    apiClient := openapiclient.NewAPIClient(configuration)
-    r, err := apiClient.DeviceAssuranceAPI.DeleteDeviceAssurancePolicy(context.Background(), deviceAssuranceId).Execute()
-    if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `DeviceAssuranceAPI.DeleteDeviceAssurancePolicy``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-    }
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	r, err := apiClient.DeviceAssuranceAPI.DeleteDeviceAssurancePolicy(context.Background(), deviceAssuranceId).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `DeviceAssuranceAPI.DeleteDeviceAssurancePolicy``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
 }
 ```
 
@@ -160,24 +160,24 @@ Retrieve a Device Assurance Policy
 package main
 
 import (
-    "context"
-    "fmt"
-    "os"
-    openapiclient "github.com/okta/okta-sdk-golang"
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/okta/okta-sdk-golang"
 )
 
 func main() {
-    deviceAssuranceId := "deviceAssuranceId_example" // string | Id of the Device Assurance Policy
+	deviceAssuranceId := "deviceAssuranceId_example" // string | Id of the Device Assurance Policy
 
-    configuration := openapiclient.NewConfiguration()
-    apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.DeviceAssuranceAPI.GetDeviceAssurancePolicy(context.Background(), deviceAssuranceId).Execute()
-    if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `DeviceAssuranceAPI.GetDeviceAssurancePolicy``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-    }
-    // response from `GetDeviceAssurancePolicy`: ListDeviceAssurancePolicies200ResponseInner
-    fmt.Fprintf(os.Stdout, "Response from `DeviceAssuranceAPI.GetDeviceAssurancePolicy`: %v\n", resp)
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.DeviceAssuranceAPI.GetDeviceAssurancePolicy(context.Background(), deviceAssuranceId).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `DeviceAssuranceAPI.GetDeviceAssurancePolicy``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `GetDeviceAssurancePolicy`: ListDeviceAssurancePolicies200ResponseInner
+	fmt.Fprintf(os.Stdout, "Response from `DeviceAssuranceAPI.GetDeviceAssurancePolicy`: %v\n", resp)
 }
 ```
 
@@ -230,23 +230,23 @@ List all Device Assurance Policies
 package main
 
 import (
-    "context"
-    "fmt"
-    "os"
-    openapiclient "github.com/okta/okta-sdk-golang"
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/okta/okta-sdk-golang"
 )
 
 func main() {
 
-    configuration := openapiclient.NewConfiguration()
-    apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.DeviceAssuranceAPI.ListDeviceAssurancePolicies(context.Background()).Execute()
-    if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `DeviceAssuranceAPI.ListDeviceAssurancePolicies``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-    }
-    // response from `ListDeviceAssurancePolicies`: []ListDeviceAssurancePolicies200ResponseInner
-    fmt.Fprintf(os.Stdout, "Response from `DeviceAssuranceAPI.ListDeviceAssurancePolicies`: %v\n", resp)
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.DeviceAssuranceAPI.ListDeviceAssurancePolicies(context.Background()).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `DeviceAssuranceAPI.ListDeviceAssurancePolicies``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `ListDeviceAssurancePolicies`: []ListDeviceAssurancePolicies200ResponseInner
+	fmt.Fprintf(os.Stdout, "Response from `DeviceAssuranceAPI.ListDeviceAssurancePolicies`: %v\n", resp)
 }
 ```
 
@@ -291,25 +291,25 @@ Replace a Device Assurance Policy
 package main
 
 import (
-    "context"
-    "fmt"
-    "os"
-    openapiclient "github.com/okta/okta-sdk-golang"
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/okta/okta-sdk-golang"
 )
 
 func main() {
-    deviceAssuranceId := "deviceAssuranceId_example" // string | Id of the Device Assurance Policy
-    deviceAssurance := openapiclient.listDeviceAssurancePolicies_200_response_inner{DeviceAssuranceAndroidPlatform: openapiclient.NewDeviceAssuranceAndroidPlatform()} // ListDeviceAssurancePolicies200ResponseInner | 
+	deviceAssuranceId := "deviceAssuranceId_example" // string | Id of the Device Assurance Policy
+	deviceAssurance := openapiclient.listDeviceAssurancePolicies_200_response_inner{DeviceAssuranceAndroidPlatform: openapiclient.NewDeviceAssuranceAndroidPlatform()} // ListDeviceAssurancePolicies200ResponseInner | 
 
-    configuration := openapiclient.NewConfiguration()
-    apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.DeviceAssuranceAPI.ReplaceDeviceAssurancePolicy(context.Background(), deviceAssuranceId).DeviceAssurance(deviceAssurance).Execute()
-    if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `DeviceAssuranceAPI.ReplaceDeviceAssurancePolicy``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-    }
-    // response from `ReplaceDeviceAssurancePolicy`: ListDeviceAssurancePolicies200ResponseInner
-    fmt.Fprintf(os.Stdout, "Response from `DeviceAssuranceAPI.ReplaceDeviceAssurancePolicy`: %v\n", resp)
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.DeviceAssuranceAPI.ReplaceDeviceAssurancePolicy(context.Background(), deviceAssuranceId).DeviceAssurance(deviceAssurance).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `DeviceAssuranceAPI.ReplaceDeviceAssurancePolicy``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `ReplaceDeviceAssurancePolicy`: ListDeviceAssurancePolicies200ResponseInner
+	fmt.Fprintf(os.Stdout, "Response from `DeviceAssuranceAPI.ReplaceDeviceAssurancePolicy`: %v\n", resp)
 }
 ```
 

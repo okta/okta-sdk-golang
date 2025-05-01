@@ -6,8 +6,8 @@ Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **Description** | Pointer to **string** | Description of the feature | [optional] [readonly] 
 **Name** | Pointer to **string** | Identifying name of the feature  | Value | Description   | | --------- | ------------- | | USER_PROVISIONING  | Represents the **To App** provisioning feature setting in the Admin Console | | INBOUND_PROVISIONING | Represents the **To Okta** provisioning feature setting in the Admin Console |  | [optional] 
-**Status** | Pointer to **string** |  | [optional] 
-**Links** | Pointer to [**ApplicationFeatureLinks**](ApplicationFeatureLinks.md) |  | [optional] 
+**Status** | Pointer to **string** | Setting status | [optional] 
+**Links** | Pointer to [**LinksSelf**](LinksSelf.md) |  | [optional] 
 
 ## Methods
 
@@ -105,20 +105,20 @@ HasStatus returns a boolean if a field has been set.
 
 ### GetLinks
 
-`func (o *ApplicationFeature) GetLinks() ApplicationFeatureLinks`
+`func (o *ApplicationFeature) GetLinks() LinksSelf`
 
 GetLinks returns the Links field if non-nil, zero value otherwise.
 
 ### GetLinksOk
 
-`func (o *ApplicationFeature) GetLinksOk() (*ApplicationFeatureLinks, bool)`
+`func (o *ApplicationFeature) GetLinksOk() (*LinksSelf, bool)`
 
 GetLinksOk returns a tuple with the Links field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetLinks
 
-`func (o *ApplicationFeature) SetLinks(v ApplicationFeatureLinks)`
+`func (o *ApplicationFeature) SetLinks(v LinksSelf)`
 
 SetLinks sets Links field to given value.
 

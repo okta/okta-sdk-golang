@@ -26,22 +26,22 @@ Activate the default Provisioning Connection
 package main
 
 import (
-    "context"
-    "fmt"
-    "os"
-    openapiclient "github.com/okta/okta-sdk-golang"
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/okta/okta-sdk-golang"
 )
 
 func main() {
-    appId := "0oafxqCAJWWGELFTYASJ" // string | Application ID
+	appId := "0oafxqCAJWWGELFTYASJ" // string | Application ID
 
-    configuration := openapiclient.NewConfiguration()
-    apiClient := openapiclient.NewAPIClient(configuration)
-    r, err := apiClient.ApplicationConnectionsAPI.ActivateDefaultProvisioningConnectionForApplication(context.Background(), appId).Execute()
-    if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `ApplicationConnectionsAPI.ActivateDefaultProvisioningConnectionForApplication``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-    }
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	r, err := apiClient.ApplicationConnectionsAPI.ActivateDefaultProvisioningConnectionForApplication(context.Background(), appId).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `ApplicationConnectionsAPI.ActivateDefaultProvisioningConnectionForApplication``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
 }
 ```
 
@@ -94,22 +94,22 @@ Deactivate the default Provisioning Connection
 package main
 
 import (
-    "context"
-    "fmt"
-    "os"
-    openapiclient "github.com/okta/okta-sdk-golang"
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/okta/okta-sdk-golang"
 )
 
 func main() {
-    appId := "0oafxqCAJWWGELFTYASJ" // string | Application ID
+	appId := "0oafxqCAJWWGELFTYASJ" // string | Application ID
 
-    configuration := openapiclient.NewConfiguration()
-    apiClient := openapiclient.NewAPIClient(configuration)
-    r, err := apiClient.ApplicationConnectionsAPI.DeactivateDefaultProvisioningConnectionForApplication(context.Background(), appId).Execute()
-    if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `ApplicationConnectionsAPI.DeactivateDefaultProvisioningConnectionForApplication``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-    }
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	r, err := apiClient.ApplicationConnectionsAPI.DeactivateDefaultProvisioningConnectionForApplication(context.Background(), appId).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `ApplicationConnectionsAPI.DeactivateDefaultProvisioningConnectionForApplication``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
 }
 ```
 
@@ -162,24 +162,24 @@ Retrieve the default Provisioning Connection
 package main
 
 import (
-    "context"
-    "fmt"
-    "os"
-    openapiclient "github.com/okta/okta-sdk-golang"
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/okta/okta-sdk-golang"
 )
 
 func main() {
-    appId := "0oafxqCAJWWGELFTYASJ" // string | Application ID
+	appId := "0oafxqCAJWWGELFTYASJ" // string | Application ID
 
-    configuration := openapiclient.NewConfiguration()
-    apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.ApplicationConnectionsAPI.GetDefaultProvisioningConnectionForApplication(context.Background(), appId).Execute()
-    if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `ApplicationConnectionsAPI.GetDefaultProvisioningConnectionForApplication``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-    }
-    // response from `GetDefaultProvisioningConnectionForApplication`: ProvisioningConnectionResponse
-    fmt.Fprintf(os.Stdout, "Response from `ApplicationConnectionsAPI.GetDefaultProvisioningConnectionForApplication`: %v\n", resp)
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.ApplicationConnectionsAPI.GetDefaultProvisioningConnectionForApplication(context.Background(), appId).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `ApplicationConnectionsAPI.GetDefaultProvisioningConnectionForApplication``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `GetDefaultProvisioningConnectionForApplication`: ProvisioningConnectionResponse
+	fmt.Fprintf(os.Stdout, "Response from `ApplicationConnectionsAPI.GetDefaultProvisioningConnectionForApplication`: %v\n", resp)
 }
 ```
 
@@ -232,26 +232,26 @@ Update the default Provisioning Connection
 package main
 
 import (
-    "context"
-    "fmt"
-    "os"
-    openapiclient "github.com/okta/okta-sdk-golang"
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/okta/okta-sdk-golang"
 )
 
 func main() {
-    appId := "0oafxqCAJWWGELFTYASJ" // string | Application ID
-    updateDefaultProvisioningConnectionForApplicationRequest := openapiclient.updateDefaultProvisioningConnectionForApplication_request{ProvisioningConnectionOauthRequest: openapiclient.NewProvisioningConnectionOauthRequest(*openapiclient.NewProvisioningConnectionOauthRequestProfile("AuthScheme_example"))} // UpdateDefaultProvisioningConnectionForApplicationRequest | 
-    activate := true // bool | Activates the Provisioning Connection (optional)
+	appId := "0oafxqCAJWWGELFTYASJ" // string | Application ID
+	updateDefaultProvisioningConnectionForApplicationRequest := openapiclient.updateDefaultProvisioningConnectionForApplication_request{ProvisioningConnectionOauthRequest: openapiclient.NewProvisioningConnectionOauthRequest(*openapiclient.NewProvisioningConnectionOauthRequestProfile("AuthScheme_example"))} // UpdateDefaultProvisioningConnectionForApplicationRequest | 
+	activate := true // bool | Activates the Provisioning Connection (optional)
 
-    configuration := openapiclient.NewConfiguration()
-    apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.ApplicationConnectionsAPI.UpdateDefaultProvisioningConnectionForApplication(context.Background(), appId).UpdateDefaultProvisioningConnectionForApplicationRequest(updateDefaultProvisioningConnectionForApplicationRequest).Activate(activate).Execute()
-    if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `ApplicationConnectionsAPI.UpdateDefaultProvisioningConnectionForApplication``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-    }
-    // response from `UpdateDefaultProvisioningConnectionForApplication`: ProvisioningConnectionResponse
-    fmt.Fprintf(os.Stdout, "Response from `ApplicationConnectionsAPI.UpdateDefaultProvisioningConnectionForApplication`: %v\n", resp)
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.ApplicationConnectionsAPI.UpdateDefaultProvisioningConnectionForApplication(context.Background(), appId).UpdateDefaultProvisioningConnectionForApplicationRequest(updateDefaultProvisioningConnectionForApplicationRequest).Activate(activate).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `ApplicationConnectionsAPI.UpdateDefaultProvisioningConnectionForApplication``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `UpdateDefaultProvisioningConnectionForApplication`: ProvisioningConnectionResponse
+	fmt.Fprintf(os.Stdout, "Response from `ApplicationConnectionsAPI.UpdateDefaultProvisioningConnectionForApplication`: %v\n", resp)
 }
 ```
 
@@ -306,25 +306,25 @@ Verify the Provisioning Connection
 package main
 
 import (
-    "context"
-    "fmt"
-    "os"
-    openapiclient "github.com/okta/okta-sdk-golang"
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/okta/okta-sdk-golang"
 )
 
 func main() {
-    appName := "appName_example" // string | 
-    appId := "0oafxqCAJWWGELFTYASJ" // string | Application ID
-    code := "code_example" // string |  (optional)
-    state := "state_example" // string |  (optional)
+	appName := "appName_example" // string | 
+	appId := "0oafxqCAJWWGELFTYASJ" // string | Application ID
+	code := "code_example" // string |  (optional)
+	state := "state_example" // string |  (optional)
 
-    configuration := openapiclient.NewConfiguration()
-    apiClient := openapiclient.NewAPIClient(configuration)
-    r, err := apiClient.ApplicationConnectionsAPI.VerifyProvisioningConnectionForApplication(context.Background(), appName, appId).Code(code).State(state).Execute()
-    if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `ApplicationConnectionsAPI.VerifyProvisioningConnectionForApplication``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-    }
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	r, err := apiClient.ApplicationConnectionsAPI.VerifyProvisioningConnectionForApplication(context.Background(), appName, appId).Code(code).State(state).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `ApplicationConnectionsAPI.VerifyProvisioningConnectionForApplication``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
 }
 ```
 

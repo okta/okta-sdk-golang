@@ -22,23 +22,23 @@ Assign an application to a Policy
 package main
 
 import (
-    "context"
-    "fmt"
-    "os"
-    openapiclient "github.com/okta/okta-sdk-golang"
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/okta/okta-sdk-golang"
 )
 
 func main() {
-    appId := "0oafxqCAJWWGELFTYASJ" // string | Application ID
-    policyId := "00plrilJ7jZ66Gn0X0g3" // string | `id` of the Policy
+	appId := "0oafxqCAJWWGELFTYASJ" // string | Application ID
+	policyId := "00plrilJ7jZ66Gn0X0g3" // string | `id` of the Policy
 
-    configuration := openapiclient.NewConfiguration()
-    apiClient := openapiclient.NewAPIClient(configuration)
-    r, err := apiClient.ApplicationPoliciesAPI.AssignApplicationPolicy(context.Background(), appId, policyId).Execute()
-    if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `ApplicationPoliciesAPI.AssignApplicationPolicy``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-    }
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	r, err := apiClient.ApplicationPoliciesAPI.AssignApplicationPolicy(context.Background(), appId, policyId).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `ApplicationPoliciesAPI.AssignApplicationPolicy``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
 }
 ```
 

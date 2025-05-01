@@ -42,22 +42,22 @@ Activate a Policy
 package main
 
 import (
-    "context"
-    "fmt"
-    "os"
-    openapiclient "github.com/okta/okta-sdk-golang"
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/okta/okta-sdk-golang"
 )
 
 func main() {
-    policyId := "00plrilJ7jZ66Gn0X0g3" // string | `id` of the Policy
+	policyId := "00plrilJ7jZ66Gn0X0g3" // string | `id` of the Policy
 
-    configuration := openapiclient.NewConfiguration()
-    apiClient := openapiclient.NewAPIClient(configuration)
-    r, err := apiClient.PolicyAPI.ActivatePolicy(context.Background(), policyId).Execute()
-    if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `PolicyAPI.ActivatePolicy``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-    }
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	r, err := apiClient.PolicyAPI.ActivatePolicy(context.Background(), policyId).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `PolicyAPI.ActivatePolicy``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
 }
 ```
 
@@ -110,23 +110,23 @@ Activate a Policy Rule
 package main
 
 import (
-    "context"
-    "fmt"
-    "os"
-    openapiclient "github.com/okta/okta-sdk-golang"
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/okta/okta-sdk-golang"
 )
 
 func main() {
-    policyId := "00plrilJ7jZ66Gn0X0g3" // string | `id` of the Policy
-    ruleId := "ruld3hJ7jZh4fn0st0g3" // string | `id` of the Policy Rule
+	policyId := "00plrilJ7jZ66Gn0X0g3" // string | `id` of the Policy
+	ruleId := "ruld3hJ7jZh4fn0st0g3" // string | `id` of the Policy Rule
 
-    configuration := openapiclient.NewConfiguration()
-    apiClient := openapiclient.NewAPIClient(configuration)
-    r, err := apiClient.PolicyAPI.ActivatePolicyRule(context.Background(), policyId, ruleId).Execute()
-    if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `PolicyAPI.ActivatePolicyRule``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-    }
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	r, err := apiClient.PolicyAPI.ActivatePolicyRule(context.Background(), policyId, ruleId).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `PolicyAPI.ActivatePolicyRule``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
 }
 ```
 
@@ -181,24 +181,24 @@ Clone an existing Policy
 package main
 
 import (
-    "context"
-    "fmt"
-    "os"
-    openapiclient "github.com/okta/okta-sdk-golang"
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/okta/okta-sdk-golang"
 )
 
 func main() {
-    policyId := "00plrilJ7jZ66Gn0X0g3" // string | `id` of the Policy
+	policyId := "00plrilJ7jZ66Gn0X0g3" // string | `id` of the Policy
 
-    configuration := openapiclient.NewConfiguration()
-    apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.PolicyAPI.ClonePolicy(context.Background(), policyId).Execute()
-    if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `PolicyAPI.ClonePolicy``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-    }
-    // response from `ClonePolicy`: ListPolicies200ResponseInner
-    fmt.Fprintf(os.Stdout, "Response from `PolicyAPI.ClonePolicy`: %v\n", resp)
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.PolicyAPI.ClonePolicy(context.Background(), policyId).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `PolicyAPI.ClonePolicy``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `ClonePolicy`: ListPolicies200ResponseInner
+	fmt.Fprintf(os.Stdout, "Response from `PolicyAPI.ClonePolicy`: %v\n", resp)
 }
 ```
 
@@ -251,25 +251,25 @@ Create a Policy
 package main
 
 import (
-    "context"
-    "fmt"
-    "os"
-    openapiclient "github.com/okta/okta-sdk-golang"
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/okta/okta-sdk-golang"
 )
 
 func main() {
-    policy := openapiclient.listPolicies_200_response_inner{AccessPolicy: openapiclient.NewAccessPolicy()} // ListPolicies200ResponseInner | 
-    activate := true // bool | This query parameter is only valid for Classic Engine orgs. (optional) (default to true)
+	policy := openapiclient.listPolicies_200_response_inner{AccessPolicy: openapiclient.NewAccessPolicy()} // ListPolicies200ResponseInner | 
+	activate := true // bool | This query parameter is only valid for Classic Engine orgs. (optional) (default to true)
 
-    configuration := openapiclient.NewConfiguration()
-    apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.PolicyAPI.CreatePolicy(context.Background()).Policy(policy).Activate(activate).Execute()
-    if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `PolicyAPI.CreatePolicy``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-    }
-    // response from `CreatePolicy`: ListPolicies200ResponseInner
-    fmt.Fprintf(os.Stdout, "Response from `PolicyAPI.CreatePolicy`: %v\n", resp)
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.PolicyAPI.CreatePolicy(context.Background()).Policy(policy).Activate(activate).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `PolicyAPI.CreatePolicy``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `CreatePolicy`: ListPolicies200ResponseInner
+	fmt.Fprintf(os.Stdout, "Response from `PolicyAPI.CreatePolicy`: %v\n", resp)
 }
 ```
 
@@ -319,26 +319,26 @@ Create a Policy Rule
 package main
 
 import (
-    "context"
-    "fmt"
-    "os"
-    openapiclient "github.com/okta/okta-sdk-golang"
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/okta/okta-sdk-golang"
 )
 
 func main() {
-    policyId := "00plrilJ7jZ66Gn0X0g3" // string | `id` of the Policy
-    policyRule := openapiclient.listPolicyRules_200_response_inner{AccessPolicyRule: openapiclient.NewAccessPolicyRule()} // ListPolicyRules200ResponseInner | 
-    activate := true // bool | Set this parameter to `false` to create an `INACTIVE` rule. (optional) (default to true)
+	policyId := "00plrilJ7jZ66Gn0X0g3" // string | `id` of the Policy
+	policyRule := openapiclient.listPolicyRules_200_response_inner{AccessPolicyRule: openapiclient.NewAccessPolicyRule()} // ListPolicyRules200ResponseInner | 
+	activate := true // bool | Set this parameter to `false` to create an `INACTIVE` rule. (optional) (default to true)
 
-    configuration := openapiclient.NewConfiguration()
-    apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.PolicyAPI.CreatePolicyRule(context.Background(), policyId).PolicyRule(policyRule).Activate(activate).Execute()
-    if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `PolicyAPI.CreatePolicyRule``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-    }
-    // response from `CreatePolicyRule`: ListPolicyRules200ResponseInner
-    fmt.Fprintf(os.Stdout, "Response from `PolicyAPI.CreatePolicyRule`: %v\n", resp)
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.PolicyAPI.CreatePolicyRule(context.Background(), policyId).PolicyRule(policyRule).Activate(activate).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `PolicyAPI.CreatePolicyRule``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `CreatePolicyRule`: ListPolicyRules200ResponseInner
+	fmt.Fprintf(os.Stdout, "Response from `PolicyAPI.CreatePolicyRule`: %v\n", resp)
 }
 ```
 
@@ -393,25 +393,25 @@ Create a Policy Simulation
 package main
 
 import (
-    "context"
-    "fmt"
-    "os"
-    openapiclient "github.com/okta/okta-sdk-golang"
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/okta/okta-sdk-golang"
 )
 
 func main() {
-    simulatePolicy := []openapiclient.SimulatePolicyBody{*openapiclient.NewSimulatePolicyBody("AppInstance_example")} // []SimulatePolicyBody | 
-    expand := "expand=EVALUATED&expand=RULE" // string | Use `expand=EVALUATED` to include a list of evaluated but not matched policies and policy rules. Use `expand=RULE` to include details about why a rule condition was (not) matched. (optional)
+	simulatePolicy := []openapiclient.SimulatePolicyBody{*openapiclient.NewSimulatePolicyBody("AppInstance_example")} // []SimulatePolicyBody | 
+	expand := "expand=EVALUATED&expand=RULE" // string | Use `expand=EVALUATED` to include a list of evaluated but not matched policies and policy rules. Use `expand=RULE` to include details about why a rule condition was (not) matched. (optional)
 
-    configuration := openapiclient.NewConfiguration()
-    apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.PolicyAPI.CreatePolicySimulation(context.Background()).SimulatePolicy(simulatePolicy).Expand(expand).Execute()
-    if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `PolicyAPI.CreatePolicySimulation``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-    }
-    // response from `CreatePolicySimulation`: []SimulatePolicyEvaluations
-    fmt.Fprintf(os.Stdout, "Response from `PolicyAPI.CreatePolicySimulation`: %v\n", resp)
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.PolicyAPI.CreatePolicySimulation(context.Background()).SimulatePolicy(simulatePolicy).Expand(expand).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `PolicyAPI.CreatePolicySimulation``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `CreatePolicySimulation`: []SimulatePolicyEvaluations
+	fmt.Fprintf(os.Stdout, "Response from `PolicyAPI.CreatePolicySimulation`: %v\n", resp)
 }
 ```
 
@@ -461,22 +461,22 @@ Deactivate a Policy
 package main
 
 import (
-    "context"
-    "fmt"
-    "os"
-    openapiclient "github.com/okta/okta-sdk-golang"
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/okta/okta-sdk-golang"
 )
 
 func main() {
-    policyId := "00plrilJ7jZ66Gn0X0g3" // string | `id` of the Policy
+	policyId := "00plrilJ7jZ66Gn0X0g3" // string | `id` of the Policy
 
-    configuration := openapiclient.NewConfiguration()
-    apiClient := openapiclient.NewAPIClient(configuration)
-    r, err := apiClient.PolicyAPI.DeactivatePolicy(context.Background(), policyId).Execute()
-    if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `PolicyAPI.DeactivatePolicy``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-    }
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	r, err := apiClient.PolicyAPI.DeactivatePolicy(context.Background(), policyId).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `PolicyAPI.DeactivatePolicy``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
 }
 ```
 
@@ -529,23 +529,23 @@ Deactivate a Policy Rule
 package main
 
 import (
-    "context"
-    "fmt"
-    "os"
-    openapiclient "github.com/okta/okta-sdk-golang"
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/okta/okta-sdk-golang"
 )
 
 func main() {
-    policyId := "00plrilJ7jZ66Gn0X0g3" // string | `id` of the Policy
-    ruleId := "ruld3hJ7jZh4fn0st0g3" // string | `id` of the Policy Rule
+	policyId := "00plrilJ7jZ66Gn0X0g3" // string | `id` of the Policy
+	ruleId := "ruld3hJ7jZh4fn0st0g3" // string | `id` of the Policy Rule
 
-    configuration := openapiclient.NewConfiguration()
-    apiClient := openapiclient.NewAPIClient(configuration)
-    r, err := apiClient.PolicyAPI.DeactivatePolicyRule(context.Background(), policyId, ruleId).Execute()
-    if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `PolicyAPI.DeactivatePolicyRule``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-    }
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	r, err := apiClient.PolicyAPI.DeactivatePolicyRule(context.Background(), policyId, ruleId).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `PolicyAPI.DeactivatePolicyRule``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
 }
 ```
 
@@ -600,22 +600,22 @@ Delete a Policy
 package main
 
 import (
-    "context"
-    "fmt"
-    "os"
-    openapiclient "github.com/okta/okta-sdk-golang"
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/okta/okta-sdk-golang"
 )
 
 func main() {
-    policyId := "00plrilJ7jZ66Gn0X0g3" // string | `id` of the Policy
+	policyId := "00plrilJ7jZ66Gn0X0g3" // string | `id` of the Policy
 
-    configuration := openapiclient.NewConfiguration()
-    apiClient := openapiclient.NewAPIClient(configuration)
-    r, err := apiClient.PolicyAPI.DeletePolicy(context.Background(), policyId).Execute()
-    if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `PolicyAPI.DeletePolicy``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-    }
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	r, err := apiClient.PolicyAPI.DeletePolicy(context.Background(), policyId).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `PolicyAPI.DeletePolicy``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
 }
 ```
 
@@ -668,23 +668,23 @@ Delete a policy resource Mapping
 package main
 
 import (
-    "context"
-    "fmt"
-    "os"
-    openapiclient "github.com/okta/okta-sdk-golang"
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/okta/okta-sdk-golang"
 )
 
 func main() {
-    policyId := "00plrilJ7jZ66Gn0X0g3" // string | `id` of the Policy
-    mappingId := "maplr2rLjZ6NsGn1P0g3" // string | `id` of the policy resource Mapping
+	policyId := "00plrilJ7jZ66Gn0X0g3" // string | `id` of the Policy
+	mappingId := "maplr2rLjZ6NsGn1P0g3" // string | `id` of the policy resource Mapping
 
-    configuration := openapiclient.NewConfiguration()
-    apiClient := openapiclient.NewAPIClient(configuration)
-    r, err := apiClient.PolicyAPI.DeletePolicyResourceMapping(context.Background(), policyId, mappingId).Execute()
-    if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `PolicyAPI.DeletePolicyResourceMapping``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-    }
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	r, err := apiClient.PolicyAPI.DeletePolicyResourceMapping(context.Background(), policyId, mappingId).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `PolicyAPI.DeletePolicyResourceMapping``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
 }
 ```
 
@@ -739,23 +739,23 @@ Delete a Policy Rule
 package main
 
 import (
-    "context"
-    "fmt"
-    "os"
-    openapiclient "github.com/okta/okta-sdk-golang"
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/okta/okta-sdk-golang"
 )
 
 func main() {
-    policyId := "00plrilJ7jZ66Gn0X0g3" // string | `id` of the Policy
-    ruleId := "ruld3hJ7jZh4fn0st0g3" // string | `id` of the Policy Rule
+	policyId := "00plrilJ7jZ66Gn0X0g3" // string | `id` of the Policy
+	ruleId := "ruld3hJ7jZh4fn0st0g3" // string | `id` of the Policy Rule
 
-    configuration := openapiclient.NewConfiguration()
-    apiClient := openapiclient.NewAPIClient(configuration)
-    r, err := apiClient.PolicyAPI.DeletePolicyRule(context.Background(), policyId, ruleId).Execute()
-    if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `PolicyAPI.DeletePolicyRule``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-    }
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	r, err := apiClient.PolicyAPI.DeletePolicyRule(context.Background(), policyId, ruleId).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `PolicyAPI.DeletePolicyRule``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
 }
 ```
 
@@ -810,25 +810,25 @@ Retrieve a Policy
 package main
 
 import (
-    "context"
-    "fmt"
-    "os"
-    openapiclient "github.com/okta/okta-sdk-golang"
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/okta/okta-sdk-golang"
 )
 
 func main() {
-    policyId := "00plrilJ7jZ66Gn0X0g3" // string | `id` of the Policy
-    expand := "expand_example" // string |  (optional) (default to "")
+	policyId := "00plrilJ7jZ66Gn0X0g3" // string | `id` of the Policy
+	expand := "expand_example" // string |  (optional) (default to "")
 
-    configuration := openapiclient.NewConfiguration()
-    apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.PolicyAPI.GetPolicy(context.Background(), policyId).Expand(expand).Execute()
-    if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `PolicyAPI.GetPolicy``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-    }
-    // response from `GetPolicy`: ListPolicies200ResponseInner
-    fmt.Fprintf(os.Stdout, "Response from `PolicyAPI.GetPolicy`: %v\n", resp)
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.PolicyAPI.GetPolicy(context.Background(), policyId).Expand(expand).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `PolicyAPI.GetPolicy``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `GetPolicy`: ListPolicies200ResponseInner
+	fmt.Fprintf(os.Stdout, "Response from `PolicyAPI.GetPolicy`: %v\n", resp)
 }
 ```
 
@@ -882,25 +882,25 @@ Retrieve a policy resource Mapping
 package main
 
 import (
-    "context"
-    "fmt"
-    "os"
-    openapiclient "github.com/okta/okta-sdk-golang"
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/okta/okta-sdk-golang"
 )
 
 func main() {
-    policyId := "00plrilJ7jZ66Gn0X0g3" // string | `id` of the Policy
-    mappingId := "maplr2rLjZ6NsGn1P0g3" // string | `id` of the policy resource Mapping
+	policyId := "00plrilJ7jZ66Gn0X0g3" // string | `id` of the Policy
+	mappingId := "maplr2rLjZ6NsGn1P0g3" // string | `id` of the policy resource Mapping
 
-    configuration := openapiclient.NewConfiguration()
-    apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.PolicyAPI.GetPolicyMapping(context.Background(), policyId, mappingId).Execute()
-    if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `PolicyAPI.GetPolicyMapping``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-    }
-    // response from `GetPolicyMapping`: PolicyMapping
-    fmt.Fprintf(os.Stdout, "Response from `PolicyAPI.GetPolicyMapping`: %v\n", resp)
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.PolicyAPI.GetPolicyMapping(context.Background(), policyId, mappingId).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `PolicyAPI.GetPolicyMapping``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `GetPolicyMapping`: PolicyMapping
+	fmt.Fprintf(os.Stdout, "Response from `PolicyAPI.GetPolicyMapping`: %v\n", resp)
 }
 ```
 
@@ -955,25 +955,25 @@ Retrieve a Policy Rule
 package main
 
 import (
-    "context"
-    "fmt"
-    "os"
-    openapiclient "github.com/okta/okta-sdk-golang"
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/okta/okta-sdk-golang"
 )
 
 func main() {
-    policyId := "00plrilJ7jZ66Gn0X0g3" // string | `id` of the Policy
-    ruleId := "ruld3hJ7jZh4fn0st0g3" // string | `id` of the Policy Rule
+	policyId := "00plrilJ7jZ66Gn0X0g3" // string | `id` of the Policy
+	ruleId := "ruld3hJ7jZh4fn0st0g3" // string | `id` of the Policy Rule
 
-    configuration := openapiclient.NewConfiguration()
-    apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.PolicyAPI.GetPolicyRule(context.Background(), policyId, ruleId).Execute()
-    if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `PolicyAPI.GetPolicyRule``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-    }
-    // response from `GetPolicyRule`: ListPolicyRules200ResponseInner
-    fmt.Fprintf(os.Stdout, "Response from `PolicyAPI.GetPolicyRule`: %v\n", resp)
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.PolicyAPI.GetPolicyRule(context.Background(), policyId, ruleId).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `PolicyAPI.GetPolicyRule``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `GetPolicyRule`: ListPolicyRules200ResponseInner
+	fmt.Fprintf(os.Stdout, "Response from `PolicyAPI.GetPolicyRule`: %v\n", resp)
 }
 ```
 
@@ -1028,29 +1028,29 @@ List all Policies
 package main
 
 import (
-    "context"
-    "fmt"
-    "os"
-    openapiclient "github.com/okta/okta-sdk-golang"
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/okta/okta-sdk-golang"
 )
 
 func main() {
-    type_ := "type__example" // string | Specifies the type of policy to return. The following policy types are available only with the Okta Identity Engine - `ACCESS_POLICY`, `PROFILE_ENROLLMENT`, `CONTINUOUS_ACCESS`, and `ENTITY_RISK`. The `CONTINUOUS_ACCESS` and `ENTITY_RISK` are in Early Access (EA). Contact your Okta account team to enable these features.
-    status := "status_example" // string | Refines the query by the `status` of the policy - `ACTIVE` or `INACTIVE` (optional)
-    expand := "expand_example" // string |  (optional) (default to "")
-    sortBy := "sortBy_example" // string | Refines the query by sorting on the policy `name` in ascending order (optional)
-    limit := "limit_example" // string | Defines the number of policies returned, see [Pagination](https://developer.okta.com/docs/api/#pagination) (optional)
-    after := "after_example" // string | End page cursor for pagination, see [Pagination](https://developer.okta.com/docs/api/#pagination) (optional)
+	type_ := "type__example" // string | Specifies the type of policy to return. The following policy types are available only with the Okta Identity Engine - `ACCESS_POLICY`, `PROFILE_ENROLLMENT`, `CONTINUOUS_ACCESS`, and `ENTITY_RISK`. The `CONTINUOUS_ACCESS` and `ENTITY_RISK` are in Early Access (EA). Contact your Okta account team to enable these features.
+	status := "status_example" // string | Refines the query by the `status` of the policy - `ACTIVE` or `INACTIVE` (optional)
+	expand := "expand_example" // string |  (optional) (default to "")
+	sortBy := "sortBy_example" // string | Refines the query by sorting on the policy `name` in ascending order (optional)
+	limit := "limit_example" // string | Defines the number of policies returned, see [Pagination](https://developer.okta.com/docs/api/#pagination) (optional)
+	after := "after_example" // string | End page cursor for pagination, see [Pagination](https://developer.okta.com/docs/api/#pagination) (optional)
 
-    configuration := openapiclient.NewConfiguration()
-    apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.PolicyAPI.ListPolicies(context.Background()).Type_(type_).Status(status).Expand(expand).SortBy(sortBy).Limit(limit).After(after).Execute()
-    if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `PolicyAPI.ListPolicies``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-    }
-    // response from `ListPolicies`: []ListPolicies200ResponseInner
-    fmt.Fprintf(os.Stdout, "Response from `PolicyAPI.ListPolicies`: %v\n", resp)
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.PolicyAPI.ListPolicies(context.Background()).Type_(type_).Status(status).Expand(expand).SortBy(sortBy).Limit(limit).After(after).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `PolicyAPI.ListPolicies``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `ListPolicies`: []ListPolicies200ResponseInner
+	fmt.Fprintf(os.Stdout, "Response from `PolicyAPI.ListPolicies`: %v\n", resp)
 }
 ```
 
@@ -1104,24 +1104,24 @@ List all Applications mapped to a Policy
 package main
 
 import (
-    "context"
-    "fmt"
-    "os"
-    openapiclient "github.com/okta/okta-sdk-golang"
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/okta/okta-sdk-golang"
 )
 
 func main() {
-    policyId := "00plrilJ7jZ66Gn0X0g3" // string | `id` of the Policy
+	policyId := "00plrilJ7jZ66Gn0X0g3" // string | `id` of the Policy
 
-    configuration := openapiclient.NewConfiguration()
-    apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.PolicyAPI.ListPolicyApps(context.Background(), policyId).Execute()
-    if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `PolicyAPI.ListPolicyApps``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-    }
-    // response from `ListPolicyApps`: []ListApplications200ResponseInner
-    fmt.Fprintf(os.Stdout, "Response from `PolicyAPI.ListPolicyApps`: %v\n", resp)
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.PolicyAPI.ListPolicyApps(context.Background(), policyId).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `PolicyAPI.ListPolicyApps``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `ListPolicyApps`: []ListApplications200ResponseInner
+	fmt.Fprintf(os.Stdout, "Response from `PolicyAPI.ListPolicyApps`: %v\n", resp)
 }
 ```
 
@@ -1174,24 +1174,24 @@ List all resources mapped to a Policy
 package main
 
 import (
-    "context"
-    "fmt"
-    "os"
-    openapiclient "github.com/okta/okta-sdk-golang"
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/okta/okta-sdk-golang"
 )
 
 func main() {
-    policyId := "00plrilJ7jZ66Gn0X0g3" // string | `id` of the Policy
+	policyId := "00plrilJ7jZ66Gn0X0g3" // string | `id` of the Policy
 
-    configuration := openapiclient.NewConfiguration()
-    apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.PolicyAPI.ListPolicyMappings(context.Background(), policyId).Execute()
-    if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `PolicyAPI.ListPolicyMappings``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-    }
-    // response from `ListPolicyMappings`: []PolicyMapping
-    fmt.Fprintf(os.Stdout, "Response from `PolicyAPI.ListPolicyMappings`: %v\n", resp)
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.PolicyAPI.ListPolicyMappings(context.Background(), policyId).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `PolicyAPI.ListPolicyMappings``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `ListPolicyMappings`: []PolicyMapping
+	fmt.Fprintf(os.Stdout, "Response from `PolicyAPI.ListPolicyMappings`: %v\n", resp)
 }
 ```
 
@@ -1244,24 +1244,24 @@ List all Policy Rules
 package main
 
 import (
-    "context"
-    "fmt"
-    "os"
-    openapiclient "github.com/okta/okta-sdk-golang"
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/okta/okta-sdk-golang"
 )
 
 func main() {
-    policyId := "00plrilJ7jZ66Gn0X0g3" // string | `id` of the Policy
+	policyId := "00plrilJ7jZ66Gn0X0g3" // string | `id` of the Policy
 
-    configuration := openapiclient.NewConfiguration()
-    apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.PolicyAPI.ListPolicyRules(context.Background(), policyId).Execute()
-    if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `PolicyAPI.ListPolicyRules``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-    }
-    // response from `ListPolicyRules`: []ListPolicyRules200ResponseInner
-    fmt.Fprintf(os.Stdout, "Response from `PolicyAPI.ListPolicyRules`: %v\n", resp)
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.PolicyAPI.ListPolicyRules(context.Background(), policyId).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `PolicyAPI.ListPolicyRules``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `ListPolicyRules`: []ListPolicyRules200ResponseInner
+	fmt.Fprintf(os.Stdout, "Response from `PolicyAPI.ListPolicyRules`: %v\n", resp)
 }
 ```
 
@@ -1314,25 +1314,25 @@ Map a resource to a Policy
 package main
 
 import (
-    "context"
-    "fmt"
-    "os"
-    openapiclient "github.com/okta/okta-sdk-golang"
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/okta/okta-sdk-golang"
 )
 
 func main() {
-    policyId := "00plrilJ7jZ66Gn0X0g3" // string | `id` of the Policy
-    policyMappingRequest := *openapiclient.NewPolicyMappingRequest() // PolicyMappingRequest | 
+	policyId := "00plrilJ7jZ66Gn0X0g3" // string | `id` of the Policy
+	policyMappingRequest := *openapiclient.NewPolicyMappingRequest() // PolicyMappingRequest | 
 
-    configuration := openapiclient.NewConfiguration()
-    apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.PolicyAPI.MapResourceToPolicy(context.Background(), policyId).PolicyMappingRequest(policyMappingRequest).Execute()
-    if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `PolicyAPI.MapResourceToPolicy``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-    }
-    // response from `MapResourceToPolicy`: PolicyMapping
-    fmt.Fprintf(os.Stdout, "Response from `PolicyAPI.MapResourceToPolicy`: %v\n", resp)
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.PolicyAPI.MapResourceToPolicy(context.Background(), policyId).PolicyMappingRequest(policyMappingRequest).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `PolicyAPI.MapResourceToPolicy``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `MapResourceToPolicy`: PolicyMapping
+	fmt.Fprintf(os.Stdout, "Response from `PolicyAPI.MapResourceToPolicy`: %v\n", resp)
 }
 ```
 
@@ -1386,25 +1386,25 @@ Replace a Policy
 package main
 
 import (
-    "context"
-    "fmt"
-    "os"
-    openapiclient "github.com/okta/okta-sdk-golang"
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/okta/okta-sdk-golang"
 )
 
 func main() {
-    policyId := "00plrilJ7jZ66Gn0X0g3" // string | `id` of the Policy
-    policy := openapiclient.listPolicies_200_response_inner{AccessPolicy: openapiclient.NewAccessPolicy()} // ListPolicies200ResponseInner | 
+	policyId := "00plrilJ7jZ66Gn0X0g3" // string | `id` of the Policy
+	policy := openapiclient.listPolicies_200_response_inner{AccessPolicy: openapiclient.NewAccessPolicy()} // ListPolicies200ResponseInner | 
 
-    configuration := openapiclient.NewConfiguration()
-    apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.PolicyAPI.ReplacePolicy(context.Background(), policyId).Policy(policy).Execute()
-    if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `PolicyAPI.ReplacePolicy``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-    }
-    // response from `ReplacePolicy`: ListPolicies200ResponseInner
-    fmt.Fprintf(os.Stdout, "Response from `PolicyAPI.ReplacePolicy`: %v\n", resp)
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.PolicyAPI.ReplacePolicy(context.Background(), policyId).Policy(policy).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `PolicyAPI.ReplacePolicy``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `ReplacePolicy`: ListPolicies200ResponseInner
+	fmt.Fprintf(os.Stdout, "Response from `PolicyAPI.ReplacePolicy`: %v\n", resp)
 }
 ```
 
@@ -1458,26 +1458,26 @@ Replace a Policy Rule
 package main
 
 import (
-    "context"
-    "fmt"
-    "os"
-    openapiclient "github.com/okta/okta-sdk-golang"
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/okta/okta-sdk-golang"
 )
 
 func main() {
-    policyId := "00plrilJ7jZ66Gn0X0g3" // string | `id` of the Policy
-    ruleId := "ruld3hJ7jZh4fn0st0g3" // string | `id` of the Policy Rule
-    policyRule := openapiclient.listPolicyRules_200_response_inner{AccessPolicyRule: openapiclient.NewAccessPolicyRule()} // ListPolicyRules200ResponseInner | 
+	policyId := "00plrilJ7jZ66Gn0X0g3" // string | `id` of the Policy
+	ruleId := "ruld3hJ7jZh4fn0st0g3" // string | `id` of the Policy Rule
+	policyRule := openapiclient.listPolicyRules_200_response_inner{AccessPolicyRule: openapiclient.NewAccessPolicyRule()} // ListPolicyRules200ResponseInner | 
 
-    configuration := openapiclient.NewConfiguration()
-    apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.PolicyAPI.ReplacePolicyRule(context.Background(), policyId, ruleId).PolicyRule(policyRule).Execute()
-    if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `PolicyAPI.ReplacePolicyRule``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-    }
-    // response from `ReplacePolicyRule`: ListPolicyRules200ResponseInner
-    fmt.Fprintf(os.Stdout, "Response from `PolicyAPI.ReplacePolicyRule`: %v\n", resp)
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.PolicyAPI.ReplacePolicyRule(context.Background(), policyId, ruleId).PolicyRule(policyRule).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `PolicyAPI.ReplacePolicyRule``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `ReplacePolicyRule`: ListPolicyRules200ResponseInner
+	fmt.Fprintf(os.Stdout, "Response from `PolicyAPI.ReplacePolicyRule`: %v\n", resp)
 }
 ```
 

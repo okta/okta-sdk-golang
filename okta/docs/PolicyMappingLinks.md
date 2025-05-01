@@ -5,7 +5,7 @@
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **Self** | Pointer to [**HrefObjectSelfLink**](HrefObjectSelfLink.md) |  | [optional] 
-**Application** | Pointer to [**PolicyMappingLinksAllOfApplication**](PolicyMappingLinksAllOfApplication.md) |  | [optional] 
+**Application** | Pointer to [**HrefObject**](HrefObject.md) |  | [optional] 
 
 ## Methods
 
@@ -53,20 +53,20 @@ HasSelf returns a boolean if a field has been set.
 
 ### GetApplication
 
-`func (o *PolicyMappingLinks) GetApplication() PolicyMappingLinksAllOfApplication`
+`func (o *PolicyMappingLinks) GetApplication() HrefObject`
 
 GetApplication returns the Application field if non-nil, zero value otherwise.
 
 ### GetApplicationOk
 
-`func (o *PolicyMappingLinks) GetApplicationOk() (*PolicyMappingLinksAllOfApplication, bool)`
+`func (o *PolicyMappingLinks) GetApplicationOk() (*HrefObject, bool)`
 
 GetApplicationOk returns a tuple with the Application field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetApplication
 
-`func (o *PolicyMappingLinks) SetApplication(v PolicyMappingLinksAllOfApplication)`
+`func (o *PolicyMappingLinks) SetApplication(v HrefObject)`
 
 SetApplication sets Application field to given value.
 

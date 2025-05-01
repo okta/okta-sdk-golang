@@ -4,8 +4,8 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**FullImport** | Pointer to [**ImportScheduleObjectFullImport**](ImportScheduleObjectFullImport.md) |  | [optional] 
-**IncrementalImport** | Pointer to [**ImportScheduleObjectIncrementalImport**](ImportScheduleObjectIncrementalImport.md) |  | [optional] 
+**FullImport** | Pointer to [**ImportScheduleSettings**](ImportScheduleSettings.md) |  | [optional] 
+**IncrementalImport** | Pointer to [**ImportScheduleSettings**](ImportScheduleSettings.md) |  | [optional] 
 **Status** | Pointer to **string** | Setting status | [optional] 
 
 ## Methods
@@ -29,20 +29,20 @@ but it doesn't guarantee that properties required by API are set
 
 ### GetFullImport
 
-`func (o *ImportScheduleObject) GetFullImport() ImportScheduleObjectFullImport`
+`func (o *ImportScheduleObject) GetFullImport() ImportScheduleSettings`
 
 GetFullImport returns the FullImport field if non-nil, zero value otherwise.
 
 ### GetFullImportOk
 
-`func (o *ImportScheduleObject) GetFullImportOk() (*ImportScheduleObjectFullImport, bool)`
+`func (o *ImportScheduleObject) GetFullImportOk() (*ImportScheduleSettings, bool)`
 
 GetFullImportOk returns a tuple with the FullImport field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetFullImport
 
-`func (o *ImportScheduleObject) SetFullImport(v ImportScheduleObjectFullImport)`
+`func (o *ImportScheduleObject) SetFullImport(v ImportScheduleSettings)`
 
 SetFullImport sets FullImport field to given value.
 
@@ -54,20 +54,20 @@ HasFullImport returns a boolean if a field has been set.
 
 ### GetIncrementalImport
 
-`func (o *ImportScheduleObject) GetIncrementalImport() ImportScheduleObjectIncrementalImport`
+`func (o *ImportScheduleObject) GetIncrementalImport() ImportScheduleSettings`
 
 GetIncrementalImport returns the IncrementalImport field if non-nil, zero value otherwise.
 
 ### GetIncrementalImportOk
 
-`func (o *ImportScheduleObject) GetIncrementalImportOk() (*ImportScheduleObjectIncrementalImport, bool)`
+`func (o *ImportScheduleObject) GetIncrementalImportOk() (*ImportScheduleSettings, bool)`
 
 GetIncrementalImportOk returns a tuple with the IncrementalImport field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetIncrementalImport
 
-`func (o *ImportScheduleObject) SetIncrementalImport(v ImportScheduleObjectIncrementalImport)`
+`func (o *ImportScheduleObject) SetIncrementalImport(v ImportScheduleSettings)`
 
 SetIncrementalImport sets IncrementalImport field to given value.
 

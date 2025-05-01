@@ -4,7 +4,7 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**Poll** | Pointer to [**LinksPollPoll**](LinksPollPoll.md) |  | [optional] 
+**Poll** | Pointer to [**HrefObject**](HrefObject.md) |  | [optional] 
 
 ## Methods
 
@@ -27,20 +27,20 @@ but it doesn't guarantee that properties required by API are set
 
 ### GetPoll
 
-`func (o *LinksPoll) GetPoll() LinksPollPoll`
+`func (o *LinksPoll) GetPoll() HrefObject`
 
 GetPoll returns the Poll field if non-nil, zero value otherwise.
 
 ### GetPollOk
 
-`func (o *LinksPoll) GetPollOk() (*LinksPollPoll, bool)`
+`func (o *LinksPoll) GetPollOk() (*HrefObject, bool)`
 
 GetPollOk returns a tuple with the Poll field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetPoll
 
-`func (o *LinksPoll) SetPoll(v LinksPollPoll)`
+`func (o *LinksPoll) SetPoll(v HrefObject)`
 
 SetPoll sets Poll field to given value.
 

@@ -4,7 +4,7 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**Factor** | Pointer to [**LinksFactorFactor**](LinksFactorFactor.md) |  | [optional] 
+**Factor** | Pointer to [**HrefObject**](HrefObject.md) |  | [optional] 
 
 ## Methods
 
@@ -27,20 +27,20 @@ but it doesn't guarantee that properties required by API are set
 
 ### GetFactor
 
-`func (o *LinksFactor) GetFactor() LinksFactorFactor`
+`func (o *LinksFactor) GetFactor() HrefObject`
 
 GetFactor returns the Factor field if non-nil, zero value otherwise.
 
 ### GetFactorOk
 
-`func (o *LinksFactor) GetFactorOk() (*LinksFactorFactor, bool)`
+`func (o *LinksFactor) GetFactorOk() (*HrefObject, bool)`
 
 GetFactorOk returns a tuple with the Factor field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetFactor
 
-`func (o *LinksFactor) SetFactor(v LinksFactorFactor)`
+`func (o *LinksFactor) SetFactor(v HrefObject)`
 
 SetFactor sets Factor field to given value.
 

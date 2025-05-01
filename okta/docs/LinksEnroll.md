@@ -4,7 +4,7 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**Enroll** | Pointer to [**LinksEnrollEnroll**](LinksEnrollEnroll.md) |  | [optional] 
+**Enroll** | Pointer to [**HrefObject**](HrefObject.md) |  | [optional] 
 
 ## Methods
 
@@ -27,20 +27,20 @@ but it doesn't guarantee that properties required by API are set
 
 ### GetEnroll
 
-`func (o *LinksEnroll) GetEnroll() LinksEnrollEnroll`
+`func (o *LinksEnroll) GetEnroll() HrefObject`
 
 GetEnroll returns the Enroll field if non-nil, zero value otherwise.
 
 ### GetEnrollOk
 
-`func (o *LinksEnroll) GetEnrollOk() (*LinksEnrollEnroll, bool)`
+`func (o *LinksEnroll) GetEnrollOk() (*HrefObject, bool)`
 
 GetEnrollOk returns a tuple with the Enroll field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetEnroll
 
-`func (o *LinksEnroll) SetEnroll(v LinksEnrollEnroll)`
+`func (o *LinksEnroll) SetEnroll(v HrefObject)`
 
 SetEnroll sets Enroll field to given value.
 

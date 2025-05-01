@@ -24,25 +24,25 @@ Retrieve a Feature
 package main
 
 import (
-    "context"
-    "fmt"
-    "os"
-    openapiclient "github.com/okta/okta-sdk-golang"
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/okta/okta-sdk-golang"
 )
 
 func main() {
-    appId := "0oafxqCAJWWGELFTYASJ" // string | Application ID
-    featureName := "featureName_example" // string | Name of the Feature
+	appId := "0oafxqCAJWWGELFTYASJ" // string | Application ID
+	featureName := "featureName_example" // string | Name of the Feature
 
-    configuration := openapiclient.NewConfiguration()
-    apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.ApplicationFeaturesAPI.GetFeatureForApplication(context.Background(), appId, featureName).Execute()
-    if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `ApplicationFeaturesAPI.GetFeatureForApplication``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-    }
-    // response from `GetFeatureForApplication`: ListFeaturesForApplication200ResponseInner
-    fmt.Fprintf(os.Stdout, "Response from `ApplicationFeaturesAPI.GetFeatureForApplication`: %v\n", resp)
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.ApplicationFeaturesAPI.GetFeatureForApplication(context.Background(), appId, featureName).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `ApplicationFeaturesAPI.GetFeatureForApplication``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `GetFeatureForApplication`: ListFeaturesForApplication200ResponseInner
+	fmt.Fprintf(os.Stdout, "Response from `ApplicationFeaturesAPI.GetFeatureForApplication`: %v\n", resp)
 }
 ```
 
@@ -97,24 +97,24 @@ List all Features
 package main
 
 import (
-    "context"
-    "fmt"
-    "os"
-    openapiclient "github.com/okta/okta-sdk-golang"
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/okta/okta-sdk-golang"
 )
 
 func main() {
-    appId := "0oafxqCAJWWGELFTYASJ" // string | Application ID
+	appId := "0oafxqCAJWWGELFTYASJ" // string | Application ID
 
-    configuration := openapiclient.NewConfiguration()
-    apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.ApplicationFeaturesAPI.ListFeaturesForApplication(context.Background(), appId).Execute()
-    if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `ApplicationFeaturesAPI.ListFeaturesForApplication``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-    }
-    // response from `ListFeaturesForApplication`: []ListFeaturesForApplication200ResponseInner
-    fmt.Fprintf(os.Stdout, "Response from `ApplicationFeaturesAPI.ListFeaturesForApplication`: %v\n", resp)
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.ApplicationFeaturesAPI.ListFeaturesForApplication(context.Background(), appId).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `ApplicationFeaturesAPI.ListFeaturesForApplication``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `ListFeaturesForApplication`: []ListFeaturesForApplication200ResponseInner
+	fmt.Fprintf(os.Stdout, "Response from `ApplicationFeaturesAPI.ListFeaturesForApplication`: %v\n", resp)
 }
 ```
 
@@ -167,26 +167,26 @@ Update a Feature
 package main
 
 import (
-    "context"
-    "fmt"
-    "os"
-    openapiclient "github.com/okta/okta-sdk-golang"
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/okta/okta-sdk-golang"
 )
 
 func main() {
-    appId := "0oafxqCAJWWGELFTYASJ" // string | Application ID
-    featureName := "featureName_example" // string | Name of the Feature
-    updateFeatureForApplicationRequest := openapiclient.updateFeatureForApplication_request{CapabilitiesInboundProvisioningObject: openapiclient.NewCapabilitiesInboundProvisioningObject(*openapiclient.NewCapabilitiesImportRulesObject(), *openapiclient.NewCapabilitiesImportSettingsObject())} // UpdateFeatureForApplicationRequest | 
+	appId := "0oafxqCAJWWGELFTYASJ" // string | Application ID
+	featureName := "featureName_example" // string | Name of the Feature
+	updateFeatureForApplicationRequest := openapiclient.updateFeatureForApplication_request{CapabilitiesInboundProvisioningObject: openapiclient.NewCapabilitiesInboundProvisioningObject(*openapiclient.NewCapabilitiesImportRulesObject(), *openapiclient.NewCapabilitiesImportSettingsObject())} // UpdateFeatureForApplicationRequest | 
 
-    configuration := openapiclient.NewConfiguration()
-    apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.ApplicationFeaturesAPI.UpdateFeatureForApplication(context.Background(), appId, featureName).UpdateFeatureForApplicationRequest(updateFeatureForApplicationRequest).Execute()
-    if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `ApplicationFeaturesAPI.UpdateFeatureForApplication``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-    }
-    // response from `UpdateFeatureForApplication`: ListFeaturesForApplication200ResponseInner
-    fmt.Fprintf(os.Stdout, "Response from `ApplicationFeaturesAPI.UpdateFeatureForApplication`: %v\n", resp)
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.ApplicationFeaturesAPI.UpdateFeatureForApplication(context.Background(), appId, featureName).UpdateFeatureForApplicationRequest(updateFeatureForApplicationRequest).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `ApplicationFeaturesAPI.UpdateFeatureForApplication``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `UpdateFeatureForApplication`: ListFeaturesForApplication200ResponseInner
+	fmt.Fprintf(os.Stdout, "Response from `ApplicationFeaturesAPI.UpdateFeatureForApplication`: %v\n", resp)
 }
 ```
 
