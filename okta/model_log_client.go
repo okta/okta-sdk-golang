@@ -21,7 +21,6 @@ API version: 2024.06.1
 Contact: devex-public@okta.com
 */
 
-
 package okta
 
 import (
@@ -30,12 +29,12 @@ import (
 
 // LogClient struct for LogClient
 type LogClient struct {
-	Device *string `json:"device,omitempty"`
-	GeographicalContext *LogGeographicalContext `json:"geographicalContext,omitempty"`
-	Id *string `json:"id,omitempty"`
-	IpAddress *string `json:"ipAddress,omitempty"`
-	UserAgent *LogUserAgent `json:"userAgent,omitempty"`
-	Zone *string `json:"zone,omitempty"`
+	Device               *string                 `json:"device,omitempty"`
+	GeographicalContext  *LogGeographicalContext `json:"geographicalContext,omitempty"`
+	Id                   *string                 `json:"id,omitempty"`
+	IpAddress            *string                 `json:"ipAddress,omitempty"`
+	UserAgent            *LogUserAgent           `json:"userAgent,omitempty"`
+	Zone                 *string                 `json:"zone,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -341,4 +340,3 @@ func (v *NullableLogClient) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-

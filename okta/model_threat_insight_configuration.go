@@ -21,13 +21,11 @@ API version: 2024.06.1
 Contact: devex-public@okta.com
 */
 
-
 package okta
 
 import (
 	"encoding/json"
 	"time"
-	"fmt"
 )
 
 // ThreatInsightConfiguration struct for ThreatInsightConfiguration
@@ -39,8 +37,8 @@ type ThreatInsightConfiguration struct {
 	// Accepts a list of [Network Zone](/openapi/okta-management/management/tag/NetworkZone/) IDs. IPs in the excluded network zones aren't logged or blocked. This ensures that traffic from known, trusted IPs isn't accidentally logged or blocked.
 	ExcludeZones []string `json:"excludeZones,omitempty"`
 	// Timestamp when the ThreatInsight Configuration object was last updated
-	LastUpdated *time.Time `json:"lastUpdated,omitempty"`
-	Links *LinksSelf `json:"_links,omitempty"`
+	LastUpdated          *time.Time `json:"lastUpdated,omitempty"`
+	Links                *LinksSelf `json:"_links,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -303,4 +301,3 @@ func (v *NullableThreatInsightConfiguration) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-

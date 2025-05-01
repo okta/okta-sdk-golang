@@ -21,7 +21,6 @@ API version: 2024.06.1
 Contact: devex-public@okta.com
 */
 
-
 package okta
 
 import (
@@ -34,7 +33,7 @@ import (
 type DeviceAssuranceChromeOSPlatform struct {
 	DeviceAssurance
 	ThirdPartySignalProviders *DeviceAssuranceChromeOSPlatformAllOfThirdPartySignalProviders `json:"thirdPartySignalProviders,omitempty"`
-	AdditionalProperties map[string]interface{}
+	AdditionalProperties      map[string]interface{}
 }
 
 type _DeviceAssuranceChromeOSPlatform DeviceAssuranceChromeOSPlatform
@@ -201,4 +200,3 @@ func (v *NullableDeviceAssuranceChromeOSPlatform) UnmarshalJSON(src []byte) erro
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-

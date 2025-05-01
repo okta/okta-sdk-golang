@@ -21,7 +21,6 @@ API version: 2024.06.1
 Contact: devex-public@okta.com
 */
 
-
 package okta
 
 import (
@@ -29,19 +28,18 @@ import (
 	"fmt"
 )
 
-
 // BundleEntitlementsResponseLinks struct for BundleEntitlementsResponseLinks
 type BundleEntitlementsResponseLinks struct {
 	BundleEntitlementsResponseLinksAnyOf *BundleEntitlementsResponseLinksAnyOf
-	LinksNext *LinksNext
-	LinksSelf *LinksSelf
+	LinksNext                            *LinksNext
+	LinksSelf                            *LinksSelf
 }
 
 // Unmarshal JSON data into any of the pointers in the struct
 func (dst *BundleEntitlementsResponseLinks) UnmarshalJSON(data []byte) error {
 	var err error
 	// try to unmarshal JSON data into BundleEntitlementsResponseLinksAnyOf
-	err = json.Unmarshal(data, &dst.BundleEntitlementsResponseLinksAnyOf);
+	err = json.Unmarshal(data, &dst.BundleEntitlementsResponseLinksAnyOf)
 	if err == nil {
 		jsonBundleEntitlementsResponseLinksAnyOf, _ := json.Marshal(dst.BundleEntitlementsResponseLinksAnyOf)
 		if string(jsonBundleEntitlementsResponseLinksAnyOf) == "{}" { // empty struct
@@ -54,7 +52,7 @@ func (dst *BundleEntitlementsResponseLinks) UnmarshalJSON(data []byte) error {
 	}
 
 	// try to unmarshal JSON data into LinksNext
-	err = json.Unmarshal(data, &dst.LinksNext);
+	err = json.Unmarshal(data, &dst.LinksNext)
 	if err == nil {
 		jsonLinksNext, _ := json.Marshal(dst.LinksNext)
 		if string(jsonLinksNext) == "{}" { // empty struct
@@ -67,7 +65,7 @@ func (dst *BundleEntitlementsResponseLinks) UnmarshalJSON(data []byte) error {
 	}
 
 	// try to unmarshal JSON data into LinksSelf
-	err = json.Unmarshal(data, &dst.LinksSelf);
+	err = json.Unmarshal(data, &dst.LinksSelf)
 	if err == nil {
 		jsonLinksSelf, _ := json.Marshal(dst.LinksSelf)
 		if string(jsonLinksSelf) == "{}" { // empty struct
@@ -98,7 +96,6 @@ func (src BundleEntitlementsResponseLinks) MarshalJSON() ([]byte, error) {
 
 	return nil, nil // no data in anyOf schemas
 }
-
 
 type NullableBundleEntitlementsResponseLinks struct {
 	value *BundleEntitlementsResponseLinks
@@ -135,5 +132,3 @@ func (v *NullableBundleEntitlementsResponseLinks) UnmarshalJSON(src []byte) erro
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-
-

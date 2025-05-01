@@ -21,7 +21,6 @@ API version: 2024.06.1
 Contact: devex-public@okta.com
 */
 
-
 package okta
 
 import (
@@ -30,19 +29,19 @@ import (
 
 // UserFactorLinks struct for UserFactorLinks
 type UserFactorLinks struct {
-	Activate *HrefObject `json:"activate,omitempty"`
-	Cancel *HrefObject `json:"cancel,omitempty"`
-	Deactivate *HrefObject `json:"deactivate,omitempty"`
-	Enroll *HrefObject `json:"enroll,omitempty"`
-	Factor *HrefObject `json:"factor,omitempty"`
-	Poll *HrefObject `json:"poll,omitempty"`
-	Qrcode *HrefObject `json:"qrcode,omitempty"`
-	Question *HrefObject `json:"question,omitempty"`
-	Resend *HrefObject `json:"resend,omitempty"`
-	Send *HrefObject `json:"send,omitempty"`
-	Self *HrefObjectSelfLink `json:"self,omitempty"`
-	User *HrefObject `json:"user,omitempty"`
-	Verify *HrefObject `json:"verify,omitempty"`
+	Activate             *HrefObject         `json:"activate,omitempty"`
+	Cancel               *HrefObject         `json:"cancel,omitempty"`
+	Deactivate           *HrefObject         `json:"deactivate,omitempty"`
+	Enroll               *HrefObject         `json:"enroll,omitempty"`
+	Factor               *HrefObject         `json:"factor,omitempty"`
+	Poll                 *HrefObject         `json:"poll,omitempty"`
+	Qrcode               *HrefObject         `json:"qrcode,omitempty"`
+	Question             *HrefObject         `json:"question,omitempty"`
+	Resend               *HrefObject         `json:"resend,omitempty"`
+	Send                 *HrefObject         `json:"send,omitempty"`
+	Self                 *HrefObjectSelfLink `json:"self,omitempty"`
+	User                 *HrefObject         `json:"user,omitempty"`
+	Verify               *HrefObject         `json:"verify,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -600,4 +599,3 @@ func (v *NullableUserFactorLinks) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-

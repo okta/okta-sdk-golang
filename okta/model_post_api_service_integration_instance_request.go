@@ -21,12 +21,10 @@ API version: 2024.06.1
 Contact: devex-public@okta.com
 */
 
-
 package okta
 
 import (
 	"encoding/json"
-	"fmt"
 )
 
 // PostAPIServiceIntegrationInstanceRequest struct for PostAPIServiceIntegrationInstanceRequest
@@ -34,7 +32,7 @@ type PostAPIServiceIntegrationInstanceRequest struct {
 	// The list of Okta management scopes granted to the API Service Integration instance. See [Okta management OAuth 2.0 scopes](/oauth2/#okta-admin-management).
 	GrantedScopes []string `json:"grantedScopes"`
 	// The type of the API service integration. This string is an underscore-concatenated, lowercased API service integration name. For example, `my_api_log_integration`.
-	Type string `json:"type"`
+	Type                 string `json:"type"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -182,4 +180,3 @@ func (v *NullablePostAPIServiceIntegrationInstanceRequest) UnmarshalJSON(src []b
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-

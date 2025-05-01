@@ -21,7 +21,6 @@ API version: 2024.06.1
 Contact: devex-public@okta.com
 */
 
-
 package okta
 
 import (
@@ -30,13 +29,13 @@ import (
 
 // DeviceAccessPolicyRuleCondition struct for DeviceAccessPolicyRuleCondition
 type DeviceAccessPolicyRuleCondition struct {
-	Migrated *bool `json:"migrated,omitempty"`
-	Platform *DevicePolicyRuleConditionPlatform `json:"platform,omitempty"`
-	Rooted *bool `json:"rooted,omitempty"`
-	TrustLevel *string `json:"trustLevel,omitempty"`
-	Assurance *DevicePolicyRuleConditionAssurance `json:"assurance,omitempty"`
-	Managed *bool `json:"managed,omitempty"`
-	Registered *bool `json:"registered,omitempty"`
+	Migrated             *bool                               `json:"migrated,omitempty"`
+	Platform             *DevicePolicyRuleConditionPlatform  `json:"platform,omitempty"`
+	Rooted               *bool                               `json:"rooted,omitempty"`
+	TrustLevel           *string                             `json:"trustLevel,omitempty"`
+	Assurance            *DevicePolicyRuleConditionAssurance `json:"assurance,omitempty"`
+	Managed              *bool                               `json:"managed,omitempty"`
+	Registered           *bool                               `json:"registered,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -378,4 +377,3 @@ func (v *NullableDeviceAccessPolicyRuleCondition) UnmarshalJSON(src []byte) erro
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-

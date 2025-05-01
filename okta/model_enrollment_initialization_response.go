@@ -21,7 +21,6 @@ API version: 2024.06.1
 Contact: devex-public@okta.com
 */
 
-
 package okta
 
 import (
@@ -37,7 +36,7 @@ type EnrollmentInitializationResponse struct {
 	// Encrypted JWE of PIN request for the fulfillment provider
 	PinRequestJwe *string `json:"pinRequestJwe,omitempty"`
 	// ID of an existing Okta user
-	UserId *string `json:"userId,omitempty"`
+	UserId               *string `json:"userId,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -271,4 +270,3 @@ func (v *NullableEnrollmentInitializationResponse) UnmarshalJSON(src []byte) err
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-

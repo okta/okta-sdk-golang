@@ -21,7 +21,6 @@ API version: 2024.06.1
 Contact: devex-public@okta.com
 */
 
-
 package okta
 
 import (
@@ -32,14 +31,14 @@ import (
 type OAuth2RefreshTokenLinks struct {
 	Self *HrefObjectSelfLink `json:"self,omitempty"`
 	// Link to the app resource
-	App *AppCustomHrefObject `json:"app,omitempty"`
+	App    *AppCustomHrefObject                `json:"app,omitempty"`
 	Revoke *OAuth2RefreshTokenLinksAllOfRevoke `json:"revoke,omitempty"`
 	// Link to the client resource
 	Client *AppCustomHrefObject `json:"client,omitempty"`
 	// Link to the user resource
 	User *AppCustomHrefObject `json:"user,omitempty"`
 	// Link to the Token authorization server resource
-	AuthorizationServer *AppCustomHrefObject `json:"authorizationServer,omitempty"`
+	AuthorizationServer  *AppCustomHrefObject `json:"authorizationServer,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -345,4 +344,3 @@ func (v *NullableOAuth2RefreshTokenLinks) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-

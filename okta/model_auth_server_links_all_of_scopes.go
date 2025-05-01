@@ -21,12 +21,10 @@ API version: 2024.06.1
 Contact: devex-public@okta.com
 */
 
-
 package okta
 
 import (
 	"encoding/json"
-	"fmt"
 )
 
 // AuthServerLinksAllOfScopes struct for AuthServerLinksAllOfScopes
@@ -39,7 +37,7 @@ type AuthServerLinksAllOfScopes struct {
 	// Indicates whether the Link Object's `href` property is a URI template.
 	Templated *bool `json:"templated,omitempty"`
 	// The media type of the link. If omitted, it is implicitly `application/json`.
-	Type *string `json:"type,omitempty"`
+	Type                 *string `json:"type,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -302,4 +300,3 @@ func (v *NullableAuthServerLinksAllOfScopes) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-

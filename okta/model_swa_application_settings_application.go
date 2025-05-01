@@ -21,7 +21,6 @@ API version: 2024.06.1
 Contact: devex-public@okta.com
 */
 
-
 package okta
 
 import (
@@ -30,19 +29,19 @@ import (
 
 // SwaApplicationSettingsApplication struct for SwaApplicationSettingsApplication
 type SwaApplicationSettingsApplication struct {
-	ButtonField *string `json:"buttonField,omitempty"`
-	ButtonSelector *string `json:"buttonSelector,omitempty"`
-	Checkbox *string `json:"checkbox,omitempty"`
-	ExtraFieldSelector *string `json:"extraFieldSelector,omitempty"`
-	ExtraFieldValue *string `json:"extraFieldValue,omitempty"`
-	LoginUrlRegex *string `json:"loginUrlRegex,omitempty"`
-	PasswordField *string `json:"passwordField,omitempty"`
-	PasswordSelector *string `json:"passwordSelector,omitempty"`
-	RedirectUrl *string `json:"redirectUrl,omitempty"`
-	TargetURL *string `json:"targetURL,omitempty"`
-	Url *string `json:"url,omitempty"`
-	UsernameField *string `json:"usernameField,omitempty"`
-	UserNameSelector *string `json:"userNameSelector,omitempty"`
+	ButtonField          *string `json:"buttonField,omitempty"`
+	ButtonSelector       *string `json:"buttonSelector,omitempty"`
+	Checkbox             *string `json:"checkbox,omitempty"`
+	ExtraFieldSelector   *string `json:"extraFieldSelector,omitempty"`
+	ExtraFieldValue      *string `json:"extraFieldValue,omitempty"`
+	LoginUrlRegex        *string `json:"loginUrlRegex,omitempty"`
+	PasswordField        *string `json:"passwordField,omitempty"`
+	PasswordSelector     *string `json:"passwordSelector,omitempty"`
+	RedirectUrl          *string `json:"redirectUrl,omitempty"`
+	TargetURL            *string `json:"targetURL,omitempty"`
+	Url                  *string `json:"url,omitempty"`
+	UsernameField        *string `json:"usernameField,omitempty"`
+	UserNameSelector     *string `json:"userNameSelector,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -600,4 +599,3 @@ func (v *NullableSwaApplicationSettingsApplication) UnmarshalJSON(src []byte) er
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-

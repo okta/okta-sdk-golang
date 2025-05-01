@@ -21,7 +21,6 @@ API version: 2024.06.1
 Contact: devex-public@okta.com
 */
 
-
 package okta
 
 import (
@@ -30,21 +29,20 @@ import (
 	"io/ioutil"
 	"net/http"
 	"net/url"
-	"time"
 	"strings"
+	"time"
 )
-
 
 type DirectoriesIntegrationAPI interface {
 
 	/*
-	UpdateADGroupMembership Update an AD Group membership
+		UpdateADGroupMembership Update an AD Group membership
 
-	Updates an AD Group membership directly in AD
+		Updates an AD Group membership directly in AD
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param appInstanceId ID of the AD AppInstance in Okta
-	@return ApiUpdateADGroupMembershipRequest
+		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+		@param appInstanceId ID of the AD AppInstance in Okta
+		@return ApiUpdateADGroupMembershipRequest
 	*/
 	UpdateADGroupMembership(ctx context.Context, appInstanceId string) ApiUpdateADGroupMembershipRequest
 
@@ -56,11 +54,11 @@ type DirectoriesIntegrationAPI interface {
 type DirectoriesIntegrationAPIService service
 
 type ApiUpdateADGroupMembershipRequest struct {
-	ctx context.Context
-	ApiService DirectoriesIntegrationAPI
+	ctx           context.Context
+	ApiService    DirectoriesIntegrationAPI
 	appInstanceId string
-	agentAction *AgentAction
-	retryCount int32
+	agentAction   *AgentAction
+	retryCount    int32
 }
 
 func (r ApiUpdateADGroupMembershipRequest) AgentAction(agentAction AgentAction) ApiUpdateADGroupMembershipRequest {
@@ -77,16 +75,16 @@ UpdateADGroupMembership Update an AD Group membership
 
 Updates an AD Group membership directly in AD
 
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @param appInstanceId ID of the AD AppInstance in Okta
- @return ApiUpdateADGroupMembershipRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param appInstanceId ID of the AD AppInstance in Okta
+	@return ApiUpdateADGroupMembershipRequest
 */
 func (a *DirectoriesIntegrationAPIService) UpdateADGroupMembership(ctx context.Context, appInstanceId string) ApiUpdateADGroupMembershipRequest {
 	return ApiUpdateADGroupMembershipRequest{
-		ApiService: a,
-		ctx: ctx,
+		ApiService:    a,
+		ctx:           ctx,
 		appInstanceId: appInstanceId,
-		retryCount: 0,
+		retryCount:    0,
 	}
 }
 
@@ -98,7 +96,7 @@ func (a *DirectoriesIntegrationAPIService) UpdateADGroupMembershipExecute(r ApiU
 		formFiles            []formFile
 		localVarHTTPResponse *http.Response
 		localAPIResponse     *APIResponse
-		err 				 error
+		err                  error
 	)
 
 	if a.client.cfg.Okta.Client.RequestTimeout > 0 {

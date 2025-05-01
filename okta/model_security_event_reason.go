@@ -21,18 +21,16 @@ API version: 2024.06.1
 Contact: devex-public@okta.com
 */
 
-
 package okta
 
 import (
 	"encoding/json"
-	"fmt"
 )
 
 // SecurityEventReason struct for SecurityEventReason
 type SecurityEventReason struct {
 	// The event reason in English
-	En string `json:"en"`
+	En                   string `json:"en"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -151,4 +149,3 @@ func (v *NullableSecurityEventReason) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-

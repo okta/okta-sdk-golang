@@ -21,7 +21,6 @@ API version: 2024.06.1
 Contact: devex-public@okta.com
 */
 
-
 package okta
 
 import (
@@ -30,9 +29,9 @@ import (
 
 // RoleAssignedUser struct for RoleAssignedUser
 type RoleAssignedUser struct {
-	Id *string `json:"id,omitempty"`
-	Orn *string `json:"orn,omitempty"`
-	Links *LinksSelfAndRoles `json:"_links,omitempty"`
+	Id                   *string            `json:"id,omitempty"`
+	Orn                  *string            `json:"orn,omitempty"`
+	Links                *LinksSelfAndRoles `json:"_links,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -230,4 +229,3 @@ func (v *NullableRoleAssignedUser) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-

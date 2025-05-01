@@ -21,7 +21,6 @@ API version: 2024.06.1
 Contact: devex-public@okta.com
 */
 
-
 package okta
 
 import (
@@ -37,8 +36,8 @@ type AutoUpdateSchedule struct {
 	// duration in minutes
 	Duration *int32 `json:"duration,omitempty"`
 	// last time when the updated finished (success or failed, exclude cancelled), null if job haven't finished once yet.
-	LastUpdated *time.Time `json:"lastUpdated,omitempty"`
-	Timezone *string `json:"timezone,omitempty"`
+	LastUpdated          *time.Time `json:"lastUpdated,omitempty"`
+	Timezone             *string    `json:"timezone,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -308,4 +307,3 @@ func (v *NullableAutoUpdateSchedule) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-

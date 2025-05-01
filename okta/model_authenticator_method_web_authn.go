@@ -21,7 +21,6 @@ API version: 2024.06.1
 Contact: devex-public@okta.com
 */
 
-
 package okta
 
 import (
@@ -33,7 +32,7 @@ import (
 // AuthenticatorMethodWebAuthn struct for AuthenticatorMethodWebAuthn
 type AuthenticatorMethodWebAuthn struct {
 	AuthenticatorMethodBase
-	Settings *AuthenticatorMethodWebAuthnAllOfSettings `json:"settings,omitempty"`
+	Settings             *AuthenticatorMethodWebAuthnAllOfSettings `json:"settings,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -201,4 +200,3 @@ func (v *NullableAuthenticatorMethodWebAuthn) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-

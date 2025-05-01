@@ -21,7 +21,6 @@ API version: 2024.06.1
 Contact: devex-public@okta.com
 */
 
-
 package okta
 
 import (
@@ -30,15 +29,15 @@ import (
 
 // InlineHookOAuthPrivateKeyJwtConfig struct for InlineHookOAuthPrivateKeyJwtConfig
 type InlineHookOAuthPrivateKeyJwtConfig struct {
-	HookKeyId *string `json:"hookKeyId,omitempty"`
-	AuthType *string `json:"authType,omitempty"`
-	ClientId *string `json:"clientId,omitempty"`
-	Scope *string `json:"scope,omitempty"`
-	TokenUrl *string `json:"tokenUrl,omitempty"`
-	AuthScheme *InlineHookChannelConfigAuthScheme `json:"authScheme,omitempty"`
-	Headers []InlineHookChannelConfigHeaders `json:"headers,omitempty"`
-	Method *string `json:"method,omitempty"`
-	Uri *string `json:"uri,omitempty"`
+	HookKeyId            *string                            `json:"hookKeyId,omitempty"`
+	AuthType             *string                            `json:"authType,omitempty"`
+	ClientId             *string                            `json:"clientId,omitempty"`
+	Scope                *string                            `json:"scope,omitempty"`
+	TokenUrl             *string                            `json:"tokenUrl,omitempty"`
+	AuthScheme           *InlineHookChannelConfigAuthScheme `json:"authScheme,omitempty"`
+	Headers              []InlineHookChannelConfigHeaders   `json:"headers,omitempty"`
+	Method               *string                            `json:"method,omitempty"`
+	Uri                  *string                            `json:"uri,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -452,4 +451,3 @@ func (v *NullableInlineHookOAuthPrivateKeyJwtConfig) UnmarshalJSON(src []byte) e
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-

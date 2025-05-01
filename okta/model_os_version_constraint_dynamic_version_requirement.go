@@ -21,7 +21,6 @@ API version: 2024.06.1
 Contact: devex-public@okta.com
 */
 
-
 package okta
 
 import (
@@ -35,7 +34,7 @@ type OSVersionConstraintDynamicVersionRequirement struct {
 	// Indicates the distance from the latest Windows major version
 	DistanceFromLatestMajor *int32 `json:"distanceFromLatestMajor,omitempty"`
 	// Indicates whether the policy requires Windows devices to be on the latest security patch
-	LatestSecurityPatch *bool `json:"latestSecurityPatch,omitempty"`
+	LatestSecurityPatch  *bool `json:"latestSecurityPatch,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -233,4 +232,3 @@ func (v *NullableOSVersionConstraintDynamicVersionRequirement) UnmarshalJSON(src
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-

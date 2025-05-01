@@ -21,7 +21,6 @@ API version: 2024.06.1
 Contact: devex-public@okta.com
 */
 
-
 package okta
 
 import (
@@ -34,7 +33,7 @@ type AdminConsoleSettings struct {
 	SessionIdleTimeoutMinutes *int32 `json:"sessionIdleTimeoutMinutes,omitempty"`
 	// The absolute maximum session lifetime of the Okta Admin Console. Must be no more than 7 days.
 	SessionMaxLifetimeMinutes *int32 `json:"sessionMaxLifetimeMinutes,omitempty"`
-	AdditionalProperties map[string]interface{}
+	AdditionalProperties      map[string]interface{}
 }
 
 type _AdminConsoleSettings AdminConsoleSettings
@@ -203,4 +202,3 @@ func (v *NullableAdminConsoleSettings) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-

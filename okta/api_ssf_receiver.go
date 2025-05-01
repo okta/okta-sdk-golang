@@ -21,7 +21,6 @@ API version: 2024.06.1
 Contact: devex-public@okta.com
 */
 
-
 package okta
 
 import (
@@ -30,22 +29,21 @@ import (
 	"io/ioutil"
 	"net/http"
 	"net/url"
-	"time"
 	"strings"
+	"time"
 )
-
 
 type SSFReceiverAPI interface {
 
 	/*
-	ActivateSecurityEventsProviderInstance Activate a Security Events Provider
+			ActivateSecurityEventsProviderInstance Activate a Security Events Provider
 
-	Activates a Security Events Provider instance by setting its status to `ACTIVE`.
-This operation resumes the flow of events from the Security Events Provider to Okta.
+			Activates a Security Events Provider instance by setting its status to `ACTIVE`.
+		This operation resumes the flow of events from the Security Events Provider to Okta.
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param securityEventProviderId `id` of the Security Events Provider instance
-	@return ApiActivateSecurityEventsProviderInstanceRequest
+			@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+			@param securityEventProviderId `id` of the Security Events Provider instance
+			@return ApiActivateSecurityEventsProviderInstanceRequest
 	*/
 	ActivateSecurityEventsProviderInstance(ctx context.Context, securityEventProviderId string) ApiActivateSecurityEventsProviderInstanceRequest
 
@@ -54,12 +52,12 @@ This operation resumes the flow of events from the Security Events Provider to O
 	ActivateSecurityEventsProviderInstanceExecute(r ApiActivateSecurityEventsProviderInstanceRequest) (*SecurityEventsProviderResponse, *APIResponse, error)
 
 	/*
-	CreateSecurityEventsProviderInstance Create a Security Events Provider
+		CreateSecurityEventsProviderInstance Create a Security Events Provider
 
-	Creates a Security Events Provider instance
+		Creates a Security Events Provider instance
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@return ApiCreateSecurityEventsProviderInstanceRequest
+		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+		@return ApiCreateSecurityEventsProviderInstanceRequest
 	*/
 	CreateSecurityEventsProviderInstance(ctx context.Context) ApiCreateSecurityEventsProviderInstanceRequest
 
@@ -68,14 +66,14 @@ This operation resumes the flow of events from the Security Events Provider to O
 	CreateSecurityEventsProviderInstanceExecute(r ApiCreateSecurityEventsProviderInstanceRequest) (*SecurityEventsProviderResponse, *APIResponse, error)
 
 	/*
-	DeactivateSecurityEventsProviderInstance Deactivate a Security Events Provider
+			DeactivateSecurityEventsProviderInstance Deactivate a Security Events Provider
 
-	Deactivates a Security Events Provider instance by setting its status to `INACTIVE`.
-This operation stops the flow of events from the Security Events Provider to Okta.
+			Deactivates a Security Events Provider instance by setting its status to `INACTIVE`.
+		This operation stops the flow of events from the Security Events Provider to Okta.
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param securityEventProviderId `id` of the Security Events Provider instance
-	@return ApiDeactivateSecurityEventsProviderInstanceRequest
+			@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+			@param securityEventProviderId `id` of the Security Events Provider instance
+			@return ApiDeactivateSecurityEventsProviderInstanceRequest
 	*/
 	DeactivateSecurityEventsProviderInstance(ctx context.Context, securityEventProviderId string) ApiDeactivateSecurityEventsProviderInstanceRequest
 
@@ -84,13 +82,13 @@ This operation stops the flow of events from the Security Events Provider to Okt
 	DeactivateSecurityEventsProviderInstanceExecute(r ApiDeactivateSecurityEventsProviderInstanceRequest) (*SecurityEventsProviderResponse, *APIResponse, error)
 
 	/*
-	DeleteSecurityEventsProviderInstance Delete a Security Events Provider
+		DeleteSecurityEventsProviderInstance Delete a Security Events Provider
 
-	Deletes a Security Events Provider instance specified by `id`
+		Deletes a Security Events Provider instance specified by `id`
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param securityEventProviderId `id` of the Security Events Provider instance
-	@return ApiDeleteSecurityEventsProviderInstanceRequest
+		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+		@param securityEventProviderId `id` of the Security Events Provider instance
+		@return ApiDeleteSecurityEventsProviderInstanceRequest
 	*/
 	DeleteSecurityEventsProviderInstance(ctx context.Context, securityEventProviderId string) ApiDeleteSecurityEventsProviderInstanceRequest
 
@@ -98,13 +96,13 @@ This operation stops the flow of events from the Security Events Provider to Okt
 	DeleteSecurityEventsProviderInstanceExecute(r ApiDeleteSecurityEventsProviderInstanceRequest) (*APIResponse, error)
 
 	/*
-	GetSecurityEventsProviderInstance Retrieve the Security Events Provider
+		GetSecurityEventsProviderInstance Retrieve the Security Events Provider
 
-	Retrieves the Security Events Provider instance specified by `id`
+		Retrieves the Security Events Provider instance specified by `id`
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param securityEventProviderId `id` of the Security Events Provider instance
-	@return ApiGetSecurityEventsProviderInstanceRequest
+		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+		@param securityEventProviderId `id` of the Security Events Provider instance
+		@return ApiGetSecurityEventsProviderInstanceRequest
 	*/
 	GetSecurityEventsProviderInstance(ctx context.Context, securityEventProviderId string) ApiGetSecurityEventsProviderInstanceRequest
 
@@ -113,12 +111,12 @@ This operation stops the flow of events from the Security Events Provider to Okt
 	GetSecurityEventsProviderInstanceExecute(r ApiGetSecurityEventsProviderInstanceRequest) (*SecurityEventsProviderResponse, *APIResponse, error)
 
 	/*
-	ListSecurityEventsProviderInstances List all Security Events Providers
+		ListSecurityEventsProviderInstances List all Security Events Providers
 
-	Lists all Security Events Provider instances
+		Lists all Security Events Provider instances
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@return ApiListSecurityEventsProviderInstancesRequest
+		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+		@return ApiListSecurityEventsProviderInstancesRequest
 	*/
 	ListSecurityEventsProviderInstances(ctx context.Context) ApiListSecurityEventsProviderInstancesRequest
 
@@ -127,13 +125,13 @@ This operation stops the flow of events from the Security Events Provider to Okt
 	ListSecurityEventsProviderInstancesExecute(r ApiListSecurityEventsProviderInstancesRequest) ([]SecurityEventsProviderResponse, *APIResponse, error)
 
 	/*
-	ReplaceSecurityEventsProviderInstance Replace a Security Events Provider
+		ReplaceSecurityEventsProviderInstance Replace a Security Events Provider
 
-	Replaces a Security Events Provider instance specified by `id`
+		Replaces a Security Events Provider instance specified by `id`
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param securityEventProviderId `id` of the Security Events Provider instance
-	@return ApiReplaceSecurityEventsProviderInstanceRequest
+		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+		@param securityEventProviderId `id` of the Security Events Provider instance
+		@return ApiReplaceSecurityEventsProviderInstanceRequest
 	*/
 	ReplaceSecurityEventsProviderInstance(ctx context.Context, securityEventProviderId string) ApiReplaceSecurityEventsProviderInstanceRequest
 
@@ -146,10 +144,10 @@ This operation stops the flow of events from the Security Events Provider to Okt
 type SSFReceiverAPIService service
 
 type ApiActivateSecurityEventsProviderInstanceRequest struct {
-	ctx context.Context
-	ApiService SSFReceiverAPI
+	ctx                     context.Context
+	ApiService              SSFReceiverAPI
 	securityEventProviderId string
-	retryCount int32
+	retryCount              int32
 }
 
 func (r ApiActivateSecurityEventsProviderInstanceRequest) Execute() (*SecurityEventsProviderResponse, *APIResponse, error) {
@@ -162,21 +160,22 @@ ActivateSecurityEventsProviderInstance Activate a Security Events Provider
 Activates a Security Events Provider instance by setting its status to `ACTIVE`.
 This operation resumes the flow of events from the Security Events Provider to Okta.
 
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @param securityEventProviderId `id` of the Security Events Provider instance
- @return ApiActivateSecurityEventsProviderInstanceRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param securityEventProviderId `id` of the Security Events Provider instance
+	@return ApiActivateSecurityEventsProviderInstanceRequest
 */
 func (a *SSFReceiverAPIService) ActivateSecurityEventsProviderInstance(ctx context.Context, securityEventProviderId string) ApiActivateSecurityEventsProviderInstanceRequest {
 	return ApiActivateSecurityEventsProviderInstanceRequest{
-		ApiService: a,
-		ctx: ctx,
+		ApiService:              a,
+		ctx:                     ctx,
 		securityEventProviderId: securityEventProviderId,
-		retryCount: 0,
+		retryCount:              0,
 	}
 }
 
 // Execute executes the request
-//  @return SecurityEventsProviderResponse
+//
+//	@return SecurityEventsProviderResponse
 func (a *SSFReceiverAPIService) ActivateSecurityEventsProviderInstanceExecute(r ApiActivateSecurityEventsProviderInstanceRequest) (*SecurityEventsProviderResponse, *APIResponse, error) {
 	var (
 		localVarHTTPMethod   = http.MethodPost
@@ -185,7 +184,7 @@ func (a *SSFReceiverAPIService) ActivateSecurityEventsProviderInstanceExecute(r 
 		localVarReturnValue  *SecurityEventsProviderResponse
 		localVarHTTPResponse *http.Response
 		localAPIResponse     *APIResponse
-		err 				 error
+		err                  error
 	)
 
 	if a.client.cfg.Okta.Client.RequestTimeout > 0 {
@@ -318,15 +317,15 @@ func (a *SSFReceiverAPIService) ActivateSecurityEventsProviderInstanceExecute(r 
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
 		return localVarReturnValue, localAPIResponse, newErr
 	}
-	
+
 	localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
 	return localVarReturnValue, localAPIResponse, nil
 }
 
 type ApiCreateSecurityEventsProviderInstanceRequest struct {
-	ctx context.Context
+	ctx        context.Context
 	ApiService SSFReceiverAPI
-	instance *SecurityEventsProviderRequest
+	instance   *SecurityEventsProviderRequest
 	retryCount int32
 }
 
@@ -344,19 +343,20 @@ CreateSecurityEventsProviderInstance Create a Security Events Provider
 
 Creates a Security Events Provider instance
 
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @return ApiCreateSecurityEventsProviderInstanceRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@return ApiCreateSecurityEventsProviderInstanceRequest
 */
 func (a *SSFReceiverAPIService) CreateSecurityEventsProviderInstance(ctx context.Context) ApiCreateSecurityEventsProviderInstanceRequest {
 	return ApiCreateSecurityEventsProviderInstanceRequest{
 		ApiService: a,
-		ctx: ctx,
+		ctx:        ctx,
 		retryCount: 0,
 	}
 }
 
 // Execute executes the request
-//  @return SecurityEventsProviderResponse
+//
+//	@return SecurityEventsProviderResponse
 func (a *SSFReceiverAPIService) CreateSecurityEventsProviderInstanceExecute(r ApiCreateSecurityEventsProviderInstanceRequest) (*SecurityEventsProviderResponse, *APIResponse, error) {
 	var (
 		localVarHTTPMethod   = http.MethodPost
@@ -365,7 +365,7 @@ func (a *SSFReceiverAPIService) CreateSecurityEventsProviderInstanceExecute(r Ap
 		localVarReturnValue  *SecurityEventsProviderResponse
 		localVarHTTPResponse *http.Response
 		localAPIResponse     *APIResponse
-		err 				 error
+		err                  error
 	)
 
 	if a.client.cfg.Okta.Client.RequestTimeout > 0 {
@@ -502,16 +502,16 @@ func (a *SSFReceiverAPIService) CreateSecurityEventsProviderInstanceExecute(r Ap
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
 		return localVarReturnValue, localAPIResponse, newErr
 	}
-	
+
 	localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
 	return localVarReturnValue, localAPIResponse, nil
 }
 
 type ApiDeactivateSecurityEventsProviderInstanceRequest struct {
-	ctx context.Context
-	ApiService SSFReceiverAPI
+	ctx                     context.Context
+	ApiService              SSFReceiverAPI
 	securityEventProviderId string
-	retryCount int32
+	retryCount              int32
 }
 
 func (r ApiDeactivateSecurityEventsProviderInstanceRequest) Execute() (*SecurityEventsProviderResponse, *APIResponse, error) {
@@ -524,21 +524,22 @@ DeactivateSecurityEventsProviderInstance Deactivate a Security Events Provider
 Deactivates a Security Events Provider instance by setting its status to `INACTIVE`.
 This operation stops the flow of events from the Security Events Provider to Okta.
 
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @param securityEventProviderId `id` of the Security Events Provider instance
- @return ApiDeactivateSecurityEventsProviderInstanceRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param securityEventProviderId `id` of the Security Events Provider instance
+	@return ApiDeactivateSecurityEventsProviderInstanceRequest
 */
 func (a *SSFReceiverAPIService) DeactivateSecurityEventsProviderInstance(ctx context.Context, securityEventProviderId string) ApiDeactivateSecurityEventsProviderInstanceRequest {
 	return ApiDeactivateSecurityEventsProviderInstanceRequest{
-		ApiService: a,
-		ctx: ctx,
+		ApiService:              a,
+		ctx:                     ctx,
 		securityEventProviderId: securityEventProviderId,
-		retryCount: 0,
+		retryCount:              0,
 	}
 }
 
 // Execute executes the request
-//  @return SecurityEventsProviderResponse
+//
+//	@return SecurityEventsProviderResponse
 func (a *SSFReceiverAPIService) DeactivateSecurityEventsProviderInstanceExecute(r ApiDeactivateSecurityEventsProviderInstanceRequest) (*SecurityEventsProviderResponse, *APIResponse, error) {
 	var (
 		localVarHTTPMethod   = http.MethodPost
@@ -547,7 +548,7 @@ func (a *SSFReceiverAPIService) DeactivateSecurityEventsProviderInstanceExecute(
 		localVarReturnValue  *SecurityEventsProviderResponse
 		localVarHTTPResponse *http.Response
 		localAPIResponse     *APIResponse
-		err 				 error
+		err                  error
 	)
 
 	if a.client.cfg.Okta.Client.RequestTimeout > 0 {
@@ -680,16 +681,16 @@ func (a *SSFReceiverAPIService) DeactivateSecurityEventsProviderInstanceExecute(
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
 		return localVarReturnValue, localAPIResponse, newErr
 	}
-	
+
 	localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
 	return localVarReturnValue, localAPIResponse, nil
 }
 
 type ApiDeleteSecurityEventsProviderInstanceRequest struct {
-	ctx context.Context
-	ApiService SSFReceiverAPI
+	ctx                     context.Context
+	ApiService              SSFReceiverAPI
 	securityEventProviderId string
-	retryCount int32
+	retryCount              int32
 }
 
 func (r ApiDeleteSecurityEventsProviderInstanceRequest) Execute() (*APIResponse, error) {
@@ -701,16 +702,16 @@ DeleteSecurityEventsProviderInstance Delete a Security Events Provider
 
 Deletes a Security Events Provider instance specified by `id`
 
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @param securityEventProviderId `id` of the Security Events Provider instance
- @return ApiDeleteSecurityEventsProviderInstanceRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param securityEventProviderId `id` of the Security Events Provider instance
+	@return ApiDeleteSecurityEventsProviderInstanceRequest
 */
 func (a *SSFReceiverAPIService) DeleteSecurityEventsProviderInstance(ctx context.Context, securityEventProviderId string) ApiDeleteSecurityEventsProviderInstanceRequest {
 	return ApiDeleteSecurityEventsProviderInstanceRequest{
-		ApiService: a,
-		ctx: ctx,
+		ApiService:              a,
+		ctx:                     ctx,
 		securityEventProviderId: securityEventProviderId,
-		retryCount: 0,
+		retryCount:              0,
 	}
 }
 
@@ -722,7 +723,7 @@ func (a *SSFReceiverAPIService) DeleteSecurityEventsProviderInstanceExecute(r Ap
 		formFiles            []formFile
 		localVarHTTPResponse *http.Response
 		localAPIResponse     *APIResponse
-		err 				 error
+		err                  error
 	)
 
 	if a.client.cfg.Okta.Client.RequestTimeout > 0 {
@@ -851,10 +852,10 @@ func (a *SSFReceiverAPIService) DeleteSecurityEventsProviderInstanceExecute(r Ap
 }
 
 type ApiGetSecurityEventsProviderInstanceRequest struct {
-	ctx context.Context
-	ApiService SSFReceiverAPI
+	ctx                     context.Context
+	ApiService              SSFReceiverAPI
 	securityEventProviderId string
-	retryCount int32
+	retryCount              int32
 }
 
 func (r ApiGetSecurityEventsProviderInstanceRequest) Execute() (*SecurityEventsProviderResponse, *APIResponse, error) {
@@ -866,21 +867,22 @@ GetSecurityEventsProviderInstance Retrieve the Security Events Provider
 
 Retrieves the Security Events Provider instance specified by `id`
 
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @param securityEventProviderId `id` of the Security Events Provider instance
- @return ApiGetSecurityEventsProviderInstanceRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param securityEventProviderId `id` of the Security Events Provider instance
+	@return ApiGetSecurityEventsProviderInstanceRequest
 */
 func (a *SSFReceiverAPIService) GetSecurityEventsProviderInstance(ctx context.Context, securityEventProviderId string) ApiGetSecurityEventsProviderInstanceRequest {
 	return ApiGetSecurityEventsProviderInstanceRequest{
-		ApiService: a,
-		ctx: ctx,
+		ApiService:              a,
+		ctx:                     ctx,
 		securityEventProviderId: securityEventProviderId,
-		retryCount: 0,
+		retryCount:              0,
 	}
 }
 
 // Execute executes the request
-//  @return SecurityEventsProviderResponse
+//
+//	@return SecurityEventsProviderResponse
 func (a *SSFReceiverAPIService) GetSecurityEventsProviderInstanceExecute(r ApiGetSecurityEventsProviderInstanceRequest) (*SecurityEventsProviderResponse, *APIResponse, error) {
 	var (
 		localVarHTTPMethod   = http.MethodGet
@@ -889,7 +891,7 @@ func (a *SSFReceiverAPIService) GetSecurityEventsProviderInstanceExecute(r ApiGe
 		localVarReturnValue  *SecurityEventsProviderResponse
 		localVarHTTPResponse *http.Response
 		localAPIResponse     *APIResponse
-		err 				 error
+		err                  error
 	)
 
 	if a.client.cfg.Okta.Client.RequestTimeout > 0 {
@@ -1022,13 +1024,13 @@ func (a *SSFReceiverAPIService) GetSecurityEventsProviderInstanceExecute(r ApiGe
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
 		return localVarReturnValue, localAPIResponse, newErr
 	}
-	
+
 	localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
 	return localVarReturnValue, localAPIResponse, nil
 }
 
 type ApiListSecurityEventsProviderInstancesRequest struct {
-	ctx context.Context
+	ctx        context.Context
 	ApiService SSFReceiverAPI
 	retryCount int32
 }
@@ -1042,19 +1044,20 @@ ListSecurityEventsProviderInstances List all Security Events Providers
 
 Lists all Security Events Provider instances
 
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @return ApiListSecurityEventsProviderInstancesRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@return ApiListSecurityEventsProviderInstancesRequest
 */
 func (a *SSFReceiverAPIService) ListSecurityEventsProviderInstances(ctx context.Context) ApiListSecurityEventsProviderInstancesRequest {
 	return ApiListSecurityEventsProviderInstancesRequest{
 		ApiService: a,
-		ctx: ctx,
+		ctx:        ctx,
 		retryCount: 0,
 	}
 }
 
 // Execute executes the request
-//  @return []SecurityEventsProviderResponse
+//
+//	@return []SecurityEventsProviderResponse
 func (a *SSFReceiverAPIService) ListSecurityEventsProviderInstancesExecute(r ApiListSecurityEventsProviderInstancesRequest) ([]SecurityEventsProviderResponse, *APIResponse, error) {
 	var (
 		localVarHTTPMethod   = http.MethodGet
@@ -1063,7 +1066,7 @@ func (a *SSFReceiverAPIService) ListSecurityEventsProviderInstancesExecute(r Api
 		localVarReturnValue  []SecurityEventsProviderResponse
 		localVarHTTPResponse *http.Response
 		localAPIResponse     *APIResponse
-		err 				 error
+		err                  error
 	)
 
 	if a.client.cfg.Okta.Client.RequestTimeout > 0 {
@@ -1183,17 +1186,17 @@ func (a *SSFReceiverAPIService) ListSecurityEventsProviderInstancesExecute(r Api
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
 		return localVarReturnValue, localAPIResponse, newErr
 	}
-	
+
 	localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
 	return localVarReturnValue, localAPIResponse, nil
 }
 
 type ApiReplaceSecurityEventsProviderInstanceRequest struct {
-	ctx context.Context
-	ApiService SSFReceiverAPI
+	ctx                     context.Context
+	ApiService              SSFReceiverAPI
 	securityEventProviderId string
-	instance *SecurityEventsProviderRequest
-	retryCount int32
+	instance                *SecurityEventsProviderRequest
+	retryCount              int32
 }
 
 func (r ApiReplaceSecurityEventsProviderInstanceRequest) Instance(instance SecurityEventsProviderRequest) ApiReplaceSecurityEventsProviderInstanceRequest {
@@ -1210,21 +1213,22 @@ ReplaceSecurityEventsProviderInstance Replace a Security Events Provider
 
 Replaces a Security Events Provider instance specified by `id`
 
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @param securityEventProviderId `id` of the Security Events Provider instance
- @return ApiReplaceSecurityEventsProviderInstanceRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param securityEventProviderId `id` of the Security Events Provider instance
+	@return ApiReplaceSecurityEventsProviderInstanceRequest
 */
 func (a *SSFReceiverAPIService) ReplaceSecurityEventsProviderInstance(ctx context.Context, securityEventProviderId string) ApiReplaceSecurityEventsProviderInstanceRequest {
 	return ApiReplaceSecurityEventsProviderInstanceRequest{
-		ApiService: a,
-		ctx: ctx,
+		ApiService:              a,
+		ctx:                     ctx,
 		securityEventProviderId: securityEventProviderId,
-		retryCount: 0,
+		retryCount:              0,
 	}
 }
 
 // Execute executes the request
-//  @return SecurityEventsProviderResponse
+//
+//	@return SecurityEventsProviderResponse
 func (a *SSFReceiverAPIService) ReplaceSecurityEventsProviderInstanceExecute(r ApiReplaceSecurityEventsProviderInstanceRequest) (*SecurityEventsProviderResponse, *APIResponse, error) {
 	var (
 		localVarHTTPMethod   = http.MethodPut
@@ -1233,7 +1237,7 @@ func (a *SSFReceiverAPIService) ReplaceSecurityEventsProviderInstanceExecute(r A
 		localVarReturnValue  *SecurityEventsProviderResponse
 		localVarHTTPResponse *http.Response
 		localAPIResponse     *APIResponse
-		err 				 error
+		err                  error
 	)
 
 	if a.client.cfg.Okta.Client.RequestTimeout > 0 {
@@ -1383,7 +1387,7 @@ func (a *SSFReceiverAPIService) ReplaceSecurityEventsProviderInstanceExecute(r A
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
 		return localVarReturnValue, localAPIResponse, newErr
 	}
-	
+
 	localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
 	return localVarReturnValue, localAPIResponse, nil
 }

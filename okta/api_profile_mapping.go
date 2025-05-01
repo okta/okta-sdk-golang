@@ -21,7 +21,6 @@ API version: 2024.06.1
 Contact: devex-public@okta.com
 */
 
-
 package okta
 
 import (
@@ -30,21 +29,20 @@ import (
 	"io/ioutil"
 	"net/http"
 	"net/url"
-	"time"
 	"strings"
+	"time"
 )
-
 
 type ProfileMappingAPI interface {
 
 	/*
-	GetProfileMapping Retrieve a Profile Mapping
+		GetProfileMapping Retrieve a Profile Mapping
 
-	Retrieves a single Profile Mapping referenced by its ID
+		Retrieves a single Profile Mapping referenced by its ID
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param mappingId `id` of the Mapping
-	@return ApiGetProfileMappingRequest
+		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+		@param mappingId `id` of the Mapping
+		@return ApiGetProfileMappingRequest
 	*/
 	GetProfileMapping(ctx context.Context, mappingId string) ApiGetProfileMappingRequest
 
@@ -53,16 +51,16 @@ type ProfileMappingAPI interface {
 	GetProfileMappingExecute(r ApiGetProfileMappingRequest) (*ProfileMapping, *APIResponse, error)
 
 	/*
-	ListProfileMappings List all Profile Mappings
+			ListProfileMappings List all Profile Mappings
 
-	Lists all profile mappings in your organization with [pagination](https://developer.okta.com/docs/api/#pagination). You can return a subset of profile mappings that match a supported `sourceId` and/or `targetId`.
-The results are [paginated](/#pagination) according to the limit parameter. If there are multiple pages of results, the Link header contains a `next` link that should be treated as an opaque value (follow it, don't parse it).
+			Lists all profile mappings in your organization with [pagination](https://developer.okta.com/docs/api/#pagination). You can return a subset of profile mappings that match a supported `sourceId` and/or `targetId`.
+		The results are [paginated](/#pagination) according to the limit parameter. If there are multiple pages of results, the Link header contains a `next` link that should be treated as an opaque value (follow it, don't parse it).
 
-The response is a collection of profile mappings that include a subset of the profile mapping object's parameters. The profile mapping object describes
-the properties mapping between an Okta User and an App User Profile using [JSON Schema Draft 4](https://datatracker.ietf.org/doc/html/draft-zyp-json-schema-04).
+		The response is a collection of profile mappings that include a subset of the profile mapping object's parameters. The profile mapping object describes
+		the properties mapping between an Okta User and an App User Profile using [JSON Schema Draft 4](https://datatracker.ietf.org/doc/html/draft-zyp-json-schema-04).
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@return ApiListProfileMappingsRequest
+			@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+			@return ApiListProfileMappingsRequest
 	*/
 	ListProfileMappings(ctx context.Context) ApiListProfileMappingsRequest
 
@@ -71,13 +69,13 @@ the properties mapping between an Okta User and an App User Profile using [JSON 
 	ListProfileMappingsExecute(r ApiListProfileMappingsRequest) ([]ListProfileMappings, *APIResponse, error)
 
 	/*
-	UpdateProfileMapping Update a Profile Mapping
+		UpdateProfileMapping Update a Profile Mapping
 
-	Updates an existing profile mapping by adding, updating, or removing one or many property mappings
+		Updates an existing profile mapping by adding, updating, or removing one or many property mappings
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param mappingId `id` of the Mapping
-	@return ApiUpdateProfileMappingRequest
+		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+		@param mappingId `id` of the Mapping
+		@return ApiUpdateProfileMappingRequest
 	*/
 	UpdateProfileMapping(ctx context.Context, mappingId string) ApiUpdateProfileMappingRequest
 
@@ -90,9 +88,9 @@ the properties mapping between an Okta User and an App User Profile using [JSON 
 type ProfileMappingAPIService service
 
 type ApiGetProfileMappingRequest struct {
-	ctx context.Context
+	ctx        context.Context
 	ApiService ProfileMappingAPI
-	mappingId string
+	mappingId  string
 	retryCount int32
 }
 
@@ -105,21 +103,22 @@ GetProfileMapping Retrieve a Profile Mapping
 
 Retrieves a single Profile Mapping referenced by its ID
 
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @param mappingId `id` of the Mapping
- @return ApiGetProfileMappingRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param mappingId `id` of the Mapping
+	@return ApiGetProfileMappingRequest
 */
 func (a *ProfileMappingAPIService) GetProfileMapping(ctx context.Context, mappingId string) ApiGetProfileMappingRequest {
 	return ApiGetProfileMappingRequest{
 		ApiService: a,
-		ctx: ctx,
-		mappingId: mappingId,
+		ctx:        ctx,
+		mappingId:  mappingId,
 		retryCount: 0,
 	}
 }
 
 // Execute executes the request
-//  @return ProfileMapping
+//
+//	@return ProfileMapping
 func (a *ProfileMappingAPIService) GetProfileMappingExecute(r ApiGetProfileMappingRequest) (*ProfileMapping, *APIResponse, error) {
 	var (
 		localVarHTTPMethod   = http.MethodGet
@@ -128,7 +127,7 @@ func (a *ProfileMappingAPIService) GetProfileMappingExecute(r ApiGetProfileMappi
 		localVarReturnValue  *ProfileMapping
 		localVarHTTPResponse *http.Response
 		localAPIResponse     *APIResponse
-		err 				 error
+		err                  error
 	)
 
 	if a.client.cfg.Okta.Client.RequestTimeout > 0 {
@@ -249,18 +248,18 @@ func (a *ProfileMappingAPIService) GetProfileMappingExecute(r ApiGetProfileMappi
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
 		return localVarReturnValue, localAPIResponse, newErr
 	}
-	
+
 	localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
 	return localVarReturnValue, localAPIResponse, nil
 }
 
 type ApiListProfileMappingsRequest struct {
-	ctx context.Context
+	ctx        context.Context
 	ApiService ProfileMappingAPI
-	after *string
-	limit *int32
-	sourceId *string
-	targetId *string
+	after      *string
+	limit      *int32
+	sourceId   *string
+	targetId   *string
 	retryCount int32
 }
 
@@ -301,19 +300,20 @@ The results are [paginated](/#pagination) according to the limit parameter. If t
 The response is a collection of profile mappings that include a subset of the profile mapping object's parameters. The profile mapping object describes
 the properties mapping between an Okta User and an App User Profile using [JSON Schema Draft 4](https://datatracker.ietf.org/doc/html/draft-zyp-json-schema-04).
 
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @return ApiListProfileMappingsRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@return ApiListProfileMappingsRequest
 */
 func (a *ProfileMappingAPIService) ListProfileMappings(ctx context.Context) ApiListProfileMappingsRequest {
 	return ApiListProfileMappingsRequest{
 		ApiService: a,
-		ctx: ctx,
+		ctx:        ctx,
 		retryCount: 0,
 	}
 }
 
 // Execute executes the request
-//  @return []ListProfileMappings
+//
+//	@return []ListProfileMappings
 func (a *ProfileMappingAPIService) ListProfileMappingsExecute(r ApiListProfileMappingsRequest) ([]ListProfileMappings, *APIResponse, error) {
 	var (
 		localVarHTTPMethod   = http.MethodGet
@@ -322,7 +322,7 @@ func (a *ProfileMappingAPIService) ListProfileMappingsExecute(r ApiListProfileMa
 		localVarReturnValue  []ListProfileMappings
 		localVarHTTPResponse *http.Response
 		localAPIResponse     *APIResponse
-		err 				 error
+		err                  error
 	)
 
 	if a.client.cfg.Okta.Client.RequestTimeout > 0 {
@@ -442,17 +442,17 @@ func (a *ProfileMappingAPIService) ListProfileMappingsExecute(r ApiListProfileMa
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
 		return localVarReturnValue, localAPIResponse, newErr
 	}
-	
+
 	localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
 	return localVarReturnValue, localAPIResponse, nil
 }
 
 type ApiUpdateProfileMappingRequest struct {
-	ctx context.Context
-	ApiService ProfileMappingAPI
-	mappingId string
+	ctx            context.Context
+	ApiService     ProfileMappingAPI
+	mappingId      string
 	profileMapping *ProfileMappingRequest
-	retryCount int32
+	retryCount     int32
 }
 
 func (r ApiUpdateProfileMappingRequest) ProfileMapping(profileMapping ProfileMappingRequest) ApiUpdateProfileMappingRequest {
@@ -469,21 +469,22 @@ UpdateProfileMapping Update a Profile Mapping
 
 Updates an existing profile mapping by adding, updating, or removing one or many property mappings
 
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @param mappingId `id` of the Mapping
- @return ApiUpdateProfileMappingRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param mappingId `id` of the Mapping
+	@return ApiUpdateProfileMappingRequest
 */
 func (a *ProfileMappingAPIService) UpdateProfileMapping(ctx context.Context, mappingId string) ApiUpdateProfileMappingRequest {
 	return ApiUpdateProfileMappingRequest{
 		ApiService: a,
-		ctx: ctx,
-		mappingId: mappingId,
+		ctx:        ctx,
+		mappingId:  mappingId,
 		retryCount: 0,
 	}
 }
 
 // Execute executes the request
-//  @return ProfileMapping
+//
+//	@return ProfileMapping
 func (a *ProfileMappingAPIService) UpdateProfileMappingExecute(r ApiUpdateProfileMappingRequest) (*ProfileMapping, *APIResponse, error) {
 	var (
 		localVarHTTPMethod   = http.MethodPost
@@ -492,7 +493,7 @@ func (a *ProfileMappingAPIService) UpdateProfileMappingExecute(r ApiUpdateProfil
 		localVarReturnValue  *ProfileMapping
 		localVarHTTPResponse *http.Response
 		localAPIResponse     *APIResponse
-		err 				 error
+		err                  error
 	)
 
 	if a.client.cfg.Okta.Client.RequestTimeout > 0 {
@@ -630,7 +631,7 @@ func (a *ProfileMappingAPIService) UpdateProfileMappingExecute(r ApiUpdateProfil
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
 		return localVarReturnValue, localAPIResponse, newErr
 	}
-	
+
 	localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
 	return localVarReturnValue, localAPIResponse, nil
 }

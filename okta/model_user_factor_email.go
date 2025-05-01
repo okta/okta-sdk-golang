@@ -21,7 +21,6 @@ API version: 2024.06.1
 Contact: devex-public@okta.com
 */
 
-
 package okta
 
 import (
@@ -33,9 +32,9 @@ import (
 // UserFactorEmail struct for UserFactorEmail
 type UserFactorEmail struct {
 	UserFactor
-	FactorType interface{} `json:"factorType,omitempty"`
-	Profile *UserFactorEmailProfile `json:"profile,omitempty"`
-	Provider *string `json:"provider,omitempty"`
+	FactorType           interface{}             `json:"factorType,omitempty"`
+	Profile              *UserFactorEmailProfile `json:"profile,omitempty"`
+	Provider             *string                 `json:"provider,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -184,9 +183,9 @@ func (o UserFactorEmail) MarshalJSON() ([]byte, error) {
 
 func (o *UserFactorEmail) UnmarshalJSON(bytes []byte) (err error) {
 	type UserFactorEmailWithoutEmbeddedStruct struct {
-		FactorType interface{} `json:"factorType,omitempty"`
-		Profile *UserFactorEmailProfile `json:"profile,omitempty"`
-		Provider *string `json:"provider,omitempty"`
+		FactorType interface{}             `json:"factorType,omitempty"`
+		Profile    *UserFactorEmailProfile `json:"profile,omitempty"`
+		Provider   *string                 `json:"provider,omitempty"`
 	}
 
 	varUserFactorEmailWithoutEmbeddedStruct := UserFactorEmailWithoutEmbeddedStruct{}
@@ -280,4 +279,3 @@ func (v *NullableUserFactorEmail) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-

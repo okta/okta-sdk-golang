@@ -21,7 +21,6 @@ API version: 2024.06.1
 Contact: devex-public@okta.com
 */
 
-
 package okta
 
 import (
@@ -30,8 +29,8 @@ import (
 
 // CapabilitiesImportSettingsObject Defines import settings
 type CapabilitiesImportSettingsObject struct {
-	Schedule *ImportScheduleObject `json:"schedule,omitempty"`
-	Username *ImportUsernameObject `json:"username,omitempty"`
+	Schedule             *ImportScheduleObject `json:"schedule,omitempty"`
+	Username             *ImportUsernameObject `json:"username,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -193,4 +192,3 @@ func (v *NullableCapabilitiesImportSettingsObject) UnmarshalJSON(src []byte) err
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-

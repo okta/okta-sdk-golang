@@ -21,7 +21,6 @@ API version: 2024.06.1
 Contact: devex-public@okta.com
 */
 
-
 package okta
 
 import (
@@ -31,8 +30,8 @@ import (
 // ResourceSetBindingResponse struct for ResourceSetBindingResponse
 type ResourceSetBindingResponse struct {
 	// `id` of the role
-	Id *string `json:"id,omitempty"`
-	Links *ResourceSetBindingResponseLinks `json:"_links,omitempty"`
+	Id                   *string                          `json:"id,omitempty"`
+	Links                *ResourceSetBindingResponseLinks `json:"_links,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -194,4 +193,3 @@ func (v *NullableResourceSetBindingResponse) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-

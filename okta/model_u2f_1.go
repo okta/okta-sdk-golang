@@ -21,7 +21,6 @@ API version: 2024.06.1
 Contact: devex-public@okta.com
 */
 
-
 package okta
 
 import (
@@ -33,7 +32,7 @@ type U2f1 struct {
 	// Base64-encoded client data from the U2F token
 	ClientData *string `json:"clientData,omitempty"`
 	// Base64-encoded signature data from the U2F token
-	SignatureData interface{} `json:"signatureData,omitempty"`
+	SignatureData        interface{} `json:"signatureData,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -196,4 +195,3 @@ func (v *NullableU2f1) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-

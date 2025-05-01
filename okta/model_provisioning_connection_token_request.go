@@ -21,19 +21,17 @@ API version: 2024.06.1
 Contact: devex-public@okta.com
 */
 
-
 package okta
 
 import (
 	"encoding/json"
-	"fmt"
 )
 
 // ProvisioningConnectionTokenRequest struct for ProvisioningConnectionTokenRequest
 type ProvisioningConnectionTokenRequest struct {
 	// Only used for the Zscaler 2.0 (`zscalerbyz`) app. The base URL for the Zscaler 2.0 target app, which also contains the Zscaler ID.
-	BaseUrl *string `json:"baseUrl,omitempty"`
-	Profile ProvisioningConnectionTokenRequestProfile `json:"profile"`
+	BaseUrl              *string                                   `json:"baseUrl,omitempty"`
+	Profile              ProvisioningConnectionTokenRequestProfile `json:"profile"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -188,4 +186,3 @@ func (v *NullableProvisioningConnectionTokenRequest) UnmarshalJSON(src []byte) e
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-

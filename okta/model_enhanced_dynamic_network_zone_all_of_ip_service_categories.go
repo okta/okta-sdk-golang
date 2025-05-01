@@ -21,7 +21,6 @@ API version: 2024.06.1
 Contact: devex-public@okta.com
 */
 
-
 package okta
 
 import (
@@ -33,7 +32,7 @@ type EnhancedDynamicNetworkZoneAllOfIpServiceCategories struct {
 	// IP services to include for an Enhanced Dynamic Network Zone
 	Include []string `json:"include,omitempty"`
 	// IP services to exclude for an Enhanced Dynamic Network Zone
-	Exclude []string `json:"exclude,omitempty"`
+	Exclude              []string `json:"exclude,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -195,4 +194,3 @@ func (v *NullableEnhancedDynamicNetworkZoneAllOfIpServiceCategories) UnmarshalJS
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-

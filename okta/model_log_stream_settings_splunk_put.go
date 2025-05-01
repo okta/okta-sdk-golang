@@ -21,12 +21,10 @@ API version: 2024.06.1
 Contact: devex-public@okta.com
 */
 
-
 package okta
 
 import (
 	"encoding/json"
-	"fmt"
 )
 
 // LogStreamSettingsSplunkPut Specifies the configuration for the `splunk_cloud_logstreaming` Log Stream type.
@@ -34,7 +32,7 @@ type LogStreamSettingsSplunkPut struct {
 	// Edition of the Splunk Cloud instance
 	Edition string `json:"edition"`
 	// The domain name for your Splunk Cloud instance. Don't include `http` or `https` in the string. For example: `acme.splunkcloud.com`
-	Host string `json:"host"`
+	Host                 string `json:"host"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -182,4 +180,3 @@ func (v *NullableLogStreamSettingsSplunkPut) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-

@@ -21,7 +21,6 @@ API version: 2024.06.1
 Contact: devex-public@okta.com
 */
 
-
 package okta
 
 import (
@@ -33,7 +32,7 @@ type SamlAcsInner struct {
 	// Index of ACS URL. You can't reuse the same index in the ACS URL array.
 	Index *float32 `json:"index,omitempty"`
 	// Assertion Consumer Service (ACS) URL
-	Url *string `json:"url,omitempty"`
+	Url                  *string `json:"url,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -195,4 +194,3 @@ func (v *NullableSamlAcsInner) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-

@@ -21,7 +21,6 @@ API version: 2024.06.1
 Contact: devex-public@okta.com
 */
 
-
 package okta
 
 import (
@@ -35,7 +34,7 @@ type DomainCertificateMetadata struct {
 	// Certificate fingerprint
 	Fingerprint *string `json:"fingerprint,omitempty"`
 	// Certificate subject
-	Subject *string `json:"subject,omitempty"`
+	Subject              *string `json:"subject,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -233,4 +232,3 @@ func (v *NullableDomainCertificateMetadata) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-

@@ -21,7 +21,6 @@ API version: 2024.06.1
 Contact: devex-public@okta.com
 */
 
-
 package okta
 
 import (
@@ -29,11 +28,10 @@ import (
 	"fmt"
 )
 
-
-//model_oneof.mustache
+// model_oneof.mustache
 // AssignRoleToClientRequest - struct for AssignRoleToClientRequest
 type AssignRoleToClientRequest struct {
-	CustomRoleAssignmentSchema *CustomRoleAssignmentSchema
+	CustomRoleAssignmentSchema   *CustomRoleAssignmentSchema
 	StandardRoleAssignmentSchema *StandardRoleAssignmentSchema
 }
 
@@ -51,48 +49,47 @@ func StandardRoleAssignmentSchemaAsAssignRoleToClientRequest(v *StandardRoleAssi
 	}
 }
 
-
 // Unmarshal JSON data into one of the pointers in the struct  CUSTOM
 func (dst *AssignRoleToClientRequest) UnmarshalJSON(data []byte) error {
 	var err error
-        match := 0
-        // try to unmarshal data into CustomRoleAssignmentSchema
-        err = json.Unmarshal(data, &dst.CustomRoleAssignmentSchema)
-        if err == nil {
-                jsonCustomRoleAssignmentSchema, _ := json.Marshal(dst.CustomRoleAssignmentSchema)
-                if string(jsonCustomRoleAssignmentSchema) == "{}" { // empty struct
-                        dst.CustomRoleAssignmentSchema = nil
-                } else {
-                        match++
-                }
-        } else {
-                dst.CustomRoleAssignmentSchema = nil
-        }
+	match := 0
+	// try to unmarshal data into CustomRoleAssignmentSchema
+	err = json.Unmarshal(data, &dst.CustomRoleAssignmentSchema)
+	if err == nil {
+		jsonCustomRoleAssignmentSchema, _ := json.Marshal(dst.CustomRoleAssignmentSchema)
+		if string(jsonCustomRoleAssignmentSchema) == "{}" { // empty struct
+			dst.CustomRoleAssignmentSchema = nil
+		} else {
+			match++
+		}
+	} else {
+		dst.CustomRoleAssignmentSchema = nil
+	}
 
-        // try to unmarshal data into StandardRoleAssignmentSchema
-        err = json.Unmarshal(data, &dst.StandardRoleAssignmentSchema)
-        if err == nil {
-                jsonStandardRoleAssignmentSchema, _ := json.Marshal(dst.StandardRoleAssignmentSchema)
-                if string(jsonStandardRoleAssignmentSchema) == "{}" { // empty struct
-                        dst.StandardRoleAssignmentSchema = nil
-                } else {
-                        match++
-                }
-        } else {
-                dst.StandardRoleAssignmentSchema = nil
-        }
+	// try to unmarshal data into StandardRoleAssignmentSchema
+	err = json.Unmarshal(data, &dst.StandardRoleAssignmentSchema)
+	if err == nil {
+		jsonStandardRoleAssignmentSchema, _ := json.Marshal(dst.StandardRoleAssignmentSchema)
+		if string(jsonStandardRoleAssignmentSchema) == "{}" { // empty struct
+			dst.StandardRoleAssignmentSchema = nil
+		} else {
+			match++
+		}
+	} else {
+		dst.StandardRoleAssignmentSchema = nil
+	}
 
-        if match > 1 { // more than 1 match
-                // reset to nil
-                dst.CustomRoleAssignmentSchema = nil
-                dst.StandardRoleAssignmentSchema = nil
+	if match > 1 { // more than 1 match
+		// reset to nil
+		dst.CustomRoleAssignmentSchema = nil
+		dst.StandardRoleAssignmentSchema = nil
 
-                return fmt.Errorf("Data matches more than one schema in oneOf(AssignRoleToClientRequest)")
-        } else if match == 1 {
-                return nil // exactly one match
-        } else { // no match
-                return fmt.Errorf("Data failed to match schemas in oneOf(AssignRoleToClientRequest)")
-        }
+		return fmt.Errorf("Data matches more than one schema in oneOf(AssignRoleToClientRequest)")
+	} else if match == 1 {
+		return nil // exactly one match
+	} else { // no match
+		return fmt.Errorf("Data failed to match schemas in oneOf(AssignRoleToClientRequest)")
+	}
 }
 
 // Marshal data from the first non-nil pointers in the struct to JSON
@@ -109,7 +106,7 @@ func (src AssignRoleToClientRequest) MarshalJSON() ([]byte, error) {
 }
 
 // Get the actual instance
-func (obj *AssignRoleToClientRequest) GetActualInstance() (interface{}) {
+func (obj *AssignRoleToClientRequest) GetActualInstance() interface{} {
 	if obj == nil {
 		return nil
 	}
@@ -160,5 +157,3 @@ func (v *NullableAssignRoleToClientRequest) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-
-

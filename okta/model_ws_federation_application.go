@@ -21,12 +21,10 @@ API version: 2024.06.1
 Contact: devex-public@okta.com
 */
 
-
 package okta
 
 import (
 	"encoding/json"
-	"fmt"
 	"reflect"
 	"strings"
 )
@@ -36,8 +34,8 @@ type WsFederationApplication struct {
 	Application
 	Credentials *ApplicationCredentials `json:"credentials,omitempty"`
 	// `template_wsfed` is the key name for a WS-Federated app instance with a SAML 2.0 token
-	Name string `json:"name"`
-	Settings WsFederationApplicationSettings `json:"settings"`
+	Name                 string                          `json:"name"`
+	Settings             WsFederationApplicationSettings `json:"settings"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -175,7 +173,7 @@ func (o *WsFederationApplication) UnmarshalJSON(bytes []byte) (err error) {
 	type WsFederationApplicationWithoutEmbeddedStruct struct {
 		Credentials *ApplicationCredentials `json:"credentials,omitempty"`
 		// `template_wsfed` is the key name for a WS-Federated app instance with a SAML 2.0 token
-		Name string `json:"name"`
+		Name     string                          `json:"name"`
 		Settings WsFederationApplicationSettings `json:"settings"`
 	}
 
@@ -270,4 +268,3 @@ func (v *NullableWsFederationApplication) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-

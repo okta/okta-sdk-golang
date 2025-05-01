@@ -21,7 +21,6 @@ API version: 2024.06.1
 Contact: devex-public@okta.com
 */
 
-
 package okta
 
 import (
@@ -30,21 +29,20 @@ import (
 	"io/ioutil"
 	"net/http"
 	"net/url"
-	"time"
 	"strings"
+	"time"
 )
-
 
 type UserTypeAPI interface {
 
 	/*
-	CreateUserType Create a User Type
+			CreateUserType Create a User Type
 
-	Creates a new User Type. Okta automatically creates a `default` User Type for your org. You may add up to nine additional User Types.
-> **Note**: New User Types are based on the current default schema template. Modifications to this schema do not automatically propagate to previously created User Types.
+			Creates a new User Type. Okta automatically creates a `default` User Type for your org. You may add up to nine additional User Types.
+		> **Note**: New User Types are based on the current default schema template. Modifications to this schema do not automatically propagate to previously created User Types.
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@return ApiCreateUserTypeRequest
+			@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+			@return ApiCreateUserTypeRequest
 	*/
 	CreateUserType(ctx context.Context) ApiCreateUserTypeRequest
 
@@ -53,14 +51,14 @@ type UserTypeAPI interface {
 	CreateUserTypeExecute(r ApiCreateUserTypeRequest) (*UserType, *APIResponse, error)
 
 	/*
-	DeleteUserType Delete a User Type
+			DeleteUserType Delete a User Type
 
-	Deletes a User Type permanently.
-> **Note**: You can't delete the default User Type or a User Type that is currently assigned to users.
+			Deletes a User Type permanently.
+		> **Note**: You can't delete the default User Type or a User Type that is currently assigned to users.
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param typeId
-	@return ApiDeleteUserTypeRequest
+			@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+			@param typeId
+			@return ApiDeleteUserTypeRequest
 	*/
 	DeleteUserType(ctx context.Context, typeId string) ApiDeleteUserTypeRequest
 
@@ -68,13 +66,13 @@ type UserTypeAPI interface {
 	DeleteUserTypeExecute(r ApiDeleteUserTypeRequest) (*APIResponse, error)
 
 	/*
-	GetUserType Retrieve a User Type
+		GetUserType Retrieve a User Type
 
-	Retrieves a User Type by ID. Use `default` to fetch the default User Type.
+		Retrieves a User Type by ID. Use `default` to fetch the default User Type.
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param typeId
-	@return ApiGetUserTypeRequest
+		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+		@param typeId
+		@return ApiGetUserTypeRequest
 	*/
 	GetUserType(ctx context.Context, typeId string) ApiGetUserTypeRequest
 
@@ -83,12 +81,12 @@ type UserTypeAPI interface {
 	GetUserTypeExecute(r ApiGetUserTypeRequest) (*UserType, *APIResponse, error)
 
 	/*
-	ListUserTypes List all User Types
+		ListUserTypes List all User Types
 
-	Lists all User Types in your org
+		Lists all User Types in your org
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@return ApiListUserTypesRequest
+		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+		@return ApiListUserTypesRequest
 	*/
 	ListUserTypes(ctx context.Context) ApiListUserTypesRequest
 
@@ -97,14 +95,14 @@ type UserTypeAPI interface {
 	ListUserTypesExecute(r ApiListUserTypesRequest) ([]UserType, *APIResponse, error)
 
 	/*
-	ReplaceUserType Replace a User Type
+			ReplaceUserType Replace a User Type
 
-	Replaces an existing User Type. This operation is a full update.
-> **Note**: The `name` of an existing User Type can't be changed, but must be part of the request body. You can only replace the `displayName` and `description` elements.
+			Replaces an existing User Type. This operation is a full update.
+		> **Note**: The `name` of an existing User Type can't be changed, but must be part of the request body. You can only replace the `displayName` and `description` elements.
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param typeId
-	@return ApiReplaceUserTypeRequest
+			@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+			@param typeId
+			@return ApiReplaceUserTypeRequest
 	*/
 	ReplaceUserType(ctx context.Context, typeId string) ApiReplaceUserTypeRequest
 
@@ -113,14 +111,14 @@ type UserTypeAPI interface {
 	ReplaceUserTypeExecute(r ApiReplaceUserTypeRequest) (*UserType, *APIResponse, error)
 
 	/*
-	UpdateUserType Update a User Type
+			UpdateUserType Update a User Type
 
-	Updates an existing User Type. This operation is a partial update.
-> **Note**: You can only update the `displayName` and `description` elements. The `name` of an existing User Type can't be changed.
+			Updates an existing User Type. This operation is a partial update.
+		> **Note**: You can only update the `displayName` and `description` elements. The `name` of an existing User Type can't be changed.
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param typeId
-	@return ApiUpdateUserTypeRequest
+			@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+			@param typeId
+			@return ApiUpdateUserTypeRequest
 	*/
 	UpdateUserType(ctx context.Context, typeId string) ApiUpdateUserTypeRequest
 
@@ -133,9 +131,9 @@ type UserTypeAPI interface {
 type UserTypeAPIService service
 
 type ApiCreateUserTypeRequest struct {
-	ctx context.Context
+	ctx        context.Context
 	ApiService UserTypeAPI
-	userType *UserType
+	userType   *UserType
 	retryCount int32
 }
 
@@ -154,19 +152,20 @@ CreateUserType Create a User Type
 Creates a new User Type. Okta automatically creates a `default` User Type for your org. You may add up to nine additional User Types.
 > **Note**: New User Types are based on the current default schema template. Modifications to this schema do not automatically propagate to previously created User Types.
 
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @return ApiCreateUserTypeRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@return ApiCreateUserTypeRequest
 */
 func (a *UserTypeAPIService) CreateUserType(ctx context.Context) ApiCreateUserTypeRequest {
 	return ApiCreateUserTypeRequest{
 		ApiService: a,
-		ctx: ctx,
+		ctx:        ctx,
 		retryCount: 0,
 	}
 }
 
 // Execute executes the request
-//  @return UserType
+//
+//	@return UserType
 func (a *UserTypeAPIService) CreateUserTypeExecute(r ApiCreateUserTypeRequest) (*UserType, *APIResponse, error) {
 	var (
 		localVarHTTPMethod   = http.MethodPost
@@ -175,7 +174,7 @@ func (a *UserTypeAPIService) CreateUserTypeExecute(r ApiCreateUserTypeRequest) (
 		localVarReturnValue  *UserType
 		localVarHTTPResponse *http.Response
 		localAPIResponse     *APIResponse
-		err 				 error
+		err                  error
 	)
 
 	if a.client.cfg.Okta.Client.RequestTimeout > 0 {
@@ -300,15 +299,15 @@ func (a *UserTypeAPIService) CreateUserTypeExecute(r ApiCreateUserTypeRequest) (
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
 		return localVarReturnValue, localAPIResponse, newErr
 	}
-	
+
 	localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
 	return localVarReturnValue, localAPIResponse, nil
 }
 
 type ApiDeleteUserTypeRequest struct {
-	ctx context.Context
+	ctx        context.Context
 	ApiService UserTypeAPI
-	typeId string
+	typeId     string
 	retryCount int32
 }
 
@@ -322,15 +321,15 @@ DeleteUserType Delete a User Type
 Deletes a User Type permanently.
 > **Note**: You can't delete the default User Type or a User Type that is currently assigned to users.
 
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @param typeId
- @return ApiDeleteUserTypeRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param typeId
+	@return ApiDeleteUserTypeRequest
 */
 func (a *UserTypeAPIService) DeleteUserType(ctx context.Context, typeId string) ApiDeleteUserTypeRequest {
 	return ApiDeleteUserTypeRequest{
 		ApiService: a,
-		ctx: ctx,
-		typeId: typeId,
+		ctx:        ctx,
+		typeId:     typeId,
 		retryCount: 0,
 	}
 }
@@ -343,7 +342,7 @@ func (a *UserTypeAPIService) DeleteUserTypeExecute(r ApiDeleteUserTypeRequest) (
 		formFiles            []formFile
 		localVarHTTPResponse *http.Response
 		localAPIResponse     *APIResponse
-		err 				 error
+		err                  error
 	)
 
 	if a.client.cfg.Okta.Client.RequestTimeout > 0 {
@@ -460,9 +459,9 @@ func (a *UserTypeAPIService) DeleteUserTypeExecute(r ApiDeleteUserTypeRequest) (
 }
 
 type ApiGetUserTypeRequest struct {
-	ctx context.Context
+	ctx        context.Context
 	ApiService UserTypeAPI
-	typeId string
+	typeId     string
 	retryCount int32
 }
 
@@ -475,21 +474,22 @@ GetUserType Retrieve a User Type
 
 Retrieves a User Type by ID. Use `default` to fetch the default User Type.
 
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @param typeId
- @return ApiGetUserTypeRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param typeId
+	@return ApiGetUserTypeRequest
 */
 func (a *UserTypeAPIService) GetUserType(ctx context.Context, typeId string) ApiGetUserTypeRequest {
 	return ApiGetUserTypeRequest{
 		ApiService: a,
-		ctx: ctx,
-		typeId: typeId,
+		ctx:        ctx,
+		typeId:     typeId,
 		retryCount: 0,
 	}
 }
 
 // Execute executes the request
-//  @return UserType
+//
+//	@return UserType
 func (a *UserTypeAPIService) GetUserTypeExecute(r ApiGetUserTypeRequest) (*UserType, *APIResponse, error) {
 	var (
 		localVarHTTPMethod   = http.MethodGet
@@ -498,7 +498,7 @@ func (a *UserTypeAPIService) GetUserTypeExecute(r ApiGetUserTypeRequest) (*UserT
 		localVarReturnValue  *UserType
 		localVarHTTPResponse *http.Response
 		localAPIResponse     *APIResponse
-		err 				 error
+		err                  error
 	)
 
 	if a.client.cfg.Okta.Client.RequestTimeout > 0 {
@@ -619,13 +619,13 @@ func (a *UserTypeAPIService) GetUserTypeExecute(r ApiGetUserTypeRequest) (*UserT
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
 		return localVarReturnValue, localAPIResponse, newErr
 	}
-	
+
 	localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
 	return localVarReturnValue, localAPIResponse, nil
 }
 
 type ApiListUserTypesRequest struct {
-	ctx context.Context
+	ctx        context.Context
 	ApiService UserTypeAPI
 	retryCount int32
 }
@@ -639,19 +639,20 @@ ListUserTypes List all User Types
 
 Lists all User Types in your org
 
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @return ApiListUserTypesRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@return ApiListUserTypesRequest
 */
 func (a *UserTypeAPIService) ListUserTypes(ctx context.Context) ApiListUserTypesRequest {
 	return ApiListUserTypesRequest{
 		ApiService: a,
-		ctx: ctx,
+		ctx:        ctx,
 		retryCount: 0,
 	}
 }
 
 // Execute executes the request
-//  @return []UserType
+//
+//	@return []UserType
 func (a *UserTypeAPIService) ListUserTypesExecute(r ApiListUserTypesRequest) ([]UserType, *APIResponse, error) {
 	var (
 		localVarHTTPMethod   = http.MethodGet
@@ -660,7 +661,7 @@ func (a *UserTypeAPIService) ListUserTypesExecute(r ApiListUserTypesRequest) ([]
 		localVarReturnValue  []UserType
 		localVarHTTPResponse *http.Response
 		localAPIResponse     *APIResponse
-		err 				 error
+		err                  error
 	)
 
 	if a.client.cfg.Okta.Client.RequestTimeout > 0 {
@@ -768,16 +769,16 @@ func (a *UserTypeAPIService) ListUserTypesExecute(r ApiListUserTypesRequest) ([]
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
 		return localVarReturnValue, localAPIResponse, newErr
 	}
-	
+
 	localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
 	return localVarReturnValue, localAPIResponse, nil
 }
 
 type ApiReplaceUserTypeRequest struct {
-	ctx context.Context
+	ctx        context.Context
 	ApiService UserTypeAPI
-	typeId string
-	userType *UserTypePutRequest
+	typeId     string
+	userType   *UserTypePutRequest
 	retryCount int32
 }
 
@@ -796,21 +797,22 @@ ReplaceUserType Replace a User Type
 Replaces an existing User Type. This operation is a full update.
 > **Note**: The `name` of an existing User Type can't be changed, but must be part of the request body. You can only replace the `displayName` and `description` elements.
 
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @param typeId
- @return ApiReplaceUserTypeRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param typeId
+	@return ApiReplaceUserTypeRequest
 */
 func (a *UserTypeAPIService) ReplaceUserType(ctx context.Context, typeId string) ApiReplaceUserTypeRequest {
 	return ApiReplaceUserTypeRequest{
 		ApiService: a,
-		ctx: ctx,
-		typeId: typeId,
+		ctx:        ctx,
+		typeId:     typeId,
 		retryCount: 0,
 	}
 }
 
 // Execute executes the request
-//  @return UserType
+//
+//	@return UserType
 func (a *UserTypeAPIService) ReplaceUserTypeExecute(r ApiReplaceUserTypeRequest) (*UserType, *APIResponse, error) {
 	var (
 		localVarHTTPMethod   = http.MethodPut
@@ -819,7 +821,7 @@ func (a *UserTypeAPIService) ReplaceUserTypeExecute(r ApiReplaceUserTypeRequest)
 		localVarReturnValue  *UserType
 		localVarHTTPResponse *http.Response
 		localAPIResponse     *APIResponse
-		err 				 error
+		err                  error
 	)
 
 	if a.client.cfg.Okta.Client.RequestTimeout > 0 {
@@ -954,16 +956,16 @@ func (a *UserTypeAPIService) ReplaceUserTypeExecute(r ApiReplaceUserTypeRequest)
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
 		return localVarReturnValue, localAPIResponse, newErr
 	}
-	
+
 	localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
 	return localVarReturnValue, localAPIResponse, nil
 }
 
 type ApiUpdateUserTypeRequest struct {
-	ctx context.Context
+	ctx        context.Context
 	ApiService UserTypeAPI
-	typeId string
-	userType *UserTypePostRequest
+	typeId     string
+	userType   *UserTypePostRequest
 	retryCount int32
 }
 
@@ -982,21 +984,22 @@ UpdateUserType Update a User Type
 Updates an existing User Type. This operation is a partial update.
 > **Note**: You can only update the `displayName` and `description` elements. The `name` of an existing User Type can't be changed.
 
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @param typeId
- @return ApiUpdateUserTypeRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param typeId
+	@return ApiUpdateUserTypeRequest
 */
 func (a *UserTypeAPIService) UpdateUserType(ctx context.Context, typeId string) ApiUpdateUserTypeRequest {
 	return ApiUpdateUserTypeRequest{
 		ApiService: a,
-		ctx: ctx,
-		typeId: typeId,
+		ctx:        ctx,
+		typeId:     typeId,
 		retryCount: 0,
 	}
 }
 
 // Execute executes the request
-//  @return UserType
+//
+//	@return UserType
 func (a *UserTypeAPIService) UpdateUserTypeExecute(r ApiUpdateUserTypeRequest) (*UserType, *APIResponse, error) {
 	var (
 		localVarHTTPMethod   = http.MethodPost
@@ -1005,7 +1008,7 @@ func (a *UserTypeAPIService) UpdateUserTypeExecute(r ApiUpdateUserTypeRequest) (
 		localVarReturnValue  *UserType
 		localVarHTTPResponse *http.Response
 		localAPIResponse     *APIResponse
-		err 				 error
+		err                  error
 	)
 
 	if a.client.cfg.Okta.Client.RequestTimeout > 0 {
@@ -1143,7 +1146,7 @@ func (a *UserTypeAPIService) UpdateUserTypeExecute(r ApiUpdateUserTypeRequest) (
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
 		return localVarReturnValue, localAPIResponse, newErr
 	}
-	
+
 	localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
 	return localVarReturnValue, localAPIResponse, nil
 }

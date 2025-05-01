@@ -21,7 +21,6 @@ API version: 2024.06.1
 Contact: devex-public@okta.com
 */
 
-
 package okta
 
 import (
@@ -30,8 +29,8 @@ import (
 
 // EmailTemplateResponseEmbedded struct for EmailTemplateResponseEmbedded
 type EmailTemplateResponseEmbedded struct {
-	Settings *EmailSettingsResponse `json:"settings,omitempty"`
-	CustomizationCount *int32 `json:"customizationCount,omitempty"`
+	Settings             *EmailSettingsResponse `json:"settings,omitempty"`
+	CustomizationCount   *int32                 `json:"customizationCount,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -193,4 +192,3 @@ func (v *NullableEmailTemplateResponseEmbedded) UnmarshalJSON(src []byte) error 
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-

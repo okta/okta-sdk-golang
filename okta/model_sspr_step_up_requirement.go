@@ -21,7 +21,6 @@ API version: 2024.06.1
 Contact: devex-public@okta.com
 */
 
-
 package okta
 
 import (
@@ -31,8 +30,8 @@ import (
 // SsprStepUpRequirement Defines the secondary authenticators needed for password reset if `required` is true. The following are three valid configurations: * `required`=false * `required`=true with no methods to use any SSO authenticator * `required`=true with `security_question` as the method
 type SsprStepUpRequirement struct {
 	// Authenticator methods required for secondary authentication step of password recovery. Specify this value only when `required` is true and `security_question` is permitted for the secondary authentication.
-	Methods []string `json:"methods,omitempty"`
-	Required *bool `json:"required,omitempty"`
+	Methods              []string `json:"methods,omitempty"`
+	Required             *bool    `json:"required,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -194,4 +193,3 @@ func (v *NullableSsprStepUpRequirement) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-

@@ -21,17 +21,15 @@ API version: 2024.06.1
 Contact: devex-public@okta.com
 */
 
-
 package okta
 
 import (
 	"encoding/json"
-	"fmt"
 )
 
-// PerClientRateLimitSettings 
+// PerClientRateLimitSettings
 type PerClientRateLimitSettings struct {
-	DefaultMode string `json:"defaultMode"`
+	DefaultMode          string                                          `json:"defaultMode"`
 	UseCaseModeOverrides *PerClientRateLimitSettingsUseCaseModeOverrides `json:"useCaseModeOverrides,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
@@ -187,4 +185,3 @@ func (v *NullablePerClientRateLimitSettings) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-

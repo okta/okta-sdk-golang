@@ -21,7 +21,6 @@ API version: 2024.06.1
 Contact: devex-public@okta.com
 */
 
-
 package okta
 
 import (
@@ -31,7 +30,7 @@ import (
 // UserGetSingletonAllOfEmbedded The embedded resources related to the object if the `expand` query parameter is specified
 type UserGetSingletonAllOfEmbedded struct {
 	// A list of access block details for the user account
-	Blocks []UserBlock `json:"blocks,omitempty"`
+	Blocks               []UserBlock `json:"blocks,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -157,4 +156,3 @@ func (v *NullableUserGetSingletonAllOfEmbedded) UnmarshalJSON(src []byte) error 
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-

@@ -21,7 +21,6 @@ API version: 2024.06.1
 Contact: devex-public@okta.com
 */
 
-
 package okta
 
 import (
@@ -32,7 +31,7 @@ import (
 type ResourceSetBindingCreateRequest struct {
 	Members []string `json:"members,omitempty"`
 	// Unique key for the role
-	Role *string `json:"role,omitempty"`
+	Role                 *string `json:"role,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -194,4 +193,3 @@ func (v *NullableResourceSetBindingCreateRequest) UnmarshalJSON(src []byte) erro
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-

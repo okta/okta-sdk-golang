@@ -21,7 +21,6 @@ API version: 2024.06.1
 Contact: devex-public@okta.com
 */
 
-
 package okta
 
 import (
@@ -30,8 +29,8 @@ import (
 
 // ProvisioningConditions struct for ProvisioningConditions
 type ProvisioningConditions struct {
-	Deprovisioned *ProvisioningDeprovisionedCondition `json:"deprovisioned,omitempty"`
-	Suspended *ProvisioningSuspendedCondition `json:"suspended,omitempty"`
+	Deprovisioned        *ProvisioningDeprovisionedCondition `json:"deprovisioned,omitempty"`
+	Suspended            *ProvisioningSuspendedCondition     `json:"suspended,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -193,4 +192,3 @@ func (v *NullableProvisioningConditions) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-

@@ -21,7 +21,6 @@ API version: 2024.06.1
 Contact: devex-public@okta.com
 */
 
-
 package okta
 
 import (
@@ -33,9 +32,9 @@ import (
 // UserFactorU2F struct for UserFactorU2F
 type UserFactorU2F struct {
 	UserFactor
-	FactorType interface{} `json:"factorType,omitempty"`
-	Profile *UserFactorU2FProfile `json:"profile,omitempty"`
-	Provider *string `json:"provider,omitempty"`
+	FactorType           interface{}           `json:"factorType,omitempty"`
+	Profile              *UserFactorU2FProfile `json:"profile,omitempty"`
+	Provider             *string               `json:"provider,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -184,9 +183,9 @@ func (o UserFactorU2F) MarshalJSON() ([]byte, error) {
 
 func (o *UserFactorU2F) UnmarshalJSON(bytes []byte) (err error) {
 	type UserFactorU2FWithoutEmbeddedStruct struct {
-		FactorType interface{} `json:"factorType,omitempty"`
-		Profile *UserFactorU2FProfile `json:"profile,omitempty"`
-		Provider *string `json:"provider,omitempty"`
+		FactorType interface{}           `json:"factorType,omitempty"`
+		Profile    *UserFactorU2FProfile `json:"profile,omitempty"`
+		Provider   *string               `json:"provider,omitempty"`
 	}
 
 	varUserFactorU2FWithoutEmbeddedStruct := UserFactorU2FWithoutEmbeddedStruct{}
@@ -280,4 +279,3 @@ func (v *NullableUserFactorU2F) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-

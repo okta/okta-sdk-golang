@@ -21,12 +21,10 @@ API version: 2024.06.1
 Contact: devex-public@okta.com
 */
 
-
 package okta
 
 import (
 	"encoding/json"
-	"fmt"
 )
 
 // SlackApplicationSettingsApplication Slack app instance properties
@@ -34,7 +32,7 @@ type SlackApplicationSettingsApplication struct {
 	// The Slack app domain name
 	Domain string `json:"domain"`
 	// The `User.Email` attribute value
-	UserEmailValue *string `json:"userEmailValue,omitempty"`
+	UserEmailValue       *string `json:"userEmailValue,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -189,4 +187,3 @@ func (v *NullableSlackApplicationSettingsApplication) UnmarshalJSON(src []byte) 
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-

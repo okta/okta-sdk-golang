@@ -21,7 +21,6 @@ API version: 2024.06.1
 Contact: devex-public@okta.com
 */
 
-
 package okta
 
 import (
@@ -40,12 +39,12 @@ type PolicyRule struct {
 	// Name of the rule
 	Name *string `json:"name,omitempty"`
 	// Priority of the rule
-	Priority *int32 `json:"priority,omitempty"`
-	Status *string `json:"status,omitempty"`
+	Priority *int32  `json:"priority,omitempty"`
+	Status   *string `json:"status,omitempty"`
 	// Specifies whether Okta created the Policy Rule (`system=true`). You can't delete Policy Rules that have `system` set to `true`.
 	System *bool `json:"system,omitempty"`
 	// Rule type
-	Type *string `json:"type,omitempty"`
+	Type                 *string `json:"type,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -104,6 +103,7 @@ func (o *PolicyRule) HasCreated() bool {
 func (o *PolicyRule) SetCreated(v time.Time) {
 	o.Created.Set(&v)
 }
+
 // SetCreatedNil sets the value for Created to be an explicit nil
 func (o *PolicyRule) SetCreatedNil() {
 	o.Created.Set(nil)
@@ -178,6 +178,7 @@ func (o *PolicyRule) HasLastUpdated() bool {
 func (o *PolicyRule) SetLastUpdated(v time.Time) {
 	o.LastUpdated.Set(&v)
 }
+
 // SetLastUpdatedNil sets the value for LastUpdated to be an explicit nil
 func (o *PolicyRule) SetLastUpdatedNil() {
 	o.LastUpdated.Set(nil)
@@ -447,4 +448,3 @@ func (v *NullablePolicyRule) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-

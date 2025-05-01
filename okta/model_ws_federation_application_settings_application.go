@@ -21,7 +21,6 @@ API version: 2024.06.1
 Contact: devex-public@okta.com
 */
 
-
 package okta
 
 import (
@@ -30,18 +29,18 @@ import (
 
 // WsFederationApplicationSettingsApplication struct for WsFederationApplicationSettingsApplication
 type WsFederationApplicationSettingsApplication struct {
-	AttributeStatements *string `json:"attributeStatements,omitempty"`
-	AudienceRestriction *string `json:"audienceRestriction,omitempty"`
+	AttributeStatements  *string `json:"attributeStatements,omitempty"`
+	AudienceRestriction  *string `json:"audienceRestriction,omitempty"`
 	AuthnContextClassRef *string `json:"authnContextClassRef,omitempty"`
-	GroupFilter *string `json:"groupFilter,omitempty"`
-	GroupName *string `json:"groupName,omitempty"`
-	GroupValueFormat *string `json:"groupValueFormat,omitempty"`
-	NameIDFormat *string `json:"nameIDFormat,omitempty"`
-	Realm *string `json:"realm,omitempty"`
-	SiteURL *string `json:"siteURL,omitempty"`
-	UsernameAttribute *string `json:"usernameAttribute,omitempty"`
-	WReplyOverride *bool `json:"wReplyOverride,omitempty"`
-	WReplyURL *string `json:"wReplyURL,omitempty"`
+	GroupFilter          *string `json:"groupFilter,omitempty"`
+	GroupName            *string `json:"groupName,omitempty"`
+	GroupValueFormat     *string `json:"groupValueFormat,omitempty"`
+	NameIDFormat         *string `json:"nameIDFormat,omitempty"`
+	Realm                *string `json:"realm,omitempty"`
+	SiteURL              *string `json:"siteURL,omitempty"`
+	UsernameAttribute    *string `json:"usernameAttribute,omitempty"`
+	WReplyOverride       *bool   `json:"wReplyOverride,omitempty"`
+	WReplyURL            *string `json:"wReplyURL,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -563,4 +562,3 @@ func (v *NullableWsFederationApplicationSettingsApplication) UnmarshalJSON(src [
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-

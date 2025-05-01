@@ -21,7 +21,6 @@ API version: 2024.06.1
 Contact: devex-public@okta.com
 */
 
-
 package okta
 
 import (
@@ -33,9 +32,9 @@ type WellKnownOrgMetadata struct {
 	// The unique identifier of the Org
 	Id *string `json:"id,omitempty"`
 	// The authentication pipeline of the org. `idx` means the org is using the Identity Engine, while `v1` means the org is using the Classic authentication pipeline.
-	Pipeline *string `json:"pipeline,omitempty"`
-	Settings *WellKnownOrgMetadataSettings `json:"settings,omitempty"`
-	Links *WellKnownOrgMetadataLinks `json:"_links,omitempty"`
+	Pipeline             *string                       `json:"pipeline,omitempty"`
+	Settings             *WellKnownOrgMetadataSettings `json:"settings,omitempty"`
+	Links                *WellKnownOrgMetadataLinks    `json:"_links,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -269,4 +268,3 @@ func (v *NullableWellKnownOrgMetadata) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-

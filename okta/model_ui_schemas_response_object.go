@@ -21,13 +21,11 @@ API version: 2024.06.1
 Contact: devex-public@okta.com
 */
 
-
 package okta
 
 import (
 	"encoding/json"
 	"time"
-	"fmt"
 )
 
 // UISchemasResponseObject struct for UISchemasResponseObject
@@ -37,9 +35,9 @@ type UISchemasResponseObject struct {
 	// Unique identifier for the UI Schema
 	Id string `json:"id"`
 	// Timestamp when the UI Schema was last modified (ISO-86001)
-	LastUpdated time.Time `json:"lastUpdated"`
-	UiSchema UISchemaObject `json:"uiSchema"`
-	Links LinksSelf `json:"_links"`
+	LastUpdated          time.Time      `json:"lastUpdated"`
+	UiSchema             UISchemaObject `json:"uiSchema"`
+	Links                LinksSelf      `json:"_links"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -274,4 +272,3 @@ func (v *NullableUISchemasResponseObject) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-

@@ -21,7 +21,6 @@ API version: 2024.06.1
 Contact: devex-public@okta.com
 */
 
-
 package okta
 
 import (
@@ -34,7 +33,7 @@ type UserGetSingleton struct {
 	// The timestamp when the user status transitioned to `ACTIVE`
 	Activated NullableTime `json:"activated,omitempty"`
 	// The timestamp when the user was created
-	Created *time.Time `json:"created,omitempty"`
+	Created     *time.Time       `json:"created,omitempty"`
 	Credentials *UserCredentials `json:"credentials,omitempty"`
 	// The unique key for the user
 	Id *string `json:"id,omitempty"`
@@ -44,7 +43,7 @@ type UserGetSingleton struct {
 	LastUpdated *time.Time `json:"lastUpdated,omitempty"`
 	// The timestamp when the user's password was last updated
 	PasswordChanged NullableTime `json:"passwordChanged,omitempty"`
-	Profile *UserProfile `json:"profile,omitempty"`
+	Profile         *UserProfile `json:"profile,omitempty"`
 	// <div class=\"x-lifecycle-container\"><x-lifecycle class=\"ea\"></x-lifecycle></div>The ID of the Realm in which the user is residing
 	RealmId *string `json:"realmId,omitempty"`
 	// The current status of the user
@@ -52,11 +51,11 @@ type UserGetSingleton struct {
 	// The timestamp when the status of the user last changed
 	StatusChanged NullableTime `json:"statusChanged,omitempty"`
 	// The target status of an in-progress asynchronous status transition. This property is only returned if the user's state is transitioning.
-	TransitioningToStatus NullableString `json:"transitioningToStatus,omitempty"`
-	Type *UserType `json:"type,omitempty"`
-	Embedded *UserGetSingletonAllOfEmbedded `json:"_embedded,omitempty"`
-	Links *UserLinks `json:"_links,omitempty"`
-	AdditionalProperties map[string]interface{}
+	TransitioningToStatus NullableString                 `json:"transitioningToStatus,omitempty"`
+	Type                  *UserType                      `json:"type,omitempty"`
+	Embedded              *UserGetSingletonAllOfEmbedded `json:"_embedded,omitempty"`
+	Links                 *UserLinks                     `json:"_links,omitempty"`
+	AdditionalProperties  map[string]interface{}
 }
 
 type _UserGetSingleton UserGetSingleton
@@ -110,6 +109,7 @@ func (o *UserGetSingleton) HasActivated() bool {
 func (o *UserGetSingleton) SetActivated(v time.Time) {
 	o.Activated.Set(&v)
 }
+
 // SetActivatedNil sets the value for Activated to be an explicit nil
 func (o *UserGetSingleton) SetActivatedNil() {
 	o.Activated.Set(nil)
@@ -248,6 +248,7 @@ func (o *UserGetSingleton) HasLastLogin() bool {
 func (o *UserGetSingleton) SetLastLogin(v time.Time) {
 	o.LastLogin.Set(&v)
 }
+
 // SetLastLoginNil sets the value for LastLogin to be an explicit nil
 func (o *UserGetSingleton) SetLastLoginNil() {
 	o.LastLogin.Set(nil)
@@ -322,6 +323,7 @@ func (o *UserGetSingleton) HasPasswordChanged() bool {
 func (o *UserGetSingleton) SetPasswordChanged(v time.Time) {
 	o.PasswordChanged.Set(&v)
 }
+
 // SetPasswordChangedNil sets the value for PasswordChanged to be an explicit nil
 func (o *UserGetSingleton) SetPasswordChangedNil() {
 	o.PasswordChanged.Set(nil)
@@ -460,6 +462,7 @@ func (o *UserGetSingleton) HasStatusChanged() bool {
 func (o *UserGetSingleton) SetStatusChanged(v time.Time) {
 	o.StatusChanged.Set(&v)
 }
+
 // SetStatusChangedNil sets the value for StatusChanged to be an explicit nil
 func (o *UserGetSingleton) SetStatusChangedNil() {
 	o.StatusChanged.Set(nil)
@@ -502,6 +505,7 @@ func (o *UserGetSingleton) HasTransitioningToStatus() bool {
 func (o *UserGetSingleton) SetTransitioningToStatus(v string) {
 	o.TransitioningToStatus.Set(&v)
 }
+
 // SetTransitioningToStatusNil sets the value for TransitioningToStatus to be an explicit nil
 func (o *UserGetSingleton) SetTransitioningToStatusNil() {
 	o.TransitioningToStatus.Set(nil)
@@ -735,4 +739,3 @@ func (v *NullableUserGetSingleton) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-

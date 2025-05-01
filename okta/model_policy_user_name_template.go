@@ -21,7 +21,6 @@ API version: 2024.06.1
 Contact: devex-public@okta.com
 */
 
-
 package okta
 
 import (
@@ -30,7 +29,7 @@ import (
 
 // PolicyUserNameTemplate struct for PolicyUserNameTemplate
 type PolicyUserNameTemplate struct {
-	Template *string `json:"template,omitempty"`
+	Template             *string `json:"template,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -156,4 +155,3 @@ func (v *NullablePolicyUserNameTemplate) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-

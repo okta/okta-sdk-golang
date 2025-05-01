@@ -21,7 +21,6 @@ API version: 2024.06.1
 Contact: devex-public@okta.com
 */
 
-
 package okta
 
 import (
@@ -30,20 +29,19 @@ import (
 	"io/ioutil"
 	"net/http"
 	"net/url"
-	"time"
 	"strings"
+	"time"
 )
-
 
 type UISchemaAPI interface {
 
 	/*
-	CreateUISchema Create a UI Schema
+		CreateUISchema Create a UI Schema
 
-	Creates an input for an enrollment form
+		Creates an input for an enrollment form
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@return ApiCreateUISchemaRequest
+		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+		@return ApiCreateUISchemaRequest
 	*/
 	CreateUISchema(ctx context.Context) ApiCreateUISchemaRequest
 
@@ -52,13 +50,13 @@ type UISchemaAPI interface {
 	CreateUISchemaExecute(r ApiCreateUISchemaRequest) (*UISchemasResponseObject, *APIResponse, error)
 
 	/*
-	DeleteUISchemas Delete a UI Schema
+		DeleteUISchemas Delete a UI Schema
 
-	Deletes a UI Schema by `id`
+		Deletes a UI Schema by `id`
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param id The unique ID of the UI Schema
-	@return ApiDeleteUISchemasRequest
+		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+		@param id The unique ID of the UI Schema
+		@return ApiDeleteUISchemasRequest
 	*/
 	DeleteUISchemas(ctx context.Context, id string) ApiDeleteUISchemasRequest
 
@@ -66,13 +64,13 @@ type UISchemaAPI interface {
 	DeleteUISchemasExecute(r ApiDeleteUISchemasRequest) (*APIResponse, error)
 
 	/*
-	GetUISchema Retrieve a UI Schema
+		GetUISchema Retrieve a UI Schema
 
-	Retrieves a UI Schema by `id`
+		Retrieves a UI Schema by `id`
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param id The unique ID of the UI Schema
-	@return ApiGetUISchemaRequest
+		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+		@param id The unique ID of the UI Schema
+		@return ApiGetUISchemaRequest
 	*/
 	GetUISchema(ctx context.Context, id string) ApiGetUISchemaRequest
 
@@ -81,12 +79,12 @@ type UISchemaAPI interface {
 	GetUISchemaExecute(r ApiGetUISchemaRequest) (*UISchemasResponseObject, *APIResponse, error)
 
 	/*
-	ListUISchemas List all UI Schemas
+		ListUISchemas List all UI Schemas
 
-	Lists all UI Schemas in your org
+		Lists all UI Schemas in your org
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@return ApiListUISchemasRequest
+		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+		@return ApiListUISchemasRequest
 	*/
 	ListUISchemas(ctx context.Context) ApiListUISchemasRequest
 
@@ -95,13 +93,13 @@ type UISchemaAPI interface {
 	ListUISchemasExecute(r ApiListUISchemasRequest) ([]UISchemasResponseObject, *APIResponse, error)
 
 	/*
-	ReplaceUISchemas Replace a UI Schema
+		ReplaceUISchemas Replace a UI Schema
 
-	Replaces a UI Schema by `id`
+		Replaces a UI Schema by `id`
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param id The unique ID of the UI Schema
-	@return ApiReplaceUISchemasRequest
+		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+		@param id The unique ID of the UI Schema
+		@return ApiReplaceUISchemasRequest
 	*/
 	ReplaceUISchemas(ctx context.Context, id string) ApiReplaceUISchemasRequest
 
@@ -114,10 +112,10 @@ type UISchemaAPI interface {
 type UISchemaAPIService service
 
 type ApiCreateUISchemaRequest struct {
-	ctx context.Context
-	ApiService UISchemaAPI
+	ctx          context.Context
+	ApiService   UISchemaAPI
 	uischemabody *CreateUISchema
-	retryCount int32
+	retryCount   int32
 }
 
 func (r ApiCreateUISchemaRequest) Uischemabody(uischemabody CreateUISchema) ApiCreateUISchemaRequest {
@@ -134,19 +132,20 @@ CreateUISchema Create a UI Schema
 
 Creates an input for an enrollment form
 
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @return ApiCreateUISchemaRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@return ApiCreateUISchemaRequest
 */
 func (a *UISchemaAPIService) CreateUISchema(ctx context.Context) ApiCreateUISchemaRequest {
 	return ApiCreateUISchemaRequest{
 		ApiService: a,
-		ctx: ctx,
+		ctx:        ctx,
 		retryCount: 0,
 	}
 }
 
 // Execute executes the request
-//  @return UISchemasResponseObject
+//
+//	@return UISchemasResponseObject
 func (a *UISchemaAPIService) CreateUISchemaExecute(r ApiCreateUISchemaRequest) (*UISchemasResponseObject, *APIResponse, error) {
 	var (
 		localVarHTTPMethod   = http.MethodPost
@@ -155,7 +154,7 @@ func (a *UISchemaAPIService) CreateUISchemaExecute(r ApiCreateUISchemaRequest) (
 		localVarReturnValue  *UISchemasResponseObject
 		localVarHTTPResponse *http.Response
 		localAPIResponse     *APIResponse
-		err 				 error
+		err                  error
 	)
 
 	if a.client.cfg.Okta.Client.RequestTimeout > 0 {
@@ -280,15 +279,15 @@ func (a *UISchemaAPIService) CreateUISchemaExecute(r ApiCreateUISchemaRequest) (
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
 		return localVarReturnValue, localAPIResponse, newErr
 	}
-	
+
 	localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
 	return localVarReturnValue, localAPIResponse, nil
 }
 
 type ApiDeleteUISchemasRequest struct {
-	ctx context.Context
+	ctx        context.Context
 	ApiService UISchemaAPI
-	id string
+	id         string
 	retryCount int32
 }
 
@@ -301,15 +300,15 @@ DeleteUISchemas Delete a UI Schema
 
 Deletes a UI Schema by `id`
 
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @param id The unique ID of the UI Schema
- @return ApiDeleteUISchemasRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param id The unique ID of the UI Schema
+	@return ApiDeleteUISchemasRequest
 */
 func (a *UISchemaAPIService) DeleteUISchemas(ctx context.Context, id string) ApiDeleteUISchemasRequest {
 	return ApiDeleteUISchemasRequest{
 		ApiService: a,
-		ctx: ctx,
-		id: id,
+		ctx:        ctx,
+		id:         id,
 		retryCount: 0,
 	}
 }
@@ -322,7 +321,7 @@ func (a *UISchemaAPIService) DeleteUISchemasExecute(r ApiDeleteUISchemasRequest)
 		formFiles            []formFile
 		localVarHTTPResponse *http.Response
 		localAPIResponse     *APIResponse
-		err 				 error
+		err                  error
 	)
 
 	if a.client.cfg.Okta.Client.RequestTimeout > 0 {
@@ -451,9 +450,9 @@ func (a *UISchemaAPIService) DeleteUISchemasExecute(r ApiDeleteUISchemasRequest)
 }
 
 type ApiGetUISchemaRequest struct {
-	ctx context.Context
+	ctx        context.Context
 	ApiService UISchemaAPI
-	id string
+	id         string
 	retryCount int32
 }
 
@@ -466,21 +465,22 @@ GetUISchema Retrieve a UI Schema
 
 Retrieves a UI Schema by `id`
 
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @param id The unique ID of the UI Schema
- @return ApiGetUISchemaRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param id The unique ID of the UI Schema
+	@return ApiGetUISchemaRequest
 */
 func (a *UISchemaAPIService) GetUISchema(ctx context.Context, id string) ApiGetUISchemaRequest {
 	return ApiGetUISchemaRequest{
 		ApiService: a,
-		ctx: ctx,
-		id: id,
+		ctx:        ctx,
+		id:         id,
 		retryCount: 0,
 	}
 }
 
 // Execute executes the request
-//  @return UISchemasResponseObject
+//
+//	@return UISchemasResponseObject
 func (a *UISchemaAPIService) GetUISchemaExecute(r ApiGetUISchemaRequest) (*UISchemasResponseObject, *APIResponse, error) {
 	var (
 		localVarHTTPMethod   = http.MethodGet
@@ -489,7 +489,7 @@ func (a *UISchemaAPIService) GetUISchemaExecute(r ApiGetUISchemaRequest) (*UISch
 		localVarReturnValue  *UISchemasResponseObject
 		localVarHTTPResponse *http.Response
 		localAPIResponse     *APIResponse
-		err 				 error
+		err                  error
 	)
 
 	if a.client.cfg.Okta.Client.RequestTimeout > 0 {
@@ -610,13 +610,13 @@ func (a *UISchemaAPIService) GetUISchemaExecute(r ApiGetUISchemaRequest) (*UISch
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
 		return localVarReturnValue, localAPIResponse, newErr
 	}
-	
+
 	localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
 	return localVarReturnValue, localAPIResponse, nil
 }
 
 type ApiListUISchemasRequest struct {
-	ctx context.Context
+	ctx        context.Context
 	ApiService UISchemaAPI
 	retryCount int32
 }
@@ -630,19 +630,20 @@ ListUISchemas List all UI Schemas
 
 Lists all UI Schemas in your org
 
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @return ApiListUISchemasRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@return ApiListUISchemasRequest
 */
 func (a *UISchemaAPIService) ListUISchemas(ctx context.Context) ApiListUISchemasRequest {
 	return ApiListUISchemasRequest{
 		ApiService: a,
-		ctx: ctx,
+		ctx:        ctx,
 		retryCount: 0,
 	}
 }
 
 // Execute executes the request
-//  @return []UISchemasResponseObject
+//
+//	@return []UISchemasResponseObject
 func (a *UISchemaAPIService) ListUISchemasExecute(r ApiListUISchemasRequest) ([]UISchemasResponseObject, *APIResponse, error) {
 	var (
 		localVarHTTPMethod   = http.MethodGet
@@ -651,7 +652,7 @@ func (a *UISchemaAPIService) ListUISchemasExecute(r ApiListUISchemasRequest) ([]
 		localVarReturnValue  []UISchemasResponseObject
 		localVarHTTPResponse *http.Response
 		localAPIResponse     *APIResponse
-		err 				 error
+		err                  error
 	)
 
 	if a.client.cfg.Okta.Client.RequestTimeout > 0 {
@@ -759,17 +760,17 @@ func (a *UISchemaAPIService) ListUISchemasExecute(r ApiListUISchemasRequest) ([]
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
 		return localVarReturnValue, localAPIResponse, newErr
 	}
-	
+
 	localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
 	return localVarReturnValue, localAPIResponse, nil
 }
 
 type ApiReplaceUISchemasRequest struct {
-	ctx context.Context
-	ApiService UISchemaAPI
-	id string
+	ctx                context.Context
+	ApiService         UISchemaAPI
+	id                 string
 	updateUISchemaBody *UpdateUISchema
-	retryCount int32
+	retryCount         int32
 }
 
 func (r ApiReplaceUISchemasRequest) UpdateUISchemaBody(updateUISchemaBody UpdateUISchema) ApiReplaceUISchemasRequest {
@@ -786,21 +787,22 @@ ReplaceUISchemas Replace a UI Schema
 
 Replaces a UI Schema by `id`
 
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @param id The unique ID of the UI Schema
- @return ApiReplaceUISchemasRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param id The unique ID of the UI Schema
+	@return ApiReplaceUISchemasRequest
 */
 func (a *UISchemaAPIService) ReplaceUISchemas(ctx context.Context, id string) ApiReplaceUISchemasRequest {
 	return ApiReplaceUISchemasRequest{
 		ApiService: a,
-		ctx: ctx,
-		id: id,
+		ctx:        ctx,
+		id:         id,
 		retryCount: 0,
 	}
 }
 
 // Execute executes the request
-//  @return UISchemasResponseObject
+//
+//	@return UISchemasResponseObject
 func (a *UISchemaAPIService) ReplaceUISchemasExecute(r ApiReplaceUISchemasRequest) (*UISchemasResponseObject, *APIResponse, error) {
 	var (
 		localVarHTTPMethod   = http.MethodPut
@@ -809,7 +811,7 @@ func (a *UISchemaAPIService) ReplaceUISchemasExecute(r ApiReplaceUISchemasReques
 		localVarReturnValue  *UISchemasResponseObject
 		localVarHTTPResponse *http.Response
 		localAPIResponse     *APIResponse
-		err 				 error
+		err                  error
 	)
 
 	if a.client.cfg.Okta.Client.RequestTimeout > 0 {
@@ -947,7 +949,7 @@ func (a *UISchemaAPIService) ReplaceUISchemasExecute(r ApiReplaceUISchemasReques
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
 		return localVarReturnValue, localAPIResponse, newErr
 	}
-	
+
 	localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
 	return localVarReturnValue, localAPIResponse, nil
 }

@@ -21,20 +21,19 @@ API version: 2024.06.1
 Contact: devex-public@okta.com
 */
 
-
 package okta
 
 import (
 	"encoding/json"
-	"fmt"
 	"reflect"
 	"strings"
+	"time"
 )
 
 // LogStreamAws struct for LogStreamAws
 type LogStreamAws struct {
 	LogStream
-	Settings LogStreamSettingsAws `json:"settings"`
+	Settings             LogStreamSettingsAws `json:"settings"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -202,4 +201,3 @@ func (v *NullableLogStreamAws) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-

@@ -21,7 +21,6 @@ API version: 2024.06.1
 Contact: devex-public@okta.com
 */
 
-
 package okta
 
 import (
@@ -31,21 +30,21 @@ import (
 
 // Agent Agent details
 type Agent struct {
-	Id *string `json:"id,omitempty"`
-	IsHidden *bool `json:"isHidden,omitempty"`
-	IsLatestGAedVersion *bool `json:"isLatestGAedVersion,omitempty"`
-	LastConnection *time.Time `json:"lastConnection,omitempty"`
-	Name *string `json:"name,omitempty"`
+	Id                  *string    `json:"id,omitempty"`
+	IsHidden            *bool      `json:"isHidden,omitempty"`
+	IsLatestGAedVersion *bool      `json:"isLatestGAedVersion,omitempty"`
+	LastConnection      *time.Time `json:"lastConnection,omitempty"`
+	Name                *string    `json:"name,omitempty"`
 	// Operational status of a given agent
 	OperationalStatus *string `json:"operationalStatus,omitempty"`
-	PoolId *string `json:"poolId,omitempty"`
+	PoolId            *string `json:"poolId,omitempty"`
 	// Agent types that are being monitored
-	Type *string `json:"type,omitempty"`
+	Type          *string `json:"type,omitempty"`
 	UpdateMessage *string `json:"updateMessage,omitempty"`
 	// Status for one agent regarding the status to auto-update that agent
-	UpdateStatus *string `json:"updateStatus,omitempty"`
-	Version *string `json:"version,omitempty"`
-	Links *LinksSelf `json:"_links,omitempty"`
+	UpdateStatus         *string    `json:"updateStatus,omitempty"`
+	Version              *string    `json:"version,omitempty"`
+	Links                *LinksSelf `json:"_links,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -567,4 +566,3 @@ func (v *NullableAgent) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-

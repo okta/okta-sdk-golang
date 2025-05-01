@@ -21,7 +21,6 @@ API version: 2024.06.1
 Contact: devex-public@okta.com
 */
 
-
 package okta
 
 import (
@@ -44,11 +43,11 @@ type WellKnownAppAuthenticatorConfiguration struct {
 	// The authenticator display name
 	Name *string `json:"name,omitempty"`
 	// The `id` of the Okta Org
-	OrgId *string `json:"orgId,omitempty"`
-	Settings *WellKnownAppAuthenticatorConfigurationSettings `json:"settings,omitempty"`
-	SupportedMethods []SupportedMethods `json:"supportedMethods,omitempty"`
+	OrgId            *string                                         `json:"orgId,omitempty"`
+	Settings         *WellKnownAppAuthenticatorConfigurationSettings `json:"settings,omitempty"`
+	SupportedMethods []SupportedMethods                              `json:"supportedMethods,omitempty"`
 	// The type of Authenticator
-	Type *string `json:"type,omitempty"`
+	Type                 *string `json:"type,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -498,4 +497,3 @@ func (v *NullableWellKnownAppAuthenticatorConfiguration) UnmarshalJSON(src []byt
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-

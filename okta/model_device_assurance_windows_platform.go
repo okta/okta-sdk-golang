@@ -21,7 +21,6 @@ API version: 2024.06.1
 Contact: devex-public@okta.com
 */
 
-
 package okta
 
 import (
@@ -34,13 +33,13 @@ import (
 type DeviceAssuranceWindowsPlatform struct {
 	DeviceAssurance
 	DiskEncryptionType *DeviceAssuranceMacOSPlatformAllOfDiskEncryptionType `json:"diskEncryptionType,omitempty"`
-	OsVersion *OSVersionFourComponents `json:"osVersion,omitempty"`
-	// <div class=\"x-lifecycle-container\"><x-lifecycle class=\"ea\"></x-lifecycle></div>Specifies the Windows version requirements for the assurance policy. Each requirement must correspond to a different major version (Windows 11 or Windows 10). If a requirement isn't specified for a major version, then devices on that major version satisfy the condition.  There are two types of OS requirements: * **Static**: A specific Windows version requirement that doesn't change until you update the policy. A static OS Windows requirement is specified with `majorVersionConstraint` and `minimum`. * **Dynamic**: A Windows version requirement that is relative to the latest major release and security patch. A dynamic OS Windows requirement is specified with `majorVersionConstraint` and `dynamicVersionRequirement`.  > **Note:** Dynamic OS requirements are available only if the **Dynamic OS version compliance** [self-service EA](/openapi/okta-management/guides/release-lifecycle/#early-access-ea) feature is enabled. The `osVersionConstraints` property is only supported for the Windows platform. You can't specify both `osVersion.minimum` and `osVersionConstraints` properties at the same time. 
-	OsVersionConstraints []OSVersionConstraint `json:"osVersionConstraints,omitempty"`
-	ScreenLockType *DeviceAssuranceAndroidPlatformAllOfScreenLockType `json:"screenLockType,omitempty"`
-	SecureHardwarePresent *bool `json:"secureHardwarePresent,omitempty"`
+	OsVersion          *OSVersionFourComponents                             `json:"osVersion,omitempty"`
+	// <div class=\"x-lifecycle-container\"><x-lifecycle class=\"ea\"></x-lifecycle></div>Specifies the Windows version requirements for the assurance policy. Each requirement must correspond to a different major version (Windows 11 or Windows 10). If a requirement isn't specified for a major version, then devices on that major version satisfy the condition.  There are two types of OS requirements: * **Static**: A specific Windows version requirement that doesn't change until you update the policy. A static OS Windows requirement is specified with `majorVersionConstraint` and `minimum`. * **Dynamic**: A Windows version requirement that is relative to the latest major release and security patch. A dynamic OS Windows requirement is specified with `majorVersionConstraint` and `dynamicVersionRequirement`.  > **Note:** Dynamic OS requirements are available only if the **Dynamic OS version compliance** [self-service EA](/openapi/okta-management/guides/release-lifecycle/#early-access-ea) feature is enabled. The `osVersionConstraints` property is only supported for the Windows platform. You can't specify both `osVersion.minimum` and `osVersionConstraints` properties at the same time.
+	OsVersionConstraints      []OSVersionConstraint                                         `json:"osVersionConstraints,omitempty"`
+	ScreenLockType            *DeviceAssuranceAndroidPlatformAllOfScreenLockType            `json:"screenLockType,omitempty"`
+	SecureHardwarePresent     *bool                                                         `json:"secureHardwarePresent,omitempty"`
 	ThirdPartySignalProviders *DeviceAssuranceWindowsPlatformAllOfThirdPartySignalProviders `json:"thirdPartySignalProviders,omitempty"`
-	AdditionalProperties map[string]interface{}
+	AdditionalProperties      map[string]interface{}
 }
 
 type _DeviceAssuranceWindowsPlatform DeviceAssuranceWindowsPlatform
@@ -293,11 +292,11 @@ func (o DeviceAssuranceWindowsPlatform) MarshalJSON() ([]byte, error) {
 func (o *DeviceAssuranceWindowsPlatform) UnmarshalJSON(bytes []byte) (err error) {
 	type DeviceAssuranceWindowsPlatformWithoutEmbeddedStruct struct {
 		DiskEncryptionType *DeviceAssuranceMacOSPlatformAllOfDiskEncryptionType `json:"diskEncryptionType,omitempty"`
-		OsVersion *OSVersionFourComponents `json:"osVersion,omitempty"`
-		// <div class=\"x-lifecycle-container\"><x-lifecycle class=\"ea\"></x-lifecycle></div>Specifies the Windows version requirements for the assurance policy. Each requirement must correspond to a different major version (Windows 11 or Windows 10). If a requirement isn't specified for a major version, then devices on that major version satisfy the condition.  There are two types of OS requirements: * **Static**: A specific Windows version requirement that doesn't change until you update the policy. A static OS Windows requirement is specified with `majorVersionConstraint` and `minimum`. * **Dynamic**: A Windows version requirement that is relative to the latest major release and security patch. A dynamic OS Windows requirement is specified with `majorVersionConstraint` and `dynamicVersionRequirement`.  > **Note:** Dynamic OS requirements are available only if the **Dynamic OS version compliance** [self-service EA](/openapi/okta-management/guides/release-lifecycle/#early-access-ea) feature is enabled. The `osVersionConstraints` property is only supported for the Windows platform. You can't specify both `osVersion.minimum` and `osVersionConstraints` properties at the same time. 
-		OsVersionConstraints []OSVersionConstraint `json:"osVersionConstraints,omitempty"`
-		ScreenLockType *DeviceAssuranceAndroidPlatformAllOfScreenLockType `json:"screenLockType,omitempty"`
-		SecureHardwarePresent *bool `json:"secureHardwarePresent,omitempty"`
+		OsVersion          *OSVersionFourComponents                             `json:"osVersion,omitempty"`
+		// <div class=\"x-lifecycle-container\"><x-lifecycle class=\"ea\"></x-lifecycle></div>Specifies the Windows version requirements for the assurance policy. Each requirement must correspond to a different major version (Windows 11 or Windows 10). If a requirement isn't specified for a major version, then devices on that major version satisfy the condition.  There are two types of OS requirements: * **Static**: A specific Windows version requirement that doesn't change until you update the policy. A static OS Windows requirement is specified with `majorVersionConstraint` and `minimum`. * **Dynamic**: A Windows version requirement that is relative to the latest major release and security patch. A dynamic OS Windows requirement is specified with `majorVersionConstraint` and `dynamicVersionRequirement`.  > **Note:** Dynamic OS requirements are available only if the **Dynamic OS version compliance** [self-service EA](/openapi/okta-management/guides/release-lifecycle/#early-access-ea) feature is enabled. The `osVersionConstraints` property is only supported for the Windows platform. You can't specify both `osVersion.minimum` and `osVersionConstraints` properties at the same time.
+		OsVersionConstraints      []OSVersionConstraint                                         `json:"osVersionConstraints,omitempty"`
+		ScreenLockType            *DeviceAssuranceAndroidPlatformAllOfScreenLockType            `json:"screenLockType,omitempty"`
+		SecureHardwarePresent     *bool                                                         `json:"secureHardwarePresent,omitempty"`
 		ThirdPartySignalProviders *DeviceAssuranceWindowsPlatformAllOfThirdPartySignalProviders `json:"thirdPartySignalProviders,omitempty"`
 	}
 
@@ -398,4 +397,3 @@ func (v *NullableDeviceAssuranceWindowsPlatform) UnmarshalJSON(src []byte) error
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-

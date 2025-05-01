@@ -21,7 +21,6 @@ API version: 2024.06.1
 Contact: devex-public@okta.com
 */
 
-
 package okta
 
 import (
@@ -33,7 +32,7 @@ type TelephonyResponseCommandsInner struct {
 	// The location where you specify the command. For the Telephony inline hook, there's only one command, `com.okta.telephony.action`.
 	Type *string `json:"type,omitempty"`
 	// The status of the telephony operation along with optional additional information about the provider, transaction ID and any other transaction metadata.
-	Value []TelephonyResponseCommandsInnerValueInner `json:"value,omitempty"`
+	Value                []TelephonyResponseCommandsInnerValueInner `json:"value,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -195,4 +194,3 @@ func (v *NullableTelephonyResponseCommandsInner) UnmarshalJSON(src []byte) error
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-

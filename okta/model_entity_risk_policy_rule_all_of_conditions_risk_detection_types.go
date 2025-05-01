@@ -21,7 +21,6 @@ API version: 2024.06.1
 Contact: devex-public@okta.com
 */
 
-
 package okta
 
 import (
@@ -33,7 +32,7 @@ type EntityRiskPolicyRuleAllOfConditionsRiskDetectionTypes struct {
 	// An array of detected risk events to exclude in the entity policy rule
 	Exclude []string `json:"exclude,omitempty"`
 	// An array of detected risk events to include in the entity policy rule
-	Include []string `json:"include,omitempty"`
+	Include              []string `json:"include,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -195,4 +194,3 @@ func (v *NullableEntityRiskPolicyRuleAllOfConditionsRiskDetectionTypes) Unmarsha
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-

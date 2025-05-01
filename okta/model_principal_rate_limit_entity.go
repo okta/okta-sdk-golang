@@ -21,28 +21,26 @@ API version: 2024.06.1
 Contact: devex-public@okta.com
 */
 
-
 package okta
 
 import (
 	"encoding/json"
 	"time"
-	"fmt"
 )
 
-// PrincipalRateLimitEntity 
+// PrincipalRateLimitEntity
 type PrincipalRateLimitEntity struct {
-	CreatedBy *string `json:"createdBy,omitempty"`
-	CreatedDate *time.Time `json:"createdDate,omitempty"`
-	DefaultConcurrencyPercentage *int32 `json:"defaultConcurrencyPercentage,omitempty"`
-	DefaultPercentage *int32 `json:"defaultPercentage,omitempty"`
-	Id *string `json:"id,omitempty"`
-	LastUpdate *time.Time `json:"lastUpdate,omitempty"`
-	LastUpdatedBy *string `json:"lastUpdatedBy,omitempty"`
-	OrgId *string `json:"orgId,omitempty"`
-	PrincipalId string `json:"principalId"`
-	PrincipalType string `json:"principalType"`
-	AdditionalProperties map[string]interface{}
+	CreatedBy                    *string    `json:"createdBy,omitempty"`
+	CreatedDate                  *time.Time `json:"createdDate,omitempty"`
+	DefaultConcurrencyPercentage *int32     `json:"defaultConcurrencyPercentage,omitempty"`
+	DefaultPercentage            *int32     `json:"defaultPercentage,omitempty"`
+	Id                           *string    `json:"id,omitempty"`
+	LastUpdate                   *time.Time `json:"lastUpdate,omitempty"`
+	LastUpdatedBy                *string    `json:"lastUpdatedBy,omitempty"`
+	OrgId                        *string    `json:"orgId,omitempty"`
+	PrincipalId                  string     `json:"principalId"`
+	PrincipalType                string     `json:"principalType"`
+	AdditionalProperties         map[string]interface{}
 }
 
 type _PrincipalRateLimitEntity PrincipalRateLimitEntity
@@ -477,4 +475,3 @@ func (v *NullablePrincipalRateLimitEntity) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-

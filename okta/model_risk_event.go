@@ -21,13 +21,11 @@ API version: 2024.06.1
 Contact: devex-public@okta.com
 */
 
-
 package okta
 
 import (
 	"encoding/json"
 	"time"
-	"fmt"
 )
 
 // RiskEvent struct for RiskEvent
@@ -37,7 +35,7 @@ type RiskEvent struct {
 	// List of Risk Event Subjects
 	Subjects []RiskEventSubject `json:"subjects"`
 	// Timestamp of when the event is produced (expressed as a UTC time zone using ISO 8601 format: yyyy-MM-dd`T`HH:mm:ss.SSS`Z`)
-	Timestamp *time.Time `json:"timestamp,omitempty"`
+	Timestamp            *time.Time `json:"timestamp,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -228,4 +226,3 @@ func (v *NullableRiskEvent) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-

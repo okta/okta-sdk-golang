@@ -21,22 +21,20 @@ API version: 2024.06.1
 Contact: devex-public@okta.com
 */
 
-
 package okta
 
 import (
 	"encoding/json"
-	"fmt"
 )
 
 // EmailDomain struct for EmailDomain
 type EmailDomain struct {
 	BrandId string `json:"brandId"`
-	Domain string `json:"domain"`
+	Domain  string `json:"domain"`
 	// Subdomain for the email sender's custom mail domain. Specify your subdomain when you configure a custom mail domain.
-	ValidationSubdomain *string `json:"validationSubdomain,omitempty"`
-	DisplayName string `json:"displayName"`
-	UserName string `json:"userName"`
+	ValidationSubdomain  *string `json:"validationSubdomain,omitempty"`
+	DisplayName          string  `json:"displayName"`
+	UserName             string  `json:"userName"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -278,4 +276,3 @@ func (v *NullableEmailDomain) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-

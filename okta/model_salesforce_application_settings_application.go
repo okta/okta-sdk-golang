@@ -21,12 +21,10 @@ API version: 2024.06.1
 Contact: devex-public@okta.com
 */
 
-
 package okta
 
 import (
 	"encoding/json"
-	"fmt"
 )
 
 // SalesforceApplicationSettingsApplication Salesforce app instance properties
@@ -38,7 +36,7 @@ type SalesforceApplicationSettingsApplication struct {
 	// The Login URL specified in your Salesforce Single Sign-On settings
 	LoginUrl *string `json:"loginUrl,omitempty"`
 	// Salesforce Logout URL
-	LogoutUrl *string `json:"logoutUrl,omitempty"`
+	LogoutUrl            *string `json:"logoutUrl,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -258,4 +256,3 @@ func (v *NullableSalesforceApplicationSettingsApplication) UnmarshalJSON(src []b
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-

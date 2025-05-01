@@ -21,7 +21,6 @@ API version: 2024.06.1
 Contact: devex-public@okta.com
 */
 
-
 package okta
 
 import (
@@ -30,7 +29,7 @@ import (
 
 // OAuth2ScopeConsentGrantEmbedded Embedded resources related to the Grant
 type OAuth2ScopeConsentGrantEmbedded struct {
-	Scope *OAuth2ScopeConsentGrantEmbeddedScope `json:"scope,omitempty"`
+	Scope                *OAuth2ScopeConsentGrantEmbeddedScope `json:"scope,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -156,4 +155,3 @@ func (v *NullableOAuth2ScopeConsentGrantEmbedded) UnmarshalJSON(src []byte) erro
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-

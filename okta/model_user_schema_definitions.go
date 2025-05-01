@@ -21,7 +21,6 @@ API version: 2024.06.1
 Contact: devex-public@okta.com
 */
 
-
 package okta
 
 import (
@@ -30,8 +29,8 @@ import (
 
 // UserSchemaDefinitions struct for UserSchemaDefinitions
 type UserSchemaDefinitions struct {
-	Base *UserSchemaBase `json:"base,omitempty"`
-	Custom *UserSchemaPublic `json:"custom,omitempty"`
+	Base                 *UserSchemaBase   `json:"base,omitempty"`
+	Custom               *UserSchemaPublic `json:"custom,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -193,4 +192,3 @@ func (v *NullableUserSchemaDefinitions) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-

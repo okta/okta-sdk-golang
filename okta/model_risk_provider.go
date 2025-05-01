@@ -21,13 +21,11 @@ API version: 2024.06.1
 Contact: devex-public@okta.com
 */
 
-
 package okta
 
 import (
 	"encoding/json"
 	"time"
-	"fmt"
 )
 
 // RiskProvider struct for RiskProvider
@@ -43,8 +41,8 @@ type RiskProvider struct {
 	// Timestamp when the Risk Provider object was last updated
 	LastUpdated *time.Time `json:"lastUpdated,omitempty"`
 	// Name of the risk provider
-	Name string `json:"name"`
-	Links LinksSelf `json:"_links"`
+	Name                 string    `json:"name"`
+	Links                LinksSelf `json:"_links"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -353,4 +351,3 @@ func (v *NullableRiskProvider) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-

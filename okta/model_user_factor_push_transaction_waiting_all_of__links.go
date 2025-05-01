@@ -21,7 +21,6 @@ API version: 2024.06.1
 Contact: devex-public@okta.com
 */
 
-
 package okta
 
 import (
@@ -30,8 +29,8 @@ import (
 
 // UserFactorPushTransactionWaitingAllOfLinks struct for UserFactorPushTransactionWaitingAllOfLinks
 type UserFactorPushTransactionWaitingAllOfLinks struct {
-	Poll *HrefObject `json:"poll,omitempty"`
-	Cancel *HrefObject `json:"cancel,omitempty"`
+	Poll                 *HrefObject `json:"poll,omitempty"`
+	Cancel               *HrefObject `json:"cancel,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -193,4 +192,3 @@ func (v *NullableUserFactorPushTransactionWaitingAllOfLinks) UnmarshalJSON(src [
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-

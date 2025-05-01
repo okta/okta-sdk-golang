@@ -21,12 +21,10 @@ API version: 2024.06.1
 Contact: devex-public@okta.com
 */
 
-
 package okta
 
 import (
 	"encoding/json"
-	"fmt"
 )
 
 // DomainCertificate Defines the properties of the certificate
@@ -38,7 +36,7 @@ type DomainCertificate struct {
 	// Certificate private key
 	PrivateKey string `json:"privateKey"`
 	// Certificate type
-	Type string `json:"type"`
+	Type                 string `json:"type"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -244,4 +242,3 @@ func (v *NullableDomainCertificate) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-

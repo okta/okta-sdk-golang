@@ -21,7 +21,6 @@ API version: 2024.06.1
 Contact: devex-public@okta.com
 */
 
-
 package okta
 
 import (
@@ -30,11 +29,11 @@ import (
 
 // LogGeographicalContext struct for LogGeographicalContext
 type LogGeographicalContext struct {
-	City *string `json:"city,omitempty"`
-	Country *string `json:"country,omitempty"`
-	Geolocation *LogGeolocation `json:"geolocation,omitempty"`
-	PostalCode *string `json:"postalCode,omitempty"`
-	State *string `json:"state,omitempty"`
+	City                 *string         `json:"city,omitempty"`
+	Country              *string         `json:"country,omitempty"`
+	Geolocation          *LogGeolocation `json:"geolocation,omitempty"`
+	PostalCode           *string         `json:"postalCode,omitempty"`
+	State                *string         `json:"state,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -304,4 +303,3 @@ func (v *NullableLogGeographicalContext) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-

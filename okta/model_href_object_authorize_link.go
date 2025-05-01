@@ -21,19 +21,17 @@ API version: 2024.06.1
 Contact: devex-public@okta.com
 */
 
-
 package okta
 
 import (
 	"encoding/json"
-	"fmt"
 )
 
 // HrefObjectAuthorizeLink Link to authorize scopes
 type HrefObjectAuthorizeLink struct {
 	Hints *HrefHintsGuidanceObject `json:"hints,omitempty"`
 	// Link URI
-	Href string `json:"href"`
+	Href                 string `json:"href"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -188,4 +186,3 @@ func (v *NullableHrefObjectAuthorizeLink) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-

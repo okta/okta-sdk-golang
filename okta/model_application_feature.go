@@ -21,22 +21,21 @@ API version: 2024.06.1
 Contact: devex-public@okta.com
 */
 
-
 package okta
 
 import (
 	"encoding/json"
 )
 
-// ApplicationFeature The Feature object is used to configure application feature settings. 
+// ApplicationFeature The Feature object is used to configure application feature settings.
 type ApplicationFeature struct {
 	// Description of the feature
 	Description *string `json:"description,omitempty"`
-	// Identifying name of the feature  | Value | Description   | | --------- | ------------- | | USER_PROVISIONING  | Represents the **To App** provisioning feature setting in the Admin Console | | INBOUND_PROVISIONING | Represents the **To Okta** provisioning feature setting in the Admin Console | 
+	// Identifying name of the feature  | Value | Description   | | --------- | ------------- | | USER_PROVISIONING  | Represents the **To App** provisioning feature setting in the Admin Console | | INBOUND_PROVISIONING | Represents the **To Okta** provisioning feature setting in the Admin Console |
 	Name *string `json:"name,omitempty"`
 	// Setting status
-	Status *string `json:"status,omitempty"`
-	Links *LinksSelf `json:"_links,omitempty"`
+	Status               *string    `json:"status,omitempty"`
+	Links                *LinksSelf `json:"_links,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -270,4 +269,3 @@ func (v *NullableApplicationFeature) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-

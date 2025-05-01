@@ -21,7 +21,6 @@ API version: 2024.06.1
 Contact: devex-public@okta.com
 */
 
-
 package okta
 
 import (
@@ -35,10 +34,10 @@ type SimulateResultPoliciesItems struct {
 	// ID of the specified policy type
 	Id *string `json:"id,omitempty"`
 	// Policy name
-	Name *string `json:"name,omitempty"`
+	Name  *string               `json:"name,omitempty"`
 	Rules []SimulateResultRules `json:"rules,omitempty"`
 	// The result of this entity evaluation
-	Status *string `json:"status,omitempty"`
+	Status               *string `json:"status,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -308,4 +307,3 @@ func (v *NullableSimulateResultPoliciesItems) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-

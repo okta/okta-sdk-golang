@@ -21,7 +21,6 @@ API version: 2024.06.1
 Contact: devex-public@okta.com
 */
 
-
 package okta
 
 import (
@@ -31,7 +30,7 @@ import (
 // PasswordImportRequestDataAction This object specifies the default action Okta is set to take. Okta takes this action if your external service sends an empty HTTP 204 response. You can override the default action by returning a commands object in your response specifying the action to take.
 type PasswordImportRequestDataAction struct {
 	// The status of the user credential, either `UNVERIFIED` or `VERIFIED`
-	Credential *string `json:"credential,omitempty"`
+	Credential           *string `json:"credential,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -161,4 +160,3 @@ func (v *NullablePasswordImportRequestDataAction) UnmarshalJSON(src []byte) erro
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-

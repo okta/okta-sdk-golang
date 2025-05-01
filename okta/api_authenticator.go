@@ -21,7 +21,6 @@ API version: 2024.06.1
 Contact: devex-public@okta.com
 */
 
-
 package okta
 
 import (
@@ -30,21 +29,20 @@ import (
 	"io/ioutil"
 	"net/http"
 	"net/url"
-	"time"
 	"strings"
+	"time"
 )
-
 
 type AuthenticatorAPI interface {
 
 	/*
-	ActivateAuthenticator Activate an Authenticator
+		ActivateAuthenticator Activate an Authenticator
 
-	Activates an authenticator by `authenticatorId`
+		Activates an authenticator by `authenticatorId`
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param authenticatorId `id` of the Authenticator
-	@return ApiActivateAuthenticatorRequest
+		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+		@param authenticatorId `id` of the Authenticator
+		@return ApiActivateAuthenticatorRequest
 	*/
 	ActivateAuthenticator(ctx context.Context, authenticatorId string) ApiActivateAuthenticatorRequest
 
@@ -53,20 +51,20 @@ type AuthenticatorAPI interface {
 	ActivateAuthenticatorExecute(r ApiActivateAuthenticatorRequest) (*AuthenticatorBase, *APIResponse, error)
 
 	/*
-	ActivateAuthenticatorMethod Activate an Authenticator Method
+			ActivateAuthenticatorMethod Activate an Authenticator Method
 
-	Activates a Method for an Authenticator identified by `authenticatorId` and `methodType`
-> **Note:** <x-lifecycle class="ea"></x-lifecycle>
-> The AAGUID Group object supports the Early Access (Self-Service) Allow List for FIDO2 (WebAuthn) Authenticators feature. Enable the feature for your org from the **Settings** > **Features** page in the Admin Console.
-> This feature has several limitations when enrolling a security key:
-> - Enrollment is currently unsupported on Firefox.
-> - Enrollment is currently unsupported on Chrome if User Verification is set to DISCOURAGED and a PIN is set on the security key.
-> - If prompted during enrollment, users must allow Okta to see the make and model of the security key.
+			Activates a Method for an Authenticator identified by `authenticatorId` and `methodType`
+		> **Note:** <x-lifecycle class="ea"></x-lifecycle>
+		> The AAGUID Group object supports the Early Access (Self-Service) Allow List for FIDO2 (WebAuthn) Authenticators feature. Enable the feature for your org from the **Settings** > **Features** page in the Admin Console.
+		> This feature has several limitations when enrolling a security key:
+		> - Enrollment is currently unsupported on Firefox.
+		> - Enrollment is currently unsupported on Chrome if User Verification is set to DISCOURAGED and a PIN is set on the security key.
+		> - If prompted during enrollment, users must allow Okta to see the make and model of the security key.
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param authenticatorId `id` of the Authenticator
-	@param methodType Type of authenticator method
-	@return ApiActivateAuthenticatorMethodRequest
+			@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+			@param authenticatorId `id` of the Authenticator
+			@param methodType Type of authenticator method
+			@return ApiActivateAuthenticatorMethodRequest
 	*/
 	ActivateAuthenticatorMethod(ctx context.Context, authenticatorId string, methodType string) ApiActivateAuthenticatorMethodRequest
 
@@ -75,12 +73,12 @@ type AuthenticatorAPI interface {
 	ActivateAuthenticatorMethodExecute(r ApiActivateAuthenticatorMethodRequest) (*ListAuthenticatorMethods200ResponseInner, *APIResponse, error)
 
 	/*
-	CreateAuthenticator Create an Authenticator
+		CreateAuthenticator Create an Authenticator
 
-	Creates an authenticator
+		Creates an authenticator
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@return ApiCreateAuthenticatorRequest
+		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+		@return ApiCreateAuthenticatorRequest
 	*/
 	CreateAuthenticator(ctx context.Context) ApiCreateAuthenticatorRequest
 
@@ -89,13 +87,13 @@ type AuthenticatorAPI interface {
 	CreateAuthenticatorExecute(r ApiCreateAuthenticatorRequest) (*AuthenticatorBase, *APIResponse, error)
 
 	/*
-	DeactivateAuthenticator Deactivate an Authenticator
+		DeactivateAuthenticator Deactivate an Authenticator
 
-	Deactivates an authenticator by `authenticatorId`
+		Deactivates an authenticator by `authenticatorId`
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param authenticatorId `id` of the Authenticator
-	@return ApiDeactivateAuthenticatorRequest
+		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+		@param authenticatorId `id` of the Authenticator
+		@return ApiDeactivateAuthenticatorRequest
 	*/
 	DeactivateAuthenticator(ctx context.Context, authenticatorId string) ApiDeactivateAuthenticatorRequest
 
@@ -104,20 +102,20 @@ type AuthenticatorAPI interface {
 	DeactivateAuthenticatorExecute(r ApiDeactivateAuthenticatorRequest) (*AuthenticatorBase, *APIResponse, error)
 
 	/*
-	DeactivateAuthenticatorMethod Deactivate an Authenticator Method
+			DeactivateAuthenticatorMethod Deactivate an Authenticator Method
 
-	Deactivates a Method for an Authenticator identified by `authenticatorId` and `methodType`
-> **Note:** <x-lifecycle class="ea"></x-lifecycle>
-> The AAGUID Group object supports the Early Access (Self-Service) Allow List for FIDO2 (WebAuthn) Authenticators feature. Enable the feature for your org from the **Settings** > **Features** page in the Admin Console.
-> This feature has several limitations when enrolling a security key:
-> - Enrollment is currently unsupported on Firefox.
-> - Enrollment is currently unsupported on Chrome if User Verification is set to DISCOURAGED and a PIN is set on the security key.
-> - If prompted during enrollment, users must allow Okta to see the make and model of the security key.
+			Deactivates a Method for an Authenticator identified by `authenticatorId` and `methodType`
+		> **Note:** <x-lifecycle class="ea"></x-lifecycle>
+		> The AAGUID Group object supports the Early Access (Self-Service) Allow List for FIDO2 (WebAuthn) Authenticators feature. Enable the feature for your org from the **Settings** > **Features** page in the Admin Console.
+		> This feature has several limitations when enrolling a security key:
+		> - Enrollment is currently unsupported on Firefox.
+		> - Enrollment is currently unsupported on Chrome if User Verification is set to DISCOURAGED and a PIN is set on the security key.
+		> - If prompted during enrollment, users must allow Okta to see the make and model of the security key.
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param authenticatorId `id` of the Authenticator
-	@param methodType Type of authenticator method
-	@return ApiDeactivateAuthenticatorMethodRequest
+			@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+			@param authenticatorId `id` of the Authenticator
+			@param methodType Type of authenticator method
+			@return ApiDeactivateAuthenticatorMethodRequest
 	*/
 	DeactivateAuthenticatorMethod(ctx context.Context, authenticatorId string, methodType string) ApiDeactivateAuthenticatorMethodRequest
 
@@ -126,13 +124,13 @@ type AuthenticatorAPI interface {
 	DeactivateAuthenticatorMethodExecute(r ApiDeactivateAuthenticatorMethodRequest) (*ListAuthenticatorMethods200ResponseInner, *APIResponse, error)
 
 	/*
-	GetAuthenticator Retrieve an Authenticator
+		GetAuthenticator Retrieve an Authenticator
 
-	Retrieves an authenticator from your Okta organization by `authenticatorId`
+		Retrieves an authenticator from your Okta organization by `authenticatorId`
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param authenticatorId `id` of the Authenticator
-	@return ApiGetAuthenticatorRequest
+		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+		@param authenticatorId `id` of the Authenticator
+		@return ApiGetAuthenticatorRequest
 	*/
 	GetAuthenticator(ctx context.Context, authenticatorId string) ApiGetAuthenticatorRequest
 
@@ -141,20 +139,20 @@ type AuthenticatorAPI interface {
 	GetAuthenticatorExecute(r ApiGetAuthenticatorRequest) (*AuthenticatorBase, *APIResponse, error)
 
 	/*
-	GetAuthenticatorMethod Retrieve an Authenticator Method
+			GetAuthenticatorMethod Retrieve an Authenticator Method
 
-	Retrieves a Method identified by `methodType` of an Authenticator identified by `authenticatorId`
-> **Note:** <x-lifecycle class="ea"></x-lifecycle>
-> The AAGUID Group object supports the Early Access (Self-Service) Allow List for FIDO2 (WebAuthn) Authenticators feature. Enable the feature for your org from the **Settings** > **Features** page in the Admin Console.
-> This feature has several limitations when enrolling a security key:
-> - Enrollment is currently unsupported on Firefox.
-> - Enrollment is currently unsupported on Chrome if User Verification is set to DISCOURAGED and a PIN is set on the security key.
-> - If prompted during enrollment, users must allow Okta to see the make and model of the security key.
+			Retrieves a Method identified by `methodType` of an Authenticator identified by `authenticatorId`
+		> **Note:** <x-lifecycle class="ea"></x-lifecycle>
+		> The AAGUID Group object supports the Early Access (Self-Service) Allow List for FIDO2 (WebAuthn) Authenticators feature. Enable the feature for your org from the **Settings** > **Features** page in the Admin Console.
+		> This feature has several limitations when enrolling a security key:
+		> - Enrollment is currently unsupported on Firefox.
+		> - Enrollment is currently unsupported on Chrome if User Verification is set to DISCOURAGED and a PIN is set on the security key.
+		> - If prompted during enrollment, users must allow Okta to see the make and model of the security key.
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param authenticatorId `id` of the Authenticator
-	@param methodType Type of authenticator method
-	@return ApiGetAuthenticatorMethodRequest
+			@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+			@param authenticatorId `id` of the Authenticator
+			@param methodType Type of authenticator method
+			@return ApiGetAuthenticatorMethodRequest
 	*/
 	GetAuthenticatorMethod(ctx context.Context, authenticatorId string, methodType string) ApiGetAuthenticatorMethodRequest
 
@@ -163,12 +161,12 @@ type AuthenticatorAPI interface {
 	GetAuthenticatorMethodExecute(r ApiGetAuthenticatorMethodRequest) (*ListAuthenticatorMethods200ResponseInner, *APIResponse, error)
 
 	/*
-	GetWellKnownAppAuthenticatorConfiguration Retrieve the Well-Known App Authenticator Configuration
+		GetWellKnownAppAuthenticatorConfiguration Retrieve the Well-Known App Authenticator Configuration
 
-	Retrieves the well-known app authenticator configuration. Includes an app authenticator's settings, supported methods, and other details.
+		Retrieves the well-known app authenticator configuration. Includes an app authenticator's settings, supported methods, and other details.
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@return ApiGetWellKnownAppAuthenticatorConfigurationRequest
+		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+		@return ApiGetWellKnownAppAuthenticatorConfigurationRequest
 	*/
 	GetWellKnownAppAuthenticatorConfiguration(ctx context.Context) ApiGetWellKnownAppAuthenticatorConfigurationRequest
 
@@ -177,19 +175,19 @@ type AuthenticatorAPI interface {
 	GetWellKnownAppAuthenticatorConfigurationExecute(r ApiGetWellKnownAppAuthenticatorConfigurationRequest) ([]WellKnownAppAuthenticatorConfiguration, *APIResponse, error)
 
 	/*
-	ListAuthenticatorMethods List all Methods of an Authenticator
+			ListAuthenticatorMethods List all Methods of an Authenticator
 
-	Lists all Methods of an Authenticator identified by `authenticatorId`
-> **Note:** <x-lifecycle class="ea"></x-lifecycle>
-> The AAGUID Group object supports the Early Access (Self-Service) Allow List for FIDO2 (WebAuthn) Authenticators feature. Enable the feature for your org from the **Settings** > **Features** page in the Admin Console.
-> This feature has several limitations when enrolling a security key:
-> - Enrollment is currently unsupported on Firefox.
-> - Enrollment is currently unsupported on Chrome if User Verification is set to DISCOURAGED and a PIN is set on the security key.
-> - If prompted during enrollment, users must allow Okta to see the make and model of the security key.
+			Lists all Methods of an Authenticator identified by `authenticatorId`
+		> **Note:** <x-lifecycle class="ea"></x-lifecycle>
+		> The AAGUID Group object supports the Early Access (Self-Service) Allow List for FIDO2 (WebAuthn) Authenticators feature. Enable the feature for your org from the **Settings** > **Features** page in the Admin Console.
+		> This feature has several limitations when enrolling a security key:
+		> - Enrollment is currently unsupported on Firefox.
+		> - Enrollment is currently unsupported on Chrome if User Verification is set to DISCOURAGED and a PIN is set on the security key.
+		> - If prompted during enrollment, users must allow Okta to see the make and model of the security key.
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param authenticatorId `id` of the Authenticator
-	@return ApiListAuthenticatorMethodsRequest
+			@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+			@param authenticatorId `id` of the Authenticator
+			@return ApiListAuthenticatorMethodsRequest
 	*/
 	ListAuthenticatorMethods(ctx context.Context, authenticatorId string) ApiListAuthenticatorMethodsRequest
 
@@ -198,12 +196,12 @@ type AuthenticatorAPI interface {
 	ListAuthenticatorMethodsExecute(r ApiListAuthenticatorMethodsRequest) ([]ListAuthenticatorMethods200ResponseInner, *APIResponse, error)
 
 	/*
-	ListAuthenticators List all Authenticators
+		ListAuthenticators List all Authenticators
 
-	Lists all authenticators
+		Lists all authenticators
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@return ApiListAuthenticatorsRequest
+		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+		@return ApiListAuthenticatorsRequest
 	*/
 	ListAuthenticators(ctx context.Context) ApiListAuthenticatorsRequest
 
@@ -212,13 +210,13 @@ type AuthenticatorAPI interface {
 	ListAuthenticatorsExecute(r ApiListAuthenticatorsRequest) ([]ListAuthenticators200ResponseInner, *APIResponse, error)
 
 	/*
-	ReplaceAuthenticator Replace an Authenticator
+		ReplaceAuthenticator Replace an Authenticator
 
-	Replaces the properties for an Authenticator identified by `authenticatorId`
+		Replaces the properties for an Authenticator identified by `authenticatorId`
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param authenticatorId `id` of the Authenticator
-	@return ApiReplaceAuthenticatorRequest
+		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+		@param authenticatorId `id` of the Authenticator
+		@return ApiReplaceAuthenticatorRequest
 	*/
 	ReplaceAuthenticator(ctx context.Context, authenticatorId string) ApiReplaceAuthenticatorRequest
 
@@ -227,20 +225,20 @@ type AuthenticatorAPI interface {
 	ReplaceAuthenticatorExecute(r ApiReplaceAuthenticatorRequest) (*AuthenticatorBase, *APIResponse, error)
 
 	/*
-	ReplaceAuthenticatorMethod Replace an Authenticator Method
+			ReplaceAuthenticatorMethod Replace an Authenticator Method
 
-	Replaces a Method of `methodType` for an Authenticator identified by `authenticatorId`
-> **Note:** <x-lifecycle class="ea"></x-lifecycle>
-> The AAGUID Group object supports the Early Access (Self-Service) Allow List for FIDO2 (WebAuthn) Authenticators feature. Enable the feature for your org from the **Settings** > **Features** page in the Admin Console.
-> This feature has several limitations when enrolling a security key:
-> - Enrollment is currently unsupported on Firefox.
-> - Enrollment is currently unsupported on Chrome if User Verification is set to DISCOURAGED and a PIN is set on the security key.
-> - If prompted during enrollment, users must allow Okta to see the make and model of the security key.
+			Replaces a Method of `methodType` for an Authenticator identified by `authenticatorId`
+		> **Note:** <x-lifecycle class="ea"></x-lifecycle>
+		> The AAGUID Group object supports the Early Access (Self-Service) Allow List for FIDO2 (WebAuthn) Authenticators feature. Enable the feature for your org from the **Settings** > **Features** page in the Admin Console.
+		> This feature has several limitations when enrolling a security key:
+		> - Enrollment is currently unsupported on Firefox.
+		> - Enrollment is currently unsupported on Chrome if User Verification is set to DISCOURAGED and a PIN is set on the security key.
+		> - If prompted during enrollment, users must allow Okta to see the make and model of the security key.
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param authenticatorId `id` of the Authenticator
-	@param methodType Type of authenticator method
-	@return ApiReplaceAuthenticatorMethodRequest
+			@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+			@param authenticatorId `id` of the Authenticator
+			@param methodType Type of authenticator method
+			@return ApiReplaceAuthenticatorMethodRequest
 	*/
 	ReplaceAuthenticatorMethod(ctx context.Context, authenticatorId string, methodType string) ApiReplaceAuthenticatorMethodRequest
 
@@ -253,10 +251,10 @@ type AuthenticatorAPI interface {
 type AuthenticatorAPIService service
 
 type ApiActivateAuthenticatorRequest struct {
-	ctx context.Context
-	ApiService AuthenticatorAPI
+	ctx             context.Context
+	ApiService      AuthenticatorAPI
 	authenticatorId string
-	retryCount int32
+	retryCount      int32
 }
 
 func (r ApiActivateAuthenticatorRequest) Execute() (*AuthenticatorBase, *APIResponse, error) {
@@ -268,21 +266,22 @@ ActivateAuthenticator Activate an Authenticator
 
 Activates an authenticator by `authenticatorId`
 
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @param authenticatorId `id` of the Authenticator
- @return ApiActivateAuthenticatorRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param authenticatorId `id` of the Authenticator
+	@return ApiActivateAuthenticatorRequest
 */
 func (a *AuthenticatorAPIService) ActivateAuthenticator(ctx context.Context, authenticatorId string) ApiActivateAuthenticatorRequest {
 	return ApiActivateAuthenticatorRequest{
-		ApiService: a,
-		ctx: ctx,
+		ApiService:      a,
+		ctx:             ctx,
 		authenticatorId: authenticatorId,
-		retryCount: 0,
+		retryCount:      0,
 	}
 }
 
 // Execute executes the request
-//  @return AuthenticatorBase
+//
+//	@return AuthenticatorBase
 func (a *AuthenticatorAPIService) ActivateAuthenticatorExecute(r ApiActivateAuthenticatorRequest) (*AuthenticatorBase, *APIResponse, error) {
 	var (
 		localVarHTTPMethod   = http.MethodPost
@@ -291,7 +290,7 @@ func (a *AuthenticatorAPIService) ActivateAuthenticatorExecute(r ApiActivateAuth
 		localVarReturnValue  *AuthenticatorBase
 		localVarHTTPResponse *http.Response
 		localAPIResponse     *APIResponse
-		err 				 error
+		err                  error
 	)
 
 	if a.client.cfg.Okta.Client.RequestTimeout > 0 {
@@ -412,17 +411,17 @@ func (a *AuthenticatorAPIService) ActivateAuthenticatorExecute(r ApiActivateAuth
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
 		return localVarReturnValue, localAPIResponse, newErr
 	}
-	
+
 	localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
 	return localVarReturnValue, localAPIResponse, nil
 }
 
 type ApiActivateAuthenticatorMethodRequest struct {
-	ctx context.Context
-	ApiService AuthenticatorAPI
+	ctx             context.Context
+	ApiService      AuthenticatorAPI
 	authenticatorId string
-	methodType string
-	retryCount int32
+	methodType      string
+	retryCount      int32
 }
 
 func (r ApiActivateAuthenticatorMethodRequest) Execute() (*ListAuthenticatorMethods200ResponseInner, *APIResponse, error) {
@@ -440,23 +439,24 @@ Activates a Method for an Authenticator identified by `authenticatorId` and `met
 > - Enrollment is currently unsupported on Chrome if User Verification is set to DISCOURAGED and a PIN is set on the security key.
 > - If prompted during enrollment, users must allow Okta to see the make and model of the security key.
 
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @param authenticatorId `id` of the Authenticator
- @param methodType Type of authenticator method
- @return ApiActivateAuthenticatorMethodRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param authenticatorId `id` of the Authenticator
+	@param methodType Type of authenticator method
+	@return ApiActivateAuthenticatorMethodRequest
 */
 func (a *AuthenticatorAPIService) ActivateAuthenticatorMethod(ctx context.Context, authenticatorId string, methodType string) ApiActivateAuthenticatorMethodRequest {
 	return ApiActivateAuthenticatorMethodRequest{
-		ApiService: a,
-		ctx: ctx,
+		ApiService:      a,
+		ctx:             ctx,
 		authenticatorId: authenticatorId,
-		methodType: methodType,
-		retryCount: 0,
+		methodType:      methodType,
+		retryCount:      0,
 	}
 }
 
 // Execute executes the request
-//  @return ListAuthenticatorMethods200ResponseInner
+//
+//	@return ListAuthenticatorMethods200ResponseInner
 func (a *AuthenticatorAPIService) ActivateAuthenticatorMethodExecute(r ApiActivateAuthenticatorMethodRequest) (*ListAuthenticatorMethods200ResponseInner, *APIResponse, error) {
 	var (
 		localVarHTTPMethod   = http.MethodPost
@@ -465,7 +465,7 @@ func (a *AuthenticatorAPIService) ActivateAuthenticatorMethodExecute(r ApiActiva
 		localVarReturnValue  *ListAuthenticatorMethods200ResponseInner
 		localVarHTTPResponse *http.Response
 		localAPIResponse     *APIResponse
-		err 				 error
+		err                  error
 	)
 
 	if a.client.cfg.Okta.Client.RequestTimeout > 0 {
@@ -587,17 +587,17 @@ func (a *AuthenticatorAPIService) ActivateAuthenticatorMethodExecute(r ApiActiva
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
 		return localVarReturnValue, localAPIResponse, newErr
 	}
-	
+
 	localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
 	return localVarReturnValue, localAPIResponse, nil
 }
 
 type ApiCreateAuthenticatorRequest struct {
-	ctx context.Context
-	ApiService AuthenticatorAPI
+	ctx           context.Context
+	ApiService    AuthenticatorAPI
 	authenticator *AuthenticatorBase
-	activate *bool
-	retryCount int32
+	activate      *bool
+	retryCount    int32
 }
 
 func (r ApiCreateAuthenticatorRequest) Authenticator(authenticator AuthenticatorBase) ApiCreateAuthenticatorRequest {
@@ -620,19 +620,20 @@ CreateAuthenticator Create an Authenticator
 
 Creates an authenticator
 
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @return ApiCreateAuthenticatorRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@return ApiCreateAuthenticatorRequest
 */
 func (a *AuthenticatorAPIService) CreateAuthenticator(ctx context.Context) ApiCreateAuthenticatorRequest {
 	return ApiCreateAuthenticatorRequest{
 		ApiService: a,
-		ctx: ctx,
+		ctx:        ctx,
 		retryCount: 0,
 	}
 }
 
 // Execute executes the request
-//  @return AuthenticatorBase
+//
+//	@return AuthenticatorBase
 func (a *AuthenticatorAPIService) CreateAuthenticatorExecute(r ApiCreateAuthenticatorRequest) (*AuthenticatorBase, *APIResponse, error) {
 	var (
 		localVarHTTPMethod   = http.MethodPost
@@ -641,7 +642,7 @@ func (a *AuthenticatorAPIService) CreateAuthenticatorExecute(r ApiCreateAuthenti
 		localVarReturnValue  *AuthenticatorBase
 		localVarHTTPResponse *http.Response
 		localAPIResponse     *APIResponse
-		err 				 error
+		err                  error
 	)
 
 	if a.client.cfg.Okta.Client.RequestTimeout > 0 {
@@ -769,16 +770,16 @@ func (a *AuthenticatorAPIService) CreateAuthenticatorExecute(r ApiCreateAuthenti
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
 		return localVarReturnValue, localAPIResponse, newErr
 	}
-	
+
 	localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
 	return localVarReturnValue, localAPIResponse, nil
 }
 
 type ApiDeactivateAuthenticatorRequest struct {
-	ctx context.Context
-	ApiService AuthenticatorAPI
+	ctx             context.Context
+	ApiService      AuthenticatorAPI
 	authenticatorId string
-	retryCount int32
+	retryCount      int32
 }
 
 func (r ApiDeactivateAuthenticatorRequest) Execute() (*AuthenticatorBase, *APIResponse, error) {
@@ -790,21 +791,22 @@ DeactivateAuthenticator Deactivate an Authenticator
 
 Deactivates an authenticator by `authenticatorId`
 
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @param authenticatorId `id` of the Authenticator
- @return ApiDeactivateAuthenticatorRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param authenticatorId `id` of the Authenticator
+	@return ApiDeactivateAuthenticatorRequest
 */
 func (a *AuthenticatorAPIService) DeactivateAuthenticator(ctx context.Context, authenticatorId string) ApiDeactivateAuthenticatorRequest {
 	return ApiDeactivateAuthenticatorRequest{
-		ApiService: a,
-		ctx: ctx,
+		ApiService:      a,
+		ctx:             ctx,
 		authenticatorId: authenticatorId,
-		retryCount: 0,
+		retryCount:      0,
 	}
 }
 
 // Execute executes the request
-//  @return AuthenticatorBase
+//
+//	@return AuthenticatorBase
 func (a *AuthenticatorAPIService) DeactivateAuthenticatorExecute(r ApiDeactivateAuthenticatorRequest) (*AuthenticatorBase, *APIResponse, error) {
 	var (
 		localVarHTTPMethod   = http.MethodPost
@@ -813,7 +815,7 @@ func (a *AuthenticatorAPIService) DeactivateAuthenticatorExecute(r ApiDeactivate
 		localVarReturnValue  *AuthenticatorBase
 		localVarHTTPResponse *http.Response
 		localAPIResponse     *APIResponse
-		err 				 error
+		err                  error
 	)
 
 	if a.client.cfg.Okta.Client.RequestTimeout > 0 {
@@ -934,17 +936,17 @@ func (a *AuthenticatorAPIService) DeactivateAuthenticatorExecute(r ApiDeactivate
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
 		return localVarReturnValue, localAPIResponse, newErr
 	}
-	
+
 	localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
 	return localVarReturnValue, localAPIResponse, nil
 }
 
 type ApiDeactivateAuthenticatorMethodRequest struct {
-	ctx context.Context
-	ApiService AuthenticatorAPI
+	ctx             context.Context
+	ApiService      AuthenticatorAPI
 	authenticatorId string
-	methodType string
-	retryCount int32
+	methodType      string
+	retryCount      int32
 }
 
 func (r ApiDeactivateAuthenticatorMethodRequest) Execute() (*ListAuthenticatorMethods200ResponseInner, *APIResponse, error) {
@@ -962,23 +964,24 @@ Deactivates a Method for an Authenticator identified by `authenticatorId` and `m
 > - Enrollment is currently unsupported on Chrome if User Verification is set to DISCOURAGED and a PIN is set on the security key.
 > - If prompted during enrollment, users must allow Okta to see the make and model of the security key.
 
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @param authenticatorId `id` of the Authenticator
- @param methodType Type of authenticator method
- @return ApiDeactivateAuthenticatorMethodRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param authenticatorId `id` of the Authenticator
+	@param methodType Type of authenticator method
+	@return ApiDeactivateAuthenticatorMethodRequest
 */
 func (a *AuthenticatorAPIService) DeactivateAuthenticatorMethod(ctx context.Context, authenticatorId string, methodType string) ApiDeactivateAuthenticatorMethodRequest {
 	return ApiDeactivateAuthenticatorMethodRequest{
-		ApiService: a,
-		ctx: ctx,
+		ApiService:      a,
+		ctx:             ctx,
 		authenticatorId: authenticatorId,
-		methodType: methodType,
-		retryCount: 0,
+		methodType:      methodType,
+		retryCount:      0,
 	}
 }
 
 // Execute executes the request
-//  @return ListAuthenticatorMethods200ResponseInner
+//
+//	@return ListAuthenticatorMethods200ResponseInner
 func (a *AuthenticatorAPIService) DeactivateAuthenticatorMethodExecute(r ApiDeactivateAuthenticatorMethodRequest) (*ListAuthenticatorMethods200ResponseInner, *APIResponse, error) {
 	var (
 		localVarHTTPMethod   = http.MethodPost
@@ -987,7 +990,7 @@ func (a *AuthenticatorAPIService) DeactivateAuthenticatorMethodExecute(r ApiDeac
 		localVarReturnValue  *ListAuthenticatorMethods200ResponseInner
 		localVarHTTPResponse *http.Response
 		localAPIResponse     *APIResponse
-		err 				 error
+		err                  error
 	)
 
 	if a.client.cfg.Okta.Client.RequestTimeout > 0 {
@@ -1109,16 +1112,16 @@ func (a *AuthenticatorAPIService) DeactivateAuthenticatorMethodExecute(r ApiDeac
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
 		return localVarReturnValue, localAPIResponse, newErr
 	}
-	
+
 	localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
 	return localVarReturnValue, localAPIResponse, nil
 }
 
 type ApiGetAuthenticatorRequest struct {
-	ctx context.Context
-	ApiService AuthenticatorAPI
+	ctx             context.Context
+	ApiService      AuthenticatorAPI
 	authenticatorId string
-	retryCount int32
+	retryCount      int32
 }
 
 func (r ApiGetAuthenticatorRequest) Execute() (*AuthenticatorBase, *APIResponse, error) {
@@ -1130,21 +1133,22 @@ GetAuthenticator Retrieve an Authenticator
 
 Retrieves an authenticator from your Okta organization by `authenticatorId`
 
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @param authenticatorId `id` of the Authenticator
- @return ApiGetAuthenticatorRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param authenticatorId `id` of the Authenticator
+	@return ApiGetAuthenticatorRequest
 */
 func (a *AuthenticatorAPIService) GetAuthenticator(ctx context.Context, authenticatorId string) ApiGetAuthenticatorRequest {
 	return ApiGetAuthenticatorRequest{
-		ApiService: a,
-		ctx: ctx,
+		ApiService:      a,
+		ctx:             ctx,
 		authenticatorId: authenticatorId,
-		retryCount: 0,
+		retryCount:      0,
 	}
 }
 
 // Execute executes the request
-//  @return AuthenticatorBase
+//
+//	@return AuthenticatorBase
 func (a *AuthenticatorAPIService) GetAuthenticatorExecute(r ApiGetAuthenticatorRequest) (*AuthenticatorBase, *APIResponse, error) {
 	var (
 		localVarHTTPMethod   = http.MethodGet
@@ -1153,7 +1157,7 @@ func (a *AuthenticatorAPIService) GetAuthenticatorExecute(r ApiGetAuthenticatorR
 		localVarReturnValue  *AuthenticatorBase
 		localVarHTTPResponse *http.Response
 		localAPIResponse     *APIResponse
-		err 				 error
+		err                  error
 	)
 
 	if a.client.cfg.Okta.Client.RequestTimeout > 0 {
@@ -1274,17 +1278,17 @@ func (a *AuthenticatorAPIService) GetAuthenticatorExecute(r ApiGetAuthenticatorR
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
 		return localVarReturnValue, localAPIResponse, newErr
 	}
-	
+
 	localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
 	return localVarReturnValue, localAPIResponse, nil
 }
 
 type ApiGetAuthenticatorMethodRequest struct {
-	ctx context.Context
-	ApiService AuthenticatorAPI
+	ctx             context.Context
+	ApiService      AuthenticatorAPI
 	authenticatorId string
-	methodType string
-	retryCount int32
+	methodType      string
+	retryCount      int32
 }
 
 func (r ApiGetAuthenticatorMethodRequest) Execute() (*ListAuthenticatorMethods200ResponseInner, *APIResponse, error) {
@@ -1302,23 +1306,24 @@ Retrieves a Method identified by `methodType` of an Authenticator identified by 
 > - Enrollment is currently unsupported on Chrome if User Verification is set to DISCOURAGED and a PIN is set on the security key.
 > - If prompted during enrollment, users must allow Okta to see the make and model of the security key.
 
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @param authenticatorId `id` of the Authenticator
- @param methodType Type of authenticator method
- @return ApiGetAuthenticatorMethodRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param authenticatorId `id` of the Authenticator
+	@param methodType Type of authenticator method
+	@return ApiGetAuthenticatorMethodRequest
 */
 func (a *AuthenticatorAPIService) GetAuthenticatorMethod(ctx context.Context, authenticatorId string, methodType string) ApiGetAuthenticatorMethodRequest {
 	return ApiGetAuthenticatorMethodRequest{
-		ApiService: a,
-		ctx: ctx,
+		ApiService:      a,
+		ctx:             ctx,
 		authenticatorId: authenticatorId,
-		methodType: methodType,
-		retryCount: 0,
+		methodType:      methodType,
+		retryCount:      0,
 	}
 }
 
 // Execute executes the request
-//  @return ListAuthenticatorMethods200ResponseInner
+//
+//	@return ListAuthenticatorMethods200ResponseInner
 func (a *AuthenticatorAPIService) GetAuthenticatorMethodExecute(r ApiGetAuthenticatorMethodRequest) (*ListAuthenticatorMethods200ResponseInner, *APIResponse, error) {
 	var (
 		localVarHTTPMethod   = http.MethodGet
@@ -1327,7 +1332,7 @@ func (a *AuthenticatorAPIService) GetAuthenticatorMethodExecute(r ApiGetAuthenti
 		localVarReturnValue  *ListAuthenticatorMethods200ResponseInner
 		localVarHTTPResponse *http.Response
 		localAPIResponse     *APIResponse
-		err 				 error
+		err                  error
 	)
 
 	if a.client.cfg.Okta.Client.RequestTimeout > 0 {
@@ -1449,16 +1454,16 @@ func (a *AuthenticatorAPIService) GetAuthenticatorMethodExecute(r ApiGetAuthenti
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
 		return localVarReturnValue, localAPIResponse, newErr
 	}
-	
+
 	localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
 	return localVarReturnValue, localAPIResponse, nil
 }
 
 type ApiGetWellKnownAppAuthenticatorConfigurationRequest struct {
-	ctx context.Context
-	ApiService AuthenticatorAPI
+	ctx           context.Context
+	ApiService    AuthenticatorAPI
 	oauthClientId *string
-	retryCount int32
+	retryCount    int32
 }
 
 // Filters app authenticator configurations by &#x60;oauthClientId&#x60;
@@ -1476,19 +1481,20 @@ GetWellKnownAppAuthenticatorConfiguration Retrieve the Well-Known App Authentica
 
 Retrieves the well-known app authenticator configuration. Includes an app authenticator's settings, supported methods, and other details.
 
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @return ApiGetWellKnownAppAuthenticatorConfigurationRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@return ApiGetWellKnownAppAuthenticatorConfigurationRequest
 */
 func (a *AuthenticatorAPIService) GetWellKnownAppAuthenticatorConfiguration(ctx context.Context) ApiGetWellKnownAppAuthenticatorConfigurationRequest {
 	return ApiGetWellKnownAppAuthenticatorConfigurationRequest{
 		ApiService: a,
-		ctx: ctx,
+		ctx:        ctx,
 		retryCount: 0,
 	}
 }
 
 // Execute executes the request
-//  @return []WellKnownAppAuthenticatorConfiguration
+//
+//	@return []WellKnownAppAuthenticatorConfiguration
 func (a *AuthenticatorAPIService) GetWellKnownAppAuthenticatorConfigurationExecute(r ApiGetWellKnownAppAuthenticatorConfigurationRequest) ([]WellKnownAppAuthenticatorConfiguration, *APIResponse, error) {
 	var (
 		localVarHTTPMethod   = http.MethodGet
@@ -1497,7 +1503,7 @@ func (a *AuthenticatorAPIService) GetWellKnownAppAuthenticatorConfigurationExecu
 		localVarReturnValue  []WellKnownAppAuthenticatorConfiguration
 		localVarHTTPResponse *http.Response
 		localAPIResponse     *APIResponse
-		err 				 error
+		err                  error
 	)
 
 	if a.client.cfg.Okta.Client.RequestTimeout > 0 {
@@ -1595,16 +1601,16 @@ func (a *AuthenticatorAPIService) GetWellKnownAppAuthenticatorConfigurationExecu
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
 		return localVarReturnValue, localAPIResponse, newErr
 	}
-	
+
 	localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
 	return localVarReturnValue, localAPIResponse, nil
 }
 
 type ApiListAuthenticatorMethodsRequest struct {
-	ctx context.Context
-	ApiService AuthenticatorAPI
+	ctx             context.Context
+	ApiService      AuthenticatorAPI
 	authenticatorId string
-	retryCount int32
+	retryCount      int32
 }
 
 func (r ApiListAuthenticatorMethodsRequest) Execute() ([]ListAuthenticatorMethods200ResponseInner, *APIResponse, error) {
@@ -1622,21 +1628,22 @@ Lists all Methods of an Authenticator identified by `authenticatorId`
 > - Enrollment is currently unsupported on Chrome if User Verification is set to DISCOURAGED and a PIN is set on the security key.
 > - If prompted during enrollment, users must allow Okta to see the make and model of the security key.
 
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @param authenticatorId `id` of the Authenticator
- @return ApiListAuthenticatorMethodsRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param authenticatorId `id` of the Authenticator
+	@return ApiListAuthenticatorMethodsRequest
 */
 func (a *AuthenticatorAPIService) ListAuthenticatorMethods(ctx context.Context, authenticatorId string) ApiListAuthenticatorMethodsRequest {
 	return ApiListAuthenticatorMethodsRequest{
-		ApiService: a,
-		ctx: ctx,
+		ApiService:      a,
+		ctx:             ctx,
 		authenticatorId: authenticatorId,
-		retryCount: 0,
+		retryCount:      0,
 	}
 }
 
 // Execute executes the request
-//  @return []ListAuthenticatorMethods200ResponseInner
+//
+//	@return []ListAuthenticatorMethods200ResponseInner
 func (a *AuthenticatorAPIService) ListAuthenticatorMethodsExecute(r ApiListAuthenticatorMethodsRequest) ([]ListAuthenticatorMethods200ResponseInner, *APIResponse, error) {
 	var (
 		localVarHTTPMethod   = http.MethodGet
@@ -1645,7 +1652,7 @@ func (a *AuthenticatorAPIService) ListAuthenticatorMethodsExecute(r ApiListAuthe
 		localVarReturnValue  []ListAuthenticatorMethods200ResponseInner
 		localVarHTTPResponse *http.Response
 		localAPIResponse     *APIResponse
-		err 				 error
+		err                  error
 	)
 
 	if a.client.cfg.Okta.Client.RequestTimeout > 0 {
@@ -1766,13 +1773,13 @@ func (a *AuthenticatorAPIService) ListAuthenticatorMethodsExecute(r ApiListAuthe
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
 		return localVarReturnValue, localAPIResponse, newErr
 	}
-	
+
 	localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
 	return localVarReturnValue, localAPIResponse, nil
 }
 
 type ApiListAuthenticatorsRequest struct {
-	ctx context.Context
+	ctx        context.Context
 	ApiService AuthenticatorAPI
 	retryCount int32
 }
@@ -1786,19 +1793,20 @@ ListAuthenticators List all Authenticators
 
 Lists all authenticators
 
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @return ApiListAuthenticatorsRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@return ApiListAuthenticatorsRequest
 */
 func (a *AuthenticatorAPIService) ListAuthenticators(ctx context.Context) ApiListAuthenticatorsRequest {
 	return ApiListAuthenticatorsRequest{
 		ApiService: a,
-		ctx: ctx,
+		ctx:        ctx,
 		retryCount: 0,
 	}
 }
 
 // Execute executes the request
-//  @return []ListAuthenticators200ResponseInner
+//
+//	@return []ListAuthenticators200ResponseInner
 func (a *AuthenticatorAPIService) ListAuthenticatorsExecute(r ApiListAuthenticatorsRequest) ([]ListAuthenticators200ResponseInner, *APIResponse, error) {
 	var (
 		localVarHTTPMethod   = http.MethodGet
@@ -1807,7 +1815,7 @@ func (a *AuthenticatorAPIService) ListAuthenticatorsExecute(r ApiListAuthenticat
 		localVarReturnValue  []ListAuthenticators200ResponseInner
 		localVarHTTPResponse *http.Response
 		localAPIResponse     *APIResponse
-		err 				 error
+		err                  error
 	)
 
 	if a.client.cfg.Okta.Client.RequestTimeout > 0 {
@@ -1915,17 +1923,17 @@ func (a *AuthenticatorAPIService) ListAuthenticatorsExecute(r ApiListAuthenticat
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
 		return localVarReturnValue, localAPIResponse, newErr
 	}
-	
+
 	localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
 	return localVarReturnValue, localAPIResponse, nil
 }
 
 type ApiReplaceAuthenticatorRequest struct {
-	ctx context.Context
-	ApiService AuthenticatorAPI
+	ctx             context.Context
+	ApiService      AuthenticatorAPI
 	authenticatorId string
-	authenticator *AuthenticatorBase
-	retryCount int32
+	authenticator   *AuthenticatorBase
+	retryCount      int32
 }
 
 func (r ApiReplaceAuthenticatorRequest) Authenticator(authenticator AuthenticatorBase) ApiReplaceAuthenticatorRequest {
@@ -1942,21 +1950,22 @@ ReplaceAuthenticator Replace an Authenticator
 
 Replaces the properties for an Authenticator identified by `authenticatorId`
 
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @param authenticatorId `id` of the Authenticator
- @return ApiReplaceAuthenticatorRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param authenticatorId `id` of the Authenticator
+	@return ApiReplaceAuthenticatorRequest
 */
 func (a *AuthenticatorAPIService) ReplaceAuthenticator(ctx context.Context, authenticatorId string) ApiReplaceAuthenticatorRequest {
 	return ApiReplaceAuthenticatorRequest{
-		ApiService: a,
-		ctx: ctx,
+		ApiService:      a,
+		ctx:             ctx,
 		authenticatorId: authenticatorId,
-		retryCount: 0,
+		retryCount:      0,
 	}
 }
 
 // Execute executes the request
-//  @return AuthenticatorBase
+//
+//	@return AuthenticatorBase
 func (a *AuthenticatorAPIService) ReplaceAuthenticatorExecute(r ApiReplaceAuthenticatorRequest) (*AuthenticatorBase, *APIResponse, error) {
 	var (
 		localVarHTTPMethod   = http.MethodPut
@@ -1965,7 +1974,7 @@ func (a *AuthenticatorAPIService) ReplaceAuthenticatorExecute(r ApiReplaceAuthen
 		localVarReturnValue  *AuthenticatorBase
 		localVarHTTPResponse *http.Response
 		localAPIResponse     *APIResponse
-		err 				 error
+		err                  error
 	)
 
 	if a.client.cfg.Okta.Client.RequestTimeout > 0 {
@@ -2103,18 +2112,18 @@ func (a *AuthenticatorAPIService) ReplaceAuthenticatorExecute(r ApiReplaceAuthen
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
 		return localVarReturnValue, localAPIResponse, newErr
 	}
-	
+
 	localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
 	return localVarReturnValue, localAPIResponse, nil
 }
 
 type ApiReplaceAuthenticatorMethodRequest struct {
-	ctx context.Context
-	ApiService AuthenticatorAPI
-	authenticatorId string
-	methodType string
+	ctx                                      context.Context
+	ApiService                               AuthenticatorAPI
+	authenticatorId                          string
+	methodType                               string
 	listAuthenticatorMethods200ResponseInner *ListAuthenticatorMethods200ResponseInner
-	retryCount int32
+	retryCount                               int32
 }
 
 func (r ApiReplaceAuthenticatorMethodRequest) ListAuthenticatorMethods200ResponseInner(listAuthenticatorMethods200ResponseInner ListAuthenticatorMethods200ResponseInner) ApiReplaceAuthenticatorMethodRequest {
@@ -2137,23 +2146,24 @@ Replaces a Method of `methodType` for an Authenticator identified by `authentica
 > - Enrollment is currently unsupported on Chrome if User Verification is set to DISCOURAGED and a PIN is set on the security key.
 > - If prompted during enrollment, users must allow Okta to see the make and model of the security key.
 
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @param authenticatorId `id` of the Authenticator
- @param methodType Type of authenticator method
- @return ApiReplaceAuthenticatorMethodRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param authenticatorId `id` of the Authenticator
+	@param methodType Type of authenticator method
+	@return ApiReplaceAuthenticatorMethodRequest
 */
 func (a *AuthenticatorAPIService) ReplaceAuthenticatorMethod(ctx context.Context, authenticatorId string, methodType string) ApiReplaceAuthenticatorMethodRequest {
 	return ApiReplaceAuthenticatorMethodRequest{
-		ApiService: a,
-		ctx: ctx,
+		ApiService:      a,
+		ctx:             ctx,
 		authenticatorId: authenticatorId,
-		methodType: methodType,
-		retryCount: 0,
+		methodType:      methodType,
+		retryCount:      0,
 	}
 }
 
 // Execute executes the request
-//  @return ListAuthenticatorMethods200ResponseInner
+//
+//	@return ListAuthenticatorMethods200ResponseInner
 func (a *AuthenticatorAPIService) ReplaceAuthenticatorMethodExecute(r ApiReplaceAuthenticatorMethodRequest) (*ListAuthenticatorMethods200ResponseInner, *APIResponse, error) {
 	var (
 		localVarHTTPMethod   = http.MethodPut
@@ -2162,7 +2172,7 @@ func (a *AuthenticatorAPIService) ReplaceAuthenticatorMethodExecute(r ApiReplace
 		localVarReturnValue  *ListAuthenticatorMethods200ResponseInner
 		localVarHTTPResponse *http.Response
 		localAPIResponse     *APIResponse
-		err 				 error
+		err                  error
 	)
 
 	if a.client.cfg.Okta.Client.RequestTimeout > 0 {
@@ -2298,7 +2308,7 @@ func (a *AuthenticatorAPIService) ReplaceAuthenticatorMethodExecute(r ApiReplace
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
 		return localVarReturnValue, localAPIResponse, newErr
 	}
-	
+
 	localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
 	return localVarReturnValue, localAPIResponse, nil
 }

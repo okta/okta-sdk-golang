@@ -21,7 +21,6 @@ API version: 2024.06.1
 Contact: devex-public@okta.com
 */
 
-
 package okta
 
 import (
@@ -30,13 +29,13 @@ import (
 
 // SamlApplicationSettings struct for SamlApplicationSettings
 type SamlApplicationSettings struct {
-	IdentityStoreId *string `json:"identityStoreId,omitempty"`
-	ImplicitAssignment *bool `json:"implicitAssignment,omitempty"`
-	InlineHookId *string `json:"inlineHookId,omitempty"`
-	Notes *ApplicationSettingsNotes `json:"notes,omitempty"`
-	Notifications *ApplicationSettingsNotifications `json:"notifications,omitempty"`
-	App *SamlApplicationSettingsApplication `json:"app,omitempty"`
-	SignOn *SamlApplicationSettingsSignOn `json:"signOn,omitempty"`
+	IdentityStoreId      *string                             `json:"identityStoreId,omitempty"`
+	ImplicitAssignment   *bool                               `json:"implicitAssignment,omitempty"`
+	InlineHookId         *string                             `json:"inlineHookId,omitempty"`
+	Notes                *ApplicationSettingsNotes           `json:"notes,omitempty"`
+	Notifications        *ApplicationSettingsNotifications   `json:"notifications,omitempty"`
+	App                  *SamlApplicationSettingsApplication `json:"app,omitempty"`
+	SignOn               *SamlApplicationSettingsSignOn      `json:"signOn,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -378,4 +377,3 @@ func (v *NullableSamlApplicationSettings) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-

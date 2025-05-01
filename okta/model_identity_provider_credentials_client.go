@@ -21,7 +21,6 @@ API version: 2024.06.1
 Contact: devex-public@okta.com
 */
 
-
 package okta
 
 import (
@@ -30,10 +29,10 @@ import (
 
 // IdentityProviderCredentialsClient struct for IdentityProviderCredentialsClient
 type IdentityProviderCredentialsClient struct {
-	ClientId *string `json:"client_id,omitempty"`
+	ClientId     *string `json:"client_id,omitempty"`
 	ClientSecret *string `json:"client_secret,omitempty"`
 	// Require Proof Key for Code Exchange (PKCE) for additional verification
-	PkceRequired *bool `json:"pkce_required,omitempty"`
+	PkceRequired         *bool `json:"pkce_required,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -231,4 +230,3 @@ func (v *NullableIdentityProviderCredentialsClient) UnmarshalJSON(src []byte) er
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-

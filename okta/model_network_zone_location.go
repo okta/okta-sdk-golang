@@ -21,7 +21,6 @@ API version: 2024.06.1
 Contact: devex-public@okta.com
 */
 
-
 package okta
 
 import (
@@ -33,7 +32,7 @@ type NetworkZoneLocation struct {
 	// The two-character ISO-3166-1 country code. Don't use continent codes since they are treated as generic codes for undesignated countries. <br>For example: `US`
 	Country *string `json:"country,omitempty"`
 	// (Optional) The ISO-3166-2 region code appended to the country code (`countryCode-regionCode`), or `null` if empty. Don't use continent codes since they are treated as generic codes for undesignated regions. <br>For example: `CA` (for `US-CA` country and region code)
-	Region *string `json:"region,omitempty"`
+	Region               *string `json:"region,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -195,4 +194,3 @@ func (v *NullableNetworkZoneLocation) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-

@@ -21,7 +21,6 @@ API version: 2024.06.1
 Contact: devex-public@okta.com
 */
 
-
 package okta
 
 import (
@@ -30,7 +29,7 @@ import (
 
 // ProfileEnrollmentPolicyRuleActions struct for ProfileEnrollmentPolicyRuleActions
 type ProfileEnrollmentPolicyRuleActions struct {
-	ProfileEnrollment *ProfileEnrollmentPolicyRuleAction `json:"profileEnrollment,omitempty"`
+	ProfileEnrollment    *ProfileEnrollmentPolicyRuleAction `json:"profileEnrollment,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -156,4 +155,3 @@ func (v *NullableProfileEnrollmentPolicyRuleActions) UnmarshalJSON(src []byte) e
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-

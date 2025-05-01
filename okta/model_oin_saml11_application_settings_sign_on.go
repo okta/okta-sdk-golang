@@ -21,7 +21,6 @@ API version: 2024.06.1
 Contact: devex-public@okta.com
 */
 
-
 package okta
 
 import (
@@ -37,7 +36,7 @@ type OINSaml11ApplicationSettingsSignOn struct {
 	// Recipient override for CASB configuration. See [CASB config guide](https://help.okta.com/en-us/Content/Topics/Apps/CASB-config-guide.htm).
 	RecipientOverride *string `json:"recipientOverride,omitempty"`
 	// Assertion Consumer Service (ACS) URL override for CASB configuration. See [CASB config guide](https://help.okta.com/en-us/Content/Topics/Apps/CASB-config-guide.htm).
-	SsoAcsUrlOverride *string `json:"ssoAcsUrlOverride,omitempty"`
+	SsoAcsUrlOverride    *string `json:"ssoAcsUrlOverride,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -271,4 +270,3 @@ func (v *NullableOINSaml11ApplicationSettingsSignOn) UnmarshalJSON(src []byte) e
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-

@@ -21,18 +21,16 @@ API version: 2024.06.1
 Contact: devex-public@okta.com
 */
 
-
 package okta
 
 import (
 	"encoding/json"
-	"fmt"
 )
 
 // ZoomUsApplicationSettingsApplication Zoom app instance properties
 type ZoomUsApplicationSettingsApplication struct {
 	// Your Zoom subdomain
-	SubDomain string `json:"subDomain"`
+	SubDomain            string `json:"subDomain"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -151,4 +149,3 @@ func (v *NullableZoomUsApplicationSettingsApplication) UnmarshalJSON(src []byte)
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-

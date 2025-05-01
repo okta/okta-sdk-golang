@@ -21,17 +21,15 @@ API version: 2024.06.1
 Contact: devex-public@okta.com
 */
 
-
 package okta
 
 import (
 	"encoding/json"
-	"fmt"
 )
 
 // EmailSettings struct for EmailSettings
 type EmailSettings struct {
-	Recipients string `json:"recipients"`
+	Recipients           string `json:"recipients"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -150,4 +148,3 @@ func (v *NullableEmailSettings) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-

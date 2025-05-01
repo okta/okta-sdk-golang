@@ -21,7 +21,6 @@ API version: 2024.06.1
 Contact: devex-public@okta.com
 */
 
-
 package okta
 
 import (
@@ -31,7 +30,7 @@ import (
 // LifecycleDeactivateSettingObject Determines whether deprovisioning occurs when the app is unassigned
 type LifecycleDeactivateSettingObject struct {
 	// Setting status
-	Status *string `json:"status,omitempty"`
+	Status               *string `json:"status,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -157,4 +156,3 @@ func (v *NullableLifecycleDeactivateSettingObject) UnmarshalJSON(src []byte) err
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-

@@ -21,7 +21,6 @@ API version: 2024.06.1
 Contact: devex-public@okta.com
 */
 
-
 package okta
 
 import (
@@ -51,7 +50,7 @@ type PossessionConstraint struct {
 	// Indicates if the user needs to approve an Okta Verify prompt or provide biometrics (meets NIST AAL2 requirements). This property is only set for `POSSESSION` constraints.
 	UserPresence *string `json:"userPresence,omitempty"`
 	// Indicates the user interaction requirement (PIN or biometrics) to ensure verification of a possession factor
-	UserVerification *string `json:"userVerification,omitempty"`
+	UserVerification     *string `json:"userVerification,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -557,4 +556,3 @@ func (v *NullablePossessionConstraint) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-

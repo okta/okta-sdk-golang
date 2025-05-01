@@ -21,7 +21,6 @@ API version: 2024.06.1
 Contact: devex-public@okta.com
 */
 
-
 package okta
 
 import (
@@ -39,7 +38,7 @@ type BaseEmailServer struct {
 	// Port number of your SMTP server
 	Port *int32 `json:"port,omitempty"`
 	// Username used to access your SMTP server
-	Username *string `json:"username,omitempty"`
+	Username             *string `json:"username,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -309,4 +308,3 @@ func (v *NullableBaseEmailServer) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-

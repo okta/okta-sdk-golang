@@ -21,7 +21,6 @@ API version: 2024.06.1
 Contact: devex-public@okta.com
 */
 
-
 package okta
 
 import (
@@ -40,8 +39,8 @@ type ApplicationGroupAssignment struct {
 	// Specifies the profile properties applied to [Application Users](https://developer.okta.com/docs/api/openapi/okta-management/management/tag/ApplicationUsers/) that are assigned to the app through group membership.  Some reference properties are imported from the target app and can't be configured. See [profile](https://developer.okta.com/docs/api/openapi/okta-management/management/tag/User/#tag/User/operation/getUser!c=200&path=profile&t=response).
 	Profile map[string]interface{} `json:"profile,omitempty"`
 	// Embedded resource related to the Application Group using the [JSON Hypertext Application Language](https://datatracker.ietf.org/doc/html/draft-kelly-json-hal-06) specification. If the `expand=group` query parameter is specified, then the [Group](https://developer.okta.com/docs/api/openapi/okta-management/management/tag/Group/) object is embedded.  If the `expand=metadata` query parameter is specified, then the group assignment metadata is embedded.
-	Embedded map[string]map[string]interface{} `json:"_embedded,omitempty"`
-	Links *ApplicationGroupAssignmentLinks `json:"_links,omitempty"`
+	Embedded             map[string]map[string]interface{} `json:"_embedded,omitempty"`
+	Links                *ApplicationGroupAssignmentLinks  `json:"_links,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -347,4 +346,3 @@ func (v *NullableApplicationGroupAssignment) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-

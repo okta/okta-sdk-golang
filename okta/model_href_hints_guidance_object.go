@@ -21,7 +21,6 @@ API version: 2024.06.1
 Contact: devex-public@okta.com
 */
 
-
 package okta
 
 import (
@@ -31,8 +30,8 @@ import (
 // HrefHintsGuidanceObject struct for HrefHintsGuidanceObject
 type HrefHintsGuidanceObject struct {
 	Allow []string `json:"allow,omitempty"`
-	// Specifies the URI to invoke for granting scope consent required to complete the OAuth 2.0 connection 
-	Guidance []string `json:"guidance,omitempty"`
+	// Specifies the URI to invoke for granting scope consent required to complete the OAuth 2.0 connection
+	Guidance             []string `json:"guidance,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -194,4 +193,3 @@ func (v *NullableHrefHintsGuidanceObject) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-

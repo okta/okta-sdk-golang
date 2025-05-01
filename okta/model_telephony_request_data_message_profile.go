@@ -21,7 +21,6 @@ API version: 2024.06.1
 Contact: devex-public@okta.com
 */
 
-
 package okta
 
 import (
@@ -41,7 +40,7 @@ type TelephonyRequestDataMessageProfile struct {
 	// The OTP code requested by the Okta user
 	OtpCode *string `json:"otpCode,omitempty"`
 	// The locale associated with the Okta user
-	Locale *string `json:"locale,omitempty"`
+	Locale               *string `json:"locale,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -347,4 +346,3 @@ func (v *NullableTelephonyRequestDataMessageProfile) UnmarshalJSON(src []byte) e
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-

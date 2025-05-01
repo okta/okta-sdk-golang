@@ -21,7 +21,6 @@ API version: 2024.06.1
 Contact: devex-public@okta.com
 */
 
-
 package okta
 
 import (
@@ -33,8 +32,8 @@ import (
 // AccessPolicyRule struct for AccessPolicyRule
 type AccessPolicyRule struct {
 	PolicyRule
-	Actions *AccessPolicyRuleActions `json:"actions,omitempty"`
-	Conditions *AccessPolicyRuleConditions `json:"conditions,omitempty"`
+	Actions              *AccessPolicyRuleActions    `json:"actions,omitempty"`
+	Conditions           *AccessPolicyRuleConditions `json:"conditions,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -149,7 +148,7 @@ func (o AccessPolicyRule) MarshalJSON() ([]byte, error) {
 
 func (o *AccessPolicyRule) UnmarshalJSON(bytes []byte) (err error) {
 	type AccessPolicyRuleWithoutEmbeddedStruct struct {
-		Actions *AccessPolicyRuleActions `json:"actions,omitempty"`
+		Actions    *AccessPolicyRuleActions    `json:"actions,omitempty"`
 		Conditions *AccessPolicyRuleConditions `json:"conditions,omitempty"`
 	}
 
@@ -242,4 +241,3 @@ func (v *NullableAccessPolicyRule) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-

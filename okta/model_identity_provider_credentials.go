@@ -21,7 +21,6 @@ API version: 2024.06.1
 Contact: devex-public@okta.com
 */
 
-
 package okta
 
 import (
@@ -30,9 +29,9 @@ import (
 
 // IdentityProviderCredentials struct for IdentityProviderCredentials
 type IdentityProviderCredentials struct {
-	Client *IdentityProviderCredentialsClient `json:"client,omitempty"`
-	Signing *IdentityProviderCredentialsSigning `json:"signing,omitempty"`
-	Trust *IdentityProviderCredentialsTrust `json:"trust,omitempty"`
+	Client               *IdentityProviderCredentialsClient  `json:"client,omitempty"`
+	Signing              *IdentityProviderCredentialsSigning `json:"signing,omitempty"`
+	Trust                *IdentityProviderCredentialsTrust   `json:"trust,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -230,4 +229,3 @@ func (v *NullableIdentityProviderCredentials) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-

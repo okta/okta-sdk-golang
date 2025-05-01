@@ -21,7 +21,6 @@ API version: 2024.06.1
 Contact: devex-public@okta.com
 */
 
-
 package okta
 
 import (
@@ -33,8 +32,8 @@ type EmailPreview struct {
 	// The email's HTML body
 	Body *string `json:"body,omitempty"`
 	// The email's subject
-	Subject *string `json:"subject,omitempty"`
-	Links *EmailPreviewLinks `json:"_links,omitempty"`
+	Subject              *string            `json:"subject,omitempty"`
+	Links                *EmailPreviewLinks `json:"_links,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -232,4 +231,3 @@ func (v *NullableEmailPreview) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-

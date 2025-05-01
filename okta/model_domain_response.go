@@ -21,7 +21,6 @@ API version: 2024.06.1
 Contact: devex-public@okta.com
 */
 
-
 package okta
 
 import (
@@ -33,16 +32,16 @@ type DomainResponse struct {
 	// The ID number of the brand
 	BrandId *string `json:"brandId,omitempty"`
 	// Certificate source type that indicates whether the certificate is provided by the user or Okta.
-	CertificateSourceType *string `json:"certificateSourceType,omitempty"`
-	DnsRecords []DNSRecord `json:"dnsRecords,omitempty"`
+	CertificateSourceType *string     `json:"certificateSourceType,omitempty"`
+	DnsRecords            []DNSRecord `json:"dnsRecords,omitempty"`
 	// Custom domain name
 	Domain *string `json:"domain,omitempty"`
 	// Unique ID of the domain
-	Id *string `json:"id,omitempty"`
+	Id                *string                    `json:"id,omitempty"`
 	PublicCertificate *DomainCertificateMetadata `json:"publicCertificate,omitempty"`
 	// Status of the domain
-	ValidationStatus *string `json:"validationStatus,omitempty"`
-	Links *DomainLinks `json:"_links,omitempty"`
+	ValidationStatus     *string      `json:"validationStatus,omitempty"`
+	Links                *DomainLinks `json:"_links,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -420,4 +419,3 @@ func (v *NullableDomainResponse) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-

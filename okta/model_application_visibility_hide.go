@@ -21,7 +21,6 @@ API version: 2024.06.1
 Contact: devex-public@okta.com
 */
 
-
 package okta
 
 import (
@@ -30,8 +29,8 @@ import (
 
 // ApplicationVisibilityHide Hides the app for specific end-user apps
 type ApplicationVisibilityHide struct {
-	IOS *bool `json:"iOS,omitempty"`
-	Web *bool `json:"web,omitempty"`
+	IOS                  *bool `json:"iOS,omitempty"`
+	Web                  *bool `json:"web,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -193,4 +192,3 @@ func (v *NullableApplicationVisibilityHide) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-

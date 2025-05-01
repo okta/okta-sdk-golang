@@ -21,12 +21,10 @@ API version: 2024.06.1
 Contact: devex-public@okta.com
 */
 
-
 package okta
 
 import (
 	"encoding/json"
-	"fmt"
 )
 
 // ProvisioningConnectionResponse struct for ProvisioningConnectionResponse
@@ -34,11 +32,11 @@ type ProvisioningConnectionResponse struct {
 	// A token is used to authenticate with the app. This property is only returned for the `TOKEN` authentication scheme.
 	AuthScheme *string `json:"authScheme,omitempty"`
 	// Base URL
-	BaseUrl *string `json:"baseUrl,omitempty"`
+	BaseUrl *string                               `json:"baseUrl,omitempty"`
 	Profile ProvisioningConnectionResponseProfile `json:"profile"`
 	// Provisioning Connection status
-	Status string `json:"status"`
-	Links *LinksSelfLifecycleAndAuthorize `json:"_links,omitempty"`
+	Status               string                          `json:"status"`
+	Links                *LinksSelfLifecycleAndAuthorize `json:"_links,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -296,4 +294,3 @@ func (v *NullableProvisioningConnectionResponse) UnmarshalJSON(src []byte) error
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-

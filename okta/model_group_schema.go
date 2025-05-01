@@ -21,7 +21,6 @@ API version: 2024.06.1
 Contact: devex-public@okta.com
 */
 
-
 package okta
 
 import (
@@ -30,17 +29,17 @@ import (
 
 // GroupSchema struct for GroupSchema
 type GroupSchema struct {
-	Schema *string `json:"$schema,omitempty"`
-	Created *string `json:"created,omitempty"`
-	Definitions *GroupSchemaDefinitions `json:"definitions,omitempty"`
-	Description *string `json:"description,omitempty"`
-	Id *string `json:"id,omitempty"`
-	LastUpdated *string `json:"lastUpdated,omitempty"`
-	Name *string `json:"name,omitempty"`
-	Properties *UserSchemaProperties `json:"properties,omitempty"`
-	Title *string `json:"title,omitempty"`
-	Type *string `json:"type,omitempty"`
-	Links *LinksSelf `json:"_links,omitempty"`
+	Schema               *string                 `json:"$schema,omitempty"`
+	Created              *string                 `json:"created,omitempty"`
+	Definitions          *GroupSchemaDefinitions `json:"definitions,omitempty"`
+	Description          *string                 `json:"description,omitempty"`
+	Id                   *string                 `json:"id,omitempty"`
+	LastUpdated          *string                 `json:"lastUpdated,omitempty"`
+	Name                 *string                 `json:"name,omitempty"`
+	Properties           *UserSchemaProperties   `json:"properties,omitempty"`
+	Title                *string                 `json:"title,omitempty"`
+	Type                 *string                 `json:"type,omitempty"`
+	Links                *LinksSelf              `json:"_links,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -526,4 +525,3 @@ func (v *NullableGroupSchema) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-

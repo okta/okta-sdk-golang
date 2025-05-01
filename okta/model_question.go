@@ -21,7 +21,6 @@ API version: 2024.06.1
 Contact: devex-public@okta.com
 */
 
-
 package okta
 
 import (
@@ -31,7 +30,7 @@ import (
 // Question Verifies an answer to a `question` Factor
 type Question struct {
 	// Answer to the question
-	Answer *string `json:"answer,omitempty"`
+	Answer               *string `json:"answer,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -157,4 +156,3 @@ func (v *NullableQuestion) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-

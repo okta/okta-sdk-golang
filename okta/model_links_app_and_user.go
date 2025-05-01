@@ -21,7 +21,6 @@ API version: 2024.06.1
 Contact: devex-public@okta.com
 */
 
-
 package okta
 
 import (
@@ -30,9 +29,9 @@ import (
 
 // LinksAppAndUser Specifies link relations (see [Web Linking](https://www.rfc-editor.org/rfc/rfc8288)) available using the [JSON Hypertext Application Language](https://datatracker.ietf.org/doc/html/draft-kelly-json-hal-06) specification. This object is used for dynamic discovery of resources related to the Application User.
 type LinksAppAndUser struct {
-	App *HrefObjectAppLink `json:"app,omitempty"`
-	Group *HrefObjectGroupLink `json:"group,omitempty"`
-	User *HrefObjectUserLink `json:"user,omitempty"`
+	App                  *HrefObjectAppLink   `json:"app,omitempty"`
+	Group                *HrefObjectGroupLink `json:"group,omitempty"`
+	User                 *HrefObjectUserLink  `json:"user,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -230,4 +229,3 @@ func (v *NullableLinksAppAndUser) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-

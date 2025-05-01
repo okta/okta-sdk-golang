@@ -21,7 +21,6 @@ API version: 2024.06.1
 Contact: devex-public@okta.com
 */
 
-
 package okta
 
 import (
@@ -30,8 +29,8 @@ import (
 
 // AccessPolicyRuleApplicationSignOn struct for AccessPolicyRuleApplicationSignOn
 type AccessPolicyRuleApplicationSignOn struct {
-	Access *string `json:"access,omitempty"`
-	VerificationMethod *VerificationMethod `json:"verificationMethod,omitempty"`
+	Access               *string             `json:"access,omitempty"`
+	VerificationMethod   *VerificationMethod `json:"verificationMethod,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -193,4 +192,3 @@ func (v *NullableAccessPolicyRuleApplicationSignOn) UnmarshalJSON(src []byte) er
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-

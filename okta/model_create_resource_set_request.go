@@ -21,7 +21,6 @@ API version: 2024.06.1
 Contact: devex-public@okta.com
 */
 
-
 package okta
 
 import (
@@ -35,7 +34,7 @@ type CreateResourceSetRequest struct {
 	// Unique name for the Resource Set
 	Label *string `json:"label,omitempty"`
 	// The endpoint (URL) that references all resource objects included in the Resource Set. Resources are identified by either an Okta Resource Name (ORN) or by a REST URL format. See [Okta Resource Name](/openapi/okta-management/guides/roles/#okta-resource-name-orn).
-	Resources []string `json:"resources,omitempty"`
+	Resources            []string `json:"resources,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -233,4 +232,3 @@ func (v *NullableCreateResourceSetRequest) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-

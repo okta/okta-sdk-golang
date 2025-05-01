@@ -21,7 +21,6 @@ API version: 2024.06.1
 Contact: devex-public@okta.com
 */
 
-
 package okta
 
 import (
@@ -34,7 +33,7 @@ import (
 type EntityRiskPolicy struct {
 	Policy
 	// Policy conditions aren't supported for this policy types.
-	Conditions NullableString `json:"conditions,omitempty"`
+	Conditions           NullableString `json:"conditions,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -89,6 +88,7 @@ func (o *EntityRiskPolicy) HasConditions() bool {
 func (o *EntityRiskPolicy) SetConditions(v string) {
 	o.Conditions.Set(&v)
 }
+
 // SetConditionsNil sets the value for Conditions to be an explicit nil
 func (o *EntityRiskPolicy) SetConditionsNil() {
 	o.Conditions.Set(nil)
@@ -213,4 +213,3 @@ func (v *NullableEntityRiskPolicy) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-

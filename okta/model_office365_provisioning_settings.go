@@ -21,12 +21,10 @@ API version: 2024.06.1
 Contact: devex-public@okta.com
 */
 
-
 package okta
 
 import (
 	"encoding/json"
-	"fmt"
 )
 
 // Office365ProvisioningSettings Settings required for the Microsoft Office 365 Provisioning Connection
@@ -34,7 +32,7 @@ type Office365ProvisioningSettings struct {
 	// Microsoft Office 365 global administrator password
 	AdminPassword string `json:"adminPassword"`
 	// Microsoft Office 365 global administrator username
-	AdminUsername string `json:"adminUsername"`
+	AdminUsername        string `json:"adminUsername"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -182,4 +180,3 @@ func (v *NullableOffice365ProvisioningSettings) UnmarshalJSON(src []byte) error 
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-

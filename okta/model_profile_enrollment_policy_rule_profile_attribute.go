@@ -21,7 +21,6 @@ API version: 2024.06.1
 Contact: devex-public@okta.com
 */
 
-
 package okta
 
 import (
@@ -30,9 +29,9 @@ import (
 
 // ProfileEnrollmentPolicyRuleProfileAttribute struct for ProfileEnrollmentPolicyRuleProfileAttribute
 type ProfileEnrollmentPolicyRuleProfileAttribute struct {
-	Label *string `json:"label,omitempty"`
-	Name *string `json:"name,omitempty"`
-	Required *bool `json:"required,omitempty"`
+	Label                *string `json:"label,omitempty"`
+	Name                 *string `json:"name,omitempty"`
+	Required             *bool   `json:"required,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -230,4 +229,3 @@ func (v *NullableProfileEnrollmentPolicyRuleProfileAttribute) UnmarshalJSON(src 
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-

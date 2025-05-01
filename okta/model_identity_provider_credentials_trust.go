@@ -21,7 +21,6 @@ API version: 2024.06.1
 Contact: devex-public@okta.com
 */
 
-
 package okta
 
 import (
@@ -30,12 +29,12 @@ import (
 
 // IdentityProviderCredentialsTrust struct for IdentityProviderCredentialsTrust
 type IdentityProviderCredentialsTrust struct {
-	Audience *string `json:"audience,omitempty"`
-	Issuer *string `json:"issuer,omitempty"`
-	Kid *string `json:"kid,omitempty"`
-	Revocation *string `json:"revocation,omitempty"`
-	RevocationCacheLifetime *int32 `json:"revocationCacheLifetime,omitempty"`
-	AdditionalProperties map[string]interface{}
+	Audience                *string `json:"audience,omitempty"`
+	Issuer                  *string `json:"issuer,omitempty"`
+	Kid                     *string `json:"kid,omitempty"`
+	Revocation              *string `json:"revocation,omitempty"`
+	RevocationCacheLifetime *int32  `json:"revocationCacheLifetime,omitempty"`
+	AdditionalProperties    map[string]interface{}
 }
 
 type _IdentityProviderCredentialsTrust IdentityProviderCredentialsTrust
@@ -304,4 +303,3 @@ func (v *NullableIdentityProviderCredentialsTrust) UnmarshalJSON(src []byte) err
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-

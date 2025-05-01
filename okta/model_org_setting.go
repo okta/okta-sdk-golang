@@ -21,7 +21,6 @@ API version: 2024.06.1
 Contact: devex-public@okta.com
 */
 
-
 package okta
 
 import (
@@ -31,25 +30,25 @@ import (
 
 // OrgSetting struct for OrgSetting
 type OrgSetting struct {
-	Address1 *string `json:"address1,omitempty"`
-	Address2 *string `json:"address2,omitempty"`
-	City *string `json:"city,omitempty"`
-	CompanyName *string `json:"companyName,omitempty"`
-	Country *string `json:"country,omitempty"`
-	Created *time.Time `json:"created,omitempty"`
-	EndUserSupportHelpURL *string `json:"endUserSupportHelpURL,omitempty"`
-	ExpiresAt *time.Time `json:"expiresAt,omitempty"`
-	Id *string `json:"id,omitempty"`
-	LastUpdated *time.Time `json:"lastUpdated,omitempty"`
-	PhoneNumber *string `json:"phoneNumber,omitempty"`
-	PostalCode *string `json:"postalCode,omitempty"`
-	State *string `json:"state,omitempty"`
-	Status *string `json:"status,omitempty"`
-	Subdomain *string `json:"subdomain,omitempty"`
-	SupportPhoneNumber *string `json:"supportPhoneNumber,omitempty"`
-	Website *string `json:"website,omitempty"`
-	Links *LinksSelf `json:"_links,omitempty"`
-	AdditionalProperties map[string]interface{}
+	Address1              *string    `json:"address1,omitempty"`
+	Address2              *string    `json:"address2,omitempty"`
+	City                  *string    `json:"city,omitempty"`
+	CompanyName           *string    `json:"companyName,omitempty"`
+	Country               *string    `json:"country,omitempty"`
+	Created               *time.Time `json:"created,omitempty"`
+	EndUserSupportHelpURL *string    `json:"endUserSupportHelpURL,omitempty"`
+	ExpiresAt             *time.Time `json:"expiresAt,omitempty"`
+	Id                    *string    `json:"id,omitempty"`
+	LastUpdated           *time.Time `json:"lastUpdated,omitempty"`
+	PhoneNumber           *string    `json:"phoneNumber,omitempty"`
+	PostalCode            *string    `json:"postalCode,omitempty"`
+	State                 *string    `json:"state,omitempty"`
+	Status                *string    `json:"status,omitempty"`
+	Subdomain             *string    `json:"subdomain,omitempty"`
+	SupportPhoneNumber    *string    `json:"supportPhoneNumber,omitempty"`
+	Website               *string    `json:"website,omitempty"`
+	Links                 *LinksSelf `json:"_links,omitempty"`
+	AdditionalProperties  map[string]interface{}
 }
 
 type _OrgSetting OrgSetting
@@ -786,4 +785,3 @@ func (v *NullableOrgSetting) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-

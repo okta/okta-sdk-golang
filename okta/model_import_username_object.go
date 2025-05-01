@@ -21,12 +21,10 @@ API version: 2024.06.1
 Contact: devex-public@okta.com
 */
 
-
 package okta
 
 import (
 	"encoding/json"
-	"fmt"
 )
 
 // ImportUsernameObject Determines the Okta username for the imported user
@@ -34,7 +32,7 @@ type ImportUsernameObject struct {
 	// For `usernameFormat=CUSTOM`, specifies the Okta Expression Language statement for a username format that imported users use to sign in to Okta
 	UserNameExpression *string `json:"userNameExpression,omitempty"`
 	// Determines the username format when users sign in to Okta
-	UsernameFormat string `json:"usernameFormat"`
+	UsernameFormat       string `json:"usernameFormat"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -191,4 +189,3 @@ func (v *NullableImportUsernameObject) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-

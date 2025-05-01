@@ -21,7 +21,6 @@ API version: 2024.06.1
 Contact: devex-public@okta.com
 */
 
-
 package okta
 
 import (
@@ -31,17 +30,17 @@ import (
 
 // IdentityProvider struct for IdentityProvider
 type IdentityProvider struct {
-	Created NullableTime `json:"created,omitempty"`
-	Id *string `json:"id,omitempty"`
-	IssuerMode *string `json:"issuerMode,omitempty"`
-	LastUpdated *time.Time `json:"lastUpdated,omitempty"`
-	Name *string `json:"name,omitempty"`
-	Policy *IdentityProviderPolicy `json:"policy,omitempty"`
-	Properties NullableIdentityProviderProperties `json:"properties,omitempty"`
-	Protocol *Protocol `json:"protocol,omitempty"`
-	Status *string `json:"status,omitempty"`
-	Type *string `json:"type,omitempty"`
-	Links *IdentityProviderLinks `json:"_links,omitempty"`
+	Created              NullableTime                       `json:"created,omitempty"`
+	Id                   *string                            `json:"id,omitempty"`
+	IssuerMode           *string                            `json:"issuerMode,omitempty"`
+	LastUpdated          *time.Time                         `json:"lastUpdated,omitempty"`
+	Name                 *string                            `json:"name,omitempty"`
+	Policy               *IdentityProviderPolicy            `json:"policy,omitempty"`
+	Properties           NullableIdentityProviderProperties `json:"properties,omitempty"`
+	Protocol             *Protocol                          `json:"protocol,omitempty"`
+	Status               *string                            `json:"status,omitempty"`
+	Type                 *string                            `json:"type,omitempty"`
+	Links                *IdentityProviderLinks             `json:"_links,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -96,6 +95,7 @@ func (o *IdentityProvider) HasCreated() bool {
 func (o *IdentityProvider) SetCreated(v time.Time) {
 	o.Created.Set(&v)
 }
+
 // SetCreatedNil sets the value for Created to be an explicit nil
 func (o *IdentityProvider) SetCreatedNil() {
 	o.Created.Set(nil)
@@ -298,6 +298,7 @@ func (o *IdentityProvider) HasProperties() bool {
 func (o *IdentityProvider) SetProperties(v IdentityProviderProperties) {
 	o.Properties.Set(&v)
 }
+
 // SetPropertiesNil sets the value for Properties to be an explicit nil
 func (o *IdentityProvider) SetPropertiesNil() {
 	o.Properties.Set(nil)
@@ -547,4 +548,3 @@ func (v *NullableIdentityProvider) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-

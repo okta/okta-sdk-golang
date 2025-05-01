@@ -21,7 +21,6 @@ API version: 2024.06.1
 Contact: devex-public@okta.com
 */
 
-
 package okta
 
 import (
@@ -30,10 +29,10 @@ import (
 
 // ImportScheduleObject Import schedule configuration
 type ImportScheduleObject struct {
-	FullImport *ImportScheduleSettings `json:"fullImport,omitempty"`
+	FullImport        *ImportScheduleSettings `json:"fullImport,omitempty"`
 	IncrementalImport *ImportScheduleSettings `json:"incrementalImport,omitempty"`
 	// Setting status
-	Status *string `json:"status,omitempty"`
+	Status               *string `json:"status,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -231,4 +230,3 @@ func (v *NullableImportScheduleObject) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-

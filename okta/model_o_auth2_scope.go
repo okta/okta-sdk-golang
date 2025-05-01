@@ -21,7 +21,6 @@ API version: 2024.06.1
 Contact: devex-public@okta.com
 */
 
-
 package okta
 
 import (
@@ -43,10 +42,10 @@ type OAuth2Scope struct {
 	// Indicates whether the Scope is included in the metadata
 	MetadataPublish *string `json:"metadataPublish,omitempty"`
 	// Scope name
-	Name *string `json:"name,omitempty"`
-	Optional *bool `json:"optional,omitempty"`
+	Name     *string `json:"name,omitempty"`
+	Optional *bool   `json:"optional,omitempty"`
 	// Indicates if Okta created the Scope
-	System *bool `json:"system,omitempty"`
+	System               *bool `json:"system,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -468,4 +467,3 @@ func (v *NullableOAuth2Scope) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-

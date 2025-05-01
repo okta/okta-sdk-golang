@@ -21,7 +21,6 @@ API version: 2024.06.1
 Contact: devex-public@okta.com
 */
 
-
 package okta
 
 import (
@@ -30,10 +29,10 @@ import (
 
 // ProtocolEndpoint struct for ProtocolEndpoint
 type ProtocolEndpoint struct {
-	Binding *string `json:"binding,omitempty"`
-	Destination *string `json:"destination,omitempty"`
-	Type *string `json:"type,omitempty"`
-	Url *string `json:"url,omitempty"`
+	Binding              *string `json:"binding,omitempty"`
+	Destination          *string `json:"destination,omitempty"`
+	Type                 *string `json:"type,omitempty"`
+	Url                  *string `json:"url,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -267,4 +266,3 @@ func (v *NullableProtocolEndpoint) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-

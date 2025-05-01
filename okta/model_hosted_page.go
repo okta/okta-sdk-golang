@@ -21,18 +21,16 @@ API version: 2024.06.1
 Contact: devex-public@okta.com
 */
 
-
 package okta
 
 import (
 	"encoding/json"
-	"fmt"
 )
 
 // HostedPage struct for HostedPage
 type HostedPage struct {
-	Type string `json:"type"`
-	Url *string `json:"url,omitempty"`
+	Type                 string  `json:"type"`
+	Url                  *string `json:"url,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -187,4 +185,3 @@ func (v *NullableHostedPage) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-

@@ -21,7 +21,6 @@ API version: 2024.06.1
 Contact: devex-public@okta.com
 */
 
-
 package okta
 
 import (
@@ -35,7 +34,7 @@ type AuthenticatorKeyCustomAppAllOfProviderConfigurationApns struct {
 	// AppBundleId of the APNs (Apple Push Notification Service) [configurations](https://developer.okta.com/docs/reference/api/push-providers/)
 	AppBundleId *string `json:"appBundleId,omitempty"`
 	// DebugAppBundleId of the APNs (Apple Push Notification Service) [configurations](https://developer.okta.com/docs/reference/api/push-providers/)
-	DebugAppBundleId *string `json:"debugAppBundleId,omitempty"`
+	DebugAppBundleId     *string `json:"debugAppBundleId,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -233,4 +232,3 @@ func (v *NullableAuthenticatorKeyCustomAppAllOfProviderConfigurationApns) Unmars
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-

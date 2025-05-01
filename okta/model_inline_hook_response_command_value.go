@@ -21,7 +21,6 @@ API version: 2024.06.1
 Contact: devex-public@okta.com
 */
 
-
 package okta
 
 import (
@@ -30,9 +29,9 @@ import (
 
 // InlineHookResponseCommandValue struct for InlineHookResponseCommandValue
 type InlineHookResponseCommandValue struct {
-	Op *string `json:"op,omitempty"`
-	Path *string `json:"path,omitempty"`
-	Value *string `json:"value,omitempty"`
+	Op                   *string `json:"op,omitempty"`
+	Path                 *string `json:"path,omitempty"`
+	Value                *string `json:"value,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -230,4 +229,3 @@ func (v *NullableInlineHookResponseCommandValue) UnmarshalJSON(src []byte) error
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-

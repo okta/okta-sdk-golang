@@ -21,7 +21,6 @@ API version: 2024.06.1
 Contact: devex-public@okta.com
 */
 
-
 package okta
 
 import (
@@ -31,7 +30,7 @@ import (
 // ZscalerbyzApplicationSettingsApplication Zscaler app instance properties
 type ZscalerbyzApplicationSettingsApplication struct {
 	// Your Zscaler domain
-	SiteDomain *string `json:"siteDomain,omitempty"`
+	SiteDomain           *string `json:"siteDomain,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -157,4 +156,3 @@ func (v *NullableZscalerbyzApplicationSettingsApplication) UnmarshalJSON(src []b
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-

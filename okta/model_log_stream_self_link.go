@@ -21,12 +21,10 @@ API version: 2024.06.1
 Contact: devex-public@okta.com
 */
 
-
 package okta
 
 import (
 	"encoding/json"
-	"fmt"
 )
 
 // LogStreamSelfLink struct for LogStreamSelfLink
@@ -34,7 +32,7 @@ type LogStreamSelfLink struct {
 	// The URI of the resource
 	Href string `json:"href"`
 	// HTTP method allowed for the resource
-	Method *string `json:"method,omitempty"`
+	Method               *string `json:"method,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -189,4 +187,3 @@ func (v *NullableLogStreamSelfLink) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-

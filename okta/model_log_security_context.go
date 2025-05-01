@@ -21,7 +21,6 @@ API version: 2024.06.1
 Contact: devex-public@okta.com
 */
 
-
 package okta
 
 import (
@@ -30,11 +29,11 @@ import (
 
 // LogSecurityContext struct for LogSecurityContext
 type LogSecurityContext struct {
-	AsNumber *int32 `json:"asNumber,omitempty"`
-	AsOrg *string `json:"asOrg,omitempty"`
-	Domain *string `json:"domain,omitempty"`
-	Isp *string `json:"isp,omitempty"`
-	IsProxy *bool `json:"isProxy,omitempty"`
+	AsNumber             *int32  `json:"asNumber,omitempty"`
+	AsOrg                *string `json:"asOrg,omitempty"`
+	Domain               *string `json:"domain,omitempty"`
+	Isp                  *string `json:"isp,omitempty"`
+	IsProxy              *bool   `json:"isProxy,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -304,4 +303,3 @@ func (v *NullableLogSecurityContext) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-

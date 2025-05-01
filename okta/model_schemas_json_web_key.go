@@ -21,7 +21,6 @@ API version: 2024.06.1
 Contact: devex-public@okta.com
 */
 
-
 package okta
 
 import (
@@ -38,7 +37,7 @@ type SchemasJsonWebKey struct {
 	// The status of the public key
 	Status *string `json:"status,omitempty"`
 	// The intended use of the public key
-	Use *string `json:"use,omitempty"`
+	Use                  *string `json:"use,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -308,4 +307,3 @@ func (v *NullableSchemasJsonWebKey) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-

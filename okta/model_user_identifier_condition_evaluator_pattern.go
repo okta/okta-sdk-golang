@@ -21,7 +21,6 @@ API version: 2024.06.1
 Contact: devex-public@okta.com
 */
 
-
 package okta
 
 import (
@@ -33,7 +32,7 @@ type UserIdentifierConditionEvaluatorPattern struct {
 	// The type of pattern. For regex, use `EXPRESSION`.
 	MatchType *string `json:"matchType,omitempty"`
 	// The regex expression of a simple match string
-	Value *string `json:"value,omitempty"`
+	Value                *string `json:"value,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -195,4 +194,3 @@ func (v *NullableUserIdentifierConditionEvaluatorPattern) UnmarshalJSON(src []by
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-

@@ -21,7 +21,6 @@ API version: 2024.06.1
 Contact: devex-public@okta.com
 */
 
-
 package okta
 
 import (
@@ -31,7 +30,7 @@ import (
 // CreateUpdateIamRolePermissionRequest struct for CreateUpdateIamRolePermissionRequest
 type CreateUpdateIamRolePermissionRequest struct {
 	// Conditions for further restricting a permission
-	Conditions map[string]interface{} `json:"conditions,omitempty"`
+	Conditions           map[string]interface{} `json:"conditions,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -158,4 +157,3 @@ func (v *NullableCreateUpdateIamRolePermissionRequest) UnmarshalJSON(src []byte)
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-

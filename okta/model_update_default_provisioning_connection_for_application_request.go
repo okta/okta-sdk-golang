@@ -21,7 +21,6 @@ API version: 2024.06.1
 Contact: devex-public@okta.com
 */
 
-
 package okta
 
 import (
@@ -29,8 +28,7 @@ import (
 	"fmt"
 )
 
-
-//model_oneof.mustache
+// model_oneof.mustache
 // UpdateDefaultProvisioningConnectionForApplicationRequest - struct for UpdateDefaultProvisioningConnectionForApplicationRequest
 type UpdateDefaultProvisioningConnectionForApplicationRequest struct {
 	ProvisioningConnectionOauthRequest *ProvisioningConnectionOauthRequest
@@ -51,48 +49,47 @@ func ProvisioningConnectionTokenRequestAsUpdateDefaultProvisioningConnectionForA
 	}
 }
 
-
 // Unmarshal JSON data into one of the pointers in the struct  CUSTOM
 func (dst *UpdateDefaultProvisioningConnectionForApplicationRequest) UnmarshalJSON(data []byte) error {
 	var err error
-        match := 0
-        // try to unmarshal data into ProvisioningConnectionOauthRequest
-        err = json.Unmarshal(data, &dst.ProvisioningConnectionOauthRequest)
-        if err == nil {
-                jsonProvisioningConnectionOauthRequest, _ := json.Marshal(dst.ProvisioningConnectionOauthRequest)
-                if string(jsonProvisioningConnectionOauthRequest) == "{}" { // empty struct
-                        dst.ProvisioningConnectionOauthRequest = nil
-                } else {
-                        match++
-                }
-        } else {
-                dst.ProvisioningConnectionOauthRequest = nil
-        }
+	match := 0
+	// try to unmarshal data into ProvisioningConnectionOauthRequest
+	err = json.Unmarshal(data, &dst.ProvisioningConnectionOauthRequest)
+	if err == nil {
+		jsonProvisioningConnectionOauthRequest, _ := json.Marshal(dst.ProvisioningConnectionOauthRequest)
+		if string(jsonProvisioningConnectionOauthRequest) == "{}" { // empty struct
+			dst.ProvisioningConnectionOauthRequest = nil
+		} else {
+			match++
+		}
+	} else {
+		dst.ProvisioningConnectionOauthRequest = nil
+	}
 
-        // try to unmarshal data into ProvisioningConnectionTokenRequest
-        err = json.Unmarshal(data, &dst.ProvisioningConnectionTokenRequest)
-        if err == nil {
-                jsonProvisioningConnectionTokenRequest, _ := json.Marshal(dst.ProvisioningConnectionTokenRequest)
-                if string(jsonProvisioningConnectionTokenRequest) == "{}" { // empty struct
-                        dst.ProvisioningConnectionTokenRequest = nil
-                } else {
-                        match++
-                }
-        } else {
-                dst.ProvisioningConnectionTokenRequest = nil
-        }
+	// try to unmarshal data into ProvisioningConnectionTokenRequest
+	err = json.Unmarshal(data, &dst.ProvisioningConnectionTokenRequest)
+	if err == nil {
+		jsonProvisioningConnectionTokenRequest, _ := json.Marshal(dst.ProvisioningConnectionTokenRequest)
+		if string(jsonProvisioningConnectionTokenRequest) == "{}" { // empty struct
+			dst.ProvisioningConnectionTokenRequest = nil
+		} else {
+			match++
+		}
+	} else {
+		dst.ProvisioningConnectionTokenRequest = nil
+	}
 
-        if match > 1 { // more than 1 match
-                // reset to nil
-                dst.ProvisioningConnectionOauthRequest = nil
-                dst.ProvisioningConnectionTokenRequest = nil
+	if match > 1 { // more than 1 match
+		// reset to nil
+		dst.ProvisioningConnectionOauthRequest = nil
+		dst.ProvisioningConnectionTokenRequest = nil
 
-                return fmt.Errorf("Data matches more than one schema in oneOf(UpdateDefaultProvisioningConnectionForApplicationRequest)")
-        } else if match == 1 {
-                return nil // exactly one match
-        } else { // no match
-                return fmt.Errorf("Data failed to match schemas in oneOf(UpdateDefaultProvisioningConnectionForApplicationRequest)")
-        }
+		return fmt.Errorf("Data matches more than one schema in oneOf(UpdateDefaultProvisioningConnectionForApplicationRequest)")
+	} else if match == 1 {
+		return nil // exactly one match
+	} else { // no match
+		return fmt.Errorf("Data failed to match schemas in oneOf(UpdateDefaultProvisioningConnectionForApplicationRequest)")
+	}
 }
 
 // Marshal data from the first non-nil pointers in the struct to JSON
@@ -109,7 +106,7 @@ func (src UpdateDefaultProvisioningConnectionForApplicationRequest) MarshalJSON(
 }
 
 // Get the actual instance
-func (obj *UpdateDefaultProvisioningConnectionForApplicationRequest) GetActualInstance() (interface{}) {
+func (obj *UpdateDefaultProvisioningConnectionForApplicationRequest) GetActualInstance() interface{} {
 	if obj == nil {
 		return nil
 	}
@@ -160,5 +157,3 @@ func (v *NullableUpdateDefaultProvisioningConnectionForApplicationRequest) Unmar
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-
-

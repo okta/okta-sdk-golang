@@ -21,7 +21,6 @@ API version: 2024.06.1
 Contact: devex-public@okta.com
 */
 
-
 package okta
 
 import (
@@ -32,7 +31,7 @@ import (
 // AppUser The Application User object defines a user's app-specific profile and credentials for an app
 type AppUser struct {
 	// Timestamp when the object was created
-	Created *time.Time `json:"created,omitempty"`
+	Created     *time.Time          `json:"created,omitempty"`
 	Credentials *AppUserCredentials `json:"credentials,omitempty"`
 	// The ID of the user in the target app that's linked to the Okta Application User object. This value is the native app-specific identifier or primary key for the user in the target app.  The `externalId` is set during import when the user is confirmed (reconciled) or during provisioning when the user is created in the target app. This value isn't populated for SSO app assignments (for example, SAML or SWA) because it isn't synchronized with a target app.
 	ExternalId *string `json:"externalId,omitempty"`
@@ -44,7 +43,7 @@ type AppUser struct {
 	LastUpdated *time.Time `json:"lastUpdated,omitempty"`
 	// Timestamp when the Application User password was last changed
 	PasswordChanged NullableTime `json:"passwordChanged,omitempty"`
-	// Specifies the default and custom profile properties for a user. Properties that are visible in the Admin Console for an app assignment can also be assigned through the API. Some properties are reference properties that are imported from the target app and can't be configured. See [profile](/openapi/okta-management/management/tag/User/#tag/User/operation/getUser!c=200&path=profile&t=response). 
+	// Specifies the default and custom profile properties for a user. Properties that are visible in the Admin Console for an app assignment can also be assigned through the API. Some properties are reference properties that are imported from the target app and can't be configured. See [profile](/openapi/okta-management/management/tag/User/#tag/User/operation/getUser!c=200&path=profile&t=response).
 	Profile map[string]interface{} `json:"profile,omitempty"`
 	// Indicates if the assignment is direct (`USER`) or by group membership (`GROUP`).
 	Scope *string `json:"scope,omitempty"`
@@ -55,8 +54,8 @@ type AppUser struct {
 	// The synchronization state for the Application User. The Application User's `syncState` depends on whether the `PROFILE_MASTERING` feature is enabled for the app.  > **Note:** User provisioning currently must be configured through the Admin Console.
 	SyncState *string `json:"syncState,omitempty"`
 	// Embedded resources related to the Application User using the [JSON Hypertext Application Language](https://datatracker.ietf.org/doc/html/draft-kelly-json-hal-06) specification
-	Embedded map[string]map[string]interface{} `json:"_embedded,omitempty"`
-	Links *LinksAppAndUser `json:"_links,omitempty"`
+	Embedded             map[string]map[string]interface{} `json:"_embedded,omitempty"`
+	Links                *LinksAppAndUser                  `json:"_links,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -303,6 +302,7 @@ func (o *AppUser) HasPasswordChanged() bool {
 func (o *AppUser) SetPasswordChanged(v time.Time) {
 	o.PasswordChanged.Set(&v)
 }
+
 // SetPasswordChangedNil sets the value for PasswordChanged to be an explicit nil
 func (o *AppUser) SetPasswordChangedNil() {
 	o.PasswordChanged.Set(nil)
@@ -660,4 +660,3 @@ func (v *NullableAppUser) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-

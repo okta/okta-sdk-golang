@@ -21,7 +21,6 @@ API version: 2024.06.1
 Contact: devex-public@okta.com
 */
 
-
 package okta
 
 import (
@@ -35,7 +34,7 @@ type PasswordSettingObject struct {
 	// Determines whether the generated password is the user's Okta password or a randomly generated password
 	Seed *string `json:"seed,omitempty"`
 	// Setting status
-	Status *string `json:"status,omitempty"`
+	Status               *string `json:"status,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -241,4 +240,3 @@ func (v *NullablePasswordSettingObject) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-

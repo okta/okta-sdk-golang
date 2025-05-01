@@ -21,7 +21,6 @@ API version: 2024.06.1
 Contact: devex-public@okta.com
 */
 
-
 package okta
 
 import (
@@ -40,11 +39,11 @@ type AuthenticatorBase struct {
 	// Timestamp when the Authenticator was last modified
 	LastUpdated *time.Time `json:"lastUpdated,omitempty"`
 	// Display name of the Authenticator
-	Name *string `json:"name,omitempty"`
+	Name   *string `json:"name,omitempty"`
 	Status *string `json:"status,omitempty"`
 	// The type of Authenticator
-	Type *string `json:"type,omitempty"`
-	Links *AuthenticatorLinks `json:"_links,omitempty"`
+	Type                 *string             `json:"type,omitempty"`
+	Links                *AuthenticatorLinks `json:"_links,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -422,4 +421,3 @@ func (v *NullableAuthenticatorBase) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-

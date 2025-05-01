@@ -21,13 +21,11 @@ API version: 2024.06.1
 Contact: devex-public@okta.com
 */
 
-
 package okta
 
 import (
 	"encoding/json"
 	"time"
-	"fmt"
 )
 
 // Application struct for Application
@@ -42,17 +40,17 @@ type Application struct {
 	// User-defined display name for app
 	Label string `json:"label"`
 	// Timestamp when the Application object was last updated
-	LastUpdated *time.Time `json:"lastUpdated,omitempty"`
-	Licensing *ApplicationLicensing `json:"licensing,omitempty"`
+	LastUpdated *time.Time            `json:"lastUpdated,omitempty"`
+	Licensing   *ApplicationLicensing `json:"licensing,omitempty"`
 	// Contains any valid JSON schema for specifying properties that can be referenced from a request (only available to OAuth 2.0 client apps)
 	Profile map[string]interface{} `json:"profile,omitempty"`
 	// Authentication mode for the app
 	SignOnMode string `json:"signOnMode"`
 	// App instance status
-	Status *string `json:"status,omitempty"`
-	Visibility *ApplicationVisibility `json:"visibility,omitempty"`
-	Embedded map[string]map[string]interface{} `json:"_embedded,omitempty"`
-	Links *ApplicationLinks `json:"_links,omitempty"`
+	Status               *string                           `json:"status,omitempty"`
+	Visibility           *ApplicationVisibility            `json:"visibility,omitempty"`
+	Embedded             map[string]map[string]interface{} `json:"_embedded,omitempty"`
+	Links                *ApplicationLinks                 `json:"_links,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -596,4 +594,3 @@ func (v *NullableApplication) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-

@@ -21,7 +21,6 @@ API version: 2024.06.1
 Contact: devex-public@okta.com
 */
 
-
 package okta
 
 import (
@@ -30,10 +29,10 @@ import (
 
 // OktaSignOnPolicyRuleSignonSessionActions struct for OktaSignOnPolicyRuleSignonSessionActions
 type OktaSignOnPolicyRuleSignonSessionActions struct {
-	MaxSessionIdleMinutes *int32 `json:"maxSessionIdleMinutes,omitempty"`
+	MaxSessionIdleMinutes     *int32 `json:"maxSessionIdleMinutes,omitempty"`
 	MaxSessionLifetimeMinutes *int32 `json:"maxSessionLifetimeMinutes,omitempty"`
-	UsePersistentCookie *bool `json:"usePersistentCookie,omitempty"`
-	AdditionalProperties map[string]interface{}
+	UsePersistentCookie       *bool  `json:"usePersistentCookie,omitempty"`
+	AdditionalProperties      map[string]interface{}
 }
 
 type _OktaSignOnPolicyRuleSignonSessionActions OktaSignOnPolicyRuleSignonSessionActions
@@ -234,4 +233,3 @@ func (v *NullableOktaSignOnPolicyRuleSignonSessionActions) UnmarshalJSON(src []b
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-

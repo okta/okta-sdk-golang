@@ -21,7 +21,6 @@ API version: 2024.06.1
 Contact: devex-public@okta.com
 */
 
-
 package okta
 
 import (
@@ -37,7 +36,7 @@ type WellKnownSSFMetadata struct {
 	// The issuer used in Security Event Tokens. This value is set as `iss` in the claim.
 	Issuer *string `json:"issuer,omitempty"`
 	// The URL of the JSON Web Key Set (JWKS) that contains the signing keys for validating the signatures of Security Event Tokens (SETs)
-	JwksUri *string `json:"jwks_uri,omitempty"`
+	JwksUri              *string `json:"jwks_uri,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -271,4 +270,3 @@ func (v *NullableWellKnownSSFMetadata) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-

@@ -21,7 +21,6 @@ API version: 2024.06.1
 Contact: devex-public@okta.com
 */
 
-
 package okta
 
 import (
@@ -38,8 +37,8 @@ type ResourceSetResource struct {
 	// Unique key for the role
 	Id *string `json:"id,omitempty"`
 	// Timestamp when the role was last updated
-	LastUpdated *time.Time `json:"lastUpdated,omitempty"`
-	Links *LinksSelf `json:"_links,omitempty"`
+	LastUpdated          *time.Time `json:"lastUpdated,omitempty"`
+	Links                *LinksSelf `json:"_links,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -309,4 +308,3 @@ func (v *NullableResourceSetResource) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-

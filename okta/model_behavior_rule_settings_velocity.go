@@ -21,17 +21,15 @@ API version: 2024.06.1
 Contact: devex-public@okta.com
 */
 
-
 package okta
 
 import (
 	"encoding/json"
-	"fmt"
 )
 
 // BehaviorRuleSettingsVelocity struct for BehaviorRuleSettingsVelocity
 type BehaviorRuleSettingsVelocity struct {
-	VelocityKph int32 `json:"velocityKph"`
+	VelocityKph          int32 `json:"velocityKph"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -152,4 +150,3 @@ func (v *NullableBehaviorRuleSettingsVelocity) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-

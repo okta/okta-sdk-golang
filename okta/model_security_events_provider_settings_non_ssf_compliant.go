@@ -21,12 +21,10 @@ API version: 2024.06.1
 Contact: devex-public@okta.com
 */
 
-
 package okta
 
 import (
 	"encoding/json"
-	"fmt"
 )
 
 // SecurityEventsProviderSettingsNonSSFCompliant Security Events Provider with issuer and JWKS settings for signal ingestion
@@ -34,7 +32,7 @@ type SecurityEventsProviderSettingsNonSSFCompliant struct {
 	// Issuer URL
 	Issuer string `json:"issuer"`
 	// The public URL where the JWKS public key is uploaded
-	JwksUrl string `json:"jwks_url"`
+	JwksUrl              string `json:"jwks_url"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -182,4 +180,3 @@ func (v *NullableSecurityEventsProviderSettingsNonSSFCompliant) UnmarshalJSON(sr
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-

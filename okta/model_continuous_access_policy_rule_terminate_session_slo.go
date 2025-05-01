@@ -21,7 +21,6 @@ API version: 2024.06.1
 Contact: devex-public@okta.com
 */
 
-
 package okta
 
 import (
@@ -33,7 +32,7 @@ type ContinuousAccessPolicyRuleTerminateSessionSlo struct {
 	// This property defines the session to terminate - everyone, no one, or a specific app instance.
 	AppSelectionMode *string `json:"appSelectionMode,omitempty"`
 	// This property defines the app instance access to terminate. Only include this property when `appSelectionMode` is set to `SPECIFIC`.
-	AppInstanceIds []string `json:"appInstanceIds,omitempty"`
+	AppInstanceIds       []string `json:"appInstanceIds,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -195,4 +194,3 @@ func (v *NullableContinuousAccessPolicyRuleTerminateSessionSlo) UnmarshalJSON(sr
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-

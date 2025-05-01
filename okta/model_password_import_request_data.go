@@ -21,7 +21,6 @@ API version: 2024.06.1
 Contact: devex-public@okta.com
 */
 
-
 package okta
 
 import (
@@ -30,8 +29,8 @@ import (
 
 // PasswordImportRequestData struct for PasswordImportRequestData
 type PasswordImportRequestData struct {
-	Action *PasswordImportRequestDataAction `json:"action,omitempty"`
-	Context *PasswordImportRequestDataContext `json:"context,omitempty"`
+	Action               *PasswordImportRequestDataAction  `json:"action,omitempty"`
+	Context              *PasswordImportRequestDataContext `json:"context,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -193,4 +192,3 @@ func (v *NullablePasswordImportRequestData) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-

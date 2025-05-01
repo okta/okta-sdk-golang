@@ -21,7 +21,6 @@ API version: 2024.06.1
 Contact: devex-public@okta.com
 */
 
-
 package okta
 
 import (
@@ -46,7 +45,7 @@ type IdentityProviderLinks struct {
 	// Activate IdP
 	Activate *HrefObject `json:"activate,omitempty"`
 	// IdP keys
-	Keys *HrefObject `json:"keys,omitempty"`
+	Keys                 *HrefObject `json:"keys,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -460,4 +459,3 @@ func (v *NullableIdentityProviderLinks) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-

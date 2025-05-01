@@ -21,7 +21,6 @@ API version: 2024.06.1
 Contact: devex-public@okta.com
 */
 
-
 package okta
 
 import (
@@ -37,8 +36,8 @@ type ResourceSelectorResponseSchema struct {
 	// Name of the Resource Selector
 	Name *string `json:"name,omitempty"`
 	// An Okta resource name
-	Orn *string `json:"orn,omitempty"`
-	Links *ResourceSelectorResponseSchemaLinks `json:"_links,omitempty"`
+	Orn                  *string                              `json:"orn,omitempty"`
+	Links                *ResourceSelectorResponseSchemaLinks `json:"_links,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -308,4 +307,3 @@ func (v *NullableResourceSelectorResponseSchema) UnmarshalJSON(src []byte) error
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-

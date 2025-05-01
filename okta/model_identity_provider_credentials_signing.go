@@ -21,7 +21,6 @@ API version: 2024.06.1
 Contact: devex-public@okta.com
 */
 
-
 package okta
 
 import (
@@ -30,7 +29,7 @@ import (
 
 // IdentityProviderCredentialsSigning struct for IdentityProviderCredentialsSigning
 type IdentityProviderCredentialsSigning struct {
-	Kid *string `json:"kid,omitempty"`
+	Kid                  *string `json:"kid,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -156,4 +155,3 @@ func (v *NullableIdentityProviderCredentialsSigning) UnmarshalJSON(src []byte) e
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-

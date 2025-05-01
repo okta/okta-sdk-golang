@@ -21,7 +21,6 @@ API version: 2024.06.1
 Contact: devex-public@okta.com
 */
 
-
 package okta
 
 import (
@@ -30,7 +29,7 @@ import (
 
 // OperationResponseAssignmentOperationConfigurationActions struct for OperationResponseAssignmentOperationConfigurationActions
 type OperationResponseAssignmentOperationConfigurationActions struct {
-	AssignUserToRealm *OperationResponseAssignmentOperationConfigurationActionsAssignUserToRealm `json:"assignUserToRealm,omitempty"`
+	AssignUserToRealm    *OperationResponseAssignmentOperationConfigurationActionsAssignUserToRealm `json:"assignUserToRealm,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -156,4 +155,3 @@ func (v *NullableOperationResponseAssignmentOperationConfigurationActions) Unmar
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-

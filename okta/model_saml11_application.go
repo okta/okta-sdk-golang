@@ -21,12 +21,10 @@ API version: 2024.06.1
 Contact: devex-public@okta.com
 */
 
-
 package okta
 
 import (
 	"encoding/json"
-	"fmt"
 	"reflect"
 	"strings"
 )
@@ -36,8 +34,8 @@ type Saml11Application struct {
 	Application
 	Credentials *ApplicationCredentials `json:"credentials,omitempty"`
 	// The key name for the SAML 1.1 app definition. You can't create a custom SAML 1.1 app integration instance. Only existing OIN SAML 1.1 app integrations are supported.
-	Name string `json:"name"`
-	Settings *Saml11ApplicationSettings `json:"settings,omitempty"`
+	Name                 string                     `json:"name"`
+	Settings             *Saml11ApplicationSettings `json:"settings,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -182,7 +180,7 @@ func (o *Saml11Application) UnmarshalJSON(bytes []byte) (err error) {
 	type Saml11ApplicationWithoutEmbeddedStruct struct {
 		Credentials *ApplicationCredentials `json:"credentials,omitempty"`
 		// The key name for the SAML 1.1 app definition. You can't create a custom SAML 1.1 app integration instance. Only existing OIN SAML 1.1 app integrations are supported.
-		Name string `json:"name"`
+		Name     string                     `json:"name"`
 		Settings *Saml11ApplicationSettings `json:"settings,omitempty"`
 	}
 
@@ -277,4 +275,3 @@ func (v *NullableSaml11Application) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-

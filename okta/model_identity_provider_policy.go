@@ -21,7 +21,6 @@ API version: 2024.06.1
 Contact: devex-public@okta.com
 */
 
-
 package okta
 
 import (
@@ -32,10 +31,10 @@ import (
 type IdentityProviderPolicy struct {
 	AccountLink *PolicyAccountLink `json:"accountLink,omitempty"`
 	// <div class=\"x-lifecycle-container\"><x-lifecycle class=\"ea\"></x-lifecycle> <x-lifecycle class=\"oie\"></x-lifecycle></div>Enable mapping AMR from IdP to Okta to downstream apps
-	MapAMRClaims *bool `json:"mapAMRClaims,omitempty"`
-	MaxClockSkew *int32 `json:"maxClockSkew,omitempty"`
-	Provisioning *Provisioning `json:"provisioning,omitempty"`
-	Subject *PolicySubject `json:"subject,omitempty"`
+	MapAMRClaims         *bool          `json:"mapAMRClaims,omitempty"`
+	MaxClockSkew         *int32         `json:"maxClockSkew,omitempty"`
+	Provisioning         *Provisioning  `json:"provisioning,omitempty"`
+	Subject              *PolicySubject `json:"subject,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -309,4 +308,3 @@ func (v *NullableIdentityProviderPolicy) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-

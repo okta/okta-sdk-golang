@@ -21,22 +21,20 @@ API version: 2024.06.1
 Contact: devex-public@okta.com
 */
 
-
 package okta
 
 import (
 	"encoding/json"
-	"fmt"
 )
 
 // TestInfo Integration Testing Information
 type TestInfo struct {
 	// An email for Okta to contact your company about your integration. This email isn't shared with customers.
-	EscalationSupportContact string `json:"escalationSupportContact"`
-	OidcTestConfiguration *TestInfoOidcTestConfiguration `json:"oidcTestConfiguration,omitempty"`
-	SamlTestConfiguration *TestInfoSamlTestConfiguration `json:"samlTestConfiguration,omitempty"`
-	TestAccount *TestInfoTestAccount `json:"testAccount,omitempty"`
-	AdditionalProperties map[string]interface{}
+	EscalationSupportContact string                         `json:"escalationSupportContact"`
+	OidcTestConfiguration    *TestInfoOidcTestConfiguration `json:"oidcTestConfiguration,omitempty"`
+	SamlTestConfiguration    *TestInfoSamlTestConfiguration `json:"samlTestConfiguration,omitempty"`
+	TestAccount              *TestInfoTestAccount           `json:"testAccount,omitempty"`
+	AdditionalProperties     map[string]interface{}
 }
 
 type _TestInfo TestInfo
@@ -262,4 +260,3 @@ func (v *NullableTestInfo) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-

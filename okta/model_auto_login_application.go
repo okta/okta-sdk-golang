@@ -21,12 +21,10 @@ API version: 2024.06.1
 Contact: devex-public@okta.com
 */
 
-
 package okta
 
 import (
 	"encoding/json"
-	"fmt"
 	"reflect"
 	"strings"
 )
@@ -36,8 +34,8 @@ type AutoLoginApplication struct {
 	Application
 	Credentials *SchemeApplicationCredentials `json:"credentials,omitempty"`
 	// A unique key is generated for the custom SWA app instance when you use AUTO_LOGIN `signOnMode`.
-	Name *string `json:"name,omitempty"`
-	Settings *AutoLoginApplicationSettings `json:"settings,omitempty"`
+	Name                 *string                       `json:"name,omitempty"`
+	Settings             *AutoLoginApplicationSettings `json:"settings,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -189,7 +187,7 @@ func (o *AutoLoginApplication) UnmarshalJSON(bytes []byte) (err error) {
 	type AutoLoginApplicationWithoutEmbeddedStruct struct {
 		Credentials *SchemeApplicationCredentials `json:"credentials,omitempty"`
 		// A unique key is generated for the custom SWA app instance when you use AUTO_LOGIN `signOnMode`.
-		Name *string `json:"name,omitempty"`
+		Name     *string                       `json:"name,omitempty"`
 		Settings *AutoLoginApplicationSettings `json:"settings,omitempty"`
 	}
 
@@ -284,4 +282,3 @@ func (v *NullableAutoLoginApplication) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-

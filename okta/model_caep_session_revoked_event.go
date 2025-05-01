@@ -21,12 +21,10 @@ API version: 2024.06.1
 Contact: devex-public@okta.com
 */
 
-
 package okta
 
 import (
 	"encoding/json"
-	"fmt"
 )
 
 // CaepSessionRevokedEvent The session of the subject was revoked
@@ -42,10 +40,10 @@ type CaepSessionRevokedEvent struct {
 	// Last known IP of the session
 	LastKnownIp *string `json:"last_known_ip,omitempty"`
 	// Last known User Agent of the session
-	LastKnownUserAgent *string `json:"last_known_user_agent,omitempty"`
-	ReasonAdmin *CaepDeviceComplianceChangeEventReasonAdmin `json:"reason_admin,omitempty"`
-	ReasonUser *CaepDeviceComplianceChangeEventReasonUser `json:"reason_user,omitempty"`
-	Subjects SecurityEventSubject `json:"subjects"`
+	LastKnownUserAgent   *string                                     `json:"last_known_user_agent,omitempty"`
+	ReasonAdmin          *CaepDeviceComplianceChangeEventReasonAdmin `json:"reason_admin,omitempty"`
+	ReasonUser           *CaepDeviceComplianceChangeEventReasonUser  `json:"reason_user,omitempty"`
+	Subjects             SecurityEventSubject                        `json:"subjects"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -445,4 +443,3 @@ func (v *NullableCaepSessionRevokedEvent) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-

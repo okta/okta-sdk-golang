@@ -21,13 +21,11 @@ API version: 2024.06.1
 Contact: devex-public@okta.com
 */
 
-
 package okta
 
 import (
 	"encoding/json"
 	"time"
-	"fmt"
 )
 
 // NetworkZone struct for NetworkZone
@@ -42,13 +40,13 @@ type NetworkZone struct {
 	Name string `json:"name"`
 	// Network Zone status
 	Status *string `json:"status,omitempty"`
-	// Indicates a system Network Zone: * `true` for system Network Zones * `false` for custom Network Zones  The Okta org provides the following default system Network Zones: * `LegacyIpZone` * `BlockedIpZone` * <x-lifecycle class=\"ea\"></x-lifecycle> `DefaultEnhancedDynamicZone`  Admins can modify the name of the default system Network Zone and add up to 5000 gateway or proxy IP entries. 
+	// Indicates a system Network Zone: * `true` for system Network Zones * `false` for custom Network Zones  The Okta org provides the following default system Network Zones: * `LegacyIpZone` * `BlockedIpZone` * <x-lifecycle class=\"ea\"></x-lifecycle> `DefaultEnhancedDynamicZone`  Admins can modify the name of the default system Network Zone and add up to 5000 gateway or proxy IP entries.
 	System *bool `json:"system,omitempty"`
 	// The type of Network Zone
 	Type string `json:"type"`
 	// The usage of the Network Zone
-	Usage *string `json:"usage,omitempty"`
-	Links *LinksSelfAndLifecycle `json:"_links,omitempty"`
+	Usage                *string                `json:"usage,omitempty"`
+	Links                *LinksSelfAndLifecycle `json:"_links,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -448,4 +446,3 @@ func (v *NullableNetworkZone) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-

@@ -21,7 +21,6 @@ API version: 2024.06.1
 Contact: devex-public@okta.com
 */
 
-
 package okta
 
 import (
@@ -39,7 +38,7 @@ type InlineHookBasePayload struct {
 	// The time the inline hook request was sent
 	EventTime *string `json:"eventTime,omitempty"`
 	// The inline hook version
-	EventTypeVersion *string `json:"eventTypeVersion,omitempty"`
+	EventTypeVersion     *string `json:"eventTypeVersion,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -309,4 +308,3 @@ func (v *NullableInlineHookBasePayload) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-

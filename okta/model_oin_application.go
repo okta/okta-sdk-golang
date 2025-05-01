@@ -21,7 +21,6 @@ API version: 2024.06.1
 Contact: devex-public@okta.com
 */
 
-
 package okta
 
 import (
@@ -30,10 +29,10 @@ import (
 
 // OINApplication struct for OINApplication
 type OINApplication struct {
-	Accessibility *ApplicationAccessibility `json:"accessibility,omitempty"`
-	Credentials *SchemeApplicationCredentials `json:"credentials,omitempty"`
+	Accessibility *ApplicationAccessibility     `json:"accessibility,omitempty"`
+	Credentials   *SchemeApplicationCredentials `json:"credentials,omitempty"`
 	// User-defined display name for app
-	Label *string `json:"label,omitempty"`
+	Label     *string               `json:"label,omitempty"`
 	Licensing *ApplicationLicensing `json:"licensing,omitempty"`
 	// The key name for the OIN app definition
 	Name *string `json:"name,omitempty"`
@@ -42,8 +41,8 @@ type OINApplication struct {
 	// Authentication mode for the app
 	SignOnMode *string `json:"signOnMode,omitempty"`
 	// App instance status
-	Status *string `json:"status,omitempty"`
-	Visibility *ApplicationVisibility `json:"visibility,omitempty"`
+	Status               *string                `json:"status,omitempty"`
+	Visibility           *ApplicationVisibility `json:"visibility,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -457,4 +456,3 @@ func (v *NullableOINApplication) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-

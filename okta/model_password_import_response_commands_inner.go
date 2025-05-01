@@ -21,7 +21,6 @@ API version: 2024.06.1
 Contact: devex-public@okta.com
 */
 
-
 package okta
 
 import (
@@ -31,8 +30,8 @@ import (
 // PasswordImportResponseCommandsInner struct for PasswordImportResponseCommandsInner
 type PasswordImportResponseCommandsInner struct {
 	// The location where you specify the command. For the password import inline hook, there's only one command, `com.okta.action.update`.
-	Type *string `json:"type,omitempty"`
-	Value *PasswordImportResponseCommandsInnerValue `json:"value,omitempty"`
+	Type                 *string                                   `json:"type,omitempty"`
+	Value                *PasswordImportResponseCommandsInnerValue `json:"value,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -194,4 +193,3 @@ func (v *NullablePasswordImportResponseCommandsInner) UnmarshalJSON(src []byte) 
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-

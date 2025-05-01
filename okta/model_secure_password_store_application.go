@@ -21,12 +21,10 @@ API version: 2024.06.1
 Contact: devex-public@okta.com
 */
 
-
 package okta
 
 import (
 	"encoding/json"
-	"fmt"
 	"reflect"
 	"strings"
 )
@@ -36,8 +34,8 @@ type SecurePasswordStoreApplication struct {
 	Application
 	Credentials *SchemeApplicationCredentials `json:"credentials,omitempty"`
 	// `template_sps` is the key name for a SWA app instance that uses HTTP POST and doesn't require a browser plugin
-	Name string `json:"name"`
-	Settings SecurePasswordStoreApplicationSettings `json:"settings"`
+	Name                 string                                 `json:"name"`
+	Settings             SecurePasswordStoreApplicationSettings `json:"settings"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -175,7 +173,7 @@ func (o *SecurePasswordStoreApplication) UnmarshalJSON(bytes []byte) (err error)
 	type SecurePasswordStoreApplicationWithoutEmbeddedStruct struct {
 		Credentials *SchemeApplicationCredentials `json:"credentials,omitempty"`
 		// `template_sps` is the key name for a SWA app instance that uses HTTP POST and doesn't require a browser plugin
-		Name string `json:"name"`
+		Name     string                                 `json:"name"`
 		Settings SecurePasswordStoreApplicationSettings `json:"settings"`
 	}
 
@@ -270,4 +268,3 @@ func (v *NullableSecurePasswordStoreApplication) UnmarshalJSON(src []byte) error
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-

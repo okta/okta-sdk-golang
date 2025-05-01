@@ -21,7 +21,6 @@ API version: 2024.06.1
 Contact: devex-public@okta.com
 */
 
-
 package okta
 
 import (
@@ -30,9 +29,9 @@ import (
 
 // UserFactorActivateResponseLinks struct for UserFactorActivateResponseLinks
 type UserFactorActivateResponseLinks struct {
-	Self *HrefObjectSelfLink `json:"self,omitempty"`
-	User *HrefObject `json:"user,omitempty"`
-	Verify *HrefObject `json:"verify,omitempty"`
+	Self                 *HrefObjectSelfLink `json:"self,omitempty"`
+	User                 *HrefObject         `json:"user,omitempty"`
+	Verify               *HrefObject         `json:"verify,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -230,4 +229,3 @@ func (v *NullableUserFactorActivateResponseLinks) UnmarshalJSON(src []byte) erro
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-

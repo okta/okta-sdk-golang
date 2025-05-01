@@ -21,7 +21,6 @@ API version: 2024.06.1
 Contact: devex-public@okta.com
 */
 
-
 package okta
 
 import (
@@ -30,20 +29,19 @@ import (
 	"io/ioutil"
 	"net/http"
 	"net/url"
-	"time"
 	"strings"
+	"time"
 )
-
 
 type DeviceAssuranceAPI interface {
 
 	/*
-	CreateDeviceAssurancePolicy Create a Device Assurance Policy
+		CreateDeviceAssurancePolicy Create a Device Assurance Policy
 
-	Creates a new Device Assurance Policy
+		Creates a new Device Assurance Policy
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@return ApiCreateDeviceAssurancePolicyRequest
+		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+		@return ApiCreateDeviceAssurancePolicyRequest
 	*/
 	CreateDeviceAssurancePolicy(ctx context.Context) ApiCreateDeviceAssurancePolicyRequest
 
@@ -52,13 +50,13 @@ type DeviceAssuranceAPI interface {
 	CreateDeviceAssurancePolicyExecute(r ApiCreateDeviceAssurancePolicyRequest) (*ListDeviceAssurancePolicies200ResponseInner, *APIResponse, error)
 
 	/*
-	DeleteDeviceAssurancePolicy Delete a Device Assurance Policy
+		DeleteDeviceAssurancePolicy Delete a Device Assurance Policy
 
-	Deletes a Device Assurance Policy by `deviceAssuranceId`. If the Device Assurance Policy is currently being used in the org Authentication Policies, the delete will not be allowed.
+		Deletes a Device Assurance Policy by `deviceAssuranceId`. If the Device Assurance Policy is currently being used in the org Authentication Policies, the delete will not be allowed.
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param deviceAssuranceId Id of the Device Assurance Policy
-	@return ApiDeleteDeviceAssurancePolicyRequest
+		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+		@param deviceAssuranceId Id of the Device Assurance Policy
+		@return ApiDeleteDeviceAssurancePolicyRequest
 	*/
 	DeleteDeviceAssurancePolicy(ctx context.Context, deviceAssuranceId string) ApiDeleteDeviceAssurancePolicyRequest
 
@@ -66,13 +64,13 @@ type DeviceAssuranceAPI interface {
 	DeleteDeviceAssurancePolicyExecute(r ApiDeleteDeviceAssurancePolicyRequest) (*APIResponse, error)
 
 	/*
-	GetDeviceAssurancePolicy Retrieve a Device Assurance Policy
+		GetDeviceAssurancePolicy Retrieve a Device Assurance Policy
 
-	Retrieves a Device Assurance Policy by `deviceAssuranceId`
+		Retrieves a Device Assurance Policy by `deviceAssuranceId`
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param deviceAssuranceId Id of the Device Assurance Policy
-	@return ApiGetDeviceAssurancePolicyRequest
+		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+		@param deviceAssuranceId Id of the Device Assurance Policy
+		@return ApiGetDeviceAssurancePolicyRequest
 	*/
 	GetDeviceAssurancePolicy(ctx context.Context, deviceAssuranceId string) ApiGetDeviceAssurancePolicyRequest
 
@@ -81,12 +79,12 @@ type DeviceAssuranceAPI interface {
 	GetDeviceAssurancePolicyExecute(r ApiGetDeviceAssurancePolicyRequest) (*ListDeviceAssurancePolicies200ResponseInner, *APIResponse, error)
 
 	/*
-	ListDeviceAssurancePolicies List all Device Assurance Policies
+		ListDeviceAssurancePolicies List all Device Assurance Policies
 
-	Lists all device assurance policies
+		Lists all device assurance policies
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@return ApiListDeviceAssurancePoliciesRequest
+		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+		@return ApiListDeviceAssurancePoliciesRequest
 	*/
 	ListDeviceAssurancePolicies(ctx context.Context) ApiListDeviceAssurancePoliciesRequest
 
@@ -95,13 +93,13 @@ type DeviceAssuranceAPI interface {
 	ListDeviceAssurancePoliciesExecute(r ApiListDeviceAssurancePoliciesRequest) ([]ListDeviceAssurancePolicies200ResponseInner, *APIResponse, error)
 
 	/*
-	ReplaceDeviceAssurancePolicy Replace a Device Assurance Policy
+		ReplaceDeviceAssurancePolicy Replace a Device Assurance Policy
 
-	Replaces a Device Assurance Policy by `deviceAssuranceId`
+		Replaces a Device Assurance Policy by `deviceAssuranceId`
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param deviceAssuranceId Id of the Device Assurance Policy
-	@return ApiReplaceDeviceAssurancePolicyRequest
+		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+		@param deviceAssuranceId Id of the Device Assurance Policy
+		@return ApiReplaceDeviceAssurancePolicyRequest
 	*/
 	ReplaceDeviceAssurancePolicy(ctx context.Context, deviceAssuranceId string) ApiReplaceDeviceAssurancePolicyRequest
 
@@ -114,10 +112,10 @@ type DeviceAssuranceAPI interface {
 type DeviceAssuranceAPIService service
 
 type ApiCreateDeviceAssurancePolicyRequest struct {
-	ctx context.Context
-	ApiService DeviceAssuranceAPI
+	ctx             context.Context
+	ApiService      DeviceAssuranceAPI
 	deviceAssurance *ListDeviceAssurancePolicies200ResponseInner
-	retryCount int32
+	retryCount      int32
 }
 
 func (r ApiCreateDeviceAssurancePolicyRequest) DeviceAssurance(deviceAssurance ListDeviceAssurancePolicies200ResponseInner) ApiCreateDeviceAssurancePolicyRequest {
@@ -134,19 +132,20 @@ CreateDeviceAssurancePolicy Create a Device Assurance Policy
 
 Creates a new Device Assurance Policy
 
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @return ApiCreateDeviceAssurancePolicyRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@return ApiCreateDeviceAssurancePolicyRequest
 */
 func (a *DeviceAssuranceAPIService) CreateDeviceAssurancePolicy(ctx context.Context) ApiCreateDeviceAssurancePolicyRequest {
 	return ApiCreateDeviceAssurancePolicyRequest{
 		ApiService: a,
-		ctx: ctx,
+		ctx:        ctx,
 		retryCount: 0,
 	}
 }
 
 // Execute executes the request
-//  @return ListDeviceAssurancePolicies200ResponseInner
+//
+//	@return ListDeviceAssurancePolicies200ResponseInner
 func (a *DeviceAssuranceAPIService) CreateDeviceAssurancePolicyExecute(r ApiCreateDeviceAssurancePolicyRequest) (*ListDeviceAssurancePolicies200ResponseInner, *APIResponse, error) {
 	var (
 		localVarHTTPMethod   = http.MethodPost
@@ -155,7 +154,7 @@ func (a *DeviceAssuranceAPIService) CreateDeviceAssurancePolicyExecute(r ApiCrea
 		localVarReturnValue  *ListDeviceAssurancePolicies200ResponseInner
 		localVarHTTPResponse *http.Response
 		localAPIResponse     *APIResponse
-		err 				 error
+		err                  error
 	)
 
 	if a.client.cfg.Okta.Client.RequestTimeout > 0 {
@@ -280,16 +279,16 @@ func (a *DeviceAssuranceAPIService) CreateDeviceAssurancePolicyExecute(r ApiCrea
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
 		return localVarReturnValue, localAPIResponse, newErr
 	}
-	
+
 	localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
 	return localVarReturnValue, localAPIResponse, nil
 }
 
 type ApiDeleteDeviceAssurancePolicyRequest struct {
-	ctx context.Context
-	ApiService DeviceAssuranceAPI
+	ctx               context.Context
+	ApiService        DeviceAssuranceAPI
 	deviceAssuranceId string
-	retryCount int32
+	retryCount        int32
 }
 
 func (r ApiDeleteDeviceAssurancePolicyRequest) Execute() (*APIResponse, error) {
@@ -301,16 +300,16 @@ DeleteDeviceAssurancePolicy Delete a Device Assurance Policy
 
 Deletes a Device Assurance Policy by `deviceAssuranceId`. If the Device Assurance Policy is currently being used in the org Authentication Policies, the delete will not be allowed.
 
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @param deviceAssuranceId Id of the Device Assurance Policy
- @return ApiDeleteDeviceAssurancePolicyRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param deviceAssuranceId Id of the Device Assurance Policy
+	@return ApiDeleteDeviceAssurancePolicyRequest
 */
 func (a *DeviceAssuranceAPIService) DeleteDeviceAssurancePolicy(ctx context.Context, deviceAssuranceId string) ApiDeleteDeviceAssurancePolicyRequest {
 	return ApiDeleteDeviceAssurancePolicyRequest{
-		ApiService: a,
-		ctx: ctx,
+		ApiService:        a,
+		ctx:               ctx,
 		deviceAssuranceId: deviceAssuranceId,
-		retryCount: 0,
+		retryCount:        0,
 	}
 }
 
@@ -322,7 +321,7 @@ func (a *DeviceAssuranceAPIService) DeleteDeviceAssurancePolicyExecute(r ApiDele
 		formFiles            []formFile
 		localVarHTTPResponse *http.Response
 		localAPIResponse     *APIResponse
-		err 				 error
+		err                  error
 	)
 
 	if a.client.cfg.Okta.Client.RequestTimeout > 0 {
@@ -451,10 +450,10 @@ func (a *DeviceAssuranceAPIService) DeleteDeviceAssurancePolicyExecute(r ApiDele
 }
 
 type ApiGetDeviceAssurancePolicyRequest struct {
-	ctx context.Context
-	ApiService DeviceAssuranceAPI
+	ctx               context.Context
+	ApiService        DeviceAssuranceAPI
 	deviceAssuranceId string
-	retryCount int32
+	retryCount        int32
 }
 
 func (r ApiGetDeviceAssurancePolicyRequest) Execute() (*ListDeviceAssurancePolicies200ResponseInner, *APIResponse, error) {
@@ -466,21 +465,22 @@ GetDeviceAssurancePolicy Retrieve a Device Assurance Policy
 
 Retrieves a Device Assurance Policy by `deviceAssuranceId`
 
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @param deviceAssuranceId Id of the Device Assurance Policy
- @return ApiGetDeviceAssurancePolicyRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param deviceAssuranceId Id of the Device Assurance Policy
+	@return ApiGetDeviceAssurancePolicyRequest
 */
 func (a *DeviceAssuranceAPIService) GetDeviceAssurancePolicy(ctx context.Context, deviceAssuranceId string) ApiGetDeviceAssurancePolicyRequest {
 	return ApiGetDeviceAssurancePolicyRequest{
-		ApiService: a,
-		ctx: ctx,
+		ApiService:        a,
+		ctx:               ctx,
 		deviceAssuranceId: deviceAssuranceId,
-		retryCount: 0,
+		retryCount:        0,
 	}
 }
 
 // Execute executes the request
-//  @return ListDeviceAssurancePolicies200ResponseInner
+//
+//	@return ListDeviceAssurancePolicies200ResponseInner
 func (a *DeviceAssuranceAPIService) GetDeviceAssurancePolicyExecute(r ApiGetDeviceAssurancePolicyRequest) (*ListDeviceAssurancePolicies200ResponseInner, *APIResponse, error) {
 	var (
 		localVarHTTPMethod   = http.MethodGet
@@ -489,7 +489,7 @@ func (a *DeviceAssuranceAPIService) GetDeviceAssurancePolicyExecute(r ApiGetDevi
 		localVarReturnValue  *ListDeviceAssurancePolicies200ResponseInner
 		localVarHTTPResponse *http.Response
 		localAPIResponse     *APIResponse
-		err 				 error
+		err                  error
 	)
 
 	if a.client.cfg.Okta.Client.RequestTimeout > 0 {
@@ -610,13 +610,13 @@ func (a *DeviceAssuranceAPIService) GetDeviceAssurancePolicyExecute(r ApiGetDevi
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
 		return localVarReturnValue, localAPIResponse, newErr
 	}
-	
+
 	localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
 	return localVarReturnValue, localAPIResponse, nil
 }
 
 type ApiListDeviceAssurancePoliciesRequest struct {
-	ctx context.Context
+	ctx        context.Context
 	ApiService DeviceAssuranceAPI
 	retryCount int32
 }
@@ -630,19 +630,20 @@ ListDeviceAssurancePolicies List all Device Assurance Policies
 
 Lists all device assurance policies
 
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @return ApiListDeviceAssurancePoliciesRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@return ApiListDeviceAssurancePoliciesRequest
 */
 func (a *DeviceAssuranceAPIService) ListDeviceAssurancePolicies(ctx context.Context) ApiListDeviceAssurancePoliciesRequest {
 	return ApiListDeviceAssurancePoliciesRequest{
 		ApiService: a,
-		ctx: ctx,
+		ctx:        ctx,
 		retryCount: 0,
 	}
 }
 
 // Execute executes the request
-//  @return []ListDeviceAssurancePolicies200ResponseInner
+//
+//	@return []ListDeviceAssurancePolicies200ResponseInner
 func (a *DeviceAssuranceAPIService) ListDeviceAssurancePoliciesExecute(r ApiListDeviceAssurancePoliciesRequest) ([]ListDeviceAssurancePolicies200ResponseInner, *APIResponse, error) {
 	var (
 		localVarHTTPMethod   = http.MethodGet
@@ -651,7 +652,7 @@ func (a *DeviceAssuranceAPIService) ListDeviceAssurancePoliciesExecute(r ApiList
 		localVarReturnValue  []ListDeviceAssurancePolicies200ResponseInner
 		localVarHTTPResponse *http.Response
 		localAPIResponse     *APIResponse
-		err 				 error
+		err                  error
 	)
 
 	if a.client.cfg.Okta.Client.RequestTimeout > 0 {
@@ -759,17 +760,17 @@ func (a *DeviceAssuranceAPIService) ListDeviceAssurancePoliciesExecute(r ApiList
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
 		return localVarReturnValue, localAPIResponse, newErr
 	}
-	
+
 	localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
 	return localVarReturnValue, localAPIResponse, nil
 }
 
 type ApiReplaceDeviceAssurancePolicyRequest struct {
-	ctx context.Context
-	ApiService DeviceAssuranceAPI
+	ctx               context.Context
+	ApiService        DeviceAssuranceAPI
 	deviceAssuranceId string
-	deviceAssurance *ListDeviceAssurancePolicies200ResponseInner
-	retryCount int32
+	deviceAssurance   *ListDeviceAssurancePolicies200ResponseInner
+	retryCount        int32
 }
 
 func (r ApiReplaceDeviceAssurancePolicyRequest) DeviceAssurance(deviceAssurance ListDeviceAssurancePolicies200ResponseInner) ApiReplaceDeviceAssurancePolicyRequest {
@@ -786,21 +787,22 @@ ReplaceDeviceAssurancePolicy Replace a Device Assurance Policy
 
 Replaces a Device Assurance Policy by `deviceAssuranceId`
 
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @param deviceAssuranceId Id of the Device Assurance Policy
- @return ApiReplaceDeviceAssurancePolicyRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param deviceAssuranceId Id of the Device Assurance Policy
+	@return ApiReplaceDeviceAssurancePolicyRequest
 */
 func (a *DeviceAssuranceAPIService) ReplaceDeviceAssurancePolicy(ctx context.Context, deviceAssuranceId string) ApiReplaceDeviceAssurancePolicyRequest {
 	return ApiReplaceDeviceAssurancePolicyRequest{
-		ApiService: a,
-		ctx: ctx,
+		ApiService:        a,
+		ctx:               ctx,
 		deviceAssuranceId: deviceAssuranceId,
-		retryCount: 0,
+		retryCount:        0,
 	}
 }
 
 // Execute executes the request
-//  @return ListDeviceAssurancePolicies200ResponseInner
+//
+//	@return ListDeviceAssurancePolicies200ResponseInner
 func (a *DeviceAssuranceAPIService) ReplaceDeviceAssurancePolicyExecute(r ApiReplaceDeviceAssurancePolicyRequest) (*ListDeviceAssurancePolicies200ResponseInner, *APIResponse, error) {
 	var (
 		localVarHTTPMethod   = http.MethodPut
@@ -809,7 +811,7 @@ func (a *DeviceAssuranceAPIService) ReplaceDeviceAssurancePolicyExecute(r ApiRep
 		localVarReturnValue  *ListDeviceAssurancePolicies200ResponseInner
 		localVarHTTPResponse *http.Response
 		localAPIResponse     *APIResponse
-		err 				 error
+		err                  error
 	)
 
 	if a.client.cfg.Okta.Client.RequestTimeout > 0 {
@@ -947,7 +949,7 @@ func (a *DeviceAssuranceAPIService) ReplaceDeviceAssurancePolicyExecute(r ApiRep
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
 		return localVarReturnValue, localAPIResponse, newErr
 	}
-	
+
 	localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
 	return localVarReturnValue, localAPIResponse, nil
 }

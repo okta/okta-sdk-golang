@@ -21,12 +21,10 @@ API version: 2024.06.1
 Contact: devex-public@okta.com
 */
 
-
 package okta
 
 import (
 	"encoding/json"
-	"fmt"
 	"reflect"
 	"strings"
 )
@@ -34,9 +32,9 @@ import (
 // EnhancedDynamicNetworkZone struct for EnhancedDynamicNetworkZone
 type EnhancedDynamicNetworkZone struct {
 	NetworkZone
-	Asns *EnhancedDynamicNetworkZoneAllOfAsns `json:"asns,omitempty"`
-	Locations *EnhancedDynamicNetworkZoneAllOfLocations `json:"locations,omitempty"`
-	IpServiceCategories *EnhancedDynamicNetworkZoneAllOfIpServiceCategories `json:"ipServiceCategories,omitempty"`
+	Asns                 *EnhancedDynamicNetworkZoneAllOfAsns                `json:"asns,omitempty"`
+	Locations            *EnhancedDynamicNetworkZoneAllOfLocations           `json:"locations,omitempty"`
+	IpServiceCategories  *EnhancedDynamicNetworkZoneAllOfIpServiceCategories `json:"ipServiceCategories,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -186,8 +184,8 @@ func (o EnhancedDynamicNetworkZone) MarshalJSON() ([]byte, error) {
 
 func (o *EnhancedDynamicNetworkZone) UnmarshalJSON(bytes []byte) (err error) {
 	type EnhancedDynamicNetworkZoneWithoutEmbeddedStruct struct {
-		Asns *EnhancedDynamicNetworkZoneAllOfAsns `json:"asns,omitempty"`
-		Locations *EnhancedDynamicNetworkZoneAllOfLocations `json:"locations,omitempty"`
+		Asns                *EnhancedDynamicNetworkZoneAllOfAsns                `json:"asns,omitempty"`
+		Locations           *EnhancedDynamicNetworkZoneAllOfLocations           `json:"locations,omitempty"`
 		IpServiceCategories *EnhancedDynamicNetworkZoneAllOfIpServiceCategories `json:"ipServiceCategories,omitempty"`
 	}
 
@@ -282,4 +280,3 @@ func (v *NullableEnhancedDynamicNetworkZone) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-

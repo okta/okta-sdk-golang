@@ -21,7 +21,6 @@ API version: 2024.06.1
 Contact: devex-public@okta.com
 */
 
-
 package okta
 
 import (
@@ -30,11 +29,11 @@ import (
 
 // PageRootEmbedded struct for PageRootEmbedded
 type PageRootEmbedded struct {
-	Default *CustomizablePage `json:"default,omitempty"`
-	Customized *CustomizablePage `json:"customized,omitempty"`
-	CustomizedUrl *string `json:"customizedUrl,omitempty"`
-	Preview *CustomizablePage `json:"preview,omitempty"`
-	PreviewUrl *string `json:"previewUrl,omitempty"`
+	Default              *CustomizablePage `json:"default,omitempty"`
+	Customized           *CustomizablePage `json:"customized,omitempty"`
+	CustomizedUrl        *string           `json:"customizedUrl,omitempty"`
+	Preview              *CustomizablePage `json:"preview,omitempty"`
+	PreviewUrl           *string           `json:"previewUrl,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -304,4 +303,3 @@ func (v *NullablePageRootEmbedded) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-

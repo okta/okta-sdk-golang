@@ -21,7 +21,6 @@ API version: 2024.06.1
 Contact: devex-public@okta.com
 */
 
-
 package okta
 
 import (
@@ -31,9 +30,9 @@ import (
 
 // OrgOktaSupportSettingsObj struct for OrgOktaSupportSettingsObj
 type OrgOktaSupportSettingsObj struct {
-	Expiration *time.Time `json:"expiration,omitempty"`
-	Support *string `json:"support,omitempty"`
-	Links *LinksSelf `json:"_links,omitempty"`
+	Expiration           *time.Time `json:"expiration,omitempty"`
+	Support              *string    `json:"support,omitempty"`
+	Links                *LinksSelf `json:"_links,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -231,4 +230,3 @@ func (v *NullableOrgOktaSupportSettingsObj) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-

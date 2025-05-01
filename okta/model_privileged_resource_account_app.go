@@ -21,12 +21,10 @@ API version: 2024.06.1
 Contact: devex-public@okta.com
 */
 
-
 package okta
 
 import (
 	"encoding/json"
-	"fmt"
 	"reflect"
 	"strings"
 )
@@ -34,8 +32,8 @@ import (
 // PrivilegedResourceAccountApp struct for PrivilegedResourceAccountApp
 type PrivilegedResourceAccountApp struct {
 	PrivilegedResource
-	ContainerDetails *AppAccountContainerDetails `json:"containerDetails,omitempty"`
-	Credentials PrivilegedResourceCredentials `json:"credentials"`
+	ContainerDetails     *AppAccountContainerDetails   `json:"containerDetails,omitempty"`
+	Credentials          PrivilegedResourceCredentials `json:"credentials"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -141,8 +139,8 @@ func (o PrivilegedResourceAccountApp) MarshalJSON() ([]byte, error) {
 
 func (o *PrivilegedResourceAccountApp) UnmarshalJSON(bytes []byte) (err error) {
 	type PrivilegedResourceAccountAppWithoutEmbeddedStruct struct {
-		ContainerDetails *AppAccountContainerDetails `json:"containerDetails,omitempty"`
-		Credentials PrivilegedResourceCredentials `json:"credentials"`
+		ContainerDetails *AppAccountContainerDetails   `json:"containerDetails,omitempty"`
+		Credentials      PrivilegedResourceCredentials `json:"credentials"`
 	}
 
 	varPrivilegedResourceAccountAppWithoutEmbeddedStruct := PrivilegedResourceAccountAppWithoutEmbeddedStruct{}
@@ -234,4 +232,3 @@ func (v *NullablePrivilegedResourceAccountApp) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-

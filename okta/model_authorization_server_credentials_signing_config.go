@@ -21,7 +21,6 @@ API version: 2024.06.1
 Contact: devex-public@okta.com
 */
 
-
 package okta
 
 import (
@@ -40,7 +39,7 @@ type AuthorizationServerCredentialsSigningConfig struct {
 	// The Key rotation mode for the authorization server
 	RotationMode *string `json:"rotationMode,omitempty"`
 	// How the key is used
-	Use *string `json:"use,omitempty"`
+	Use                  *string `json:"use,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -310,4 +309,3 @@ func (v *NullableAuthorizationServerCredentialsSigningConfig) UnmarshalJSON(src 
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-

@@ -21,7 +21,6 @@ API version: 2024.06.1
 Contact: devex-public@okta.com
 */
 
-
 package okta
 
 import (
@@ -40,7 +39,7 @@ type OAuthMetadata struct {
 	ClaimsSupported []string `json:"claims_supported,omitempty"`
 	// A list of PKCE code challenge methods supported by this authorization server.
 	CodeChallengeMethodsSupported []string `json:"code_challenge_methods_supported,omitempty"`
-	DeviceAuthorizationEndpoint *string `json:"device_authorization_endpoint,omitempty"`
+	DeviceAuthorizationEndpoint   *string  `json:"device_authorization_endpoint,omitempty"`
 	// A list of signing algorithms supported by this authorization server for Demonstrating Proof-of-Possession (DPoP) JWTs.
 	DpopSigningAlgValuesSupported []string `json:"dpop_signing_alg_values_supported,omitempty"`
 	// URL of the authorization server's logout endpoint.
@@ -54,7 +53,7 @@ type OAuthMetadata struct {
 	// The authorization server's issuer identifier. In the context of this document, this is your authorization server's base URL. This becomes the `iss` claim in an access token.
 	Issuer *string `json:"issuer,omitempty"`
 	// URL of the authorization server's JSON Web Key Set document.
-	JwksUri *string `json:"jwks_uri,omitempty"`
+	JwksUri                            *string `json:"jwks_uri,omitempty"`
 	PushedAuthorizationRequestEndpoint *string `json:"pushed_authorization_request_endpoint,omitempty"`
 	// URL of the authorization server's JSON Web Key Set document.
 	RegistrationEndpoint *string `json:"registration_endpoint,omitempty"`
@@ -78,7 +77,7 @@ type OAuthMetadata struct {
 	TokenEndpoint *string `json:"token_endpoint,omitempty"`
 	// A list of client authentication methods supported by this token endpoint.
 	TokenEndpointAuthMethodsSupported []string `json:"token_endpoint_auth_methods_supported,omitempty"`
-	AdditionalProperties map[string]interface{}
+	AdditionalProperties              map[string]interface{}
 }
 
 type _OAuthMetadata OAuthMetadata
@@ -1067,4 +1066,3 @@ func (v *NullableOAuthMetadata) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-

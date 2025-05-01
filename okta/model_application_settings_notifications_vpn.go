@@ -21,7 +21,6 @@ API version: 2024.06.1
 Contact: devex-public@okta.com
 */
 
-
 package okta
 
 import (
@@ -30,9 +29,9 @@ import (
 
 // ApplicationSettingsNotificationsVpn struct for ApplicationSettingsNotificationsVpn
 type ApplicationSettingsNotificationsVpn struct {
-	HelpUrl *string `json:"helpUrl,omitempty"`
-	Message *string `json:"message,omitempty"`
-	Network *ApplicationSettingsNotificationsVpnNetwork `json:"network,omitempty"`
+	HelpUrl              *string                                     `json:"helpUrl,omitempty"`
+	Message              *string                                     `json:"message,omitempty"`
+	Network              *ApplicationSettingsNotificationsVpnNetwork `json:"network,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -230,4 +229,3 @@ func (v *NullableApplicationSettingsNotificationsVpn) UnmarshalJSON(src []byte) 
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-

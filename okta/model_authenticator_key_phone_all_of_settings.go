@@ -21,7 +21,6 @@ API version: 2024.06.1
 Contact: devex-public@okta.com
 */
 
-
 package okta
 
 import (
@@ -31,7 +30,7 @@ import (
 // AuthenticatorKeyPhoneAllOfSettings struct for AuthenticatorKeyPhoneAllOfSettings
 type AuthenticatorKeyPhoneAllOfSettings struct {
 	// The allowed types of uses for the Authenticator
-	AllowedFor *string `json:"allowedFor,omitempty"`
+	AllowedFor           *string `json:"allowedFor,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -157,4 +156,3 @@ func (v *NullableAuthenticatorKeyPhoneAllOfSettings) UnmarshalJSON(src []byte) e
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-

@@ -21,7 +21,6 @@ API version: 2024.06.1
 Contact: devex-public@okta.com
 */
 
-
 package okta
 
 import (
@@ -46,9 +45,9 @@ type TrustedOrigin struct {
 	// Unique origin URL for the Trusted Origin. The supported schemes for this attribute are HTTP, HTTPS, FTP, Ionic 2, and Capacitor.
 	Origin *string `json:"origin,omitempty"`
 	// Array of Scope types that this Trusted Origin is used for
-	Scopes []TrustedOriginScope `json:"scopes,omitempty"`
-	Status *string `json:"status,omitempty"`
-	Links *LinksSelfAndLifecycle `json:"_links,omitempty"`
+	Scopes               []TrustedOriginScope   `json:"scopes,omitempty"`
+	Status               *string                `json:"status,omitempty"`
+	Links                *LinksSelfAndLifecycle `json:"_links,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -498,4 +497,3 @@ func (v *NullableTrustedOrigin) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-

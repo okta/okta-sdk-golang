@@ -21,12 +21,10 @@ API version: 2024.06.1
 Contact: devex-public@okta.com
 */
 
-
 package okta
 
 import (
 	"encoding/json"
-	"fmt"
 	"reflect"
 	"strings"
 )
@@ -39,7 +37,7 @@ type DynamicNetworkZone struct {
 	// The proxy type used for a Dynamic Network Zone
 	ProxyType *string `json:"proxyType,omitempty"`
 	// An array of geolocations for a Dynamic Network Zone
-	Locations []NetworkZoneLocation `json:"locations,omitempty"`
+	Locations            []NetworkZoneLocation `json:"locations,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -289,4 +287,3 @@ func (v *NullableDynamicNetworkZone) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-

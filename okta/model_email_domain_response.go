@@ -21,24 +21,22 @@ API version: 2024.06.1
 Contact: devex-public@okta.com
 */
 
-
 package okta
 
 import (
 	"encoding/json"
-	"fmt"
 )
 
 // EmailDomainResponse struct for EmailDomainResponse
 type EmailDomainResponse struct {
 	DnsValidationRecords []EmailDomainDNSRecord `json:"dnsValidationRecords,omitempty"`
-	Domain *string `json:"domain,omitempty"`
-	Id *string `json:"id,omitempty"`
-	ValidationStatus *string `json:"validationStatus,omitempty"`
+	Domain               *string                `json:"domain,omitempty"`
+	Id                   *string                `json:"id,omitempty"`
+	ValidationStatus     *string                `json:"validationStatus,omitempty"`
 	// The subdomain for the email sender's custom mail domain
-	ValidationSubdomain *string `json:"validationSubdomain,omitempty"`
-	DisplayName string `json:"displayName"`
-	UserName string `json:"userName"`
+	ValidationSubdomain  *string `json:"validationSubdomain,omitempty"`
+	DisplayName          string  `json:"displayName"`
+	UserName             string  `json:"userName"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -368,4 +366,3 @@ func (v *NullableEmailDomainResponse) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-

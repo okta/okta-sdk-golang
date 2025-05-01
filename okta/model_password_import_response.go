@@ -21,7 +21,6 @@ API version: 2024.06.1
 Contact: devex-public@okta.com
 */
 
-
 package okta
 
 import (
@@ -31,7 +30,7 @@ import (
 // PasswordImportResponse struct for PasswordImportResponse
 type PasswordImportResponse struct {
 	// The `commands` object specifies whether Okta accepts the end user's sign-in credentials as valid or not. For the password import inline hook, you typically only return one `commands` object with one array element in it.
-	Commands []PasswordImportResponseCommandsInner `json:"commands,omitempty"`
+	Commands             []PasswordImportResponseCommandsInner `json:"commands,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -157,4 +156,3 @@ func (v *NullablePasswordImportResponse) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-

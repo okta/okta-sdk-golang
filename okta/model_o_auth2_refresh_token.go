@@ -21,7 +21,6 @@ API version: 2024.06.1
 Contact: devex-public@okta.com
 */
 
-
 package okta
 
 import (
@@ -48,9 +47,9 @@ type OAuth2RefreshToken struct {
 	// Status
 	Status *string `json:"status,omitempty"`
 	// The ID of the user associated with the Token
-	UserId *string `json:"userId,omitempty"`
-	Embedded *OAuth2RefreshTokenEmbedded `json:"_embedded,omitempty"`
-	Links *OAuth2RefreshTokenLinks `json:"_links,omitempty"`
+	UserId               *string                     `json:"userId,omitempty"`
+	Embedded             *OAuth2RefreshTokenEmbedded `json:"_embedded,omitempty"`
+	Links                *OAuth2RefreshTokenLinks    `json:"_links,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -536,4 +535,3 @@ func (v *NullableOAuth2RefreshToken) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-

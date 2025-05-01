@@ -21,7 +21,6 @@ API version: 2024.06.1
 Contact: devex-public@okta.com
 */
 
-
 package okta
 
 import (
@@ -31,7 +30,7 @@ import (
 // LogTarget The entity that an actor performs an action on. Targets can be anything, such as an app user, a sign-in token, or anything else.
 type LogTarget struct {
 	// The alternate ID of the target
-	AlternateId *string `json:"alternateId,omitempty"`
+	AlternateId   *string                 `json:"alternateId,omitempty"`
 	ChangeDetails *LogTargetChangeDetails `json:"changeDetails,omitempty"`
 	// Further details on the target
 	DetailEntry map[string]interface{} `json:"detailEntry,omitempty"`
@@ -40,7 +39,7 @@ type LogTarget struct {
 	// The ID of the target
 	Id *string `json:"id,omitempty"`
 	// The type of target
-	Type *string `json:"type,omitempty"`
+	Type                 *string `json:"type,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -346,4 +345,3 @@ func (v *NullableLogTarget) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-

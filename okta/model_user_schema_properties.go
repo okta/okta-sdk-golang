@@ -21,7 +21,6 @@ API version: 2024.06.1
 Contact: devex-public@okta.com
 */
 
-
 package okta
 
 import (
@@ -30,7 +29,7 @@ import (
 
 // UserSchemaProperties struct for UserSchemaProperties
 type UserSchemaProperties struct {
-	Profile *UserSchemaPropertiesProfile `json:"profile,omitempty"`
+	Profile              *UserSchemaPropertiesProfile `json:"profile,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -156,4 +155,3 @@ func (v *NullableUserSchemaProperties) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-

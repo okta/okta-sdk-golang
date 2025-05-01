@@ -21,7 +21,6 @@ API version: 2024.06.1
 Contact: devex-public@okta.com
 */
 
-
 package okta
 
 import (
@@ -30,11 +29,11 @@ import (
 
 // EmailPreviewLinks struct for EmailPreviewLinks
 type EmailPreviewLinks struct {
-	Self *HrefObjectSelfLink `json:"self,omitempty"`
-	ContentSource *HrefObject `json:"contentSource,omitempty"`
-	Template *HrefObject `json:"template,omitempty"`
-	Test *HrefObject `json:"test,omitempty"`
-	DefaultContent *HrefObject `json:"defaultContent,omitempty"`
+	Self                 *HrefObjectSelfLink `json:"self,omitempty"`
+	ContentSource        *HrefObject         `json:"contentSource,omitempty"`
+	Template             *HrefObject         `json:"template,omitempty"`
+	Test                 *HrefObject         `json:"test,omitempty"`
+	DefaultContent       *HrefObject         `json:"defaultContent,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -304,4 +303,3 @@ func (v *NullableEmailPreviewLinks) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-

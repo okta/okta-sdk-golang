@@ -21,7 +21,6 @@ API version: 2024.06.1
 Contact: devex-public@okta.com
 */
 
-
 package okta
 
 import (
@@ -35,7 +34,7 @@ type UserFactorSecurityQuestionProfile struct {
 	// Unique key for the question
 	Question *string `json:"question,omitempty"`
 	// Human-readable text displayed to the user
-	QuestionText *string `json:"questionText,omitempty"`
+	QuestionText         *string `json:"questionText,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -233,4 +232,3 @@ func (v *NullableUserFactorSecurityQuestionProfile) UnmarshalJSON(src []byte) er
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-

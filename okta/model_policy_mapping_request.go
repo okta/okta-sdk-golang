@@ -21,7 +21,6 @@ API version: 2024.06.1
 Contact: devex-public@okta.com
 */
 
-
 package okta
 
 import (
@@ -30,8 +29,8 @@ import (
 
 // PolicyMappingRequest struct for PolicyMappingRequest
 type PolicyMappingRequest struct {
-	ResourceId *string `json:"resourceId,omitempty"`
-	ResourceType *string `json:"resourceType,omitempty"`
+	ResourceId           *string `json:"resourceId,omitempty"`
+	ResourceType         *string `json:"resourceType,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -193,4 +192,3 @@ func (v *NullablePolicyMappingRequest) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-

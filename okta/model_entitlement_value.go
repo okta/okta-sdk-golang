@@ -21,7 +21,6 @@ API version: 2024.06.1
 Contact: devex-public@okta.com
 */
 
-
 package okta
 
 import (
@@ -30,10 +29,10 @@ import (
 
 // EntitlementValue struct for EntitlementValue
 type EntitlementValue struct {
-	Id *string `json:"id,omitempty"`
-	Name *string `json:"name,omitempty"`
-	Value *string `json:"value,omitempty"`
-	Links map[string]interface{} `json:"_links,omitempty"`
+	Id                   *string                `json:"id,omitempty"`
+	Name                 *string                `json:"name,omitempty"`
+	Value                *string                `json:"value,omitempty"`
+	Links                map[string]interface{} `json:"_links,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -267,4 +266,3 @@ func (v *NullableEntitlementValue) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-

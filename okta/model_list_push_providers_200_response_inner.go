@@ -21,7 +21,6 @@ API version: 2024.06.1
 Contact: devex-public@okta.com
 */
 
-
 package okta
 
 import (
@@ -29,12 +28,11 @@ import (
 	"fmt"
 )
 
-
-//model_oneof.mustache
+// model_oneof.mustache
 // ListPushProviders200ResponseInner - struct for ListPushProviders200ResponseInner
 type ListPushProviders200ResponseInner struct {
 	APNSPushProvider *APNSPushProvider
-	FCMPushProvider *FCMPushProvider
+	FCMPushProvider  *FCMPushProvider
 }
 
 // APNSPushProviderAsListPushProviders200ResponseInner is a convenience function that returns APNSPushProvider wrapped in ListPushProviders200ResponseInner
@@ -50,7 +48,6 @@ func FCMPushProviderAsListPushProviders200ResponseInner(v *FCMPushProvider) List
 		FCMPushProvider: v,
 	}
 }
-
 
 // Unmarshal JSON data into one of the pointers in the struct  CUSTOM
 func (dst *ListPushProviders200ResponseInner) UnmarshalJSON(data []byte) error {
@@ -127,7 +124,7 @@ func (src ListPushProviders200ResponseInner) MarshalJSON() ([]byte, error) {
 }
 
 // Get the actual instance
-func (obj *ListPushProviders200ResponseInner) GetActualInstance() (interface{}) {
+func (obj *ListPushProviders200ResponseInner) GetActualInstance() interface{} {
 	if obj == nil {
 		return nil
 	}
@@ -178,5 +175,3 @@ func (v *NullableListPushProviders200ResponseInner) UnmarshalJSON(src []byte) er
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-
-

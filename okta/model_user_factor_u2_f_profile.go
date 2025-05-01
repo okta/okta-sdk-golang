@@ -21,7 +21,6 @@ API version: 2024.06.1
 Contact: devex-public@okta.com
 */
 
-
 package okta
 
 import (
@@ -31,7 +30,7 @@ import (
 // UserFactorU2FProfile struct for UserFactorU2FProfile
 type UserFactorU2FProfile struct {
 	// ID for the Factor credential
-	CredentialId *string `json:"credentialId,omitempty"`
+	CredentialId         *string `json:"credentialId,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -157,4 +156,3 @@ func (v *NullableUserFactorU2FProfile) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-

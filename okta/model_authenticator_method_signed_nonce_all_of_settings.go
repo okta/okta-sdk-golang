@@ -21,7 +21,6 @@ API version: 2024.06.1
 Contact: devex-public@okta.com
 */
 
-
 package okta
 
 import (
@@ -34,7 +33,7 @@ type AuthenticatorMethodSignedNonceAllOfSettings struct {
 	// Indicates whether you must use a hardware key store
 	KeyProtection *string `json:"keyProtection,omitempty"`
 	// Controls whether to show the Sign in with Okta Verify button on the Sign-In Widget
-	ShowSignInWithOV *string `json:"showSignInWithOV,omitempty"`
+	ShowSignInWithOV     *string `json:"showSignInWithOV,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -232,4 +231,3 @@ func (v *NullableAuthenticatorMethodSignedNonceAllOfSettings) UnmarshalJSON(src 
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-

@@ -21,7 +21,6 @@ API version: 2024.06.1
 Contact: devex-public@okta.com
 */
 
-
 package okta
 
 import (
@@ -30,7 +29,7 @@ import (
 
 // OSVersionThreeComponents Current version of the operating system (maximum of three components in the versioning scheme)
 type OSVersionThreeComponents struct {
-	Minimum *string `json:"minimum,omitempty"`
+	Minimum              *string `json:"minimum,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -156,4 +155,3 @@ func (v *NullableOSVersionThreeComponents) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-

@@ -21,7 +21,6 @@ API version: 2024.06.1
 Contact: devex-public@okta.com
 */
 
-
 package okta
 
 import (
@@ -30,13 +29,13 @@ import (
 
 // LinksSelfAndFullUsersLifecycle struct for LinksSelfAndFullUsersLifecycle
 type LinksSelfAndFullUsersLifecycle struct {
-	Self *HrefObjectSelfLink `json:"self,omitempty"`
-	Activate *HrefObjectActivateLink `json:"activate,omitempty"`
+	Self       *HrefObjectSelfLink       `json:"self,omitempty"`
+	Activate   *HrefObjectActivateLink   `json:"activate,omitempty"`
 	Deactivate *HrefObjectDeactivateLink `json:"deactivate,omitempty"`
-	Suspend *HrefObjectSuspendLink `json:"suspend,omitempty"`
-	Unsuspend *HrefObjectUnsuspendLink `json:"unsuspend,omitempty"`
+	Suspend    *HrefObjectSuspendLink    `json:"suspend,omitempty"`
+	Unsuspend  *HrefObjectUnsuspendLink  `json:"unsuspend,omitempty"`
 	// Link to Device users
-	Users *HrefObject `json:"users,omitempty"`
+	Users                *HrefObject `json:"users,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -342,4 +341,3 @@ func (v *NullableLinksSelfAndFullUsersLifecycle) UnmarshalJSON(src []byte) error
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-

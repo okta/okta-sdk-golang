@@ -21,7 +21,6 @@ API version: 2024.06.1
 Contact: devex-public@okta.com
 */
 
-
 package okta
 
 import (
@@ -29,12 +28,11 @@ import (
 	"fmt"
 )
 
-
-//model_oneof.mustache
+// model_oneof.mustache
 // AppUserUpdateRequest - struct for AppUserUpdateRequest
 type AppUserUpdateRequest struct {
 	AppUserCredentialsRequestPayload *AppUserCredentialsRequestPayload
-	AppUserProfileRequestPayload *AppUserProfileRequestPayload
+	AppUserProfileRequestPayload     *AppUserProfileRequestPayload
 }
 
 // AppUserCredentialsRequestPayloadAsAppUserUpdateRequest is a convenience function that returns AppUserCredentialsRequestPayload wrapped in AppUserUpdateRequest
@@ -51,48 +49,47 @@ func AppUserProfileRequestPayloadAsAppUserUpdateRequest(v *AppUserProfileRequest
 	}
 }
 
-
 // Unmarshal JSON data into one of the pointers in the struct  CUSTOM
 func (dst *AppUserUpdateRequest) UnmarshalJSON(data []byte) error {
 	var err error
-        match := 0
-        // try to unmarshal data into AppUserCredentialsRequestPayload
-        err = json.Unmarshal(data, &dst.AppUserCredentialsRequestPayload)
-        if err == nil {
-                jsonAppUserCredentialsRequestPayload, _ := json.Marshal(dst.AppUserCredentialsRequestPayload)
-                if string(jsonAppUserCredentialsRequestPayload) == "{}" { // empty struct
-                        dst.AppUserCredentialsRequestPayload = nil
-                } else {
-                        match++
-                }
-        } else {
-                dst.AppUserCredentialsRequestPayload = nil
-        }
+	match := 0
+	// try to unmarshal data into AppUserCredentialsRequestPayload
+	err = json.Unmarshal(data, &dst.AppUserCredentialsRequestPayload)
+	if err == nil {
+		jsonAppUserCredentialsRequestPayload, _ := json.Marshal(dst.AppUserCredentialsRequestPayload)
+		if string(jsonAppUserCredentialsRequestPayload) == "{}" { // empty struct
+			dst.AppUserCredentialsRequestPayload = nil
+		} else {
+			match++
+		}
+	} else {
+		dst.AppUserCredentialsRequestPayload = nil
+	}
 
-        // try to unmarshal data into AppUserProfileRequestPayload
-        err = json.Unmarshal(data, &dst.AppUserProfileRequestPayload)
-        if err == nil {
-                jsonAppUserProfileRequestPayload, _ := json.Marshal(dst.AppUserProfileRequestPayload)
-                if string(jsonAppUserProfileRequestPayload) == "{}" { // empty struct
-                        dst.AppUserProfileRequestPayload = nil
-                } else {
-                        match++
-                }
-        } else {
-                dst.AppUserProfileRequestPayload = nil
-        }
+	// try to unmarshal data into AppUserProfileRequestPayload
+	err = json.Unmarshal(data, &dst.AppUserProfileRequestPayload)
+	if err == nil {
+		jsonAppUserProfileRequestPayload, _ := json.Marshal(dst.AppUserProfileRequestPayload)
+		if string(jsonAppUserProfileRequestPayload) == "{}" { // empty struct
+			dst.AppUserProfileRequestPayload = nil
+		} else {
+			match++
+		}
+	} else {
+		dst.AppUserProfileRequestPayload = nil
+	}
 
-        if match > 1 { // more than 1 match
-                // reset to nil
-                dst.AppUserCredentialsRequestPayload = nil
-                dst.AppUserProfileRequestPayload = nil
+	if match > 1 { // more than 1 match
+		// reset to nil
+		dst.AppUserCredentialsRequestPayload = nil
+		dst.AppUserProfileRequestPayload = nil
 
-                return fmt.Errorf("Data matches more than one schema in oneOf(AppUserUpdateRequest)")
-        } else if match == 1 {
-                return nil // exactly one match
-        } else { // no match
-                return fmt.Errorf("Data failed to match schemas in oneOf(AppUserUpdateRequest)")
-        }
+		return fmt.Errorf("Data matches more than one schema in oneOf(AppUserUpdateRequest)")
+	} else if match == 1 {
+		return nil // exactly one match
+	} else { // no match
+		return fmt.Errorf("Data failed to match schemas in oneOf(AppUserUpdateRequest)")
+	}
 }
 
 // Marshal data from the first non-nil pointers in the struct to JSON
@@ -109,7 +106,7 @@ func (src AppUserUpdateRequest) MarshalJSON() ([]byte, error) {
 }
 
 // Get the actual instance
-func (obj *AppUserUpdateRequest) GetActualInstance() (interface{}) {
+func (obj *AppUserUpdateRequest) GetActualInstance() interface{} {
 	if obj == nil {
 		return nil
 	}
@@ -160,5 +157,3 @@ func (v *NullableAppUserUpdateRequest) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-
-

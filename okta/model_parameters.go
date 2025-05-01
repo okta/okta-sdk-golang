@@ -21,7 +21,6 @@ API version: 2024.06.1
 Contact: devex-public@okta.com
 */
 
-
 package okta
 
 import (
@@ -35,7 +34,7 @@ type Parameters struct {
 	// The attribute that tracks group memberships in AD. This should be `member` for AD.
 	Attribute *string `json:"attribute,omitempty"`
 	// List of user IDs whose group memberships to update
-	Values []string `json:"values,omitempty"`
+	Values               []string `json:"values,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -233,4 +232,3 @@ func (v *NullableParameters) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-

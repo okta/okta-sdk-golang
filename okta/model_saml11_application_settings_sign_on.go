@@ -21,7 +21,6 @@ API version: 2024.06.1
 Contact: devex-public@okta.com
 */
 
-
 package okta
 
 import (
@@ -37,7 +36,7 @@ type Saml11ApplicationSettingsSignOn struct {
 	// The location where the application can present the SAML assertion. This is usually the Single Sign-On (SSO) URL.
 	RecipientOverride *string `json:"recipientOverride,omitempty"`
 	// Assertion Consumer Services (ACS) URL value for the Service Provider (SP). This URL is always used for Identity Provider (IdP) initiated sign-on requests.
-	SsoAcsUrlOverride *string `json:"ssoAcsUrlOverride,omitempty"`
+	SsoAcsUrlOverride    *string `json:"ssoAcsUrlOverride,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -271,4 +270,3 @@ func (v *NullableSaml11ApplicationSettingsSignOn) UnmarshalJSON(src []byte) erro
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-

@@ -21,7 +21,6 @@ API version: 2024.06.1
 Contact: devex-public@okta.com
 */
 
-
 package okta
 
 import (
@@ -30,8 +29,8 @@ import (
 
 // PlatformConditionEvaluatorPlatform struct for PlatformConditionEvaluatorPlatform
 type PlatformConditionEvaluatorPlatform struct {
-	Os *PlatformConditionEvaluatorPlatformOperatingSystem `json:"os,omitempty"`
-	Type *string `json:"type,omitempty"`
+	Os                   *PlatformConditionEvaluatorPlatformOperatingSystem `json:"os,omitempty"`
+	Type                 *string                                            `json:"type,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -193,4 +192,3 @@ func (v *NullablePlatformConditionEvaluatorPlatform) UnmarshalJSON(src []byte) e
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-

@@ -21,7 +21,6 @@ API version: 2024.06.1
 Contact: devex-public@okta.com
 */
 
-
 package okta
 
 import (
@@ -30,8 +29,8 @@ import (
 
 // IdentityProviderPolicyRuleCondition struct for IdentityProviderPolicyRuleCondition
 type IdentityProviderPolicyRuleCondition struct {
-	IdpIds []string `json:"idpIds,omitempty"`
-	Provider *string `json:"provider,omitempty"`
+	IdpIds               []string `json:"idpIds,omitempty"`
+	Provider             *string  `json:"provider,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -193,4 +192,3 @@ func (v *NullableIdentityProviderPolicyRuleCondition) UnmarshalJSON(src []byte) 
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-

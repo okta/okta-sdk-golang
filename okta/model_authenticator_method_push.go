@@ -21,7 +21,6 @@ API version: 2024.06.1
 Contact: devex-public@okta.com
 */
 
-
 package okta
 
 import (
@@ -33,7 +32,7 @@ import (
 // AuthenticatorMethodPush struct for AuthenticatorMethodPush
 type AuthenticatorMethodPush struct {
 	AuthenticatorMethodBase
-	Settings *AuthenticatorMethodPushAllOfSettings `json:"settings,omitempty"`
+	Settings             *AuthenticatorMethodPushAllOfSettings `json:"settings,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -201,4 +200,3 @@ func (v *NullableAuthenticatorMethodPush) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-

@@ -21,7 +21,6 @@ API version: 2024.06.1
 Contact: devex-public@okta.com
 */
 
-
 package okta
 
 import (
@@ -59,7 +58,7 @@ type UserLinks struct {
 	// URL to unlock the locked-out user
 	Unlock *HrefObject `json:"unlock,omitempty"`
 	// URL to the user type
-	Type *HrefObject `json:"type,omitempty"`
+	Type                 *HrefObject `json:"type,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -689,4 +688,3 @@ func (v *NullableUserLinks) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-

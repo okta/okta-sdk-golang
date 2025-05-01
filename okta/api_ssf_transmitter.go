@@ -21,7 +21,6 @@ API version: 2024.06.1
 Contact: devex-public@okta.com
 */
 
-
 package okta
 
 import (
@@ -33,20 +32,19 @@ import (
 	"time"
 )
 
-
 type SSFTransmitterAPI interface {
 
 	/*
-	CreateSsfStream Create an SSF Stream
+			CreateSsfStream Create an SSF Stream
 
-	Creates an SSF Stream for an event receiver to start receiving security events in the form of Security Event Tokens (SETs) from Okta.
+			Creates an SSF Stream for an event receiver to start receiving security events in the form of Security Event Tokens (SETs) from Okta.
 
-An SSF Stream is associated with the Client ID of the OAuth 2.0 access token used to create the stream. The Client ID is provided by Okta for an [OAuth 2.0 app integration](https://help.okta.com/okta_help.htm?id=ext_Apps_App_Integration_Wizard-oidc). One SSF Stream is allowed for each Client ID, hence, one SSF Stream is allowed for each app integration in Okta.
+		An SSF Stream is associated with the Client ID of the OAuth 2.0 access token used to create the stream. The Client ID is provided by Okta for an [OAuth 2.0 app integration](https://help.okta.com/okta_help.htm?id=ext_Apps_App_Integration_Wizard-oidc). One SSF Stream is allowed for each Client ID, hence, one SSF Stream is allowed for each app integration in Okta.
 
-A maximum of 10 SSF Stream configurations can be created for one org.
+		A maximum of 10 SSF Stream configurations can be created for one org.
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@return ApiCreateSsfStreamRequest
+			@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+			@return ApiCreateSsfStreamRequest
 	*/
 	CreateSsfStream(ctx context.Context) ApiCreateSsfStreamRequest
 
@@ -55,14 +53,14 @@ A maximum of 10 SSF Stream configurations can be created for one org.
 	CreateSsfStreamExecute(r ApiCreateSsfStreamRequest) (*StreamConfiguration, *APIResponse, error)
 
 	/*
-	DeleteSsfStream Delete an SSF Stream
+			DeleteSsfStream Delete an SSF Stream
 
-	Deletes the specified SSF Stream.
+			Deletes the specified SSF Stream.
 
-If the `stream_id` is not provided in the query string, the associated stream with the Client ID (through the request OAuth 2.0 access token) is deleted. Otherwise, the SSF Stream with the `stream_id` is deleted, if found.
+		If the `stream_id` is not provided in the query string, the associated stream with the Client ID (through the request OAuth 2.0 access token) is deleted. Otherwise, the SSF Stream with the `stream_id` is deleted, if found.
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@return ApiDeleteSsfStreamRequest
+			@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+			@return ApiDeleteSsfStreamRequest
 	*/
 	DeleteSsfStream(ctx context.Context) ApiDeleteSsfStreamRequest
 
@@ -70,14 +68,14 @@ If the `stream_id` is not provided in the query string, the associated stream wi
 	DeleteSsfStreamExecute(r ApiDeleteSsfStreamRequest) (*APIResponse, error)
 
 	/*
-	GetSsfStreams Retrieve the SSF Stream configuration(s)
+			GetSsfStreams Retrieve the SSF Stream configuration(s)
 
-	Retrieves either a list of all known SSF Stream configurations or the individual configuration if specified by ID.
+			Retrieves either a list of all known SSF Stream configurations or the individual configuration if specified by ID.
 
-As Stream configurations are tied to a Client ID, only the Stream associated with the Client ID of the request OAuth 2.0 access token can be viewed.
+		As Stream configurations are tied to a Client ID, only the Stream associated with the Client ID of the request OAuth 2.0 access token can be viewed.
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@return ApiGetSsfStreamsRequest
+			@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+			@return ApiGetSsfStreamsRequest
 	*/
 	GetSsfStreams(ctx context.Context) ApiGetSsfStreamsRequest
 
@@ -86,12 +84,12 @@ As Stream configurations are tied to a Client ID, only the Stream associated wit
 	GetSsfStreamsExecute(r ApiGetSsfStreamsRequest) (*GetSsfStreams200Response, *APIResponse, error)
 
 	/*
-	GetWellknownSsfMetadata Retrieve the SSF Transmitter metadata
+		GetWellknownSsfMetadata Retrieve the SSF Transmitter metadata
 
-	Retrieves SSF Transmitter configuration metadata. This includes all supported endpoints and key information about certain properties of the Okta org as the transmitter, such as `delivery_methods_supported`, `issuer`, and `jwks_uri`.
+		Retrieves SSF Transmitter configuration metadata. This includes all supported endpoints and key information about certain properties of the Okta org as the transmitter, such as `delivery_methods_supported`, `issuer`, and `jwks_uri`.
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@return ApiGetWellknownSsfMetadataRequest
+		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+		@return ApiGetWellknownSsfMetadataRequest
 	*/
 	GetWellknownSsfMetadata(ctx context.Context) ApiGetWellknownSsfMetadataRequest
 
@@ -100,14 +98,14 @@ As Stream configurations are tied to a Client ID, only the Stream associated wit
 	GetWellknownSsfMetadataExecute(r ApiGetWellknownSsfMetadataRequest) (*WellKnownSSFMetadata, *APIResponse, error)
 
 	/*
-	ReplaceSsfStream Replace an SSF Stream
+			ReplaceSsfStream Replace an SSF Stream
 
-	Replaces all properties for an existing SSF Stream configuration.
+			Replaces all properties for an existing SSF Stream configuration.
 
-If the `stream_id` isn't provided in the request body, the associated stream with the Client ID (through the request OAuth 2.0 access token) is replaced.
+		If the `stream_id` isn't provided in the request body, the associated stream with the Client ID (through the request OAuth 2.0 access token) is replaced.
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@return ApiReplaceSsfStreamRequest
+			@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+			@return ApiReplaceSsfStreamRequest
 	*/
 	ReplaceSsfStream(ctx context.Context) ApiReplaceSsfStreamRequest
 
@@ -116,14 +114,14 @@ If the `stream_id` isn't provided in the request body, the associated stream wit
 	ReplaceSsfStreamExecute(r ApiReplaceSsfStreamRequest) (*StreamConfiguration, *APIResponse, error)
 
 	/*
-	UpdateSsfStream Update an SSF Stream
+			UpdateSsfStream Update an SSF Stream
 
-	Updates properties for an existing SSF Stream configuration.
+			Updates properties for an existing SSF Stream configuration.
 
-If the `stream_id` isn't provided in the request body, the associated stream with the Client ID (through the request OAuth 2.0 access token) is updated.
+		If the `stream_id` isn't provided in the request body, the associated stream with the Client ID (through the request OAuth 2.0 access token) is updated.
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@return ApiUpdateSsfStreamRequest
+			@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+			@return ApiUpdateSsfStreamRequest
 	*/
 	UpdateSsfStream(ctx context.Context) ApiUpdateSsfStreamRequest
 
@@ -136,9 +134,9 @@ If the `stream_id` isn't provided in the request body, the associated stream wit
 type SSFTransmitterAPIService service
 
 type ApiCreateSsfStreamRequest struct {
-	ctx context.Context
+	ctx        context.Context
 	ApiService SSFTransmitterAPI
-	instance *StreamConfigurationCreateRequest
+	instance   *StreamConfigurationCreateRequest
 	retryCount int32
 }
 
@@ -160,19 +158,20 @@ An SSF Stream is associated with the Client ID of the OAuth 2.0 access token use
 
 A maximum of 10 SSF Stream configurations can be created for one org.
 
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @return ApiCreateSsfStreamRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@return ApiCreateSsfStreamRequest
 */
 func (a *SSFTransmitterAPIService) CreateSsfStream(ctx context.Context) ApiCreateSsfStreamRequest {
 	return ApiCreateSsfStreamRequest{
 		ApiService: a,
-		ctx: ctx,
+		ctx:        ctx,
 		retryCount: 0,
 	}
 }
 
 // Execute executes the request
-//  @return StreamConfiguration
+//
+//	@return StreamConfiguration
 func (a *SSFTransmitterAPIService) CreateSsfStreamExecute(r ApiCreateSsfStreamRequest) (*StreamConfiguration, *APIResponse, error) {
 	var (
 		localVarHTTPMethod   = http.MethodPost
@@ -181,7 +180,7 @@ func (a *SSFTransmitterAPIService) CreateSsfStreamExecute(r ApiCreateSsfStreamRe
 		localVarReturnValue  *StreamConfiguration
 		localVarHTTPResponse *http.Response
 		localAPIResponse     *APIResponse
-		err 				 error
+		err                  error
 	)
 
 	if a.client.cfg.Okta.Client.RequestTimeout > 0 {
@@ -304,15 +303,15 @@ func (a *SSFTransmitterAPIService) CreateSsfStreamExecute(r ApiCreateSsfStreamRe
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
 		return localVarReturnValue, localAPIResponse, newErr
 	}
-	
+
 	localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
 	return localVarReturnValue, localAPIResponse, nil
 }
 
 type ApiDeleteSsfStreamRequest struct {
-	ctx context.Context
+	ctx        context.Context
 	ApiService SSFTransmitterAPI
-	streamId *string
+	streamId   *string
 	retryCount int32
 }
 
@@ -333,13 +332,13 @@ Deletes the specified SSF Stream.
 
 If the `stream_id` is not provided in the query string, the associated stream with the Client ID (through the request OAuth 2.0 access token) is deleted. Otherwise, the SSF Stream with the `stream_id` is deleted, if found.
 
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @return ApiDeleteSsfStreamRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@return ApiDeleteSsfStreamRequest
 */
 func (a *SSFTransmitterAPIService) DeleteSsfStream(ctx context.Context) ApiDeleteSsfStreamRequest {
 	return ApiDeleteSsfStreamRequest{
 		ApiService: a,
-		ctx: ctx,
+		ctx:        ctx,
 		retryCount: 0,
 	}
 }
@@ -352,7 +351,7 @@ func (a *SSFTransmitterAPIService) DeleteSsfStreamExecute(r ApiDeleteSsfStreamRe
 		formFiles            []formFile
 		localVarHTTPResponse *http.Response
 		localAPIResponse     *APIResponse
-		err 				 error
+		err                  error
 	)
 
 	if a.client.cfg.Okta.Client.RequestTimeout > 0 {
@@ -481,9 +480,9 @@ func (a *SSFTransmitterAPIService) DeleteSsfStreamExecute(r ApiDeleteSsfStreamRe
 }
 
 type ApiGetSsfStreamsRequest struct {
-	ctx context.Context
+	ctx        context.Context
 	ApiService SSFTransmitterAPI
-	streamId *string
+	streamId   *string
 	retryCount int32
 }
 
@@ -504,19 +503,20 @@ Retrieves either a list of all known SSF Stream configurations or the individual
 
 As Stream configurations are tied to a Client ID, only the Stream associated with the Client ID of the request OAuth 2.0 access token can be viewed.
 
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @return ApiGetSsfStreamsRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@return ApiGetSsfStreamsRequest
 */
 func (a *SSFTransmitterAPIService) GetSsfStreams(ctx context.Context) ApiGetSsfStreamsRequest {
 	return ApiGetSsfStreamsRequest{
 		ApiService: a,
-		ctx: ctx,
+		ctx:        ctx,
 		retryCount: 0,
 	}
 }
 
 // Execute executes the request
-//  @return GetSsfStreams200Response
+//
+//	@return GetSsfStreams200Response
 func (a *SSFTransmitterAPIService) GetSsfStreamsExecute(r ApiGetSsfStreamsRequest) (*GetSsfStreams200Response, *APIResponse, error) {
 	var (
 		localVarHTTPMethod   = http.MethodGet
@@ -525,7 +525,7 @@ func (a *SSFTransmitterAPIService) GetSsfStreamsExecute(r ApiGetSsfStreamsReques
 		localVarReturnValue  *GetSsfStreams200Response
 		localVarHTTPResponse *http.Response
 		localAPIResponse     *APIResponse
-		err 				 error
+		err                  error
 	)
 
 	if a.client.cfg.Okta.Client.RequestTimeout > 0 {
@@ -646,13 +646,13 @@ func (a *SSFTransmitterAPIService) GetSsfStreamsExecute(r ApiGetSsfStreamsReques
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
 		return localVarReturnValue, localAPIResponse, newErr
 	}
-	
+
 	localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
 	return localVarReturnValue, localAPIResponse, nil
 }
 
 type ApiGetWellknownSsfMetadataRequest struct {
-	ctx context.Context
+	ctx        context.Context
 	ApiService SSFTransmitterAPI
 	retryCount int32
 }
@@ -666,19 +666,20 @@ GetWellknownSsfMetadata Retrieve the SSF Transmitter metadata
 
 Retrieves SSF Transmitter configuration metadata. This includes all supported endpoints and key information about certain properties of the Okta org as the transmitter, such as `delivery_methods_supported`, `issuer`, and `jwks_uri`.
 
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @return ApiGetWellknownSsfMetadataRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@return ApiGetWellknownSsfMetadataRequest
 */
 func (a *SSFTransmitterAPIService) GetWellknownSsfMetadata(ctx context.Context) ApiGetWellknownSsfMetadataRequest {
 	return ApiGetWellknownSsfMetadataRequest{
 		ApiService: a,
-		ctx: ctx,
+		ctx:        ctx,
 		retryCount: 0,
 	}
 }
 
 // Execute executes the request
-//  @return WellKnownSSFMetadata
+//
+//	@return WellKnownSSFMetadata
 func (a *SSFTransmitterAPIService) GetWellknownSsfMetadataExecute(r ApiGetWellknownSsfMetadataRequest) (*WellKnownSSFMetadata, *APIResponse, error) {
 	var (
 		localVarHTTPMethod   = http.MethodGet
@@ -687,7 +688,7 @@ func (a *SSFTransmitterAPIService) GetWellknownSsfMetadataExecute(r ApiGetWellkn
 		localVarReturnValue  *WellKnownSSFMetadata
 		localVarHTTPResponse *http.Response
 		localAPIResponse     *APIResponse
-		err 				 error
+		err                  error
 	)
 
 	if a.client.cfg.Okta.Client.RequestTimeout > 0 {
@@ -805,15 +806,15 @@ func (a *SSFTransmitterAPIService) GetWellknownSsfMetadataExecute(r ApiGetWellkn
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
 		return localVarReturnValue, localAPIResponse, newErr
 	}
-	
+
 	localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
 	return localVarReturnValue, localAPIResponse, nil
 }
 
 type ApiReplaceSsfStreamRequest struct {
-	ctx context.Context
+	ctx        context.Context
 	ApiService SSFTransmitterAPI
-	instance *StreamConfiguration
+	instance   *StreamConfiguration
 	retryCount int32
 }
 
@@ -833,19 +834,20 @@ Replaces all properties for an existing SSF Stream configuration.
 
 If the `stream_id` isn't provided in the request body, the associated stream with the Client ID (through the request OAuth 2.0 access token) is replaced.
 
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @return ApiReplaceSsfStreamRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@return ApiReplaceSsfStreamRequest
 */
 func (a *SSFTransmitterAPIService) ReplaceSsfStream(ctx context.Context) ApiReplaceSsfStreamRequest {
 	return ApiReplaceSsfStreamRequest{
 		ApiService: a,
-		ctx: ctx,
+		ctx:        ctx,
 		retryCount: 0,
 	}
 }
 
 // Execute executes the request
-//  @return StreamConfiguration
+//
+//	@return StreamConfiguration
 func (a *SSFTransmitterAPIService) ReplaceSsfStreamExecute(r ApiReplaceSsfStreamRequest) (*StreamConfiguration, *APIResponse, error) {
 	var (
 		localVarHTTPMethod   = http.MethodPut
@@ -854,7 +856,7 @@ func (a *SSFTransmitterAPIService) ReplaceSsfStreamExecute(r ApiReplaceSsfStream
 		localVarReturnValue  *StreamConfiguration
 		localVarHTTPResponse *http.Response
 		localAPIResponse     *APIResponse
-		err 				 error
+		err                  error
 	)
 
 	if a.client.cfg.Okta.Client.RequestTimeout > 0 {
@@ -989,15 +991,15 @@ func (a *SSFTransmitterAPIService) ReplaceSsfStreamExecute(r ApiReplaceSsfStream
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
 		return localVarReturnValue, localAPIResponse, newErr
 	}
-	
+
 	localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
 	return localVarReturnValue, localAPIResponse, nil
 }
 
 type ApiUpdateSsfStreamRequest struct {
-	ctx context.Context
+	ctx        context.Context
 	ApiService SSFTransmitterAPI
-	instance *StreamConfiguration
+	instance   *StreamConfiguration
 	retryCount int32
 }
 
@@ -1017,19 +1019,20 @@ Updates properties for an existing SSF Stream configuration.
 
 If the `stream_id` isn't provided in the request body, the associated stream with the Client ID (through the request OAuth 2.0 access token) is updated.
 
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @return ApiUpdateSsfStreamRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@return ApiUpdateSsfStreamRequest
 */
 func (a *SSFTransmitterAPIService) UpdateSsfStream(ctx context.Context) ApiUpdateSsfStreamRequest {
 	return ApiUpdateSsfStreamRequest{
 		ApiService: a,
-		ctx: ctx,
+		ctx:        ctx,
 		retryCount: 0,
 	}
 }
 
 // Execute executes the request
-//  @return StreamConfiguration
+//
+//	@return StreamConfiguration
 func (a *SSFTransmitterAPIService) UpdateSsfStreamExecute(r ApiUpdateSsfStreamRequest) (*StreamConfiguration, *APIResponse, error) {
 	var (
 		localVarHTTPMethod   = http.MethodPatch
@@ -1038,7 +1041,7 @@ func (a *SSFTransmitterAPIService) UpdateSsfStreamExecute(r ApiUpdateSsfStreamRe
 		localVarReturnValue  *StreamConfiguration
 		localVarHTTPResponse *http.Response
 		localAPIResponse     *APIResponse
-		err 				 error
+		err                  error
 	)
 
 	if a.client.cfg.Okta.Client.RequestTimeout > 0 {
@@ -1173,7 +1176,7 @@ func (a *SSFTransmitterAPIService) UpdateSsfStreamExecute(r ApiUpdateSsfStreamRe
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
 		return localVarReturnValue, localAPIResponse, newErr
 	}
-	
+
 	localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
 	return localVarReturnValue, localAPIResponse, nil
 }

@@ -21,7 +21,6 @@ API version: 2024.06.1
 Contact: devex-public@okta.com
 */
 
-
 package okta
 
 import (
@@ -30,13 +29,13 @@ import (
 
 // IdentityProviderApplicationUser struct for IdentityProviderApplicationUser
 type IdentityProviderApplicationUser struct {
-	Created *string `json:"created,omitempty"`
-	ExternalId *string `json:"externalId,omitempty"`
-	Id *string `json:"id,omitempty"`
-	LastUpdated *string `json:"lastUpdated,omitempty"`
-	Profile map[string]map[string]interface{} `json:"profile,omitempty"`
-	Embedded map[string]map[string]interface{} `json:"_embedded,omitempty"`
-	Links *LinksSelf `json:"_links,omitempty"`
+	Created              *string                           `json:"created,omitempty"`
+	ExternalId           *string                           `json:"externalId,omitempty"`
+	Id                   *string                           `json:"id,omitempty"`
+	LastUpdated          *string                           `json:"lastUpdated,omitempty"`
+	Profile              map[string]map[string]interface{} `json:"profile,omitempty"`
+	Embedded             map[string]map[string]interface{} `json:"_embedded,omitempty"`
+	Links                *LinksSelf                        `json:"_links,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -378,4 +377,3 @@ func (v *NullableIdentityProviderApplicationUser) UnmarshalJSON(src []byte) erro
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-

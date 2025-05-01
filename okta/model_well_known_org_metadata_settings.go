@@ -21,7 +21,6 @@ API version: 2024.06.1
 Contact: devex-public@okta.com
 */
 
-
 package okta
 
 import (
@@ -31,9 +30,9 @@ import (
 // WellKnownOrgMetadataSettings struct for WellKnownOrgMetadataSettings
 type WellKnownOrgMetadataSettings struct {
 	AnalyticsCollectionEnabled *bool `json:"analyticsCollectionEnabled,omitempty"`
-	BugReportingEnabled *bool `json:"bugReportingEnabled,omitempty"`
+	BugReportingEnabled        *bool `json:"bugReportingEnabled,omitempty"`
 	// Whether the legacy Okta Mobile application is enabled for the org
-	OmEnabled *bool `json:"omEnabled,omitempty"`
+	OmEnabled            *bool `json:"omEnabled,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -231,4 +230,3 @@ func (v *NullableWellKnownOrgMetadataSettings) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-
