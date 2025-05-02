@@ -30,8 +30,8 @@ import (
 
 // ResourceSetBindingMembersLinks struct for ResourceSetBindingMembersLinks
 type ResourceSetBindingMembersLinks struct {
-	Next *HrefObject `json:"next,omitempty"`
-	Binding *HrefObject `json:"binding,omitempty"`
+	Next                 *HrefObject `json:"next,omitempty"`
+	Binding              *HrefObject `json:"binding,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -193,4 +193,3 @@ func (v *NullableResourceSetBindingMembersLinks) UnmarshalJSON(src []byte) error
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-

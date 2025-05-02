@@ -26,12 +26,11 @@ package okta
 
 import (
 	"encoding/json"
-	"fmt"
 )
 
 // PolicyContextGroups An array of Group IDs for the simulate operation. Only user IDs or Group IDs are allowed, not both.
 type PolicyContextGroups struct {
-	Ids []string `json:"ids"`
+	Ids                  []string `json:"ids"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -150,4 +149,3 @@ func (v *NullablePolicyContextGroups) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-

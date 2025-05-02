@@ -30,9 +30,9 @@ import (
 
 // ApplicationLayoutsLinks struct for ApplicationLayoutsLinks
 type ApplicationLayoutsLinks struct {
-	General []HrefObject `json:"general,omitempty"`
-	SignOn []HrefObject `json:"signOn,omitempty"`
-	Provisioning []HrefObject `json:"provisioning,omitempty"`
+	General              []HrefObject `json:"general,omitempty"`
+	SignOn               []HrefObject `json:"signOn,omitempty"`
+	Provisioning         []HrefObject `json:"provisioning,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -230,4 +230,3 @@ func (v *NullableApplicationLayoutsLinks) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-

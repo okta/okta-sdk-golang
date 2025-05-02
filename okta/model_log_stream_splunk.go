@@ -26,15 +26,15 @@ package okta
 
 import (
 	"encoding/json"
-	"fmt"
 	"reflect"
 	"strings"
+	"time"
 )
 
 // LogStreamSplunk struct for LogStreamSplunk
 type LogStreamSplunk struct {
 	LogStream
-	Settings LogStreamSettingsSplunk `json:"settings"`
+	Settings             LogStreamSettingsSplunk `json:"settings"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -202,4 +202,3 @@ func (v *NullableLogStreamSplunk) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-

@@ -26,7 +26,6 @@ package okta
 
 import (
 	"encoding/json"
-	"fmt"
 )
 
 // ImportScheduleSettings struct for ImportScheduleSettings
@@ -34,7 +33,7 @@ type ImportScheduleSettings struct {
 	// The import schedule in UNIX cron format
 	Expression string `json:"expression"`
 	// The import schedule time zone in Internet Assigned Numbers Authority (IANA) time zone name format
-	Timezone *string `json:"timezone,omitempty"`
+	Timezone             *string `json:"timezone,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -189,4 +188,3 @@ func (v *NullableImportScheduleSettings) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-

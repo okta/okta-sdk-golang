@@ -26,14 +26,13 @@ package okta
 
 import (
 	"encoding/json"
-	"fmt"
 )
 
 // SecurityEvent struct for SecurityEvent
 type SecurityEvent struct {
 	// The time of the event (UNIX timestamp)
-	EventTimestamp int64 `json:"event_timestamp"`
-	Subjects SecurityEventSubject `json:"subjects"`
+	EventTimestamp       int64                `json:"event_timestamp"`
+	Subjects             SecurityEventSubject `json:"subjects"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -181,4 +180,3 @@ func (v *NullableSecurityEvent) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-

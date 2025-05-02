@@ -30,7 +30,7 @@ import (
 
 // LinksQuestions struct for LinksQuestions
 type LinksQuestions struct {
-	Question *LinksQuestionsQuestion `json:"question,omitempty"`
+	Question             *LinksQuestionsQuestion `json:"question,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -156,4 +156,3 @@ func (v *NullableLinksQuestions) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-

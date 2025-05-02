@@ -33,7 +33,7 @@ type U2f struct {
 	// Base64-encoded client data from the U2F token
 	ClientData *string `json:"clientData,omitempty"`
 	// Base64-encoded registration data from the U2F token
-	RegistrationData *string `json:"registrationData,omitempty"`
+	RegistrationData     *string `json:"registrationData,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -195,4 +195,3 @@ func (v *NullableU2f) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-

@@ -31,7 +31,7 @@ import (
 // AuthenticatorKeyCustomAppAllOfProviderConfigurationFcm struct for AuthenticatorKeyCustomAppAllOfProviderConfigurationFcm
 type AuthenticatorKeyCustomAppAllOfProviderConfigurationFcm struct {
 	// ID of the FCM (Firebase Cloud Messaging Service) [configurations](https://developer.okta.com/docs/reference/api/push-providers/)
-	Id *string `json:"id,omitempty"`
+	Id                   *string `json:"id,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -157,4 +157,3 @@ func (v *NullableAuthenticatorKeyCustomAppAllOfProviderConfigurationFcm) Unmarsh
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-

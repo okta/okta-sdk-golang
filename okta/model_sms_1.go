@@ -31,7 +31,7 @@ import (
 // Sms1 Verifies an OTP sent by a `sms` Factor challenge. If you omit `passCode` in the request, a new OTP is sent to the phone.
 type Sms1 struct {
 	// OTP for the current time window
-	PassCode *string `json:"passCode,omitempty"`
+	PassCode             *string `json:"passCode,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -157,4 +157,3 @@ func (v *NullableSms1) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-

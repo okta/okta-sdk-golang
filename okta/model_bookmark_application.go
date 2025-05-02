@@ -26,7 +26,6 @@ package okta
 
 import (
 	"encoding/json"
-	"fmt"
 	"reflect"
 	"strings"
 )
@@ -36,8 +35,8 @@ type BookmarkApplication struct {
 	Application
 	Credentials *ApplicationCredentials `json:"credentials,omitempty"`
 	// `bookmark` is the key name for a Bookmark app
-	Name string `json:"name"`
-	Settings BookmarkApplicationSettings `json:"settings"`
+	Name                 string                      `json:"name"`
+	Settings             BookmarkApplicationSettings `json:"settings"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -175,7 +174,7 @@ func (o *BookmarkApplication) UnmarshalJSON(bytes []byte) (err error) {
 	type BookmarkApplicationWithoutEmbeddedStruct struct {
 		Credentials *ApplicationCredentials `json:"credentials,omitempty"`
 		// `bookmark` is the key name for a Bookmark app
-		Name string `json:"name"`
+		Name     string                      `json:"name"`
 		Settings BookmarkApplicationSettings `json:"settings"`
 	}
 
@@ -270,4 +269,3 @@ func (v *NullableBookmarkApplication) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-

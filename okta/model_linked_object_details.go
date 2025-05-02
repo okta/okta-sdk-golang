@@ -26,7 +26,6 @@ package okta
 
 import (
 	"encoding/json"
-	"fmt"
 )
 
 // LinkedObjectDetails struct for LinkedObjectDetails
@@ -38,7 +37,7 @@ type LinkedObjectDetails struct {
 	// Display name of the `primary` or the `associated` link
 	Title string `json:"title"`
 	// The object type for this relationship
-	Type string `json:"type"`
+	Type                 string `json:"type"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -251,4 +250,3 @@ func (v *NullableLinkedObjectDetails) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-

@@ -33,7 +33,7 @@ import (
 // UserFactorPushTransactionTimeoutAllOfLinks struct for UserFactorPushTransactionTimeoutAllOfLinks
 type UserFactorPushTransactionTimeoutAllOfLinks struct {
 	UserFactor
-	Verify *LinksVerifyVerify `json:"verify,omitempty"`
+	Verify               *LinksVerifyVerify `json:"verify,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -201,4 +201,3 @@ func (v *NullableUserFactorPushTransactionTimeoutAllOfLinks) UnmarshalJSON(src [
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-

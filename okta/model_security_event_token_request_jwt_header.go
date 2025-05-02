@@ -26,7 +26,6 @@ package okta
 
 import (
 	"encoding/json"
-	"fmt"
 )
 
 // SecurityEventTokenRequestJwtHeader JSON Web Token header for a Security Event Token
@@ -36,7 +35,7 @@ type SecurityEventTokenRequestJwtHeader struct {
 	// Key ID used to sign or encrypt the JWT
 	Kid string `json:"kid"`
 	// The type of content being signed or encrypted
-	Typ string `json:"typ"`
+	Typ                  string `json:"typ"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -213,4 +212,3 @@ func (v *NullableSecurityEventTokenRequestJwtHeader) UnmarshalJSON(src []byte) e
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-

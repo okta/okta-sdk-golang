@@ -30,21 +30,20 @@ import (
 	"io/ioutil"
 	"net/http"
 	"net/url"
-	"time"
 	"strings"
+	"time"
 )
-
 
 type FeatureAPI interface {
 
 	/*
-	GetFeature Retrieve a Feature
+		GetFeature Retrieve a Feature
 
-	Retrieves a feature by ID
+		Retrieves a feature by ID
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param featureId `id` of the feature
-	@return ApiGetFeatureRequest
+		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+		@param featureId `id` of the feature
+		@return ApiGetFeatureRequest
 	*/
 	GetFeature(ctx context.Context, featureId string) ApiGetFeatureRequest
 
@@ -53,15 +52,15 @@ type FeatureAPI interface {
 	GetFeatureExecute(r ApiGetFeatureRequest) (*Feature, *APIResponse, error)
 
 	/*
-	ListFeatureDependencies List all dependencies
+			ListFeatureDependencies List all dependencies
 
-	Lists all feature dependencies for a specified feature.
+			Lists all feature dependencies for a specified feature.
 
-A feature's dependencies are the features that it requires to be enabled in order for itself to be enabled.
+		A feature's dependencies are the features that it requires to be enabled in order for itself to be enabled.
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param featureId `id` of the feature
-	@return ApiListFeatureDependenciesRequest
+			@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+			@param featureId `id` of the feature
+			@return ApiListFeatureDependenciesRequest
 	*/
 	ListFeatureDependencies(ctx context.Context, featureId string) ApiListFeatureDependenciesRequest
 
@@ -70,15 +69,15 @@ A feature's dependencies are the features that it requires to be enabled in orde
 	ListFeatureDependenciesExecute(r ApiListFeatureDependenciesRequest) ([]Feature, *APIResponse, error)
 
 	/*
-	ListFeatureDependents List all dependents
+			ListFeatureDependents List all dependents
 
-	Lists all feature dependents for the specified feature.
+			Lists all feature dependents for the specified feature.
 
-A feature's dependents are the features that need to be disabled in order for the feature itself to be disabled.
+		A feature's dependents are the features that need to be disabled in order for the feature itself to be disabled.
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param featureId `id` of the feature
-	@return ApiListFeatureDependentsRequest
+			@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+			@param featureId `id` of the feature
+			@return ApiListFeatureDependentsRequest
 	*/
 	ListFeatureDependents(ctx context.Context, featureId string) ApiListFeatureDependentsRequest
 
@@ -87,12 +86,12 @@ A feature's dependents are the features that need to be disabled in order for th
 	ListFeatureDependentsExecute(r ApiListFeatureDependentsRequest) ([]Feature, *APIResponse, error)
 
 	/*
-	ListFeatures List all Features
+		ListFeatures List all Features
 
-	Lists all self-service features for your org
+		Lists all self-service features for your org
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@return ApiListFeaturesRequest
+		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+		@return ApiListFeaturesRequest
 	*/
 	ListFeatures(ctx context.Context) ApiListFeaturesRequest
 
@@ -101,24 +100,24 @@ A feature's dependents are the features that need to be disabled in order for th
 	ListFeaturesExecute(r ApiListFeaturesRequest) ([]Feature, *APIResponse, error)
 
 	/*
-	UpdateFeatureLifecycle Update a Feature lifecycle
+			UpdateFeatureLifecycle Update a Feature lifecycle
 
-	Updates a feature's lifecycle status. Use this endpoint to enable or disable a feature for your org.
+			Updates a feature's lifecycle status. Use this endpoint to enable or disable a feature for your org.
 
-Use the `mode=force` parameter to override dependency restrictions for a particular feature. Normally, you can't enable a feature if it has one or more dependencies that aren't enabled.
+		Use the `mode=force` parameter to override dependency restrictions for a particular feature. Normally, you can't enable a feature if it has one or more dependencies that aren't enabled.
 
-When you use the `mode=force` parameter while enabling a feature, Okta first tries to enable any disabled features that this feature may have as dependencies. If you don't pass the `mode=force` parameter and the feature has dependencies that need to be enabled before the feature is enabled, a 400 error is returned.
+		When you use the `mode=force` parameter while enabling a feature, Okta first tries to enable any disabled features that this feature may have as dependencies. If you don't pass the `mode=force` parameter and the feature has dependencies that need to be enabled before the feature is enabled, a 400 error is returned.
 
-When you use the `mode=force` parameter while disabling a feature, Okta first tries to disable any enabled features that this feature may have as dependents. If you don't pass the `mode=force` parameter and the feature has dependents that need to be disabled before the feature is disabled, a 400 error is returned.
+		When you use the `mode=force` parameter while disabling a feature, Okta first tries to disable any enabled features that this feature may have as dependents. If you don't pass the `mode=force` parameter and the feature has dependents that need to be disabled before the feature is disabled, a 400 error is returned.
 
-The following chart shows the different state transitions for a feature.
+		The following chart shows the different state transitions for a feature.
 
-![State transitions of a feature](../../../../../images/features/update-ssfeat-flowchart.png '#width=500px;')
+		![State transitions of a feature](../../../../../images/features/update-ssfeat-flowchart.png '#width=500px;')
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param featureId `id` of the feature
-	@param lifecycle Whether to `ENABLE` or `DISABLE` the feature
-	@return ApiUpdateFeatureLifecycleRequest
+			@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+			@param featureId `id` of the feature
+			@param lifecycle Whether to `ENABLE` or `DISABLE` the feature
+			@return ApiUpdateFeatureLifecycleRequest
 	*/
 	UpdateFeatureLifecycle(ctx context.Context, featureId string, lifecycle string) ApiUpdateFeatureLifecycleRequest
 
@@ -131,9 +130,9 @@ The following chart shows the different state transitions for a feature.
 type FeatureAPIService service
 
 type ApiGetFeatureRequest struct {
-	ctx context.Context
+	ctx        context.Context
 	ApiService FeatureAPI
-	featureId string
+	featureId  string
 	retryCount int32
 }
 
@@ -146,21 +145,22 @@ GetFeature Retrieve a Feature
 
 Retrieves a feature by ID
 
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @param featureId `id` of the feature
- @return ApiGetFeatureRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param featureId `id` of the feature
+	@return ApiGetFeatureRequest
 */
 func (a *FeatureAPIService) GetFeature(ctx context.Context, featureId string) ApiGetFeatureRequest {
 	return ApiGetFeatureRequest{
 		ApiService: a,
-		ctx: ctx,
-		featureId: featureId,
+		ctx:        ctx,
+		featureId:  featureId,
 		retryCount: 0,
 	}
 }
 
 // Execute executes the request
-//  @return Feature
+//
+//	@return Feature
 func (a *FeatureAPIService) GetFeatureExecute(r ApiGetFeatureRequest) (*Feature, *APIResponse, error) {
 	var (
 		localVarHTTPMethod   = http.MethodGet
@@ -169,7 +169,7 @@ func (a *FeatureAPIService) GetFeatureExecute(r ApiGetFeatureRequest) (*Feature,
 		localVarReturnValue  *Feature
 		localVarHTTPResponse *http.Response
 		localAPIResponse     *APIResponse
-		err 				 error
+		err                  error
 	)
 
 	if a.client.cfg.Okta.Client.RequestTimeout > 0 {
@@ -290,15 +290,15 @@ func (a *FeatureAPIService) GetFeatureExecute(r ApiGetFeatureRequest) (*Feature,
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
 		return localVarReturnValue, localAPIResponse, newErr
 	}
-	
+
 	localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
 	return localVarReturnValue, localAPIResponse, nil
 }
 
 type ApiListFeatureDependenciesRequest struct {
-	ctx context.Context
+	ctx        context.Context
 	ApiService FeatureAPI
-	featureId string
+	featureId  string
 	retryCount int32
 }
 
@@ -313,21 +313,22 @@ Lists all feature dependencies for a specified feature.
 
 A feature's dependencies are the features that it requires to be enabled in order for itself to be enabled.
 
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @param featureId `id` of the feature
- @return ApiListFeatureDependenciesRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param featureId `id` of the feature
+	@return ApiListFeatureDependenciesRequest
 */
 func (a *FeatureAPIService) ListFeatureDependencies(ctx context.Context, featureId string) ApiListFeatureDependenciesRequest {
 	return ApiListFeatureDependenciesRequest{
 		ApiService: a,
-		ctx: ctx,
-		featureId: featureId,
+		ctx:        ctx,
+		featureId:  featureId,
 		retryCount: 0,
 	}
 }
 
 // Execute executes the request
-//  @return []Feature
+//
+//	@return []Feature
 func (a *FeatureAPIService) ListFeatureDependenciesExecute(r ApiListFeatureDependenciesRequest) ([]Feature, *APIResponse, error) {
 	var (
 		localVarHTTPMethod   = http.MethodGet
@@ -336,7 +337,7 @@ func (a *FeatureAPIService) ListFeatureDependenciesExecute(r ApiListFeatureDepen
 		localVarReturnValue  []Feature
 		localVarHTTPResponse *http.Response
 		localAPIResponse     *APIResponse
-		err 				 error
+		err                  error
 	)
 
 	if a.client.cfg.Okta.Client.RequestTimeout > 0 {
@@ -457,15 +458,15 @@ func (a *FeatureAPIService) ListFeatureDependenciesExecute(r ApiListFeatureDepen
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
 		return localVarReturnValue, localAPIResponse, newErr
 	}
-	
+
 	localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
 	return localVarReturnValue, localAPIResponse, nil
 }
 
 type ApiListFeatureDependentsRequest struct {
-	ctx context.Context
+	ctx        context.Context
 	ApiService FeatureAPI
-	featureId string
+	featureId  string
 	retryCount int32
 }
 
@@ -480,21 +481,22 @@ Lists all feature dependents for the specified feature.
 
 A feature's dependents are the features that need to be disabled in order for the feature itself to be disabled.
 
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @param featureId `id` of the feature
- @return ApiListFeatureDependentsRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param featureId `id` of the feature
+	@return ApiListFeatureDependentsRequest
 */
 func (a *FeatureAPIService) ListFeatureDependents(ctx context.Context, featureId string) ApiListFeatureDependentsRequest {
 	return ApiListFeatureDependentsRequest{
 		ApiService: a,
-		ctx: ctx,
-		featureId: featureId,
+		ctx:        ctx,
+		featureId:  featureId,
 		retryCount: 0,
 	}
 }
 
 // Execute executes the request
-//  @return []Feature
+//
+//	@return []Feature
 func (a *FeatureAPIService) ListFeatureDependentsExecute(r ApiListFeatureDependentsRequest) ([]Feature, *APIResponse, error) {
 	var (
 		localVarHTTPMethod   = http.MethodGet
@@ -503,7 +505,7 @@ func (a *FeatureAPIService) ListFeatureDependentsExecute(r ApiListFeatureDepende
 		localVarReturnValue  []Feature
 		localVarHTTPResponse *http.Response
 		localAPIResponse     *APIResponse
-		err 				 error
+		err                  error
 	)
 
 	if a.client.cfg.Okta.Client.RequestTimeout > 0 {
@@ -624,13 +626,13 @@ func (a *FeatureAPIService) ListFeatureDependentsExecute(r ApiListFeatureDepende
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
 		return localVarReturnValue, localAPIResponse, newErr
 	}
-	
+
 	localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
 	return localVarReturnValue, localAPIResponse, nil
 }
 
 type ApiListFeaturesRequest struct {
-	ctx context.Context
+	ctx        context.Context
 	ApiService FeatureAPI
 	retryCount int32
 }
@@ -644,19 +646,20 @@ ListFeatures List all Features
 
 Lists all self-service features for your org
 
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @return ApiListFeaturesRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@return ApiListFeaturesRequest
 */
 func (a *FeatureAPIService) ListFeatures(ctx context.Context) ApiListFeaturesRequest {
 	return ApiListFeaturesRequest{
 		ApiService: a,
-		ctx: ctx,
+		ctx:        ctx,
 		retryCount: 0,
 	}
 }
 
 // Execute executes the request
-//  @return []Feature
+//
+//	@return []Feature
 func (a *FeatureAPIService) ListFeaturesExecute(r ApiListFeaturesRequest) ([]Feature, *APIResponse, error) {
 	var (
 		localVarHTTPMethod   = http.MethodGet
@@ -665,7 +668,7 @@ func (a *FeatureAPIService) ListFeaturesExecute(r ApiListFeaturesRequest) ([]Fea
 		localVarReturnValue  []Feature
 		localVarHTTPResponse *http.Response
 		localAPIResponse     *APIResponse
-		err 				 error
+		err                  error
 	)
 
 	if a.client.cfg.Okta.Client.RequestTimeout > 0 {
@@ -773,17 +776,17 @@ func (a *FeatureAPIService) ListFeaturesExecute(r ApiListFeaturesRequest) ([]Fea
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
 		return localVarReturnValue, localAPIResponse, newErr
 	}
-	
+
 	localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
 	return localVarReturnValue, localAPIResponse, nil
 }
 
 type ApiUpdateFeatureLifecycleRequest struct {
-	ctx context.Context
+	ctx        context.Context
 	ApiService FeatureAPI
-	featureId string
-	lifecycle string
-	mode *string
+	featureId  string
+	lifecycle  string
+	mode       *string
 	retryCount int32
 }
 
@@ -812,23 +815,24 @@ The following chart shows the different state transitions for a feature.
 
 ![State transitions of a feature](../../../../../images/features/update-ssfeat-flowchart.png '#width=500px;')
 
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @param featureId `id` of the feature
- @param lifecycle Whether to `ENABLE` or `DISABLE` the feature
- @return ApiUpdateFeatureLifecycleRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param featureId `id` of the feature
+	@param lifecycle Whether to `ENABLE` or `DISABLE` the feature
+	@return ApiUpdateFeatureLifecycleRequest
 */
 func (a *FeatureAPIService) UpdateFeatureLifecycle(ctx context.Context, featureId string, lifecycle string) ApiUpdateFeatureLifecycleRequest {
 	return ApiUpdateFeatureLifecycleRequest{
 		ApiService: a,
-		ctx: ctx,
-		featureId: featureId,
-		lifecycle: lifecycle,
+		ctx:        ctx,
+		featureId:  featureId,
+		lifecycle:  lifecycle,
 		retryCount: 0,
 	}
 }
 
 // Execute executes the request
-//  @return Feature
+//
+//	@return Feature
 func (a *FeatureAPIService) UpdateFeatureLifecycleExecute(r ApiUpdateFeatureLifecycleRequest) (*Feature, *APIResponse, error) {
 	var (
 		localVarHTTPMethod   = http.MethodPost
@@ -837,7 +841,7 @@ func (a *FeatureAPIService) UpdateFeatureLifecycleExecute(r ApiUpdateFeatureLife
 		localVarReturnValue  *Feature
 		localVarHTTPResponse *http.Response
 		localAPIResponse     *APIResponse
-		err 				 error
+		err                  error
 	)
 
 	if a.client.cfg.Okta.Client.RequestTimeout > 0 {
@@ -962,7 +966,7 @@ func (a *FeatureAPIService) UpdateFeatureLifecycleExecute(r ApiUpdateFeatureLife
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
 		return localVarReturnValue, localAPIResponse, newErr
 	}
-	
+
 	localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
 	return localVarReturnValue, localAPIResponse, nil
 }

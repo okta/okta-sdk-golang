@@ -27,7 +27,6 @@ package okta
 import (
 	"encoding/json"
 	"time"
-	"fmt"
 )
 
 // LogStream struct for LogStream
@@ -43,8 +42,8 @@ type LogStream struct {
 	// Lifecycle status of the Log Stream object
 	Status string `json:"status"`
 	// Specifies the streaming provider used  Supported providers:   * `aws_eventbridge` ([AWS EventBridge](https://aws.amazon.com/eventbridge))   * `splunk_cloud_logstreaming` ([Splunk Cloud](https://www.splunk.com/en_us/software/splunk-cloud-platform.html))  Select the provider type to see provider-specific configurations in the `settings` property:
-	Type string `json:"type"`
-	Links LogStreamLinksSelfAndLifecycle `json:"_links"`
+	Type                 string                         `json:"type"`
+	Links                LogStreamLinksSelfAndLifecycle `json:"_links"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -337,4 +336,3 @@ func (v *NullableLogStream) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-

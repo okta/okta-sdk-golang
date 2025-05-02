@@ -33,7 +33,7 @@ type AuthenticationProvider struct {
 	// The name of the authentication provider
 	Name *string `json:"name,omitempty"`
 	// The type of authentication provider
-	Type *string `json:"type,omitempty"`
+	Type                 *string `json:"type,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -195,4 +195,3 @@ func (v *NullableAuthenticationProvider) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-

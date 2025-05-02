@@ -47,7 +47,7 @@ type AuthenticatorMethodOtp struct {
 	Protocol *string `json:"protocol,omitempty"`
 	// Time interval for TOTP in seconds
 	TimeIntervalInSeconds *int32 `json:"timeIntervalInSeconds,omitempty"`
-	AdditionalProperties map[string]interface{}
+	AdditionalProperties  map[string]interface{}
 }
 
 type _AuthenticatorMethodOtp AuthenticatorMethodOtp
@@ -449,4 +449,3 @@ func (v *NullableAuthenticatorMethodOtp) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-

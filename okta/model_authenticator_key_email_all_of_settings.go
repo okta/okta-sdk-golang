@@ -34,7 +34,7 @@ type AuthenticatorKeyEmailAllOfSettings struct {
 	AllowedFor *string `json:"allowedFor,omitempty"`
 	// Specifies the lifetime of an email token. Default value is 5 minutes.
 	TokenLifetimeInMinutes *float32 `json:"tokenLifetimeInMinutes,omitempty"`
-	AdditionalProperties map[string]interface{}
+	AdditionalProperties   map[string]interface{}
 }
 
 type _AuthenticatorKeyEmailAllOfSettings AuthenticatorKeyEmailAllOfSettings
@@ -199,4 +199,3 @@ func (v *NullableAuthenticatorKeyEmailAllOfSettings) UnmarshalJSON(src []byte) e
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-

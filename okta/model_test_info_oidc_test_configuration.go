@@ -26,7 +26,6 @@ package okta
 
 import (
 	"encoding/json"
-	"fmt"
 )
 
 // TestInfoOidcTestConfiguration OIDC test details
@@ -38,7 +37,7 @@ type TestInfoOidcTestConfiguration struct {
 	// Indicates if your integration supports Just-In-Time (JIT) provisioning
 	Jit *bool `json:"jit,omitempty"`
 	// URL for SP-initiated sign-in flows (required if `sp = true`)
-	SpInitiateUrl string `json:"spInitiateUrl"`
+	SpInitiateUrl        string `json:"spInitiateUrl"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -265,4 +264,3 @@ func (v *NullableTestInfoOidcTestConfiguration) UnmarshalJSON(src []byte) error 
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-

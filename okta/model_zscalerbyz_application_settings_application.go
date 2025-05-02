@@ -31,7 +31,7 @@ import (
 // ZscalerbyzApplicationSettingsApplication Zscaler app instance properties
 type ZscalerbyzApplicationSettingsApplication struct {
 	// Your Zscaler domain
-	SiteDomain *string `json:"siteDomain,omitempty"`
+	SiteDomain           *string `json:"siteDomain,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -157,4 +157,3 @@ func (v *NullableZscalerbyzApplicationSettingsApplication) UnmarshalJSON(src []b
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-

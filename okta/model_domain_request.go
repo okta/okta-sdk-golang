@@ -26,7 +26,6 @@ package okta
 
 import (
 	"encoding/json"
-	"fmt"
 )
 
 // DomainRequest struct for DomainRequest
@@ -34,7 +33,7 @@ type DomainRequest struct {
 	// Certificate source type that indicates whether the certificate is provided by the user or Okta.
 	CertificateSourceType string `json:"certificateSourceType"`
 	// Custom domain name
-	Domain string `json:"domain"`
+	Domain               string `json:"domain"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -182,4 +181,3 @@ func (v *NullableDomainRequest) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-

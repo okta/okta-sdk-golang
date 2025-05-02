@@ -31,18 +31,18 @@ import (
 
 // CatalogApplication struct for CatalogApplication
 type CatalogApplication struct {
-	Category *string `json:"category,omitempty"`
-	Description *string `json:"description,omitempty"`
-	DisplayName *string `json:"displayName,omitempty"`
-	Features []string `json:"features,omitempty"`
-	Id *string `json:"id,omitempty"`
-	LastUpdated *time.Time `json:"lastUpdated,omitempty"`
-	Name *string `json:"name,omitempty"`
-	SignOnModes []string `json:"signOnModes,omitempty"`
-	Status *string `json:"status,omitempty"`
-	VerificationStatus *string `json:"verificationStatus,omitempty"`
-	Website *string `json:"website,omitempty"`
-	Links *LinksSelf `json:"_links,omitempty"`
+	Category             *string    `json:"category,omitempty"`
+	Description          *string    `json:"description,omitempty"`
+	DisplayName          *string    `json:"displayName,omitempty"`
+	Features             []string   `json:"features,omitempty"`
+	Id                   *string    `json:"id,omitempty"`
+	LastUpdated          *time.Time `json:"lastUpdated,omitempty"`
+	Name                 *string    `json:"name,omitempty"`
+	SignOnModes          []string   `json:"signOnModes,omitempty"`
+	Status               *string    `json:"status,omitempty"`
+	VerificationStatus   *string    `json:"verificationStatus,omitempty"`
+	Website              *string    `json:"website,omitempty"`
+	Links                *LinksSelf `json:"_links,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -564,4 +564,3 @@ func (v *NullableCatalogApplication) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-

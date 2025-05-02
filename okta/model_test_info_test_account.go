@@ -26,7 +26,6 @@ package okta
 
 import (
 	"encoding/json"
-	"fmt"
 )
 
 // TestInfoTestAccount An account on a test instance of your app with admin privileges. A test admin account is required by Okta for integration testing. During OIN QA testing, an Okta analyst uses this admin account to configure your app for the various test case flows.
@@ -38,7 +37,7 @@ type TestInfoTestAccount struct {
 	// The password for your app admin account
 	Password string `json:"password"`
 	// Additional instructions to test the app integration, including instructions for obtaining test accounts
-	Instructions *string `json:"instructions,omitempty"`
+	Instructions         *string `json:"instructions,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -251,4 +250,3 @@ func (v *NullableTestInfoTestAccount) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-

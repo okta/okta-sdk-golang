@@ -30,8 +30,8 @@ import (
 
 // EntitlementValuesResponse struct for EntitlementValuesResponse
 type EntitlementValuesResponse struct {
-	EntitlementValues []EntitlementValue `json:"entitlementValues,omitempty"`
-	Links *EntitlementValuesResponseLinks `json:"_links,omitempty"`
+	EntitlementValues    []EntitlementValue              `json:"entitlementValues,omitempty"`
+	Links                *EntitlementValuesResponseLinks `json:"_links,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -193,4 +193,3 @@ func (v *NullableEntitlementValuesResponse) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-

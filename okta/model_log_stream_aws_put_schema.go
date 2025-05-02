@@ -26,7 +26,6 @@ package okta
 
 import (
 	"encoding/json"
-	"fmt"
 	"reflect"
 	"strings"
 )
@@ -34,7 +33,7 @@ import (
 // LogStreamAwsPutSchema struct for LogStreamAwsPutSchema
 type LogStreamAwsPutSchema struct {
 	LogStreamPutSchema
-	Settings LogStreamSettingsAws `json:"settings"`
+	Settings             LogStreamSettingsAws `json:"settings"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -197,4 +196,3 @@ func (v *NullableLogStreamAwsPutSchema) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-

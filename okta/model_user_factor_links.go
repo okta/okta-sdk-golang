@@ -30,19 +30,19 @@ import (
 
 // UserFactorLinks struct for UserFactorLinks
 type UserFactorLinks struct {
-	Activate *LinksActivateActivate `json:"activate,omitempty"`
-	Cancel *LinksCancelCancel `json:"cancel,omitempty"`
-	Deactivate *LinksDeactivateDeactivate `json:"deactivate,omitempty"`
-	Enroll *LinksEnrollEnroll `json:"enroll,omitempty"`
-	Factor *LinksFactorFactor `json:"factor,omitempty"`
-	Poll *LinksPollPoll `json:"poll,omitempty"`
-	Qrcode *LinksQrcodeQrcode `json:"qrcode,omitempty"`
-	Question *LinksQuestionsQuestion `json:"question,omitempty"`
-	Resend *LinksResendResend `json:"resend,omitempty"`
-	Send *LinksSendSend `json:"send,omitempty"`
-	Self *HrefObjectSelfLink `json:"self,omitempty"`
-	User *LinksUserUser `json:"user,omitempty"`
-	Verify *LinksVerifyVerify `json:"verify,omitempty"`
+	Activate             *LinksActivateActivate     `json:"activate,omitempty"`
+	Cancel               *LinksCancelCancel         `json:"cancel,omitempty"`
+	Deactivate           *LinksDeactivateDeactivate `json:"deactivate,omitempty"`
+	Enroll               *LinksEnrollEnroll         `json:"enroll,omitempty"`
+	Factor               *LinksFactorFactor         `json:"factor,omitempty"`
+	Poll                 *LinksPollPoll             `json:"poll,omitempty"`
+	Qrcode               *LinksQrcodeQrcode         `json:"qrcode,omitempty"`
+	Question             *LinksQuestionsQuestion    `json:"question,omitempty"`
+	Resend               *LinksResendResend         `json:"resend,omitempty"`
+	Send                 *LinksSendSend             `json:"send,omitempty"`
+	Self                 *HrefObjectSelfLink        `json:"self,omitempty"`
+	User                 *LinksUserUser             `json:"user,omitempty"`
+	Verify               *LinksVerifyVerify         `json:"verify,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -600,4 +600,3 @@ func (v *NullableUserFactorLinks) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-

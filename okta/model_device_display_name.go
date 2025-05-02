@@ -30,8 +30,8 @@ import (
 
 // DeviceDisplayName Display name of the device
 type DeviceDisplayName struct {
-	Sensitive *bool `json:"sensitive,omitempty"`
-	Value *string `json:"value,omitempty"`
+	Sensitive            *bool   `json:"sensitive,omitempty"`
+	Value                *string `json:"value,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -193,4 +193,3 @@ func (v *NullableDeviceDisplayName) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-

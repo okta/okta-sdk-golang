@@ -33,7 +33,7 @@ import (
 // AuthenticatorKeyEmail struct for AuthenticatorKeyEmail
 type AuthenticatorKeyEmail struct {
 	AuthenticatorSimple
-	Settings *AuthenticatorKeyEmailAllOfSettings `json:"settings,omitempty"`
+	Settings             *AuthenticatorKeyEmailAllOfSettings `json:"settings,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -201,4 +201,3 @@ func (v *NullableAuthenticatorKeyEmail) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-

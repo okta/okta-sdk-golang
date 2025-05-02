@@ -30,8 +30,8 @@ import (
 
 // OrgPreferences struct for OrgPreferences
 type OrgPreferences struct {
-	ShowEndUserFooter *bool `json:"showEndUserFooter,omitempty"`
-	Links *LinksSelf `json:"_links,omitempty"`
+	ShowEndUserFooter    *bool      `json:"showEndUserFooter,omitempty"`
+	Links                *LinksSelf `json:"_links,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -193,4 +193,3 @@ func (v *NullableOrgPreferences) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-

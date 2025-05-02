@@ -31,8 +31,8 @@ import (
 // ContinuousAccessPolicyRuleTerminateSession struct for ContinuousAccessPolicyRuleTerminateSession
 type ContinuousAccessPolicyRuleTerminateSession struct {
 	// The action to take when Continuous Access evaluation detects a failure.
-	Action *string `json:"action,omitempty"`
-	Slo *ContinuousAccessPolicyRuleTerminateSessionSlo `json:"slo,omitempty"`
+	Action               *string                                        `json:"action,omitempty"`
+	Slo                  *ContinuousAccessPolicyRuleTerminateSessionSlo `json:"slo,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -194,4 +194,3 @@ func (v *NullableContinuousAccessPolicyRuleTerminateSession) UnmarshalJSON(src [
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-

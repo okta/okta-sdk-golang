@@ -29,12 +29,11 @@ import (
 	"fmt"
 )
 
-
-//model_oneof.mustache
+// model_oneof.mustache
 // SecurityEventsProviderRequestSettings - Information about the Security Events Provider for signal ingestion
 type SecurityEventsProviderRequestSettings struct {
 	SecurityEventsProviderSettingsNonSSFCompliant *SecurityEventsProviderSettingsNonSSFCompliant
-	SecurityEventsProviderSettingsSSFCompliant *SecurityEventsProviderSettingsSSFCompliant
+	SecurityEventsProviderSettingsSSFCompliant    *SecurityEventsProviderSettingsSSFCompliant
 }
 
 // SecurityEventsProviderSettingsNonSSFCompliantAsSecurityEventsProviderRequestSettings is a convenience function that returns SecurityEventsProviderSettingsNonSSFCompliant wrapped in SecurityEventsProviderRequestSettings
@@ -51,48 +50,47 @@ func SecurityEventsProviderSettingsSSFCompliantAsSecurityEventsProviderRequestSe
 	}
 }
 
-
 // Unmarshal JSON data into one of the pointers in the struct  CUSTOM
 func (dst *SecurityEventsProviderRequestSettings) UnmarshalJSON(data []byte) error {
 	var err error
-        match := 0
-        // try to unmarshal data into SecurityEventsProviderSettingsNonSSFCompliant
-        err = json.Unmarshal(data, &dst.SecurityEventsProviderSettingsNonSSFCompliant)
-        if err == nil {
-                jsonSecurityEventsProviderSettingsNonSSFCompliant, _ := json.Marshal(dst.SecurityEventsProviderSettingsNonSSFCompliant)
-                if string(jsonSecurityEventsProviderSettingsNonSSFCompliant) == "{}" { // empty struct
-                        dst.SecurityEventsProviderSettingsNonSSFCompliant = nil
-                } else {
-                        match++
-                }
-        } else {
-                dst.SecurityEventsProviderSettingsNonSSFCompliant = nil
-        }
+	match := 0
+	// try to unmarshal data into SecurityEventsProviderSettingsNonSSFCompliant
+	err = json.Unmarshal(data, &dst.SecurityEventsProviderSettingsNonSSFCompliant)
+	if err == nil {
+		jsonSecurityEventsProviderSettingsNonSSFCompliant, _ := json.Marshal(dst.SecurityEventsProviderSettingsNonSSFCompliant)
+		if string(jsonSecurityEventsProviderSettingsNonSSFCompliant) == "{}" { // empty struct
+			dst.SecurityEventsProviderSettingsNonSSFCompliant = nil
+		} else {
+			match++
+		}
+	} else {
+		dst.SecurityEventsProviderSettingsNonSSFCompliant = nil
+	}
 
-        // try to unmarshal data into SecurityEventsProviderSettingsSSFCompliant
-        err = json.Unmarshal(data, &dst.SecurityEventsProviderSettingsSSFCompliant)
-        if err == nil {
-                jsonSecurityEventsProviderSettingsSSFCompliant, _ := json.Marshal(dst.SecurityEventsProviderSettingsSSFCompliant)
-                if string(jsonSecurityEventsProviderSettingsSSFCompliant) == "{}" { // empty struct
-                        dst.SecurityEventsProviderSettingsSSFCompliant = nil
-                } else {
-                        match++
-                }
-        } else {
-                dst.SecurityEventsProviderSettingsSSFCompliant = nil
-        }
+	// try to unmarshal data into SecurityEventsProviderSettingsSSFCompliant
+	err = json.Unmarshal(data, &dst.SecurityEventsProviderSettingsSSFCompliant)
+	if err == nil {
+		jsonSecurityEventsProviderSettingsSSFCompliant, _ := json.Marshal(dst.SecurityEventsProviderSettingsSSFCompliant)
+		if string(jsonSecurityEventsProviderSettingsSSFCompliant) == "{}" { // empty struct
+			dst.SecurityEventsProviderSettingsSSFCompliant = nil
+		} else {
+			match++
+		}
+	} else {
+		dst.SecurityEventsProviderSettingsSSFCompliant = nil
+	}
 
-        if match > 1 { // more than 1 match
-                // reset to nil
-                dst.SecurityEventsProviderSettingsNonSSFCompliant = nil
-                dst.SecurityEventsProviderSettingsSSFCompliant = nil
+	if match > 1 { // more than 1 match
+		// reset to nil
+		dst.SecurityEventsProviderSettingsNonSSFCompliant = nil
+		dst.SecurityEventsProviderSettingsSSFCompliant = nil
 
-                return fmt.Errorf("Data matches more than one schema in oneOf(SecurityEventsProviderRequestSettings)")
-        } else if match == 1 {
-                return nil // exactly one match
-        } else { // no match
-                return fmt.Errorf("Data failed to match schemas in oneOf(SecurityEventsProviderRequestSettings)")
-        }
+		return fmt.Errorf("Data matches more than one schema in oneOf(SecurityEventsProviderRequestSettings)")
+	} else if match == 1 {
+		return nil // exactly one match
+	} else { // no match
+		return fmt.Errorf("Data failed to match schemas in oneOf(SecurityEventsProviderRequestSettings)")
+	}
 }
 
 // Marshal data from the first non-nil pointers in the struct to JSON
@@ -109,7 +107,7 @@ func (src SecurityEventsProviderRequestSettings) MarshalJSON() ([]byte, error) {
 }
 
 // Get the actual instance
-func (obj *SecurityEventsProviderRequestSettings) GetActualInstance() (interface{}) {
+func (obj *SecurityEventsProviderRequestSettings) GetActualInstance() interface{} {
 	if obj == nil {
 		return nil
 	}
@@ -160,5 +158,3 @@ func (v *NullableSecurityEventsProviderRequestSettings) UnmarshalJSON(src []byte
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-
-

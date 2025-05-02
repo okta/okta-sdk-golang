@@ -29,16 +29,15 @@ import (
 	"fmt"
 )
 
-
-//model_oneof.mustache
+// model_oneof.mustache
 // UserFactorActivateRequest - struct for UserFactorActivateRequest
 type UserFactorActivateRequest struct {
-	Call *Call
-	Email *Email
-	Sms *Sms
+	Call              *Call
+	Email             *Email
+	Sms               *Sms
 	TokenSoftwareTotp *TokenSoftwareTotp
-	U2f *U2f
-	Webauthn *Webauthn
+	U2f               *U2f
+	Webauthn          *Webauthn
 	MapmapOfStringAny *map[string]interface{}
 }
 
@@ -91,118 +90,117 @@ func MapmapOfStringAnyAsUserFactorActivateRequest(v *map[string]interface{}) Use
 	}
 }
 
-
 // Unmarshal JSON data into one of the pointers in the struct  CUSTOM
 func (dst *UserFactorActivateRequest) UnmarshalJSON(data []byte) error {
 	var err error
-        match := 0
-        // try to unmarshal data into Call
-        err = json.Unmarshal(data, &dst.Call)
-        if err == nil {
-                jsonCall, _ := json.Marshal(dst.Call)
-                if string(jsonCall) == "{}" { // empty struct
-                        dst.Call = nil
-                } else {
-                        match++
-                }
-        } else {
-                dst.Call = nil
-        }
+	match := 0
+	// try to unmarshal data into Call
+	err = json.Unmarshal(data, &dst.Call)
+	if err == nil {
+		jsonCall, _ := json.Marshal(dst.Call)
+		if string(jsonCall) == "{}" { // empty struct
+			dst.Call = nil
+		} else {
+			match++
+		}
+	} else {
+		dst.Call = nil
+	}
 
-        // try to unmarshal data into Email
-        err = json.Unmarshal(data, &dst.Email)
-        if err == nil {
-                jsonEmail, _ := json.Marshal(dst.Email)
-                if string(jsonEmail) == "{}" { // empty struct
-                        dst.Email = nil
-                } else {
-                        match++
-                }
-        } else {
-                dst.Email = nil
-        }
+	// try to unmarshal data into Email
+	err = json.Unmarshal(data, &dst.Email)
+	if err == nil {
+		jsonEmail, _ := json.Marshal(dst.Email)
+		if string(jsonEmail) == "{}" { // empty struct
+			dst.Email = nil
+		} else {
+			match++
+		}
+	} else {
+		dst.Email = nil
+	}
 
-        // try to unmarshal data into Sms
-        err = json.Unmarshal(data, &dst.Sms)
-        if err == nil {
-                jsonSms, _ := json.Marshal(dst.Sms)
-                if string(jsonSms) == "{}" { // empty struct
-                        dst.Sms = nil
-                } else {
-                        match++
-                }
-        } else {
-                dst.Sms = nil
-        }
+	// try to unmarshal data into Sms
+	err = json.Unmarshal(data, &dst.Sms)
+	if err == nil {
+		jsonSms, _ := json.Marshal(dst.Sms)
+		if string(jsonSms) == "{}" { // empty struct
+			dst.Sms = nil
+		} else {
+			match++
+		}
+	} else {
+		dst.Sms = nil
+	}
 
-        // try to unmarshal data into TokenSoftwareTotp
-        err = json.Unmarshal(data, &dst.TokenSoftwareTotp)
-        if err == nil {
-                jsonTokenSoftwareTotp, _ := json.Marshal(dst.TokenSoftwareTotp)
-                if string(jsonTokenSoftwareTotp) == "{}" { // empty struct
-                        dst.TokenSoftwareTotp = nil
-                } else {
-                        match++
-                }
-        } else {
-                dst.TokenSoftwareTotp = nil
-        }
+	// try to unmarshal data into TokenSoftwareTotp
+	err = json.Unmarshal(data, &dst.TokenSoftwareTotp)
+	if err == nil {
+		jsonTokenSoftwareTotp, _ := json.Marshal(dst.TokenSoftwareTotp)
+		if string(jsonTokenSoftwareTotp) == "{}" { // empty struct
+			dst.TokenSoftwareTotp = nil
+		} else {
+			match++
+		}
+	} else {
+		dst.TokenSoftwareTotp = nil
+	}
 
-        // try to unmarshal data into U2f
-        err = json.Unmarshal(data, &dst.U2f)
-        if err == nil {
-                jsonU2f, _ := json.Marshal(dst.U2f)
-                if string(jsonU2f) == "{}" { // empty struct
-                        dst.U2f = nil
-                } else {
-                        match++
-                }
-        } else {
-                dst.U2f = nil
-        }
+	// try to unmarshal data into U2f
+	err = json.Unmarshal(data, &dst.U2f)
+	if err == nil {
+		jsonU2f, _ := json.Marshal(dst.U2f)
+		if string(jsonU2f) == "{}" { // empty struct
+			dst.U2f = nil
+		} else {
+			match++
+		}
+	} else {
+		dst.U2f = nil
+	}
 
-        // try to unmarshal data into Webauthn
-        err = json.Unmarshal(data, &dst.Webauthn)
-        if err == nil {
-                jsonWebauthn, _ := json.Marshal(dst.Webauthn)
-                if string(jsonWebauthn) == "{}" { // empty struct
-                        dst.Webauthn = nil
-                } else {
-                        match++
-                }
-        } else {
-                dst.Webauthn = nil
-        }
+	// try to unmarshal data into Webauthn
+	err = json.Unmarshal(data, &dst.Webauthn)
+	if err == nil {
+		jsonWebauthn, _ := json.Marshal(dst.Webauthn)
+		if string(jsonWebauthn) == "{}" { // empty struct
+			dst.Webauthn = nil
+		} else {
+			match++
+		}
+	} else {
+		dst.Webauthn = nil
+	}
 
-        // try to unmarshal data into MapmapOfStringAny
-        err = json.Unmarshal(data, &dst.MapmapOfStringAny)
-        if err == nil {
-                jsonMapmapOfStringAny, _ := json.Marshal(dst.MapmapOfStringAny)
-                if string(jsonMapmapOfStringAny) == "{}" { // empty struct
-                        dst.MapmapOfStringAny = nil
-                } else {
-                        match++
-                }
-        } else {
-                dst.MapmapOfStringAny = nil
-        }
+	// try to unmarshal data into MapmapOfStringAny
+	err = json.Unmarshal(data, &dst.MapmapOfStringAny)
+	if err == nil {
+		jsonMapmapOfStringAny, _ := json.Marshal(dst.MapmapOfStringAny)
+		if string(jsonMapmapOfStringAny) == "{}" { // empty struct
+			dst.MapmapOfStringAny = nil
+		} else {
+			match++
+		}
+	} else {
+		dst.MapmapOfStringAny = nil
+	}
 
-        if match > 1 { // more than 1 match
-                // reset to nil
-                dst.Call = nil
-                dst.Email = nil
-                dst.Sms = nil
-                dst.TokenSoftwareTotp = nil
-                dst.U2f = nil
-                dst.Webauthn = nil
-                dst.MapmapOfStringAny = nil
+	if match > 1 { // more than 1 match
+		// reset to nil
+		dst.Call = nil
+		dst.Email = nil
+		dst.Sms = nil
+		dst.TokenSoftwareTotp = nil
+		dst.U2f = nil
+		dst.Webauthn = nil
+		dst.MapmapOfStringAny = nil
 
-                return fmt.Errorf("Data matches more than one schema in oneOf(UserFactorActivateRequest)")
-        } else if match == 1 {
-                return nil // exactly one match
-        } else { // no match
-                return fmt.Errorf("Data failed to match schemas in oneOf(UserFactorActivateRequest)")
-        }
+		return fmt.Errorf("Data matches more than one schema in oneOf(UserFactorActivateRequest)")
+	} else if match == 1 {
+		return nil // exactly one match
+	} else { // no match
+		return fmt.Errorf("Data failed to match schemas in oneOf(UserFactorActivateRequest)")
+	}
 }
 
 // Marshal data from the first non-nil pointers in the struct to JSON
@@ -239,7 +237,7 @@ func (src UserFactorActivateRequest) MarshalJSON() ([]byte, error) {
 }
 
 // Get the actual instance
-func (obj *UserFactorActivateRequest) GetActualInstance() (interface{}) {
+func (obj *UserFactorActivateRequest) GetActualInstance() interface{} {
 	if obj == nil {
 		return nil
 	}
@@ -310,5 +308,3 @@ func (v *NullableUserFactorActivateRequest) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-
-

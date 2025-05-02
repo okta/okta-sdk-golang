@@ -30,21 +30,20 @@ import (
 	"io/ioutil"
 	"net/http"
 	"net/url"
-	"time"
 	"strings"
+	"time"
 )
-
 
 type ApplicationConnectionsAPI interface {
 
 	/*
-	ActivateDefaultProvisioningConnectionForApplication Activate the default Provisioning Connection
+		ActivateDefaultProvisioningConnectionForApplication Activate the default Provisioning Connection
 
-	Activates the default Provisioning Connection for an app
+		Activates the default Provisioning Connection for an app
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param appId Application ID
-	@return ApiActivateDefaultProvisioningConnectionForApplicationRequest
+		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+		@param appId Application ID
+		@return ApiActivateDefaultProvisioningConnectionForApplicationRequest
 	*/
 	ActivateDefaultProvisioningConnectionForApplication(ctx context.Context, appId string) ApiActivateDefaultProvisioningConnectionForApplicationRequest
 
@@ -52,13 +51,13 @@ type ApplicationConnectionsAPI interface {
 	ActivateDefaultProvisioningConnectionForApplicationExecute(r ApiActivateDefaultProvisioningConnectionForApplicationRequest) (*APIResponse, error)
 
 	/*
-	DeactivateDefaultProvisioningConnectionForApplication Deactivate the default Provisioning Connection
+		DeactivateDefaultProvisioningConnectionForApplication Deactivate the default Provisioning Connection
 
-	Deactivates the default Provisioning Connection for an app
+		Deactivates the default Provisioning Connection for an app
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param appId Application ID
-	@return ApiDeactivateDefaultProvisioningConnectionForApplicationRequest
+		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+		@param appId Application ID
+		@return ApiDeactivateDefaultProvisioningConnectionForApplicationRequest
 	*/
 	DeactivateDefaultProvisioningConnectionForApplication(ctx context.Context, appId string) ApiDeactivateDefaultProvisioningConnectionForApplicationRequest
 
@@ -66,13 +65,13 @@ type ApplicationConnectionsAPI interface {
 	DeactivateDefaultProvisioningConnectionForApplicationExecute(r ApiDeactivateDefaultProvisioningConnectionForApplicationRequest) (*APIResponse, error)
 
 	/*
-	GetDefaultProvisioningConnectionForApplication Retrieve the default Provisioning Connection
+		GetDefaultProvisioningConnectionForApplication Retrieve the default Provisioning Connection
 
-	Retrieves the default Provisioning Connection for an app
+		Retrieves the default Provisioning Connection for an app
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param appId Application ID
-	@return ApiGetDefaultProvisioningConnectionForApplicationRequest
+		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+		@param appId Application ID
+		@return ApiGetDefaultProvisioningConnectionForApplicationRequest
 	*/
 	GetDefaultProvisioningConnectionForApplication(ctx context.Context, appId string) ApiGetDefaultProvisioningConnectionForApplicationRequest
 
@@ -81,13 +80,13 @@ type ApplicationConnectionsAPI interface {
 	GetDefaultProvisioningConnectionForApplicationExecute(r ApiGetDefaultProvisioningConnectionForApplicationRequest) (*ProvisioningConnectionResponse, *APIResponse, error)
 
 	/*
-	UpdateDefaultProvisioningConnectionForApplication Update the default Provisioning Connection
+		UpdateDefaultProvisioningConnectionForApplication Update the default Provisioning Connection
 
-	Updates the default Provisioning Connection for an app
+		Updates the default Provisioning Connection for an app
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param appId Application ID
-	@return ApiUpdateDefaultProvisioningConnectionForApplicationRequest
+		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+		@param appId Application ID
+		@return ApiUpdateDefaultProvisioningConnectionForApplicationRequest
 	*/
 	UpdateDefaultProvisioningConnectionForApplication(ctx context.Context, appId string) ApiUpdateDefaultProvisioningConnectionForApplicationRequest
 
@@ -96,16 +95,16 @@ type ApplicationConnectionsAPI interface {
 	UpdateDefaultProvisioningConnectionForApplicationExecute(r ApiUpdateDefaultProvisioningConnectionForApplicationRequest) (*ProvisioningConnectionResponse, *APIResponse, error)
 
 	/*
-	VerifyProvisioningConnectionForApplication Verify the Provisioning Connection
+			VerifyProvisioningConnectionForApplication Verify the Provisioning Connection
 
-	Verifies the OAuth 2.0-based connection as part of the OAuth 2.0 consent flow. The validation of the consent flow is the last step of the provisioning setup for an OAuth 2.0-based connection.
-Currently, this operation only supports `office365`,`google`, `zoomus`, and `slack` apps.
+			Verifies the OAuth 2.0-based connection as part of the OAuth 2.0 consent flow. The validation of the consent flow is the last step of the provisioning setup for an OAuth 2.0-based connection.
+		Currently, this operation only supports `office365`,`google`, `zoomus`, and `slack` apps.
 
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param appName
-	@param appId Application ID
-	@return ApiVerifyProvisioningConnectionForApplicationRequest
+			@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+			@param appName
+			@param appId Application ID
+			@return ApiVerifyProvisioningConnectionForApplicationRequest
 	*/
 	VerifyProvisioningConnectionForApplication(ctx context.Context, appName string, appId string) ApiVerifyProvisioningConnectionForApplicationRequest
 
@@ -117,9 +116,9 @@ Currently, this operation only supports `office365`,`google`, `zoomus`, and `sla
 type ApplicationConnectionsAPIService service
 
 type ApiActivateDefaultProvisioningConnectionForApplicationRequest struct {
-	ctx context.Context
+	ctx        context.Context
 	ApiService ApplicationConnectionsAPI
-	appId string
+	appId      string
 	retryCount int32
 }
 
@@ -132,15 +131,15 @@ ActivateDefaultProvisioningConnectionForApplication Activate the default Provisi
 
 Activates the default Provisioning Connection for an app
 
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @param appId Application ID
- @return ApiActivateDefaultProvisioningConnectionForApplicationRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param appId Application ID
+	@return ApiActivateDefaultProvisioningConnectionForApplicationRequest
 */
 func (a *ApplicationConnectionsAPIService) ActivateDefaultProvisioningConnectionForApplication(ctx context.Context, appId string) ApiActivateDefaultProvisioningConnectionForApplicationRequest {
 	return ApiActivateDefaultProvisioningConnectionForApplicationRequest{
 		ApiService: a,
-		ctx: ctx,
-		appId: appId,
+		ctx:        ctx,
+		appId:      appId,
 		retryCount: 0,
 	}
 }
@@ -153,7 +152,7 @@ func (a *ApplicationConnectionsAPIService) ActivateDefaultProvisioningConnection
 		formFiles            []formFile
 		localVarHTTPResponse *http.Response
 		localAPIResponse     *APIResponse
-		err 				 error
+		err                  error
 	)
 
 	if a.client.cfg.Okta.Client.RequestTimeout > 0 {
@@ -270,9 +269,9 @@ func (a *ApplicationConnectionsAPIService) ActivateDefaultProvisioningConnection
 }
 
 type ApiDeactivateDefaultProvisioningConnectionForApplicationRequest struct {
-	ctx context.Context
+	ctx        context.Context
 	ApiService ApplicationConnectionsAPI
-	appId string
+	appId      string
 	retryCount int32
 }
 
@@ -285,15 +284,15 @@ DeactivateDefaultProvisioningConnectionForApplication Deactivate the default Pro
 
 Deactivates the default Provisioning Connection for an app
 
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @param appId Application ID
- @return ApiDeactivateDefaultProvisioningConnectionForApplicationRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param appId Application ID
+	@return ApiDeactivateDefaultProvisioningConnectionForApplicationRequest
 */
 func (a *ApplicationConnectionsAPIService) DeactivateDefaultProvisioningConnectionForApplication(ctx context.Context, appId string) ApiDeactivateDefaultProvisioningConnectionForApplicationRequest {
 	return ApiDeactivateDefaultProvisioningConnectionForApplicationRequest{
 		ApiService: a,
-		ctx: ctx,
-		appId: appId,
+		ctx:        ctx,
+		appId:      appId,
 		retryCount: 0,
 	}
 }
@@ -306,7 +305,7 @@ func (a *ApplicationConnectionsAPIService) DeactivateDefaultProvisioningConnecti
 		formFiles            []formFile
 		localVarHTTPResponse *http.Response
 		localAPIResponse     *APIResponse
-		err 				 error
+		err                  error
 	)
 
 	if a.client.cfg.Okta.Client.RequestTimeout > 0 {
@@ -423,9 +422,9 @@ func (a *ApplicationConnectionsAPIService) DeactivateDefaultProvisioningConnecti
 }
 
 type ApiGetDefaultProvisioningConnectionForApplicationRequest struct {
-	ctx context.Context
+	ctx        context.Context
 	ApiService ApplicationConnectionsAPI
-	appId string
+	appId      string
 	retryCount int32
 }
 
@@ -438,21 +437,22 @@ GetDefaultProvisioningConnectionForApplication Retrieve the default Provisioning
 
 Retrieves the default Provisioning Connection for an app
 
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @param appId Application ID
- @return ApiGetDefaultProvisioningConnectionForApplicationRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param appId Application ID
+	@return ApiGetDefaultProvisioningConnectionForApplicationRequest
 */
 func (a *ApplicationConnectionsAPIService) GetDefaultProvisioningConnectionForApplication(ctx context.Context, appId string) ApiGetDefaultProvisioningConnectionForApplicationRequest {
 	return ApiGetDefaultProvisioningConnectionForApplicationRequest{
 		ApiService: a,
-		ctx: ctx,
-		appId: appId,
+		ctx:        ctx,
+		appId:      appId,
 		retryCount: 0,
 	}
 }
 
 // Execute executes the request
-//  @return ProvisioningConnectionResponse
+//
+//	@return ProvisioningConnectionResponse
 func (a *ApplicationConnectionsAPIService) GetDefaultProvisioningConnectionForApplicationExecute(r ApiGetDefaultProvisioningConnectionForApplicationRequest) (*ProvisioningConnectionResponse, *APIResponse, error) {
 	var (
 		localVarHTTPMethod   = http.MethodGet
@@ -461,7 +461,7 @@ func (a *ApplicationConnectionsAPIService) GetDefaultProvisioningConnectionForAp
 		localVarReturnValue  *ProvisioningConnectionResponse
 		localVarHTTPResponse *http.Response
 		localAPIResponse     *APIResponse
-		err 				 error
+		err                  error
 	)
 
 	if a.client.cfg.Okta.Client.RequestTimeout > 0 {
@@ -582,18 +582,18 @@ func (a *ApplicationConnectionsAPIService) GetDefaultProvisioningConnectionForAp
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
 		return localVarReturnValue, localAPIResponse, newErr
 	}
-	
+
 	localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
 	return localVarReturnValue, localAPIResponse, nil
 }
 
 type ApiUpdateDefaultProvisioningConnectionForApplicationRequest struct {
-	ctx context.Context
-	ApiService ApplicationConnectionsAPI
-	appId string
+	ctx                                                      context.Context
+	ApiService                                               ApplicationConnectionsAPI
+	appId                                                    string
 	updateDefaultProvisioningConnectionForApplicationRequest *UpdateDefaultProvisioningConnectionForApplicationRequest
-	activate *bool
-	retryCount int32
+	activate                                                 *bool
+	retryCount                                               int32
 }
 
 func (r ApiUpdateDefaultProvisioningConnectionForApplicationRequest) UpdateDefaultProvisioningConnectionForApplicationRequest(updateDefaultProvisioningConnectionForApplicationRequest UpdateDefaultProvisioningConnectionForApplicationRequest) ApiUpdateDefaultProvisioningConnectionForApplicationRequest {
@@ -616,21 +616,22 @@ UpdateDefaultProvisioningConnectionForApplication Update the default Provisionin
 
 Updates the default Provisioning Connection for an app
 
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @param appId Application ID
- @return ApiUpdateDefaultProvisioningConnectionForApplicationRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param appId Application ID
+	@return ApiUpdateDefaultProvisioningConnectionForApplicationRequest
 */
 func (a *ApplicationConnectionsAPIService) UpdateDefaultProvisioningConnectionForApplication(ctx context.Context, appId string) ApiUpdateDefaultProvisioningConnectionForApplicationRequest {
 	return ApiUpdateDefaultProvisioningConnectionForApplicationRequest{
 		ApiService: a,
-		ctx: ctx,
-		appId: appId,
+		ctx:        ctx,
+		appId:      appId,
 		retryCount: 0,
 	}
 }
 
 // Execute executes the request
-//  @return ProvisioningConnectionResponse
+//
+//	@return ProvisioningConnectionResponse
 func (a *ApplicationConnectionsAPIService) UpdateDefaultProvisioningConnectionForApplicationExecute(r ApiUpdateDefaultProvisioningConnectionForApplicationRequest) (*ProvisioningConnectionResponse, *APIResponse, error) {
 	var (
 		localVarHTTPMethod   = http.MethodPost
@@ -639,7 +640,7 @@ func (a *ApplicationConnectionsAPIService) UpdateDefaultProvisioningConnectionFo
 		localVarReturnValue  *ProvisioningConnectionResponse
 		localVarHTTPResponse *http.Response
 		localAPIResponse     *APIResponse
-		err 				 error
+		err                  error
 	)
 
 	if a.client.cfg.Okta.Client.RequestTimeout > 0 {
@@ -780,18 +781,18 @@ func (a *ApplicationConnectionsAPIService) UpdateDefaultProvisioningConnectionFo
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
 		return localVarReturnValue, localAPIResponse, newErr
 	}
-	
+
 	localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
 	return localVarReturnValue, localAPIResponse, nil
 }
 
 type ApiVerifyProvisioningConnectionForApplicationRequest struct {
-	ctx context.Context
+	ctx        context.Context
 	ApiService ApplicationConnectionsAPI
-	appName string
-	appId string
-	code *string
-	state *string
+	appName    string
+	appId      string
+	code       *string
+	state      *string
 	retryCount int32
 }
 
@@ -815,18 +816,17 @@ VerifyProvisioningConnectionForApplication Verify the Provisioning Connection
 Verifies the OAuth 2.0-based connection as part of the OAuth 2.0 consent flow. The validation of the consent flow is the last step of the provisioning setup for an OAuth 2.0-based connection.
 Currently, this operation only supports `office365`,`google`, `zoomus`, and `slack` apps.
 
-
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @param appName
- @param appId Application ID
- @return ApiVerifyProvisioningConnectionForApplicationRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param appName
+	@param appId Application ID
+	@return ApiVerifyProvisioningConnectionForApplicationRequest
 */
 func (a *ApplicationConnectionsAPIService) VerifyProvisioningConnectionForApplication(ctx context.Context, appName string, appId string) ApiVerifyProvisioningConnectionForApplicationRequest {
 	return ApiVerifyProvisioningConnectionForApplicationRequest{
 		ApiService: a,
-		ctx: ctx,
-		appName: appName,
-		appId: appId,
+		ctx:        ctx,
+		appName:    appName,
+		appId:      appId,
 		retryCount: 0,
 	}
 }
@@ -839,7 +839,7 @@ func (a *ApplicationConnectionsAPIService) VerifyProvisioningConnectionForApplic
 		formFiles            []formFile
 		localVarHTTPResponse *http.Response
 		localAPIResponse     *APIResponse
-		err 				 error
+		err                  error
 	)
 
 	if a.client.cfg.Okta.Client.RequestTimeout > 0 {

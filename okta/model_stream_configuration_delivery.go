@@ -26,7 +26,6 @@ package okta
 
 import (
 	"encoding/json"
-	"fmt"
 )
 
 // StreamConfigurationDelivery Contains information about the intended SET delivery method by the receiver
@@ -36,7 +35,7 @@ type StreamConfigurationDelivery struct {
 	// The target endpoint URL where the transmitter delivers the SET using HTTP POST requests
 	EndpointUrl string `json:"endpoint_url"`
 	// The delivery method that the transmitter uses for delivering a SET
-	Method string `json:"method"`
+	Method               string `json:"method"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -93,6 +92,7 @@ func (o *StreamConfigurationDelivery) HasAuthorizationHeader() bool {
 func (o *StreamConfigurationDelivery) SetAuthorizationHeader(v string) {
 	o.AuthorizationHeader.Set(&v)
 }
+
 // SetAuthorizationHeaderNil sets the value for AuthorizationHeader to be an explicit nil
 func (o *StreamConfigurationDelivery) SetAuthorizationHeaderNil() {
 	o.AuthorizationHeader.Set(nil)
@@ -230,4 +230,3 @@ func (v *NullableStreamConfigurationDelivery) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-

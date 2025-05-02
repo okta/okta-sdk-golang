@@ -26,7 +26,6 @@ package okta
 
 import (
 	"encoding/json"
-	"fmt"
 )
 
 // ECKeyJWK Elliptic Curve Key in JWK format, currently used during enrollment to encrypt fulfillment requests to Yubico, or during activation to verify Yubico's JWS objects in fulfillment responses. The currently agreed protocol uses P-384.
@@ -41,7 +40,7 @@ type ECKeyJWK struct {
 	// The public x coordinate for the elliptic curve point
 	X string `json:"x"`
 	// The public y coordinate for the elliptic curve point
-	Y string `json:"y"`
+	Y                    string `json:"y"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -305,4 +304,3 @@ func (v *NullableECKeyJWK) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-

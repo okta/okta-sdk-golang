@@ -26,16 +26,15 @@ package okta
 
 import (
 	"encoding/json"
-	"fmt"
 )
 
 // BehaviorRuleSettingsAnomalousLocation struct for BehaviorRuleSettingsAnomalousLocation
 type BehaviorRuleSettingsAnomalousLocation struct {
-	MaxEventsUsedForEvaluation *int32 `json:"maxEventsUsedForEvaluation,omitempty"`
+	MaxEventsUsedForEvaluation   *int32 `json:"maxEventsUsedForEvaluation,omitempty"`
 	MinEventsNeededForEvaluation *int32 `json:"minEventsNeededForEvaluation,omitempty"`
-	Granularity string `json:"granularity"`
+	Granularity                  string `json:"granularity"`
 	// Required when `granularity` is `LAT_LONG`. Radius from the provided coordinates in kilometers.
-	RadiusKilometers *int32 `json:"radiusKilometers,omitempty"`
+	RadiusKilometers     *int32 `json:"radiusKilometers,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -270,4 +269,3 @@ func (v *NullableBehaviorRuleSettingsAnomalousLocation) UnmarshalJSON(src []byte
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-

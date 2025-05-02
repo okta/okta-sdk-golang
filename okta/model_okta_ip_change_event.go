@@ -26,7 +26,6 @@ package okta
 
 import (
 	"encoding/json"
-	"fmt"
 )
 
 // OktaIpChangeEvent IP changed for the subject's session
@@ -38,10 +37,10 @@ type OktaIpChangeEvent struct {
 	// The entity that initiated the event
 	InitiatingEntity *string `json:"initiating_entity,omitempty"`
 	// Previous IP address of the subject
-	PreviousIpAddress string `json:"previous_ip_address"`
-	ReasonAdmin *CaepDeviceComplianceChangeEventReasonAdmin `json:"reason_admin,omitempty"`
-	ReasonUser *CaepDeviceComplianceChangeEventReasonUser `json:"reason_user,omitempty"`
-	Subjects SecurityEventSubject `json:"subjects"`
+	PreviousIpAddress    string                                      `json:"previous_ip_address"`
+	ReasonAdmin          *CaepDeviceComplianceChangeEventReasonAdmin `json:"reason_admin,omitempty"`
+	ReasonUser           *CaepDeviceComplianceChangeEventReasonUser  `json:"reason_user,omitempty"`
+	Subjects             SecurityEventSubject                        `json:"subjects"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -355,4 +354,3 @@ func (v *NullableOktaIpChangeEvent) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-

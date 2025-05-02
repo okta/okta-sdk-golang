@@ -30,8 +30,8 @@ import (
 
 // IdentityProviderPolicyRuleCondition struct for IdentityProviderPolicyRuleCondition
 type IdentityProviderPolicyRuleCondition struct {
-	IdpIds []string `json:"idpIds,omitempty"`
-	Provider *string `json:"provider,omitempty"`
+	IdpIds               []string `json:"idpIds,omitempty"`
+	Provider             *string  `json:"provider,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -193,4 +193,3 @@ func (v *NullableIdentityProviderPolicyRuleCondition) UnmarshalJSON(src []byte) 
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-

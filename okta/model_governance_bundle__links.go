@@ -30,7 +30,7 @@ import (
 
 // GovernanceBundleLinks struct for GovernanceBundleLinks
 type GovernanceBundleLinks struct {
-	Entitlements *HrefObject `json:"entitlements,omitempty"`
+	Entitlements         *HrefObject `json:"entitlements,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -156,4 +156,3 @@ func (v *NullableGovernanceBundleLinks) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-

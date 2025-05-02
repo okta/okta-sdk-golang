@@ -91,7 +91,7 @@ type UserProfile struct {
 	// The property used to describe the organization-to-user relationship, such as employee or contractor
 	UserType NullableString `json:"userType,omitempty"`
 	// The ZIP code or postal code component of the user's address (`postalCode`)
-	ZipCode NullableString `json:"zipCode,omitempty"`
+	ZipCode              NullableString `json:"zipCode,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -146,6 +146,7 @@ func (o *UserProfile) HasCity() bool {
 func (o *UserProfile) SetCity(v string) {
 	o.City.Set(&v)
 }
+
 // SetCityNil sets the value for City to be an explicit nil
 func (o *UserProfile) SetCityNil() {
 	o.City.Set(nil)
@@ -188,6 +189,7 @@ func (o *UserProfile) HasCostCenter() bool {
 func (o *UserProfile) SetCostCenter(v string) {
 	o.CostCenter.Set(&v)
 }
+
 // SetCostCenterNil sets the value for CostCenter to be an explicit nil
 func (o *UserProfile) SetCostCenterNil() {
 	o.CostCenter.Set(nil)
@@ -230,6 +232,7 @@ func (o *UserProfile) HasCountryCode() bool {
 func (o *UserProfile) SetCountryCode(v string) {
 	o.CountryCode.Set(&v)
 }
+
 // SetCountryCodeNil sets the value for CountryCode to be an explicit nil
 func (o *UserProfile) SetCountryCodeNil() {
 	o.CountryCode.Set(nil)
@@ -304,6 +307,7 @@ func (o *UserProfile) HasDisplayName() bool {
 func (o *UserProfile) SetDisplayName(v string) {
 	o.DisplayName.Set(&v)
 }
+
 // SetDisplayNameNil sets the value for DisplayName to be an explicit nil
 func (o *UserProfile) SetDisplayNameNil() {
 	o.DisplayName.Set(nil)
@@ -346,6 +350,7 @@ func (o *UserProfile) HasDivision() bool {
 func (o *UserProfile) SetDivision(v string) {
 	o.Division.Set(&v)
 }
+
 // SetDivisionNil sets the value for Division to be an explicit nil
 func (o *UserProfile) SetDivisionNil() {
 	o.Division.Set(nil)
@@ -452,6 +457,7 @@ func (o *UserProfile) HasFirstName() bool {
 func (o *UserProfile) SetFirstName(v string) {
 	o.FirstName.Set(&v)
 }
+
 // SetFirstNameNil sets the value for FirstName to be an explicit nil
 func (o *UserProfile) SetFirstNameNil() {
 	o.FirstName.Set(nil)
@@ -494,6 +500,7 @@ func (o *UserProfile) HasHonorificPrefix() bool {
 func (o *UserProfile) SetHonorificPrefix(v string) {
 	o.HonorificPrefix.Set(&v)
 }
+
 // SetHonorificPrefixNil sets the value for HonorificPrefix to be an explicit nil
 func (o *UserProfile) SetHonorificPrefixNil() {
 	o.HonorificPrefix.Set(nil)
@@ -536,6 +543,7 @@ func (o *UserProfile) HasHonorificSuffix() bool {
 func (o *UserProfile) SetHonorificSuffix(v string) {
 	o.HonorificSuffix.Set(&v)
 }
+
 // SetHonorificSuffixNil sets the value for HonorificSuffix to be an explicit nil
 func (o *UserProfile) SetHonorificSuffixNil() {
 	o.HonorificSuffix.Set(nil)
@@ -578,6 +586,7 @@ func (o *UserProfile) HasLastName() bool {
 func (o *UserProfile) SetLastName(v string) {
 	o.LastName.Set(&v)
 }
+
 // SetLastNameNil sets the value for LastName to be an explicit nil
 func (o *UserProfile) SetLastNameNil() {
 	o.LastName.Set(nil)
@@ -684,6 +693,7 @@ func (o *UserProfile) HasManager() bool {
 func (o *UserProfile) SetManager(v string) {
 	o.Manager.Set(&v)
 }
+
 // SetManagerNil sets the value for Manager to be an explicit nil
 func (o *UserProfile) SetManagerNil() {
 	o.Manager.Set(nil)
@@ -726,6 +736,7 @@ func (o *UserProfile) HasManagerId() bool {
 func (o *UserProfile) SetManagerId(v string) {
 	o.ManagerId.Set(&v)
 }
+
 // SetManagerIdNil sets the value for ManagerId to be an explicit nil
 func (o *UserProfile) SetManagerIdNil() {
 	o.ManagerId.Set(nil)
@@ -768,6 +779,7 @@ func (o *UserProfile) HasMiddleName() bool {
 func (o *UserProfile) SetMiddleName(v string) {
 	o.MiddleName.Set(&v)
 }
+
 // SetMiddleNameNil sets the value for MiddleName to be an explicit nil
 func (o *UserProfile) SetMiddleNameNil() {
 	o.MiddleName.Set(nil)
@@ -810,6 +822,7 @@ func (o *UserProfile) HasMobilePhone() bool {
 func (o *UserProfile) SetMobilePhone(v string) {
 	o.MobilePhone.Set(&v)
 }
+
 // SetMobilePhoneNil sets the value for MobilePhone to be an explicit nil
 func (o *UserProfile) SetMobilePhoneNil() {
 	o.MobilePhone.Set(nil)
@@ -852,6 +865,7 @@ func (o *UserProfile) HasNickName() bool {
 func (o *UserProfile) SetNickName(v string) {
 	o.NickName.Set(&v)
 }
+
 // SetNickNameNil sets the value for NickName to be an explicit nil
 func (o *UserProfile) SetNickNameNil() {
 	o.NickName.Set(nil)
@@ -894,6 +908,7 @@ func (o *UserProfile) HasOrganization() bool {
 func (o *UserProfile) SetOrganization(v string) {
 	o.Organization.Set(&v)
 }
+
 // SetOrganizationNil sets the value for Organization to be an explicit nil
 func (o *UserProfile) SetOrganizationNil() {
 	o.Organization.Set(nil)
@@ -936,6 +951,7 @@ func (o *UserProfile) HasPostalAddress() bool {
 func (o *UserProfile) SetPostalAddress(v string) {
 	o.PostalAddress.Set(&v)
 }
+
 // SetPostalAddressNil sets the value for PostalAddress to be an explicit nil
 func (o *UserProfile) SetPostalAddressNil() {
 	o.PostalAddress.Set(nil)
@@ -978,6 +994,7 @@ func (o *UserProfile) HasPreferredLanguage() bool {
 func (o *UserProfile) SetPreferredLanguage(v string) {
 	o.PreferredLanguage.Set(&v)
 }
+
 // SetPreferredLanguageNil sets the value for PreferredLanguage to be an explicit nil
 func (o *UserProfile) SetPreferredLanguageNil() {
 	o.PreferredLanguage.Set(nil)
@@ -1020,6 +1037,7 @@ func (o *UserProfile) HasPrimaryPhone() bool {
 func (o *UserProfile) SetPrimaryPhone(v string) {
 	o.PrimaryPhone.Set(&v)
 }
+
 // SetPrimaryPhoneNil sets the value for PrimaryPhone to be an explicit nil
 func (o *UserProfile) SetPrimaryPhoneNil() {
 	o.PrimaryPhone.Set(nil)
@@ -1062,6 +1080,7 @@ func (o *UserProfile) HasProfileUrl() bool {
 func (o *UserProfile) SetProfileUrl(v string) {
 	o.ProfileUrl.Set(&v)
 }
+
 // SetProfileUrlNil sets the value for ProfileUrl to be an explicit nil
 func (o *UserProfile) SetProfileUrlNil() {
 	o.ProfileUrl.Set(nil)
@@ -1104,6 +1123,7 @@ func (o *UserProfile) HasSecondEmail() bool {
 func (o *UserProfile) SetSecondEmail(v string) {
 	o.SecondEmail.Set(&v)
 }
+
 // SetSecondEmailNil sets the value for SecondEmail to be an explicit nil
 func (o *UserProfile) SetSecondEmailNil() {
 	o.SecondEmail.Set(nil)
@@ -1146,6 +1166,7 @@ func (o *UserProfile) HasState() bool {
 func (o *UserProfile) SetState(v string) {
 	o.State.Set(&v)
 }
+
 // SetStateNil sets the value for State to be an explicit nil
 func (o *UserProfile) SetStateNil() {
 	o.State.Set(nil)
@@ -1188,6 +1209,7 @@ func (o *UserProfile) HasStreetAddress() bool {
 func (o *UserProfile) SetStreetAddress(v string) {
 	o.StreetAddress.Set(&v)
 }
+
 // SetStreetAddressNil sets the value for StreetAddress to be an explicit nil
 func (o *UserProfile) SetStreetAddressNil() {
 	o.StreetAddress.Set(nil)
@@ -1230,6 +1252,7 @@ func (o *UserProfile) HasTimezone() bool {
 func (o *UserProfile) SetTimezone(v string) {
 	o.Timezone.Set(&v)
 }
+
 // SetTimezoneNil sets the value for Timezone to be an explicit nil
 func (o *UserProfile) SetTimezoneNil() {
 	o.Timezone.Set(nil)
@@ -1272,6 +1295,7 @@ func (o *UserProfile) HasTitle() bool {
 func (o *UserProfile) SetTitle(v string) {
 	o.Title.Set(&v)
 }
+
 // SetTitleNil sets the value for Title to be an explicit nil
 func (o *UserProfile) SetTitleNil() {
 	o.Title.Set(nil)
@@ -1314,6 +1338,7 @@ func (o *UserProfile) HasUserType() bool {
 func (o *UserProfile) SetUserType(v string) {
 	o.UserType.Set(&v)
 }
+
 // SetUserTypeNil sets the value for UserType to be an explicit nil
 func (o *UserProfile) SetUserTypeNil() {
 	o.UserType.Set(nil)
@@ -1356,6 +1381,7 @@ func (o *UserProfile) HasZipCode() bool {
 func (o *UserProfile) SetZipCode(v string) {
 	o.ZipCode.Set(&v)
 }
+
 // SetZipCodeNil sets the value for ZipCode to be an explicit nil
 func (o *UserProfile) SetZipCodeNil() {
 	o.ZipCode.Set(nil)
@@ -1557,4 +1583,3 @@ func (v *NullableUserProfile) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-

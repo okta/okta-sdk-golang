@@ -33,7 +33,7 @@ type EventHookFilterMapObjectCondition struct {
 	// The Okta Expression language statement that filters the event type
 	Expression *string `json:"expression,omitempty"`
 	// Internal field
-	Version NullableString `json:"version,omitempty"`
+	Version              NullableString `json:"version,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -120,6 +120,7 @@ func (o *EventHookFilterMapObjectCondition) HasVersion() bool {
 func (o *EventHookFilterMapObjectCondition) SetVersion(v string) {
 	o.Version.Set(&v)
 }
+
 // SetVersionNil sets the value for Version to be an explicit nil
 func (o *EventHookFilterMapObjectCondition) SetVersionNil() {
 	o.Version.Set(nil)
@@ -205,4 +206,3 @@ func (v *NullableEventHookFilterMapObjectCondition) UnmarshalJSON(src []byte) er
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-

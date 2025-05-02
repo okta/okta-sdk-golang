@@ -30,7 +30,7 @@ import (
 
 // LifecycleDeactivateSettingObject Determines whether deprovisioning occurs when the app is unassigned
 type LifecycleDeactivateSettingObject struct {
-	Status *string `json:"status,omitempty"`
+	Status               *string `json:"status,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -156,4 +156,3 @@ func (v *NullableLifecycleDeactivateSettingObject) UnmarshalJSON(src []byte) err
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-

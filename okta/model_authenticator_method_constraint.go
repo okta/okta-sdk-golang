@@ -31,8 +31,8 @@ import (
 // AuthenticatorMethodConstraint Limits the authenticators that can be used for a given method. Currently, only the `otp` method supports constraints, and Google authenticator (key : 'google_otp') is the only allowed authenticator.
 type AuthenticatorMethodConstraint struct {
 	AllowedAuthenticators []AuthenticatorIdentity `json:"allowedAuthenticators,omitempty"`
-	Method *string `json:"method,omitempty"`
-	AdditionalProperties map[string]interface{}
+	Method                *string                 `json:"method,omitempty"`
+	AdditionalProperties  map[string]interface{}
 }
 
 type _AuthenticatorMethodConstraint AuthenticatorMethodConstraint
@@ -193,4 +193,3 @@ func (v *NullableAuthenticatorMethodConstraint) UnmarshalJSON(src []byte) error 
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-

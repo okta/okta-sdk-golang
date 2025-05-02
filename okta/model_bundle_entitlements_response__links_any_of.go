@@ -30,7 +30,7 @@ import (
 
 // BundleEntitlementsResponseLinksAnyOf struct for BundleEntitlementsResponseLinksAnyOf
 type BundleEntitlementsResponseLinksAnyOf struct {
-	Bundle *HrefObject `json:"bundle,omitempty"`
+	Bundle               *HrefObject `json:"bundle,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -156,4 +156,3 @@ func (v *NullableBundleEntitlementsResponseLinksAnyOf) UnmarshalJSON(src []byte)
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-

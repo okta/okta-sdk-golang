@@ -30,10 +30,10 @@ import (
 
 // DomainLinks struct for DomainLinks
 type DomainLinks struct {
-	Self *HrefObjectSelfLink `json:"self,omitempty"`
-	Brand *DomainLinksAllOfBrand `json:"brand,omitempty"`
-	Certificate *DomainLinksAllOfCertificate `json:"certificate,omitempty"`
-	Verify *DomainLinksAllOfVerify `json:"verify,omitempty"`
+	Self                 *HrefObjectSelfLink          `json:"self,omitempty"`
+	Brand                *DomainLinksAllOfBrand       `json:"brand,omitempty"`
+	Certificate          *DomainLinksAllOfCertificate `json:"certificate,omitempty"`
+	Verify               *DomainLinksAllOfVerify      `json:"verify,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -267,4 +267,3 @@ func (v *NullableDomainLinks) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-

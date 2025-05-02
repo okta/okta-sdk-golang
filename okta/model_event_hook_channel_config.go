@@ -26,7 +26,6 @@ package okta
 
 import (
 	"encoding/json"
-	"fmt"
 )
 
 // EventHookChannelConfig struct for EventHookChannelConfig
@@ -37,7 +36,7 @@ type EventHookChannelConfig struct {
 	// The method of the Okta event hook request
 	Method *string `json:"method,omitempty"`
 	// The external service endpoint called to execute the event hook handler
-	Uri string `json:"uri"`
+	Uri                  string `json:"uri"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -264,4 +263,3 @@ func (v *NullableEventHookChannelConfig) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-

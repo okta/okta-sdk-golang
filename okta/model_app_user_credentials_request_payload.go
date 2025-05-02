@@ -30,7 +30,7 @@ import (
 
 // AppUserCredentialsRequestPayload Updates the assigned user credentials
 type AppUserCredentialsRequestPayload struct {
-	Credentials *AppUserCredentials `json:"credentials,omitempty"`
+	Credentials          *AppUserCredentials `json:"credentials,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -156,4 +156,3 @@ func (v *NullableAppUserCredentialsRequestPayload) UnmarshalJSON(src []byte) err
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-

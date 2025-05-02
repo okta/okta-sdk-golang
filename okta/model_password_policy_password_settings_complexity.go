@@ -30,14 +30,14 @@ import (
 
 // PasswordPolicyPasswordSettingsComplexity struct for PasswordPolicyPasswordSettingsComplexity
 type PasswordPolicyPasswordSettingsComplexity struct {
-	Dictionary *PasswordDictionary `json:"dictionary,omitempty"`
-	ExcludeAttributes []string `json:"excludeAttributes,omitempty"`
-	ExcludeUsername *bool `json:"excludeUsername,omitempty"`
-	MinLength *int32 `json:"minLength,omitempty"`
-	MinLowerCase *int32 `json:"minLowerCase,omitempty"`
-	MinNumber *int32 `json:"minNumber,omitempty"`
-	MinSymbol *int32 `json:"minSymbol,omitempty"`
-	MinUpperCase *int32 `json:"minUpperCase,omitempty"`
+	Dictionary           *PasswordDictionary `json:"dictionary,omitempty"`
+	ExcludeAttributes    []string            `json:"excludeAttributes,omitempty"`
+	ExcludeUsername      *bool               `json:"excludeUsername,omitempty"`
+	MinLength            *int32              `json:"minLength,omitempty"`
+	MinLowerCase         *int32              `json:"minLowerCase,omitempty"`
+	MinNumber            *int32              `json:"minNumber,omitempty"`
+	MinSymbol            *int32              `json:"minSymbol,omitempty"`
+	MinUpperCase         *int32              `json:"minUpperCase,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -419,4 +419,3 @@ func (v *NullablePasswordPolicyPasswordSettingsComplexity) UnmarshalJSON(src []b
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-

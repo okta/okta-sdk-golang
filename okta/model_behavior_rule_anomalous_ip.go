@@ -26,7 +26,6 @@ package okta
 
 import (
 	"encoding/json"
-	"fmt"
 	"reflect"
 	"strings"
 )
@@ -34,7 +33,7 @@ import (
 // BehaviorRuleAnomalousIP struct for BehaviorRuleAnomalousIP
 type BehaviorRuleAnomalousIP struct {
 	BehaviorRule
-	Settings *BehaviorRuleSettingsAnomalousIP `json:"settings,omitempty"`
+	Settings             *BehaviorRuleSettingsAnomalousIP `json:"settings,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -204,4 +203,3 @@ func (v *NullableBehaviorRuleAnomalousIP) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-

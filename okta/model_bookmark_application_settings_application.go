@@ -30,8 +30,8 @@ import (
 
 // BookmarkApplicationSettingsApplication struct for BookmarkApplicationSettingsApplication
 type BookmarkApplicationSettingsApplication struct {
-	RequestIntegration *bool `json:"requestIntegration,omitempty"`
-	Url *string `json:"url,omitempty"`
+	RequestIntegration   *bool   `json:"requestIntegration,omitempty"`
+	Url                  *string `json:"url,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -193,4 +193,3 @@ func (v *NullableBookmarkApplicationSettingsApplication) UnmarshalJSON(src []byt
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-

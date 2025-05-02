@@ -26,12 +26,11 @@ package okta
 
 import (
 	"encoding/json"
-	"fmt"
 )
 
 // ProvisioningConnectionOauthRequest struct for ProvisioningConnectionOauthRequest
 type ProvisioningConnectionOauthRequest struct {
-	Profile ProvisioningConnectionOauthRequestProfile `json:"profile"`
+	Profile              ProvisioningConnectionOauthRequestProfile `json:"profile"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -150,4 +149,3 @@ func (v *NullableProvisioningConnectionOauthRequest) UnmarshalJSON(src []byte) e
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-

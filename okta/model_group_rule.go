@@ -31,14 +31,14 @@ import (
 
 // GroupRule struct for GroupRule
 type GroupRule struct {
-	Actions *GroupRuleAction `json:"actions,omitempty"`
-	Conditions *GroupRuleConditions `json:"conditions,omitempty"`
-	Created *time.Time `json:"created,omitempty"`
-	Id *string `json:"id,omitempty"`
-	LastUpdated *time.Time `json:"lastUpdated,omitempty"`
-	Name *string `json:"name,omitempty"`
-	Status *string `json:"status,omitempty"`
-	Type *string `json:"type,omitempty"`
+	Actions              *GroupRuleAction     `json:"actions,omitempty"`
+	Conditions           *GroupRuleConditions `json:"conditions,omitempty"`
+	Created              *time.Time           `json:"created,omitempty"`
+	Id                   *string              `json:"id,omitempty"`
+	LastUpdated          *time.Time           `json:"lastUpdated,omitempty"`
+	Name                 *string              `json:"name,omitempty"`
+	Status               *string              `json:"status,omitempty"`
+	Type                 *string              `json:"type,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -416,4 +416,3 @@ func (v *NullableGroupRule) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-

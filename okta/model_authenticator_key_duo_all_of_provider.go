@@ -31,8 +31,8 @@ import (
 // AuthenticatorKeyDuoAllOfProvider struct for AuthenticatorKeyDuoAllOfProvider
 type AuthenticatorKeyDuoAllOfProvider struct {
 	// Provider type
-	Type *string `json:"type,omitempty"`
-	Configuration *AuthenticatorKeyDuoAllOfProviderConfiguration `json:"configuration,omitempty"`
+	Type                 *string                                        `json:"type,omitempty"`
+	Configuration        *AuthenticatorKeyDuoAllOfProviderConfiguration `json:"configuration,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -194,4 +194,3 @@ func (v *NullableAuthenticatorKeyDuoAllOfProvider) UnmarshalJSON(src []byte) err
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-

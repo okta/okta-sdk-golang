@@ -26,7 +26,6 @@ package okta
 
 import (
 	"encoding/json"
-	"fmt"
 )
 
 // Oidc OIDC configuration details
@@ -38,7 +37,7 @@ type Oidc struct {
 	// The sign-out redirect URIs for your app. You can send a request to `/v1/logout` to sign the user out and redirect them to one of these URIs.
 	PostLogoutUris []string `json:"postLogoutUris,omitempty"`
 	// List of sign-in redirect URIs
-	RedirectUris []string `json:"redirectUris"`
+	RedirectUris         []string `json:"redirectUris"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -258,4 +257,3 @@ func (v *NullableOidc) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-

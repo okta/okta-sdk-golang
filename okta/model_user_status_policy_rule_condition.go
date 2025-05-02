@@ -30,7 +30,7 @@ import (
 
 // UserStatusPolicyRuleCondition struct for UserStatusPolicyRuleCondition
 type UserStatusPolicyRuleCondition struct {
-	Value *string `json:"value,omitempty"`
+	Value                *string `json:"value,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -156,4 +156,3 @@ func (v *NullableUserStatusPolicyRuleCondition) UnmarshalJSON(src []byte) error 
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-

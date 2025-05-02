@@ -33,7 +33,7 @@ type ProfileMappingProperty struct {
 	// Combination or single source properties that are mapped to the target property
 	Expression *string `json:"expression,omitempty"`
 	// Indicates whether to update target properties for user create and update or just for user create.  Having a pushStatus of `PUSH` causes properties in the target to be updated on create and update. Having a pushStatus of `DONT_PUSH` causes properties in the target to be updated only on create.
-	PushStatus *string `json:"pushStatus,omitempty"`
+	PushStatus           *string `json:"pushStatus,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -195,4 +195,3 @@ func (v *NullableProfileMappingProperty) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-

@@ -33,16 +33,15 @@ import (
 	"time"
 )
 
-
 type SSFSecurityEventTokenAPI interface {
 
 	/*
-	PublishSecurityEventTokens Publish a Security Event Token
+		PublishSecurityEventTokens Publish a Security Event Token
 
-	Publishes a Security Event Token (SET) sent by a Security Events Provider. After the token is verified, Okta ingests the event and performs any appropriate action.
+		Publishes a Security Event Token (SET) sent by a Security Events Provider. After the token is verified, Okta ingests the event and performs any appropriate action.
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@return ApiPublishSecurityEventTokensRequest
+		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+		@return ApiPublishSecurityEventTokensRequest
 	*/
 	PublishSecurityEventTokens(ctx context.Context) ApiPublishSecurityEventTokensRequest
 
@@ -54,13 +53,13 @@ type SSFSecurityEventTokenAPI interface {
 type SSFSecurityEventTokenAPIService service
 
 type ApiPublishSecurityEventTokensRequest struct {
-	ctx context.Context
-	ApiService SSFSecurityEventTokenAPI
+	ctx                context.Context
+	ApiService         SSFSecurityEventTokenAPI
 	securityEventToken *string
-	retryCount int32
+	retryCount         int32
 }
 
-// The request body is a signed [SET](https://datatracker.ietf.org/doc/html/rfc8417), which is a type of JSON Web Token (JWT).  For SET JWT header and body descriptions, see [SET JWT header](/openapi/okta-management/management/tag/SSFSecurityEventToken/#tag/SSFSecurityEventToken/schema/SecurityEventTokenRequestJwtHeader) and [SET JWT body payload](/openapi/okta-management/management/tag/SSFSecurityEventToken/#tag/SSFSecurityEventToken/schema/SecurityEventTokenRequestJwtBody). 
+// The request body is a signed [SET](https://datatracker.ietf.org/doc/html/rfc8417), which is a type of JSON Web Token (JWT).  For SET JWT header and body descriptions, see [SET JWT header](/openapi/okta-management/management/tag/SSFSecurityEventToken/#tag/SSFSecurityEventToken/schema/SecurityEventTokenRequestJwtHeader) and [SET JWT body payload](/openapi/okta-management/management/tag/SSFSecurityEventToken/#tag/SSFSecurityEventToken/schema/SecurityEventTokenRequestJwtBody).
 func (r ApiPublishSecurityEventTokensRequest) SecurityEventToken(securityEventToken string) ApiPublishSecurityEventTokensRequest {
 	r.securityEventToken = &securityEventToken
 	return r
@@ -75,13 +74,13 @@ PublishSecurityEventTokens Publish a Security Event Token
 
 Publishes a Security Event Token (SET) sent by a Security Events Provider. After the token is verified, Okta ingests the event and performs any appropriate action.
 
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @return ApiPublishSecurityEventTokensRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@return ApiPublishSecurityEventTokensRequest
 */
 func (a *SSFSecurityEventTokenAPIService) PublishSecurityEventTokens(ctx context.Context) ApiPublishSecurityEventTokensRequest {
 	return ApiPublishSecurityEventTokensRequest{
 		ApiService: a,
-		ctx: ctx,
+		ctx:        ctx,
 		retryCount: 0,
 	}
 }
@@ -94,7 +93,7 @@ func (a *SSFSecurityEventTokenAPIService) PublishSecurityEventTokensExecute(r Ap
 		formFiles            []formFile
 		localVarHTTPResponse *http.Response
 		localAPIResponse     *APIResponse
-		err 				 error
+		err                  error
 	)
 
 	if a.client.cfg.Okta.Client.RequestTimeout > 0 {

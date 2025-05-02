@@ -33,7 +33,7 @@ type AuthenticatorKeyCustomAppAllOfSettings struct {
 	// User verification setting
 	UserVerification *string `json:"userVerification,omitempty"`
 	// The application instance ID. For custom_app, you need to create an OIDC native app using the [Apps API](https://developer.okta.com/docs/reference/api/apps/) with `Authorization Code` and `Refresh Token` grant types. You can leave both `Sign-in redirect URIs` and `Sign-out redirect URIs` as the default values.
-	AppInstanceId *string `json:"appInstanceId,omitempty"`
+	AppInstanceId        *string `json:"appInstanceId,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -195,4 +195,3 @@ func (v *NullableAuthenticatorKeyCustomAppAllOfSettings) UnmarshalJSON(src []byt
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-

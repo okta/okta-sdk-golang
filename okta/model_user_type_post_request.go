@@ -33,7 +33,7 @@ type UserTypePostRequest struct {
 	// The updated human-readable description of the User Type
 	Description *string `json:"description,omitempty"`
 	// The updated human-readable display name for the User Type
-	DisplayName *string `json:"displayName,omitempty"`
+	DisplayName          *string `json:"displayName,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -195,4 +195,3 @@ func (v *NullableUserTypePostRequest) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-

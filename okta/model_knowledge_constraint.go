@@ -41,7 +41,7 @@ type KnowledgeConstraint struct {
 	// This property indicates whether the knowledge or possession factor is required by the assurance. It's optional in the request, but is always returned in the response. By default, this field is `true`. If the knowledge or possession constraint has values for `excludedAuthenticationMethods` the `required` value is false. <x-lifecycle class=\"oie\"></x-lifecycle>
 	Required *bool `json:"required,omitempty"`
 	// The Authenticator types that are permitted
-	Types []string `json:"types,omitempty"`
+	Types                []string `json:"types,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -347,4 +347,3 @@ func (v *NullableKnowledgeConstraint) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-

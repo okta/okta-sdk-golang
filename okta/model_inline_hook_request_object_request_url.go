@@ -31,7 +31,7 @@ import (
 // InlineHookRequestObjectRequestUrl The URL of the API endpoint
 type InlineHookRequestObjectRequestUrl struct {
 	// The URL value of the API endpoint
-	Value *string `json:"value,omitempty"`
+	Value                *string `json:"value,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -157,4 +157,3 @@ func (v *NullableInlineHookRequestObjectRequestUrl) UnmarshalJSON(src []byte) er
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-

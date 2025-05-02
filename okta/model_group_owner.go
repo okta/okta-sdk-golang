@@ -43,7 +43,7 @@ type GroupOwner struct {
 	// If `originType`is APPLICATION, this parameter is set to `FALSE` until the owner’s `originId` is reconciled with an associated Okta ID.
 	Resolved *bool `json:"resolved,omitempty"`
 	// The entity type of the owner
-	Type *string `json:"type,omitempty"`
+	Type                 *string `json:"type,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -385,4 +385,3 @@ func (v *NullableGroupOwner) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-

@@ -30,8 +30,8 @@ import (
 
 // LogIssuer struct for LogIssuer
 type LogIssuer struct {
-	Id *string `json:"id,omitempty"`
-	Type *string `json:"type,omitempty"`
+	Id                   *string `json:"id,omitempty"`
+	Type                 *string `json:"type,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -193,4 +193,3 @@ func (v *NullableLogIssuer) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-

@@ -31,12 +31,12 @@ import (
 // UIElement Specifies the configuration of an input field on an enrollment form
 type UIElement struct {
 	// Label name for the UI element
-	Label *string `json:"label,omitempty"`
+	Label   *string           `json:"label,omitempty"`
 	Options *UIElementOptions `json:"options,omitempty"`
 	// Specifies the property bound to the input field. It must follow the format `#/properties/PROPERTY_NAME` where `PROPERTY_NAME` is a variable name for an attribute in `profile editor`.
 	Scope *string `json:"scope,omitempty"`
 	// Specifies the relationship between this input element and `scope`. The `Control` value specifies that this input controls the value represented by `scope`.
-	Type *string `json:"type,omitempty"`
+	Type                 *string `json:"type,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -270,4 +270,3 @@ func (v *NullableUIElement) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-

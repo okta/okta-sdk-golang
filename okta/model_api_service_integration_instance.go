@@ -43,8 +43,8 @@ type APIServiceIntegrationInstance struct {
 	// The name of the API service integration that corresponds with the `type` property. This is the full name of the API service integration listed in the Okta Integration Network (OIN) catalog.
 	Name *string `json:"name,omitempty"`
 	// The type of the API service integration. This string is an underscore-concatenated, lowercased API service integration name. For example, `my_api_log_integration`.
-	Type *string `json:"type,omitempty"`
-	Links *APIServiceIntegrationLinks `json:"_links,omitempty"`
+	Type                 *string                     `json:"type,omitempty"`
+	Links                *APIServiceIntegrationLinks `json:"_links,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -422,4 +422,3 @@ func (v *NullableAPIServiceIntegrationInstance) UnmarshalJSON(src []byte) error 
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-

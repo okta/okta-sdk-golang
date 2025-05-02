@@ -26,18 +26,17 @@ package okta
 
 import (
 	"encoding/json"
-	"fmt"
 )
 
 // ZscalerbyzApplicationSettings struct for ZscalerbyzApplicationSettings
 type ZscalerbyzApplicationSettings struct {
-	IdentityStoreId *string `json:"identityStoreId,omitempty"`
-	ImplicitAssignment *bool `json:"implicitAssignment,omitempty"`
-	InlineHookId *string `json:"inlineHookId,omitempty"`
-	Notes *ApplicationSettingsNotes `json:"notes,omitempty"`
-	Notifications *ApplicationSettingsNotifications `json:"notifications,omitempty"`
-	App ZscalerbyzApplicationSettingsApplication `json:"app"`
-	SignOn *OINSaml20ApplicationSettingsSignOn `json:"signOn,omitempty"`
+	IdentityStoreId      *string                                  `json:"identityStoreId,omitempty"`
+	ImplicitAssignment   *bool                                    `json:"implicitAssignment,omitempty"`
+	InlineHookId         *string                                  `json:"inlineHookId,omitempty"`
+	Notes                *ApplicationSettingsNotes                `json:"notes,omitempty"`
+	Notifications        *ApplicationSettingsNotifications        `json:"notifications,omitempty"`
+	App                  ZscalerbyzApplicationSettingsApplication `json:"app"`
+	SignOn               *OINSaml20ApplicationSettingsSignOn      `json:"signOn,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -372,4 +371,3 @@ func (v *NullableZscalerbyzApplicationSettings) UnmarshalJSON(src []byte) error 
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-

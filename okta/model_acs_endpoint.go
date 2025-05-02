@@ -26,7 +26,6 @@ package okta
 
 import (
 	"encoding/json"
-	"fmt"
 )
 
 // AcsEndpoint An array of ACS endpoints. You can configure a maximum of 100 endpoints.
@@ -34,7 +33,7 @@ type AcsEndpoint struct {
 	// Index of the URL in the array of ACS endpoints
 	Index int32 `json:"index"`
 	// URL of the ACS
-	Url string `json:"url"`
+	Url                  string `json:"url"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -182,4 +181,3 @@ func (v *NullableAcsEndpoint) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-

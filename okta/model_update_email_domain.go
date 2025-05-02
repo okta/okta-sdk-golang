@@ -26,13 +26,12 @@ package okta
 
 import (
 	"encoding/json"
-	"fmt"
 )
 
 // UpdateEmailDomain struct for UpdateEmailDomain
 type UpdateEmailDomain struct {
-	DisplayName string `json:"displayName"`
-	UserName string `json:"userName"`
+	DisplayName          string `json:"displayName"`
+	UserName             string `json:"userName"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -180,4 +179,3 @@ func (v *NullableUpdateEmailDomain) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-

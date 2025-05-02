@@ -30,8 +30,8 @@ import (
 
 // PasswordExpirationPolicyRuleCondition struct for PasswordExpirationPolicyRuleCondition
 type PasswordExpirationPolicyRuleCondition struct {
-	Number *int32 `json:"number,omitempty"`
-	Unit *string `json:"unit,omitempty"`
+	Number               *int32  `json:"number,omitempty"`
+	Unit                 *string `json:"unit,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -193,4 +193,3 @@ func (v *NullablePasswordExpirationPolicyRuleCondition) UnmarshalJSON(src []byte
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-

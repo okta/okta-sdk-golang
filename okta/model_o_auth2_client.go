@@ -34,10 +34,10 @@ type OAuth2Client struct {
 	ClientId *string `json:"client_id,omitempty"`
 	// Human-readable string name of the client application
 	ClientName *string `json:"client_name,omitempty"`
-	ClientUri *string `json:"client_uri,omitempty"`
+	ClientUri  *string `json:"client_uri,omitempty"`
 	// URL string that references a logo for the client consent dialog (not the sign-in dialog)
-	LogoUri *string `json:"logo_uri,omitempty"`
-	Links *LinksSelf `json:"_links,omitempty"`
+	LogoUri              *string    `json:"logo_uri,omitempty"`
+	Links                *LinksSelf `json:"_links,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -307,4 +307,3 @@ func (v *NullableOAuth2Client) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-

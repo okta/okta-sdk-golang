@@ -30,7 +30,7 @@ import (
 
 // ApplicationSettingsNotifications struct for ApplicationSettingsNotifications
 type ApplicationSettingsNotifications struct {
-	Vpn *ApplicationSettingsNotificationsVpn `json:"vpn,omitempty"`
+	Vpn                  *ApplicationSettingsNotificationsVpn `json:"vpn,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -156,4 +156,3 @@ func (v *NullableApplicationSettingsNotifications) UnmarshalJSON(src []byte) err
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-

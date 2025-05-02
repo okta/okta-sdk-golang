@@ -33,7 +33,7 @@ type EnhancedDynamicNetworkZoneAllOfIpServiceCategories struct {
 	// IP services to include for an Enhanced Dynamic Network Zone
 	Include []string `json:"include,omitempty"`
 	// IP services to exclude for an Enhanced Dynamic Network Zone
-	Exclude []string `json:"exclude,omitempty"`
+	Exclude              []string `json:"exclude,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -195,4 +195,3 @@ func (v *NullableEnhancedDynamicNetworkZoneAllOfIpServiceCategories) UnmarshalJS
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-

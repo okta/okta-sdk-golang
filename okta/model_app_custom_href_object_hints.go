@@ -30,7 +30,7 @@ import (
 
 // AppCustomHrefObjectHints Describes allowed HTTP verbs for the `href`
 type AppCustomHrefObjectHints struct {
-	Allow []string `json:"allow,omitempty"`
+	Allow                []string `json:"allow,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -156,4 +156,3 @@ func (v *NullableAppCustomHrefObjectHints) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-

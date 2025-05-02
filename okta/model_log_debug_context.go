@@ -30,7 +30,7 @@ import (
 
 // LogDebugContext struct for LogDebugContext
 type LogDebugContext struct {
-	DebugData map[string]interface{} `json:"debugData,omitempty"`
+	DebugData            map[string]interface{} `json:"debugData,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -156,4 +156,3 @@ func (v *NullableLogDebugContext) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-

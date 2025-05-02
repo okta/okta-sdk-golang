@@ -37,7 +37,7 @@ type APNSConfiguration struct {
 	// 10-character Team ID used to develop the iOS app
 	TeamId *string `json:"teamId,omitempty"`
 	// APNs private authentication token signing key
-	TokenSigningKey *string `json:"tokenSigningKey,omitempty"`
+	TokenSigningKey      *string `json:"tokenSigningKey,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -271,4 +271,3 @@ func (v *NullableAPNSConfiguration) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-

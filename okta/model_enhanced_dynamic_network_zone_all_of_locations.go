@@ -33,7 +33,7 @@ type EnhancedDynamicNetworkZoneAllOfLocations struct {
 	// An array of geolocations to include for an Enhanced Dynamic Network Zone
 	Include []NetworkZoneLocation `json:"include,omitempty"`
 	// An array of geolocations to exclude for an Enhanced Dynamic Network Zone
-	Exclude []NetworkZoneLocation `json:"exclude,omitempty"`
+	Exclude              []NetworkZoneLocation `json:"exclude,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -197,4 +197,3 @@ func (v *NullableEnhancedDynamicNetworkZoneAllOfLocations) UnmarshalJSON(src []b
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-

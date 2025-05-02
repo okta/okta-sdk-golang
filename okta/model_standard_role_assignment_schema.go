@@ -31,7 +31,7 @@ import (
 // StandardRoleAssignmentSchema struct for StandardRoleAssignmentSchema
 type StandardRoleAssignmentSchema struct {
 	// Standard role type
-	Type *string `json:"type,omitempty"`
+	Type                 *string `json:"type,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -157,4 +157,3 @@ func (v *NullableStandardRoleAssignmentSchema) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-

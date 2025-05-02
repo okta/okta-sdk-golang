@@ -26,18 +26,17 @@ package okta
 
 import (
 	"encoding/json"
-	"fmt"
 )
 
 // PolicyContext struct for PolicyContext
 type PolicyContext struct {
 	Device *PolicyContextDevice `json:"device,omitempty"`
-	Groups PolicyContextGroups `json:"groups"`
+	Groups PolicyContextGroups  `json:"groups"`
 	// The network rule condition, zone, or IP address
-	Ip *string `json:"ip,omitempty"`
-	Risk *PolicyContextRisk `json:"risk,omitempty"`
-	User PolicyContextUser `json:"user"`
-	Zones *PolicyContextZones `json:"zones,omitempty"`
+	Ip                   *string             `json:"ip,omitempty"`
+	Risk                 *PolicyContextRisk  `json:"risk,omitempty"`
+	User                 PolicyContextUser   `json:"user"`
+	Zones                *PolicyContextZones `json:"zones,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -329,4 +328,3 @@ func (v *NullablePolicyContext) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-

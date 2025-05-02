@@ -26,7 +26,6 @@ package okta
 
 import (
 	"encoding/json"
-	"fmt"
 )
 
 // OktaDeviceRiskChangeEvent The device risk level changed
@@ -38,10 +37,10 @@ type OktaDeviceRiskChangeEvent struct {
 	// The entity that initiated the event
 	InitiatingEntity *string `json:"initiating_entity,omitempty"`
 	// Previous risk level of the device
-	PreviousLevel string `json:"previous_level"`
-	ReasonAdmin *CaepDeviceComplianceChangeEventReasonAdmin `json:"reason_admin,omitempty"`
-	ReasonUser *CaepDeviceComplianceChangeEventReasonUser `json:"reason_user,omitempty"`
-	Subjects SecurityEventSubject `json:"subjects"`
+	PreviousLevel        string                                      `json:"previous_level"`
+	ReasonAdmin          *CaepDeviceComplianceChangeEventReasonAdmin `json:"reason_admin,omitempty"`
+	ReasonUser           *CaepDeviceComplianceChangeEventReasonUser  `json:"reason_user,omitempty"`
+	Subjects             SecurityEventSubject                        `json:"subjects"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -355,4 +354,3 @@ func (v *NullableOktaDeviceRiskChangeEvent) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-

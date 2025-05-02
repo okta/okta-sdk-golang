@@ -26,20 +26,19 @@ package okta
 
 import (
 	"encoding/json"
-	"fmt"
 )
 
 // SecurityEventTokenRequestJwtBody JSON Web Token body payload for a Security Event Token
 type SecurityEventTokenRequestJwtBody struct {
 	// Audience
-	Aud string `json:"aud"`
+	Aud    string                             `json:"aud"`
 	Events SecurityEventTokenRequestJwtEvents `json:"events"`
 	// Token issue time (UNIX timestamp)
 	Iat int64 `json:"iat"`
 	// Token issuer
 	Iss string `json:"iss"`
 	// Token ID
-	Jti string `json:"jti"`
+	Jti                  string `json:"jti"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -274,4 +273,3 @@ func (v *NullableSecurityEventTokenRequestJwtBody) UnmarshalJSON(src []byte) err
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-

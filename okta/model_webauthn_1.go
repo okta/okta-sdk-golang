@@ -35,7 +35,7 @@ type Webauthn1 struct {
 	// Base64-encoded client data from the WebAuthn authenticator
 	ClientData *string `json:"clientData,omitempty"`
 	// Base64-encoded signature data from the WebAuthn authenticator
-	SignatureData *string `json:"signatureData,omitempty"`
+	SignatureData        *string `json:"signatureData,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -233,4 +233,3 @@ func (v *NullableWebauthn1) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-

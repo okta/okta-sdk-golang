@@ -31,17 +31,17 @@ import (
 
 // SmsTemplate struct for SmsTemplate
 type SmsTemplate struct {
-	Created *time.Time `json:"created,omitempty"`
-	Id *string `json:"id,omitempty"`
+	Created     *time.Time `json:"created,omitempty"`
+	Id          *string    `json:"id,omitempty"`
 	LastUpdated *time.Time `json:"lastUpdated,omitempty"`
 	// Human-readable name of the Template
 	Name *string `json:"name,omitempty"`
 	// Text of the Template, including any [macros](https://developer.okta.com/docs/api/openapi/okta-management/management/tag/Template/)
 	Template *string `json:"template,omitempty"`
-	// - Template translations are optionally provided when you want to localize the SMS messages. Translations are provided as an object that contains `key:value` pairs: the language and the translated Template text. The key portion is a two-letter country code that conforms to [ISO 639-1](https://www.loc.gov/standards/iso639-2/php/code_list.php). The value is the translated SMS Template. - Just like with regular SMS Templates, the length of the SMS message can't exceed 160 characters. 
+	// - Template translations are optionally provided when you want to localize the SMS messages. Translations are provided as an object that contains `key:value` pairs: the language and the translated Template text. The key portion is a two-letter country code that conforms to [ISO 639-1](https://www.loc.gov/standards/iso639-2/php/code_list.php). The value is the translated SMS Template. - Just like with regular SMS Templates, the length of the SMS message can't exceed 160 characters.
 	Translations map[string]interface{} `json:"translations,omitempty"`
 	// Type of the Template
-	Type *string `json:"type,omitempty"`
+	Type                 *string `json:"type,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -383,4 +383,3 @@ func (v *NullableSmsTemplate) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-

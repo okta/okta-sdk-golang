@@ -30,22 +30,21 @@ import (
 	"io/ioutil"
 	"net/http"
 	"net/url"
-	"time"
 	"strings"
+	"time"
 )
-
 
 type ResourceSetAPI interface {
 
 	/*
-	AddMembersToBinding Add more Members to a binding
+		AddMembersToBinding Add more Members to a binding
 
-	Adds more members to a Resource Set binding
+		Adds more members to a Resource Set binding
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param resourceSetId `id` of a Resource Set
-	@param roleIdOrLabel `id` or `label` of the role
-	@return ApiAddMembersToBindingRequest
+		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+		@param resourceSetId `id` of a Resource Set
+		@param roleIdOrLabel `id` or `label` of the role
+		@return ApiAddMembersToBindingRequest
 	*/
 	AddMembersToBinding(ctx context.Context, resourceSetId string, roleIdOrLabel string) ApiAddMembersToBindingRequest
 
@@ -54,13 +53,13 @@ type ResourceSetAPI interface {
 	AddMembersToBindingExecute(r ApiAddMembersToBindingRequest) (*ResourceSetBindingResponse, *APIResponse, error)
 
 	/*
-	AddResourceSetResource Add more Resource to a Resource Set
+		AddResourceSetResource Add more Resource to a Resource Set
 
-	Adds more resources to a Resource Set
+		Adds more resources to a Resource Set
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param resourceSetId `id` of a Resource Set
-	@return ApiAddResourceSetResourceRequest
+		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+		@param resourceSetId `id` of a Resource Set
+		@return ApiAddResourceSetResourceRequest
 	*/
 	AddResourceSetResource(ctx context.Context, resourceSetId string) ApiAddResourceSetResourceRequest
 
@@ -69,13 +68,13 @@ type ResourceSetAPI interface {
 	AddResourceSetResourceExecute(r ApiAddResourceSetResourceRequest) (*ResourceSet, *APIResponse, error)
 
 	/*
-	CreateResourceSet Create a Resource Set
+			CreateResourceSet Create a Resource Set
 
-	Creates a new Resource Set. See [Supported Resources](/openapi/okta-management/guides/roles/#supported-resources).
-> **Note:** The maximum amount of `resources` allowed in a `resource set` object is 1000. Resources are identified by either an Okta Resource Name (ORN) or by a REST URL format. See [Okta Resource Name](/openapi/okta-management/guides/roles/#okta-resource-name-orn).
+			Creates a new Resource Set. See [Supported Resources](/openapi/okta-management/guides/roles/#supported-resources).
+		> **Note:** The maximum amount of `resources` allowed in a `resource set` object is 1000. Resources are identified by either an Okta Resource Name (ORN) or by a REST URL format. See [Okta Resource Name](/openapi/okta-management/guides/roles/#okta-resource-name-orn).
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@return ApiCreateResourceSetRequest
+			@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+			@return ApiCreateResourceSetRequest
 	*/
 	CreateResourceSet(ctx context.Context) ApiCreateResourceSetRequest
 
@@ -84,13 +83,13 @@ type ResourceSetAPI interface {
 	CreateResourceSetExecute(r ApiCreateResourceSetRequest) (*ResourceSet, *APIResponse, error)
 
 	/*
-	CreateResourceSetBinding Create a Resource Set Binding
+		CreateResourceSetBinding Create a Resource Set Binding
 
-	Creates a new Resource Set binding
+		Creates a new Resource Set binding
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param resourceSetId `id` of a Resource Set
-	@return ApiCreateResourceSetBindingRequest
+		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+		@param resourceSetId `id` of a Resource Set
+		@return ApiCreateResourceSetBindingRequest
 	*/
 	CreateResourceSetBinding(ctx context.Context, resourceSetId string) ApiCreateResourceSetBindingRequest
 
@@ -99,14 +98,14 @@ type ResourceSetAPI interface {
 	CreateResourceSetBindingExecute(r ApiCreateResourceSetBindingRequest) (*ResourceSetBindingResponse, *APIResponse, error)
 
 	/*
-	DeleteBinding Delete a Binding
+		DeleteBinding Delete a Binding
 
-	Deletes a Resource Set binding by `resourceSetId` and `roleIdOrLabel`
+		Deletes a Resource Set binding by `resourceSetId` and `roleIdOrLabel`
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param resourceSetId `id` of a Resource Set
-	@param roleIdOrLabel `id` or `label` of the role
-	@return ApiDeleteBindingRequest
+		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+		@param resourceSetId `id` of a Resource Set
+		@param roleIdOrLabel `id` or `label` of the role
+		@return ApiDeleteBindingRequest
 	*/
 	DeleteBinding(ctx context.Context, resourceSetId string, roleIdOrLabel string) ApiDeleteBindingRequest
 
@@ -114,13 +113,13 @@ type ResourceSetAPI interface {
 	DeleteBindingExecute(r ApiDeleteBindingRequest) (*APIResponse, error)
 
 	/*
-	DeleteResourceSet Delete a Resource Set
+		DeleteResourceSet Delete a Resource Set
 
-	Deletes a role by `resourceSetId`
+		Deletes a role by `resourceSetId`
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param resourceSetId `id` of a Resource Set
-	@return ApiDeleteResourceSetRequest
+		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+		@param resourceSetId `id` of a Resource Set
+		@return ApiDeleteResourceSetRequest
 	*/
 	DeleteResourceSet(ctx context.Context, resourceSetId string) ApiDeleteResourceSetRequest
 
@@ -128,14 +127,14 @@ type ResourceSetAPI interface {
 	DeleteResourceSetExecute(r ApiDeleteResourceSetRequest) (*APIResponse, error)
 
 	/*
-	DeleteResourceSetResource Delete a Resource from a Resource Set
+		DeleteResourceSetResource Delete a Resource from a Resource Set
 
-	Deletes a resource identified by `resourceId` from a Resource Set
+		Deletes a resource identified by `resourceId` from a Resource Set
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param resourceSetId `id` of a Resource Set
-	@param resourceId `id` of a resource
-	@return ApiDeleteResourceSetResourceRequest
+		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+		@param resourceSetId `id` of a Resource Set
+		@param resourceId `id` of a resource
+		@return ApiDeleteResourceSetResourceRequest
 	*/
 	DeleteResourceSetResource(ctx context.Context, resourceSetId string, resourceId string) ApiDeleteResourceSetResourceRequest
 
@@ -143,14 +142,14 @@ type ResourceSetAPI interface {
 	DeleteResourceSetResourceExecute(r ApiDeleteResourceSetResourceRequest) (*APIResponse, error)
 
 	/*
-	GetBinding Retrieve a Binding
+		GetBinding Retrieve a Binding
 
-	Retrieves a Resource Set binding by `resourceSetId` and `roleIdOrLabel`
+		Retrieves a Resource Set binding by `resourceSetId` and `roleIdOrLabel`
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param resourceSetId `id` of a Resource Set
-	@param roleIdOrLabel `id` or `label` of the role
-	@return ApiGetBindingRequest
+		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+		@param resourceSetId `id` of a Resource Set
+		@param roleIdOrLabel `id` or `label` of the role
+		@return ApiGetBindingRequest
 	*/
 	GetBinding(ctx context.Context, resourceSetId string, roleIdOrLabel string) ApiGetBindingRequest
 
@@ -159,15 +158,15 @@ type ResourceSetAPI interface {
 	GetBindingExecute(r ApiGetBindingRequest) (*ResourceSetBindingResponse, *APIResponse, error)
 
 	/*
-	GetMemberOfBinding Retrieve a Member of a binding
+		GetMemberOfBinding Retrieve a Member of a binding
 
-	Retrieves a member identified by `memberId` for a binding
+		Retrieves a member identified by `memberId` for a binding
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param resourceSetId `id` of a Resource Set
-	@param roleIdOrLabel `id` or `label` of the role
-	@param memberId `id` of a member
-	@return ApiGetMemberOfBindingRequest
+		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+		@param resourceSetId `id` of a Resource Set
+		@param roleIdOrLabel `id` or `label` of the role
+		@param memberId `id` of a member
+		@return ApiGetMemberOfBindingRequest
 	*/
 	GetMemberOfBinding(ctx context.Context, resourceSetId string, roleIdOrLabel string, memberId string) ApiGetMemberOfBindingRequest
 
@@ -176,13 +175,13 @@ type ResourceSetAPI interface {
 	GetMemberOfBindingExecute(r ApiGetMemberOfBindingRequest) (*ResourceSetBindingMember, *APIResponse, error)
 
 	/*
-	GetResourceSet Retrieve a Resource Set
+		GetResourceSet Retrieve a Resource Set
 
-	Retrieves a Resource Set by `resourceSetId`
+		Retrieves a Resource Set by `resourceSetId`
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param resourceSetId `id` of a Resource Set
-	@return ApiGetResourceSetRequest
+		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+		@param resourceSetId `id` of a Resource Set
+		@return ApiGetResourceSetRequest
 	*/
 	GetResourceSet(ctx context.Context, resourceSetId string) ApiGetResourceSetRequest
 
@@ -191,13 +190,13 @@ type ResourceSetAPI interface {
 	GetResourceSetExecute(r ApiGetResourceSetRequest) (*ResourceSet, *APIResponse, error)
 
 	/*
-	ListBindings List all Bindings
+		ListBindings List all Bindings
 
-	Lists all Resource Set bindings with pagination support
+		Lists all Resource Set bindings with pagination support
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param resourceSetId `id` of a Resource Set
-	@return ApiListBindingsRequest
+		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+		@param resourceSetId `id` of a Resource Set
+		@return ApiListBindingsRequest
 	*/
 	ListBindings(ctx context.Context, resourceSetId string) ApiListBindingsRequest
 
@@ -206,14 +205,14 @@ type ResourceSetAPI interface {
 	ListBindingsExecute(r ApiListBindingsRequest) (*ResourceSetBindings, *APIResponse, error)
 
 	/*
-	ListMembersOfBinding List all Members of a binding
+		ListMembersOfBinding List all Members of a binding
 
-	Lists all members of a Resource Set binding with pagination support
+		Lists all members of a Resource Set binding with pagination support
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param resourceSetId `id` of a Resource Set
-	@param roleIdOrLabel `id` or `label` of the role
-	@return ApiListMembersOfBindingRequest
+		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+		@param resourceSetId `id` of a Resource Set
+		@param roleIdOrLabel `id` or `label` of the role
+		@return ApiListMembersOfBindingRequest
 	*/
 	ListMembersOfBinding(ctx context.Context, resourceSetId string, roleIdOrLabel string) ApiListMembersOfBindingRequest
 
@@ -222,13 +221,13 @@ type ResourceSetAPI interface {
 	ListMembersOfBindingExecute(r ApiListMembersOfBindingRequest) (*ResourceSetBindingMembers, *APIResponse, error)
 
 	/*
-	ListResourceSetResources List all Resources of a Resource Set
+		ListResourceSetResources List all Resources of a Resource Set
 
-	Lists all resources that make up the Resource Set
+		Lists all resources that make up the Resource Set
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param resourceSetId `id` of a Resource Set
-	@return ApiListResourceSetResourcesRequest
+		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+		@param resourceSetId `id` of a Resource Set
+		@return ApiListResourceSetResourcesRequest
 	*/
 	ListResourceSetResources(ctx context.Context, resourceSetId string) ApiListResourceSetResourcesRequest
 
@@ -237,12 +236,12 @@ type ResourceSetAPI interface {
 	ListResourceSetResourcesExecute(r ApiListResourceSetResourcesRequest) (*ResourceSetResources, *APIResponse, error)
 
 	/*
-	ListResourceSets List all Resource Sets
+		ListResourceSets List all Resource Sets
 
-	Lists all Resource Sets with pagination support
+		Lists all Resource Sets with pagination support
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@return ApiListResourceSetsRequest
+		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+		@return ApiListResourceSetsRequest
 	*/
 	ListResourceSets(ctx context.Context) ApiListResourceSetsRequest
 
@@ -251,13 +250,13 @@ type ResourceSetAPI interface {
 	ListResourceSetsExecute(r ApiListResourceSetsRequest) (*ResourceSets, *APIResponse, error)
 
 	/*
-	ReplaceResourceSet Replace a Resource Set
+		ReplaceResourceSet Replace a Resource Set
 
-	Replaces a Resource Set by `resourceSetId`
+		Replaces a Resource Set by `resourceSetId`
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param resourceSetId `id` of a Resource Set
-	@return ApiReplaceResourceSetRequest
+		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+		@param resourceSetId `id` of a Resource Set
+		@return ApiReplaceResourceSetRequest
 	*/
 	ReplaceResourceSet(ctx context.Context, resourceSetId string) ApiReplaceResourceSetRequest
 
@@ -266,15 +265,15 @@ type ResourceSetAPI interface {
 	ReplaceResourceSetExecute(r ApiReplaceResourceSetRequest) (*ResourceSet, *APIResponse, error)
 
 	/*
-	UnassignMemberFromBinding Unassign a Member from a binding
+		UnassignMemberFromBinding Unassign a Member from a binding
 
-	Unassigns a member identified by `memberId` from a binding
+		Unassigns a member identified by `memberId` from a binding
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param resourceSetId `id` of a Resource Set
-	@param roleIdOrLabel `id` or `label` of the role
-	@param memberId `id` of a member
-	@return ApiUnassignMemberFromBindingRequest
+		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+		@param resourceSetId `id` of a Resource Set
+		@param roleIdOrLabel `id` or `label` of the role
+		@param memberId `id` of a member
+		@return ApiUnassignMemberFromBindingRequest
 	*/
 	UnassignMemberFromBinding(ctx context.Context, resourceSetId string, roleIdOrLabel string, memberId string) ApiUnassignMemberFromBindingRequest
 
@@ -286,12 +285,12 @@ type ResourceSetAPI interface {
 type ResourceSetAPIService service
 
 type ApiAddMembersToBindingRequest struct {
-	ctx context.Context
-	ApiService ResourceSetAPI
+	ctx           context.Context
+	ApiService    ResourceSetAPI
 	resourceSetId string
 	roleIdOrLabel string
-	instance *ResourceSetBindingAddMembersRequest
-	retryCount int32
+	instance      *ResourceSetBindingAddMembersRequest
+	retryCount    int32
 }
 
 func (r ApiAddMembersToBindingRequest) Instance(instance ResourceSetBindingAddMembersRequest) ApiAddMembersToBindingRequest {
@@ -308,23 +307,24 @@ AddMembersToBinding Add more Members to a binding
 
 Adds more members to a Resource Set binding
 
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @param resourceSetId `id` of a Resource Set
- @param roleIdOrLabel `id` or `label` of the role
- @return ApiAddMembersToBindingRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param resourceSetId `id` of a Resource Set
+	@param roleIdOrLabel `id` or `label` of the role
+	@return ApiAddMembersToBindingRequest
 */
 func (a *ResourceSetAPIService) AddMembersToBinding(ctx context.Context, resourceSetId string, roleIdOrLabel string) ApiAddMembersToBindingRequest {
 	return ApiAddMembersToBindingRequest{
-		ApiService: a,
-		ctx: ctx,
+		ApiService:    a,
+		ctx:           ctx,
 		resourceSetId: resourceSetId,
 		roleIdOrLabel: roleIdOrLabel,
-		retryCount: 0,
+		retryCount:    0,
 	}
 }
 
 // Execute executes the request
-//  @return ResourceSetBindingResponse
+//
+//	@return ResourceSetBindingResponse
 func (a *ResourceSetAPIService) AddMembersToBindingExecute(r ApiAddMembersToBindingRequest) (*ResourceSetBindingResponse, *APIResponse, error) {
 	var (
 		localVarHTTPMethod   = http.MethodPatch
@@ -333,7 +333,7 @@ func (a *ResourceSetAPIService) AddMembersToBindingExecute(r ApiAddMembersToBind
 		localVarReturnValue  *ResourceSetBindingResponse
 		localVarHTTPResponse *http.Response
 		localAPIResponse     *APIResponse
-		err 				 error
+		err                  error
 	)
 
 	if a.client.cfg.Okta.Client.RequestTimeout > 0 {
@@ -472,17 +472,17 @@ func (a *ResourceSetAPIService) AddMembersToBindingExecute(r ApiAddMembersToBind
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
 		return localVarReturnValue, localAPIResponse, newErr
 	}
-	
+
 	localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
 	return localVarReturnValue, localAPIResponse, nil
 }
 
 type ApiAddResourceSetResourceRequest struct {
-	ctx context.Context
-	ApiService ResourceSetAPI
+	ctx           context.Context
+	ApiService    ResourceSetAPI
 	resourceSetId string
-	instance *ResourceSetResourcePatchRequest
-	retryCount int32
+	instance      *ResourceSetResourcePatchRequest
+	retryCount    int32
 }
 
 func (r ApiAddResourceSetResourceRequest) Instance(instance ResourceSetResourcePatchRequest) ApiAddResourceSetResourceRequest {
@@ -499,21 +499,22 @@ AddResourceSetResource Add more Resource to a Resource Set
 
 Adds more resources to a Resource Set
 
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @param resourceSetId `id` of a Resource Set
- @return ApiAddResourceSetResourceRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param resourceSetId `id` of a Resource Set
+	@return ApiAddResourceSetResourceRequest
 */
 func (a *ResourceSetAPIService) AddResourceSetResource(ctx context.Context, resourceSetId string) ApiAddResourceSetResourceRequest {
 	return ApiAddResourceSetResourceRequest{
-		ApiService: a,
-		ctx: ctx,
+		ApiService:    a,
+		ctx:           ctx,
 		resourceSetId: resourceSetId,
-		retryCount: 0,
+		retryCount:    0,
 	}
 }
 
 // Execute executes the request
-//  @return ResourceSet
+//
+//	@return ResourceSet
 func (a *ResourceSetAPIService) AddResourceSetResourceExecute(r ApiAddResourceSetResourceRequest) (*ResourceSet, *APIResponse, error) {
 	var (
 		localVarHTTPMethod   = http.MethodPatch
@@ -522,7 +523,7 @@ func (a *ResourceSetAPIService) AddResourceSetResourceExecute(r ApiAddResourceSe
 		localVarReturnValue  *ResourceSet
 		localVarHTTPResponse *http.Response
 		localAPIResponse     *APIResponse
-		err 				 error
+		err                  error
 	)
 
 	if a.client.cfg.Okta.Client.RequestTimeout > 0 {
@@ -660,15 +661,15 @@ func (a *ResourceSetAPIService) AddResourceSetResourceExecute(r ApiAddResourceSe
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
 		return localVarReturnValue, localAPIResponse, newErr
 	}
-	
+
 	localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
 	return localVarReturnValue, localAPIResponse, nil
 }
 
 type ApiCreateResourceSetRequest struct {
-	ctx context.Context
+	ctx        context.Context
 	ApiService ResourceSetAPI
-	instance *CreateResourceSetRequest
+	instance   *CreateResourceSetRequest
 	retryCount int32
 }
 
@@ -687,19 +688,20 @@ CreateResourceSet Create a Resource Set
 Creates a new Resource Set. See [Supported Resources](/openapi/okta-management/guides/roles/#supported-resources).
 > **Note:** The maximum amount of `resources` allowed in a `resource set` object is 1000. Resources are identified by either an Okta Resource Name (ORN) or by a REST URL format. See [Okta Resource Name](/openapi/okta-management/guides/roles/#okta-resource-name-orn).
 
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @return ApiCreateResourceSetRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@return ApiCreateResourceSetRequest
 */
 func (a *ResourceSetAPIService) CreateResourceSet(ctx context.Context) ApiCreateResourceSetRequest {
 	return ApiCreateResourceSetRequest{
 		ApiService: a,
-		ctx: ctx,
+		ctx:        ctx,
 		retryCount: 0,
 	}
 }
 
 // Execute executes the request
-//  @return ResourceSet
+//
+//	@return ResourceSet
 func (a *ResourceSetAPIService) CreateResourceSetExecute(r ApiCreateResourceSetRequest) (*ResourceSet, *APIResponse, error) {
 	var (
 		localVarHTTPMethod   = http.MethodPost
@@ -708,7 +710,7 @@ func (a *ResourceSetAPIService) CreateResourceSetExecute(r ApiCreateResourceSetR
 		localVarReturnValue  *ResourceSet
 		localVarHTTPResponse *http.Response
 		localAPIResponse     *APIResponse
-		err 				 error
+		err                  error
 	)
 
 	if a.client.cfg.Okta.Client.RequestTimeout > 0 {
@@ -833,17 +835,17 @@ func (a *ResourceSetAPIService) CreateResourceSetExecute(r ApiCreateResourceSetR
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
 		return localVarReturnValue, localAPIResponse, newErr
 	}
-	
+
 	localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
 	return localVarReturnValue, localAPIResponse, nil
 }
 
 type ApiCreateResourceSetBindingRequest struct {
-	ctx context.Context
-	ApiService ResourceSetAPI
+	ctx           context.Context
+	ApiService    ResourceSetAPI
 	resourceSetId string
-	instance *ResourceSetBindingCreateRequest
-	retryCount int32
+	instance      *ResourceSetBindingCreateRequest
+	retryCount    int32
 }
 
 func (r ApiCreateResourceSetBindingRequest) Instance(instance ResourceSetBindingCreateRequest) ApiCreateResourceSetBindingRequest {
@@ -860,21 +862,22 @@ CreateResourceSetBinding Create a Resource Set Binding
 
 Creates a new Resource Set binding
 
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @param resourceSetId `id` of a Resource Set
- @return ApiCreateResourceSetBindingRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param resourceSetId `id` of a Resource Set
+	@return ApiCreateResourceSetBindingRequest
 */
 func (a *ResourceSetAPIService) CreateResourceSetBinding(ctx context.Context, resourceSetId string) ApiCreateResourceSetBindingRequest {
 	return ApiCreateResourceSetBindingRequest{
-		ApiService: a,
-		ctx: ctx,
+		ApiService:    a,
+		ctx:           ctx,
 		resourceSetId: resourceSetId,
-		retryCount: 0,
+		retryCount:    0,
 	}
 }
 
 // Execute executes the request
-//  @return ResourceSetBindingResponse
+//
+//	@return ResourceSetBindingResponse
 func (a *ResourceSetAPIService) CreateResourceSetBindingExecute(r ApiCreateResourceSetBindingRequest) (*ResourceSetBindingResponse, *APIResponse, error) {
 	var (
 		localVarHTTPMethod   = http.MethodPost
@@ -883,7 +886,7 @@ func (a *ResourceSetAPIService) CreateResourceSetBindingExecute(r ApiCreateResou
 		localVarReturnValue  *ResourceSetBindingResponse
 		localVarHTTPResponse *http.Response
 		localAPIResponse     *APIResponse
-		err 				 error
+		err                  error
 	)
 
 	if a.client.cfg.Okta.Client.RequestTimeout > 0 {
@@ -1021,17 +1024,17 @@ func (a *ResourceSetAPIService) CreateResourceSetBindingExecute(r ApiCreateResou
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
 		return localVarReturnValue, localAPIResponse, newErr
 	}
-	
+
 	localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
 	return localVarReturnValue, localAPIResponse, nil
 }
 
 type ApiDeleteBindingRequest struct {
-	ctx context.Context
-	ApiService ResourceSetAPI
+	ctx           context.Context
+	ApiService    ResourceSetAPI
 	resourceSetId string
 	roleIdOrLabel string
-	retryCount int32
+	retryCount    int32
 }
 
 func (r ApiDeleteBindingRequest) Execute() (*APIResponse, error) {
@@ -1043,18 +1046,18 @@ DeleteBinding Delete a Binding
 
 Deletes a Resource Set binding by `resourceSetId` and `roleIdOrLabel`
 
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @param resourceSetId `id` of a Resource Set
- @param roleIdOrLabel `id` or `label` of the role
- @return ApiDeleteBindingRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param resourceSetId `id` of a Resource Set
+	@param roleIdOrLabel `id` or `label` of the role
+	@return ApiDeleteBindingRequest
 */
 func (a *ResourceSetAPIService) DeleteBinding(ctx context.Context, resourceSetId string, roleIdOrLabel string) ApiDeleteBindingRequest {
 	return ApiDeleteBindingRequest{
-		ApiService: a,
-		ctx: ctx,
+		ApiService:    a,
+		ctx:           ctx,
 		resourceSetId: resourceSetId,
 		roleIdOrLabel: roleIdOrLabel,
-		retryCount: 0,
+		retryCount:    0,
 	}
 }
 
@@ -1066,7 +1069,7 @@ func (a *ResourceSetAPIService) DeleteBindingExecute(r ApiDeleteBindingRequest) 
 		formFiles            []formFile
 		localVarHTTPResponse *http.Response
 		localAPIResponse     *APIResponse
-		err 				 error
+		err                  error
 	)
 
 	if a.client.cfg.Okta.Client.RequestTimeout > 0 {
@@ -1184,10 +1187,10 @@ func (a *ResourceSetAPIService) DeleteBindingExecute(r ApiDeleteBindingRequest) 
 }
 
 type ApiDeleteResourceSetRequest struct {
-	ctx context.Context
-	ApiService ResourceSetAPI
+	ctx           context.Context
+	ApiService    ResourceSetAPI
 	resourceSetId string
-	retryCount int32
+	retryCount    int32
 }
 
 func (r ApiDeleteResourceSetRequest) Execute() (*APIResponse, error) {
@@ -1199,16 +1202,16 @@ DeleteResourceSet Delete a Resource Set
 
 Deletes a role by `resourceSetId`
 
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @param resourceSetId `id` of a Resource Set
- @return ApiDeleteResourceSetRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param resourceSetId `id` of a Resource Set
+	@return ApiDeleteResourceSetRequest
 */
 func (a *ResourceSetAPIService) DeleteResourceSet(ctx context.Context, resourceSetId string) ApiDeleteResourceSetRequest {
 	return ApiDeleteResourceSetRequest{
-		ApiService: a,
-		ctx: ctx,
+		ApiService:    a,
+		ctx:           ctx,
 		resourceSetId: resourceSetId,
-		retryCount: 0,
+		retryCount:    0,
 	}
 }
 
@@ -1220,7 +1223,7 @@ func (a *ResourceSetAPIService) DeleteResourceSetExecute(r ApiDeleteResourceSetR
 		formFiles            []formFile
 		localVarHTTPResponse *http.Response
 		localAPIResponse     *APIResponse
-		err 				 error
+		err                  error
 	)
 
 	if a.client.cfg.Okta.Client.RequestTimeout > 0 {
@@ -1337,11 +1340,11 @@ func (a *ResourceSetAPIService) DeleteResourceSetExecute(r ApiDeleteResourceSetR
 }
 
 type ApiDeleteResourceSetResourceRequest struct {
-	ctx context.Context
-	ApiService ResourceSetAPI
+	ctx           context.Context
+	ApiService    ResourceSetAPI
 	resourceSetId string
-	resourceId string
-	retryCount int32
+	resourceId    string
+	retryCount    int32
 }
 
 func (r ApiDeleteResourceSetResourceRequest) Execute() (*APIResponse, error) {
@@ -1353,18 +1356,18 @@ DeleteResourceSetResource Delete a Resource from a Resource Set
 
 Deletes a resource identified by `resourceId` from a Resource Set
 
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @param resourceSetId `id` of a Resource Set
- @param resourceId `id` of a resource
- @return ApiDeleteResourceSetResourceRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param resourceSetId `id` of a Resource Set
+	@param resourceId `id` of a resource
+	@return ApiDeleteResourceSetResourceRequest
 */
 func (a *ResourceSetAPIService) DeleteResourceSetResource(ctx context.Context, resourceSetId string, resourceId string) ApiDeleteResourceSetResourceRequest {
 	return ApiDeleteResourceSetResourceRequest{
-		ApiService: a,
-		ctx: ctx,
+		ApiService:    a,
+		ctx:           ctx,
 		resourceSetId: resourceSetId,
-		resourceId: resourceId,
-		retryCount: 0,
+		resourceId:    resourceId,
+		retryCount:    0,
 	}
 }
 
@@ -1376,7 +1379,7 @@ func (a *ResourceSetAPIService) DeleteResourceSetResourceExecute(r ApiDeleteReso
 		formFiles            []formFile
 		localVarHTTPResponse *http.Response
 		localAPIResponse     *APIResponse
-		err 				 error
+		err                  error
 	)
 
 	if a.client.cfg.Okta.Client.RequestTimeout > 0 {
@@ -1494,11 +1497,11 @@ func (a *ResourceSetAPIService) DeleteResourceSetResourceExecute(r ApiDeleteReso
 }
 
 type ApiGetBindingRequest struct {
-	ctx context.Context
-	ApiService ResourceSetAPI
+	ctx           context.Context
+	ApiService    ResourceSetAPI
 	resourceSetId string
 	roleIdOrLabel string
-	retryCount int32
+	retryCount    int32
 }
 
 func (r ApiGetBindingRequest) Execute() (*ResourceSetBindingResponse, *APIResponse, error) {
@@ -1510,23 +1513,24 @@ GetBinding Retrieve a Binding
 
 Retrieves a Resource Set binding by `resourceSetId` and `roleIdOrLabel`
 
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @param resourceSetId `id` of a Resource Set
- @param roleIdOrLabel `id` or `label` of the role
- @return ApiGetBindingRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param resourceSetId `id` of a Resource Set
+	@param roleIdOrLabel `id` or `label` of the role
+	@return ApiGetBindingRequest
 */
 func (a *ResourceSetAPIService) GetBinding(ctx context.Context, resourceSetId string, roleIdOrLabel string) ApiGetBindingRequest {
 	return ApiGetBindingRequest{
-		ApiService: a,
-		ctx: ctx,
+		ApiService:    a,
+		ctx:           ctx,
 		resourceSetId: resourceSetId,
 		roleIdOrLabel: roleIdOrLabel,
-		retryCount: 0,
+		retryCount:    0,
 	}
 }
 
 // Execute executes the request
-//  @return ResourceSetBindingResponse
+//
+//	@return ResourceSetBindingResponse
 func (a *ResourceSetAPIService) GetBindingExecute(r ApiGetBindingRequest) (*ResourceSetBindingResponse, *APIResponse, error) {
 	var (
 		localVarHTTPMethod   = http.MethodGet
@@ -1535,7 +1539,7 @@ func (a *ResourceSetAPIService) GetBindingExecute(r ApiGetBindingRequest) (*Reso
 		localVarReturnValue  *ResourceSetBindingResponse
 		localVarHTTPResponse *http.Response
 		localAPIResponse     *APIResponse
-		err 				 error
+		err                  error
 	)
 
 	if a.client.cfg.Okta.Client.RequestTimeout > 0 {
@@ -1657,18 +1661,18 @@ func (a *ResourceSetAPIService) GetBindingExecute(r ApiGetBindingRequest) (*Reso
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
 		return localVarReturnValue, localAPIResponse, newErr
 	}
-	
+
 	localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
 	return localVarReturnValue, localAPIResponse, nil
 }
 
 type ApiGetMemberOfBindingRequest struct {
-	ctx context.Context
-	ApiService ResourceSetAPI
+	ctx           context.Context
+	ApiService    ResourceSetAPI
 	resourceSetId string
 	roleIdOrLabel string
-	memberId string
-	retryCount int32
+	memberId      string
+	retryCount    int32
 }
 
 func (r ApiGetMemberOfBindingRequest) Execute() (*ResourceSetBindingMember, *APIResponse, error) {
@@ -1680,25 +1684,26 @@ GetMemberOfBinding Retrieve a Member of a binding
 
 Retrieves a member identified by `memberId` for a binding
 
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @param resourceSetId `id` of a Resource Set
- @param roleIdOrLabel `id` or `label` of the role
- @param memberId `id` of a member
- @return ApiGetMemberOfBindingRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param resourceSetId `id` of a Resource Set
+	@param roleIdOrLabel `id` or `label` of the role
+	@param memberId `id` of a member
+	@return ApiGetMemberOfBindingRequest
 */
 func (a *ResourceSetAPIService) GetMemberOfBinding(ctx context.Context, resourceSetId string, roleIdOrLabel string, memberId string) ApiGetMemberOfBindingRequest {
 	return ApiGetMemberOfBindingRequest{
-		ApiService: a,
-		ctx: ctx,
+		ApiService:    a,
+		ctx:           ctx,
 		resourceSetId: resourceSetId,
 		roleIdOrLabel: roleIdOrLabel,
-		memberId: memberId,
-		retryCount: 0,
+		memberId:      memberId,
+		retryCount:    0,
 	}
 }
 
 // Execute executes the request
-//  @return ResourceSetBindingMember
+//
+//	@return ResourceSetBindingMember
 func (a *ResourceSetAPIService) GetMemberOfBindingExecute(r ApiGetMemberOfBindingRequest) (*ResourceSetBindingMember, *APIResponse, error) {
 	var (
 		localVarHTTPMethod   = http.MethodGet
@@ -1707,7 +1712,7 @@ func (a *ResourceSetAPIService) GetMemberOfBindingExecute(r ApiGetMemberOfBindin
 		localVarReturnValue  *ResourceSetBindingMember
 		localVarHTTPResponse *http.Response
 		localAPIResponse     *APIResponse
-		err 				 error
+		err                  error
 	)
 
 	if a.client.cfg.Okta.Client.RequestTimeout > 0 {
@@ -1830,16 +1835,16 @@ func (a *ResourceSetAPIService) GetMemberOfBindingExecute(r ApiGetMemberOfBindin
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
 		return localVarReturnValue, localAPIResponse, newErr
 	}
-	
+
 	localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
 	return localVarReturnValue, localAPIResponse, nil
 }
 
 type ApiGetResourceSetRequest struct {
-	ctx context.Context
-	ApiService ResourceSetAPI
+	ctx           context.Context
+	ApiService    ResourceSetAPI
 	resourceSetId string
-	retryCount int32
+	retryCount    int32
 }
 
 func (r ApiGetResourceSetRequest) Execute() (*ResourceSet, *APIResponse, error) {
@@ -1851,21 +1856,22 @@ GetResourceSet Retrieve a Resource Set
 
 Retrieves a Resource Set by `resourceSetId`
 
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @param resourceSetId `id` of a Resource Set
- @return ApiGetResourceSetRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param resourceSetId `id` of a Resource Set
+	@return ApiGetResourceSetRequest
 */
 func (a *ResourceSetAPIService) GetResourceSet(ctx context.Context, resourceSetId string) ApiGetResourceSetRequest {
 	return ApiGetResourceSetRequest{
-		ApiService: a,
-		ctx: ctx,
+		ApiService:    a,
+		ctx:           ctx,
 		resourceSetId: resourceSetId,
-		retryCount: 0,
+		retryCount:    0,
 	}
 }
 
 // Execute executes the request
-//  @return ResourceSet
+//
+//	@return ResourceSet
 func (a *ResourceSetAPIService) GetResourceSetExecute(r ApiGetResourceSetRequest) (*ResourceSet, *APIResponse, error) {
 	var (
 		localVarHTTPMethod   = http.MethodGet
@@ -1874,7 +1880,7 @@ func (a *ResourceSetAPIService) GetResourceSetExecute(r ApiGetResourceSetRequest
 		localVarReturnValue  *ResourceSet
 		localVarHTTPResponse *http.Response
 		localAPIResponse     *APIResponse
-		err 				 error
+		err                  error
 	)
 
 	if a.client.cfg.Okta.Client.RequestTimeout > 0 {
@@ -1995,17 +2001,17 @@ func (a *ResourceSetAPIService) GetResourceSetExecute(r ApiGetResourceSetRequest
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
 		return localVarReturnValue, localAPIResponse, newErr
 	}
-	
+
 	localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
 	return localVarReturnValue, localAPIResponse, nil
 }
 
 type ApiListBindingsRequest struct {
-	ctx context.Context
-	ApiService ResourceSetAPI
+	ctx           context.Context
+	ApiService    ResourceSetAPI
 	resourceSetId string
-	after *string
-	retryCount int32
+	after         *string
+	retryCount    int32
 }
 
 // The cursor to use for pagination. It is an opaque string that specifies your current location in the list and is obtained from the &#x60;Link&#x60; response header. See [Pagination](/#pagination).
@@ -2023,21 +2029,22 @@ ListBindings List all Bindings
 
 Lists all Resource Set bindings with pagination support
 
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @param resourceSetId `id` of a Resource Set
- @return ApiListBindingsRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param resourceSetId `id` of a Resource Set
+	@return ApiListBindingsRequest
 */
 func (a *ResourceSetAPIService) ListBindings(ctx context.Context, resourceSetId string) ApiListBindingsRequest {
 	return ApiListBindingsRequest{
-		ApiService: a,
-		ctx: ctx,
+		ApiService:    a,
+		ctx:           ctx,
 		resourceSetId: resourceSetId,
-		retryCount: 0,
+		retryCount:    0,
 	}
 }
 
 // Execute executes the request
-//  @return ResourceSetBindings
+//
+//	@return ResourceSetBindings
 func (a *ResourceSetAPIService) ListBindingsExecute(r ApiListBindingsRequest) (*ResourceSetBindings, *APIResponse, error) {
 	var (
 		localVarHTTPMethod   = http.MethodGet
@@ -2046,7 +2053,7 @@ func (a *ResourceSetAPIService) ListBindingsExecute(r ApiListBindingsRequest) (*
 		localVarReturnValue  *ResourceSetBindings
 		localVarHTTPResponse *http.Response
 		localAPIResponse     *APIResponse
-		err 				 error
+		err                  error
 	)
 
 	if a.client.cfg.Okta.Client.RequestTimeout > 0 {
@@ -2170,18 +2177,18 @@ func (a *ResourceSetAPIService) ListBindingsExecute(r ApiListBindingsRequest) (*
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
 		return localVarReturnValue, localAPIResponse, newErr
 	}
-	
+
 	localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
 	return localVarReturnValue, localAPIResponse, nil
 }
 
 type ApiListMembersOfBindingRequest struct {
-	ctx context.Context
-	ApiService ResourceSetAPI
+	ctx           context.Context
+	ApiService    ResourceSetAPI
 	resourceSetId string
 	roleIdOrLabel string
-	after *string
-	retryCount int32
+	after         *string
+	retryCount    int32
 }
 
 // The cursor to use for pagination. It is an opaque string that specifies your current location in the list and is obtained from the &#x60;Link&#x60; response header. See [Pagination](/#pagination).
@@ -2199,23 +2206,24 @@ ListMembersOfBinding List all Members of a binding
 
 Lists all members of a Resource Set binding with pagination support
 
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @param resourceSetId `id` of a Resource Set
- @param roleIdOrLabel `id` or `label` of the role
- @return ApiListMembersOfBindingRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param resourceSetId `id` of a Resource Set
+	@param roleIdOrLabel `id` or `label` of the role
+	@return ApiListMembersOfBindingRequest
 */
 func (a *ResourceSetAPIService) ListMembersOfBinding(ctx context.Context, resourceSetId string, roleIdOrLabel string) ApiListMembersOfBindingRequest {
 	return ApiListMembersOfBindingRequest{
-		ApiService: a,
-		ctx: ctx,
+		ApiService:    a,
+		ctx:           ctx,
 		resourceSetId: resourceSetId,
 		roleIdOrLabel: roleIdOrLabel,
-		retryCount: 0,
+		retryCount:    0,
 	}
 }
 
 // Execute executes the request
-//  @return ResourceSetBindingMembers
+//
+//	@return ResourceSetBindingMembers
 func (a *ResourceSetAPIService) ListMembersOfBindingExecute(r ApiListMembersOfBindingRequest) (*ResourceSetBindingMembers, *APIResponse, error) {
 	var (
 		localVarHTTPMethod   = http.MethodGet
@@ -2224,7 +2232,7 @@ func (a *ResourceSetAPIService) ListMembersOfBindingExecute(r ApiListMembersOfBi
 		localVarReturnValue  *ResourceSetBindingMembers
 		localVarHTTPResponse *http.Response
 		localAPIResponse     *APIResponse
-		err 				 error
+		err                  error
 	)
 
 	if a.client.cfg.Okta.Client.RequestTimeout > 0 {
@@ -2349,16 +2357,16 @@ func (a *ResourceSetAPIService) ListMembersOfBindingExecute(r ApiListMembersOfBi
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
 		return localVarReturnValue, localAPIResponse, newErr
 	}
-	
+
 	localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
 	return localVarReturnValue, localAPIResponse, nil
 }
 
 type ApiListResourceSetResourcesRequest struct {
-	ctx context.Context
-	ApiService ResourceSetAPI
+	ctx           context.Context
+	ApiService    ResourceSetAPI
 	resourceSetId string
-	retryCount int32
+	retryCount    int32
 }
 
 func (r ApiListResourceSetResourcesRequest) Execute() (*ResourceSetResources, *APIResponse, error) {
@@ -2370,21 +2378,22 @@ ListResourceSetResources List all Resources of a Resource Set
 
 Lists all resources that make up the Resource Set
 
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @param resourceSetId `id` of a Resource Set
- @return ApiListResourceSetResourcesRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param resourceSetId `id` of a Resource Set
+	@return ApiListResourceSetResourcesRequest
 */
 func (a *ResourceSetAPIService) ListResourceSetResources(ctx context.Context, resourceSetId string) ApiListResourceSetResourcesRequest {
 	return ApiListResourceSetResourcesRequest{
-		ApiService: a,
-		ctx: ctx,
+		ApiService:    a,
+		ctx:           ctx,
 		resourceSetId: resourceSetId,
-		retryCount: 0,
+		retryCount:    0,
 	}
 }
 
 // Execute executes the request
-//  @return ResourceSetResources
+//
+//	@return ResourceSetResources
 func (a *ResourceSetAPIService) ListResourceSetResourcesExecute(r ApiListResourceSetResourcesRequest) (*ResourceSetResources, *APIResponse, error) {
 	var (
 		localVarHTTPMethod   = http.MethodGet
@@ -2393,7 +2402,7 @@ func (a *ResourceSetAPIService) ListResourceSetResourcesExecute(r ApiListResourc
 		localVarReturnValue  *ResourceSetResources
 		localVarHTTPResponse *http.Response
 		localAPIResponse     *APIResponse
-		err 				 error
+		err                  error
 	)
 
 	if a.client.cfg.Okta.Client.RequestTimeout > 0 {
@@ -2514,15 +2523,15 @@ func (a *ResourceSetAPIService) ListResourceSetResourcesExecute(r ApiListResourc
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
 		return localVarReturnValue, localAPIResponse, newErr
 	}
-	
+
 	localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
 	return localVarReturnValue, localAPIResponse, nil
 }
 
 type ApiListResourceSetsRequest struct {
-	ctx context.Context
+	ctx        context.Context
 	ApiService ResourceSetAPI
-	after *string
+	after      *string
 	retryCount int32
 }
 
@@ -2541,19 +2550,20 @@ ListResourceSets List all Resource Sets
 
 Lists all Resource Sets with pagination support
 
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @return ApiListResourceSetsRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@return ApiListResourceSetsRequest
 */
 func (a *ResourceSetAPIService) ListResourceSets(ctx context.Context) ApiListResourceSetsRequest {
 	return ApiListResourceSetsRequest{
 		ApiService: a,
-		ctx: ctx,
+		ctx:        ctx,
 		retryCount: 0,
 	}
 }
 
 // Execute executes the request
-//  @return ResourceSets
+//
+//	@return ResourceSets
 func (a *ResourceSetAPIService) ListResourceSetsExecute(r ApiListResourceSetsRequest) (*ResourceSets, *APIResponse, error) {
 	var (
 		localVarHTTPMethod   = http.MethodGet
@@ -2562,7 +2572,7 @@ func (a *ResourceSetAPIService) ListResourceSetsExecute(r ApiListResourceSetsReq
 		localVarReturnValue  *ResourceSets
 		localVarHTTPResponse *http.Response
 		localAPIResponse     *APIResponse
-		err 				 error
+		err                  error
 	)
 
 	if a.client.cfg.Okta.Client.RequestTimeout > 0 {
@@ -2673,17 +2683,17 @@ func (a *ResourceSetAPIService) ListResourceSetsExecute(r ApiListResourceSetsReq
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
 		return localVarReturnValue, localAPIResponse, newErr
 	}
-	
+
 	localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
 	return localVarReturnValue, localAPIResponse, nil
 }
 
 type ApiReplaceResourceSetRequest struct {
-	ctx context.Context
-	ApiService ResourceSetAPI
+	ctx           context.Context
+	ApiService    ResourceSetAPI
 	resourceSetId string
-	instance *ResourceSet
-	retryCount int32
+	instance      *ResourceSet
+	retryCount    int32
 }
 
 func (r ApiReplaceResourceSetRequest) Instance(instance ResourceSet) ApiReplaceResourceSetRequest {
@@ -2700,21 +2710,22 @@ ReplaceResourceSet Replace a Resource Set
 
 Replaces a Resource Set by `resourceSetId`
 
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @param resourceSetId `id` of a Resource Set
- @return ApiReplaceResourceSetRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param resourceSetId `id` of a Resource Set
+	@return ApiReplaceResourceSetRequest
 */
 func (a *ResourceSetAPIService) ReplaceResourceSet(ctx context.Context, resourceSetId string) ApiReplaceResourceSetRequest {
 	return ApiReplaceResourceSetRequest{
-		ApiService: a,
-		ctx: ctx,
+		ApiService:    a,
+		ctx:           ctx,
 		resourceSetId: resourceSetId,
-		retryCount: 0,
+		retryCount:    0,
 	}
 }
 
 // Execute executes the request
-//  @return ResourceSet
+//
+//	@return ResourceSet
 func (a *ResourceSetAPIService) ReplaceResourceSetExecute(r ApiReplaceResourceSetRequest) (*ResourceSet, *APIResponse, error) {
 	var (
 		localVarHTTPMethod   = http.MethodPut
@@ -2723,7 +2734,7 @@ func (a *ResourceSetAPIService) ReplaceResourceSetExecute(r ApiReplaceResourceSe
 		localVarReturnValue  *ResourceSet
 		localVarHTTPResponse *http.Response
 		localAPIResponse     *APIResponse
-		err 				 error
+		err                  error
 	)
 
 	if a.client.cfg.Okta.Client.RequestTimeout > 0 {
@@ -2861,18 +2872,18 @@ func (a *ResourceSetAPIService) ReplaceResourceSetExecute(r ApiReplaceResourceSe
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
 		return localVarReturnValue, localAPIResponse, newErr
 	}
-	
+
 	localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
 	return localVarReturnValue, localAPIResponse, nil
 }
 
 type ApiUnassignMemberFromBindingRequest struct {
-	ctx context.Context
-	ApiService ResourceSetAPI
+	ctx           context.Context
+	ApiService    ResourceSetAPI
 	resourceSetId string
 	roleIdOrLabel string
-	memberId string
-	retryCount int32
+	memberId      string
+	retryCount    int32
 }
 
 func (r ApiUnassignMemberFromBindingRequest) Execute() (*APIResponse, error) {
@@ -2884,20 +2895,20 @@ UnassignMemberFromBinding Unassign a Member from a binding
 
 Unassigns a member identified by `memberId` from a binding
 
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @param resourceSetId `id` of a Resource Set
- @param roleIdOrLabel `id` or `label` of the role
- @param memberId `id` of a member
- @return ApiUnassignMemberFromBindingRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param resourceSetId `id` of a Resource Set
+	@param roleIdOrLabel `id` or `label` of the role
+	@param memberId `id` of a member
+	@return ApiUnassignMemberFromBindingRequest
 */
 func (a *ResourceSetAPIService) UnassignMemberFromBinding(ctx context.Context, resourceSetId string, roleIdOrLabel string, memberId string) ApiUnassignMemberFromBindingRequest {
 	return ApiUnassignMemberFromBindingRequest{
-		ApiService: a,
-		ctx: ctx,
+		ApiService:    a,
+		ctx:           ctx,
 		resourceSetId: resourceSetId,
 		roleIdOrLabel: roleIdOrLabel,
-		memberId: memberId,
-		retryCount: 0,
+		memberId:      memberId,
+		retryCount:    0,
 	}
 }
 
@@ -2909,7 +2920,7 @@ func (a *ResourceSetAPIService) UnassignMemberFromBindingExecute(r ApiUnassignMe
 		formFiles            []formFile
 		localVarHTTPResponse *http.Response
 		localAPIResponse     *APIResponse
-		err 				 error
+		err                  error
 	)
 
 	if a.client.cfg.Okta.Client.RequestTimeout > 0 {

@@ -30,12 +30,12 @@ import (
 
 // OpenIdConnectApplicationSettings struct for OpenIdConnectApplicationSettings
 type OpenIdConnectApplicationSettings struct {
-	IdentityStoreId *string `json:"identityStoreId,omitempty"`
-	ImplicitAssignment *bool `json:"implicitAssignment,omitempty"`
-	InlineHookId *string `json:"inlineHookId,omitempty"`
-	Notes *ApplicationSettingsNotes `json:"notes,omitempty"`
-	Notifications *ApplicationSettingsNotifications `json:"notifications,omitempty"`
-	OauthClient *OpenIdConnectApplicationSettingsClient `json:"oauthClient,omitempty"`
+	IdentityStoreId      *string                                 `json:"identityStoreId,omitempty"`
+	ImplicitAssignment   *bool                                   `json:"implicitAssignment,omitempty"`
+	InlineHookId         *string                                 `json:"inlineHookId,omitempty"`
+	Notes                *ApplicationSettingsNotes               `json:"notes,omitempty"`
+	Notifications        *ApplicationSettingsNotifications       `json:"notifications,omitempty"`
+	OauthClient          *OpenIdConnectApplicationSettingsClient `json:"oauthClient,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -341,4 +341,3 @@ func (v *NullableOpenIdConnectApplicationSettings) UnmarshalJSON(src []byte) err
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-

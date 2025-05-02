@@ -31,7 +31,7 @@ import (
 // OAuth2RefreshTokenScopeLinks Specifies link relations (see [Web Linking](https://www.rfc-editor.org/rfc/rfc8288)) available for the current status of an application using the [JSON Hypertext Application Language](https://datatracker.ietf.org/doc/html/draft-kelly-json-hal-06) specification. This object is used for dynamic discovery of related resources and lifecycle operations.
 type OAuth2RefreshTokenScopeLinks struct {
 	// Link to Scope resource
-	Scope *AppCustomHrefObject `json:"scope,omitempty"`
+	Scope                *AppCustomHrefObject `json:"scope,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -157,4 +157,3 @@ func (v *NullableOAuth2RefreshTokenScopeLinks) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-

@@ -26,13 +26,12 @@ package okta
 
 import (
 	"encoding/json"
-	"fmt"
 )
 
 // CapabilitiesInboundProvisioningObject Defines the configuration for the INBOUND_PROVISIONING feature
 type CapabilitiesInboundProvisioningObject struct {
-	ImportRules CapabilitiesImportRulesObject `json:"importRules"`
-	ImportSettings CapabilitiesImportSettingsObject `json:"importSettings"`
+	ImportRules          CapabilitiesImportRulesObject    `json:"importRules"`
+	ImportSettings       CapabilitiesImportSettingsObject `json:"importSettings"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -180,4 +179,3 @@ func (v *NullableCapabilitiesInboundProvisioningObject) UnmarshalJSON(src []byte
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-

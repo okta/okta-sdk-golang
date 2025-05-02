@@ -37,7 +37,7 @@ type ResourceSelectorCreateRequestSchema struct {
 	// Name of the Resource Selector
 	Name *string `json:"name,omitempty"`
 	// Schema of the Resource Selector
-	Schema *string `json:"schema,omitempty"`
+	Schema               *string `json:"schema,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -271,4 +271,3 @@ func (v *NullableResourceSelectorCreateRequestSchema) UnmarshalJSON(src []byte) 
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-

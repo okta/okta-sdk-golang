@@ -31,7 +31,7 @@ import (
 // Call Attempts to activate a `call` Factor with the specified passcode.
 type Call struct {
 	// OTP for the current time window
-	PassCode *string `json:"passCode,omitempty"`
+	PassCode             *string `json:"passCode,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -157,4 +157,3 @@ func (v *NullableCall) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-

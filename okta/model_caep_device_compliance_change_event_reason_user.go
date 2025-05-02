@@ -26,13 +26,12 @@ package okta
 
 import (
 	"encoding/json"
-	"fmt"
 )
 
 // CaepDeviceComplianceChangeEventReasonUser struct for CaepDeviceComplianceChangeEventReasonUser
 type CaepDeviceComplianceChangeEventReasonUser struct {
 	// The event reason in English
-	En string `json:"en"`
+	En                   string `json:"en"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -151,4 +150,3 @@ func (v *NullableCaepDeviceComplianceChangeEventReasonUser) UnmarshalJSON(src []
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-

@@ -26,7 +26,6 @@ package okta
 
 import (
 	"encoding/json"
-	"fmt"
 )
 
 // PolicyMappingLinksAllOfApplication struct for PolicyMappingLinksAllOfApplication
@@ -39,7 +38,7 @@ type PolicyMappingLinksAllOfApplication struct {
 	// Indicates whether the Link Object's `href` property is a URI template.
 	Templated *bool `json:"templated,omitempty"`
 	// The media type of the link. If omitted, it is implicitly `application/json`.
-	Type *string `json:"type,omitempty"`
+	Type                 *string `json:"type,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -302,4 +301,3 @@ func (v *NullablePolicyMappingLinksAllOfApplication) UnmarshalJSON(src []byte) e
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-

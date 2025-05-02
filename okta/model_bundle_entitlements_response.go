@@ -30,8 +30,8 @@ import (
 
 // BundleEntitlementsResponse struct for BundleEntitlementsResponse
 type BundleEntitlementsResponse struct {
-	Entitlements []BundleEntitlement `json:"entitlements,omitempty"`
-	Links *BundleEntitlementsResponseLinks `json:"_links,omitempty"`
+	Entitlements         []BundleEntitlement              `json:"entitlements,omitempty"`
+	Links                *BundleEntitlementsResponseLinks `json:"_links,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -193,4 +193,3 @@ func (v *NullableBundleEntitlementsResponse) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-

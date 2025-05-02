@@ -26,7 +26,6 @@ package okta
 
 import (
 	"encoding/json"
-	"fmt"
 )
 
 // ProvisioningConnectionOauthRequestProfile struct for ProvisioningConnectionOauthRequestProfile
@@ -34,8 +33,8 @@ type ProvisioningConnectionOauthRequestProfile struct {
 	// OAuth 2.0 is used to authenticate with the app.
 	AuthScheme string `json:"authScheme"`
 	// Only used for the Okta Org2Org (`okta_org2org`) app. The unique client identifier for the OAuth 2.0 service app from the target org.
-	ClientId *string `json:"clientId,omitempty"`
-	Settings *Office365ProvisioningSettings `json:"settings,omitempty"`
+	ClientId             *string                        `json:"clientId,omitempty"`
+	Settings             *Office365ProvisioningSettings `json:"settings,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -226,4 +225,3 @@ func (v *NullableProvisioningConnectionOauthRequestProfile) UnmarshalJSON(src []
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-

@@ -31,13 +31,13 @@ import (
 // TokenAuthorizationServerPolicyRuleAction struct for TokenAuthorizationServerPolicyRuleAction
 type TokenAuthorizationServerPolicyRuleAction struct {
 	// Lifetime of the access token in minutes. The minimum is five minutes. The maximum is one day.
-	AccessTokenLifetimeMinutes *int32 `json:"accessTokenLifetimeMinutes,omitempty"`
-	InlineHook *TokenAuthorizationServerPolicyRuleActionInlineHook `json:"inlineHook,omitempty"`
+	AccessTokenLifetimeMinutes *int32                                              `json:"accessTokenLifetimeMinutes,omitempty"`
+	InlineHook                 *TokenAuthorizationServerPolicyRuleActionInlineHook `json:"inlineHook,omitempty"`
 	// Lifetime of the refresh token is the minimum access token lifetime.
 	RefreshTokenLifetimeMinutes *int32 `json:"refreshTokenLifetimeMinutes,omitempty"`
 	// Timeframe when the refresh token is valid. The minimum is 10 minutes. The maximum is five years (2,628,000 minutes).
 	RefreshTokenWindowMinutes *int32 `json:"refreshTokenWindowMinutes,omitempty"`
-	AdditionalProperties map[string]interface{}
+	AdditionalProperties      map[string]interface{}
 }
 
 type _TokenAuthorizationServerPolicyRuleAction TokenAuthorizationServerPolicyRuleAction
@@ -270,4 +270,3 @@ func (v *NullableTokenAuthorizationServerPolicyRuleAction) UnmarshalJSON(src []b
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-

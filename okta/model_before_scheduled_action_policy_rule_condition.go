@@ -30,8 +30,8 @@ import (
 
 // BeforeScheduledActionPolicyRuleCondition struct for BeforeScheduledActionPolicyRuleCondition
 type BeforeScheduledActionPolicyRuleCondition struct {
-	Duration *Duration `json:"duration,omitempty"`
-	LifecycleAction *ScheduledUserLifecycleAction `json:"lifecycleAction,omitempty"`
+	Duration             *Duration                     `json:"duration,omitempty"`
+	LifecycleAction      *ScheduledUserLifecycleAction `json:"lifecycleAction,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -193,4 +193,3 @@ func (v *NullableBeforeScheduledActionPolicyRuleCondition) UnmarshalJSON(src []b
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-

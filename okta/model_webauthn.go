@@ -33,7 +33,7 @@ type Webauthn struct {
 	// Base64-encoded attestation from the WebAuthn authenticator
 	Attestation *string `json:"attestation,omitempty"`
 	// Base64-encoded client data from the WebAuthn authenticator
-	ClientData *string `json:"clientData,omitempty"`
+	ClientData           *string `json:"clientData,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -195,4 +195,3 @@ func (v *NullableWebauthn) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-

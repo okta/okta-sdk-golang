@@ -26,7 +26,6 @@ package okta
 
 import (
 	"encoding/json"
-	"fmt"
 )
 
 // SubmissionRequest struct for SubmissionRequest
@@ -47,9 +46,9 @@ type SubmissionRequest struct {
 	Logo string `json:"logo"`
 	// The app integration name. This is the main title used for your integration in the OIN catalog.
 	Name string `json:"name"`
-	Sso *Sso `json:"sso,omitempty"`
+	Sso  *Sso   `json:"sso,omitempty"`
 	// Status of the OIN Integration submission
-	Status *string `json:"status,omitempty"`
+	Status               *string `json:"status,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -478,4 +477,3 @@ func (v *NullableSubmissionRequest) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-

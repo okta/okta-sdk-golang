@@ -30,7 +30,7 @@ import (
 
 // Permissions struct for Permissions
 type Permissions struct {
-	Permissions []Permission `json:"permissions,omitempty"`
+	Permissions          []Permission `json:"permissions,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -156,4 +156,3 @@ func (v *NullablePermissions) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-

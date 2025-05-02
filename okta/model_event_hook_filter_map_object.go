@@ -32,7 +32,7 @@ import (
 type EventHookFilterMapObject struct {
 	Condition *EventHookFilterMapObjectCondition `json:"condition,omitempty"`
 	// The filtered event type
-	Event *string `json:"event,omitempty"`
+	Event                *string `json:"event,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -194,4 +194,3 @@ func (v *NullableEventHookFilterMapObject) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-

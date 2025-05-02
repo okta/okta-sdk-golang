@@ -33,8 +33,8 @@ import (
 // UserFactorPushTransactionRejected struct for UserFactorPushTransactionRejected
 type UserFactorPushTransactionRejected struct {
 	UserFactorPushTransaction
-	Profile *UserFactorPushTransactionRejectedAllOfProfile `json:"profile,omitempty"`
-	Links *UserFactorPushTransactionRejectedAllOfLinks `json:"_links,omitempty"`
+	Profile              *UserFactorPushTransactionRejectedAllOfProfile `json:"profile,omitempty"`
+	Links                *UserFactorPushTransactionRejectedAllOfLinks   `json:"_links,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -148,7 +148,7 @@ func (o UserFactorPushTransactionRejected) MarshalJSON() ([]byte, error) {
 func (o *UserFactorPushTransactionRejected) UnmarshalJSON(bytes []byte) (err error) {
 	type UserFactorPushTransactionRejectedWithoutEmbeddedStruct struct {
 		Profile *UserFactorPushTransactionRejectedAllOfProfile `json:"profile,omitempty"`
-		Links *UserFactorPushTransactionRejectedAllOfLinks `json:"_links,omitempty"`
+		Links   *UserFactorPushTransactionRejectedAllOfLinks   `json:"_links,omitempty"`
 	}
 
 	varUserFactorPushTransactionRejectedWithoutEmbeddedStruct := UserFactorPushTransactionRejectedWithoutEmbeddedStruct{}
@@ -240,4 +240,3 @@ func (v *NullableUserFactorPushTransactionRejected) UnmarshalJSON(src []byte) er
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-

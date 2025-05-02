@@ -26,7 +26,6 @@ package okta
 
 import (
 	"encoding/json"
-	"fmt"
 )
 
 // UpdateIamRoleRequest struct for UpdateIamRoleRequest
@@ -34,7 +33,7 @@ type UpdateIamRoleRequest struct {
 	// Description of the role
 	Description string `json:"description"`
 	// Unique label for the role
-	Label string `json:"label"`
+	Label                string `json:"label"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -182,4 +181,3 @@ func (v *NullableUpdateIamRoleRequest) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-

@@ -30,7 +30,7 @@ import (
 
 // InlineHookOAuthChannelConfig struct for InlineHookOAuthChannelConfig
 type InlineHookOAuthChannelConfig struct {
-	AuthType *string `json:"authType,omitempty"`
+	AuthType             *string `json:"authType,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -156,4 +156,3 @@ func (v *NullableInlineHookOAuthChannelConfig) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-

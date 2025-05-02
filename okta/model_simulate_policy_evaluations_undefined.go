@@ -30,7 +30,7 @@ import (
 
 // SimulatePolicyEvaluationsUndefined A list of undefined but not matched policies and rules
 type SimulatePolicyEvaluationsUndefined struct {
-	Policies []SimulateResultPoliciesItems `json:"policies,omitempty"`
+	Policies             []SimulateResultPoliciesItems `json:"policies,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -156,4 +156,3 @@ func (v *NullableSimulatePolicyEvaluationsUndefined) UnmarshalJSON(src []byte) e
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-

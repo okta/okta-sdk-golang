@@ -31,7 +31,7 @@ import (
 // Email1 Verifies an OTP sent by a `email` Factor challenge. If you omit `passCode` in the request, a new OTP is sent to the phone.
 type Email1 struct {
 	// OTP for the current time window
-	PassCode *string `json:"passCode,omitempty"`
+	PassCode             *string `json:"passCode,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -157,4 +157,3 @@ func (v *NullableEmail1) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-

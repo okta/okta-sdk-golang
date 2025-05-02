@@ -30,8 +30,8 @@ import (
 
 // EntityRiskPolicyRuleActionRunWorkflow struct for EntityRiskPolicyRuleActionRunWorkflow
 type EntityRiskPolicyRuleActionRunWorkflow struct {
-	Action *string `json:"action,omitempty"`
-	Workflow *ContinuousAccessPolicyRuleRunWorkflowWorkflow `json:"workflow,omitempty"`
+	Action               *string                                        `json:"action,omitempty"`
+	Workflow             *ContinuousAccessPolicyRuleRunWorkflowWorkflow `json:"workflow,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -193,4 +193,3 @@ func (v *NullableEntityRiskPolicyRuleActionRunWorkflow) UnmarshalJSON(src []byte
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-

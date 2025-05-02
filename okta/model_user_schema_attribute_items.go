@@ -30,9 +30,9 @@ import (
 
 // UserSchemaAttributeItems struct for UserSchemaAttributeItems
 type UserSchemaAttributeItems struct {
-	Enum []string `json:"enum,omitempty"`
-	OneOf []UserSchemaAttributeEnum `json:"oneOf,omitempty"`
-	Type *string `json:"type,omitempty"`
+	Enum                 []string                  `json:"enum,omitempty"`
+	OneOf                []UserSchemaAttributeEnum `json:"oneOf,omitempty"`
+	Type                 *string                   `json:"type,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -230,4 +230,3 @@ func (v *NullableUserSchemaAttributeItems) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-

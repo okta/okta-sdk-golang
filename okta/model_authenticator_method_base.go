@@ -32,8 +32,8 @@ import (
 type AuthenticatorMethodBase struct {
 	Status *string `json:"status,omitempty"`
 	// The type of authenticator method
-	Type *string `json:"type,omitempty"`
-	Links *LinksSelfAndLifecycle `json:"_links,omitempty"`
+	Type                 *string                `json:"type,omitempty"`
+	Links                *LinksSelfAndLifecycle `json:"_links,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -231,4 +231,3 @@ func (v *NullableAuthenticatorMethodBase) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-

@@ -27,22 +27,21 @@ package okta
 import (
 	"encoding/json"
 	"time"
-	"fmt"
 )
 
 // ApiToken An API token for an Okta User. This token is NOT scoped any further and can be used for any API the user has permissions to call.
 type ApiToken struct {
-	ClientName *string `json:"clientName,omitempty"`
-	Created *time.Time `json:"created,omitempty"`
-	ExpiresAt *time.Time `json:"expiresAt,omitempty"`
-	Id *string `json:"id,omitempty"`
-	LastUpdated *time.Time `json:"lastUpdated,omitempty"`
-	Name string `json:"name"`
-	Network *ApiTokenNetwork `json:"network,omitempty"`
+	ClientName  *string          `json:"clientName,omitempty"`
+	Created     *time.Time       `json:"created,omitempty"`
+	ExpiresAt   *time.Time       `json:"expiresAt,omitempty"`
+	Id          *string          `json:"id,omitempty"`
+	LastUpdated *time.Time       `json:"lastUpdated,omitempty"`
+	Name        string           `json:"name"`
+	Network     *ApiTokenNetwork `json:"network,omitempty"`
 	// A time duration specified as an [ISO-8601 duration](https://en.wikipedia.org/wiki/ISO_8601#Durations).
-	TokenWindow *string `json:"tokenWindow,omitempty" validate:"regexp=^P(?:$)(\\\\d+Y)?(\\\\d+M)?(\\\\d+W)?(\\\\d+D)?(T(?:\\\\d)(\\\\d+H)?(\\\\d+M)?(\\\\d+S)?)?$"`
-	UserId *string `json:"userId,omitempty"`
-	Link *LinksSelf `json:"_link,omitempty"`
+	TokenWindow          *string    `json:"tokenWindow,omitempty" validate:"regexp=^P(?:$)(\\\\d+Y)?(\\\\d+M)?(\\\\d+W)?(\\\\d+D)?(T(?:\\\\d)(\\\\d+H)?(\\\\d+M)?(\\\\d+S)?)?$"`
+	UserId               *string    `json:"userId,omitempty"`
+	Link                 *LinksSelf `json:"_link,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -485,4 +484,3 @@ func (v *NullableApiToken) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-

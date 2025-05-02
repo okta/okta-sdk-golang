@@ -26,7 +26,6 @@ package okta
 
 import (
 	"encoding/json"
-	"fmt"
 	"reflect"
 	"strings"
 )
@@ -36,8 +35,8 @@ type SamlApplication struct {
 	Application
 	Credentials *ApplicationCredentials `json:"credentials,omitempty"`
 	// A unique key is generated for the custom app instance when you use SAML_2_0 `signOnMode`.
-	Name *string `json:"name,omitempty"`
-	Settings *SamlApplicationSettings `json:"settings,omitempty"`
+	Name                 *string                  `json:"name,omitempty"`
+	Settings             *SamlApplicationSettings `json:"settings,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -189,7 +188,7 @@ func (o *SamlApplication) UnmarshalJSON(bytes []byte) (err error) {
 	type SamlApplicationWithoutEmbeddedStruct struct {
 		Credentials *ApplicationCredentials `json:"credentials,omitempty"`
 		// A unique key is generated for the custom app instance when you use SAML_2_0 `signOnMode`.
-		Name *string `json:"name,omitempty"`
+		Name     *string                  `json:"name,omitempty"`
 		Settings *SamlApplicationSettings `json:"settings,omitempty"`
 	}
 
@@ -284,4 +283,3 @@ func (v *NullableSamlApplication) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-

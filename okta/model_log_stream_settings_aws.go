@@ -26,7 +26,6 @@ package okta
 
 import (
 	"encoding/json"
-	"fmt"
 )
 
 // LogStreamSettingsAws Specifies the configuration for the `aws_eventbridge` Log Stream type. This configuration can't be modified after creation.
@@ -36,7 +35,7 @@ type LogStreamSettingsAws struct {
 	// An alphanumeric name (no spaces) to identify this event source in AWS EventBridge
 	EventSourceName string `json:"eventSourceName" validate:"regexp=^[a-zA-Z0-9.\\\\-_]$"`
 	// The destination AWS region where your event source is located
-	Region string `json:"region"`
+	Region               string `json:"region"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -213,4 +212,3 @@ func (v *NullableLogStreamSettingsAws) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-

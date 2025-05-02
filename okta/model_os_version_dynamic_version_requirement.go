@@ -35,7 +35,7 @@ type OSVersionDynamicVersionRequirement struct {
 	// Indicates the distance from the latest major version
 	DistanceFromLatestMajor *int32 `json:"distanceFromLatestMajor,omitempty"`
 	// Indicates whether the device needs to be on the latest security patch
-	LatestSecurityPatch *bool `json:"latestSecurityPatch,omitempty"`
+	LatestSecurityPatch  *bool `json:"latestSecurityPatch,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -233,4 +233,3 @@ func (v *NullableOSVersionDynamicVersionRequirement) UnmarshalJSON(src []byte) e
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-

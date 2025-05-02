@@ -31,8 +31,8 @@ import (
 // DTCChromeOS Google Chrome Device Trust Connector provider
 type DTCChromeOS struct {
 	// Indicates whether the AllowScreenLock enterprise policy is enabled
-	AllowScreenLock *bool `json:"allowScreenLock,omitempty"`
-	BrowserVersion *ChromeBrowserVersion `json:"browserVersion,omitempty"`
+	AllowScreenLock *bool                 `json:"allowScreenLock,omitempty"`
+	BrowserVersion  *ChromeBrowserVersion `json:"browserVersion,omitempty"`
 	// Indicates if a software stack is used to communicate with the DNS server
 	BuiltInDnsClientEnabled *bool `json:"builtInDnsClientEnabled,omitempty"`
 	// Indicates whether access to the Chrome Remote Desktop application is blocked through a policy
@@ -46,8 +46,8 @@ type DTCChromeOS struct {
 	// Indicates whether the device is enrolled in ChromeOS device management
 	ManagedDevice *bool `json:"managedDevice,omitempty"`
 	// Indicates whether a firewall is enabled at the OS-level on the device
-	OsFirewall *bool `json:"osFirewall,omitempty"`
-	OsVersion *OSVersionFourComponents `json:"osVersion,omitempty"`
+	OsFirewall *bool                    `json:"osFirewall,omitempty"`
+	OsVersion  *OSVersionFourComponents `json:"osVersion,omitempty"`
 	// Indicates whether the Password Protection Warning feature is enabled
 	PasswordProtectionWarningTrigger *string `json:"passwordProtectionWarningTrigger,omitempty"`
 	// Indicates whether enterprise-grade (custom) unsafe URL scanning is enabled
@@ -687,4 +687,3 @@ func (v *NullableDTCChromeOS) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-

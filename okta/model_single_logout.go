@@ -30,9 +30,9 @@ import (
 
 // SingleLogout struct for SingleLogout
 type SingleLogout struct {
-	Enabled *bool `json:"enabled,omitempty"`
-	Issuer *string `json:"issuer,omitempty"`
-	LogoutUrl *string `json:"logoutUrl,omitempty"`
+	Enabled              *bool   `json:"enabled,omitempty"`
+	Issuer               *string `json:"issuer,omitempty"`
+	LogoutUrl            *string `json:"logoutUrl,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -230,4 +230,3 @@ func (v *NullableSingleLogout) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-

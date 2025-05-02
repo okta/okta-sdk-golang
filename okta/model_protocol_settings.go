@@ -30,7 +30,7 @@ import (
 
 // ProtocolSettings struct for ProtocolSettings
 type ProtocolSettings struct {
-	NameFormat *string `json:"nameFormat,omitempty"`
+	NameFormat           *string `json:"nameFormat,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -156,4 +156,3 @@ func (v *NullableProtocolSettings) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-

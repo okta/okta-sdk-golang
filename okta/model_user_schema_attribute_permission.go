@@ -30,8 +30,8 @@ import (
 
 // UserSchemaAttributePermission struct for UserSchemaAttributePermission
 type UserSchemaAttributePermission struct {
-	Action *string `json:"action,omitempty"`
-	Principal *string `json:"principal,omitempty"`
+	Action               *string `json:"action,omitempty"`
+	Principal            *string `json:"principal,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -193,4 +193,3 @@ func (v *NullableUserSchemaAttributePermission) UnmarshalJSON(src []byte) error 
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-

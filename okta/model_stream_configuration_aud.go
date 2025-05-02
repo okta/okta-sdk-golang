@@ -29,12 +29,11 @@ import (
 	"fmt"
 )
 
-
-//model_oneof.mustache
+// model_oneof.mustache
 // StreamConfigurationAud - The audience used in the SET. This value is set as `aud` in the claim.  A read-only parameter that is set by the transmitter. If this parameter is included in the request, the value must match the expected value from the transmitter.
 type StreamConfigurationAud struct {
 	ArrayOfString *[]string
-	String *string
+	String        *string
 }
 
 // []stringAsStreamConfigurationAud is a convenience function that returns []string wrapped in StreamConfigurationAud
@@ -51,48 +50,47 @@ func StringAsStreamConfigurationAud(v *string) StreamConfigurationAud {
 	}
 }
 
-
 // Unmarshal JSON data into one of the pointers in the struct  CUSTOM
 func (dst *StreamConfigurationAud) UnmarshalJSON(data []byte) error {
 	var err error
-        match := 0
-        // try to unmarshal data into ArrayOfString
-        err = json.Unmarshal(data, &dst.ArrayOfString)
-        if err == nil {
-                jsonArrayOfString, _ := json.Marshal(dst.ArrayOfString)
-                if string(jsonArrayOfString) == "{}" { // empty struct
-                        dst.ArrayOfString = nil
-                } else {
-                        match++
-                }
-        } else {
-                dst.ArrayOfString = nil
-        }
+	match := 0
+	// try to unmarshal data into ArrayOfString
+	err = json.Unmarshal(data, &dst.ArrayOfString)
+	if err == nil {
+		jsonArrayOfString, _ := json.Marshal(dst.ArrayOfString)
+		if string(jsonArrayOfString) == "{}" { // empty struct
+			dst.ArrayOfString = nil
+		} else {
+			match++
+		}
+	} else {
+		dst.ArrayOfString = nil
+	}
 
-        // try to unmarshal data into String
-        err = json.Unmarshal(data, &dst.String)
-        if err == nil {
-                jsonString, _ := json.Marshal(dst.String)
-                if string(jsonString) == "{}" { // empty struct
-                        dst.String = nil
-                } else {
-                        match++
-                }
-        } else {
-                dst.String = nil
-        }
+	// try to unmarshal data into String
+	err = json.Unmarshal(data, &dst.String)
+	if err == nil {
+		jsonString, _ := json.Marshal(dst.String)
+		if string(jsonString) == "{}" { // empty struct
+			dst.String = nil
+		} else {
+			match++
+		}
+	} else {
+		dst.String = nil
+	}
 
-        if match > 1 { // more than 1 match
-                // reset to nil
-                dst.ArrayOfString = nil
-                dst.String = nil
+	if match > 1 { // more than 1 match
+		// reset to nil
+		dst.ArrayOfString = nil
+		dst.String = nil
 
-                return fmt.Errorf("Data matches more than one schema in oneOf(StreamConfigurationAud)")
-        } else if match == 1 {
-                return nil // exactly one match
-        } else { // no match
-                return fmt.Errorf("Data failed to match schemas in oneOf(StreamConfigurationAud)")
-        }
+		return fmt.Errorf("Data matches more than one schema in oneOf(StreamConfigurationAud)")
+	} else if match == 1 {
+		return nil // exactly one match
+	} else { // no match
+		return fmt.Errorf("Data failed to match schemas in oneOf(StreamConfigurationAud)")
+	}
 }
 
 // Marshal data from the first non-nil pointers in the struct to JSON
@@ -109,7 +107,7 @@ func (src StreamConfigurationAud) MarshalJSON() ([]byte, error) {
 }
 
 // Get the actual instance
-func (obj *StreamConfigurationAud) GetActualInstance() (interface{}) {
+func (obj *StreamConfigurationAud) GetActualInstance() interface{} {
 	if obj == nil {
 		return nil
 	}
@@ -160,5 +158,3 @@ func (v *NullableStreamConfigurationAud) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-
-

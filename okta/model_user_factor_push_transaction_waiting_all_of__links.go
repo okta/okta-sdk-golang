@@ -30,8 +30,8 @@ import (
 
 // UserFactorPushTransactionWaitingAllOfLinks struct for UserFactorPushTransactionWaitingAllOfLinks
 type UserFactorPushTransactionWaitingAllOfLinks struct {
-	Poll *LinksPollPoll `json:"poll,omitempty"`
-	Cancel *LinksCancelCancel `json:"cancel,omitempty"`
+	Poll                 *LinksPollPoll     `json:"poll,omitempty"`
+	Cancel               *LinksCancelCancel `json:"cancel,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -193,4 +193,3 @@ func (v *NullableUserFactorPushTransactionWaitingAllOfLinks) UnmarshalJSON(src [
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-
