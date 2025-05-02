@@ -27,6 +27,7 @@ package okta
 import (
 	"bytes"
 	"context"
+	"fmt"
 	"io/ioutil"
 	"net/http"
 	"net/url"
@@ -1039,7 +1040,7 @@ func (a *UserFactorAPIService) ListFactorsExecute(r ApiListFactorsRequest) ([]Li
 
 	localVarPath := localBasePath + "/api/v1/users/{userId}/factors"
 	localVarPath = strings.Replace(localVarPath, "{"+"userId"+"}", url.PathEscape(parameterToString(r.userId, "")), -1)
-
+	fmt.Println("localVarPath",localVarPath)
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
 	localVarFormParams := url.Values{}
