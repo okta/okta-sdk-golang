@@ -2,6 +2,7 @@ package okta
 
 import (
 	"encoding/json"
+	"os"
 	"testing"
 
 	"github.com/stretchr/testify/assert"
@@ -13,6 +14,9 @@ func ListFactors() ([]ListFactors200ResponseInner, *APIResponse, error) {
 }
 
 func TestListFactors(t *testing.T) {
+	if os.Getenv("OKTA_CCI") == "yes" {
+		t.Skip("Skipping testing not in CI environment")
+	}
 	factors, resp, err := ListFactors()
 	if err != nil {
 		t.Fatalf("Error listing factors: %v", err)
