@@ -35,6 +35,7 @@ type LinksSelfAndFullUsersLifecycle struct {
 	Deactivate *HrefObjectDeactivateLink `json:"deactivate,omitempty"`
 	Suspend *HrefObjectSuspendLink `json:"suspend,omitempty"`
 	Unsuspend *HrefObjectUnsuspendLink `json:"unsuspend,omitempty"`
+	// Link to Device users
 	Users *HrefObject `json:"users,omitempty"`
 	AdditionalProperties map[string]interface{}
 }

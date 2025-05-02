@@ -19249,7 +19249,6 @@ paths:
                     - $ref: '#/components/schemas/UserFactorU2F'
                     - $ref: '#/components/schemas/UserFactorWeb'
                     - $ref: '#/components/schemas/UserFactorWebAuthn'
-                    - $ref: '#/components/schemas/UserFactorWebAuthn'
                     - $ref: '#/components/schemas/AuthenticatorMethodSignedNonce'
                   discriminator: &ref_19
                     propertyName: factorType
@@ -23081,8 +23080,8 @@ components:
         properties:
           profile:
             allOf:
-#              - $ref: '#/definitions/base'
-#              - $ref: '#/definitions/custom'
+              - $ref: '#/definitions/base'
+              - $ref: '#/definitions/custom'
     AppUserUpdateCredRequest:
       summary: Application User credentials update
       value:
@@ -26231,8 +26230,8 @@ components:
         properties:
           profile:
             allOf:
-#              - $ref: '#/definitions/custom'
-#              - $ref: '#/definitions/base'
+             - $ref: '#/definitions/custom'
+             - $ref: '#/definitions/base'
         title: Okta group
         type: object
     GroupTargetResponse:
@@ -30793,8 +30792,8 @@ components:
         properties:
           profile:
             allOf:
-#              - $ref: '#/definitions/base'
-#              - $ref: '#/definitions/custom'
+              - $ref: '#/definitions/base'
+              - $ref: '#/definitions/custom'
     VerifiedEmailDomainResponse:
       value:
         id: OeD114iNkrcN6aR680g4

@@ -28,24 +28,24 @@ Activate a Behavior Detection Rule
 package main
 
 import (
-    "context"
-    "fmt"
-    "os"
-    openapiclient "github.com/okta/okta-sdk-golang"
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/okta/okta-sdk-golang"
 )
 
 func main() {
-    behaviorId := "abcd1234" // string | id of the Behavior Detection Rule
+	behaviorId := "abcd1234" // string | id of the Behavior Detection Rule
 
-    configuration := openapiclient.NewConfiguration()
-    apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.BehaviorAPI.ActivateBehaviorDetectionRule(context.Background(), behaviorId).Execute()
-    if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `BehaviorAPI.ActivateBehaviorDetectionRule``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-    }
-    // response from `ActivateBehaviorDetectionRule`: ListBehaviorDetectionRules200ResponseInner
-    fmt.Fprintf(os.Stdout, "Response from `BehaviorAPI.ActivateBehaviorDetectionRule`: %v\n", resp)
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.BehaviorAPI.ActivateBehaviorDetectionRule(context.Background(), behaviorId).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `BehaviorAPI.ActivateBehaviorDetectionRule``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `ActivateBehaviorDetectionRule`: ListBehaviorDetectionRules200ResponseInner
+	fmt.Fprintf(os.Stdout, "Response from `BehaviorAPI.ActivateBehaviorDetectionRule`: %v\n", resp)
 }
 ```
 
@@ -98,24 +98,24 @@ Create a Behavior Detection Rule
 package main
 
 import (
-    "context"
-    "fmt"
-    "os"
-    openapiclient "github.com/okta/okta-sdk-golang"
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/okta/okta-sdk-golang"
 )
 
 func main() {
-    rule := openapiclient.listBehaviorDetectionRules_200_response_inner{BehaviorRuleAnomalousDevice: openapiclient.NewBehaviorRuleAnomalousDevice("Name_example", "Type_example")} // ListBehaviorDetectionRules200ResponseInner | 
+	rule := openapiclient.listBehaviorDetectionRules_200_response_inner{BehaviorRuleAnomalousDevice: openapiclient.NewBehaviorRuleAnomalousDevice("Name_example", "Type_example")} // ListBehaviorDetectionRules200ResponseInner | 
 
-    configuration := openapiclient.NewConfiguration()
-    apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.BehaviorAPI.CreateBehaviorDetectionRule(context.Background()).Rule(rule).Execute()
-    if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `BehaviorAPI.CreateBehaviorDetectionRule``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-    }
-    // response from `CreateBehaviorDetectionRule`: BehaviorRule
-    fmt.Fprintf(os.Stdout, "Response from `BehaviorAPI.CreateBehaviorDetectionRule`: %v\n", resp)
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.BehaviorAPI.CreateBehaviorDetectionRule(context.Background()).Rule(rule).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `BehaviorAPI.CreateBehaviorDetectionRule``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `CreateBehaviorDetectionRule`: BehaviorRule
+	fmt.Fprintf(os.Stdout, "Response from `BehaviorAPI.CreateBehaviorDetectionRule`: %v\n", resp)
 }
 ```
 
@@ -164,24 +164,24 @@ Deactivate a Behavior Detection Rule
 package main
 
 import (
-    "context"
-    "fmt"
-    "os"
-    openapiclient "github.com/okta/okta-sdk-golang"
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/okta/okta-sdk-golang"
 )
 
 func main() {
-    behaviorId := "abcd1234" // string | id of the Behavior Detection Rule
+	behaviorId := "abcd1234" // string | id of the Behavior Detection Rule
 
-    configuration := openapiclient.NewConfiguration()
-    apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.BehaviorAPI.DeactivateBehaviorDetectionRule(context.Background(), behaviorId).Execute()
-    if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `BehaviorAPI.DeactivateBehaviorDetectionRule``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-    }
-    // response from `DeactivateBehaviorDetectionRule`: ListBehaviorDetectionRules200ResponseInner
-    fmt.Fprintf(os.Stdout, "Response from `BehaviorAPI.DeactivateBehaviorDetectionRule`: %v\n", resp)
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.BehaviorAPI.DeactivateBehaviorDetectionRule(context.Background(), behaviorId).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `BehaviorAPI.DeactivateBehaviorDetectionRule``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `DeactivateBehaviorDetectionRule`: ListBehaviorDetectionRules200ResponseInner
+	fmt.Fprintf(os.Stdout, "Response from `BehaviorAPI.DeactivateBehaviorDetectionRule`: %v\n", resp)
 }
 ```
 
@@ -234,22 +234,22 @@ Delete a Behavior Detection Rule
 package main
 
 import (
-    "context"
-    "fmt"
-    "os"
-    openapiclient "github.com/okta/okta-sdk-golang"
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/okta/okta-sdk-golang"
 )
 
 func main() {
-    behaviorId := "abcd1234" // string | id of the Behavior Detection Rule
+	behaviorId := "abcd1234" // string | id of the Behavior Detection Rule
 
-    configuration := openapiclient.NewConfiguration()
-    apiClient := openapiclient.NewAPIClient(configuration)
-    r, err := apiClient.BehaviorAPI.DeleteBehaviorDetectionRule(context.Background(), behaviorId).Execute()
-    if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `BehaviorAPI.DeleteBehaviorDetectionRule``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-    }
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	r, err := apiClient.BehaviorAPI.DeleteBehaviorDetectionRule(context.Background(), behaviorId).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `BehaviorAPI.DeleteBehaviorDetectionRule``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
 }
 ```
 
@@ -302,24 +302,24 @@ Retrieve a Behavior Detection Rule
 package main
 
 import (
-    "context"
-    "fmt"
-    "os"
-    openapiclient "github.com/okta/okta-sdk-golang"
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/okta/okta-sdk-golang"
 )
 
 func main() {
-    behaviorId := "abcd1234" // string | id of the Behavior Detection Rule
+	behaviorId := "abcd1234" // string | id of the Behavior Detection Rule
 
-    configuration := openapiclient.NewConfiguration()
-    apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.BehaviorAPI.GetBehaviorDetectionRule(context.Background(), behaviorId).Execute()
-    if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `BehaviorAPI.GetBehaviorDetectionRule``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-    }
-    // response from `GetBehaviorDetectionRule`: ListBehaviorDetectionRules200ResponseInner
-    fmt.Fprintf(os.Stdout, "Response from `BehaviorAPI.GetBehaviorDetectionRule`: %v\n", resp)
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.BehaviorAPI.GetBehaviorDetectionRule(context.Background(), behaviorId).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `BehaviorAPI.GetBehaviorDetectionRule``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `GetBehaviorDetectionRule`: ListBehaviorDetectionRules200ResponseInner
+	fmt.Fprintf(os.Stdout, "Response from `BehaviorAPI.GetBehaviorDetectionRule`: %v\n", resp)
 }
 ```
 
@@ -372,23 +372,23 @@ List all Behavior Detection Rules
 package main
 
 import (
-    "context"
-    "fmt"
-    "os"
-    openapiclient "github.com/okta/okta-sdk-golang"
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/okta/okta-sdk-golang"
 )
 
 func main() {
 
-    configuration := openapiclient.NewConfiguration()
-    apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.BehaviorAPI.ListBehaviorDetectionRules(context.Background()).Execute()
-    if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `BehaviorAPI.ListBehaviorDetectionRules``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-    }
-    // response from `ListBehaviorDetectionRules`: []ListBehaviorDetectionRules200ResponseInner
-    fmt.Fprintf(os.Stdout, "Response from `BehaviorAPI.ListBehaviorDetectionRules`: %v\n", resp)
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.BehaviorAPI.ListBehaviorDetectionRules(context.Background()).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `BehaviorAPI.ListBehaviorDetectionRules``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `ListBehaviorDetectionRules`: []ListBehaviorDetectionRules200ResponseInner
+	fmt.Fprintf(os.Stdout, "Response from `BehaviorAPI.ListBehaviorDetectionRules`: %v\n", resp)
 }
 ```
 
@@ -433,25 +433,25 @@ Replace a Behavior Detection Rule
 package main
 
 import (
-    "context"
-    "fmt"
-    "os"
-    openapiclient "github.com/okta/okta-sdk-golang"
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/okta/okta-sdk-golang"
 )
 
 func main() {
-    behaviorId := "abcd1234" // string | id of the Behavior Detection Rule
-    rule := openapiclient.listBehaviorDetectionRules_200_response_inner{BehaviorRuleAnomalousDevice: openapiclient.NewBehaviorRuleAnomalousDevice("Name_example", "Type_example")} // ListBehaviorDetectionRules200ResponseInner | 
+	behaviorId := "abcd1234" // string | id of the Behavior Detection Rule
+	rule := openapiclient.listBehaviorDetectionRules_200_response_inner{BehaviorRuleAnomalousDevice: openapiclient.NewBehaviorRuleAnomalousDevice("Name_example", "Type_example")} // ListBehaviorDetectionRules200ResponseInner | 
 
-    configuration := openapiclient.NewConfiguration()
-    apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.BehaviorAPI.ReplaceBehaviorDetectionRule(context.Background(), behaviorId).Rule(rule).Execute()
-    if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `BehaviorAPI.ReplaceBehaviorDetectionRule``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-    }
-    // response from `ReplaceBehaviorDetectionRule`: ListBehaviorDetectionRules200ResponseInner
-    fmt.Fprintf(os.Stdout, "Response from `BehaviorAPI.ReplaceBehaviorDetectionRule`: %v\n", resp)
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.BehaviorAPI.ReplaceBehaviorDetectionRule(context.Background(), behaviorId).Rule(rule).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `BehaviorAPI.ReplaceBehaviorDetectionRule``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `ReplaceBehaviorDetectionRule`: ListBehaviorDetectionRules200ResponseInner
+	fmt.Fprintf(os.Stdout, "Response from `BehaviorAPI.ReplaceBehaviorDetectionRule`: %v\n", resp)
 }
 ```
 

@@ -26,9 +26,9 @@ package okta
 
 import (
 	"encoding/json"
+	"fmt"
 	"reflect"
 	"strings"
-	"time"
 )
 
 // LogStreamAws struct for LogStreamAws

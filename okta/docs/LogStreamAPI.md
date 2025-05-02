@@ -28,24 +28,24 @@ Activate a Log Stream
 package main
 
 import (
-    "context"
-    "fmt"
-    "os"
-    openapiclient "github.com/okta/okta-sdk-golang"
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/okta/okta-sdk-golang"
 )
 
 func main() {
-    logStreamId := "0oa1orzg0CHSgPcjZ0g4" // string | Unique identifier for the Log Stream
+	logStreamId := "0oa1orzg0CHSgPcjZ0g4" // string | Unique identifier for the Log Stream
 
-    configuration := openapiclient.NewConfiguration()
-    apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.LogStreamAPI.ActivateLogStream(context.Background(), logStreamId).Execute()
-    if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `LogStreamAPI.ActivateLogStream``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-    }
-    // response from `ActivateLogStream`: ListLogStreams200ResponseInner
-    fmt.Fprintf(os.Stdout, "Response from `LogStreamAPI.ActivateLogStream`: %v\n", resp)
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.LogStreamAPI.ActivateLogStream(context.Background(), logStreamId).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `LogStreamAPI.ActivateLogStream``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `ActivateLogStream`: ListLogStreams200ResponseInner
+	fmt.Fprintf(os.Stdout, "Response from `LogStreamAPI.ActivateLogStream`: %v\n", resp)
 }
 ```
 
@@ -98,25 +98,25 @@ Create a Log Stream
 package main
 
 import (
-    "context"
-    "fmt"
-    "os"
+	"context"
+	"fmt"
+	"os"
     "time"
-    openapiclient "github.com/okta/okta-sdk-golang"
+	openapiclient "github.com/okta/okta-sdk-golang"
 )
 
 func main() {
-    instance := openapiclient.listLogStreams_200_response_inner{LogStreamAws: openapiclient.NewLogStreamAws(*openapiclient.NewLogStreamSettingsAws("123456789012", "your-event-source-name", "Region_example"), time.Now(), "0oa1orzg0CHSgPcjZ0g4", time.Now(), "My AWS EventBridge log stream", "Status_example", "Type_example", *openapiclient.NewLogStreamLinksSelfAndLifecycle(*openapiclient.NewLogStreamSelfLink("Href_example")))} // ListLogStreams200ResponseInner | 
+	instance := openapiclient.listLogStreams_200_response_inner{LogStreamAws: openapiclient.NewLogStreamAws(*openapiclient.NewLogStreamSettingsAws("123456789012", "your-event-source-name", "Region_example"), time.Now(), "0oa1orzg0CHSgPcjZ0g4", time.Now(), "My AWS EventBridge log stream", "Status_example", "Type_example", *openapiclient.NewLogStreamLinksSelfAndLifecycle(*openapiclient.NewLogStreamSelfLink("Href_example")))} // ListLogStreams200ResponseInner | 
 
-    configuration := openapiclient.NewConfiguration()
-    apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.LogStreamAPI.CreateLogStream(context.Background()).Instance(instance).Execute()
-    if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `LogStreamAPI.CreateLogStream``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-    }
-    // response from `CreateLogStream`: ListLogStreams200ResponseInner
-    fmt.Fprintf(os.Stdout, "Response from `LogStreamAPI.CreateLogStream`: %v\n", resp)
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.LogStreamAPI.CreateLogStream(context.Background()).Instance(instance).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `LogStreamAPI.CreateLogStream``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `CreateLogStream`: ListLogStreams200ResponseInner
+	fmt.Fprintf(os.Stdout, "Response from `LogStreamAPI.CreateLogStream`: %v\n", resp)
 }
 ```
 
@@ -165,24 +165,24 @@ Deactivate a Log Stream
 package main
 
 import (
-    "context"
-    "fmt"
-    "os"
-    openapiclient "github.com/okta/okta-sdk-golang"
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/okta/okta-sdk-golang"
 )
 
 func main() {
-    logStreamId := "0oa1orzg0CHSgPcjZ0g4" // string | Unique identifier for the Log Stream
+	logStreamId := "0oa1orzg0CHSgPcjZ0g4" // string | Unique identifier for the Log Stream
 
-    configuration := openapiclient.NewConfiguration()
-    apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.LogStreamAPI.DeactivateLogStream(context.Background(), logStreamId).Execute()
-    if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `LogStreamAPI.DeactivateLogStream``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-    }
-    // response from `DeactivateLogStream`: ListLogStreams200ResponseInner
-    fmt.Fprintf(os.Stdout, "Response from `LogStreamAPI.DeactivateLogStream`: %v\n", resp)
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.LogStreamAPI.DeactivateLogStream(context.Background(), logStreamId).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `LogStreamAPI.DeactivateLogStream``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `DeactivateLogStream`: ListLogStreams200ResponseInner
+	fmt.Fprintf(os.Stdout, "Response from `LogStreamAPI.DeactivateLogStream`: %v\n", resp)
 }
 ```
 
@@ -235,22 +235,22 @@ Delete a Log Stream
 package main
 
 import (
-    "context"
-    "fmt"
-    "os"
-    openapiclient "github.com/okta/okta-sdk-golang"
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/okta/okta-sdk-golang"
 )
 
 func main() {
-    logStreamId := "0oa1orzg0CHSgPcjZ0g4" // string | Unique identifier for the Log Stream
+	logStreamId := "0oa1orzg0CHSgPcjZ0g4" // string | Unique identifier for the Log Stream
 
-    configuration := openapiclient.NewConfiguration()
-    apiClient := openapiclient.NewAPIClient(configuration)
-    r, err := apiClient.LogStreamAPI.DeleteLogStream(context.Background(), logStreamId).Execute()
-    if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `LogStreamAPI.DeleteLogStream``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-    }
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	r, err := apiClient.LogStreamAPI.DeleteLogStream(context.Background(), logStreamId).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `LogStreamAPI.DeleteLogStream``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
 }
 ```
 
@@ -303,24 +303,24 @@ Retrieve a Log Stream
 package main
 
 import (
-    "context"
-    "fmt"
-    "os"
-    openapiclient "github.com/okta/okta-sdk-golang"
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/okta/okta-sdk-golang"
 )
 
 func main() {
-    logStreamId := "0oa1orzg0CHSgPcjZ0g4" // string | Unique identifier for the Log Stream
+	logStreamId := "0oa1orzg0CHSgPcjZ0g4" // string | Unique identifier for the Log Stream
 
-    configuration := openapiclient.NewConfiguration()
-    apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.LogStreamAPI.GetLogStream(context.Background(), logStreamId).Execute()
-    if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `LogStreamAPI.GetLogStream``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-    }
-    // response from `GetLogStream`: ListLogStreams200ResponseInner
-    fmt.Fprintf(os.Stdout, "Response from `LogStreamAPI.GetLogStream`: %v\n", resp)
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.LogStreamAPI.GetLogStream(context.Background(), logStreamId).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `LogStreamAPI.GetLogStream``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `GetLogStream`: ListLogStreams200ResponseInner
+	fmt.Fprintf(os.Stdout, "Response from `LogStreamAPI.GetLogStream`: %v\n", resp)
 }
 ```
 
@@ -373,26 +373,26 @@ List all Log Streams
 package main
 
 import (
-    "context"
-    "fmt"
-    "os"
-    openapiclient "github.com/okta/okta-sdk-golang"
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/okta/okta-sdk-golang"
 )
 
 func main() {
-    after := "after_example" // string | The cursor to use for pagination. It is an opaque string that specifies your current location in the list and is obtained from the `Link` response header. See [Pagination](/#pagination). (optional)
-    limit := int32(56) // int32 | A limit on the number of objects to return (optional) (default to 20)
-    filter := "type eq "aws_eventbridge"" // string | An expression that [filters](/#filter) the returned objects. You can only use the `eq` operator on either the `status` or `type` properties in the filter expression. (optional)
+	after := "after_example" // string | The cursor to use for pagination. It is an opaque string that specifies your current location in the list and is obtained from the `Link` response header. See [Pagination](/#pagination). (optional)
+	limit := int32(56) // int32 | A limit on the number of objects to return (optional) (default to 20)
+	filter := "type eq "aws_eventbridge"" // string | An expression that [filters](/#filter) the returned objects. You can only use the `eq` operator on either the `status` or `type` properties in the filter expression. (optional)
 
-    configuration := openapiclient.NewConfiguration()
-    apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.LogStreamAPI.ListLogStreams(context.Background()).After(after).Limit(limit).Filter(filter).Execute()
-    if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `LogStreamAPI.ListLogStreams``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-    }
-    // response from `ListLogStreams`: []ListLogStreams200ResponseInner
-    fmt.Fprintf(os.Stdout, "Response from `LogStreamAPI.ListLogStreams`: %v\n", resp)
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.LogStreamAPI.ListLogStreams(context.Background()).After(after).Limit(limit).Filter(filter).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `LogStreamAPI.ListLogStreams``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `ListLogStreams`: []ListLogStreams200ResponseInner
+	fmt.Fprintf(os.Stdout, "Response from `LogStreamAPI.ListLogStreams`: %v\n", resp)
 }
 ```
 
@@ -443,25 +443,25 @@ Replace a Log Stream
 package main
 
 import (
-    "context"
-    "fmt"
-    "os"
-    openapiclient "github.com/okta/okta-sdk-golang"
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/okta/okta-sdk-golang"
 )
 
 func main() {
-    logStreamId := "0oa1orzg0CHSgPcjZ0g4" // string | Unique identifier for the Log Stream
-    instance := openapiclient.replaceLogStream_request{LogStreamAwsPutSchema: openapiclient.NewLogStreamAwsPutSchema(*openapiclient.NewLogStreamSettingsAws("123456789012", "your-event-source-name", "Region_example"), "My AWS EventBridge log stream", "Type_example")} // ReplaceLogStreamRequest | 
+	logStreamId := "0oa1orzg0CHSgPcjZ0g4" // string | Unique identifier for the Log Stream
+	instance := openapiclient.replaceLogStream_request{LogStreamAwsPutSchema: openapiclient.NewLogStreamAwsPutSchema(*openapiclient.NewLogStreamSettingsAws("123456789012", "your-event-source-name", "Region_example"), "My AWS EventBridge log stream", "Type_example")} // ReplaceLogStreamRequest | 
 
-    configuration := openapiclient.NewConfiguration()
-    apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.LogStreamAPI.ReplaceLogStream(context.Background(), logStreamId).Instance(instance).Execute()
-    if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `LogStreamAPI.ReplaceLogStream``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-    }
-    // response from `ReplaceLogStream`: ListLogStreams200ResponseInner
-    fmt.Fprintf(os.Stdout, "Response from `LogStreamAPI.ReplaceLogStream`: %v\n", resp)
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.LogStreamAPI.ReplaceLogStream(context.Background(), logStreamId).Instance(instance).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `LogStreamAPI.ReplaceLogStream``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `ReplaceLogStream`: ListLogStreams200ResponseInner
+	fmt.Fprintf(os.Stdout, "Response from `LogStreamAPI.ReplaceLogStream`: %v\n", resp)
 }
 ```
 

@@ -26,6 +26,7 @@ package okta
 
 import (
 	"encoding/json"
+	"fmt"
 )
 
 // PolicyContextGroups An array of Group IDs for the simulate operation. Only user IDs or Group IDs are allowed, not both.

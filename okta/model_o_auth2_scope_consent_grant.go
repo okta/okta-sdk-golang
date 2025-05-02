@@ -27,6 +27,7 @@ package okta
 import (
 	"encoding/json"
 	"time"
+	"fmt"
 )
 
 // OAuth2ScopeConsentGrant Grant object that represents an app consent scope grant

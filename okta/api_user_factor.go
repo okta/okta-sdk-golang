@@ -213,11 +213,11 @@ type ApiActivateFactorRequest struct {
 	ApiService UserFactorAPI
 	userId string
 	factorId string
-	body *map[string]interface{}
+	body *UserFactorActivateRequest
 	retryCount int32
 }
 
-func (r ApiActivateFactorRequest) Body(body map[string]interface{}) ApiActivateFactorRequest {
+func (r ApiActivateFactorRequest) Body(body UserFactorActivateRequest) ApiActivateFactorRequest {
 	r.body = &body
 	return r
 }
@@ -1861,7 +1861,7 @@ type ApiVerifyFactorRequest struct {
 	xForwardedFor *string
 	userAgent *string
 	acceptLanguage *string
-	body *map[string]interface{}
+	body *UserFactorVerifyRequest
 	retryCount int32
 }
 
@@ -1896,7 +1896,7 @@ func (r ApiVerifyFactorRequest) AcceptLanguage(acceptLanguage string) ApiVerifyF
 }
 
 // Some Factors (&#x60;call&#x60;, &#x60;email&#x60;, &#x60;push&#x60;, &#x60;sms&#x60;, &#x60;u2f&#x60;, and &#x60;webauthn&#x60;) must first issue a challenge before you can verify the Factor. Do this by making a request without a body. After a challenge is issued, make another request to verify the Factor.
-func (r ApiVerifyFactorRequest) Body(body map[string]interface{}) ApiVerifyFactorRequest {
+func (r ApiVerifyFactorRequest) Body(body UserFactorVerifyRequest) ApiVerifyFactorRequest {
 	r.body = &body
 	return r
 }

@@ -33,24 +33,24 @@ Activate an Authenticator
 package main
 
 import (
-    "context"
-    "fmt"
-    "os"
-    openapiclient "github.com/okta/okta-sdk-golang"
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/okta/okta-sdk-golang"
 )
 
 func main() {
-    authenticatorId := "aut1nd8PQhGcQtSxB0g4" // string | `id` of the Authenticator
+	authenticatorId := "aut1nd8PQhGcQtSxB0g4" // string | `id` of the Authenticator
 
-    configuration := openapiclient.NewConfiguration()
-    apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.AuthenticatorAPI.ActivateAuthenticator(context.Background(), authenticatorId).Execute()
-    if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `AuthenticatorAPI.ActivateAuthenticator``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-    }
-    // response from `ActivateAuthenticator`: AuthenticatorBase
-    fmt.Fprintf(os.Stdout, "Response from `AuthenticatorAPI.ActivateAuthenticator`: %v\n", resp)
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.AuthenticatorAPI.ActivateAuthenticator(context.Background(), authenticatorId).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `AuthenticatorAPI.ActivateAuthenticator``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `ActivateAuthenticator`: AuthenticatorBase
+	fmt.Fprintf(os.Stdout, "Response from `AuthenticatorAPI.ActivateAuthenticator`: %v\n", resp)
 }
 ```
 
@@ -103,25 +103,25 @@ Activate an Authenticator Method
 package main
 
 import (
-    "context"
-    "fmt"
-    "os"
-    openapiclient "github.com/okta/okta-sdk-golang"
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/okta/okta-sdk-golang"
 )
 
 func main() {
-    authenticatorId := "aut1nd8PQhGcQtSxB0g4" // string | `id` of the Authenticator
-    methodType := "methodType_example" // string | Type of authenticator method
+	authenticatorId := "aut1nd8PQhGcQtSxB0g4" // string | `id` of the Authenticator
+	methodType := "methodType_example" // string | Type of authenticator method
 
-    configuration := openapiclient.NewConfiguration()
-    apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.AuthenticatorAPI.ActivateAuthenticatorMethod(context.Background(), authenticatorId, methodType).Execute()
-    if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `AuthenticatorAPI.ActivateAuthenticatorMethod``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-    }
-    // response from `ActivateAuthenticatorMethod`: ListAuthenticatorMethods200ResponseInner
-    fmt.Fprintf(os.Stdout, "Response from `AuthenticatorAPI.ActivateAuthenticatorMethod`: %v\n", resp)
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.AuthenticatorAPI.ActivateAuthenticatorMethod(context.Background(), authenticatorId, methodType).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `AuthenticatorAPI.ActivateAuthenticatorMethod``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `ActivateAuthenticatorMethod`: ListAuthenticatorMethods200ResponseInner
+	fmt.Fprintf(os.Stdout, "Response from `AuthenticatorAPI.ActivateAuthenticatorMethod`: %v\n", resp)
 }
 ```
 
@@ -176,25 +176,25 @@ Create an Authenticator
 package main
 
 import (
-    "context"
-    "fmt"
-    "os"
-    openapiclient "github.com/okta/okta-sdk-golang"
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/okta/okta-sdk-golang"
 )
 
 func main() {
-    authenticator := *openapiclient.NewAuthenticatorBase() // AuthenticatorBase | 
-    activate := true // bool | Whether to execute the activation lifecycle operation when Okta creates the authenticator (optional) (default to true)
+	authenticator := *openapiclient.NewAuthenticatorBase() // AuthenticatorBase | 
+	activate := true // bool | Whether to execute the activation lifecycle operation when Okta creates the authenticator (optional) (default to true)
 
-    configuration := openapiclient.NewConfiguration()
-    apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.AuthenticatorAPI.CreateAuthenticator(context.Background()).Authenticator(authenticator).Activate(activate).Execute()
-    if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `AuthenticatorAPI.CreateAuthenticator``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-    }
-    // response from `CreateAuthenticator`: AuthenticatorBase
-    fmt.Fprintf(os.Stdout, "Response from `AuthenticatorAPI.CreateAuthenticator`: %v\n", resp)
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.AuthenticatorAPI.CreateAuthenticator(context.Background()).Authenticator(authenticator).Activate(activate).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `AuthenticatorAPI.CreateAuthenticator``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `CreateAuthenticator`: AuthenticatorBase
+	fmt.Fprintf(os.Stdout, "Response from `AuthenticatorAPI.CreateAuthenticator`: %v\n", resp)
 }
 ```
 
@@ -244,24 +244,24 @@ Deactivate an Authenticator
 package main
 
 import (
-    "context"
-    "fmt"
-    "os"
-    openapiclient "github.com/okta/okta-sdk-golang"
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/okta/okta-sdk-golang"
 )
 
 func main() {
-    authenticatorId := "aut1nd8PQhGcQtSxB0g4" // string | `id` of the Authenticator
+	authenticatorId := "aut1nd8PQhGcQtSxB0g4" // string | `id` of the Authenticator
 
-    configuration := openapiclient.NewConfiguration()
-    apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.AuthenticatorAPI.DeactivateAuthenticator(context.Background(), authenticatorId).Execute()
-    if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `AuthenticatorAPI.DeactivateAuthenticator``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-    }
-    // response from `DeactivateAuthenticator`: AuthenticatorBase
-    fmt.Fprintf(os.Stdout, "Response from `AuthenticatorAPI.DeactivateAuthenticator`: %v\n", resp)
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.AuthenticatorAPI.DeactivateAuthenticator(context.Background(), authenticatorId).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `AuthenticatorAPI.DeactivateAuthenticator``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `DeactivateAuthenticator`: AuthenticatorBase
+	fmt.Fprintf(os.Stdout, "Response from `AuthenticatorAPI.DeactivateAuthenticator`: %v\n", resp)
 }
 ```
 
@@ -314,25 +314,25 @@ Deactivate an Authenticator Method
 package main
 
 import (
-    "context"
-    "fmt"
-    "os"
-    openapiclient "github.com/okta/okta-sdk-golang"
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/okta/okta-sdk-golang"
 )
 
 func main() {
-    authenticatorId := "aut1nd8PQhGcQtSxB0g4" // string | `id` of the Authenticator
-    methodType := "methodType_example" // string | Type of authenticator method
+	authenticatorId := "aut1nd8PQhGcQtSxB0g4" // string | `id` of the Authenticator
+	methodType := "methodType_example" // string | Type of authenticator method
 
-    configuration := openapiclient.NewConfiguration()
-    apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.AuthenticatorAPI.DeactivateAuthenticatorMethod(context.Background(), authenticatorId, methodType).Execute()
-    if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `AuthenticatorAPI.DeactivateAuthenticatorMethod``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-    }
-    // response from `DeactivateAuthenticatorMethod`: ListAuthenticatorMethods200ResponseInner
-    fmt.Fprintf(os.Stdout, "Response from `AuthenticatorAPI.DeactivateAuthenticatorMethod`: %v\n", resp)
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.AuthenticatorAPI.DeactivateAuthenticatorMethod(context.Background(), authenticatorId, methodType).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `AuthenticatorAPI.DeactivateAuthenticatorMethod``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `DeactivateAuthenticatorMethod`: ListAuthenticatorMethods200ResponseInner
+	fmt.Fprintf(os.Stdout, "Response from `AuthenticatorAPI.DeactivateAuthenticatorMethod`: %v\n", resp)
 }
 ```
 
@@ -387,24 +387,24 @@ Retrieve an Authenticator
 package main
 
 import (
-    "context"
-    "fmt"
-    "os"
-    openapiclient "github.com/okta/okta-sdk-golang"
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/okta/okta-sdk-golang"
 )
 
 func main() {
-    authenticatorId := "aut1nd8PQhGcQtSxB0g4" // string | `id` of the Authenticator
+	authenticatorId := "aut1nd8PQhGcQtSxB0g4" // string | `id` of the Authenticator
 
-    configuration := openapiclient.NewConfiguration()
-    apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.AuthenticatorAPI.GetAuthenticator(context.Background(), authenticatorId).Execute()
-    if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `AuthenticatorAPI.GetAuthenticator``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-    }
-    // response from `GetAuthenticator`: AuthenticatorBase
-    fmt.Fprintf(os.Stdout, "Response from `AuthenticatorAPI.GetAuthenticator`: %v\n", resp)
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.AuthenticatorAPI.GetAuthenticator(context.Background(), authenticatorId).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `AuthenticatorAPI.GetAuthenticator``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `GetAuthenticator`: AuthenticatorBase
+	fmt.Fprintf(os.Stdout, "Response from `AuthenticatorAPI.GetAuthenticator`: %v\n", resp)
 }
 ```
 
@@ -457,25 +457,25 @@ Retrieve an Authenticator Method
 package main
 
 import (
-    "context"
-    "fmt"
-    "os"
-    openapiclient "github.com/okta/okta-sdk-golang"
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/okta/okta-sdk-golang"
 )
 
 func main() {
-    authenticatorId := "aut1nd8PQhGcQtSxB0g4" // string | `id` of the Authenticator
-    methodType := "methodType_example" // string | Type of authenticator method
+	authenticatorId := "aut1nd8PQhGcQtSxB0g4" // string | `id` of the Authenticator
+	methodType := "methodType_example" // string | Type of authenticator method
 
-    configuration := openapiclient.NewConfiguration()
-    apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.AuthenticatorAPI.GetAuthenticatorMethod(context.Background(), authenticatorId, methodType).Execute()
-    if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `AuthenticatorAPI.GetAuthenticatorMethod``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-    }
-    // response from `GetAuthenticatorMethod`: ListAuthenticatorMethods200ResponseInner
-    fmt.Fprintf(os.Stdout, "Response from `AuthenticatorAPI.GetAuthenticatorMethod`: %v\n", resp)
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.AuthenticatorAPI.GetAuthenticatorMethod(context.Background(), authenticatorId, methodType).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `AuthenticatorAPI.GetAuthenticatorMethod``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `GetAuthenticatorMethod`: ListAuthenticatorMethods200ResponseInner
+	fmt.Fprintf(os.Stdout, "Response from `AuthenticatorAPI.GetAuthenticatorMethod`: %v\n", resp)
 }
 ```
 
@@ -530,24 +530,24 @@ Retrieve the Well-Known App Authenticator Configuration
 package main
 
 import (
-    "context"
-    "fmt"
-    "os"
-    openapiclient "github.com/okta/okta-sdk-golang"
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/okta/okta-sdk-golang"
 )
 
 func main() {
-    oauthClientId := "oauthClientId_example" // string | Filters app authenticator configurations by `oauthClientId`
+	oauthClientId := "oauthClientId_example" // string | Filters app authenticator configurations by `oauthClientId`
 
-    configuration := openapiclient.NewConfiguration()
-    apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.AuthenticatorAPI.GetWellKnownAppAuthenticatorConfiguration(context.Background()).OauthClientId(oauthClientId).Execute()
-    if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `AuthenticatorAPI.GetWellKnownAppAuthenticatorConfiguration``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-    }
-    // response from `GetWellKnownAppAuthenticatorConfiguration`: []WellKnownAppAuthenticatorConfiguration
-    fmt.Fprintf(os.Stdout, "Response from `AuthenticatorAPI.GetWellKnownAppAuthenticatorConfiguration`: %v\n", resp)
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.AuthenticatorAPI.GetWellKnownAppAuthenticatorConfiguration(context.Background()).OauthClientId(oauthClientId).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `AuthenticatorAPI.GetWellKnownAppAuthenticatorConfiguration``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `GetWellKnownAppAuthenticatorConfiguration`: []WellKnownAppAuthenticatorConfiguration
+	fmt.Fprintf(os.Stdout, "Response from `AuthenticatorAPI.GetWellKnownAppAuthenticatorConfiguration`: %v\n", resp)
 }
 ```
 
@@ -596,24 +596,24 @@ List all Methods of an Authenticator
 package main
 
 import (
-    "context"
-    "fmt"
-    "os"
-    openapiclient "github.com/okta/okta-sdk-golang"
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/okta/okta-sdk-golang"
 )
 
 func main() {
-    authenticatorId := "aut1nd8PQhGcQtSxB0g4" // string | `id` of the Authenticator
+	authenticatorId := "aut1nd8PQhGcQtSxB0g4" // string | `id` of the Authenticator
 
-    configuration := openapiclient.NewConfiguration()
-    apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.AuthenticatorAPI.ListAuthenticatorMethods(context.Background(), authenticatorId).Execute()
-    if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `AuthenticatorAPI.ListAuthenticatorMethods``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-    }
-    // response from `ListAuthenticatorMethods`: []ListAuthenticatorMethods200ResponseInner
-    fmt.Fprintf(os.Stdout, "Response from `AuthenticatorAPI.ListAuthenticatorMethods`: %v\n", resp)
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.AuthenticatorAPI.ListAuthenticatorMethods(context.Background(), authenticatorId).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `AuthenticatorAPI.ListAuthenticatorMethods``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `ListAuthenticatorMethods`: []ListAuthenticatorMethods200ResponseInner
+	fmt.Fprintf(os.Stdout, "Response from `AuthenticatorAPI.ListAuthenticatorMethods`: %v\n", resp)
 }
 ```
 
@@ -666,23 +666,23 @@ List all Authenticators
 package main
 
 import (
-    "context"
-    "fmt"
-    "os"
-    openapiclient "github.com/okta/okta-sdk-golang"
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/okta/okta-sdk-golang"
 )
 
 func main() {
 
-    configuration := openapiclient.NewConfiguration()
-    apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.AuthenticatorAPI.ListAuthenticators(context.Background()).Execute()
-    if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `AuthenticatorAPI.ListAuthenticators``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-    }
-    // response from `ListAuthenticators`: []ListAuthenticators200ResponseInner
-    fmt.Fprintf(os.Stdout, "Response from `AuthenticatorAPI.ListAuthenticators`: %v\n", resp)
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.AuthenticatorAPI.ListAuthenticators(context.Background()).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `AuthenticatorAPI.ListAuthenticators``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `ListAuthenticators`: []ListAuthenticators200ResponseInner
+	fmt.Fprintf(os.Stdout, "Response from `AuthenticatorAPI.ListAuthenticators`: %v\n", resp)
 }
 ```
 
@@ -727,25 +727,25 @@ Replace an Authenticator
 package main
 
 import (
-    "context"
-    "fmt"
-    "os"
-    openapiclient "github.com/okta/okta-sdk-golang"
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/okta/okta-sdk-golang"
 )
 
 func main() {
-    authenticatorId := "aut1nd8PQhGcQtSxB0g4" // string | `id` of the Authenticator
-    authenticator := *openapiclient.NewAuthenticatorBase() // AuthenticatorBase | 
+	authenticatorId := "aut1nd8PQhGcQtSxB0g4" // string | `id` of the Authenticator
+	authenticator := *openapiclient.NewAuthenticatorBase() // AuthenticatorBase | 
 
-    configuration := openapiclient.NewConfiguration()
-    apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.AuthenticatorAPI.ReplaceAuthenticator(context.Background(), authenticatorId).Authenticator(authenticator).Execute()
-    if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `AuthenticatorAPI.ReplaceAuthenticator``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-    }
-    // response from `ReplaceAuthenticator`: AuthenticatorBase
-    fmt.Fprintf(os.Stdout, "Response from `AuthenticatorAPI.ReplaceAuthenticator`: %v\n", resp)
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.AuthenticatorAPI.ReplaceAuthenticator(context.Background(), authenticatorId).Authenticator(authenticator).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `AuthenticatorAPI.ReplaceAuthenticator``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `ReplaceAuthenticator`: AuthenticatorBase
+	fmt.Fprintf(os.Stdout, "Response from `AuthenticatorAPI.ReplaceAuthenticator`: %v\n", resp)
 }
 ```
 
@@ -799,26 +799,26 @@ Replace an Authenticator Method
 package main
 
 import (
-    "context"
-    "fmt"
-    "os"
-    openapiclient "github.com/okta/okta-sdk-golang"
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/okta/okta-sdk-golang"
 )
 
 func main() {
-    authenticatorId := "aut1nd8PQhGcQtSxB0g4" // string | `id` of the Authenticator
-    methodType := "methodType_example" // string | Type of authenticator method
-    listAuthenticatorMethods200ResponseInner := openapiclient.listAuthenticatorMethods_200_response_inner{AuthenticatorMethodOtp: openapiclient.NewAuthenticatorMethodOtp()} // ListAuthenticatorMethods200ResponseInner |  (optional)
+	authenticatorId := "aut1nd8PQhGcQtSxB0g4" // string | `id` of the Authenticator
+	methodType := "methodType_example" // string | Type of authenticator method
+	listAuthenticatorMethods200ResponseInner := openapiclient.listAuthenticatorMethods_200_response_inner{AuthenticatorMethodOtp: openapiclient.NewAuthenticatorMethodOtp()} // ListAuthenticatorMethods200ResponseInner |  (optional)
 
-    configuration := openapiclient.NewConfiguration()
-    apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.AuthenticatorAPI.ReplaceAuthenticatorMethod(context.Background(), authenticatorId, methodType).ListAuthenticatorMethods200ResponseInner(listAuthenticatorMethods200ResponseInner).Execute()
-    if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `AuthenticatorAPI.ReplaceAuthenticatorMethod``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-    }
-    // response from `ReplaceAuthenticatorMethod`: ListAuthenticatorMethods200ResponseInner
-    fmt.Fprintf(os.Stdout, "Response from `AuthenticatorAPI.ReplaceAuthenticatorMethod`: %v\n", resp)
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.AuthenticatorAPI.ReplaceAuthenticatorMethod(context.Background(), authenticatorId, methodType).ListAuthenticatorMethods200ResponseInner(listAuthenticatorMethods200ResponseInner).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `AuthenticatorAPI.ReplaceAuthenticatorMethod``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `ReplaceAuthenticatorMethod`: ListAuthenticatorMethods200ResponseInner
+	fmt.Fprintf(os.Stdout, "Response from `AuthenticatorAPI.ReplaceAuthenticatorMethod`: %v\n", resp)
 }
 ```
 

@@ -26,6 +26,7 @@ package okta
 
 import (
 	"encoding/json"
+	"fmt"
 )
 
 // SalesforceApplication Schema for the Salesforce app (key name: `salesforce`)  To create a Salesforce app, use the [Create an Application](/openapi/okta-management/management/tag/Application/#tag/Application/operation/createApplication) request with the following parameters in the request body. > **Note:** The Salesforce app only supports `BROWSER_PLUGIN`, `BOOKMARK`, and `SAML_2_0` sign-on modes. 

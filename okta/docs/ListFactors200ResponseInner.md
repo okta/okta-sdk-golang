@@ -10,14 +10,16 @@ Name | Type | Description | Notes
 **LastUpdated** | Pointer to **time.Time** | Timestamp when the Factor was last updated | [optional] [readonly] 
 **Profile** | Pointer to [**UserFactorWebAuthnProfile**](UserFactorWebAuthnProfile.md) |  | [optional] 
 **Provider** | Pointer to **string** |  | [optional] 
-**Status** | Pointer to **string** | Status of the Factor | [optional] [readonly] 
+**Status** | Pointer to **string** |  | [optional] 
 **VendorName** | Pointer to **string** | Name of the Factor vendor. This is usually the same as the provider except for On-Prem MFA where it depends on administrator settings. | [optional] [readonly] 
 **Embedded** | Pointer to **map[string]map[string]interface{}** |  | [optional] [readonly] 
-**Links** | Pointer to **map[string]interface{}** |  | [optional] 
+**Links** | Pointer to [**LinksSelfAndLifecycle**](LinksSelfAndLifecycle.md) |  | [optional] 
 **ExpiresAt** | Pointer to **time.Time** | Timestamp when the Factor verification attempt expires | [optional] [readonly] 
 **FactorResult** | Pointer to **string** | Result of a Factor verification attempt | [optional] [readonly] 
 **Verify** | Pointer to [**UserFactorHardwareAllOfVerify**](UserFactorHardwareAllOfVerify.md) |  | [optional] 
 **FactorProfileId** | Pointer to **string** | ID of an existing Custom TOTP Factor profile. To create this, see [Custom TOTP Factor](https://help.okta.com/okta_help.htm?id&#x3D;ext-mfa-totp). | [optional] 
+**Type** | Pointer to **string** | The type of authenticator method | [optional] 
+**Settings** | Pointer to [**AuthenticatorMethodSignedNonceAllOfSettings**](AuthenticatorMethodSignedNonceAllOfSettings.md) |  | [optional] 
 
 ## Methods
 
@@ -275,20 +277,20 @@ HasEmbedded returns a boolean if a field has been set.
 
 ### GetLinks
 
-`func (o *ListFactors200ResponseInner) GetLinks() map[string]interface{}`
+`func (o *ListFactors200ResponseInner) GetLinks() LinksSelfAndLifecycle`
 
 GetLinks returns the Links field if non-nil, zero value otherwise.
 
 ### GetLinksOk
 
-`func (o *ListFactors200ResponseInner) GetLinksOk() (*map[string]interface{}, bool)`
+`func (o *ListFactors200ResponseInner) GetLinksOk() (*LinksSelfAndLifecycle, bool)`
 
 GetLinksOk returns a tuple with the Links field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetLinks
 
-`func (o *ListFactors200ResponseInner) SetLinks(v map[string]interface{})`
+`func (o *ListFactors200ResponseInner) SetLinks(v LinksSelfAndLifecycle)`
 
 SetLinks sets Links field to given value.
 
@@ -397,6 +399,56 @@ SetFactorProfileId sets FactorProfileId field to given value.
 `func (o *ListFactors200ResponseInner) HasFactorProfileId() bool`
 
 HasFactorProfileId returns a boolean if a field has been set.
+
+### GetType
+
+`func (o *ListFactors200ResponseInner) GetType() string`
+
+GetType returns the Type field if non-nil, zero value otherwise.
+
+### GetTypeOk
+
+`func (o *ListFactors200ResponseInner) GetTypeOk() (*string, bool)`
+
+GetTypeOk returns a tuple with the Type field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetType
+
+`func (o *ListFactors200ResponseInner) SetType(v string)`
+
+SetType sets Type field to given value.
+
+### HasType
+
+`func (o *ListFactors200ResponseInner) HasType() bool`
+
+HasType returns a boolean if a field has been set.
+
+### GetSettings
+
+`func (o *ListFactors200ResponseInner) GetSettings() AuthenticatorMethodSignedNonceAllOfSettings`
+
+GetSettings returns the Settings field if non-nil, zero value otherwise.
+
+### GetSettingsOk
+
+`func (o *ListFactors200ResponseInner) GetSettingsOk() (*AuthenticatorMethodSignedNonceAllOfSettings, bool)`
+
+GetSettingsOk returns a tuple with the Settings field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetSettings
+
+`func (o *ListFactors200ResponseInner) SetSettings(v AuthenticatorMethodSignedNonceAllOfSettings)`
+
+SetSettings sets Settings field to given value.
+
+### HasSettings
+
+`func (o *ListFactors200ResponseInner) HasSettings() bool`
+
+HasSettings returns a boolean if a field has been set.
 
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)

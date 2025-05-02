@@ -27,6 +27,7 @@ package okta
 import (
 	"encoding/json"
 	"time"
+	"fmt"
 )
 
 // LogStream struct for LogStream

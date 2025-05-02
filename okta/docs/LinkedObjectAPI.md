@@ -25,24 +25,24 @@ Create a Linked Object Definition
 package main
 
 import (
-    "context"
-    "fmt"
-    "os"
-    openapiclient "github.com/okta/okta-sdk-golang"
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/okta/okta-sdk-golang"
 )
 
 func main() {
-    linkedObject := *openapiclient.NewLinkedObject() // LinkedObject | 
+	linkedObject := *openapiclient.NewLinkedObject() // LinkedObject | 
 
-    configuration := openapiclient.NewConfiguration()
-    apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.LinkedObjectAPI.CreateLinkedObjectDefinition(context.Background()).LinkedObject(linkedObject).Execute()
-    if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `LinkedObjectAPI.CreateLinkedObjectDefinition``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-    }
-    // response from `CreateLinkedObjectDefinition`: LinkedObject
-    fmt.Fprintf(os.Stdout, "Response from `LinkedObjectAPI.CreateLinkedObjectDefinition`: %v\n", resp)
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.LinkedObjectAPI.CreateLinkedObjectDefinition(context.Background()).LinkedObject(linkedObject).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `LinkedObjectAPI.CreateLinkedObjectDefinition``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `CreateLinkedObjectDefinition`: LinkedObject
+	fmt.Fprintf(os.Stdout, "Response from `LinkedObjectAPI.CreateLinkedObjectDefinition`: %v\n", resp)
 }
 ```
 
@@ -91,22 +91,22 @@ Delete a Linked Object Definition
 package main
 
 import (
-    "context"
-    "fmt"
-    "os"
-    openapiclient "github.com/okta/okta-sdk-golang"
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/okta/okta-sdk-golang"
 )
 
 func main() {
-    linkedObjectName := "linkedObjectName_example" // string | Primary or Associated name
+	linkedObjectName := "linkedObjectName_example" // string | Primary or Associated name
 
-    configuration := openapiclient.NewConfiguration()
-    apiClient := openapiclient.NewAPIClient(configuration)
-    r, err := apiClient.LinkedObjectAPI.DeleteLinkedObjectDefinition(context.Background(), linkedObjectName).Execute()
-    if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `LinkedObjectAPI.DeleteLinkedObjectDefinition``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-    }
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	r, err := apiClient.LinkedObjectAPI.DeleteLinkedObjectDefinition(context.Background(), linkedObjectName).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `LinkedObjectAPI.DeleteLinkedObjectDefinition``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
 }
 ```
 
@@ -159,24 +159,24 @@ Retrieve a Linked Object Definition
 package main
 
 import (
-    "context"
-    "fmt"
-    "os"
-    openapiclient "github.com/okta/okta-sdk-golang"
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/okta/okta-sdk-golang"
 )
 
 func main() {
-    linkedObjectName := "linkedObjectName_example" // string | Primary or Associated name
+	linkedObjectName := "linkedObjectName_example" // string | Primary or Associated name
 
-    configuration := openapiclient.NewConfiguration()
-    apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.LinkedObjectAPI.GetLinkedObjectDefinition(context.Background(), linkedObjectName).Execute()
-    if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `LinkedObjectAPI.GetLinkedObjectDefinition``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-    }
-    // response from `GetLinkedObjectDefinition`: LinkedObject
-    fmt.Fprintf(os.Stdout, "Response from `LinkedObjectAPI.GetLinkedObjectDefinition`: %v\n", resp)
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.LinkedObjectAPI.GetLinkedObjectDefinition(context.Background(), linkedObjectName).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `LinkedObjectAPI.GetLinkedObjectDefinition``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `GetLinkedObjectDefinition`: LinkedObject
+	fmt.Fprintf(os.Stdout, "Response from `LinkedObjectAPI.GetLinkedObjectDefinition`: %v\n", resp)
 }
 ```
 
@@ -229,23 +229,23 @@ List all Linked Object Definitions
 package main
 
 import (
-    "context"
-    "fmt"
-    "os"
-    openapiclient "github.com/okta/okta-sdk-golang"
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/okta/okta-sdk-golang"
 )
 
 func main() {
 
-    configuration := openapiclient.NewConfiguration()
-    apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.LinkedObjectAPI.ListLinkedObjectDefinitions(context.Background()).Execute()
-    if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `LinkedObjectAPI.ListLinkedObjectDefinitions``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-    }
-    // response from `ListLinkedObjectDefinitions`: []LinkedObject
-    fmt.Fprintf(os.Stdout, "Response from `LinkedObjectAPI.ListLinkedObjectDefinitions`: %v\n", resp)
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.LinkedObjectAPI.ListLinkedObjectDefinitions(context.Background()).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `LinkedObjectAPI.ListLinkedObjectDefinitions``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `ListLinkedObjectDefinitions`: []LinkedObject
+	fmt.Fprintf(os.Stdout, "Response from `LinkedObjectAPI.ListLinkedObjectDefinitions`: %v\n", resp)
 }
 ```
 

@@ -1,14 +1,17 @@
 package okta
 
-import "testing"
+import (
+	"github.com/stretchr/testify/assert"
+	"testing"
+)
 
-func ListFactors(t *testing.T) ([]ListFactors200ResponseInner, *APIResponse, error) {
+func ListFactors() ([]ListFactors200ResponseInner, *APIResponse, error) {
 	req := apiClient.UserFactorAPI.ListFactors(apiClient.cfg.Context, "00unr46bcnSPtbcVj5d7")
 	return req.Execute()
 }
 
 func TestListFactors(t *testing.T) {
-	factors, resp, err := ListFactors(t)
+	factors, resp, err := ListFactors()
 	if err != nil {
 		t.Fatalf("Error listing factors: %v", err)
 	}
@@ -18,9 +21,24 @@ func TestListFactors(t *testing.T) {
 	if len(factors) == 0 {
 		t.Fatal("Expected at least one factor")
 	}
+	factorTypes := make([]string, 0)
 	for _, factor := range factors {
-		if factor.Id == "" {
-			t.Fatal("Expected factor ID to be non-empty")
+		var result map[string]interface{}
+		marshalJSON, err := factor.MarshalJSON()
+		json.Unmarshal(marshalJSON, &result)
+		if err != nil {
+			return
+		}
+		if factorType, ok := result["factorType"].(string); ok {
+			//fmt.Println("factorType:", factorType)
+			factorTypes = append(factorTypes, factorType)
 		}
 	}
+	found := false
+	for f := range factorTypes {
+		if factorTypes[f] == "signed_nonce" {
+			found = true
+		}
+	}
+	assert.Equal(t, found, true)
 }

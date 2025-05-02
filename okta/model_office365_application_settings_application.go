@@ -26,6 +26,7 @@ package okta
 
 import (
 	"encoding/json"
+	"fmt"
 )
 
 // Office365ApplicationSettingsApplication Office365 app instance properties

@@ -26,6 +26,7 @@ package okta
 
 import (
 	"encoding/json"
+	"fmt"
 )
 
 // CapabilitiesInboundProvisioningObject Defines the configuration for the INBOUND_PROVISIONING feature

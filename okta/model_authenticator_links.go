@@ -33,6 +33,7 @@ type AuthenticatorLinks struct {
 	Self *HrefObjectSelfLink `json:"self,omitempty"`
 	Activate *HrefObjectActivateLink `json:"activate,omitempty"`
 	Deactivate *HrefObjectDeactivateLink `json:"deactivate,omitempty"`
+	// Link to Authenticator methods
 	Methods *HrefObject `json:"methods,omitempty"`
 	AdditionalProperties map[string]interface{}
 }

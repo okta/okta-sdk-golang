@@ -110,6 +110,42 @@ func (dst *ListDeviceAssurancePolicies200ResponseInner) UnmarshalJSON(data []byt
 		}
 	}
 
+	// check if the discriminator value is 'IOS'
+	if jsonDict["platform"] == "IOS" {
+		// try to unmarshal JSON data into DeviceAssuranceIOSPlatform
+		err = json.Unmarshal(data, &dst.DeviceAssuranceIOSPlatform)
+		if err == nil {
+			return nil // data stored in dst.DeviceAssuranceIOSPlatform, return on the first match
+		} else {
+			dst.DeviceAssuranceIOSPlatform = nil
+			return fmt.Errorf("Failed to unmarshal ListDeviceAssurancePolicies200ResponseInner as DeviceAssuranceIOSPlatform: %s", err.Error())
+		}
+	}
+
+	// check if the discriminator value is 'MACOS'
+	if jsonDict["platform"] == "MACOS" {
+		// try to unmarshal JSON data into DeviceAssuranceMacOSPlatform
+		err = json.Unmarshal(data, &dst.DeviceAssuranceMacOSPlatform)
+		if err == nil {
+			return nil // data stored in dst.DeviceAssuranceMacOSPlatform, return on the first match
+		} else {
+			dst.DeviceAssuranceMacOSPlatform = nil
+			return fmt.Errorf("Failed to unmarshal ListDeviceAssurancePolicies200ResponseInner as DeviceAssuranceMacOSPlatform: %s", err.Error())
+		}
+	}
+
+	// check if the discriminator value is 'WINDOWS'
+	if jsonDict["platform"] == "WINDOWS" {
+		// try to unmarshal JSON data into DeviceAssuranceWindowsPlatform
+		err = json.Unmarshal(data, &dst.DeviceAssuranceWindowsPlatform)
+		if err == nil {
+			return nil // data stored in dst.DeviceAssuranceWindowsPlatform, return on the first match
+		} else {
+			dst.DeviceAssuranceWindowsPlatform = nil
+			return fmt.Errorf("Failed to unmarshal ListDeviceAssurancePolicies200ResponseInner as DeviceAssuranceWindowsPlatform: %s", err.Error())
+		}
+	}
+
 	// check if the discriminator value is 'DeviceAssuranceAndroidPlatform'
 	if jsonDict["platform"] == "DeviceAssuranceAndroidPlatform" {
 		// try to unmarshal JSON data into DeviceAssuranceAndroidPlatform
@@ -160,42 +196,6 @@ func (dst *ListDeviceAssurancePolicies200ResponseInner) UnmarshalJSON(data []byt
 
 	// check if the discriminator value is 'DeviceAssuranceWindowsPlatform'
 	if jsonDict["platform"] == "DeviceAssuranceWindowsPlatform" {
-		// try to unmarshal JSON data into DeviceAssuranceWindowsPlatform
-		err = json.Unmarshal(data, &dst.DeviceAssuranceWindowsPlatform)
-		if err == nil {
-			return nil // data stored in dst.DeviceAssuranceWindowsPlatform, return on the first match
-		} else {
-			dst.DeviceAssuranceWindowsPlatform = nil
-			return fmt.Errorf("Failed to unmarshal ListDeviceAssurancePolicies200ResponseInner as DeviceAssuranceWindowsPlatform: %s", err.Error())
-		}
-	}
-
-	// check if the discriminator value is 'IOS'
-	if jsonDict["platform"] == "IOS" {
-		// try to unmarshal JSON data into DeviceAssuranceIOSPlatform
-		err = json.Unmarshal(data, &dst.DeviceAssuranceIOSPlatform)
-		if err == nil {
-			return nil // data stored in dst.DeviceAssuranceIOSPlatform, return on the first match
-		} else {
-			dst.DeviceAssuranceIOSPlatform = nil
-			return fmt.Errorf("Failed to unmarshal ListDeviceAssurancePolicies200ResponseInner as DeviceAssuranceIOSPlatform: %s", err.Error())
-		}
-	}
-
-	// check if the discriminator value is 'MACOS'
-	if jsonDict["platform"] == "MACOS" {
-		// try to unmarshal JSON data into DeviceAssuranceMacOSPlatform
-		err = json.Unmarshal(data, &dst.DeviceAssuranceMacOSPlatform)
-		if err == nil {
-			return nil // data stored in dst.DeviceAssuranceMacOSPlatform, return on the first match
-		} else {
-			dst.DeviceAssuranceMacOSPlatform = nil
-			return fmt.Errorf("Failed to unmarshal ListDeviceAssurancePolicies200ResponseInner as DeviceAssuranceMacOSPlatform: %s", err.Error())
-		}
-	}
-
-	// check if the discriminator value is 'WINDOWS'
-	if jsonDict["platform"] == "WINDOWS" {
 		// try to unmarshal JSON data into DeviceAssuranceWindowsPlatform
 		err = json.Unmarshal(data, &dst.DeviceAssuranceWindowsPlatform)
 		if err == nil {

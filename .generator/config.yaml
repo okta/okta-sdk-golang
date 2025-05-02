@@ -1,6 +1,6 @@
 generatorName: go
 templateDir: ./.generator/templates
-outputDir: ./okta/v5
+outputDir: ./okta
 gitUserId: okta
 gitRepoId: okta-sdk-golang
 versionName: v5

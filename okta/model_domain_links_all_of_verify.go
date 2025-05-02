@@ -26,6 +26,7 @@ package okta
 
 import (
 	"encoding/json"
+	"fmt"
 )
 
 // DomainLinksAllOfVerify struct for DomainLinksAllOfVerify

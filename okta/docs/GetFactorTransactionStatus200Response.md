@@ -6,7 +6,7 @@ Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **FactorResult** | Pointer to **string** | Result of the verification transaction | [optional] 
 **Profile** | Pointer to [**UserFactorPushTransactionRejectedAllOfProfile**](UserFactorPushTransactionRejectedAllOfProfile.md) |  | [optional] 
-**Links** | Pointer to [**UserFactorPushTransactionRejectedAllOfLinks**](UserFactorPushTransactionRejectedAllOfLinks.md) |  | [optional] 
+**Links** | Pointer to [**UserFactorPushTransactionTimeoutAllOfLinks**](UserFactorPushTransactionTimeoutAllOfLinks.md) |  | [optional] 
 
 ## Methods
 
@@ -79,20 +79,20 @@ HasProfile returns a boolean if a field has been set.
 
 ### GetLinks
 
-`func (o *GetFactorTransactionStatus200Response) GetLinks() UserFactorPushTransactionRejectedAllOfLinks`
+`func (o *GetFactorTransactionStatus200Response) GetLinks() UserFactorPushTransactionTimeoutAllOfLinks`
 
 GetLinks returns the Links field if non-nil, zero value otherwise.
 
 ### GetLinksOk
 
-`func (o *GetFactorTransactionStatus200Response) GetLinksOk() (*UserFactorPushTransactionRejectedAllOfLinks, bool)`
+`func (o *GetFactorTransactionStatus200Response) GetLinksOk() (*UserFactorPushTransactionTimeoutAllOfLinks, bool)`
 
 GetLinksOk returns a tuple with the Links field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetLinks
 
-`func (o *GetFactorTransactionStatus200Response) SetLinks(v UserFactorPushTransactionRejectedAllOfLinks)`
+`func (o *GetFactorTransactionStatus200Response) SetLinks(v UserFactorPushTransactionTimeoutAllOfLinks)`
 
 SetLinks sets Links field to given value.
 

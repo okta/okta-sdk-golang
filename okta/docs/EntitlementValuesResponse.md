@@ -5,7 +5,7 @@
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **EntitlementValues** | Pointer to [**[]EntitlementValue**](EntitlementValue.md) |  | [optional] 
-**Links** | Pointer to [**NullableBundleEntitlementsResponseLinks**](BundleEntitlementsResponseLinks.md) |  | [optional] 
+**Links** | Pointer to [**EntitlementValuesResponseLinks**](EntitlementValuesResponseLinks.md) |  | [optional] 
 
 ## Methods
 
@@ -53,20 +53,20 @@ HasEntitlementValues returns a boolean if a field has been set.
 
 ### GetLinks
 
-`func (o *EntitlementValuesResponse) GetLinks() BundleEntitlementsResponseLinks`
+`func (o *EntitlementValuesResponse) GetLinks() EntitlementValuesResponseLinks`
 
 GetLinks returns the Links field if non-nil, zero value otherwise.
 
 ### GetLinksOk
 
-`func (o *EntitlementValuesResponse) GetLinksOk() (*BundleEntitlementsResponseLinks, bool)`
+`func (o *EntitlementValuesResponse) GetLinksOk() (*EntitlementValuesResponseLinks, bool)`
 
 GetLinksOk returns a tuple with the Links field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetLinks
 
-`func (o *EntitlementValuesResponse) SetLinks(v BundleEntitlementsResponseLinks)`
+`func (o *EntitlementValuesResponse) SetLinks(v EntitlementValuesResponseLinks)`
 
 SetLinks sets Links field to given value.
 
@@ -76,16 +76,6 @@ SetLinks sets Links field to given value.
 
 HasLinks returns a boolean if a field has been set.
 
-### SetLinksNil
-
-`func (o *EntitlementValuesResponse) SetLinksNil(b bool)`
-
- SetLinksNil sets the value for Links to be an explicit nil
-
-### UnsetLinks
-`func (o *EntitlementValuesResponse) UnsetLinks()`
-
-UnsetLinks ensures that no value is present for Links, not even an explicit nil
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
 

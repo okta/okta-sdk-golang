@@ -30,20 +30,35 @@ import (
 
 // UserLinks Specifies link relations (see [Web Linking](https://datatracker.ietf.org/doc/html/rfc8288) available for the current status of a user. The Links object is used for dynamic discovery of related resources, lifecycle operations, and credential operations. The Links object is read-only.  For an individual user result, the Links object contains a full set of link relations available for that user as determined by your policies. For a collection of users, the Links object contains only the `self` link. Operations that return a collection of Users include List Users and List Group Members.
 type UserLinks struct {
+	// URL to the individual user
 	Self *HrefObject `json:"self,omitempty"`
+	// URL to activate the user
 	Activate *HrefObject `json:"activate,omitempty"`
+	// URL to reset the user's password
 	ResetPassword *HrefObject `json:"resetPassword,omitempty"`
+	// URL to reset the user's factors
 	ResetFactors *HrefObject `json:"resetFactors,omitempty"`
+	// URL to expire the user's password
 	ExpirePassword *HrefObject `json:"expirePassword,omitempty"`
+	// URL to initiate a forgot password operation
 	ForgotPassword *HrefObject `json:"forgotPassword,omitempty"`
+	// URL to change the user's recovery question
 	ChangeRecoveryQuestion *HrefObject `json:"changeRecoveryQuestion,omitempty"`
+	// URL to deactivate a user
 	Deactivate *HrefObject `json:"deactivate,omitempty"`
+	// URL to reactivate the user
 	Reactivate *HrefObject `json:"reactivate,omitempty"`
+	// URL to change the user's password
 	ChangePassword *HrefObject `json:"changePassword,omitempty"`
+	// URL to the user's profile schema
 	Schema *HrefObject `json:"schema,omitempty"`
+	// URL to suspend the user
 	Suspend *HrefObject `json:"suspend,omitempty"`
+	// URL to unsuspend the user
 	Unsuspend *HrefObject `json:"unsuspend,omitempty"`
+	// URL to unlock the locked-out user
 	Unlock *HrefObject `json:"unlock,omitempty"`
+	// URL to the user type
 	Type *HrefObject `json:"type,omitempty"`
 	AdditionalProperties map[string]interface{}
 }

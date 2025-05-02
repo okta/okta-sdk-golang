@@ -27,6 +27,7 @@ package okta
 import (
 	"encoding/json"
 	"time"
+	"fmt"
 )
 
 // ThreatInsightConfiguration struct for ThreatInsightConfiguration

@@ -29,6 +29,7 @@ import (
 	"fmt"
 )
 
+
 // GovernanceBundlesResponseLinks struct for GovernanceBundlesResponseLinks
 type GovernanceBundlesResponseLinks struct {
 	LinksNext *LinksNext
@@ -68,7 +69,7 @@ func (dst *GovernanceBundlesResponseLinks) UnmarshalJSON(data []byte) error {
 }
 
 // Marshal data from the first non-nil pointers in the struct to JSON
-func (src *GovernanceBundlesResponseLinks) MarshalJSON() ([]byte, error) {
+func (src GovernanceBundlesResponseLinks) MarshalJSON() ([]byte, error) {
 	if src.LinksNext != nil {
 		return json.Marshal(&src.LinksNext)
 	}
@@ -79,6 +80,7 @@ func (src *GovernanceBundlesResponseLinks) MarshalJSON() ([]byte, error) {
 
 	return nil, nil // no data in anyOf schemas
 }
+
 
 type NullableGovernanceBundlesResponseLinks struct {
 	value *GovernanceBundlesResponseLinks

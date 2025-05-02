@@ -166,186 +166,6 @@ func (dst *ListAuthenticators200ResponseInner) UnmarshalJSON(data []byte) error 
 		return fmt.Errorf("Failed to unmarshal JSON into map for the discriminator lookup.")
 	}
 
-	// check if the discriminator value is 'AuthenticatorKeyCustomApp'
-	if jsonDict["key"] == "AuthenticatorKeyCustomApp" {
-		// try to unmarshal JSON data into AuthenticatorKeyCustomApp
-		err = json.Unmarshal(data, &dst.AuthenticatorKeyCustomApp)
-		if err == nil {
-			return nil // data stored in dst.AuthenticatorKeyCustomApp, return on the first match
-		} else {
-			dst.AuthenticatorKeyCustomApp = nil
-			return fmt.Errorf("Failed to unmarshal ListAuthenticators200ResponseInner as AuthenticatorKeyCustomApp: %s", err.Error())
-		}
-	}
-
-	// check if the discriminator value is 'AuthenticatorKeyDuo'
-	if jsonDict["key"] == "AuthenticatorKeyDuo" {
-		// try to unmarshal JSON data into AuthenticatorKeyDuo
-		err = json.Unmarshal(data, &dst.AuthenticatorKeyDuo)
-		if err == nil {
-			return nil // data stored in dst.AuthenticatorKeyDuo, return on the first match
-		} else {
-			dst.AuthenticatorKeyDuo = nil
-			return fmt.Errorf("Failed to unmarshal ListAuthenticators200ResponseInner as AuthenticatorKeyDuo: %s", err.Error())
-		}
-	}
-
-	// check if the discriminator value is 'AuthenticatorKeyEmail'
-	if jsonDict["key"] == "AuthenticatorKeyEmail" {
-		// try to unmarshal JSON data into AuthenticatorKeyEmail
-		err = json.Unmarshal(data, &dst.AuthenticatorKeyEmail)
-		if err == nil {
-			return nil // data stored in dst.AuthenticatorKeyEmail, return on the first match
-		} else {
-			dst.AuthenticatorKeyEmail = nil
-			return fmt.Errorf("Failed to unmarshal ListAuthenticators200ResponseInner as AuthenticatorKeyEmail: %s", err.Error())
-		}
-	}
-
-	// check if the discriminator value is 'AuthenticatorKeyExternalIdp'
-	if jsonDict["key"] == "AuthenticatorKeyExternalIdp" {
-		// try to unmarshal JSON data into AuthenticatorKeyExternalIdp
-		err = json.Unmarshal(data, &dst.AuthenticatorKeyExternalIdp)
-		if err == nil {
-			return nil // data stored in dst.AuthenticatorKeyExternalIdp, return on the first match
-		} else {
-			dst.AuthenticatorKeyExternalIdp = nil
-			return fmt.Errorf("Failed to unmarshal ListAuthenticators200ResponseInner as AuthenticatorKeyExternalIdp: %s", err.Error())
-		}
-	}
-
-	// check if the discriminator value is 'AuthenticatorKeyGoogleOtp'
-	if jsonDict["key"] == "AuthenticatorKeyGoogleOtp" {
-		// try to unmarshal JSON data into AuthenticatorKeyGoogleOtp
-		err = json.Unmarshal(data, &dst.AuthenticatorKeyGoogleOtp)
-		if err == nil {
-			return nil // data stored in dst.AuthenticatorKeyGoogleOtp, return on the first match
-		} else {
-			dst.AuthenticatorKeyGoogleOtp = nil
-			return fmt.Errorf("Failed to unmarshal ListAuthenticators200ResponseInner as AuthenticatorKeyGoogleOtp: %s", err.Error())
-		}
-	}
-
-	// check if the discriminator value is 'AuthenticatorKeyOktaVerify'
-	if jsonDict["key"] == "AuthenticatorKeyOktaVerify" {
-		// try to unmarshal JSON data into AuthenticatorKeyOktaVerify
-		err = json.Unmarshal(data, &dst.AuthenticatorKeyOktaVerify)
-		if err == nil {
-			return nil // data stored in dst.AuthenticatorKeyOktaVerify, return on the first match
-		} else {
-			dst.AuthenticatorKeyOktaVerify = nil
-			return fmt.Errorf("Failed to unmarshal ListAuthenticators200ResponseInner as AuthenticatorKeyOktaVerify: %s", err.Error())
-		}
-	}
-
-	// check if the discriminator value is 'AuthenticatorKeyOnprem'
-	if jsonDict["key"] == "AuthenticatorKeyOnprem" {
-		// try to unmarshal JSON data into AuthenticatorKeyOnprem
-		err = json.Unmarshal(data, &dst.AuthenticatorKeyOnprem)
-		if err == nil {
-			return nil // data stored in dst.AuthenticatorKeyOnprem, return on the first match
-		} else {
-			dst.AuthenticatorKeyOnprem = nil
-			return fmt.Errorf("Failed to unmarshal ListAuthenticators200ResponseInner as AuthenticatorKeyOnprem: %s", err.Error())
-		}
-	}
-
-	// check if the discriminator value is 'AuthenticatorKeyPassword'
-	if jsonDict["key"] == "AuthenticatorKeyPassword" {
-		// try to unmarshal JSON data into AuthenticatorKeyPassword
-		err = json.Unmarshal(data, &dst.AuthenticatorKeyPassword)
-		if err == nil {
-			return nil // data stored in dst.AuthenticatorKeyPassword, return on the first match
-		} else {
-			dst.AuthenticatorKeyPassword = nil
-			return fmt.Errorf("Failed to unmarshal ListAuthenticators200ResponseInner as AuthenticatorKeyPassword: %s", err.Error())
-		}
-	}
-
-	// check if the discriminator value is 'AuthenticatorKeyPhone'
-	if jsonDict["key"] == "AuthenticatorKeyPhone" {
-		// try to unmarshal JSON data into AuthenticatorKeyPhone
-		err = json.Unmarshal(data, &dst.AuthenticatorKeyPhone)
-		if err == nil {
-			return nil // data stored in dst.AuthenticatorKeyPhone, return on the first match
-		} else {
-			dst.AuthenticatorKeyPhone = nil
-			return fmt.Errorf("Failed to unmarshal ListAuthenticators200ResponseInner as AuthenticatorKeyPhone: %s", err.Error())
-		}
-	}
-
-	// check if the discriminator value is 'AuthenticatorKeySecurityKey'
-	if jsonDict["key"] == "AuthenticatorKeySecurityKey" {
-		// try to unmarshal JSON data into AuthenticatorKeySecurityKey
-		err = json.Unmarshal(data, &dst.AuthenticatorKeySecurityKey)
-		if err == nil {
-			return nil // data stored in dst.AuthenticatorKeySecurityKey, return on the first match
-		} else {
-			dst.AuthenticatorKeySecurityKey = nil
-			return fmt.Errorf("Failed to unmarshal ListAuthenticators200ResponseInner as AuthenticatorKeySecurityKey: %s", err.Error())
-		}
-	}
-
-	// check if the discriminator value is 'AuthenticatorKeySecurityQuestion'
-	if jsonDict["key"] == "AuthenticatorKeySecurityQuestion" {
-		// try to unmarshal JSON data into AuthenticatorKeySecurityQuestion
-		err = json.Unmarshal(data, &dst.AuthenticatorKeySecurityQuestion)
-		if err == nil {
-			return nil // data stored in dst.AuthenticatorKeySecurityQuestion, return on the first match
-		} else {
-			dst.AuthenticatorKeySecurityQuestion = nil
-			return fmt.Errorf("Failed to unmarshal ListAuthenticators200ResponseInner as AuthenticatorKeySecurityQuestion: %s", err.Error())
-		}
-	}
-
-	// check if the discriminator value is 'AuthenticatorKeySmartCard'
-	if jsonDict["key"] == "AuthenticatorKeySmartCard" {
-		// try to unmarshal JSON data into AuthenticatorKeySmartCard
-		err = json.Unmarshal(data, &dst.AuthenticatorKeySmartCard)
-		if err == nil {
-			return nil // data stored in dst.AuthenticatorKeySmartCard, return on the first match
-		} else {
-			dst.AuthenticatorKeySmartCard = nil
-			return fmt.Errorf("Failed to unmarshal ListAuthenticators200ResponseInner as AuthenticatorKeySmartCard: %s", err.Error())
-		}
-	}
-
-	// check if the discriminator value is 'AuthenticatorKeySymantecVip'
-	if jsonDict["key"] == "AuthenticatorKeySymantecVip" {
-		// try to unmarshal JSON data into AuthenticatorKeySymantecVip
-		err = json.Unmarshal(data, &dst.AuthenticatorKeySymantecVip)
-		if err == nil {
-			return nil // data stored in dst.AuthenticatorKeySymantecVip, return on the first match
-		} else {
-			dst.AuthenticatorKeySymantecVip = nil
-			return fmt.Errorf("Failed to unmarshal ListAuthenticators200ResponseInner as AuthenticatorKeySymantecVip: %s", err.Error())
-		}
-	}
-
-	// check if the discriminator value is 'AuthenticatorKeyWebauthn'
-	if jsonDict["key"] == "AuthenticatorKeyWebauthn" {
-		// try to unmarshal JSON data into AuthenticatorKeyWebauthn
-		err = json.Unmarshal(data, &dst.AuthenticatorKeyWebauthn)
-		if err == nil {
-			return nil // data stored in dst.AuthenticatorKeyWebauthn, return on the first match
-		} else {
-			dst.AuthenticatorKeyWebauthn = nil
-			return fmt.Errorf("Failed to unmarshal ListAuthenticators200ResponseInner as AuthenticatorKeyWebauthn: %s", err.Error())
-		}
-	}
-
-	// check if the discriminator value is 'AuthenticatorKeyYubikey'
-	if jsonDict["key"] == "AuthenticatorKeyYubikey" {
-		// try to unmarshal JSON data into AuthenticatorKeyYubikey
-		err = json.Unmarshal(data, &dst.AuthenticatorKeyYubikey)
-		if err == nil {
-			return nil // data stored in dst.AuthenticatorKeyYubikey, return on the first match
-		} else {
-			dst.AuthenticatorKeyYubikey = nil
-			return fmt.Errorf("Failed to unmarshal ListAuthenticators200ResponseInner as AuthenticatorKeyYubikey: %s", err.Error())
-		}
-	}
-
 	// check if the discriminator value is 'custom_app'
 	if jsonDict["key"] == "custom_app" {
 		// try to unmarshal JSON data into AuthenticatorKeyCustomApp
@@ -516,6 +336,186 @@ func (dst *ListAuthenticators200ResponseInner) UnmarshalJSON(data []byte) error 
 
 	// check if the discriminator value is 'yubikey_token'
 	if jsonDict["key"] == "yubikey_token" {
+		// try to unmarshal JSON data into AuthenticatorKeyYubikey
+		err = json.Unmarshal(data, &dst.AuthenticatorKeyYubikey)
+		if err == nil {
+			return nil // data stored in dst.AuthenticatorKeyYubikey, return on the first match
+		} else {
+			dst.AuthenticatorKeyYubikey = nil
+			return fmt.Errorf("Failed to unmarshal ListAuthenticators200ResponseInner as AuthenticatorKeyYubikey: %s", err.Error())
+		}
+	}
+
+	// check if the discriminator value is 'AuthenticatorKeyCustomApp'
+	if jsonDict["key"] == "AuthenticatorKeyCustomApp" {
+		// try to unmarshal JSON data into AuthenticatorKeyCustomApp
+		err = json.Unmarshal(data, &dst.AuthenticatorKeyCustomApp)
+		if err == nil {
+			return nil // data stored in dst.AuthenticatorKeyCustomApp, return on the first match
+		} else {
+			dst.AuthenticatorKeyCustomApp = nil
+			return fmt.Errorf("Failed to unmarshal ListAuthenticators200ResponseInner as AuthenticatorKeyCustomApp: %s", err.Error())
+		}
+	}
+
+	// check if the discriminator value is 'AuthenticatorKeyDuo'
+	if jsonDict["key"] == "AuthenticatorKeyDuo" {
+		// try to unmarshal JSON data into AuthenticatorKeyDuo
+		err = json.Unmarshal(data, &dst.AuthenticatorKeyDuo)
+		if err == nil {
+			return nil // data stored in dst.AuthenticatorKeyDuo, return on the first match
+		} else {
+			dst.AuthenticatorKeyDuo = nil
+			return fmt.Errorf("Failed to unmarshal ListAuthenticators200ResponseInner as AuthenticatorKeyDuo: %s", err.Error())
+		}
+	}
+
+	// check if the discriminator value is 'AuthenticatorKeyEmail'
+	if jsonDict["key"] == "AuthenticatorKeyEmail" {
+		// try to unmarshal JSON data into AuthenticatorKeyEmail
+		err = json.Unmarshal(data, &dst.AuthenticatorKeyEmail)
+		if err == nil {
+			return nil // data stored in dst.AuthenticatorKeyEmail, return on the first match
+		} else {
+			dst.AuthenticatorKeyEmail = nil
+			return fmt.Errorf("Failed to unmarshal ListAuthenticators200ResponseInner as AuthenticatorKeyEmail: %s", err.Error())
+		}
+	}
+
+	// check if the discriminator value is 'AuthenticatorKeyExternalIdp'
+	if jsonDict["key"] == "AuthenticatorKeyExternalIdp" {
+		// try to unmarshal JSON data into AuthenticatorKeyExternalIdp
+		err = json.Unmarshal(data, &dst.AuthenticatorKeyExternalIdp)
+		if err == nil {
+			return nil // data stored in dst.AuthenticatorKeyExternalIdp, return on the first match
+		} else {
+			dst.AuthenticatorKeyExternalIdp = nil
+			return fmt.Errorf("Failed to unmarshal ListAuthenticators200ResponseInner as AuthenticatorKeyExternalIdp: %s", err.Error())
+		}
+	}
+
+	// check if the discriminator value is 'AuthenticatorKeyGoogleOtp'
+	if jsonDict["key"] == "AuthenticatorKeyGoogleOtp" {
+		// try to unmarshal JSON data into AuthenticatorKeyGoogleOtp
+		err = json.Unmarshal(data, &dst.AuthenticatorKeyGoogleOtp)
+		if err == nil {
+			return nil // data stored in dst.AuthenticatorKeyGoogleOtp, return on the first match
+		} else {
+			dst.AuthenticatorKeyGoogleOtp = nil
+			return fmt.Errorf("Failed to unmarshal ListAuthenticators200ResponseInner as AuthenticatorKeyGoogleOtp: %s", err.Error())
+		}
+	}
+
+	// check if the discriminator value is 'AuthenticatorKeyOktaVerify'
+	if jsonDict["key"] == "AuthenticatorKeyOktaVerify" {
+		// try to unmarshal JSON data into AuthenticatorKeyOktaVerify
+		err = json.Unmarshal(data, &dst.AuthenticatorKeyOktaVerify)
+		if err == nil {
+			return nil // data stored in dst.AuthenticatorKeyOktaVerify, return on the first match
+		} else {
+			dst.AuthenticatorKeyOktaVerify = nil
+			return fmt.Errorf("Failed to unmarshal ListAuthenticators200ResponseInner as AuthenticatorKeyOktaVerify: %s", err.Error())
+		}
+	}
+
+	// check if the discriminator value is 'AuthenticatorKeyOnprem'
+	if jsonDict["key"] == "AuthenticatorKeyOnprem" {
+		// try to unmarshal JSON data into AuthenticatorKeyOnprem
+		err = json.Unmarshal(data, &dst.AuthenticatorKeyOnprem)
+		if err == nil {
+			return nil // data stored in dst.AuthenticatorKeyOnprem, return on the first match
+		} else {
+			dst.AuthenticatorKeyOnprem = nil
+			return fmt.Errorf("Failed to unmarshal ListAuthenticators200ResponseInner as AuthenticatorKeyOnprem: %s", err.Error())
+		}
+	}
+
+	// check if the discriminator value is 'AuthenticatorKeyPassword'
+	if jsonDict["key"] == "AuthenticatorKeyPassword" {
+		// try to unmarshal JSON data into AuthenticatorKeyPassword
+		err = json.Unmarshal(data, &dst.AuthenticatorKeyPassword)
+		if err == nil {
+			return nil // data stored in dst.AuthenticatorKeyPassword, return on the first match
+		} else {
+			dst.AuthenticatorKeyPassword = nil
+			return fmt.Errorf("Failed to unmarshal ListAuthenticators200ResponseInner as AuthenticatorKeyPassword: %s", err.Error())
+		}
+	}
+
+	// check if the discriminator value is 'AuthenticatorKeyPhone'
+	if jsonDict["key"] == "AuthenticatorKeyPhone" {
+		// try to unmarshal JSON data into AuthenticatorKeyPhone
+		err = json.Unmarshal(data, &dst.AuthenticatorKeyPhone)
+		if err == nil {
+			return nil // data stored in dst.AuthenticatorKeyPhone, return on the first match
+		} else {
+			dst.AuthenticatorKeyPhone = nil
+			return fmt.Errorf("Failed to unmarshal ListAuthenticators200ResponseInner as AuthenticatorKeyPhone: %s", err.Error())
+		}
+	}
+
+	// check if the discriminator value is 'AuthenticatorKeySecurityKey'
+	if jsonDict["key"] == "AuthenticatorKeySecurityKey" {
+		// try to unmarshal JSON data into AuthenticatorKeySecurityKey
+		err = json.Unmarshal(data, &dst.AuthenticatorKeySecurityKey)
+		if err == nil {
+			return nil // data stored in dst.AuthenticatorKeySecurityKey, return on the first match
+		} else {
+			dst.AuthenticatorKeySecurityKey = nil
+			return fmt.Errorf("Failed to unmarshal ListAuthenticators200ResponseInner as AuthenticatorKeySecurityKey: %s", err.Error())
+		}
+	}
+
+	// check if the discriminator value is 'AuthenticatorKeySecurityQuestion'
+	if jsonDict["key"] == "AuthenticatorKeySecurityQuestion" {
+		// try to unmarshal JSON data into AuthenticatorKeySecurityQuestion
+		err = json.Unmarshal(data, &dst.AuthenticatorKeySecurityQuestion)
+		if err == nil {
+			return nil // data stored in dst.AuthenticatorKeySecurityQuestion, return on the first match
+		} else {
+			dst.AuthenticatorKeySecurityQuestion = nil
+			return fmt.Errorf("Failed to unmarshal ListAuthenticators200ResponseInner as AuthenticatorKeySecurityQuestion: %s", err.Error())
+		}
+	}
+
+	// check if the discriminator value is 'AuthenticatorKeySmartCard'
+	if jsonDict["key"] == "AuthenticatorKeySmartCard" {
+		// try to unmarshal JSON data into AuthenticatorKeySmartCard
+		err = json.Unmarshal(data, &dst.AuthenticatorKeySmartCard)
+		if err == nil {
+			return nil // data stored in dst.AuthenticatorKeySmartCard, return on the first match
+		} else {
+			dst.AuthenticatorKeySmartCard = nil
+			return fmt.Errorf("Failed to unmarshal ListAuthenticators200ResponseInner as AuthenticatorKeySmartCard: %s", err.Error())
+		}
+	}
+
+	// check if the discriminator value is 'AuthenticatorKeySymantecVip'
+	if jsonDict["key"] == "AuthenticatorKeySymantecVip" {
+		// try to unmarshal JSON data into AuthenticatorKeySymantecVip
+		err = json.Unmarshal(data, &dst.AuthenticatorKeySymantecVip)
+		if err == nil {
+			return nil // data stored in dst.AuthenticatorKeySymantecVip, return on the first match
+		} else {
+			dst.AuthenticatorKeySymantecVip = nil
+			return fmt.Errorf("Failed to unmarshal ListAuthenticators200ResponseInner as AuthenticatorKeySymantecVip: %s", err.Error())
+		}
+	}
+
+	// check if the discriminator value is 'AuthenticatorKeyWebauthn'
+	if jsonDict["key"] == "AuthenticatorKeyWebauthn" {
+		// try to unmarshal JSON data into AuthenticatorKeyWebauthn
+		err = json.Unmarshal(data, &dst.AuthenticatorKeyWebauthn)
+		if err == nil {
+			return nil // data stored in dst.AuthenticatorKeyWebauthn, return on the first match
+		} else {
+			dst.AuthenticatorKeyWebauthn = nil
+			return fmt.Errorf("Failed to unmarshal ListAuthenticators200ResponseInner as AuthenticatorKeyWebauthn: %s", err.Error())
+		}
+	}
+
+	// check if the discriminator value is 'AuthenticatorKeyYubikey'
+	if jsonDict["key"] == "AuthenticatorKeyYubikey" {
 		// try to unmarshal JSON data into AuthenticatorKeyYubikey
 		err = json.Unmarshal(data, &dst.AuthenticatorKeyYubikey)
 		if err == nil {

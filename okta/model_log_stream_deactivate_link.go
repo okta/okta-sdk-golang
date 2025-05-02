@@ -26,6 +26,7 @@ package okta
 
 import (
 	"encoding/json"
+	"fmt"
 )
 
 // LogStreamDeactivateLink struct for LogStreamDeactivateLink

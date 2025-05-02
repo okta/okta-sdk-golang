@@ -28,24 +28,24 @@ Activate a Trusted Origin
 package main
 
 import (
-    "context"
-    "fmt"
-    "os"
-    openapiclient "github.com/okta/okta-sdk-golang"
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/okta/okta-sdk-golang"
 )
 
 func main() {
-    trustedOriginId := "7j2PkU1nyNIDe26ZNufR" // string | `id` of the Trusted Origin
+	trustedOriginId := "7j2PkU1nyNIDe26ZNufR" // string | `id` of the Trusted Origin
 
-    configuration := openapiclient.NewConfiguration()
-    apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.TrustedOriginAPI.ActivateTrustedOrigin(context.Background(), trustedOriginId).Execute()
-    if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `TrustedOriginAPI.ActivateTrustedOrigin``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-    }
-    // response from `ActivateTrustedOrigin`: TrustedOrigin
-    fmt.Fprintf(os.Stdout, "Response from `TrustedOriginAPI.ActivateTrustedOrigin`: %v\n", resp)
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.TrustedOriginAPI.ActivateTrustedOrigin(context.Background(), trustedOriginId).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `TrustedOriginAPI.ActivateTrustedOrigin``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `ActivateTrustedOrigin`: TrustedOrigin
+	fmt.Fprintf(os.Stdout, "Response from `TrustedOriginAPI.ActivateTrustedOrigin`: %v\n", resp)
 }
 ```
 
@@ -98,24 +98,24 @@ Create a Trusted Origin
 package main
 
 import (
-    "context"
-    "fmt"
-    "os"
-    openapiclient "github.com/okta/okta-sdk-golang"
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/okta/okta-sdk-golang"
 )
 
 func main() {
-    trustedOrigin := *openapiclient.NewTrustedOriginWrite() // TrustedOriginWrite | 
+	trustedOrigin := *openapiclient.NewTrustedOriginWrite() // TrustedOriginWrite | 
 
-    configuration := openapiclient.NewConfiguration()
-    apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.TrustedOriginAPI.CreateTrustedOrigin(context.Background()).TrustedOrigin(trustedOrigin).Execute()
-    if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `TrustedOriginAPI.CreateTrustedOrigin``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-    }
-    // response from `CreateTrustedOrigin`: TrustedOrigin
-    fmt.Fprintf(os.Stdout, "Response from `TrustedOriginAPI.CreateTrustedOrigin`: %v\n", resp)
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.TrustedOriginAPI.CreateTrustedOrigin(context.Background()).TrustedOrigin(trustedOrigin).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `TrustedOriginAPI.CreateTrustedOrigin``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `CreateTrustedOrigin`: TrustedOrigin
+	fmt.Fprintf(os.Stdout, "Response from `TrustedOriginAPI.CreateTrustedOrigin`: %v\n", resp)
 }
 ```
 
@@ -164,24 +164,24 @@ Deactivate a Trusted Origin
 package main
 
 import (
-    "context"
-    "fmt"
-    "os"
-    openapiclient "github.com/okta/okta-sdk-golang"
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/okta/okta-sdk-golang"
 )
 
 func main() {
-    trustedOriginId := "7j2PkU1nyNIDe26ZNufR" // string | `id` of the Trusted Origin
+	trustedOriginId := "7j2PkU1nyNIDe26ZNufR" // string | `id` of the Trusted Origin
 
-    configuration := openapiclient.NewConfiguration()
-    apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.TrustedOriginAPI.DeactivateTrustedOrigin(context.Background(), trustedOriginId).Execute()
-    if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `TrustedOriginAPI.DeactivateTrustedOrigin``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-    }
-    // response from `DeactivateTrustedOrigin`: TrustedOrigin
-    fmt.Fprintf(os.Stdout, "Response from `TrustedOriginAPI.DeactivateTrustedOrigin`: %v\n", resp)
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.TrustedOriginAPI.DeactivateTrustedOrigin(context.Background(), trustedOriginId).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `TrustedOriginAPI.DeactivateTrustedOrigin``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `DeactivateTrustedOrigin`: TrustedOrigin
+	fmt.Fprintf(os.Stdout, "Response from `TrustedOriginAPI.DeactivateTrustedOrigin`: %v\n", resp)
 }
 ```
 
@@ -234,22 +234,22 @@ Delete a Trusted Origin
 package main
 
 import (
-    "context"
-    "fmt"
-    "os"
-    openapiclient "github.com/okta/okta-sdk-golang"
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/okta/okta-sdk-golang"
 )
 
 func main() {
-    trustedOriginId := "7j2PkU1nyNIDe26ZNufR" // string | `id` of the Trusted Origin
+	trustedOriginId := "7j2PkU1nyNIDe26ZNufR" // string | `id` of the Trusted Origin
 
-    configuration := openapiclient.NewConfiguration()
-    apiClient := openapiclient.NewAPIClient(configuration)
-    r, err := apiClient.TrustedOriginAPI.DeleteTrustedOrigin(context.Background(), trustedOriginId).Execute()
-    if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `TrustedOriginAPI.DeleteTrustedOrigin``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-    }
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	r, err := apiClient.TrustedOriginAPI.DeleteTrustedOrigin(context.Background(), trustedOriginId).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `TrustedOriginAPI.DeleteTrustedOrigin``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
 }
 ```
 
@@ -302,24 +302,24 @@ Retrieve a Trusted Origin
 package main
 
 import (
-    "context"
-    "fmt"
-    "os"
-    openapiclient "github.com/okta/okta-sdk-golang"
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/okta/okta-sdk-golang"
 )
 
 func main() {
-    trustedOriginId := "7j2PkU1nyNIDe26ZNufR" // string | `id` of the Trusted Origin
+	trustedOriginId := "7j2PkU1nyNIDe26ZNufR" // string | `id` of the Trusted Origin
 
-    configuration := openapiclient.NewConfiguration()
-    apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.TrustedOriginAPI.GetTrustedOrigin(context.Background(), trustedOriginId).Execute()
-    if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `TrustedOriginAPI.GetTrustedOrigin``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-    }
-    // response from `GetTrustedOrigin`: TrustedOrigin
-    fmt.Fprintf(os.Stdout, "Response from `TrustedOriginAPI.GetTrustedOrigin`: %v\n", resp)
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.TrustedOriginAPI.GetTrustedOrigin(context.Background(), trustedOriginId).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `TrustedOriginAPI.GetTrustedOrigin``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `GetTrustedOrigin`: TrustedOrigin
+	fmt.Fprintf(os.Stdout, "Response from `TrustedOriginAPI.GetTrustedOrigin`: %v\n", resp)
 }
 ```
 
@@ -372,27 +372,27 @@ List all Trusted Origins
 package main
 
 import (
-    "context"
-    "fmt"
-    "os"
-    openapiclient "github.com/okta/okta-sdk-golang"
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/okta/okta-sdk-golang"
 )
 
 func main() {
-    q := "q_example" // string | A search string that will prefix match against the `name` and `origin` (optional)
-    filter := "name eq "Example Trusted Origin"" // string | [Filter](/#filter) Trusted Origins with a supported expression for a subset of properties. You can filter on the following properties: `name`, `origin`, `status`, and `type` (type of scopes).  (optional)
-    after := "after_example" // string | The after cursor provided by a prior request. (optional)
-    limit := int32(56) // int32 | Specifies the number of results. (optional) (default to 20)
+	q := "q_example" // string | A search string that will prefix match against the `name` and `origin` (optional)
+	filter := "name eq "Example Trusted Origin"" // string | [Filter](/#filter) Trusted Origins with a supported expression for a subset of properties. You can filter on the following properties: `name`, `origin`, `status`, and `type` (type of scopes).  (optional)
+	after := "after_example" // string | The after cursor provided by a prior request. (optional)
+	limit := int32(56) // int32 | Specifies the number of results. (optional) (default to 20)
 
-    configuration := openapiclient.NewConfiguration()
-    apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.TrustedOriginAPI.ListTrustedOrigins(context.Background()).Q(q).Filter(filter).After(after).Limit(limit).Execute()
-    if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `TrustedOriginAPI.ListTrustedOrigins``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-    }
-    // response from `ListTrustedOrigins`: []TrustedOrigin
-    fmt.Fprintf(os.Stdout, "Response from `TrustedOriginAPI.ListTrustedOrigins`: %v\n", resp)
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.TrustedOriginAPI.ListTrustedOrigins(context.Background()).Q(q).Filter(filter).After(after).Limit(limit).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `TrustedOriginAPI.ListTrustedOrigins``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `ListTrustedOrigins`: []TrustedOrigin
+	fmt.Fprintf(os.Stdout, "Response from `TrustedOriginAPI.ListTrustedOrigins`: %v\n", resp)
 }
 ```
 
@@ -444,25 +444,25 @@ Replace a Trusted Origin
 package main
 
 import (
-    "context"
-    "fmt"
-    "os"
-    openapiclient "github.com/okta/okta-sdk-golang"
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/okta/okta-sdk-golang"
 )
 
 func main() {
-    trustedOriginId := "7j2PkU1nyNIDe26ZNufR" // string | `id` of the Trusted Origin
-    trustedOrigin := *openapiclient.NewTrustedOrigin() // TrustedOrigin | 
+	trustedOriginId := "7j2PkU1nyNIDe26ZNufR" // string | `id` of the Trusted Origin
+	trustedOrigin := *openapiclient.NewTrustedOrigin() // TrustedOrigin | 
 
-    configuration := openapiclient.NewConfiguration()
-    apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.TrustedOriginAPI.ReplaceTrustedOrigin(context.Background(), trustedOriginId).TrustedOrigin(trustedOrigin).Execute()
-    if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `TrustedOriginAPI.ReplaceTrustedOrigin``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-    }
-    // response from `ReplaceTrustedOrigin`: TrustedOrigin
-    fmt.Fprintf(os.Stdout, "Response from `TrustedOriginAPI.ReplaceTrustedOrigin`: %v\n", resp)
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.TrustedOriginAPI.ReplaceTrustedOrigin(context.Background(), trustedOriginId).TrustedOrigin(trustedOrigin).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `TrustedOriginAPI.ReplaceTrustedOrigin``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `ReplaceTrustedOrigin`: TrustedOrigin
+	fmt.Fprintf(os.Stdout, "Response from `TrustedOriginAPI.ReplaceTrustedOrigin`: %v\n", resp)
 }
 ```
 

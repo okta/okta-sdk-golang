@@ -30,23 +30,23 @@ Delete the Background Image
 package main
 
 import (
-    "context"
-    "fmt"
-    "os"
-    openapiclient "github.com/okta/okta-sdk-golang"
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/okta/okta-sdk-golang"
 )
 
 func main() {
-    brandId := "brandId_example" // string | The ID of the brand
-    themeId := "themeId_example" // string | The ID of the theme
+	brandId := "brandId_example" // string | The ID of the brand
+	themeId := "themeId_example" // string | The ID of the theme
 
-    configuration := openapiclient.NewConfiguration()
-    apiClient := openapiclient.NewAPIClient(configuration)
-    r, err := apiClient.ThemesAPI.DeleteBrandThemeBackgroundImage(context.Background(), brandId, themeId).Execute()
-    if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `ThemesAPI.DeleteBrandThemeBackgroundImage``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-    }
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	r, err := apiClient.ThemesAPI.DeleteBrandThemeBackgroundImage(context.Background(), brandId, themeId).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `ThemesAPI.DeleteBrandThemeBackgroundImage``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
 }
 ```
 
@@ -101,23 +101,23 @@ Delete the Favicon
 package main
 
 import (
-    "context"
-    "fmt"
-    "os"
-    openapiclient "github.com/okta/okta-sdk-golang"
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/okta/okta-sdk-golang"
 )
 
 func main() {
-    brandId := "brandId_example" // string | The ID of the brand
-    themeId := "themeId_example" // string | The ID of the theme
+	brandId := "brandId_example" // string | The ID of the brand
+	themeId := "themeId_example" // string | The ID of the theme
 
-    configuration := openapiclient.NewConfiguration()
-    apiClient := openapiclient.NewAPIClient(configuration)
-    r, err := apiClient.ThemesAPI.DeleteBrandThemeFavicon(context.Background(), brandId, themeId).Execute()
-    if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `ThemesAPI.DeleteBrandThemeFavicon``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-    }
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	r, err := apiClient.ThemesAPI.DeleteBrandThemeFavicon(context.Background(), brandId, themeId).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `ThemesAPI.DeleteBrandThemeFavicon``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
 }
 ```
 
@@ -172,23 +172,23 @@ Delete the Logo
 package main
 
 import (
-    "context"
-    "fmt"
-    "os"
-    openapiclient "github.com/okta/okta-sdk-golang"
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/okta/okta-sdk-golang"
 )
 
 func main() {
-    brandId := "brandId_example" // string | The ID of the brand
-    themeId := "themeId_example" // string | The ID of the theme
+	brandId := "brandId_example" // string | The ID of the brand
+	themeId := "themeId_example" // string | The ID of the theme
 
-    configuration := openapiclient.NewConfiguration()
-    apiClient := openapiclient.NewAPIClient(configuration)
-    r, err := apiClient.ThemesAPI.DeleteBrandThemeLogo(context.Background(), brandId, themeId).Execute()
-    if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `ThemesAPI.DeleteBrandThemeLogo``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-    }
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	r, err := apiClient.ThemesAPI.DeleteBrandThemeLogo(context.Background(), brandId, themeId).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `ThemesAPI.DeleteBrandThemeLogo``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
 }
 ```
 
@@ -243,25 +243,25 @@ Retrieve a Theme
 package main
 
 import (
-    "context"
-    "fmt"
-    "os"
-    openapiclient "github.com/okta/okta-sdk-golang"
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/okta/okta-sdk-golang"
 )
 
 func main() {
-    brandId := "brandId_example" // string | The ID of the brand
-    themeId := "themeId_example" // string | The ID of the theme
+	brandId := "brandId_example" // string | The ID of the brand
+	themeId := "themeId_example" // string | The ID of the theme
 
-    configuration := openapiclient.NewConfiguration()
-    apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.ThemesAPI.GetBrandTheme(context.Background(), brandId, themeId).Execute()
-    if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `ThemesAPI.GetBrandTheme``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-    }
-    // response from `GetBrandTheme`: ThemeResponse
-    fmt.Fprintf(os.Stdout, "Response from `ThemesAPI.GetBrandTheme`: %v\n", resp)
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.ThemesAPI.GetBrandTheme(context.Background(), brandId, themeId).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `ThemesAPI.GetBrandTheme``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `GetBrandTheme`: ThemeResponse
+	fmt.Fprintf(os.Stdout, "Response from `ThemesAPI.GetBrandTheme`: %v\n", resp)
 }
 ```
 
@@ -316,24 +316,24 @@ List all Themes
 package main
 
 import (
-    "context"
-    "fmt"
-    "os"
-    openapiclient "github.com/okta/okta-sdk-golang"
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/okta/okta-sdk-golang"
 )
 
 func main() {
-    brandId := "brandId_example" // string | The ID of the brand
+	brandId := "brandId_example" // string | The ID of the brand
 
-    configuration := openapiclient.NewConfiguration()
-    apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.ThemesAPI.ListBrandThemes(context.Background(), brandId).Execute()
-    if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `ThemesAPI.ListBrandThemes``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-    }
-    // response from `ListBrandThemes`: []ThemeResponse
-    fmt.Fprintf(os.Stdout, "Response from `ThemesAPI.ListBrandThemes`: %v\n", resp)
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.ThemesAPI.ListBrandThemes(context.Background(), brandId).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `ThemesAPI.ListBrandThemes``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `ListBrandThemes`: []ThemeResponse
+	fmt.Fprintf(os.Stdout, "Response from `ThemesAPI.ListBrandThemes`: %v\n", resp)
 }
 ```
 
@@ -386,26 +386,26 @@ Replace a Theme
 package main
 
 import (
-    "context"
-    "fmt"
-    "os"
-    openapiclient "github.com/okta/okta-sdk-golang"
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/okta/okta-sdk-golang"
 )
 
 func main() {
-    brandId := "brandId_example" // string | The ID of the brand
-    themeId := "themeId_example" // string | The ID of the theme
-    theme := *openapiclient.NewUpdateThemeRequest("EmailTemplateTouchPointVariant_example", "EndUserDashboardTouchPointVariant_example", "ErrorPageTouchPointVariant_example", "PrimaryColorHex_example", "SecondaryColorHex_example", "SignInPageTouchPointVariant_example") // UpdateThemeRequest | 
+	brandId := "brandId_example" // string | The ID of the brand
+	themeId := "themeId_example" // string | The ID of the theme
+	theme := *openapiclient.NewUpdateThemeRequest("EmailTemplateTouchPointVariant_example", "EndUserDashboardTouchPointVariant_example", "ErrorPageTouchPointVariant_example", "PrimaryColorHex_example", "SecondaryColorHex_example", "SignInPageTouchPointVariant_example") // UpdateThemeRequest | 
 
-    configuration := openapiclient.NewConfiguration()
-    apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.ThemesAPI.ReplaceBrandTheme(context.Background(), brandId, themeId).Theme(theme).Execute()
-    if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `ThemesAPI.ReplaceBrandTheme``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-    }
-    // response from `ReplaceBrandTheme`: ThemeResponse
-    fmt.Fprintf(os.Stdout, "Response from `ThemesAPI.ReplaceBrandTheme`: %v\n", resp)
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.ThemesAPI.ReplaceBrandTheme(context.Background(), brandId, themeId).Theme(theme).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `ThemesAPI.ReplaceBrandTheme``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `ReplaceBrandTheme`: ThemeResponse
+	fmt.Fprintf(os.Stdout, "Response from `ThemesAPI.ReplaceBrandTheme`: %v\n", resp)
 }
 ```
 
@@ -461,26 +461,26 @@ Upload the Background Image
 package main
 
 import (
-    "context"
-    "fmt"
-    "os"
-    openapiclient "github.com/okta/okta-sdk-golang"
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/okta/okta-sdk-golang"
 )
 
 func main() {
-    brandId := "brandId_example" // string | The ID of the brand
-    themeId := "themeId_example" // string | The ID of the theme
-    file := os.NewFile(1234, "some_file") // *os.File | 
+	brandId := "brandId_example" // string | The ID of the brand
+	themeId := "themeId_example" // string | The ID of the theme
+	file := os.NewFile(1234, "some_file") // *os.File | 
 
-    configuration := openapiclient.NewConfiguration()
-    apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.ThemesAPI.UploadBrandThemeBackgroundImage(context.Background(), brandId, themeId).File(file).Execute()
-    if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `ThemesAPI.UploadBrandThemeBackgroundImage``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-    }
-    // response from `UploadBrandThemeBackgroundImage`: ImageUploadResponse
-    fmt.Fprintf(os.Stdout, "Response from `ThemesAPI.UploadBrandThemeBackgroundImage`: %v\n", resp)
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.ThemesAPI.UploadBrandThemeBackgroundImage(context.Background(), brandId, themeId).File(file).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `ThemesAPI.UploadBrandThemeBackgroundImage``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `UploadBrandThemeBackgroundImage`: ImageUploadResponse
+	fmt.Fprintf(os.Stdout, "Response from `ThemesAPI.UploadBrandThemeBackgroundImage`: %v\n", resp)
 }
 ```
 
@@ -536,26 +536,26 @@ Upload the Favicon
 package main
 
 import (
-    "context"
-    "fmt"
-    "os"
-    openapiclient "github.com/okta/okta-sdk-golang"
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/okta/okta-sdk-golang"
 )
 
 func main() {
-    brandId := "brandId_example" // string | The ID of the brand
-    themeId := "themeId_example" // string | The ID of the theme
-    file := os.NewFile(1234, "some_file") // *os.File | 
+	brandId := "brandId_example" // string | The ID of the brand
+	themeId := "themeId_example" // string | The ID of the theme
+	file := os.NewFile(1234, "some_file") // *os.File | 
 
-    configuration := openapiclient.NewConfiguration()
-    apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.ThemesAPI.UploadBrandThemeFavicon(context.Background(), brandId, themeId).File(file).Execute()
-    if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `ThemesAPI.UploadBrandThemeFavicon``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-    }
-    // response from `UploadBrandThemeFavicon`: ImageUploadResponse
-    fmt.Fprintf(os.Stdout, "Response from `ThemesAPI.UploadBrandThemeFavicon`: %v\n", resp)
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.ThemesAPI.UploadBrandThemeFavicon(context.Background(), brandId, themeId).File(file).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `ThemesAPI.UploadBrandThemeFavicon``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `UploadBrandThemeFavicon`: ImageUploadResponse
+	fmt.Fprintf(os.Stdout, "Response from `ThemesAPI.UploadBrandThemeFavicon`: %v\n", resp)
 }
 ```
 
@@ -611,26 +611,26 @@ Upload the Logo
 package main
 
 import (
-    "context"
-    "fmt"
-    "os"
-    openapiclient "github.com/okta/okta-sdk-golang"
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/okta/okta-sdk-golang"
 )
 
 func main() {
-    brandId := "brandId_example" // string | The ID of the brand
-    themeId := "themeId_example" // string | The ID of the theme
-    file := os.NewFile(1234, "some_file") // *os.File | 
+	brandId := "brandId_example" // string | The ID of the brand
+	themeId := "themeId_example" // string | The ID of the theme
+	file := os.NewFile(1234, "some_file") // *os.File | 
 
-    configuration := openapiclient.NewConfiguration()
-    apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.ThemesAPI.UploadBrandThemeLogo(context.Background(), brandId, themeId).File(file).Execute()
-    if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `ThemesAPI.UploadBrandThemeLogo``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-    }
-    // response from `UploadBrandThemeLogo`: ImageUploadResponse
-    fmt.Fprintf(os.Stdout, "Response from `ThemesAPI.UploadBrandThemeLogo`: %v\n", resp)
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.ThemesAPI.UploadBrandThemeLogo(context.Background(), brandId, themeId).File(file).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `ThemesAPI.UploadBrandThemeLogo``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `UploadBrandThemeLogo`: ImageUploadResponse
+	fmt.Fprintf(os.Stdout, "Response from `ThemesAPI.UploadBrandThemeLogo`: %v\n", resp)
 }
 ```
 
