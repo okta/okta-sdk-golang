@@ -33,8 +33,8 @@ import (
 // UserFactorPushTransactionTimeout struct for UserFactorPushTransactionTimeout
 type UserFactorPushTransactionTimeout struct {
 	UserFactorPushTransaction
-	Profile              *UserFactorPushTransactionRejectedAllOfProfile `json:"profile,omitempty"`
-	Links                *UserFactorPushTransactionTimeoutAllOfLinks    `json:"_links,omitempty"`
+	Profile *UserFactorPushTransactionRejectedAllOfProfile `json:"profile,omitempty"`
+	Links *UserFactorPushTransactionRejectedAllOfLinks `json:"_links,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -90,9 +90,9 @@ func (o *UserFactorPushTransactionTimeout) SetProfile(v UserFactorPushTransactio
 }
 
 // GetLinks returns the Links field value if set, zero value otherwise.
-func (o *UserFactorPushTransactionTimeout) GetLinks() UserFactorPushTransactionTimeoutAllOfLinks {
+func (o *UserFactorPushTransactionTimeout) GetLinks() UserFactorPushTransactionRejectedAllOfLinks {
 	if o == nil || o.Links == nil {
-		var ret UserFactorPushTransactionTimeoutAllOfLinks
+		var ret UserFactorPushTransactionRejectedAllOfLinks
 		return ret
 	}
 	return *o.Links
@@ -100,7 +100,7 @@ func (o *UserFactorPushTransactionTimeout) GetLinks() UserFactorPushTransactionT
 
 // GetLinksOk returns a tuple with the Links field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *UserFactorPushTransactionTimeout) GetLinksOk() (*UserFactorPushTransactionTimeoutAllOfLinks, bool) {
+func (o *UserFactorPushTransactionTimeout) GetLinksOk() (*UserFactorPushTransactionRejectedAllOfLinks, bool) {
 	if o == nil || o.Links == nil {
 		return nil, false
 	}
@@ -116,8 +116,8 @@ func (o *UserFactorPushTransactionTimeout) HasLinks() bool {
 	return false
 }
 
-// SetLinks gets a reference to the given UserFactorPushTransactionTimeoutAllOfLinks and assigns it to the Links field.
-func (o *UserFactorPushTransactionTimeout) SetLinks(v UserFactorPushTransactionTimeoutAllOfLinks) {
+// SetLinks gets a reference to the given UserFactorPushTransactionRejectedAllOfLinks and assigns it to the Links field.
+func (o *UserFactorPushTransactionTimeout) SetLinks(v UserFactorPushTransactionRejectedAllOfLinks) {
 	o.Links = &v
 }
 
@@ -148,7 +148,7 @@ func (o UserFactorPushTransactionTimeout) MarshalJSON() ([]byte, error) {
 func (o *UserFactorPushTransactionTimeout) UnmarshalJSON(bytes []byte) (err error) {
 	type UserFactorPushTransactionTimeoutWithoutEmbeddedStruct struct {
 		Profile *UserFactorPushTransactionRejectedAllOfProfile `json:"profile,omitempty"`
-		Links   *UserFactorPushTransactionTimeoutAllOfLinks    `json:"_links,omitempty"`
+		Links *UserFactorPushTransactionRejectedAllOfLinks `json:"_links,omitempty"`
 	}
 
 	varUserFactorPushTransactionTimeoutWithoutEmbeddedStruct := UserFactorPushTransactionTimeoutWithoutEmbeddedStruct{}
@@ -240,3 +240,4 @@ func (v *NullableUserFactorPushTransactionTimeout) UnmarshalJSON(src []byte) err
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
+

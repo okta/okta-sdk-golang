@@ -30,10 +30,10 @@ import (
 
 // SecurityEventTokenError Error object thrown when parsing the Security Event Token
 type SecurityEventTokenError struct {
-	// Describes the error > **Note:** SET claim fields with underscores (snake case) are presented in camelcase. For example, `previous_status` appears as `previousStatus`.
+	// Describes the error > **Note:** SET claim fields with underscores (snake case) are presented in camelcase. For example, `previous_status` appears as `previousStatus`. 
 	Description *string `json:"description,omitempty"`
 	// A code that describes the category of the error
-	Err                  *string `json:"err,omitempty"`
+	Err *string `json:"err,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -195,3 +195,4 @@ func (v *NullableSecurityEventTokenError) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
+

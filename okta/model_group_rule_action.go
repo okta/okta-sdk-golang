@@ -30,7 +30,7 @@ import (
 
 // GroupRuleAction struct for GroupRuleAction
 type GroupRuleAction struct {
-	AssignUserToGroups   *GroupRuleGroupAssignment `json:"assignUserToGroups,omitempty"`
+	AssignUserToGroups *GroupRuleGroupAssignment `json:"assignUserToGroups,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -156,3 +156,4 @@ func (v *NullableGroupRuleAction) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
+

@@ -31,7 +31,7 @@ import (
 // UIElementOptions UI Schema element options object
 type UIElementOptions struct {
 	// Specifies how the input appears
-	Format               *string `json:"format,omitempty"`
+	Format *string `json:"format,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -157,3 +157,4 @@ func (v *NullableUIElementOptions) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
+

@@ -5,7 +5,7 @@
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **Self** | Pointer to [**HrefObjectSelfLink**](HrefObjectSelfLink.md) |  | [optional] 
-**Schema** | Pointer to [**UserTypeLinksAllOfSchema**](UserTypeLinksAllOfSchema.md) |  | [optional] 
+**Schema** | Pointer to [**SourceLinksAllOfSchema**](SourceLinksAllOfSchema.md) |  | [optional] 
 
 ## Methods
 
@@ -53,20 +53,20 @@ HasSelf returns a boolean if a field has been set.
 
 ### GetSchema
 
-`func (o *UserTypeLinks) GetSchema() UserTypeLinksAllOfSchema`
+`func (o *UserTypeLinks) GetSchema() SourceLinksAllOfSchema`
 
 GetSchema returns the Schema field if non-nil, zero value otherwise.
 
 ### GetSchemaOk
 
-`func (o *UserTypeLinks) GetSchemaOk() (*UserTypeLinksAllOfSchema, bool)`
+`func (o *UserTypeLinks) GetSchemaOk() (*SourceLinksAllOfSchema, bool)`
 
 GetSchemaOk returns a tuple with the Schema field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetSchema
 
-`func (o *UserTypeLinks) SetSchema(v UserTypeLinksAllOfSchema)`
+`func (o *UserTypeLinks) SetSchema(v SourceLinksAllOfSchema)`
 
 SetSchema sets Schema field to given value.
 

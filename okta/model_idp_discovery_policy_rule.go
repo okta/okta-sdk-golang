@@ -33,8 +33,8 @@ import (
 // IdpDiscoveryPolicyRule struct for IdpDiscoveryPolicyRule
 type IdpDiscoveryPolicyRule struct {
 	PolicyRule
-	Actions              *IdpPolicyRuleAction             `json:"actions,omitempty"`
-	Conditions           *IdpDiscoveryPolicyRuleCondition `json:"conditions,omitempty"`
+	Actions *IdpPolicyRuleAction `json:"actions,omitempty"`
+	Conditions *IdpDiscoveryPolicyRuleCondition `json:"conditions,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -149,7 +149,7 @@ func (o IdpDiscoveryPolicyRule) MarshalJSON() ([]byte, error) {
 
 func (o *IdpDiscoveryPolicyRule) UnmarshalJSON(bytes []byte) (err error) {
 	type IdpDiscoveryPolicyRuleWithoutEmbeddedStruct struct {
-		Actions    *IdpPolicyRuleAction             `json:"actions,omitempty"`
+		Actions *IdpPolicyRuleAction `json:"actions,omitempty"`
 		Conditions *IdpDiscoveryPolicyRuleCondition `json:"conditions,omitempty"`
 	}
 
@@ -242,3 +242,4 @@ func (v *NullableIdpDiscoveryPolicyRule) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
+

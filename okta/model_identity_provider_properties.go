@@ -30,7 +30,7 @@ import (
 
 // IdentityProviderProperties struct for IdentityProviderProperties
 type IdentityProviderProperties struct {
-	AdditionalAmr        []string `json:"additionalAmr,omitempty"`
+	AdditionalAmr []string `json:"additionalAmr,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -157,3 +157,4 @@ func (v *NullableIdentityProviderProperties) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
+

@@ -34,7 +34,7 @@ import (
 // LogStreamAws struct for LogStreamAws
 type LogStreamAws struct {
 	LogStream
-	Settings             LogStreamSettingsAws `json:"settings"`
+	Settings LogStreamSettingsAws `json:"settings"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -202,3 +202,4 @@ func (v *NullableLogStreamAws) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
+

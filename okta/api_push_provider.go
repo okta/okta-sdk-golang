@@ -30,19 +30,20 @@ import (
 	"io/ioutil"
 	"net/http"
 	"net/url"
-	"strings"
 	"time"
+	"strings"
 )
+
 
 type PushProviderAPI interface {
 
 	/*
-		CreatePushProvider Create a Push Provider
+	CreatePushProvider Create a Push Provider
 
-		Creates a new push provider. Each Push Provider must have a unique `name`.
+	Creates a new push provider. Each Push Provider must have a unique `name`.
 
-		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-		@return ApiCreatePushProviderRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@return ApiCreatePushProviderRequest
 	*/
 	CreatePushProvider(ctx context.Context) ApiCreatePushProviderRequest
 
@@ -51,13 +52,13 @@ type PushProviderAPI interface {
 	CreatePushProviderExecute(r ApiCreatePushProviderRequest) (*ListPushProviders200ResponseInner, *APIResponse, error)
 
 	/*
-		DeletePushProvider Delete a Push Provider
+	DeletePushProvider Delete a Push Provider
 
-		Deletes a push provider by `pushProviderId`. If the push provider is currently being used in the org by a custom authenticator, the delete will not be allowed.
+	Deletes a push provider by `pushProviderId`. If the push provider is currently being used in the org by a custom authenticator, the delete will not be allowed.
 
-		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-		@param pushProviderId Id of the push provider
-		@return ApiDeletePushProviderRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param pushProviderId Id of the push provider
+	@return ApiDeletePushProviderRequest
 	*/
 	DeletePushProvider(ctx context.Context, pushProviderId string) ApiDeletePushProviderRequest
 
@@ -65,13 +66,13 @@ type PushProviderAPI interface {
 	DeletePushProviderExecute(r ApiDeletePushProviderRequest) (*APIResponse, error)
 
 	/*
-		GetPushProvider Retrieve a Push Provider
+	GetPushProvider Retrieve a Push Provider
 
-		Retrieves a push provider by `pushProviderId`
+	Retrieves a push provider by `pushProviderId`
 
-		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-		@param pushProviderId Id of the push provider
-		@return ApiGetPushProviderRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param pushProviderId Id of the push provider
+	@return ApiGetPushProviderRequest
 	*/
 	GetPushProvider(ctx context.Context, pushProviderId string) ApiGetPushProviderRequest
 
@@ -80,12 +81,12 @@ type PushProviderAPI interface {
 	GetPushProviderExecute(r ApiGetPushProviderRequest) (*ListPushProviders200ResponseInner, *APIResponse, error)
 
 	/*
-		ListPushProviders List all Push Providers
+	ListPushProviders List all Push Providers
 
-		Lists all push providers
+	Lists all push providers
 
-		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-		@return ApiListPushProvidersRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@return ApiListPushProvidersRequest
 	*/
 	ListPushProviders(ctx context.Context) ApiListPushProvidersRequest
 
@@ -94,13 +95,13 @@ type PushProviderAPI interface {
 	ListPushProvidersExecute(r ApiListPushProvidersRequest) ([]ListPushProviders200ResponseInner, *APIResponse, error)
 
 	/*
-		ReplacePushProvider Replace a Push Provider
+	ReplacePushProvider Replace a Push Provider
 
-		Replaces a push provider by `pushProviderId`
+	Replaces a push provider by `pushProviderId`
 
-		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-		@param pushProviderId Id of the push provider
-		@return ApiReplacePushProviderRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param pushProviderId Id of the push provider
+	@return ApiReplacePushProviderRequest
 	*/
 	ReplacePushProvider(ctx context.Context, pushProviderId string) ApiReplacePushProviderRequest
 
@@ -113,10 +114,10 @@ type PushProviderAPI interface {
 type PushProviderAPIService service
 
 type ApiCreatePushProviderRequest struct {
-	ctx          context.Context
-	ApiService   PushProviderAPI
+	ctx context.Context
+	ApiService PushProviderAPI
 	pushProvider *ListPushProviders200ResponseInner
-	retryCount   int32
+	retryCount int32
 }
 
 func (r ApiCreatePushProviderRequest) PushProvider(pushProvider ListPushProviders200ResponseInner) ApiCreatePushProviderRequest {
@@ -133,20 +134,19 @@ CreatePushProvider Create a Push Provider
 
 Creates a new push provider. Each Push Provider must have a unique `name`.
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@return ApiCreatePushProviderRequest
+ @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+ @return ApiCreatePushProviderRequest
 */
 func (a *PushProviderAPIService) CreatePushProvider(ctx context.Context) ApiCreatePushProviderRequest {
 	return ApiCreatePushProviderRequest{
 		ApiService: a,
-		ctx:        ctx,
+		ctx: ctx,
 		retryCount: 0,
 	}
 }
 
 // Execute executes the request
-//
-//	@return ListPushProviders200ResponseInner
+//  @return ListPushProviders200ResponseInner
 func (a *PushProviderAPIService) CreatePushProviderExecute(r ApiCreatePushProviderRequest) (*ListPushProviders200ResponseInner, *APIResponse, error) {
 	var (
 		localVarHTTPMethod   = http.MethodPost
@@ -155,7 +155,7 @@ func (a *PushProviderAPIService) CreatePushProviderExecute(r ApiCreatePushProvid
 		localVarReturnValue  *ListPushProviders200ResponseInner
 		localVarHTTPResponse *http.Response
 		localAPIResponse     *APIResponse
-		err                  error
+		err 				 error
 	)
 
 	if a.client.cfg.Okta.Client.RequestTimeout > 0 {
@@ -280,16 +280,16 @@ func (a *PushProviderAPIService) CreatePushProviderExecute(r ApiCreatePushProvid
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
 		return localVarReturnValue, localAPIResponse, newErr
 	}
-
+	
 	localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
 	return localVarReturnValue, localAPIResponse, nil
 }
 
 type ApiDeletePushProviderRequest struct {
-	ctx            context.Context
-	ApiService     PushProviderAPI
+	ctx context.Context
+	ApiService PushProviderAPI
 	pushProviderId string
-	retryCount     int32
+	retryCount int32
 }
 
 func (r ApiDeletePushProviderRequest) Execute() (*APIResponse, error) {
@@ -301,16 +301,16 @@ DeletePushProvider Delete a Push Provider
 
 Deletes a push provider by `pushProviderId`. If the push provider is currently being used in the org by a custom authenticator, the delete will not be allowed.
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param pushProviderId Id of the push provider
-	@return ApiDeletePushProviderRequest
+ @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+ @param pushProviderId Id of the push provider
+ @return ApiDeletePushProviderRequest
 */
 func (a *PushProviderAPIService) DeletePushProvider(ctx context.Context, pushProviderId string) ApiDeletePushProviderRequest {
 	return ApiDeletePushProviderRequest{
-		ApiService:     a,
-		ctx:            ctx,
+		ApiService: a,
+		ctx: ctx,
 		pushProviderId: pushProviderId,
-		retryCount:     0,
+		retryCount: 0,
 	}
 }
 
@@ -322,7 +322,7 @@ func (a *PushProviderAPIService) DeletePushProviderExecute(r ApiDeletePushProvid
 		formFiles            []formFile
 		localVarHTTPResponse *http.Response
 		localAPIResponse     *APIResponse
-		err                  error
+		err 				 error
 	)
 
 	if a.client.cfg.Okta.Client.RequestTimeout > 0 {
@@ -451,10 +451,10 @@ func (a *PushProviderAPIService) DeletePushProviderExecute(r ApiDeletePushProvid
 }
 
 type ApiGetPushProviderRequest struct {
-	ctx            context.Context
-	ApiService     PushProviderAPI
+	ctx context.Context
+	ApiService PushProviderAPI
 	pushProviderId string
-	retryCount     int32
+	retryCount int32
 }
 
 func (r ApiGetPushProviderRequest) Execute() (*ListPushProviders200ResponseInner, *APIResponse, error) {
@@ -466,22 +466,21 @@ GetPushProvider Retrieve a Push Provider
 
 Retrieves a push provider by `pushProviderId`
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param pushProviderId Id of the push provider
-	@return ApiGetPushProviderRequest
+ @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+ @param pushProviderId Id of the push provider
+ @return ApiGetPushProviderRequest
 */
 func (a *PushProviderAPIService) GetPushProvider(ctx context.Context, pushProviderId string) ApiGetPushProviderRequest {
 	return ApiGetPushProviderRequest{
-		ApiService:     a,
-		ctx:            ctx,
+		ApiService: a,
+		ctx: ctx,
 		pushProviderId: pushProviderId,
-		retryCount:     0,
+		retryCount: 0,
 	}
 }
 
 // Execute executes the request
-//
-//	@return ListPushProviders200ResponseInner
+//  @return ListPushProviders200ResponseInner
 func (a *PushProviderAPIService) GetPushProviderExecute(r ApiGetPushProviderRequest) (*ListPushProviders200ResponseInner, *APIResponse, error) {
 	var (
 		localVarHTTPMethod   = http.MethodGet
@@ -490,7 +489,7 @@ func (a *PushProviderAPIService) GetPushProviderExecute(r ApiGetPushProviderRequ
 		localVarReturnValue  *ListPushProviders200ResponseInner
 		localVarHTTPResponse *http.Response
 		localAPIResponse     *APIResponse
-		err                  error
+		err 				 error
 	)
 
 	if a.client.cfg.Okta.Client.RequestTimeout > 0 {
@@ -611,15 +610,15 @@ func (a *PushProviderAPIService) GetPushProviderExecute(r ApiGetPushProviderRequ
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
 		return localVarReturnValue, localAPIResponse, newErr
 	}
-
+	
 	localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
 	return localVarReturnValue, localAPIResponse, nil
 }
 
 type ApiListPushProvidersRequest struct {
-	ctx        context.Context
+	ctx context.Context
 	ApiService PushProviderAPI
-	type_      *string
+	type_ *string
 	retryCount int32
 }
 
@@ -638,20 +637,19 @@ ListPushProviders List all Push Providers
 
 Lists all push providers
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@return ApiListPushProvidersRequest
+ @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+ @return ApiListPushProvidersRequest
 */
 func (a *PushProviderAPIService) ListPushProviders(ctx context.Context) ApiListPushProvidersRequest {
 	return ApiListPushProvidersRequest{
 		ApiService: a,
-		ctx:        ctx,
+		ctx: ctx,
 		retryCount: 0,
 	}
 }
 
 // Execute executes the request
-//
-//	@return []ListPushProviders200ResponseInner
+//  @return []ListPushProviders200ResponseInner
 func (a *PushProviderAPIService) ListPushProvidersExecute(r ApiListPushProvidersRequest) ([]ListPushProviders200ResponseInner, *APIResponse, error) {
 	var (
 		localVarHTTPMethod   = http.MethodGet
@@ -660,7 +658,7 @@ func (a *PushProviderAPIService) ListPushProvidersExecute(r ApiListPushProviders
 		localVarReturnValue  []ListPushProviders200ResponseInner
 		localVarHTTPResponse *http.Response
 		localAPIResponse     *APIResponse
-		err                  error
+		err 				 error
 	)
 
 	if a.client.cfg.Okta.Client.RequestTimeout > 0 {
@@ -771,17 +769,17 @@ func (a *PushProviderAPIService) ListPushProvidersExecute(r ApiListPushProviders
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
 		return localVarReturnValue, localAPIResponse, newErr
 	}
-
+	
 	localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
 	return localVarReturnValue, localAPIResponse, nil
 }
 
 type ApiReplacePushProviderRequest struct {
-	ctx            context.Context
-	ApiService     PushProviderAPI
+	ctx context.Context
+	ApiService PushProviderAPI
 	pushProviderId string
-	pushProvider   *ListPushProviders200ResponseInner
-	retryCount     int32
+	pushProvider *ListPushProviders200ResponseInner
+	retryCount int32
 }
 
 func (r ApiReplacePushProviderRequest) PushProvider(pushProvider ListPushProviders200ResponseInner) ApiReplacePushProviderRequest {
@@ -798,22 +796,21 @@ ReplacePushProvider Replace a Push Provider
 
 Replaces a push provider by `pushProviderId`
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param pushProviderId Id of the push provider
-	@return ApiReplacePushProviderRequest
+ @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+ @param pushProviderId Id of the push provider
+ @return ApiReplacePushProviderRequest
 */
 func (a *PushProviderAPIService) ReplacePushProvider(ctx context.Context, pushProviderId string) ApiReplacePushProviderRequest {
 	return ApiReplacePushProviderRequest{
-		ApiService:     a,
-		ctx:            ctx,
+		ApiService: a,
+		ctx: ctx,
 		pushProviderId: pushProviderId,
-		retryCount:     0,
+		retryCount: 0,
 	}
 }
 
 // Execute executes the request
-//
-//	@return ListPushProviders200ResponseInner
+//  @return ListPushProviders200ResponseInner
 func (a *PushProviderAPIService) ReplacePushProviderExecute(r ApiReplacePushProviderRequest) (*ListPushProviders200ResponseInner, *APIResponse, error) {
 	var (
 		localVarHTTPMethod   = http.MethodPut
@@ -822,7 +819,7 @@ func (a *PushProviderAPIService) ReplacePushProviderExecute(r ApiReplacePushProv
 		localVarReturnValue  *ListPushProviders200ResponseInner
 		localVarHTTPResponse *http.Response
 		localAPIResponse     *APIResponse
-		err                  error
+		err 				 error
 	)
 
 	if a.client.cfg.Okta.Client.RequestTimeout > 0 {
@@ -960,7 +957,7 @@ func (a *PushProviderAPIService) ReplacePushProviderExecute(r ApiReplacePushProv
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
 		return localVarReturnValue, localAPIResponse, newErr
 	}
-
+	
 	localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
 	return localVarReturnValue, localAPIResponse, nil
 }

@@ -30,8 +30,8 @@ import (
 
 // BundleEntitlementsResponse struct for BundleEntitlementsResponse
 type BundleEntitlementsResponse struct {
-	Entitlements         []BundleEntitlement              `json:"entitlements,omitempty"`
-	Links                *BundleEntitlementsResponseLinks `json:"_links,omitempty"`
+	Entitlements []BundleEntitlement `json:"entitlements,omitempty"`
+	Links NullableBundleEntitlementsResponseLinks `json:"_links,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -86,36 +86,46 @@ func (o *BundleEntitlementsResponse) SetEntitlements(v []BundleEntitlement) {
 	o.Entitlements = v
 }
 
-// GetLinks returns the Links field value if set, zero value otherwise.
+// GetLinks returns the Links field value if set, zero value otherwise (both if not set or set to explicit null).
 func (o *BundleEntitlementsResponse) GetLinks() BundleEntitlementsResponseLinks {
-	if o == nil || o.Links == nil {
+	if o == nil || o.Links.Get() == nil {
 		var ret BundleEntitlementsResponseLinks
 		return ret
 	}
-	return *o.Links
+	return *o.Links.Get()
 }
 
 // GetLinksOk returns a tuple with the Links field value if set, nil otherwise
 // and a boolean to check if the value has been set.
+// NOTE: If the value is an explicit nil, `nil, true` will be returned
 func (o *BundleEntitlementsResponse) GetLinksOk() (*BundleEntitlementsResponseLinks, bool) {
-	if o == nil || o.Links == nil {
+	if o == nil {
 		return nil, false
 	}
-	return o.Links, true
+	return o.Links.Get(), o.Links.IsSet()
 }
 
 // HasLinks returns a boolean if a field has been set.
 func (o *BundleEntitlementsResponse) HasLinks() bool {
-	if o != nil && o.Links != nil {
+	if o != nil && o.Links.IsSet() {
 		return true
 	}
 
 	return false
 }
 
-// SetLinks gets a reference to the given BundleEntitlementsResponseLinks and assigns it to the Links field.
+// SetLinks gets a reference to the given NullableBundleEntitlementsResponseLinks and assigns it to the Links field.
 func (o *BundleEntitlementsResponse) SetLinks(v BundleEntitlementsResponseLinks) {
-	o.Links = &v
+	o.Links.Set(&v)
+}
+// SetLinksNil sets the value for Links to be an explicit nil
+func (o *BundleEntitlementsResponse) SetLinksNil() {
+	o.Links.Set(nil)
+}
+
+// UnsetLinks ensures that no value is present for Links, not even an explicit nil
+func (o *BundleEntitlementsResponse) UnsetLinks() {
+	o.Links.Unset()
 }
 
 func (o BundleEntitlementsResponse) MarshalJSON() ([]byte, error) {
@@ -123,8 +133,8 @@ func (o BundleEntitlementsResponse) MarshalJSON() ([]byte, error) {
 	if o.Entitlements != nil {
 		toSerialize["entitlements"] = o.Entitlements
 	}
-	if o.Links != nil {
-		toSerialize["_links"] = o.Links
+	if o.Links.IsSet() {
+		toSerialize["_links"] = o.Links.Get()
 	}
 
 	for key, value := range o.AdditionalProperties {
@@ -193,3 +203,4 @@ func (v *NullableBundleEntitlementsResponse) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
+

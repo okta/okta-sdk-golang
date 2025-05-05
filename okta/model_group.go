@@ -31,16 +31,16 @@ import (
 
 // Group struct for Group
 type Group struct {
-	Created               *time.Time                        `json:"created,omitempty"`
-	Id                    *string                           `json:"id,omitempty"`
-	LastMembershipUpdated *time.Time                        `json:"lastMembershipUpdated,omitempty"`
-	LastUpdated           *time.Time                        `json:"lastUpdated,omitempty"`
-	ObjectClass           []string                          `json:"objectClass,omitempty"`
-	Profile               *GroupProfile                     `json:"profile,omitempty"`
-	Type                  *string                           `json:"type,omitempty"`
-	Embedded              map[string]map[string]interface{} `json:"_embedded,omitempty"`
-	Links                 *GroupLinks                       `json:"_links,omitempty"`
-	AdditionalProperties  map[string]interface{}
+	Created *time.Time `json:"created,omitempty"`
+	Id *string `json:"id,omitempty"`
+	LastMembershipUpdated *time.Time `json:"lastMembershipUpdated,omitempty"`
+	LastUpdated *time.Time `json:"lastUpdated,omitempty"`
+	ObjectClass []string `json:"objectClass,omitempty"`
+	Profile *GroupProfile `json:"profile,omitempty"`
+	Type *string `json:"type,omitempty"`
+	Embedded map[string]map[string]interface{} `json:"_embedded,omitempty"`
+	Links *GroupLinks `json:"_links,omitempty"`
+	AdditionalProperties map[string]interface{}
 }
 
 type _Group Group
@@ -453,3 +453,4 @@ func (v *NullableGroup) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
+

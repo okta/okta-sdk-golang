@@ -30,7 +30,7 @@ import (
 
 // CsrMetadataSubjectAltNames struct for CsrMetadataSubjectAltNames
 type CsrMetadataSubjectAltNames struct {
-	DnsNames             []string `json:"dnsNames,omitempty"`
+	DnsNames []string `json:"dnsNames,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -156,3 +156,4 @@ func (v *NullableCsrMetadataSubjectAltNames) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
+

@@ -33,10 +33,10 @@ type InlineHookRequestObjectRequest struct {
 	// The unique identifier that Okta assigned to the API request
 	Id *string `json:"id,omitempty"`
 	// The HTTP request method of the API request
-	Method *string                            `json:"method,omitempty"`
-	Url    *InlineHookRequestObjectRequestUrl `json:"url,omitempty"`
+	Method *string `json:"method,omitempty"`
+	Url *InlineHookRequestObjectRequestUrl `json:"url,omitempty"`
 	// The IP address of the client that made the API request
-	IpAddress            *string `json:"ipAddress,omitempty"`
+	IpAddress *string `json:"ipAddress,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -270,3 +270,4 @@ func (v *NullableInlineHookRequestObjectRequest) UnmarshalJSON(src []byte) error
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
+

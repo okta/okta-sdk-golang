@@ -33,7 +33,7 @@ type EventHookChannelConfigHeader struct {
 	// The optional field or header name
 	Key *string `json:"key,omitempty"`
 	// The value for the key
-	Value                *string `json:"value,omitempty"`
+	Value *string `json:"value,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -195,3 +195,4 @@ func (v *NullableEventHookChannelConfigHeader) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
+

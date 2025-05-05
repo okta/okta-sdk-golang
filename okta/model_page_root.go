@@ -30,8 +30,8 @@ import (
 
 // PageRoot struct for PageRoot
 type PageRoot struct {
-	Embedded             *PageRootEmbedded `json:"_embedded,omitempty"`
-	Links                *PageRootLinks    `json:"_links,omitempty"`
+	Embedded *PageRootEmbedded `json:"_embedded,omitempty"`
+	Links *PageRootLinks `json:"_links,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -193,3 +193,4 @@ func (v *NullablePageRoot) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
+

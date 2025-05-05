@@ -31,7 +31,7 @@ import (
 // EntityRiskPolicyRuleAllOfActionsEntityRisk The object that contains the `actions` array
 type EntityRiskPolicyRuleAllOfActionsEntityRisk struct {
 	// The `entityRisk` object's `actions` array can be empty or contain one of two `action` object value pairs. This object determines the specific response to a risk event.
-	Actions              []EntityRiskPolicyRuleActionsObject `json:"actions,omitempty"`
+	Actions []EntityRiskPolicyRuleActionsObject `json:"actions,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -157,3 +157,4 @@ func (v *NullableEntityRiskPolicyRuleAllOfActionsEntityRisk) UnmarshalJSON(src [
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
+

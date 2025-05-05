@@ -30,7 +30,7 @@ import (
 
 // SubscriptionLinks Discoverable resources related to the subscription
 type SubscriptionLinks struct {
-	Self                 *HrefObject `json:"self,omitempty"`
+	Self *HrefObject `json:"self,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -156,3 +156,4 @@ func (v *NullableSubscriptionLinks) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
+

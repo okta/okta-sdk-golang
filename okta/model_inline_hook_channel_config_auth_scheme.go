@@ -30,9 +30,9 @@ import (
 
 // InlineHookChannelConfigAuthScheme struct for InlineHookChannelConfigAuthScheme
 type InlineHookChannelConfigAuthScheme struct {
-	Key                  *string `json:"key,omitempty"`
-	Type                 *string `json:"type,omitempty"`
-	Value                *string `json:"value,omitempty"`
+	Key *string `json:"key,omitempty"`
+	Type *string `json:"type,omitempty"`
+	Value *string `json:"value,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -230,3 +230,4 @@ func (v *NullableInlineHookChannelConfigAuthScheme) UnmarshalJSON(src []byte) er
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
+

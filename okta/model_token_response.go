@@ -45,7 +45,7 @@ type TokenResponse struct {
 	// The scopes contained in the access token.
 	Scope *string `json:"scope,omitempty"`
 	// The token type in a `/token` response. The value is generally `Bearer` except for a few instances of token exchange.
-	TokenType            *string `json:"token_type,omitempty"`
+	TokenType *string `json:"token_type,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -423,3 +423,4 @@ func (v *NullableTokenResponse) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
+

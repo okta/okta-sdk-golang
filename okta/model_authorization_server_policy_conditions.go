@@ -30,7 +30,7 @@ import (
 
 // AuthorizationServerPolicyConditions struct for AuthorizationServerPolicyConditions
 type AuthorizationServerPolicyConditions struct {
-	Clients              *ClientPolicyCondition `json:"clients,omitempty"`
+	Clients *ClientPolicyCondition `json:"clients,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -156,3 +156,4 @@ func (v *NullableAuthorizationServerPolicyConditions) UnmarshalJSON(src []byte) 
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
+

@@ -30,21 +30,22 @@ import (
 	"io/ioutil"
 	"net/http"
 	"net/url"
-	"strings"
 	"time"
+	"strings"
 )
+
 
 type ApiServiceIntegrationsAPI interface {
 
 	/*
-		ActivateApiServiceIntegrationInstanceSecret Activate an API Service Integration instance Secret
+	ActivateApiServiceIntegrationInstanceSecret Activate an API Service Integration instance Secret
 
-		Activates an API Service Integration instance Secret by `secretId`
+	Activates an API Service Integration instance Secret by `secretId`
 
-		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-		@param apiServiceId `id` of the API Service Integration instance
-		@param secretId `id` of the API Service Integration instance Secret
-		@return ApiActivateApiServiceIntegrationInstanceSecretRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param apiServiceId `id` of the API Service Integration instance
+	@param secretId `id` of the API Service Integration instance Secret
+	@return ApiActivateApiServiceIntegrationInstanceSecretRequest
 	*/
 	ActivateApiServiceIntegrationInstanceSecret(ctx context.Context, apiServiceId string, secretId string) ApiActivateApiServiceIntegrationInstanceSecretRequest
 
@@ -53,12 +54,12 @@ type ApiServiceIntegrationsAPI interface {
 	ActivateApiServiceIntegrationInstanceSecretExecute(r ApiActivateApiServiceIntegrationInstanceSecretRequest) (*APIServiceIntegrationInstanceSecret, *APIResponse, error)
 
 	/*
-		CreateApiServiceIntegrationInstance Create an API Service Integration instance
+	CreateApiServiceIntegrationInstance Create an API Service Integration instance
 
-		Creates and authorizes an API Service Integration instance
+	Creates and authorizes an API Service Integration instance
 
-		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-		@return ApiCreateApiServiceIntegrationInstanceRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@return ApiCreateApiServiceIntegrationInstanceRequest
 	*/
 	CreateApiServiceIntegrationInstance(ctx context.Context) ApiCreateApiServiceIntegrationInstanceRequest
 
@@ -67,13 +68,13 @@ type ApiServiceIntegrationsAPI interface {
 	CreateApiServiceIntegrationInstanceExecute(r ApiCreateApiServiceIntegrationInstanceRequest) (*PostAPIServiceIntegrationInstance, *APIResponse, error)
 
 	/*
-		CreateApiServiceIntegrationInstanceSecret Create an API Service Integration instance Secret
+	CreateApiServiceIntegrationInstanceSecret Create an API Service Integration instance Secret
 
-		Creates an API Service Integration instance Secret object with a new active client secret. You can create up to two Secret objects. An error is returned if you attempt to create more than two Secret objects.
+	Creates an API Service Integration instance Secret object with a new active client secret. You can create up to two Secret objects. An error is returned if you attempt to create more than two Secret objects.
 
-		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-		@param apiServiceId `id` of the API Service Integration instance
-		@return ApiCreateApiServiceIntegrationInstanceSecretRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param apiServiceId `id` of the API Service Integration instance
+	@return ApiCreateApiServiceIntegrationInstanceSecretRequest
 	*/
 	CreateApiServiceIntegrationInstanceSecret(ctx context.Context, apiServiceId string) ApiCreateApiServiceIntegrationInstanceSecretRequest
 
@@ -82,14 +83,14 @@ type ApiServiceIntegrationsAPI interface {
 	CreateApiServiceIntegrationInstanceSecretExecute(r ApiCreateApiServiceIntegrationInstanceSecretRequest) (*APIServiceIntegrationInstanceSecret, *APIResponse, error)
 
 	/*
-		DeactivateApiServiceIntegrationInstanceSecret Deactivate an API Service Integration instance Secret
+	DeactivateApiServiceIntegrationInstanceSecret Deactivate an API Service Integration instance Secret
 
-		Deactivates an API Service Integration instance Secret by `secretId`
+	Deactivates an API Service Integration instance Secret by `secretId`
 
-		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-		@param apiServiceId `id` of the API Service Integration instance
-		@param secretId `id` of the API Service Integration instance Secret
-		@return ApiDeactivateApiServiceIntegrationInstanceSecretRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param apiServiceId `id` of the API Service Integration instance
+	@param secretId `id` of the API Service Integration instance Secret
+	@return ApiDeactivateApiServiceIntegrationInstanceSecretRequest
 	*/
 	DeactivateApiServiceIntegrationInstanceSecret(ctx context.Context, apiServiceId string, secretId string) ApiDeactivateApiServiceIntegrationInstanceSecretRequest
 
@@ -98,13 +99,13 @@ type ApiServiceIntegrationsAPI interface {
 	DeactivateApiServiceIntegrationInstanceSecretExecute(r ApiDeactivateApiServiceIntegrationInstanceSecretRequest) (*APIServiceIntegrationInstanceSecret, *APIResponse, error)
 
 	/*
-		DeleteApiServiceIntegrationInstance Delete an API Service Integration instance
+	DeleteApiServiceIntegrationInstance Delete an API Service Integration instance
 
-		Deletes an API Service Integration instance by `id`. This operation also revokes access to scopes that were previously granted to this API Service Integration instance.
+	Deletes an API Service Integration instance by `id`. This operation also revokes access to scopes that were previously granted to this API Service Integration instance.
 
-		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-		@param apiServiceId `id` of the API Service Integration instance
-		@return ApiDeleteApiServiceIntegrationInstanceRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param apiServiceId `id` of the API Service Integration instance
+	@return ApiDeleteApiServiceIntegrationInstanceRequest
 	*/
 	DeleteApiServiceIntegrationInstance(ctx context.Context, apiServiceId string) ApiDeleteApiServiceIntegrationInstanceRequest
 
@@ -112,14 +113,14 @@ type ApiServiceIntegrationsAPI interface {
 	DeleteApiServiceIntegrationInstanceExecute(r ApiDeleteApiServiceIntegrationInstanceRequest) (*APIResponse, error)
 
 	/*
-		DeleteApiServiceIntegrationInstanceSecret Delete an API Service Integration instance Secret
+	DeleteApiServiceIntegrationInstanceSecret Delete an API Service Integration instance Secret
 
-		Deletes an API Service Integration instance Secret by `secretId`. You can only delete an inactive Secret.
+	Deletes an API Service Integration instance Secret by `secretId`. You can only delete an inactive Secret.
 
-		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-		@param apiServiceId `id` of the API Service Integration instance
-		@param secretId `id` of the API Service Integration instance Secret
-		@return ApiDeleteApiServiceIntegrationInstanceSecretRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param apiServiceId `id` of the API Service Integration instance
+	@param secretId `id` of the API Service Integration instance Secret
+	@return ApiDeleteApiServiceIntegrationInstanceSecretRequest
 	*/
 	DeleteApiServiceIntegrationInstanceSecret(ctx context.Context, apiServiceId string, secretId string) ApiDeleteApiServiceIntegrationInstanceSecretRequest
 
@@ -127,13 +128,13 @@ type ApiServiceIntegrationsAPI interface {
 	DeleteApiServiceIntegrationInstanceSecretExecute(r ApiDeleteApiServiceIntegrationInstanceSecretRequest) (*APIResponse, error)
 
 	/*
-		GetApiServiceIntegrationInstance Retrieve an API Service Integration instance
+	GetApiServiceIntegrationInstance Retrieve an API Service Integration instance
 
-		Retrieves an API Service Integration instance by `id`
+	Retrieves an API Service Integration instance by `id`
 
-		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-		@param apiServiceId `id` of the API Service Integration instance
-		@return ApiGetApiServiceIntegrationInstanceRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param apiServiceId `id` of the API Service Integration instance
+	@return ApiGetApiServiceIntegrationInstanceRequest
 	*/
 	GetApiServiceIntegrationInstance(ctx context.Context, apiServiceId string) ApiGetApiServiceIntegrationInstanceRequest
 
@@ -142,13 +143,13 @@ type ApiServiceIntegrationsAPI interface {
 	GetApiServiceIntegrationInstanceExecute(r ApiGetApiServiceIntegrationInstanceRequest) (*APIServiceIntegrationInstance, *APIResponse, error)
 
 	/*
-		ListApiServiceIntegrationInstanceSecrets List all API Service Integration instance Secrets
+	ListApiServiceIntegrationInstanceSecrets List all API Service Integration instance Secrets
 
-		Lists all client secrets for an API Service Integration instance by `apiServiceId`
+	Lists all client secrets for an API Service Integration instance by `apiServiceId`
 
-		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-		@param apiServiceId `id` of the API Service Integration instance
-		@return ApiListApiServiceIntegrationInstanceSecretsRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param apiServiceId `id` of the API Service Integration instance
+	@return ApiListApiServiceIntegrationInstanceSecretsRequest
 	*/
 	ListApiServiceIntegrationInstanceSecrets(ctx context.Context, apiServiceId string) ApiListApiServiceIntegrationInstanceSecretsRequest
 
@@ -157,12 +158,12 @@ type ApiServiceIntegrationsAPI interface {
 	ListApiServiceIntegrationInstanceSecretsExecute(r ApiListApiServiceIntegrationInstanceSecretsRequest) ([]APIServiceIntegrationInstanceSecret, *APIResponse, error)
 
 	/*
-		ListApiServiceIntegrationInstances List all API Service Integration instances
+	ListApiServiceIntegrationInstances List all API Service Integration instances
 
-		Lists all API Service Integration instances with a pagination option
+	Lists all API Service Integration instances with a pagination option
 
-		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-		@return ApiListApiServiceIntegrationInstancesRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@return ApiListApiServiceIntegrationInstancesRequest
 	*/
 	ListApiServiceIntegrationInstances(ctx context.Context) ApiListApiServiceIntegrationInstancesRequest
 
@@ -175,11 +176,11 @@ type ApiServiceIntegrationsAPI interface {
 type ApiServiceIntegrationsAPIService service
 
 type ApiActivateApiServiceIntegrationInstanceSecretRequest struct {
-	ctx          context.Context
-	ApiService   ApiServiceIntegrationsAPI
+	ctx context.Context
+	ApiService ApiServiceIntegrationsAPI
 	apiServiceId string
-	secretId     string
-	retryCount   int32
+	secretId string
+	retryCount int32
 }
 
 func (r ApiActivateApiServiceIntegrationInstanceSecretRequest) Execute() (*APIServiceIntegrationInstanceSecret, *APIResponse, error) {
@@ -191,24 +192,23 @@ ActivateApiServiceIntegrationInstanceSecret Activate an API Service Integration 
 
 Activates an API Service Integration instance Secret by `secretId`
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param apiServiceId `id` of the API Service Integration instance
-	@param secretId `id` of the API Service Integration instance Secret
-	@return ApiActivateApiServiceIntegrationInstanceSecretRequest
+ @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+ @param apiServiceId `id` of the API Service Integration instance
+ @param secretId `id` of the API Service Integration instance Secret
+ @return ApiActivateApiServiceIntegrationInstanceSecretRequest
 */
 func (a *ApiServiceIntegrationsAPIService) ActivateApiServiceIntegrationInstanceSecret(ctx context.Context, apiServiceId string, secretId string) ApiActivateApiServiceIntegrationInstanceSecretRequest {
 	return ApiActivateApiServiceIntegrationInstanceSecretRequest{
-		ApiService:   a,
-		ctx:          ctx,
+		ApiService: a,
+		ctx: ctx,
 		apiServiceId: apiServiceId,
-		secretId:     secretId,
-		retryCount:   0,
+		secretId: secretId,
+		retryCount: 0,
 	}
 }
 
 // Execute executes the request
-//
-//	@return APIServiceIntegrationInstanceSecret
+//  @return APIServiceIntegrationInstanceSecret
 func (a *ApiServiceIntegrationsAPIService) ActivateApiServiceIntegrationInstanceSecretExecute(r ApiActivateApiServiceIntegrationInstanceSecretRequest) (*APIServiceIntegrationInstanceSecret, *APIResponse, error) {
 	var (
 		localVarHTTPMethod   = http.MethodPost
@@ -217,7 +217,7 @@ func (a *ApiServiceIntegrationsAPIService) ActivateApiServiceIntegrationInstance
 		localVarReturnValue  *APIServiceIntegrationInstanceSecret
 		localVarHTTPResponse *http.Response
 		localAPIResponse     *APIResponse
-		err                  error
+		err 				 error
 	)
 
 	if a.client.cfg.Okta.Client.RequestTimeout > 0 {
@@ -351,16 +351,16 @@ func (a *ApiServiceIntegrationsAPIService) ActivateApiServiceIntegrationInstance
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
 		return localVarReturnValue, localAPIResponse, newErr
 	}
-
+	
 	localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
 	return localVarReturnValue, localAPIResponse, nil
 }
 
 type ApiCreateApiServiceIntegrationInstanceRequest struct {
-	ctx                                      context.Context
-	ApiService                               ApiServiceIntegrationsAPI
+	ctx context.Context
+	ApiService ApiServiceIntegrationsAPI
 	postAPIServiceIntegrationInstanceRequest *PostAPIServiceIntegrationInstanceRequest
-	retryCount                               int32
+	retryCount int32
 }
 
 func (r ApiCreateApiServiceIntegrationInstanceRequest) PostAPIServiceIntegrationInstanceRequest(postAPIServiceIntegrationInstanceRequest PostAPIServiceIntegrationInstanceRequest) ApiCreateApiServiceIntegrationInstanceRequest {
@@ -377,20 +377,19 @@ CreateApiServiceIntegrationInstance Create an API Service Integration instance
 
 Creates and authorizes an API Service Integration instance
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@return ApiCreateApiServiceIntegrationInstanceRequest
+ @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+ @return ApiCreateApiServiceIntegrationInstanceRequest
 */
 func (a *ApiServiceIntegrationsAPIService) CreateApiServiceIntegrationInstance(ctx context.Context) ApiCreateApiServiceIntegrationInstanceRequest {
 	return ApiCreateApiServiceIntegrationInstanceRequest{
 		ApiService: a,
-		ctx:        ctx,
+		ctx: ctx,
 		retryCount: 0,
 	}
 }
 
 // Execute executes the request
-//
-//	@return PostAPIServiceIntegrationInstance
+//  @return PostAPIServiceIntegrationInstance
 func (a *ApiServiceIntegrationsAPIService) CreateApiServiceIntegrationInstanceExecute(r ApiCreateApiServiceIntegrationInstanceRequest) (*PostAPIServiceIntegrationInstance, *APIResponse, error) {
 	var (
 		localVarHTTPMethod   = http.MethodPost
@@ -399,7 +398,7 @@ func (a *ApiServiceIntegrationsAPIService) CreateApiServiceIntegrationInstanceEx
 		localVarReturnValue  *PostAPIServiceIntegrationInstance
 		localVarHTTPResponse *http.Response
 		localAPIResponse     *APIResponse
-		err                  error
+		err 				 error
 	)
 
 	if a.client.cfg.Okta.Client.RequestTimeout > 0 {
@@ -536,16 +535,16 @@ func (a *ApiServiceIntegrationsAPIService) CreateApiServiceIntegrationInstanceEx
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
 		return localVarReturnValue, localAPIResponse, newErr
 	}
-
+	
 	localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
 	return localVarReturnValue, localAPIResponse, nil
 }
 
 type ApiCreateApiServiceIntegrationInstanceSecretRequest struct {
-	ctx          context.Context
-	ApiService   ApiServiceIntegrationsAPI
+	ctx context.Context
+	ApiService ApiServiceIntegrationsAPI
 	apiServiceId string
-	retryCount   int32
+	retryCount int32
 }
 
 func (r ApiCreateApiServiceIntegrationInstanceSecretRequest) Execute() (*APIServiceIntegrationInstanceSecret, *APIResponse, error) {
@@ -557,22 +556,21 @@ CreateApiServiceIntegrationInstanceSecret Create an API Service Integration inst
 
 Creates an API Service Integration instance Secret object with a new active client secret. You can create up to two Secret objects. An error is returned if you attempt to create more than two Secret objects.
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param apiServiceId `id` of the API Service Integration instance
-	@return ApiCreateApiServiceIntegrationInstanceSecretRequest
+ @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+ @param apiServiceId `id` of the API Service Integration instance
+ @return ApiCreateApiServiceIntegrationInstanceSecretRequest
 */
 func (a *ApiServiceIntegrationsAPIService) CreateApiServiceIntegrationInstanceSecret(ctx context.Context, apiServiceId string) ApiCreateApiServiceIntegrationInstanceSecretRequest {
 	return ApiCreateApiServiceIntegrationInstanceSecretRequest{
-		ApiService:   a,
-		ctx:          ctx,
+		ApiService: a,
+		ctx: ctx,
 		apiServiceId: apiServiceId,
-		retryCount:   0,
+		retryCount: 0,
 	}
 }
 
 // Execute executes the request
-//
-//	@return APIServiceIntegrationInstanceSecret
+//  @return APIServiceIntegrationInstanceSecret
 func (a *ApiServiceIntegrationsAPIService) CreateApiServiceIntegrationInstanceSecretExecute(r ApiCreateApiServiceIntegrationInstanceSecretRequest) (*APIServiceIntegrationInstanceSecret, *APIResponse, error) {
 	var (
 		localVarHTTPMethod   = http.MethodPost
@@ -581,7 +579,7 @@ func (a *ApiServiceIntegrationsAPIService) CreateApiServiceIntegrationInstanceSe
 		localVarReturnValue  *APIServiceIntegrationInstanceSecret
 		localVarHTTPResponse *http.Response
 		localAPIResponse     *APIResponse
-		err                  error
+		err 				 error
 	)
 
 	if a.client.cfg.Okta.Client.RequestTimeout > 0 {
@@ -714,17 +712,17 @@ func (a *ApiServiceIntegrationsAPIService) CreateApiServiceIntegrationInstanceSe
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
 		return localVarReturnValue, localAPIResponse, newErr
 	}
-
+	
 	localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
 	return localVarReturnValue, localAPIResponse, nil
 }
 
 type ApiDeactivateApiServiceIntegrationInstanceSecretRequest struct {
-	ctx          context.Context
-	ApiService   ApiServiceIntegrationsAPI
+	ctx context.Context
+	ApiService ApiServiceIntegrationsAPI
 	apiServiceId string
-	secretId     string
-	retryCount   int32
+	secretId string
+	retryCount int32
 }
 
 func (r ApiDeactivateApiServiceIntegrationInstanceSecretRequest) Execute() (*APIServiceIntegrationInstanceSecret, *APIResponse, error) {
@@ -736,24 +734,23 @@ DeactivateApiServiceIntegrationInstanceSecret Deactivate an API Service Integrat
 
 Deactivates an API Service Integration instance Secret by `secretId`
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param apiServiceId `id` of the API Service Integration instance
-	@param secretId `id` of the API Service Integration instance Secret
-	@return ApiDeactivateApiServiceIntegrationInstanceSecretRequest
+ @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+ @param apiServiceId `id` of the API Service Integration instance
+ @param secretId `id` of the API Service Integration instance Secret
+ @return ApiDeactivateApiServiceIntegrationInstanceSecretRequest
 */
 func (a *ApiServiceIntegrationsAPIService) DeactivateApiServiceIntegrationInstanceSecret(ctx context.Context, apiServiceId string, secretId string) ApiDeactivateApiServiceIntegrationInstanceSecretRequest {
 	return ApiDeactivateApiServiceIntegrationInstanceSecretRequest{
-		ApiService:   a,
-		ctx:          ctx,
+		ApiService: a,
+		ctx: ctx,
 		apiServiceId: apiServiceId,
-		secretId:     secretId,
-		retryCount:   0,
+		secretId: secretId,
+		retryCount: 0,
 	}
 }
 
 // Execute executes the request
-//
-//	@return APIServiceIntegrationInstanceSecret
+//  @return APIServiceIntegrationInstanceSecret
 func (a *ApiServiceIntegrationsAPIService) DeactivateApiServiceIntegrationInstanceSecretExecute(r ApiDeactivateApiServiceIntegrationInstanceSecretRequest) (*APIServiceIntegrationInstanceSecret, *APIResponse, error) {
 	var (
 		localVarHTTPMethod   = http.MethodPost
@@ -762,7 +759,7 @@ func (a *ApiServiceIntegrationsAPIService) DeactivateApiServiceIntegrationInstan
 		localVarReturnValue  *APIServiceIntegrationInstanceSecret
 		localVarHTTPResponse *http.Response
 		localAPIResponse     *APIResponse
-		err                  error
+		err 				 error
 	)
 
 	if a.client.cfg.Okta.Client.RequestTimeout > 0 {
@@ -896,16 +893,16 @@ func (a *ApiServiceIntegrationsAPIService) DeactivateApiServiceIntegrationInstan
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
 		return localVarReturnValue, localAPIResponse, newErr
 	}
-
+	
 	localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
 	return localVarReturnValue, localAPIResponse, nil
 }
 
 type ApiDeleteApiServiceIntegrationInstanceRequest struct {
-	ctx          context.Context
-	ApiService   ApiServiceIntegrationsAPI
+	ctx context.Context
+	ApiService ApiServiceIntegrationsAPI
 	apiServiceId string
-	retryCount   int32
+	retryCount int32
 }
 
 func (r ApiDeleteApiServiceIntegrationInstanceRequest) Execute() (*APIResponse, error) {
@@ -917,16 +914,16 @@ DeleteApiServiceIntegrationInstance Delete an API Service Integration instance
 
 Deletes an API Service Integration instance by `id`. This operation also revokes access to scopes that were previously granted to this API Service Integration instance.
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param apiServiceId `id` of the API Service Integration instance
-	@return ApiDeleteApiServiceIntegrationInstanceRequest
+ @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+ @param apiServiceId `id` of the API Service Integration instance
+ @return ApiDeleteApiServiceIntegrationInstanceRequest
 */
 func (a *ApiServiceIntegrationsAPIService) DeleteApiServiceIntegrationInstance(ctx context.Context, apiServiceId string) ApiDeleteApiServiceIntegrationInstanceRequest {
 	return ApiDeleteApiServiceIntegrationInstanceRequest{
-		ApiService:   a,
-		ctx:          ctx,
+		ApiService: a,
+		ctx: ctx,
 		apiServiceId: apiServiceId,
-		retryCount:   0,
+		retryCount: 0,
 	}
 }
 
@@ -938,7 +935,7 @@ func (a *ApiServiceIntegrationsAPIService) DeleteApiServiceIntegrationInstanceEx
 		formFiles            []formFile
 		localVarHTTPResponse *http.Response
 		localAPIResponse     *APIResponse
-		err                  error
+		err 				 error
 	)
 
 	if a.client.cfg.Okta.Client.RequestTimeout > 0 {
@@ -1067,11 +1064,11 @@ func (a *ApiServiceIntegrationsAPIService) DeleteApiServiceIntegrationInstanceEx
 }
 
 type ApiDeleteApiServiceIntegrationInstanceSecretRequest struct {
-	ctx          context.Context
-	ApiService   ApiServiceIntegrationsAPI
+	ctx context.Context
+	ApiService ApiServiceIntegrationsAPI
 	apiServiceId string
-	secretId     string
-	retryCount   int32
+	secretId string
+	retryCount int32
 }
 
 func (r ApiDeleteApiServiceIntegrationInstanceSecretRequest) Execute() (*APIResponse, error) {
@@ -1083,18 +1080,18 @@ DeleteApiServiceIntegrationInstanceSecret Delete an API Service Integration inst
 
 Deletes an API Service Integration instance Secret by `secretId`. You can only delete an inactive Secret.
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param apiServiceId `id` of the API Service Integration instance
-	@param secretId `id` of the API Service Integration instance Secret
-	@return ApiDeleteApiServiceIntegrationInstanceSecretRequest
+ @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+ @param apiServiceId `id` of the API Service Integration instance
+ @param secretId `id` of the API Service Integration instance Secret
+ @return ApiDeleteApiServiceIntegrationInstanceSecretRequest
 */
 func (a *ApiServiceIntegrationsAPIService) DeleteApiServiceIntegrationInstanceSecret(ctx context.Context, apiServiceId string, secretId string) ApiDeleteApiServiceIntegrationInstanceSecretRequest {
 	return ApiDeleteApiServiceIntegrationInstanceSecretRequest{
-		ApiService:   a,
-		ctx:          ctx,
+		ApiService: a,
+		ctx: ctx,
 		apiServiceId: apiServiceId,
-		secretId:     secretId,
-		retryCount:   0,
+		secretId: secretId,
+		retryCount: 0,
 	}
 }
 
@@ -1106,7 +1103,7 @@ func (a *ApiServiceIntegrationsAPIService) DeleteApiServiceIntegrationInstanceSe
 		formFiles            []formFile
 		localVarHTTPResponse *http.Response
 		localAPIResponse     *APIResponse
-		err                  error
+		err 				 error
 	)
 
 	if a.client.cfg.Okta.Client.RequestTimeout > 0 {
@@ -1236,10 +1233,10 @@ func (a *ApiServiceIntegrationsAPIService) DeleteApiServiceIntegrationInstanceSe
 }
 
 type ApiGetApiServiceIntegrationInstanceRequest struct {
-	ctx          context.Context
-	ApiService   ApiServiceIntegrationsAPI
+	ctx context.Context
+	ApiService ApiServiceIntegrationsAPI
 	apiServiceId string
-	retryCount   int32
+	retryCount int32
 }
 
 func (r ApiGetApiServiceIntegrationInstanceRequest) Execute() (*APIServiceIntegrationInstance, *APIResponse, error) {
@@ -1251,22 +1248,21 @@ GetApiServiceIntegrationInstance Retrieve an API Service Integration instance
 
 Retrieves an API Service Integration instance by `id`
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param apiServiceId `id` of the API Service Integration instance
-	@return ApiGetApiServiceIntegrationInstanceRequest
+ @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+ @param apiServiceId `id` of the API Service Integration instance
+ @return ApiGetApiServiceIntegrationInstanceRequest
 */
 func (a *ApiServiceIntegrationsAPIService) GetApiServiceIntegrationInstance(ctx context.Context, apiServiceId string) ApiGetApiServiceIntegrationInstanceRequest {
 	return ApiGetApiServiceIntegrationInstanceRequest{
-		ApiService:   a,
-		ctx:          ctx,
+		ApiService: a,
+		ctx: ctx,
 		apiServiceId: apiServiceId,
-		retryCount:   0,
+		retryCount: 0,
 	}
 }
 
 // Execute executes the request
-//
-//	@return APIServiceIntegrationInstance
+//  @return APIServiceIntegrationInstance
 func (a *ApiServiceIntegrationsAPIService) GetApiServiceIntegrationInstanceExecute(r ApiGetApiServiceIntegrationInstanceRequest) (*APIServiceIntegrationInstance, *APIResponse, error) {
 	var (
 		localVarHTTPMethod   = http.MethodGet
@@ -1275,7 +1271,7 @@ func (a *ApiServiceIntegrationsAPIService) GetApiServiceIntegrationInstanceExecu
 		localVarReturnValue  *APIServiceIntegrationInstance
 		localVarHTTPResponse *http.Response
 		localAPIResponse     *APIResponse
-		err                  error
+		err 				 error
 	)
 
 	if a.client.cfg.Okta.Client.RequestTimeout > 0 {
@@ -1408,16 +1404,16 @@ func (a *ApiServiceIntegrationsAPIService) GetApiServiceIntegrationInstanceExecu
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
 		return localVarReturnValue, localAPIResponse, newErr
 	}
-
+	
 	localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
 	return localVarReturnValue, localAPIResponse, nil
 }
 
 type ApiListApiServiceIntegrationInstanceSecretsRequest struct {
-	ctx          context.Context
-	ApiService   ApiServiceIntegrationsAPI
+	ctx context.Context
+	ApiService ApiServiceIntegrationsAPI
 	apiServiceId string
-	retryCount   int32
+	retryCount int32
 }
 
 func (r ApiListApiServiceIntegrationInstanceSecretsRequest) Execute() ([]APIServiceIntegrationInstanceSecret, *APIResponse, error) {
@@ -1429,22 +1425,21 @@ ListApiServiceIntegrationInstanceSecrets List all API Service Integration instan
 
 Lists all client secrets for an API Service Integration instance by `apiServiceId`
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param apiServiceId `id` of the API Service Integration instance
-	@return ApiListApiServiceIntegrationInstanceSecretsRequest
+ @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+ @param apiServiceId `id` of the API Service Integration instance
+ @return ApiListApiServiceIntegrationInstanceSecretsRequest
 */
 func (a *ApiServiceIntegrationsAPIService) ListApiServiceIntegrationInstanceSecrets(ctx context.Context, apiServiceId string) ApiListApiServiceIntegrationInstanceSecretsRequest {
 	return ApiListApiServiceIntegrationInstanceSecretsRequest{
-		ApiService:   a,
-		ctx:          ctx,
+		ApiService: a,
+		ctx: ctx,
 		apiServiceId: apiServiceId,
-		retryCount:   0,
+		retryCount: 0,
 	}
 }
 
 // Execute executes the request
-//
-//	@return []APIServiceIntegrationInstanceSecret
+//  @return []APIServiceIntegrationInstanceSecret
 func (a *ApiServiceIntegrationsAPIService) ListApiServiceIntegrationInstanceSecretsExecute(r ApiListApiServiceIntegrationInstanceSecretsRequest) ([]APIServiceIntegrationInstanceSecret, *APIResponse, error) {
 	var (
 		localVarHTTPMethod   = http.MethodGet
@@ -1453,7 +1448,7 @@ func (a *ApiServiceIntegrationsAPIService) ListApiServiceIntegrationInstanceSecr
 		localVarReturnValue  []APIServiceIntegrationInstanceSecret
 		localVarHTTPResponse *http.Response
 		localAPIResponse     *APIResponse
-		err                  error
+		err 				 error
 	)
 
 	if a.client.cfg.Okta.Client.RequestTimeout > 0 {
@@ -1586,15 +1581,15 @@ func (a *ApiServiceIntegrationsAPIService) ListApiServiceIntegrationInstanceSecr
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
 		return localVarReturnValue, localAPIResponse, newErr
 	}
-
+	
 	localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
 	return localVarReturnValue, localAPIResponse, nil
 }
 
 type ApiListApiServiceIntegrationInstancesRequest struct {
-	ctx        context.Context
+	ctx context.Context
 	ApiService ApiServiceIntegrationsAPI
-	after      *string
+	after *string
 	retryCount int32
 }
 
@@ -1613,20 +1608,19 @@ ListApiServiceIntegrationInstances List all API Service Integration instances
 
 Lists all API Service Integration instances with a pagination option
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@return ApiListApiServiceIntegrationInstancesRequest
+ @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+ @return ApiListApiServiceIntegrationInstancesRequest
 */
 func (a *ApiServiceIntegrationsAPIService) ListApiServiceIntegrationInstances(ctx context.Context) ApiListApiServiceIntegrationInstancesRequest {
 	return ApiListApiServiceIntegrationInstancesRequest{
 		ApiService: a,
-		ctx:        ctx,
+		ctx: ctx,
 		retryCount: 0,
 	}
 }
 
 // Execute executes the request
-//
-//	@return []APIServiceIntegrationInstance
+//  @return []APIServiceIntegrationInstance
 func (a *ApiServiceIntegrationsAPIService) ListApiServiceIntegrationInstancesExecute(r ApiListApiServiceIntegrationInstancesRequest) ([]APIServiceIntegrationInstance, *APIResponse, error) {
 	var (
 		localVarHTTPMethod   = http.MethodGet
@@ -1635,7 +1629,7 @@ func (a *ApiServiceIntegrationsAPIService) ListApiServiceIntegrationInstancesExe
 		localVarReturnValue  []APIServiceIntegrationInstance
 		localVarHTTPResponse *http.Response
 		localAPIResponse     *APIResponse
-		err                  error
+		err 				 error
 	)
 
 	if a.client.cfg.Okta.Client.RequestTimeout > 0 {
@@ -1758,7 +1752,7 @@ func (a *ApiServiceIntegrationsAPIService) ListApiServiceIntegrationInstancesExe
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
 		return localVarReturnValue, localAPIResponse, newErr
 	}
-
+	
 	localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
 	return localVarReturnValue, localAPIResponse, nil
 }

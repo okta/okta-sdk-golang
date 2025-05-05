@@ -30,22 +30,23 @@ import (
 	"io/ioutil"
 	"net/http"
 	"net/url"
-	"strings"
 	"time"
+	"strings"
 )
+
 
 type AuthorizationServerClientsAPI interface {
 
 	/*
-		GetRefreshTokenForAuthorizationServerAndClient Retrieve a refresh token for a Client
+	GetRefreshTokenForAuthorizationServerAndClient Retrieve a refresh token for a Client
 
-		Retrieves a refresh token for a Client
+	Retrieves a refresh token for a Client
 
-		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-		@param authServerId `id` of the Authorization Server
-		@param clientId `client_id` of the app
-		@param tokenId `id` of Token
-		@return ApiGetRefreshTokenForAuthorizationServerAndClientRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param authServerId `id` of the Authorization Server
+	@param clientId `client_id` of the app
+	@param tokenId `id` of Token
+	@return ApiGetRefreshTokenForAuthorizationServerAndClientRequest
 	*/
 	GetRefreshTokenForAuthorizationServerAndClient(ctx context.Context, authServerId string, clientId string, tokenId string) ApiGetRefreshTokenForAuthorizationServerAndClientRequest
 
@@ -54,13 +55,13 @@ type AuthorizationServerClientsAPI interface {
 	GetRefreshTokenForAuthorizationServerAndClientExecute(r ApiGetRefreshTokenForAuthorizationServerAndClientRequest) (*OAuth2RefreshToken, *APIResponse, error)
 
 	/*
-		ListOAuth2ClientsForAuthorizationServer List all Client resources for an authorization server
+	ListOAuth2ClientsForAuthorizationServer List all Client resources for an authorization server
 
-		Lists all Client resources for which the specified authorization server has tokens
+	Lists all Client resources for which the specified authorization server has tokens
 
-		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-		@param authServerId `id` of the Authorization Server
-		@return ApiListOAuth2ClientsForAuthorizationServerRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param authServerId `id` of the Authorization Server
+	@return ApiListOAuth2ClientsForAuthorizationServerRequest
 	*/
 	ListOAuth2ClientsForAuthorizationServer(ctx context.Context, authServerId string) ApiListOAuth2ClientsForAuthorizationServerRequest
 
@@ -69,14 +70,14 @@ type AuthorizationServerClientsAPI interface {
 	ListOAuth2ClientsForAuthorizationServerExecute(r ApiListOAuth2ClientsForAuthorizationServerRequest) ([]OAuth2Client, *APIResponse, error)
 
 	/*
-		ListRefreshTokensForAuthorizationServerAndClient List all refresh tokens for a Client
+	ListRefreshTokensForAuthorizationServerAndClient List all refresh tokens for a Client
 
-		Lists all refresh tokens issued by an authorization server for a specific Client
+	Lists all refresh tokens issued by an authorization server for a specific Client
 
-		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-		@param authServerId `id` of the Authorization Server
-		@param clientId `client_id` of the app
-		@return ApiListRefreshTokensForAuthorizationServerAndClientRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param authServerId `id` of the Authorization Server
+	@param clientId `client_id` of the app
+	@return ApiListRefreshTokensForAuthorizationServerAndClientRequest
 	*/
 	ListRefreshTokensForAuthorizationServerAndClient(ctx context.Context, authServerId string, clientId string) ApiListRefreshTokensForAuthorizationServerAndClientRequest
 
@@ -85,15 +86,15 @@ type AuthorizationServerClientsAPI interface {
 	ListRefreshTokensForAuthorizationServerAndClientExecute(r ApiListRefreshTokensForAuthorizationServerAndClientRequest) ([]OAuth2RefreshToken, *APIResponse, error)
 
 	/*
-		RevokeRefreshTokenForAuthorizationServerAndClient Revoke a refresh token for a Client
+	RevokeRefreshTokenForAuthorizationServerAndClient Revoke a refresh token for a Client
 
-		Revokes a refresh token for a Client
+	Revokes a refresh token for a Client
 
-		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-		@param authServerId `id` of the Authorization Server
-		@param clientId `client_id` of the app
-		@param tokenId `id` of Token
-		@return ApiRevokeRefreshTokenForAuthorizationServerAndClientRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param authServerId `id` of the Authorization Server
+	@param clientId `client_id` of the app
+	@param tokenId `id` of Token
+	@return ApiRevokeRefreshTokenForAuthorizationServerAndClientRequest
 	*/
 	RevokeRefreshTokenForAuthorizationServerAndClient(ctx context.Context, authServerId string, clientId string, tokenId string) ApiRevokeRefreshTokenForAuthorizationServerAndClientRequest
 
@@ -101,14 +102,14 @@ type AuthorizationServerClientsAPI interface {
 	RevokeRefreshTokenForAuthorizationServerAndClientExecute(r ApiRevokeRefreshTokenForAuthorizationServerAndClientRequest) (*APIResponse, error)
 
 	/*
-		RevokeRefreshTokensForAuthorizationServerAndClient Revoke all refresh tokens for a Client
+	RevokeRefreshTokensForAuthorizationServerAndClient Revoke all refresh tokens for a Client
 
-		Revokes all refresh tokens for a Client
+	Revokes all refresh tokens for a Client
 
-		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-		@param authServerId `id` of the Authorization Server
-		@param clientId `client_id` of the app
-		@return ApiRevokeRefreshTokensForAuthorizationServerAndClientRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param authServerId `id` of the Authorization Server
+	@param clientId `client_id` of the app
+	@return ApiRevokeRefreshTokensForAuthorizationServerAndClientRequest
 	*/
 	RevokeRefreshTokensForAuthorizationServerAndClient(ctx context.Context, authServerId string, clientId string) ApiRevokeRefreshTokensForAuthorizationServerAndClientRequest
 
@@ -120,13 +121,13 @@ type AuthorizationServerClientsAPI interface {
 type AuthorizationServerClientsAPIService service
 
 type ApiGetRefreshTokenForAuthorizationServerAndClientRequest struct {
-	ctx          context.Context
-	ApiService   AuthorizationServerClientsAPI
+	ctx context.Context
+	ApiService AuthorizationServerClientsAPI
 	authServerId string
-	clientId     string
-	tokenId      string
-	expand       *string
-	retryCount   int32
+	clientId string
+	tokenId string
+	expand *string
+	retryCount int32
 }
 
 // Valid value: &#x60;scope&#x60;. If specified, scope details are included in the &#x60;_embedded&#x60; attribute.
@@ -144,26 +145,25 @@ GetRefreshTokenForAuthorizationServerAndClient Retrieve a refresh token for a Cl
 
 Retrieves a refresh token for a Client
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param authServerId `id` of the Authorization Server
-	@param clientId `client_id` of the app
-	@param tokenId `id` of Token
-	@return ApiGetRefreshTokenForAuthorizationServerAndClientRequest
+ @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+ @param authServerId `id` of the Authorization Server
+ @param clientId `client_id` of the app
+ @param tokenId `id` of Token
+ @return ApiGetRefreshTokenForAuthorizationServerAndClientRequest
 */
 func (a *AuthorizationServerClientsAPIService) GetRefreshTokenForAuthorizationServerAndClient(ctx context.Context, authServerId string, clientId string, tokenId string) ApiGetRefreshTokenForAuthorizationServerAndClientRequest {
 	return ApiGetRefreshTokenForAuthorizationServerAndClientRequest{
-		ApiService:   a,
-		ctx:          ctx,
+		ApiService: a,
+		ctx: ctx,
 		authServerId: authServerId,
-		clientId:     clientId,
-		tokenId:      tokenId,
-		retryCount:   0,
+		clientId: clientId,
+		tokenId: tokenId,
+		retryCount: 0,
 	}
 }
 
 // Execute executes the request
-//
-//	@return OAuth2RefreshToken
+//  @return OAuth2RefreshToken
 func (a *AuthorizationServerClientsAPIService) GetRefreshTokenForAuthorizationServerAndClientExecute(r ApiGetRefreshTokenForAuthorizationServerAndClientRequest) (*OAuth2RefreshToken, *APIResponse, error) {
 	var (
 		localVarHTTPMethod   = http.MethodGet
@@ -172,7 +172,7 @@ func (a *AuthorizationServerClientsAPIService) GetRefreshTokenForAuthorizationSe
 		localVarReturnValue  *OAuth2RefreshToken
 		localVarHTTPResponse *http.Response
 		localAPIResponse     *APIResponse
-		err                  error
+		err 				 error
 	)
 
 	if a.client.cfg.Okta.Client.RequestTimeout > 0 {
@@ -298,16 +298,16 @@ func (a *AuthorizationServerClientsAPIService) GetRefreshTokenForAuthorizationSe
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
 		return localVarReturnValue, localAPIResponse, newErr
 	}
-
+	
 	localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
 	return localVarReturnValue, localAPIResponse, nil
 }
 
 type ApiListOAuth2ClientsForAuthorizationServerRequest struct {
-	ctx          context.Context
-	ApiService   AuthorizationServerClientsAPI
+	ctx context.Context
+	ApiService AuthorizationServerClientsAPI
 	authServerId string
-	retryCount   int32
+	retryCount int32
 }
 
 func (r ApiListOAuth2ClientsForAuthorizationServerRequest) Execute() ([]OAuth2Client, *APIResponse, error) {
@@ -319,22 +319,21 @@ ListOAuth2ClientsForAuthorizationServer List all Client resources for an authori
 
 Lists all Client resources for which the specified authorization server has tokens
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param authServerId `id` of the Authorization Server
-	@return ApiListOAuth2ClientsForAuthorizationServerRequest
+ @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+ @param authServerId `id` of the Authorization Server
+ @return ApiListOAuth2ClientsForAuthorizationServerRequest
 */
 func (a *AuthorizationServerClientsAPIService) ListOAuth2ClientsForAuthorizationServer(ctx context.Context, authServerId string) ApiListOAuth2ClientsForAuthorizationServerRequest {
 	return ApiListOAuth2ClientsForAuthorizationServerRequest{
-		ApiService:   a,
-		ctx:          ctx,
+		ApiService: a,
+		ctx: ctx,
 		authServerId: authServerId,
-		retryCount:   0,
+		retryCount: 0,
 	}
 }
 
 // Execute executes the request
-//
-//	@return []OAuth2Client
+//  @return []OAuth2Client
 func (a *AuthorizationServerClientsAPIService) ListOAuth2ClientsForAuthorizationServerExecute(r ApiListOAuth2ClientsForAuthorizationServerRequest) ([]OAuth2Client, *APIResponse, error) {
 	var (
 		localVarHTTPMethod   = http.MethodGet
@@ -343,7 +342,7 @@ func (a *AuthorizationServerClientsAPIService) ListOAuth2ClientsForAuthorization
 		localVarReturnValue  []OAuth2Client
 		localVarHTTPResponse *http.Response
 		localAPIResponse     *APIResponse
-		err                  error
+		err 				 error
 	)
 
 	if a.client.cfg.Okta.Client.RequestTimeout > 0 {
@@ -464,20 +463,20 @@ func (a *AuthorizationServerClientsAPIService) ListOAuth2ClientsForAuthorization
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
 		return localVarReturnValue, localAPIResponse, newErr
 	}
-
+	
 	localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
 	return localVarReturnValue, localAPIResponse, nil
 }
 
 type ApiListRefreshTokensForAuthorizationServerAndClientRequest struct {
-	ctx          context.Context
-	ApiService   AuthorizationServerClientsAPI
+	ctx context.Context
+	ApiService AuthorizationServerClientsAPI
 	authServerId string
-	clientId     string
-	expand       *string
-	after        *string
-	limit        *int32
-	retryCount   int32
+	clientId string
+	expand *string
+	after *string
+	limit *int32
+	retryCount int32
 }
 
 // Valid value: &#x60;scope&#x60;. If specified, scope details are included in the &#x60;_embedded&#x60; attribute.
@@ -507,24 +506,23 @@ ListRefreshTokensForAuthorizationServerAndClient List all refresh tokens for a C
 
 Lists all refresh tokens issued by an authorization server for a specific Client
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param authServerId `id` of the Authorization Server
-	@param clientId `client_id` of the app
-	@return ApiListRefreshTokensForAuthorizationServerAndClientRequest
+ @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+ @param authServerId `id` of the Authorization Server
+ @param clientId `client_id` of the app
+ @return ApiListRefreshTokensForAuthorizationServerAndClientRequest
 */
 func (a *AuthorizationServerClientsAPIService) ListRefreshTokensForAuthorizationServerAndClient(ctx context.Context, authServerId string, clientId string) ApiListRefreshTokensForAuthorizationServerAndClientRequest {
 	return ApiListRefreshTokensForAuthorizationServerAndClientRequest{
-		ApiService:   a,
-		ctx:          ctx,
+		ApiService: a,
+		ctx: ctx,
 		authServerId: authServerId,
-		clientId:     clientId,
-		retryCount:   0,
+		clientId: clientId,
+		retryCount: 0,
 	}
 }
 
 // Execute executes the request
-//
-//	@return []OAuth2RefreshToken
+//  @return []OAuth2RefreshToken
 func (a *AuthorizationServerClientsAPIService) ListRefreshTokensForAuthorizationServerAndClientExecute(r ApiListRefreshTokensForAuthorizationServerAndClientRequest) ([]OAuth2RefreshToken, *APIResponse, error) {
 	var (
 		localVarHTTPMethod   = http.MethodGet
@@ -533,7 +531,7 @@ func (a *AuthorizationServerClientsAPIService) ListRefreshTokensForAuthorization
 		localVarReturnValue  []OAuth2RefreshToken
 		localVarHTTPResponse *http.Response
 		localAPIResponse     *APIResponse
-		err                  error
+		err 				 error
 	)
 
 	if a.client.cfg.Okta.Client.RequestTimeout > 0 {
@@ -664,18 +662,18 @@ func (a *AuthorizationServerClientsAPIService) ListRefreshTokensForAuthorization
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
 		return localVarReturnValue, localAPIResponse, newErr
 	}
-
+	
 	localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
 	return localVarReturnValue, localAPIResponse, nil
 }
 
 type ApiRevokeRefreshTokenForAuthorizationServerAndClientRequest struct {
-	ctx          context.Context
-	ApiService   AuthorizationServerClientsAPI
+	ctx context.Context
+	ApiService AuthorizationServerClientsAPI
 	authServerId string
-	clientId     string
-	tokenId      string
-	retryCount   int32
+	clientId string
+	tokenId string
+	retryCount int32
 }
 
 func (r ApiRevokeRefreshTokenForAuthorizationServerAndClientRequest) Execute() (*APIResponse, error) {
@@ -687,20 +685,20 @@ RevokeRefreshTokenForAuthorizationServerAndClient Revoke a refresh token for a C
 
 Revokes a refresh token for a Client
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param authServerId `id` of the Authorization Server
-	@param clientId `client_id` of the app
-	@param tokenId `id` of Token
-	@return ApiRevokeRefreshTokenForAuthorizationServerAndClientRequest
+ @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+ @param authServerId `id` of the Authorization Server
+ @param clientId `client_id` of the app
+ @param tokenId `id` of Token
+ @return ApiRevokeRefreshTokenForAuthorizationServerAndClientRequest
 */
 func (a *AuthorizationServerClientsAPIService) RevokeRefreshTokenForAuthorizationServerAndClient(ctx context.Context, authServerId string, clientId string, tokenId string) ApiRevokeRefreshTokenForAuthorizationServerAndClientRequest {
 	return ApiRevokeRefreshTokenForAuthorizationServerAndClientRequest{
-		ApiService:   a,
-		ctx:          ctx,
+		ApiService: a,
+		ctx: ctx,
 		authServerId: authServerId,
-		clientId:     clientId,
-		tokenId:      tokenId,
-		retryCount:   0,
+		clientId: clientId,
+		tokenId: tokenId,
+		retryCount: 0,
 	}
 }
 
@@ -712,7 +710,7 @@ func (a *AuthorizationServerClientsAPIService) RevokeRefreshTokenForAuthorizatio
 		formFiles            []formFile
 		localVarHTTPResponse *http.Response
 		localAPIResponse     *APIResponse
-		err                  error
+		err 				 error
 	)
 
 	if a.client.cfg.Okta.Client.RequestTimeout > 0 {
@@ -831,11 +829,11 @@ func (a *AuthorizationServerClientsAPIService) RevokeRefreshTokenForAuthorizatio
 }
 
 type ApiRevokeRefreshTokensForAuthorizationServerAndClientRequest struct {
-	ctx          context.Context
-	ApiService   AuthorizationServerClientsAPI
+	ctx context.Context
+	ApiService AuthorizationServerClientsAPI
 	authServerId string
-	clientId     string
-	retryCount   int32
+	clientId string
+	retryCount int32
 }
 
 func (r ApiRevokeRefreshTokensForAuthorizationServerAndClientRequest) Execute() (*APIResponse, error) {
@@ -847,18 +845,18 @@ RevokeRefreshTokensForAuthorizationServerAndClient Revoke all refresh tokens for
 
 Revokes all refresh tokens for a Client
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param authServerId `id` of the Authorization Server
-	@param clientId `client_id` of the app
-	@return ApiRevokeRefreshTokensForAuthorizationServerAndClientRequest
+ @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+ @param authServerId `id` of the Authorization Server
+ @param clientId `client_id` of the app
+ @return ApiRevokeRefreshTokensForAuthorizationServerAndClientRequest
 */
 func (a *AuthorizationServerClientsAPIService) RevokeRefreshTokensForAuthorizationServerAndClient(ctx context.Context, authServerId string, clientId string) ApiRevokeRefreshTokensForAuthorizationServerAndClientRequest {
 	return ApiRevokeRefreshTokensForAuthorizationServerAndClientRequest{
-		ApiService:   a,
-		ctx:          ctx,
+		ApiService: a,
+		ctx: ctx,
 		authServerId: authServerId,
-		clientId:     clientId,
-		retryCount:   0,
+		clientId: clientId,
+		retryCount: 0,
 	}
 }
 
@@ -870,7 +868,7 @@ func (a *AuthorizationServerClientsAPIService) RevokeRefreshTokensForAuthorizati
 		formFiles            []formFile
 		localVarHTTPResponse *http.Response
 		localAPIResponse     *APIResponse
-		err                  error
+		err 				 error
 	)
 
 	if a.client.cfg.Okta.Client.RequestTimeout > 0 {

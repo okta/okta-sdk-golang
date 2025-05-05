@@ -34,7 +34,7 @@ type PasswordImportRequest struct {
 	// The type of inline hook. The password import inline hook type is `com.okta.user.credential.password.import`.
 	EventType *string `json:"eventType,omitempty"`
 	// The ID and URL of the password import inline hook
-	Source               *string `json:"source,omitempty"`
+	Source *string `json:"source,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -232,3 +232,4 @@ func (v *NullablePasswordImportRequest) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
+

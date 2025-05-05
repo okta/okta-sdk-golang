@@ -30,10 +30,10 @@ import (
 
 // DevicePolicyRuleCondition struct for DevicePolicyRuleCondition
 type DevicePolicyRuleCondition struct {
-	Migrated             *bool                              `json:"migrated,omitempty"`
-	Platform             *DevicePolicyRuleConditionPlatform `json:"platform,omitempty"`
-	Rooted               *bool                              `json:"rooted,omitempty"`
-	TrustLevel           *string                            `json:"trustLevel,omitempty"`
+	Migrated *bool `json:"migrated,omitempty"`
+	Platform *DevicePolicyRuleConditionPlatform `json:"platform,omitempty"`
+	Rooted *bool `json:"rooted,omitempty"`
+	TrustLevel *string `json:"trustLevel,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -267,3 +267,4 @@ func (v *NullableDevicePolicyRuleCondition) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
+

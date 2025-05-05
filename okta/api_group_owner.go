@@ -30,20 +30,21 @@ import (
 	"io/ioutil"
 	"net/http"
 	"net/url"
-	"strings"
 	"time"
+	"strings"
 )
+
 
 type GroupOwnerAPI interface {
 
 	/*
-		AssignGroupOwner Assign a Group Owner
+	AssignGroupOwner Assign a Group Owner
 
-		Assigns a group owner
+	Assigns a group owner
 
-		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-		@param groupId The `id` of the group
-		@return ApiAssignGroupOwnerRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param groupId The `id` of the group
+	@return ApiAssignGroupOwnerRequest
 	*/
 	AssignGroupOwner(ctx context.Context, groupId string) ApiAssignGroupOwnerRequest
 
@@ -52,14 +53,14 @@ type GroupOwnerAPI interface {
 	AssignGroupOwnerExecute(r ApiAssignGroupOwnerRequest) (*GroupOwner, *APIResponse, error)
 
 	/*
-		DeleteGroupOwner Delete a Group Owner
+	DeleteGroupOwner Delete a Group Owner
 
-		Deletes a group owner from a specific group
+	Deletes a group owner from a specific group
 
-		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-		@param groupId The `id` of the group
-		@param ownerId The `id` of the group owner
-		@return ApiDeleteGroupOwnerRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param groupId The `id` of the group
+	@param ownerId The `id` of the group owner
+	@return ApiDeleteGroupOwnerRequest
 	*/
 	DeleteGroupOwner(ctx context.Context, groupId string, ownerId string) ApiDeleteGroupOwnerRequest
 
@@ -67,13 +68,13 @@ type GroupOwnerAPI interface {
 	DeleteGroupOwnerExecute(r ApiDeleteGroupOwnerRequest) (*APIResponse, error)
 
 	/*
-		ListGroupOwners List all Group Owners
+	ListGroupOwners List all Group Owners
 
-		Lists all owners for a specific group
+	Lists all owners for a specific group
 
-		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-		@param groupId The `id` of the group
-		@return ApiListGroupOwnersRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param groupId The `id` of the group
+	@return ApiListGroupOwnersRequest
 	*/
 	ListGroupOwners(ctx context.Context, groupId string) ApiListGroupOwnersRequest
 
@@ -86,11 +87,11 @@ type GroupOwnerAPI interface {
 type GroupOwnerAPIService service
 
 type ApiAssignGroupOwnerRequest struct {
-	ctx                         context.Context
-	ApiService                  GroupOwnerAPI
-	groupId                     string
+	ctx context.Context
+	ApiService GroupOwnerAPI
+	groupId string
 	assignGroupOwnerRequestBody *AssignGroupOwnerRequestBody
-	retryCount                  int32
+	retryCount int32
 }
 
 func (r ApiAssignGroupOwnerRequest) AssignGroupOwnerRequestBody(assignGroupOwnerRequestBody AssignGroupOwnerRequestBody) ApiAssignGroupOwnerRequest {
@@ -107,22 +108,21 @@ AssignGroupOwner Assign a Group Owner
 
 Assigns a group owner
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param groupId The `id` of the group
-	@return ApiAssignGroupOwnerRequest
+ @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+ @param groupId The `id` of the group
+ @return ApiAssignGroupOwnerRequest
 */
 func (a *GroupOwnerAPIService) AssignGroupOwner(ctx context.Context, groupId string) ApiAssignGroupOwnerRequest {
 	return ApiAssignGroupOwnerRequest{
 		ApiService: a,
-		ctx:        ctx,
-		groupId:    groupId,
+		ctx: ctx,
+		groupId: groupId,
 		retryCount: 0,
 	}
 }
 
 // Execute executes the request
-//
-//	@return GroupOwner
+//  @return GroupOwner
 func (a *GroupOwnerAPIService) AssignGroupOwnerExecute(r ApiAssignGroupOwnerRequest) (*GroupOwner, *APIResponse, error) {
 	var (
 		localVarHTTPMethod   = http.MethodPost
@@ -131,7 +131,7 @@ func (a *GroupOwnerAPIService) AssignGroupOwnerExecute(r ApiAssignGroupOwnerRequ
 		localVarReturnValue  *GroupOwner
 		localVarHTTPResponse *http.Response
 		localAPIResponse     *APIResponse
-		err                  error
+		err 				 error
 	)
 
 	if a.client.cfg.Okta.Client.RequestTimeout > 0 {
@@ -269,16 +269,16 @@ func (a *GroupOwnerAPIService) AssignGroupOwnerExecute(r ApiAssignGroupOwnerRequ
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
 		return localVarReturnValue, localAPIResponse, newErr
 	}
-
+	
 	localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
 	return localVarReturnValue, localAPIResponse, nil
 }
 
 type ApiDeleteGroupOwnerRequest struct {
-	ctx        context.Context
+	ctx context.Context
 	ApiService GroupOwnerAPI
-	groupId    string
-	ownerId    string
+	groupId string
+	ownerId string
 	retryCount int32
 }
 
@@ -291,17 +291,17 @@ DeleteGroupOwner Delete a Group Owner
 
 Deletes a group owner from a specific group
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param groupId The `id` of the group
-	@param ownerId The `id` of the group owner
-	@return ApiDeleteGroupOwnerRequest
+ @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+ @param groupId The `id` of the group
+ @param ownerId The `id` of the group owner
+ @return ApiDeleteGroupOwnerRequest
 */
 func (a *GroupOwnerAPIService) DeleteGroupOwner(ctx context.Context, groupId string, ownerId string) ApiDeleteGroupOwnerRequest {
 	return ApiDeleteGroupOwnerRequest{
 		ApiService: a,
-		ctx:        ctx,
-		groupId:    groupId,
-		ownerId:    ownerId,
+		ctx: ctx,
+		groupId: groupId,
+		ownerId: ownerId,
 		retryCount: 0,
 	}
 }
@@ -314,7 +314,7 @@ func (a *GroupOwnerAPIService) DeleteGroupOwnerExecute(r ApiDeleteGroupOwnerRequ
 		formFiles            []formFile
 		localVarHTTPResponse *http.Response
 		localAPIResponse     *APIResponse
-		err                  error
+		err 				 error
 	)
 
 	if a.client.cfg.Okta.Client.RequestTimeout > 0 {
@@ -432,12 +432,12 @@ func (a *GroupOwnerAPIService) DeleteGroupOwnerExecute(r ApiDeleteGroupOwnerRequ
 }
 
 type ApiListGroupOwnersRequest struct {
-	ctx        context.Context
+	ctx context.Context
 	ApiService GroupOwnerAPI
-	groupId    string
-	search     *string
-	after      *string
-	limit      *int32
+	groupId string
+	search *string
+	after *string
+	limit *int32
 	retryCount int32
 }
 
@@ -468,22 +468,21 @@ ListGroupOwners List all Group Owners
 
 Lists all owners for a specific group
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param groupId The `id` of the group
-	@return ApiListGroupOwnersRequest
+ @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+ @param groupId The `id` of the group
+ @return ApiListGroupOwnersRequest
 */
 func (a *GroupOwnerAPIService) ListGroupOwners(ctx context.Context, groupId string) ApiListGroupOwnersRequest {
 	return ApiListGroupOwnersRequest{
 		ApiService: a,
-		ctx:        ctx,
-		groupId:    groupId,
+		ctx: ctx,
+		groupId: groupId,
 		retryCount: 0,
 	}
 }
 
 // Execute executes the request
-//
-//	@return []GroupOwner
+//  @return []GroupOwner
 func (a *GroupOwnerAPIService) ListGroupOwnersExecute(r ApiListGroupOwnersRequest) ([]GroupOwner, *APIResponse, error) {
 	var (
 		localVarHTTPMethod   = http.MethodGet
@@ -492,7 +491,7 @@ func (a *GroupOwnerAPIService) ListGroupOwnersExecute(r ApiListGroupOwnersReques
 		localVarReturnValue  []GroupOwner
 		localVarHTTPResponse *http.Response
 		localAPIResponse     *APIResponse
-		err                  error
+		err 				 error
 	)
 
 	if a.client.cfg.Okta.Client.RequestTimeout > 0 {
@@ -622,7 +621,7 @@ func (a *GroupOwnerAPIService) ListGroupOwnersExecute(r ApiListGroupOwnersReques
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
 		return localVarReturnValue, localAPIResponse, newErr
 	}
-
+	
 	localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
 	return localVarReturnValue, localAPIResponse, nil
 }

@@ -33,7 +33,7 @@ type PasswordImportRequestDataContextCredential struct {
 	// The `username` that the end user supplied when attempting to sign in to Okta.
 	Username *string `json:"username,omitempty"`
 	// The `password` that the end user supplied when attempting to sign in to Okta.
-	Password             *string `json:"password,omitempty"`
+	Password *string `json:"password,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -195,3 +195,4 @@ func (v *NullablePasswordImportRequestDataContextCredential) UnmarshalJSON(src [
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
+

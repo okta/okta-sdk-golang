@@ -30,8 +30,8 @@ import (
 
 // RoleAssignedUsers struct for RoleAssignedUsers
 type RoleAssignedUsers struct {
-	Value                []RoleAssignedUser `json:"value,omitempty"`
-	Links                *LinksNext         `json:"_links,omitempty"`
+	Value []RoleAssignedUser `json:"value,omitempty"`
+	Links *LinksNext `json:"_links,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -193,3 +193,4 @@ func (v *NullableRoleAssignedUsers) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
+

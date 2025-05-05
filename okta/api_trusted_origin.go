@@ -30,20 +30,21 @@ import (
 	"io/ioutil"
 	"net/http"
 	"net/url"
-	"strings"
 	"time"
+	"strings"
 )
+
 
 type TrustedOriginAPI interface {
 
 	/*
-		ActivateTrustedOrigin Activate a Trusted Origin
+	ActivateTrustedOrigin Activate a Trusted Origin
 
-		Activates a Trusted Origin. Sets the `status` to `ACTIVE`.
+	Activates a Trusted Origin. Sets the `status` to `ACTIVE`.
 
-		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-		@param trustedOriginId `id` of the Trusted Origin
-		@return ApiActivateTrustedOriginRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param trustedOriginId `id` of the Trusted Origin
+	@return ApiActivateTrustedOriginRequest
 	*/
 	ActivateTrustedOrigin(ctx context.Context, trustedOriginId string) ApiActivateTrustedOriginRequest
 
@@ -52,12 +53,12 @@ type TrustedOriginAPI interface {
 	ActivateTrustedOriginExecute(r ApiActivateTrustedOriginRequest) (*TrustedOrigin, *APIResponse, error)
 
 	/*
-		CreateTrustedOrigin Create a Trusted Origin
+	CreateTrustedOrigin Create a Trusted Origin
 
-		Creates a trusted origin
+	Creates a trusted origin
 
-		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-		@return ApiCreateTrustedOriginRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@return ApiCreateTrustedOriginRequest
 	*/
 	CreateTrustedOrigin(ctx context.Context) ApiCreateTrustedOriginRequest
 
@@ -66,13 +67,13 @@ type TrustedOriginAPI interface {
 	CreateTrustedOriginExecute(r ApiCreateTrustedOriginRequest) (*TrustedOrigin, *APIResponse, error)
 
 	/*
-		DeactivateTrustedOrigin Deactivate a Trusted Origin
+	DeactivateTrustedOrigin Deactivate a Trusted Origin
 
-		Deactivates a Trusted Origin. Sets the `status` to `INACTIVE`.
+	Deactivates a Trusted Origin. Sets the `status` to `INACTIVE`.
 
-		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-		@param trustedOriginId `id` of the Trusted Origin
-		@return ApiDeactivateTrustedOriginRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param trustedOriginId `id` of the Trusted Origin
+	@return ApiDeactivateTrustedOriginRequest
 	*/
 	DeactivateTrustedOrigin(ctx context.Context, trustedOriginId string) ApiDeactivateTrustedOriginRequest
 
@@ -81,13 +82,13 @@ type TrustedOriginAPI interface {
 	DeactivateTrustedOriginExecute(r ApiDeactivateTrustedOriginRequest) (*TrustedOrigin, *APIResponse, error)
 
 	/*
-		DeleteTrustedOrigin Delete a Trusted Origin
+	DeleteTrustedOrigin Delete a Trusted Origin
 
-		Deletes a trusted origin
+	Deletes a trusted origin
 
-		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-		@param trustedOriginId `id` of the Trusted Origin
-		@return ApiDeleteTrustedOriginRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param trustedOriginId `id` of the Trusted Origin
+	@return ApiDeleteTrustedOriginRequest
 	*/
 	DeleteTrustedOrigin(ctx context.Context, trustedOriginId string) ApiDeleteTrustedOriginRequest
 
@@ -95,13 +96,13 @@ type TrustedOriginAPI interface {
 	DeleteTrustedOriginExecute(r ApiDeleteTrustedOriginRequest) (*APIResponse, error)
 
 	/*
-		GetTrustedOrigin Retrieve a Trusted Origin
+	GetTrustedOrigin Retrieve a Trusted Origin
 
-		Retrieves a trusted origin
+	Retrieves a trusted origin
 
-		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-		@param trustedOriginId `id` of the Trusted Origin
-		@return ApiGetTrustedOriginRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param trustedOriginId `id` of the Trusted Origin
+	@return ApiGetTrustedOriginRequest
 	*/
 	GetTrustedOrigin(ctx context.Context, trustedOriginId string) ApiGetTrustedOriginRequest
 
@@ -110,12 +111,12 @@ type TrustedOriginAPI interface {
 	GetTrustedOriginExecute(r ApiGetTrustedOriginRequest) (*TrustedOrigin, *APIResponse, error)
 
 	/*
-		ListTrustedOrigins List all Trusted Origins
+	ListTrustedOrigins List all Trusted Origins
 
-		Lists all trusted origins
+	Lists all trusted origins
 
-		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-		@return ApiListTrustedOriginsRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@return ApiListTrustedOriginsRequest
 	*/
 	ListTrustedOrigins(ctx context.Context) ApiListTrustedOriginsRequest
 
@@ -124,13 +125,13 @@ type TrustedOriginAPI interface {
 	ListTrustedOriginsExecute(r ApiListTrustedOriginsRequest) ([]TrustedOrigin, *APIResponse, error)
 
 	/*
-		ReplaceTrustedOrigin Replace a Trusted Origin
+	ReplaceTrustedOrigin Replace a Trusted Origin
 
-		Replaces a trusted origin
+	Replaces a trusted origin
 
-		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-		@param trustedOriginId `id` of the Trusted Origin
-		@return ApiReplaceTrustedOriginRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param trustedOriginId `id` of the Trusted Origin
+	@return ApiReplaceTrustedOriginRequest
 	*/
 	ReplaceTrustedOrigin(ctx context.Context, trustedOriginId string) ApiReplaceTrustedOriginRequest
 
@@ -143,10 +144,10 @@ type TrustedOriginAPI interface {
 type TrustedOriginAPIService service
 
 type ApiActivateTrustedOriginRequest struct {
-	ctx             context.Context
-	ApiService      TrustedOriginAPI
+	ctx context.Context
+	ApiService TrustedOriginAPI
 	trustedOriginId string
-	retryCount      int32
+	retryCount int32
 }
 
 func (r ApiActivateTrustedOriginRequest) Execute() (*TrustedOrigin, *APIResponse, error) {
@@ -158,22 +159,21 @@ ActivateTrustedOrigin Activate a Trusted Origin
 
 Activates a Trusted Origin. Sets the `status` to `ACTIVE`.
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param trustedOriginId `id` of the Trusted Origin
-	@return ApiActivateTrustedOriginRequest
+ @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+ @param trustedOriginId `id` of the Trusted Origin
+ @return ApiActivateTrustedOriginRequest
 */
 func (a *TrustedOriginAPIService) ActivateTrustedOrigin(ctx context.Context, trustedOriginId string) ApiActivateTrustedOriginRequest {
 	return ApiActivateTrustedOriginRequest{
-		ApiService:      a,
-		ctx:             ctx,
+		ApiService: a,
+		ctx: ctx,
 		trustedOriginId: trustedOriginId,
-		retryCount:      0,
+		retryCount: 0,
 	}
 }
 
 // Execute executes the request
-//
-//	@return TrustedOrigin
+//  @return TrustedOrigin
 func (a *TrustedOriginAPIService) ActivateTrustedOriginExecute(r ApiActivateTrustedOriginRequest) (*TrustedOrigin, *APIResponse, error) {
 	var (
 		localVarHTTPMethod   = http.MethodPost
@@ -182,7 +182,7 @@ func (a *TrustedOriginAPIService) ActivateTrustedOriginExecute(r ApiActivateTrus
 		localVarReturnValue  *TrustedOrigin
 		localVarHTTPResponse *http.Response
 		localAPIResponse     *APIResponse
-		err                  error
+		err 				 error
 	)
 
 	if a.client.cfg.Okta.Client.RequestTimeout > 0 {
@@ -303,16 +303,16 @@ func (a *TrustedOriginAPIService) ActivateTrustedOriginExecute(r ApiActivateTrus
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
 		return localVarReturnValue, localAPIResponse, newErr
 	}
-
+	
 	localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
 	return localVarReturnValue, localAPIResponse, nil
 }
 
 type ApiCreateTrustedOriginRequest struct {
-	ctx           context.Context
-	ApiService    TrustedOriginAPI
+	ctx context.Context
+	ApiService TrustedOriginAPI
 	trustedOrigin *TrustedOriginWrite
-	retryCount    int32
+	retryCount int32
 }
 
 func (r ApiCreateTrustedOriginRequest) TrustedOrigin(trustedOrigin TrustedOriginWrite) ApiCreateTrustedOriginRequest {
@@ -329,20 +329,19 @@ CreateTrustedOrigin Create a Trusted Origin
 
 Creates a trusted origin
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@return ApiCreateTrustedOriginRequest
+ @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+ @return ApiCreateTrustedOriginRequest
 */
 func (a *TrustedOriginAPIService) CreateTrustedOrigin(ctx context.Context) ApiCreateTrustedOriginRequest {
 	return ApiCreateTrustedOriginRequest{
 		ApiService: a,
-		ctx:        ctx,
+		ctx: ctx,
 		retryCount: 0,
 	}
 }
 
 // Execute executes the request
-//
-//	@return TrustedOrigin
+//  @return TrustedOrigin
 func (a *TrustedOriginAPIService) CreateTrustedOriginExecute(r ApiCreateTrustedOriginRequest) (*TrustedOrigin, *APIResponse, error) {
 	var (
 		localVarHTTPMethod   = http.MethodPost
@@ -351,7 +350,7 @@ func (a *TrustedOriginAPIService) CreateTrustedOriginExecute(r ApiCreateTrustedO
 		localVarReturnValue  *TrustedOrigin
 		localVarHTTPResponse *http.Response
 		localAPIResponse     *APIResponse
-		err                  error
+		err 				 error
 	)
 
 	if a.client.cfg.Okta.Client.RequestTimeout > 0 {
@@ -476,16 +475,16 @@ func (a *TrustedOriginAPIService) CreateTrustedOriginExecute(r ApiCreateTrustedO
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
 		return localVarReturnValue, localAPIResponse, newErr
 	}
-
+	
 	localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
 	return localVarReturnValue, localAPIResponse, nil
 }
 
 type ApiDeactivateTrustedOriginRequest struct {
-	ctx             context.Context
-	ApiService      TrustedOriginAPI
+	ctx context.Context
+	ApiService TrustedOriginAPI
 	trustedOriginId string
-	retryCount      int32
+	retryCount int32
 }
 
 func (r ApiDeactivateTrustedOriginRequest) Execute() (*TrustedOrigin, *APIResponse, error) {
@@ -497,22 +496,21 @@ DeactivateTrustedOrigin Deactivate a Trusted Origin
 
 Deactivates a Trusted Origin. Sets the `status` to `INACTIVE`.
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param trustedOriginId `id` of the Trusted Origin
-	@return ApiDeactivateTrustedOriginRequest
+ @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+ @param trustedOriginId `id` of the Trusted Origin
+ @return ApiDeactivateTrustedOriginRequest
 */
 func (a *TrustedOriginAPIService) DeactivateTrustedOrigin(ctx context.Context, trustedOriginId string) ApiDeactivateTrustedOriginRequest {
 	return ApiDeactivateTrustedOriginRequest{
-		ApiService:      a,
-		ctx:             ctx,
+		ApiService: a,
+		ctx: ctx,
 		trustedOriginId: trustedOriginId,
-		retryCount:      0,
+		retryCount: 0,
 	}
 }
 
 // Execute executes the request
-//
-//	@return TrustedOrigin
+//  @return TrustedOrigin
 func (a *TrustedOriginAPIService) DeactivateTrustedOriginExecute(r ApiDeactivateTrustedOriginRequest) (*TrustedOrigin, *APIResponse, error) {
 	var (
 		localVarHTTPMethod   = http.MethodPost
@@ -521,7 +519,7 @@ func (a *TrustedOriginAPIService) DeactivateTrustedOriginExecute(r ApiDeactivate
 		localVarReturnValue  *TrustedOrigin
 		localVarHTTPResponse *http.Response
 		localAPIResponse     *APIResponse
-		err                  error
+		err 				 error
 	)
 
 	if a.client.cfg.Okta.Client.RequestTimeout > 0 {
@@ -642,16 +640,16 @@ func (a *TrustedOriginAPIService) DeactivateTrustedOriginExecute(r ApiDeactivate
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
 		return localVarReturnValue, localAPIResponse, newErr
 	}
-
+	
 	localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
 	return localVarReturnValue, localAPIResponse, nil
 }
 
 type ApiDeleteTrustedOriginRequest struct {
-	ctx             context.Context
-	ApiService      TrustedOriginAPI
+	ctx context.Context
+	ApiService TrustedOriginAPI
 	trustedOriginId string
-	retryCount      int32
+	retryCount int32
 }
 
 func (r ApiDeleteTrustedOriginRequest) Execute() (*APIResponse, error) {
@@ -663,16 +661,16 @@ DeleteTrustedOrigin Delete a Trusted Origin
 
 Deletes a trusted origin
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param trustedOriginId `id` of the Trusted Origin
-	@return ApiDeleteTrustedOriginRequest
+ @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+ @param trustedOriginId `id` of the Trusted Origin
+ @return ApiDeleteTrustedOriginRequest
 */
 func (a *TrustedOriginAPIService) DeleteTrustedOrigin(ctx context.Context, trustedOriginId string) ApiDeleteTrustedOriginRequest {
 	return ApiDeleteTrustedOriginRequest{
-		ApiService:      a,
-		ctx:             ctx,
+		ApiService: a,
+		ctx: ctx,
 		trustedOriginId: trustedOriginId,
-		retryCount:      0,
+		retryCount: 0,
 	}
 }
 
@@ -684,7 +682,7 @@ func (a *TrustedOriginAPIService) DeleteTrustedOriginExecute(r ApiDeleteTrustedO
 		formFiles            []formFile
 		localVarHTTPResponse *http.Response
 		localAPIResponse     *APIResponse
-		err                  error
+		err 				 error
 	)
 
 	if a.client.cfg.Okta.Client.RequestTimeout > 0 {
@@ -801,10 +799,10 @@ func (a *TrustedOriginAPIService) DeleteTrustedOriginExecute(r ApiDeleteTrustedO
 }
 
 type ApiGetTrustedOriginRequest struct {
-	ctx             context.Context
-	ApiService      TrustedOriginAPI
+	ctx context.Context
+	ApiService TrustedOriginAPI
 	trustedOriginId string
-	retryCount      int32
+	retryCount int32
 }
 
 func (r ApiGetTrustedOriginRequest) Execute() (*TrustedOrigin, *APIResponse, error) {
@@ -816,22 +814,21 @@ GetTrustedOrigin Retrieve a Trusted Origin
 
 Retrieves a trusted origin
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param trustedOriginId `id` of the Trusted Origin
-	@return ApiGetTrustedOriginRequest
+ @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+ @param trustedOriginId `id` of the Trusted Origin
+ @return ApiGetTrustedOriginRequest
 */
 func (a *TrustedOriginAPIService) GetTrustedOrigin(ctx context.Context, trustedOriginId string) ApiGetTrustedOriginRequest {
 	return ApiGetTrustedOriginRequest{
-		ApiService:      a,
-		ctx:             ctx,
+		ApiService: a,
+		ctx: ctx,
 		trustedOriginId: trustedOriginId,
-		retryCount:      0,
+		retryCount: 0,
 	}
 }
 
 // Execute executes the request
-//
-//	@return TrustedOrigin
+//  @return TrustedOrigin
 func (a *TrustedOriginAPIService) GetTrustedOriginExecute(r ApiGetTrustedOriginRequest) (*TrustedOrigin, *APIResponse, error) {
 	var (
 		localVarHTTPMethod   = http.MethodGet
@@ -840,7 +837,7 @@ func (a *TrustedOriginAPIService) GetTrustedOriginExecute(r ApiGetTrustedOriginR
 		localVarReturnValue  *TrustedOrigin
 		localVarHTTPResponse *http.Response
 		localAPIResponse     *APIResponse
-		err                  error
+		err 				 error
 	)
 
 	if a.client.cfg.Okta.Client.RequestTimeout > 0 {
@@ -961,18 +958,18 @@ func (a *TrustedOriginAPIService) GetTrustedOriginExecute(r ApiGetTrustedOriginR
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
 		return localVarReturnValue, localAPIResponse, newErr
 	}
-
+	
 	localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
 	return localVarReturnValue, localAPIResponse, nil
 }
 
 type ApiListTrustedOriginsRequest struct {
-	ctx        context.Context
+	ctx context.Context
 	ApiService TrustedOriginAPI
-	q          *string
-	filter     *string
-	after      *string
-	limit      *int32
+	q *string
+	filter *string
+	after *string
+	limit *int32
 	retryCount int32
 }
 
@@ -982,7 +979,7 @@ func (r ApiListTrustedOriginsRequest) Q(q string) ApiListTrustedOriginsRequest {
 	return r
 }
 
-// [Filter](/#filter) Trusted Origins with a supported expression for a subset of properties. You can filter on the following properties: &#x60;name&#x60;, &#x60;origin&#x60;, &#x60;status&#x60;, and &#x60;type&#x60; (type of scopes).
+// [Filter](/#filter) Trusted Origins with a supported expression for a subset of properties. You can filter on the following properties: &#x60;name&#x60;, &#x60;origin&#x60;, &#x60;status&#x60;, and &#x60;type&#x60; (type of scopes). 
 func (r ApiListTrustedOriginsRequest) Filter(filter string) ApiListTrustedOriginsRequest {
 	r.filter = &filter
 	return r
@@ -1009,20 +1006,19 @@ ListTrustedOrigins List all Trusted Origins
 
 Lists all trusted origins
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@return ApiListTrustedOriginsRequest
+ @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+ @return ApiListTrustedOriginsRequest
 */
 func (a *TrustedOriginAPIService) ListTrustedOrigins(ctx context.Context) ApiListTrustedOriginsRequest {
 	return ApiListTrustedOriginsRequest{
 		ApiService: a,
-		ctx:        ctx,
+		ctx: ctx,
 		retryCount: 0,
 	}
 }
 
 // Execute executes the request
-//
-//	@return []TrustedOrigin
+//  @return []TrustedOrigin
 func (a *TrustedOriginAPIService) ListTrustedOriginsExecute(r ApiListTrustedOriginsRequest) ([]TrustedOrigin, *APIResponse, error) {
 	var (
 		localVarHTTPMethod   = http.MethodGet
@@ -1031,7 +1027,7 @@ func (a *TrustedOriginAPIService) ListTrustedOriginsExecute(r ApiListTrustedOrig
 		localVarReturnValue  []TrustedOrigin
 		localVarHTTPResponse *http.Response
 		localAPIResponse     *APIResponse
-		err                  error
+		err 				 error
 	)
 
 	if a.client.cfg.Okta.Client.RequestTimeout > 0 {
@@ -1151,17 +1147,17 @@ func (a *TrustedOriginAPIService) ListTrustedOriginsExecute(r ApiListTrustedOrig
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
 		return localVarReturnValue, localAPIResponse, newErr
 	}
-
+	
 	localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
 	return localVarReturnValue, localAPIResponse, nil
 }
 
 type ApiReplaceTrustedOriginRequest struct {
-	ctx             context.Context
-	ApiService      TrustedOriginAPI
+	ctx context.Context
+	ApiService TrustedOriginAPI
 	trustedOriginId string
-	trustedOrigin   *TrustedOrigin
-	retryCount      int32
+	trustedOrigin *TrustedOrigin
+	retryCount int32
 }
 
 func (r ApiReplaceTrustedOriginRequest) TrustedOrigin(trustedOrigin TrustedOrigin) ApiReplaceTrustedOriginRequest {
@@ -1178,22 +1174,21 @@ ReplaceTrustedOrigin Replace a Trusted Origin
 
 Replaces a trusted origin
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param trustedOriginId `id` of the Trusted Origin
-	@return ApiReplaceTrustedOriginRequest
+ @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+ @param trustedOriginId `id` of the Trusted Origin
+ @return ApiReplaceTrustedOriginRequest
 */
 func (a *TrustedOriginAPIService) ReplaceTrustedOrigin(ctx context.Context, trustedOriginId string) ApiReplaceTrustedOriginRequest {
 	return ApiReplaceTrustedOriginRequest{
-		ApiService:      a,
-		ctx:             ctx,
+		ApiService: a,
+		ctx: ctx,
 		trustedOriginId: trustedOriginId,
-		retryCount:      0,
+		retryCount: 0,
 	}
 }
 
 // Execute executes the request
-//
-//	@return TrustedOrigin
+//  @return TrustedOrigin
 func (a *TrustedOriginAPIService) ReplaceTrustedOriginExecute(r ApiReplaceTrustedOriginRequest) (*TrustedOrigin, *APIResponse, error) {
 	var (
 		localVarHTTPMethod   = http.MethodPut
@@ -1202,7 +1197,7 @@ func (a *TrustedOriginAPIService) ReplaceTrustedOriginExecute(r ApiReplaceTruste
 		localVarReturnValue  *TrustedOrigin
 		localVarHTTPResponse *http.Response
 		localAPIResponse     *APIResponse
-		err                  error
+		err 				 error
 	)
 
 	if a.client.cfg.Okta.Client.RequestTimeout > 0 {
@@ -1340,7 +1335,7 @@ func (a *TrustedOriginAPIService) ReplaceTrustedOriginExecute(r ApiReplaceTruste
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
 		return localVarReturnValue, localAPIResponse, newErr
 	}
-
+	
 	localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
 	return localVarReturnValue, localAPIResponse, nil
 }

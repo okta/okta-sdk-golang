@@ -37,7 +37,7 @@ type SimulateResultRules struct {
 	// The name of the policy rule
 	Name *string `json:"name,omitempty"`
 	// The result of this entity evaluation
-	Status               *string `json:"status,omitempty"`
+	Status *string `json:"status,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -271,3 +271,4 @@ func (v *NullableSimulateResultRules) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
+

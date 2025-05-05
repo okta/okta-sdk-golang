@@ -35,7 +35,7 @@ type FCMConfiguration struct {
 	// Project ID of FCM configuration
 	ProjectId *string `json:"projectId,omitempty"`
 	// JSON containing the private service account key and service account details. See [Creating and managing service account keys](https://cloud.google.com/iam/docs/creating-managing-service-account-keys) for more information on creating service account keys in JSON.
-	ServiceAccountJson   map[string]interface{} `json:"serviceAccountJson,omitempty"`
+	ServiceAccountJson map[string]interface{} `json:"serviceAccountJson,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -233,3 +233,4 @@ func (v *NullableFCMConfiguration) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
+

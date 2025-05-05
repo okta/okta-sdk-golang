@@ -30,7 +30,7 @@ import (
 
 // ResourceSetBindingAddMembersRequest struct for ResourceSetBindingAddMembersRequest
 type ResourceSetBindingAddMembersRequest struct {
-	Additions            []string `json:"additions,omitempty"`
+	Additions []string `json:"additions,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -156,3 +156,4 @@ func (v *NullableResourceSetBindingAddMembersRequest) UnmarshalJSON(src []byte) 
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
+

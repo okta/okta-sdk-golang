@@ -35,7 +35,7 @@ type WebAuthnCredRequest struct {
 	// Encrypted JWE of credential request for the fulfillment provider
 	CredRequestJwe *string `json:"credRequestJwe,omitempty"`
 	// ID for the Okta response key-pair used to encrypt and decrypt credential requests and responses
-	KeyId                *string `json:"keyId,omitempty"`
+	KeyId *string `json:"keyId,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -233,3 +233,4 @@ func (v *NullableWebAuthnCredRequest) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
+

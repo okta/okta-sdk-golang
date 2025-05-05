@@ -31,7 +31,7 @@ import (
 // ClientPolicyCondition Specifies which clients are included in the Policy
 type ClientPolicyCondition struct {
 	// Which clients are included in the Policy
-	Include              []string `json:"include,omitempty"`
+	Include []string `json:"include,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -157,3 +157,4 @@ func (v *NullableClientPolicyCondition) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
+

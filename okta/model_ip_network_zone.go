@@ -36,7 +36,7 @@ type IPNetworkZone struct {
 	// The IP addresses (range or CIDR form) for an IP Network Zone. The maximum array length is 150 entries for admin-created IP zones, 1000 entries for IP blocklist zones, and 5000 entries for the default system IP Zone.
 	Gateways []NetworkZoneAddress `json:"gateways,omitempty"`
 	// The IP addresses (range or CIDR form) that are allowed to forward a request from gateway addresses for an IP Network Zone. These proxies are automatically trusted by Threat Insights and used to identify the client IP of a request. The maximum array length is 150 entries for admin-created zones and 5000 entries for the default system IP Zone.
-	Proxies              []NetworkZoneAddress `json:"proxies,omitempty"`
+	Proxies []NetworkZoneAddress `json:"proxies,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -247,3 +247,4 @@ func (v *NullableIPNetworkZone) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
+

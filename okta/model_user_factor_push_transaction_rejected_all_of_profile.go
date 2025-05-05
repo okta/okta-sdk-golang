@@ -31,7 +31,7 @@ import (
 // UserFactorPushTransactionRejectedAllOfProfile struct for UserFactorPushTransactionRejectedAllOfProfile
 type UserFactorPushTransactionRejectedAllOfProfile struct {
 	// ID for the Factor credential
-	CredentialId         *string `json:"credentialId,omitempty"`
+	CredentialId *string `json:"credentialId,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -157,3 +157,4 @@ func (v *NullableUserFactorPushTransactionRejectedAllOfProfile) UnmarshalJSON(sr
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
+

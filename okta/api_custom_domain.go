@@ -30,19 +30,20 @@ import (
 	"io/ioutil"
 	"net/http"
 	"net/url"
-	"strings"
 	"time"
+	"strings"
 )
+
 
 type CustomDomainAPI interface {
 
 	/*
-		CreateCustomDomain Create a Custom Domain
+	CreateCustomDomain Create a Custom Domain
 
-		Creates your custom domain
+	Creates your custom domain
 
-		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-		@return ApiCreateCustomDomainRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@return ApiCreateCustomDomainRequest
 	*/
 	CreateCustomDomain(ctx context.Context) ApiCreateCustomDomainRequest
 
@@ -51,13 +52,13 @@ type CustomDomainAPI interface {
 	CreateCustomDomainExecute(r ApiCreateCustomDomainRequest) (*DomainResponse, *APIResponse, error)
 
 	/*
-		DeleteCustomDomain Delete a Custom Domain
+	DeleteCustomDomain Delete a Custom Domain
 
-		Deletes a custom domain by `domainId`
+	Deletes a custom domain by `domainId`
 
-		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-		@param domainId `id` of the Domain
-		@return ApiDeleteCustomDomainRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param domainId `id` of the Domain
+	@return ApiDeleteCustomDomainRequest
 	*/
 	DeleteCustomDomain(ctx context.Context, domainId string) ApiDeleteCustomDomainRequest
 
@@ -65,13 +66,13 @@ type CustomDomainAPI interface {
 	DeleteCustomDomainExecute(r ApiDeleteCustomDomainRequest) (*APIResponse, error)
 
 	/*
-		GetCustomDomain Retrieve a Custom Domain
+	GetCustomDomain Retrieve a Custom Domain
 
-		Retrieves a custom domain by `domainId`
+	Retrieves a custom domain by `domainId`
 
-		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-		@param domainId `id` of the Domain
-		@return ApiGetCustomDomainRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param domainId `id` of the Domain
+	@return ApiGetCustomDomainRequest
 	*/
 	GetCustomDomain(ctx context.Context, domainId string) ApiGetCustomDomainRequest
 
@@ -80,12 +81,12 @@ type CustomDomainAPI interface {
 	GetCustomDomainExecute(r ApiGetCustomDomainRequest) (*DomainResponse, *APIResponse, error)
 
 	/*
-		ListCustomDomains List all Custom Domains
+	ListCustomDomains List all Custom Domains
 
-		Lists all verified custom domains for the org
+	Lists all verified custom domains for the org
 
-		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-		@return ApiListCustomDomainsRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@return ApiListCustomDomainsRequest
 	*/
 	ListCustomDomains(ctx context.Context) ApiListCustomDomainsRequest
 
@@ -94,13 +95,13 @@ type CustomDomainAPI interface {
 	ListCustomDomainsExecute(r ApiListCustomDomainsRequest) (*DomainListResponse, *APIResponse, error)
 
 	/*
-		ReplaceCustomDomain Replace a Custom Domain's Brand
+	ReplaceCustomDomain Replace a Custom Domain's Brand
 
-		Replaces a custom domain's brand
+	Replaces a custom domain's brand
 
-		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-		@param domainId `id` of the Domain
-		@return ApiReplaceCustomDomainRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param domainId `id` of the Domain
+	@return ApiReplaceCustomDomainRequest
 	*/
 	ReplaceCustomDomain(ctx context.Context, domainId string) ApiReplaceCustomDomainRequest
 
@@ -109,13 +110,13 @@ type CustomDomainAPI interface {
 	ReplaceCustomDomainExecute(r ApiReplaceCustomDomainRequest) (*DomainResponse, *APIResponse, error)
 
 	/*
-		UpsertCertificate Upsert the Custom Domain's Certificate
+	UpsertCertificate Upsert the Custom Domain's Certificate
 
-		Upserts (creates or renews) the `MANUAL` certificate for the custom domain. If the `certificateSourceType` in the domain is `OKTA_MANAGED`, it becomes `MANUAL` and Okta no longer manages and renews certificates for this domain since a user-managed certificate has been provided.
+	Upserts (creates or renews) the `MANUAL` certificate for the custom domain. If the `certificateSourceType` in the domain is `OKTA_MANAGED`, it becomes `MANUAL` and Okta no longer manages and renews certificates for this domain since a user-managed certificate has been provided.
 
-		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-		@param domainId `id` of the Domain
-		@return ApiUpsertCertificateRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param domainId `id` of the Domain
+	@return ApiUpsertCertificateRequest
 	*/
 	UpsertCertificate(ctx context.Context, domainId string) ApiUpsertCertificateRequest
 
@@ -123,13 +124,13 @@ type CustomDomainAPI interface {
 	UpsertCertificateExecute(r ApiUpsertCertificateRequest) (*APIResponse, error)
 
 	/*
-		VerifyDomain Verify a Custom Domain
+	VerifyDomain Verify a Custom Domain
 
-		Verifies the custom domain and validity of DNS records by `domainId`. Furthermore, if the `certificateSourceType` in the domain is `OKTA_MANAGED`, then an attempt is made to obtain and install a certificate. After a certificate is obtained and installed by Okta, Okta manages the certificate including certificate renewal.
+	Verifies the custom domain and validity of DNS records by `domainId`. Furthermore, if the `certificateSourceType` in the domain is `OKTA_MANAGED`, then an attempt is made to obtain and install a certificate. After a certificate is obtained and installed by Okta, Okta manages the certificate including certificate renewal.
 
-		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-		@param domainId `id` of the Domain
-		@return ApiVerifyDomainRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param domainId `id` of the Domain
+	@return ApiVerifyDomainRequest
 	*/
 	VerifyDomain(ctx context.Context, domainId string) ApiVerifyDomainRequest
 
@@ -142,9 +143,9 @@ type CustomDomainAPI interface {
 type CustomDomainAPIService service
 
 type ApiCreateCustomDomainRequest struct {
-	ctx        context.Context
+	ctx context.Context
 	ApiService CustomDomainAPI
-	domain     *DomainRequest
+	domain *DomainRequest
 	retryCount int32
 }
 
@@ -162,20 +163,19 @@ CreateCustomDomain Create a Custom Domain
 
 Creates your custom domain
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@return ApiCreateCustomDomainRequest
+ @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+ @return ApiCreateCustomDomainRequest
 */
 func (a *CustomDomainAPIService) CreateCustomDomain(ctx context.Context) ApiCreateCustomDomainRequest {
 	return ApiCreateCustomDomainRequest{
 		ApiService: a,
-		ctx:        ctx,
+		ctx: ctx,
 		retryCount: 0,
 	}
 }
 
 // Execute executes the request
-//
-//	@return DomainResponse
+//  @return DomainResponse
 func (a *CustomDomainAPIService) CreateCustomDomainExecute(r ApiCreateCustomDomainRequest) (*DomainResponse, *APIResponse, error) {
 	var (
 		localVarHTTPMethod   = http.MethodPost
@@ -184,7 +184,7 @@ func (a *CustomDomainAPIService) CreateCustomDomainExecute(r ApiCreateCustomDoma
 		localVarReturnValue  *DomainResponse
 		localVarHTTPResponse *http.Response
 		localAPIResponse     *APIResponse
-		err                  error
+		err 				 error
 	)
 
 	if a.client.cfg.Okta.Client.RequestTimeout > 0 {
@@ -309,15 +309,15 @@ func (a *CustomDomainAPIService) CreateCustomDomainExecute(r ApiCreateCustomDoma
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
 		return localVarReturnValue, localAPIResponse, newErr
 	}
-
+	
 	localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
 	return localVarReturnValue, localAPIResponse, nil
 }
 
 type ApiDeleteCustomDomainRequest struct {
-	ctx        context.Context
+	ctx context.Context
 	ApiService CustomDomainAPI
-	domainId   string
+	domainId string
 	retryCount int32
 }
 
@@ -330,15 +330,15 @@ DeleteCustomDomain Delete a Custom Domain
 
 Deletes a custom domain by `domainId`
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param domainId `id` of the Domain
-	@return ApiDeleteCustomDomainRequest
+ @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+ @param domainId `id` of the Domain
+ @return ApiDeleteCustomDomainRequest
 */
 func (a *CustomDomainAPIService) DeleteCustomDomain(ctx context.Context, domainId string) ApiDeleteCustomDomainRequest {
 	return ApiDeleteCustomDomainRequest{
 		ApiService: a,
-		ctx:        ctx,
-		domainId:   domainId,
+		ctx: ctx,
+		domainId: domainId,
 		retryCount: 0,
 	}
 }
@@ -351,7 +351,7 @@ func (a *CustomDomainAPIService) DeleteCustomDomainExecute(r ApiDeleteCustomDoma
 		formFiles            []formFile
 		localVarHTTPResponse *http.Response
 		localAPIResponse     *APIResponse
-		err                  error
+		err 				 error
 	)
 
 	if a.client.cfg.Okta.Client.RequestTimeout > 0 {
@@ -468,9 +468,9 @@ func (a *CustomDomainAPIService) DeleteCustomDomainExecute(r ApiDeleteCustomDoma
 }
 
 type ApiGetCustomDomainRequest struct {
-	ctx        context.Context
+	ctx context.Context
 	ApiService CustomDomainAPI
-	domainId   string
+	domainId string
 	retryCount int32
 }
 
@@ -483,22 +483,21 @@ GetCustomDomain Retrieve a Custom Domain
 
 Retrieves a custom domain by `domainId`
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param domainId `id` of the Domain
-	@return ApiGetCustomDomainRequest
+ @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+ @param domainId `id` of the Domain
+ @return ApiGetCustomDomainRequest
 */
 func (a *CustomDomainAPIService) GetCustomDomain(ctx context.Context, domainId string) ApiGetCustomDomainRequest {
 	return ApiGetCustomDomainRequest{
 		ApiService: a,
-		ctx:        ctx,
-		domainId:   domainId,
+		ctx: ctx,
+		domainId: domainId,
 		retryCount: 0,
 	}
 }
 
 // Execute executes the request
-//
-//	@return DomainResponse
+//  @return DomainResponse
 func (a *CustomDomainAPIService) GetCustomDomainExecute(r ApiGetCustomDomainRequest) (*DomainResponse, *APIResponse, error) {
 	var (
 		localVarHTTPMethod   = http.MethodGet
@@ -507,7 +506,7 @@ func (a *CustomDomainAPIService) GetCustomDomainExecute(r ApiGetCustomDomainRequ
 		localVarReturnValue  *DomainResponse
 		localVarHTTPResponse *http.Response
 		localAPIResponse     *APIResponse
-		err                  error
+		err 				 error
 	)
 
 	if a.client.cfg.Okta.Client.RequestTimeout > 0 {
@@ -628,13 +627,13 @@ func (a *CustomDomainAPIService) GetCustomDomainExecute(r ApiGetCustomDomainRequ
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
 		return localVarReturnValue, localAPIResponse, newErr
 	}
-
+	
 	localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
 	return localVarReturnValue, localAPIResponse, nil
 }
 
 type ApiListCustomDomainsRequest struct {
-	ctx        context.Context
+	ctx context.Context
 	ApiService CustomDomainAPI
 	retryCount int32
 }
@@ -648,20 +647,19 @@ ListCustomDomains List all Custom Domains
 
 Lists all verified custom domains for the org
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@return ApiListCustomDomainsRequest
+ @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+ @return ApiListCustomDomainsRequest
 */
 func (a *CustomDomainAPIService) ListCustomDomains(ctx context.Context) ApiListCustomDomainsRequest {
 	return ApiListCustomDomainsRequest{
 		ApiService: a,
-		ctx:        ctx,
+		ctx: ctx,
 		retryCount: 0,
 	}
 }
 
 // Execute executes the request
-//
-//	@return DomainListResponse
+//  @return DomainListResponse
 func (a *CustomDomainAPIService) ListCustomDomainsExecute(r ApiListCustomDomainsRequest) (*DomainListResponse, *APIResponse, error) {
 	var (
 		localVarHTTPMethod   = http.MethodGet
@@ -670,7 +668,7 @@ func (a *CustomDomainAPIService) ListCustomDomainsExecute(r ApiListCustomDomains
 		localVarReturnValue  *DomainListResponse
 		localVarHTTPResponse *http.Response
 		localAPIResponse     *APIResponse
-		err                  error
+		err 				 error
 	)
 
 	if a.client.cfg.Okta.Client.RequestTimeout > 0 {
@@ -778,17 +776,17 @@ func (a *CustomDomainAPIService) ListCustomDomainsExecute(r ApiListCustomDomains
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
 		return localVarReturnValue, localAPIResponse, newErr
 	}
-
+	
 	localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
 	return localVarReturnValue, localAPIResponse, nil
 }
 
 type ApiReplaceCustomDomainRequest struct {
-	ctx          context.Context
-	ApiService   CustomDomainAPI
-	domainId     string
+	ctx context.Context
+	ApiService CustomDomainAPI
+	domainId string
 	updateDomain *UpdateDomain
-	retryCount   int32
+	retryCount int32
 }
 
 func (r ApiReplaceCustomDomainRequest) UpdateDomain(updateDomain UpdateDomain) ApiReplaceCustomDomainRequest {
@@ -805,22 +803,21 @@ ReplaceCustomDomain Replace a Custom Domain's Brand
 
 Replaces a custom domain's brand
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param domainId `id` of the Domain
-	@return ApiReplaceCustomDomainRequest
+ @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+ @param domainId `id` of the Domain
+ @return ApiReplaceCustomDomainRequest
 */
 func (a *CustomDomainAPIService) ReplaceCustomDomain(ctx context.Context, domainId string) ApiReplaceCustomDomainRequest {
 	return ApiReplaceCustomDomainRequest{
 		ApiService: a,
-		ctx:        ctx,
-		domainId:   domainId,
+		ctx: ctx,
+		domainId: domainId,
 		retryCount: 0,
 	}
 }
 
 // Execute executes the request
-//
-//	@return DomainResponse
+//  @return DomainResponse
 func (a *CustomDomainAPIService) ReplaceCustomDomainExecute(r ApiReplaceCustomDomainRequest) (*DomainResponse, *APIResponse, error) {
 	var (
 		localVarHTTPMethod   = http.MethodPut
@@ -829,7 +826,7 @@ func (a *CustomDomainAPIService) ReplaceCustomDomainExecute(r ApiReplaceCustomDo
 		localVarReturnValue  *DomainResponse
 		localVarHTTPResponse *http.Response
 		localAPIResponse     *APIResponse
-		err                  error
+		err 				 error
 	)
 
 	if a.client.cfg.Okta.Client.RequestTimeout > 0 {
@@ -967,17 +964,17 @@ func (a *CustomDomainAPIService) ReplaceCustomDomainExecute(r ApiReplaceCustomDo
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
 		return localVarReturnValue, localAPIResponse, newErr
 	}
-
+	
 	localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
 	return localVarReturnValue, localAPIResponse, nil
 }
 
 type ApiUpsertCertificateRequest struct {
-	ctx         context.Context
-	ApiService  CustomDomainAPI
-	domainId    string
+	ctx context.Context
+	ApiService CustomDomainAPI
+	domainId string
 	certificate *DomainCertificate
-	retryCount  int32
+	retryCount int32
 }
 
 func (r ApiUpsertCertificateRequest) Certificate(certificate DomainCertificate) ApiUpsertCertificateRequest {
@@ -994,15 +991,15 @@ UpsertCertificate Upsert the Custom Domain's Certificate
 
 Upserts (creates or renews) the `MANUAL` certificate for the custom domain. If the `certificateSourceType` in the domain is `OKTA_MANAGED`, it becomes `MANUAL` and Okta no longer manages and renews certificates for this domain since a user-managed certificate has been provided.
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param domainId `id` of the Domain
-	@return ApiUpsertCertificateRequest
+ @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+ @param domainId `id` of the Domain
+ @return ApiUpsertCertificateRequest
 */
 func (a *CustomDomainAPIService) UpsertCertificate(ctx context.Context, domainId string) ApiUpsertCertificateRequest {
 	return ApiUpsertCertificateRequest{
 		ApiService: a,
-		ctx:        ctx,
-		domainId:   domainId,
+		ctx: ctx,
+		domainId: domainId,
 		retryCount: 0,
 	}
 }
@@ -1015,7 +1012,7 @@ func (a *CustomDomainAPIService) UpsertCertificateExecute(r ApiUpsertCertificate
 		formFiles            []formFile
 		localVarHTTPResponse *http.Response
 		localAPIResponse     *APIResponse
-		err                  error
+		err 				 error
 	)
 
 	if a.client.cfg.Okta.Client.RequestTimeout > 0 {
@@ -1149,9 +1146,9 @@ func (a *CustomDomainAPIService) UpsertCertificateExecute(r ApiUpsertCertificate
 }
 
 type ApiVerifyDomainRequest struct {
-	ctx        context.Context
+	ctx context.Context
 	ApiService CustomDomainAPI
-	domainId   string
+	domainId string
 	retryCount int32
 }
 
@@ -1164,22 +1161,21 @@ VerifyDomain Verify a Custom Domain
 
 Verifies the custom domain and validity of DNS records by `domainId`. Furthermore, if the `certificateSourceType` in the domain is `OKTA_MANAGED`, then an attempt is made to obtain and install a certificate. After a certificate is obtained and installed by Okta, Okta manages the certificate including certificate renewal.
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param domainId `id` of the Domain
-	@return ApiVerifyDomainRequest
+ @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+ @param domainId `id` of the Domain
+ @return ApiVerifyDomainRequest
 */
 func (a *CustomDomainAPIService) VerifyDomain(ctx context.Context, domainId string) ApiVerifyDomainRequest {
 	return ApiVerifyDomainRequest{
 		ApiService: a,
-		ctx:        ctx,
-		domainId:   domainId,
+		ctx: ctx,
+		domainId: domainId,
 		retryCount: 0,
 	}
 }
 
 // Execute executes the request
-//
-//	@return DomainResponse
+//  @return DomainResponse
 func (a *CustomDomainAPIService) VerifyDomainExecute(r ApiVerifyDomainRequest) (*DomainResponse, *APIResponse, error) {
 	var (
 		localVarHTTPMethod   = http.MethodPost
@@ -1188,7 +1184,7 @@ func (a *CustomDomainAPIService) VerifyDomainExecute(r ApiVerifyDomainRequest) (
 		localVarReturnValue  *DomainResponse
 		localVarHTTPResponse *http.Response
 		localAPIResponse     *APIResponse
-		err                  error
+		err 				 error
 	)
 
 	if a.client.cfg.Okta.Client.RequestTimeout > 0 {
@@ -1309,7 +1305,7 @@ func (a *CustomDomainAPIService) VerifyDomainExecute(r ApiVerifyDomainRequest) (
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
 		return localVarReturnValue, localAPIResponse, newErr
 	}
-
+	
 	localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
 	return localVarReturnValue, localAPIResponse, nil
 }

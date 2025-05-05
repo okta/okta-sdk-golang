@@ -31,13 +31,13 @@ import (
 
 // BehaviorRule struct for BehaviorRule
 type BehaviorRule struct {
-	Created              *time.Time `json:"created,omitempty"`
-	Id                   *string    `json:"id,omitempty"`
-	LastUpdated          *time.Time `json:"lastUpdated,omitempty"`
-	Name                 string     `json:"name"`
-	Status               *string    `json:"status,omitempty"`
-	Type                 string     `json:"type"`
-	Link                 *LinksSelf `json:"_link,omitempty"`
+	Created *time.Time `json:"created,omitempty"`
+	Id *string `json:"id,omitempty"`
+	LastUpdated *time.Time `json:"lastUpdated,omitempty"`
+	Name string `json:"name"`
+	Status *string `json:"status,omitempty"`
+	Type string `json:"type"`
+	Link *LinksSelf `json:"_link,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -365,3 +365,4 @@ func (v *NullableBehaviorRule) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
+

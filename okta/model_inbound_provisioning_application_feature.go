@@ -33,7 +33,7 @@ import (
 // InboundProvisioningApplicationFeature struct for InboundProvisioningApplicationFeature
 type InboundProvisioningApplicationFeature struct {
 	ApplicationFeature
-	Capabilities         *CapabilitiesInboundProvisioningObject `json:"capabilities,omitempty"`
+	Capabilities *CapabilitiesInboundProvisioningObject `json:"capabilities,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -201,3 +201,4 @@ func (v *NullableInboundProvisioningApplicationFeature) UnmarshalJSON(src []byte
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
+

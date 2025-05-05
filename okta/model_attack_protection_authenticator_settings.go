@@ -32,7 +32,7 @@ import (
 type AttackProtectionAuthenticatorSettings struct {
 	// If true, requires users to verify a possession factor before verifying a knowledge factor when the assurance requires two-factor authentication (2FA).
 	VerifyKnowledgeSecondWhen2faRequired *bool `json:"verifyKnowledgeSecondWhen2faRequired,omitempty"`
-	AdditionalProperties                 map[string]interface{}
+	AdditionalProperties map[string]interface{}
 }
 
 type _AttackProtectionAuthenticatorSettings AttackProtectionAuthenticatorSettings
@@ -161,3 +161,4 @@ func (v *NullableAttackProtectionAuthenticatorSettings) UnmarshalJSON(src []byte
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
+

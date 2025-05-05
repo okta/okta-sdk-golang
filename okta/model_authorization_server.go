@@ -32,8 +32,8 @@ import (
 // AuthorizationServer struct for AuthorizationServer
 type AuthorizationServer struct {
 	// The recipients that the tokens are intended for. This becomes the `aud` claim in an access token. Okta currently supports only one audience.
-	Audiences   []string                        `json:"audiences,omitempty"`
-	Created     *time.Time                      `json:"created,omitempty"`
+	Audiences []string `json:"audiences,omitempty"`
+	Created *time.Time `json:"created,omitempty"`
 	Credentials *AuthorizationServerCredentials `json:"credentials,omitempty"`
 	// The description of the custom authorization server
 	Description *string `json:"description,omitempty"`
@@ -42,12 +42,12 @@ type AuthorizationServer struct {
 	// The complete URL for the custom authorization server. This becomes the `iss` claim in an access token.
 	Issuer *string `json:"issuer,omitempty"`
 	// Indicates which value is specified in the issuer of the tokens that a custom authorization server returns: the Okta org domain URL or a custom domain URL.  `issuerMode` is visible if you have a custom URL domain configured or the Dynamic Issuer Mode feature enabled. If you have a custom URL domain configured, you can set a custom domain URL in a custom authorization server, and this property is returned in the appropriate responses.  When set to `ORG_URL`, then in responses, `issuer` is the Okta org domain URL: `https://${yourOktaDomain}`.  When set to `CUSTOM_URL`, then in responses, `issuer` is the custom domain URL configured in the administration user interface.  When set to `DYNAMIC`, then in responses, `issuer` is the custom domain URL if the OAuth 2.0 request was sent to the custom domain, or is the Okta org's domain URL if the OAuth 2.0 request was sent to the original Okta org domain.  After you configure a custom URL domain, all new custom authorization servers use `CUSTOM_URL` by default. If the Dynamic Issuer Mode feature is enabled, then all new custom authorization servers use `DYNAMIC` by default. All existing custom authorization servers continue to use the original value until they're changed using the Admin Console or the API. This way, existing integrations with the client and resource server continue to work after the feature is enabled.
-	IssuerMode  *string    `json:"issuerMode,omitempty"`
+	IssuerMode *string `json:"issuerMode,omitempty"`
 	LastUpdated *time.Time `json:"lastUpdated,omitempty"`
 	// The name of the custom authorization server
-	Name                 *string          `json:"name,omitempty"`
-	Status               *string          `json:"status,omitempty"`
-	Links                *AuthServerLinks `json:"_links,omitempty"`
+	Name *string `json:"name,omitempty"`
+	Status *string `json:"status,omitempty"`
+	Links *AuthServerLinks `json:"_links,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -533,3 +533,4 @@ func (v *NullableAuthorizationServer) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
+

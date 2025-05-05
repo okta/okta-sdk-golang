@@ -5,11 +5,11 @@
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **Self** | Pointer to [**HrefObjectSelfLink**](HrefObjectSelfLink.md) |  | [optional] 
-**App** | Pointer to [**AppCustomHrefObject**](AppCustomHrefObject.md) | Link to the app resource | [optional] 
+**App** | Pointer to [**AppCustomHrefObject**](AppCustomHrefObject.md) |  | [optional] 
 **Revoke** | Pointer to [**OAuth2RefreshTokenLinksAllOfRevoke**](OAuth2RefreshTokenLinksAllOfRevoke.md) |  | [optional] 
-**Client** | Pointer to [**AppCustomHrefObject**](AppCustomHrefObject.md) | Link to the client resource | [optional] 
-**User** | Pointer to [**AppCustomHrefObject**](AppCustomHrefObject.md) | Link to the user resource | [optional] 
-**AuthorizationServer** | Pointer to [**AppCustomHrefObject**](AppCustomHrefObject.md) | Link to the Token authorization server resource | [optional] 
+**Client** | Pointer to [**AppCustomHrefObject**](AppCustomHrefObject.md) |  | [optional] 
+**User** | Pointer to [**AppCustomHrefObject**](AppCustomHrefObject.md) |  | [optional] 
+**AuthorizationServer** | Pointer to [**AppCustomHrefObject**](AppCustomHrefObject.md) |  | [optional] 
 
 ## Methods
 

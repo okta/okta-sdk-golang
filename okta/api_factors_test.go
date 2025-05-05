@@ -8,16 +8,16 @@ import (
 	"github.com/stretchr/testify/assert"
 )
 
-func ListFactors() ([]ListFactors200ResponseInner, *APIResponse, error) {
-	req := apiClient.UserFactorAPI.ListFactors(apiClient.cfg.Context, "00unr46bcnSPtbcVj5d7")
+func ListFactors(t *testing.T) ([]ListFactors200ResponseInner, *APIResponse, error) {
+	if os.Getenv("OKTA_CCI") == "yes" {
+		t.Skip("Skipping testing not in CI environment")
+	}
+	req := apiClient.UserFactorAPI.ListFactors(apiClient.cfg.Context, "00unr46bc687880gnS")
 	return req.Execute()
 }
 
 func TestListFactors(t *testing.T) {
-	if os.Getenv("OKTA_CCI") == "yes" {
-		t.Skip("Skipping testing not in CI environment")
-	}
-	factors, resp, err := ListFactors()
+	factors, resp, err := ListFactors(t)
 	if err != nil {
 		t.Fatalf("Error listing factors: %v", err)
 	}
@@ -36,7 +36,7 @@ func TestListFactors(t *testing.T) {
 			return
 		}
 		if factorType, ok := result["factorType"].(string); ok {
-			//fmt.Println("factorType:", factorType)
+			// fmt.Println("factorType:", factorType)
 			factorTypes = append(factorTypes, factorType)
 		}
 	}

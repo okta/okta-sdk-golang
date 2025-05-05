@@ -33,7 +33,7 @@ import (
 // IdpDiscoveryPolicy struct for IdpDiscoveryPolicy
 type IdpDiscoveryPolicy struct {
 	Policy
-	Conditions           map[string]interface{} `json:"conditions,omitempty"`
+	Conditions map[string]interface{} `json:"conditions,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -202,3 +202,4 @@ func (v *NullableIdpDiscoveryPolicy) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
+

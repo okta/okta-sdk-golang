@@ -29,22 +29,23 @@ import (
 	"fmt"
 )
 
-// model_oneof.mustache
+
+//model_oneof.mustache
 // ListFactors200ResponseInner - struct for ListFactors200ResponseInner
 type ListFactors200ResponseInner struct {
 	AuthenticatorMethodSignedNonce *AuthenticatorMethodSignedNonce
-	UserFactorCall                 *UserFactorCall
-	UserFactorCustomHOTP           *UserFactorCustomHOTP
-	UserFactorEmail                *UserFactorEmail
-	UserFactorHardware             *UserFactorHardware
-	UserFactorPush                 *UserFactorPush
-	UserFactorSMS                  *UserFactorSMS
-	UserFactorSecurityQuestion     *UserFactorSecurityQuestion
-	UserFactorTOTP                 *UserFactorTOTP
-	UserFactorToken                *UserFactorToken
-	UserFactorU2F                  *UserFactorU2F
-	UserFactorWeb                  *UserFactorWeb
-	UserFactorWebAuthn             *UserFactorWebAuthn
+	UserFactorCall *UserFactorCall
+	UserFactorCustomHOTP *UserFactorCustomHOTP
+	UserFactorEmail *UserFactorEmail
+	UserFactorHardware *UserFactorHardware
+	UserFactorPush *UserFactorPush
+	UserFactorSMS *UserFactorSMS
+	UserFactorSecurityQuestion *UserFactorSecurityQuestion
+	UserFactorTOTP *UserFactorTOTP
+	UserFactorToken *UserFactorToken
+	UserFactorU2F *UserFactorU2F
+	UserFactorWeb *UserFactorWeb
+	UserFactorWebAuthn *UserFactorWebAuthn
 }
 
 // AuthenticatorMethodSignedNonceAsListFactors200ResponseInner is a convenience function that returns AuthenticatorMethodSignedNonce wrapped in ListFactors200ResponseInner
@@ -138,6 +139,7 @@ func UserFactorWebAuthnAsListFactors200ResponseInner(v *UserFactorWebAuthn) List
 	}
 }
 
+
 // Unmarshal JSON data into one of the pointers in the struct  CUSTOM
 func (dst *ListFactors200ResponseInner) UnmarshalJSON(data []byte) error {
 	var err error
@@ -146,6 +148,162 @@ func (dst *ListFactors200ResponseInner) UnmarshalJSON(data []byte) error {
 	err = newStrictDecoder(data).Decode(&jsonDict)
 	if err != nil {
 		return fmt.Errorf("Failed to unmarshal JSON into map for the discriminator lookup.")
+	}
+
+	// check if the discriminator value is 'AuthenticatorMethodSignedNonce'
+	if jsonDict["factorType"] == "AuthenticatorMethodSignedNonce" {
+		// try to unmarshal JSON data into AuthenticatorMethodSignedNonce
+		err = json.Unmarshal(data, &dst.AuthenticatorMethodSignedNonce)
+		if err == nil {
+			return nil // data stored in dst.AuthenticatorMethodSignedNonce, return on the first match
+		} else {
+			dst.AuthenticatorMethodSignedNonce = nil
+			return fmt.Errorf("Failed to unmarshal ListFactors200ResponseInner as AuthenticatorMethodSignedNonce: %s", err.Error())
+		}
+	}
+
+	// check if the discriminator value is 'UserFactorCall'
+	if jsonDict["factorType"] == "UserFactorCall" {
+		// try to unmarshal JSON data into UserFactorCall
+		err = json.Unmarshal(data, &dst.UserFactorCall)
+		if err == nil {
+			return nil // data stored in dst.UserFactorCall, return on the first match
+		} else {
+			dst.UserFactorCall = nil
+			return fmt.Errorf("Failed to unmarshal ListFactors200ResponseInner as UserFactorCall: %s", err.Error())
+		}
+	}
+
+	// check if the discriminator value is 'UserFactorCustomHOTP'
+	if jsonDict["factorType"] == "UserFactorCustomHOTP" {
+		// try to unmarshal JSON data into UserFactorCustomHOTP
+		err = json.Unmarshal(data, &dst.UserFactorCustomHOTP)
+		if err == nil {
+			return nil // data stored in dst.UserFactorCustomHOTP, return on the first match
+		} else {
+			dst.UserFactorCustomHOTP = nil
+			return fmt.Errorf("Failed to unmarshal ListFactors200ResponseInner as UserFactorCustomHOTP: %s", err.Error())
+		}
+	}
+
+	// check if the discriminator value is 'UserFactorEmail'
+	if jsonDict["factorType"] == "UserFactorEmail" {
+		// try to unmarshal JSON data into UserFactorEmail
+		err = json.Unmarshal(data, &dst.UserFactorEmail)
+		if err == nil {
+			return nil // data stored in dst.UserFactorEmail, return on the first match
+		} else {
+			dst.UserFactorEmail = nil
+			return fmt.Errorf("Failed to unmarshal ListFactors200ResponseInner as UserFactorEmail: %s", err.Error())
+		}
+	}
+
+	// check if the discriminator value is 'UserFactorHardware'
+	if jsonDict["factorType"] == "UserFactorHardware" {
+		// try to unmarshal JSON data into UserFactorHardware
+		err = json.Unmarshal(data, &dst.UserFactorHardware)
+		if err == nil {
+			return nil // data stored in dst.UserFactorHardware, return on the first match
+		} else {
+			dst.UserFactorHardware = nil
+			return fmt.Errorf("Failed to unmarshal ListFactors200ResponseInner as UserFactorHardware: %s", err.Error())
+		}
+	}
+
+	// check if the discriminator value is 'UserFactorPush'
+	if jsonDict["factorType"] == "UserFactorPush" {
+		// try to unmarshal JSON data into UserFactorPush
+		err = json.Unmarshal(data, &dst.UserFactorPush)
+		if err == nil {
+			return nil // data stored in dst.UserFactorPush, return on the first match
+		} else {
+			dst.UserFactorPush = nil
+			return fmt.Errorf("Failed to unmarshal ListFactors200ResponseInner as UserFactorPush: %s", err.Error())
+		}
+	}
+
+	// check if the discriminator value is 'UserFactorSMS'
+	if jsonDict["factorType"] == "UserFactorSMS" {
+		// try to unmarshal JSON data into UserFactorSMS
+		err = json.Unmarshal(data, &dst.UserFactorSMS)
+		if err == nil {
+			return nil // data stored in dst.UserFactorSMS, return on the first match
+		} else {
+			dst.UserFactorSMS = nil
+			return fmt.Errorf("Failed to unmarshal ListFactors200ResponseInner as UserFactorSMS: %s", err.Error())
+		}
+	}
+
+	// check if the discriminator value is 'UserFactorSecurityQuestion'
+	if jsonDict["factorType"] == "UserFactorSecurityQuestion" {
+		// try to unmarshal JSON data into UserFactorSecurityQuestion
+		err = json.Unmarshal(data, &dst.UserFactorSecurityQuestion)
+		if err == nil {
+			return nil // data stored in dst.UserFactorSecurityQuestion, return on the first match
+		} else {
+			dst.UserFactorSecurityQuestion = nil
+			return fmt.Errorf("Failed to unmarshal ListFactors200ResponseInner as UserFactorSecurityQuestion: %s", err.Error())
+		}
+	}
+
+	// check if the discriminator value is 'UserFactorTOTP'
+	if jsonDict["factorType"] == "UserFactorTOTP" {
+		// try to unmarshal JSON data into UserFactorTOTP
+		err = json.Unmarshal(data, &dst.UserFactorTOTP)
+		if err == nil {
+			return nil // data stored in dst.UserFactorTOTP, return on the first match
+		} else {
+			dst.UserFactorTOTP = nil
+			return fmt.Errorf("Failed to unmarshal ListFactors200ResponseInner as UserFactorTOTP: %s", err.Error())
+		}
+	}
+
+	// check if the discriminator value is 'UserFactorToken'
+	if jsonDict["factorType"] == "UserFactorToken" {
+		// try to unmarshal JSON data into UserFactorToken
+		err = json.Unmarshal(data, &dst.UserFactorToken)
+		if err == nil {
+			return nil // data stored in dst.UserFactorToken, return on the first match
+		} else {
+			dst.UserFactorToken = nil
+			return fmt.Errorf("Failed to unmarshal ListFactors200ResponseInner as UserFactorToken: %s", err.Error())
+		}
+	}
+
+	// check if the discriminator value is 'UserFactorU2F'
+	if jsonDict["factorType"] == "UserFactorU2F" {
+		// try to unmarshal JSON data into UserFactorU2F
+		err = json.Unmarshal(data, &dst.UserFactorU2F)
+		if err == nil {
+			return nil // data stored in dst.UserFactorU2F, return on the first match
+		} else {
+			dst.UserFactorU2F = nil
+			return fmt.Errorf("Failed to unmarshal ListFactors200ResponseInner as UserFactorU2F: %s", err.Error())
+		}
+	}
+
+	// check if the discriminator value is 'UserFactorWeb'
+	if jsonDict["factorType"] == "UserFactorWeb" {
+		// try to unmarshal JSON data into UserFactorWeb
+		err = json.Unmarshal(data, &dst.UserFactorWeb)
+		if err == nil {
+			return nil // data stored in dst.UserFactorWeb, return on the first match
+		} else {
+			dst.UserFactorWeb = nil
+			return fmt.Errorf("Failed to unmarshal ListFactors200ResponseInner as UserFactorWeb: %s", err.Error())
+		}
+	}
+
+	// check if the discriminator value is 'UserFactorWebAuthn'
+	if jsonDict["factorType"] == "UserFactorWebAuthn" {
+		// try to unmarshal JSON data into UserFactorWebAuthn
+		err = json.Unmarshal(data, &dst.UserFactorWebAuthn)
+		if err == nil {
+			return nil // data stored in dst.UserFactorWebAuthn, return on the first match
+		} else {
+			dst.UserFactorWebAuthn = nil
+			return fmt.Errorf("Failed to unmarshal ListFactors200ResponseInner as UserFactorWebAuthn: %s", err.Error())
+		}
 	}
 
 	// check if the discriminator value is 'call'
@@ -316,162 +474,6 @@ func (dst *ListFactors200ResponseInner) UnmarshalJSON(data []byte) error {
 		}
 	}
 
-	// check if the discriminator value is 'AuthenticatorMethodSignedNonce'
-	if jsonDict["factorType"] == "AuthenticatorMethodSignedNonce" {
-		// try to unmarshal JSON data into AuthenticatorMethodSignedNonce
-		err = json.Unmarshal(data, &dst.AuthenticatorMethodSignedNonce)
-		if err == nil {
-			return nil // data stored in dst.AuthenticatorMethodSignedNonce, return on the first match
-		} else {
-			dst.AuthenticatorMethodSignedNonce = nil
-			return fmt.Errorf("Failed to unmarshal ListFactors200ResponseInner as AuthenticatorMethodSignedNonce: %s", err.Error())
-		}
-	}
-
-	// check if the discriminator value is 'UserFactorCall'
-	if jsonDict["factorType"] == "UserFactorCall" {
-		// try to unmarshal JSON data into UserFactorCall
-		err = json.Unmarshal(data, &dst.UserFactorCall)
-		if err == nil {
-			return nil // data stored in dst.UserFactorCall, return on the first match
-		} else {
-			dst.UserFactorCall = nil
-			return fmt.Errorf("Failed to unmarshal ListFactors200ResponseInner as UserFactorCall: %s", err.Error())
-		}
-	}
-
-	// check if the discriminator value is 'UserFactorCustomHOTP'
-	if jsonDict["factorType"] == "UserFactorCustomHOTP" {
-		// try to unmarshal JSON data into UserFactorCustomHOTP
-		err = json.Unmarshal(data, &dst.UserFactorCustomHOTP)
-		if err == nil {
-			return nil // data stored in dst.UserFactorCustomHOTP, return on the first match
-		} else {
-			dst.UserFactorCustomHOTP = nil
-			return fmt.Errorf("Failed to unmarshal ListFactors200ResponseInner as UserFactorCustomHOTP: %s", err.Error())
-		}
-	}
-
-	// check if the discriminator value is 'UserFactorEmail'
-	if jsonDict["factorType"] == "UserFactorEmail" {
-		// try to unmarshal JSON data into UserFactorEmail
-		err = json.Unmarshal(data, &dst.UserFactorEmail)
-		if err == nil {
-			return nil // data stored in dst.UserFactorEmail, return on the first match
-		} else {
-			dst.UserFactorEmail = nil
-			return fmt.Errorf("Failed to unmarshal ListFactors200ResponseInner as UserFactorEmail: %s", err.Error())
-		}
-	}
-
-	// check if the discriminator value is 'UserFactorHardware'
-	if jsonDict["factorType"] == "UserFactorHardware" {
-		// try to unmarshal JSON data into UserFactorHardware
-		err = json.Unmarshal(data, &dst.UserFactorHardware)
-		if err == nil {
-			return nil // data stored in dst.UserFactorHardware, return on the first match
-		} else {
-			dst.UserFactorHardware = nil
-			return fmt.Errorf("Failed to unmarshal ListFactors200ResponseInner as UserFactorHardware: %s", err.Error())
-		}
-	}
-
-	// check if the discriminator value is 'UserFactorPush'
-	if jsonDict["factorType"] == "UserFactorPush" {
-		// try to unmarshal JSON data into UserFactorPush
-		err = json.Unmarshal(data, &dst.UserFactorPush)
-		if err == nil {
-			return nil // data stored in dst.UserFactorPush, return on the first match
-		} else {
-			dst.UserFactorPush = nil
-			return fmt.Errorf("Failed to unmarshal ListFactors200ResponseInner as UserFactorPush: %s", err.Error())
-		}
-	}
-
-	// check if the discriminator value is 'UserFactorSMS'
-	if jsonDict["factorType"] == "UserFactorSMS" {
-		// try to unmarshal JSON data into UserFactorSMS
-		err = json.Unmarshal(data, &dst.UserFactorSMS)
-		if err == nil {
-			return nil // data stored in dst.UserFactorSMS, return on the first match
-		} else {
-			dst.UserFactorSMS = nil
-			return fmt.Errorf("Failed to unmarshal ListFactors200ResponseInner as UserFactorSMS: %s", err.Error())
-		}
-	}
-
-	// check if the discriminator value is 'UserFactorSecurityQuestion'
-	if jsonDict["factorType"] == "UserFactorSecurityQuestion" {
-		// try to unmarshal JSON data into UserFactorSecurityQuestion
-		err = json.Unmarshal(data, &dst.UserFactorSecurityQuestion)
-		if err == nil {
-			return nil // data stored in dst.UserFactorSecurityQuestion, return on the first match
-		} else {
-			dst.UserFactorSecurityQuestion = nil
-			return fmt.Errorf("Failed to unmarshal ListFactors200ResponseInner as UserFactorSecurityQuestion: %s", err.Error())
-		}
-	}
-
-	// check if the discriminator value is 'UserFactorTOTP'
-	if jsonDict["factorType"] == "UserFactorTOTP" {
-		// try to unmarshal JSON data into UserFactorTOTP
-		err = json.Unmarshal(data, &dst.UserFactorTOTP)
-		if err == nil {
-			return nil // data stored in dst.UserFactorTOTP, return on the first match
-		} else {
-			dst.UserFactorTOTP = nil
-			return fmt.Errorf("Failed to unmarshal ListFactors200ResponseInner as UserFactorTOTP: %s", err.Error())
-		}
-	}
-
-	// check if the discriminator value is 'UserFactorToken'
-	if jsonDict["factorType"] == "UserFactorToken" {
-		// try to unmarshal JSON data into UserFactorToken
-		err = json.Unmarshal(data, &dst.UserFactorToken)
-		if err == nil {
-			return nil // data stored in dst.UserFactorToken, return on the first match
-		} else {
-			dst.UserFactorToken = nil
-			return fmt.Errorf("Failed to unmarshal ListFactors200ResponseInner as UserFactorToken: %s", err.Error())
-		}
-	}
-
-	// check if the discriminator value is 'UserFactorU2F'
-	if jsonDict["factorType"] == "UserFactorU2F" {
-		// try to unmarshal JSON data into UserFactorU2F
-		err = json.Unmarshal(data, &dst.UserFactorU2F)
-		if err == nil {
-			return nil // data stored in dst.UserFactorU2F, return on the first match
-		} else {
-			dst.UserFactorU2F = nil
-			return fmt.Errorf("Failed to unmarshal ListFactors200ResponseInner as UserFactorU2F: %s", err.Error())
-		}
-	}
-
-	// check if the discriminator value is 'UserFactorWeb'
-	if jsonDict["factorType"] == "UserFactorWeb" {
-		// try to unmarshal JSON data into UserFactorWeb
-		err = json.Unmarshal(data, &dst.UserFactorWeb)
-		if err == nil {
-			return nil // data stored in dst.UserFactorWeb, return on the first match
-		} else {
-			dst.UserFactorWeb = nil
-			return fmt.Errorf("Failed to unmarshal ListFactors200ResponseInner as UserFactorWeb: %s", err.Error())
-		}
-	}
-
-	// check if the discriminator value is 'UserFactorWebAuthn'
-	if jsonDict["factorType"] == "UserFactorWebAuthn" {
-		// try to unmarshal JSON data into UserFactorWebAuthn
-		err = json.Unmarshal(data, &dst.UserFactorWebAuthn)
-		if err == nil {
-			return nil // data stored in dst.UserFactorWebAuthn, return on the first match
-		} else {
-			dst.UserFactorWebAuthn = nil
-			return fmt.Errorf("Failed to unmarshal ListFactors200ResponseInner as UserFactorWebAuthn: %s", err.Error())
-		}
-	}
-
 	return nil
 }
 
@@ -533,7 +535,7 @@ func (src ListFactors200ResponseInner) MarshalJSON() ([]byte, error) {
 }
 
 // Get the actual instance
-func (obj *ListFactors200ResponseInner) GetActualInstance() interface{} {
+func (obj *ListFactors200ResponseInner) GetActualInstance() (interface{}) {
 	if obj == nil {
 		return nil
 	}
@@ -628,3 +630,5 @@ func (v *NullableListFactors200ResponseInner) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
+
+

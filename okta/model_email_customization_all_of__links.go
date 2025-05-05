@@ -30,10 +30,10 @@ import (
 
 // EmailCustomizationAllOfLinks struct for EmailCustomizationAllOfLinks
 type EmailCustomizationAllOfLinks struct {
-	Self                 *HrefObject `json:"self,omitempty"`
-	Template             *HrefObject `json:"template,omitempty"`
-	Preview              *HrefObject `json:"preview,omitempty"`
-	Test                 *HrefObject `json:"test,omitempty"`
+	Self *HrefObject `json:"self,omitempty"`
+	Template *HrefObject `json:"template,omitempty"`
+	Preview *HrefObject `json:"preview,omitempty"`
+	Test *HrefObject `json:"test,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -267,3 +267,4 @@ func (v *NullableEmailCustomizationAllOfLinks) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
+

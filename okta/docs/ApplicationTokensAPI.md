@@ -25,26 +25,26 @@ Retrieve an application Token
 package main
 
 import (
-	"context"
-	"fmt"
-	"os"
-	openapiclient "github.com/okta/okta-sdk-golang"
+    "context"
+    "fmt"
+    "os"
+    openapiclient "github.com/okta/okta-sdk-golang"
 )
 
 func main() {
-	appId := "0oafxqCAJWWGELFTYASJ" // string | Application ID
-	tokenId := "sHHSth53yJAyNSTQKDJZ" // string | `id` of Token
-	expand := "scope" // string | An optional parameter to return scope details in the `_embedded` property. Valid value: `scope` (optional)
+    appId := "0oafxqCAJWWGELFTYASJ" // string | Application ID
+    tokenId := "sHHSth53yJAyNSTQKDJZ" // string | `id` of Token
+    expand := "scope" // string | An optional parameter to return scope details in the `_embedded` property. Valid value: `scope` (optional)
 
-	configuration := openapiclient.NewConfiguration()
-	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.ApplicationTokensAPI.GetOAuth2TokenForApplication(context.Background(), appId, tokenId).Expand(expand).Execute()
-	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `ApplicationTokensAPI.GetOAuth2TokenForApplication``: %v\n", err)
-		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-	}
-	// response from `GetOAuth2TokenForApplication`: OAuth2RefreshToken
-	fmt.Fprintf(os.Stdout, "Response from `ApplicationTokensAPI.GetOAuth2TokenForApplication`: %v\n", resp)
+    configuration := openapiclient.NewConfiguration()
+    apiClient := openapiclient.NewAPIClient(configuration)
+    resp, r, err := apiClient.ApplicationTokensAPI.GetOAuth2TokenForApplication(context.Background(), appId, tokenId).Expand(expand).Execute()
+    if err != nil {
+        fmt.Fprintf(os.Stderr, "Error when calling `ApplicationTokensAPI.GetOAuth2TokenForApplication``: %v\n", err)
+        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+    }
+    // response from `GetOAuth2TokenForApplication`: OAuth2RefreshToken
+    fmt.Fprintf(os.Stdout, "Response from `ApplicationTokensAPI.GetOAuth2TokenForApplication`: %v\n", resp)
 }
 ```
 
@@ -100,27 +100,27 @@ List all application refresh Tokens
 package main
 
 import (
-	"context"
-	"fmt"
-	"os"
-	openapiclient "github.com/okta/okta-sdk-golang"
+    "context"
+    "fmt"
+    "os"
+    openapiclient "github.com/okta/okta-sdk-golang"
 )
 
 func main() {
-	appId := "0oafxqCAJWWGELFTYASJ" // string | Application ID
-	expand := "scope" // string | An optional parameter to return scope details in the `_embedded` property. Valid value: `scope` (optional)
-	after := "16275000448691" // string | Specifies the pagination cursor for the next page of results. Treat this as an opaque value obtained through the next link relationship. See [Pagination](/#pagination). (optional)
-	limit := int32(56) // int32 | A limit on the number of objects to return (optional) (default to 20)
+    appId := "0oafxqCAJWWGELFTYASJ" // string | Application ID
+    expand := "scope" // string | An optional parameter to return scope details in the `_embedded` property. Valid value: `scope` (optional)
+    after := "16275000448691" // string | Specifies the pagination cursor for the next page of results. Treat this as an opaque value obtained through the next link relationship. See [Pagination](/#pagination). (optional)
+    limit := int32(56) // int32 | A limit on the number of objects to return (optional) (default to 20)
 
-	configuration := openapiclient.NewConfiguration()
-	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.ApplicationTokensAPI.ListOAuth2TokensForApplication(context.Background(), appId).Expand(expand).After(after).Limit(limit).Execute()
-	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `ApplicationTokensAPI.ListOAuth2TokensForApplication``: %v\n", err)
-		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-	}
-	// response from `ListOAuth2TokensForApplication`: []OAuth2RefreshToken
-	fmt.Fprintf(os.Stdout, "Response from `ApplicationTokensAPI.ListOAuth2TokensForApplication`: %v\n", resp)
+    configuration := openapiclient.NewConfiguration()
+    apiClient := openapiclient.NewAPIClient(configuration)
+    resp, r, err := apiClient.ApplicationTokensAPI.ListOAuth2TokensForApplication(context.Background(), appId).Expand(expand).After(after).Limit(limit).Execute()
+    if err != nil {
+        fmt.Fprintf(os.Stderr, "Error when calling `ApplicationTokensAPI.ListOAuth2TokensForApplication``: %v\n", err)
+        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+    }
+    // response from `ListOAuth2TokensForApplication`: []OAuth2RefreshToken
+    fmt.Fprintf(os.Stdout, "Response from `ApplicationTokensAPI.ListOAuth2TokensForApplication`: %v\n", resp)
 }
 ```
 
@@ -176,23 +176,23 @@ Revoke an application Token
 package main
 
 import (
-	"context"
-	"fmt"
-	"os"
-	openapiclient "github.com/okta/okta-sdk-golang"
+    "context"
+    "fmt"
+    "os"
+    openapiclient "github.com/okta/okta-sdk-golang"
 )
 
 func main() {
-	appId := "0oafxqCAJWWGELFTYASJ" // string | Application ID
-	tokenId := "sHHSth53yJAyNSTQKDJZ" // string | `id` of Token
+    appId := "0oafxqCAJWWGELFTYASJ" // string | Application ID
+    tokenId := "sHHSth53yJAyNSTQKDJZ" // string | `id` of Token
 
-	configuration := openapiclient.NewConfiguration()
-	apiClient := openapiclient.NewAPIClient(configuration)
-	r, err := apiClient.ApplicationTokensAPI.RevokeOAuth2TokenForApplication(context.Background(), appId, tokenId).Execute()
-	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `ApplicationTokensAPI.RevokeOAuth2TokenForApplication``: %v\n", err)
-		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-	}
+    configuration := openapiclient.NewConfiguration()
+    apiClient := openapiclient.NewAPIClient(configuration)
+    r, err := apiClient.ApplicationTokensAPI.RevokeOAuth2TokenForApplication(context.Background(), appId, tokenId).Execute()
+    if err != nil {
+        fmt.Fprintf(os.Stderr, "Error when calling `ApplicationTokensAPI.RevokeOAuth2TokenForApplication``: %v\n", err)
+        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+    }
 }
 ```
 
@@ -247,22 +247,22 @@ Revoke all application Tokens
 package main
 
 import (
-	"context"
-	"fmt"
-	"os"
-	openapiclient "github.com/okta/okta-sdk-golang"
+    "context"
+    "fmt"
+    "os"
+    openapiclient "github.com/okta/okta-sdk-golang"
 )
 
 func main() {
-	appId := "0oafxqCAJWWGELFTYASJ" // string | Application ID
+    appId := "0oafxqCAJWWGELFTYASJ" // string | Application ID
 
-	configuration := openapiclient.NewConfiguration()
-	apiClient := openapiclient.NewAPIClient(configuration)
-	r, err := apiClient.ApplicationTokensAPI.RevokeOAuth2TokensForApplication(context.Background(), appId).Execute()
-	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `ApplicationTokensAPI.RevokeOAuth2TokensForApplication``: %v\n", err)
-		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-	}
+    configuration := openapiclient.NewConfiguration()
+    apiClient := openapiclient.NewAPIClient(configuration)
+    r, err := apiClient.ApplicationTokensAPI.RevokeOAuth2TokensForApplication(context.Background(), appId).Execute()
+    if err != nil {
+        fmt.Fprintf(os.Stderr, "Error when calling `ApplicationTokensAPI.RevokeOAuth2TokensForApplication``: %v\n", err)
+        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+    }
 }
 ```
 

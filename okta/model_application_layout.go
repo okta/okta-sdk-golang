@@ -30,12 +30,12 @@ import (
 
 // ApplicationLayout struct for ApplicationLayout
 type ApplicationLayout struct {
-	Elements             []map[string]interface{} `json:"elements,omitempty"`
-	Label                *string                  `json:"label,omitempty"`
-	Options              map[string]interface{}   `json:"options,omitempty"`
-	Rule                 *ApplicationLayoutRule   `json:"rule,omitempty"`
-	Scope                *string                  `json:"scope,omitempty"`
-	Type                 *string                  `json:"type,omitempty"`
+	Elements []map[string]interface{} `json:"elements,omitempty"`
+	Label *string `json:"label,omitempty"`
+	Options map[string]interface{} `json:"options,omitempty"`
+	Rule *ApplicationLayoutRule `json:"rule,omitempty"`
+	Scope *string `json:"scope,omitempty"`
+	Type *string `json:"type,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -341,3 +341,4 @@ func (v *NullableApplicationLayout) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
+

@@ -33,8 +33,8 @@ import (
 // UserFactorPushTransactionWaiting struct for UserFactorPushTransactionWaiting
 type UserFactorPushTransactionWaiting struct {
 	UserFactorPushTransaction
-	Profile              *UserFactorPushTransactionRejectedAllOfProfile `json:"profile,omitempty"`
-	Links                *UserFactorPushTransactionWaitingAllOfLinks    `json:"_links,omitempty"`
+	Profile *UserFactorPushTransactionRejectedAllOfProfile `json:"profile,omitempty"`
+	Links *UserFactorPushTransactionWaitingAllOfLinks `json:"_links,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -148,7 +148,7 @@ func (o UserFactorPushTransactionWaiting) MarshalJSON() ([]byte, error) {
 func (o *UserFactorPushTransactionWaiting) UnmarshalJSON(bytes []byte) (err error) {
 	type UserFactorPushTransactionWaitingWithoutEmbeddedStruct struct {
 		Profile *UserFactorPushTransactionRejectedAllOfProfile `json:"profile,omitempty"`
-		Links   *UserFactorPushTransactionWaitingAllOfLinks    `json:"_links,omitempty"`
+		Links *UserFactorPushTransactionWaitingAllOfLinks `json:"_links,omitempty"`
 	}
 
 	varUserFactorPushTransactionWaitingWithoutEmbeddedStruct := UserFactorPushTransactionWaitingWithoutEmbeddedStruct{}
@@ -240,3 +240,4 @@ func (v *NullableUserFactorPushTransactionWaiting) UnmarshalJSON(src []byte) err
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
+

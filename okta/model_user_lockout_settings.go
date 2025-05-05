@@ -32,7 +32,7 @@ import (
 type UserLockoutSettings struct {
 	// Prevents brute-force lockout from unknown devices for the password authenticator.
 	PreventBruteForceLockoutFromUnknownDevices *bool `json:"preventBruteForceLockoutFromUnknownDevices,omitempty"`
-	AdditionalProperties                       map[string]interface{}
+	AdditionalProperties map[string]interface{}
 }
 
 type _UserLockoutSettings UserLockoutSettings
@@ -161,3 +161,4 @@ func (v *NullableUserLockoutSettings) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
+

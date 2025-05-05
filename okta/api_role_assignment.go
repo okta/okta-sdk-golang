@@ -30,20 +30,21 @@ import (
 	"io/ioutil"
 	"net/http"
 	"net/url"
-	"strings"
 	"time"
+	"strings"
 )
+
 
 type RoleAssignmentAPI interface {
 
 	/*
-		AssignRoleToClient Assign Role to Client
+	AssignRoleToClient Assign Role to Client
 
-		Assigns a Role to a Client
+	Assigns a Role to a Client
 
-		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-		@param clientId `client_id` of the app
-		@return ApiAssignRoleToClientRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param clientId `client_id` of the app
+	@return ApiAssignRoleToClientRequest
 	*/
 	AssignRoleToClient(ctx context.Context, clientId string) ApiAssignRoleToClientRequest
 
@@ -52,13 +53,13 @@ type RoleAssignmentAPI interface {
 	AssignRoleToClientExecute(r ApiAssignRoleToClientRequest) (*Client, *APIResponse, error)
 
 	/*
-		AssignRoleToGroup Assign a Role to a Group
+	AssignRoleToGroup Assign a Role to a Group
 
-		Assigns a role to a group
+	Assigns a role to a group
 
-		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-		@param groupId The `id` of the group
-		@return ApiAssignRoleToGroupRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param groupId The `id` of the group
+	@return ApiAssignRoleToGroupRequest
 	*/
 	AssignRoleToGroup(ctx context.Context, groupId string) ApiAssignRoleToGroupRequest
 
@@ -67,13 +68,13 @@ type RoleAssignmentAPI interface {
 	AssignRoleToGroupExecute(r ApiAssignRoleToGroupRequest) (*Role, *APIResponse, error)
 
 	/*
-		AssignRoleToUser Assign a Role to a User
+	AssignRoleToUser Assign a Role to a User
 
-		Assigns a role to a user identified by `userId`
+	Assigns a role to a user identified by `userId`
 
-		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-		@param userId ID of an existing Okta user
-		@return ApiAssignRoleToUserRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param userId ID of an existing Okta user
+	@return ApiAssignRoleToUserRequest
 	*/
 	AssignRoleToUser(ctx context.Context, userId string) ApiAssignRoleToUserRequest
 
@@ -82,14 +83,14 @@ type RoleAssignmentAPI interface {
 	AssignRoleToUserExecute(r ApiAssignRoleToUserRequest) (*Role, *APIResponse, error)
 
 	/*
-		DeleteRoleFromClient Unassign a Role from a Client
+	DeleteRoleFromClient Unassign a Role from a Client
 
-		Unassigns a Role from a Client
+	Unassigns a Role from a Client
 
-		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-		@param clientId `client_id` of the app
-		@param roleId `id` of the Role
-		@return ApiDeleteRoleFromClientRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param clientId `client_id` of the app
+	@param roleId `id` of the Role
+	@return ApiDeleteRoleFromClientRequest
 	*/
 	DeleteRoleFromClient(ctx context.Context, clientId string, roleId string) ApiDeleteRoleFromClientRequest
 
@@ -97,14 +98,14 @@ type RoleAssignmentAPI interface {
 	DeleteRoleFromClientExecute(r ApiDeleteRoleFromClientRequest) (*APIResponse, error)
 
 	/*
-		GetGroupAssignedRole Retrieve a Role assigned to Group
+	GetGroupAssignedRole Retrieve a Role assigned to Group
 
-		Retrieves a role identified by `roleId` assigned to group identified by `groupId`
+	Retrieves a role identified by `roleId` assigned to group identified by `groupId`
 
-		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-		@param groupId The `id` of the group
-		@param roleId `id` of the Role
-		@return ApiGetGroupAssignedRoleRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param groupId The `id` of the group
+	@param roleId `id` of the Role
+	@return ApiGetGroupAssignedRoleRequest
 	*/
 	GetGroupAssignedRole(ctx context.Context, groupId string, roleId string) ApiGetGroupAssignedRoleRequest
 
@@ -113,14 +114,14 @@ type RoleAssignmentAPI interface {
 	GetGroupAssignedRoleExecute(r ApiGetGroupAssignedRoleRequest) (*Role, *APIResponse, error)
 
 	/*
-		GetUserAssignedRole Retrieve a Role assigned to a User
+	GetUserAssignedRole Retrieve a Role assigned to a User
 
-		Retrieves a role identified by `roleId` assigned to a user identified by `userId`
+	Retrieves a role identified by `roleId` assigned to a user identified by `userId`
 
-		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-		@param userId ID of an existing Okta user
-		@param roleId `id` of the Role
-		@return ApiGetUserAssignedRoleRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param userId ID of an existing Okta user
+	@param roleId `id` of the Role
+	@return ApiGetUserAssignedRoleRequest
 	*/
 	GetUserAssignedRole(ctx context.Context, userId string, roleId string) ApiGetUserAssignedRoleRequest
 
@@ -129,13 +130,13 @@ type RoleAssignmentAPI interface {
 	GetUserAssignedRoleExecute(r ApiGetUserAssignedRoleRequest) (*Role, *APIResponse, error)
 
 	/*
-		ListAssignedRolesForUser List all Roles assigned to a User
+	ListAssignedRolesForUser List all Roles assigned to a User
 
-		Lists all roles assigned to a user identified by `userId`
+	Lists all roles assigned to a user identified by `userId`
 
-		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-		@param userId ID of an existing Okta user
-		@return ApiListAssignedRolesForUserRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param userId ID of an existing Okta user
+	@return ApiListAssignedRolesForUserRequest
 	*/
 	ListAssignedRolesForUser(ctx context.Context, userId string) ApiListAssignedRolesForUserRequest
 
@@ -144,13 +145,13 @@ type RoleAssignmentAPI interface {
 	ListAssignedRolesForUserExecute(r ApiListAssignedRolesForUserRequest) ([]Role, *APIResponse, error)
 
 	/*
-		ListGroupAssignedRoles List all Assigned Roles of Group
+	ListGroupAssignedRoles List all Assigned Roles of Group
 
-		Lists all assigned roles of group identified by `groupId`
+	Lists all assigned roles of group identified by `groupId`
 
-		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-		@param groupId The `id` of the group
-		@return ApiListGroupAssignedRolesRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param groupId The `id` of the group
+	@return ApiListGroupAssignedRolesRequest
 	*/
 	ListGroupAssignedRoles(ctx context.Context, groupId string) ApiListGroupAssignedRolesRequest
 
@@ -159,13 +160,13 @@ type RoleAssignmentAPI interface {
 	ListGroupAssignedRolesExecute(r ApiListGroupAssignedRolesRequest) ([]Role, *APIResponse, error)
 
 	/*
-		ListRolesForClient List all Roles for a Client
+	ListRolesForClient List all Roles for a Client
 
-		Lists all Roles by `clientId`
+	Lists all Roles by `clientId`
 
-		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-		@param clientId `client_id` of the app
-		@return ApiListRolesForClientRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param clientId `client_id` of the app
+	@return ApiListRolesForClientRequest
 	*/
 	ListRolesForClient(ctx context.Context, clientId string) ApiListRolesForClientRequest
 
@@ -174,12 +175,12 @@ type RoleAssignmentAPI interface {
 	ListRolesForClientExecute(r ApiListRolesForClientRequest) (*Client, *APIResponse, error)
 
 	/*
-		ListUsersWithRoleAssignments List all Users with Role Assignments
+	ListUsersWithRoleAssignments List all Users with Role Assignments
 
-		Lists all users with Role Assignments
+	Lists all users with Role Assignments
 
-		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-		@return ApiListUsersWithRoleAssignmentsRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@return ApiListUsersWithRoleAssignmentsRequest
 	*/
 	ListUsersWithRoleAssignments(ctx context.Context) ApiListUsersWithRoleAssignmentsRequest
 
@@ -188,14 +189,14 @@ type RoleAssignmentAPI interface {
 	ListUsersWithRoleAssignmentsExecute(r ApiListUsersWithRoleAssignmentsRequest) (*RoleAssignedUsers, *APIResponse, error)
 
 	/*
-		RetrieveClientRole Retrieve a Client Role
+	RetrieveClientRole Retrieve a Client Role
 
-		Retrieves a Client Role
+	Retrieves a Client Role
 
-		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-		@param clientId `client_id` of the app
-		@param roleId `id` of the Role
-		@return ApiRetrieveClientRoleRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param clientId `client_id` of the app
+	@param roleId `id` of the Role
+	@return ApiRetrieveClientRoleRequest
 	*/
 	RetrieveClientRole(ctx context.Context, clientId string, roleId string) ApiRetrieveClientRoleRequest
 
@@ -204,14 +205,14 @@ type RoleAssignmentAPI interface {
 	RetrieveClientRoleExecute(r ApiRetrieveClientRoleRequest) (*Client, *APIResponse, error)
 
 	/*
-		UnassignRoleFromGroup Unassign a Role from a Group
+	UnassignRoleFromGroup Unassign a Role from a Group
 
-		Unassigns a role identified by `roleId` assigned to group identified by `groupId`
+	Unassigns a role identified by `roleId` assigned to group identified by `groupId`
 
-		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-		@param groupId The `id` of the group
-		@param roleId `id` of the Role
-		@return ApiUnassignRoleFromGroupRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param groupId The `id` of the group
+	@param roleId `id` of the Role
+	@return ApiUnassignRoleFromGroupRequest
 	*/
 	UnassignRoleFromGroup(ctx context.Context, groupId string, roleId string) ApiUnassignRoleFromGroupRequest
 
@@ -219,14 +220,14 @@ type RoleAssignmentAPI interface {
 	UnassignRoleFromGroupExecute(r ApiUnassignRoleFromGroupRequest) (*APIResponse, error)
 
 	/*
-		UnassignRoleFromUser Unassign a Role from a User
+	UnassignRoleFromUser Unassign a Role from a User
 
-		Unassigns a role identified by `roleId` from a user identified by `userId`
+	Unassigns a role identified by `roleId` from a user identified by `userId`
 
-		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-		@param userId ID of an existing Okta user
-		@param roleId `id` of the Role
-		@return ApiUnassignRoleFromUserRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param userId ID of an existing Okta user
+	@param roleId `id` of the Role
+	@return ApiUnassignRoleFromUserRequest
 	*/
 	UnassignRoleFromUser(ctx context.Context, userId string, roleId string) ApiUnassignRoleFromUserRequest
 
@@ -238,11 +239,11 @@ type RoleAssignmentAPI interface {
 type RoleAssignmentAPIService service
 
 type ApiAssignRoleToClientRequest struct {
-	ctx                       context.Context
-	ApiService                RoleAssignmentAPI
-	clientId                  string
+	ctx context.Context
+	ApiService RoleAssignmentAPI
+	clientId string
 	assignRoleToClientRequest *AssignRoleToClientRequest
-	retryCount                int32
+	retryCount int32
 }
 
 func (r ApiAssignRoleToClientRequest) AssignRoleToClientRequest(assignRoleToClientRequest AssignRoleToClientRequest) ApiAssignRoleToClientRequest {
@@ -259,22 +260,21 @@ AssignRoleToClient Assign Role to Client
 
 Assigns a Role to a Client
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param clientId `client_id` of the app
-	@return ApiAssignRoleToClientRequest
+ @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+ @param clientId `client_id` of the app
+ @return ApiAssignRoleToClientRequest
 */
 func (a *RoleAssignmentAPIService) AssignRoleToClient(ctx context.Context, clientId string) ApiAssignRoleToClientRequest {
 	return ApiAssignRoleToClientRequest{
 		ApiService: a,
-		ctx:        ctx,
-		clientId:   clientId,
+		ctx: ctx,
+		clientId: clientId,
 		retryCount: 0,
 	}
 }
 
 // Execute executes the request
-//
-//	@return Client
+//  @return Client
 func (a *RoleAssignmentAPIService) AssignRoleToClientExecute(r ApiAssignRoleToClientRequest) (*Client, *APIResponse, error) {
 	var (
 		localVarHTTPMethod   = http.MethodPost
@@ -283,7 +283,7 @@ func (a *RoleAssignmentAPIService) AssignRoleToClientExecute(r ApiAssignRoleToCl
 		localVarReturnValue  *Client
 		localVarHTTPResponse *http.Response
 		localAPIResponse     *APIResponse
-		err                  error
+		err 				 error
 	)
 
 	if a.client.cfg.Okta.Client.RequestTimeout > 0 {
@@ -409,18 +409,18 @@ func (a *RoleAssignmentAPIService) AssignRoleToClientExecute(r ApiAssignRoleToCl
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
 		return localVarReturnValue, localAPIResponse, newErr
 	}
-
+	
 	localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
 	return localVarReturnValue, localAPIResponse, nil
 }
 
 type ApiAssignRoleToGroupRequest struct {
-	ctx                  context.Context
-	ApiService           RoleAssignmentAPI
-	groupId              string
-	assignRoleRequest    *AssignRoleRequest
+	ctx context.Context
+	ApiService RoleAssignmentAPI
+	groupId string
+	assignRoleRequest *AssignRoleRequest
 	disableNotifications *bool
-	retryCount           int32
+	retryCount int32
 }
 
 func (r ApiAssignRoleToGroupRequest) AssignRoleRequest(assignRoleRequest AssignRoleRequest) ApiAssignRoleToGroupRequest {
@@ -443,22 +443,21 @@ AssignRoleToGroup Assign a Role to a Group
 
 Assigns a role to a group
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param groupId The `id` of the group
-	@return ApiAssignRoleToGroupRequest
+ @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+ @param groupId The `id` of the group
+ @return ApiAssignRoleToGroupRequest
 */
 func (a *RoleAssignmentAPIService) AssignRoleToGroup(ctx context.Context, groupId string) ApiAssignRoleToGroupRequest {
 	return ApiAssignRoleToGroupRequest{
 		ApiService: a,
-		ctx:        ctx,
-		groupId:    groupId,
+		ctx: ctx,
+		groupId: groupId,
 		retryCount: 0,
 	}
 }
 
 // Execute executes the request
-//
-//	@return Role
+//  @return Role
 func (a *RoleAssignmentAPIService) AssignRoleToGroupExecute(r ApiAssignRoleToGroupRequest) (*Role, *APIResponse, error) {
 	var (
 		localVarHTTPMethod   = http.MethodPost
@@ -467,7 +466,7 @@ func (a *RoleAssignmentAPIService) AssignRoleToGroupExecute(r ApiAssignRoleToGro
 		localVarReturnValue  *Role
 		localVarHTTPResponse *http.Response
 		localAPIResponse     *APIResponse
-		err                  error
+		err 				 error
 	)
 
 	if a.client.cfg.Okta.Client.RequestTimeout > 0 {
@@ -608,18 +607,18 @@ func (a *RoleAssignmentAPIService) AssignRoleToGroupExecute(r ApiAssignRoleToGro
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
 		return localVarReturnValue, localAPIResponse, newErr
 	}
-
+	
 	localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
 	return localVarReturnValue, localAPIResponse, nil
 }
 
 type ApiAssignRoleToUserRequest struct {
-	ctx                  context.Context
-	ApiService           RoleAssignmentAPI
-	userId               string
-	assignRoleRequest    *AssignRoleRequest
+	ctx context.Context
+	ApiService RoleAssignmentAPI
+	userId string
+	assignRoleRequest *AssignRoleRequest
 	disableNotifications *bool
-	retryCount           int32
+	retryCount int32
 }
 
 func (r ApiAssignRoleToUserRequest) AssignRoleRequest(assignRoleRequest AssignRoleRequest) ApiAssignRoleToUserRequest {
@@ -642,22 +641,21 @@ AssignRoleToUser Assign a Role to a User
 
 Assigns a role to a user identified by `userId`
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param userId ID of an existing Okta user
-	@return ApiAssignRoleToUserRequest
+ @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+ @param userId ID of an existing Okta user
+ @return ApiAssignRoleToUserRequest
 */
 func (a *RoleAssignmentAPIService) AssignRoleToUser(ctx context.Context, userId string) ApiAssignRoleToUserRequest {
 	return ApiAssignRoleToUserRequest{
 		ApiService: a,
-		ctx:        ctx,
-		userId:     userId,
+		ctx: ctx,
+		userId: userId,
 		retryCount: 0,
 	}
 }
 
 // Execute executes the request
-//
-//	@return Role
+//  @return Role
 func (a *RoleAssignmentAPIService) AssignRoleToUserExecute(r ApiAssignRoleToUserRequest) (*Role, *APIResponse, error) {
 	var (
 		localVarHTTPMethod   = http.MethodPost
@@ -666,7 +664,7 @@ func (a *RoleAssignmentAPIService) AssignRoleToUserExecute(r ApiAssignRoleToUser
 		localVarReturnValue  *Role
 		localVarHTTPResponse *http.Response
 		localAPIResponse     *APIResponse
-		err                  error
+		err 				 error
 	)
 
 	if a.client.cfg.Okta.Client.RequestTimeout > 0 {
@@ -807,16 +805,16 @@ func (a *RoleAssignmentAPIService) AssignRoleToUserExecute(r ApiAssignRoleToUser
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
 		return localVarReturnValue, localAPIResponse, newErr
 	}
-
+	
 	localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
 	return localVarReturnValue, localAPIResponse, nil
 }
 
 type ApiDeleteRoleFromClientRequest struct {
-	ctx        context.Context
+	ctx context.Context
 	ApiService RoleAssignmentAPI
-	clientId   string
-	roleId     string
+	clientId string
+	roleId string
 	retryCount int32
 }
 
@@ -829,17 +827,17 @@ DeleteRoleFromClient Unassign a Role from a Client
 
 Unassigns a Role from a Client
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param clientId `client_id` of the app
-	@param roleId `id` of the Role
-	@return ApiDeleteRoleFromClientRequest
+ @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+ @param clientId `client_id` of the app
+ @param roleId `id` of the Role
+ @return ApiDeleteRoleFromClientRequest
 */
 func (a *RoleAssignmentAPIService) DeleteRoleFromClient(ctx context.Context, clientId string, roleId string) ApiDeleteRoleFromClientRequest {
 	return ApiDeleteRoleFromClientRequest{
 		ApiService: a,
-		ctx:        ctx,
-		clientId:   clientId,
-		roleId:     roleId,
+		ctx: ctx,
+		clientId: clientId,
+		roleId: roleId,
 		retryCount: 0,
 	}
 }
@@ -852,7 +850,7 @@ func (a *RoleAssignmentAPIService) DeleteRoleFromClientExecute(r ApiDeleteRoleFr
 		formFiles            []formFile
 		localVarHTTPResponse *http.Response
 		localAPIResponse     *APIResponse
-		err                  error
+		err 				 error
 	)
 
 	if a.client.cfg.Okta.Client.RequestTimeout > 0 {
@@ -970,10 +968,10 @@ func (a *RoleAssignmentAPIService) DeleteRoleFromClientExecute(r ApiDeleteRoleFr
 }
 
 type ApiGetGroupAssignedRoleRequest struct {
-	ctx        context.Context
+	ctx context.Context
 	ApiService RoleAssignmentAPI
-	groupId    string
-	roleId     string
+	groupId string
+	roleId string
 	retryCount int32
 }
 
@@ -986,24 +984,23 @@ GetGroupAssignedRole Retrieve a Role assigned to Group
 
 Retrieves a role identified by `roleId` assigned to group identified by `groupId`
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param groupId The `id` of the group
-	@param roleId `id` of the Role
-	@return ApiGetGroupAssignedRoleRequest
+ @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+ @param groupId The `id` of the group
+ @param roleId `id` of the Role
+ @return ApiGetGroupAssignedRoleRequest
 */
 func (a *RoleAssignmentAPIService) GetGroupAssignedRole(ctx context.Context, groupId string, roleId string) ApiGetGroupAssignedRoleRequest {
 	return ApiGetGroupAssignedRoleRequest{
 		ApiService: a,
-		ctx:        ctx,
-		groupId:    groupId,
-		roleId:     roleId,
+		ctx: ctx,
+		groupId: groupId,
+		roleId: roleId,
 		retryCount: 0,
 	}
 }
 
 // Execute executes the request
-//
-//	@return Role
+//  @return Role
 func (a *RoleAssignmentAPIService) GetGroupAssignedRoleExecute(r ApiGetGroupAssignedRoleRequest) (*Role, *APIResponse, error) {
 	var (
 		localVarHTTPMethod   = http.MethodGet
@@ -1012,7 +1009,7 @@ func (a *RoleAssignmentAPIService) GetGroupAssignedRoleExecute(r ApiGetGroupAssi
 		localVarReturnValue  *Role
 		localVarHTTPResponse *http.Response
 		localAPIResponse     *APIResponse
-		err                  error
+		err 				 error
 	)
 
 	if a.client.cfg.Okta.Client.RequestTimeout > 0 {
@@ -1134,16 +1131,16 @@ func (a *RoleAssignmentAPIService) GetGroupAssignedRoleExecute(r ApiGetGroupAssi
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
 		return localVarReturnValue, localAPIResponse, newErr
 	}
-
+	
 	localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
 	return localVarReturnValue, localAPIResponse, nil
 }
 
 type ApiGetUserAssignedRoleRequest struct {
-	ctx        context.Context
+	ctx context.Context
 	ApiService RoleAssignmentAPI
-	userId     string
-	roleId     string
+	userId string
+	roleId string
 	retryCount int32
 }
 
@@ -1156,24 +1153,23 @@ GetUserAssignedRole Retrieve a Role assigned to a User
 
 Retrieves a role identified by `roleId` assigned to a user identified by `userId`
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param userId ID of an existing Okta user
-	@param roleId `id` of the Role
-	@return ApiGetUserAssignedRoleRequest
+ @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+ @param userId ID of an existing Okta user
+ @param roleId `id` of the Role
+ @return ApiGetUserAssignedRoleRequest
 */
 func (a *RoleAssignmentAPIService) GetUserAssignedRole(ctx context.Context, userId string, roleId string) ApiGetUserAssignedRoleRequest {
 	return ApiGetUserAssignedRoleRequest{
 		ApiService: a,
-		ctx:        ctx,
-		userId:     userId,
-		roleId:     roleId,
+		ctx: ctx,
+		userId: userId,
+		roleId: roleId,
 		retryCount: 0,
 	}
 }
 
 // Execute executes the request
-//
-//	@return Role
+//  @return Role
 func (a *RoleAssignmentAPIService) GetUserAssignedRoleExecute(r ApiGetUserAssignedRoleRequest) (*Role, *APIResponse, error) {
 	var (
 		localVarHTTPMethod   = http.MethodGet
@@ -1182,7 +1178,7 @@ func (a *RoleAssignmentAPIService) GetUserAssignedRoleExecute(r ApiGetUserAssign
 		localVarReturnValue  *Role
 		localVarHTTPResponse *http.Response
 		localAPIResponse     *APIResponse
-		err                  error
+		err 				 error
 	)
 
 	if a.client.cfg.Okta.Client.RequestTimeout > 0 {
@@ -1304,16 +1300,16 @@ func (a *RoleAssignmentAPIService) GetUserAssignedRoleExecute(r ApiGetUserAssign
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
 		return localVarReturnValue, localAPIResponse, newErr
 	}
-
+	
 	localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
 	return localVarReturnValue, localAPIResponse, nil
 }
 
 type ApiListAssignedRolesForUserRequest struct {
-	ctx        context.Context
+	ctx context.Context
 	ApiService RoleAssignmentAPI
-	userId     string
-	expand     *string
+	userId string
+	expand *string
 	retryCount int32
 }
 
@@ -1331,22 +1327,21 @@ ListAssignedRolesForUser List all Roles assigned to a User
 
 Lists all roles assigned to a user identified by `userId`
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param userId ID of an existing Okta user
-	@return ApiListAssignedRolesForUserRequest
+ @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+ @param userId ID of an existing Okta user
+ @return ApiListAssignedRolesForUserRequest
 */
 func (a *RoleAssignmentAPIService) ListAssignedRolesForUser(ctx context.Context, userId string) ApiListAssignedRolesForUserRequest {
 	return ApiListAssignedRolesForUserRequest{
 		ApiService: a,
-		ctx:        ctx,
-		userId:     userId,
+		ctx: ctx,
+		userId: userId,
 		retryCount: 0,
 	}
 }
 
 // Execute executes the request
-//
-//	@return []Role
+//  @return []Role
 func (a *RoleAssignmentAPIService) ListAssignedRolesForUserExecute(r ApiListAssignedRolesForUserRequest) ([]Role, *APIResponse, error) {
 	var (
 		localVarHTTPMethod   = http.MethodGet
@@ -1355,7 +1350,7 @@ func (a *RoleAssignmentAPIService) ListAssignedRolesForUserExecute(r ApiListAssi
 		localVarReturnValue  []Role
 		localVarHTTPResponse *http.Response
 		localAPIResponse     *APIResponse
-		err                  error
+		err 				 error
 	)
 
 	if a.client.cfg.Okta.Client.RequestTimeout > 0 {
@@ -1479,16 +1474,16 @@ func (a *RoleAssignmentAPIService) ListAssignedRolesForUserExecute(r ApiListAssi
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
 		return localVarReturnValue, localAPIResponse, newErr
 	}
-
+	
 	localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
 	return localVarReturnValue, localAPIResponse, nil
 }
 
 type ApiListGroupAssignedRolesRequest struct {
-	ctx        context.Context
+	ctx context.Context
 	ApiService RoleAssignmentAPI
-	groupId    string
-	expand     *string
+	groupId string
+	expand *string
 	retryCount int32
 }
 
@@ -1506,22 +1501,21 @@ ListGroupAssignedRoles List all Assigned Roles of Group
 
 Lists all assigned roles of group identified by `groupId`
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param groupId The `id` of the group
-	@return ApiListGroupAssignedRolesRequest
+ @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+ @param groupId The `id` of the group
+ @return ApiListGroupAssignedRolesRequest
 */
 func (a *RoleAssignmentAPIService) ListGroupAssignedRoles(ctx context.Context, groupId string) ApiListGroupAssignedRolesRequest {
 	return ApiListGroupAssignedRolesRequest{
 		ApiService: a,
-		ctx:        ctx,
-		groupId:    groupId,
+		ctx: ctx,
+		groupId: groupId,
 		retryCount: 0,
 	}
 }
 
 // Execute executes the request
-//
-//	@return []Role
+//  @return []Role
 func (a *RoleAssignmentAPIService) ListGroupAssignedRolesExecute(r ApiListGroupAssignedRolesRequest) ([]Role, *APIResponse, error) {
 	var (
 		localVarHTTPMethod   = http.MethodGet
@@ -1530,7 +1524,7 @@ func (a *RoleAssignmentAPIService) ListGroupAssignedRolesExecute(r ApiListGroupA
 		localVarReturnValue  []Role
 		localVarHTTPResponse *http.Response
 		localAPIResponse     *APIResponse
-		err                  error
+		err 				 error
 	)
 
 	if a.client.cfg.Okta.Client.RequestTimeout > 0 {
@@ -1654,15 +1648,15 @@ func (a *RoleAssignmentAPIService) ListGroupAssignedRolesExecute(r ApiListGroupA
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
 		return localVarReturnValue, localAPIResponse, newErr
 	}
-
+	
 	localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
 	return localVarReturnValue, localAPIResponse, nil
 }
 
 type ApiListRolesForClientRequest struct {
-	ctx        context.Context
+	ctx context.Context
 	ApiService RoleAssignmentAPI
-	clientId   string
+	clientId string
 	retryCount int32
 }
 
@@ -1675,22 +1669,21 @@ ListRolesForClient List all Roles for a Client
 
 Lists all Roles by `clientId`
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param clientId `client_id` of the app
-	@return ApiListRolesForClientRequest
+ @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+ @param clientId `client_id` of the app
+ @return ApiListRolesForClientRequest
 */
 func (a *RoleAssignmentAPIService) ListRolesForClient(ctx context.Context, clientId string) ApiListRolesForClientRequest {
 	return ApiListRolesForClientRequest{
 		ApiService: a,
-		ctx:        ctx,
-		clientId:   clientId,
+		ctx: ctx,
+		clientId: clientId,
 		retryCount: 0,
 	}
 }
 
 // Execute executes the request
-//
-//	@return Client
+//  @return Client
 func (a *RoleAssignmentAPIService) ListRolesForClientExecute(r ApiListRolesForClientRequest) (*Client, *APIResponse, error) {
 	var (
 		localVarHTTPMethod   = http.MethodGet
@@ -1699,7 +1692,7 @@ func (a *RoleAssignmentAPIService) ListRolesForClientExecute(r ApiListRolesForCl
 		localVarReturnValue  *Client
 		localVarHTTPResponse *http.Response
 		localAPIResponse     *APIResponse
-		err                  error
+		err 				 error
 	)
 
 	if a.client.cfg.Okta.Client.RequestTimeout > 0 {
@@ -1820,16 +1813,16 @@ func (a *RoleAssignmentAPIService) ListRolesForClientExecute(r ApiListRolesForCl
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
 		return localVarReturnValue, localAPIResponse, newErr
 	}
-
+	
 	localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
 	return localVarReturnValue, localAPIResponse, nil
 }
 
 type ApiListUsersWithRoleAssignmentsRequest struct {
-	ctx        context.Context
+	ctx context.Context
 	ApiService RoleAssignmentAPI
-	after      *string
-	limit      *int32
+	after *string
+	limit *int32
 	retryCount int32
 }
 
@@ -1853,20 +1846,19 @@ ListUsersWithRoleAssignments List all Users with Role Assignments
 
 Lists all users with Role Assignments
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@return ApiListUsersWithRoleAssignmentsRequest
+ @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+ @return ApiListUsersWithRoleAssignmentsRequest
 */
 func (a *RoleAssignmentAPIService) ListUsersWithRoleAssignments(ctx context.Context) ApiListUsersWithRoleAssignmentsRequest {
 	return ApiListUsersWithRoleAssignmentsRequest{
 		ApiService: a,
-		ctx:        ctx,
+		ctx: ctx,
 		retryCount: 0,
 	}
 }
 
 // Execute executes the request
-//
-//	@return RoleAssignedUsers
+//  @return RoleAssignedUsers
 func (a *RoleAssignmentAPIService) ListUsersWithRoleAssignmentsExecute(r ApiListUsersWithRoleAssignmentsRequest) (*RoleAssignedUsers, *APIResponse, error) {
 	var (
 		localVarHTTPMethod   = http.MethodGet
@@ -1875,7 +1867,7 @@ func (a *RoleAssignmentAPIService) ListUsersWithRoleAssignmentsExecute(r ApiList
 		localVarReturnValue  *RoleAssignedUsers
 		localVarHTTPResponse *http.Response
 		localAPIResponse     *APIResponse
-		err                  error
+		err 				 error
 	)
 
 	if a.client.cfg.Okta.Client.RequestTimeout > 0 {
@@ -1989,16 +1981,16 @@ func (a *RoleAssignmentAPIService) ListUsersWithRoleAssignmentsExecute(r ApiList
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
 		return localVarReturnValue, localAPIResponse, newErr
 	}
-
+	
 	localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
 	return localVarReturnValue, localAPIResponse, nil
 }
 
 type ApiRetrieveClientRoleRequest struct {
-	ctx        context.Context
+	ctx context.Context
 	ApiService RoleAssignmentAPI
-	clientId   string
-	roleId     string
+	clientId string
+	roleId string
 	retryCount int32
 }
 
@@ -2011,24 +2003,23 @@ RetrieveClientRole Retrieve a Client Role
 
 Retrieves a Client Role
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param clientId `client_id` of the app
-	@param roleId `id` of the Role
-	@return ApiRetrieveClientRoleRequest
+ @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+ @param clientId `client_id` of the app
+ @param roleId `id` of the Role
+ @return ApiRetrieveClientRoleRequest
 */
 func (a *RoleAssignmentAPIService) RetrieveClientRole(ctx context.Context, clientId string, roleId string) ApiRetrieveClientRoleRequest {
 	return ApiRetrieveClientRoleRequest{
 		ApiService: a,
-		ctx:        ctx,
-		clientId:   clientId,
-		roleId:     roleId,
+		ctx: ctx,
+		clientId: clientId,
+		roleId: roleId,
 		retryCount: 0,
 	}
 }
 
 // Execute executes the request
-//
-//	@return Client
+//  @return Client
 func (a *RoleAssignmentAPIService) RetrieveClientRoleExecute(r ApiRetrieveClientRoleRequest) (*Client, *APIResponse, error) {
 	var (
 		localVarHTTPMethod   = http.MethodGet
@@ -2037,7 +2028,7 @@ func (a *RoleAssignmentAPIService) RetrieveClientRoleExecute(r ApiRetrieveClient
 		localVarReturnValue  *Client
 		localVarHTTPResponse *http.Response
 		localAPIResponse     *APIResponse
-		err                  error
+		err 				 error
 	)
 
 	if a.client.cfg.Okta.Client.RequestTimeout > 0 {
@@ -2159,16 +2150,16 @@ func (a *RoleAssignmentAPIService) RetrieveClientRoleExecute(r ApiRetrieveClient
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
 		return localVarReturnValue, localAPIResponse, newErr
 	}
-
+	
 	localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
 	return localVarReturnValue, localAPIResponse, nil
 }
 
 type ApiUnassignRoleFromGroupRequest struct {
-	ctx        context.Context
+	ctx context.Context
 	ApiService RoleAssignmentAPI
-	groupId    string
-	roleId     string
+	groupId string
+	roleId string
 	retryCount int32
 }
 
@@ -2181,17 +2172,17 @@ UnassignRoleFromGroup Unassign a Role from a Group
 
 Unassigns a role identified by `roleId` assigned to group identified by `groupId`
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param groupId The `id` of the group
-	@param roleId `id` of the Role
-	@return ApiUnassignRoleFromGroupRequest
+ @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+ @param groupId The `id` of the group
+ @param roleId `id` of the Role
+ @return ApiUnassignRoleFromGroupRequest
 */
 func (a *RoleAssignmentAPIService) UnassignRoleFromGroup(ctx context.Context, groupId string, roleId string) ApiUnassignRoleFromGroupRequest {
 	return ApiUnassignRoleFromGroupRequest{
 		ApiService: a,
-		ctx:        ctx,
-		groupId:    groupId,
-		roleId:     roleId,
+		ctx: ctx,
+		groupId: groupId,
+		roleId: roleId,
 		retryCount: 0,
 	}
 }
@@ -2204,7 +2195,7 @@ func (a *RoleAssignmentAPIService) UnassignRoleFromGroupExecute(r ApiUnassignRol
 		formFiles            []formFile
 		localVarHTTPResponse *http.Response
 		localAPIResponse     *APIResponse
-		err                  error
+		err 				 error
 	)
 
 	if a.client.cfg.Okta.Client.RequestTimeout > 0 {
@@ -2322,10 +2313,10 @@ func (a *RoleAssignmentAPIService) UnassignRoleFromGroupExecute(r ApiUnassignRol
 }
 
 type ApiUnassignRoleFromUserRequest struct {
-	ctx        context.Context
+	ctx context.Context
 	ApiService RoleAssignmentAPI
-	userId     string
-	roleId     string
+	userId string
+	roleId string
 	retryCount int32
 }
 
@@ -2338,17 +2329,17 @@ UnassignRoleFromUser Unassign a Role from a User
 
 Unassigns a role identified by `roleId` from a user identified by `userId`
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param userId ID of an existing Okta user
-	@param roleId `id` of the Role
-	@return ApiUnassignRoleFromUserRequest
+ @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+ @param userId ID of an existing Okta user
+ @param roleId `id` of the Role
+ @return ApiUnassignRoleFromUserRequest
 */
 func (a *RoleAssignmentAPIService) UnassignRoleFromUser(ctx context.Context, userId string, roleId string) ApiUnassignRoleFromUserRequest {
 	return ApiUnassignRoleFromUserRequest{
 		ApiService: a,
-		ctx:        ctx,
-		userId:     userId,
-		roleId:     roleId,
+		ctx: ctx,
+		userId: userId,
+		roleId: roleId,
 		retryCount: 0,
 	}
 }
@@ -2361,7 +2352,7 @@ func (a *RoleAssignmentAPIService) UnassignRoleFromUserExecute(r ApiUnassignRole
 		formFiles            []formFile
 		localVarHTTPResponse *http.Response
 		localAPIResponse     *APIResponse
-		err                  error
+		err 				 error
 	)
 
 	if a.client.cfg.Okta.Client.RequestTimeout > 0 {

@@ -29,10 +29,11 @@ import (
 	"fmt"
 )
 
-// model_oneof.mustache
+
+//model_oneof.mustache
 // ReplaceLogStreamRequest - struct for ReplaceLogStreamRequest
 type ReplaceLogStreamRequest struct {
-	LogStreamAwsPutSchema    *LogStreamAwsPutSchema
+	LogStreamAwsPutSchema *LogStreamAwsPutSchema
 	LogStreamSplunkPutSchema *LogStreamSplunkPutSchema
 }
 
@@ -50,6 +51,7 @@ func LogStreamSplunkPutSchemaAsReplaceLogStreamRequest(v *LogStreamSplunkPutSche
 	}
 }
 
+
 // Unmarshal JSON data into one of the pointers in the struct  CUSTOM
 func (dst *ReplaceLogStreamRequest) UnmarshalJSON(data []byte) error {
 	var err error
@@ -58,30 +60,6 @@ func (dst *ReplaceLogStreamRequest) UnmarshalJSON(data []byte) error {
 	err = newStrictDecoder(data).Decode(&jsonDict)
 	if err != nil {
 		return fmt.Errorf("Failed to unmarshal JSON into map for the discriminator lookup.")
-	}
-
-	// check if the discriminator value is 'aws_eventbridge'
-	if jsonDict["type"] == "aws_eventbridge" {
-		// try to unmarshal JSON data into LogStreamAwsPutSchema
-		err = json.Unmarshal(data, &dst.LogStreamAwsPutSchema)
-		if err == nil {
-			return nil // data stored in dst.LogStreamAwsPutSchema, return on the first match
-		} else {
-			dst.LogStreamAwsPutSchema = nil
-			return fmt.Errorf("Failed to unmarshal ReplaceLogStreamRequest as LogStreamAwsPutSchema: %s", err.Error())
-		}
-	}
-
-	// check if the discriminator value is 'splunk_cloud_logstreaming'
-	if jsonDict["type"] == "splunk_cloud_logstreaming" {
-		// try to unmarshal JSON data into LogStreamSplunkPutSchema
-		err = json.Unmarshal(data, &dst.LogStreamSplunkPutSchema)
-		if err == nil {
-			return nil // data stored in dst.LogStreamSplunkPutSchema, return on the first match
-		} else {
-			dst.LogStreamSplunkPutSchema = nil
-			return fmt.Errorf("Failed to unmarshal ReplaceLogStreamRequest as LogStreamSplunkPutSchema: %s", err.Error())
-		}
 	}
 
 	// check if the discriminator value is 'LogStreamAwsPutSchema'
@@ -98,6 +76,30 @@ func (dst *ReplaceLogStreamRequest) UnmarshalJSON(data []byte) error {
 
 	// check if the discriminator value is 'LogStreamSplunkPutSchema'
 	if jsonDict["type"] == "LogStreamSplunkPutSchema" {
+		// try to unmarshal JSON data into LogStreamSplunkPutSchema
+		err = json.Unmarshal(data, &dst.LogStreamSplunkPutSchema)
+		if err == nil {
+			return nil // data stored in dst.LogStreamSplunkPutSchema, return on the first match
+		} else {
+			dst.LogStreamSplunkPutSchema = nil
+			return fmt.Errorf("Failed to unmarshal ReplaceLogStreamRequest as LogStreamSplunkPutSchema: %s", err.Error())
+		}
+	}
+
+	// check if the discriminator value is 'aws_eventbridge'
+	if jsonDict["type"] == "aws_eventbridge" {
+		// try to unmarshal JSON data into LogStreamAwsPutSchema
+		err = json.Unmarshal(data, &dst.LogStreamAwsPutSchema)
+		if err == nil {
+			return nil // data stored in dst.LogStreamAwsPutSchema, return on the first match
+		} else {
+			dst.LogStreamAwsPutSchema = nil
+			return fmt.Errorf("Failed to unmarshal ReplaceLogStreamRequest as LogStreamAwsPutSchema: %s", err.Error())
+		}
+	}
+
+	// check if the discriminator value is 'splunk_cloud_logstreaming'
+	if jsonDict["type"] == "splunk_cloud_logstreaming" {
 		// try to unmarshal JSON data into LogStreamSplunkPutSchema
 		err = json.Unmarshal(data, &dst.LogStreamSplunkPutSchema)
 		if err == nil {
@@ -125,7 +127,7 @@ func (src ReplaceLogStreamRequest) MarshalJSON() ([]byte, error) {
 }
 
 // Get the actual instance
-func (obj *ReplaceLogStreamRequest) GetActualInstance() interface{} {
+func (obj *ReplaceLogStreamRequest) GetActualInstance() (interface{}) {
 	if obj == nil {
 		return nil
 	}
@@ -176,3 +178,5 @@ func (v *NullableReplaceLogStreamRequest) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
+
+

@@ -30,17 +30,17 @@ import (
 
 // LogStreamSchema struct for LogStreamSchema
 type LogStreamSchema struct {
-	Schema               *string                `json:"$schema,omitempty"`
-	Created              *string                `json:"created,omitempty"`
-	ErrorMessage         map[string]interface{} `json:"errorMessage,omitempty"`
-	Id                   *string                `json:"id,omitempty"`
-	LastUpdated          *string                `json:"lastUpdated,omitempty"`
-	Name                 *string                `json:"name,omitempty"`
-	Properties           map[string]interface{} `json:"properties,omitempty"`
-	Required             []string               `json:"required,omitempty"`
-	Title                *string                `json:"title,omitempty"`
-	Type                 *string                `json:"type,omitempty"`
-	Links                *LinksSelf             `json:"_links,omitempty"`
+	Schema *string `json:"$schema,omitempty"`
+	Created *string `json:"created,omitempty"`
+	ErrorMessage map[string]interface{} `json:"errorMessage,omitempty"`
+	Id *string `json:"id,omitempty"`
+	LastUpdated *string `json:"lastUpdated,omitempty"`
+	Name *string `json:"name,omitempty"`
+	Properties map[string]interface{} `json:"properties,omitempty"`
+	Required []string `json:"required,omitempty"`
+	Title *string `json:"title,omitempty"`
+	Type *string `json:"type,omitempty"`
+	Links *LinksSelf `json:"_links,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -526,3 +526,4 @@ func (v *NullableLogStreamSchema) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
+

@@ -30,7 +30,7 @@ import (
 
 // ChromeBrowserVersion Current version of the Chrome Browser
 type ChromeBrowserVersion struct {
-	Minimum              *string `json:"minimum,omitempty"`
+	Minimum *string `json:"minimum,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -156,3 +156,4 @@ func (v *NullableChromeBrowserVersion) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
+

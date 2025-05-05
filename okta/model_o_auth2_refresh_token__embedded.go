@@ -31,7 +31,7 @@ import (
 // OAuth2RefreshTokenEmbedded The embedded resources related to the object if the `expand` query parameter is specified
 type OAuth2RefreshTokenEmbedded struct {
 	// The scope objects attached to the Token
-	Scopes               []OAuth2RefreshTokenScope `json:"scopes,omitempty"`
+	Scopes []OAuth2RefreshTokenScope `json:"scopes,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -157,3 +157,4 @@ func (v *NullableOAuth2RefreshTokenEmbedded) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
+

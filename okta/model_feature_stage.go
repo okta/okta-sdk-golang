@@ -33,7 +33,7 @@ type FeatureStage struct {
 	// Indicates the release state of the feature
 	State *string `json:"state,omitempty"`
 	// Current release stage of the feature
-	Value                *string `json:"value,omitempty"`
+	Value *string `json:"value,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -195,3 +195,4 @@ func (v *NullableFeatureStage) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
+

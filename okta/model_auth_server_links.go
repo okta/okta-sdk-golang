@@ -30,14 +30,14 @@ import (
 
 // AuthServerLinks struct for AuthServerLinks
 type AuthServerLinks struct {
-	Self       *HrefObjectSelfLink         `json:"self,omitempty"`
-	Claims     *AuthServerLinksAllOfClaims `json:"claims,omitempty"`
-	Deactivate *HrefObjectDeactivateLink   `json:"deactivate,omitempty"`
+	Self *HrefObjectSelfLink `json:"self,omitempty"`
+	Claims *AuthServerLinksAllOfClaims `json:"claims,omitempty"`
+	Deactivate *HrefObjectDeactivateLink `json:"deactivate,omitempty"`
 	// Link to the authorization server metadata
-	Metadata             []HrefObject                   `json:"metadata,omitempty"`
-	Policies             *AuthServerLinksAllOfPolicies  `json:"policies,omitempty"`
-	RotateKey            *AuthServerLinksAllOfRotateKey `json:"rotateKey,omitempty"`
-	Scopes               *AuthServerLinksAllOfScopes    `json:"scopes,omitempty"`
+	Metadata []HrefObject `json:"metadata,omitempty"`
+	Policies *AuthServerLinksAllOfPolicies `json:"policies,omitempty"`
+	RotateKey *AuthServerLinksAllOfRotateKey `json:"rotateKey,omitempty"`
+	Scopes *AuthServerLinksAllOfScopes `json:"scopes,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -379,3 +379,4 @@ func (v *NullableAuthServerLinks) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
+

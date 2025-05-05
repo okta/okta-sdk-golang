@@ -31,7 +31,7 @@ import (
 // UserFactorTokenVerifyRSA struct for UserFactorTokenVerifyRSA
 type UserFactorTokenVerifyRSA struct {
 	// OTP for the current time window
-	PassCode             *string `json:"passCode,omitempty"`
+	PassCode *string `json:"passCode,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -157,3 +157,4 @@ func (v *NullableUserFactorTokenVerifyRSA) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
+

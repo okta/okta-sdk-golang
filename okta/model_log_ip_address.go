@@ -30,10 +30,10 @@ import (
 
 // LogIpAddress struct for LogIpAddress
 type LogIpAddress struct {
-	GeographicalContext  *LogGeographicalContext `json:"geographicalContext,omitempty"`
-	Ip                   *string                 `json:"ip,omitempty"`
-	Source               *string                 `json:"source,omitempty"`
-	Version              *string                 `json:"version,omitempty"`
+	GeographicalContext *LogGeographicalContext `json:"geographicalContext,omitempty"`
+	Ip *string `json:"ip,omitempty"`
+	Source *string `json:"source,omitempty"`
+	Version *string `json:"version,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -267,3 +267,4 @@ func (v *NullableLogIpAddress) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
+

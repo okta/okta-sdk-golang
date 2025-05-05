@@ -30,9 +30,9 @@ import (
 
 // GovernanceBundleCreateRequest struct for GovernanceBundleCreateRequest
 type GovernanceBundleCreateRequest struct {
-	Description          *string                `json:"description,omitempty"`
-	Entitlements         []IAMBundleEntitlement `json:"entitlements,omitempty"`
-	Name                 *string                `json:"name,omitempty"`
+	Description *string `json:"description,omitempty"`
+	Entitlements []IAMBundleEntitlement `json:"entitlements,omitempty"`
+	Name *string `json:"name,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -230,3 +230,4 @@ func (v *NullableGovernanceBundleCreateRequest) UnmarshalJSON(src []byte) error 
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
+

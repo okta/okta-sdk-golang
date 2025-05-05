@@ -30,13 +30,13 @@ import (
 
 // CsrMetadataSubject struct for CsrMetadataSubject
 type CsrMetadataSubject struct {
-	CommonName             *string `json:"commonName,omitempty"`
-	CountryName            *string `json:"countryName,omitempty"`
-	LocalityName           *string `json:"localityName,omitempty"`
+	CommonName *string `json:"commonName,omitempty"`
+	CountryName *string `json:"countryName,omitempty"`
+	LocalityName *string `json:"localityName,omitempty"`
 	OrganizationalUnitName *string `json:"organizationalUnitName,omitempty"`
-	OrganizationName       *string `json:"organizationName,omitempty"`
-	StateOrProvinceName    *string `json:"stateOrProvinceName,omitempty"`
-	AdditionalProperties   map[string]interface{}
+	OrganizationName *string `json:"organizationName,omitempty"`
+	StateOrProvinceName *string `json:"stateOrProvinceName,omitempty"`
+	AdditionalProperties map[string]interface{}
 }
 
 type _CsrMetadataSubject CsrMetadataSubject
@@ -341,3 +341,4 @@ func (v *NullableCsrMetadataSubject) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
+

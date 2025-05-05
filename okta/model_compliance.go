@@ -30,7 +30,7 @@ import (
 
 // Compliance struct for Compliance
 type Compliance struct {
-	Fips                 *string `json:"fips,omitempty"`
+	Fips *string `json:"fips,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -156,3 +156,4 @@ func (v *NullableCompliance) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
+

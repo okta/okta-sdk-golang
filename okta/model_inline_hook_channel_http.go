@@ -33,7 +33,7 @@ import (
 // InlineHookChannelHttp struct for InlineHookChannelHttp
 type InlineHookChannelHttp struct {
 	InlineHookChannel
-	Config               *InlineHookChannelConfig `json:"config,omitempty"`
+	Config *InlineHookChannelConfig `json:"config,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -201,3 +201,4 @@ func (v *NullableInlineHookChannelHttp) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
+

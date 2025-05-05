@@ -31,7 +31,7 @@ import (
 // DomainListResponse Defines a list of domains with a subset of the properties for each domain.
 type DomainListResponse struct {
 	// Each element of the array defines an individual domain.
-	Domains              []DomainResponse `json:"domains,omitempty"`
+	Domains []DomainResponse `json:"domains,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -157,3 +157,4 @@ func (v *NullableDomainListResponse) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
+

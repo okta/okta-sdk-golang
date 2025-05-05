@@ -30,8 +30,8 @@ import (
 
 // Sso Supported SSO protocol configurations. You must configure at least one protocol: `oidc` or `saml`
 type Sso struct {
-	Oidc                 *Oidc `json:"oidc,omitempty"`
-	Saml                 *Saml `json:"saml,omitempty"`
+	Oidc *Oidc `json:"oidc,omitempty"`
+	Saml *Saml `json:"saml,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -193,3 +193,4 @@ func (v *NullableSso) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
+

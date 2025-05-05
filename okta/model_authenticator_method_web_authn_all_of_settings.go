@@ -35,7 +35,7 @@ type AuthenticatorMethodWebAuthnAllOfSettings struct {
 	// User verification setting. Possible values `DISCOURAGED` (the authenticator isn't asked to perform user verification, but may do so at its discretion), `PREFERRED` (the client uses an authenticator capable of user verification if possible), or `REQUIRED`(the client uses only an authenticator capable of user verification)
 	UserVerification *string `json:"userVerification,omitempty"`
 	// Method attachment
-	Attachment           *string `json:"attachment,omitempty"`
+	Attachment *string `json:"attachment,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -233,3 +233,4 @@ func (v *NullableAuthenticatorMethodWebAuthnAllOfSettings) UnmarshalJSON(src []b
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
+

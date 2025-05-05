@@ -26,24 +26,24 @@ Create a UI Schema
 package main
 
 import (
-	"context"
-	"fmt"
-	"os"
-	openapiclient "github.com/okta/okta-sdk-golang"
+    "context"
+    "fmt"
+    "os"
+    openapiclient "github.com/okta/okta-sdk-golang"
 )
 
 func main() {
-	uischemabody := *openapiclient.NewCreateUISchema() // CreateUISchema | 
+    uischemabody := *openapiclient.NewCreateUISchema() // CreateUISchema | 
 
-	configuration := openapiclient.NewConfiguration()
-	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.UISchemaAPI.CreateUISchema(context.Background()).Uischemabody(uischemabody).Execute()
-	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `UISchemaAPI.CreateUISchema``: %v\n", err)
-		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-	}
-	// response from `CreateUISchema`: UISchemasResponseObject
-	fmt.Fprintf(os.Stdout, "Response from `UISchemaAPI.CreateUISchema`: %v\n", resp)
+    configuration := openapiclient.NewConfiguration()
+    apiClient := openapiclient.NewAPIClient(configuration)
+    resp, r, err := apiClient.UISchemaAPI.CreateUISchema(context.Background()).Uischemabody(uischemabody).Execute()
+    if err != nil {
+        fmt.Fprintf(os.Stderr, "Error when calling `UISchemaAPI.CreateUISchema``: %v\n", err)
+        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+    }
+    // response from `CreateUISchema`: UISchemasResponseObject
+    fmt.Fprintf(os.Stdout, "Response from `UISchemaAPI.CreateUISchema`: %v\n", resp)
 }
 ```
 
@@ -92,22 +92,22 @@ Delete a UI Schema
 package main
 
 import (
-	"context"
-	"fmt"
-	"os"
-	openapiclient "github.com/okta/okta-sdk-golang"
+    "context"
+    "fmt"
+    "os"
+    openapiclient "github.com/okta/okta-sdk-golang"
 )
 
 func main() {
-	id := "uis4a7liocgcRgcxZ0g7" // string | The unique ID of the UI Schema
+    id := "uis4a7liocgcRgcxZ0g7" // string | The unique ID of the UI Schema
 
-	configuration := openapiclient.NewConfiguration()
-	apiClient := openapiclient.NewAPIClient(configuration)
-	r, err := apiClient.UISchemaAPI.DeleteUISchemas(context.Background(), id).Execute()
-	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `UISchemaAPI.DeleteUISchemas``: %v\n", err)
-		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-	}
+    configuration := openapiclient.NewConfiguration()
+    apiClient := openapiclient.NewAPIClient(configuration)
+    r, err := apiClient.UISchemaAPI.DeleteUISchemas(context.Background(), id).Execute()
+    if err != nil {
+        fmt.Fprintf(os.Stderr, "Error when calling `UISchemaAPI.DeleteUISchemas``: %v\n", err)
+        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+    }
 }
 ```
 
@@ -160,24 +160,24 @@ Retrieve a UI Schema
 package main
 
 import (
-	"context"
-	"fmt"
-	"os"
-	openapiclient "github.com/okta/okta-sdk-golang"
+    "context"
+    "fmt"
+    "os"
+    openapiclient "github.com/okta/okta-sdk-golang"
 )
 
 func main() {
-	id := "uis4a7liocgcRgcxZ0g7" // string | The unique ID of the UI Schema
+    id := "uis4a7liocgcRgcxZ0g7" // string | The unique ID of the UI Schema
 
-	configuration := openapiclient.NewConfiguration()
-	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.UISchemaAPI.GetUISchema(context.Background(), id).Execute()
-	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `UISchemaAPI.GetUISchema``: %v\n", err)
-		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-	}
-	// response from `GetUISchema`: UISchemasResponseObject
-	fmt.Fprintf(os.Stdout, "Response from `UISchemaAPI.GetUISchema`: %v\n", resp)
+    configuration := openapiclient.NewConfiguration()
+    apiClient := openapiclient.NewAPIClient(configuration)
+    resp, r, err := apiClient.UISchemaAPI.GetUISchema(context.Background(), id).Execute()
+    if err != nil {
+        fmt.Fprintf(os.Stderr, "Error when calling `UISchemaAPI.GetUISchema``: %v\n", err)
+        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+    }
+    // response from `GetUISchema`: UISchemasResponseObject
+    fmt.Fprintf(os.Stdout, "Response from `UISchemaAPI.GetUISchema`: %v\n", resp)
 }
 ```
 
@@ -230,23 +230,23 @@ List all UI Schemas
 package main
 
 import (
-	"context"
-	"fmt"
-	"os"
-	openapiclient "github.com/okta/okta-sdk-golang"
+    "context"
+    "fmt"
+    "os"
+    openapiclient "github.com/okta/okta-sdk-golang"
 )
 
 func main() {
 
-	configuration := openapiclient.NewConfiguration()
-	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.UISchemaAPI.ListUISchemas(context.Background()).Execute()
-	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `UISchemaAPI.ListUISchemas``: %v\n", err)
-		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-	}
-	// response from `ListUISchemas`: []UISchemasResponseObject
-	fmt.Fprintf(os.Stdout, "Response from `UISchemaAPI.ListUISchemas`: %v\n", resp)
+    configuration := openapiclient.NewConfiguration()
+    apiClient := openapiclient.NewAPIClient(configuration)
+    resp, r, err := apiClient.UISchemaAPI.ListUISchemas(context.Background()).Execute()
+    if err != nil {
+        fmt.Fprintf(os.Stderr, "Error when calling `UISchemaAPI.ListUISchemas``: %v\n", err)
+        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+    }
+    // response from `ListUISchemas`: []UISchemasResponseObject
+    fmt.Fprintf(os.Stdout, "Response from `UISchemaAPI.ListUISchemas`: %v\n", resp)
 }
 ```
 
@@ -291,25 +291,25 @@ Replace a UI Schema
 package main
 
 import (
-	"context"
-	"fmt"
-	"os"
-	openapiclient "github.com/okta/okta-sdk-golang"
+    "context"
+    "fmt"
+    "os"
+    openapiclient "github.com/okta/okta-sdk-golang"
 )
 
 func main() {
-	id := "uis4a7liocgcRgcxZ0g7" // string | The unique ID of the UI Schema
-	updateUISchemaBody := *openapiclient.NewUpdateUISchema() // UpdateUISchema | 
+    id := "uis4a7liocgcRgcxZ0g7" // string | The unique ID of the UI Schema
+    updateUISchemaBody := *openapiclient.NewUpdateUISchema() // UpdateUISchema | 
 
-	configuration := openapiclient.NewConfiguration()
-	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.UISchemaAPI.ReplaceUISchemas(context.Background(), id).UpdateUISchemaBody(updateUISchemaBody).Execute()
-	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `UISchemaAPI.ReplaceUISchemas``: %v\n", err)
-		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-	}
-	// response from `ReplaceUISchemas`: UISchemasResponseObject
-	fmt.Fprintf(os.Stdout, "Response from `UISchemaAPI.ReplaceUISchemas`: %v\n", resp)
+    configuration := openapiclient.NewConfiguration()
+    apiClient := openapiclient.NewAPIClient(configuration)
+    resp, r, err := apiClient.UISchemaAPI.ReplaceUISchemas(context.Background(), id).UpdateUISchemaBody(updateUISchemaBody).Execute()
+    if err != nil {
+        fmt.Fprintf(os.Stderr, "Error when calling `UISchemaAPI.ReplaceUISchemas``: %v\n", err)
+        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+    }
+    // response from `ReplaceUISchemas`: UISchemasResponseObject
+    fmt.Fprintf(os.Stdout, "Response from `UISchemaAPI.ReplaceUISchemas`: %v\n", resp)
 }
 ```
 

@@ -29,11 +29,12 @@ import (
 	"fmt"
 )
 
-// model_oneof.mustache
+
+//model_oneof.mustache
 // ListPushProviders200ResponseInner - struct for ListPushProviders200ResponseInner
 type ListPushProviders200ResponseInner struct {
 	APNSPushProvider *APNSPushProvider
-	FCMPushProvider  *FCMPushProvider
+	FCMPushProvider *FCMPushProvider
 }
 
 // APNSPushProviderAsListPushProviders200ResponseInner is a convenience function that returns APNSPushProvider wrapped in ListPushProviders200ResponseInner
@@ -49,6 +50,7 @@ func FCMPushProviderAsListPushProviders200ResponseInner(v *FCMPushProvider) List
 		FCMPushProvider: v,
 	}
 }
+
 
 // Unmarshal JSON data into one of the pointers in the struct  CUSTOM
 func (dst *ListPushProviders200ResponseInner) UnmarshalJSON(data []byte) error {
@@ -72,18 +74,6 @@ func (dst *ListPushProviders200ResponseInner) UnmarshalJSON(data []byte) error {
 		}
 	}
 
-	// check if the discriminator value is 'FCM'
-	if jsonDict["providerType"] == "FCM" {
-		// try to unmarshal JSON data into FCMPushProvider
-		err = json.Unmarshal(data, &dst.FCMPushProvider)
-		if err == nil {
-			return nil // data stored in dst.FCMPushProvider, return on the first match
-		} else {
-			dst.FCMPushProvider = nil
-			return fmt.Errorf("Failed to unmarshal ListPushProviders200ResponseInner as FCMPushProvider: %s", err.Error())
-		}
-	}
-
 	// check if the discriminator value is 'APNSPushProvider'
 	if jsonDict["providerType"] == "APNSPushProvider" {
 		// try to unmarshal JSON data into APNSPushProvider
@@ -93,6 +83,18 @@ func (dst *ListPushProviders200ResponseInner) UnmarshalJSON(data []byte) error {
 		} else {
 			dst.APNSPushProvider = nil
 			return fmt.Errorf("Failed to unmarshal ListPushProviders200ResponseInner as APNSPushProvider: %s", err.Error())
+		}
+	}
+
+	// check if the discriminator value is 'FCM'
+	if jsonDict["providerType"] == "FCM" {
+		// try to unmarshal JSON data into FCMPushProvider
+		err = json.Unmarshal(data, &dst.FCMPushProvider)
+		if err == nil {
+			return nil // data stored in dst.FCMPushProvider, return on the first match
+		} else {
+			dst.FCMPushProvider = nil
+			return fmt.Errorf("Failed to unmarshal ListPushProviders200ResponseInner as FCMPushProvider: %s", err.Error())
 		}
 	}
 
@@ -125,7 +127,7 @@ func (src ListPushProviders200ResponseInner) MarshalJSON() ([]byte, error) {
 }
 
 // Get the actual instance
-func (obj *ListPushProviders200ResponseInner) GetActualInstance() interface{} {
+func (obj *ListPushProviders200ResponseInner) GetActualInstance() (interface{}) {
 	if obj == nil {
 		return nil
 	}
@@ -176,3 +178,5 @@ func (v *NullableListPushProviders200ResponseInner) UnmarshalJSON(src []byte) er
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
+
+

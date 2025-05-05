@@ -31,7 +31,7 @@ import (
 // ApplicationLicensing struct for ApplicationLicensing
 type ApplicationLicensing struct {
 	// Number of licenses purchased for the app
-	SeatCount            *int32 `json:"seatCount,omitempty"`
+	SeatCount *int32 `json:"seatCount,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -157,3 +157,4 @@ func (v *NullableApplicationLicensing) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
+

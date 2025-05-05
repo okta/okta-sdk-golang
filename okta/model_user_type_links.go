@@ -30,8 +30,8 @@ import (
 
 // UserTypeLinks struct for UserTypeLinks
 type UserTypeLinks struct {
-	Self                 *HrefObjectSelfLink       `json:"self,omitempty"`
-	Schema               *UserTypeLinksAllOfSchema `json:"schema,omitempty"`
+	Self *HrefObjectSelfLink `json:"self,omitempty"`
+	Schema *SourceLinksAllOfSchema `json:"schema,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -87,9 +87,9 @@ func (o *UserTypeLinks) SetSelf(v HrefObjectSelfLink) {
 }
 
 // GetSchema returns the Schema field value if set, zero value otherwise.
-func (o *UserTypeLinks) GetSchema() UserTypeLinksAllOfSchema {
+func (o *UserTypeLinks) GetSchema() SourceLinksAllOfSchema {
 	if o == nil || o.Schema == nil {
-		var ret UserTypeLinksAllOfSchema
+		var ret SourceLinksAllOfSchema
 		return ret
 	}
 	return *o.Schema
@@ -97,7 +97,7 @@ func (o *UserTypeLinks) GetSchema() UserTypeLinksAllOfSchema {
 
 // GetSchemaOk returns a tuple with the Schema field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *UserTypeLinks) GetSchemaOk() (*UserTypeLinksAllOfSchema, bool) {
+func (o *UserTypeLinks) GetSchemaOk() (*SourceLinksAllOfSchema, bool) {
 	if o == nil || o.Schema == nil {
 		return nil, false
 	}
@@ -113,8 +113,8 @@ func (o *UserTypeLinks) HasSchema() bool {
 	return false
 }
 
-// SetSchema gets a reference to the given UserTypeLinksAllOfSchema and assigns it to the Schema field.
-func (o *UserTypeLinks) SetSchema(v UserTypeLinksAllOfSchema) {
+// SetSchema gets a reference to the given SourceLinksAllOfSchema and assigns it to the Schema field.
+func (o *UserTypeLinks) SetSchema(v SourceLinksAllOfSchema) {
 	o.Schema = &v
 }
 
@@ -193,3 +193,4 @@ func (v *NullableUserTypeLinks) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
+

@@ -30,26 +30,26 @@ Clone a Key Credential
 package main
 
 import (
-	"context"
-	"fmt"
-	"os"
-	openapiclient "github.com/okta/okta-sdk-golang"
+    "context"
+    "fmt"
+    "os"
+    openapiclient "github.com/okta/okta-sdk-golang"
 )
 
 func main() {
-	appId := "0oafxqCAJWWGELFTYASJ" // string | Application ID
-	keyId := "sjP9eiETijYz110VkhHN" // string | ID of the Key Credential for the application
-	targetAid := "targetAid_example" // string | Unique key of the target Application
+    appId := "0oafxqCAJWWGELFTYASJ" // string | Application ID
+    keyId := "sjP9eiETijYz110VkhHN" // string | ID of the Key Credential for the application
+    targetAid := "targetAid_example" // string | Unique key of the target Application
 
-	configuration := openapiclient.NewConfiguration()
-	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.ApplicationCredentialsAPI.CloneApplicationKey(context.Background(), appId, keyId).TargetAid(targetAid).Execute()
-	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `ApplicationCredentialsAPI.CloneApplicationKey``: %v\n", err)
-		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-	}
-	// response from `CloneApplicationKey`: JsonWebKey
-	fmt.Fprintf(os.Stdout, "Response from `ApplicationCredentialsAPI.CloneApplicationKey`: %v\n", resp)
+    configuration := openapiclient.NewConfiguration()
+    apiClient := openapiclient.NewAPIClient(configuration)
+    resp, r, err := apiClient.ApplicationCredentialsAPI.CloneApplicationKey(context.Background(), appId, keyId).TargetAid(targetAid).Execute()
+    if err != nil {
+        fmt.Fprintf(os.Stderr, "Error when calling `ApplicationCredentialsAPI.CloneApplicationKey``: %v\n", err)
+        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+    }
+    // response from `CloneApplicationKey`: JsonWebKey
+    fmt.Fprintf(os.Stdout, "Response from `ApplicationCredentialsAPI.CloneApplicationKey`: %v\n", resp)
 }
 ```
 
@@ -105,25 +105,25 @@ Generate a Key Credential
 package main
 
 import (
-	"context"
-	"fmt"
-	"os"
-	openapiclient "github.com/okta/okta-sdk-golang"
+    "context"
+    "fmt"
+    "os"
+    openapiclient "github.com/okta/okta-sdk-golang"
 )
 
 func main() {
-	appId := "0oafxqCAJWWGELFTYASJ" // string | Application ID
-	validityYears := int32(56) // int32 |  (optional)
+    appId := "0oafxqCAJWWGELFTYASJ" // string | Application ID
+    validityYears := int32(56) // int32 |  (optional)
 
-	configuration := openapiclient.NewConfiguration()
-	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.ApplicationCredentialsAPI.GenerateApplicationKey(context.Background(), appId).ValidityYears(validityYears).Execute()
-	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `ApplicationCredentialsAPI.GenerateApplicationKey``: %v\n", err)
-		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-	}
-	// response from `GenerateApplicationKey`: JsonWebKey
-	fmt.Fprintf(os.Stdout, "Response from `ApplicationCredentialsAPI.GenerateApplicationKey`: %v\n", resp)
+    configuration := openapiclient.NewConfiguration()
+    apiClient := openapiclient.NewAPIClient(configuration)
+    resp, r, err := apiClient.ApplicationCredentialsAPI.GenerateApplicationKey(context.Background(), appId).ValidityYears(validityYears).Execute()
+    if err != nil {
+        fmt.Fprintf(os.Stderr, "Error when calling `ApplicationCredentialsAPI.GenerateApplicationKey``: %v\n", err)
+        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+    }
+    // response from `GenerateApplicationKey`: JsonWebKey
+    fmt.Fprintf(os.Stdout, "Response from `ApplicationCredentialsAPI.GenerateApplicationKey`: %v\n", resp)
 }
 ```
 
@@ -177,25 +177,25 @@ Generate a Certificate Signing Request
 package main
 
 import (
-	"context"
-	"fmt"
-	"os"
-	openapiclient "github.com/okta/okta-sdk-golang"
+    "context"
+    "fmt"
+    "os"
+    openapiclient "github.com/okta/okta-sdk-golang"
 )
 
 func main() {
-	appId := "0oafxqCAJWWGELFTYASJ" // string | Application ID
-	metadata := *openapiclient.NewCsrMetadata() // CsrMetadata | 
+    appId := "0oafxqCAJWWGELFTYASJ" // string | Application ID
+    metadata := *openapiclient.NewCsrMetadata() // CsrMetadata | 
 
-	configuration := openapiclient.NewConfiguration()
-	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.ApplicationCredentialsAPI.GenerateCsrForApplication(context.Background(), appId).Metadata(metadata).Execute()
-	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `ApplicationCredentialsAPI.GenerateCsrForApplication``: %v\n", err)
-		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-	}
-	// response from `GenerateCsrForApplication`: Csr
-	fmt.Fprintf(os.Stdout, "Response from `ApplicationCredentialsAPI.GenerateCsrForApplication`: %v\n", resp)
+    configuration := openapiclient.NewConfiguration()
+    apiClient := openapiclient.NewAPIClient(configuration)
+    resp, r, err := apiClient.ApplicationCredentialsAPI.GenerateCsrForApplication(context.Background(), appId).Metadata(metadata).Execute()
+    if err != nil {
+        fmt.Fprintf(os.Stderr, "Error when calling `ApplicationCredentialsAPI.GenerateCsrForApplication``: %v\n", err)
+        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+    }
+    // response from `GenerateCsrForApplication`: Csr
+    fmt.Fprintf(os.Stdout, "Response from `ApplicationCredentialsAPI.GenerateCsrForApplication`: %v\n", resp)
 }
 ```
 
@@ -249,25 +249,25 @@ Retrieve a Key Credential
 package main
 
 import (
-	"context"
-	"fmt"
-	"os"
-	openapiclient "github.com/okta/okta-sdk-golang"
+    "context"
+    "fmt"
+    "os"
+    openapiclient "github.com/okta/okta-sdk-golang"
 )
 
 func main() {
-	appId := "0oafxqCAJWWGELFTYASJ" // string | Application ID
-	keyId := "sjP9eiETijYz110VkhHN" // string | ID of the Key Credential for the application
+    appId := "0oafxqCAJWWGELFTYASJ" // string | Application ID
+    keyId := "sjP9eiETijYz110VkhHN" // string | ID of the Key Credential for the application
 
-	configuration := openapiclient.NewConfiguration()
-	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.ApplicationCredentialsAPI.GetApplicationKey(context.Background(), appId, keyId).Execute()
-	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `ApplicationCredentialsAPI.GetApplicationKey``: %v\n", err)
-		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-	}
-	// response from `GetApplicationKey`: JsonWebKey
-	fmt.Fprintf(os.Stdout, "Response from `ApplicationCredentialsAPI.GetApplicationKey`: %v\n", resp)
+    configuration := openapiclient.NewConfiguration()
+    apiClient := openapiclient.NewAPIClient(configuration)
+    resp, r, err := apiClient.ApplicationCredentialsAPI.GetApplicationKey(context.Background(), appId, keyId).Execute()
+    if err != nil {
+        fmt.Fprintf(os.Stderr, "Error when calling `ApplicationCredentialsAPI.GetApplicationKey``: %v\n", err)
+        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+    }
+    // response from `GetApplicationKey`: JsonWebKey
+    fmt.Fprintf(os.Stdout, "Response from `ApplicationCredentialsAPI.GetApplicationKey`: %v\n", resp)
 }
 ```
 
@@ -322,25 +322,25 @@ Retrieve a Certificate Signing Request
 package main
 
 import (
-	"context"
-	"fmt"
-	"os"
-	openapiclient "github.com/okta/okta-sdk-golang"
+    "context"
+    "fmt"
+    "os"
+    openapiclient "github.com/okta/okta-sdk-golang"
 )
 
 func main() {
-	appId := "0oafxqCAJWWGELFTYASJ" // string | Application ID
-	csrId := "fd7x1h7uTcZFx22rU1f7" // string | `id` of the CSR
+    appId := "0oafxqCAJWWGELFTYASJ" // string | Application ID
+    csrId := "fd7x1h7uTcZFx22rU1f7" // string | `id` of the CSR
 
-	configuration := openapiclient.NewConfiguration()
-	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.ApplicationCredentialsAPI.GetCsrForApplication(context.Background(), appId, csrId).Execute()
-	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `ApplicationCredentialsAPI.GetCsrForApplication``: %v\n", err)
-		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-	}
-	// response from `GetCsrForApplication`: Csr
-	fmt.Fprintf(os.Stdout, "Response from `ApplicationCredentialsAPI.GetCsrForApplication`: %v\n", resp)
+    configuration := openapiclient.NewConfiguration()
+    apiClient := openapiclient.NewAPIClient(configuration)
+    resp, r, err := apiClient.ApplicationCredentialsAPI.GetCsrForApplication(context.Background(), appId, csrId).Execute()
+    if err != nil {
+        fmt.Fprintf(os.Stderr, "Error when calling `ApplicationCredentialsAPI.GetCsrForApplication``: %v\n", err)
+        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+    }
+    // response from `GetCsrForApplication`: Csr
+    fmt.Fprintf(os.Stdout, "Response from `ApplicationCredentialsAPI.GetCsrForApplication`: %v\n", resp)
 }
 ```
 
@@ -395,24 +395,24 @@ List all Key Credentials
 package main
 
 import (
-	"context"
-	"fmt"
-	"os"
-	openapiclient "github.com/okta/okta-sdk-golang"
+    "context"
+    "fmt"
+    "os"
+    openapiclient "github.com/okta/okta-sdk-golang"
 )
 
 func main() {
-	appId := "0oafxqCAJWWGELFTYASJ" // string | Application ID
+    appId := "0oafxqCAJWWGELFTYASJ" // string | Application ID
 
-	configuration := openapiclient.NewConfiguration()
-	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.ApplicationCredentialsAPI.ListApplicationKeys(context.Background(), appId).Execute()
-	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `ApplicationCredentialsAPI.ListApplicationKeys``: %v\n", err)
-		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-	}
-	// response from `ListApplicationKeys`: []JsonWebKey
-	fmt.Fprintf(os.Stdout, "Response from `ApplicationCredentialsAPI.ListApplicationKeys`: %v\n", resp)
+    configuration := openapiclient.NewConfiguration()
+    apiClient := openapiclient.NewAPIClient(configuration)
+    resp, r, err := apiClient.ApplicationCredentialsAPI.ListApplicationKeys(context.Background(), appId).Execute()
+    if err != nil {
+        fmt.Fprintf(os.Stderr, "Error when calling `ApplicationCredentialsAPI.ListApplicationKeys``: %v\n", err)
+        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+    }
+    // response from `ListApplicationKeys`: []JsonWebKey
+    fmt.Fprintf(os.Stdout, "Response from `ApplicationCredentialsAPI.ListApplicationKeys`: %v\n", resp)
 }
 ```
 
@@ -465,24 +465,24 @@ List all Certificate Signing Requests
 package main
 
 import (
-	"context"
-	"fmt"
-	"os"
-	openapiclient "github.com/okta/okta-sdk-golang"
+    "context"
+    "fmt"
+    "os"
+    openapiclient "github.com/okta/okta-sdk-golang"
 )
 
 func main() {
-	appId := "0oafxqCAJWWGELFTYASJ" // string | Application ID
+    appId := "0oafxqCAJWWGELFTYASJ" // string | Application ID
 
-	configuration := openapiclient.NewConfiguration()
-	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.ApplicationCredentialsAPI.ListCsrsForApplication(context.Background(), appId).Execute()
-	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `ApplicationCredentialsAPI.ListCsrsForApplication``: %v\n", err)
-		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-	}
-	// response from `ListCsrsForApplication`: []Csr
-	fmt.Fprintf(os.Stdout, "Response from `ApplicationCredentialsAPI.ListCsrsForApplication`: %v\n", resp)
+    configuration := openapiclient.NewConfiguration()
+    apiClient := openapiclient.NewAPIClient(configuration)
+    resp, r, err := apiClient.ApplicationCredentialsAPI.ListCsrsForApplication(context.Background(), appId).Execute()
+    if err != nil {
+        fmt.Fprintf(os.Stderr, "Error when calling `ApplicationCredentialsAPI.ListCsrsForApplication``: %v\n", err)
+        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+    }
+    // response from `ListCsrsForApplication`: []Csr
+    fmt.Fprintf(os.Stdout, "Response from `ApplicationCredentialsAPI.ListCsrsForApplication`: %v\n", resp)
 }
 ```
 
@@ -535,26 +535,26 @@ Publish a Certificate Signing Request
 package main
 
 import (
-	"context"
-	"fmt"
-	"os"
-	openapiclient "github.com/okta/okta-sdk-golang"
+    "context"
+    "fmt"
+    "os"
+    openapiclient "github.com/okta/okta-sdk-golang"
 )
 
 func main() {
-	appId := "0oafxqCAJWWGELFTYASJ" // string | Application ID
-	csrId := "fd7x1h7uTcZFx22rU1f7" // string | `id` of the CSR
-	body := os.NewFile(1234, "some_file") // *os.File | 
+    appId := "0oafxqCAJWWGELFTYASJ" // string | Application ID
+    csrId := "fd7x1h7uTcZFx22rU1f7" // string | `id` of the CSR
+    body := os.NewFile(1234, "some_file") // *os.File | 
 
-	configuration := openapiclient.NewConfiguration()
-	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.ApplicationCredentialsAPI.PublishCsrFromApplication(context.Background(), appId, csrId).Body(body).Execute()
-	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `ApplicationCredentialsAPI.PublishCsrFromApplication``: %v\n", err)
-		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-	}
-	// response from `PublishCsrFromApplication`: JsonWebKey
-	fmt.Fprintf(os.Stdout, "Response from `ApplicationCredentialsAPI.PublishCsrFromApplication`: %v\n", resp)
+    configuration := openapiclient.NewConfiguration()
+    apiClient := openapiclient.NewAPIClient(configuration)
+    resp, r, err := apiClient.ApplicationCredentialsAPI.PublishCsrFromApplication(context.Background(), appId, csrId).Body(body).Execute()
+    if err != nil {
+        fmt.Fprintf(os.Stderr, "Error when calling `ApplicationCredentialsAPI.PublishCsrFromApplication``: %v\n", err)
+        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+    }
+    // response from `PublishCsrFromApplication`: JsonWebKey
+    fmt.Fprintf(os.Stdout, "Response from `ApplicationCredentialsAPI.PublishCsrFromApplication`: %v\n", resp)
 }
 ```
 
@@ -610,23 +610,23 @@ Revoke a Certificate Signing Request
 package main
 
 import (
-	"context"
-	"fmt"
-	"os"
-	openapiclient "github.com/okta/okta-sdk-golang"
+    "context"
+    "fmt"
+    "os"
+    openapiclient "github.com/okta/okta-sdk-golang"
 )
 
 func main() {
-	appId := "0oafxqCAJWWGELFTYASJ" // string | Application ID
-	csrId := "fd7x1h7uTcZFx22rU1f7" // string | `id` of the CSR
+    appId := "0oafxqCAJWWGELFTYASJ" // string | Application ID
+    csrId := "fd7x1h7uTcZFx22rU1f7" // string | `id` of the CSR
 
-	configuration := openapiclient.NewConfiguration()
-	apiClient := openapiclient.NewAPIClient(configuration)
-	r, err := apiClient.ApplicationCredentialsAPI.RevokeCsrFromApplication(context.Background(), appId, csrId).Execute()
-	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `ApplicationCredentialsAPI.RevokeCsrFromApplication``: %v\n", err)
-		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-	}
+    configuration := openapiclient.NewConfiguration()
+    apiClient := openapiclient.NewAPIClient(configuration)
+    r, err := apiClient.ApplicationCredentialsAPI.RevokeCsrFromApplication(context.Background(), appId, csrId).Execute()
+    if err != nil {
+        fmt.Fprintf(os.Stderr, "Error when calling `ApplicationCredentialsAPI.RevokeCsrFromApplication``: %v\n", err)
+        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+    }
 }
 ```
 

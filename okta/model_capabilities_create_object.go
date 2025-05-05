@@ -28,9 +28,9 @@ import (
 	"encoding/json"
 )
 
-// CapabilitiesCreateObject Determines whether Okta assigns a new application account to each user managed by Okta.  Okta doesn't create a new account if it detects that the username specified in Okta already exists in the application. The user's Okta username is assigned by default.
+// CapabilitiesCreateObject Determines whether Okta assigns a new application account to each user managed by Okta.  Okta doesn't create a new account if it detects that the username specified in Okta already exists in the application. The user's Okta username is assigned by default. 
 type CapabilitiesCreateObject struct {
-	LifecycleCreate      *LifecycleCreateSettingObject `json:"lifecycleCreate,omitempty"`
+	LifecycleCreate *LifecycleCreateSettingObject `json:"lifecycleCreate,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -156,3 +156,4 @@ func (v *NullableCapabilitiesCreateObject) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
+

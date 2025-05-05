@@ -31,12 +31,12 @@ import (
 
 // SocialAuthToken struct for SocialAuthToken
 type SocialAuthToken struct {
-	ExpiresAt            *time.Time `json:"expiresAt,omitempty"`
-	Id                   *string    `json:"id,omitempty"`
-	Scopes               []string   `json:"scopes,omitempty"`
-	Token                *string    `json:"token,omitempty"`
-	TokenAuthScheme      *string    `json:"tokenAuthScheme,omitempty"`
-	TokenType            *string    `json:"tokenType,omitempty"`
+	ExpiresAt *time.Time `json:"expiresAt,omitempty"`
+	Id *string `json:"id,omitempty"`
+	Scopes []string `json:"scopes,omitempty"`
+	Token *string `json:"token,omitempty"`
+	TokenAuthScheme *string `json:"tokenAuthScheme,omitempty"`
+	TokenType *string `json:"tokenType,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -342,3 +342,4 @@ func (v *NullableSocialAuthToken) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
+

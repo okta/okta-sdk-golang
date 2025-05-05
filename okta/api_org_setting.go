@@ -30,20 +30,21 @@ import (
 	"io/ioutil"
 	"net/http"
 	"net/url"
-	"os"
-	"strings"
 	"time"
+	"strings"
+	"os"
 )
+
 
 type OrgSettingAPI interface {
 
 	/*
-		AssignClientPrivilegesSetting Assign the Super Admin role to a public client app
+	AssignClientPrivilegesSetting Assign the Super Admin role to a public client app
 
-		Assigns the [Super Admin role](https://help.okta.com/okta_help.htm?type=oie&id=ext_superadmin) by default to a public client app
+	Assigns the [Super Admin role](https://help.okta.com/okta_help.htm?type=oie&id=ext_superadmin) by default to a public client app
 
-		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-		@return ApiAssignClientPrivilegesSettingRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@return ApiAssignClientPrivilegesSettingRequest
 	*/
 	AssignClientPrivilegesSetting(ctx context.Context) ApiAssignClientPrivilegesSettingRequest
 
@@ -52,12 +53,12 @@ type OrgSettingAPI interface {
 	AssignClientPrivilegesSettingExecute(r ApiAssignClientPrivilegesSettingRequest) (*ClientPrivilegesSetting, *APIResponse, error)
 
 	/*
-		BulkRemoveEmailAddressBounces Remove Emails from Email Provider Bounce List
+	BulkRemoveEmailAddressBounces Remove Emails from Email Provider Bounce List
 
-		Removes a list of email addresses to be removed from the set of email addresses that are bounced
+	Removes a list of email addresses to be removed from the set of email addresses that are bounced
 
-		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-		@return ApiBulkRemoveEmailAddressBouncesRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@return ApiBulkRemoveEmailAddressBouncesRequest
 	*/
 	BulkRemoveEmailAddressBounces(ctx context.Context) ApiBulkRemoveEmailAddressBouncesRequest
 
@@ -66,12 +67,12 @@ type OrgSettingAPI interface {
 	BulkRemoveEmailAddressBouncesExecute(r ApiBulkRemoveEmailAddressBouncesRequest) (*BouncesRemoveListResult, *APIResponse, error)
 
 	/*
-		ExtendOktaSupport Extend Okta Support Access
+	ExtendOktaSupport Extend Okta Support Access
 
-		Extends the length of time that Okta Support can access your org by 24 hours. This means that 24 hours are added to the remaining access time.
+	Extends the length of time that Okta Support can access your org by 24 hours. This means that 24 hours are added to the remaining access time.
 
-		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-		@return ApiExtendOktaSupportRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@return ApiExtendOktaSupportRequest
 	*/
 	ExtendOktaSupport(ctx context.Context) ApiExtendOktaSupportRequest
 
@@ -80,12 +81,12 @@ type OrgSettingAPI interface {
 	ExtendOktaSupportExecute(r ApiExtendOktaSupportRequest) (*OrgOktaSupportSettingsObj, *APIResponse, error)
 
 	/*
-		GetClientPrivilegesSetting Retrieve the Org settings to assign the Super Admin role
+	GetClientPrivilegesSetting Retrieve the Org settings to assign the Super Admin role
 
-		Retrieves the Org settings to assign the [Super Admin role](https://help.okta.com/okta_help.htm?type=oie&id=ext_superadmin) by default to a public client app
+	Retrieves the Org settings to assign the [Super Admin role](https://help.okta.com/okta_help.htm?type=oie&id=ext_superadmin) by default to a public client app
 
-		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-		@return ApiGetClientPrivilegesSettingRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@return ApiGetClientPrivilegesSettingRequest
 	*/
 	GetClientPrivilegesSetting(ctx context.Context) ApiGetClientPrivilegesSettingRequest
 
@@ -94,12 +95,12 @@ type OrgSettingAPI interface {
 	GetClientPrivilegesSettingExecute(r ApiGetClientPrivilegesSettingRequest) (*ClientPrivilegesSetting, *APIResponse, error)
 
 	/*
-		GetOktaCommunicationSettings Retrieve the Okta Communication Settings
+	GetOktaCommunicationSettings Retrieve the Okta Communication Settings
 
-		Retrieves Okta Communication Settings of your organization
+	Retrieves Okta Communication Settings of your organization
 
-		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-		@return ApiGetOktaCommunicationSettingsRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@return ApiGetOktaCommunicationSettingsRequest
 	*/
 	GetOktaCommunicationSettings(ctx context.Context) ApiGetOktaCommunicationSettingsRequest
 
@@ -108,12 +109,12 @@ type OrgSettingAPI interface {
 	GetOktaCommunicationSettingsExecute(r ApiGetOktaCommunicationSettingsRequest) (*OrgOktaCommunicationSetting, *APIResponse, error)
 
 	/*
-		GetOrgContactTypes Retrieve the Org Contact Types
+	GetOrgContactTypes Retrieve the Org Contact Types
 
-		Retrieves Contact Types of your organization
+	Retrieves Contact Types of your organization
 
-		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-		@return ApiGetOrgContactTypesRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@return ApiGetOrgContactTypesRequest
 	*/
 	GetOrgContactTypes(ctx context.Context) ApiGetOrgContactTypesRequest
 
@@ -122,13 +123,13 @@ type OrgSettingAPI interface {
 	GetOrgContactTypesExecute(r ApiGetOrgContactTypesRequest) ([]OrgContactTypeObj, *APIResponse, error)
 
 	/*
-		GetOrgContactUser Retrieve the User of the Contact Type
+	GetOrgContactUser Retrieve the User of the Contact Type
 
-		Retrieves the URL of the User associated with the specified Contact Type
+	Retrieves the URL of the User associated with the specified Contact Type
 
-		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-		@param contactType
-		@return ApiGetOrgContactUserRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param contactType
+	@return ApiGetOrgContactUserRequest
 	*/
 	GetOrgContactUser(ctx context.Context, contactType string) ApiGetOrgContactUserRequest
 
@@ -137,12 +138,12 @@ type OrgSettingAPI interface {
 	GetOrgContactUserExecute(r ApiGetOrgContactUserRequest) (*OrgContactUser, *APIResponse, error)
 
 	/*
-		GetOrgOktaSupportSettings Retrieve the Okta Support Settings
+	GetOrgOktaSupportSettings Retrieve the Okta Support Settings
 
-		Retrieves Okta Support Settings of your organization
+	Retrieves Okta Support Settings of your organization
 
-		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-		@return ApiGetOrgOktaSupportSettingsRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@return ApiGetOrgOktaSupportSettingsRequest
 	*/
 	GetOrgOktaSupportSettings(ctx context.Context) ApiGetOrgOktaSupportSettingsRequest
 
@@ -151,12 +152,12 @@ type OrgSettingAPI interface {
 	GetOrgOktaSupportSettingsExecute(r ApiGetOrgOktaSupportSettingsRequest) (*OrgOktaSupportSettingsObj, *APIResponse, error)
 
 	/*
-		GetOrgPreferences Retrieve the Org Preferences
+	GetOrgPreferences Retrieve the Org Preferences
 
-		Retrieves preferences of your organization
+	Retrieves preferences of your organization
 
-		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-		@return ApiGetOrgPreferencesRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@return ApiGetOrgPreferencesRequest
 	*/
 	GetOrgPreferences(ctx context.Context) ApiGetOrgPreferencesRequest
 
@@ -165,12 +166,12 @@ type OrgSettingAPI interface {
 	GetOrgPreferencesExecute(r ApiGetOrgPreferencesRequest) (*OrgPreferences, *APIResponse, error)
 
 	/*
-		GetOrgSettings Retrieve the Org Settings
+	GetOrgSettings Retrieve the Org Settings
 
-		Retrieves the org settings
+	Retrieves the org settings
 
-		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-		@return ApiGetOrgSettingsRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@return ApiGetOrgSettingsRequest
 	*/
 	GetOrgSettings(ctx context.Context) ApiGetOrgSettingsRequest
 
@@ -179,12 +180,12 @@ type OrgSettingAPI interface {
 	GetOrgSettingsExecute(r ApiGetOrgSettingsRequest) (*OrgSetting, *APIResponse, error)
 
 	/*
-		GetThirdPartyAdminSetting Retrieve the Org Third-Party Admin setting
+	GetThirdPartyAdminSetting Retrieve the Org Third-Party Admin setting
 
-		Retrieves the Third-Party Admin setting
+	Retrieves the Third-Party Admin setting
 
-		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-		@return ApiGetThirdPartyAdminSettingRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@return ApiGetThirdPartyAdminSettingRequest
 	*/
 	GetThirdPartyAdminSetting(ctx context.Context) ApiGetThirdPartyAdminSettingRequest
 
@@ -193,12 +194,12 @@ type OrgSettingAPI interface {
 	GetThirdPartyAdminSettingExecute(r ApiGetThirdPartyAdminSettingRequest) (*ThirdPartyAdminSetting, *APIResponse, error)
 
 	/*
-		GetWellknownOrgMetadata Retrieve the Well-Known Org Metadata
+	GetWellknownOrgMetadata Retrieve the Well-Known Org Metadata
 
-		Retrieves the well-known org metadata, which includes the id, configured custom domains, authentication pipeline, and various other org settings
+	Retrieves the well-known org metadata, which includes the id, configured custom domains, authentication pipeline, and various other org settings
 
-		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-		@return ApiGetWellknownOrgMetadataRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@return ApiGetWellknownOrgMetadataRequest
 	*/
 	GetWellknownOrgMetadata(ctx context.Context) ApiGetWellknownOrgMetadataRequest
 
@@ -207,12 +208,12 @@ type OrgSettingAPI interface {
 	GetWellknownOrgMetadataExecute(r ApiGetWellknownOrgMetadataRequest) (*WellKnownOrgMetadata, *APIResponse, error)
 
 	/*
-		GrantOktaSupport Grant Okta Support Access to your Org
+	GrantOktaSupport Grant Okta Support Access to your Org
 
-		Grants Okta Support temporary access your org as an administrator for eight hours
+	Grants Okta Support temporary access your org as an administrator for eight hours
 
-		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-		@return ApiGrantOktaSupportRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@return ApiGrantOktaSupportRequest
 	*/
 	GrantOktaSupport(ctx context.Context) ApiGrantOktaSupportRequest
 
@@ -221,12 +222,12 @@ type OrgSettingAPI interface {
 	GrantOktaSupportExecute(r ApiGrantOktaSupportRequest) (*OrgOktaSupportSettingsObj, *APIResponse, error)
 
 	/*
-		OptInUsersToOktaCommunicationEmails Opt in all Users to Okta Communication emails
+	OptInUsersToOktaCommunicationEmails Opt in all Users to Okta Communication emails
 
-		Opts in all users of this org to Okta Communication emails
+	Opts in all users of this org to Okta Communication emails
 
-		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-		@return ApiOptInUsersToOktaCommunicationEmailsRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@return ApiOptInUsersToOktaCommunicationEmailsRequest
 	*/
 	OptInUsersToOktaCommunicationEmails(ctx context.Context) ApiOptInUsersToOktaCommunicationEmailsRequest
 
@@ -235,12 +236,12 @@ type OrgSettingAPI interface {
 	OptInUsersToOktaCommunicationEmailsExecute(r ApiOptInUsersToOktaCommunicationEmailsRequest) (*OrgOktaCommunicationSetting, *APIResponse, error)
 
 	/*
-		OptOutUsersFromOktaCommunicationEmails Opt out all Users from Okta Communication emails
+	OptOutUsersFromOktaCommunicationEmails Opt out all Users from Okta Communication emails
 
-		Opts out all users of this org from Okta Communication emails
+	Opts out all users of this org from Okta Communication emails
 
-		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-		@return ApiOptOutUsersFromOktaCommunicationEmailsRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@return ApiOptOutUsersFromOktaCommunicationEmailsRequest
 	*/
 	OptOutUsersFromOktaCommunicationEmails(ctx context.Context) ApiOptOutUsersFromOktaCommunicationEmailsRequest
 
@@ -249,13 +250,13 @@ type OrgSettingAPI interface {
 	OptOutUsersFromOktaCommunicationEmailsExecute(r ApiOptOutUsersFromOktaCommunicationEmailsRequest) (*OrgOktaCommunicationSetting, *APIResponse, error)
 
 	/*
-		ReplaceOrgContactUser Replace the User of the Contact Type
+	ReplaceOrgContactUser Replace the User of the Contact Type
 
-		Replaces the User associated with the specified Contact Type
+	Replaces the User associated with the specified Contact Type
 
-		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-		@param contactType
-		@return ApiReplaceOrgContactUserRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param contactType
+	@return ApiReplaceOrgContactUserRequest
 	*/
 	ReplaceOrgContactUser(ctx context.Context, contactType string) ApiReplaceOrgContactUserRequest
 
@@ -264,12 +265,12 @@ type OrgSettingAPI interface {
 	ReplaceOrgContactUserExecute(r ApiReplaceOrgContactUserRequest) (*OrgContactUser, *APIResponse, error)
 
 	/*
-		ReplaceOrgSettings Replace the Org Settings
+	ReplaceOrgSettings Replace the Org Settings
 
-		Replaces the settings of your organization
+	Replaces the settings of your organization
 
-		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-		@return ApiReplaceOrgSettingsRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@return ApiReplaceOrgSettingsRequest
 	*/
 	ReplaceOrgSettings(ctx context.Context) ApiReplaceOrgSettingsRequest
 
@@ -278,12 +279,12 @@ type OrgSettingAPI interface {
 	ReplaceOrgSettingsExecute(r ApiReplaceOrgSettingsRequest) (*OrgSetting, *APIResponse, error)
 
 	/*
-		RevokeOktaSupport Revoke Okta Support Access
+	RevokeOktaSupport Revoke Okta Support Access
 
-		Revokes Okta Support access to your organization
+	Revokes Okta Support access to your organization
 
-		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-		@return ApiRevokeOktaSupportRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@return ApiRevokeOktaSupportRequest
 	*/
 	RevokeOktaSupport(ctx context.Context) ApiRevokeOktaSupportRequest
 
@@ -292,12 +293,12 @@ type OrgSettingAPI interface {
 	RevokeOktaSupportExecute(r ApiRevokeOktaSupportRequest) (*OrgOktaSupportSettingsObj, *APIResponse, error)
 
 	/*
-		UpdateOrgHideOktaUIFooter Update the Preference to Hide the Okta Dashboard Footer
+	UpdateOrgHideOktaUIFooter Update the Preference to Hide the Okta Dashboard Footer
 
-		Updates the preference hide the Okta UI footer for all end users of your organization
+	Updates the preference hide the Okta UI footer for all end users of your organization
 
-		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-		@return ApiUpdateOrgHideOktaUIFooterRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@return ApiUpdateOrgHideOktaUIFooterRequest
 	*/
 	UpdateOrgHideOktaUIFooter(ctx context.Context) ApiUpdateOrgHideOktaUIFooterRequest
 
@@ -306,12 +307,12 @@ type OrgSettingAPI interface {
 	UpdateOrgHideOktaUIFooterExecute(r ApiUpdateOrgHideOktaUIFooterRequest) (*OrgPreferences, *APIResponse, error)
 
 	/*
-		UpdateOrgSettings Update the Org Settings
+	UpdateOrgSettings Update the Org Settings
 
-		Partially updates the org settings depending on provided fields
+	Partially updates the org settings depending on provided fields
 
-		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-		@return ApiUpdateOrgSettingsRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@return ApiUpdateOrgSettingsRequest
 	*/
 	UpdateOrgSettings(ctx context.Context) ApiUpdateOrgSettingsRequest
 
@@ -320,12 +321,12 @@ type OrgSettingAPI interface {
 	UpdateOrgSettingsExecute(r ApiUpdateOrgSettingsRequest) (*OrgSetting, *APIResponse, error)
 
 	/*
-		UpdateOrgShowOktaUIFooter Update the Preference to Show the Okta Dashboard Footer
+	UpdateOrgShowOktaUIFooter Update the Preference to Show the Okta Dashboard Footer
 
-		Updates the preference to show the Okta UI footer for all end users of your organization
+	Updates the preference to show the Okta UI footer for all end users of your organization
 
-		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-		@return ApiUpdateOrgShowOktaUIFooterRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@return ApiUpdateOrgShowOktaUIFooterRequest
 	*/
 	UpdateOrgShowOktaUIFooter(ctx context.Context) ApiUpdateOrgShowOktaUIFooterRequest
 
@@ -334,12 +335,12 @@ type OrgSettingAPI interface {
 	UpdateOrgShowOktaUIFooterExecute(r ApiUpdateOrgShowOktaUIFooterRequest) (*OrgPreferences, *APIResponse, error)
 
 	/*
-		UpdateThirdPartyAdminSetting Update the Org Third-Party Admin setting
+	UpdateThirdPartyAdminSetting Update the Org Third-Party Admin setting
 
-		Updates the Third-Party Admin setting
+	Updates the Third-Party Admin setting
 
-		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-		@return ApiUpdateThirdPartyAdminSettingRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@return ApiUpdateThirdPartyAdminSettingRequest
 	*/
 	UpdateThirdPartyAdminSetting(ctx context.Context) ApiUpdateThirdPartyAdminSettingRequest
 
@@ -348,12 +349,12 @@ type OrgSettingAPI interface {
 	UpdateThirdPartyAdminSettingExecute(r ApiUpdateThirdPartyAdminSettingRequest) (*ThirdPartyAdminSetting, *APIResponse, error)
 
 	/*
-		UploadOrgLogo Upload the Org Logo
+	UploadOrgLogo Upload the Org Logo
 
-		Uploads and replaces the logo for your organization. The file must be in PNG, JPG, or GIF format and less than 100kB in size. For best results use landscape orientation, a transparent background, and a minimum size of 300px by 50px to prevent upscaling.
+	Uploads and replaces the logo for your organization. The file must be in PNG, JPG, or GIF format and less than 100kB in size. For best results use landscape orientation, a transparent background, and a minimum size of 300px by 50px to prevent upscaling.
 
-		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-		@return ApiUploadOrgLogoRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@return ApiUploadOrgLogoRequest
 	*/
 	UploadOrgLogo(ctx context.Context) ApiUploadOrgLogoRequest
 
@@ -365,10 +366,10 @@ type OrgSettingAPI interface {
 type OrgSettingAPIService service
 
 type ApiAssignClientPrivilegesSettingRequest struct {
-	ctx                     context.Context
-	ApiService              OrgSettingAPI
+	ctx context.Context
+	ApiService OrgSettingAPI
 	clientPrivilegesSetting *ClientPrivilegesSetting
-	retryCount              int32
+	retryCount int32
 }
 
 func (r ApiAssignClientPrivilegesSettingRequest) ClientPrivilegesSetting(clientPrivilegesSetting ClientPrivilegesSetting) ApiAssignClientPrivilegesSettingRequest {
@@ -385,20 +386,19 @@ AssignClientPrivilegesSetting Assign the Super Admin role to a public client app
 
 Assigns the [Super Admin role](https://help.okta.com/okta_help.htm?type=oie&id=ext_superadmin) by default to a public client app
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@return ApiAssignClientPrivilegesSettingRequest
+ @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+ @return ApiAssignClientPrivilegesSettingRequest
 */
 func (a *OrgSettingAPIService) AssignClientPrivilegesSetting(ctx context.Context) ApiAssignClientPrivilegesSettingRequest {
 	return ApiAssignClientPrivilegesSettingRequest{
 		ApiService: a,
-		ctx:        ctx,
+		ctx: ctx,
 		retryCount: 0,
 	}
 }
 
 // Execute executes the request
-//
-//	@return ClientPrivilegesSetting
+//  @return ClientPrivilegesSetting
 func (a *OrgSettingAPIService) AssignClientPrivilegesSettingExecute(r ApiAssignClientPrivilegesSettingRequest) (*ClientPrivilegesSetting, *APIResponse, error) {
 	var (
 		localVarHTTPMethod   = http.MethodPut
@@ -407,7 +407,7 @@ func (a *OrgSettingAPIService) AssignClientPrivilegesSettingExecute(r ApiAssignC
 		localVarReturnValue  *ClientPrivilegesSetting
 		localVarHTTPResponse *http.Response
 		localAPIResponse     *APIResponse
-		err                  error
+		err 				 error
 	)
 
 	if a.client.cfg.Okta.Client.RequestTimeout > 0 {
@@ -517,16 +517,16 @@ func (a *OrgSettingAPIService) AssignClientPrivilegesSettingExecute(r ApiAssignC
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
 		return localVarReturnValue, localAPIResponse, newErr
 	}
-
+	
 	localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
 	return localVarReturnValue, localAPIResponse, nil
 }
 
 type ApiBulkRemoveEmailAddressBouncesRequest struct {
-	ctx                  context.Context
-	ApiService           OrgSettingAPI
+	ctx context.Context
+	ApiService OrgSettingAPI
 	bouncesRemoveListObj *BouncesRemoveListObj
-	retryCount           int32
+	retryCount int32
 }
 
 func (r ApiBulkRemoveEmailAddressBouncesRequest) BouncesRemoveListObj(bouncesRemoveListObj BouncesRemoveListObj) ApiBulkRemoveEmailAddressBouncesRequest {
@@ -543,20 +543,19 @@ BulkRemoveEmailAddressBounces Remove Emails from Email Provider Bounce List
 
 Removes a list of email addresses to be removed from the set of email addresses that are bounced
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@return ApiBulkRemoveEmailAddressBouncesRequest
+ @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+ @return ApiBulkRemoveEmailAddressBouncesRequest
 */
 func (a *OrgSettingAPIService) BulkRemoveEmailAddressBounces(ctx context.Context) ApiBulkRemoveEmailAddressBouncesRequest {
 	return ApiBulkRemoveEmailAddressBouncesRequest{
 		ApiService: a,
-		ctx:        ctx,
+		ctx: ctx,
 		retryCount: 0,
 	}
 }
 
 // Execute executes the request
-//
-//	@return BouncesRemoveListResult
+//  @return BouncesRemoveListResult
 func (a *OrgSettingAPIService) BulkRemoveEmailAddressBouncesExecute(r ApiBulkRemoveEmailAddressBouncesRequest) (*BouncesRemoveListResult, *APIResponse, error) {
 	var (
 		localVarHTTPMethod   = http.MethodPost
@@ -565,7 +564,7 @@ func (a *OrgSettingAPIService) BulkRemoveEmailAddressBouncesExecute(r ApiBulkRem
 		localVarReturnValue  *BouncesRemoveListResult
 		localVarHTTPResponse *http.Response
 		localAPIResponse     *APIResponse
-		err                  error
+		err 				 error
 	)
 
 	if a.client.cfg.Okta.Client.RequestTimeout > 0 {
@@ -687,13 +686,13 @@ func (a *OrgSettingAPIService) BulkRemoveEmailAddressBouncesExecute(r ApiBulkRem
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
 		return localVarReturnValue, localAPIResponse, newErr
 	}
-
+	
 	localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
 	return localVarReturnValue, localAPIResponse, nil
 }
 
 type ApiExtendOktaSupportRequest struct {
-	ctx        context.Context
+	ctx context.Context
 	ApiService OrgSettingAPI
 	retryCount int32
 }
@@ -707,20 +706,19 @@ ExtendOktaSupport Extend Okta Support Access
 
 Extends the length of time that Okta Support can access your org by 24 hours. This means that 24 hours are added to the remaining access time.
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@return ApiExtendOktaSupportRequest
+ @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+ @return ApiExtendOktaSupportRequest
 */
 func (a *OrgSettingAPIService) ExtendOktaSupport(ctx context.Context) ApiExtendOktaSupportRequest {
 	return ApiExtendOktaSupportRequest{
 		ApiService: a,
-		ctx:        ctx,
+		ctx: ctx,
 		retryCount: 0,
 	}
 }
 
 // Execute executes the request
-//
-//	@return OrgOktaSupportSettingsObj
+//  @return OrgOktaSupportSettingsObj
 func (a *OrgSettingAPIService) ExtendOktaSupportExecute(r ApiExtendOktaSupportRequest) (*OrgOktaSupportSettingsObj, *APIResponse, error) {
 	var (
 		localVarHTTPMethod   = http.MethodPost
@@ -729,7 +727,7 @@ func (a *OrgSettingAPIService) ExtendOktaSupportExecute(r ApiExtendOktaSupportRe
 		localVarReturnValue  *OrgOktaSupportSettingsObj
 		localVarHTTPResponse *http.Response
 		localAPIResponse     *APIResponse
-		err                  error
+		err 				 error
 	)
 
 	if a.client.cfg.Okta.Client.RequestTimeout > 0 {
@@ -837,13 +835,13 @@ func (a *OrgSettingAPIService) ExtendOktaSupportExecute(r ApiExtendOktaSupportRe
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
 		return localVarReturnValue, localAPIResponse, newErr
 	}
-
+	
 	localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
 	return localVarReturnValue, localAPIResponse, nil
 }
 
 type ApiGetClientPrivilegesSettingRequest struct {
-	ctx        context.Context
+	ctx context.Context
 	ApiService OrgSettingAPI
 	retryCount int32
 }
@@ -857,20 +855,19 @@ GetClientPrivilegesSetting Retrieve the Org settings to assign the Super Admin r
 
 Retrieves the Org settings to assign the [Super Admin role](https://help.okta.com/okta_help.htm?type=oie&id=ext_superadmin) by default to a public client app
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@return ApiGetClientPrivilegesSettingRequest
+ @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+ @return ApiGetClientPrivilegesSettingRequest
 */
 func (a *OrgSettingAPIService) GetClientPrivilegesSetting(ctx context.Context) ApiGetClientPrivilegesSettingRequest {
 	return ApiGetClientPrivilegesSettingRequest{
 		ApiService: a,
-		ctx:        ctx,
+		ctx: ctx,
 		retryCount: 0,
 	}
 }
 
 // Execute executes the request
-//
-//	@return ClientPrivilegesSetting
+//  @return ClientPrivilegesSetting
 func (a *OrgSettingAPIService) GetClientPrivilegesSettingExecute(r ApiGetClientPrivilegesSettingRequest) (*ClientPrivilegesSetting, *APIResponse, error) {
 	var (
 		localVarHTTPMethod   = http.MethodGet
@@ -879,7 +876,7 @@ func (a *OrgSettingAPIService) GetClientPrivilegesSettingExecute(r ApiGetClientP
 		localVarReturnValue  *ClientPrivilegesSetting
 		localVarHTTPResponse *http.Response
 		localAPIResponse     *APIResponse
-		err                  error
+		err 				 error
 	)
 
 	if a.client.cfg.Okta.Client.RequestTimeout > 0 {
@@ -987,13 +984,13 @@ func (a *OrgSettingAPIService) GetClientPrivilegesSettingExecute(r ApiGetClientP
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
 		return localVarReturnValue, localAPIResponse, newErr
 	}
-
+	
 	localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
 	return localVarReturnValue, localAPIResponse, nil
 }
 
 type ApiGetOktaCommunicationSettingsRequest struct {
-	ctx        context.Context
+	ctx context.Context
 	ApiService OrgSettingAPI
 	retryCount int32
 }
@@ -1007,20 +1004,19 @@ GetOktaCommunicationSettings Retrieve the Okta Communication Settings
 
 Retrieves Okta Communication Settings of your organization
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@return ApiGetOktaCommunicationSettingsRequest
+ @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+ @return ApiGetOktaCommunicationSettingsRequest
 */
 func (a *OrgSettingAPIService) GetOktaCommunicationSettings(ctx context.Context) ApiGetOktaCommunicationSettingsRequest {
 	return ApiGetOktaCommunicationSettingsRequest{
 		ApiService: a,
-		ctx:        ctx,
+		ctx: ctx,
 		retryCount: 0,
 	}
 }
 
 // Execute executes the request
-//
-//	@return OrgOktaCommunicationSetting
+//  @return OrgOktaCommunicationSetting
 func (a *OrgSettingAPIService) GetOktaCommunicationSettingsExecute(r ApiGetOktaCommunicationSettingsRequest) (*OrgOktaCommunicationSetting, *APIResponse, error) {
 	var (
 		localVarHTTPMethod   = http.MethodGet
@@ -1029,7 +1025,7 @@ func (a *OrgSettingAPIService) GetOktaCommunicationSettingsExecute(r ApiGetOktaC
 		localVarReturnValue  *OrgOktaCommunicationSetting
 		localVarHTTPResponse *http.Response
 		localAPIResponse     *APIResponse
-		err                  error
+		err 				 error
 	)
 
 	if a.client.cfg.Okta.Client.RequestTimeout > 0 {
@@ -1137,13 +1133,13 @@ func (a *OrgSettingAPIService) GetOktaCommunicationSettingsExecute(r ApiGetOktaC
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
 		return localVarReturnValue, localAPIResponse, newErr
 	}
-
+	
 	localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
 	return localVarReturnValue, localAPIResponse, nil
 }
 
 type ApiGetOrgContactTypesRequest struct {
-	ctx        context.Context
+	ctx context.Context
 	ApiService OrgSettingAPI
 	retryCount int32
 }
@@ -1157,20 +1153,19 @@ GetOrgContactTypes Retrieve the Org Contact Types
 
 Retrieves Contact Types of your organization
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@return ApiGetOrgContactTypesRequest
+ @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+ @return ApiGetOrgContactTypesRequest
 */
 func (a *OrgSettingAPIService) GetOrgContactTypes(ctx context.Context) ApiGetOrgContactTypesRequest {
 	return ApiGetOrgContactTypesRequest{
 		ApiService: a,
-		ctx:        ctx,
+		ctx: ctx,
 		retryCount: 0,
 	}
 }
 
 // Execute executes the request
-//
-//	@return []OrgContactTypeObj
+//  @return []OrgContactTypeObj
 func (a *OrgSettingAPIService) GetOrgContactTypesExecute(r ApiGetOrgContactTypesRequest) ([]OrgContactTypeObj, *APIResponse, error) {
 	var (
 		localVarHTTPMethod   = http.MethodGet
@@ -1179,7 +1174,7 @@ func (a *OrgSettingAPIService) GetOrgContactTypesExecute(r ApiGetOrgContactTypes
 		localVarReturnValue  []OrgContactTypeObj
 		localVarHTTPResponse *http.Response
 		localAPIResponse     *APIResponse
-		err                  error
+		err 				 error
 	)
 
 	if a.client.cfg.Okta.Client.RequestTimeout > 0 {
@@ -1287,16 +1282,16 @@ func (a *OrgSettingAPIService) GetOrgContactTypesExecute(r ApiGetOrgContactTypes
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
 		return localVarReturnValue, localAPIResponse, newErr
 	}
-
+	
 	localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
 	return localVarReturnValue, localAPIResponse, nil
 }
 
 type ApiGetOrgContactUserRequest struct {
-	ctx         context.Context
-	ApiService  OrgSettingAPI
+	ctx context.Context
+	ApiService OrgSettingAPI
 	contactType string
-	retryCount  int32
+	retryCount int32
 }
 
 func (r ApiGetOrgContactUserRequest) Execute() (*OrgContactUser, *APIResponse, error) {
@@ -1308,22 +1303,21 @@ GetOrgContactUser Retrieve the User of the Contact Type
 
 Retrieves the URL of the User associated with the specified Contact Type
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param contactType
-	@return ApiGetOrgContactUserRequest
+ @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+ @param contactType
+ @return ApiGetOrgContactUserRequest
 */
 func (a *OrgSettingAPIService) GetOrgContactUser(ctx context.Context, contactType string) ApiGetOrgContactUserRequest {
 	return ApiGetOrgContactUserRequest{
-		ApiService:  a,
-		ctx:         ctx,
+		ApiService: a,
+		ctx: ctx,
 		contactType: contactType,
-		retryCount:  0,
+		retryCount: 0,
 	}
 }
 
 // Execute executes the request
-//
-//	@return OrgContactUser
+//  @return OrgContactUser
 func (a *OrgSettingAPIService) GetOrgContactUserExecute(r ApiGetOrgContactUserRequest) (*OrgContactUser, *APIResponse, error) {
 	var (
 		localVarHTTPMethod   = http.MethodGet
@@ -1332,7 +1326,7 @@ func (a *OrgSettingAPIService) GetOrgContactUserExecute(r ApiGetOrgContactUserRe
 		localVarReturnValue  *OrgContactUser
 		localVarHTTPResponse *http.Response
 		localAPIResponse     *APIResponse
-		err                  error
+		err 				 error
 	)
 
 	if a.client.cfg.Okta.Client.RequestTimeout > 0 {
@@ -1453,13 +1447,13 @@ func (a *OrgSettingAPIService) GetOrgContactUserExecute(r ApiGetOrgContactUserRe
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
 		return localVarReturnValue, localAPIResponse, newErr
 	}
-
+	
 	localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
 	return localVarReturnValue, localAPIResponse, nil
 }
 
 type ApiGetOrgOktaSupportSettingsRequest struct {
-	ctx        context.Context
+	ctx context.Context
 	ApiService OrgSettingAPI
 	retryCount int32
 }
@@ -1473,20 +1467,19 @@ GetOrgOktaSupportSettings Retrieve the Okta Support Settings
 
 Retrieves Okta Support Settings of your organization
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@return ApiGetOrgOktaSupportSettingsRequest
+ @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+ @return ApiGetOrgOktaSupportSettingsRequest
 */
 func (a *OrgSettingAPIService) GetOrgOktaSupportSettings(ctx context.Context) ApiGetOrgOktaSupportSettingsRequest {
 	return ApiGetOrgOktaSupportSettingsRequest{
 		ApiService: a,
-		ctx:        ctx,
+		ctx: ctx,
 		retryCount: 0,
 	}
 }
 
 // Execute executes the request
-//
-//	@return OrgOktaSupportSettingsObj
+//  @return OrgOktaSupportSettingsObj
 func (a *OrgSettingAPIService) GetOrgOktaSupportSettingsExecute(r ApiGetOrgOktaSupportSettingsRequest) (*OrgOktaSupportSettingsObj, *APIResponse, error) {
 	var (
 		localVarHTTPMethod   = http.MethodGet
@@ -1495,7 +1488,7 @@ func (a *OrgSettingAPIService) GetOrgOktaSupportSettingsExecute(r ApiGetOrgOktaS
 		localVarReturnValue  *OrgOktaSupportSettingsObj
 		localVarHTTPResponse *http.Response
 		localAPIResponse     *APIResponse
-		err                  error
+		err 				 error
 	)
 
 	if a.client.cfg.Okta.Client.RequestTimeout > 0 {
@@ -1603,13 +1596,13 @@ func (a *OrgSettingAPIService) GetOrgOktaSupportSettingsExecute(r ApiGetOrgOktaS
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
 		return localVarReturnValue, localAPIResponse, newErr
 	}
-
+	
 	localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
 	return localVarReturnValue, localAPIResponse, nil
 }
 
 type ApiGetOrgPreferencesRequest struct {
-	ctx        context.Context
+	ctx context.Context
 	ApiService OrgSettingAPI
 	retryCount int32
 }
@@ -1623,20 +1616,19 @@ GetOrgPreferences Retrieve the Org Preferences
 
 Retrieves preferences of your organization
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@return ApiGetOrgPreferencesRequest
+ @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+ @return ApiGetOrgPreferencesRequest
 */
 func (a *OrgSettingAPIService) GetOrgPreferences(ctx context.Context) ApiGetOrgPreferencesRequest {
 	return ApiGetOrgPreferencesRequest{
 		ApiService: a,
-		ctx:        ctx,
+		ctx: ctx,
 		retryCount: 0,
 	}
 }
 
 // Execute executes the request
-//
-//	@return OrgPreferences
+//  @return OrgPreferences
 func (a *OrgSettingAPIService) GetOrgPreferencesExecute(r ApiGetOrgPreferencesRequest) (*OrgPreferences, *APIResponse, error) {
 	var (
 		localVarHTTPMethod   = http.MethodGet
@@ -1645,7 +1637,7 @@ func (a *OrgSettingAPIService) GetOrgPreferencesExecute(r ApiGetOrgPreferencesRe
 		localVarReturnValue  *OrgPreferences
 		localVarHTTPResponse *http.Response
 		localAPIResponse     *APIResponse
-		err                  error
+		err 				 error
 	)
 
 	if a.client.cfg.Okta.Client.RequestTimeout > 0 {
@@ -1753,13 +1745,13 @@ func (a *OrgSettingAPIService) GetOrgPreferencesExecute(r ApiGetOrgPreferencesRe
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
 		return localVarReturnValue, localAPIResponse, newErr
 	}
-
+	
 	localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
 	return localVarReturnValue, localAPIResponse, nil
 }
 
 type ApiGetOrgSettingsRequest struct {
-	ctx        context.Context
+	ctx context.Context
 	ApiService OrgSettingAPI
 	retryCount int32
 }
@@ -1773,20 +1765,19 @@ GetOrgSettings Retrieve the Org Settings
 
 Retrieves the org settings
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@return ApiGetOrgSettingsRequest
+ @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+ @return ApiGetOrgSettingsRequest
 */
 func (a *OrgSettingAPIService) GetOrgSettings(ctx context.Context) ApiGetOrgSettingsRequest {
 	return ApiGetOrgSettingsRequest{
 		ApiService: a,
-		ctx:        ctx,
+		ctx: ctx,
 		retryCount: 0,
 	}
 }
 
 // Execute executes the request
-//
-//	@return OrgSetting
+//  @return OrgSetting
 func (a *OrgSettingAPIService) GetOrgSettingsExecute(r ApiGetOrgSettingsRequest) (*OrgSetting, *APIResponse, error) {
 	var (
 		localVarHTTPMethod   = http.MethodGet
@@ -1795,7 +1786,7 @@ func (a *OrgSettingAPIService) GetOrgSettingsExecute(r ApiGetOrgSettingsRequest)
 		localVarReturnValue  *OrgSetting
 		localVarHTTPResponse *http.Response
 		localAPIResponse     *APIResponse
-		err                  error
+		err 				 error
 	)
 
 	if a.client.cfg.Okta.Client.RequestTimeout > 0 {
@@ -1903,13 +1894,13 @@ func (a *OrgSettingAPIService) GetOrgSettingsExecute(r ApiGetOrgSettingsRequest)
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
 		return localVarReturnValue, localAPIResponse, newErr
 	}
-
+	
 	localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
 	return localVarReturnValue, localAPIResponse, nil
 }
 
 type ApiGetThirdPartyAdminSettingRequest struct {
-	ctx        context.Context
+	ctx context.Context
 	ApiService OrgSettingAPI
 	retryCount int32
 }
@@ -1923,20 +1914,19 @@ GetThirdPartyAdminSetting Retrieve the Org Third-Party Admin setting
 
 Retrieves the Third-Party Admin setting
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@return ApiGetThirdPartyAdminSettingRequest
+ @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+ @return ApiGetThirdPartyAdminSettingRequest
 */
 func (a *OrgSettingAPIService) GetThirdPartyAdminSetting(ctx context.Context) ApiGetThirdPartyAdminSettingRequest {
 	return ApiGetThirdPartyAdminSettingRequest{
 		ApiService: a,
-		ctx:        ctx,
+		ctx: ctx,
 		retryCount: 0,
 	}
 }
 
 // Execute executes the request
-//
-//	@return ThirdPartyAdminSetting
+//  @return ThirdPartyAdminSetting
 func (a *OrgSettingAPIService) GetThirdPartyAdminSettingExecute(r ApiGetThirdPartyAdminSettingRequest) (*ThirdPartyAdminSetting, *APIResponse, error) {
 	var (
 		localVarHTTPMethod   = http.MethodGet
@@ -1945,7 +1935,7 @@ func (a *OrgSettingAPIService) GetThirdPartyAdminSettingExecute(r ApiGetThirdPar
 		localVarReturnValue  *ThirdPartyAdminSetting
 		localVarHTTPResponse *http.Response
 		localAPIResponse     *APIResponse
-		err                  error
+		err 				 error
 	)
 
 	if a.client.cfg.Okta.Client.RequestTimeout > 0 {
@@ -2053,13 +2043,13 @@ func (a *OrgSettingAPIService) GetThirdPartyAdminSettingExecute(r ApiGetThirdPar
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
 		return localVarReturnValue, localAPIResponse, newErr
 	}
-
+	
 	localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
 	return localVarReturnValue, localAPIResponse, nil
 }
 
 type ApiGetWellknownOrgMetadataRequest struct {
-	ctx        context.Context
+	ctx context.Context
 	ApiService OrgSettingAPI
 	retryCount int32
 }
@@ -2073,20 +2063,19 @@ GetWellknownOrgMetadata Retrieve the Well-Known Org Metadata
 
 Retrieves the well-known org metadata, which includes the id, configured custom domains, authentication pipeline, and various other org settings
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@return ApiGetWellknownOrgMetadataRequest
+ @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+ @return ApiGetWellknownOrgMetadataRequest
 */
 func (a *OrgSettingAPIService) GetWellknownOrgMetadata(ctx context.Context) ApiGetWellknownOrgMetadataRequest {
 	return ApiGetWellknownOrgMetadataRequest{
 		ApiService: a,
-		ctx:        ctx,
+		ctx: ctx,
 		retryCount: 0,
 	}
 }
 
 // Execute executes the request
-//
-//	@return WellKnownOrgMetadata
+//  @return WellKnownOrgMetadata
 func (a *OrgSettingAPIService) GetWellknownOrgMetadataExecute(r ApiGetWellknownOrgMetadataRequest) (*WellKnownOrgMetadata, *APIResponse, error) {
 	var (
 		localVarHTTPMethod   = http.MethodGet
@@ -2095,7 +2084,7 @@ func (a *OrgSettingAPIService) GetWellknownOrgMetadataExecute(r ApiGetWellknownO
 		localVarReturnValue  *WellKnownOrgMetadata
 		localVarHTTPResponse *http.Response
 		localAPIResponse     *APIResponse
-		err                  error
+		err 				 error
 	)
 
 	if a.client.cfg.Okta.Client.RequestTimeout > 0 {
@@ -2177,13 +2166,13 @@ func (a *OrgSettingAPIService) GetWellknownOrgMetadataExecute(r ApiGetWellknownO
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
 		return localVarReturnValue, localAPIResponse, newErr
 	}
-
+	
 	localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
 	return localVarReturnValue, localAPIResponse, nil
 }
 
 type ApiGrantOktaSupportRequest struct {
-	ctx        context.Context
+	ctx context.Context
 	ApiService OrgSettingAPI
 	retryCount int32
 }
@@ -2197,20 +2186,19 @@ GrantOktaSupport Grant Okta Support Access to your Org
 
 Grants Okta Support temporary access your org as an administrator for eight hours
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@return ApiGrantOktaSupportRequest
+ @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+ @return ApiGrantOktaSupportRequest
 */
 func (a *OrgSettingAPIService) GrantOktaSupport(ctx context.Context) ApiGrantOktaSupportRequest {
 	return ApiGrantOktaSupportRequest{
 		ApiService: a,
-		ctx:        ctx,
+		ctx: ctx,
 		retryCount: 0,
 	}
 }
 
 // Execute executes the request
-//
-//	@return OrgOktaSupportSettingsObj
+//  @return OrgOktaSupportSettingsObj
 func (a *OrgSettingAPIService) GrantOktaSupportExecute(r ApiGrantOktaSupportRequest) (*OrgOktaSupportSettingsObj, *APIResponse, error) {
 	var (
 		localVarHTTPMethod   = http.MethodPost
@@ -2219,7 +2207,7 @@ func (a *OrgSettingAPIService) GrantOktaSupportExecute(r ApiGrantOktaSupportRequ
 		localVarReturnValue  *OrgOktaSupportSettingsObj
 		localVarHTTPResponse *http.Response
 		localAPIResponse     *APIResponse
-		err                  error
+		err 				 error
 	)
 
 	if a.client.cfg.Okta.Client.RequestTimeout > 0 {
@@ -2327,13 +2315,13 @@ func (a *OrgSettingAPIService) GrantOktaSupportExecute(r ApiGrantOktaSupportRequ
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
 		return localVarReturnValue, localAPIResponse, newErr
 	}
-
+	
 	localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
 	return localVarReturnValue, localAPIResponse, nil
 }
 
 type ApiOptInUsersToOktaCommunicationEmailsRequest struct {
-	ctx        context.Context
+	ctx context.Context
 	ApiService OrgSettingAPI
 	retryCount int32
 }
@@ -2347,20 +2335,19 @@ OptInUsersToOktaCommunicationEmails Opt in all Users to Okta Communication email
 
 Opts in all users of this org to Okta Communication emails
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@return ApiOptInUsersToOktaCommunicationEmailsRequest
+ @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+ @return ApiOptInUsersToOktaCommunicationEmailsRequest
 */
 func (a *OrgSettingAPIService) OptInUsersToOktaCommunicationEmails(ctx context.Context) ApiOptInUsersToOktaCommunicationEmailsRequest {
 	return ApiOptInUsersToOktaCommunicationEmailsRequest{
 		ApiService: a,
-		ctx:        ctx,
+		ctx: ctx,
 		retryCount: 0,
 	}
 }
 
 // Execute executes the request
-//
-//	@return OrgOktaCommunicationSetting
+//  @return OrgOktaCommunicationSetting
 func (a *OrgSettingAPIService) OptInUsersToOktaCommunicationEmailsExecute(r ApiOptInUsersToOktaCommunicationEmailsRequest) (*OrgOktaCommunicationSetting, *APIResponse, error) {
 	var (
 		localVarHTTPMethod   = http.MethodPost
@@ -2369,7 +2356,7 @@ func (a *OrgSettingAPIService) OptInUsersToOktaCommunicationEmailsExecute(r ApiO
 		localVarReturnValue  *OrgOktaCommunicationSetting
 		localVarHTTPResponse *http.Response
 		localAPIResponse     *APIResponse
-		err                  error
+		err 				 error
 	)
 
 	if a.client.cfg.Okta.Client.RequestTimeout > 0 {
@@ -2477,13 +2464,13 @@ func (a *OrgSettingAPIService) OptInUsersToOktaCommunicationEmailsExecute(r ApiO
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
 		return localVarReturnValue, localAPIResponse, newErr
 	}
-
+	
 	localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
 	return localVarReturnValue, localAPIResponse, nil
 }
 
 type ApiOptOutUsersFromOktaCommunicationEmailsRequest struct {
-	ctx        context.Context
+	ctx context.Context
 	ApiService OrgSettingAPI
 	retryCount int32
 }
@@ -2497,20 +2484,19 @@ OptOutUsersFromOktaCommunicationEmails Opt out all Users from Okta Communication
 
 Opts out all users of this org from Okta Communication emails
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@return ApiOptOutUsersFromOktaCommunicationEmailsRequest
+ @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+ @return ApiOptOutUsersFromOktaCommunicationEmailsRequest
 */
 func (a *OrgSettingAPIService) OptOutUsersFromOktaCommunicationEmails(ctx context.Context) ApiOptOutUsersFromOktaCommunicationEmailsRequest {
 	return ApiOptOutUsersFromOktaCommunicationEmailsRequest{
 		ApiService: a,
-		ctx:        ctx,
+		ctx: ctx,
 		retryCount: 0,
 	}
 }
 
 // Execute executes the request
-//
-//	@return OrgOktaCommunicationSetting
+//  @return OrgOktaCommunicationSetting
 func (a *OrgSettingAPIService) OptOutUsersFromOktaCommunicationEmailsExecute(r ApiOptOutUsersFromOktaCommunicationEmailsRequest) (*OrgOktaCommunicationSetting, *APIResponse, error) {
 	var (
 		localVarHTTPMethod   = http.MethodPost
@@ -2519,7 +2505,7 @@ func (a *OrgSettingAPIService) OptOutUsersFromOktaCommunicationEmailsExecute(r A
 		localVarReturnValue  *OrgOktaCommunicationSetting
 		localVarHTTPResponse *http.Response
 		localAPIResponse     *APIResponse
-		err                  error
+		err 				 error
 	)
 
 	if a.client.cfg.Okta.Client.RequestTimeout > 0 {
@@ -2627,17 +2613,17 @@ func (a *OrgSettingAPIService) OptOutUsersFromOktaCommunicationEmailsExecute(r A
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
 		return localVarReturnValue, localAPIResponse, newErr
 	}
-
+	
 	localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
 	return localVarReturnValue, localAPIResponse, nil
 }
 
 type ApiReplaceOrgContactUserRequest struct {
-	ctx            context.Context
-	ApiService     OrgSettingAPI
-	contactType    string
+	ctx context.Context
+	ApiService OrgSettingAPI
+	contactType string
 	orgContactUser *OrgContactUser
-	retryCount     int32
+	retryCount int32
 }
 
 func (r ApiReplaceOrgContactUserRequest) OrgContactUser(orgContactUser OrgContactUser) ApiReplaceOrgContactUserRequest {
@@ -2654,22 +2640,21 @@ ReplaceOrgContactUser Replace the User of the Contact Type
 
 Replaces the User associated with the specified Contact Type
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param contactType
-	@return ApiReplaceOrgContactUserRequest
+ @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+ @param contactType
+ @return ApiReplaceOrgContactUserRequest
 */
 func (a *OrgSettingAPIService) ReplaceOrgContactUser(ctx context.Context, contactType string) ApiReplaceOrgContactUserRequest {
 	return ApiReplaceOrgContactUserRequest{
-		ApiService:  a,
-		ctx:         ctx,
+		ApiService: a,
+		ctx: ctx,
 		contactType: contactType,
-		retryCount:  0,
+		retryCount: 0,
 	}
 }
 
 // Execute executes the request
-//
-//	@return OrgContactUser
+//  @return OrgContactUser
 func (a *OrgSettingAPIService) ReplaceOrgContactUserExecute(r ApiReplaceOrgContactUserRequest) (*OrgContactUser, *APIResponse, error) {
 	var (
 		localVarHTTPMethod   = http.MethodPut
@@ -2678,7 +2663,7 @@ func (a *OrgSettingAPIService) ReplaceOrgContactUserExecute(r ApiReplaceOrgConta
 		localVarReturnValue  *OrgContactUser
 		localVarHTTPResponse *http.Response
 		localAPIResponse     *APIResponse
-		err                  error
+		err 				 error
 	)
 
 	if a.client.cfg.Okta.Client.RequestTimeout > 0 {
@@ -2816,13 +2801,13 @@ func (a *OrgSettingAPIService) ReplaceOrgContactUserExecute(r ApiReplaceOrgConta
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
 		return localVarReturnValue, localAPIResponse, newErr
 	}
-
+	
 	localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
 	return localVarReturnValue, localAPIResponse, nil
 }
 
 type ApiReplaceOrgSettingsRequest struct {
-	ctx        context.Context
+	ctx context.Context
 	ApiService OrgSettingAPI
 	orgSetting *OrgSetting
 	retryCount int32
@@ -2842,20 +2827,19 @@ ReplaceOrgSettings Replace the Org Settings
 
 Replaces the settings of your organization
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@return ApiReplaceOrgSettingsRequest
+ @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+ @return ApiReplaceOrgSettingsRequest
 */
 func (a *OrgSettingAPIService) ReplaceOrgSettings(ctx context.Context) ApiReplaceOrgSettingsRequest {
 	return ApiReplaceOrgSettingsRequest{
 		ApiService: a,
-		ctx:        ctx,
+		ctx: ctx,
 		retryCount: 0,
 	}
 }
 
 // Execute executes the request
-//
-//	@return OrgSetting
+//  @return OrgSetting
 func (a *OrgSettingAPIService) ReplaceOrgSettingsExecute(r ApiReplaceOrgSettingsRequest) (*OrgSetting, *APIResponse, error) {
 	var (
 		localVarHTTPMethod   = http.MethodPut
@@ -2864,7 +2848,7 @@ func (a *OrgSettingAPIService) ReplaceOrgSettingsExecute(r ApiReplaceOrgSettings
 		localVarReturnValue  *OrgSetting
 		localVarHTTPResponse *http.Response
 		localAPIResponse     *APIResponse
-		err                  error
+		err 				 error
 	)
 
 	if a.client.cfg.Okta.Client.RequestTimeout > 0 {
@@ -2989,13 +2973,13 @@ func (a *OrgSettingAPIService) ReplaceOrgSettingsExecute(r ApiReplaceOrgSettings
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
 		return localVarReturnValue, localAPIResponse, newErr
 	}
-
+	
 	localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
 	return localVarReturnValue, localAPIResponse, nil
 }
 
 type ApiRevokeOktaSupportRequest struct {
-	ctx        context.Context
+	ctx context.Context
 	ApiService OrgSettingAPI
 	retryCount int32
 }
@@ -3009,20 +2993,19 @@ RevokeOktaSupport Revoke Okta Support Access
 
 Revokes Okta Support access to your organization
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@return ApiRevokeOktaSupportRequest
+ @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+ @return ApiRevokeOktaSupportRequest
 */
 func (a *OrgSettingAPIService) RevokeOktaSupport(ctx context.Context) ApiRevokeOktaSupportRequest {
 	return ApiRevokeOktaSupportRequest{
 		ApiService: a,
-		ctx:        ctx,
+		ctx: ctx,
 		retryCount: 0,
 	}
 }
 
 // Execute executes the request
-//
-//	@return OrgOktaSupportSettingsObj
+//  @return OrgOktaSupportSettingsObj
 func (a *OrgSettingAPIService) RevokeOktaSupportExecute(r ApiRevokeOktaSupportRequest) (*OrgOktaSupportSettingsObj, *APIResponse, error) {
 	var (
 		localVarHTTPMethod   = http.MethodPost
@@ -3031,7 +3014,7 @@ func (a *OrgSettingAPIService) RevokeOktaSupportExecute(r ApiRevokeOktaSupportRe
 		localVarReturnValue  *OrgOktaSupportSettingsObj
 		localVarHTTPResponse *http.Response
 		localAPIResponse     *APIResponse
-		err                  error
+		err 				 error
 	)
 
 	if a.client.cfg.Okta.Client.RequestTimeout > 0 {
@@ -3139,13 +3122,13 @@ func (a *OrgSettingAPIService) RevokeOktaSupportExecute(r ApiRevokeOktaSupportRe
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
 		return localVarReturnValue, localAPIResponse, newErr
 	}
-
+	
 	localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
 	return localVarReturnValue, localAPIResponse, nil
 }
 
 type ApiUpdateOrgHideOktaUIFooterRequest struct {
-	ctx        context.Context
+	ctx context.Context
 	ApiService OrgSettingAPI
 	retryCount int32
 }
@@ -3159,20 +3142,19 @@ UpdateOrgHideOktaUIFooter Update the Preference to Hide the Okta Dashboard Foote
 
 Updates the preference hide the Okta UI footer for all end users of your organization
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@return ApiUpdateOrgHideOktaUIFooterRequest
+ @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+ @return ApiUpdateOrgHideOktaUIFooterRequest
 */
 func (a *OrgSettingAPIService) UpdateOrgHideOktaUIFooter(ctx context.Context) ApiUpdateOrgHideOktaUIFooterRequest {
 	return ApiUpdateOrgHideOktaUIFooterRequest{
 		ApiService: a,
-		ctx:        ctx,
+		ctx: ctx,
 		retryCount: 0,
 	}
 }
 
 // Execute executes the request
-//
-//	@return OrgPreferences
+//  @return OrgPreferences
 func (a *OrgSettingAPIService) UpdateOrgHideOktaUIFooterExecute(r ApiUpdateOrgHideOktaUIFooterRequest) (*OrgPreferences, *APIResponse, error) {
 	var (
 		localVarHTTPMethod   = http.MethodPost
@@ -3181,7 +3163,7 @@ func (a *OrgSettingAPIService) UpdateOrgHideOktaUIFooterExecute(r ApiUpdateOrgHi
 		localVarReturnValue  *OrgPreferences
 		localVarHTTPResponse *http.Response
 		localAPIResponse     *APIResponse
-		err                  error
+		err 				 error
 	)
 
 	if a.client.cfg.Okta.Client.RequestTimeout > 0 {
@@ -3289,13 +3271,13 @@ func (a *OrgSettingAPIService) UpdateOrgHideOktaUIFooterExecute(r ApiUpdateOrgHi
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
 		return localVarReturnValue, localAPIResponse, newErr
 	}
-
+	
 	localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
 	return localVarReturnValue, localAPIResponse, nil
 }
 
 type ApiUpdateOrgSettingsRequest struct {
-	ctx        context.Context
+	ctx context.Context
 	ApiService OrgSettingAPI
 	orgSetting *OrgSetting
 	retryCount int32
@@ -3315,20 +3297,19 @@ UpdateOrgSettings Update the Org Settings
 
 Partially updates the org settings depending on provided fields
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@return ApiUpdateOrgSettingsRequest
+ @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+ @return ApiUpdateOrgSettingsRequest
 */
 func (a *OrgSettingAPIService) UpdateOrgSettings(ctx context.Context) ApiUpdateOrgSettingsRequest {
 	return ApiUpdateOrgSettingsRequest{
 		ApiService: a,
-		ctx:        ctx,
+		ctx: ctx,
 		retryCount: 0,
 	}
 }
 
 // Execute executes the request
-//
-//	@return OrgSetting
+//  @return OrgSetting
 func (a *OrgSettingAPIService) UpdateOrgSettingsExecute(r ApiUpdateOrgSettingsRequest) (*OrgSetting, *APIResponse, error) {
 	var (
 		localVarHTTPMethod   = http.MethodPost
@@ -3337,7 +3318,7 @@ func (a *OrgSettingAPIService) UpdateOrgSettingsExecute(r ApiUpdateOrgSettingsRe
 		localVarReturnValue  *OrgSetting
 		localVarHTTPResponse *http.Response
 		localAPIResponse     *APIResponse
-		err                  error
+		err 				 error
 	)
 
 	if a.client.cfg.Okta.Client.RequestTimeout > 0 {
@@ -3459,13 +3440,13 @@ func (a *OrgSettingAPIService) UpdateOrgSettingsExecute(r ApiUpdateOrgSettingsRe
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
 		return localVarReturnValue, localAPIResponse, newErr
 	}
-
+	
 	localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
 	return localVarReturnValue, localAPIResponse, nil
 }
 
 type ApiUpdateOrgShowOktaUIFooterRequest struct {
-	ctx        context.Context
+	ctx context.Context
 	ApiService OrgSettingAPI
 	retryCount int32
 }
@@ -3479,20 +3460,19 @@ UpdateOrgShowOktaUIFooter Update the Preference to Show the Okta Dashboard Foote
 
 Updates the preference to show the Okta UI footer for all end users of your organization
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@return ApiUpdateOrgShowOktaUIFooterRequest
+ @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+ @return ApiUpdateOrgShowOktaUIFooterRequest
 */
 func (a *OrgSettingAPIService) UpdateOrgShowOktaUIFooter(ctx context.Context) ApiUpdateOrgShowOktaUIFooterRequest {
 	return ApiUpdateOrgShowOktaUIFooterRequest{
 		ApiService: a,
-		ctx:        ctx,
+		ctx: ctx,
 		retryCount: 0,
 	}
 }
 
 // Execute executes the request
-//
-//	@return OrgPreferences
+//  @return OrgPreferences
 func (a *OrgSettingAPIService) UpdateOrgShowOktaUIFooterExecute(r ApiUpdateOrgShowOktaUIFooterRequest) (*OrgPreferences, *APIResponse, error) {
 	var (
 		localVarHTTPMethod   = http.MethodPost
@@ -3501,7 +3481,7 @@ func (a *OrgSettingAPIService) UpdateOrgShowOktaUIFooterExecute(r ApiUpdateOrgSh
 		localVarReturnValue  *OrgPreferences
 		localVarHTTPResponse *http.Response
 		localAPIResponse     *APIResponse
-		err                  error
+		err 				 error
 	)
 
 	if a.client.cfg.Okta.Client.RequestTimeout > 0 {
@@ -3609,13 +3589,13 @@ func (a *OrgSettingAPIService) UpdateOrgShowOktaUIFooterExecute(r ApiUpdateOrgSh
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
 		return localVarReturnValue, localAPIResponse, newErr
 	}
-
+	
 	localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
 	return localVarReturnValue, localAPIResponse, nil
 }
 
 type ApiUpdateThirdPartyAdminSettingRequest struct {
-	ctx        context.Context
+	ctx context.Context
 	ApiService OrgSettingAPI
 	retryCount int32
 }
@@ -3629,20 +3609,19 @@ UpdateThirdPartyAdminSetting Update the Org Third-Party Admin setting
 
 Updates the Third-Party Admin setting
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@return ApiUpdateThirdPartyAdminSettingRequest
+ @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+ @return ApiUpdateThirdPartyAdminSettingRequest
 */
 func (a *OrgSettingAPIService) UpdateThirdPartyAdminSetting(ctx context.Context) ApiUpdateThirdPartyAdminSettingRequest {
 	return ApiUpdateThirdPartyAdminSettingRequest{
 		ApiService: a,
-		ctx:        ctx,
+		ctx: ctx,
 		retryCount: 0,
 	}
 }
 
 // Execute executes the request
-//
-//	@return ThirdPartyAdminSetting
+//  @return ThirdPartyAdminSetting
 func (a *OrgSettingAPIService) UpdateThirdPartyAdminSettingExecute(r ApiUpdateThirdPartyAdminSettingRequest) (*ThirdPartyAdminSetting, *APIResponse, error) {
 	var (
 		localVarHTTPMethod   = http.MethodPost
@@ -3651,7 +3630,7 @@ func (a *OrgSettingAPIService) UpdateThirdPartyAdminSettingExecute(r ApiUpdateTh
 		localVarReturnValue  *ThirdPartyAdminSetting
 		localVarHTTPResponse *http.Response
 		localAPIResponse     *APIResponse
-		err                  error
+		err 				 error
 	)
 
 	if a.client.cfg.Okta.Client.RequestTimeout > 0 {
@@ -3759,15 +3738,15 @@ func (a *OrgSettingAPIService) UpdateThirdPartyAdminSettingExecute(r ApiUpdateTh
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
 		return localVarReturnValue, localAPIResponse, newErr
 	}
-
+	
 	localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
 	return localVarReturnValue, localAPIResponse, nil
 }
 
 type ApiUploadOrgLogoRequest struct {
-	ctx        context.Context
+	ctx context.Context
 	ApiService OrgSettingAPI
-	file       **os.File
+	file **os.File
 	retryCount int32
 }
 
@@ -3785,13 +3764,13 @@ UploadOrgLogo Upload the Org Logo
 
 Uploads and replaces the logo for your organization. The file must be in PNG, JPG, or GIF format and less than 100kB in size. For best results use landscape orientation, a transparent background, and a minimum size of 300px by 50px to prevent upscaling.
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@return ApiUploadOrgLogoRequest
+ @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+ @return ApiUploadOrgLogoRequest
 */
 func (a *OrgSettingAPIService) UploadOrgLogo(ctx context.Context) ApiUploadOrgLogoRequest {
 	return ApiUploadOrgLogoRequest{
 		ApiService: a,
-		ctx:        ctx,
+		ctx: ctx,
 		retryCount: 0,
 	}
 }
@@ -3804,7 +3783,7 @@ func (a *OrgSettingAPIService) UploadOrgLogoExecute(r ApiUploadOrgLogoRequest) (
 		formFiles            []formFile
 		localVarHTTPResponse *http.Response
 		localAPIResponse     *APIResponse
-		err                  error
+		err 				 error
 	)
 
 	if a.client.cfg.Okta.Client.RequestTimeout > 0 {
@@ -3844,8 +3823,8 @@ func (a *OrgSettingAPIService) UploadOrgLogoExecute(r ApiUploadOrgLogoRequest) (
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
 	var fileLocalVarFormFileName string
-	var fileLocalVarFileName string
-	var fileLocalVarFileBytes []byte
+	var fileLocalVarFileName     string
+	var fileLocalVarFileBytes    []byte
 
 	fileLocalVarFormFileName = "file"
 

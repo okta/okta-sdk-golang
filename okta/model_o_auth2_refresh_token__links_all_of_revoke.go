@@ -36,7 +36,7 @@ type OAuth2RefreshTokenLinksAllOfRevoke struct {
 	// Link name
 	Title *string `json:"title,omitempty"`
 	// The media type of the link. If omitted, it is implicitly `application/json`.
-	Type                 *string `json:"type,omitempty"`
+	Type *string `json:"type,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -263,3 +263,4 @@ func (v *NullableOAuth2RefreshTokenLinksAllOfRevoke) UnmarshalJSON(src []byte) e
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
+

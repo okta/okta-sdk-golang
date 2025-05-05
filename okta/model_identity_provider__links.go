@@ -31,22 +31,14 @@ import (
 // IdentityProviderLinks struct for IdentityProviderLinks
 type IdentityProviderLinks struct {
 	Self *HrefObjectSelfLink `json:"self,omitempty"`
-	// SAML 2.0 Assertion Consumer Service URL for the Okta SP
 	Acs *HrefObject `json:"acs,omitempty"`
-	// OAuth 2.0 authorization endpoint for the IdP OAuth 2.0 Authorization Code flow
 	Authorize *HrefObject `json:"authorize,omitempty"`
-	// Redirect URI for the OAuth 2.0 Authorization Code flow
 	ClientRedirectUri *HrefObject `json:"clientRedirectUri,omitempty"`
-	// Federation metadata document for the IdP (for example: SAML 2.0 Metadata)
 	Metadata *HrefObject `json:"metadata,omitempty"`
-	// IdP users
 	Users *HrefObject `json:"users,omitempty"`
-	// Deactivate IdP
 	Deactivate *HrefObject `json:"deactivate,omitempty"`
-	// Activate IdP
 	Activate *HrefObject `json:"activate,omitempty"`
-	// IdP keys
-	Keys                 *HrefObject `json:"keys,omitempty"`
+	Keys *HrefObject `json:"keys,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -460,3 +452,4 @@ func (v *NullableIdentityProviderLinks) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
+

@@ -33,12 +33,12 @@ import (
 // DeviceAssuranceAndroidPlatform struct for DeviceAssuranceAndroidPlatform
 type DeviceAssuranceAndroidPlatform struct {
 	DeviceAssurance
-	DiskEncryptionType    *DeviceAssuranceAndroidPlatformAllOfDiskEncryptionType `json:"diskEncryptionType,omitempty"`
-	Jailbreak             *bool                                                  `json:"jailbreak,omitempty"`
-	OsVersion             *OSVersion                                             `json:"osVersion,omitempty"`
-	ScreenLockType        *DeviceAssuranceAndroidPlatformAllOfScreenLockType     `json:"screenLockType,omitempty"`
-	SecureHardwarePresent *bool                                                  `json:"secureHardwarePresent,omitempty"`
-	AdditionalProperties  map[string]interface{}
+	DiskEncryptionType *DeviceAssuranceAndroidPlatformAllOfDiskEncryptionType `json:"diskEncryptionType,omitempty"`
+	Jailbreak *bool `json:"jailbreak,omitempty"`
+	OsVersion *OSVersion `json:"osVersion,omitempty"`
+	ScreenLockType *DeviceAssuranceAndroidPlatformAllOfScreenLockType `json:"screenLockType,omitempty"`
+	SecureHardwarePresent *bool `json:"secureHardwarePresent,omitempty"`
+	AdditionalProperties map[string]interface{}
 }
 
 type _DeviceAssuranceAndroidPlatform DeviceAssuranceAndroidPlatform
@@ -255,11 +255,11 @@ func (o DeviceAssuranceAndroidPlatform) MarshalJSON() ([]byte, error) {
 
 func (o *DeviceAssuranceAndroidPlatform) UnmarshalJSON(bytes []byte) (err error) {
 	type DeviceAssuranceAndroidPlatformWithoutEmbeddedStruct struct {
-		DiskEncryptionType    *DeviceAssuranceAndroidPlatformAllOfDiskEncryptionType `json:"diskEncryptionType,omitempty"`
-		Jailbreak             *bool                                                  `json:"jailbreak,omitempty"`
-		OsVersion             *OSVersion                                             `json:"osVersion,omitempty"`
-		ScreenLockType        *DeviceAssuranceAndroidPlatformAllOfScreenLockType     `json:"screenLockType,omitempty"`
-		SecureHardwarePresent *bool                                                  `json:"secureHardwarePresent,omitempty"`
+		DiskEncryptionType *DeviceAssuranceAndroidPlatformAllOfDiskEncryptionType `json:"diskEncryptionType,omitempty"`
+		Jailbreak *bool `json:"jailbreak,omitempty"`
+		OsVersion *OSVersion `json:"osVersion,omitempty"`
+		ScreenLockType *DeviceAssuranceAndroidPlatformAllOfScreenLockType `json:"screenLockType,omitempty"`
+		SecureHardwarePresent *bool `json:"secureHardwarePresent,omitempty"`
 	}
 
 	varDeviceAssuranceAndroidPlatformWithoutEmbeddedStruct := DeviceAssuranceAndroidPlatformWithoutEmbeddedStruct{}
@@ -357,3 +357,4 @@ func (v *NullableDeviceAssuranceAndroidPlatform) UnmarshalJSON(src []byte) error
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
+

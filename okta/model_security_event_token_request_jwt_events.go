@@ -30,13 +30,13 @@ import (
 
 // SecurityEventTokenRequestJwtEvents A non-empty collection of events
 type SecurityEventTokenRequestJwtEvents struct {
-	HttpsSchemasOktaComSeceventOktaEventTypeDeviceRiskChange         *OktaDeviceRiskChangeEvent       `json:"https://schemas.okta.com/secevent/okta/event-type/device-risk-change,omitempty"`
-	HttpsSchemasOktaComSeceventOktaEventTypeIpChange                 *OktaIpChangeEvent               `json:"https://schemas.okta.com/secevent/okta/event-type/ip-change,omitempty"`
-	HttpsSchemasOktaComSeceventOktaEventTypeUserRiskChange           *OktaUserRiskChangeEvent         `json:"https://schemas.okta.com/secevent/okta/event-type/user-risk-change,omitempty"`
+	HttpsSchemasOktaComSeceventOktaEventTypeDeviceRiskChange *OktaDeviceRiskChangeEvent `json:"https://schemas.okta.com/secevent/okta/event-type/device-risk-change,omitempty"`
+	HttpsSchemasOktaComSeceventOktaEventTypeIpChange *OktaIpChangeEvent `json:"https://schemas.okta.com/secevent/okta/event-type/ip-change,omitempty"`
+	HttpsSchemasOktaComSeceventOktaEventTypeUserRiskChange *OktaUserRiskChangeEvent `json:"https://schemas.okta.com/secevent/okta/event-type/user-risk-change,omitempty"`
 	HttpsSchemasOpenidNetSeceventCaepEventTypeDeviceComplianceChange *CaepDeviceComplianceChangeEvent `json:"https://schemas.openid.net/secevent/caep/event-type/device-compliance-change,omitempty"`
-	HttpsSchemasOpenidNetSeceventCaepEventTypeSessionRevoked         *CaepSessionRevokedEvent         `json:"https://schemas.openid.net/secevent/caep/event-type/session-revoked,omitempty"`
-	HttpsSchemasOpenidNetSeceventRiscEventTypeIdentifierChanged      *RiscIdentifierChangedEvent      `json:"https://schemas.openid.net/secevent/risc/event-type/identifier-changed,omitempty"`
-	AdditionalProperties                                             map[string]interface{}
+	HttpsSchemasOpenidNetSeceventCaepEventTypeSessionRevoked *CaepSessionRevokedEvent `json:"https://schemas.openid.net/secevent/caep/event-type/session-revoked,omitempty"`
+	HttpsSchemasOpenidNetSeceventRiscEventTypeIdentifierChanged *RiscIdentifierChangedEvent `json:"https://schemas.openid.net/secevent/risc/event-type/identifier-changed,omitempty"`
+	AdditionalProperties map[string]interface{}
 }
 
 type _SecurityEventTokenRequestJwtEvents SecurityEventTokenRequestJwtEvents
@@ -341,3 +341,4 @@ func (v *NullableSecurityEventTokenRequestJwtEvents) UnmarshalJSON(src []byte) e
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
+

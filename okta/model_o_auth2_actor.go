@@ -33,7 +33,7 @@ type OAuth2Actor struct {
 	// User ID
 	Id *string `json:"id,omitempty"`
 	// Type of user
-	Type                 *string `json:"type,omitempty"`
+	Type *string `json:"type,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -195,3 +195,4 @@ func (v *NullableOAuth2Actor) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
+

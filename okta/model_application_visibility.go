@@ -35,8 +35,8 @@ type ApplicationVisibility struct {
 	// Automatically signs in to the app when user signs into Okta
 	AutoLaunch *bool `json:"autoLaunch,omitempty"`
 	// Automatically sign in when user lands on the sign-in page
-	AutoSubmitToolbar    *bool                      `json:"autoSubmitToolbar,omitempty"`
-	Hide                 *ApplicationVisibilityHide `json:"hide,omitempty"`
+	AutoSubmitToolbar *bool `json:"autoSubmitToolbar,omitempty"`
+	Hide *ApplicationVisibilityHide `json:"hide,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -270,3 +270,4 @@ func (v *NullableApplicationVisibility) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
+

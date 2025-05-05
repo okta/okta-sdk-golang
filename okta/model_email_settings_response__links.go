@@ -30,8 +30,8 @@ import (
 
 // EmailSettingsResponseLinks struct for EmailSettingsResponseLinks
 type EmailSettingsResponseLinks struct {
-	Self                 *HrefObject `json:"self,omitempty"`
-	Template             *HrefObject `json:"template,omitempty"`
+	Self *HrefObject `json:"self,omitempty"`
+	Template *HrefObject `json:"template,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -193,3 +193,4 @@ func (v *NullableEmailSettingsResponseLinks) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
+

@@ -34,7 +34,7 @@ type OSVersionConstraint struct {
 	// Indicates the Windows major version
 	MajorVersionConstraint string `json:"majorVersionConstraint"`
 	// The Windows device version must be equal to or newer than the specified version
-	Minimum              *string `json:"minimum,omitempty"`
+	Minimum *string `json:"minimum,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -225,3 +225,4 @@ func (v *NullableOSVersionConstraint) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
+

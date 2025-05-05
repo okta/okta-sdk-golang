@@ -30,8 +30,8 @@ import (
 
 // OrgOktaCommunicationSetting struct for OrgOktaCommunicationSetting
 type OrgOktaCommunicationSetting struct {
-	OptOutEmailUsers     *bool      `json:"optOutEmailUsers,omitempty"`
-	Links                *LinksSelf `json:"_links,omitempty"`
+	OptOutEmailUsers *bool `json:"optOutEmailUsers,omitempty"`
+	Links *LinksSelf `json:"_links,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -193,3 +193,4 @@ func (v *NullableOrgOktaCommunicationSetting) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
+

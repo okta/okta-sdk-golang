@@ -30,9 +30,9 @@ import (
 
 // OAuthApplicationCredentials struct for OAuthApplicationCredentials
 type OAuthApplicationCredentials struct {
-	Signing              *ApplicationCredentialsSigning          `json:"signing,omitempty"`
-	UserNameTemplate     *ApplicationCredentialsUsernameTemplate `json:"userNameTemplate,omitempty"`
-	OauthClient          *ApplicationCredentialsOAuthClient      `json:"oauthClient,omitempty"`
+	Signing *ApplicationCredentialsSigning `json:"signing,omitempty"`
+	UserNameTemplate *ApplicationCredentialsUsernameTemplate `json:"userNameTemplate,omitempty"`
+	OauthClient *ApplicationCredentialsOAuthClient `json:"oauthClient,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -230,3 +230,4 @@ func (v *NullableOAuthApplicationCredentials) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
+

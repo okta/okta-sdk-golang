@@ -35,7 +35,7 @@ type GroupOwner struct {
 	// The `id` of the group owner
 	Id *string `json:"id,omitempty"`
 	// Timestamp when the group owner was last updated
-	LastUpdated *string `json:"lastUpdated,omitempty" validate:"regexp=^\\\\w{3} \\\\w{3} \\\\d{2} \\\\d{2}:\\\\d{2}:\\\\d{2} \\\\w{3} \\\\d{4}$"`
+	LastUpdated *string `json:"lastUpdated,omitempty"`
 	// The ID of the app instance if the `originType` is `APPLICATION`. This value is `NULL` if `originType` is `OKTA_DIRECTORY`.
 	OriginId *string `json:"originId,omitempty"`
 	// The source where group ownership is managed
@@ -43,7 +43,7 @@ type GroupOwner struct {
 	// If `originType`is APPLICATION, this parameter is set to `FALSE` until the owner’s `originId` is reconciled with an associated Okta ID.
 	Resolved *bool `json:"resolved,omitempty"`
 	// The entity type of the owner
-	Type                 *string `json:"type,omitempty"`
+	Type *string `json:"type,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -385,3 +385,4 @@ func (v *NullableGroupOwner) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
+

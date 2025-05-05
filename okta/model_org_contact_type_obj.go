@@ -30,8 +30,8 @@ import (
 
 // OrgContactTypeObj struct for OrgContactTypeObj
 type OrgContactTypeObj struct {
-	ContactType          *string    `json:"contactType,omitempty"`
-	Links                *LinksSelf `json:"_links,omitempty"`
+	ContactType *string `json:"contactType,omitempty"`
+	Links *LinksSelf `json:"_links,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -193,3 +193,4 @@ func (v *NullableOrgContactTypeObj) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
+

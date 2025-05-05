@@ -33,7 +33,7 @@ type AuthenticationMethodObject struct {
 	// A label that identifies the authenticator
 	Key *string `json:"key,omitempty"`
 	// Specifies the method used for the authenticator
-	Method               *string `json:"method,omitempty"`
+	Method *string `json:"method,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -195,3 +195,4 @@ func (v *NullableAuthenticationMethodObject) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
+

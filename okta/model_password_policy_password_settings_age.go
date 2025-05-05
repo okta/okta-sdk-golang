@@ -30,10 +30,10 @@ import (
 
 // PasswordPolicyPasswordSettingsAge struct for PasswordPolicyPasswordSettingsAge
 type PasswordPolicyPasswordSettingsAge struct {
-	ExpireWarnDays       *int32 `json:"expireWarnDays,omitempty"`
-	HistoryCount         *int32 `json:"historyCount,omitempty"`
-	MaxAgeDays           *int32 `json:"maxAgeDays,omitempty"`
-	MinAgeMinutes        *int32 `json:"minAgeMinutes,omitempty"`
+	ExpireWarnDays *int32 `json:"expireWarnDays,omitempty"`
+	HistoryCount *int32 `json:"historyCount,omitempty"`
+	MaxAgeDays *int32 `json:"maxAgeDays,omitempty"`
+	MinAgeMinutes *int32 `json:"minAgeMinutes,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -267,3 +267,4 @@ func (v *NullablePasswordPolicyPasswordSettingsAge) UnmarshalJSON(src []byte) er
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
+

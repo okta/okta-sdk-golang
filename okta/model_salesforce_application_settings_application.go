@@ -37,7 +37,7 @@ type SalesforceApplicationSettingsApplication struct {
 	// The Login URL specified in your Salesforce Single Sign-On settings
 	LoginUrl *string `json:"loginUrl,omitempty"`
 	// Salesforce Logout URL
-	LogoutUrl            *string `json:"logoutUrl,omitempty"`
+	LogoutUrl *string `json:"logoutUrl,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -257,3 +257,4 @@ func (v *NullableSalesforceApplicationSettingsApplication) UnmarshalJSON(src []b
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
+

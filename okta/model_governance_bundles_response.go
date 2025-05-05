@@ -30,8 +30,8 @@ import (
 
 // GovernanceBundlesResponse struct for GovernanceBundlesResponse
 type GovernanceBundlesResponse struct {
-	Bundles              []GovernanceBundle              `json:"bundles,omitempty"`
-	Links                *GovernanceBundlesResponseLinks `json:"_links,omitempty"`
+	Bundles []GovernanceBundle `json:"bundles,omitempty"`
+	Links *GovernanceBundlesResponseLinks `json:"_links,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -193,3 +193,4 @@ func (v *NullableGovernanceBundlesResponse) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
+

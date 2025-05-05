@@ -30,8 +30,8 @@ import (
 
 // AppLink struct for AppLink
 type AppLink struct {
-	Login                *HrefObjectAppLink  `json:"login,omitempty"`
-	Logo                 *HrefObjectLogoLink `json:"logo,omitempty"`
+	Login *HrefObjectAppLink `json:"login,omitempty"`
+	Logo *HrefObjectLogoLink `json:"logo,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -193,3 +193,4 @@ func (v *NullableAppLink) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
+

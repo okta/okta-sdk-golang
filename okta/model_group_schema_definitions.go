@@ -30,8 +30,8 @@ import (
 
 // GroupSchemaDefinitions struct for GroupSchemaDefinitions
 type GroupSchemaDefinitions struct {
-	Base                 *GroupSchemaBase   `json:"base,omitempty"`
-	Custom               *GroupSchemaCustom `json:"custom,omitempty"`
+	Base *GroupSchemaBase `json:"base,omitempty"`
+	Custom *GroupSchemaCustom `json:"custom,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -193,3 +193,4 @@ func (v *NullableGroupSchemaDefinitions) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
+

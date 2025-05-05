@@ -28,21 +28,21 @@ import (
 	"encoding/json"
 )
 
-// ZscalerbyzApplication Schema for the Zscaler 2.0 app (key name: `zscalerbyz`)  To create a Zscaler 2.0 app, use the [Create an Application](/openapi/okta-management/management/tag/Application/#tag/Application/operation/createApplication) request with the following parameters in the request body. > **Note:** The Zscaler 2.0 app only supports `BROWSER_PLUGIN` and `SAML_2_0` sign-on modes.
+// ZscalerbyzApplication Schema for the Zscaler 2.0 app (key name: `zscalerbyz`)  To create a Zscaler 2.0 app, use the [Create an Application](/openapi/okta-management/management/tag/Application/#tag/Application/operation/createApplication) request with the following parameters in the request body. > **Note:** The Zscaler 2.0 app only supports `BROWSER_PLUGIN` and `SAML_2_0` sign-on modes. 
 type ZscalerbyzApplication struct {
-	Accessibility *ApplicationAccessibility     `json:"accessibility,omitempty"`
-	Credentials   *SchemeApplicationCredentials `json:"credentials,omitempty"`
+	Accessibility *ApplicationAccessibility `json:"accessibility,omitempty"`
+	Credentials *SchemeApplicationCredentials `json:"credentials,omitempty"`
 	// User-defined display name for app
-	Label     string                `json:"label"`
+	Label string `json:"label"`
 	Licensing *ApplicationLicensing `json:"licensing,omitempty"`
-	Name      string                `json:"name"`
+	Name string `json:"name"`
 	// Contains any valid JSON schema for specifying properties that can be referenced from a request (only available to OAuth 2.0 client apps)
-	Profile    map[string]map[string]interface{} `json:"profile,omitempty"`
-	SignOnMode *string                           `json:"signOnMode,omitempty"`
+	Profile map[string]map[string]interface{} `json:"profile,omitempty"`
+	SignOnMode *string `json:"signOnMode,omitempty"`
 	// App instance status
-	Status               *string                       `json:"status,omitempty"`
-	Visibility           *ApplicationVisibility        `json:"visibility,omitempty"`
-	Settings             ZscalerbyzApplicationSettings `json:"settings"`
+	Status *string `json:"status,omitempty"`
+	Visibility *ApplicationVisibility `json:"visibility,omitempty"`
+	Settings ZscalerbyzApplicationSettings `json:"settings"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -471,3 +471,4 @@ func (v *NullableZscalerbyzApplication) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
+

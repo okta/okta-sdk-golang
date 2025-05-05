@@ -29,17 +29,18 @@ import (
 	"fmt"
 )
 
-// model_oneof.mustache
+
+//model_oneof.mustache
 // ListPolicies200ResponseInner - struct for ListPolicies200ResponseInner
 type ListPolicies200ResponseInner struct {
-	AccessPolicy                *AccessPolicy
-	ContinuousAccessPolicy      *ContinuousAccessPolicy
-	EntityRiskPolicy            *EntityRiskPolicy
-	IdpDiscoveryPolicy          *IdpDiscoveryPolicy
+	AccessPolicy *AccessPolicy
+	ContinuousAccessPolicy *ContinuousAccessPolicy
+	EntityRiskPolicy *EntityRiskPolicy
+	IdpDiscoveryPolicy *IdpDiscoveryPolicy
 	MultifactorEnrollmentPolicy *MultifactorEnrollmentPolicy
-	OktaSignOnPolicy            *OktaSignOnPolicy
-	PasswordPolicy              *PasswordPolicy
-	ProfileEnrollmentPolicy     *ProfileEnrollmentPolicy
+	OktaSignOnPolicy *OktaSignOnPolicy
+	PasswordPolicy *PasswordPolicy
+	ProfileEnrollmentPolicy *ProfileEnrollmentPolicy
 }
 
 // AccessPolicyAsListPolicies200ResponseInner is a convenience function that returns AccessPolicy wrapped in ListPolicies200ResponseInner
@@ -98,6 +99,7 @@ func ProfileEnrollmentPolicyAsListPolicies200ResponseInner(v *ProfileEnrollmentP
 	}
 }
 
+
 // Unmarshal JSON data into one of the pointers in the struct  CUSTOM
 func (dst *ListPolicies200ResponseInner) UnmarshalJSON(data []byte) error {
 	var err error
@@ -120,8 +122,32 @@ func (dst *ListPolicies200ResponseInner) UnmarshalJSON(data []byte) error {
 		}
 	}
 
+	// check if the discriminator value is 'AccessPolicy'
+	if jsonDict["type"] == "AccessPolicy" {
+		// try to unmarshal JSON data into AccessPolicy
+		err = json.Unmarshal(data, &dst.AccessPolicy)
+		if err == nil {
+			return nil // data stored in dst.AccessPolicy, return on the first match
+		} else {
+			dst.AccessPolicy = nil
+			return fmt.Errorf("Failed to unmarshal ListPolicies200ResponseInner as AccessPolicy: %s", err.Error())
+		}
+	}
+
 	// check if the discriminator value is 'CONTINUOUS_ACCESS'
 	if jsonDict["type"] == "CONTINUOUS_ACCESS" {
+		// try to unmarshal JSON data into ContinuousAccessPolicy
+		err = json.Unmarshal(data, &dst.ContinuousAccessPolicy)
+		if err == nil {
+			return nil // data stored in dst.ContinuousAccessPolicy, return on the first match
+		} else {
+			dst.ContinuousAccessPolicy = nil
+			return fmt.Errorf("Failed to unmarshal ListPolicies200ResponseInner as ContinuousAccessPolicy: %s", err.Error())
+		}
+	}
+
+	// check if the discriminator value is 'ContinuousAccessPolicy'
+	if jsonDict["type"] == "ContinuousAccessPolicy" {
 		// try to unmarshal JSON data into ContinuousAccessPolicy
 		err = json.Unmarshal(data, &dst.ContinuousAccessPolicy)
 		if err == nil {
@@ -144,8 +170,32 @@ func (dst *ListPolicies200ResponseInner) UnmarshalJSON(data []byte) error {
 		}
 	}
 
+	// check if the discriminator value is 'EntityRiskPolicy'
+	if jsonDict["type"] == "EntityRiskPolicy" {
+		// try to unmarshal JSON data into EntityRiskPolicy
+		err = json.Unmarshal(data, &dst.EntityRiskPolicy)
+		if err == nil {
+			return nil // data stored in dst.EntityRiskPolicy, return on the first match
+		} else {
+			dst.EntityRiskPolicy = nil
+			return fmt.Errorf("Failed to unmarshal ListPolicies200ResponseInner as EntityRiskPolicy: %s", err.Error())
+		}
+	}
+
 	// check if the discriminator value is 'IDP_DISCOVERY'
 	if jsonDict["type"] == "IDP_DISCOVERY" {
+		// try to unmarshal JSON data into IdpDiscoveryPolicy
+		err = json.Unmarshal(data, &dst.IdpDiscoveryPolicy)
+		if err == nil {
+			return nil // data stored in dst.IdpDiscoveryPolicy, return on the first match
+		} else {
+			dst.IdpDiscoveryPolicy = nil
+			return fmt.Errorf("Failed to unmarshal ListPolicies200ResponseInner as IdpDiscoveryPolicy: %s", err.Error())
+		}
+	}
+
+	// check if the discriminator value is 'IdpDiscoveryPolicy'
+	if jsonDict["type"] == "IdpDiscoveryPolicy" {
 		// try to unmarshal JSON data into IdpDiscoveryPolicy
 		err = json.Unmarshal(data, &dst.IdpDiscoveryPolicy)
 		if err == nil {
@@ -168,8 +218,32 @@ func (dst *ListPolicies200ResponseInner) UnmarshalJSON(data []byte) error {
 		}
 	}
 
+	// check if the discriminator value is 'MultifactorEnrollmentPolicy'
+	if jsonDict["type"] == "MultifactorEnrollmentPolicy" {
+		// try to unmarshal JSON data into MultifactorEnrollmentPolicy
+		err = json.Unmarshal(data, &dst.MultifactorEnrollmentPolicy)
+		if err == nil {
+			return nil // data stored in dst.MultifactorEnrollmentPolicy, return on the first match
+		} else {
+			dst.MultifactorEnrollmentPolicy = nil
+			return fmt.Errorf("Failed to unmarshal ListPolicies200ResponseInner as MultifactorEnrollmentPolicy: %s", err.Error())
+		}
+	}
+
 	// check if the discriminator value is 'OKTA_SIGN_ON'
 	if jsonDict["type"] == "OKTA_SIGN_ON" {
+		// try to unmarshal JSON data into OktaSignOnPolicy
+		err = json.Unmarshal(data, &dst.OktaSignOnPolicy)
+		if err == nil {
+			return nil // data stored in dst.OktaSignOnPolicy, return on the first match
+		} else {
+			dst.OktaSignOnPolicy = nil
+			return fmt.Errorf("Failed to unmarshal ListPolicies200ResponseInner as OktaSignOnPolicy: %s", err.Error())
+		}
+	}
+
+	// check if the discriminator value is 'OktaSignOnPolicy'
+	if jsonDict["type"] == "OktaSignOnPolicy" {
 		// try to unmarshal JSON data into OktaSignOnPolicy
 		err = json.Unmarshal(data, &dst.OktaSignOnPolicy)
 		if err == nil {
@@ -201,78 +275,6 @@ func (dst *ListPolicies200ResponseInner) UnmarshalJSON(data []byte) error {
 		} else {
 			dst.ProfileEnrollmentPolicy = nil
 			return fmt.Errorf("Failed to unmarshal ListPolicies200ResponseInner as ProfileEnrollmentPolicy: %s", err.Error())
-		}
-	}
-
-	// check if the discriminator value is 'AccessPolicy'
-	if jsonDict["type"] == "AccessPolicy" {
-		// try to unmarshal JSON data into AccessPolicy
-		err = json.Unmarshal(data, &dst.AccessPolicy)
-		if err == nil {
-			return nil // data stored in dst.AccessPolicy, return on the first match
-		} else {
-			dst.AccessPolicy = nil
-			return fmt.Errorf("Failed to unmarshal ListPolicies200ResponseInner as AccessPolicy: %s", err.Error())
-		}
-	}
-
-	// check if the discriminator value is 'ContinuousAccessPolicy'
-	if jsonDict["type"] == "ContinuousAccessPolicy" {
-		// try to unmarshal JSON data into ContinuousAccessPolicy
-		err = json.Unmarshal(data, &dst.ContinuousAccessPolicy)
-		if err == nil {
-			return nil // data stored in dst.ContinuousAccessPolicy, return on the first match
-		} else {
-			dst.ContinuousAccessPolicy = nil
-			return fmt.Errorf("Failed to unmarshal ListPolicies200ResponseInner as ContinuousAccessPolicy: %s", err.Error())
-		}
-	}
-
-	// check if the discriminator value is 'EntityRiskPolicy'
-	if jsonDict["type"] == "EntityRiskPolicy" {
-		// try to unmarshal JSON data into EntityRiskPolicy
-		err = json.Unmarshal(data, &dst.EntityRiskPolicy)
-		if err == nil {
-			return nil // data stored in dst.EntityRiskPolicy, return on the first match
-		} else {
-			dst.EntityRiskPolicy = nil
-			return fmt.Errorf("Failed to unmarshal ListPolicies200ResponseInner as EntityRiskPolicy: %s", err.Error())
-		}
-	}
-
-	// check if the discriminator value is 'IdpDiscoveryPolicy'
-	if jsonDict["type"] == "IdpDiscoveryPolicy" {
-		// try to unmarshal JSON data into IdpDiscoveryPolicy
-		err = json.Unmarshal(data, &dst.IdpDiscoveryPolicy)
-		if err == nil {
-			return nil // data stored in dst.IdpDiscoveryPolicy, return on the first match
-		} else {
-			dst.IdpDiscoveryPolicy = nil
-			return fmt.Errorf("Failed to unmarshal ListPolicies200ResponseInner as IdpDiscoveryPolicy: %s", err.Error())
-		}
-	}
-
-	// check if the discriminator value is 'MultifactorEnrollmentPolicy'
-	if jsonDict["type"] == "MultifactorEnrollmentPolicy" {
-		// try to unmarshal JSON data into MultifactorEnrollmentPolicy
-		err = json.Unmarshal(data, &dst.MultifactorEnrollmentPolicy)
-		if err == nil {
-			return nil // data stored in dst.MultifactorEnrollmentPolicy, return on the first match
-		} else {
-			dst.MultifactorEnrollmentPolicy = nil
-			return fmt.Errorf("Failed to unmarshal ListPolicies200ResponseInner as MultifactorEnrollmentPolicy: %s", err.Error())
-		}
-	}
-
-	// check if the discriminator value is 'OktaSignOnPolicy'
-	if jsonDict["type"] == "OktaSignOnPolicy" {
-		// try to unmarshal JSON data into OktaSignOnPolicy
-		err = json.Unmarshal(data, &dst.OktaSignOnPolicy)
-		if err == nil {
-			return nil // data stored in dst.OktaSignOnPolicy, return on the first match
-		} else {
-			dst.OktaSignOnPolicy = nil
-			return fmt.Errorf("Failed to unmarshal ListPolicies200ResponseInner as OktaSignOnPolicy: %s", err.Error())
 		}
 	}
 
@@ -341,7 +343,7 @@ func (src ListPolicies200ResponseInner) MarshalJSON() ([]byte, error) {
 }
 
 // Get the actual instance
-func (obj *ListPolicies200ResponseInner) GetActualInstance() interface{} {
+func (obj *ListPolicies200ResponseInner) GetActualInstance() (interface{}) {
 	if obj == nil {
 		return nil
 	}
@@ -416,3 +418,5 @@ func (v *NullableListPolicies200ResponseInner) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
+
+

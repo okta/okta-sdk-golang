@@ -31,7 +31,7 @@ import (
 // SecurityEventsProviderSettingsSSFCompliant Security Events Provider with well-known URL setting
 type SecurityEventsProviderSettingsSSFCompliant struct {
 	// The published well-known URL of the Security Events Provider (the SSF transmitter)
-	WellKnownUrl         string `json:"well_known_url"`
+	WellKnownUrl string `json:"well_known_url"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -150,3 +150,4 @@ func (v *NullableSecurityEventsProviderSettingsSSFCompliant) UnmarshalJSON(src [
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
+

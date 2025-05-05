@@ -41,7 +41,7 @@ type EmailServerRequest struct {
 	// Username used to access your SMTP server
 	Username *string `json:"username,omitempty"`
 	// Password used to access your SMTP server
-	Password             *string `json:"password,omitempty"`
+	Password *string `json:"password,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -347,3 +347,4 @@ func (v *NullableEmailServerRequest) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
+

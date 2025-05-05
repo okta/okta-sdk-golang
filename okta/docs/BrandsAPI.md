@@ -27,24 +27,24 @@ Create a Brand
 package main
 
 import (
-	"context"
-	"fmt"
-	"os"
-	openapiclient "github.com/okta/okta-sdk-golang"
+    "context"
+    "fmt"
+    "os"
+    openapiclient "github.com/okta/okta-sdk-golang"
 )
 
 func main() {
-	createBrandRequest := *openapiclient.NewCreateBrandRequest("Name_example") // CreateBrandRequest |  (optional)
+    createBrandRequest := *openapiclient.NewCreateBrandRequest("Name_example") // CreateBrandRequest |  (optional)
 
-	configuration := openapiclient.NewConfiguration()
-	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.BrandsAPI.CreateBrand(context.Background()).CreateBrandRequest(createBrandRequest).Execute()
-	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `BrandsAPI.CreateBrand``: %v\n", err)
-		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-	}
-	// response from `CreateBrand`: Brand
-	fmt.Fprintf(os.Stdout, "Response from `BrandsAPI.CreateBrand`: %v\n", resp)
+    configuration := openapiclient.NewConfiguration()
+    apiClient := openapiclient.NewAPIClient(configuration)
+    resp, r, err := apiClient.BrandsAPI.CreateBrand(context.Background()).CreateBrandRequest(createBrandRequest).Execute()
+    if err != nil {
+        fmt.Fprintf(os.Stderr, "Error when calling `BrandsAPI.CreateBrand``: %v\n", err)
+        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+    }
+    // response from `CreateBrand`: Brand
+    fmt.Fprintf(os.Stdout, "Response from `BrandsAPI.CreateBrand`: %v\n", resp)
 }
 ```
 
@@ -93,22 +93,22 @@ Delete a brand
 package main
 
 import (
-	"context"
-	"fmt"
-	"os"
-	openapiclient "github.com/okta/okta-sdk-golang"
+    "context"
+    "fmt"
+    "os"
+    openapiclient "github.com/okta/okta-sdk-golang"
 )
 
 func main() {
-	brandId := "brandId_example" // string | The ID of the brand
+    brandId := "brandId_example" // string | The ID of the brand
 
-	configuration := openapiclient.NewConfiguration()
-	apiClient := openapiclient.NewAPIClient(configuration)
-	r, err := apiClient.BrandsAPI.DeleteBrand(context.Background(), brandId).Execute()
-	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `BrandsAPI.DeleteBrand``: %v\n", err)
-		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-	}
+    configuration := openapiclient.NewConfiguration()
+    apiClient := openapiclient.NewAPIClient(configuration)
+    r, err := apiClient.BrandsAPI.DeleteBrand(context.Background(), brandId).Execute()
+    if err != nil {
+        fmt.Fprintf(os.Stderr, "Error when calling `BrandsAPI.DeleteBrand``: %v\n", err)
+        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+    }
 }
 ```
 
@@ -161,25 +161,25 @@ Retrieve a Brand
 package main
 
 import (
-	"context"
-	"fmt"
-	"os"
-	openapiclient "github.com/okta/okta-sdk-golang"
+    "context"
+    "fmt"
+    "os"
+    openapiclient "github.com/okta/okta-sdk-golang"
 )
 
 func main() {
-	brandId := "brandId_example" // string | The ID of the brand
-	expand := []string{"Expand_example"} // []string | Specifies additional metadata to be included in the response (optional)
+    brandId := "brandId_example" // string | The ID of the brand
+    expand := []string{"Expand_example"} // []string | Specifies additional metadata to be included in the response (optional)
 
-	configuration := openapiclient.NewConfiguration()
-	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.BrandsAPI.GetBrand(context.Background(), brandId).Expand(expand).Execute()
-	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `BrandsAPI.GetBrand``: %v\n", err)
-		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-	}
-	// response from `GetBrand`: BrandWithEmbedded
-	fmt.Fprintf(os.Stdout, "Response from `BrandsAPI.GetBrand`: %v\n", resp)
+    configuration := openapiclient.NewConfiguration()
+    apiClient := openapiclient.NewAPIClient(configuration)
+    resp, r, err := apiClient.BrandsAPI.GetBrand(context.Background(), brandId).Expand(expand).Execute()
+    if err != nil {
+        fmt.Fprintf(os.Stderr, "Error when calling `BrandsAPI.GetBrand``: %v\n", err)
+        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+    }
+    // response from `GetBrand`: BrandWithEmbedded
+    fmt.Fprintf(os.Stdout, "Response from `BrandsAPI.GetBrand`: %v\n", resp)
 }
 ```
 
@@ -233,24 +233,24 @@ List all Domains associated with a Brand
 package main
 
 import (
-	"context"
-	"fmt"
-	"os"
-	openapiclient "github.com/okta/okta-sdk-golang"
+    "context"
+    "fmt"
+    "os"
+    openapiclient "github.com/okta/okta-sdk-golang"
 )
 
 func main() {
-	brandId := "brandId_example" // string | The ID of the brand
+    brandId := "brandId_example" // string | The ID of the brand
 
-	configuration := openapiclient.NewConfiguration()
-	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.BrandsAPI.ListBrandDomains(context.Background(), brandId).Execute()
-	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `BrandsAPI.ListBrandDomains``: %v\n", err)
-		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-	}
-	// response from `ListBrandDomains`: []DomainResponse
-	fmt.Fprintf(os.Stdout, "Response from `BrandsAPI.ListBrandDomains`: %v\n", resp)
+    configuration := openapiclient.NewConfiguration()
+    apiClient := openapiclient.NewAPIClient(configuration)
+    resp, r, err := apiClient.BrandsAPI.ListBrandDomains(context.Background(), brandId).Execute()
+    if err != nil {
+        fmt.Fprintf(os.Stderr, "Error when calling `BrandsAPI.ListBrandDomains``: %v\n", err)
+        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+    }
+    // response from `ListBrandDomains`: []DomainResponse
+    fmt.Fprintf(os.Stdout, "Response from `BrandsAPI.ListBrandDomains`: %v\n", resp)
 }
 ```
 
@@ -303,27 +303,27 @@ List all Brands
 package main
 
 import (
-	"context"
-	"fmt"
-	"os"
-	openapiclient "github.com/okta/okta-sdk-golang"
+    "context"
+    "fmt"
+    "os"
+    openapiclient "github.com/okta/okta-sdk-golang"
 )
 
 func main() {
-	expand := []string{"Expand_example"} // []string | Specifies additional metadata to be included in the response (optional)
-	after := "after_example" // string | The cursor to use for pagination. It is an opaque string that specifies your current location in the list and is obtained from the `Link` response header. See [Pagination](/#pagination). (optional)
-	limit := int32(56) // int32 | A limit on the number of objects to return (optional) (default to 20)
-	q := "q_example" // string | Searches the records for matching value (optional)
+    expand := []string{"Expand_example"} // []string | Specifies additional metadata to be included in the response (optional)
+    after := "after_example" // string | The cursor to use for pagination. It is an opaque string that specifies your current location in the list and is obtained from the `Link` response header. See [Pagination](/#pagination). (optional)
+    limit := int32(56) // int32 | A limit on the number of objects to return (optional) (default to 20)
+    q := "q_example" // string | Searches the records for matching value (optional)
 
-	configuration := openapiclient.NewConfiguration()
-	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.BrandsAPI.ListBrands(context.Background()).Expand(expand).After(after).Limit(limit).Q(q).Execute()
-	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `BrandsAPI.ListBrands``: %v\n", err)
-		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-	}
-	// response from `ListBrands`: []BrandWithEmbedded
-	fmt.Fprintf(os.Stdout, "Response from `BrandsAPI.ListBrands`: %v\n", resp)
+    configuration := openapiclient.NewConfiguration()
+    apiClient := openapiclient.NewAPIClient(configuration)
+    resp, r, err := apiClient.BrandsAPI.ListBrands(context.Background()).Expand(expand).After(after).Limit(limit).Q(q).Execute()
+    if err != nil {
+        fmt.Fprintf(os.Stderr, "Error when calling `BrandsAPI.ListBrands``: %v\n", err)
+        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+    }
+    // response from `ListBrands`: []BrandWithEmbedded
+    fmt.Fprintf(os.Stdout, "Response from `BrandsAPI.ListBrands`: %v\n", resp)
 }
 ```
 
@@ -375,25 +375,25 @@ Replace a Brand
 package main
 
 import (
-	"context"
-	"fmt"
-	"os"
-	openapiclient "github.com/okta/okta-sdk-golang"
+    "context"
+    "fmt"
+    "os"
+    openapiclient "github.com/okta/okta-sdk-golang"
 )
 
 func main() {
-	brandId := "brandId_example" // string | The ID of the brand
-	brand := *openapiclient.NewBrandRequest("Name_example") // BrandRequest | 
+    brandId := "brandId_example" // string | The ID of the brand
+    brand := *openapiclient.NewBrandRequest("Name_example") // BrandRequest | 
 
-	configuration := openapiclient.NewConfiguration()
-	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.BrandsAPI.ReplaceBrand(context.Background(), brandId).Brand(brand).Execute()
-	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `BrandsAPI.ReplaceBrand``: %v\n", err)
-		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-	}
-	// response from `ReplaceBrand`: Brand
-	fmt.Fprintf(os.Stdout, "Response from `BrandsAPI.ReplaceBrand`: %v\n", resp)
+    configuration := openapiclient.NewConfiguration()
+    apiClient := openapiclient.NewAPIClient(configuration)
+    resp, r, err := apiClient.BrandsAPI.ReplaceBrand(context.Background(), brandId).Brand(brand).Execute()
+    if err != nil {
+        fmt.Fprintf(os.Stderr, "Error when calling `BrandsAPI.ReplaceBrand``: %v\n", err)
+        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+    }
+    // response from `ReplaceBrand`: Brand
+    fmt.Fprintf(os.Stdout, "Response from `BrandsAPI.ReplaceBrand`: %v\n", resp)
 }
 ```
 

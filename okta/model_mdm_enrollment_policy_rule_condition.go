@@ -30,8 +30,8 @@ import (
 
 // MDMEnrollmentPolicyRuleCondition struct for MDMEnrollmentPolicyRuleCondition
 type MDMEnrollmentPolicyRuleCondition struct {
-	BlockNonSafeAndroid  *bool   `json:"blockNonSafeAndroid,omitempty"`
-	Enrollment           *string `json:"enrollment,omitempty"`
+	BlockNonSafeAndroid *bool `json:"blockNonSafeAndroid,omitempty"`
+	Enrollment *string `json:"enrollment,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -193,3 +193,4 @@ func (v *NullableMDMEnrollmentPolicyRuleCondition) UnmarshalJSON(src []byte) err
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
+

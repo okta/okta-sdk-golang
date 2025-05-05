@@ -30,9 +30,9 @@ import (
 
 // ApplicationSettingsNotificationsVpnNetwork struct for ApplicationSettingsNotificationsVpnNetwork
 type ApplicationSettingsNotificationsVpnNetwork struct {
-	Connection           *string  `json:"connection,omitempty"`
-	Exclude              []string `json:"exclude,omitempty"`
-	Include              []string `json:"include,omitempty"`
+	Connection *string `json:"connection,omitempty"`
+	Exclude []string `json:"exclude,omitempty"`
+	Include []string `json:"include,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -230,3 +230,4 @@ func (v *NullableApplicationSettingsNotificationsVpnNetwork) UnmarshalJSON(src [
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
+

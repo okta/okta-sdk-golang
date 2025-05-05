@@ -30,11 +30,11 @@ import (
 
 // PolicyLinks struct for PolicyLinks
 type PolicyLinks struct {
-	Activate             *HrefObjectActivateLink   `json:"activate,omitempty"`
-	Deactivate           *HrefObjectDeactivateLink `json:"deactivate,omitempty"`
-	Mappings             *HrefObjectMappingsLink   `json:"mappings,omitempty"`
-	Rules                *HrefObjectRulesLink      `json:"rules,omitempty"`
-	Self                 *HrefObjectSelfLink       `json:"self,omitempty"`
+	Activate *HrefObjectActivateLink `json:"activate,omitempty"`
+	Deactivate *HrefObjectDeactivateLink `json:"deactivate,omitempty"`
+	Mappings *HrefObjectMappingsLink `json:"mappings,omitempty"`
+	Rules *HrefObjectRulesLink `json:"rules,omitempty"`
+	Self *HrefObjectSelfLink `json:"self,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -304,3 +304,4 @@ func (v *NullablePolicyLinks) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
+

@@ -33,9 +33,9 @@ import (
 // UserFactorWebAuthn struct for UserFactorWebAuthn
 type UserFactorWebAuthn struct {
 	UserFactor
-	FactorType           interface{}                `json:"factorType,omitempty"`
-	Profile              *UserFactorWebAuthnProfile `json:"profile,omitempty"`
-	Provider             *string                    `json:"provider,omitempty"`
+	FactorType interface{} `json:"factorType,omitempty"`
+	Profile *UserFactorWebAuthnProfile `json:"profile,omitempty"`
+	Provider *string `json:"provider,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -184,9 +184,9 @@ func (o UserFactorWebAuthn) MarshalJSON() ([]byte, error) {
 
 func (o *UserFactorWebAuthn) UnmarshalJSON(bytes []byte) (err error) {
 	type UserFactorWebAuthnWithoutEmbeddedStruct struct {
-		FactorType interface{}                `json:"factorType,omitempty"`
-		Profile    *UserFactorWebAuthnProfile `json:"profile,omitempty"`
-		Provider   *string                    `json:"provider,omitempty"`
+		FactorType interface{} `json:"factorType,omitempty"`
+		Profile *UserFactorWebAuthnProfile `json:"profile,omitempty"`
+		Provider *string `json:"provider,omitempty"`
 	}
 
 	varUserFactorWebAuthnWithoutEmbeddedStruct := UserFactorWebAuthnWithoutEmbeddedStruct{}
@@ -280,3 +280,4 @@ func (v *NullableUserFactorWebAuthn) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
+

@@ -33,15 +33,16 @@ import (
 	"time"
 )
 
+
 type SystemLogAPI interface {
 
 	/*
-		ListLogEvents List all System Log Events
+	ListLogEvents List all System Log Events
 
-		Lists all system log events. The Okta System Log API provides read access to your organization’s system log. This API provides more functionality than the Events API
+	Lists all system log events. The Okta System Log API provides read access to your organization’s system log. This API provides more functionality than the Events API
 
-		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-		@return ApiListLogEventsRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@return ApiListLogEventsRequest
 	*/
 	ListLogEvents(ctx context.Context) ApiListLogEventsRequest
 
@@ -54,15 +55,15 @@ type SystemLogAPI interface {
 type SystemLogAPIService service
 
 type ApiListLogEventsRequest struct {
-	ctx        context.Context
+	ctx context.Context
 	ApiService SystemLogAPI
-	since      *time.Time
-	until      *time.Time
-	filter     *string
-	q          *string
-	limit      *int32
-	sortOrder  *string
-	after      *string
+	since *time.Time
+	until *time.Time
+	filter *string
+	q *string
+	limit *int32
+	sortOrder *string
+	after *string
 	retryCount int32
 }
 
@@ -110,20 +111,19 @@ ListLogEvents List all System Log Events
 
 Lists all system log events. The Okta System Log API provides read access to your organization’s system log. This API provides more functionality than the Events API
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@return ApiListLogEventsRequest
+ @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+ @return ApiListLogEventsRequest
 */
 func (a *SystemLogAPIService) ListLogEvents(ctx context.Context) ApiListLogEventsRequest {
 	return ApiListLogEventsRequest{
 		ApiService: a,
-		ctx:        ctx,
+		ctx: ctx,
 		retryCount: 0,
 	}
 }
 
 // Execute executes the request
-//
-//	@return []LogEvent
+//  @return []LogEvent
 func (a *SystemLogAPIService) ListLogEventsExecute(r ApiListLogEventsRequest) ([]LogEvent, *APIResponse, error) {
 	var (
 		localVarHTTPMethod   = http.MethodGet
@@ -132,7 +132,7 @@ func (a *SystemLogAPIService) ListLogEventsExecute(r ApiListLogEventsRequest) ([
 		localVarReturnValue  []LogEvent
 		localVarHTTPResponse *http.Response
 		localAPIResponse     *APIResponse
-		err                  error
+		err 				 error
 	)
 
 	if a.client.cfg.Okta.Client.RequestTimeout > 0 {

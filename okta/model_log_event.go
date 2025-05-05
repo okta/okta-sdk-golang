@@ -31,23 +31,23 @@ import (
 
 // LogEvent struct for LogEvent
 type LogEvent struct {
-	Actor                 *LogActor                 `json:"actor,omitempty"`
+	Actor *LogActor `json:"actor,omitempty"`
 	AuthenticationContext *LogAuthenticationContext `json:"authenticationContext,omitempty"`
-	Client                *LogClient                `json:"client,omitempty"`
-	DebugContext          *LogDebugContext          `json:"debugContext,omitempty"`
-	DisplayMessage        *string                   `json:"displayMessage,omitempty"`
-	EventType             *string                   `json:"eventType,omitempty"`
-	LegacyEventType       *string                   `json:"legacyEventType,omitempty"`
-	Outcome               *LogOutcome               `json:"outcome,omitempty"`
-	Published             *time.Time                `json:"published,omitempty"`
-	Request               *LogRequest               `json:"request,omitempty"`
-	SecurityContext       *LogSecurityContext       `json:"securityContext,omitempty"`
-	Severity              *string                   `json:"severity,omitempty"`
-	Target                []LogTarget               `json:"target,omitempty"`
-	Transaction           *LogTransaction           `json:"transaction,omitempty"`
-	Uuid                  *string                   `json:"uuid,omitempty"`
-	Version               *string                   `json:"version,omitempty"`
-	AdditionalProperties  map[string]interface{}
+	Client *LogClient `json:"client,omitempty"`
+	DebugContext *LogDebugContext `json:"debugContext,omitempty"`
+	DisplayMessage *string `json:"displayMessage,omitempty"`
+	EventType *string `json:"eventType,omitempty"`
+	LegacyEventType *string `json:"legacyEventType,omitempty"`
+	Outcome *LogOutcome `json:"outcome,omitempty"`
+	Published *time.Time `json:"published,omitempty"`
+	Request *LogRequest `json:"request,omitempty"`
+	SecurityContext *LogSecurityContext `json:"securityContext,omitempty"`
+	Severity *string `json:"severity,omitempty"`
+	Target []LogTarget `json:"target,omitempty"`
+	Transaction *LogTransaction `json:"transaction,omitempty"`
+	Uuid *string `json:"uuid,omitempty"`
+	Version *string `json:"version,omitempty"`
+	AdditionalProperties map[string]interface{}
 }
 
 type _LogEvent LogEvent
@@ -712,3 +712,4 @@ func (v *NullableLogEvent) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
+

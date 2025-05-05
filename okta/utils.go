@@ -334,7 +334,7 @@ func NewNullableTime(val *time.Time) *NullableTime {
 }
 
 func (v NullableTime) MarshalJSON() ([]byte, error) {
-	return json.Marshal(v.value)
+	return v.value.MarshalJSON()
 }
 
 func (v *NullableTime) UnmarshalJSON(src []byte) error {

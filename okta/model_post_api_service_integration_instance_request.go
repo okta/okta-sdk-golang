@@ -33,7 +33,7 @@ type PostAPIServiceIntegrationInstanceRequest struct {
 	// The list of Okta management scopes granted to the API Service Integration instance. See [Okta management OAuth 2.0 scopes](/oauth2/#okta-admin-management).
 	GrantedScopes []string `json:"grantedScopes"`
 	// The type of the API service integration. This string is an underscore-concatenated, lowercased API service integration name. For example, `my_api_log_integration`.
-	Type                 string `json:"type"`
+	Type string `json:"type"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -181,3 +181,4 @@ func (v *NullablePostAPIServiceIntegrationInstanceRequest) UnmarshalJSON(src []b
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
+

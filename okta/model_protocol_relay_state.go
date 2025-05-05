@@ -30,7 +30,7 @@ import (
 
 // ProtocolRelayState struct for ProtocolRelayState
 type ProtocolRelayState struct {
-	Format               *string `json:"format,omitempty"`
+	Format *string `json:"format,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -156,3 +156,4 @@ func (v *NullableProtocolRelayState) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
+

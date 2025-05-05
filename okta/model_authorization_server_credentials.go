@@ -30,7 +30,7 @@ import (
 
 // AuthorizationServerCredentials struct for AuthorizationServerCredentials
 type AuthorizationServerCredentials struct {
-	Signing              *AuthorizationServerCredentialsSigningConfig `json:"signing,omitempty"`
+	Signing *AuthorizationServerCredentialsSigningConfig `json:"signing,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -156,3 +156,4 @@ func (v *NullableAuthorizationServerCredentials) UnmarshalJSON(src []byte) error
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
+

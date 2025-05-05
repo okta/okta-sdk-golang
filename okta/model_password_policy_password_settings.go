@@ -30,9 +30,9 @@ import (
 
 // PasswordPolicyPasswordSettings struct for PasswordPolicyPasswordSettings
 type PasswordPolicyPasswordSettings struct {
-	Age                  *PasswordPolicyPasswordSettingsAge        `json:"age,omitempty"`
-	Complexity           *PasswordPolicyPasswordSettingsComplexity `json:"complexity,omitempty"`
-	Lockout              *PasswordPolicyPasswordSettingsLockout    `json:"lockout,omitempty"`
+	Age *PasswordPolicyPasswordSettingsAge `json:"age,omitempty"`
+	Complexity *PasswordPolicyPasswordSettingsComplexity `json:"complexity,omitempty"`
+	Lockout *PasswordPolicyPasswordSettingsLockout `json:"lockout,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -230,3 +230,4 @@ func (v *NullablePasswordPolicyPasswordSettings) UnmarshalJSON(src []byte) error
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
+

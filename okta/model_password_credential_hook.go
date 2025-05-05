@@ -31,7 +31,7 @@ import (
 // PasswordCredentialHook Specify a [password import inline hook](https://developer.okta.com/docs/reference/password-hook/) to trigger verification of the user's password the first time the user logs in. This allows an existing password to be imported into Okta directly from some other store. See [Create User with Password Hook](https://developer.okta.com/docs/reference/api/users/#create-user-with-password-import-inline-hook) for information on using this object when creating a user.
 type PasswordCredentialHook struct {
 	// The type of password inline hook. Currently, must be set to default.
-	Type                 *string `json:"type,omitempty"`
+	Type *string `json:"type,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -157,3 +157,4 @@ func (v *NullablePasswordCredentialHook) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
+

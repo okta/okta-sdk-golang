@@ -31,7 +31,7 @@ import (
 // AssociatedServerMediated struct for AssociatedServerMediated
 type AssociatedServerMediated struct {
 	// A list of the authorization server IDs
-	Trusted              []string `json:"trusted,omitempty"`
+	Trusted []string `json:"trusted,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -157,3 +157,4 @@ func (v *NullableAssociatedServerMediated) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
+

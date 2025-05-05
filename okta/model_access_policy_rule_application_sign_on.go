@@ -30,8 +30,8 @@ import (
 
 // AccessPolicyRuleApplicationSignOn struct for AccessPolicyRuleApplicationSignOn
 type AccessPolicyRuleApplicationSignOn struct {
-	Access               *string             `json:"access,omitempty"`
-	VerificationMethod   *VerificationMethod `json:"verificationMethod,omitempty"`
+	Access *string `json:"access,omitempty"`
+	VerificationMethod *VerificationMethod `json:"verificationMethod,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -193,3 +193,4 @@ func (v *NullableAccessPolicyRuleApplicationSignOn) UnmarshalJSON(src []byte) er
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
+

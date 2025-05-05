@@ -35,7 +35,7 @@ type FulfillmentData struct {
 	// ID for the specific inventory bucket of the requested Factor
 	InventoryProductId *string `json:"inventoryProductId,omitempty"`
 	// ID for the make and model of the requested Factor
-	ProductId            *string `json:"productId,omitempty"`
+	ProductId *string `json:"productId,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -233,3 +233,4 @@ func (v *NullableFulfillmentData) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
+

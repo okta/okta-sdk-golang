@@ -30,8 +30,8 @@ import (
 
 // ResourceSetResources struct for ResourceSetResources
 type ResourceSetResources struct {
-	Resources            []ResourceSetResource      `json:"resources,omitempty"`
-	Links                *ResourceSetResourcesLinks `json:"_links,omitempty"`
+	Resources []ResourceSetResource `json:"resources,omitempty"`
+	Links *ResourceSetResourcesLinks `json:"_links,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -193,3 +193,4 @@ func (v *NullableResourceSetResources) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
+

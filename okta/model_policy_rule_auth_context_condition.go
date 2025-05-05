@@ -30,7 +30,7 @@ import (
 
 // PolicyRuleAuthContextCondition struct for PolicyRuleAuthContextCondition
 type PolicyRuleAuthContextCondition struct {
-	AuthType             *string `json:"authType,omitempty"`
+	AuthType *string `json:"authType,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -156,3 +156,4 @@ func (v *NullablePolicyRuleAuthContextCondition) UnmarshalJSON(src []byte) error
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
+

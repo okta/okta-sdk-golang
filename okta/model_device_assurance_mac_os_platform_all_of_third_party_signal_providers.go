@@ -30,7 +30,7 @@ import (
 
 // DeviceAssuranceMacOSPlatformAllOfThirdPartySignalProviders Settings for third-party signal providers (based on the `MACOS` platform)
 type DeviceAssuranceMacOSPlatformAllOfThirdPartySignalProviders struct {
-	Dtc                  *DTCMacOS `json:"dtc,omitempty"`
+	Dtc *DTCMacOS `json:"dtc,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -156,3 +156,4 @@ func (v *NullableDeviceAssuranceMacOSPlatformAllOfThirdPartySignalProviders) Unm
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
+

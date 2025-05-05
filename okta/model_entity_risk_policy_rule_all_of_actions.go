@@ -30,7 +30,7 @@ import (
 
 // EntityRiskPolicyRuleAllOfActions The action to take based on the risk event
 type EntityRiskPolicyRuleAllOfActions struct {
-	EntityRisk           *EntityRiskPolicyRuleAllOfActionsEntityRisk `json:"entityRisk,omitempty"`
+	EntityRisk *EntityRiskPolicyRuleAllOfActionsEntityRisk `json:"entityRisk,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -156,3 +156,4 @@ func (v *NullableEntityRiskPolicyRuleAllOfActions) UnmarshalJSON(src []byte) err
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
+

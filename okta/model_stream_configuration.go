@@ -30,7 +30,7 @@ import (
 
 // StreamConfiguration struct for StreamConfiguration
 type StreamConfiguration struct {
-	Aud      *StreamConfigurationAud     `json:"aud,omitempty"`
+	Aud *StreamConfigurationAud `json:"aud,omitempty"`
 	Delivery StreamConfigurationDelivery `json:"delivery"`
 	// The events (mapped by the array of event type URIs) that the transmitter actually delivers to the SSF Stream.  A read-only parameter that is set by the transmitter. If this parameter is included in the request, the value must match the expected value from the transmitter.
 	EventsDelivered []string `json:"events_delivered,omitempty"`
@@ -45,7 +45,7 @@ type StreamConfiguration struct {
 	// The minimum amount of time, in seconds, between two verification requests.  A read-only parameter that is set by the transmitter. If this parameter is included in the request, the value must match the expected value from the transmitter.
 	MinVerificationInterval NullableInt32 `json:"min_verification_interval,omitempty"`
 	// The ID of the SSF Stream configuration
-	StreamId             *string `json:"stream_id,omitempty"`
+	StreamId *string `json:"stream_id,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -310,7 +310,6 @@ func (o *StreamConfiguration) HasMinVerificationInterval() bool {
 func (o *StreamConfiguration) SetMinVerificationInterval(v int32) {
 	o.MinVerificationInterval.Set(&v)
 }
-
 // SetMinVerificationIntervalNil sets the value for MinVerificationInterval to be an explicit nil
 func (o *StreamConfiguration) SetMinVerificationIntervalNil() {
 	o.MinVerificationInterval.Set(nil)
@@ -456,3 +455,4 @@ func (v *NullableStreamConfiguration) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
+

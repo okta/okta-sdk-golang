@@ -33,7 +33,7 @@ import (
 // OktaSignOnPolicy struct for OktaSignOnPolicy
 type OktaSignOnPolicy struct {
 	Policy
-	Conditions           *OktaSignOnPolicyConditions `json:"conditions,omitempty"`
+	Conditions *OktaSignOnPolicyConditions `json:"conditions,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -201,3 +201,4 @@ func (v *NullableOktaSignOnPolicy) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
+

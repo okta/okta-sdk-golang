@@ -29,12 +29,13 @@ import (
 	"fmt"
 )
 
-// model_oneof.mustache
+
+//model_oneof.mustache
 // ListNetworkZones200ResponseInner - struct for ListNetworkZones200ResponseInner
 type ListNetworkZones200ResponseInner struct {
-	DynamicNetworkZone         *DynamicNetworkZone
+	DynamicNetworkZone *DynamicNetworkZone
 	EnhancedDynamicNetworkZone *EnhancedDynamicNetworkZone
-	IPNetworkZone              *IPNetworkZone
+	IPNetworkZone *IPNetworkZone
 }
 
 // DynamicNetworkZoneAsListNetworkZones200ResponseInner is a convenience function that returns DynamicNetworkZone wrapped in ListNetworkZones200ResponseInner
@@ -57,6 +58,7 @@ func IPNetworkZoneAsListNetworkZones200ResponseInner(v *IPNetworkZone) ListNetwo
 		IPNetworkZone: v,
 	}
 }
+
 
 // Unmarshal JSON data into one of the pointers in the struct  CUSTOM
 func (dst *ListNetworkZones200ResponseInner) UnmarshalJSON(data []byte) error {
@@ -92,18 +94,6 @@ func (dst *ListNetworkZones200ResponseInner) UnmarshalJSON(data []byte) error {
 		}
 	}
 
-	// check if the discriminator value is 'IP'
-	if jsonDict["type"] == "IP" {
-		// try to unmarshal JSON data into IPNetworkZone
-		err = json.Unmarshal(data, &dst.IPNetworkZone)
-		if err == nil {
-			return nil // data stored in dst.IPNetworkZone, return on the first match
-		} else {
-			dst.IPNetworkZone = nil
-			return fmt.Errorf("Failed to unmarshal ListNetworkZones200ResponseInner as IPNetworkZone: %s", err.Error())
-		}
-	}
-
 	// check if the discriminator value is 'DynamicNetworkZone'
 	if jsonDict["type"] == "DynamicNetworkZone" {
 		// try to unmarshal JSON data into DynamicNetworkZone
@@ -125,6 +115,18 @@ func (dst *ListNetworkZones200ResponseInner) UnmarshalJSON(data []byte) error {
 		} else {
 			dst.EnhancedDynamicNetworkZone = nil
 			return fmt.Errorf("Failed to unmarshal ListNetworkZones200ResponseInner as EnhancedDynamicNetworkZone: %s", err.Error())
+		}
+	}
+
+	// check if the discriminator value is 'IP'
+	if jsonDict["type"] == "IP" {
+		// try to unmarshal JSON data into IPNetworkZone
+		err = json.Unmarshal(data, &dst.IPNetworkZone)
+		if err == nil {
+			return nil // data stored in dst.IPNetworkZone, return on the first match
+		} else {
+			dst.IPNetworkZone = nil
+			return fmt.Errorf("Failed to unmarshal ListNetworkZones200ResponseInner as IPNetworkZone: %s", err.Error())
 		}
 	}
 
@@ -161,7 +163,7 @@ func (src ListNetworkZones200ResponseInner) MarshalJSON() ([]byte, error) {
 }
 
 // Get the actual instance
-func (obj *ListNetworkZones200ResponseInner) GetActualInstance() interface{} {
+func (obj *ListNetworkZones200ResponseInner) GetActualInstance() (interface{}) {
 	if obj == nil {
 		return nil
 	}
@@ -216,3 +218,5 @@ func (v *NullableListNetworkZones200ResponseInner) UnmarshalJSON(src []byte) err
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
+
+

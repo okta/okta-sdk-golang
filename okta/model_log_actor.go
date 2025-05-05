@@ -30,11 +30,11 @@ import (
 
 // LogActor struct for LogActor
 type LogActor struct {
-	AlternateId          *string                `json:"alternateId,omitempty"`
-	DetailEntry          map[string]interface{} `json:"detailEntry,omitempty"`
-	DisplayName          *string                `json:"displayName,omitempty"`
-	Id                   *string                `json:"id,omitempty"`
-	Type                 *string                `json:"type,omitempty"`
+	AlternateId *string `json:"alternateId,omitempty"`
+	DetailEntry map[string]interface{} `json:"detailEntry,omitempty"`
+	DisplayName *string `json:"displayName,omitempty"`
+	Id *string `json:"id,omitempty"`
+	Type *string `json:"type,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -304,3 +304,4 @@ func (v *NullableLogActor) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
+

@@ -30,7 +30,7 @@ import (
 
 // UserSchemaPropertiesProfile struct for UserSchemaPropertiesProfile
 type UserSchemaPropertiesProfile struct {
-	AllOf                []UserSchemaPropertiesProfileItem `json:"allOf,omitempty"`
+	AllOf []UserSchemaPropertiesProfileItem `json:"allOf,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -156,3 +156,4 @@ func (v *NullableUserSchemaPropertiesProfile) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
+

@@ -33,7 +33,7 @@ type UserFactorTokenVerifySymantec struct {
 	// OTP for the next time window
 	NextPassCode *int32 `json:"nextPassCode,omitempty"`
 	// OTP for the current time window
-	PassCode             *string `json:"passCode,omitempty"`
+	PassCode *string `json:"passCode,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -195,3 +195,4 @@ func (v *NullableUserFactorTokenVerifySymantec) UnmarshalJSON(src []byte) error 
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
+

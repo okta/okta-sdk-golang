@@ -33,7 +33,7 @@ type EmailTestAddresses struct {
 	// Email address that sends test emails
 	From string `json:"from"`
 	// Email address that receives test emails
-	To                   string `json:"to"`
+	To string `json:"to"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -181,3 +181,4 @@ func (v *NullableEmailTestAddresses) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
+

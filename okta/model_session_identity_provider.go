@@ -31,8 +31,8 @@ import (
 // SessionIdentityProvider struct for SessionIdentityProvider
 type SessionIdentityProvider struct {
 	// Identity Provider ID. If the `type` is `OKTA`, then the `id` is the org ID.
-	Id                   *string `json:"id,omitempty"`
-	Type                 *string `json:"type,omitempty"`
+	Id *string `json:"id,omitempty"`
+	Type *string `json:"type,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -194,3 +194,4 @@ func (v *NullableSessionIdentityProvider) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
+

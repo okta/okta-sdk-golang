@@ -30,8 +30,8 @@ import (
 
 // Conditions struct for Conditions
 type Conditions struct {
-	Expression           *Expression `json:"expression,omitempty"`
-	ProfileSourceId      *string     `json:"profileSourceId,omitempty"`
+	Expression *Expression `json:"expression,omitempty"`
+	ProfileSourceId *string `json:"profileSourceId,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -193,3 +193,4 @@ func (v *NullableConditions) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
+

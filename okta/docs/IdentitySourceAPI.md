@@ -28,24 +28,24 @@ Create an Identity Source Session
 package main
 
 import (
-	"context"
-	"fmt"
-	"os"
-	openapiclient "github.com/okta/okta-sdk-golang"
+    "context"
+    "fmt"
+    "os"
+    openapiclient "github.com/okta/okta-sdk-golang"
 )
 
 func main() {
-	identitySourceId := "identitySourceId_example" // string | 
+    identitySourceId := "identitySourceId_example" // string | 
 
-	configuration := openapiclient.NewConfiguration()
-	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.IdentitySourceAPI.CreateIdentitySourceSession(context.Background(), identitySourceId).Execute()
-	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `IdentitySourceAPI.CreateIdentitySourceSession``: %v\n", err)
-		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-	}
-	// response from `CreateIdentitySourceSession`: []IdentitySourceSession
-	fmt.Fprintf(os.Stdout, "Response from `IdentitySourceAPI.CreateIdentitySourceSession`: %v\n", resp)
+    configuration := openapiclient.NewConfiguration()
+    apiClient := openapiclient.NewAPIClient(configuration)
+    resp, r, err := apiClient.IdentitySourceAPI.CreateIdentitySourceSession(context.Background(), identitySourceId).Execute()
+    if err != nil {
+        fmt.Fprintf(os.Stderr, "Error when calling `IdentitySourceAPI.CreateIdentitySourceSession``: %v\n", err)
+        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+    }
+    // response from `CreateIdentitySourceSession`: []IdentitySourceSession
+    fmt.Fprintf(os.Stdout, "Response from `IdentitySourceAPI.CreateIdentitySourceSession`: %v\n", resp)
 }
 ```
 
@@ -98,23 +98,23 @@ Delete an Identity Source Session
 package main
 
 import (
-	"context"
-	"fmt"
-	"os"
-	openapiclient "github.com/okta/okta-sdk-golang"
+    "context"
+    "fmt"
+    "os"
+    openapiclient "github.com/okta/okta-sdk-golang"
 )
 
 func main() {
-	identitySourceId := "identitySourceId_example" // string | 
-	sessionId := "sessionId_example" // string | 
+    identitySourceId := "identitySourceId_example" // string | 
+    sessionId := "sessionId_example" // string | 
 
-	configuration := openapiclient.NewConfiguration()
-	apiClient := openapiclient.NewAPIClient(configuration)
-	r, err := apiClient.IdentitySourceAPI.DeleteIdentitySourceSession(context.Background(), identitySourceId, sessionId).Execute()
-	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `IdentitySourceAPI.DeleteIdentitySourceSession``: %v\n", err)
-		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-	}
+    configuration := openapiclient.NewConfiguration()
+    apiClient := openapiclient.NewAPIClient(configuration)
+    r, err := apiClient.IdentitySourceAPI.DeleteIdentitySourceSession(context.Background(), identitySourceId, sessionId).Execute()
+    if err != nil {
+        fmt.Fprintf(os.Stderr, "Error when calling `IdentitySourceAPI.DeleteIdentitySourceSession``: %v\n", err)
+        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+    }
 }
 ```
 
@@ -169,25 +169,25 @@ Retrieve an Identity Source Session
 package main
 
 import (
-	"context"
-	"fmt"
-	"os"
-	openapiclient "github.com/okta/okta-sdk-golang"
+    "context"
+    "fmt"
+    "os"
+    openapiclient "github.com/okta/okta-sdk-golang"
 )
 
 func main() {
-	identitySourceId := "identitySourceId_example" // string | 
-	sessionId := "sessionId_example" // string | 
+    identitySourceId := "identitySourceId_example" // string | 
+    sessionId := "sessionId_example" // string | 
 
-	configuration := openapiclient.NewConfiguration()
-	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.IdentitySourceAPI.GetIdentitySourceSession(context.Background(), identitySourceId, sessionId).Execute()
-	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `IdentitySourceAPI.GetIdentitySourceSession``: %v\n", err)
-		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-	}
-	// response from `GetIdentitySourceSession`: IdentitySourceSession
-	fmt.Fprintf(os.Stdout, "Response from `IdentitySourceAPI.GetIdentitySourceSession`: %v\n", resp)
+    configuration := openapiclient.NewConfiguration()
+    apiClient := openapiclient.NewAPIClient(configuration)
+    resp, r, err := apiClient.IdentitySourceAPI.GetIdentitySourceSession(context.Background(), identitySourceId, sessionId).Execute()
+    if err != nil {
+        fmt.Fprintf(os.Stderr, "Error when calling `IdentitySourceAPI.GetIdentitySourceSession``: %v\n", err)
+        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+    }
+    // response from `GetIdentitySourceSession`: IdentitySourceSession
+    fmt.Fprintf(os.Stdout, "Response from `IdentitySourceAPI.GetIdentitySourceSession`: %v\n", resp)
 }
 ```
 
@@ -242,24 +242,24 @@ List all Identity Source Sessions
 package main
 
 import (
-	"context"
-	"fmt"
-	"os"
-	openapiclient "github.com/okta/okta-sdk-golang"
+    "context"
+    "fmt"
+    "os"
+    openapiclient "github.com/okta/okta-sdk-golang"
 )
 
 func main() {
-	identitySourceId := "identitySourceId_example" // string | 
+    identitySourceId := "identitySourceId_example" // string | 
 
-	configuration := openapiclient.NewConfiguration()
-	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.IdentitySourceAPI.ListIdentitySourceSessions(context.Background(), identitySourceId).Execute()
-	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `IdentitySourceAPI.ListIdentitySourceSessions``: %v\n", err)
-		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-	}
-	// response from `ListIdentitySourceSessions`: []IdentitySourceSession
-	fmt.Fprintf(os.Stdout, "Response from `IdentitySourceAPI.ListIdentitySourceSessions`: %v\n", resp)
+    configuration := openapiclient.NewConfiguration()
+    apiClient := openapiclient.NewAPIClient(configuration)
+    resp, r, err := apiClient.IdentitySourceAPI.ListIdentitySourceSessions(context.Background(), identitySourceId).Execute()
+    if err != nil {
+        fmt.Fprintf(os.Stderr, "Error when calling `IdentitySourceAPI.ListIdentitySourceSessions``: %v\n", err)
+        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+    }
+    // response from `ListIdentitySourceSessions`: []IdentitySourceSession
+    fmt.Fprintf(os.Stdout, "Response from `IdentitySourceAPI.ListIdentitySourceSessions`: %v\n", resp)
 }
 ```
 
@@ -312,25 +312,25 @@ Start the import from the Identity Source
 package main
 
 import (
-	"context"
-	"fmt"
-	"os"
-	openapiclient "github.com/okta/okta-sdk-golang"
+    "context"
+    "fmt"
+    "os"
+    openapiclient "github.com/okta/okta-sdk-golang"
 )
 
 func main() {
-	identitySourceId := "identitySourceId_example" // string | 
-	sessionId := "sessionId_example" // string | 
+    identitySourceId := "identitySourceId_example" // string | 
+    sessionId := "sessionId_example" // string | 
 
-	configuration := openapiclient.NewConfiguration()
-	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.IdentitySourceAPI.StartImportFromIdentitySource(context.Background(), identitySourceId, sessionId).Execute()
-	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `IdentitySourceAPI.StartImportFromIdentitySource``: %v\n", err)
-		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-	}
-	// response from `StartImportFromIdentitySource`: []IdentitySourceSession
-	fmt.Fprintf(os.Stdout, "Response from `IdentitySourceAPI.StartImportFromIdentitySource`: %v\n", resp)
+    configuration := openapiclient.NewConfiguration()
+    apiClient := openapiclient.NewAPIClient(configuration)
+    resp, r, err := apiClient.IdentitySourceAPI.StartImportFromIdentitySource(context.Background(), identitySourceId, sessionId).Execute()
+    if err != nil {
+        fmt.Fprintf(os.Stderr, "Error when calling `IdentitySourceAPI.StartImportFromIdentitySource``: %v\n", err)
+        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+    }
+    // response from `StartImportFromIdentitySource`: []IdentitySourceSession
+    fmt.Fprintf(os.Stdout, "Response from `IdentitySourceAPI.StartImportFromIdentitySource`: %v\n", resp)
 }
 ```
 
@@ -385,24 +385,24 @@ Upload the data to be deleted in Okta
 package main
 
 import (
-	"context"
-	"fmt"
-	"os"
-	openapiclient "github.com/okta/okta-sdk-golang"
+    "context"
+    "fmt"
+    "os"
+    openapiclient "github.com/okta/okta-sdk-golang"
 )
 
 func main() {
-	identitySourceId := "identitySourceId_example" // string | 
-	sessionId := "sessionId_example" // string | 
-	bulkDeleteRequestBody := *openapiclient.NewBulkDeleteRequestBody() // BulkDeleteRequestBody |  (optional)
+    identitySourceId := "identitySourceId_example" // string | 
+    sessionId := "sessionId_example" // string | 
+    bulkDeleteRequestBody := *openapiclient.NewBulkDeleteRequestBody() // BulkDeleteRequestBody |  (optional)
 
-	configuration := openapiclient.NewConfiguration()
-	apiClient := openapiclient.NewAPIClient(configuration)
-	r, err := apiClient.IdentitySourceAPI.UploadIdentitySourceDataForDelete(context.Background(), identitySourceId, sessionId).BulkDeleteRequestBody(bulkDeleteRequestBody).Execute()
-	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `IdentitySourceAPI.UploadIdentitySourceDataForDelete``: %v\n", err)
-		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-	}
+    configuration := openapiclient.NewConfiguration()
+    apiClient := openapiclient.NewAPIClient(configuration)
+    r, err := apiClient.IdentitySourceAPI.UploadIdentitySourceDataForDelete(context.Background(), identitySourceId, sessionId).BulkDeleteRequestBody(bulkDeleteRequestBody).Execute()
+    if err != nil {
+        fmt.Fprintf(os.Stderr, "Error when calling `IdentitySourceAPI.UploadIdentitySourceDataForDelete``: %v\n", err)
+        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+    }
 }
 ```
 
@@ -458,24 +458,24 @@ Upload the data to be upserted in Okta
 package main
 
 import (
-	"context"
-	"fmt"
-	"os"
-	openapiclient "github.com/okta/okta-sdk-golang"
+    "context"
+    "fmt"
+    "os"
+    openapiclient "github.com/okta/okta-sdk-golang"
 )
 
 func main() {
-	identitySourceId := "identitySourceId_example" // string | 
-	sessionId := "sessionId_example" // string | 
-	bulkUpsertRequestBody := *openapiclient.NewBulkUpsertRequestBody() // BulkUpsertRequestBody |  (optional)
+    identitySourceId := "identitySourceId_example" // string | 
+    sessionId := "sessionId_example" // string | 
+    bulkUpsertRequestBody := *openapiclient.NewBulkUpsertRequestBody() // BulkUpsertRequestBody |  (optional)
 
-	configuration := openapiclient.NewConfiguration()
-	apiClient := openapiclient.NewAPIClient(configuration)
-	r, err := apiClient.IdentitySourceAPI.UploadIdentitySourceDataForUpsert(context.Background(), identitySourceId, sessionId).BulkUpsertRequestBody(bulkUpsertRequestBody).Execute()
-	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `IdentitySourceAPI.UploadIdentitySourceDataForUpsert``: %v\n", err)
-		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-	}
+    configuration := openapiclient.NewConfiguration()
+    apiClient := openapiclient.NewAPIClient(configuration)
+    r, err := apiClient.IdentitySourceAPI.UploadIdentitySourceDataForUpsert(context.Background(), identitySourceId, sessionId).BulkUpsertRequestBody(bulkUpsertRequestBody).Execute()
+    if err != nil {
+        fmt.Fprintf(os.Stderr, "Error when calling `IdentitySourceAPI.UploadIdentitySourceDataForUpsert``: %v\n", err)
+        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+    }
 }
 ```
 

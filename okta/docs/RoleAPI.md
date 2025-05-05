@@ -31,24 +31,24 @@ Create a Role
 package main
 
 import (
-	"context"
-	"fmt"
-	"os"
-	openapiclient "github.com/okta/okta-sdk-golang"
+    "context"
+    "fmt"
+    "os"
+    openapiclient "github.com/okta/okta-sdk-golang"
 )
 
 func main() {
-	instance := *openapiclient.NewCreateIamRoleRequest("Description_example", "Label_example", []string{"Permissions_example"}) // CreateIamRoleRequest | 
+    instance := *openapiclient.NewCreateIamRoleRequest("Description_example", "Label_example", []string{"Permissions_example"}) // CreateIamRoleRequest | 
 
-	configuration := openapiclient.NewConfiguration()
-	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.RoleAPI.CreateRole(context.Background()).Instance(instance).Execute()
-	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `RoleAPI.CreateRole``: %v\n", err)
-		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-	}
-	// response from `CreateRole`: IamRole
-	fmt.Fprintf(os.Stdout, "Response from `RoleAPI.CreateRole`: %v\n", resp)
+    configuration := openapiclient.NewConfiguration()
+    apiClient := openapiclient.NewAPIClient(configuration)
+    resp, r, err := apiClient.RoleAPI.CreateRole(context.Background()).Instance(instance).Execute()
+    if err != nil {
+        fmt.Fprintf(os.Stderr, "Error when calling `RoleAPI.CreateRole``: %v\n", err)
+        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+    }
+    // response from `CreateRole`: IamRole
+    fmt.Fprintf(os.Stdout, "Response from `RoleAPI.CreateRole`: %v\n", resp)
 }
 ```
 
@@ -97,24 +97,24 @@ Create a Permission
 package main
 
 import (
-	"context"
-	"fmt"
-	"os"
-	openapiclient "github.com/okta/okta-sdk-golang"
+    "context"
+    "fmt"
+    "os"
+    openapiclient "github.com/okta/okta-sdk-golang"
 )
 
 func main() {
-	roleIdOrLabel := "cr0Yq6IJxGIr0ouum0g3" // string | `id` or `label` of the role
-	permissionType := "okta.users.manage" // string | An okta permission type
-	instance := *openapiclient.NewCreateUpdateIamRolePermissionRequest() // CreateUpdateIamRolePermissionRequest |  (optional)
+    roleIdOrLabel := "cr0Yq6IJxGIr0ouum0g3" // string | `id` or `label` of the role
+    permissionType := "okta.users.manage" // string | An okta permission type
+    instance := *openapiclient.NewCreateUpdateIamRolePermissionRequest() // CreateUpdateIamRolePermissionRequest |  (optional)
 
-	configuration := openapiclient.NewConfiguration()
-	apiClient := openapiclient.NewAPIClient(configuration)
-	r, err := apiClient.RoleAPI.CreateRolePermission(context.Background(), roleIdOrLabel, permissionType).Instance(instance).Execute()
-	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `RoleAPI.CreateRolePermission``: %v\n", err)
-		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-	}
+    configuration := openapiclient.NewConfiguration()
+    apiClient := openapiclient.NewAPIClient(configuration)
+    r, err := apiClient.RoleAPI.CreateRolePermission(context.Background(), roleIdOrLabel, permissionType).Instance(instance).Execute()
+    if err != nil {
+        fmt.Fprintf(os.Stderr, "Error when calling `RoleAPI.CreateRolePermission``: %v\n", err)
+        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+    }
 }
 ```
 
@@ -170,22 +170,22 @@ Delete a Role
 package main
 
 import (
-	"context"
-	"fmt"
-	"os"
-	openapiclient "github.com/okta/okta-sdk-golang"
+    "context"
+    "fmt"
+    "os"
+    openapiclient "github.com/okta/okta-sdk-golang"
 )
 
 func main() {
-	roleIdOrLabel := "cr0Yq6IJxGIr0ouum0g3" // string | `id` or `label` of the role
+    roleIdOrLabel := "cr0Yq6IJxGIr0ouum0g3" // string | `id` or `label` of the role
 
-	configuration := openapiclient.NewConfiguration()
-	apiClient := openapiclient.NewAPIClient(configuration)
-	r, err := apiClient.RoleAPI.DeleteRole(context.Background(), roleIdOrLabel).Execute()
-	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `RoleAPI.DeleteRole``: %v\n", err)
-		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-	}
+    configuration := openapiclient.NewConfiguration()
+    apiClient := openapiclient.NewAPIClient(configuration)
+    r, err := apiClient.RoleAPI.DeleteRole(context.Background(), roleIdOrLabel).Execute()
+    if err != nil {
+        fmt.Fprintf(os.Stderr, "Error when calling `RoleAPI.DeleteRole``: %v\n", err)
+        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+    }
 }
 ```
 
@@ -238,23 +238,23 @@ Delete a Permission
 package main
 
 import (
-	"context"
-	"fmt"
-	"os"
-	openapiclient "github.com/okta/okta-sdk-golang"
+    "context"
+    "fmt"
+    "os"
+    openapiclient "github.com/okta/okta-sdk-golang"
 )
 
 func main() {
-	roleIdOrLabel := "cr0Yq6IJxGIr0ouum0g3" // string | `id` or `label` of the role
-	permissionType := "okta.users.manage" // string | An okta permission type
+    roleIdOrLabel := "cr0Yq6IJxGIr0ouum0g3" // string | `id` or `label` of the role
+    permissionType := "okta.users.manage" // string | An okta permission type
 
-	configuration := openapiclient.NewConfiguration()
-	apiClient := openapiclient.NewAPIClient(configuration)
-	r, err := apiClient.RoleAPI.DeleteRolePermission(context.Background(), roleIdOrLabel, permissionType).Execute()
-	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `RoleAPI.DeleteRolePermission``: %v\n", err)
-		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-	}
+    configuration := openapiclient.NewConfiguration()
+    apiClient := openapiclient.NewAPIClient(configuration)
+    r, err := apiClient.RoleAPI.DeleteRolePermission(context.Background(), roleIdOrLabel, permissionType).Execute()
+    if err != nil {
+        fmt.Fprintf(os.Stderr, "Error when calling `RoleAPI.DeleteRolePermission``: %v\n", err)
+        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+    }
 }
 ```
 
@@ -309,24 +309,24 @@ Retrieve a Role
 package main
 
 import (
-	"context"
-	"fmt"
-	"os"
-	openapiclient "github.com/okta/okta-sdk-golang"
+    "context"
+    "fmt"
+    "os"
+    openapiclient "github.com/okta/okta-sdk-golang"
 )
 
 func main() {
-	roleIdOrLabel := "cr0Yq6IJxGIr0ouum0g3" // string | `id` or `label` of the role
+    roleIdOrLabel := "cr0Yq6IJxGIr0ouum0g3" // string | `id` or `label` of the role
 
-	configuration := openapiclient.NewConfiguration()
-	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.RoleAPI.GetRole(context.Background(), roleIdOrLabel).Execute()
-	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `RoleAPI.GetRole``: %v\n", err)
-		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-	}
-	// response from `GetRole`: IamRole
-	fmt.Fprintf(os.Stdout, "Response from `RoleAPI.GetRole`: %v\n", resp)
+    configuration := openapiclient.NewConfiguration()
+    apiClient := openapiclient.NewAPIClient(configuration)
+    resp, r, err := apiClient.RoleAPI.GetRole(context.Background(), roleIdOrLabel).Execute()
+    if err != nil {
+        fmt.Fprintf(os.Stderr, "Error when calling `RoleAPI.GetRole``: %v\n", err)
+        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+    }
+    // response from `GetRole`: IamRole
+    fmt.Fprintf(os.Stdout, "Response from `RoleAPI.GetRole`: %v\n", resp)
 }
 ```
 
@@ -379,25 +379,25 @@ Retrieve a Permission
 package main
 
 import (
-	"context"
-	"fmt"
-	"os"
-	openapiclient "github.com/okta/okta-sdk-golang"
+    "context"
+    "fmt"
+    "os"
+    openapiclient "github.com/okta/okta-sdk-golang"
 )
 
 func main() {
-	roleIdOrLabel := "cr0Yq6IJxGIr0ouum0g3" // string | `id` or `label` of the role
-	permissionType := "okta.users.manage" // string | An okta permission type
+    roleIdOrLabel := "cr0Yq6IJxGIr0ouum0g3" // string | `id` or `label` of the role
+    permissionType := "okta.users.manage" // string | An okta permission type
 
-	configuration := openapiclient.NewConfiguration()
-	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.RoleAPI.GetRolePermission(context.Background(), roleIdOrLabel, permissionType).Execute()
-	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `RoleAPI.GetRolePermission``: %v\n", err)
-		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-	}
-	// response from `GetRolePermission`: Permission
-	fmt.Fprintf(os.Stdout, "Response from `RoleAPI.GetRolePermission`: %v\n", resp)
+    configuration := openapiclient.NewConfiguration()
+    apiClient := openapiclient.NewAPIClient(configuration)
+    resp, r, err := apiClient.RoleAPI.GetRolePermission(context.Background(), roleIdOrLabel, permissionType).Execute()
+    if err != nil {
+        fmt.Fprintf(os.Stderr, "Error when calling `RoleAPI.GetRolePermission``: %v\n", err)
+        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+    }
+    // response from `GetRolePermission`: Permission
+    fmt.Fprintf(os.Stdout, "Response from `RoleAPI.GetRolePermission`: %v\n", resp)
 }
 ```
 
@@ -452,24 +452,24 @@ List all Permissions
 package main
 
 import (
-	"context"
-	"fmt"
-	"os"
-	openapiclient "github.com/okta/okta-sdk-golang"
+    "context"
+    "fmt"
+    "os"
+    openapiclient "github.com/okta/okta-sdk-golang"
 )
 
 func main() {
-	roleIdOrLabel := "cr0Yq6IJxGIr0ouum0g3" // string | `id` or `label` of the role
+    roleIdOrLabel := "cr0Yq6IJxGIr0ouum0g3" // string | `id` or `label` of the role
 
-	configuration := openapiclient.NewConfiguration()
-	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.RoleAPI.ListRolePermissions(context.Background(), roleIdOrLabel).Execute()
-	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `RoleAPI.ListRolePermissions``: %v\n", err)
-		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-	}
-	// response from `ListRolePermissions`: Permissions
-	fmt.Fprintf(os.Stdout, "Response from `RoleAPI.ListRolePermissions`: %v\n", resp)
+    configuration := openapiclient.NewConfiguration()
+    apiClient := openapiclient.NewAPIClient(configuration)
+    resp, r, err := apiClient.RoleAPI.ListRolePermissions(context.Background(), roleIdOrLabel).Execute()
+    if err != nil {
+        fmt.Fprintf(os.Stderr, "Error when calling `RoleAPI.ListRolePermissions``: %v\n", err)
+        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+    }
+    // response from `ListRolePermissions`: Permissions
+    fmt.Fprintf(os.Stdout, "Response from `RoleAPI.ListRolePermissions`: %v\n", resp)
 }
 ```
 
@@ -522,24 +522,24 @@ List all Roles
 package main
 
 import (
-	"context"
-	"fmt"
-	"os"
-	openapiclient "github.com/okta/okta-sdk-golang"
+    "context"
+    "fmt"
+    "os"
+    openapiclient "github.com/okta/okta-sdk-golang"
 )
 
 func main() {
-	after := "after_example" // string | The cursor to use for pagination. It is an opaque string that specifies your current location in the list and is obtained from the `Link` response header. See [Pagination](/#pagination). (optional)
+    after := "after_example" // string | The cursor to use for pagination. It is an opaque string that specifies your current location in the list and is obtained from the `Link` response header. See [Pagination](/#pagination). (optional)
 
-	configuration := openapiclient.NewConfiguration()
-	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.RoleAPI.ListRoles(context.Background()).After(after).Execute()
-	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `RoleAPI.ListRoles``: %v\n", err)
-		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-	}
-	// response from `ListRoles`: IamRoles
-	fmt.Fprintf(os.Stdout, "Response from `RoleAPI.ListRoles`: %v\n", resp)
+    configuration := openapiclient.NewConfiguration()
+    apiClient := openapiclient.NewAPIClient(configuration)
+    resp, r, err := apiClient.RoleAPI.ListRoles(context.Background()).After(after).Execute()
+    if err != nil {
+        fmt.Fprintf(os.Stderr, "Error when calling `RoleAPI.ListRoles``: %v\n", err)
+        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+    }
+    // response from `ListRoles`: IamRoles
+    fmt.Fprintf(os.Stdout, "Response from `RoleAPI.ListRoles`: %v\n", resp)
 }
 ```
 
@@ -588,25 +588,25 @@ Replace a Role
 package main
 
 import (
-	"context"
-	"fmt"
-	"os"
-	openapiclient "github.com/okta/okta-sdk-golang"
+    "context"
+    "fmt"
+    "os"
+    openapiclient "github.com/okta/okta-sdk-golang"
 )
 
 func main() {
-	roleIdOrLabel := "cr0Yq6IJxGIr0ouum0g3" // string | `id` or `label` of the role
-	instance := *openapiclient.NewUpdateIamRoleRequest("Description_example", "Label_example") // UpdateIamRoleRequest | 
+    roleIdOrLabel := "cr0Yq6IJxGIr0ouum0g3" // string | `id` or `label` of the role
+    instance := *openapiclient.NewUpdateIamRoleRequest("Description_example", "Label_example") // UpdateIamRoleRequest | 
 
-	configuration := openapiclient.NewConfiguration()
-	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.RoleAPI.ReplaceRole(context.Background(), roleIdOrLabel).Instance(instance).Execute()
-	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `RoleAPI.ReplaceRole``: %v\n", err)
-		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-	}
-	// response from `ReplaceRole`: IamRole
-	fmt.Fprintf(os.Stdout, "Response from `RoleAPI.ReplaceRole`: %v\n", resp)
+    configuration := openapiclient.NewConfiguration()
+    apiClient := openapiclient.NewAPIClient(configuration)
+    resp, r, err := apiClient.RoleAPI.ReplaceRole(context.Background(), roleIdOrLabel).Instance(instance).Execute()
+    if err != nil {
+        fmt.Fprintf(os.Stderr, "Error when calling `RoleAPI.ReplaceRole``: %v\n", err)
+        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+    }
+    // response from `ReplaceRole`: IamRole
+    fmt.Fprintf(os.Stdout, "Response from `RoleAPI.ReplaceRole`: %v\n", resp)
 }
 ```
 
@@ -660,26 +660,26 @@ Replace a Permission
 package main
 
 import (
-	"context"
-	"fmt"
-	"os"
-	openapiclient "github.com/okta/okta-sdk-golang"
+    "context"
+    "fmt"
+    "os"
+    openapiclient "github.com/okta/okta-sdk-golang"
 )
 
 func main() {
-	roleIdOrLabel := "cr0Yq6IJxGIr0ouum0g3" // string | `id` or `label` of the role
-	permissionType := "okta.users.manage" // string | An okta permission type
-	instance := *openapiclient.NewCreateUpdateIamRolePermissionRequest() // CreateUpdateIamRolePermissionRequest |  (optional)
+    roleIdOrLabel := "cr0Yq6IJxGIr0ouum0g3" // string | `id` or `label` of the role
+    permissionType := "okta.users.manage" // string | An okta permission type
+    instance := *openapiclient.NewCreateUpdateIamRolePermissionRequest() // CreateUpdateIamRolePermissionRequest |  (optional)
 
-	configuration := openapiclient.NewConfiguration()
-	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.RoleAPI.ReplaceRolePermission(context.Background(), roleIdOrLabel, permissionType).Instance(instance).Execute()
-	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `RoleAPI.ReplaceRolePermission``: %v\n", err)
-		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-	}
-	// response from `ReplaceRolePermission`: Permission
-	fmt.Fprintf(os.Stdout, "Response from `RoleAPI.ReplaceRolePermission`: %v\n", resp)
+    configuration := openapiclient.NewConfiguration()
+    apiClient := openapiclient.NewAPIClient(configuration)
+    resp, r, err := apiClient.RoleAPI.ReplaceRolePermission(context.Background(), roleIdOrLabel, permissionType).Instance(instance).Execute()
+    if err != nil {
+        fmt.Fprintf(os.Stderr, "Error when calling `RoleAPI.ReplaceRolePermission``: %v\n", err)
+        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+    }
+    // response from `ReplaceRolePermission`: Permission
+    fmt.Fprintf(os.Stdout, "Response from `RoleAPI.ReplaceRolePermission`: %v\n", resp)
 }
 ```
 

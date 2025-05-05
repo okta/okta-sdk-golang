@@ -30,10 +30,10 @@ import (
 
 // CreateRealmAssignmentRequest struct for CreateRealmAssignmentRequest
 type CreateRealmAssignmentRequest struct {
-	Actions              *Actions    `json:"actions,omitempty"`
-	Conditions           *Conditions `json:"conditions,omitempty"`
-	Name                 *string     `json:"name,omitempty"`
-	Priority             *int32      `json:"priority,omitempty"`
+	Actions *Actions `json:"actions,omitempty"`
+	Conditions *Conditions `json:"conditions,omitempty"`
+	Name *string `json:"name,omitempty"`
+	Priority *int32 `json:"priority,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -267,3 +267,4 @@ func (v *NullableCreateRealmAssignmentRequest) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
+

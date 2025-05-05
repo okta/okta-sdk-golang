@@ -41,8 +41,8 @@ type AppAccountContainerDetails struct {
 	// Indicates if the application supports password push
 	PasswordPushSupported *bool `json:"passwordPushSupported,omitempty"`
 	// Indicates if provisioning is enabled for this application
-	ProvisioningEnabled  *bool    `json:"provisioningEnabled,omitempty"`
-	Links                *AppLink `json:"_links,omitempty"`
+	ProvisioningEnabled *bool `json:"provisioningEnabled,omitempty"`
+	Links *AppLink `json:"_links,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -377,3 +377,4 @@ func (v *NullableAppAccountContainerDetails) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
+

@@ -33,7 +33,7 @@ type GroupCondition struct {
 	// Groups to be excluded
 	Exclude []string `json:"exclude,omitempty"`
 	// Groups to be included
-	Include              []string `json:"include,omitempty"`
+	Include []string `json:"include,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -195,3 +195,4 @@ func (v *NullableGroupCondition) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
+

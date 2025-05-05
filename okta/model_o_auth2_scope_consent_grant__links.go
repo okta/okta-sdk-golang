@@ -31,10 +31,8 @@ import (
 // OAuth2ScopeConsentGrantLinks struct for OAuth2ScopeConsentGrantLinks
 type OAuth2ScopeConsentGrantLinks struct {
 	Self *HrefObjectSelfLink `json:"self,omitempty"`
-	// Link to the app resource
 	App *AppCustomHrefObject `json:"app,omitempty"`
-	// Link to the client resource
-	Client               *AppCustomHrefObject `json:"client,omitempty"`
+	Client *AppCustomHrefObject `json:"client,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -232,3 +230,4 @@ func (v *NullableOAuth2ScopeConsentGrantLinks) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
+

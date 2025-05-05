@@ -33,17 +33,18 @@ import (
 	"time"
 )
 
+
 type RiskEventAPI interface {
 
 	/*
-			SendRiskEvents Send multiple Risk Events
+	SendRiskEvents Send multiple Risk Events
 
-			Sends multiple IP risk events to Okta.
-		This request is used by a third-party risk provider to send IP risk events to Okta. The third-party risk provider needs to be registered with Okta before they can send events to Okta. See [Risk Providers](/openapi/okta-management/management/tag/RiskProvider/).
-		This API has a rate limit of 30 requests per minute. You can include multiple risk events (up to a maximum of 20 events) in a single payload to reduce the number of API calls. Prioritize sending high risk signals if you have a burst of signals to send that would exceed the maximum request limits.
+	Sends multiple IP risk events to Okta.
+This request is used by a third-party risk provider to send IP risk events to Okta. The third-party risk provider needs to be registered with Okta before they can send events to Okta. See [Risk Providers](/openapi/okta-management/management/tag/RiskProvider/).
+This API has a rate limit of 30 requests per minute. You can include multiple risk events (up to a maximum of 20 events) in a single payload to reduce the number of API calls. Prioritize sending high risk signals if you have a burst of signals to send that would exceed the maximum request limits.
 
-			@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-			@return ApiSendRiskEventsRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@return ApiSendRiskEventsRequest
 	*/
 	SendRiskEvents(ctx context.Context) ApiSendRiskEventsRequest
 
@@ -55,9 +56,9 @@ type RiskEventAPI interface {
 type RiskEventAPIService service
 
 type ApiSendRiskEventsRequest struct {
-	ctx        context.Context
+	ctx context.Context
 	ApiService RiskEventAPI
-	instance   *[]RiskEvent
+	instance *[]RiskEvent
 	retryCount int32
 }
 
@@ -77,13 +78,13 @@ Sends multiple IP risk events to Okta.
 This request is used by a third-party risk provider to send IP risk events to Okta. The third-party risk provider needs to be registered with Okta before they can send events to Okta. See [Risk Providers](/openapi/okta-management/management/tag/RiskProvider/).
 This API has a rate limit of 30 requests per minute. You can include multiple risk events (up to a maximum of 20 events) in a single payload to reduce the number of API calls. Prioritize sending high risk signals if you have a burst of signals to send that would exceed the maximum request limits.
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@return ApiSendRiskEventsRequest
+ @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+ @return ApiSendRiskEventsRequest
 */
 func (a *RiskEventAPIService) SendRiskEvents(ctx context.Context) ApiSendRiskEventsRequest {
 	return ApiSendRiskEventsRequest{
 		ApiService: a,
-		ctx:        ctx,
+		ctx: ctx,
 		retryCount: 0,
 	}
 }
@@ -96,7 +97,7 @@ func (a *RiskEventAPIService) SendRiskEventsExecute(r ApiSendRiskEventsRequest) 
 		formFiles            []formFile
 		localVarHTTPResponse *http.Response
 		localAPIResponse     *APIResponse
-		err                  error
+		err 				 error
 	)
 
 	if a.client.cfg.Okta.Client.RequestTimeout > 0 {

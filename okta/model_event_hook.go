@@ -37,8 +37,8 @@ type EventHook struct {
 	// The ID of the user who created the event hook
 	CreatedBy *string `json:"createdBy,omitempty"`
 	// Description of the event hook
-	Description NullableString     `json:"description,omitempty"`
-	Events      EventSubscriptions `json:"events"`
+	Description NullableString `json:"description,omitempty"`
+	Events EventSubscriptions `json:"events"`
 	// Unique key for the event hook
 	Id *string `json:"id,omitempty"`
 	// Date of the last event hook update
@@ -48,8 +48,8 @@ type EventHook struct {
 	// Status of the event hook
 	Status *string `json:"status,omitempty"`
 	// Verification status of the event hook. `UNVERIFIED` event hooks won't receive any events.
-	VerificationStatus   *string         `json:"verificationStatus,omitempty"`
-	Links                *EventHookLinks `json:"_links,omitempty"`
+	VerificationStatus *string `json:"verificationStatus,omitempty"`
+	Links *EventHookLinks `json:"_links,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -195,7 +195,6 @@ func (o *EventHook) HasDescription() bool {
 func (o *EventHook) SetDescription(v string) {
 	o.Description.Set(&v)
 }
-
 // SetDescriptionNil sets the value for Description to be an explicit nil
 func (o *EventHook) SetDescriptionNil() {
 	o.Description.Set(nil)
@@ -525,3 +524,4 @@ func (v *NullableEventHook) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
+

@@ -31,17 +31,17 @@ import (
 
 // InlineHook struct for InlineHook
 type InlineHook struct {
-	Channel     *InlineHookChannel `json:"channel,omitempty"`
-	Created     *time.Time         `json:"created,omitempty"`
-	Id          *string            `json:"id,omitempty"`
-	LastUpdated *time.Time         `json:"lastUpdated,omitempty"`
+	Channel *InlineHookChannel `json:"channel,omitempty"`
+	Created *time.Time `json:"created,omitempty"`
+	Id *string `json:"id,omitempty"`
+	LastUpdated *time.Time `json:"lastUpdated,omitempty"`
 	// Specific properties for the inline hook configuration, for example, `optOutServiceProtectionRateLimit` to opt-out of Telephony Service Protection Rate Limits when using the Telephony inline hook.
-	Metadata             *map[string]string `json:"metadata,omitempty"`
-	Name                 *string            `json:"name,omitempty"`
-	Status               *string            `json:"status,omitempty"`
-	Type                 *string            `json:"type,omitempty"`
-	Version              *string            `json:"version,omitempty"`
-	Links                *LinksSelf         `json:"_links,omitempty"`
+	Metadata *map[string]string `json:"metadata,omitempty"`
+	Name *string `json:"name,omitempty"`
+	Status *string `json:"status,omitempty"`
+	Type *string `json:"type,omitempty"`
+	Version *string `json:"version,omitempty"`
+	Links *LinksSelf `json:"_links,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -491,3 +491,4 @@ func (v *NullableInlineHook) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
+

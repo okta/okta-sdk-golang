@@ -32,8 +32,8 @@ import (
 type SelfServicePasswordResetAction struct {
 	Access *string `json:"access,omitempty"`
 	// The type of rule action
-	Type                 *string          `json:"type,omitempty"`
-	Requirement          *SsprRequirement `json:"requirement,omitempty"`
+	Type *string `json:"type,omitempty"`
+	Requirement *SsprRequirement `json:"requirement,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -231,3 +231,4 @@ func (v *NullableSelfServicePasswordResetAction) UnmarshalJSON(src []byte) error
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
+

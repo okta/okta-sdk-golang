@@ -33,7 +33,7 @@ type AutoLoginApplicationSettingsSignOn struct {
 	// Primary URL of the sign-in page for this app
 	LoginUrl *string `json:"loginUrl,omitempty"`
 	// Secondary URL of the sign-in page for this app
-	RedirectUrl          *string `json:"redirectUrl,omitempty"`
+	RedirectUrl *string `json:"redirectUrl,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -195,3 +195,4 @@ func (v *NullableAutoLoginApplicationSettingsSignOn) UnmarshalJSON(src []byte) e
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
+

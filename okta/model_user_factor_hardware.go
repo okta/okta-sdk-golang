@@ -33,10 +33,10 @@ import (
 // UserFactorHardware struct for UserFactorHardware
 type UserFactorHardware struct {
 	UserFactor
-	FactorType           interface{}                    `json:"factorType,omitempty"`
-	Profile              *UserFactorHardwareProfile     `json:"profile,omitempty"`
-	Provider             *string                        `json:"provider,omitempty"`
-	Verify               *UserFactorHardwareAllOfVerify `json:"verify,omitempty"`
+	FactorType interface{} `json:"factorType,omitempty"`
+	Profile *UserFactorHardwareProfile `json:"profile,omitempty"`
+	Provider *string `json:"provider,omitempty"`
+	Verify *UserFactorHardwareAllOfVerify `json:"verify,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -220,10 +220,10 @@ func (o UserFactorHardware) MarshalJSON() ([]byte, error) {
 
 func (o *UserFactorHardware) UnmarshalJSON(bytes []byte) (err error) {
 	type UserFactorHardwareWithoutEmbeddedStruct struct {
-		FactorType interface{}                    `json:"factorType,omitempty"`
-		Profile    *UserFactorHardwareProfile     `json:"profile,omitempty"`
-		Provider   *string                        `json:"provider,omitempty"`
-		Verify     *UserFactorHardwareAllOfVerify `json:"verify,omitempty"`
+		FactorType interface{} `json:"factorType,omitempty"`
+		Profile *UserFactorHardwareProfile `json:"profile,omitempty"`
+		Provider *string `json:"provider,omitempty"`
+		Verify *UserFactorHardwareAllOfVerify `json:"verify,omitempty"`
 	}
 
 	varUserFactorHardwareWithoutEmbeddedStruct := UserFactorHardwareWithoutEmbeddedStruct{}
@@ -319,3 +319,4 @@ func (v *NullableUserFactorHardware) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
+

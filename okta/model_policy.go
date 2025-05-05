@@ -42,14 +42,14 @@ type Policy struct {
 	// Policy name
 	Name *string `json:"name,omitempty"`
 	// Specifies the order in which this Policy is evaluated in relation to the other policies
-	Priority *int32  `json:"priority,omitempty"`
-	Status   *string `json:"status,omitempty"`
+	Priority *int32 `json:"priority,omitempty"`
+	Status *string `json:"status,omitempty"`
 	// Specifies whether Okta created the Policy
 	System *bool `json:"system,omitempty"`
 	// All Okta orgs contain only one IdP Discovery Policy with an immutable default Rule routing to your org's sign-in page. Creating or replacing a policy with `IDP_DISCOVERY` type isn't supported. The following policy types are available with the Okta Identity Engine: `ACCESS_POLICY`, `PROFILE_ENROLLMENT`, `CONTINUOUS_ACCESS`, and `ENTITY_RISK`. The `CONTINUOUS_ACCESS`, and `ENTITY_RISK` policy types are in Early Access (EA). Contact your Okta account team to enable these features.
-	Type                 *string                `json:"type,omitempty"`
-	Embedded             map[string]interface{} `json:"_embedded,omitempty"`
-	Links                *PolicyLinks           `json:"_links,omitempty"`
+	Type *string `json:"type,omitempty"`
+	Embedded map[string]interface{} `json:"_embedded,omitempty"`
+	Links *PolicyLinks `json:"_links,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -535,3 +535,4 @@ func (v *NullablePolicy) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
+

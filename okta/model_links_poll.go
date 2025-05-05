@@ -30,7 +30,7 @@ import (
 
 // LinksPoll struct for LinksPoll
 type LinksPoll struct {
-	Poll                 *LinksPollPoll `json:"poll,omitempty"`
+	Poll *LinksPollPoll `json:"poll,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -156,3 +156,4 @@ func (v *NullableLinksPoll) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
+

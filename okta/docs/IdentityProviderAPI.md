@@ -46,24 +46,24 @@ Activate an Identity Provider
 package main
 
 import (
-	"context"
-	"fmt"
-	"os"
-	openapiclient "github.com/okta/okta-sdk-golang"
+    "context"
+    "fmt"
+    "os"
+    openapiclient "github.com/okta/okta-sdk-golang"
 )
 
 func main() {
-	idpId := "SVHoAOh0l8cPQkVX1LRl" // string | `id` of IdP
+    idpId := "SVHoAOh0l8cPQkVX1LRl" // string | `id` of IdP
 
-	configuration := openapiclient.NewConfiguration()
-	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.IdentityProviderAPI.ActivateIdentityProvider(context.Background(), idpId).Execute()
-	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `IdentityProviderAPI.ActivateIdentityProvider``: %v\n", err)
-		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-	}
-	// response from `ActivateIdentityProvider`: IdentityProvider
-	fmt.Fprintf(os.Stdout, "Response from `IdentityProviderAPI.ActivateIdentityProvider`: %v\n", resp)
+    configuration := openapiclient.NewConfiguration()
+    apiClient := openapiclient.NewAPIClient(configuration)
+    resp, r, err := apiClient.IdentityProviderAPI.ActivateIdentityProvider(context.Background(), idpId).Execute()
+    if err != nil {
+        fmt.Fprintf(os.Stderr, "Error when calling `IdentityProviderAPI.ActivateIdentityProvider``: %v\n", err)
+        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+    }
+    // response from `ActivateIdentityProvider`: IdentityProvider
+    fmt.Fprintf(os.Stdout, "Response from `IdentityProviderAPI.ActivateIdentityProvider`: %v\n", resp)
 }
 ```
 
@@ -116,26 +116,26 @@ Clone a Signing Credential Key
 package main
 
 import (
-	"context"
-	"fmt"
-	"os"
-	openapiclient "github.com/okta/okta-sdk-golang"
+    "context"
+    "fmt"
+    "os"
+    openapiclient "github.com/okta/okta-sdk-golang"
 )
 
 func main() {
-	idpId := "SVHoAOh0l8cPQkVX1LRl" // string | `id` of IdP
-	idpKeyId := "KmMo85SSsU7TZzOShcGb" // string | `id` of IdP Key
-	targetIdpId := "targetIdpId_example" // string | 
+    idpId := "SVHoAOh0l8cPQkVX1LRl" // string | `id` of IdP
+    idpKeyId := "KmMo85SSsU7TZzOShcGb" // string | `id` of IdP Key
+    targetIdpId := "targetIdpId_example" // string | 
 
-	configuration := openapiclient.NewConfiguration()
-	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.IdentityProviderAPI.CloneIdentityProviderKey(context.Background(), idpId, idpKeyId).TargetIdpId(targetIdpId).Execute()
-	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `IdentityProviderAPI.CloneIdentityProviderKey``: %v\n", err)
-		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-	}
-	// response from `CloneIdentityProviderKey`: JsonWebKey
-	fmt.Fprintf(os.Stdout, "Response from `IdentityProviderAPI.CloneIdentityProviderKey`: %v\n", resp)
+    configuration := openapiclient.NewConfiguration()
+    apiClient := openapiclient.NewAPIClient(configuration)
+    resp, r, err := apiClient.IdentityProviderAPI.CloneIdentityProviderKey(context.Background(), idpId, idpKeyId).TargetIdpId(targetIdpId).Execute()
+    if err != nil {
+        fmt.Fprintf(os.Stderr, "Error when calling `IdentityProviderAPI.CloneIdentityProviderKey``: %v\n", err)
+        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+    }
+    // response from `CloneIdentityProviderKey`: JsonWebKey
+    fmt.Fprintf(os.Stdout, "Response from `IdentityProviderAPI.CloneIdentityProviderKey`: %v\n", resp)
 }
 ```
 
@@ -191,24 +191,24 @@ Create an Identity Provider
 package main
 
 import (
-	"context"
-	"fmt"
-	"os"
-	openapiclient "github.com/okta/okta-sdk-golang"
+    "context"
+    "fmt"
+    "os"
+    openapiclient "github.com/okta/okta-sdk-golang"
 )
 
 func main() {
-	identityProvider := *openapiclient.NewIdentityProvider() // IdentityProvider | 
+    identityProvider := *openapiclient.NewIdentityProvider() // IdentityProvider | 
 
-	configuration := openapiclient.NewConfiguration()
-	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.IdentityProviderAPI.CreateIdentityProvider(context.Background()).IdentityProvider(identityProvider).Execute()
-	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `IdentityProviderAPI.CreateIdentityProvider``: %v\n", err)
-		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-	}
-	// response from `CreateIdentityProvider`: IdentityProvider
-	fmt.Fprintf(os.Stdout, "Response from `IdentityProviderAPI.CreateIdentityProvider`: %v\n", resp)
+    configuration := openapiclient.NewConfiguration()
+    apiClient := openapiclient.NewAPIClient(configuration)
+    resp, r, err := apiClient.IdentityProviderAPI.CreateIdentityProvider(context.Background()).IdentityProvider(identityProvider).Execute()
+    if err != nil {
+        fmt.Fprintf(os.Stderr, "Error when calling `IdentityProviderAPI.CreateIdentityProvider``: %v\n", err)
+        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+    }
+    // response from `CreateIdentityProvider`: IdentityProvider
+    fmt.Fprintf(os.Stdout, "Response from `IdentityProviderAPI.CreateIdentityProvider`: %v\n", resp)
 }
 ```
 
@@ -257,24 +257,24 @@ Create an X.509 Certificate Public Key
 package main
 
 import (
-	"context"
-	"fmt"
-	"os"
-	openapiclient "github.com/okta/okta-sdk-golang"
+    "context"
+    "fmt"
+    "os"
+    openapiclient "github.com/okta/okta-sdk-golang"
 )
 
 func main() {
-	jsonWebKey := *openapiclient.NewJsonWebKey() // JsonWebKey | 
+    jsonWebKey := *openapiclient.NewJsonWebKey() // JsonWebKey | 
 
-	configuration := openapiclient.NewConfiguration()
-	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.IdentityProviderAPI.CreateIdentityProviderKey(context.Background()).JsonWebKey(jsonWebKey).Execute()
-	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `IdentityProviderAPI.CreateIdentityProviderKey``: %v\n", err)
-		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-	}
-	// response from `CreateIdentityProviderKey`: JsonWebKey
-	fmt.Fprintf(os.Stdout, "Response from `IdentityProviderAPI.CreateIdentityProviderKey`: %v\n", resp)
+    configuration := openapiclient.NewConfiguration()
+    apiClient := openapiclient.NewAPIClient(configuration)
+    resp, r, err := apiClient.IdentityProviderAPI.CreateIdentityProviderKey(context.Background()).JsonWebKey(jsonWebKey).Execute()
+    if err != nil {
+        fmt.Fprintf(os.Stderr, "Error when calling `IdentityProviderAPI.CreateIdentityProviderKey``: %v\n", err)
+        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+    }
+    // response from `CreateIdentityProviderKey`: JsonWebKey
+    fmt.Fprintf(os.Stdout, "Response from `IdentityProviderAPI.CreateIdentityProviderKey`: %v\n", resp)
 }
 ```
 
@@ -323,24 +323,24 @@ Deactivate an Identity Provider
 package main
 
 import (
-	"context"
-	"fmt"
-	"os"
-	openapiclient "github.com/okta/okta-sdk-golang"
+    "context"
+    "fmt"
+    "os"
+    openapiclient "github.com/okta/okta-sdk-golang"
 )
 
 func main() {
-	idpId := "SVHoAOh0l8cPQkVX1LRl" // string | `id` of IdP
+    idpId := "SVHoAOh0l8cPQkVX1LRl" // string | `id` of IdP
 
-	configuration := openapiclient.NewConfiguration()
-	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.IdentityProviderAPI.DeactivateIdentityProvider(context.Background(), idpId).Execute()
-	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `IdentityProviderAPI.DeactivateIdentityProvider``: %v\n", err)
-		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-	}
-	// response from `DeactivateIdentityProvider`: IdentityProvider
-	fmt.Fprintf(os.Stdout, "Response from `IdentityProviderAPI.DeactivateIdentityProvider`: %v\n", resp)
+    configuration := openapiclient.NewConfiguration()
+    apiClient := openapiclient.NewAPIClient(configuration)
+    resp, r, err := apiClient.IdentityProviderAPI.DeactivateIdentityProvider(context.Background(), idpId).Execute()
+    if err != nil {
+        fmt.Fprintf(os.Stderr, "Error when calling `IdentityProviderAPI.DeactivateIdentityProvider``: %v\n", err)
+        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+    }
+    // response from `DeactivateIdentityProvider`: IdentityProvider
+    fmt.Fprintf(os.Stdout, "Response from `IdentityProviderAPI.DeactivateIdentityProvider`: %v\n", resp)
 }
 ```
 
@@ -393,22 +393,22 @@ Delete an Identity Provider
 package main
 
 import (
-	"context"
-	"fmt"
-	"os"
-	openapiclient "github.com/okta/okta-sdk-golang"
+    "context"
+    "fmt"
+    "os"
+    openapiclient "github.com/okta/okta-sdk-golang"
 )
 
 func main() {
-	idpId := "SVHoAOh0l8cPQkVX1LRl" // string | `id` of IdP
+    idpId := "SVHoAOh0l8cPQkVX1LRl" // string | `id` of IdP
 
-	configuration := openapiclient.NewConfiguration()
-	apiClient := openapiclient.NewAPIClient(configuration)
-	r, err := apiClient.IdentityProviderAPI.DeleteIdentityProvider(context.Background(), idpId).Execute()
-	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `IdentityProviderAPI.DeleteIdentityProvider``: %v\n", err)
-		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-	}
+    configuration := openapiclient.NewConfiguration()
+    apiClient := openapiclient.NewAPIClient(configuration)
+    r, err := apiClient.IdentityProviderAPI.DeleteIdentityProvider(context.Background(), idpId).Execute()
+    if err != nil {
+        fmt.Fprintf(os.Stderr, "Error when calling `IdentityProviderAPI.DeleteIdentityProvider``: %v\n", err)
+        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+    }
 }
 ```
 
@@ -461,22 +461,22 @@ Delete a Signing Credential Key
 package main
 
 import (
-	"context"
-	"fmt"
-	"os"
-	openapiclient "github.com/okta/okta-sdk-golang"
+    "context"
+    "fmt"
+    "os"
+    openapiclient "github.com/okta/okta-sdk-golang"
 )
 
 func main() {
-	idpKeyId := "KmMo85SSsU7TZzOShcGb" // string | `id` of IdP Key
+    idpKeyId := "KmMo85SSsU7TZzOShcGb" // string | `id` of IdP Key
 
-	configuration := openapiclient.NewConfiguration()
-	apiClient := openapiclient.NewAPIClient(configuration)
-	r, err := apiClient.IdentityProviderAPI.DeleteIdentityProviderKey(context.Background(), idpKeyId).Execute()
-	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `IdentityProviderAPI.DeleteIdentityProviderKey``: %v\n", err)
-		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-	}
+    configuration := openapiclient.NewConfiguration()
+    apiClient := openapiclient.NewAPIClient(configuration)
+    r, err := apiClient.IdentityProviderAPI.DeleteIdentityProviderKey(context.Background(), idpKeyId).Execute()
+    if err != nil {
+        fmt.Fprintf(os.Stderr, "Error when calling `IdentityProviderAPI.DeleteIdentityProviderKey``: %v\n", err)
+        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+    }
 }
 ```
 
@@ -529,25 +529,25 @@ Generate a Certificate Signing Request
 package main
 
 import (
-	"context"
-	"fmt"
-	"os"
-	openapiclient "github.com/okta/okta-sdk-golang"
+    "context"
+    "fmt"
+    "os"
+    openapiclient "github.com/okta/okta-sdk-golang"
 )
 
 func main() {
-	idpId := "SVHoAOh0l8cPQkVX1LRl" // string | `id` of IdP
-	metadata := *openapiclient.NewCsrMetadata() // CsrMetadata | 
+    idpId := "SVHoAOh0l8cPQkVX1LRl" // string | `id` of IdP
+    metadata := *openapiclient.NewCsrMetadata() // CsrMetadata | 
 
-	configuration := openapiclient.NewConfiguration()
-	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.IdentityProviderAPI.GenerateCsrForIdentityProvider(context.Background(), idpId).Metadata(metadata).Execute()
-	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `IdentityProviderAPI.GenerateCsrForIdentityProvider``: %v\n", err)
-		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-	}
-	// response from `GenerateCsrForIdentityProvider`: Csr
-	fmt.Fprintf(os.Stdout, "Response from `IdentityProviderAPI.GenerateCsrForIdentityProvider`: %v\n", resp)
+    configuration := openapiclient.NewConfiguration()
+    apiClient := openapiclient.NewAPIClient(configuration)
+    resp, r, err := apiClient.IdentityProviderAPI.GenerateCsrForIdentityProvider(context.Background(), idpId).Metadata(metadata).Execute()
+    if err != nil {
+        fmt.Fprintf(os.Stderr, "Error when calling `IdentityProviderAPI.GenerateCsrForIdentityProvider``: %v\n", err)
+        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+    }
+    // response from `GenerateCsrForIdentityProvider`: Csr
+    fmt.Fprintf(os.Stdout, "Response from `IdentityProviderAPI.GenerateCsrForIdentityProvider`: %v\n", resp)
 }
 ```
 
@@ -601,25 +601,25 @@ Generate a new Signing Credential Key
 package main
 
 import (
-	"context"
-	"fmt"
-	"os"
-	openapiclient "github.com/okta/okta-sdk-golang"
+    "context"
+    "fmt"
+    "os"
+    openapiclient "github.com/okta/okta-sdk-golang"
 )
 
 func main() {
-	idpId := "SVHoAOh0l8cPQkVX1LRl" // string | `id` of IdP
-	validityYears := int32(56) // int32 | expiry of the IdP Key Credential
+    idpId := "SVHoAOh0l8cPQkVX1LRl" // string | `id` of IdP
+    validityYears := int32(56) // int32 | expiry of the IdP Key Credential
 
-	configuration := openapiclient.NewConfiguration()
-	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.IdentityProviderAPI.GenerateIdentityProviderSigningKey(context.Background(), idpId).ValidityYears(validityYears).Execute()
-	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `IdentityProviderAPI.GenerateIdentityProviderSigningKey``: %v\n", err)
-		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-	}
-	// response from `GenerateIdentityProviderSigningKey`: JsonWebKey
-	fmt.Fprintf(os.Stdout, "Response from `IdentityProviderAPI.GenerateIdentityProviderSigningKey`: %v\n", resp)
+    configuration := openapiclient.NewConfiguration()
+    apiClient := openapiclient.NewAPIClient(configuration)
+    resp, r, err := apiClient.IdentityProviderAPI.GenerateIdentityProviderSigningKey(context.Background(), idpId).ValidityYears(validityYears).Execute()
+    if err != nil {
+        fmt.Fprintf(os.Stderr, "Error when calling `IdentityProviderAPI.GenerateIdentityProviderSigningKey``: %v\n", err)
+        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+    }
+    // response from `GenerateIdentityProviderSigningKey`: JsonWebKey
+    fmt.Fprintf(os.Stdout, "Response from `IdentityProviderAPI.GenerateIdentityProviderSigningKey`: %v\n", resp)
 }
 ```
 
@@ -673,25 +673,25 @@ Retrieve a Certificate Signing Request
 package main
 
 import (
-	"context"
-	"fmt"
-	"os"
-	openapiclient "github.com/okta/okta-sdk-golang"
+    "context"
+    "fmt"
+    "os"
+    openapiclient "github.com/okta/okta-sdk-golang"
 )
 
 func main() {
-	idpId := "SVHoAOh0l8cPQkVX1LRl" // string | `id` of IdP
-	idpCsrId := "1uEhyE65oV3H6KM9gYcN" // string | `id` of the IdP CSR
+    idpId := "SVHoAOh0l8cPQkVX1LRl" // string | `id` of IdP
+    idpCsrId := "1uEhyE65oV3H6KM9gYcN" // string | `id` of the IdP CSR
 
-	configuration := openapiclient.NewConfiguration()
-	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.IdentityProviderAPI.GetCsrForIdentityProvider(context.Background(), idpId, idpCsrId).Execute()
-	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `IdentityProviderAPI.GetCsrForIdentityProvider``: %v\n", err)
-		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-	}
-	// response from `GetCsrForIdentityProvider`: Csr
-	fmt.Fprintf(os.Stdout, "Response from `IdentityProviderAPI.GetCsrForIdentityProvider`: %v\n", resp)
+    configuration := openapiclient.NewConfiguration()
+    apiClient := openapiclient.NewAPIClient(configuration)
+    resp, r, err := apiClient.IdentityProviderAPI.GetCsrForIdentityProvider(context.Background(), idpId, idpCsrId).Execute()
+    if err != nil {
+        fmt.Fprintf(os.Stderr, "Error when calling `IdentityProviderAPI.GetCsrForIdentityProvider``: %v\n", err)
+        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+    }
+    // response from `GetCsrForIdentityProvider`: Csr
+    fmt.Fprintf(os.Stdout, "Response from `IdentityProviderAPI.GetCsrForIdentityProvider`: %v\n", resp)
 }
 ```
 
@@ -746,24 +746,24 @@ Retrieve an Identity Provider
 package main
 
 import (
-	"context"
-	"fmt"
-	"os"
-	openapiclient "github.com/okta/okta-sdk-golang"
+    "context"
+    "fmt"
+    "os"
+    openapiclient "github.com/okta/okta-sdk-golang"
 )
 
 func main() {
-	idpId := "SVHoAOh0l8cPQkVX1LRl" // string | `id` of IdP
+    idpId := "SVHoAOh0l8cPQkVX1LRl" // string | `id` of IdP
 
-	configuration := openapiclient.NewConfiguration()
-	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.IdentityProviderAPI.GetIdentityProvider(context.Background(), idpId).Execute()
-	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `IdentityProviderAPI.GetIdentityProvider``: %v\n", err)
-		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-	}
-	// response from `GetIdentityProvider`: IdentityProvider
-	fmt.Fprintf(os.Stdout, "Response from `IdentityProviderAPI.GetIdentityProvider`: %v\n", resp)
+    configuration := openapiclient.NewConfiguration()
+    apiClient := openapiclient.NewAPIClient(configuration)
+    resp, r, err := apiClient.IdentityProviderAPI.GetIdentityProvider(context.Background(), idpId).Execute()
+    if err != nil {
+        fmt.Fprintf(os.Stderr, "Error when calling `IdentityProviderAPI.GetIdentityProvider``: %v\n", err)
+        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+    }
+    // response from `GetIdentityProvider`: IdentityProvider
+    fmt.Fprintf(os.Stdout, "Response from `IdentityProviderAPI.GetIdentityProvider`: %v\n", resp)
 }
 ```
 
@@ -816,25 +816,25 @@ Retrieve a User
 package main
 
 import (
-	"context"
-	"fmt"
-	"os"
-	openapiclient "github.com/okta/okta-sdk-golang"
+    "context"
+    "fmt"
+    "os"
+    openapiclient "github.com/okta/okta-sdk-golang"
 )
 
 func main() {
-	idpId := "SVHoAOh0l8cPQkVX1LRl" // string | `id` of IdP
-	userId := "userId_example" // string | ID of an existing Okta user
+    idpId := "SVHoAOh0l8cPQkVX1LRl" // string | `id` of IdP
+    userId := "userId_example" // string | ID of an existing Okta user
 
-	configuration := openapiclient.NewConfiguration()
-	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.IdentityProviderAPI.GetIdentityProviderApplicationUser(context.Background(), idpId, userId).Execute()
-	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `IdentityProviderAPI.GetIdentityProviderApplicationUser``: %v\n", err)
-		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-	}
-	// response from `GetIdentityProviderApplicationUser`: IdentityProviderApplicationUser
-	fmt.Fprintf(os.Stdout, "Response from `IdentityProviderAPI.GetIdentityProviderApplicationUser`: %v\n", resp)
+    configuration := openapiclient.NewConfiguration()
+    apiClient := openapiclient.NewAPIClient(configuration)
+    resp, r, err := apiClient.IdentityProviderAPI.GetIdentityProviderApplicationUser(context.Background(), idpId, userId).Execute()
+    if err != nil {
+        fmt.Fprintf(os.Stderr, "Error when calling `IdentityProviderAPI.GetIdentityProviderApplicationUser``: %v\n", err)
+        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+    }
+    // response from `GetIdentityProviderApplicationUser`: IdentityProviderApplicationUser
+    fmt.Fprintf(os.Stdout, "Response from `IdentityProviderAPI.GetIdentityProviderApplicationUser`: %v\n", resp)
 }
 ```
 
@@ -889,24 +889,24 @@ Retrieve an Credential Key
 package main
 
 import (
-	"context"
-	"fmt"
-	"os"
-	openapiclient "github.com/okta/okta-sdk-golang"
+    "context"
+    "fmt"
+    "os"
+    openapiclient "github.com/okta/okta-sdk-golang"
 )
 
 func main() {
-	idpKeyId := "KmMo85SSsU7TZzOShcGb" // string | `id` of IdP Key
+    idpKeyId := "KmMo85SSsU7TZzOShcGb" // string | `id` of IdP Key
 
-	configuration := openapiclient.NewConfiguration()
-	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.IdentityProviderAPI.GetIdentityProviderKey(context.Background(), idpKeyId).Execute()
-	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `IdentityProviderAPI.GetIdentityProviderKey``: %v\n", err)
-		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-	}
-	// response from `GetIdentityProviderKey`: JsonWebKey
-	fmt.Fprintf(os.Stdout, "Response from `IdentityProviderAPI.GetIdentityProviderKey`: %v\n", resp)
+    configuration := openapiclient.NewConfiguration()
+    apiClient := openapiclient.NewAPIClient(configuration)
+    resp, r, err := apiClient.IdentityProviderAPI.GetIdentityProviderKey(context.Background(), idpKeyId).Execute()
+    if err != nil {
+        fmt.Fprintf(os.Stderr, "Error when calling `IdentityProviderAPI.GetIdentityProviderKey``: %v\n", err)
+        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+    }
+    // response from `GetIdentityProviderKey`: JsonWebKey
+    fmt.Fprintf(os.Stdout, "Response from `IdentityProviderAPI.GetIdentityProviderKey`: %v\n", resp)
 }
 ```
 
@@ -959,25 +959,25 @@ Retrieve a Signing Credential Key
 package main
 
 import (
-	"context"
-	"fmt"
-	"os"
-	openapiclient "github.com/okta/okta-sdk-golang"
+    "context"
+    "fmt"
+    "os"
+    openapiclient "github.com/okta/okta-sdk-golang"
 )
 
 func main() {
-	idpId := "SVHoAOh0l8cPQkVX1LRl" // string | `id` of IdP
-	idpKeyId := "KmMo85SSsU7TZzOShcGb" // string | `id` of IdP Key
+    idpId := "SVHoAOh0l8cPQkVX1LRl" // string | `id` of IdP
+    idpKeyId := "KmMo85SSsU7TZzOShcGb" // string | `id` of IdP Key
 
-	configuration := openapiclient.NewConfiguration()
-	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.IdentityProviderAPI.GetIdentityProviderSigningKey(context.Background(), idpId, idpKeyId).Execute()
-	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `IdentityProviderAPI.GetIdentityProviderSigningKey``: %v\n", err)
-		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-	}
-	// response from `GetIdentityProviderSigningKey`: JsonWebKey
-	fmt.Fprintf(os.Stdout, "Response from `IdentityProviderAPI.GetIdentityProviderSigningKey`: %v\n", resp)
+    configuration := openapiclient.NewConfiguration()
+    apiClient := openapiclient.NewAPIClient(configuration)
+    resp, r, err := apiClient.IdentityProviderAPI.GetIdentityProviderSigningKey(context.Background(), idpId, idpKeyId).Execute()
+    if err != nil {
+        fmt.Fprintf(os.Stderr, "Error when calling `IdentityProviderAPI.GetIdentityProviderSigningKey``: %v\n", err)
+        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+    }
+    // response from `GetIdentityProviderSigningKey`: JsonWebKey
+    fmt.Fprintf(os.Stdout, "Response from `IdentityProviderAPI.GetIdentityProviderSigningKey`: %v\n", resp)
 }
 ```
 
@@ -1032,26 +1032,26 @@ Link a User to a Social IdP
 package main
 
 import (
-	"context"
-	"fmt"
-	"os"
-	openapiclient "github.com/okta/okta-sdk-golang"
+    "context"
+    "fmt"
+    "os"
+    openapiclient "github.com/okta/okta-sdk-golang"
 )
 
 func main() {
-	idpId := "SVHoAOh0l8cPQkVX1LRl" // string | `id` of IdP
-	userId := "userId_example" // string | ID of an existing Okta user
-	userIdentityProviderLinkRequest := *openapiclient.NewUserIdentityProviderLinkRequest() // UserIdentityProviderLinkRequest | 
+    idpId := "SVHoAOh0l8cPQkVX1LRl" // string | `id` of IdP
+    userId := "userId_example" // string | ID of an existing Okta user
+    userIdentityProviderLinkRequest := *openapiclient.NewUserIdentityProviderLinkRequest() // UserIdentityProviderLinkRequest | 
 
-	configuration := openapiclient.NewConfiguration()
-	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.IdentityProviderAPI.LinkUserToIdentityProvider(context.Background(), idpId, userId).UserIdentityProviderLinkRequest(userIdentityProviderLinkRequest).Execute()
-	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `IdentityProviderAPI.LinkUserToIdentityProvider``: %v\n", err)
-		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-	}
-	// response from `LinkUserToIdentityProvider`: IdentityProviderApplicationUser
-	fmt.Fprintf(os.Stdout, "Response from `IdentityProviderAPI.LinkUserToIdentityProvider`: %v\n", resp)
+    configuration := openapiclient.NewConfiguration()
+    apiClient := openapiclient.NewAPIClient(configuration)
+    resp, r, err := apiClient.IdentityProviderAPI.LinkUserToIdentityProvider(context.Background(), idpId, userId).UserIdentityProviderLinkRequest(userIdentityProviderLinkRequest).Execute()
+    if err != nil {
+        fmt.Fprintf(os.Stderr, "Error when calling `IdentityProviderAPI.LinkUserToIdentityProvider``: %v\n", err)
+        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+    }
+    // response from `LinkUserToIdentityProvider`: IdentityProviderApplicationUser
+    fmt.Fprintf(os.Stdout, "Response from `IdentityProviderAPI.LinkUserToIdentityProvider`: %v\n", resp)
 }
 ```
 
@@ -1107,24 +1107,24 @@ List all Certificate Signing Requests
 package main
 
 import (
-	"context"
-	"fmt"
-	"os"
-	openapiclient "github.com/okta/okta-sdk-golang"
+    "context"
+    "fmt"
+    "os"
+    openapiclient "github.com/okta/okta-sdk-golang"
 )
 
 func main() {
-	idpId := "SVHoAOh0l8cPQkVX1LRl" // string | `id` of IdP
+    idpId := "SVHoAOh0l8cPQkVX1LRl" // string | `id` of IdP
 
-	configuration := openapiclient.NewConfiguration()
-	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.IdentityProviderAPI.ListCsrsForIdentityProvider(context.Background(), idpId).Execute()
-	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `IdentityProviderAPI.ListCsrsForIdentityProvider``: %v\n", err)
-		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-	}
-	// response from `ListCsrsForIdentityProvider`: []Csr
-	fmt.Fprintf(os.Stdout, "Response from `IdentityProviderAPI.ListCsrsForIdentityProvider`: %v\n", resp)
+    configuration := openapiclient.NewConfiguration()
+    apiClient := openapiclient.NewAPIClient(configuration)
+    resp, r, err := apiClient.IdentityProviderAPI.ListCsrsForIdentityProvider(context.Background(), idpId).Execute()
+    if err != nil {
+        fmt.Fprintf(os.Stderr, "Error when calling `IdentityProviderAPI.ListCsrsForIdentityProvider``: %v\n", err)
+        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+    }
+    // response from `ListCsrsForIdentityProvider`: []Csr
+    fmt.Fprintf(os.Stdout, "Response from `IdentityProviderAPI.ListCsrsForIdentityProvider`: %v\n", resp)
 }
 ```
 
@@ -1177,28 +1177,28 @@ List all Users
 package main
 
 import (
-	"context"
-	"fmt"
-	"os"
-	openapiclient "github.com/okta/okta-sdk-golang"
+    "context"
+    "fmt"
+    "os"
+    openapiclient "github.com/okta/okta-sdk-golang"
 )
 
 func main() {
-	idpId := "SVHoAOh0l8cPQkVX1LRl" // string | `id` of IdP
-	q := "q_example" // string | Searches the name property of IdPs for matching value (optional)
-	after := "after_example" // string | Specifies the pagination cursor for the next page of IdPs (optional)
-	limit := int32(56) // int32 | Specifies the number of IdP results in a page (optional) (default to 20)
-	expand := "expand_example" // string | Expand user data (optional)
+    idpId := "SVHoAOh0l8cPQkVX1LRl" // string | `id` of IdP
+    q := "q_example" // string | Searches the name property of IdPs for matching value (optional)
+    after := "after_example" // string | Specifies the pagination cursor for the next page of IdPs (optional)
+    limit := int32(56) // int32 | Specifies the number of IdP results in a page (optional) (default to 20)
+    expand := "expand_example" // string | Expand user data (optional)
 
-	configuration := openapiclient.NewConfiguration()
-	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.IdentityProviderAPI.ListIdentityProviderApplicationUsers(context.Background(), idpId).Q(q).After(after).Limit(limit).Expand(expand).Execute()
-	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `IdentityProviderAPI.ListIdentityProviderApplicationUsers``: %v\n", err)
-		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-	}
-	// response from `ListIdentityProviderApplicationUsers`: []IdentityProviderApplicationUser
-	fmt.Fprintf(os.Stdout, "Response from `IdentityProviderAPI.ListIdentityProviderApplicationUsers`: %v\n", resp)
+    configuration := openapiclient.NewConfiguration()
+    apiClient := openapiclient.NewAPIClient(configuration)
+    resp, r, err := apiClient.IdentityProviderAPI.ListIdentityProviderApplicationUsers(context.Background(), idpId).Q(q).After(after).Limit(limit).Expand(expand).Execute()
+    if err != nil {
+        fmt.Fprintf(os.Stderr, "Error when calling `IdentityProviderAPI.ListIdentityProviderApplicationUsers``: %v\n", err)
+        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+    }
+    // response from `ListIdentityProviderApplicationUsers`: []IdentityProviderApplicationUser
+    fmt.Fprintf(os.Stdout, "Response from `IdentityProviderAPI.ListIdentityProviderApplicationUsers`: %v\n", resp)
 }
 ```
 
@@ -1255,25 +1255,25 @@ List all Credential Keys
 package main
 
 import (
-	"context"
-	"fmt"
-	"os"
-	openapiclient "github.com/okta/okta-sdk-golang"
+    "context"
+    "fmt"
+    "os"
+    openapiclient "github.com/okta/okta-sdk-golang"
 )
 
 func main() {
-	after := "after_example" // string | Specifies the pagination cursor for the next page of keys (optional)
-	limit := int32(56) // int32 | Specifies the number of key results in a page (optional) (default to 20)
+    after := "after_example" // string | Specifies the pagination cursor for the next page of keys (optional)
+    limit := int32(56) // int32 | Specifies the number of key results in a page (optional) (default to 20)
 
-	configuration := openapiclient.NewConfiguration()
-	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.IdentityProviderAPI.ListIdentityProviderKeys(context.Background()).After(after).Limit(limit).Execute()
-	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `IdentityProviderAPI.ListIdentityProviderKeys``: %v\n", err)
-		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-	}
-	// response from `ListIdentityProviderKeys`: []JsonWebKey
-	fmt.Fprintf(os.Stdout, "Response from `IdentityProviderAPI.ListIdentityProviderKeys`: %v\n", resp)
+    configuration := openapiclient.NewConfiguration()
+    apiClient := openapiclient.NewAPIClient(configuration)
+    resp, r, err := apiClient.IdentityProviderAPI.ListIdentityProviderKeys(context.Background()).After(after).Limit(limit).Execute()
+    if err != nil {
+        fmt.Fprintf(os.Stderr, "Error when calling `IdentityProviderAPI.ListIdentityProviderKeys``: %v\n", err)
+        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+    }
+    // response from `ListIdentityProviderKeys`: []JsonWebKey
+    fmt.Fprintf(os.Stdout, "Response from `IdentityProviderAPI.ListIdentityProviderKeys`: %v\n", resp)
 }
 ```
 
@@ -1323,24 +1323,24 @@ List all Signing Credential Keys
 package main
 
 import (
-	"context"
-	"fmt"
-	"os"
-	openapiclient "github.com/okta/okta-sdk-golang"
+    "context"
+    "fmt"
+    "os"
+    openapiclient "github.com/okta/okta-sdk-golang"
 )
 
 func main() {
-	idpId := "SVHoAOh0l8cPQkVX1LRl" // string | `id` of IdP
+    idpId := "SVHoAOh0l8cPQkVX1LRl" // string | `id` of IdP
 
-	configuration := openapiclient.NewConfiguration()
-	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.IdentityProviderAPI.ListIdentityProviderSigningKeys(context.Background(), idpId).Execute()
-	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `IdentityProviderAPI.ListIdentityProviderSigningKeys``: %v\n", err)
-		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-	}
-	// response from `ListIdentityProviderSigningKeys`: []JsonWebKey
-	fmt.Fprintf(os.Stdout, "Response from `IdentityProviderAPI.ListIdentityProviderSigningKeys`: %v\n", resp)
+    configuration := openapiclient.NewConfiguration()
+    apiClient := openapiclient.NewAPIClient(configuration)
+    resp, r, err := apiClient.IdentityProviderAPI.ListIdentityProviderSigningKeys(context.Background(), idpId).Execute()
+    if err != nil {
+        fmt.Fprintf(os.Stderr, "Error when calling `IdentityProviderAPI.ListIdentityProviderSigningKeys``: %v\n", err)
+        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+    }
+    // response from `ListIdentityProviderSigningKeys`: []JsonWebKey
+    fmt.Fprintf(os.Stdout, "Response from `IdentityProviderAPI.ListIdentityProviderSigningKeys`: %v\n", resp)
 }
 ```
 
@@ -1393,27 +1393,27 @@ List all Identity Providers
 package main
 
 import (
-	"context"
-	"fmt"
-	"os"
-	openapiclient "github.com/okta/okta-sdk-golang"
+    "context"
+    "fmt"
+    "os"
+    openapiclient "github.com/okta/okta-sdk-golang"
 )
 
 func main() {
-	q := "q_example" // string | Searches the name property of IdPs for matching value (optional)
-	after := "after_example" // string | Specifies the pagination cursor for the next page of IdPs (optional)
-	limit := int32(56) // int32 | Specifies the number of IdP results in a page (optional) (default to 20)
-	type_ := "type__example" // string | Filters IdPs by type (optional)
+    q := "q_example" // string | Searches the name property of IdPs for matching value (optional)
+    after := "after_example" // string | Specifies the pagination cursor for the next page of IdPs (optional)
+    limit := int32(56) // int32 | Specifies the number of IdP results in a page (optional) (default to 20)
+    type_ := "type__example" // string | Filters IdPs by type (optional)
 
-	configuration := openapiclient.NewConfiguration()
-	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.IdentityProviderAPI.ListIdentityProviders(context.Background()).Q(q).After(after).Limit(limit).Type_(type_).Execute()
-	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `IdentityProviderAPI.ListIdentityProviders``: %v\n", err)
-		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-	}
-	// response from `ListIdentityProviders`: []IdentityProvider
-	fmt.Fprintf(os.Stdout, "Response from `IdentityProviderAPI.ListIdentityProviders`: %v\n", resp)
+    configuration := openapiclient.NewConfiguration()
+    apiClient := openapiclient.NewAPIClient(configuration)
+    resp, r, err := apiClient.IdentityProviderAPI.ListIdentityProviders(context.Background()).Q(q).After(after).Limit(limit).Type_(type_).Execute()
+    if err != nil {
+        fmt.Fprintf(os.Stderr, "Error when calling `IdentityProviderAPI.ListIdentityProviders``: %v\n", err)
+        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+    }
+    // response from `ListIdentityProviders`: []IdentityProvider
+    fmt.Fprintf(os.Stdout, "Response from `IdentityProviderAPI.ListIdentityProviders`: %v\n", resp)
 }
 ```
 
@@ -1465,25 +1465,25 @@ List all Tokens from a OIDC Identity Provider
 package main
 
 import (
-	"context"
-	"fmt"
-	"os"
-	openapiclient "github.com/okta/okta-sdk-golang"
+    "context"
+    "fmt"
+    "os"
+    openapiclient "github.com/okta/okta-sdk-golang"
 )
 
 func main() {
-	idpId := "SVHoAOh0l8cPQkVX1LRl" // string | `id` of IdP
-	userId := "userId_example" // string | ID of an existing Okta user
+    idpId := "SVHoAOh0l8cPQkVX1LRl" // string | `id` of IdP
+    userId := "userId_example" // string | ID of an existing Okta user
 
-	configuration := openapiclient.NewConfiguration()
-	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.IdentityProviderAPI.ListSocialAuthTokens(context.Background(), idpId, userId).Execute()
-	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `IdentityProviderAPI.ListSocialAuthTokens``: %v\n", err)
-		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-	}
-	// response from `ListSocialAuthTokens`: []SocialAuthToken
-	fmt.Fprintf(os.Stdout, "Response from `IdentityProviderAPI.ListSocialAuthTokens`: %v\n", resp)
+    configuration := openapiclient.NewConfiguration()
+    apiClient := openapiclient.NewAPIClient(configuration)
+    resp, r, err := apiClient.IdentityProviderAPI.ListSocialAuthTokens(context.Background(), idpId, userId).Execute()
+    if err != nil {
+        fmt.Fprintf(os.Stderr, "Error when calling `IdentityProviderAPI.ListSocialAuthTokens``: %v\n", err)
+        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+    }
+    // response from `ListSocialAuthTokens`: []SocialAuthToken
+    fmt.Fprintf(os.Stdout, "Response from `IdentityProviderAPI.ListSocialAuthTokens`: %v\n", resp)
 }
 ```
 
@@ -1538,26 +1538,26 @@ Publish a Certificate Signing Request
 package main
 
 import (
-	"context"
-	"fmt"
-	"os"
-	openapiclient "github.com/okta/okta-sdk-golang"
+    "context"
+    "fmt"
+    "os"
+    openapiclient "github.com/okta/okta-sdk-golang"
 )
 
 func main() {
-	idpId := "SVHoAOh0l8cPQkVX1LRl" // string | `id` of IdP
-	idpCsrId := "1uEhyE65oV3H6KM9gYcN" // string | `id` of the IdP CSR
-	body := os.NewFile(1234, "some_file") // *os.File | 
+    idpId := "SVHoAOh0l8cPQkVX1LRl" // string | `id` of IdP
+    idpCsrId := "1uEhyE65oV3H6KM9gYcN" // string | `id` of the IdP CSR
+    body := os.NewFile(1234, "some_file") // *os.File | 
 
-	configuration := openapiclient.NewConfiguration()
-	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.IdentityProviderAPI.PublishCsrForIdentityProvider(context.Background(), idpId, idpCsrId).Body(body).Execute()
-	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `IdentityProviderAPI.PublishCsrForIdentityProvider``: %v\n", err)
-		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-	}
-	// response from `PublishCsrForIdentityProvider`: JsonWebKey
-	fmt.Fprintf(os.Stdout, "Response from `IdentityProviderAPI.PublishCsrForIdentityProvider`: %v\n", resp)
+    configuration := openapiclient.NewConfiguration()
+    apiClient := openapiclient.NewAPIClient(configuration)
+    resp, r, err := apiClient.IdentityProviderAPI.PublishCsrForIdentityProvider(context.Background(), idpId, idpCsrId).Body(body).Execute()
+    if err != nil {
+        fmt.Fprintf(os.Stderr, "Error when calling `IdentityProviderAPI.PublishCsrForIdentityProvider``: %v\n", err)
+        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+    }
+    // response from `PublishCsrForIdentityProvider`: JsonWebKey
+    fmt.Fprintf(os.Stdout, "Response from `IdentityProviderAPI.PublishCsrForIdentityProvider`: %v\n", resp)
 }
 ```
 
@@ -1613,25 +1613,25 @@ Replace an Identity Provider
 package main
 
 import (
-	"context"
-	"fmt"
-	"os"
-	openapiclient "github.com/okta/okta-sdk-golang"
+    "context"
+    "fmt"
+    "os"
+    openapiclient "github.com/okta/okta-sdk-golang"
 )
 
 func main() {
-	idpId := "SVHoAOh0l8cPQkVX1LRl" // string | `id` of IdP
-	identityProvider := *openapiclient.NewIdentityProvider() // IdentityProvider | 
+    idpId := "SVHoAOh0l8cPQkVX1LRl" // string | `id` of IdP
+    identityProvider := *openapiclient.NewIdentityProvider() // IdentityProvider | 
 
-	configuration := openapiclient.NewConfiguration()
-	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.IdentityProviderAPI.ReplaceIdentityProvider(context.Background(), idpId).IdentityProvider(identityProvider).Execute()
-	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `IdentityProviderAPI.ReplaceIdentityProvider``: %v\n", err)
-		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-	}
-	// response from `ReplaceIdentityProvider`: IdentityProvider
-	fmt.Fprintf(os.Stdout, "Response from `IdentityProviderAPI.ReplaceIdentityProvider`: %v\n", resp)
+    configuration := openapiclient.NewConfiguration()
+    apiClient := openapiclient.NewAPIClient(configuration)
+    resp, r, err := apiClient.IdentityProviderAPI.ReplaceIdentityProvider(context.Background(), idpId).IdentityProvider(identityProvider).Execute()
+    if err != nil {
+        fmt.Fprintf(os.Stderr, "Error when calling `IdentityProviderAPI.ReplaceIdentityProvider``: %v\n", err)
+        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+    }
+    // response from `ReplaceIdentityProvider`: IdentityProvider
+    fmt.Fprintf(os.Stdout, "Response from `IdentityProviderAPI.ReplaceIdentityProvider`: %v\n", resp)
 }
 ```
 
@@ -1685,23 +1685,23 @@ Revoke a Certificate Signing Request
 package main
 
 import (
-	"context"
-	"fmt"
-	"os"
-	openapiclient "github.com/okta/okta-sdk-golang"
+    "context"
+    "fmt"
+    "os"
+    openapiclient "github.com/okta/okta-sdk-golang"
 )
 
 func main() {
-	idpId := "SVHoAOh0l8cPQkVX1LRl" // string | `id` of IdP
-	idpCsrId := "1uEhyE65oV3H6KM9gYcN" // string | `id` of the IdP CSR
+    idpId := "SVHoAOh0l8cPQkVX1LRl" // string | `id` of IdP
+    idpCsrId := "1uEhyE65oV3H6KM9gYcN" // string | `id` of the IdP CSR
 
-	configuration := openapiclient.NewConfiguration()
-	apiClient := openapiclient.NewAPIClient(configuration)
-	r, err := apiClient.IdentityProviderAPI.RevokeCsrForIdentityProvider(context.Background(), idpId, idpCsrId).Execute()
-	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `IdentityProviderAPI.RevokeCsrForIdentityProvider``: %v\n", err)
-		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-	}
+    configuration := openapiclient.NewConfiguration()
+    apiClient := openapiclient.NewAPIClient(configuration)
+    r, err := apiClient.IdentityProviderAPI.RevokeCsrForIdentityProvider(context.Background(), idpId, idpCsrId).Execute()
+    if err != nil {
+        fmt.Fprintf(os.Stderr, "Error when calling `IdentityProviderAPI.RevokeCsrForIdentityProvider``: %v\n", err)
+        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+    }
 }
 ```
 
@@ -1756,23 +1756,23 @@ Unlink a User from IdP
 package main
 
 import (
-	"context"
-	"fmt"
-	"os"
-	openapiclient "github.com/okta/okta-sdk-golang"
+    "context"
+    "fmt"
+    "os"
+    openapiclient "github.com/okta/okta-sdk-golang"
 )
 
 func main() {
-	idpId := "SVHoAOh0l8cPQkVX1LRl" // string | `id` of IdP
-	userId := "userId_example" // string | ID of an existing Okta user
+    idpId := "SVHoAOh0l8cPQkVX1LRl" // string | `id` of IdP
+    userId := "userId_example" // string | ID of an existing Okta user
 
-	configuration := openapiclient.NewConfiguration()
-	apiClient := openapiclient.NewAPIClient(configuration)
-	r, err := apiClient.IdentityProviderAPI.UnlinkUserFromIdentityProvider(context.Background(), idpId, userId).Execute()
-	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `IdentityProviderAPI.UnlinkUserFromIdentityProvider``: %v\n", err)
-		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-	}
+    configuration := openapiclient.NewConfiguration()
+    apiClient := openapiclient.NewAPIClient(configuration)
+    r, err := apiClient.IdentityProviderAPI.UnlinkUserFromIdentityProvider(context.Background(), idpId, userId).Execute()
+    if err != nil {
+        fmt.Fprintf(os.Stderr, "Error when calling `IdentityProviderAPI.UnlinkUserFromIdentityProvider``: %v\n", err)
+        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+    }
 }
 ```
 

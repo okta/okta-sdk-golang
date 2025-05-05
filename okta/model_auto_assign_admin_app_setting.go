@@ -31,7 +31,7 @@ import (
 // AutoAssignAdminAppSetting The org setting that automatically assigns the Okta Admin Console when an admin role is assigned
 type AutoAssignAdminAppSetting struct {
 	AutoAssignAdminAppSetting *bool `json:"autoAssignAdminAppSetting,omitempty"`
-	AdditionalProperties      map[string]interface{}
+	AdditionalProperties map[string]interface{}
 }
 
 type _AutoAssignAdminAppSetting AutoAssignAdminAppSetting
@@ -156,3 +156,4 @@ func (v *NullableAutoAssignAdminAppSetting) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
+

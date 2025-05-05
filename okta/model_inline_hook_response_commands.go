@@ -30,8 +30,8 @@ import (
 
 // InlineHookResponseCommands struct for InlineHookResponseCommands
 type InlineHookResponseCommands struct {
-	Type                 *string                          `json:"type,omitempty"`
-	Value                []InlineHookResponseCommandValue `json:"value,omitempty"`
+	Type *string `json:"type,omitempty"`
+	Value []InlineHookResponseCommandValue `json:"value,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -193,3 +193,4 @@ func (v *NullableInlineHookResponseCommands) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
+

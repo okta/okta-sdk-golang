@@ -30,8 +30,8 @@ import (
 
 // PasswordPolicyRecoveryEmail struct for PasswordPolicyRecoveryEmail
 type PasswordPolicyRecoveryEmail struct {
-	Properties           *PasswordPolicyRecoveryEmailProperties `json:"properties,omitempty"`
-	Status               *string                                `json:"status,omitempty"`
+	Properties *PasswordPolicyRecoveryEmailProperties `json:"properties,omitempty"`
+	Status *string `json:"status,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -193,3 +193,4 @@ func (v *NullablePasswordPolicyRecoveryEmail) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
+

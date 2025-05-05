@@ -29,15 +29,16 @@ import (
 	"fmt"
 )
 
-// model_oneof.mustache
+
+//model_oneof.mustache
 // ListAuthenticatorMethods200ResponseInner - struct for ListAuthenticatorMethods200ResponseInner
 type ListAuthenticatorMethods200ResponseInner struct {
-	AuthenticatorMethodOtp                      *AuthenticatorMethodOtp
-	AuthenticatorMethodPush                     *AuthenticatorMethodPush
-	AuthenticatorMethodSignedNonce              *AuthenticatorMethodSignedNonce
-	AuthenticatorMethodSimple                   *AuthenticatorMethodSimple
-	AuthenticatorMethodTotp                     *AuthenticatorMethodTotp
-	AuthenticatorMethodWebAuthn                 *AuthenticatorMethodWebAuthn
+	AuthenticatorMethodOtp *AuthenticatorMethodOtp
+	AuthenticatorMethodPush *AuthenticatorMethodPush
+	AuthenticatorMethodSignedNonce *AuthenticatorMethodSignedNonce
+	AuthenticatorMethodSimple *AuthenticatorMethodSimple
+	AuthenticatorMethodTotp *AuthenticatorMethodTotp
+	AuthenticatorMethodWebAuthn *AuthenticatorMethodWebAuthn
 	AuthenticatorMethodWithVerifiableProperties *AuthenticatorMethodWithVerifiableProperties
 }
 
@@ -90,6 +91,7 @@ func AuthenticatorMethodWithVerifiablePropertiesAsListAuthenticatorMethods200Res
 	}
 }
 
+
 // Unmarshal JSON data into one of the pointers in the struct  CUSTOM
 func (dst *ListAuthenticatorMethods200ResponseInner) UnmarshalJSON(data []byte) error {
 	var err error
@@ -98,6 +100,90 @@ func (dst *ListAuthenticatorMethods200ResponseInner) UnmarshalJSON(data []byte) 
 	err = newStrictDecoder(data).Decode(&jsonDict)
 	if err != nil {
 		return fmt.Errorf("Failed to unmarshal JSON into map for the discriminator lookup.")
+	}
+
+	// check if the discriminator value is 'AuthenticatorMethodOtp'
+	if jsonDict["type"] == "AuthenticatorMethodOtp" {
+		// try to unmarshal JSON data into AuthenticatorMethodOtp
+		err = json.Unmarshal(data, &dst.AuthenticatorMethodOtp)
+		if err == nil {
+			return nil // data stored in dst.AuthenticatorMethodOtp, return on the first match
+		} else {
+			dst.AuthenticatorMethodOtp = nil
+			return fmt.Errorf("Failed to unmarshal ListAuthenticatorMethods200ResponseInner as AuthenticatorMethodOtp: %s", err.Error())
+		}
+	}
+
+	// check if the discriminator value is 'AuthenticatorMethodPush'
+	if jsonDict["type"] == "AuthenticatorMethodPush" {
+		// try to unmarshal JSON data into AuthenticatorMethodPush
+		err = json.Unmarshal(data, &dst.AuthenticatorMethodPush)
+		if err == nil {
+			return nil // data stored in dst.AuthenticatorMethodPush, return on the first match
+		} else {
+			dst.AuthenticatorMethodPush = nil
+			return fmt.Errorf("Failed to unmarshal ListAuthenticatorMethods200ResponseInner as AuthenticatorMethodPush: %s", err.Error())
+		}
+	}
+
+	// check if the discriminator value is 'AuthenticatorMethodSignedNonce'
+	if jsonDict["type"] == "AuthenticatorMethodSignedNonce" {
+		// try to unmarshal JSON data into AuthenticatorMethodSignedNonce
+		err = json.Unmarshal(data, &dst.AuthenticatorMethodSignedNonce)
+		if err == nil {
+			return nil // data stored in dst.AuthenticatorMethodSignedNonce, return on the first match
+		} else {
+			dst.AuthenticatorMethodSignedNonce = nil
+			return fmt.Errorf("Failed to unmarshal ListAuthenticatorMethods200ResponseInner as AuthenticatorMethodSignedNonce: %s", err.Error())
+		}
+	}
+
+	// check if the discriminator value is 'AuthenticatorMethodSimple'
+	if jsonDict["type"] == "AuthenticatorMethodSimple" {
+		// try to unmarshal JSON data into AuthenticatorMethodSimple
+		err = json.Unmarshal(data, &dst.AuthenticatorMethodSimple)
+		if err == nil {
+			return nil // data stored in dst.AuthenticatorMethodSimple, return on the first match
+		} else {
+			dst.AuthenticatorMethodSimple = nil
+			return fmt.Errorf("Failed to unmarshal ListAuthenticatorMethods200ResponseInner as AuthenticatorMethodSimple: %s", err.Error())
+		}
+	}
+
+	// check if the discriminator value is 'AuthenticatorMethodTotp'
+	if jsonDict["type"] == "AuthenticatorMethodTotp" {
+		// try to unmarshal JSON data into AuthenticatorMethodTotp
+		err = json.Unmarshal(data, &dst.AuthenticatorMethodTotp)
+		if err == nil {
+			return nil // data stored in dst.AuthenticatorMethodTotp, return on the first match
+		} else {
+			dst.AuthenticatorMethodTotp = nil
+			return fmt.Errorf("Failed to unmarshal ListAuthenticatorMethods200ResponseInner as AuthenticatorMethodTotp: %s", err.Error())
+		}
+	}
+
+	// check if the discriminator value is 'AuthenticatorMethodWebAuthn'
+	if jsonDict["type"] == "AuthenticatorMethodWebAuthn" {
+		// try to unmarshal JSON data into AuthenticatorMethodWebAuthn
+		err = json.Unmarshal(data, &dst.AuthenticatorMethodWebAuthn)
+		if err == nil {
+			return nil // data stored in dst.AuthenticatorMethodWebAuthn, return on the first match
+		} else {
+			dst.AuthenticatorMethodWebAuthn = nil
+			return fmt.Errorf("Failed to unmarshal ListAuthenticatorMethods200ResponseInner as AuthenticatorMethodWebAuthn: %s", err.Error())
+		}
+	}
+
+	// check if the discriminator value is 'AuthenticatorMethodWithVerifiableProperties'
+	if jsonDict["type"] == "AuthenticatorMethodWithVerifiableProperties" {
+		// try to unmarshal JSON data into AuthenticatorMethodWithVerifiableProperties
+		err = json.Unmarshal(data, &dst.AuthenticatorMethodWithVerifiableProperties)
+		if err == nil {
+			return nil // data stored in dst.AuthenticatorMethodWithVerifiableProperties, return on the first match
+		} else {
+			dst.AuthenticatorMethodWithVerifiableProperties = nil
+			return fmt.Errorf("Failed to unmarshal ListAuthenticatorMethods200ResponseInner as AuthenticatorMethodWithVerifiableProperties: %s", err.Error())
+		}
 	}
 
 	// check if the discriminator value is 'cert'
@@ -256,90 +342,6 @@ func (dst *ListAuthenticatorMethods200ResponseInner) UnmarshalJSON(data []byte) 
 		}
 	}
 
-	// check if the discriminator value is 'AuthenticatorMethodOtp'
-	if jsonDict["type"] == "AuthenticatorMethodOtp" {
-		// try to unmarshal JSON data into AuthenticatorMethodOtp
-		err = json.Unmarshal(data, &dst.AuthenticatorMethodOtp)
-		if err == nil {
-			return nil // data stored in dst.AuthenticatorMethodOtp, return on the first match
-		} else {
-			dst.AuthenticatorMethodOtp = nil
-			return fmt.Errorf("Failed to unmarshal ListAuthenticatorMethods200ResponseInner as AuthenticatorMethodOtp: %s", err.Error())
-		}
-	}
-
-	// check if the discriminator value is 'AuthenticatorMethodPush'
-	if jsonDict["type"] == "AuthenticatorMethodPush" {
-		// try to unmarshal JSON data into AuthenticatorMethodPush
-		err = json.Unmarshal(data, &dst.AuthenticatorMethodPush)
-		if err == nil {
-			return nil // data stored in dst.AuthenticatorMethodPush, return on the first match
-		} else {
-			dst.AuthenticatorMethodPush = nil
-			return fmt.Errorf("Failed to unmarshal ListAuthenticatorMethods200ResponseInner as AuthenticatorMethodPush: %s", err.Error())
-		}
-	}
-
-	// check if the discriminator value is 'AuthenticatorMethodSignedNonce'
-	if jsonDict["type"] == "AuthenticatorMethodSignedNonce" {
-		// try to unmarshal JSON data into AuthenticatorMethodSignedNonce
-		err = json.Unmarshal(data, &dst.AuthenticatorMethodSignedNonce)
-		if err == nil {
-			return nil // data stored in dst.AuthenticatorMethodSignedNonce, return on the first match
-		} else {
-			dst.AuthenticatorMethodSignedNonce = nil
-			return fmt.Errorf("Failed to unmarshal ListAuthenticatorMethods200ResponseInner as AuthenticatorMethodSignedNonce: %s", err.Error())
-		}
-	}
-
-	// check if the discriminator value is 'AuthenticatorMethodSimple'
-	if jsonDict["type"] == "AuthenticatorMethodSimple" {
-		// try to unmarshal JSON data into AuthenticatorMethodSimple
-		err = json.Unmarshal(data, &dst.AuthenticatorMethodSimple)
-		if err == nil {
-			return nil // data stored in dst.AuthenticatorMethodSimple, return on the first match
-		} else {
-			dst.AuthenticatorMethodSimple = nil
-			return fmt.Errorf("Failed to unmarshal ListAuthenticatorMethods200ResponseInner as AuthenticatorMethodSimple: %s", err.Error())
-		}
-	}
-
-	// check if the discriminator value is 'AuthenticatorMethodTotp'
-	if jsonDict["type"] == "AuthenticatorMethodTotp" {
-		// try to unmarshal JSON data into AuthenticatorMethodTotp
-		err = json.Unmarshal(data, &dst.AuthenticatorMethodTotp)
-		if err == nil {
-			return nil // data stored in dst.AuthenticatorMethodTotp, return on the first match
-		} else {
-			dst.AuthenticatorMethodTotp = nil
-			return fmt.Errorf("Failed to unmarshal ListAuthenticatorMethods200ResponseInner as AuthenticatorMethodTotp: %s", err.Error())
-		}
-	}
-
-	// check if the discriminator value is 'AuthenticatorMethodWebAuthn'
-	if jsonDict["type"] == "AuthenticatorMethodWebAuthn" {
-		// try to unmarshal JSON data into AuthenticatorMethodWebAuthn
-		err = json.Unmarshal(data, &dst.AuthenticatorMethodWebAuthn)
-		if err == nil {
-			return nil // data stored in dst.AuthenticatorMethodWebAuthn, return on the first match
-		} else {
-			dst.AuthenticatorMethodWebAuthn = nil
-			return fmt.Errorf("Failed to unmarshal ListAuthenticatorMethods200ResponseInner as AuthenticatorMethodWebAuthn: %s", err.Error())
-		}
-	}
-
-	// check if the discriminator value is 'AuthenticatorMethodWithVerifiableProperties'
-	if jsonDict["type"] == "AuthenticatorMethodWithVerifiableProperties" {
-		// try to unmarshal JSON data into AuthenticatorMethodWithVerifiableProperties
-		err = json.Unmarshal(data, &dst.AuthenticatorMethodWithVerifiableProperties)
-		if err == nil {
-			return nil // data stored in dst.AuthenticatorMethodWithVerifiableProperties, return on the first match
-		} else {
-			dst.AuthenticatorMethodWithVerifiableProperties = nil
-			return fmt.Errorf("Failed to unmarshal ListAuthenticatorMethods200ResponseInner as AuthenticatorMethodWithVerifiableProperties: %s", err.Error())
-		}
-	}
-
 	return nil
 }
 
@@ -377,7 +379,7 @@ func (src ListAuthenticatorMethods200ResponseInner) MarshalJSON() ([]byte, error
 }
 
 // Get the actual instance
-func (obj *ListAuthenticatorMethods200ResponseInner) GetActualInstance() interface{} {
+func (obj *ListAuthenticatorMethods200ResponseInner) GetActualInstance() (interface{}) {
 	if obj == nil {
 		return nil
 	}
@@ -448,3 +450,5 @@ func (v *NullableListAuthenticatorMethods200ResponseInner) UnmarshalJSON(src []b
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
+
+

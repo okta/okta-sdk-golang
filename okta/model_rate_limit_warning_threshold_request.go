@@ -28,10 +28,10 @@ import (
 	"encoding/json"
 )
 
-// RateLimitWarningThresholdRequest
+// RateLimitWarningThresholdRequest 
 type RateLimitWarningThresholdRequest struct {
 	// The threshold value (percentage) of a rate limit that, when exceeded, triggers a warning notification. By default, this value is 90 for Workforce orgs and 60 for CIAM orgs.
-	WarningThreshold     int32 `json:"warningThreshold"`
+	WarningThreshold int32 `json:"warningThreshold"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -150,3 +150,4 @@ func (v *NullableRateLimitWarningThresholdRequest) UnmarshalJSON(src []byte) err
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
+

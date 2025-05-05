@@ -46,8 +46,8 @@ type DTCWindows struct {
 	// Represents the attestation strength used by the Chrome Verified Access API
 	KeyTrustLevel *string `json:"keyTrustLevel,omitempty"`
 	// Indicates whether a firewall is enabled at the OS-level on the device
-	OsFirewall *bool                    `json:"osFirewall,omitempty"`
-	OsVersion  *OSVersionFourComponents `json:"osVersion,omitempty"`
+	OsFirewall *bool `json:"osFirewall,omitempty"`
+	OsVersion *OSVersionFourComponents `json:"osVersion,omitempty"`
 	// Indicates whether the Password Protection Warning feature is enabled
 	PasswordProtectionWarningTrigger *string `json:"passwordProtectionWarningTrigger,omitempty"`
 	// Indicates whether enterprise-grade (custom) unsafe URL scanning is enabled
@@ -65,7 +65,7 @@ type DTCWindows struct {
 	// Windows domain that the current machine has joined
 	WindowsMachineDomain *string `json:"windowsMachineDomain,omitempty"`
 	// Windows domain for the current OS user
-	WindowsUserDomain    *string `json:"windowsUserDomain,omitempty"`
+	WindowsUserDomain *string `json:"windowsUserDomain,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -839,3 +839,4 @@ func (v *NullableDTCWindows) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
+

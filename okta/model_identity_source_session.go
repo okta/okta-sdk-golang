@@ -31,12 +31,12 @@ import (
 
 // IdentitySourceSession struct for IdentitySourceSession
 type IdentitySourceSession struct {
-	Created              *time.Time `json:"created,omitempty"`
-	Id                   *string    `json:"id,omitempty"`
-	IdentitySourceId     *string    `json:"identitySourceId,omitempty"`
-	ImportType           *string    `json:"importType,omitempty"`
-	LastUpdated          *time.Time `json:"lastUpdated,omitempty"`
-	Status               *string    `json:"status,omitempty"`
+	Created *time.Time `json:"created,omitempty"`
+	Id *string `json:"id,omitempty"`
+	IdentitySourceId *string `json:"identitySourceId,omitempty"`
+	ImportType *string `json:"importType,omitempty"`
+	LastUpdated *time.Time `json:"lastUpdated,omitempty"`
+	Status *string `json:"status,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -342,3 +342,4 @@ func (v *NullableIdentitySourceSession) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
+

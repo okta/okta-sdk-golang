@@ -31,16 +31,16 @@ import (
 
 // RealmAssignment struct for RealmAssignment
 type RealmAssignment struct {
-	Actions              *Actions    `json:"actions,omitempty"`
-	Conditions           *Conditions `json:"conditions,omitempty"`
-	Created              *time.Time  `json:"created,omitempty"`
-	Id                   *string     `json:"id,omitempty"`
-	IsDefault            *bool       `json:"isDefault,omitempty"`
-	LastUpdated          *time.Time  `json:"lastUpdated,omitempty"`
-	Name                 *string     `json:"name,omitempty"`
-	Priority             *int32      `json:"priority,omitempty"`
-	Status               *string     `json:"status,omitempty"`
-	Links                *LinksSelf  `json:"_links,omitempty"`
+	Actions *Actions `json:"actions,omitempty"`
+	Conditions *Conditions `json:"conditions,omitempty"`
+	Created *time.Time `json:"created,omitempty"`
+	Id *string `json:"id,omitempty"`
+	IsDefault *bool `json:"isDefault,omitempty"`
+	LastUpdated *time.Time `json:"lastUpdated,omitempty"`
+	Name *string `json:"name,omitempty"`
+	Priority *int32 `json:"priority,omitempty"`
+	Status *string `json:"status,omitempty"`
+	Links *LinksSelf `json:"_links,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -490,3 +490,4 @@ func (v *NullableRealmAssignment) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
+

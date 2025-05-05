@@ -30,21 +30,22 @@ import (
 	"io/ioutil"
 	"net/http"
 	"net/url"
-	"strings"
 	"time"
+	"strings"
 )
+
 
 type DeviceAPI interface {
 
 	/*
-			ActivateDevice Activate a Device
+	ActivateDevice Activate a Device
 
-			Activates a Device by setting its status to ACTIVE by `deviceId`.
-		Activated devices are used to create and delete Device user links.
+	Activates a Device by setting its status to ACTIVE by `deviceId`.
+Activated devices are used to create and delete Device user links.
 
-			@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-			@param deviceId `id` of the device
-			@return ApiActivateDeviceRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param deviceId `id` of the device
+	@return ApiActivateDeviceRequest
 	*/
 	ActivateDevice(ctx context.Context, deviceId string) ApiActivateDeviceRequest
 
@@ -52,18 +53,18 @@ type DeviceAPI interface {
 	ActivateDeviceExecute(r ApiActivateDeviceRequest) (*APIResponse, error)
 
 	/*
-			DeactivateDevice Deactivate a Device
+	DeactivateDevice Deactivate a Device
 
-			Deactivates a Device by setting its status to DEACTIVATED by `deviceId`.
-		Deactivation causes a Device to lose all device user links.
-		Set the Device status to DEACTIVATED before deleting it.
-		> **Note:** When deactivating a Device, keep in mind the following:
-		  - Device deactivation is a destructive operation for device factors and client certificates. Device reenrollment using Okta Verify allows end users to set up new factors on the device.
-		  - Device deletion removes the device record from Okta. Reenrollment creates a new device record.
+	Deactivates a Device by setting its status to DEACTIVATED by `deviceId`.
+Deactivation causes a Device to lose all device user links.
+Set the Device status to DEACTIVATED before deleting it.
+> **Note:** When deactivating a Device, keep in mind the following:
+  - Device deactivation is a destructive operation for device factors and client certificates. Device reenrollment using Okta Verify allows end users to set up new factors on the device.
+  - Device deletion removes the device record from Okta. Reenrollment creates a new device record.
 
-			@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-			@param deviceId `id` of the device
-			@return ApiDeactivateDeviceRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param deviceId `id` of the device
+	@return ApiDeactivateDeviceRequest
 	*/
 	DeactivateDevice(ctx context.Context, deviceId string) ApiDeactivateDeviceRequest
 
@@ -71,15 +72,15 @@ type DeviceAPI interface {
 	DeactivateDeviceExecute(r ApiDeactivateDeviceRequest) (*APIResponse, error)
 
 	/*
-			DeleteDevice Delete a Device
+	DeleteDevice Delete a Device
 
-			Deletes (permanently) a device by `deviceId` if it has a status of `DEACTIVATED`. You can transition the device to `DEACTIVATED` status using the [Deactivate a Device](/openapi/okta-management/management/tag/Device/#tag/Device/operation/deactivateDevice) endpoint.
-		This request is destructive and deletes all of the profile data related to the device. Once deleted, device data can't be recovered. However, reenrollment creates a new device record.
-		> **Note:** Attempts to delete a device that isn't in a `DEACTIVATED` state raise an error.
+	Deletes (permanently) a device by `deviceId` if it has a status of `DEACTIVATED`. You can transition the device to `DEACTIVATED` status using the [Deactivate a Device](/openapi/okta-management/management/tag/Device/#tag/Device/operation/deactivateDevice) endpoint.
+This request is destructive and deletes all of the profile data related to the device. Once deleted, device data can't be recovered. However, reenrollment creates a new device record.
+> **Note:** Attempts to delete a device that isn't in a `DEACTIVATED` state raise an error.
 
-			@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-			@param deviceId `id` of the device
-			@return ApiDeleteDeviceRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param deviceId `id` of the device
+	@return ApiDeleteDeviceRequest
 	*/
 	DeleteDevice(ctx context.Context, deviceId string) ApiDeleteDeviceRequest
 
@@ -87,13 +88,13 @@ type DeviceAPI interface {
 	DeleteDeviceExecute(r ApiDeleteDeviceRequest) (*APIResponse, error)
 
 	/*
-		GetDevice Retrieve a Device
+	GetDevice Retrieve a Device
 
-		Retrieves a device by `deviceId`
+	Retrieves a device by `deviceId`
 
-		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-		@param deviceId `id` of the device
-		@return ApiGetDeviceRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param deviceId `id` of the device
+	@return ApiGetDeviceRequest
 	*/
 	GetDevice(ctx context.Context, deviceId string) ApiGetDeviceRequest
 
@@ -102,13 +103,13 @@ type DeviceAPI interface {
 	GetDeviceExecute(r ApiGetDeviceRequest) (*Device, *APIResponse, error)
 
 	/*
-		ListDeviceUsers List all Users for a Device
+	ListDeviceUsers List all Users for a Device
 
-		Lists all Users for a Device by `deviceId`
+	Lists all Users for a Device by `deviceId`
 
-		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-		@param deviceId `id` of the device
-		@return ApiListDeviceUsersRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param deviceId `id` of the device
+	@return ApiListDeviceUsersRequest
 	*/
 	ListDeviceUsers(ctx context.Context, deviceId string) ApiListDeviceUsersRequest
 
@@ -117,16 +118,16 @@ type DeviceAPI interface {
 	ListDeviceUsersExecute(r ApiListDeviceUsersRequest) ([]DeviceUser, *APIResponse, error)
 
 	/*
-			ListDevices List all Devices
+	ListDevices List all Devices
 
-			Lists all devices with pagination support.
-		You can return a subset of Devices that match a supported search criteria using the `search` query parameter.
-		Searches for devices based on the properties specified in the `search` parameter conforming SCIM filter specifications (case-insensitive). This data is eventually consistent. The API returns different results depending on specified queries in the request. Empty list is returned if no objects match `search` request.
-		> **Note:** Listing devices with `search` should not be used as a part of any critical flows—such as authentication or updates—to prevent potential data loss. `search` results may not reflect the latest information, as this endpoint uses a search index which may not be up-to-date with recent updates to the object. <br> Don't use search results directly for record updates, as the data might be stale and therefore overwrite newer data, resulting in data loss. <br> Use an `id` lookup for records that you update to ensure your results contain the latest data.
-		This operation requires [URL encoding](https://www.w3.org/TR/html4/interact/forms.html#h-17.13.4.1). For example, `search=profile.displayName eq "Bob"` is encoded as `search=profile.displayName%20eq%20%22Bob%22`.
+	Lists all devices with pagination support.
+You can return a subset of Devices that match a supported search criteria using the `search` query parameter.
+Searches for devices based on the properties specified in the `search` parameter conforming SCIM filter specifications (case-insensitive). This data is eventually consistent. The API returns different results depending on specified queries in the request. Empty list is returned if no objects match `search` request.
+> **Note:** Listing devices with `search` should not be used as a part of any critical flows—such as authentication or updates—to prevent potential data loss. `search` results may not reflect the latest information, as this endpoint uses a search index which may not be up-to-date with recent updates to the object. <br> Don't use search results directly for record updates, as the data might be stale and therefore overwrite newer data, resulting in data loss. <br> Use an `id` lookup for records that you update to ensure your results contain the latest data.
+This operation requires [URL encoding](https://www.w3.org/TR/html4/interact/forms.html#h-17.13.4.1). For example, `search=profile.displayName eq "Bob"` is encoded as `search=profile.displayName%20eq%20%22Bob%22`.
 
-			@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-			@return ApiListDevicesRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@return ApiListDevicesRequest
 	*/
 	ListDevices(ctx context.Context) ApiListDevicesRequest
 
@@ -135,16 +136,16 @@ type DeviceAPI interface {
 	ListDevicesExecute(r ApiListDevicesRequest) ([]DeviceList, *APIResponse, error)
 
 	/*
-			SuspendDevice Suspend a Device
+	SuspendDevice Suspend a Device
 
-			Suspends a Device by setting its status to SUSPENDED.
-		Use suspended devices to create and delete device user links.
-		You can only unsuspend or deactivate suspended devices.
-		> **Note:** SUSPENDED status is meant to be temporary, so it isn't destructive.
+	Suspends a Device by setting its status to SUSPENDED.
+Use suspended devices to create and delete device user links.
+You can only unsuspend or deactivate suspended devices.
+> **Note:** SUSPENDED status is meant to be temporary, so it isn't destructive.
 
-			@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-			@param deviceId `id` of the device
-			@return ApiSuspendDeviceRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param deviceId `id` of the device
+	@return ApiSuspendDeviceRequest
 	*/
 	SuspendDevice(ctx context.Context, deviceId string) ApiSuspendDeviceRequest
 
@@ -152,14 +153,14 @@ type DeviceAPI interface {
 	SuspendDeviceExecute(r ApiSuspendDeviceRequest) (*APIResponse, error)
 
 	/*
-			UnsuspendDevice Unsuspend a Device
+	UnsuspendDevice Unsuspend a Device
 
-			Unsuspends a Device by returning its `status` to ACTIVE.
-		>**Note:** Only devices with a SUSPENDED status can be unsuspended.
+	Unsuspends a Device by returning its `status` to ACTIVE.
+>**Note:** Only devices with a SUSPENDED status can be unsuspended.
 
-			@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-			@param deviceId `id` of the device
-			@return ApiUnsuspendDeviceRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param deviceId `id` of the device
+	@return ApiUnsuspendDeviceRequest
 	*/
 	UnsuspendDevice(ctx context.Context, deviceId string) ApiUnsuspendDeviceRequest
 
@@ -171,9 +172,9 @@ type DeviceAPI interface {
 type DeviceAPIService service
 
 type ApiActivateDeviceRequest struct {
-	ctx        context.Context
+	ctx context.Context
 	ApiService DeviceAPI
-	deviceId   string
+	deviceId string
 	retryCount int32
 }
 
@@ -187,15 +188,15 @@ ActivateDevice Activate a Device
 Activates a Device by setting its status to ACTIVE by `deviceId`.
 Activated devices are used to create and delete Device user links.
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param deviceId `id` of the device
-	@return ApiActivateDeviceRequest
+ @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+ @param deviceId `id` of the device
+ @return ApiActivateDeviceRequest
 */
 func (a *DeviceAPIService) ActivateDevice(ctx context.Context, deviceId string) ApiActivateDeviceRequest {
 	return ApiActivateDeviceRequest{
 		ApiService: a,
-		ctx:        ctx,
-		deviceId:   deviceId,
+		ctx: ctx,
+		deviceId: deviceId,
 		retryCount: 0,
 	}
 }
@@ -208,7 +209,7 @@ func (a *DeviceAPIService) ActivateDeviceExecute(r ApiActivateDeviceRequest) (*A
 		formFiles            []formFile
 		localVarHTTPResponse *http.Response
 		localAPIResponse     *APIResponse
-		err                  error
+		err 				 error
 	)
 
 	if a.client.cfg.Okta.Client.RequestTimeout > 0 {
@@ -325,9 +326,9 @@ func (a *DeviceAPIService) ActivateDeviceExecute(r ApiActivateDeviceRequest) (*A
 }
 
 type ApiDeactivateDeviceRequest struct {
-	ctx        context.Context
+	ctx context.Context
 	ApiService DeviceAPI
-	deviceId   string
+	deviceId string
 	retryCount int32
 }
 
@@ -342,20 +343,18 @@ Deactivates a Device by setting its status to DEACTIVATED by `deviceId`.
 Deactivation causes a Device to lose all device user links.
 Set the Device status to DEACTIVATED before deleting it.
 > **Note:** When deactivating a Device, keep in mind the following:
-
   - Device deactivation is a destructive operation for device factors and client certificates. Device reenrollment using Okta Verify allows end users to set up new factors on the device.
-
   - Device deletion removes the device record from Okta. Reenrollment creates a new device record.
 
-    @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-    @param deviceId `id` of the device
-    @return ApiDeactivateDeviceRequest
+ @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+ @param deviceId `id` of the device
+ @return ApiDeactivateDeviceRequest
 */
 func (a *DeviceAPIService) DeactivateDevice(ctx context.Context, deviceId string) ApiDeactivateDeviceRequest {
 	return ApiDeactivateDeviceRequest{
 		ApiService: a,
-		ctx:        ctx,
-		deviceId:   deviceId,
+		ctx: ctx,
+		deviceId: deviceId,
 		retryCount: 0,
 	}
 }
@@ -368,7 +367,7 @@ func (a *DeviceAPIService) DeactivateDeviceExecute(r ApiDeactivateDeviceRequest)
 		formFiles            []formFile
 		localVarHTTPResponse *http.Response
 		localAPIResponse     *APIResponse
-		err                  error
+		err 				 error
 	)
 
 	if a.client.cfg.Okta.Client.RequestTimeout > 0 {
@@ -485,9 +484,9 @@ func (a *DeviceAPIService) DeactivateDeviceExecute(r ApiDeactivateDeviceRequest)
 }
 
 type ApiDeleteDeviceRequest struct {
-	ctx        context.Context
+	ctx context.Context
 	ApiService DeviceAPI
-	deviceId   string
+	deviceId string
 	retryCount int32
 }
 
@@ -502,15 +501,15 @@ Deletes (permanently) a device by `deviceId` if it has a status of `DEACTIVATED`
 This request is destructive and deletes all of the profile data related to the device. Once deleted, device data can't be recovered. However, reenrollment creates a new device record.
 > **Note:** Attempts to delete a device that isn't in a `DEACTIVATED` state raise an error.
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param deviceId `id` of the device
-	@return ApiDeleteDeviceRequest
+ @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+ @param deviceId `id` of the device
+ @return ApiDeleteDeviceRequest
 */
 func (a *DeviceAPIService) DeleteDevice(ctx context.Context, deviceId string) ApiDeleteDeviceRequest {
 	return ApiDeleteDeviceRequest{
 		ApiService: a,
-		ctx:        ctx,
-		deviceId:   deviceId,
+		ctx: ctx,
+		deviceId: deviceId,
 		retryCount: 0,
 	}
 }
@@ -523,7 +522,7 @@ func (a *DeviceAPIService) DeleteDeviceExecute(r ApiDeleteDeviceRequest) (*APIRe
 		formFiles            []formFile
 		localVarHTTPResponse *http.Response
 		localAPIResponse     *APIResponse
-		err                  error
+		err 				 error
 	)
 
 	if a.client.cfg.Okta.Client.RequestTimeout > 0 {
@@ -640,9 +639,9 @@ func (a *DeviceAPIService) DeleteDeviceExecute(r ApiDeleteDeviceRequest) (*APIRe
 }
 
 type ApiGetDeviceRequest struct {
-	ctx        context.Context
+	ctx context.Context
 	ApiService DeviceAPI
-	deviceId   string
+	deviceId string
 	retryCount int32
 }
 
@@ -655,22 +654,21 @@ GetDevice Retrieve a Device
 
 Retrieves a device by `deviceId`
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param deviceId `id` of the device
-	@return ApiGetDeviceRequest
+ @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+ @param deviceId `id` of the device
+ @return ApiGetDeviceRequest
 */
 func (a *DeviceAPIService) GetDevice(ctx context.Context, deviceId string) ApiGetDeviceRequest {
 	return ApiGetDeviceRequest{
 		ApiService: a,
-		ctx:        ctx,
-		deviceId:   deviceId,
+		ctx: ctx,
+		deviceId: deviceId,
 		retryCount: 0,
 	}
 }
 
 // Execute executes the request
-//
-//	@return Device
+//  @return Device
 func (a *DeviceAPIService) GetDeviceExecute(r ApiGetDeviceRequest) (*Device, *APIResponse, error) {
 	var (
 		localVarHTTPMethod   = http.MethodGet
@@ -679,7 +677,7 @@ func (a *DeviceAPIService) GetDeviceExecute(r ApiGetDeviceRequest) (*Device, *AP
 		localVarReturnValue  *Device
 		localVarHTTPResponse *http.Response
 		localAPIResponse     *APIResponse
-		err                  error
+		err 				 error
 	)
 
 	if a.client.cfg.Okta.Client.RequestTimeout > 0 {
@@ -800,15 +798,15 @@ func (a *DeviceAPIService) GetDeviceExecute(r ApiGetDeviceRequest) (*Device, *AP
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
 		return localVarReturnValue, localAPIResponse, newErr
 	}
-
+	
 	localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
 	return localVarReturnValue, localAPIResponse, nil
 }
 
 type ApiListDeviceUsersRequest struct {
-	ctx        context.Context
+	ctx context.Context
 	ApiService DeviceAPI
-	deviceId   string
+	deviceId string
 	retryCount int32
 }
 
@@ -821,22 +819,21 @@ ListDeviceUsers List all Users for a Device
 
 Lists all Users for a Device by `deviceId`
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param deviceId `id` of the device
-	@return ApiListDeviceUsersRequest
+ @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+ @param deviceId `id` of the device
+ @return ApiListDeviceUsersRequest
 */
 func (a *DeviceAPIService) ListDeviceUsers(ctx context.Context, deviceId string) ApiListDeviceUsersRequest {
 	return ApiListDeviceUsersRequest{
 		ApiService: a,
-		ctx:        ctx,
-		deviceId:   deviceId,
+		ctx: ctx,
+		deviceId: deviceId,
 		retryCount: 0,
 	}
 }
 
 // Execute executes the request
-//
-//	@return []DeviceUser
+//  @return []DeviceUser
 func (a *DeviceAPIService) ListDeviceUsersExecute(r ApiListDeviceUsersRequest) ([]DeviceUser, *APIResponse, error) {
 	var (
 		localVarHTTPMethod   = http.MethodGet
@@ -845,7 +842,7 @@ func (a *DeviceAPIService) ListDeviceUsersExecute(r ApiListDeviceUsersRequest) (
 		localVarReturnValue  []DeviceUser
 		localVarHTTPResponse *http.Response
 		localAPIResponse     *APIResponse
-		err                  error
+		err 				 error
 	)
 
 	if a.client.cfg.Okta.Client.RequestTimeout > 0 {
@@ -966,18 +963,18 @@ func (a *DeviceAPIService) ListDeviceUsersExecute(r ApiListDeviceUsersRequest) (
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
 		return localVarReturnValue, localAPIResponse, newErr
 	}
-
+	
 	localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
 	return localVarReturnValue, localAPIResponse, nil
 }
 
 type ApiListDevicesRequest struct {
-	ctx        context.Context
+	ctx context.Context
 	ApiService DeviceAPI
-	after      *string
-	limit      *int32
-	search     *string
-	expand     *string
+	after *string
+	limit *int32
+	search *string
+	expand *string
 	retryCount int32
 }
 
@@ -1017,20 +1014,19 @@ Searches for devices based on the properties specified in the `search` parameter
 > **Note:** Listing devices with `search` should not be used as a part of any critical flows—such as authentication or updates—to prevent potential data loss. `search` results may not reflect the latest information, as this endpoint uses a search index which may not be up-to-date with recent updates to the object. <br> Don't use search results directly for record updates, as the data might be stale and therefore overwrite newer data, resulting in data loss. <br> Use an `id` lookup for records that you update to ensure your results contain the latest data.
 This operation requires [URL encoding](https://www.w3.org/TR/html4/interact/forms.html#h-17.13.4.1). For example, `search=profile.displayName eq "Bob"` is encoded as `search=profile.displayName%20eq%20%22Bob%22`.
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@return ApiListDevicesRequest
+ @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+ @return ApiListDevicesRequest
 */
 func (a *DeviceAPIService) ListDevices(ctx context.Context) ApiListDevicesRequest {
 	return ApiListDevicesRequest{
 		ApiService: a,
-		ctx:        ctx,
+		ctx: ctx,
 		retryCount: 0,
 	}
 }
 
 // Execute executes the request
-//
-//	@return []DeviceList
+//  @return []DeviceList
 func (a *DeviceAPIService) ListDevicesExecute(r ApiListDevicesRequest) ([]DeviceList, *APIResponse, error) {
 	var (
 		localVarHTTPMethod   = http.MethodGet
@@ -1039,7 +1035,7 @@ func (a *DeviceAPIService) ListDevicesExecute(r ApiListDevicesRequest) ([]Device
 		localVarReturnValue  []DeviceList
 		localVarHTTPResponse *http.Response
 		localAPIResponse     *APIResponse
-		err                  error
+		err 				 error
 	)
 
 	if a.client.cfg.Okta.Client.RequestTimeout > 0 {
@@ -1159,15 +1155,15 @@ func (a *DeviceAPIService) ListDevicesExecute(r ApiListDevicesRequest) ([]Device
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
 		return localVarReturnValue, localAPIResponse, newErr
 	}
-
+	
 	localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
 	return localVarReturnValue, localAPIResponse, nil
 }
 
 type ApiSuspendDeviceRequest struct {
-	ctx        context.Context
+	ctx context.Context
 	ApiService DeviceAPI
-	deviceId   string
+	deviceId string
 	retryCount int32
 }
 
@@ -1183,15 +1179,15 @@ Use suspended devices to create and delete device user links.
 You can only unsuspend or deactivate suspended devices.
 > **Note:** SUSPENDED status is meant to be temporary, so it isn't destructive.
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param deviceId `id` of the device
-	@return ApiSuspendDeviceRequest
+ @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+ @param deviceId `id` of the device
+ @return ApiSuspendDeviceRequest
 */
 func (a *DeviceAPIService) SuspendDevice(ctx context.Context, deviceId string) ApiSuspendDeviceRequest {
 	return ApiSuspendDeviceRequest{
 		ApiService: a,
-		ctx:        ctx,
-		deviceId:   deviceId,
+		ctx: ctx,
+		deviceId: deviceId,
 		retryCount: 0,
 	}
 }
@@ -1204,7 +1200,7 @@ func (a *DeviceAPIService) SuspendDeviceExecute(r ApiSuspendDeviceRequest) (*API
 		formFiles            []formFile
 		localVarHTTPResponse *http.Response
 		localAPIResponse     *APIResponse
-		err                  error
+		err 				 error
 	)
 
 	if a.client.cfg.Okta.Client.RequestTimeout > 0 {
@@ -1321,9 +1317,9 @@ func (a *DeviceAPIService) SuspendDeviceExecute(r ApiSuspendDeviceRequest) (*API
 }
 
 type ApiUnsuspendDeviceRequest struct {
-	ctx        context.Context
+	ctx context.Context
 	ApiService DeviceAPI
-	deviceId   string
+	deviceId string
 	retryCount int32
 }
 
@@ -1337,15 +1333,15 @@ UnsuspendDevice Unsuspend a Device
 Unsuspends a Device by returning its `status` to ACTIVE.
 >**Note:** Only devices with a SUSPENDED status can be unsuspended.
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param deviceId `id` of the device
-	@return ApiUnsuspendDeviceRequest
+ @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+ @param deviceId `id` of the device
+ @return ApiUnsuspendDeviceRequest
 */
 func (a *DeviceAPIService) UnsuspendDevice(ctx context.Context, deviceId string) ApiUnsuspendDeviceRequest {
 	return ApiUnsuspendDeviceRequest{
 		ApiService: a,
-		ctx:        ctx,
-		deviceId:   deviceId,
+		ctx: ctx,
+		deviceId: deviceId,
 		retryCount: 0,
 	}
 }
@@ -1358,7 +1354,7 @@ func (a *DeviceAPIService) UnsuspendDeviceExecute(r ApiUnsuspendDeviceRequest) (
 		formFiles            []formFile
 		localVarHTTPResponse *http.Response
 		localAPIResponse     *APIResponse
-		err                  error
+		err 				 error
 	)
 
 	if a.client.cfg.Okta.Client.RequestTimeout > 0 {

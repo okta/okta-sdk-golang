@@ -30,7 +30,7 @@ import (
 
 // RiskScorePolicyRuleCondition struct for RiskScorePolicyRuleCondition
 type RiskScorePolicyRuleCondition struct {
-	Level                *string `json:"level,omitempty"`
+	Level *string `json:"level,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -156,3 +156,4 @@ func (v *NullableRiskScorePolicyRuleCondition) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
+

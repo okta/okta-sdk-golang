@@ -35,7 +35,7 @@ type CreateIamRoleRequest struct {
 	// Unique label for the role
 	Label string `json:"label"`
 	// Array of permissions that the role will grant. See [Permissions](/openapi/okta-management/guides/roles/#permission).
-	Permissions          []string `json:"permissions"`
+	Permissions []string `json:"permissions"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -212,3 +212,4 @@ func (v *NullableCreateIamRoleRequest) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
+

@@ -30,20 +30,21 @@ import (
 	"io/ioutil"
 	"net/http"
 	"net/url"
-	"strings"
 	"time"
+	"strings"
 )
+
 
 type IdentitySourceAPI interface {
 
 	/*
-		CreateIdentitySourceSession Create an Identity Source Session
+	CreateIdentitySourceSession Create an Identity Source Session
 
-		Creates an identity source session for the given identity source instance
+	Creates an identity source session for the given identity source instance
 
-		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-		@param identitySourceId
-		@return ApiCreateIdentitySourceSessionRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param identitySourceId
+	@return ApiCreateIdentitySourceSessionRequest
 	*/
 	CreateIdentitySourceSession(ctx context.Context, identitySourceId string) ApiCreateIdentitySourceSessionRequest
 
@@ -52,14 +53,14 @@ type IdentitySourceAPI interface {
 	CreateIdentitySourceSessionExecute(r ApiCreateIdentitySourceSessionRequest) ([]IdentitySourceSession, *APIResponse, error)
 
 	/*
-		DeleteIdentitySourceSession Delete an Identity Source Session
+	DeleteIdentitySourceSession Delete an Identity Source Session
 
-		Deletes an identity source session for a given `identitySourceId` and `sessionId`
+	Deletes an identity source session for a given `identitySourceId` and `sessionId`
 
-		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-		@param identitySourceId
-		@param sessionId
-		@return ApiDeleteIdentitySourceSessionRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param identitySourceId
+	@param sessionId
+	@return ApiDeleteIdentitySourceSessionRequest
 	*/
 	DeleteIdentitySourceSession(ctx context.Context, identitySourceId string, sessionId string) ApiDeleteIdentitySourceSessionRequest
 
@@ -67,14 +68,14 @@ type IdentitySourceAPI interface {
 	DeleteIdentitySourceSessionExecute(r ApiDeleteIdentitySourceSessionRequest) (*APIResponse, error)
 
 	/*
-		GetIdentitySourceSession Retrieve an Identity Source Session
+	GetIdentitySourceSession Retrieve an Identity Source Session
 
-		Retrieves an identity source session for a given identity source id and session id
+	Retrieves an identity source session for a given identity source id and session id
 
-		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-		@param identitySourceId
-		@param sessionId
-		@return ApiGetIdentitySourceSessionRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param identitySourceId
+	@param sessionId
+	@return ApiGetIdentitySourceSessionRequest
 	*/
 	GetIdentitySourceSession(ctx context.Context, identitySourceId string, sessionId string) ApiGetIdentitySourceSessionRequest
 
@@ -83,13 +84,13 @@ type IdentitySourceAPI interface {
 	GetIdentitySourceSessionExecute(r ApiGetIdentitySourceSessionRequest) (*IdentitySourceSession, *APIResponse, error)
 
 	/*
-		ListIdentitySourceSessions List all Identity Source Sessions
+	ListIdentitySourceSessions List all Identity Source Sessions
 
-		Lists all identity source sessions for the given identity source instance
+	Lists all identity source sessions for the given identity source instance
 
-		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-		@param identitySourceId
-		@return ApiListIdentitySourceSessionsRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param identitySourceId
+	@return ApiListIdentitySourceSessionsRequest
 	*/
 	ListIdentitySourceSessions(ctx context.Context, identitySourceId string) ApiListIdentitySourceSessionsRequest
 
@@ -98,14 +99,14 @@ type IdentitySourceAPI interface {
 	ListIdentitySourceSessionsExecute(r ApiListIdentitySourceSessionsRequest) ([]IdentitySourceSession, *APIResponse, error)
 
 	/*
-		StartImportFromIdentitySource Start the import from the Identity Source
+	StartImportFromIdentitySource Start the import from the Identity Source
 
-		Starts the import from the identity source described by the uploaded bulk operations
+	Starts the import from the identity source described by the uploaded bulk operations
 
-		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-		@param identitySourceId
-		@param sessionId
-		@return ApiStartImportFromIdentitySourceRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param identitySourceId
+	@param sessionId
+	@return ApiStartImportFromIdentitySourceRequest
 	*/
 	StartImportFromIdentitySource(ctx context.Context, identitySourceId string, sessionId string) ApiStartImportFromIdentitySourceRequest
 
@@ -114,14 +115,14 @@ type IdentitySourceAPI interface {
 	StartImportFromIdentitySourceExecute(r ApiStartImportFromIdentitySourceRequest) ([]IdentitySourceSession, *APIResponse, error)
 
 	/*
-		UploadIdentitySourceDataForDelete Upload the data to be deleted in Okta
+	UploadIdentitySourceDataForDelete Upload the data to be deleted in Okta
 
-		Uploads entities that need to be deleted in Okta from the identity source for the given session
+	Uploads entities that need to be deleted in Okta from the identity source for the given session
 
-		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-		@param identitySourceId
-		@param sessionId
-		@return ApiUploadIdentitySourceDataForDeleteRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param identitySourceId
+	@param sessionId
+	@return ApiUploadIdentitySourceDataForDeleteRequest
 	*/
 	UploadIdentitySourceDataForDelete(ctx context.Context, identitySourceId string, sessionId string) ApiUploadIdentitySourceDataForDeleteRequest
 
@@ -129,14 +130,14 @@ type IdentitySourceAPI interface {
 	UploadIdentitySourceDataForDeleteExecute(r ApiUploadIdentitySourceDataForDeleteRequest) (*APIResponse, error)
 
 	/*
-		UploadIdentitySourceDataForUpsert Upload the data to be upserted in Okta
+	UploadIdentitySourceDataForUpsert Upload the data to be upserted in Okta
 
-		Uploads entities that need to be upserted in Okta from the identity source for the given session
+	Uploads entities that need to be upserted in Okta from the identity source for the given session
 
-		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-		@param identitySourceId
-		@param sessionId
-		@return ApiUploadIdentitySourceDataForUpsertRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param identitySourceId
+	@param sessionId
+	@return ApiUploadIdentitySourceDataForUpsertRequest
 	*/
 	UploadIdentitySourceDataForUpsert(ctx context.Context, identitySourceId string, sessionId string) ApiUploadIdentitySourceDataForUpsertRequest
 
@@ -148,10 +149,10 @@ type IdentitySourceAPI interface {
 type IdentitySourceAPIService service
 
 type ApiCreateIdentitySourceSessionRequest struct {
-	ctx              context.Context
-	ApiService       IdentitySourceAPI
+	ctx context.Context
+	ApiService IdentitySourceAPI
 	identitySourceId string
-	retryCount       int32
+	retryCount int32
 }
 
 func (r ApiCreateIdentitySourceSessionRequest) Execute() ([]IdentitySourceSession, *APIResponse, error) {
@@ -163,22 +164,21 @@ CreateIdentitySourceSession Create an Identity Source Session
 
 Creates an identity source session for the given identity source instance
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param identitySourceId
-	@return ApiCreateIdentitySourceSessionRequest
+ @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+ @param identitySourceId
+ @return ApiCreateIdentitySourceSessionRequest
 */
 func (a *IdentitySourceAPIService) CreateIdentitySourceSession(ctx context.Context, identitySourceId string) ApiCreateIdentitySourceSessionRequest {
 	return ApiCreateIdentitySourceSessionRequest{
-		ApiService:       a,
-		ctx:              ctx,
+		ApiService: a,
+		ctx: ctx,
 		identitySourceId: identitySourceId,
-		retryCount:       0,
+		retryCount: 0,
 	}
 }
 
 // Execute executes the request
-//
-//	@return []IdentitySourceSession
+//  @return []IdentitySourceSession
 func (a *IdentitySourceAPIService) CreateIdentitySourceSessionExecute(r ApiCreateIdentitySourceSessionRequest) ([]IdentitySourceSession, *APIResponse, error) {
 	var (
 		localVarHTTPMethod   = http.MethodPost
@@ -187,7 +187,7 @@ func (a *IdentitySourceAPIService) CreateIdentitySourceSessionExecute(r ApiCreat
 		localVarReturnValue  []IdentitySourceSession
 		localVarHTTPResponse *http.Response
 		localAPIResponse     *APIResponse
-		err                  error
+		err 				 error
 	)
 
 	if a.client.cfg.Okta.Client.RequestTimeout > 0 {
@@ -308,17 +308,17 @@ func (a *IdentitySourceAPIService) CreateIdentitySourceSessionExecute(r ApiCreat
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
 		return localVarReturnValue, localAPIResponse, newErr
 	}
-
+	
 	localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
 	return localVarReturnValue, localAPIResponse, nil
 }
 
 type ApiDeleteIdentitySourceSessionRequest struct {
-	ctx              context.Context
-	ApiService       IdentitySourceAPI
+	ctx context.Context
+	ApiService IdentitySourceAPI
 	identitySourceId string
-	sessionId        string
-	retryCount       int32
+	sessionId string
+	retryCount int32
 }
 
 func (r ApiDeleteIdentitySourceSessionRequest) Execute() (*APIResponse, error) {
@@ -330,18 +330,18 @@ DeleteIdentitySourceSession Delete an Identity Source Session
 
 Deletes an identity source session for a given `identitySourceId` and `sessionId`
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param identitySourceId
-	@param sessionId
-	@return ApiDeleteIdentitySourceSessionRequest
+ @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+ @param identitySourceId
+ @param sessionId
+ @return ApiDeleteIdentitySourceSessionRequest
 */
 func (a *IdentitySourceAPIService) DeleteIdentitySourceSession(ctx context.Context, identitySourceId string, sessionId string) ApiDeleteIdentitySourceSessionRequest {
 	return ApiDeleteIdentitySourceSessionRequest{
-		ApiService:       a,
-		ctx:              ctx,
+		ApiService: a,
+		ctx: ctx,
 		identitySourceId: identitySourceId,
-		sessionId:        sessionId,
-		retryCount:       0,
+		sessionId: sessionId,
+		retryCount: 0,
 	}
 }
 
@@ -353,7 +353,7 @@ func (a *IdentitySourceAPIService) DeleteIdentitySourceSessionExecute(r ApiDelet
 		formFiles            []formFile
 		localVarHTTPResponse *http.Response
 		localAPIResponse     *APIResponse
-		err                  error
+		err 				 error
 	)
 
 	if a.client.cfg.Okta.Client.RequestTimeout > 0 {
@@ -471,11 +471,11 @@ func (a *IdentitySourceAPIService) DeleteIdentitySourceSessionExecute(r ApiDelet
 }
 
 type ApiGetIdentitySourceSessionRequest struct {
-	ctx              context.Context
-	ApiService       IdentitySourceAPI
+	ctx context.Context
+	ApiService IdentitySourceAPI
 	identitySourceId string
-	sessionId        string
-	retryCount       int32
+	sessionId string
+	retryCount int32
 }
 
 func (r ApiGetIdentitySourceSessionRequest) Execute() (*IdentitySourceSession, *APIResponse, error) {
@@ -487,24 +487,23 @@ GetIdentitySourceSession Retrieve an Identity Source Session
 
 Retrieves an identity source session for a given identity source id and session id
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param identitySourceId
-	@param sessionId
-	@return ApiGetIdentitySourceSessionRequest
+ @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+ @param identitySourceId
+ @param sessionId
+ @return ApiGetIdentitySourceSessionRequest
 */
 func (a *IdentitySourceAPIService) GetIdentitySourceSession(ctx context.Context, identitySourceId string, sessionId string) ApiGetIdentitySourceSessionRequest {
 	return ApiGetIdentitySourceSessionRequest{
-		ApiService:       a,
-		ctx:              ctx,
+		ApiService: a,
+		ctx: ctx,
 		identitySourceId: identitySourceId,
-		sessionId:        sessionId,
-		retryCount:       0,
+		sessionId: sessionId,
+		retryCount: 0,
 	}
 }
 
 // Execute executes the request
-//
-//	@return IdentitySourceSession
+//  @return IdentitySourceSession
 func (a *IdentitySourceAPIService) GetIdentitySourceSessionExecute(r ApiGetIdentitySourceSessionRequest) (*IdentitySourceSession, *APIResponse, error) {
 	var (
 		localVarHTTPMethod   = http.MethodGet
@@ -513,7 +512,7 @@ func (a *IdentitySourceAPIService) GetIdentitySourceSessionExecute(r ApiGetIdent
 		localVarReturnValue  *IdentitySourceSession
 		localVarHTTPResponse *http.Response
 		localAPIResponse     *APIResponse
-		err                  error
+		err 				 error
 	)
 
 	if a.client.cfg.Okta.Client.RequestTimeout > 0 {
@@ -635,16 +634,16 @@ func (a *IdentitySourceAPIService) GetIdentitySourceSessionExecute(r ApiGetIdent
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
 		return localVarReturnValue, localAPIResponse, newErr
 	}
-
+	
 	localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
 	return localVarReturnValue, localAPIResponse, nil
 }
 
 type ApiListIdentitySourceSessionsRequest struct {
-	ctx              context.Context
-	ApiService       IdentitySourceAPI
+	ctx context.Context
+	ApiService IdentitySourceAPI
 	identitySourceId string
-	retryCount       int32
+	retryCount int32
 }
 
 func (r ApiListIdentitySourceSessionsRequest) Execute() ([]IdentitySourceSession, *APIResponse, error) {
@@ -656,22 +655,21 @@ ListIdentitySourceSessions List all Identity Source Sessions
 
 Lists all identity source sessions for the given identity source instance
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param identitySourceId
-	@return ApiListIdentitySourceSessionsRequest
+ @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+ @param identitySourceId
+ @return ApiListIdentitySourceSessionsRequest
 */
 func (a *IdentitySourceAPIService) ListIdentitySourceSessions(ctx context.Context, identitySourceId string) ApiListIdentitySourceSessionsRequest {
 	return ApiListIdentitySourceSessionsRequest{
-		ApiService:       a,
-		ctx:              ctx,
+		ApiService: a,
+		ctx: ctx,
 		identitySourceId: identitySourceId,
-		retryCount:       0,
+		retryCount: 0,
 	}
 }
 
 // Execute executes the request
-//
-//	@return []IdentitySourceSession
+//  @return []IdentitySourceSession
 func (a *IdentitySourceAPIService) ListIdentitySourceSessionsExecute(r ApiListIdentitySourceSessionsRequest) ([]IdentitySourceSession, *APIResponse, error) {
 	var (
 		localVarHTTPMethod   = http.MethodGet
@@ -680,7 +678,7 @@ func (a *IdentitySourceAPIService) ListIdentitySourceSessionsExecute(r ApiListId
 		localVarReturnValue  []IdentitySourceSession
 		localVarHTTPResponse *http.Response
 		localAPIResponse     *APIResponse
-		err                  error
+		err 				 error
 	)
 
 	if a.client.cfg.Okta.Client.RequestTimeout > 0 {
@@ -801,17 +799,17 @@ func (a *IdentitySourceAPIService) ListIdentitySourceSessionsExecute(r ApiListId
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
 		return localVarReturnValue, localAPIResponse, newErr
 	}
-
+	
 	localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
 	return localVarReturnValue, localAPIResponse, nil
 }
 
 type ApiStartImportFromIdentitySourceRequest struct {
-	ctx              context.Context
-	ApiService       IdentitySourceAPI
+	ctx context.Context
+	ApiService IdentitySourceAPI
 	identitySourceId string
-	sessionId        string
-	retryCount       int32
+	sessionId string
+	retryCount int32
 }
 
 func (r ApiStartImportFromIdentitySourceRequest) Execute() ([]IdentitySourceSession, *APIResponse, error) {
@@ -823,24 +821,23 @@ StartImportFromIdentitySource Start the import from the Identity Source
 
 Starts the import from the identity source described by the uploaded bulk operations
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param identitySourceId
-	@param sessionId
-	@return ApiStartImportFromIdentitySourceRequest
+ @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+ @param identitySourceId
+ @param sessionId
+ @return ApiStartImportFromIdentitySourceRequest
 */
 func (a *IdentitySourceAPIService) StartImportFromIdentitySource(ctx context.Context, identitySourceId string, sessionId string) ApiStartImportFromIdentitySourceRequest {
 	return ApiStartImportFromIdentitySourceRequest{
-		ApiService:       a,
-		ctx:              ctx,
+		ApiService: a,
+		ctx: ctx,
 		identitySourceId: identitySourceId,
-		sessionId:        sessionId,
-		retryCount:       0,
+		sessionId: sessionId,
+		retryCount: 0,
 	}
 }
 
 // Execute executes the request
-//
-//	@return []IdentitySourceSession
+//  @return []IdentitySourceSession
 func (a *IdentitySourceAPIService) StartImportFromIdentitySourceExecute(r ApiStartImportFromIdentitySourceRequest) ([]IdentitySourceSession, *APIResponse, error) {
 	var (
 		localVarHTTPMethod   = http.MethodPost
@@ -849,7 +846,7 @@ func (a *IdentitySourceAPIService) StartImportFromIdentitySourceExecute(r ApiSta
 		localVarReturnValue  []IdentitySourceSession
 		localVarHTTPResponse *http.Response
 		localAPIResponse     *APIResponse
-		err                  error
+		err 				 error
 	)
 
 	if a.client.cfg.Okta.Client.RequestTimeout > 0 {
@@ -971,18 +968,18 @@ func (a *IdentitySourceAPIService) StartImportFromIdentitySourceExecute(r ApiSta
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
 		return localVarReturnValue, localAPIResponse, newErr
 	}
-
+	
 	localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
 	return localVarReturnValue, localAPIResponse, nil
 }
 
 type ApiUploadIdentitySourceDataForDeleteRequest struct {
-	ctx                   context.Context
-	ApiService            IdentitySourceAPI
-	identitySourceId      string
-	sessionId             string
+	ctx context.Context
+	ApiService IdentitySourceAPI
+	identitySourceId string
+	sessionId string
 	bulkDeleteRequestBody *BulkDeleteRequestBody
-	retryCount            int32
+	retryCount int32
 }
 
 func (r ApiUploadIdentitySourceDataForDeleteRequest) BulkDeleteRequestBody(bulkDeleteRequestBody BulkDeleteRequestBody) ApiUploadIdentitySourceDataForDeleteRequest {
@@ -999,18 +996,18 @@ UploadIdentitySourceDataForDelete Upload the data to be deleted in Okta
 
 Uploads entities that need to be deleted in Okta from the identity source for the given session
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param identitySourceId
-	@param sessionId
-	@return ApiUploadIdentitySourceDataForDeleteRequest
+ @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+ @param identitySourceId
+ @param sessionId
+ @return ApiUploadIdentitySourceDataForDeleteRequest
 */
 func (a *IdentitySourceAPIService) UploadIdentitySourceDataForDelete(ctx context.Context, identitySourceId string, sessionId string) ApiUploadIdentitySourceDataForDeleteRequest {
 	return ApiUploadIdentitySourceDataForDeleteRequest{
-		ApiService:       a,
-		ctx:              ctx,
+		ApiService: a,
+		ctx: ctx,
 		identitySourceId: identitySourceId,
-		sessionId:        sessionId,
-		retryCount:       0,
+		sessionId: sessionId,
+		retryCount: 0,
 	}
 }
 
@@ -1022,7 +1019,7 @@ func (a *IdentitySourceAPIService) UploadIdentitySourceDataForDeleteExecute(r Ap
 		formFiles            []formFile
 		localVarHTTPResponse *http.Response
 		localAPIResponse     *APIResponse
-		err                  error
+		err 				 error
 	)
 
 	if a.client.cfg.Okta.Client.RequestTimeout > 0 {
@@ -1154,12 +1151,12 @@ func (a *IdentitySourceAPIService) UploadIdentitySourceDataForDeleteExecute(r Ap
 }
 
 type ApiUploadIdentitySourceDataForUpsertRequest struct {
-	ctx                   context.Context
-	ApiService            IdentitySourceAPI
-	identitySourceId      string
-	sessionId             string
+	ctx context.Context
+	ApiService IdentitySourceAPI
+	identitySourceId string
+	sessionId string
 	bulkUpsertRequestBody *BulkUpsertRequestBody
-	retryCount            int32
+	retryCount int32
 }
 
 func (r ApiUploadIdentitySourceDataForUpsertRequest) BulkUpsertRequestBody(bulkUpsertRequestBody BulkUpsertRequestBody) ApiUploadIdentitySourceDataForUpsertRequest {
@@ -1176,18 +1173,18 @@ UploadIdentitySourceDataForUpsert Upload the data to be upserted in Okta
 
 Uploads entities that need to be upserted in Okta from the identity source for the given session
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param identitySourceId
-	@param sessionId
-	@return ApiUploadIdentitySourceDataForUpsertRequest
+ @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+ @param identitySourceId
+ @param sessionId
+ @return ApiUploadIdentitySourceDataForUpsertRequest
 */
 func (a *IdentitySourceAPIService) UploadIdentitySourceDataForUpsert(ctx context.Context, identitySourceId string, sessionId string) ApiUploadIdentitySourceDataForUpsertRequest {
 	return ApiUploadIdentitySourceDataForUpsertRequest{
-		ApiService:       a,
-		ctx:              ctx,
+		ApiService: a,
+		ctx: ctx,
 		identitySourceId: identitySourceId,
-		sessionId:        sessionId,
-		retryCount:       0,
+		sessionId: sessionId,
+		retryCount: 0,
 	}
 }
 
@@ -1199,7 +1196,7 @@ func (a *IdentitySourceAPIService) UploadIdentitySourceDataForUpsertExecute(r Ap
 		formFiles            []formFile
 		localVarHTTPResponse *http.Response
 		localAPIResponse     *APIResponse
-		err                  error
+		err 				 error
 	)
 
 	if a.client.cfg.Okta.Client.RequestTimeout > 0 {

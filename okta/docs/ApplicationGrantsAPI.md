@@ -25,26 +25,26 @@ Retrieve an app Grant
 package main
 
 import (
-	"context"
-	"fmt"
-	"os"
-	openapiclient "github.com/okta/okta-sdk-golang"
+    "context"
+    "fmt"
+    "os"
+    openapiclient "github.com/okta/okta-sdk-golang"
 )
 
 func main() {
-	appId := "0oafxqCAJWWGELFTYASJ" // string | Application ID
-	grantId := "iJoqkwx50mrgX4T9LcaH" // string | Grant ID
-	expand := "scope" // string | An optional parameter to return scope details in the `_embedded` property. Valid value: `scope` (optional)
+    appId := "0oafxqCAJWWGELFTYASJ" // string | Application ID
+    grantId := "iJoqkwx50mrgX4T9LcaH" // string | Grant ID
+    expand := "scope" // string | An optional parameter to return scope details in the `_embedded` property. Valid value: `scope` (optional)
 
-	configuration := openapiclient.NewConfiguration()
-	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.ApplicationGrantsAPI.GetScopeConsentGrant(context.Background(), appId, grantId).Expand(expand).Execute()
-	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `ApplicationGrantsAPI.GetScopeConsentGrant``: %v\n", err)
-		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-	}
-	// response from `GetScopeConsentGrant`: OAuth2ScopeConsentGrant
-	fmt.Fprintf(os.Stdout, "Response from `ApplicationGrantsAPI.GetScopeConsentGrant`: %v\n", resp)
+    configuration := openapiclient.NewConfiguration()
+    apiClient := openapiclient.NewAPIClient(configuration)
+    resp, r, err := apiClient.ApplicationGrantsAPI.GetScopeConsentGrant(context.Background(), appId, grantId).Expand(expand).Execute()
+    if err != nil {
+        fmt.Fprintf(os.Stderr, "Error when calling `ApplicationGrantsAPI.GetScopeConsentGrant``: %v\n", err)
+        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+    }
+    // response from `GetScopeConsentGrant`: OAuth2ScopeConsentGrant
+    fmt.Fprintf(os.Stdout, "Response from `ApplicationGrantsAPI.GetScopeConsentGrant`: %v\n", resp)
 }
 ```
 
@@ -100,25 +100,25 @@ Grant consent to scope
 package main
 
 import (
-	"context"
-	"fmt"
-	"os"
-	openapiclient "github.com/okta/okta-sdk-golang"
+    "context"
+    "fmt"
+    "os"
+    openapiclient "github.com/okta/okta-sdk-golang"
 )
 
 func main() {
-	appId := "0oafxqCAJWWGELFTYASJ" // string | Application ID
-	oAuth2ScopeConsentGrant := *openapiclient.NewOAuth2ScopeConsentGrant("https://my_test_okta_org.oktapreview.com", "okta.users.read") // OAuth2ScopeConsentGrant | 
+    appId := "0oafxqCAJWWGELFTYASJ" // string | Application ID
+    oAuth2ScopeConsentGrant := *openapiclient.NewOAuth2ScopeConsentGrant("https://my_test_okta_org.oktapreview.com", "okta.users.read") // OAuth2ScopeConsentGrant | 
 
-	configuration := openapiclient.NewConfiguration()
-	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.ApplicationGrantsAPI.GrantConsentToScope(context.Background(), appId).OAuth2ScopeConsentGrant(oAuth2ScopeConsentGrant).Execute()
-	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `ApplicationGrantsAPI.GrantConsentToScope``: %v\n", err)
-		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-	}
-	// response from `GrantConsentToScope`: OAuth2ScopeConsentGrant
-	fmt.Fprintf(os.Stdout, "Response from `ApplicationGrantsAPI.GrantConsentToScope`: %v\n", resp)
+    configuration := openapiclient.NewConfiguration()
+    apiClient := openapiclient.NewAPIClient(configuration)
+    resp, r, err := apiClient.ApplicationGrantsAPI.GrantConsentToScope(context.Background(), appId).OAuth2ScopeConsentGrant(oAuth2ScopeConsentGrant).Execute()
+    if err != nil {
+        fmt.Fprintf(os.Stderr, "Error when calling `ApplicationGrantsAPI.GrantConsentToScope``: %v\n", err)
+        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+    }
+    // response from `GrantConsentToScope`: OAuth2ScopeConsentGrant
+    fmt.Fprintf(os.Stdout, "Response from `ApplicationGrantsAPI.GrantConsentToScope`: %v\n", resp)
 }
 ```
 
@@ -172,25 +172,25 @@ List all app Grants
 package main
 
 import (
-	"context"
-	"fmt"
-	"os"
-	openapiclient "github.com/okta/okta-sdk-golang"
+    "context"
+    "fmt"
+    "os"
+    openapiclient "github.com/okta/okta-sdk-golang"
 )
 
 func main() {
-	appId := "0oafxqCAJWWGELFTYASJ" // string | Application ID
-	expand := "scope" // string | An optional parameter to return scope details in the `_embedded` property. Valid value: `scope` (optional)
+    appId := "0oafxqCAJWWGELFTYASJ" // string | Application ID
+    expand := "scope" // string | An optional parameter to return scope details in the `_embedded` property. Valid value: `scope` (optional)
 
-	configuration := openapiclient.NewConfiguration()
-	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.ApplicationGrantsAPI.ListScopeConsentGrants(context.Background(), appId).Expand(expand).Execute()
-	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `ApplicationGrantsAPI.ListScopeConsentGrants``: %v\n", err)
-		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-	}
-	// response from `ListScopeConsentGrants`: []OAuth2ScopeConsentGrant
-	fmt.Fprintf(os.Stdout, "Response from `ApplicationGrantsAPI.ListScopeConsentGrants`: %v\n", resp)
+    configuration := openapiclient.NewConfiguration()
+    apiClient := openapiclient.NewAPIClient(configuration)
+    resp, r, err := apiClient.ApplicationGrantsAPI.ListScopeConsentGrants(context.Background(), appId).Expand(expand).Execute()
+    if err != nil {
+        fmt.Fprintf(os.Stderr, "Error when calling `ApplicationGrantsAPI.ListScopeConsentGrants``: %v\n", err)
+        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+    }
+    // response from `ListScopeConsentGrants`: []OAuth2ScopeConsentGrant
+    fmt.Fprintf(os.Stdout, "Response from `ApplicationGrantsAPI.ListScopeConsentGrants`: %v\n", resp)
 }
 ```
 
@@ -244,23 +244,23 @@ Revoke an app Grant
 package main
 
 import (
-	"context"
-	"fmt"
-	"os"
-	openapiclient "github.com/okta/okta-sdk-golang"
+    "context"
+    "fmt"
+    "os"
+    openapiclient "github.com/okta/okta-sdk-golang"
 )
 
 func main() {
-	appId := "0oafxqCAJWWGELFTYASJ" // string | Application ID
-	grantId := "iJoqkwx50mrgX4T9LcaH" // string | Grant ID
+    appId := "0oafxqCAJWWGELFTYASJ" // string | Application ID
+    grantId := "iJoqkwx50mrgX4T9LcaH" // string | Grant ID
 
-	configuration := openapiclient.NewConfiguration()
-	apiClient := openapiclient.NewAPIClient(configuration)
-	r, err := apiClient.ApplicationGrantsAPI.RevokeScopeConsentGrant(context.Background(), appId, grantId).Execute()
-	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `ApplicationGrantsAPI.RevokeScopeConsentGrant``: %v\n", err)
-		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-	}
+    configuration := openapiclient.NewConfiguration()
+    apiClient := openapiclient.NewAPIClient(configuration)
+    r, err := apiClient.ApplicationGrantsAPI.RevokeScopeConsentGrant(context.Background(), appId, grantId).Execute()
+    if err != nil {
+        fmt.Fprintf(os.Stderr, "Error when calling `ApplicationGrantsAPI.RevokeScopeConsentGrant``: %v\n", err)
+        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+    }
 }
 ```
 

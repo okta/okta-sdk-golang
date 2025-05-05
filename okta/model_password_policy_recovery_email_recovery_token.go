@@ -156,3 +156,4 @@ func (v *NullablePasswordPolicyRecoveryEmailRecoveryToken) UnmarshalJSON(src []b
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
+

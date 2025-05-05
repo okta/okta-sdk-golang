@@ -30,7 +30,7 @@ import (
 
 // LinksSend struct for LinksSend
 type LinksSend struct {
-	Send                 *LinksSendSend `json:"send,omitempty"`
+	Send *LinksSendSend `json:"send,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -156,3 +156,4 @@ func (v *NullableLinksSend) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
+

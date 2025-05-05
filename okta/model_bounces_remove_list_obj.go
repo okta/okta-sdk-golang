@@ -30,7 +30,7 @@ import (
 
 // BouncesRemoveListObj struct for BouncesRemoveListObj
 type BouncesRemoveListObj struct {
-	EmailAddresses       []string `json:"emailAddresses,omitempty"`
+	EmailAddresses []string `json:"emailAddresses,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -156,3 +156,4 @@ func (v *NullableBouncesRemoveListObj) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
+

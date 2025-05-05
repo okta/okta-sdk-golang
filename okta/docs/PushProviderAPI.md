@@ -26,24 +26,24 @@ Create a Push Provider
 package main
 
 import (
-	"context"
-	"fmt"
-	"os"
-	openapiclient "github.com/okta/okta-sdk-golang"
+    "context"
+    "fmt"
+    "os"
+    openapiclient "github.com/okta/okta-sdk-golang"
 )
 
 func main() {
-	pushProvider := openapiclient.listPushProviders_200_response_inner{APNSPushProvider: openapiclient.NewAPNSPushProvider()} // ListPushProviders200ResponseInner | 
+    pushProvider := openapiclient.listPushProviders_200_response_inner{APNSPushProvider: openapiclient.NewAPNSPushProvider()} // ListPushProviders200ResponseInner | 
 
-	configuration := openapiclient.NewConfiguration()
-	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.PushProviderAPI.CreatePushProvider(context.Background()).PushProvider(pushProvider).Execute()
-	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `PushProviderAPI.CreatePushProvider``: %v\n", err)
-		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-	}
-	// response from `CreatePushProvider`: ListPushProviders200ResponseInner
-	fmt.Fprintf(os.Stdout, "Response from `PushProviderAPI.CreatePushProvider`: %v\n", resp)
+    configuration := openapiclient.NewConfiguration()
+    apiClient := openapiclient.NewAPIClient(configuration)
+    resp, r, err := apiClient.PushProviderAPI.CreatePushProvider(context.Background()).PushProvider(pushProvider).Execute()
+    if err != nil {
+        fmt.Fprintf(os.Stderr, "Error when calling `PushProviderAPI.CreatePushProvider``: %v\n", err)
+        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+    }
+    // response from `CreatePushProvider`: ListPushProviders200ResponseInner
+    fmt.Fprintf(os.Stdout, "Response from `PushProviderAPI.CreatePushProvider`: %v\n", resp)
 }
 ```
 
@@ -92,22 +92,22 @@ Delete a Push Provider
 package main
 
 import (
-	"context"
-	"fmt"
-	"os"
-	openapiclient "github.com/okta/okta-sdk-golang"
+    "context"
+    "fmt"
+    "os"
+    openapiclient "github.com/okta/okta-sdk-golang"
 )
 
 func main() {
-	pushProviderId := "pushProviderId_example" // string | Id of the push provider
+    pushProviderId := "pushProviderId_example" // string | Id of the push provider
 
-	configuration := openapiclient.NewConfiguration()
-	apiClient := openapiclient.NewAPIClient(configuration)
-	r, err := apiClient.PushProviderAPI.DeletePushProvider(context.Background(), pushProviderId).Execute()
-	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `PushProviderAPI.DeletePushProvider``: %v\n", err)
-		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-	}
+    configuration := openapiclient.NewConfiguration()
+    apiClient := openapiclient.NewAPIClient(configuration)
+    r, err := apiClient.PushProviderAPI.DeletePushProvider(context.Background(), pushProviderId).Execute()
+    if err != nil {
+        fmt.Fprintf(os.Stderr, "Error when calling `PushProviderAPI.DeletePushProvider``: %v\n", err)
+        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+    }
 }
 ```
 
@@ -160,24 +160,24 @@ Retrieve a Push Provider
 package main
 
 import (
-	"context"
-	"fmt"
-	"os"
-	openapiclient "github.com/okta/okta-sdk-golang"
+    "context"
+    "fmt"
+    "os"
+    openapiclient "github.com/okta/okta-sdk-golang"
 )
 
 func main() {
-	pushProviderId := "pushProviderId_example" // string | Id of the push provider
+    pushProviderId := "pushProviderId_example" // string | Id of the push provider
 
-	configuration := openapiclient.NewConfiguration()
-	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.PushProviderAPI.GetPushProvider(context.Background(), pushProviderId).Execute()
-	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `PushProviderAPI.GetPushProvider``: %v\n", err)
-		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-	}
-	// response from `GetPushProvider`: ListPushProviders200ResponseInner
-	fmt.Fprintf(os.Stdout, "Response from `PushProviderAPI.GetPushProvider`: %v\n", resp)
+    configuration := openapiclient.NewConfiguration()
+    apiClient := openapiclient.NewAPIClient(configuration)
+    resp, r, err := apiClient.PushProviderAPI.GetPushProvider(context.Background(), pushProviderId).Execute()
+    if err != nil {
+        fmt.Fprintf(os.Stderr, "Error when calling `PushProviderAPI.GetPushProvider``: %v\n", err)
+        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+    }
+    // response from `GetPushProvider`: ListPushProviders200ResponseInner
+    fmt.Fprintf(os.Stdout, "Response from `PushProviderAPI.GetPushProvider`: %v\n", resp)
 }
 ```
 
@@ -230,24 +230,24 @@ List all Push Providers
 package main
 
 import (
-	"context"
-	"fmt"
-	"os"
-	openapiclient "github.com/okta/okta-sdk-golang"
+    "context"
+    "fmt"
+    "os"
+    openapiclient "github.com/okta/okta-sdk-golang"
 )
 
 func main() {
-	type_ := "type__example" // string | Filters push providers by `providerType` (optional)
+    type_ := "type__example" // string | Filters push providers by `providerType` (optional)
 
-	configuration := openapiclient.NewConfiguration()
-	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.PushProviderAPI.ListPushProviders(context.Background()).Type_(type_).Execute()
-	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `PushProviderAPI.ListPushProviders``: %v\n", err)
-		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-	}
-	// response from `ListPushProviders`: []ListPushProviders200ResponseInner
-	fmt.Fprintf(os.Stdout, "Response from `PushProviderAPI.ListPushProviders`: %v\n", resp)
+    configuration := openapiclient.NewConfiguration()
+    apiClient := openapiclient.NewAPIClient(configuration)
+    resp, r, err := apiClient.PushProviderAPI.ListPushProviders(context.Background()).Type_(type_).Execute()
+    if err != nil {
+        fmt.Fprintf(os.Stderr, "Error when calling `PushProviderAPI.ListPushProviders``: %v\n", err)
+        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+    }
+    // response from `ListPushProviders`: []ListPushProviders200ResponseInner
+    fmt.Fprintf(os.Stdout, "Response from `PushProviderAPI.ListPushProviders`: %v\n", resp)
 }
 ```
 
@@ -296,25 +296,25 @@ Replace a Push Provider
 package main
 
 import (
-	"context"
-	"fmt"
-	"os"
-	openapiclient "github.com/okta/okta-sdk-golang"
+    "context"
+    "fmt"
+    "os"
+    openapiclient "github.com/okta/okta-sdk-golang"
 )
 
 func main() {
-	pushProviderId := "pushProviderId_example" // string | Id of the push provider
-	pushProvider := openapiclient.listPushProviders_200_response_inner{APNSPushProvider: openapiclient.NewAPNSPushProvider()} // ListPushProviders200ResponseInner | 
+    pushProviderId := "pushProviderId_example" // string | Id of the push provider
+    pushProvider := openapiclient.listPushProviders_200_response_inner{APNSPushProvider: openapiclient.NewAPNSPushProvider()} // ListPushProviders200ResponseInner | 
 
-	configuration := openapiclient.NewConfiguration()
-	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.PushProviderAPI.ReplacePushProvider(context.Background(), pushProviderId).PushProvider(pushProvider).Execute()
-	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `PushProviderAPI.ReplacePushProvider``: %v\n", err)
-		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-	}
-	// response from `ReplacePushProvider`: ListPushProviders200ResponseInner
-	fmt.Fprintf(os.Stdout, "Response from `PushProviderAPI.ReplacePushProvider`: %v\n", resp)
+    configuration := openapiclient.NewConfiguration()
+    apiClient := openapiclient.NewAPIClient(configuration)
+    resp, r, err := apiClient.PushProviderAPI.ReplacePushProvider(context.Background(), pushProviderId).PushProvider(pushProvider).Execute()
+    if err != nil {
+        fmt.Fprintf(os.Stderr, "Error when calling `PushProviderAPI.ReplacePushProvider``: %v\n", err)
+        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+    }
+    // response from `ReplacePushProvider`: ListPushProviders200ResponseInner
+    fmt.Fprintf(os.Stdout, "Response from `PushProviderAPI.ReplacePushProvider`: %v\n", resp)
 }
 ```
 

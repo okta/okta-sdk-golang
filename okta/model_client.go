@@ -67,7 +67,7 @@ type Client struct {
 	// Requested authentication method for OAuth 2.0 endpoints.
 	TokenEndpointAuthMethod *string `json:"token_endpoint_auth_method,omitempty"`
 	// URL string of a web page providing the client's terms of service document
-	TosUri               NullableString `json:"tos_uri,omitempty"`
+	TosUri NullableString `json:"tos_uri,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -250,7 +250,6 @@ func (o *Client) HasClientSecret() bool {
 func (o *Client) SetClientSecret(v string) {
 	o.ClientSecret.Set(&v)
 }
-
 // SetClientSecretNil sets the value for ClientSecret to be an explicit nil
 func (o *Client) SetClientSecretNil() {
 	o.ClientSecret.Set(nil)
@@ -293,7 +292,6 @@ func (o *Client) HasClientSecretExpiresAt() bool {
 func (o *Client) SetClientSecretExpiresAt(v int32) {
 	o.ClientSecretExpiresAt.Set(&v)
 }
-
 // SetClientSecretExpiresAtNil sets the value for ClientSecretExpiresAt to be an explicit nil
 func (o *Client) SetClientSecretExpiresAtNil() {
 	o.ClientSecretExpiresAt.Set(nil)
@@ -368,7 +366,6 @@ func (o *Client) HasFrontchannelLogoutUri() bool {
 func (o *Client) SetFrontchannelLogoutUri(v string) {
 	o.FrontchannelLogoutUri.Set(&v)
 }
-
 // SetFrontchannelLogoutUriNil sets the value for FrontchannelLogoutUri to be an explicit nil
 func (o *Client) SetFrontchannelLogoutUriNil() {
 	o.FrontchannelLogoutUri.Set(nil)
@@ -507,7 +504,6 @@ func (o *Client) HasLogoUri() bool {
 func (o *Client) SetLogoUri(v string) {
 	o.LogoUri.Set(&v)
 }
-
 // SetLogoUriNil sets the value for LogoUri to be an explicit nil
 func (o *Client) SetLogoUriNil() {
 	o.LogoUri.Set(nil)
@@ -550,7 +546,6 @@ func (o *Client) HasPolicyUri() bool {
 func (o *Client) SetPolicyUri(v string) {
 	o.PolicyUri.Set(&v)
 }
-
 // SetPolicyUriNil sets the value for PolicyUri to be an explicit nil
 func (o *Client) SetPolicyUriNil() {
 	o.PolicyUri.Set(nil)
@@ -753,7 +748,6 @@ func (o *Client) HasTosUri() bool {
 func (o *Client) SetTosUri(v string) {
 	o.TosUri.Set(&v)
 }
-
 // SetTosUriNil sets the value for TosUri to be an explicit nil
 func (o *Client) SetTosUriNil() {
 	o.TosUri.Set(nil)
@@ -907,3 +901,4 @@ func (v *NullableClient) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
+

@@ -28,9 +28,9 @@ import (
 	"encoding/json"
 )
 
-// PerClientRateLimitSettings
+// PerClientRateLimitSettings 
 type PerClientRateLimitSettings struct {
-	DefaultMode          string                                          `json:"defaultMode"`
+	DefaultMode string `json:"defaultMode"`
 	UseCaseModeOverrides *PerClientRateLimitSettingsUseCaseModeOverrides `json:"useCaseModeOverrides,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
@@ -186,3 +186,4 @@ func (v *NullablePerClientRateLimitSettings) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
+

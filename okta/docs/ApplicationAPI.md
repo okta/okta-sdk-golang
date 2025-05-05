@@ -28,22 +28,22 @@ Activate an Application
 package main
 
 import (
-	"context"
-	"fmt"
-	"os"
-	openapiclient "github.com/okta/okta-sdk-golang"
+    "context"
+    "fmt"
+    "os"
+    openapiclient "github.com/okta/okta-sdk-golang"
 )
 
 func main() {
-	appId := "0oafxqCAJWWGELFTYASJ" // string | Application ID
+    appId := "0oafxqCAJWWGELFTYASJ" // string | Application ID
 
-	configuration := openapiclient.NewConfiguration()
-	apiClient := openapiclient.NewAPIClient(configuration)
-	r, err := apiClient.ApplicationAPI.ActivateApplication(context.Background(), appId).Execute()
-	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `ApplicationAPI.ActivateApplication``: %v\n", err)
-		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-	}
+    configuration := openapiclient.NewConfiguration()
+    apiClient := openapiclient.NewAPIClient(configuration)
+    r, err := apiClient.ApplicationAPI.ActivateApplication(context.Background(), appId).Execute()
+    if err != nil {
+        fmt.Fprintf(os.Stderr, "Error when calling `ApplicationAPI.ActivateApplication``: %v\n", err)
+        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+    }
 }
 ```
 
@@ -96,26 +96,26 @@ Create an Application
 package main
 
 import (
-	"context"
-	"fmt"
-	"os"
-	openapiclient "github.com/okta/okta-sdk-golang"
+    "context"
+    "fmt"
+    "os"
+    openapiclient "github.com/okta/okta-sdk-golang"
 )
 
 func main() {
-	application := openapiclient.listApplications_200_response_inner{AutoLoginApplication: openapiclient.NewAutoLoginApplication("Label_example", "SignOnMode_example")} // ListApplications200ResponseInner | 
-	activate := true // bool | Executes activation lifecycle operation when creating the app (optional) (default to true)
-	oktaAccessGatewayAgent := "oktaAccessGatewayAgent_example" // string |  (optional)
+    application := openapiclient.listApplications_200_response_inner{AutoLoginApplication: openapiclient.NewAutoLoginApplication("Label_example", "SignOnMode_example")} // ListApplications200ResponseInner | 
+    activate := true // bool | Executes activation lifecycle operation when creating the app (optional) (default to true)
+    oktaAccessGatewayAgent := "oktaAccessGatewayAgent_example" // string |  (optional)
 
-	configuration := openapiclient.NewConfiguration()
-	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.ApplicationAPI.CreateApplication(context.Background()).Application(application).Activate(activate).OktaAccessGatewayAgent(oktaAccessGatewayAgent).Execute()
-	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `ApplicationAPI.CreateApplication``: %v\n", err)
-		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-	}
-	// response from `CreateApplication`: ListApplications200ResponseInner
-	fmt.Fprintf(os.Stdout, "Response from `ApplicationAPI.CreateApplication`: %v\n", resp)
+    configuration := openapiclient.NewConfiguration()
+    apiClient := openapiclient.NewAPIClient(configuration)
+    resp, r, err := apiClient.ApplicationAPI.CreateApplication(context.Background()).Application(application).Activate(activate).OktaAccessGatewayAgent(oktaAccessGatewayAgent).Execute()
+    if err != nil {
+        fmt.Fprintf(os.Stderr, "Error when calling `ApplicationAPI.CreateApplication``: %v\n", err)
+        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+    }
+    // response from `CreateApplication`: ListApplications200ResponseInner
+    fmt.Fprintf(os.Stdout, "Response from `ApplicationAPI.CreateApplication`: %v\n", resp)
 }
 ```
 
@@ -166,22 +166,22 @@ Deactivate an Application
 package main
 
 import (
-	"context"
-	"fmt"
-	"os"
-	openapiclient "github.com/okta/okta-sdk-golang"
+    "context"
+    "fmt"
+    "os"
+    openapiclient "github.com/okta/okta-sdk-golang"
 )
 
 func main() {
-	appId := "0oafxqCAJWWGELFTYASJ" // string | Application ID
+    appId := "0oafxqCAJWWGELFTYASJ" // string | Application ID
 
-	configuration := openapiclient.NewConfiguration()
-	apiClient := openapiclient.NewAPIClient(configuration)
-	r, err := apiClient.ApplicationAPI.DeactivateApplication(context.Background(), appId).Execute()
-	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `ApplicationAPI.DeactivateApplication``: %v\n", err)
-		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-	}
+    configuration := openapiclient.NewConfiguration()
+    apiClient := openapiclient.NewAPIClient(configuration)
+    r, err := apiClient.ApplicationAPI.DeactivateApplication(context.Background(), appId).Execute()
+    if err != nil {
+        fmt.Fprintf(os.Stderr, "Error when calling `ApplicationAPI.DeactivateApplication``: %v\n", err)
+        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+    }
 }
 ```
 
@@ -234,22 +234,22 @@ Delete an Application
 package main
 
 import (
-	"context"
-	"fmt"
-	"os"
-	openapiclient "github.com/okta/okta-sdk-golang"
+    "context"
+    "fmt"
+    "os"
+    openapiclient "github.com/okta/okta-sdk-golang"
 )
 
 func main() {
-	appId := "0oafxqCAJWWGELFTYASJ" // string | Application ID
+    appId := "0oafxqCAJWWGELFTYASJ" // string | Application ID
 
-	configuration := openapiclient.NewConfiguration()
-	apiClient := openapiclient.NewAPIClient(configuration)
-	r, err := apiClient.ApplicationAPI.DeleteApplication(context.Background(), appId).Execute()
-	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `ApplicationAPI.DeleteApplication``: %v\n", err)
-		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-	}
+    configuration := openapiclient.NewConfiguration()
+    apiClient := openapiclient.NewAPIClient(configuration)
+    r, err := apiClient.ApplicationAPI.DeleteApplication(context.Background(), appId).Execute()
+    if err != nil {
+        fmt.Fprintf(os.Stderr, "Error when calling `ApplicationAPI.DeleteApplication``: %v\n", err)
+        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+    }
 }
 ```
 
@@ -302,25 +302,25 @@ Retrieve an Application
 package main
 
 import (
-	"context"
-	"fmt"
-	"os"
-	openapiclient "github.com/okta/okta-sdk-golang"
+    "context"
+    "fmt"
+    "os"
+    openapiclient "github.com/okta/okta-sdk-golang"
 )
 
 func main() {
-	appId := "0oafxqCAJWWGELFTYASJ" // string | Application ID
-	expand := "expand_example" // string |  (optional)
+    appId := "0oafxqCAJWWGELFTYASJ" // string | Application ID
+    expand := "expand_example" // string |  (optional)
 
-	configuration := openapiclient.NewConfiguration()
-	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.ApplicationAPI.GetApplication(context.Background(), appId).Expand(expand).Execute()
-	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `ApplicationAPI.GetApplication``: %v\n", err)
-		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-	}
-	// response from `GetApplication`: ListApplications200ResponseInner
-	fmt.Fprintf(os.Stdout, "Response from `ApplicationAPI.GetApplication`: %v\n", resp)
+    configuration := openapiclient.NewConfiguration()
+    apiClient := openapiclient.NewAPIClient(configuration)
+    resp, r, err := apiClient.ApplicationAPI.GetApplication(context.Background(), appId).Expand(expand).Execute()
+    if err != nil {
+        fmt.Fprintf(os.Stderr, "Error when calling `ApplicationAPI.GetApplication``: %v\n", err)
+        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+    }
+    // response from `GetApplication`: ListApplications200ResponseInner
+    fmt.Fprintf(os.Stdout, "Response from `ApplicationAPI.GetApplication`: %v\n", resp)
 }
 ```
 
@@ -374,29 +374,29 @@ List all Applications
 package main
 
 import (
-	"context"
-	"fmt"
-	"os"
-	openapiclient "github.com/okta/okta-sdk-golang"
+    "context"
+    "fmt"
+    "os"
+    openapiclient "github.com/okta/okta-sdk-golang"
 )
 
 func main() {
-	q := "q_example" // string |  (optional)
-	after := "after_example" // string | Specifies the pagination cursor for the next page of apps (optional)
-	limit := int32(56) // int32 | Specifies the number of results for a page (optional) (default to -1)
-	filter := "filter_example" // string | Filters apps by status, user.id, group.id or credentials.signing.kid expression (optional)
-	expand := "user/{userId}" // string | An optional parameter used for link expansion to embed more resources in the response. Only supports `expand=user/{userId}` and must be used with the `user.id eq \"{userId}\"` filter query for the same user. Returns the assigned [Application User](/openapi/okta-management/management/tag/ApplicationUsers/) in the `_embedded` property. (optional)
-	includeNonDeleted := true // bool |  (optional) (default to false)
+    q := "q_example" // string |  (optional)
+    after := "after_example" // string | Specifies the pagination cursor for the next page of apps (optional)
+    limit := int32(56) // int32 | Specifies the number of results for a page (optional) (default to -1)
+    filter := "filter_example" // string | Filters apps by status, user.id, group.id or credentials.signing.kid expression (optional)
+    expand := "user/{userId}" // string | An optional parameter used for link expansion to embed more resources in the response. Only supports `expand=user/{userId}` and must be used with the `user.id eq \"{userId}\"` filter query for the same user. Returns the assigned [Application User](/openapi/okta-management/management/tag/ApplicationUsers/) in the `_embedded` property. (optional)
+    includeNonDeleted := true // bool |  (optional) (default to false)
 
-	configuration := openapiclient.NewConfiguration()
-	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.ApplicationAPI.ListApplications(context.Background()).Q(q).After(after).Limit(limit).Filter(filter).Expand(expand).IncludeNonDeleted(includeNonDeleted).Execute()
-	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `ApplicationAPI.ListApplications``: %v\n", err)
-		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-	}
-	// response from `ListApplications`: []ListApplications200ResponseInner
-	fmt.Fprintf(os.Stdout, "Response from `ApplicationAPI.ListApplications`: %v\n", resp)
+    configuration := openapiclient.NewConfiguration()
+    apiClient := openapiclient.NewAPIClient(configuration)
+    resp, r, err := apiClient.ApplicationAPI.ListApplications(context.Background()).Q(q).After(after).Limit(limit).Filter(filter).Expand(expand).IncludeNonDeleted(includeNonDeleted).Execute()
+    if err != nil {
+        fmt.Fprintf(os.Stderr, "Error when calling `ApplicationAPI.ListApplications``: %v\n", err)
+        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+    }
+    // response from `ListApplications`: []ListApplications200ResponseInner
+    fmt.Fprintf(os.Stdout, "Response from `ApplicationAPI.ListApplications`: %v\n", resp)
 }
 ```
 
@@ -450,25 +450,25 @@ Replace an Application
 package main
 
 import (
-	"context"
-	"fmt"
-	"os"
-	openapiclient "github.com/okta/okta-sdk-golang"
+    "context"
+    "fmt"
+    "os"
+    openapiclient "github.com/okta/okta-sdk-golang"
 )
 
 func main() {
-	appId := "0oafxqCAJWWGELFTYASJ" // string | Application ID
-	application := openapiclient.listApplications_200_response_inner{AutoLoginApplication: openapiclient.NewAutoLoginApplication("Label_example", "SignOnMode_example")} // ListApplications200ResponseInner | 
+    appId := "0oafxqCAJWWGELFTYASJ" // string | Application ID
+    application := openapiclient.listApplications_200_response_inner{AutoLoginApplication: openapiclient.NewAutoLoginApplication("Label_example", "SignOnMode_example")} // ListApplications200ResponseInner | 
 
-	configuration := openapiclient.NewConfiguration()
-	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.ApplicationAPI.ReplaceApplication(context.Background(), appId).Application(application).Execute()
-	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `ApplicationAPI.ReplaceApplication``: %v\n", err)
-		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-	}
-	// response from `ReplaceApplication`: ListApplications200ResponseInner
-	fmt.Fprintf(os.Stdout, "Response from `ApplicationAPI.ReplaceApplication`: %v\n", resp)
+    configuration := openapiclient.NewConfiguration()
+    apiClient := openapiclient.NewAPIClient(configuration)
+    resp, r, err := apiClient.ApplicationAPI.ReplaceApplication(context.Background(), appId).Application(application).Execute()
+    if err != nil {
+        fmt.Fprintf(os.Stderr, "Error when calling `ApplicationAPI.ReplaceApplication``: %v\n", err)
+        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+    }
+    // response from `ReplaceApplication`: ListApplications200ResponseInner
+    fmt.Fprintf(os.Stdout, "Response from `ApplicationAPI.ReplaceApplication`: %v\n", resp)
 }
 ```
 

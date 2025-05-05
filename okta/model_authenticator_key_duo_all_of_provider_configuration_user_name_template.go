@@ -31,7 +31,7 @@ import (
 // AuthenticatorKeyDuoAllOfProviderConfigurationUserNameTemplate struct for AuthenticatorKeyDuoAllOfProviderConfigurationUserNameTemplate
 type AuthenticatorKeyDuoAllOfProviderConfigurationUserNameTemplate struct {
 	// The Duo Security user template name
-	Template             *string `json:"template,omitempty"`
+	Template *string `json:"template,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -157,3 +157,4 @@ func (v *NullableAuthenticatorKeyDuoAllOfProviderConfigurationUserNameTemplate) 
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
+

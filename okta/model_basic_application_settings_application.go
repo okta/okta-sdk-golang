@@ -30,8 +30,8 @@ import (
 
 // BasicApplicationSettingsApplication struct for BasicApplicationSettingsApplication
 type BasicApplicationSettingsApplication struct {
-	AuthURL              *string `json:"authURL,omitempty"`
-	Url                  *string `json:"url,omitempty"`
+	AuthURL *string `json:"authURL,omitempty"`
+	Url *string `json:"url,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -193,3 +193,4 @@ func (v *NullableBasicApplicationSettingsApplication) UnmarshalJSON(src []byte) 
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
+

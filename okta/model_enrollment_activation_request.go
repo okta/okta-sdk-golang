@@ -43,7 +43,7 @@ type EnrollmentActivationRequest struct {
 	// Firmware version of the YubiKey
 	Version *string `json:"version,omitempty"`
 	// List of usable signing keys from Yubico (in JWKS format) used to verify the JWS inside the JWE
-	YubicoSigningJwks    []ECKeyJWK `json:"yubicoSigningJwks,omitempty"`
+	YubicoSigningJwks []ECKeyJWK `json:"yubicoSigningJwks,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -385,3 +385,4 @@ func (v *NullableEnrollmentActivationRequest) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
+

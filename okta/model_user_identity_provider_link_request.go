@@ -30,7 +30,7 @@ import (
 
 // UserIdentityProviderLinkRequest struct for UserIdentityProviderLinkRequest
 type UserIdentityProviderLinkRequest struct {
-	ExternalId           *string `json:"externalId,omitempty"`
+	ExternalId *string `json:"externalId,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -156,3 +156,4 @@ func (v *NullableUserIdentityProviderLinkRequest) UnmarshalJSON(src []byte) erro
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
+

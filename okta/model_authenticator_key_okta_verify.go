@@ -33,7 +33,7 @@ import (
 // AuthenticatorKeyOktaVerify struct for AuthenticatorKeyOktaVerify
 type AuthenticatorKeyOktaVerify struct {
 	AuthenticatorSimple
-	Settings             *AuthenticatorKeyOktaVerifyAllOfSettings `json:"settings,omitempty"`
+	Settings *AuthenticatorKeyOktaVerifyAllOfSettings `json:"settings,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -201,3 +201,4 @@ func (v *NullableAuthenticatorKeyOktaVerify) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
+

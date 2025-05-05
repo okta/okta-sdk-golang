@@ -30,7 +30,7 @@ import (
 
 // OperationResponseAssignmentOperationConfigurationActionsAssignUserToRealm struct for OperationResponseAssignmentOperationConfigurationActionsAssignUserToRealm
 type OperationResponseAssignmentOperationConfigurationActionsAssignUserToRealm struct {
-	RealmId              *string `json:"realmId,omitempty"`
+	RealmId *string `json:"realmId,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -156,3 +156,4 @@ func (v *NullableOperationResponseAssignmentOperationConfigurationActionsAssignU
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
+

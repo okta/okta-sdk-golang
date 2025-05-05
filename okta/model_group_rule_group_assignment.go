@@ -30,7 +30,7 @@ import (
 
 // GroupRuleGroupAssignment struct for GroupRuleGroupAssignment
 type GroupRuleGroupAssignment struct {
-	GroupIds             []string `json:"groupIds,omitempty"`
+	GroupIds []string `json:"groupIds,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -156,3 +156,4 @@ func (v *NullableGroupRuleGroupAssignment) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
+

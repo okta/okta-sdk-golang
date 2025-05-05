@@ -30,20 +30,21 @@ import (
 	"io/ioutil"
 	"net/http"
 	"net/url"
-	"strings"
 	"time"
+	"strings"
 )
+
 
 type OktaApplicationSettingsAPI interface {
 
 	/*
-		GetFirstPartyAppSettings Retrieve the Okta Application Settings
+	GetFirstPartyAppSettings Retrieve the Okta Application Settings
 
-		Retrieves the settings for an Okta app (also known as an Okta first-party app)
+	Retrieves the settings for an Okta app (also known as an Okta first-party app)
 
-		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-		@param appName The key name for the Okta app.<br> Supported apps:   * Okta Admin Console (`admin-console`)
-		@return ApiGetFirstPartyAppSettingsRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param appName The key name for the Okta app.<br> Supported apps:   * Okta Admin Console (`admin-console`) 
+	@return ApiGetFirstPartyAppSettingsRequest
 	*/
 	GetFirstPartyAppSettings(ctx context.Context, appName string) ApiGetFirstPartyAppSettingsRequest
 
@@ -52,13 +53,13 @@ type OktaApplicationSettingsAPI interface {
 	GetFirstPartyAppSettingsExecute(r ApiGetFirstPartyAppSettingsRequest) (*AdminConsoleSettings, *APIResponse, error)
 
 	/*
-		ReplaceFirstPartyAppSettings Replace the Okta Application Settings
+	ReplaceFirstPartyAppSettings Replace the Okta Application Settings
 
-		Replaces the settings for an Okta app (also known as an Okta first-party app)
+	Replaces the settings for an Okta app (also known as an Okta first-party app)
 
-		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-		@param appName The key name for the Okta app.<br> Supported apps:   * Okta Admin Console (`admin-console`)
-		@return ApiReplaceFirstPartyAppSettingsRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param appName The key name for the Okta app.<br> Supported apps:   * Okta Admin Console (`admin-console`) 
+	@return ApiReplaceFirstPartyAppSettingsRequest
 	*/
 	ReplaceFirstPartyAppSettings(ctx context.Context, appName string) ApiReplaceFirstPartyAppSettingsRequest
 
@@ -71,9 +72,9 @@ type OktaApplicationSettingsAPI interface {
 type OktaApplicationSettingsAPIService service
 
 type ApiGetFirstPartyAppSettingsRequest struct {
-	ctx        context.Context
+	ctx context.Context
 	ApiService OktaApplicationSettingsAPI
-	appName    string
+	appName string
 	retryCount int32
 }
 
@@ -86,22 +87,21 @@ GetFirstPartyAppSettings Retrieve the Okta Application Settings
 
 Retrieves the settings for an Okta app (also known as an Okta first-party app)
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param appName The key name for the Okta app.<br> Supported apps:   * Okta Admin Console (`admin-console`)
-	@return ApiGetFirstPartyAppSettingsRequest
+ @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+ @param appName The key name for the Okta app.<br> Supported apps:   * Okta Admin Console (`admin-console`) 
+ @return ApiGetFirstPartyAppSettingsRequest
 */
 func (a *OktaApplicationSettingsAPIService) GetFirstPartyAppSettings(ctx context.Context, appName string) ApiGetFirstPartyAppSettingsRequest {
 	return ApiGetFirstPartyAppSettingsRequest{
 		ApiService: a,
-		ctx:        ctx,
-		appName:    appName,
+		ctx: ctx,
+		appName: appName,
 		retryCount: 0,
 	}
 }
 
 // Execute executes the request
-//
-//	@return AdminConsoleSettings
+//  @return AdminConsoleSettings
 func (a *OktaApplicationSettingsAPIService) GetFirstPartyAppSettingsExecute(r ApiGetFirstPartyAppSettingsRequest) (*AdminConsoleSettings, *APIResponse, error) {
 	var (
 		localVarHTTPMethod   = http.MethodGet
@@ -110,7 +110,7 @@ func (a *OktaApplicationSettingsAPIService) GetFirstPartyAppSettingsExecute(r Ap
 		localVarReturnValue  *AdminConsoleSettings
 		localVarHTTPResponse *http.Response
 		localAPIResponse     *APIResponse
-		err                  error
+		err 				 error
 	)
 
 	if a.client.cfg.Okta.Client.RequestTimeout > 0 {
@@ -219,17 +219,17 @@ func (a *OktaApplicationSettingsAPIService) GetFirstPartyAppSettingsExecute(r Ap
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
 		return localVarReturnValue, localAPIResponse, newErr
 	}
-
+	
 	localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
 	return localVarReturnValue, localAPIResponse, nil
 }
 
 type ApiReplaceFirstPartyAppSettingsRequest struct {
-	ctx                  context.Context
-	ApiService           OktaApplicationSettingsAPI
-	appName              string
+	ctx context.Context
+	ApiService OktaApplicationSettingsAPI
+	appName string
 	adminConsoleSettings *AdminConsoleSettings
-	retryCount           int32
+	retryCount int32
 }
 
 func (r ApiReplaceFirstPartyAppSettingsRequest) AdminConsoleSettings(adminConsoleSettings AdminConsoleSettings) ApiReplaceFirstPartyAppSettingsRequest {
@@ -246,22 +246,21 @@ ReplaceFirstPartyAppSettings Replace the Okta Application Settings
 
 Replaces the settings for an Okta app (also known as an Okta first-party app)
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param appName The key name for the Okta app.<br> Supported apps:   * Okta Admin Console (`admin-console`)
-	@return ApiReplaceFirstPartyAppSettingsRequest
+ @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+ @param appName The key name for the Okta app.<br> Supported apps:   * Okta Admin Console (`admin-console`) 
+ @return ApiReplaceFirstPartyAppSettingsRequest
 */
 func (a *OktaApplicationSettingsAPIService) ReplaceFirstPartyAppSettings(ctx context.Context, appName string) ApiReplaceFirstPartyAppSettingsRequest {
 	return ApiReplaceFirstPartyAppSettingsRequest{
 		ApiService: a,
-		ctx:        ctx,
-		appName:    appName,
+		ctx: ctx,
+		appName: appName,
 		retryCount: 0,
 	}
 }
 
 // Execute executes the request
-//
-//	@return AdminConsoleSettings
+//  @return AdminConsoleSettings
 func (a *OktaApplicationSettingsAPIService) ReplaceFirstPartyAppSettingsExecute(r ApiReplaceFirstPartyAppSettingsRequest) (*AdminConsoleSettings, *APIResponse, error) {
 	var (
 		localVarHTTPMethod   = http.MethodPut
@@ -270,7 +269,7 @@ func (a *OktaApplicationSettingsAPIService) ReplaceFirstPartyAppSettingsExecute(
 		localVarReturnValue  *AdminConsoleSettings
 		localVarHTTPResponse *http.Response
 		localAPIResponse     *APIResponse
-		err                  error
+		err 				 error
 	)
 
 	if a.client.cfg.Okta.Client.RequestTimeout > 0 {
@@ -396,7 +395,7 @@ func (a *OktaApplicationSettingsAPIService) ReplaceFirstPartyAppSettingsExecute(
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
 		return localVarReturnValue, localAPIResponse, newErr
 	}
-
+	
 	localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
 	return localVarReturnValue, localAPIResponse, nil
 }

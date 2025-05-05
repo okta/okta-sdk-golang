@@ -31,7 +31,7 @@ import (
 // ContinuousAccessPolicyRuleRunWorkflowWorkflow This action runs a workflow
 type ContinuousAccessPolicyRuleRunWorkflowWorkflow struct {
 	// The `id` of the workflow that runs.
-	Id                   *int32 `json:"id,omitempty"`
+	Id *int32 `json:"id,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -157,3 +157,4 @@ func (v *NullableContinuousAccessPolicyRuleRunWorkflowWorkflow) UnmarshalJSON(sr
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
+

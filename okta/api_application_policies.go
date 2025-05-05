@@ -30,25 +30,26 @@ import (
 	"io/ioutil"
 	"net/http"
 	"net/url"
-	"strings"
 	"time"
+	"strings"
 )
+
 
 type ApplicationPoliciesAPI interface {
 
 	/*
-			AssignApplicationPolicy Assign an application to a Policy
+	AssignApplicationPolicy Assign an application to a Policy
 
-			Assigns an application to an [authentication policy](/openapi/okta-management/management/tag/Policy/), identified by `policyId`.
-		If the application was previously assigned to another policy, this operation replaces that assignment with the updated policy identified by `policyId`.
+	Assigns an application to an [authentication policy](/openapi/okta-management/management/tag/Policy/), identified by `policyId`.
+If the application was previously assigned to another policy, this operation replaces that assignment with the updated policy identified by `policyId`.
 
-		> **Note:** When you [merge duplicate authentication policies](https://help.okta.com/okta_help.htm?type=oie&id=ext-merge-auth-policies),
-		the policy and mapping CRUD operations may be unavailable during the consolidation. When the consolidation is complete, you receive an email.
+> **Note:** When you [merge duplicate authentication policies](https://help.okta.com/okta_help.htm?type=oie&id=ext-merge-auth-policies),
+the policy and mapping CRUD operations may be unavailable during the consolidation. When the consolidation is complete, you receive an email.
 
-			@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-			@param appId Application ID
-			@param policyId `id` of the Policy
-			@return ApiAssignApplicationPolicyRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param appId Application ID
+	@param policyId `id` of the Policy
+	@return ApiAssignApplicationPolicyRequest
 	*/
 	AssignApplicationPolicy(ctx context.Context, appId string, policyId string) ApiAssignApplicationPolicyRequest
 
@@ -60,10 +61,10 @@ type ApplicationPoliciesAPI interface {
 type ApplicationPoliciesAPIService service
 
 type ApiAssignApplicationPolicyRequest struct {
-	ctx        context.Context
+	ctx context.Context
 	ApiService ApplicationPoliciesAPI
-	appId      string
-	policyId   string
+	appId string
+	policyId string
 	retryCount int32
 }
 
@@ -80,17 +81,17 @@ If the application was previously assigned to another policy, this operation rep
 > **Note:** When you [merge duplicate authentication policies](https://help.okta.com/okta_help.htm?type=oie&id=ext-merge-auth-policies),
 the policy and mapping CRUD operations may be unavailable during the consolidation. When the consolidation is complete, you receive an email.
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param appId Application ID
-	@param policyId `id` of the Policy
-	@return ApiAssignApplicationPolicyRequest
+ @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+ @param appId Application ID
+ @param policyId `id` of the Policy
+ @return ApiAssignApplicationPolicyRequest
 */
 func (a *ApplicationPoliciesAPIService) AssignApplicationPolicy(ctx context.Context, appId string, policyId string) ApiAssignApplicationPolicyRequest {
 	return ApiAssignApplicationPolicyRequest{
 		ApiService: a,
-		ctx:        ctx,
-		appId:      appId,
-		policyId:   policyId,
+		ctx: ctx,
+		appId: appId,
+		policyId: policyId,
 		retryCount: 0,
 	}
 }
@@ -103,7 +104,7 @@ func (a *ApplicationPoliciesAPIService) AssignApplicationPolicyExecute(r ApiAssi
 		formFiles            []formFile
 		localVarHTTPResponse *http.Response
 		localAPIResponse     *APIResponse
-		err                  error
+		err 				 error
 	)
 
 	if a.client.cfg.Okta.Client.RequestTimeout > 0 {

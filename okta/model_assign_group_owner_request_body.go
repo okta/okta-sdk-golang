@@ -33,7 +33,7 @@ type AssignGroupOwnerRequestBody struct {
 	// The `id` of the group owner
 	Id *string `json:"id,omitempty"`
 	// The entity type of the owner
-	Type                 *string `json:"type,omitempty"`
+	Type *string `json:"type,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -195,3 +195,4 @@ func (v *NullableAssignGroupOwnerRequestBody) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
+

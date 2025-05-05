@@ -35,7 +35,7 @@ type UserTypePutRequest struct {
 	// The human-readable name of the User Type
 	DisplayName string `json:"displayName"`
 	// The name of the existing type
-	Name                 string `json:"name"`
+	Name string `json:"name"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -212,3 +212,4 @@ func (v *NullableUserTypePutRequest) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
+

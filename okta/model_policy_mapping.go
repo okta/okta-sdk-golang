@@ -30,8 +30,8 @@ import (
 
 // PolicyMapping struct for PolicyMapping
 type PolicyMapping struct {
-	Id                   *string             `json:"id,omitempty"`
-	Links                *PolicyMappingLinks `json:"_links,omitempty"`
+	Id *string `json:"id,omitempty"`
+	Links *PolicyMappingLinks `json:"_links,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -193,3 +193,4 @@ func (v *NullablePolicyMapping) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
+
