@@ -86,15 +86,6 @@ workflows:
           name: execute-snyk
           context:
             - static-analysis
-  # See OKTA-624790
-  # See OKTA-729389
-  semgrep:
-    jobs:
-      - general-platform-helpers/job-semgrep-scan:
-          name: "Scan with Semgrep"
-          resource-class: "medium"
-          context:
-            - static-analysis
   "Malware Scanner":
     jobs:
       - reversing-labs:
