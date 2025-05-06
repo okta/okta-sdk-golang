@@ -137,7 +137,7 @@ type CustomTemplatesAPI interface {
 
 	Retrieves an email template's default content
 
-<x-lifecycle class="ea"></x-lifecycle> Defaults to the current user's language given the following: 
+<x-lifecycle class="ea"></x-lifecycle> Defaults to the current user's language given the following:
 - Custom languages for Okta Email Templates is enabled
 - An additional language is specified for the `language` parameter
 
@@ -1215,7 +1215,7 @@ GetEmailDefaultContent Retrieve an Email Template Default Content
 
 Retrieves an email template's default content
 
-<x-lifecycle class="ea"></x-lifecycle> Defaults to the current user's language given the following: 
+<x-lifecycle class="ea"></x-lifecycle> Defaults to the current user's language given the following:
 - Custom languages for Okta Email Templates is enabled
 - An additional language is specified for the `language` parameter
 

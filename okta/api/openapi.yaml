@@ -657,20 +657,16 @@ tags:
     > **Note:** To prevent abuse, Okta ThreatInsight works in a limited capacity for free trial edition orgs. Please contact Okta support if fully functional Okta ThreatInsight is required.
   name: ThreatInsight
   x-displayName: ThreatInsight
-- description: "The Trusted Origins API provides operations to manage Trusted Origins\
-    \ and sources.\n\nWhen external URLs are requested during sign-in, sign-out, or\
-    \ recovery operations, Okta checks those URLs against the allowed list of Trusted\
-    \ Origins. Trusted Origins also enable browser-based applications to access Okta\
-    \ APIs from JavaScript (CORS). If the origins aren't specified, the related operation\
-    \ (redirect or Okta API access) isn't permitted.\n\nYou can also configure Trusted\
-    \ Origins to allow iFrame embedding of Okta resources, such as Okta sign-in pages\
-    \ and the Okta End-User Dashboard, within that origin.\n\n> **Notes:**  \n> *\
-    \ This feature is supported for Okta domains only. It isn't currently supported\
-    \ for custom domains.\n> * Some of the curl code examples on this page include\
-    \ SSWS API token authentication. However, Okta recommends using scoped OAuth 2.0\
-    \ and OIDC access tokens to authenticate with Okta management APIs. OAuth 2.0\
-    \ and OIDC access tokens provide fine-grain control over the bearer's actions\
-    \ on specific endpoints. See [Okta API authentication methods](https://developer.okta.com/docs/api/openapi/okta-oauth/guides/overview/)."
+- description: |-
+    The Trusted Origins API provides operations to manage Trusted Origins and sources.
+
+    When external URLs are requested during sign-in, sign-out, or recovery operations, Okta checks those URLs against the allowed list of Trusted Origins. Trusted Origins also enable browser-based applications to access Okta APIs from JavaScript (CORS). If the origins aren't specified, the related operation (redirect or Okta API access) isn't permitted.
+
+    You can also configure Trusted Origins to allow iFrame embedding of Okta resources, such as Okta sign-in pages and the Okta End-User Dashboard, within that origin.
+
+    > **Notes:**
+    > * This feature is supported for Okta domains only. It isn't currently supported for custom domains.
+    > * Some of the curl code examples on this page include SSWS API token authentication. However, Okta recommends using scoped OAuth 2.0 and OIDC access tokens to authenticate with Okta management APIs. OAuth 2.0 and OIDC access tokens provide fine-grain control over the bearer's actions on specific endpoints. See [Okta API authentication methods](https://developer.okta.com/docs/api/openapi/okta-oauth/guides/overview/).
   name: TrustedOrigin
   x-displayName: Trusted Origins
 - description: |-
@@ -3868,10 +3864,9 @@ paths:
           example: 0oafxqCAJWWGELFTYASJ
           type: string
         style: simple
-      - description: "Specifies a filter for a list of assigned groups returned based\
-          \ on their names. The value of `q` is matched against the group `name`.\
-          \ \nThis filter only supports the `startsWith` operation that matches the\
-          \ `q` string against the beginning of the [Group name](https://developer.okta.com/docs/api/openapi/okta-management/management/tag/Group/#tag/Group/operation/listGroups!c=200&path=profile/name&t=response)."
+      - description: |-
+          Specifies a filter for a list of assigned groups returned based on their names. The value of `q` is matched against the group `name`.
+          This filter only supports the `startsWith` operation that matches the `q` string against the beginning of the [Group name](https://developer.okta.com/docs/api/openapi/okta-management/management/tag/Group/#tag/Group/operation/listGroups!c=200&path=profile/name&t=response).
         explode: true
         in: query
         name: q
@@ -3916,9 +3911,9 @@ paths:
           minimum: 20
           type: integer
         style: form
-      - description: "An optional query parameter to return the corresponding assigned\
-          \ [Group](/openapi/okta-management/management/tag/Group/) or \nthe group\
-          \ assignment metadata details in the `_embedded` property. "
+      - description: |-
+          An optional query parameter to return the corresponding assigned [Group](/openapi/okta-management/management/tag/Group/) or
+          the group assignment metadata details in the `_embedded` property.
         examples:
           group:
             summary: Embedded assigned Group
@@ -4069,9 +4064,9 @@ paths:
           example: 00g1emaKYZTWRYYRRTSK
           type: string
         style: simple
-      - description: "An optional query parameter to return the corresponding assigned\
-          \ [Group](/openapi/okta-management/management/tag/Group/) or \nthe group\
-          \ assignment metadata details in the `_embedded` property. "
+      - description: |-
+          An optional query parameter to return the corresponding assigned [Group](/openapi/okta-management/management/tag/Group/) or
+          the group assignment metadata details in the `_embedded` property.
         examples:
           group:
             summary: Embedded assigned Group
@@ -4224,10 +4219,9 @@ paths:
         lifecycle: GA
         isGenerallyAvailable: true
     put:
-      description: "Assigns a [Group](https://developer.okta.com/docs/api/openapi/okta-management/management/tag/Group/)\
-        \ to an app, which in turn assigns the app to each [User](https://developer.okta.com/docs/api/openapi/okta-management/management/tag/User/)\
-        \ that belongs to the group. \nThe resulting Application User [scope](https://developer.okta.com/docs/api/openapi/okta-management/management/tag/ApplicationUsers/#tag/ApplicationUsers/operation/listApplicationUsers!c=200&path=scope&t=response)\
-        \ is `GROUP` since the assignment was from the group membership."
+      description: |-
+        Assigns a [Group](https://developer.okta.com/docs/api/openapi/okta-management/management/tag/Group/) to an app, which in turn assigns the app to each [User](https://developer.okta.com/docs/api/openapi/okta-management/management/tag/User/) that belongs to the group.
+        The resulting Application User [scope](https://developer.okta.com/docs/api/openapi/okta-management/management/tag/ApplicationUsers/#tag/ApplicationUsers/operation/listApplicationUsers!c=200&path=scope&t=response) is `GROUP` since the assignment was from the group membership.
       operationId: assignGroupToApplication
       parameters:
       - description: Application ID
@@ -12270,10 +12264,12 @@ paths:
         isGenerallyAvailable: true
   /api/v1/brands/{brandId}/templates/email/{templateName}/default-content:
     get:
-      description: "Retrieves an email template's default content\n\n<x-lifecycle\
-        \ class=\"ea\"></x-lifecycle> Defaults to the current user's language given\
-        \ the following: \n- Custom languages for Okta Email Templates is enabled\n\
-        - An additional language is specified for the `language` parameter\n"
+      description: |
+        Retrieves an email template's default content
+
+        <x-lifecycle class="ea"></x-lifecycle> Defaults to the current user's language given the following:
+        - Custom languages for Okta Email Templates is enabled
+        - An additional language is specified for the `language` parameter
       operationId: getEmailDefaultContent
       parameters:
       - description: The ID of the brand
@@ -32148,10 +32144,10 @@ paths:
         lifecycle: GA
         isGenerallyAvailable: true
     get:
-      description: "Retrieves Session information for the current user. Use this method\
-        \ in a browser-based application to determine if the user is signed in. \n\
-        \n> **Note:** This operation requires a session cookie for the user. An API\
-        \ token isn't allowed for this operation. "
+      description: |-
+        Retrieves Session information for the current user. Use this method in a browser-based application to determine if the user is signed in.
+
+        > **Note:** This operation requires a session cookie for the user. An API token isn't allowed for this operation.
       operationId: getCurrentSession
       parameters:
       - example: sid=abcde-123 or idx=abcde-123
@@ -36974,13 +36970,11 @@ paths:
         isGenerallyAvailable: true
   /api/v1/users/{userId}/lifecycle/reactivate:
     post:
-      description: "Reactivates a user. This operation can only be performed on users\
-        \ with a `PROVISIONED` status. \nThis operation restarts the activation workflow\
-        \ if the user activation wasn't completed with the `activationToken` from\
-        \ [Activate a user](/openapi/okta-management/management/tag/User/#tag/User/operation/activateUser).\n\
-        \n> **Note:** A successful request to this endpoint records the same set of\
-        \ events as when a user is activated in System Logs, since it invokes the\
-        \ same activation workflow."
+      description: |-
+        Reactivates a user. This operation can only be performed on users with a `PROVISIONED` status.
+        This operation restarts the activation workflow if the user activation wasn't completed with the `activationToken` from [Activate a user](/openapi/okta-management/management/tag/User/#tag/User/operation/activateUser).
+
+        > **Note:** A successful request to this endpoint records the same set of events as when a user is activated in System Logs, since it invokes the same activation workflow.
       operationId: reactivateUser
       parameters:
       - description: ID of an existing Okta user
@@ -48949,9 +48943,9 @@ components:
         - type: CORS
         - type: REDIRECT
     TrustedOriginBodyWithIframeEmbedding:
-      description: "Creates a new Trusted Origin for iFrame embedding of an Okta resource\
-        \ within that origin. In this example, the type \nof Okta resource is both\
-        \ the Okta End-User Dashboard and the Okta sign-in page.\n"
+      description: |
+        Creates a new Trusted Origin for iFrame embedding of an Okta resource within that origin. In this example, the type
+        of Okta resource is both the Okta End-User Dashboard and the Okta sign-in page.
       summary: Trusted origin request body with iFrame embedding (Okta End-User Dashboard
         and Okta sign-in page)
       value:
@@ -48962,9 +48956,9 @@ components:
           allowedOktaApps:
           - OKTA_ENDUSER
     TrustedOriginBodyWithIframeEmbeddingSignIn:
-      description: "Creates a new Trusted Origin for iFrame embedding of an Okta resource\
-        \ within that origin. In this example, the Okta \nresource is the Okta sign-in\
-        \ page.\n"
+      description: |
+        Creates a new Trusted Origin for iFrame embedding of an Okta resource within that origin. In this example, the Okta
+        resource is the Okta sign-in page.
       summary: Trusted origin request body with iFrame embedding (Okta sign-in page)
       value:
         name: New Trusted Origin
@@ -51800,9 +51794,9 @@ components:
         type: integer
       style: form
     queryGroupAssignmentWithGroupExpand:
-      description: "An optional query parameter to return the corresponding assigned\
-        \ [Group](/openapi/okta-management/management/tag/Group/) or \nthe group assignment\
-        \ metadata details in the `_embedded` property. "
+      description: |-
+        An optional query parameter to return the corresponding assigned [Group](/openapi/okta-management/management/tag/Group/) or
+        the group assignment metadata details in the `_embedded` property.
       examples:
         group:
           summary: Embedded assigned Group
@@ -51819,9 +51813,9 @@ components:
         type: string
       style: form
     queryGroupAssignmentWithMetadataExpand:
-      description: "An optional query parameter to return the corresponding assigned\
-        \ [Group](/openapi/okta-management/management/tag/Group/) or \nthe group assignment\
-        \ metadata details in the `_embedded` property. "
+      description: |-
+        An optional query parameter to return the corresponding assigned [Group](/openapi/okta-management/management/tag/Group/) or
+        the group assignment metadata details in the `_embedded` property.
       examples:
         group:
           summary: Embedded assigned Group
@@ -53556,21 +53550,18 @@ components:
           type: integer
         profile:
           additionalProperties: true
-          description: "Specifies the profile properties applied to [Application Users](https://developer.okta.com/docs/api/openapi/okta-management/management/tag/ApplicationUsers/)\
-            \ that are assigned to the app through group membership. \nSome reference\
-            \ properties are imported from the target app and can't be configured.\
-            \ See [profile](https://developer.okta.com/docs/api/openapi/okta-management/management/tag/User/#tag/User/operation/getUser!c=200&path=profile&t=response)."
+          description: |-
+            Specifies the profile properties applied to [Application Users](https://developer.okta.com/docs/api/openapi/okta-management/management/tag/ApplicationUsers/) that are assigned to the app through group membership.
+            Some reference properties are imported from the target app and can't be configured. See [profile](https://developer.okta.com/docs/api/openapi/okta-management/management/tag/User/#tag/User/operation/getUser!c=200&path=profile&t=response).
           type: object
         _embedded:
           additionalProperties:
             properties: {}
             type: object
-          description: "Embedded resource related to the Application Group using the\
-            \ [JSON Hypertext Application Language](https://datatracker.ietf.org/doc/html/draft-kelly-json-hal-06)\
-            \ specification.\nIf the `expand=group` query parameter is specified,\
-            \ then the [Group](https://developer.okta.com/docs/api/openapi/okta-management/management/tag/Group/)\
-            \ object is embedded. \nIf the `expand=metadata` query parameter is specified,\
-            \ then the group assignment metadata is embedded."
+          description: |-
+            Embedded resource related to the Application Group using the [JSON Hypertext Application Language](https://datatracker.ietf.org/doc/html/draft-kelly-json-hal-06) specification.
+            If the `expand=group` query parameter is specified, then the [Group](https://developer.okta.com/docs/api/openapi/okta-management/management/tag/Group/) object is embedded.
+            If the `expand=metadata` query parameter is specified, then the group assignment metadata is embedded.
           readOnly: true
           type: object
         _links:
@@ -57290,14 +57281,15 @@ components:
     EmailContent:
       properties:
         body:
-          description: "The HTML body of the email. May contain [variable references](https://velocity.apache.org/engine/1.7/user-guide.html#references).\
-            \ \n\n<x-lifecycle class=\"ea\"></x-lifecycle> Not required if Custom\
-            \ languages for Okta Email Templates is enabled. A `null` body is replaced\
-            \ with a default value from one of the following in priority order:\n\n\
-            1. An existing default email customization, if one exists\n2. Okta-provided\
-            \ translated content for the specified language, if one exists\n3. Okta-provided\
-            \ translated content for the brand locale, if it's set \n4. Okta-provided\
-            \ content in English\n"
+          description: |
+            The HTML body of the email. May contain [variable references](https://velocity.apache.org/engine/1.7/user-guide.html#references).
+
+            <x-lifecycle class="ea"></x-lifecycle> Not required if Custom languages for Okta Email Templates is enabled. A `null` body is replaced with a default value from one of the following in priority order:
+
+            1. An existing default email customization, if one exists
+            2. Okta-provided translated content for the specified language, if one exists
+            3. Okta-provided translated content for the brand locale, if it's set
+            4. Okta-provided content in English
           type: string
         subject:
           description: |
@@ -58588,10 +58580,9 @@ components:
       type: object
     GroupAssignmentProfile:
       additionalProperties: true
-      description: "Specifies the profile properties applied to [Application Users](https://developer.okta.com/docs/api/openapi/okta-management/management/tag/ApplicationUsers/)\
-        \ that are assigned to the app through group membership. \nSome reference\
-        \ properties are imported from the target app and can't be configured. See\
-        \ [profile](https://developer.okta.com/docs/api/openapi/okta-management/management/tag/User/#tag/User/operation/getUser!c=200&path=profile&t=response)."
+      description: |-
+        Specifies the profile properties applied to [Application Users](https://developer.okta.com/docs/api/openapi/okta-management/management/tag/ApplicationUsers/) that are assigned to the app through group membership.
+        Some reference properties are imported from the target app and can't be configured. See [profile](https://developer.okta.com/docs/api/openapi/okta-management/management/tag/User/#tag/User/operation/getUser!c=200&path=profile&t=response).
       type: object
     GroupCondition:
       description: Specifies a set of Groups whose Users are to be included or excluded
@@ -64083,13 +64074,11 @@ components:
           type: array
       type: object
     PasswordCredential:
-      description: "When a user has a valid password, imported hashed password, or\
-        \ password hook, and a response object contains\na password credential, then\
-        \ the password object is a bare object without the value property defined\
-        \ (for example, `password: {}`). This \nindicates that a password value exists.\
-        \ You can modify password policy requirements in the Admin Console by editing\
-        \ the Password\nauthenticator:  **Security** > **Authenticators** > **Password**\
-        \ (or for Okta Classic orgs, use **Security** > **Authentication** > **Password**)."
+      description: |-
+        When a user has a valid password, imported hashed password, or password hook, and a response object contains
+        a password credential, then the password object is a bare object without the value property defined (for example, `password: {}`). This
+        indicates that a password value exists. You can modify password policy requirements in the Admin Console by editing the Password
+        authenticator:  **Security** > **Authenticators** > **Password** (or for Okta Classic orgs, use **Security** > **Authentication** > **Password**).
       example:
         hook:
           type: type
@@ -64736,13 +64725,11 @@ components:
           description: Specifies whether Okta created the Policy
           type: boolean
         type:
-          description: "All Okta orgs contain only one IdP Discovery Policy with an\
-            \ immutable default Rule routing to your org's sign-in page. \nCreating\
-            \ or replacing a policy with `IDP_DISCOVERY` type isn't supported. The\
-            \ following policy types are available with\nthe Okta Identity Engine:\
-            \ `ACCESS_POLICY`, `PROFILE_ENROLLMENT`, `CONTINUOUS_ACCESS`, and `ENTITY_RISK`.\
-            \ The `CONTINUOUS_ACCESS`, and `ENTITY_RISK` \npolicy types are in Early\
-            \ Access (EA). Contact your Okta account team to enable these features."
+          description: |-
+            All Okta orgs contain only one IdP Discovery Policy with an immutable default Rule routing to your org's sign-in page.
+            Creating or replacing a policy with `IDP_DISCOVERY` type isn't supported. The following policy types are available with
+            the Okta Identity Engine: `ACCESS_POLICY`, `PROFILE_ENROLLMENT`, `CONTINUOUS_ACCESS`, and `ENTITY_RISK`. The `CONTINUOUS_ACCESS`, and `ENTITY_RISK`
+            policy types are in Early Access (EA). Contact your Okta account team to enable these features.
           type: string
           x-okta-known-values:
           - ACCESS_POLICY
@@ -65091,13 +65078,11 @@ components:
       - USERNAME
       - USERNAME_OR_EMAIL
     PolicyType:
-      description: "All Okta orgs contain only one IdP Discovery Policy with an immutable\
-        \ default Rule routing to your org's sign-in page. \nCreating or replacing\
-        \ a policy with `IDP_DISCOVERY` type isn't supported. The following policy\
-        \ types are available with\nthe Okta Identity Engine: `ACCESS_POLICY`, `PROFILE_ENROLLMENT`,\
-        \ `CONTINUOUS_ACCESS`, and `ENTITY_RISK`. The `CONTINUOUS_ACCESS`, and `ENTITY_RISK`\
-        \ \npolicy types are in Early Access (EA). Contact your Okta account team\
-        \ to enable these features."
+      description: |-
+        All Okta orgs contain only one IdP Discovery Policy with an immutable default Rule routing to your org's sign-in page.
+        Creating or replacing a policy with `IDP_DISCOVERY` type isn't supported. The following policy types are available with
+        the Okta Identity Engine: `ACCESS_POLICY`, `PROFILE_ENROLLMENT`, `CONTINUOUS_ACCESS`, and `ENTITY_RISK`. The `CONTINUOUS_ACCESS`, and `ENTITY_RISK`
+        policy types are in Early Access (EA). Contact your Okta account team to enable these features.
       type: string
       x-okta-known-values:
       - ACCESS_POLICY
@@ -69478,11 +69463,10 @@ components:
             $ref: '#/components/schemas/IframeEmbedScopeAllowedApps'
           type: array
         type:
-          description: "The scope type. Supported values: When you use `IFRAME_EMBED`\
-            \ as the scope type, leave the allowedOktaApps property \nempty to allow\
-            \ iFrame embedding of only Okta sign-in pages. Include `OKTA_ENDUSER`\
-            \ as a value for the allowedOktaApps \nproperty to allow iFrame embedding\
-            \ of both Okta sign-in pages and the Okta End-User Dashboard.\n"
+          description: |
+            The scope type. Supported values: When you use `IFRAME_EMBED` as the scope type, leave the allowedOktaApps property
+            empty to allow iFrame embedding of only Okta sign-in pages. Include `OKTA_ENDUSER` as a value for the allowedOktaApps
+            property to allow iFrame embedding of both Okta sign-in pages and the Okta End-User Dashboard.
           type: string
           x-okta-known-values:
           - CORS
@@ -69490,11 +69474,10 @@ components:
           - REDIRECT
       type: object
     TrustedOriginScopeType:
-      description: "The scope type. Supported values: When you use `IFRAME_EMBED`\
-        \ as the scope type, leave the allowedOktaApps property \nempty to allow iFrame\
-        \ embedding of only Okta sign-in pages. Include `OKTA_ENDUSER` as a value\
-        \ for the allowedOktaApps \nproperty to allow iFrame embedding of both Okta\
-        \ sign-in pages and the Okta End-User Dashboard.\n"
+      description: |
+        The scope type. Supported values: When you use `IFRAME_EMBED` as the scope type, leave the allowedOktaApps property
+        empty to allow iFrame embedding of only Okta sign-in pages. Include `OKTA_ENDUSER` as a value for the allowedOktaApps
+        property to allow iFrame embedding of both Okta sign-in pages and the Okta End-User Dashboard.
       type: string
       x-okta-known-values:
       - CORS
@@ -70144,6 +70127,7 @@ components:
           web: '#/components/schemas/UserFactorWeb'
           webauthn: '#/components/schemas/UserFactorWebAuthn'
           hotp: '#/components/schemas/UserFactorCustomHOTP'
+          signed_nonce: '#/components/schemas/AuthenticatorMethodSignedNonce'
         propertyName: factorType
       properties:
         created:
@@ -71042,22 +71026,18 @@ components:
       type: object
     UserProfile:
       additionalProperties: true
-      description: "Specifies the default and custom profile properties for a user.\n\
-        \nThe default user profile is based on the [System for Cross-domain Identity\
-        \ Management: Core Schema](https://datatracker.ietf.org/doc/html/rfc7643).\n\
-        The only permitted customizations of the default profile are to update permissions,\
-        \ change whether the `firstName` and `lastName` properties are nullable, and\
-        \ \nspecify a [pattern](https://developer.okta.com/docs/reference/api/schemas/#login-pattern-validation)\
-        \ for `login`. You can use the Profile Editor in the administrator UI\nor\
-        \ the [Schemas API](https://developer.okta.com/docs/api/openapi/okta-management/management/tag/UISchema/#tag/UISchema)\
-        \ to make schema modifications.\n\nYou can extend user profiles with custom\
-        \ properties. You must first add the custom property to the user profile schema\
-        \ before you reference it.\nYou can use the Profile Editor in the Admin console\
-        \ or the [Schemas API](https://developer.okta.com/docs/api/openapi/okta-management/management/tag/UISchema/#tag/UISchema)\
-        \ to manage schema extensions.\n\nCustom attributes may contain HTML tags.\
-        \ It's the client's responsibility to escape or encode this data before displaying\
-        \ it. Use [best-practices](https://cheatsheetseries.owasp.org/cheatsheets/Cross_Site_Scripting_Prevention_Cheat_Sheet.html)\
-        \ to prevent cross-site scripting."
+      description: |-
+        Specifies the default and custom profile properties for a user.
+
+        The default user profile is based on the [System for Cross-domain Identity Management: Core Schema](https://datatracker.ietf.org/doc/html/rfc7643).
+        The only permitted customizations of the default profile are to update permissions, change whether the `firstName` and `lastName` properties are nullable, and
+        specify a [pattern](https://developer.okta.com/docs/reference/api/schemas/#login-pattern-validation) for `login`. You can use the Profile Editor in the administrator UI
+        or the [Schemas API](https://developer.okta.com/docs/api/openapi/okta-management/management/tag/UISchema/#tag/UISchema) to make schema modifications.
+
+        You can extend user profiles with custom properties. You must first add the custom property to the user profile schema before you reference it.
+        You can use the Profile Editor in the Admin console or the [Schemas API](https://developer.okta.com/docs/api/openapi/okta-management/management/tag/UISchema/#tag/UISchema) to manage schema extensions.
+
+        Custom attributes may contain HTML tags. It's the client's responsibility to escape or encode this data before displaying it. Use [best-practices](https://cheatsheetseries.owasp.org/cheatsheets/Cross_Site_Scripting_Prevention_Cheat_Sheet.html) to prevent cross-site scripting.
       example:
         profileUrl: profileUrl
         lastName: lastName
@@ -77330,9 +77310,9 @@ components:
           readOnly: true
           type: string
         name:
-          description: "The name of the User Type. The name must start with A-Z or\
-            \ a-z and contain only A-Z, a-z, 0-9, or underscore (_) characters. \n\
-            \ This value becomes read-only after creation and can't be updated."
+          description: |-
+            The name of the User Type. The name must start with A-Z or a-z and contain only A-Z, a-z, 0-9, or underscore (_) characters.
+             This value becomes read-only after creation and can't be updated.
           type: string
         _links:
           $ref: '#/components/schemas/UserTypeLinks'
@@ -78316,6 +78296,7 @@ components:
           web: '#/components/schemas/UserFactorWeb'
           webauthn: '#/components/schemas/UserFactorWebAuthn'
           hotp: '#/components/schemas/UserFactorCustomHOTP'
+          signed_nonce: '#/components/schemas/AuthenticatorMethodSignedNonce'
         propertyName: factorType
       oneOf:
       - $ref: '#/components/schemas/UserFactorCall'
@@ -78330,6 +78311,7 @@ components:
       - $ref: '#/components/schemas/UserFactorU2F'
       - $ref: '#/components/schemas/UserFactorWeb'
       - $ref: '#/components/schemas/UserFactorWebAuthn'
+      - $ref: '#/components/schemas/AuthenticatorMethodSignedNonce'
     resendEnrollFactor_request:
       discriminator:
         mapping:
@@ -78764,12 +78746,10 @@ components:
           type: array
       type: object
     CreateUserRequest_type:
-      description: "The ID of the user type. Add this value if you want to create\
-        \ a user with a non-default [user type](https://developer.okta.com/docs/api/openapi/okta-management/management/tag/UserType/).\n\
-        The user type determines which [schema](https://developer.okta.com/docs/api/openapi/okta-management/management/tag/Schema/)\
-        \ applies to that user. After a user has been created, the user can \nonly\
-        \ be assigned a different user type by an administrator through a full replacement\
-        \ (`PUT`) operation."
+      description: |-
+        The ID of the user type. Add this value if you want to create a user with a non-default [user type](https://developer.okta.com/docs/api/openapi/okta-management/management/tag/UserType/).
+        The user type determines which [schema](https://developer.okta.com/docs/api/openapi/okta-management/management/tag/Schema/) applies to that user. After a user has been created, the user can
+        only be assigned a different user type by an administrator through a full replacement (`PUT`) operation.
       example:
         id: id
       properties:
@@ -80677,59 +80657,46 @@ x-webhooks:
   CreateTelephonyInlineHook:
     post:
       summary: Create an Okta Telephony Inline Hook
-      description: "Creates an Okta Telephony inline hook request. This is an automated\
-        \ request from Okta to your third-party service endpoint.\n\nThe objects that\
-        \ you return in the JSON payload of your response to this Okta request are\
-        \ an array of one or more objects,\nwhich specify the Okta commands to execute.\n\
-        \n>**Note:** The size of your response payload must be less than 256 KB.\n\
-        \nSee also:\n* For a general introduction to Okta inline hooks, see [Inline\
-        \ hooks](https://developer.okta.com/docs/concepts/inline-hooks/)\n* For information\
-        \ on the API for registering external service endpoints with Okta, see [Inline\
-        \ Hooks Management API](https://developer.okta.com/docs/api/openapi/okta-management/management/tag/InlineHook/)\n\
-        * For an example implementation of a telephony inline hook, see [Telephony\
-        \ inline hook ](https://developer.okta.com/docs/guides/telephony-inline-hook)\n\
-        \n### About\n\nThe Okta telephony inline hook allows you to integrate your\
-        \ own custom code into Okta flows that send SMS or voice call messages. You\
-        \ can integrate this hook with enrollment, authentication, and recovery flows\
-        \ that involve the phone authenticator. Okta uses your external provider to\
-        \ deliver the one-time passcode (OTP) to the Requester. The provider can respond\
-        \ with commands that indicate if the delivery was successful or not.\n\nYou\
-        \ can have only one active telephony inline hook per org.\n\nWhen you create\
-        \ a telephony inline hook, you must include the `authScheme` parameter. See\
-        \ [Create inline hook](https://developer.okta.com/docs/api/openapi/okta-management/management/tag/InlineHook/#tag/InlineHook/operation/createInlineHook)\
-        \ and the [authScheme object](https://developer.okta.com/docs/api/openapi/okta-management/management/tag/InlineHook/#tag/InlineHook/operation/createInlineHook!path=channel/0/config/authScheme&t=request)\n\
-        \n### Timeout behavior\n\nIf the provider response times out, Okta attempts\
-        \ to send the OTP using the Okta telephony providers. See [Troubleshoot](https://developer.okta.com/docs/api/openapi/okta-management/management/tag/InlineHook/#tag/InlineHook/operation/createTelephonyInlineHook/#troubleshoot).\n\
-        \n### Troubleshoot\n\nThis section explains several common causes of failure\
-        \ for telephony inline hooks.\n\nNote: Administrators can use the [Okta System\
-        \ Log](https://developer.okta.com/docs/reference/api/system-log/) to view\
-        \ errors. See the Troubleshooting section in the inline hooks topic for details\
-        \ on events captured by the Okta System Log.\n\n| Issue                  \
-        \                                                             | Impact   \
-        \                                                                        \
-        \               | Error Visibility                          | \n|-------------------------------------------------------------------------------------|-------------------------------------------------------------------------------------------------|-------------------------------------------|\n\
-        |External service fails to communicate or times out                      \
-        \             | Inline hook operation is skipped, OTP is sent to the Requester\
-        \ using an Okta telephony provider | Administrators only                 \
-        \      |\n|External service responds with any HTTP status code besides `200`\
-        \                    | Inline hook operation is skipped, OTP is sent to the\
-        \ Requester using an Okta telephony provider | Administrators only       \
-        \                | \n|External service returns an error object           \
-        \                                  | Inline hook operation fails, OTP is sent\
-        \ to the Requester using an Okta telephony provider      | Administrators,\
-        \ developers, and end users |\n|Hook response is malformed or can't be mapped\
-        \ to the expected API response           | Inline hook operation is skipped\
-        \                                                                | Administrators\
-        \ only                       |\n|Request header doesn't include an `authScheme`\
-        \                                       | Inline hook operation is skipped\
-        \                                                                | Administrators\
-        \ only                       |\n|Response uses an invalid status         \
-        \                                             | Inline hook operation is skipped\
-        \                                                                | Administrators\
-        \ only                       |\n|Operation adds an active telephony inline\
-        \ hook when a hook exists                    | Inline hook operation is skipped\
-        \                                                                | Administrators\
-        \ only                       |"
+      description: |-
+        Creates an Okta Telephony inline hook request. This is an automated request from Okta to your third-party service endpoint.
+
+        The objects that you return in the JSON payload of your response to this Okta request are an array of one or more objects,
+        which specify the Okta commands to execute.
+
+        >**Note:** The size of your response payload must be less than 256 KB.
+
+        See also:
+        * For a general introduction to Okta inline hooks, see [Inline hooks](https://developer.okta.com/docs/concepts/inline-hooks/)
+        * For information on the API for registering external service endpoints with Okta, see [Inline Hooks Management API](https://developer.okta.com/docs/api/openapi/okta-management/management/tag/InlineHook/)
+        * For an example implementation of a telephony inline hook, see [Telephony inline hook ](https://developer.okta.com/docs/guides/telephony-inline-hook)
+
+        ### About
+
+        The Okta telephony inline hook allows you to integrate your own custom code into Okta flows that send SMS or voice call messages. You can integrate this hook with enrollment, authentication, and recovery flows that involve the phone authenticator. Okta uses your external provider to deliver the one-time passcode (OTP) to the Requester. The provider can respond with commands that indicate if the delivery was successful or not.
+
+        You can have only one active telephony inline hook per org.
+
+        When you create a telephony inline hook, you must include the `authScheme` parameter. See [Create inline hook](https://developer.okta.com/docs/api/openapi/okta-management/management/tag/InlineHook/#tag/InlineHook/operation/createInlineHook) and the [authScheme object](https://developer.okta.com/docs/api/openapi/okta-management/management/tag/InlineHook/#tag/InlineHook/operation/createInlineHook!path=channel/0/config/authScheme&t=request)
+
+        ### Timeout behavior
+
+        If the provider response times out, Okta attempts to send the OTP using the Okta telephony providers. See [Troubleshoot](https://developer.okta.com/docs/api/openapi/okta-management/management/tag/InlineHook/#tag/InlineHook/operation/createTelephonyInlineHook/#troubleshoot).
+
+        ### Troubleshoot
+
+        This section explains several common causes of failure for telephony inline hooks.
+
+        Note: Administrators can use the [Okta System Log](https://developer.okta.com/docs/reference/api/system-log/) to view errors. See the Troubleshooting section in the inline hooks topic for details on events captured by the Okta System Log.
+
+        | Issue                                                                               | Impact                                                                                          | Error Visibility                          |
+        |-------------------------------------------------------------------------------------|-------------------------------------------------------------------------------------------------|-------------------------------------------|
+        |External service fails to communicate or times out                                   | Inline hook operation is skipped, OTP is sent to the Requester using an Okta telephony provider | Administrators only                       |
+        |External service responds with any HTTP status code besides `200`                    | Inline hook operation is skipped, OTP is sent to the Requester using an Okta telephony provider | Administrators only                       |
+        |External service returns an error object                                             | Inline hook operation fails, OTP is sent to the Requester using an Okta telephony provider      | Administrators, developers, and end users |
+        |Hook response is malformed or can't be mapped to the expected API response           | Inline hook operation is skipped                                                                | Administrators only                       |
+        |Request header doesn't include an `authScheme`                                       | Inline hook operation is skipped                                                                | Administrators only                       |
+        |Response uses an invalid status                                                      | Inline hook operation is skipped                                                                | Administrators only                       |
+        |Operation adds an active telephony inline hook when a hook exists                    | Inline hook operation is skipped                                                                | Administrators only                       |
       operationId: createTelephonyInlineHook
       requestBody:
         required: true

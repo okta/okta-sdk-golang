@@ -31,7 +31,7 @@ import (
 type TrustedOriginScope struct {
 	// The allowed Okta apps for the Trusted Origin scope
 	AllowedOktaApps []string `json:"allowedOktaApps,omitempty"`
-	// The scope type. Supported values: When you use `IFRAME_EMBED` as the scope type, leave the allowedOktaApps property  empty to allow iFrame embedding of only Okta sign-in pages. Include `OKTA_ENDUSER` as a value for the allowedOktaApps  property to allow iFrame embedding of both Okta sign-in pages and the Okta End-User Dashboard. 
+	// The scope type. Supported values: When you use `IFRAME_EMBED` as the scope type, leave the allowedOktaApps property empty to allow iFrame embedding of only Okta sign-in pages. Include `OKTA_ENDUSER` as a value for the allowedOktaApps property to allow iFrame embedding of both Okta sign-in pages and the Okta End-User Dashboard. 
 	Type *string `json:"type,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
