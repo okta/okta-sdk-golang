@@ -1,6 +1,10 @@
 # Changelog
 Running changelog of releases since `2.0.0-rc.4`
 
+## v5.0.5
+ - Fix the Go Documentation spam [#512](https://github.com/okta/okta-sdk-golang/pull/511). Thanks [@aditya-okta](https://github.com/aditya-okta)
+ - Fix the support for signed nonce factor [#512](https://github.com/okta/okta-sdk-golang/pull/512). Thanks [@aditya-okta](https://github.com/aditya-okta)
+
 ## v5.0.2
  - Fix unmarshalling error for Group owner object lastUpdated (#486) Thanks [@duytiennguyen-okta]
 
@@ -51,7 +55,7 @@ Running changelog of releases since `2.0.0-rc.4`
    - `Application` has `PreviewSAMLAppMetadata` method for `GET /api/v1/apps/{applicationId}/sso/saml/metadata` endpoint.
  - Added parameters
    - `Default` bool on `AuthorizationServer` model
- 
+
 ## v2.16.0
 
  - All API integers, which previously had been typed as `int64`, are now typed
