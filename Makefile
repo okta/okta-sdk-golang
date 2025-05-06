@@ -71,3 +71,4 @@ test:
 
 generate:
 	npx @openapitools/openapi-generator-cli generate -c ./.generator/config.yaml -i .generator/okta-management-APIs-oasv3-noEnums-inheritance.yaml
+
