@@ -1,6 +1,6 @@
 module github.com/okta/okta-sdk-golang/v5
 
-go 1.23.0
+go 1.23
 
 require (
 	github.com/cenkalti/backoff/v4 v4.1.3
