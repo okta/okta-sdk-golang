@@ -11,6 +11,7 @@ require (
 	github.com/patrickmn/go-cache v0.0.0-20180815053127-5633e0862627
 	github.com/stretchr/testify v1.9.0
 	golang.org/x/oauth2 v0.0.0-20210323180902-22b0adad7558
+	golang.org/x/time v0.0.0-20191024005414-555d28b269f0
 	gopkg.in/yaml.v3 v3.0.1
 )
 
