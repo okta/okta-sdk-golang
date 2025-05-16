@@ -1,6 +1,8 @@
 module github.com/okta/okta-sdk-golang/v5
 
-go 1.20
+go 1.23.0
+
+toolchain go1.24.0
 
 require (
 	github.com/cenkalti/backoff/v4 v4.1.3
@@ -27,8 +29,8 @@ require (
 	github.com/lestrrat-go/option v1.0.1 // indirect
 	github.com/pkg/errors v0.9.1 // indirect
 	github.com/pmezard/go-difflib v1.0.0 // indirect
-	golang.org/x/crypto v0.21.0 // indirect
-	golang.org/x/net v0.21.0 // indirect
+	golang.org/x/crypto v0.36.0 // indirect
+	golang.org/x/net v0.38.0 // indirect
 	google.golang.org/appengine v1.6.6 // indirect
 	google.golang.org/protobuf v1.33.0 // indirect
 )
