@@ -29,21 +29,20 @@ import (
 	"io/ioutil"
 	"net/http"
 	"net/url"
-	"time"
 	"strings"
+	"time"
 )
-
 
 type CustomPagesAPI interface {
 
 	/*
-	DeleteCustomizedErrorPage Delete the Customized Error Page
+		DeleteCustomizedErrorPage Delete the Customized Error Page
 
-	Deletes the customized error page. As a result, the default error page appears in your live environment.
+		Deletes the customized error page. As a result, the default error page appears in your live environment.
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param brandId The ID of the brand
-	@return ApiDeleteCustomizedErrorPageRequest
+		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+		@param brandId The ID of the brand
+		@return ApiDeleteCustomizedErrorPageRequest
 	*/
 	DeleteCustomizedErrorPage(ctx context.Context, brandId string) ApiDeleteCustomizedErrorPageRequest
 
@@ -51,13 +50,13 @@ type CustomPagesAPI interface {
 	DeleteCustomizedErrorPageExecute(r ApiDeleteCustomizedErrorPageRequest) (*APIResponse, error)
 
 	/*
-	DeleteCustomizedSignInPage Delete the Customized Sign-in Page
+		DeleteCustomizedSignInPage Delete the Customized Sign-in Page
 
-	Deletes the customized sign-in page. As a result, the default sign-in page appears in your live environment.
+		Deletes the customized sign-in page. As a result, the default sign-in page appears in your live environment.
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param brandId The ID of the brand
-	@return ApiDeleteCustomizedSignInPageRequest
+		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+		@param brandId The ID of the brand
+		@return ApiDeleteCustomizedSignInPageRequest
 	*/
 	DeleteCustomizedSignInPage(ctx context.Context, brandId string) ApiDeleteCustomizedSignInPageRequest
 
@@ -65,13 +64,13 @@ type CustomPagesAPI interface {
 	DeleteCustomizedSignInPageExecute(r ApiDeleteCustomizedSignInPageRequest) (*APIResponse, error)
 
 	/*
-	DeletePreviewErrorPage Delete the Preview Error Page
+		DeletePreviewErrorPage Delete the Preview Error Page
 
-	Deletes the preview error page. The preview error page contains unpublished changes and isn't shown in your live environment. Preview it at `${yourOktaDomain}/error/preview`.
+		Deletes the preview error page. The preview error page contains unpublished changes and isn't shown in your live environment. Preview it at `${yourOktaDomain}/error/preview`.
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param brandId The ID of the brand
-	@return ApiDeletePreviewErrorPageRequest
+		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+		@param brandId The ID of the brand
+		@return ApiDeletePreviewErrorPageRequest
 	*/
 	DeletePreviewErrorPage(ctx context.Context, brandId string) ApiDeletePreviewErrorPageRequest
 
@@ -79,13 +78,13 @@ type CustomPagesAPI interface {
 	DeletePreviewErrorPageExecute(r ApiDeletePreviewErrorPageRequest) (*APIResponse, error)
 
 	/*
-	DeletePreviewSignInPage Delete the Preview Sign-in Page
+		DeletePreviewSignInPage Delete the Preview Sign-in Page
 
-	Deletes the preview sign-in page. The preview sign-in page contains unpublished changes and isn't shown in your live environment. Preview it at `${yourOktaDomain}/login/preview`.
+		Deletes the preview sign-in page. The preview sign-in page contains unpublished changes and isn't shown in your live environment. Preview it at `${yourOktaDomain}/login/preview`.
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param brandId The ID of the brand
-	@return ApiDeletePreviewSignInPageRequest
+		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+		@param brandId The ID of the brand
+		@return ApiDeletePreviewSignInPageRequest
 	*/
 	DeletePreviewSignInPage(ctx context.Context, brandId string) ApiDeletePreviewSignInPageRequest
 
@@ -93,13 +92,13 @@ type CustomPagesAPI interface {
 	DeletePreviewSignInPageExecute(r ApiDeletePreviewSignInPageRequest) (*APIResponse, error)
 
 	/*
-	GetCustomizedErrorPage Retrieve the Customized Error Page
+		GetCustomizedErrorPage Retrieve the Customized Error Page
 
-	Retrieves the customized error page. The customized error page appears in your live environment.
+		Retrieves the customized error page. The customized error page appears in your live environment.
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param brandId The ID of the brand
-	@return ApiGetCustomizedErrorPageRequest
+		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+		@param brandId The ID of the brand
+		@return ApiGetCustomizedErrorPageRequest
 	*/
 	GetCustomizedErrorPage(ctx context.Context, brandId string) ApiGetCustomizedErrorPageRequest
 
@@ -108,13 +107,13 @@ type CustomPagesAPI interface {
 	GetCustomizedErrorPageExecute(r ApiGetCustomizedErrorPageRequest) (*ErrorPage, *APIResponse, error)
 
 	/*
-	GetCustomizedSignInPage Retrieve the Customized Sign-in Page
+		GetCustomizedSignInPage Retrieve the Customized Sign-in Page
 
-	Retrieves the customized sign-in page. The customized sign-in page appears in your live environment.
+		Retrieves the customized sign-in page. The customized sign-in page appears in your live environment.
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param brandId The ID of the brand
-	@return ApiGetCustomizedSignInPageRequest
+		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+		@param brandId The ID of the brand
+		@return ApiGetCustomizedSignInPageRequest
 	*/
 	GetCustomizedSignInPage(ctx context.Context, brandId string) ApiGetCustomizedSignInPageRequest
 
@@ -123,13 +122,13 @@ type CustomPagesAPI interface {
 	GetCustomizedSignInPageExecute(r ApiGetCustomizedSignInPageRequest) (*SignInPage, *APIResponse, error)
 
 	/*
-	GetDefaultErrorPage Retrieve the Default Error Page
+		GetDefaultErrorPage Retrieve the Default Error Page
 
-	Retrieves the default error page. The default error page appears when no customized error page exists.
+		Retrieves the default error page. The default error page appears when no customized error page exists.
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param brandId The ID of the brand
-	@return ApiGetDefaultErrorPageRequest
+		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+		@param brandId The ID of the brand
+		@return ApiGetDefaultErrorPageRequest
 	*/
 	GetDefaultErrorPage(ctx context.Context, brandId string) ApiGetDefaultErrorPageRequest
 
@@ -138,13 +137,13 @@ type CustomPagesAPI interface {
 	GetDefaultErrorPageExecute(r ApiGetDefaultErrorPageRequest) (*ErrorPage, *APIResponse, error)
 
 	/*
-	GetDefaultSignInPage Retrieve the Default Sign-in Page
+		GetDefaultSignInPage Retrieve the Default Sign-in Page
 
-	Retrieves the default sign-in page. The default sign-in page appears when no customized sign-in page exists.
+		Retrieves the default sign-in page. The default sign-in page appears when no customized sign-in page exists.
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param brandId The ID of the brand
-	@return ApiGetDefaultSignInPageRequest
+		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+		@param brandId The ID of the brand
+		@return ApiGetDefaultSignInPageRequest
 	*/
 	GetDefaultSignInPage(ctx context.Context, brandId string) ApiGetDefaultSignInPageRequest
 
@@ -153,13 +152,13 @@ type CustomPagesAPI interface {
 	GetDefaultSignInPageExecute(r ApiGetDefaultSignInPageRequest) (*SignInPage, *APIResponse, error)
 
 	/*
-	GetErrorPage Retrieve the Error Page Sub-Resources
+		GetErrorPage Retrieve the Error Page Sub-Resources
 
-	Retrieves the error page sub-resources. The `expand` query parameter specifies which sub-resources to include in the response.
+		Retrieves the error page sub-resources. The `expand` query parameter specifies which sub-resources to include in the response.
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param brandId The ID of the brand
-	@return ApiGetErrorPageRequest
+		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+		@param brandId The ID of the brand
+		@return ApiGetErrorPageRequest
 	*/
 	GetErrorPage(ctx context.Context, brandId string) ApiGetErrorPageRequest
 
@@ -168,13 +167,13 @@ type CustomPagesAPI interface {
 	GetErrorPageExecute(r ApiGetErrorPageRequest) (*PageRoot, *APIResponse, error)
 
 	/*
-	GetPreviewErrorPage Retrieve the Preview Error Page Preview
+		GetPreviewErrorPage Retrieve the Preview Error Page Preview
 
-	Retrieves the preview error page. The preview error page contains unpublished changes and isn't shown in your live environment. Preview it at `${yourOktaDomain}/error/preview`.
+		Retrieves the preview error page. The preview error page contains unpublished changes and isn't shown in your live environment. Preview it at `${yourOktaDomain}/error/preview`.
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param brandId The ID of the brand
-	@return ApiGetPreviewErrorPageRequest
+		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+		@param brandId The ID of the brand
+		@return ApiGetPreviewErrorPageRequest
 	*/
 	GetPreviewErrorPage(ctx context.Context, brandId string) ApiGetPreviewErrorPageRequest
 
@@ -183,13 +182,13 @@ type CustomPagesAPI interface {
 	GetPreviewErrorPageExecute(r ApiGetPreviewErrorPageRequest) (*ErrorPage, *APIResponse, error)
 
 	/*
-	GetPreviewSignInPage Retrieve the Preview Sign-in Page Preview
+		GetPreviewSignInPage Retrieve the Preview Sign-in Page Preview
 
-	Retrieves the preview sign-in page. The preview sign-in page contains unpublished changes and isn't shown in your live environment. Preview it at `${yourOktaDomain}/login/preview`.
+		Retrieves the preview sign-in page. The preview sign-in page contains unpublished changes and isn't shown in your live environment. Preview it at `${yourOktaDomain}/login/preview`.
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param brandId The ID of the brand
-	@return ApiGetPreviewSignInPageRequest
+		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+		@param brandId The ID of the brand
+		@return ApiGetPreviewSignInPageRequest
 	*/
 	GetPreviewSignInPage(ctx context.Context, brandId string) ApiGetPreviewSignInPageRequest
 
@@ -198,13 +197,13 @@ type CustomPagesAPI interface {
 	GetPreviewSignInPageExecute(r ApiGetPreviewSignInPageRequest) (*SignInPage, *APIResponse, error)
 
 	/*
-	GetSignInPage Retrieve the Sign-in Page Sub-Resources
+		GetSignInPage Retrieve the Sign-in Page Sub-Resources
 
-	Retrieves the sign-in page sub-resources. The `expand` query parameter specifies which sub-resources to include in the response.
+		Retrieves the sign-in page sub-resources. The `expand` query parameter specifies which sub-resources to include in the response.
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param brandId The ID of the brand
-	@return ApiGetSignInPageRequest
+		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+		@param brandId The ID of the brand
+		@return ApiGetSignInPageRequest
 	*/
 	GetSignInPage(ctx context.Context, brandId string) ApiGetSignInPageRequest
 
@@ -213,13 +212,13 @@ type CustomPagesAPI interface {
 	GetSignInPageExecute(r ApiGetSignInPageRequest) (*PageRoot, *APIResponse, error)
 
 	/*
-	GetSignOutPageSettings Retrieve the Sign-out Page Settings
+		GetSignOutPageSettings Retrieve the Sign-out Page Settings
 
-	Retrieves the sign-out page settings
+		Retrieves the sign-out page settings
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param brandId The ID of the brand
-	@return ApiGetSignOutPageSettingsRequest
+		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+		@param brandId The ID of the brand
+		@return ApiGetSignOutPageSettingsRequest
 	*/
 	GetSignOutPageSettings(ctx context.Context, brandId string) ApiGetSignOutPageSettingsRequest
 
@@ -228,13 +227,13 @@ type CustomPagesAPI interface {
 	GetSignOutPageSettingsExecute(r ApiGetSignOutPageSettingsRequest) (*HostedPage, *APIResponse, error)
 
 	/*
-	ListAllSignInWidgetVersions List all Sign-in Widget Versions
+		ListAllSignInWidgetVersions List all Sign-in Widget Versions
 
-	Lists all sign-in widget versions supported by the current org
+		Lists all sign-in widget versions supported by the current org
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param brandId The ID of the brand
-	@return ApiListAllSignInWidgetVersionsRequest
+		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+		@param brandId The ID of the brand
+		@return ApiListAllSignInWidgetVersionsRequest
 	*/
 	ListAllSignInWidgetVersions(ctx context.Context, brandId string) ApiListAllSignInWidgetVersionsRequest
 
@@ -243,13 +242,13 @@ type CustomPagesAPI interface {
 	ListAllSignInWidgetVersionsExecute(r ApiListAllSignInWidgetVersionsRequest) ([]string, *APIResponse, error)
 
 	/*
-	ReplaceCustomizedErrorPage Replace the Customized Error Page
+		ReplaceCustomizedErrorPage Replace the Customized Error Page
 
-	Replaces the customized error page. The customized error page appears in your live environment.
+		Replaces the customized error page. The customized error page appears in your live environment.
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param brandId The ID of the brand
-	@return ApiReplaceCustomizedErrorPageRequest
+		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+		@param brandId The ID of the brand
+		@return ApiReplaceCustomizedErrorPageRequest
 	*/
 	ReplaceCustomizedErrorPage(ctx context.Context, brandId string) ApiReplaceCustomizedErrorPageRequest
 
@@ -258,13 +257,13 @@ type CustomPagesAPI interface {
 	ReplaceCustomizedErrorPageExecute(r ApiReplaceCustomizedErrorPageRequest) (*ErrorPage, *APIResponse, error)
 
 	/*
-	ReplaceCustomizedSignInPage Replace the Customized Sign-in Page
+		ReplaceCustomizedSignInPage Replace the Customized Sign-in Page
 
-	Replaces the customized sign-in page. The customized sign-in page appears in your live environment.
+		Replaces the customized sign-in page. The customized sign-in page appears in your live environment.
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param brandId The ID of the brand
-	@return ApiReplaceCustomizedSignInPageRequest
+		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+		@param brandId The ID of the brand
+		@return ApiReplaceCustomizedSignInPageRequest
 	*/
 	ReplaceCustomizedSignInPage(ctx context.Context, brandId string) ApiReplaceCustomizedSignInPageRequest
 
@@ -273,13 +272,13 @@ type CustomPagesAPI interface {
 	ReplaceCustomizedSignInPageExecute(r ApiReplaceCustomizedSignInPageRequest) (*SignInPage, *APIResponse, error)
 
 	/*
-	ReplacePreviewErrorPage Replace the Preview Error Page
+		ReplacePreviewErrorPage Replace the Preview Error Page
 
-	Replaces the preview error page. The preview error page contains unpublished changes and isn't shown in your live environment. Preview it at `${yourOktaDomain}/error/preview`.
+		Replaces the preview error page. The preview error page contains unpublished changes and isn't shown in your live environment. Preview it at `${yourOktaDomain}/error/preview`.
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param brandId The ID of the brand
-	@return ApiReplacePreviewErrorPageRequest
+		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+		@param brandId The ID of the brand
+		@return ApiReplacePreviewErrorPageRequest
 	*/
 	ReplacePreviewErrorPage(ctx context.Context, brandId string) ApiReplacePreviewErrorPageRequest
 
@@ -288,13 +287,13 @@ type CustomPagesAPI interface {
 	ReplacePreviewErrorPageExecute(r ApiReplacePreviewErrorPageRequest) (*ErrorPage, *APIResponse, error)
 
 	/*
-	ReplacePreviewSignInPage Replace the Preview Sign-in Page
+		ReplacePreviewSignInPage Replace the Preview Sign-in Page
 
-	Replaces the preview sign-in page. The preview sign-in page contains unpublished changes and isn't shown in your live environment. Preview it at `${yourOktaDomain}/login/preview`.
+		Replaces the preview sign-in page. The preview sign-in page contains unpublished changes and isn't shown in your live environment. Preview it at `${yourOktaDomain}/login/preview`.
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param brandId The ID of the brand
-	@return ApiReplacePreviewSignInPageRequest
+		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+		@param brandId The ID of the brand
+		@return ApiReplacePreviewSignInPageRequest
 	*/
 	ReplacePreviewSignInPage(ctx context.Context, brandId string) ApiReplacePreviewSignInPageRequest
 
@@ -303,13 +302,13 @@ type CustomPagesAPI interface {
 	ReplacePreviewSignInPageExecute(r ApiReplacePreviewSignInPageRequest) (*SignInPage, *APIResponse, error)
 
 	/*
-	ReplaceSignOutPageSettings Replace the Sign-out Page Settings
+		ReplaceSignOutPageSettings Replace the Sign-out Page Settings
 
-	Replaces the sign-out page settings
+		Replaces the sign-out page settings
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param brandId The ID of the brand
-	@return ApiReplaceSignOutPageSettingsRequest
+		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+		@param brandId The ID of the brand
+		@return ApiReplaceSignOutPageSettingsRequest
 	*/
 	ReplaceSignOutPageSettings(ctx context.Context, brandId string) ApiReplaceSignOutPageSettingsRequest
 
@@ -322,9 +321,9 @@ type CustomPagesAPI interface {
 type CustomPagesAPIService service
 
 type ApiDeleteCustomizedErrorPageRequest struct {
-	ctx context.Context
+	ctx        context.Context
 	ApiService CustomPagesAPI
-	brandId string
+	brandId    string
 	retryCount int32
 }
 
@@ -337,15 +336,15 @@ DeleteCustomizedErrorPage Delete the Customized Error Page
 
 Deletes the customized error page. As a result, the default error page appears in your live environment.
 
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @param brandId The ID of the brand
- @return ApiDeleteCustomizedErrorPageRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param brandId The ID of the brand
+	@return ApiDeleteCustomizedErrorPageRequest
 */
 func (a *CustomPagesAPIService) DeleteCustomizedErrorPage(ctx context.Context, brandId string) ApiDeleteCustomizedErrorPageRequest {
 	return ApiDeleteCustomizedErrorPageRequest{
 		ApiService: a,
-		ctx: ctx,
-		brandId: brandId,
+		ctx:        ctx,
+		brandId:    brandId,
 		retryCount: 0,
 	}
 }
@@ -358,7 +357,7 @@ func (a *CustomPagesAPIService) DeleteCustomizedErrorPageExecute(r ApiDeleteCust
 		formFiles            []formFile
 		localVarHTTPResponse *http.Response
 		localAPIResponse     *APIResponse
-		err 				 error
+		err                  error
 	)
 
 	if a.client.cfg.Okta.Client.RequestTimeout > 0 {
@@ -475,9 +474,9 @@ func (a *CustomPagesAPIService) DeleteCustomizedErrorPageExecute(r ApiDeleteCust
 }
 
 type ApiDeleteCustomizedSignInPageRequest struct {
-	ctx context.Context
+	ctx        context.Context
 	ApiService CustomPagesAPI
-	brandId string
+	brandId    string
 	retryCount int32
 }
 
@@ -490,15 +489,15 @@ DeleteCustomizedSignInPage Delete the Customized Sign-in Page
 
 Deletes the customized sign-in page. As a result, the default sign-in page appears in your live environment.
 
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @param brandId The ID of the brand
- @return ApiDeleteCustomizedSignInPageRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param brandId The ID of the brand
+	@return ApiDeleteCustomizedSignInPageRequest
 */
 func (a *CustomPagesAPIService) DeleteCustomizedSignInPage(ctx context.Context, brandId string) ApiDeleteCustomizedSignInPageRequest {
 	return ApiDeleteCustomizedSignInPageRequest{
 		ApiService: a,
-		ctx: ctx,
-		brandId: brandId,
+		ctx:        ctx,
+		brandId:    brandId,
 		retryCount: 0,
 	}
 }
@@ -511,7 +510,7 @@ func (a *CustomPagesAPIService) DeleteCustomizedSignInPageExecute(r ApiDeleteCus
 		formFiles            []formFile
 		localVarHTTPResponse *http.Response
 		localAPIResponse     *APIResponse
-		err 				 error
+		err                  error
 	)
 
 	if a.client.cfg.Okta.Client.RequestTimeout > 0 {
@@ -628,9 +627,9 @@ func (a *CustomPagesAPIService) DeleteCustomizedSignInPageExecute(r ApiDeleteCus
 }
 
 type ApiDeletePreviewErrorPageRequest struct {
-	ctx context.Context
+	ctx        context.Context
 	ApiService CustomPagesAPI
-	brandId string
+	brandId    string
 	retryCount int32
 }
 
@@ -643,15 +642,15 @@ DeletePreviewErrorPage Delete the Preview Error Page
 
 Deletes the preview error page. The preview error page contains unpublished changes and isn't shown in your live environment. Preview it at `${yourOktaDomain}/error/preview`.
 
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @param brandId The ID of the brand
- @return ApiDeletePreviewErrorPageRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param brandId The ID of the brand
+	@return ApiDeletePreviewErrorPageRequest
 */
 func (a *CustomPagesAPIService) DeletePreviewErrorPage(ctx context.Context, brandId string) ApiDeletePreviewErrorPageRequest {
 	return ApiDeletePreviewErrorPageRequest{
 		ApiService: a,
-		ctx: ctx,
-		brandId: brandId,
+		ctx:        ctx,
+		brandId:    brandId,
 		retryCount: 0,
 	}
 }
@@ -664,7 +663,7 @@ func (a *CustomPagesAPIService) DeletePreviewErrorPageExecute(r ApiDeletePreview
 		formFiles            []formFile
 		localVarHTTPResponse *http.Response
 		localAPIResponse     *APIResponse
-		err 				 error
+		err                  error
 	)
 
 	if a.client.cfg.Okta.Client.RequestTimeout > 0 {
@@ -781,9 +780,9 @@ func (a *CustomPagesAPIService) DeletePreviewErrorPageExecute(r ApiDeletePreview
 }
 
 type ApiDeletePreviewSignInPageRequest struct {
-	ctx context.Context
+	ctx        context.Context
 	ApiService CustomPagesAPI
-	brandId string
+	brandId    string
 	retryCount int32
 }
 
@@ -796,15 +795,15 @@ DeletePreviewSignInPage Delete the Preview Sign-in Page
 
 Deletes the preview sign-in page. The preview sign-in page contains unpublished changes and isn't shown in your live environment. Preview it at `${yourOktaDomain}/login/preview`.
 
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @param brandId The ID of the brand
- @return ApiDeletePreviewSignInPageRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param brandId The ID of the brand
+	@return ApiDeletePreviewSignInPageRequest
 */
 func (a *CustomPagesAPIService) DeletePreviewSignInPage(ctx context.Context, brandId string) ApiDeletePreviewSignInPageRequest {
 	return ApiDeletePreviewSignInPageRequest{
 		ApiService: a,
-		ctx: ctx,
-		brandId: brandId,
+		ctx:        ctx,
+		brandId:    brandId,
 		retryCount: 0,
 	}
 }
@@ -817,7 +816,7 @@ func (a *CustomPagesAPIService) DeletePreviewSignInPageExecute(r ApiDeletePrevie
 		formFiles            []formFile
 		localVarHTTPResponse *http.Response
 		localAPIResponse     *APIResponse
-		err 				 error
+		err                  error
 	)
 
 	if a.client.cfg.Okta.Client.RequestTimeout > 0 {
@@ -934,9 +933,9 @@ func (a *CustomPagesAPIService) DeletePreviewSignInPageExecute(r ApiDeletePrevie
 }
 
 type ApiGetCustomizedErrorPageRequest struct {
-	ctx context.Context
+	ctx        context.Context
 	ApiService CustomPagesAPI
-	brandId string
+	brandId    string
 	retryCount int32
 }
 
@@ -949,21 +948,22 @@ GetCustomizedErrorPage Retrieve the Customized Error Page
 
 Retrieves the customized error page. The customized error page appears in your live environment.
 
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @param brandId The ID of the brand
- @return ApiGetCustomizedErrorPageRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param brandId The ID of the brand
+	@return ApiGetCustomizedErrorPageRequest
 */
 func (a *CustomPagesAPIService) GetCustomizedErrorPage(ctx context.Context, brandId string) ApiGetCustomizedErrorPageRequest {
 	return ApiGetCustomizedErrorPageRequest{
 		ApiService: a,
-		ctx: ctx,
-		brandId: brandId,
+		ctx:        ctx,
+		brandId:    brandId,
 		retryCount: 0,
 	}
 }
 
 // Execute executes the request
-//  @return ErrorPage
+//
+//	@return ErrorPage
 func (a *CustomPagesAPIService) GetCustomizedErrorPageExecute(r ApiGetCustomizedErrorPageRequest) (*ErrorPage, *APIResponse, error) {
 	var (
 		localVarHTTPMethod   = http.MethodGet
@@ -972,7 +972,7 @@ func (a *CustomPagesAPIService) GetCustomizedErrorPageExecute(r ApiGetCustomized
 		localVarReturnValue  *ErrorPage
 		localVarHTTPResponse *http.Response
 		localAPIResponse     *APIResponse
-		err 				 error
+		err                  error
 	)
 
 	if a.client.cfg.Okta.Client.RequestTimeout > 0 {
@@ -1093,15 +1093,15 @@ func (a *CustomPagesAPIService) GetCustomizedErrorPageExecute(r ApiGetCustomized
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
 		return localVarReturnValue, localAPIResponse, newErr
 	}
-	
+
 	localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
 	return localVarReturnValue, localAPIResponse, nil
 }
 
 type ApiGetCustomizedSignInPageRequest struct {
-	ctx context.Context
+	ctx        context.Context
 	ApiService CustomPagesAPI
-	brandId string
+	brandId    string
 	retryCount int32
 }
 
@@ -1114,21 +1114,22 @@ GetCustomizedSignInPage Retrieve the Customized Sign-in Page
 
 Retrieves the customized sign-in page. The customized sign-in page appears in your live environment.
 
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @param brandId The ID of the brand
- @return ApiGetCustomizedSignInPageRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param brandId The ID of the brand
+	@return ApiGetCustomizedSignInPageRequest
 */
 func (a *CustomPagesAPIService) GetCustomizedSignInPage(ctx context.Context, brandId string) ApiGetCustomizedSignInPageRequest {
 	return ApiGetCustomizedSignInPageRequest{
 		ApiService: a,
-		ctx: ctx,
-		brandId: brandId,
+		ctx:        ctx,
+		brandId:    brandId,
 		retryCount: 0,
 	}
 }
 
 // Execute executes the request
-//  @return SignInPage
+//
+//	@return SignInPage
 func (a *CustomPagesAPIService) GetCustomizedSignInPageExecute(r ApiGetCustomizedSignInPageRequest) (*SignInPage, *APIResponse, error) {
 	var (
 		localVarHTTPMethod   = http.MethodGet
@@ -1137,7 +1138,7 @@ func (a *CustomPagesAPIService) GetCustomizedSignInPageExecute(r ApiGetCustomize
 		localVarReturnValue  *SignInPage
 		localVarHTTPResponse *http.Response
 		localAPIResponse     *APIResponse
-		err 				 error
+		err                  error
 	)
 
 	if a.client.cfg.Okta.Client.RequestTimeout > 0 {
@@ -1258,15 +1259,15 @@ func (a *CustomPagesAPIService) GetCustomizedSignInPageExecute(r ApiGetCustomize
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
 		return localVarReturnValue, localAPIResponse, newErr
 	}
-	
+
 	localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
 	return localVarReturnValue, localAPIResponse, nil
 }
 
 type ApiGetDefaultErrorPageRequest struct {
-	ctx context.Context
+	ctx        context.Context
 	ApiService CustomPagesAPI
-	brandId string
+	brandId    string
 	retryCount int32
 }
 
@@ -1279,21 +1280,22 @@ GetDefaultErrorPage Retrieve the Default Error Page
 
 Retrieves the default error page. The default error page appears when no customized error page exists.
 
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @param brandId The ID of the brand
- @return ApiGetDefaultErrorPageRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param brandId The ID of the brand
+	@return ApiGetDefaultErrorPageRequest
 */
 func (a *CustomPagesAPIService) GetDefaultErrorPage(ctx context.Context, brandId string) ApiGetDefaultErrorPageRequest {
 	return ApiGetDefaultErrorPageRequest{
 		ApiService: a,
-		ctx: ctx,
-		brandId: brandId,
+		ctx:        ctx,
+		brandId:    brandId,
 		retryCount: 0,
 	}
 }
 
 // Execute executes the request
-//  @return ErrorPage
+//
+//	@return ErrorPage
 func (a *CustomPagesAPIService) GetDefaultErrorPageExecute(r ApiGetDefaultErrorPageRequest) (*ErrorPage, *APIResponse, error) {
 	var (
 		localVarHTTPMethod   = http.MethodGet
@@ -1302,7 +1304,7 @@ func (a *CustomPagesAPIService) GetDefaultErrorPageExecute(r ApiGetDefaultErrorP
 		localVarReturnValue  *ErrorPage
 		localVarHTTPResponse *http.Response
 		localAPIResponse     *APIResponse
-		err 				 error
+		err                  error
 	)
 
 	if a.client.cfg.Okta.Client.RequestTimeout > 0 {
@@ -1423,15 +1425,15 @@ func (a *CustomPagesAPIService) GetDefaultErrorPageExecute(r ApiGetDefaultErrorP
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
 		return localVarReturnValue, localAPIResponse, newErr
 	}
-	
+
 	localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
 	return localVarReturnValue, localAPIResponse, nil
 }
 
 type ApiGetDefaultSignInPageRequest struct {
-	ctx context.Context
+	ctx        context.Context
 	ApiService CustomPagesAPI
-	brandId string
+	brandId    string
 	retryCount int32
 }
 
@@ -1444,21 +1446,22 @@ GetDefaultSignInPage Retrieve the Default Sign-in Page
 
 Retrieves the default sign-in page. The default sign-in page appears when no customized sign-in page exists.
 
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @param brandId The ID of the brand
- @return ApiGetDefaultSignInPageRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param brandId The ID of the brand
+	@return ApiGetDefaultSignInPageRequest
 */
 func (a *CustomPagesAPIService) GetDefaultSignInPage(ctx context.Context, brandId string) ApiGetDefaultSignInPageRequest {
 	return ApiGetDefaultSignInPageRequest{
 		ApiService: a,
-		ctx: ctx,
-		brandId: brandId,
+		ctx:        ctx,
+		brandId:    brandId,
 		retryCount: 0,
 	}
 }
 
 // Execute executes the request
-//  @return SignInPage
+//
+//	@return SignInPage
 func (a *CustomPagesAPIService) GetDefaultSignInPageExecute(r ApiGetDefaultSignInPageRequest) (*SignInPage, *APIResponse, error) {
 	var (
 		localVarHTTPMethod   = http.MethodGet
@@ -1467,7 +1470,7 @@ func (a *CustomPagesAPIService) GetDefaultSignInPageExecute(r ApiGetDefaultSignI
 		localVarReturnValue  *SignInPage
 		localVarHTTPResponse *http.Response
 		localAPIResponse     *APIResponse
-		err 				 error
+		err                  error
 	)
 
 	if a.client.cfg.Okta.Client.RequestTimeout > 0 {
@@ -1588,16 +1591,16 @@ func (a *CustomPagesAPIService) GetDefaultSignInPageExecute(r ApiGetDefaultSignI
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
 		return localVarReturnValue, localAPIResponse, newErr
 	}
-	
+
 	localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
 	return localVarReturnValue, localAPIResponse, nil
 }
 
 type ApiGetErrorPageRequest struct {
-	ctx context.Context
+	ctx        context.Context
 	ApiService CustomPagesAPI
-	brandId string
-	expand *[]string
+	brandId    string
+	expand     *[]string
 	retryCount int32
 }
 
@@ -1616,21 +1619,22 @@ GetErrorPage Retrieve the Error Page Sub-Resources
 
 Retrieves the error page sub-resources. The `expand` query parameter specifies which sub-resources to include in the response.
 
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @param brandId The ID of the brand
- @return ApiGetErrorPageRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param brandId The ID of the brand
+	@return ApiGetErrorPageRequest
 */
 func (a *CustomPagesAPIService) GetErrorPage(ctx context.Context, brandId string) ApiGetErrorPageRequest {
 	return ApiGetErrorPageRequest{
 		ApiService: a,
-		ctx: ctx,
-		brandId: brandId,
+		ctx:        ctx,
+		brandId:    brandId,
 		retryCount: 0,
 	}
 }
 
 // Execute executes the request
-//  @return PageRoot
+//
+//	@return PageRoot
 func (a *CustomPagesAPIService) GetErrorPageExecute(r ApiGetErrorPageRequest) (*PageRoot, *APIResponse, error) {
 	var (
 		localVarHTTPMethod   = http.MethodGet
@@ -1639,7 +1643,7 @@ func (a *CustomPagesAPIService) GetErrorPageExecute(r ApiGetErrorPageRequest) (*
 		localVarReturnValue  *PageRoot
 		localVarHTTPResponse *http.Response
 		localAPIResponse     *APIResponse
-		err 				 error
+		err                  error
 	)
 
 	if a.client.cfg.Okta.Client.RequestTimeout > 0 {
@@ -1763,15 +1767,15 @@ func (a *CustomPagesAPIService) GetErrorPageExecute(r ApiGetErrorPageRequest) (*
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
 		return localVarReturnValue, localAPIResponse, newErr
 	}
-	
+
 	localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
 	return localVarReturnValue, localAPIResponse, nil
 }
 
 type ApiGetPreviewErrorPageRequest struct {
-	ctx context.Context
+	ctx        context.Context
 	ApiService CustomPagesAPI
-	brandId string
+	brandId    string
 	retryCount int32
 }
 
@@ -1784,21 +1788,22 @@ GetPreviewErrorPage Retrieve the Preview Error Page Preview
 
 Retrieves the preview error page. The preview error page contains unpublished changes and isn't shown in your live environment. Preview it at `${yourOktaDomain}/error/preview`.
 
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @param brandId The ID of the brand
- @return ApiGetPreviewErrorPageRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param brandId The ID of the brand
+	@return ApiGetPreviewErrorPageRequest
 */
 func (a *CustomPagesAPIService) GetPreviewErrorPage(ctx context.Context, brandId string) ApiGetPreviewErrorPageRequest {
 	return ApiGetPreviewErrorPageRequest{
 		ApiService: a,
-		ctx: ctx,
-		brandId: brandId,
+		ctx:        ctx,
+		brandId:    brandId,
 		retryCount: 0,
 	}
 }
 
 // Execute executes the request
-//  @return ErrorPage
+//
+//	@return ErrorPage
 func (a *CustomPagesAPIService) GetPreviewErrorPageExecute(r ApiGetPreviewErrorPageRequest) (*ErrorPage, *APIResponse, error) {
 	var (
 		localVarHTTPMethod   = http.MethodGet
@@ -1807,7 +1812,7 @@ func (a *CustomPagesAPIService) GetPreviewErrorPageExecute(r ApiGetPreviewErrorP
 		localVarReturnValue  *ErrorPage
 		localVarHTTPResponse *http.Response
 		localAPIResponse     *APIResponse
-		err 				 error
+		err                  error
 	)
 
 	if a.client.cfg.Okta.Client.RequestTimeout > 0 {
@@ -1928,15 +1933,15 @@ func (a *CustomPagesAPIService) GetPreviewErrorPageExecute(r ApiGetPreviewErrorP
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
 		return localVarReturnValue, localAPIResponse, newErr
 	}
-	
+
 	localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
 	return localVarReturnValue, localAPIResponse, nil
 }
 
 type ApiGetPreviewSignInPageRequest struct {
-	ctx context.Context
+	ctx        context.Context
 	ApiService CustomPagesAPI
-	brandId string
+	brandId    string
 	retryCount int32
 }
 
@@ -1949,21 +1954,22 @@ GetPreviewSignInPage Retrieve the Preview Sign-in Page Preview
 
 Retrieves the preview sign-in page. The preview sign-in page contains unpublished changes and isn't shown in your live environment. Preview it at `${yourOktaDomain}/login/preview`.
 
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @param brandId The ID of the brand
- @return ApiGetPreviewSignInPageRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param brandId The ID of the brand
+	@return ApiGetPreviewSignInPageRequest
 */
 func (a *CustomPagesAPIService) GetPreviewSignInPage(ctx context.Context, brandId string) ApiGetPreviewSignInPageRequest {
 	return ApiGetPreviewSignInPageRequest{
 		ApiService: a,
-		ctx: ctx,
-		brandId: brandId,
+		ctx:        ctx,
+		brandId:    brandId,
 		retryCount: 0,
 	}
 }
 
 // Execute executes the request
-//  @return SignInPage
+//
+//	@return SignInPage
 func (a *CustomPagesAPIService) GetPreviewSignInPageExecute(r ApiGetPreviewSignInPageRequest) (*SignInPage, *APIResponse, error) {
 	var (
 		localVarHTTPMethod   = http.MethodGet
@@ -1972,7 +1978,7 @@ func (a *CustomPagesAPIService) GetPreviewSignInPageExecute(r ApiGetPreviewSignI
 		localVarReturnValue  *SignInPage
 		localVarHTTPResponse *http.Response
 		localAPIResponse     *APIResponse
-		err 				 error
+		err                  error
 	)
 
 	if a.client.cfg.Okta.Client.RequestTimeout > 0 {
@@ -2093,16 +2099,16 @@ func (a *CustomPagesAPIService) GetPreviewSignInPageExecute(r ApiGetPreviewSignI
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
 		return localVarReturnValue, localAPIResponse, newErr
 	}
-	
+
 	localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
 	return localVarReturnValue, localAPIResponse, nil
 }
 
 type ApiGetSignInPageRequest struct {
-	ctx context.Context
+	ctx        context.Context
 	ApiService CustomPagesAPI
-	brandId string
-	expand *[]string
+	brandId    string
+	expand     *[]string
 	retryCount int32
 }
 
@@ -2121,21 +2127,22 @@ GetSignInPage Retrieve the Sign-in Page Sub-Resources
 
 Retrieves the sign-in page sub-resources. The `expand` query parameter specifies which sub-resources to include in the response.
 
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @param brandId The ID of the brand
- @return ApiGetSignInPageRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param brandId The ID of the brand
+	@return ApiGetSignInPageRequest
 */
 func (a *CustomPagesAPIService) GetSignInPage(ctx context.Context, brandId string) ApiGetSignInPageRequest {
 	return ApiGetSignInPageRequest{
 		ApiService: a,
-		ctx: ctx,
-		brandId: brandId,
+		ctx:        ctx,
+		brandId:    brandId,
 		retryCount: 0,
 	}
 }
 
 // Execute executes the request
-//  @return PageRoot
+//
+//	@return PageRoot
 func (a *CustomPagesAPIService) GetSignInPageExecute(r ApiGetSignInPageRequest) (*PageRoot, *APIResponse, error) {
 	var (
 		localVarHTTPMethod   = http.MethodGet
@@ -2144,7 +2151,7 @@ func (a *CustomPagesAPIService) GetSignInPageExecute(r ApiGetSignInPageRequest) 
 		localVarReturnValue  *PageRoot
 		localVarHTTPResponse *http.Response
 		localAPIResponse     *APIResponse
-		err 				 error
+		err                  error
 	)
 
 	if a.client.cfg.Okta.Client.RequestTimeout > 0 {
@@ -2268,15 +2275,15 @@ func (a *CustomPagesAPIService) GetSignInPageExecute(r ApiGetSignInPageRequest) 
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
 		return localVarReturnValue, localAPIResponse, newErr
 	}
-	
+
 	localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
 	return localVarReturnValue, localAPIResponse, nil
 }
 
 type ApiGetSignOutPageSettingsRequest struct {
-	ctx context.Context
+	ctx        context.Context
 	ApiService CustomPagesAPI
-	brandId string
+	brandId    string
 	retryCount int32
 }
 
@@ -2289,21 +2296,22 @@ GetSignOutPageSettings Retrieve the Sign-out Page Settings
 
 Retrieves the sign-out page settings
 
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @param brandId The ID of the brand
- @return ApiGetSignOutPageSettingsRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param brandId The ID of the brand
+	@return ApiGetSignOutPageSettingsRequest
 */
 func (a *CustomPagesAPIService) GetSignOutPageSettings(ctx context.Context, brandId string) ApiGetSignOutPageSettingsRequest {
 	return ApiGetSignOutPageSettingsRequest{
 		ApiService: a,
-		ctx: ctx,
-		brandId: brandId,
+		ctx:        ctx,
+		brandId:    brandId,
 		retryCount: 0,
 	}
 }
 
 // Execute executes the request
-//  @return HostedPage
+//
+//	@return HostedPage
 func (a *CustomPagesAPIService) GetSignOutPageSettingsExecute(r ApiGetSignOutPageSettingsRequest) (*HostedPage, *APIResponse, error) {
 	var (
 		localVarHTTPMethod   = http.MethodGet
@@ -2312,7 +2320,7 @@ func (a *CustomPagesAPIService) GetSignOutPageSettingsExecute(r ApiGetSignOutPag
 		localVarReturnValue  *HostedPage
 		localVarHTTPResponse *http.Response
 		localAPIResponse     *APIResponse
-		err 				 error
+		err                  error
 	)
 
 	if a.client.cfg.Okta.Client.RequestTimeout > 0 {
@@ -2433,15 +2441,15 @@ func (a *CustomPagesAPIService) GetSignOutPageSettingsExecute(r ApiGetSignOutPag
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
 		return localVarReturnValue, localAPIResponse, newErr
 	}
-	
+
 	localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
 	return localVarReturnValue, localAPIResponse, nil
 }
 
 type ApiListAllSignInWidgetVersionsRequest struct {
-	ctx context.Context
+	ctx        context.Context
 	ApiService CustomPagesAPI
-	brandId string
+	brandId    string
 	retryCount int32
 }
 
@@ -2454,21 +2462,22 @@ ListAllSignInWidgetVersions List all Sign-in Widget Versions
 
 Lists all sign-in widget versions supported by the current org
 
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @param brandId The ID of the brand
- @return ApiListAllSignInWidgetVersionsRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param brandId The ID of the brand
+	@return ApiListAllSignInWidgetVersionsRequest
 */
 func (a *CustomPagesAPIService) ListAllSignInWidgetVersions(ctx context.Context, brandId string) ApiListAllSignInWidgetVersionsRequest {
 	return ApiListAllSignInWidgetVersionsRequest{
 		ApiService: a,
-		ctx: ctx,
-		brandId: brandId,
+		ctx:        ctx,
+		brandId:    brandId,
 		retryCount: 0,
 	}
 }
 
 // Execute executes the request
-//  @return []string
+//
+//	@return []string
 func (a *CustomPagesAPIService) ListAllSignInWidgetVersionsExecute(r ApiListAllSignInWidgetVersionsRequest) ([]string, *APIResponse, error) {
 	var (
 		localVarHTTPMethod   = http.MethodGet
@@ -2477,7 +2486,7 @@ func (a *CustomPagesAPIService) ListAllSignInWidgetVersionsExecute(r ApiListAllS
 		localVarReturnValue  []string
 		localVarHTTPResponse *http.Response
 		localAPIResponse     *APIResponse
-		err 				 error
+		err                  error
 	)
 
 	if a.client.cfg.Okta.Client.RequestTimeout > 0 {
@@ -2598,16 +2607,16 @@ func (a *CustomPagesAPIService) ListAllSignInWidgetVersionsExecute(r ApiListAllS
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
 		return localVarReturnValue, localAPIResponse, newErr
 	}
-	
+
 	localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
 	return localVarReturnValue, localAPIResponse, nil
 }
 
 type ApiReplaceCustomizedErrorPageRequest struct {
-	ctx context.Context
+	ctx        context.Context
 	ApiService CustomPagesAPI
-	brandId string
-	errorPage *ErrorPage
+	brandId    string
+	errorPage  *ErrorPage
 	retryCount int32
 }
 
@@ -2625,21 +2634,22 @@ ReplaceCustomizedErrorPage Replace the Customized Error Page
 
 Replaces the customized error page. The customized error page appears in your live environment.
 
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @param brandId The ID of the brand
- @return ApiReplaceCustomizedErrorPageRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param brandId The ID of the brand
+	@return ApiReplaceCustomizedErrorPageRequest
 */
 func (a *CustomPagesAPIService) ReplaceCustomizedErrorPage(ctx context.Context, brandId string) ApiReplaceCustomizedErrorPageRequest {
 	return ApiReplaceCustomizedErrorPageRequest{
 		ApiService: a,
-		ctx: ctx,
-		brandId: brandId,
+		ctx:        ctx,
+		brandId:    brandId,
 		retryCount: 0,
 	}
 }
 
 // Execute executes the request
-//  @return ErrorPage
+//
+//	@return ErrorPage
 func (a *CustomPagesAPIService) ReplaceCustomizedErrorPageExecute(r ApiReplaceCustomizedErrorPageRequest) (*ErrorPage, *APIResponse, error) {
 	var (
 		localVarHTTPMethod   = http.MethodPut
@@ -2648,7 +2658,7 @@ func (a *CustomPagesAPIService) ReplaceCustomizedErrorPageExecute(r ApiReplaceCu
 		localVarReturnValue  *ErrorPage
 		localVarHTTPResponse *http.Response
 		localAPIResponse     *APIResponse
-		err 				 error
+		err                  error
 	)
 
 	if a.client.cfg.Okta.Client.RequestTimeout > 0 {
@@ -2786,15 +2796,15 @@ func (a *CustomPagesAPIService) ReplaceCustomizedErrorPageExecute(r ApiReplaceCu
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
 		return localVarReturnValue, localAPIResponse, newErr
 	}
-	
+
 	localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
 	return localVarReturnValue, localAPIResponse, nil
 }
 
 type ApiReplaceCustomizedSignInPageRequest struct {
-	ctx context.Context
+	ctx        context.Context
 	ApiService CustomPagesAPI
-	brandId string
+	brandId    string
 	signInPage *SignInPage
 	retryCount int32
 }
@@ -2813,21 +2823,22 @@ ReplaceCustomizedSignInPage Replace the Customized Sign-in Page
 
 Replaces the customized sign-in page. The customized sign-in page appears in your live environment.
 
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @param brandId The ID of the brand
- @return ApiReplaceCustomizedSignInPageRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param brandId The ID of the brand
+	@return ApiReplaceCustomizedSignInPageRequest
 */
 func (a *CustomPagesAPIService) ReplaceCustomizedSignInPage(ctx context.Context, brandId string) ApiReplaceCustomizedSignInPageRequest {
 	return ApiReplaceCustomizedSignInPageRequest{
 		ApiService: a,
-		ctx: ctx,
-		brandId: brandId,
+		ctx:        ctx,
+		brandId:    brandId,
 		retryCount: 0,
 	}
 }
 
 // Execute executes the request
-//  @return SignInPage
+//
+//	@return SignInPage
 func (a *CustomPagesAPIService) ReplaceCustomizedSignInPageExecute(r ApiReplaceCustomizedSignInPageRequest) (*SignInPage, *APIResponse, error) {
 	var (
 		localVarHTTPMethod   = http.MethodPut
@@ -2836,7 +2847,7 @@ func (a *CustomPagesAPIService) ReplaceCustomizedSignInPageExecute(r ApiReplaceC
 		localVarReturnValue  *SignInPage
 		localVarHTTPResponse *http.Response
 		localAPIResponse     *APIResponse
-		err 				 error
+		err                  error
 	)
 
 	if a.client.cfg.Okta.Client.RequestTimeout > 0 {
@@ -2974,16 +2985,16 @@ func (a *CustomPagesAPIService) ReplaceCustomizedSignInPageExecute(r ApiReplaceC
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
 		return localVarReturnValue, localAPIResponse, newErr
 	}
-	
+
 	localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
 	return localVarReturnValue, localAPIResponse, nil
 }
 
 type ApiReplacePreviewErrorPageRequest struct {
-	ctx context.Context
+	ctx        context.Context
 	ApiService CustomPagesAPI
-	brandId string
-	errorPage *ErrorPage
+	brandId    string
+	errorPage  *ErrorPage
 	retryCount int32
 }
 
@@ -3001,21 +3012,22 @@ ReplacePreviewErrorPage Replace the Preview Error Page
 
 Replaces the preview error page. The preview error page contains unpublished changes and isn't shown in your live environment. Preview it at `${yourOktaDomain}/error/preview`.
 
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @param brandId The ID of the brand
- @return ApiReplacePreviewErrorPageRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param brandId The ID of the brand
+	@return ApiReplacePreviewErrorPageRequest
 */
 func (a *CustomPagesAPIService) ReplacePreviewErrorPage(ctx context.Context, brandId string) ApiReplacePreviewErrorPageRequest {
 	return ApiReplacePreviewErrorPageRequest{
 		ApiService: a,
-		ctx: ctx,
-		brandId: brandId,
+		ctx:        ctx,
+		brandId:    brandId,
 		retryCount: 0,
 	}
 }
 
 // Execute executes the request
-//  @return ErrorPage
+//
+//	@return ErrorPage
 func (a *CustomPagesAPIService) ReplacePreviewErrorPageExecute(r ApiReplacePreviewErrorPageRequest) (*ErrorPage, *APIResponse, error) {
 	var (
 		localVarHTTPMethod   = http.MethodPut
@@ -3024,7 +3036,7 @@ func (a *CustomPagesAPIService) ReplacePreviewErrorPageExecute(r ApiReplacePrevi
 		localVarReturnValue  *ErrorPage
 		localVarHTTPResponse *http.Response
 		localAPIResponse     *APIResponse
-		err 				 error
+		err                  error
 	)
 
 	if a.client.cfg.Okta.Client.RequestTimeout > 0 {
@@ -3162,15 +3174,15 @@ func (a *CustomPagesAPIService) ReplacePreviewErrorPageExecute(r ApiReplacePrevi
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
 		return localVarReturnValue, localAPIResponse, newErr
 	}
-	
+
 	localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
 	return localVarReturnValue, localAPIResponse, nil
 }
 
 type ApiReplacePreviewSignInPageRequest struct {
-	ctx context.Context
+	ctx        context.Context
 	ApiService CustomPagesAPI
-	brandId string
+	brandId    string
 	signInPage *SignInPage
 	retryCount int32
 }
@@ -3189,21 +3201,22 @@ ReplacePreviewSignInPage Replace the Preview Sign-in Page
 
 Replaces the preview sign-in page. The preview sign-in page contains unpublished changes and isn't shown in your live environment. Preview it at `${yourOktaDomain}/login/preview`.
 
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @param brandId The ID of the brand
- @return ApiReplacePreviewSignInPageRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param brandId The ID of the brand
+	@return ApiReplacePreviewSignInPageRequest
 */
 func (a *CustomPagesAPIService) ReplacePreviewSignInPage(ctx context.Context, brandId string) ApiReplacePreviewSignInPageRequest {
 	return ApiReplacePreviewSignInPageRequest{
 		ApiService: a,
-		ctx: ctx,
-		brandId: brandId,
+		ctx:        ctx,
+		brandId:    brandId,
 		retryCount: 0,
 	}
 }
 
 // Execute executes the request
-//  @return SignInPage
+//
+//	@return SignInPage
 func (a *CustomPagesAPIService) ReplacePreviewSignInPageExecute(r ApiReplacePreviewSignInPageRequest) (*SignInPage, *APIResponse, error) {
 	var (
 		localVarHTTPMethod   = http.MethodPut
@@ -3212,7 +3225,7 @@ func (a *CustomPagesAPIService) ReplacePreviewSignInPageExecute(r ApiReplacePrev
 		localVarReturnValue  *SignInPage
 		localVarHTTPResponse *http.Response
 		localAPIResponse     *APIResponse
-		err 				 error
+		err                  error
 	)
 
 	if a.client.cfg.Okta.Client.RequestTimeout > 0 {
@@ -3350,15 +3363,15 @@ func (a *CustomPagesAPIService) ReplacePreviewSignInPageExecute(r ApiReplacePrev
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
 		return localVarReturnValue, localAPIResponse, newErr
 	}
-	
+
 	localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
 	return localVarReturnValue, localAPIResponse, nil
 }
 
 type ApiReplaceSignOutPageSettingsRequest struct {
-	ctx context.Context
+	ctx        context.Context
 	ApiService CustomPagesAPI
-	brandId string
+	brandId    string
 	hostedPage *HostedPage
 	retryCount int32
 }
@@ -3377,21 +3390,22 @@ ReplaceSignOutPageSettings Replace the Sign-out Page Settings
 
 Replaces the sign-out page settings
 
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @param brandId The ID of the brand
- @return ApiReplaceSignOutPageSettingsRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param brandId The ID of the brand
+	@return ApiReplaceSignOutPageSettingsRequest
 */
 func (a *CustomPagesAPIService) ReplaceSignOutPageSettings(ctx context.Context, brandId string) ApiReplaceSignOutPageSettingsRequest {
 	return ApiReplaceSignOutPageSettingsRequest{
 		ApiService: a,
-		ctx: ctx,
-		brandId: brandId,
+		ctx:        ctx,
+		brandId:    brandId,
 		retryCount: 0,
 	}
 }
 
 // Execute executes the request
-//  @return HostedPage
+//
+//	@return HostedPage
 func (a *CustomPagesAPIService) ReplaceSignOutPageSettingsExecute(r ApiReplaceSignOutPageSettingsRequest) (*HostedPage, *APIResponse, error) {
 	var (
 		localVarHTTPMethod   = http.MethodPut
@@ -3400,7 +3414,7 @@ func (a *CustomPagesAPIService) ReplaceSignOutPageSettingsExecute(r ApiReplaceSi
 		localVarReturnValue  *HostedPage
 		localVarHTTPResponse *http.Response
 		localAPIResponse     *APIResponse
-		err 				 error
+		err                  error
 	)
 
 	if a.client.cfg.Okta.Client.RequestTimeout > 0 {
@@ -3538,7 +3552,7 @@ func (a *CustomPagesAPIService) ReplaceSignOutPageSettingsExecute(r ApiReplaceSi
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
 		return localVarReturnValue, localAPIResponse, newErr
 	}
-	
+
 	localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
 	return localVarReturnValue, localAPIResponse, nil
 }

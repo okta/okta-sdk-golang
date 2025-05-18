@@ -29,11 +29,11 @@ import (
 
 // EmailTemplateResponseLinks struct for EmailTemplateResponseLinks
 type EmailTemplateResponseLinks struct {
-	Self *HrefObjectSelfLink `json:"self,omitempty"`
-	Settings *HrefObject `json:"settings,omitempty"`
-	DefaultContent *HrefObject `json:"defaultContent,omitempty"`
-	Customizations *HrefObject `json:"customizations,omitempty"`
-	Test *HrefObject `json:"test,omitempty"`
+	Self                 *HrefObjectSelfLink `json:"self,omitempty"`
+	Settings             *HrefObject         `json:"settings,omitempty"`
+	DefaultContent       *HrefObject         `json:"defaultContent,omitempty"`
+	Customizations       *HrefObject         `json:"customizations,omitempty"`
+	Test                 *HrefObject         `json:"test,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -303,4 +303,3 @@ func (v *NullableEmailTemplateResponseLinks) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-

@@ -30,7 +30,7 @@ import (
 // UserFactorEmailProfile struct for UserFactorEmailProfile
 type UserFactorEmailProfile struct {
 	// Email address of the user. Must be either the primary or secondary email address associated with the Okta user account.
-	Email *string `json:"email,omitempty"`
+	Email                *string `json:"email,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -156,4 +156,3 @@ func (v *NullableUserFactorEmailProfile) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-

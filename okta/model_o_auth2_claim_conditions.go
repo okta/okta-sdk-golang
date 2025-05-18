@@ -29,7 +29,7 @@ import (
 
 // OAuth2ClaimConditions Specifies the scopes for the Claim
 type OAuth2ClaimConditions struct {
-	Scopes []string `json:"scopes,omitempty"`
+	Scopes               []string `json:"scopes,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -155,4 +155,3 @@ func (v *NullableOAuth2ClaimConditions) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-

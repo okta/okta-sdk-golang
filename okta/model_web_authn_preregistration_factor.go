@@ -45,8 +45,8 @@ type WebAuthnPreregistrationFactor struct {
 	// Status of the Factor
 	Status *string `json:"status,omitempty"`
 	// Name of the Factor vendor. This is usually the same as the provider.
-	VendorName *string `json:"vendorName,omitempty"`
-	Links *LinksSelf `json:"_links,omitempty"`
+	VendorName           *string    `json:"vendorName,omitempty"`
+	Links                *LinksSelf `json:"_links,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -460,4 +460,3 @@ func (v *NullableWebAuthnPreregistrationFactor) UnmarshalJSON(src []byte) error 
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-

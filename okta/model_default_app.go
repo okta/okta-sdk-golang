@@ -35,7 +35,7 @@ type DefaultApp struct {
 	AppLinkName *string `json:"appLinkName,omitempty"`
 	// Application URI for classic Orgs
 	ClassicApplicationUri *string `json:"classicApplicationUri,omitempty"`
-	AdditionalProperties map[string]interface{}
+	AdditionalProperties  map[string]interface{}
 }
 
 type _DefaultApp DefaultApp
@@ -232,4 +232,3 @@ func (v *NullableDefaultApp) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-

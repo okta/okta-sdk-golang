@@ -29,9 +29,9 @@ import (
 
 // SamlApplicationSettingsApplication struct for SamlApplicationSettingsApplication
 type SamlApplicationSettingsApplication struct {
-	AcsUrl *string `json:"acsUrl,omitempty"`
-	AudRestriction *string `json:"audRestriction,omitempty"`
-	BaseUrl *string `json:"baseUrl,omitempty"`
+	AcsUrl               *string `json:"acsUrl,omitempty"`
+	AudRestriction       *string `json:"audRestriction,omitempty"`
+	BaseUrl              *string `json:"baseUrl,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -229,4 +229,3 @@ func (v *NullableSamlApplicationSettingsApplication) UnmarshalJSON(src []byte) e
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-

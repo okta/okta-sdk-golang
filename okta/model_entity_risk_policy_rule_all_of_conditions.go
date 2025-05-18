@@ -29,9 +29,9 @@ import (
 
 // EntityRiskPolicyRuleAllOfConditions struct for EntityRiskPolicyRuleAllOfConditions
 type EntityRiskPolicyRuleAllOfConditions struct {
-	People *PolicyPeopleCondition `json:"people,omitempty"`
-	RiskDetectionTypes *EntityRiskPolicyRuleAllOfConditionsRiskDetectionTypes `json:"riskDetectionTypes,omitempty"`
-	EntityRisk *EntityRiskPolicyRuleAllOfConditionsEntityRisk `json:"EntityRisk,omitempty"`
+	People               *PolicyPeopleCondition                                 `json:"people,omitempty"`
+	RiskDetectionTypes   *EntityRiskPolicyRuleAllOfConditionsRiskDetectionTypes `json:"riskDetectionTypes,omitempty"`
+	EntityRisk           *EntityRiskPolicyRuleAllOfConditionsEntityRisk         `json:"EntityRisk,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -229,4 +229,3 @@ func (v *NullableEntityRiskPolicyRuleAllOfConditions) UnmarshalJSON(src []byte) 
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-

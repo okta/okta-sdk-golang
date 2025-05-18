@@ -29,7 +29,7 @@ import (
 
 // EntityRiskPolicyRuleAllOfConditionsEntityRisk The risk score level of the entity risk policy rule
 type EntityRiskPolicyRuleAllOfConditionsEntityRisk struct {
-	Level *string `json:"level,omitempty"`
+	Level                *string `json:"level,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -155,4 +155,3 @@ func (v *NullableEntityRiskPolicyRuleAllOfConditionsEntityRisk) UnmarshalJSON(sr
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-

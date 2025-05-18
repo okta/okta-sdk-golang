@@ -30,9 +30,9 @@ import (
 // EmailTemplateResponse struct for EmailTemplateResponse
 type EmailTemplateResponse struct {
 	// The name of this email template
-	Name *string `json:"name,omitempty"`
-	Embedded *EmailTemplateResponseEmbedded `json:"_embedded,omitempty"`
-	Links *EmailTemplateResponseLinks `json:"_links,omitempty"`
+	Name                 *string                        `json:"name,omitempty"`
+	Embedded             *EmailTemplateResponseEmbedded `json:"_embedded,omitempty"`
+	Links                *EmailTemplateResponseLinks    `json:"_links,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -230,4 +230,3 @@ func (v *NullableEmailTemplateResponse) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-

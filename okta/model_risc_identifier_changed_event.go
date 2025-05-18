@@ -32,8 +32,8 @@ type RiscIdentifierChangedEvent struct {
 	// The time of the event (UNIX timestamp)
 	EventTimestamp int64 `json:"event_timestamp"`
 	// The new identifier value
-	NewValue *string `json:"new-value,omitempty"`
-	Subjects SecurityEventSubject `json:"subjects"`
+	NewValue             *string              `json:"new-value,omitempty"`
+	Subjects             SecurityEventSubject `json:"subjects"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -217,4 +217,3 @@ func (v *NullableRiscIdentifierChangedEvent) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-

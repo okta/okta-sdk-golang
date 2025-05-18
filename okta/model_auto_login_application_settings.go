@@ -29,12 +29,12 @@ import (
 
 // AutoLoginApplicationSettings struct for AutoLoginApplicationSettings
 type AutoLoginApplicationSettings struct {
-	IdentityStoreId *string `json:"identityStoreId,omitempty"`
-	ImplicitAssignment *bool `json:"implicitAssignment,omitempty"`
-	InlineHookId *string `json:"inlineHookId,omitempty"`
-	Notes *ApplicationSettingsNotes `json:"notes,omitempty"`
-	Notifications *ApplicationSettingsNotifications `json:"notifications,omitempty"`
-	SignOn *AutoLoginApplicationSettingsSignOn `json:"signOn,omitempty"`
+	IdentityStoreId      *string                             `json:"identityStoreId,omitempty"`
+	ImplicitAssignment   *bool                               `json:"implicitAssignment,omitempty"`
+	InlineHookId         *string                             `json:"inlineHookId,omitempty"`
+	Notes                *ApplicationSettingsNotes           `json:"notes,omitempty"`
+	Notifications        *ApplicationSettingsNotifications   `json:"notifications,omitempty"`
+	SignOn               *AutoLoginApplicationSettingsSignOn `json:"signOn,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -340,4 +340,3 @@ func (v *NullableAutoLoginApplicationSettings) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-

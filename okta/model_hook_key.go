@@ -41,8 +41,8 @@ type HookKey struct {
 	// Timestamp when the key was updated.
 	LastUpdated *time.Time `json:"lastUpdated,omitempty"`
 	// Display name of the key.
-	Name *string `json:"name,omitempty"`
-	Embedded *JsonWebKey `json:"_embedded,omitempty"`
+	Name                 *string     `json:"name,omitempty"`
+	Embedded             *JsonWebKey `json:"_embedded,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -384,4 +384,3 @@ func (v *NullableHookKey) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-

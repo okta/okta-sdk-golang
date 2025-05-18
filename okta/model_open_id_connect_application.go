@@ -34,8 +34,8 @@ type OpenIdConnectApplication struct {
 	Application
 	Credentials OAuthApplicationCredentials `json:"credentials"`
 	// `oidc_client` is the key name for an OIDC app instance
-	Name string `json:"name"`
-	Settings OpenIdConnectApplicationSettings `json:"settings"`
+	Name                 string                           `json:"name"`
+	Settings             OpenIdConnectApplicationSettings `json:"settings"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -166,7 +166,7 @@ func (o *OpenIdConnectApplication) UnmarshalJSON(bytes []byte) (err error) {
 	type OpenIdConnectApplicationWithoutEmbeddedStruct struct {
 		Credentials OAuthApplicationCredentials `json:"credentials"`
 		// `oidc_client` is the key name for an OIDC app instance
-		Name string `json:"name"`
+		Name     string                           `json:"name"`
 		Settings OpenIdConnectApplicationSettings `json:"settings"`
 	}
 
@@ -261,4 +261,3 @@ func (v *NullableOpenIdConnectApplication) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-

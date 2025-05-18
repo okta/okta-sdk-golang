@@ -29,8 +29,8 @@ import (
 
 // ApplicationLayoutRuleCondition struct for ApplicationLayoutRuleCondition
 type ApplicationLayoutRuleCondition struct {
-	Schema map[string]interface{} `json:"schema,omitempty"`
-	Scope *string `json:"scope,omitempty"`
+	Schema               map[string]interface{} `json:"schema,omitempty"`
+	Scope                *string                `json:"scope,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -192,4 +192,3 @@ func (v *NullableApplicationLayoutRuleCondition) UnmarshalJSON(src []byte) error
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-

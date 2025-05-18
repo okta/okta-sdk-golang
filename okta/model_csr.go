@@ -31,10 +31,10 @@ import (
 // Csr struct for Csr
 type Csr struct {
 	// Timestamp when the object was created
-	Created *time.Time `json:"created,omitempty"`
-	Csr *string `json:"csr,omitempty"`
-	Id *string `json:"id,omitempty"`
-	Kty *string `json:"kty,omitempty"`
+	Created              *time.Time `json:"created,omitempty"`
+	Csr                  *string    `json:"csr,omitempty"`
+	Id                   *string    `json:"id,omitempty"`
+	Kty                  *string    `json:"kty,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -268,4 +268,3 @@ func (v *NullableCsr) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-

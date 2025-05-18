@@ -29,7 +29,7 @@ import (
 
 // LinksFactor struct for LinksFactor
 type LinksFactor struct {
-	Factor *LinksFactorFactor `json:"factor,omitempty"`
+	Factor               *LinksFactorFactor `json:"factor,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -155,4 +155,3 @@ func (v *NullableLinksFactor) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-

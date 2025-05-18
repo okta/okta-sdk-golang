@@ -29,14 +29,14 @@ import (
 
 // LogAuthenticationContext struct for LogAuthenticationContext
 type LogAuthenticationContext struct {
-	AuthenticationProvider *string `json:"authenticationProvider,omitempty"`
-	AuthenticationStep *int32 `json:"authenticationStep,omitempty"`
-	CredentialProvider *string `json:"credentialProvider,omitempty"`
-	CredentialType *string `json:"credentialType,omitempty"`
-	ExternalSessionId *string `json:"externalSessionId,omitempty"`
-	Interface *string `json:"interface,omitempty"`
-	Issuer *LogIssuer `json:"issuer,omitempty"`
-	AdditionalProperties map[string]interface{}
+	AuthenticationProvider *string    `json:"authenticationProvider,omitempty"`
+	AuthenticationStep     *int32     `json:"authenticationStep,omitempty"`
+	CredentialProvider     *string    `json:"credentialProvider,omitempty"`
+	CredentialType         *string    `json:"credentialType,omitempty"`
+	ExternalSessionId      *string    `json:"externalSessionId,omitempty"`
+	Interface              *string    `json:"interface,omitempty"`
+	Issuer                 *LogIssuer `json:"issuer,omitempty"`
+	AdditionalProperties   map[string]interface{}
 }
 
 type _LogAuthenticationContext LogAuthenticationContext
@@ -377,4 +377,3 @@ func (v *NullableLogAuthenticationContext) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-

@@ -30,11 +30,11 @@ import (
 
 // ApplicationCredentialsSigning struct for ApplicationCredentialsSigning
 type ApplicationCredentialsSigning struct {
-	Kid *string `json:"kid,omitempty"`
-	LastRotated *time.Time `json:"lastRotated,omitempty"`
-	NextRotation *time.Time `json:"nextRotation,omitempty"`
-	RotationMode *string `json:"rotationMode,omitempty"`
-	Use *string `json:"use,omitempty"`
+	Kid                  *string    `json:"kid,omitempty"`
+	LastRotated          *time.Time `json:"lastRotated,omitempty"`
+	NextRotation         *time.Time `json:"nextRotation,omitempty"`
+	RotationMode         *string    `json:"rotationMode,omitempty"`
+	Use                  *string    `json:"use,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -304,4 +304,3 @@ func (v *NullableApplicationCredentialsSigning) UnmarshalJSON(src []byte) error 
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-

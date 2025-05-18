@@ -29,8 +29,8 @@ import (
 
 // ResourceSelectorsSchema struct for ResourceSelectorsSchema
 type ResourceSelectorsSchema struct {
-	ResourceSelectors []ResourceSelectorResponseWithoutSelfLinkSchema `json:"resourceSelectors,omitempty"`
-	Links *LinksNext `json:"_links,omitempty"`
+	ResourceSelectors    []ResourceSelectorResponseWithoutSelfLinkSchema `json:"resourceSelectors,omitempty"`
+	Links                *LinksNext                                      `json:"_links,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -192,4 +192,3 @@ func (v *NullableResourceSelectorsSchema) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-

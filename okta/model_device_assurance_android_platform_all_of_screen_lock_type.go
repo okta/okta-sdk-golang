@@ -29,7 +29,7 @@ import (
 
 // DeviceAssuranceAndroidPlatformAllOfScreenLockType struct for DeviceAssuranceAndroidPlatformAllOfScreenLockType
 type DeviceAssuranceAndroidPlatformAllOfScreenLockType struct {
-	Include []string `json:"include,omitempty"`
+	Include              []string `json:"include,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -155,4 +155,3 @@ func (v *NullableDeviceAssuranceAndroidPlatformAllOfScreenLockType) UnmarshalJSO
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-

@@ -29,7 +29,7 @@ import (
 
 // ContinuousAccessFailureActionsObject struct for ContinuousAccessFailureActionsObject
 type ContinuousAccessFailureActionsObject struct {
-	Action *string `json:"action,omitempty"`
+	Action               *string `json:"action,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -155,4 +155,3 @@ func (v *NullableContinuousAccessFailureActionsObject) UnmarshalJSON(src []byte)
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-

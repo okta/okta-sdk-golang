@@ -27,7 +27,7 @@ import (
 	"encoding/json"
 )
 
-// RateLimitAdminNotifications 
+// RateLimitAdminNotifications
 type RateLimitAdminNotifications struct {
 	NotificationsEnabled bool `json:"notificationsEnabled"`
 	AdditionalProperties map[string]interface{}
@@ -148,4 +148,3 @@ func (v *NullableRateLimitAdminNotifications) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-

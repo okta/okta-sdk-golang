@@ -29,7 +29,7 @@ import (
 
 // ApplicationLayouts struct for ApplicationLayouts
 type ApplicationLayouts struct {
-	Links *ApplicationLayoutsLinks `json:"_links,omitempty"`
+	Links                *ApplicationLayoutsLinks `json:"_links,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -155,4 +155,3 @@ func (v *NullableApplicationLayouts) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-

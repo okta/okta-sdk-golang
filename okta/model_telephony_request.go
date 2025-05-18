@@ -35,7 +35,7 @@ type TelephonyRequest struct {
 	// The type of inline hook request. For example, `com.okta.user.telephony.pre-enrollment`.
 	RequestType *string `json:"requestType,omitempty"`
 	// The ID and URL of the Telephony inline hook
-	Source *string `json:"source,omitempty"`
+	Source               *string `json:"source,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -269,4 +269,3 @@ func (v *NullableTelephonyRequest) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-

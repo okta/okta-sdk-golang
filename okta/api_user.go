@@ -29,33 +29,32 @@ import (
 	"io/ioutil"
 	"net/http"
 	"net/url"
-	"time"
 	"strings"
+	"time"
 )
-
 
 type UserAPI interface {
 
 	/*
-	ActivateUser Activate a User
+			ActivateUser Activate a User
 
-	Activates a user. This operation can only be performed on users with a `STAGED` or `DEPROVISIONED` status.
-Activation of a user is an asynchronous operation. The user will have the `transitioningToStatus`
-property with a value of `ACTIVE` during activation to indicate that the user hasn't completed the asynchronous operation.
-The user will have a status of `ACTIVE` when the activation process is complete.
-> **Multibrand and User activation**<br>
-If you want to send a branded User Activation email, change the subdomain of your request to the custom domain that's associated with the brand.
-For example, change `subdomain.okta.com` to `custom.domain.one`. See [Multibrand and custom domains](https://developer.okta.com/docs/concepts/brands/#multibrand-and-custom-domains).
-<br><br>
-> **Legal disclaimer**<br>
-After a user is added to the Okta directory, they receive an activation email. As part of signing up for this service,
-you agreed not to use Okta's service/product to spam and/or send unsolicited messages.
-Please refrain from adding unrelated accounts to the directory as Okta is not responsible for, and disclaims any and all
-liability associated with, the activation email's content. You, and you alone, bear responsibility for the emails sent to any recipients.
+			Activates a user. This operation can only be performed on users with a `STAGED` or `DEPROVISIONED` status.
+		Activation of a user is an asynchronous operation. The user will have the `transitioningToStatus`
+		property with a value of `ACTIVE` during activation to indicate that the user hasn't completed the asynchronous operation.
+		The user will have a status of `ACTIVE` when the activation process is complete.
+		> **Multibrand and User activation**<br>
+		If you want to send a branded User Activation email, change the subdomain of your request to the custom domain that's associated with the brand.
+		For example, change `subdomain.okta.com` to `custom.domain.one`. See [Multibrand and custom domains](https://developer.okta.com/docs/concepts/brands/#multibrand-and-custom-domains).
+		<br><br>
+		> **Legal disclaimer**<br>
+		After a user is added to the Okta directory, they receive an activation email. As part of signing up for this service,
+		you agreed not to use Okta's service/product to spam and/or send unsolicited messages.
+		Please refrain from adding unrelated accounts to the directory as Okta is not responsible for, and disclaims any and all
+		liability associated with, the activation email's content. You, and you alone, bear responsibility for the emails sent to any recipients.
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param userId ID of an existing Okta user
-	@return ApiActivateUserRequest
+			@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+			@param userId ID of an existing Okta user
+			@return ApiActivateUserRequest
 	*/
 	ActivateUser(ctx context.Context, userId string) ApiActivateUserRequest
 
@@ -64,13 +63,13 @@ liability associated with, the activation email's content. You, and you alone, b
 	ActivateUserExecute(r ApiActivateUserRequest) (*UserActivationToken, *APIResponse, error)
 
 	/*
-	ChangePassword Change Password
+		ChangePassword Change Password
 
-	Changes a user's password by validating the user's current password. This operation can only be performed on users in `STAGED`, `ACTIVE`, `PASSWORD_EXPIRED`, or `RECOVERY` status that have a valid password credential
+		Changes a user's password by validating the user's current password. This operation can only be performed on users in `STAGED`, `ACTIVE`, `PASSWORD_EXPIRED`, or `RECOVERY` status that have a valid password credential
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param userId ID of an existing Okta user
-	@return ApiChangePasswordRequest
+		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+		@param userId ID of an existing Okta user
+		@return ApiChangePasswordRequest
 	*/
 	ChangePassword(ctx context.Context, userId string) ApiChangePasswordRequest
 
@@ -79,13 +78,13 @@ liability associated with, the activation email's content. You, and you alone, b
 	ChangePasswordExecute(r ApiChangePasswordRequest) (*UserCredentials, *APIResponse, error)
 
 	/*
-	ChangeRecoveryQuestion Change Recovery Question
+		ChangeRecoveryQuestion Change Recovery Question
 
-	Changes a user's recovery question & answer credential by validating the user's current password.  This operation can only be performed on users in **STAGED**, **ACTIVE** or **RECOVERY** `status` that have a valid password credential
+		Changes a user's recovery question & answer credential by validating the user's current password.  This operation can only be performed on users in **STAGED**, **ACTIVE** or **RECOVERY** `status` that have a valid password credential
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param userId ID of an existing Okta user
-	@return ApiChangeRecoveryQuestionRequest
+		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+		@param userId ID of an existing Okta user
+		@return ApiChangeRecoveryQuestionRequest
 	*/
 	ChangeRecoveryQuestion(ctx context.Context, userId string) ApiChangeRecoveryQuestionRequest
 
@@ -94,17 +93,17 @@ liability associated with, the activation email's content. You, and you alone, b
 	ChangeRecoveryQuestionExecute(r ApiChangeRecoveryQuestionRequest) (*UserCredentials, *APIResponse, error)
 
 	/*
-	CreateUser Create a User
+			CreateUser Create a User
 
-	Creates a new user in your Okta organization with or without credentials<br>
-> **Legal Disclaimer**<br>
-After a user is added to the Okta directory, they receive an activation email. As part of signing up for this service,
-you agreed not to use Okta's service/product to spam and/or send unsolicited messages.
-Please refrain from adding unrelated accounts to the directory as Okta is not responsible for, and disclaims any and all
-liability associated with, the activation email's content. You, and you alone, bear responsibility for the emails sent to any recipients.
+			Creates a new user in your Okta organization with or without credentials<br>
+		> **Legal Disclaimer**<br>
+		After a user is added to the Okta directory, they receive an activation email. As part of signing up for this service,
+		you agreed not to use Okta's service/product to spam and/or send unsolicited messages.
+		Please refrain from adding unrelated accounts to the directory as Okta is not responsible for, and disclaims any and all
+		liability associated with, the activation email's content. You, and you alone, bear responsibility for the emails sent to any recipients.
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@return ApiCreateUserRequest
+			@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+			@return ApiCreateUserRequest
 	*/
 	CreateUser(ctx context.Context) ApiCreateUserRequest
 
@@ -113,13 +112,13 @@ liability associated with, the activation email's content. You, and you alone, b
 	CreateUserExecute(r ApiCreateUserRequest) (*User, *APIResponse, error)
 
 	/*
-	DeactivateUser Deactivate a User
+		DeactivateUser Deactivate a User
 
-	Deactivates a user. This operation can only be performed on users that do not have a `DEPROVISIONED` status. While the asynchronous operation (triggered by HTTP header `Prefer: respond-async`) is proceeding the user's `transitioningToStatus` property is `DEPROVISIONED`. The user's status is `DEPROVISIONED` when the deactivation process is complete.
+		Deactivates a user. This operation can only be performed on users that do not have a `DEPROVISIONED` status. While the asynchronous operation (triggered by HTTP header `Prefer: respond-async`) is proceeding the user's `transitioningToStatus` property is `DEPROVISIONED`. The user's status is `DEPROVISIONED` when the deactivation process is complete.
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param userId ID of an existing Okta user
-	@return ApiDeactivateUserRequest
+		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+		@param userId ID of an existing Okta user
+		@return ApiDeactivateUserRequest
 	*/
 	DeactivateUser(ctx context.Context, userId string) ApiDeactivateUserRequest
 
@@ -127,14 +126,14 @@ liability associated with, the activation email's content. You, and you alone, b
 	DeactivateUserExecute(r ApiDeactivateUserRequest) (*APIResponse, error)
 
 	/*
-	DeleteLinkedObjectForUser Delete a Linked Object
+		DeleteLinkedObjectForUser Delete a Linked Object
 
-	Deletes linked objects for a user, relationshipName can be ONLY a primary relationship name
+		Deletes linked objects for a user, relationshipName can be ONLY a primary relationship name
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param userIdOrLogin User ID or login value of the user assigned the `associated` relationship
-	@param relationshipName Name of the `primary` or `associated` relationship being queried
-	@return ApiDeleteLinkedObjectForUserRequest
+		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+		@param userIdOrLogin User ID or login value of the user assigned the `associated` relationship
+		@param relationshipName Name of the `primary` or `associated` relationship being queried
+		@return ApiDeleteLinkedObjectForUserRequest
 	*/
 	DeleteLinkedObjectForUser(ctx context.Context, userIdOrLogin string, relationshipName string) ApiDeleteLinkedObjectForUserRequest
 
@@ -142,13 +141,13 @@ liability associated with, the activation email's content. You, and you alone, b
 	DeleteLinkedObjectForUserExecute(r ApiDeleteLinkedObjectForUserRequest) (*APIResponse, error)
 
 	/*
-	DeleteUser Delete a User
+		DeleteUser Delete a User
 
-	Deletes a user permanently. This operation can only be performed on users that have a `DEPROVISIONED` status.  **This action cannot be recovered!**. Calling this on an `ACTIVE` user will transition the user to `DEPROVISIONED`.
+		Deletes a user permanently. This operation can only be performed on users that have a `DEPROVISIONED` status.  **This action cannot be recovered!**. Calling this on an `ACTIVE` user will transition the user to `DEPROVISIONED`.
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param userId ID of an existing Okta user
-	@return ApiDeleteUserRequest
+		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+		@param userId ID of an existing Okta user
+		@return ApiDeleteUserRequest
 	*/
 	DeleteUser(ctx context.Context, userId string) ApiDeleteUserRequest
 
@@ -156,13 +155,13 @@ liability associated with, the activation email's content. You, and you alone, b
 	DeleteUserExecute(r ApiDeleteUserRequest) (*APIResponse, error)
 
 	/*
-	ExpirePassword Expire Password
+		ExpirePassword Expire Password
 
-	Expires a user's password and transitions the user to the status of `PASSWORD_EXPIRED` so that the user is required to change their password at their next login
+		Expires a user's password and transitions the user to the status of `PASSWORD_EXPIRED` so that the user is required to change their password at their next login
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param userId ID of an existing Okta user
-	@return ApiExpirePasswordRequest
+		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+		@param userId ID of an existing Okta user
+		@return ApiExpirePasswordRequest
 	*/
 	ExpirePassword(ctx context.Context, userId string) ApiExpirePasswordRequest
 
@@ -171,13 +170,13 @@ liability associated with, the activation email's content. You, and you alone, b
 	ExpirePasswordExecute(r ApiExpirePasswordRequest) (*User, *APIResponse, error)
 
 	/*
-	ExpirePasswordAndGetTemporaryPassword Expire Password and Set Temporary Password
+		ExpirePasswordAndGetTemporaryPassword Expire Password and Set Temporary Password
 
-	Expires a user's password and transitions the user to the status of `PASSWORD_EXPIRED` so that the user is required to change their password at their next login, and also sets the user's password to a temporary password returned in the response
+		Expires a user's password and transitions the user to the status of `PASSWORD_EXPIRED` so that the user is required to change their password at their next login, and also sets the user's password to a temporary password returned in the response
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param userId ID of an existing Okta user
-	@return ApiExpirePasswordAndGetTemporaryPasswordRequest
+		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+		@param userId ID of an existing Okta user
+		@return ApiExpirePasswordAndGetTemporaryPasswordRequest
 	*/
 	ExpirePasswordAndGetTemporaryPassword(ctx context.Context, userId string) ApiExpirePasswordAndGetTemporaryPasswordRequest
 
@@ -186,13 +185,13 @@ liability associated with, the activation email's content. You, and you alone, b
 	ExpirePasswordAndGetTemporaryPasswordExecute(r ApiExpirePasswordAndGetTemporaryPasswordRequest) (*TempPassword, *APIResponse, error)
 
 	/*
-	ForgotPassword Initiate Forgot Password
+		ForgotPassword Initiate Forgot Password
 
-	Initiates the forgot password flow. Generates a one-time token (OTT) that can be used to reset a user's password.
+		Initiates the forgot password flow. Generates a one-time token (OTT) that can be used to reset a user's password.
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param userId ID of an existing Okta user
-	@return ApiForgotPasswordRequest
+		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+		@param userId ID of an existing Okta user
+		@return ApiForgotPasswordRequest
 	*/
 	ForgotPassword(ctx context.Context, userId string) ApiForgotPasswordRequest
 
@@ -201,13 +200,13 @@ liability associated with, the activation email's content. You, and you alone, b
 	ForgotPasswordExecute(r ApiForgotPasswordRequest) (*ForgotPasswordResponse, *APIResponse, error)
 
 	/*
-	ForgotPasswordSetNewPassword Reset Password with Recovery Question
+		ForgotPasswordSetNewPassword Reset Password with Recovery Question
 
-	Resets the user's password to the specified password if the provided answer to the recovery question is correct
+		Resets the user's password to the specified password if the provided answer to the recovery question is correct
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param userId ID of an existing Okta user
-	@return ApiForgotPasswordSetNewPasswordRequest
+		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+		@param userId ID of an existing Okta user
+		@return ApiForgotPasswordSetNewPasswordRequest
 	*/
 	ForgotPasswordSetNewPassword(ctx context.Context, userId string) ApiForgotPasswordSetNewPasswordRequest
 
@@ -216,13 +215,13 @@ liability associated with, the activation email's content. You, and you alone, b
 	ForgotPasswordSetNewPasswordExecute(r ApiForgotPasswordSetNewPasswordRequest) (*UserCredentials, *APIResponse, error)
 
 	/*
-	GenerateResetPasswordToken Generate a Reset Password Token
+		GenerateResetPasswordToken Generate a Reset Password Token
 
-	Generates a one-time token (OTT) that can be used to reset a user's password.  The OTT link can be automatically emailed to the user or returned to the API caller and distributed using a custom flow.
+		Generates a one-time token (OTT) that can be used to reset a user's password.  The OTT link can be automatically emailed to the user or returned to the API caller and distributed using a custom flow.
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param userId ID of an existing Okta user
-	@return ApiGenerateResetPasswordTokenRequest
+		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+		@param userId ID of an existing Okta user
+		@return ApiGenerateResetPasswordTokenRequest
 	*/
 	GenerateResetPasswordToken(ctx context.Context, userId string) ApiGenerateResetPasswordTokenRequest
 
@@ -231,15 +230,15 @@ liability associated with, the activation email's content. You, and you alone, b
 	GenerateResetPasswordTokenExecute(r ApiGenerateResetPasswordTokenRequest) (*ResetPasswordToken, *APIResponse, error)
 
 	/*
-	GetRefreshTokenForUserAndClient Retrieve a Refresh Token for a Client
+		GetRefreshTokenForUserAndClient Retrieve a Refresh Token for a Client
 
-	Retrieves a refresh token issued for the specified User and Client
+		Retrieves a refresh token issued for the specified User and Client
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param userId ID of an existing Okta user
-	@param clientId `client_id` of the app
-	@param tokenId `id` of Token
-	@return ApiGetRefreshTokenForUserAndClientRequest
+		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+		@param userId ID of an existing Okta user
+		@param clientId `client_id` of the app
+		@param tokenId `id` of Token
+		@return ApiGetRefreshTokenForUserAndClientRequest
 	*/
 	GetRefreshTokenForUserAndClient(ctx context.Context, userId string, clientId string, tokenId string) ApiGetRefreshTokenForUserAndClientRequest
 
@@ -248,13 +247,13 @@ liability associated with, the activation email's content. You, and you alone, b
 	GetRefreshTokenForUserAndClientExecute(r ApiGetRefreshTokenForUserAndClientRequest) (*OAuth2RefreshToken, *APIResponse, error)
 
 	/*
-	GetUser Retrieve a User
+		GetUser Retrieve a User
 
-	Retrieves a user from your Okta organization
+		Retrieves a user from your Okta organization
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param userId ID of an existing Okta user
-	@return ApiGetUserRequest
+		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+		@param userId ID of an existing Okta user
+		@return ApiGetUserRequest
 	*/
 	GetUser(ctx context.Context, userId string) ApiGetUserRequest
 
@@ -263,14 +262,14 @@ liability associated with, the activation email's content. You, and you alone, b
 	GetUserExecute(r ApiGetUserRequest) (*UserGetSingleton, *APIResponse, error)
 
 	/*
-	GetUserGrant Retrieve a User Grant
+		GetUserGrant Retrieve a User Grant
 
-	Retrieves a grant for the specified user
+		Retrieves a grant for the specified user
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param userId ID of an existing Okta user
-	@param grantId Grant ID
-	@return ApiGetUserGrantRequest
+		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+		@param userId ID of an existing Okta user
+		@param grantId Grant ID
+		@return ApiGetUserGrantRequest
 	*/
 	GetUserGrant(ctx context.Context, userId string, grantId string) ApiGetUserGrantRequest
 
@@ -279,13 +278,13 @@ liability associated with, the activation email's content. You, and you alone, b
 	GetUserGrantExecute(r ApiGetUserGrantRequest) (*OAuth2ScopeConsentGrant, *APIResponse, error)
 
 	/*
-	ListAppLinks List all Assigned Application Links
+		ListAppLinks List all Assigned Application Links
 
-	Lists all appLinks for all direct or indirect (via group membership) assigned applications
+		Lists all appLinks for all direct or indirect (via group membership) assigned applications
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param userId ID of an existing Okta user
-	@return ApiListAppLinksRequest
+		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+		@param userId ID of an existing Okta user
+		@return ApiListAppLinksRequest
 	*/
 	ListAppLinks(ctx context.Context, userId string) ApiListAppLinksRequest
 
@@ -294,14 +293,14 @@ liability associated with, the activation email's content. You, and you alone, b
 	ListAppLinksExecute(r ApiListAppLinksRequest) ([]AppLink, *APIResponse, error)
 
 	/*
-	ListGrantsForUserAndClient List all Grants for a Client
+		ListGrantsForUserAndClient List all Grants for a Client
 
-	Lists all grants for a specified user and client
+		Lists all grants for a specified user and client
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param userId ID of an existing Okta user
-	@param clientId `client_id` of the app
-	@return ApiListGrantsForUserAndClientRequest
+		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+		@param userId ID of an existing Okta user
+		@param clientId `client_id` of the app
+		@return ApiListGrantsForUserAndClientRequest
 	*/
 	ListGrantsForUserAndClient(ctx context.Context, userId string, clientId string) ApiListGrantsForUserAndClientRequest
 
@@ -310,14 +309,14 @@ liability associated with, the activation email's content. You, and you alone, b
 	ListGrantsForUserAndClientExecute(r ApiListGrantsForUserAndClientRequest) ([]OAuth2ScopeConsentGrant, *APIResponse, error)
 
 	/*
-	ListLinkedObjectsForUser List the primary or all of the associated Linked Object values
+		ListLinkedObjectsForUser List the primary or all of the associated Linked Object values
 
-	Lists either the self link for the `primary` user or all `associated` users in the relationship specified by `relationshipName`. If the specified user isn't associated in any relationship, an empty array is returned.
+		Lists either the self link for the `primary` user or all `associated` users in the relationship specified by `relationshipName`. If the specified user isn't associated in any relationship, an empty array is returned.
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param userIdOrLogin User ID or login value of the user assigned the `associated` relationship
-	@param relationshipName Name of the `primary` or `associated` relationship being queried
-	@return ApiListLinkedObjectsForUserRequest
+		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+		@param userIdOrLogin User ID or login value of the user assigned the `associated` relationship
+		@param relationshipName Name of the `primary` or `associated` relationship being queried
+		@return ApiListLinkedObjectsForUserRequest
 	*/
 	ListLinkedObjectsForUser(ctx context.Context, userIdOrLogin string, relationshipName string) ApiListLinkedObjectsForUserRequest
 
@@ -326,14 +325,14 @@ liability associated with, the activation email's content. You, and you alone, b
 	ListLinkedObjectsForUserExecute(r ApiListLinkedObjectsForUserRequest) ([]map[string]interface{}, *APIResponse, error)
 
 	/*
-	ListRefreshTokensForUserAndClient List all Refresh Tokens for a Client
+		ListRefreshTokensForUserAndClient List all Refresh Tokens for a Client
 
-	Lists all refresh tokens issued for the specified User and Client
+		Lists all refresh tokens issued for the specified User and Client
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param userId ID of an existing Okta user
-	@param clientId `client_id` of the app
-	@return ApiListRefreshTokensForUserAndClientRequest
+		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+		@param userId ID of an existing Okta user
+		@param clientId `client_id` of the app
+		@return ApiListRefreshTokensForUserAndClientRequest
 	*/
 	ListRefreshTokensForUserAndClient(ctx context.Context, userId string, clientId string) ApiListRefreshTokensForUserAndClientRequest
 
@@ -342,13 +341,13 @@ liability associated with, the activation email's content. You, and you alone, b
 	ListRefreshTokensForUserAndClientExecute(r ApiListRefreshTokensForUserAndClientRequest) ([]OAuth2RefreshToken, *APIResponse, error)
 
 	/*
-	ListUserBlocks List all User Blocks
+		ListUserBlocks List all User Blocks
 
-	Lists information about how the user is blocked from accessing their account
+		Lists information about how the user is blocked from accessing their account
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param userId ID of an existing Okta user
-	@return ApiListUserBlocksRequest
+		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+		@param userId ID of an existing Okta user
+		@return ApiListUserBlocksRequest
 	*/
 	ListUserBlocks(ctx context.Context, userId string) ApiListUserBlocksRequest
 
@@ -357,13 +356,13 @@ liability associated with, the activation email's content. You, and you alone, b
 	ListUserBlocksExecute(r ApiListUserBlocksRequest) ([]UserBlock, *APIResponse, error)
 
 	/*
-	ListUserClients List all Clients
+		ListUserClients List all Clients
 
-	Lists all client resources for which the specified user has grants or tokens
+		Lists all client resources for which the specified user has grants or tokens
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param userId ID of an existing Okta user
-	@return ApiListUserClientsRequest
+		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+		@param userId ID of an existing Okta user
+		@return ApiListUserClientsRequest
 	*/
 	ListUserClients(ctx context.Context, userId string) ApiListUserClientsRequest
 
@@ -372,13 +371,13 @@ liability associated with, the activation email's content. You, and you alone, b
 	ListUserClientsExecute(r ApiListUserClientsRequest) ([]OAuth2Client, *APIResponse, error)
 
 	/*
-	ListUserGrants List all User Grants
+		ListUserGrants List all User Grants
 
-	Lists all grants for the specified user
+		Lists all grants for the specified user
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param userId ID of an existing Okta user
-	@return ApiListUserGrantsRequest
+		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+		@param userId ID of an existing Okta user
+		@return ApiListUserGrantsRequest
 	*/
 	ListUserGrants(ctx context.Context, userId string) ApiListUserGrantsRequest
 
@@ -387,13 +386,13 @@ liability associated with, the activation email's content. You, and you alone, b
 	ListUserGrantsExecute(r ApiListUserGrantsRequest) ([]OAuth2ScopeConsentGrant, *APIResponse, error)
 
 	/*
-	ListUserGroups List all Groups
+		ListUserGroups List all Groups
 
-	Lists all groups of which the user is a member
+		Lists all groups of which the user is a member
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param userId ID of an existing Okta user
-	@return ApiListUserGroupsRequest
+		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+		@param userId ID of an existing Okta user
+		@return ApiListUserGroupsRequest
 	*/
 	ListUserGroups(ctx context.Context, userId string) ApiListUserGroupsRequest
 
@@ -402,13 +401,13 @@ liability associated with, the activation email's content. You, and you alone, b
 	ListUserGroupsExecute(r ApiListUserGroupsRequest) ([]Group, *APIResponse, error)
 
 	/*
-	ListUserIdentityProviders List all Identity Providers
+		ListUserIdentityProviders List all Identity Providers
 
-	Lists the IdPs associated with the user
+		Lists the IdPs associated with the user
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param userId ID of an existing Okta user
-	@return ApiListUserIdentityProvidersRequest
+		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+		@param userId ID of an existing Okta user
+		@return ApiListUserIdentityProvidersRequest
 	*/
 	ListUserIdentityProviders(ctx context.Context, userId string) ApiListUserIdentityProvidersRequest
 
@@ -417,12 +416,12 @@ liability associated with, the activation email's content. You, and you alone, b
 	ListUserIdentityProvidersExecute(r ApiListUserIdentityProvidersRequest) ([]IdentityProvider, *APIResponse, error)
 
 	/*
-	ListUsers List all Users
+		ListUsers List all Users
 
-	Lists all users that do not have a status of 'DEPROVISIONED' (by default), up to the maximum (200 for most orgs), with pagination.  A subset of users can be returned that match a supported filter expression or search criteria.
+		Lists all users that do not have a status of 'DEPROVISIONED' (by default), up to the maximum (200 for most orgs), with pagination.  A subset of users can be returned that match a supported filter expression or search criteria.
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@return ApiListUsersRequest
+		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+		@return ApiListUsersRequest
 	*/
 	ListUsers(ctx context.Context) ApiListUsersRequest
 
@@ -431,16 +430,16 @@ liability associated with, the activation email's content. You, and you alone, b
 	ListUsersExecute(r ApiListUsersRequest) ([]User, *APIResponse, error)
 
 	/*
-	ReactivateUser Reactivate a User
+			ReactivateUser Reactivate a User
 
-	Reactivates a user. This operation can only be performed on users with a `PROVISIONED` status.
-This operation restarts the activation workflow if the user activation wasn't completed with the `activationToken` from [Activate a user](/openapi/okta-management/management/tag/User/#tag/User/operation/activateUser).
+			Reactivates a user. This operation can only be performed on users with a `PROVISIONED` status.
+		This operation restarts the activation workflow if the user activation wasn't completed with the `activationToken` from [Activate a user](/openapi/okta-management/management/tag/User/#tag/User/operation/activateUser).
 
-> **Note:** A successful request to this endpoint records the same set of events as when a user is activated in System Logs, since it invokes the same activation workflow.
+		> **Note:** A successful request to this endpoint records the same set of events as when a user is activated in System Logs, since it invokes the same activation workflow.
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param userId ID of an existing Okta user
-	@return ApiReactivateUserRequest
+			@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+			@param userId ID of an existing Okta user
+			@return ApiReactivateUserRequest
 	*/
 	ReactivateUser(ctx context.Context, userId string) ApiReactivateUserRequest
 
@@ -449,15 +448,15 @@ This operation restarts the activation workflow if the user activation wasn't co
 	ReactivateUserExecute(r ApiReactivateUserRequest) (*UserActivationToken, *APIResponse, error)
 
 	/*
-	ReplaceLinkedObjectForUser Replace the Linked Object value for `primary`
+		ReplaceLinkedObjectForUser Replace the Linked Object value for `primary`
 
-	Replaces the first user as the `associated` and the second user as the `primary` for the specified relationship. If the first user is already associated with a different `primary` for this relationship, replaces the previous link. A Linked Object relationship can specify only one `primary` user for an `associated` user.
+		Replaces the first user as the `associated` and the second user as the `primary` for the specified relationship. If the first user is already associated with a different `primary` for this relationship, replaces the previous link. A Linked Object relationship can specify only one `primary` user for an `associated` user.
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param userIdOrLogin User ID or login value of the user assigned the `associated` relationship
-	@param primaryRelationshipName Name of the `primary` relationship being assigned
-	@param primaryUserId User ID to be assigned to the `primary` relationship for the `associated` user
-	@return ApiReplaceLinkedObjectForUserRequest
+		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+		@param userIdOrLogin User ID or login value of the user assigned the `associated` relationship
+		@param primaryRelationshipName Name of the `primary` relationship being assigned
+		@param primaryUserId User ID to be assigned to the `primary` relationship for the `associated` user
+		@return ApiReplaceLinkedObjectForUserRequest
 	*/
 	ReplaceLinkedObjectForUser(ctx context.Context, userIdOrLogin string, primaryRelationshipName string, primaryUserId string) ApiReplaceLinkedObjectForUserRequest
 
@@ -465,13 +464,13 @@ This operation restarts the activation workflow if the user activation wasn't co
 	ReplaceLinkedObjectForUserExecute(r ApiReplaceLinkedObjectForUserRequest) (*APIResponse, error)
 
 	/*
-	ReplaceUser Replace a User
+		ReplaceUser Replace a User
 
-	Replaces a user's profile and/or credentials using strict-update semantics
+		Replaces a user's profile and/or credentials using strict-update semantics
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param userId ID of an existing Okta user
-	@return ApiReplaceUserRequest
+		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+		@param userId ID of an existing Okta user
+		@return ApiReplaceUserRequest
 	*/
 	ReplaceUser(ctx context.Context, userId string) ApiReplaceUserRequest
 
@@ -480,13 +479,13 @@ This operation restarts the activation workflow if the user activation wasn't co
 	ReplaceUserExecute(r ApiReplaceUserRequest) (*User, *APIResponse, error)
 
 	/*
-	ResetFactors Reset all Factors
+		ResetFactors Reset all Factors
 
-	Resets all factors for the specified user. All MFA factor enrollments returned to the unenrolled state. The user's status remains ACTIVE. This link is present only if the user is currently enrolled in one or more MFA factors.
+		Resets all factors for the specified user. All MFA factor enrollments returned to the unenrolled state. The user's status remains ACTIVE. This link is present only if the user is currently enrolled in one or more MFA factors.
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param userId ID of an existing Okta user
-	@return ApiResetFactorsRequest
+		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+		@param userId ID of an existing Okta user
+		@return ApiResetFactorsRequest
 	*/
 	ResetFactors(ctx context.Context, userId string) ApiResetFactorsRequest
 
@@ -494,14 +493,14 @@ This operation restarts the activation workflow if the user activation wasn't co
 	ResetFactorsExecute(r ApiResetFactorsRequest) (*APIResponse, error)
 
 	/*
-	RevokeGrantsForUserAndClient Revoke all Grants for a Client
+		RevokeGrantsForUserAndClient Revoke all Grants for a Client
 
-	Revokes all grants for the specified user and client
+		Revokes all grants for the specified user and client
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param userId ID of an existing Okta user
-	@param clientId `client_id` of the app
-	@return ApiRevokeGrantsForUserAndClientRequest
+		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+		@param userId ID of an existing Okta user
+		@param clientId `client_id` of the app
+		@return ApiRevokeGrantsForUserAndClientRequest
 	*/
 	RevokeGrantsForUserAndClient(ctx context.Context, userId string, clientId string) ApiRevokeGrantsForUserAndClientRequest
 
@@ -509,15 +508,15 @@ This operation restarts the activation workflow if the user activation wasn't co
 	RevokeGrantsForUserAndClientExecute(r ApiRevokeGrantsForUserAndClientRequest) (*APIResponse, error)
 
 	/*
-	RevokeTokenForUserAndClient Revoke a Token for a Client
+		RevokeTokenForUserAndClient Revoke a Token for a Client
 
-	Revokes the specified refresh token
+		Revokes the specified refresh token
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param userId ID of an existing Okta user
-	@param clientId `client_id` of the app
-	@param tokenId `id` of Token
-	@return ApiRevokeTokenForUserAndClientRequest
+		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+		@param userId ID of an existing Okta user
+		@param clientId `client_id` of the app
+		@param tokenId `id` of Token
+		@return ApiRevokeTokenForUserAndClientRequest
 	*/
 	RevokeTokenForUserAndClient(ctx context.Context, userId string, clientId string, tokenId string) ApiRevokeTokenForUserAndClientRequest
 
@@ -525,14 +524,14 @@ This operation restarts the activation workflow if the user activation wasn't co
 	RevokeTokenForUserAndClientExecute(r ApiRevokeTokenForUserAndClientRequest) (*APIResponse, error)
 
 	/*
-	RevokeTokensForUserAndClient Revoke all Refresh Tokens for a Client
+		RevokeTokensForUserAndClient Revoke all Refresh Tokens for a Client
 
-	Revokes all refresh tokens issued for the specified User and Client
+		Revokes all refresh tokens issued for the specified User and Client
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param userId ID of an existing Okta user
-	@param clientId `client_id` of the app
-	@return ApiRevokeTokensForUserAndClientRequest
+		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+		@param userId ID of an existing Okta user
+		@param clientId `client_id` of the app
+		@return ApiRevokeTokensForUserAndClientRequest
 	*/
 	RevokeTokensForUserAndClient(ctx context.Context, userId string, clientId string) ApiRevokeTokensForUserAndClientRequest
 
@@ -540,14 +539,14 @@ This operation restarts the activation workflow if the user activation wasn't co
 	RevokeTokensForUserAndClientExecute(r ApiRevokeTokensForUserAndClientRequest) (*APIResponse, error)
 
 	/*
-	RevokeUserGrant Revoke a User Grant
+		RevokeUserGrant Revoke a User Grant
 
-	Revokes one grant for a specified user
+		Revokes one grant for a specified user
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param userId ID of an existing Okta user
-	@param grantId Grant ID
-	@return ApiRevokeUserGrantRequest
+		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+		@param userId ID of an existing Okta user
+		@param grantId Grant ID
+		@return ApiRevokeUserGrantRequest
 	*/
 	RevokeUserGrant(ctx context.Context, userId string, grantId string) ApiRevokeUserGrantRequest
 
@@ -555,13 +554,13 @@ This operation restarts the activation workflow if the user activation wasn't co
 	RevokeUserGrantExecute(r ApiRevokeUserGrantRequest) (*APIResponse, error)
 
 	/*
-	RevokeUserGrants Revoke all User Grants
+		RevokeUserGrants Revoke all User Grants
 
-	Revokes all grants for a specified user
+		Revokes all grants for a specified user
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param userId ID of an existing Okta user
-	@return ApiRevokeUserGrantsRequest
+		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+		@param userId ID of an existing Okta user
+		@return ApiRevokeUserGrantsRequest
 	*/
 	RevokeUserGrants(ctx context.Context, userId string) ApiRevokeUserGrantsRequest
 
@@ -569,13 +568,13 @@ This operation restarts the activation workflow if the user activation wasn't co
 	RevokeUserGrantsExecute(r ApiRevokeUserGrantsRequest) (*APIResponse, error)
 
 	/*
-	RevokeUserSessions Revoke all User Sessions
+		RevokeUserSessions Revoke all User Sessions
 
-	Revokes all active identity provider sessions of the user. This forces the user to authenticate on the next operation. Optionally revokes OpenID Connect and OAuth refresh and access tokens issued to the user.
+		Revokes all active identity provider sessions of the user. This forces the user to authenticate on the next operation. Optionally revokes OpenID Connect and OAuth refresh and access tokens issued to the user.
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param userId ID of an existing Okta user
-	@return ApiRevokeUserSessionsRequest
+		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+		@param userId ID of an existing Okta user
+		@return ApiRevokeUserSessionsRequest
 	*/
 	RevokeUserSessions(ctx context.Context, userId string) ApiRevokeUserSessionsRequest
 
@@ -583,13 +582,13 @@ This operation restarts the activation workflow if the user activation wasn't co
 	RevokeUserSessionsExecute(r ApiRevokeUserSessionsRequest) (*APIResponse, error)
 
 	/*
-	SuspendUser Suspend a User
+		SuspendUser Suspend a User
 
-	Suspends a user.  This operation can only be performed on users with an `ACTIVE` status.  The user will have a status of `SUSPENDED` when the process is complete.
+		Suspends a user.  This operation can only be performed on users with an `ACTIVE` status.  The user will have a status of `SUSPENDED` when the process is complete.
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param userId ID of an existing Okta user
-	@return ApiSuspendUserRequest
+		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+		@param userId ID of an existing Okta user
+		@return ApiSuspendUserRequest
 	*/
 	SuspendUser(ctx context.Context, userId string) ApiSuspendUserRequest
 
@@ -597,13 +596,13 @@ This operation restarts the activation workflow if the user activation wasn't co
 	SuspendUserExecute(r ApiSuspendUserRequest) (*APIResponse, error)
 
 	/*
-	UnlockUser Unlock a User
+		UnlockUser Unlock a User
 
-	Unlocks a user with a `LOCKED_OUT` status or unlocks a user with an `ACTIVE` status that is blocked from unknown devices. Unlocked users have an `ACTIVE` status and can sign in with their current password.
+		Unlocks a user with a `LOCKED_OUT` status or unlocks a user with an `ACTIVE` status that is blocked from unknown devices. Unlocked users have an `ACTIVE` status and can sign in with their current password.
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param userId ID of an existing Okta user
-	@return ApiUnlockUserRequest
+		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+		@param userId ID of an existing Okta user
+		@return ApiUnlockUserRequest
 	*/
 	UnlockUser(ctx context.Context, userId string) ApiUnlockUserRequest
 
@@ -611,13 +610,13 @@ This operation restarts the activation workflow if the user activation wasn't co
 	UnlockUserExecute(r ApiUnlockUserRequest) (*APIResponse, error)
 
 	/*
-	UnsuspendUser Unsuspend a User
+		UnsuspendUser Unsuspend a User
 
-	Unsuspends a user and returns them to the `ACTIVE` state.  This operation can only be performed on users that have a `SUSPENDED` status.
+		Unsuspends a user and returns them to the `ACTIVE` state.  This operation can only be performed on users that have a `SUSPENDED` status.
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param userId ID of an existing Okta user
-	@return ApiUnsuspendUserRequest
+		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+		@param userId ID of an existing Okta user
+		@return ApiUnsuspendUserRequest
 	*/
 	UnsuspendUser(ctx context.Context, userId string) ApiUnsuspendUserRequest
 
@@ -625,13 +624,13 @@ This operation restarts the activation workflow if the user activation wasn't co
 	UnsuspendUserExecute(r ApiUnsuspendUserRequest) (*APIResponse, error)
 
 	/*
-	UpdateUser Update a User
+		UpdateUser Update a User
 
-	Updates a user partially determined by the request parameters
+		Updates a user partially determined by the request parameters
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param userId ID of an existing Okta user
-	@return ApiUpdateUserRequest
+		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+		@param userId ID of an existing Okta user
+		@return ApiUpdateUserRequest
 	*/
 	UpdateUser(ctx context.Context, userId string) ApiUpdateUserRequest
 
@@ -644,10 +643,10 @@ This operation restarts the activation workflow if the user activation wasn't co
 type UserAPIService service
 
 type ApiActivateUserRequest struct {
-	ctx context.Context
+	ctx        context.Context
 	ApiService UserAPI
-	userId string
-	sendEmail *bool
+	userId     string
+	sendEmail  *bool
 	retryCount int32
 }
 
@@ -678,21 +677,22 @@ you agreed not to use Okta's service/product to spam and/or send unsolicited mes
 Please refrain from adding unrelated accounts to the directory as Okta is not responsible for, and disclaims any and all
 liability associated with, the activation email's content. You, and you alone, bear responsibility for the emails sent to any recipients.
 
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @param userId ID of an existing Okta user
- @return ApiActivateUserRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param userId ID of an existing Okta user
+	@return ApiActivateUserRequest
 */
 func (a *UserAPIService) ActivateUser(ctx context.Context, userId string) ApiActivateUserRequest {
 	return ApiActivateUserRequest{
 		ApiService: a,
-		ctx: ctx,
-		userId: userId,
+		ctx:        ctx,
+		userId:     userId,
 		retryCount: 0,
 	}
 }
 
 // Execute executes the request
-//  @return UserActivationToken
+//
+//	@return UserActivationToken
 func (a *UserAPIService) ActivateUserExecute(r ApiActivateUserRequest) (*UserActivationToken, *APIResponse, error) {
 	var (
 		localVarHTTPMethod   = http.MethodPost
@@ -701,7 +701,7 @@ func (a *UserAPIService) ActivateUserExecute(r ApiActivateUserRequest) (*UserAct
 		localVarReturnValue  *UserActivationToken
 		localVarHTTPResponse *http.Response
 		localAPIResponse     *APIResponse
-		err 				 error
+		err                  error
 	)
 
 	if a.client.cfg.Okta.Client.RequestTimeout > 0 {
@@ -826,18 +826,18 @@ func (a *UserAPIService) ActivateUserExecute(r ApiActivateUserRequest) (*UserAct
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
 		return localVarReturnValue, localAPIResponse, newErr
 	}
-	
+
 	localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
 	return localVarReturnValue, localAPIResponse, nil
 }
 
 type ApiChangePasswordRequest struct {
-	ctx context.Context
-	ApiService UserAPI
-	userId string
+	ctx                   context.Context
+	ApiService            UserAPI
+	userId                string
 	changePasswordRequest *ChangePasswordRequest
-	strict *bool
-	retryCount int32
+	strict                *bool
+	retryCount            int32
 }
 
 func (r ApiChangePasswordRequest) ChangePasswordRequest(changePasswordRequest ChangePasswordRequest) ApiChangePasswordRequest {
@@ -859,21 +859,22 @@ ChangePassword Change Password
 
 Changes a user's password by validating the user's current password. This operation can only be performed on users in `STAGED`, `ACTIVE`, `PASSWORD_EXPIRED`, or `RECOVERY` status that have a valid password credential
 
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @param userId ID of an existing Okta user
- @return ApiChangePasswordRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param userId ID of an existing Okta user
+	@return ApiChangePasswordRequest
 */
 func (a *UserAPIService) ChangePassword(ctx context.Context, userId string) ApiChangePasswordRequest {
 	return ApiChangePasswordRequest{
 		ApiService: a,
-		ctx: ctx,
-		userId: userId,
+		ctx:        ctx,
+		userId:     userId,
 		retryCount: 0,
 	}
 }
 
 // Execute executes the request
-//  @return UserCredentials
+//
+//	@return UserCredentials
 func (a *UserAPIService) ChangePasswordExecute(r ApiChangePasswordRequest) (*UserCredentials, *APIResponse, error) {
 	var (
 		localVarHTTPMethod   = http.MethodPost
@@ -882,7 +883,7 @@ func (a *UserAPIService) ChangePasswordExecute(r ApiChangePasswordRequest) (*Use
 		localVarReturnValue  *UserCredentials
 		localVarHTTPResponse *http.Response
 		localAPIResponse     *APIResponse
-		err 				 error
+		err                  error
 	)
 
 	if a.client.cfg.Okta.Client.RequestTimeout > 0 {
@@ -1023,17 +1024,17 @@ func (a *UserAPIService) ChangePasswordExecute(r ApiChangePasswordRequest) (*Use
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
 		return localVarReturnValue, localAPIResponse, newErr
 	}
-	
+
 	localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
 	return localVarReturnValue, localAPIResponse, nil
 }
 
 type ApiChangeRecoveryQuestionRequest struct {
-	ctx context.Context
-	ApiService UserAPI
-	userId string
+	ctx             context.Context
+	ApiService      UserAPI
+	userId          string
 	userCredentials *UserCredentials
-	retryCount int32
+	retryCount      int32
 }
 
 func (r ApiChangeRecoveryQuestionRequest) UserCredentials(userCredentials UserCredentials) ApiChangeRecoveryQuestionRequest {
@@ -1050,21 +1051,22 @@ ChangeRecoveryQuestion Change Recovery Question
 
 Changes a user's recovery question & answer credential by validating the user's current password.  This operation can only be performed on users in **STAGED**, **ACTIVE** or **RECOVERY** `status` that have a valid password credential
 
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @param userId ID of an existing Okta user
- @return ApiChangeRecoveryQuestionRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param userId ID of an existing Okta user
+	@return ApiChangeRecoveryQuestionRequest
 */
 func (a *UserAPIService) ChangeRecoveryQuestion(ctx context.Context, userId string) ApiChangeRecoveryQuestionRequest {
 	return ApiChangeRecoveryQuestionRequest{
 		ApiService: a,
-		ctx: ctx,
-		userId: userId,
+		ctx:        ctx,
+		userId:     userId,
 		retryCount: 0,
 	}
 }
 
 // Execute executes the request
-//  @return UserCredentials
+//
+//	@return UserCredentials
 func (a *UserAPIService) ChangeRecoveryQuestionExecute(r ApiChangeRecoveryQuestionRequest) (*UserCredentials, *APIResponse, error) {
 	var (
 		localVarHTTPMethod   = http.MethodPost
@@ -1073,7 +1075,7 @@ func (a *UserAPIService) ChangeRecoveryQuestionExecute(r ApiChangeRecoveryQuesti
 		localVarReturnValue  *UserCredentials
 		localVarHTTPResponse *http.Response
 		localAPIResponse     *APIResponse
-		err 				 error
+		err                  error
 	)
 
 	if a.client.cfg.Okta.Client.RequestTimeout > 0 {
@@ -1211,18 +1213,18 @@ func (a *UserAPIService) ChangeRecoveryQuestionExecute(r ApiChangeRecoveryQuesti
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
 		return localVarReturnValue, localAPIResponse, newErr
 	}
-	
+
 	localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
 	return localVarReturnValue, localAPIResponse, nil
 }
 
 type ApiCreateUserRequest struct {
-	ctx context.Context
+	ctx        context.Context
 	ApiService UserAPI
-	body *CreateUserRequest
-	activate *bool
-	provider *bool
-	nextLogin *string
+	body       *CreateUserRequest
+	activate   *bool
+	provider   *bool
+	nextLogin  *string
 	retryCount int32
 }
 
@@ -1263,19 +1265,20 @@ you agreed not to use Okta's service/product to spam and/or send unsolicited mes
 Please refrain from adding unrelated accounts to the directory as Okta is not responsible for, and disclaims any and all
 liability associated with, the activation email's content. You, and you alone, bear responsibility for the emails sent to any recipients.
 
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @return ApiCreateUserRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@return ApiCreateUserRequest
 */
 func (a *UserAPIService) CreateUser(ctx context.Context) ApiCreateUserRequest {
 	return ApiCreateUserRequest{
 		ApiService: a,
-		ctx: ctx,
+		ctx:        ctx,
 		retryCount: 0,
 	}
 }
 
 // Execute executes the request
-//  @return User
+//
+//	@return User
 func (a *UserAPIService) CreateUserExecute(r ApiCreateUserRequest) (*User, *APIResponse, error) {
 	var (
 		localVarHTTPMethod   = http.MethodPost
@@ -1284,7 +1287,7 @@ func (a *UserAPIService) CreateUserExecute(r ApiCreateUserRequest) (*User, *APIR
 		localVarReturnValue  *User
 		localVarHTTPResponse *http.Response
 		localAPIResponse     *APIResponse
-		err 				 error
+		err                  error
 	)
 
 	if a.client.cfg.Okta.Client.RequestTimeout > 0 {
@@ -1418,16 +1421,16 @@ func (a *UserAPIService) CreateUserExecute(r ApiCreateUserRequest) (*User, *APIR
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
 		return localVarReturnValue, localAPIResponse, newErr
 	}
-	
+
 	localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
 	return localVarReturnValue, localAPIResponse, nil
 }
 
 type ApiDeactivateUserRequest struct {
-	ctx context.Context
+	ctx        context.Context
 	ApiService UserAPI
-	userId string
-	sendEmail *bool
+	userId     string
+	sendEmail  *bool
 	retryCount int32
 }
 
@@ -1445,15 +1448,15 @@ DeactivateUser Deactivate a User
 
 Deactivates a user. This operation can only be performed on users that do not have a `DEPROVISIONED` status. While the asynchronous operation (triggered by HTTP header `Prefer: respond-async`) is proceeding the user's `transitioningToStatus` property is `DEPROVISIONED`. The user's status is `DEPROVISIONED` when the deactivation process is complete.
 
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @param userId ID of an existing Okta user
- @return ApiDeactivateUserRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param userId ID of an existing Okta user
+	@return ApiDeactivateUserRequest
 */
 func (a *UserAPIService) DeactivateUser(ctx context.Context, userId string) ApiDeactivateUserRequest {
 	return ApiDeactivateUserRequest{
 		ApiService: a,
-		ctx: ctx,
-		userId: userId,
+		ctx:        ctx,
+		userId:     userId,
 		retryCount: 0,
 	}
 }
@@ -1466,7 +1469,7 @@ func (a *UserAPIService) DeactivateUserExecute(r ApiDeactivateUserRequest) (*API
 		formFiles            []formFile
 		localVarHTTPResponse *http.Response
 		localAPIResponse     *APIResponse
-		err 				 error
+		err                  error
 	)
 
 	if a.client.cfg.Okta.Client.RequestTimeout > 0 {
@@ -1586,11 +1589,11 @@ func (a *UserAPIService) DeactivateUserExecute(r ApiDeactivateUserRequest) (*API
 }
 
 type ApiDeleteLinkedObjectForUserRequest struct {
-	ctx context.Context
-	ApiService UserAPI
-	userIdOrLogin string
+	ctx              context.Context
+	ApiService       UserAPI
+	userIdOrLogin    string
 	relationshipName string
-	retryCount int32
+	retryCount       int32
 }
 
 func (r ApiDeleteLinkedObjectForUserRequest) Execute() (*APIResponse, error) {
@@ -1602,18 +1605,18 @@ DeleteLinkedObjectForUser Delete a Linked Object
 
 Deletes linked objects for a user, relationshipName can be ONLY a primary relationship name
 
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @param userIdOrLogin User ID or login value of the user assigned the `associated` relationship
- @param relationshipName Name of the `primary` or `associated` relationship being queried
- @return ApiDeleteLinkedObjectForUserRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param userIdOrLogin User ID or login value of the user assigned the `associated` relationship
+	@param relationshipName Name of the `primary` or `associated` relationship being queried
+	@return ApiDeleteLinkedObjectForUserRequest
 */
 func (a *UserAPIService) DeleteLinkedObjectForUser(ctx context.Context, userIdOrLogin string, relationshipName string) ApiDeleteLinkedObjectForUserRequest {
 	return ApiDeleteLinkedObjectForUserRequest{
-		ApiService: a,
-		ctx: ctx,
-		userIdOrLogin: userIdOrLogin,
+		ApiService:       a,
+		ctx:              ctx,
+		userIdOrLogin:    userIdOrLogin,
 		relationshipName: relationshipName,
-		retryCount: 0,
+		retryCount:       0,
 	}
 }
 
@@ -1625,7 +1628,7 @@ func (a *UserAPIService) DeleteLinkedObjectForUserExecute(r ApiDeleteLinkedObjec
 		formFiles            []formFile
 		localVarHTTPResponse *http.Response
 		localAPIResponse     *APIResponse
-		err 				 error
+		err                  error
 	)
 
 	if a.client.cfg.Okta.Client.RequestTimeout > 0 {
@@ -1743,10 +1746,10 @@ func (a *UserAPIService) DeleteLinkedObjectForUserExecute(r ApiDeleteLinkedObjec
 }
 
 type ApiDeleteUserRequest struct {
-	ctx context.Context
+	ctx        context.Context
 	ApiService UserAPI
-	userId string
-	sendEmail *bool
+	userId     string
+	sendEmail  *bool
 	retryCount int32
 }
 
@@ -1764,15 +1767,15 @@ DeleteUser Delete a User
 
 Deletes a user permanently. This operation can only be performed on users that have a `DEPROVISIONED` status.  **This action cannot be recovered!**. Calling this on an `ACTIVE` user will transition the user to `DEPROVISIONED`.
 
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @param userId ID of an existing Okta user
- @return ApiDeleteUserRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param userId ID of an existing Okta user
+	@return ApiDeleteUserRequest
 */
 func (a *UserAPIService) DeleteUser(ctx context.Context, userId string) ApiDeleteUserRequest {
 	return ApiDeleteUserRequest{
 		ApiService: a,
-		ctx: ctx,
-		userId: userId,
+		ctx:        ctx,
+		userId:     userId,
 		retryCount: 0,
 	}
 }
@@ -1785,7 +1788,7 @@ func (a *UserAPIService) DeleteUserExecute(r ApiDeleteUserRequest) (*APIResponse
 		formFiles            []formFile
 		localVarHTTPResponse *http.Response
 		localAPIResponse     *APIResponse
-		err 				 error
+		err                  error
 	)
 
 	if a.client.cfg.Okta.Client.RequestTimeout > 0 {
@@ -1917,9 +1920,9 @@ func (a *UserAPIService) DeleteUserExecute(r ApiDeleteUserRequest) (*APIResponse
 }
 
 type ApiExpirePasswordRequest struct {
-	ctx context.Context
+	ctx        context.Context
 	ApiService UserAPI
-	userId string
+	userId     string
 	retryCount int32
 }
 
@@ -1932,21 +1935,22 @@ ExpirePassword Expire Password
 
 Expires a user's password and transitions the user to the status of `PASSWORD_EXPIRED` so that the user is required to change their password at their next login
 
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @param userId ID of an existing Okta user
- @return ApiExpirePasswordRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param userId ID of an existing Okta user
+	@return ApiExpirePasswordRequest
 */
 func (a *UserAPIService) ExpirePassword(ctx context.Context, userId string) ApiExpirePasswordRequest {
 	return ApiExpirePasswordRequest{
 		ApiService: a,
-		ctx: ctx,
-		userId: userId,
+		ctx:        ctx,
+		userId:     userId,
 		retryCount: 0,
 	}
 }
 
 // Execute executes the request
-//  @return User
+//
+//	@return User
 func (a *UserAPIService) ExpirePasswordExecute(r ApiExpirePasswordRequest) (*User, *APIResponse, error) {
 	var (
 		localVarHTTPMethod   = http.MethodPost
@@ -1955,7 +1959,7 @@ func (a *UserAPIService) ExpirePasswordExecute(r ApiExpirePasswordRequest) (*Use
 		localVarReturnValue  *User
 		localVarHTTPResponse *http.Response
 		localAPIResponse     *APIResponse
-		err 				 error
+		err                  error
 	)
 
 	if a.client.cfg.Okta.Client.RequestTimeout > 0 {
@@ -2076,17 +2080,17 @@ func (a *UserAPIService) ExpirePasswordExecute(r ApiExpirePasswordRequest) (*Use
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
 		return localVarReturnValue, localAPIResponse, newErr
 	}
-	
+
 	localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
 	return localVarReturnValue, localAPIResponse, nil
 }
 
 type ApiExpirePasswordAndGetTemporaryPasswordRequest struct {
-	ctx context.Context
-	ApiService UserAPI
-	userId string
+	ctx            context.Context
+	ApiService     UserAPI
+	userId         string
 	revokeSessions *bool
-	retryCount int32
+	retryCount     int32
 }
 
 // When set to &#x60;true&#x60; (and the session is a user session), all user sessions are revoked except the current session.
@@ -2104,21 +2108,22 @@ ExpirePasswordAndGetTemporaryPassword Expire Password and Set Temporary Password
 
 Expires a user's password and transitions the user to the status of `PASSWORD_EXPIRED` so that the user is required to change their password at their next login, and also sets the user's password to a temporary password returned in the response
 
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @param userId ID of an existing Okta user
- @return ApiExpirePasswordAndGetTemporaryPasswordRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param userId ID of an existing Okta user
+	@return ApiExpirePasswordAndGetTemporaryPasswordRequest
 */
 func (a *UserAPIService) ExpirePasswordAndGetTemporaryPassword(ctx context.Context, userId string) ApiExpirePasswordAndGetTemporaryPasswordRequest {
 	return ApiExpirePasswordAndGetTemporaryPasswordRequest{
 		ApiService: a,
-		ctx: ctx,
-		userId: userId,
+		ctx:        ctx,
+		userId:     userId,
 		retryCount: 0,
 	}
 }
 
 // Execute executes the request
-//  @return TempPassword
+//
+//	@return TempPassword
 func (a *UserAPIService) ExpirePasswordAndGetTemporaryPasswordExecute(r ApiExpirePasswordAndGetTemporaryPasswordRequest) (*TempPassword, *APIResponse, error) {
 	var (
 		localVarHTTPMethod   = http.MethodPost
@@ -2127,7 +2132,7 @@ func (a *UserAPIService) ExpirePasswordAndGetTemporaryPasswordExecute(r ApiExpir
 		localVarReturnValue  *TempPassword
 		localVarHTTPResponse *http.Response
 		localAPIResponse     *APIResponse
-		err 				 error
+		err                  error
 	)
 
 	if a.client.cfg.Okta.Client.RequestTimeout > 0 {
@@ -2251,16 +2256,16 @@ func (a *UserAPIService) ExpirePasswordAndGetTemporaryPasswordExecute(r ApiExpir
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
 		return localVarReturnValue, localAPIResponse, newErr
 	}
-	
+
 	localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
 	return localVarReturnValue, localAPIResponse, nil
 }
 
 type ApiForgotPasswordRequest struct {
-	ctx context.Context
+	ctx        context.Context
 	ApiService UserAPI
-	userId string
-	sendEmail *bool
+	userId     string
+	sendEmail  *bool
 	retryCount int32
 }
 
@@ -2278,21 +2283,22 @@ ForgotPassword Initiate Forgot Password
 
 Initiates the forgot password flow. Generates a one-time token (OTT) that can be used to reset a user's password.
 
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @param userId ID of an existing Okta user
- @return ApiForgotPasswordRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param userId ID of an existing Okta user
+	@return ApiForgotPasswordRequest
 */
 func (a *UserAPIService) ForgotPassword(ctx context.Context, userId string) ApiForgotPasswordRequest {
 	return ApiForgotPasswordRequest{
 		ApiService: a,
-		ctx: ctx,
-		userId: userId,
+		ctx:        ctx,
+		userId:     userId,
 		retryCount: 0,
 	}
 }
 
 // Execute executes the request
-//  @return ForgotPasswordResponse
+//
+//	@return ForgotPasswordResponse
 func (a *UserAPIService) ForgotPasswordExecute(r ApiForgotPasswordRequest) (*ForgotPasswordResponse, *APIResponse, error) {
 	var (
 		localVarHTTPMethod   = http.MethodPost
@@ -2301,7 +2307,7 @@ func (a *UserAPIService) ForgotPasswordExecute(r ApiForgotPasswordRequest) (*For
 		localVarReturnValue  *ForgotPasswordResponse
 		localVarHTTPResponse *http.Response
 		localAPIResponse     *APIResponse
-		err 				 error
+		err                  error
 	)
 
 	if a.client.cfg.Okta.Client.RequestTimeout > 0 {
@@ -2425,18 +2431,18 @@ func (a *UserAPIService) ForgotPasswordExecute(r ApiForgotPasswordRequest) (*For
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
 		return localVarReturnValue, localAPIResponse, newErr
 	}
-	
+
 	localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
 	return localVarReturnValue, localAPIResponse, nil
 }
 
 type ApiForgotPasswordSetNewPasswordRequest struct {
-	ctx context.Context
-	ApiService UserAPI
-	userId string
+	ctx             context.Context
+	ApiService      UserAPI
+	userId          string
 	userCredentials *UserCredentials
-	sendEmail *bool
-	retryCount int32
+	sendEmail       *bool
+	retryCount      int32
 }
 
 func (r ApiForgotPasswordSetNewPasswordRequest) UserCredentials(userCredentials UserCredentials) ApiForgotPasswordSetNewPasswordRequest {
@@ -2458,21 +2464,22 @@ ForgotPasswordSetNewPassword Reset Password with Recovery Question
 
 Resets the user's password to the specified password if the provided answer to the recovery question is correct
 
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @param userId ID of an existing Okta user
- @return ApiForgotPasswordSetNewPasswordRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param userId ID of an existing Okta user
+	@return ApiForgotPasswordSetNewPasswordRequest
 */
 func (a *UserAPIService) ForgotPasswordSetNewPassword(ctx context.Context, userId string) ApiForgotPasswordSetNewPasswordRequest {
 	return ApiForgotPasswordSetNewPasswordRequest{
 		ApiService: a,
-		ctx: ctx,
-		userId: userId,
+		ctx:        ctx,
+		userId:     userId,
 		retryCount: 0,
 	}
 }
 
 // Execute executes the request
-//  @return UserCredentials
+//
+//	@return UserCredentials
 func (a *UserAPIService) ForgotPasswordSetNewPasswordExecute(r ApiForgotPasswordSetNewPasswordRequest) (*UserCredentials, *APIResponse, error) {
 	var (
 		localVarHTTPMethod   = http.MethodPost
@@ -2481,7 +2488,7 @@ func (a *UserAPIService) ForgotPasswordSetNewPasswordExecute(r ApiForgotPassword
 		localVarReturnValue  *UserCredentials
 		localVarHTTPResponse *http.Response
 		localAPIResponse     *APIResponse
-		err 				 error
+		err                  error
 	)
 
 	if a.client.cfg.Okta.Client.RequestTimeout > 0 {
@@ -2622,18 +2629,18 @@ func (a *UserAPIService) ForgotPasswordSetNewPasswordExecute(r ApiForgotPassword
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
 		return localVarReturnValue, localAPIResponse, newErr
 	}
-	
+
 	localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
 	return localVarReturnValue, localAPIResponse, nil
 }
 
 type ApiGenerateResetPasswordTokenRequest struct {
-	ctx context.Context
-	ApiService UserAPI
-	userId string
-	sendEmail *bool
+	ctx            context.Context
+	ApiService     UserAPI
+	userId         string
+	sendEmail      *bool
 	revokeSessions *bool
-	retryCount int32
+	retryCount     int32
 }
 
 func (r ApiGenerateResetPasswordTokenRequest) SendEmail(sendEmail bool) ApiGenerateResetPasswordTokenRequest {
@@ -2656,21 +2663,22 @@ GenerateResetPasswordToken Generate a Reset Password Token
 
 Generates a one-time token (OTT) that can be used to reset a user's password.  The OTT link can be automatically emailed to the user or returned to the API caller and distributed using a custom flow.
 
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @param userId ID of an existing Okta user
- @return ApiGenerateResetPasswordTokenRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param userId ID of an existing Okta user
+	@return ApiGenerateResetPasswordTokenRequest
 */
 func (a *UserAPIService) GenerateResetPasswordToken(ctx context.Context, userId string) ApiGenerateResetPasswordTokenRequest {
 	return ApiGenerateResetPasswordTokenRequest{
 		ApiService: a,
-		ctx: ctx,
-		userId: userId,
+		ctx:        ctx,
+		userId:     userId,
 		retryCount: 0,
 	}
 }
 
 // Execute executes the request
-//  @return ResetPasswordToken
+//
+//	@return ResetPasswordToken
 func (a *UserAPIService) GenerateResetPasswordTokenExecute(r ApiGenerateResetPasswordTokenRequest) (*ResetPasswordToken, *APIResponse, error) {
 	var (
 		localVarHTTPMethod   = http.MethodPost
@@ -2679,7 +2687,7 @@ func (a *UserAPIService) GenerateResetPasswordTokenExecute(r ApiGenerateResetPas
 		localVarReturnValue  *ResetPasswordToken
 		localVarHTTPResponse *http.Response
 		localAPIResponse     *APIResponse
-		err 				 error
+		err                  error
 	)
 
 	if a.client.cfg.Okta.Client.RequestTimeout > 0 {
@@ -2807,20 +2815,20 @@ func (a *UserAPIService) GenerateResetPasswordTokenExecute(r ApiGenerateResetPas
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
 		return localVarReturnValue, localAPIResponse, newErr
 	}
-	
+
 	localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
 	return localVarReturnValue, localAPIResponse, nil
 }
 
 type ApiGetRefreshTokenForUserAndClientRequest struct {
-	ctx context.Context
+	ctx        context.Context
 	ApiService UserAPI
-	userId string
-	clientId string
-	tokenId string
-	expand *string
-	limit *int32
-	after *string
+	userId     string
+	clientId   string
+	tokenId    string
+	expand     *string
+	limit      *int32
+	after      *string
 	retryCount int32
 }
 
@@ -2848,25 +2856,26 @@ GetRefreshTokenForUserAndClient Retrieve a Refresh Token for a Client
 
 Retrieves a refresh token issued for the specified User and Client
 
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @param userId ID of an existing Okta user
- @param clientId `client_id` of the app
- @param tokenId `id` of Token
- @return ApiGetRefreshTokenForUserAndClientRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param userId ID of an existing Okta user
+	@param clientId `client_id` of the app
+	@param tokenId `id` of Token
+	@return ApiGetRefreshTokenForUserAndClientRequest
 */
 func (a *UserAPIService) GetRefreshTokenForUserAndClient(ctx context.Context, userId string, clientId string, tokenId string) ApiGetRefreshTokenForUserAndClientRequest {
 	return ApiGetRefreshTokenForUserAndClientRequest{
 		ApiService: a,
-		ctx: ctx,
-		userId: userId,
-		clientId: clientId,
-		tokenId: tokenId,
+		ctx:        ctx,
+		userId:     userId,
+		clientId:   clientId,
+		tokenId:    tokenId,
 		retryCount: 0,
 	}
 }
 
 // Execute executes the request
-//  @return OAuth2RefreshToken
+//
+//	@return OAuth2RefreshToken
 func (a *UserAPIService) GetRefreshTokenForUserAndClientExecute(r ApiGetRefreshTokenForUserAndClientRequest) (*OAuth2RefreshToken, *APIResponse, error) {
 	var (
 		localVarHTTPMethod   = http.MethodGet
@@ -2875,7 +2884,7 @@ func (a *UserAPIService) GetRefreshTokenForUserAndClientExecute(r ApiGetRefreshT
 		localVarReturnValue  *OAuth2RefreshToken
 		localVarHTTPResponse *http.Response
 		localAPIResponse     *APIResponse
-		err 				 error
+		err                  error
 	)
 
 	if a.client.cfg.Okta.Client.RequestTimeout > 0 {
@@ -3007,16 +3016,16 @@ func (a *UserAPIService) GetRefreshTokenForUserAndClientExecute(r ApiGetRefreshT
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
 		return localVarReturnValue, localAPIResponse, newErr
 	}
-	
+
 	localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
 	return localVarReturnValue, localAPIResponse, nil
 }
 
 type ApiGetUserRequest struct {
-	ctx context.Context
+	ctx        context.Context
 	ApiService UserAPI
-	userId string
-	expand *string
+	userId     string
+	expand     *string
 	retryCount int32
 }
 
@@ -3035,21 +3044,22 @@ GetUser Retrieve a User
 
 Retrieves a user from your Okta organization
 
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @param userId ID of an existing Okta user
- @return ApiGetUserRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param userId ID of an existing Okta user
+	@return ApiGetUserRequest
 */
 func (a *UserAPIService) GetUser(ctx context.Context, userId string) ApiGetUserRequest {
 	return ApiGetUserRequest{
 		ApiService: a,
-		ctx: ctx,
-		userId: userId,
+		ctx:        ctx,
+		userId:     userId,
 		retryCount: 0,
 	}
 }
 
 // Execute executes the request
-//  @return UserGetSingleton
+//
+//	@return UserGetSingleton
 func (a *UserAPIService) GetUserExecute(r ApiGetUserRequest) (*UserGetSingleton, *APIResponse, error) {
 	var (
 		localVarHTTPMethod   = http.MethodGet
@@ -3058,7 +3068,7 @@ func (a *UserAPIService) GetUserExecute(r ApiGetUserRequest) (*UserGetSingleton,
 		localVarReturnValue  *UserGetSingleton
 		localVarHTTPResponse *http.Response
 		localAPIResponse     *APIResponse
-		err 				 error
+		err                  error
 	)
 
 	if a.client.cfg.Okta.Client.RequestTimeout > 0 {
@@ -3182,17 +3192,17 @@ func (a *UserAPIService) GetUserExecute(r ApiGetUserRequest) (*UserGetSingleton,
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
 		return localVarReturnValue, localAPIResponse, newErr
 	}
-	
+
 	localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
 	return localVarReturnValue, localAPIResponse, nil
 }
 
 type ApiGetUserGrantRequest struct {
-	ctx context.Context
+	ctx        context.Context
 	ApiService UserAPI
-	userId string
-	grantId string
-	expand *string
+	userId     string
+	grantId    string
+	expand     *string
 	retryCount int32
 }
 
@@ -3210,23 +3220,24 @@ GetUserGrant Retrieve a User Grant
 
 Retrieves a grant for the specified user
 
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @param userId ID of an existing Okta user
- @param grantId Grant ID
- @return ApiGetUserGrantRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param userId ID of an existing Okta user
+	@param grantId Grant ID
+	@return ApiGetUserGrantRequest
 */
 func (a *UserAPIService) GetUserGrant(ctx context.Context, userId string, grantId string) ApiGetUserGrantRequest {
 	return ApiGetUserGrantRequest{
 		ApiService: a,
-		ctx: ctx,
-		userId: userId,
-		grantId: grantId,
+		ctx:        ctx,
+		userId:     userId,
+		grantId:    grantId,
 		retryCount: 0,
 	}
 }
 
 // Execute executes the request
-//  @return OAuth2ScopeConsentGrant
+//
+//	@return OAuth2ScopeConsentGrant
 func (a *UserAPIService) GetUserGrantExecute(r ApiGetUserGrantRequest) (*OAuth2ScopeConsentGrant, *APIResponse, error) {
 	var (
 		localVarHTTPMethod   = http.MethodGet
@@ -3235,7 +3246,7 @@ func (a *UserAPIService) GetUserGrantExecute(r ApiGetUserGrantRequest) (*OAuth2S
 		localVarReturnValue  *OAuth2ScopeConsentGrant
 		localVarHTTPResponse *http.Response
 		localAPIResponse     *APIResponse
-		err 				 error
+		err                  error
 	)
 
 	if a.client.cfg.Okta.Client.RequestTimeout > 0 {
@@ -3360,15 +3371,15 @@ func (a *UserAPIService) GetUserGrantExecute(r ApiGetUserGrantRequest) (*OAuth2S
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
 		return localVarReturnValue, localAPIResponse, newErr
 	}
-	
+
 	localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
 	return localVarReturnValue, localAPIResponse, nil
 }
 
 type ApiListAppLinksRequest struct {
-	ctx context.Context
+	ctx        context.Context
 	ApiService UserAPI
-	userId string
+	userId     string
 	retryCount int32
 }
 
@@ -3381,21 +3392,22 @@ ListAppLinks List all Assigned Application Links
 
 Lists all appLinks for all direct or indirect (via group membership) assigned applications
 
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @param userId ID of an existing Okta user
- @return ApiListAppLinksRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param userId ID of an existing Okta user
+	@return ApiListAppLinksRequest
 */
 func (a *UserAPIService) ListAppLinks(ctx context.Context, userId string) ApiListAppLinksRequest {
 	return ApiListAppLinksRequest{
 		ApiService: a,
-		ctx: ctx,
-		userId: userId,
+		ctx:        ctx,
+		userId:     userId,
 		retryCount: 0,
 	}
 }
 
 // Execute executes the request
-//  @return []AppLink
+//
+//	@return []AppLink
 func (a *UserAPIService) ListAppLinksExecute(r ApiListAppLinksRequest) ([]AppLink, *APIResponse, error) {
 	var (
 		localVarHTTPMethod   = http.MethodGet
@@ -3404,7 +3416,7 @@ func (a *UserAPIService) ListAppLinksExecute(r ApiListAppLinksRequest) ([]AppLin
 		localVarReturnValue  []AppLink
 		localVarHTTPResponse *http.Response
 		localAPIResponse     *APIResponse
-		err 				 error
+		err                  error
 	)
 
 	if a.client.cfg.Okta.Client.RequestTimeout > 0 {
@@ -3525,19 +3537,19 @@ func (a *UserAPIService) ListAppLinksExecute(r ApiListAppLinksRequest) ([]AppLin
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
 		return localVarReturnValue, localAPIResponse, newErr
 	}
-	
+
 	localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
 	return localVarReturnValue, localAPIResponse, nil
 }
 
 type ApiListGrantsForUserAndClientRequest struct {
-	ctx context.Context
+	ctx        context.Context
 	ApiService UserAPI
-	userId string
-	clientId string
-	expand *string
-	after *string
-	limit *int32
+	userId     string
+	clientId   string
+	expand     *string
+	after      *string
+	limit      *int32
 	retryCount int32
 }
 
@@ -3565,23 +3577,24 @@ ListGrantsForUserAndClient List all Grants for a Client
 
 Lists all grants for a specified user and client
 
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @param userId ID of an existing Okta user
- @param clientId `client_id` of the app
- @return ApiListGrantsForUserAndClientRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param userId ID of an existing Okta user
+	@param clientId `client_id` of the app
+	@return ApiListGrantsForUserAndClientRequest
 */
 func (a *UserAPIService) ListGrantsForUserAndClient(ctx context.Context, userId string, clientId string) ApiListGrantsForUserAndClientRequest {
 	return ApiListGrantsForUserAndClientRequest{
 		ApiService: a,
-		ctx: ctx,
-		userId: userId,
-		clientId: clientId,
+		ctx:        ctx,
+		userId:     userId,
+		clientId:   clientId,
 		retryCount: 0,
 	}
 }
 
 // Execute executes the request
-//  @return []OAuth2ScopeConsentGrant
+//
+//	@return []OAuth2ScopeConsentGrant
 func (a *UserAPIService) ListGrantsForUserAndClientExecute(r ApiListGrantsForUserAndClientRequest) ([]OAuth2ScopeConsentGrant, *APIResponse, error) {
 	var (
 		localVarHTTPMethod   = http.MethodGet
@@ -3590,7 +3603,7 @@ func (a *UserAPIService) ListGrantsForUserAndClientExecute(r ApiListGrantsForUse
 		localVarReturnValue  []OAuth2ScopeConsentGrant
 		localVarHTTPResponse *http.Response
 		localAPIResponse     *APIResponse
-		err 				 error
+		err                  error
 	)
 
 	if a.client.cfg.Okta.Client.RequestTimeout > 0 {
@@ -3721,19 +3734,19 @@ func (a *UserAPIService) ListGrantsForUserAndClientExecute(r ApiListGrantsForUse
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
 		return localVarReturnValue, localAPIResponse, newErr
 	}
-	
+
 	localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
 	return localVarReturnValue, localAPIResponse, nil
 }
 
 type ApiListLinkedObjectsForUserRequest struct {
-	ctx context.Context
-	ApiService UserAPI
-	userIdOrLogin string
+	ctx              context.Context
+	ApiService       UserAPI
+	userIdOrLogin    string
 	relationshipName string
-	after *string
-	limit *int32
-	retryCount int32
+	after            *string
+	limit            *int32
+	retryCount       int32
 }
 
 func (r ApiListLinkedObjectsForUserRequest) After(after string) ApiListLinkedObjectsForUserRequest {
@@ -3755,23 +3768,24 @@ ListLinkedObjectsForUser List the primary or all of the associated Linked Object
 
 Lists either the self link for the `primary` user or all `associated` users in the relationship specified by `relationshipName`. If the specified user isn't associated in any relationship, an empty array is returned.
 
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @param userIdOrLogin User ID or login value of the user assigned the `associated` relationship
- @param relationshipName Name of the `primary` or `associated` relationship being queried
- @return ApiListLinkedObjectsForUserRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param userIdOrLogin User ID or login value of the user assigned the `associated` relationship
+	@param relationshipName Name of the `primary` or `associated` relationship being queried
+	@return ApiListLinkedObjectsForUserRequest
 */
 func (a *UserAPIService) ListLinkedObjectsForUser(ctx context.Context, userIdOrLogin string, relationshipName string) ApiListLinkedObjectsForUserRequest {
 	return ApiListLinkedObjectsForUserRequest{
-		ApiService: a,
-		ctx: ctx,
-		userIdOrLogin: userIdOrLogin,
+		ApiService:       a,
+		ctx:              ctx,
+		userIdOrLogin:    userIdOrLogin,
 		relationshipName: relationshipName,
-		retryCount: 0,
+		retryCount:       0,
 	}
 }
 
 // Execute executes the request
-//  @return []map[string]interface{}
+//
+//	@return []map[string]interface{}
 func (a *UserAPIService) ListLinkedObjectsForUserExecute(r ApiListLinkedObjectsForUserRequest) ([]map[string]interface{}, *APIResponse, error) {
 	var (
 		localVarHTTPMethod   = http.MethodGet
@@ -3780,7 +3794,7 @@ func (a *UserAPIService) ListLinkedObjectsForUserExecute(r ApiListLinkedObjectsF
 		localVarReturnValue  []map[string]interface{}
 		localVarHTTPResponse *http.Response
 		localAPIResponse     *APIResponse
-		err 				 error
+		err                  error
 	)
 
 	if a.client.cfg.Okta.Client.RequestTimeout > 0 {
@@ -3908,19 +3922,19 @@ func (a *UserAPIService) ListLinkedObjectsForUserExecute(r ApiListLinkedObjectsF
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
 		return localVarReturnValue, localAPIResponse, newErr
 	}
-	
+
 	localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
 	return localVarReturnValue, localAPIResponse, nil
 }
 
 type ApiListRefreshTokensForUserAndClientRequest struct {
-	ctx context.Context
+	ctx        context.Context
 	ApiService UserAPI
-	userId string
-	clientId string
-	expand *string
-	after *string
-	limit *int32
+	userId     string
+	clientId   string
+	expand     *string
+	after      *string
+	limit      *int32
 	retryCount int32
 }
 
@@ -3948,23 +3962,24 @@ ListRefreshTokensForUserAndClient List all Refresh Tokens for a Client
 
 Lists all refresh tokens issued for the specified User and Client
 
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @param userId ID of an existing Okta user
- @param clientId `client_id` of the app
- @return ApiListRefreshTokensForUserAndClientRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param userId ID of an existing Okta user
+	@param clientId `client_id` of the app
+	@return ApiListRefreshTokensForUserAndClientRequest
 */
 func (a *UserAPIService) ListRefreshTokensForUserAndClient(ctx context.Context, userId string, clientId string) ApiListRefreshTokensForUserAndClientRequest {
 	return ApiListRefreshTokensForUserAndClientRequest{
 		ApiService: a,
-		ctx: ctx,
-		userId: userId,
-		clientId: clientId,
+		ctx:        ctx,
+		userId:     userId,
+		clientId:   clientId,
 		retryCount: 0,
 	}
 }
 
 // Execute executes the request
-//  @return []OAuth2RefreshToken
+//
+//	@return []OAuth2RefreshToken
 func (a *UserAPIService) ListRefreshTokensForUserAndClientExecute(r ApiListRefreshTokensForUserAndClientRequest) ([]OAuth2RefreshToken, *APIResponse, error) {
 	var (
 		localVarHTTPMethod   = http.MethodGet
@@ -3973,7 +3988,7 @@ func (a *UserAPIService) ListRefreshTokensForUserAndClientExecute(r ApiListRefre
 		localVarReturnValue  []OAuth2RefreshToken
 		localVarHTTPResponse *http.Response
 		localAPIResponse     *APIResponse
-		err 				 error
+		err                  error
 	)
 
 	if a.client.cfg.Okta.Client.RequestTimeout > 0 {
@@ -4104,15 +4119,15 @@ func (a *UserAPIService) ListRefreshTokensForUserAndClientExecute(r ApiListRefre
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
 		return localVarReturnValue, localAPIResponse, newErr
 	}
-	
+
 	localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
 	return localVarReturnValue, localAPIResponse, nil
 }
 
 type ApiListUserBlocksRequest struct {
-	ctx context.Context
+	ctx        context.Context
 	ApiService UserAPI
-	userId string
+	userId     string
 	retryCount int32
 }
 
@@ -4125,21 +4140,22 @@ ListUserBlocks List all User Blocks
 
 Lists information about how the user is blocked from accessing their account
 
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @param userId ID of an existing Okta user
- @return ApiListUserBlocksRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param userId ID of an existing Okta user
+	@return ApiListUserBlocksRequest
 */
 func (a *UserAPIService) ListUserBlocks(ctx context.Context, userId string) ApiListUserBlocksRequest {
 	return ApiListUserBlocksRequest{
 		ApiService: a,
-		ctx: ctx,
-		userId: userId,
+		ctx:        ctx,
+		userId:     userId,
 		retryCount: 0,
 	}
 }
 
 // Execute executes the request
-//  @return []UserBlock
+//
+//	@return []UserBlock
 func (a *UserAPIService) ListUserBlocksExecute(r ApiListUserBlocksRequest) ([]UserBlock, *APIResponse, error) {
 	var (
 		localVarHTTPMethod   = http.MethodGet
@@ -4148,7 +4164,7 @@ func (a *UserAPIService) ListUserBlocksExecute(r ApiListUserBlocksRequest) ([]Us
 		localVarReturnValue  []UserBlock
 		localVarHTTPResponse *http.Response
 		localAPIResponse     *APIResponse
-		err 				 error
+		err                  error
 	)
 
 	if a.client.cfg.Okta.Client.RequestTimeout > 0 {
@@ -4269,15 +4285,15 @@ func (a *UserAPIService) ListUserBlocksExecute(r ApiListUserBlocksRequest) ([]Us
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
 		return localVarReturnValue, localAPIResponse, newErr
 	}
-	
+
 	localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
 	return localVarReturnValue, localAPIResponse, nil
 }
 
 type ApiListUserClientsRequest struct {
-	ctx context.Context
+	ctx        context.Context
 	ApiService UserAPI
-	userId string
+	userId     string
 	retryCount int32
 }
 
@@ -4290,21 +4306,22 @@ ListUserClients List all Clients
 
 Lists all client resources for which the specified user has grants or tokens
 
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @param userId ID of an existing Okta user
- @return ApiListUserClientsRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param userId ID of an existing Okta user
+	@return ApiListUserClientsRequest
 */
 func (a *UserAPIService) ListUserClients(ctx context.Context, userId string) ApiListUserClientsRequest {
 	return ApiListUserClientsRequest{
 		ApiService: a,
-		ctx: ctx,
-		userId: userId,
+		ctx:        ctx,
+		userId:     userId,
 		retryCount: 0,
 	}
 }
 
 // Execute executes the request
-//  @return []OAuth2Client
+//
+//	@return []OAuth2Client
 func (a *UserAPIService) ListUserClientsExecute(r ApiListUserClientsRequest) ([]OAuth2Client, *APIResponse, error) {
 	var (
 		localVarHTTPMethod   = http.MethodGet
@@ -4313,7 +4330,7 @@ func (a *UserAPIService) ListUserClientsExecute(r ApiListUserClientsRequest) ([]
 		localVarReturnValue  []OAuth2Client
 		localVarHTTPResponse *http.Response
 		localAPIResponse     *APIResponse
-		err 				 error
+		err                  error
 	)
 
 	if a.client.cfg.Okta.Client.RequestTimeout > 0 {
@@ -4434,19 +4451,19 @@ func (a *UserAPIService) ListUserClientsExecute(r ApiListUserClientsRequest) ([]
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
 		return localVarReturnValue, localAPIResponse, newErr
 	}
-	
+
 	localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
 	return localVarReturnValue, localAPIResponse, nil
 }
 
 type ApiListUserGrantsRequest struct {
-	ctx context.Context
+	ctx        context.Context
 	ApiService UserAPI
-	userId string
-	scopeId *string
-	expand *string
-	after *string
-	limit *int32
+	userId     string
+	scopeId    *string
+	expand     *string
+	after      *string
+	limit      *int32
 	retryCount int32
 }
 
@@ -4479,21 +4496,22 @@ ListUserGrants List all User Grants
 
 Lists all grants for the specified user
 
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @param userId ID of an existing Okta user
- @return ApiListUserGrantsRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param userId ID of an existing Okta user
+	@return ApiListUserGrantsRequest
 */
 func (a *UserAPIService) ListUserGrants(ctx context.Context, userId string) ApiListUserGrantsRequest {
 	return ApiListUserGrantsRequest{
 		ApiService: a,
-		ctx: ctx,
-		userId: userId,
+		ctx:        ctx,
+		userId:     userId,
 		retryCount: 0,
 	}
 }
 
 // Execute executes the request
-//  @return []OAuth2ScopeConsentGrant
+//
+//	@return []OAuth2ScopeConsentGrant
 func (a *UserAPIService) ListUserGrantsExecute(r ApiListUserGrantsRequest) ([]OAuth2ScopeConsentGrant, *APIResponse, error) {
 	var (
 		localVarHTTPMethod   = http.MethodGet
@@ -4502,7 +4520,7 @@ func (a *UserAPIService) ListUserGrantsExecute(r ApiListUserGrantsRequest) ([]OA
 		localVarReturnValue  []OAuth2ScopeConsentGrant
 		localVarHTTPResponse *http.Response
 		localAPIResponse     *APIResponse
-		err 				 error
+		err                  error
 	)
 
 	if a.client.cfg.Okta.Client.RequestTimeout > 0 {
@@ -4635,17 +4653,17 @@ func (a *UserAPIService) ListUserGrantsExecute(r ApiListUserGrantsRequest) ([]OA
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
 		return localVarReturnValue, localAPIResponse, newErr
 	}
-	
+
 	localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
 	return localVarReturnValue, localAPIResponse, nil
 }
 
 type ApiListUserGroupsRequest struct {
-	ctx context.Context
+	ctx        context.Context
 	ApiService UserAPI
-	userId string
-	after *string
-	limit *int32
+	userId     string
+	after      *string
+	limit      *int32
 	retryCount int32
 }
 
@@ -4670,21 +4688,22 @@ ListUserGroups List all Groups
 
 Lists all groups of which the user is a member
 
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @param userId ID of an existing Okta user
- @return ApiListUserGroupsRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param userId ID of an existing Okta user
+	@return ApiListUserGroupsRequest
 */
 func (a *UserAPIService) ListUserGroups(ctx context.Context, userId string) ApiListUserGroupsRequest {
 	return ApiListUserGroupsRequest{
 		ApiService: a,
-		ctx: ctx,
-		userId: userId,
+		ctx:        ctx,
+		userId:     userId,
 		retryCount: 0,
 	}
 }
 
 // Execute executes the request
-//  @return []Group
+//
+//	@return []Group
 func (a *UserAPIService) ListUserGroupsExecute(r ApiListUserGroupsRequest) ([]Group, *APIResponse, error) {
 	var (
 		localVarHTTPMethod   = http.MethodGet
@@ -4693,7 +4712,7 @@ func (a *UserAPIService) ListUserGroupsExecute(r ApiListUserGroupsRequest) ([]Gr
 		localVarReturnValue  []Group
 		localVarHTTPResponse *http.Response
 		localAPIResponse     *APIResponse
-		err 				 error
+		err                  error
 	)
 
 	if a.client.cfg.Okta.Client.RequestTimeout > 0 {
@@ -4820,15 +4839,15 @@ func (a *UserAPIService) ListUserGroupsExecute(r ApiListUserGroupsRequest) ([]Gr
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
 		return localVarReturnValue, localAPIResponse, newErr
 	}
-	
+
 	localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
 	return localVarReturnValue, localAPIResponse, nil
 }
 
 type ApiListUserIdentityProvidersRequest struct {
-	ctx context.Context
+	ctx        context.Context
 	ApiService UserAPI
-	userId string
+	userId     string
 	retryCount int32
 }
 
@@ -4841,21 +4860,22 @@ ListUserIdentityProviders List all Identity Providers
 
 Lists the IdPs associated with the user
 
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @param userId ID of an existing Okta user
- @return ApiListUserIdentityProvidersRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param userId ID of an existing Okta user
+	@return ApiListUserIdentityProvidersRequest
 */
 func (a *UserAPIService) ListUserIdentityProviders(ctx context.Context, userId string) ApiListUserIdentityProvidersRequest {
 	return ApiListUserIdentityProvidersRequest{
 		ApiService: a,
-		ctx: ctx,
-		userId: userId,
+		ctx:        ctx,
+		userId:     userId,
 		retryCount: 0,
 	}
 }
 
 // Execute executes the request
-//  @return []IdentityProvider
+//
+//	@return []IdentityProvider
 func (a *UserAPIService) ListUserIdentityProvidersExecute(r ApiListUserIdentityProvidersRequest) ([]IdentityProvider, *APIResponse, error) {
 	var (
 		localVarHTTPMethod   = http.MethodGet
@@ -4864,7 +4884,7 @@ func (a *UserAPIService) ListUserIdentityProvidersExecute(r ApiListUserIdentityP
 		localVarReturnValue  []IdentityProvider
 		localVarHTTPResponse *http.Response
 		localAPIResponse     *APIResponse
-		err 				 error
+		err                  error
 	)
 
 	if a.client.cfg.Okta.Client.RequestTimeout > 0 {
@@ -4985,21 +5005,21 @@ func (a *UserAPIService) ListUserIdentityProvidersExecute(r ApiListUserIdentityP
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
 		return localVarReturnValue, localAPIResponse, newErr
 	}
-	
+
 	localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
 	return localVarReturnValue, localAPIResponse, nil
 }
 
 type ApiListUsersRequest struct {
-	ctx context.Context
+	ctx        context.Context
 	ApiService UserAPI
-	q *string
-	after *string
-	limit *int32
-	filter *string
-	search *string
-	sortBy *string
-	sortOrder *string
+	q          *string
+	after      *string
+	limit      *int32
+	filter     *string
+	search     *string
+	sortBy     *string
+	sortOrder  *string
 	retryCount int32
 }
 
@@ -5053,19 +5073,20 @@ ListUsers List all Users
 
 Lists all users that do not have a status of 'DEPROVISIONED' (by default), up to the maximum (200 for most orgs), with pagination.  A subset of users can be returned that match a supported filter expression or search criteria.
 
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @return ApiListUsersRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@return ApiListUsersRequest
 */
 func (a *UserAPIService) ListUsers(ctx context.Context) ApiListUsersRequest {
 	return ApiListUsersRequest{
 		ApiService: a,
-		ctx: ctx,
+		ctx:        ctx,
 		retryCount: 0,
 	}
 }
 
 // Execute executes the request
-//  @return []User
+//
+//	@return []User
 func (a *UserAPIService) ListUsersExecute(r ApiListUsersRequest) ([]User, *APIResponse, error) {
 	var (
 		localVarHTTPMethod   = http.MethodGet
@@ -5074,7 +5095,7 @@ func (a *UserAPIService) ListUsersExecute(r ApiListUsersRequest) ([]User, *APIRe
 		localVarReturnValue  []User
 		localVarHTTPResponse *http.Response
 		localAPIResponse     *APIResponse
-		err 				 error
+		err                  error
 	)
 
 	if a.client.cfg.Okta.Client.RequestTimeout > 0 {
@@ -5203,16 +5224,16 @@ func (a *UserAPIService) ListUsersExecute(r ApiListUsersRequest) ([]User, *APIRe
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
 		return localVarReturnValue, localAPIResponse, newErr
 	}
-	
+
 	localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
 	return localVarReturnValue, localAPIResponse, nil
 }
 
 type ApiReactivateUserRequest struct {
-	ctx context.Context
+	ctx        context.Context
 	ApiService UserAPI
-	userId string
-	sendEmail *bool
+	userId     string
+	sendEmail  *bool
 	retryCount int32
 }
 
@@ -5234,21 +5255,22 @@ This operation restarts the activation workflow if the user activation wasn't co
 
 > **Note:** A successful request to this endpoint records the same set of events as when a user is activated in System Logs, since it invokes the same activation workflow.
 
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @param userId ID of an existing Okta user
- @return ApiReactivateUserRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param userId ID of an existing Okta user
+	@return ApiReactivateUserRequest
 */
 func (a *UserAPIService) ReactivateUser(ctx context.Context, userId string) ApiReactivateUserRequest {
 	return ApiReactivateUserRequest{
 		ApiService: a,
-		ctx: ctx,
-		userId: userId,
+		ctx:        ctx,
+		userId:     userId,
 		retryCount: 0,
 	}
 }
 
 // Execute executes the request
-//  @return UserActivationToken
+//
+//	@return UserActivationToken
 func (a *UserAPIService) ReactivateUserExecute(r ApiReactivateUserRequest) (*UserActivationToken, *APIResponse, error) {
 	var (
 		localVarHTTPMethod   = http.MethodPost
@@ -5257,7 +5279,7 @@ func (a *UserAPIService) ReactivateUserExecute(r ApiReactivateUserRequest) (*Use
 		localVarReturnValue  *UserActivationToken
 		localVarHTTPResponse *http.Response
 		localAPIResponse     *APIResponse
-		err 				 error
+		err                  error
 	)
 
 	if a.client.cfg.Okta.Client.RequestTimeout > 0 {
@@ -5381,18 +5403,18 @@ func (a *UserAPIService) ReactivateUserExecute(r ApiReactivateUserRequest) (*Use
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
 		return localVarReturnValue, localAPIResponse, newErr
 	}
-	
+
 	localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
 	return localVarReturnValue, localAPIResponse, nil
 }
 
 type ApiReplaceLinkedObjectForUserRequest struct {
-	ctx context.Context
-	ApiService UserAPI
-	userIdOrLogin string
+	ctx                     context.Context
+	ApiService              UserAPI
+	userIdOrLogin           string
 	primaryRelationshipName string
-	primaryUserId string
-	retryCount int32
+	primaryUserId           string
+	retryCount              int32
 }
 
 func (r ApiReplaceLinkedObjectForUserRequest) Execute() (*APIResponse, error) {
@@ -5404,20 +5426,20 @@ ReplaceLinkedObjectForUser Replace the Linked Object value for `primary`
 
 Replaces the first user as the `associated` and the second user as the `primary` for the specified relationship. If the first user is already associated with a different `primary` for this relationship, replaces the previous link. A Linked Object relationship can specify only one `primary` user for an `associated` user.
 
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @param userIdOrLogin User ID or login value of the user assigned the `associated` relationship
- @param primaryRelationshipName Name of the `primary` relationship being assigned
- @param primaryUserId User ID to be assigned to the `primary` relationship for the `associated` user
- @return ApiReplaceLinkedObjectForUserRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param userIdOrLogin User ID or login value of the user assigned the `associated` relationship
+	@param primaryRelationshipName Name of the `primary` relationship being assigned
+	@param primaryUserId User ID to be assigned to the `primary` relationship for the `associated` user
+	@return ApiReplaceLinkedObjectForUserRequest
 */
 func (a *UserAPIService) ReplaceLinkedObjectForUser(ctx context.Context, userIdOrLogin string, primaryRelationshipName string, primaryUserId string) ApiReplaceLinkedObjectForUserRequest {
 	return ApiReplaceLinkedObjectForUserRequest{
-		ApiService: a,
-		ctx: ctx,
-		userIdOrLogin: userIdOrLogin,
+		ApiService:              a,
+		ctx:                     ctx,
+		userIdOrLogin:           userIdOrLogin,
 		primaryRelationshipName: primaryRelationshipName,
-		primaryUserId: primaryUserId,
-		retryCount: 0,
+		primaryUserId:           primaryUserId,
+		retryCount:              0,
 	}
 }
 
@@ -5429,7 +5451,7 @@ func (a *UserAPIService) ReplaceLinkedObjectForUserExecute(r ApiReplaceLinkedObj
 		formFiles            []formFile
 		localVarHTTPResponse *http.Response
 		localAPIResponse     *APIResponse
-		err 				 error
+		err                  error
 	)
 
 	if a.client.cfg.Okta.Client.RequestTimeout > 0 {
@@ -5534,11 +5556,11 @@ func (a *UserAPIService) ReplaceLinkedObjectForUserExecute(r ApiReplaceLinkedObj
 }
 
 type ApiReplaceUserRequest struct {
-	ctx context.Context
+	ctx        context.Context
 	ApiService UserAPI
-	userId string
-	user *User
-	strict *bool
+	userId     string
+	user       *User
+	strict     *bool
 	retryCount int32
 }
 
@@ -5561,21 +5583,22 @@ ReplaceUser Replace a User
 
 Replaces a user's profile and/or credentials using strict-update semantics
 
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @param userId ID of an existing Okta user
- @return ApiReplaceUserRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param userId ID of an existing Okta user
+	@return ApiReplaceUserRequest
 */
 func (a *UserAPIService) ReplaceUser(ctx context.Context, userId string) ApiReplaceUserRequest {
 	return ApiReplaceUserRequest{
 		ApiService: a,
-		ctx: ctx,
-		userId: userId,
+		ctx:        ctx,
+		userId:     userId,
 		retryCount: 0,
 	}
 }
 
 // Execute executes the request
-//  @return User
+//
+//	@return User
 func (a *UserAPIService) ReplaceUserExecute(r ApiReplaceUserRequest) (*User, *APIResponse, error) {
 	var (
 		localVarHTTPMethod   = http.MethodPut
@@ -5584,7 +5607,7 @@ func (a *UserAPIService) ReplaceUserExecute(r ApiReplaceUserRequest) (*User, *AP
 		localVarReturnValue  *User
 		localVarHTTPResponse *http.Response
 		localAPIResponse     *APIResponse
-		err 				 error
+		err                  error
 	)
 
 	if a.client.cfg.Okta.Client.RequestTimeout > 0 {
@@ -5725,17 +5748,17 @@ func (a *UserAPIService) ReplaceUserExecute(r ApiReplaceUserRequest) (*User, *AP
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
 		return localVarReturnValue, localAPIResponse, newErr
 	}
-	
+
 	localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
 	return localVarReturnValue, localAPIResponse, nil
 }
 
 type ApiResetFactorsRequest struct {
-	ctx context.Context
-	ApiService UserAPI
-	userId string
+	ctx                      context.Context
+	ApiService               UserAPI
+	userId                   string
 	removeRecoveryEnrollment *bool
-	retryCount int32
+	retryCount               int32
 }
 
 // If &#x60;true&#x60;, removes the phone number as both a recovery method and a Factor. Supported Factors: &#x60;sms&#x60; and &#x60;call&#x60;
@@ -5753,15 +5776,15 @@ ResetFactors Reset all Factors
 
 Resets all factors for the specified user. All MFA factor enrollments returned to the unenrolled state. The user's status remains ACTIVE. This link is present only if the user is currently enrolled in one or more MFA factors.
 
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @param userId ID of an existing Okta user
- @return ApiResetFactorsRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param userId ID of an existing Okta user
+	@return ApiResetFactorsRequest
 */
 func (a *UserAPIService) ResetFactors(ctx context.Context, userId string) ApiResetFactorsRequest {
 	return ApiResetFactorsRequest{
 		ApiService: a,
-		ctx: ctx,
-		userId: userId,
+		ctx:        ctx,
+		userId:     userId,
 		retryCount: 0,
 	}
 }
@@ -5774,7 +5797,7 @@ func (a *UserAPIService) ResetFactorsExecute(r ApiResetFactorsRequest) (*APIResp
 		formFiles            []formFile
 		localVarHTTPResponse *http.Response
 		localAPIResponse     *APIResponse
-		err 				 error
+		err                  error
 	)
 
 	if a.client.cfg.Okta.Client.RequestTimeout > 0 {
@@ -5894,10 +5917,10 @@ func (a *UserAPIService) ResetFactorsExecute(r ApiResetFactorsRequest) (*APIResp
 }
 
 type ApiRevokeGrantsForUserAndClientRequest struct {
-	ctx context.Context
+	ctx        context.Context
 	ApiService UserAPI
-	userId string
-	clientId string
+	userId     string
+	clientId   string
 	retryCount int32
 }
 
@@ -5910,17 +5933,17 @@ RevokeGrantsForUserAndClient Revoke all Grants for a Client
 
 Revokes all grants for the specified user and client
 
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @param userId ID of an existing Okta user
- @param clientId `client_id` of the app
- @return ApiRevokeGrantsForUserAndClientRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param userId ID of an existing Okta user
+	@param clientId `client_id` of the app
+	@return ApiRevokeGrantsForUserAndClientRequest
 */
 func (a *UserAPIService) RevokeGrantsForUserAndClient(ctx context.Context, userId string, clientId string) ApiRevokeGrantsForUserAndClientRequest {
 	return ApiRevokeGrantsForUserAndClientRequest{
 		ApiService: a,
-		ctx: ctx,
-		userId: userId,
-		clientId: clientId,
+		ctx:        ctx,
+		userId:     userId,
+		clientId:   clientId,
 		retryCount: 0,
 	}
 }
@@ -5933,7 +5956,7 @@ func (a *UserAPIService) RevokeGrantsForUserAndClientExecute(r ApiRevokeGrantsFo
 		formFiles            []formFile
 		localVarHTTPResponse *http.Response
 		localAPIResponse     *APIResponse
-		err 				 error
+		err                  error
 	)
 
 	if a.client.cfg.Okta.Client.RequestTimeout > 0 {
@@ -6051,11 +6074,11 @@ func (a *UserAPIService) RevokeGrantsForUserAndClientExecute(r ApiRevokeGrantsFo
 }
 
 type ApiRevokeTokenForUserAndClientRequest struct {
-	ctx context.Context
+	ctx        context.Context
 	ApiService UserAPI
-	userId string
-	clientId string
-	tokenId string
+	userId     string
+	clientId   string
+	tokenId    string
 	retryCount int32
 }
 
@@ -6068,19 +6091,19 @@ RevokeTokenForUserAndClient Revoke a Token for a Client
 
 Revokes the specified refresh token
 
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @param userId ID of an existing Okta user
- @param clientId `client_id` of the app
- @param tokenId `id` of Token
- @return ApiRevokeTokenForUserAndClientRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param userId ID of an existing Okta user
+	@param clientId `client_id` of the app
+	@param tokenId `id` of Token
+	@return ApiRevokeTokenForUserAndClientRequest
 */
 func (a *UserAPIService) RevokeTokenForUserAndClient(ctx context.Context, userId string, clientId string, tokenId string) ApiRevokeTokenForUserAndClientRequest {
 	return ApiRevokeTokenForUserAndClientRequest{
 		ApiService: a,
-		ctx: ctx,
-		userId: userId,
-		clientId: clientId,
-		tokenId: tokenId,
+		ctx:        ctx,
+		userId:     userId,
+		clientId:   clientId,
+		tokenId:    tokenId,
 		retryCount: 0,
 	}
 }
@@ -6093,7 +6116,7 @@ func (a *UserAPIService) RevokeTokenForUserAndClientExecute(r ApiRevokeTokenForU
 		formFiles            []formFile
 		localVarHTTPResponse *http.Response
 		localAPIResponse     *APIResponse
-		err 				 error
+		err                  error
 	)
 
 	if a.client.cfg.Okta.Client.RequestTimeout > 0 {
@@ -6212,10 +6235,10 @@ func (a *UserAPIService) RevokeTokenForUserAndClientExecute(r ApiRevokeTokenForU
 }
 
 type ApiRevokeTokensForUserAndClientRequest struct {
-	ctx context.Context
+	ctx        context.Context
 	ApiService UserAPI
-	userId string
-	clientId string
+	userId     string
+	clientId   string
 	retryCount int32
 }
 
@@ -6228,17 +6251,17 @@ RevokeTokensForUserAndClient Revoke all Refresh Tokens for a Client
 
 Revokes all refresh tokens issued for the specified User and Client
 
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @param userId ID of an existing Okta user
- @param clientId `client_id` of the app
- @return ApiRevokeTokensForUserAndClientRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param userId ID of an existing Okta user
+	@param clientId `client_id` of the app
+	@return ApiRevokeTokensForUserAndClientRequest
 */
 func (a *UserAPIService) RevokeTokensForUserAndClient(ctx context.Context, userId string, clientId string) ApiRevokeTokensForUserAndClientRequest {
 	return ApiRevokeTokensForUserAndClientRequest{
 		ApiService: a,
-		ctx: ctx,
-		userId: userId,
-		clientId: clientId,
+		ctx:        ctx,
+		userId:     userId,
+		clientId:   clientId,
 		retryCount: 0,
 	}
 }
@@ -6251,7 +6274,7 @@ func (a *UserAPIService) RevokeTokensForUserAndClientExecute(r ApiRevokeTokensFo
 		formFiles            []formFile
 		localVarHTTPResponse *http.Response
 		localAPIResponse     *APIResponse
-		err 				 error
+		err                  error
 	)
 
 	if a.client.cfg.Okta.Client.RequestTimeout > 0 {
@@ -6369,10 +6392,10 @@ func (a *UserAPIService) RevokeTokensForUserAndClientExecute(r ApiRevokeTokensFo
 }
 
 type ApiRevokeUserGrantRequest struct {
-	ctx context.Context
+	ctx        context.Context
 	ApiService UserAPI
-	userId string
-	grantId string
+	userId     string
+	grantId    string
 	retryCount int32
 }
 
@@ -6385,17 +6408,17 @@ RevokeUserGrant Revoke a User Grant
 
 Revokes one grant for a specified user
 
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @param userId ID of an existing Okta user
- @param grantId Grant ID
- @return ApiRevokeUserGrantRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param userId ID of an existing Okta user
+	@param grantId Grant ID
+	@return ApiRevokeUserGrantRequest
 */
 func (a *UserAPIService) RevokeUserGrant(ctx context.Context, userId string, grantId string) ApiRevokeUserGrantRequest {
 	return ApiRevokeUserGrantRequest{
 		ApiService: a,
-		ctx: ctx,
-		userId: userId,
-		grantId: grantId,
+		ctx:        ctx,
+		userId:     userId,
+		grantId:    grantId,
 		retryCount: 0,
 	}
 }
@@ -6408,7 +6431,7 @@ func (a *UserAPIService) RevokeUserGrantExecute(r ApiRevokeUserGrantRequest) (*A
 		formFiles            []formFile
 		localVarHTTPResponse *http.Response
 		localAPIResponse     *APIResponse
-		err 				 error
+		err                  error
 	)
 
 	if a.client.cfg.Okta.Client.RequestTimeout > 0 {
@@ -6526,9 +6549,9 @@ func (a *UserAPIService) RevokeUserGrantExecute(r ApiRevokeUserGrantRequest) (*A
 }
 
 type ApiRevokeUserGrantsRequest struct {
-	ctx context.Context
+	ctx        context.Context
 	ApiService UserAPI
-	userId string
+	userId     string
 	retryCount int32
 }
 
@@ -6541,15 +6564,15 @@ RevokeUserGrants Revoke all User Grants
 
 Revokes all grants for a specified user
 
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @param userId ID of an existing Okta user
- @return ApiRevokeUserGrantsRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param userId ID of an existing Okta user
+	@return ApiRevokeUserGrantsRequest
 */
 func (a *UserAPIService) RevokeUserGrants(ctx context.Context, userId string) ApiRevokeUserGrantsRequest {
 	return ApiRevokeUserGrantsRequest{
 		ApiService: a,
-		ctx: ctx,
-		userId: userId,
+		ctx:        ctx,
+		userId:     userId,
 		retryCount: 0,
 	}
 }
@@ -6562,7 +6585,7 @@ func (a *UserAPIService) RevokeUserGrantsExecute(r ApiRevokeUserGrantsRequest) (
 		formFiles            []formFile
 		localVarHTTPResponse *http.Response
 		localAPIResponse     *APIResponse
-		err 				 error
+		err                  error
 	)
 
 	if a.client.cfg.Okta.Client.RequestTimeout > 0 {
@@ -6679,11 +6702,11 @@ func (a *UserAPIService) RevokeUserGrantsExecute(r ApiRevokeUserGrantsRequest) (
 }
 
 type ApiRevokeUserSessionsRequest struct {
-	ctx context.Context
-	ApiService UserAPI
-	userId string
+	ctx         context.Context
+	ApiService  UserAPI
+	userId      string
 	oauthTokens *bool
-	retryCount int32
+	retryCount  int32
 }
 
 // Revoke issued OpenID Connect and OAuth refresh and access tokens
@@ -6701,15 +6724,15 @@ RevokeUserSessions Revoke all User Sessions
 
 Revokes all active identity provider sessions of the user. This forces the user to authenticate on the next operation. Optionally revokes OpenID Connect and OAuth refresh and access tokens issued to the user.
 
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @param userId ID of an existing Okta user
- @return ApiRevokeUserSessionsRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param userId ID of an existing Okta user
+	@return ApiRevokeUserSessionsRequest
 */
 func (a *UserAPIService) RevokeUserSessions(ctx context.Context, userId string) ApiRevokeUserSessionsRequest {
 	return ApiRevokeUserSessionsRequest{
 		ApiService: a,
-		ctx: ctx,
-		userId: userId,
+		ctx:        ctx,
+		userId:     userId,
 		retryCount: 0,
 	}
 }
@@ -6722,7 +6745,7 @@ func (a *UserAPIService) RevokeUserSessionsExecute(r ApiRevokeUserSessionsReques
 		formFiles            []formFile
 		localVarHTTPResponse *http.Response
 		localAPIResponse     *APIResponse
-		err 				 error
+		err                  error
 	)
 
 	if a.client.cfg.Okta.Client.RequestTimeout > 0 {
@@ -6842,9 +6865,9 @@ func (a *UserAPIService) RevokeUserSessionsExecute(r ApiRevokeUserSessionsReques
 }
 
 type ApiSuspendUserRequest struct {
-	ctx context.Context
+	ctx        context.Context
 	ApiService UserAPI
-	userId string
+	userId     string
 	retryCount int32
 }
 
@@ -6857,15 +6880,15 @@ SuspendUser Suspend a User
 
 Suspends a user.  This operation can only be performed on users with an `ACTIVE` status.  The user will have a status of `SUSPENDED` when the process is complete.
 
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @param userId ID of an existing Okta user
- @return ApiSuspendUserRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param userId ID of an existing Okta user
+	@return ApiSuspendUserRequest
 */
 func (a *UserAPIService) SuspendUser(ctx context.Context, userId string) ApiSuspendUserRequest {
 	return ApiSuspendUserRequest{
 		ApiService: a,
-		ctx: ctx,
-		userId: userId,
+		ctx:        ctx,
+		userId:     userId,
 		retryCount: 0,
 	}
 }
@@ -6878,7 +6901,7 @@ func (a *UserAPIService) SuspendUserExecute(r ApiSuspendUserRequest) (*APIRespon
 		formFiles            []formFile
 		localVarHTTPResponse *http.Response
 		localAPIResponse     *APIResponse
-		err 				 error
+		err                  error
 	)
 
 	if a.client.cfg.Okta.Client.RequestTimeout > 0 {
@@ -6995,9 +7018,9 @@ func (a *UserAPIService) SuspendUserExecute(r ApiSuspendUserRequest) (*APIRespon
 }
 
 type ApiUnlockUserRequest struct {
-	ctx context.Context
+	ctx        context.Context
 	ApiService UserAPI
-	userId string
+	userId     string
 	retryCount int32
 }
 
@@ -7010,15 +7033,15 @@ UnlockUser Unlock a User
 
 Unlocks a user with a `LOCKED_OUT` status or unlocks a user with an `ACTIVE` status that is blocked from unknown devices. Unlocked users have an `ACTIVE` status and can sign in with their current password.
 
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @param userId ID of an existing Okta user
- @return ApiUnlockUserRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param userId ID of an existing Okta user
+	@return ApiUnlockUserRequest
 */
 func (a *UserAPIService) UnlockUser(ctx context.Context, userId string) ApiUnlockUserRequest {
 	return ApiUnlockUserRequest{
 		ApiService: a,
-		ctx: ctx,
-		userId: userId,
+		ctx:        ctx,
+		userId:     userId,
 		retryCount: 0,
 	}
 }
@@ -7031,7 +7054,7 @@ func (a *UserAPIService) UnlockUserExecute(r ApiUnlockUserRequest) (*APIResponse
 		formFiles            []formFile
 		localVarHTTPResponse *http.Response
 		localAPIResponse     *APIResponse
-		err 				 error
+		err                  error
 	)
 
 	if a.client.cfg.Okta.Client.RequestTimeout > 0 {
@@ -7148,9 +7171,9 @@ func (a *UserAPIService) UnlockUserExecute(r ApiUnlockUserRequest) (*APIResponse
 }
 
 type ApiUnsuspendUserRequest struct {
-	ctx context.Context
+	ctx        context.Context
 	ApiService UserAPI
-	userId string
+	userId     string
 	retryCount int32
 }
 
@@ -7163,15 +7186,15 @@ UnsuspendUser Unsuspend a User
 
 Unsuspends a user and returns them to the `ACTIVE` state.  This operation can only be performed on users that have a `SUSPENDED` status.
 
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @param userId ID of an existing Okta user
- @return ApiUnsuspendUserRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param userId ID of an existing Okta user
+	@return ApiUnsuspendUserRequest
 */
 func (a *UserAPIService) UnsuspendUser(ctx context.Context, userId string) ApiUnsuspendUserRequest {
 	return ApiUnsuspendUserRequest{
 		ApiService: a,
-		ctx: ctx,
-		userId: userId,
+		ctx:        ctx,
+		userId:     userId,
 		retryCount: 0,
 	}
 }
@@ -7184,7 +7207,7 @@ func (a *UserAPIService) UnsuspendUserExecute(r ApiUnsuspendUserRequest) (*APIRe
 		formFiles            []formFile
 		localVarHTTPResponse *http.Response
 		localAPIResponse     *APIResponse
-		err 				 error
+		err                  error
 	)
 
 	if a.client.cfg.Okta.Client.RequestTimeout > 0 {
@@ -7301,11 +7324,11 @@ func (a *UserAPIService) UnsuspendUserExecute(r ApiUnsuspendUserRequest) (*APIRe
 }
 
 type ApiUpdateUserRequest struct {
-	ctx context.Context
+	ctx        context.Context
 	ApiService UserAPI
-	userId string
-	user *UpdateUserRequest
-	strict *bool
+	userId     string
+	user       *UpdateUserRequest
+	strict     *bool
 	retryCount int32
 }
 
@@ -7328,21 +7351,22 @@ UpdateUser Update a User
 
 Updates a user partially determined by the request parameters
 
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @param userId ID of an existing Okta user
- @return ApiUpdateUserRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param userId ID of an existing Okta user
+	@return ApiUpdateUserRequest
 */
 func (a *UserAPIService) UpdateUser(ctx context.Context, userId string) ApiUpdateUserRequest {
 	return ApiUpdateUserRequest{
 		ApiService: a,
-		ctx: ctx,
-		userId: userId,
+		ctx:        ctx,
+		userId:     userId,
 		retryCount: 0,
 	}
 }
 
 // Execute executes the request
-//  @return User
+//
+//	@return User
 func (a *UserAPIService) UpdateUserExecute(r ApiUpdateUserRequest) (*User, *APIResponse, error) {
 	var (
 		localVarHTTPMethod   = http.MethodPost
@@ -7351,7 +7375,7 @@ func (a *UserAPIService) UpdateUserExecute(r ApiUpdateUserRequest) (*User, *APIR
 		localVarReturnValue  *User
 		localVarHTTPResponse *http.Response
 		localAPIResponse     *APIResponse
-		err 				 error
+		err                  error
 	)
 
 	if a.client.cfg.Okta.Client.RequestTimeout > 0 {
@@ -7492,7 +7516,7 @@ func (a *UserAPIService) UpdateUserExecute(r ApiUpdateUserRequest) (*User, *APIR
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
 		return localVarReturnValue, localAPIResponse, newErr
 	}
-	
+
 	localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
 	return localVarReturnValue, localAPIResponse, nil
 }

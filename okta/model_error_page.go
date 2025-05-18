@@ -30,9 +30,9 @@ import (
 // ErrorPage struct for ErrorPage
 type ErrorPage struct {
 	// The HTML for the page
-	PageContent *string `json:"pageContent,omitempty"`
+	PageContent                  *string                       `json:"pageContent,omitempty"`
 	ContentSecurityPolicySetting *ContentSecurityPolicySetting `json:"contentSecurityPolicySetting,omitempty"`
-	AdditionalProperties map[string]interface{}
+	AdditionalProperties         map[string]interface{}
 }
 
 type _ErrorPage ErrorPage
@@ -193,4 +193,3 @@ func (v *NullableErrorPage) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-

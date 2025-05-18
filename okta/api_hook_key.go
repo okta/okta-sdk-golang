@@ -29,25 +29,24 @@ import (
 	"io/ioutil"
 	"net/http"
 	"net/url"
-	"time"
 	"strings"
+	"time"
 )
-
 
 type HookKeyAPI interface {
 
 	/*
-	CreateHookKey Create a key
+			CreateHookKey Create a key
 
-	Creates a key for use with other parts of the application, such as inline hooks
+			Creates a key for use with other parts of the application, such as inline hooks
 
-Use the key name to access this key for inline hook operations.
+		Use the key name to access this key for inline hook operations.
 
-The total number of keys that you can create in an Okta org is limited to 50.
+		The total number of keys that you can create in an Okta org is limited to 50.
 
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@return ApiCreateHookKeyRequest
+			@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+			@return ApiCreateHookKeyRequest
 	*/
 	CreateHookKey(ctx context.Context) ApiCreateHookKeyRequest
 
@@ -56,16 +55,16 @@ The total number of keys that you can create in an Okta org is limited to 50.
 	CreateHookKeyExecute(r ApiCreateHookKeyRequest) (*HookKey, *APIResponse, error)
 
 	/*
-	DeleteHookKey Delete a key
+			DeleteHookKey Delete a key
 
-	Deletes a key by `hookKeyId`. After being deleted, the key is unrecoverable.
+			Deletes a key by `hookKeyId`. After being deleted, the key is unrecoverable.
 
-As a safety precaution, only keys that aren't being used are eligible for deletion.
+		As a safety precaution, only keys that aren't being used are eligible for deletion.
 
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param hookKeyId `id` of the Hook Key
-	@return ApiDeleteHookKeyRequest
+			@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+			@param hookKeyId `id` of the Hook Key
+			@return ApiDeleteHookKeyRequest
 	*/
 	DeleteHookKey(ctx context.Context, hookKeyId string) ApiDeleteHookKeyRequest
 
@@ -73,13 +72,13 @@ As a safety precaution, only keys that aren't being used are eligible for deleti
 	DeleteHookKeyExecute(r ApiDeleteHookKeyRequest) (*APIResponse, error)
 
 	/*
-	GetHookKey Retrieve a key
+		GetHookKey Retrieve a key
 
-	Retrieves a key by `hookKeyId`
+		Retrieves a key by `hookKeyId`
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param hookKeyId `id` of the Hook Key
-	@return ApiGetHookKeyRequest
+		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+		@param hookKeyId `id` of the Hook Key
+		@return ApiGetHookKeyRequest
 	*/
 	GetHookKey(ctx context.Context, hookKeyId string) ApiGetHookKeyRequest
 
@@ -88,13 +87,13 @@ As a safety precaution, only keys that aren't being used are eligible for deleti
 	GetHookKeyExecute(r ApiGetHookKeyRequest) (*HookKey, *APIResponse, error)
 
 	/*
-	GetPublicKey Retrieve a public key
+		GetPublicKey Retrieve a public key
 
-	Retrieves a public key by `keyId`
+		Retrieves a public key by `keyId`
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param publicKeyId `id` of the Public Key
-	@return ApiGetPublicKeyRequest
+		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+		@param publicKeyId `id` of the Public Key
+		@return ApiGetPublicKeyRequest
 	*/
 	GetPublicKey(ctx context.Context, publicKeyId string) ApiGetPublicKeyRequest
 
@@ -103,12 +102,12 @@ As a safety precaution, only keys that aren't being used are eligible for deleti
 	GetPublicKeyExecute(r ApiGetPublicKeyRequest) (*JsonWebKey, *APIResponse, error)
 
 	/*
-	ListHookKeys List all keys
+		ListHookKeys List all keys
 
-	Lists all keys
+		Lists all keys
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@return ApiListHookKeysRequest
+		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+		@return ApiListHookKeysRequest
 	*/
 	ListHookKeys(ctx context.Context) ApiListHookKeysRequest
 
@@ -117,18 +116,18 @@ As a safety precaution, only keys that aren't being used are eligible for deleti
 	ListHookKeysExecute(r ApiListHookKeysRequest) ([]HookKey, *APIResponse, error)
 
 	/*
-	ReplaceHookKey Replace a key
+			ReplaceHookKey Replace a key
 
-	Replaces a key by `hookKeyId`
+			Replaces a key by `hookKeyId`
 
-This request replaces existing properties after passing validation.
+		This request replaces existing properties after passing validation.
 
-Note: The only parameter that you can update is the name of the key, which must be unique at all times.
+		Note: The only parameter that you can update is the name of the key, which must be unique at all times.
 
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param hookKeyId `id` of the Hook Key
-	@return ApiReplaceHookKeyRequest
+			@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+			@param hookKeyId `id` of the Hook Key
+			@return ApiReplaceHookKeyRequest
 	*/
 	ReplaceHookKey(ctx context.Context, hookKeyId string) ApiReplaceHookKeyRequest
 
@@ -141,7 +140,7 @@ Note: The only parameter that you can update is the name of the key, which must 
 type HookKeyAPIService service
 
 type ApiCreateHookKeyRequest struct {
-	ctx context.Context
+	ctx        context.Context
 	ApiService HookKeyAPI
 	keyRequest *KeyRequest
 	retryCount int32
@@ -159,26 +158,26 @@ func (r ApiCreateHookKeyRequest) Execute() (*HookKey, *APIResponse, error) {
 /*
 CreateHookKey Create a key
 
-Creates a key for use with other parts of the application, such as inline hooks
+# Creates a key for use with other parts of the application, such as inline hooks
 
 Use the key name to access this key for inline hook operations.
 
 The total number of keys that you can create in an Okta org is limited to 50.
 
-
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @return ApiCreateHookKeyRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@return ApiCreateHookKeyRequest
 */
 func (a *HookKeyAPIService) CreateHookKey(ctx context.Context) ApiCreateHookKeyRequest {
 	return ApiCreateHookKeyRequest{
 		ApiService: a,
-		ctx: ctx,
+		ctx:        ctx,
 		retryCount: 0,
 	}
 }
 
 // Execute executes the request
-//  @return HookKey
+//
+//	@return HookKey
 func (a *HookKeyAPIService) CreateHookKeyExecute(r ApiCreateHookKeyRequest) (*HookKey, *APIResponse, error) {
 	var (
 		localVarHTTPMethod   = http.MethodPost
@@ -187,7 +186,7 @@ func (a *HookKeyAPIService) CreateHookKeyExecute(r ApiCreateHookKeyRequest) (*Ho
 		localVarReturnValue  *HookKey
 		localVarHTTPResponse *http.Response
 		localAPIResponse     *APIResponse
-		err 				 error
+		err                  error
 	)
 
 	if a.client.cfg.Okta.Client.RequestTimeout > 0 {
@@ -312,15 +311,15 @@ func (a *HookKeyAPIService) CreateHookKeyExecute(r ApiCreateHookKeyRequest) (*Ho
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
 		return localVarReturnValue, localAPIResponse, newErr
 	}
-	
+
 	localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
 	return localVarReturnValue, localAPIResponse, nil
 }
 
 type ApiDeleteHookKeyRequest struct {
-	ctx context.Context
+	ctx        context.Context
 	ApiService HookKeyAPI
-	hookKeyId string
+	hookKeyId  string
 	retryCount int32
 }
 
@@ -335,16 +334,15 @@ Deletes a key by `hookKeyId`. After being deleted, the key is unrecoverable.
 
 As a safety precaution, only keys that aren't being used are eligible for deletion.
 
-
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @param hookKeyId `id` of the Hook Key
- @return ApiDeleteHookKeyRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param hookKeyId `id` of the Hook Key
+	@return ApiDeleteHookKeyRequest
 */
 func (a *HookKeyAPIService) DeleteHookKey(ctx context.Context, hookKeyId string) ApiDeleteHookKeyRequest {
 	return ApiDeleteHookKeyRequest{
 		ApiService: a,
-		ctx: ctx,
-		hookKeyId: hookKeyId,
+		ctx:        ctx,
+		hookKeyId:  hookKeyId,
 		retryCount: 0,
 	}
 }
@@ -357,7 +355,7 @@ func (a *HookKeyAPIService) DeleteHookKeyExecute(r ApiDeleteHookKeyRequest) (*AP
 		formFiles            []formFile
 		localVarHTTPResponse *http.Response
 		localAPIResponse     *APIResponse
-		err 				 error
+		err                  error
 	)
 
 	if a.client.cfg.Okta.Client.RequestTimeout > 0 {
@@ -474,9 +472,9 @@ func (a *HookKeyAPIService) DeleteHookKeyExecute(r ApiDeleteHookKeyRequest) (*AP
 }
 
 type ApiGetHookKeyRequest struct {
-	ctx context.Context
+	ctx        context.Context
 	ApiService HookKeyAPI
-	hookKeyId string
+	hookKeyId  string
 	retryCount int32
 }
 
@@ -489,21 +487,22 @@ GetHookKey Retrieve a key
 
 Retrieves a key by `hookKeyId`
 
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @param hookKeyId `id` of the Hook Key
- @return ApiGetHookKeyRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param hookKeyId `id` of the Hook Key
+	@return ApiGetHookKeyRequest
 */
 func (a *HookKeyAPIService) GetHookKey(ctx context.Context, hookKeyId string) ApiGetHookKeyRequest {
 	return ApiGetHookKeyRequest{
 		ApiService: a,
-		ctx: ctx,
-		hookKeyId: hookKeyId,
+		ctx:        ctx,
+		hookKeyId:  hookKeyId,
 		retryCount: 0,
 	}
 }
 
 // Execute executes the request
-//  @return HookKey
+//
+//	@return HookKey
 func (a *HookKeyAPIService) GetHookKeyExecute(r ApiGetHookKeyRequest) (*HookKey, *APIResponse, error) {
 	var (
 		localVarHTTPMethod   = http.MethodGet
@@ -512,7 +511,7 @@ func (a *HookKeyAPIService) GetHookKeyExecute(r ApiGetHookKeyRequest) (*HookKey,
 		localVarReturnValue  *HookKey
 		localVarHTTPResponse *http.Response
 		localAPIResponse     *APIResponse
-		err 				 error
+		err                  error
 	)
 
 	if a.client.cfg.Okta.Client.RequestTimeout > 0 {
@@ -633,16 +632,16 @@ func (a *HookKeyAPIService) GetHookKeyExecute(r ApiGetHookKeyRequest) (*HookKey,
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
 		return localVarReturnValue, localAPIResponse, newErr
 	}
-	
+
 	localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
 	return localVarReturnValue, localAPIResponse, nil
 }
 
 type ApiGetPublicKeyRequest struct {
-	ctx context.Context
-	ApiService HookKeyAPI
+	ctx         context.Context
+	ApiService  HookKeyAPI
 	publicKeyId string
-	retryCount int32
+	retryCount  int32
 }
 
 func (r ApiGetPublicKeyRequest) Execute() (*JsonWebKey, *APIResponse, error) {
@@ -654,21 +653,22 @@ GetPublicKey Retrieve a public key
 
 Retrieves a public key by `keyId`
 
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @param publicKeyId `id` of the Public Key
- @return ApiGetPublicKeyRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param publicKeyId `id` of the Public Key
+	@return ApiGetPublicKeyRequest
 */
 func (a *HookKeyAPIService) GetPublicKey(ctx context.Context, publicKeyId string) ApiGetPublicKeyRequest {
 	return ApiGetPublicKeyRequest{
-		ApiService: a,
-		ctx: ctx,
+		ApiService:  a,
+		ctx:         ctx,
 		publicKeyId: publicKeyId,
-		retryCount: 0,
+		retryCount:  0,
 	}
 }
 
 // Execute executes the request
-//  @return JsonWebKey
+//
+//	@return JsonWebKey
 func (a *HookKeyAPIService) GetPublicKeyExecute(r ApiGetPublicKeyRequest) (*JsonWebKey, *APIResponse, error) {
 	var (
 		localVarHTTPMethod   = http.MethodGet
@@ -677,7 +677,7 @@ func (a *HookKeyAPIService) GetPublicKeyExecute(r ApiGetPublicKeyRequest) (*Json
 		localVarReturnValue  *JsonWebKey
 		localVarHTTPResponse *http.Response
 		localAPIResponse     *APIResponse
-		err 				 error
+		err                  error
 	)
 
 	if a.client.cfg.Okta.Client.RequestTimeout > 0 {
@@ -798,13 +798,13 @@ func (a *HookKeyAPIService) GetPublicKeyExecute(r ApiGetPublicKeyRequest) (*Json
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
 		return localVarReturnValue, localAPIResponse, newErr
 	}
-	
+
 	localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
 	return localVarReturnValue, localAPIResponse, nil
 }
 
 type ApiListHookKeysRequest struct {
-	ctx context.Context
+	ctx        context.Context
 	ApiService HookKeyAPI
 	retryCount int32
 }
@@ -818,19 +818,20 @@ ListHookKeys List all keys
 
 Lists all keys
 
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @return ApiListHookKeysRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@return ApiListHookKeysRequest
 */
 func (a *HookKeyAPIService) ListHookKeys(ctx context.Context) ApiListHookKeysRequest {
 	return ApiListHookKeysRequest{
 		ApiService: a,
-		ctx: ctx,
+		ctx:        ctx,
 		retryCount: 0,
 	}
 }
 
 // Execute executes the request
-//  @return []HookKey
+//
+//	@return []HookKey
 func (a *HookKeyAPIService) ListHookKeysExecute(r ApiListHookKeysRequest) ([]HookKey, *APIResponse, error) {
 	var (
 		localVarHTTPMethod   = http.MethodGet
@@ -839,7 +840,7 @@ func (a *HookKeyAPIService) ListHookKeysExecute(r ApiListHookKeysRequest) ([]Hoo
 		localVarReturnValue  []HookKey
 		localVarHTTPResponse *http.Response
 		localAPIResponse     *APIResponse
-		err 				 error
+		err                  error
 	)
 
 	if a.client.cfg.Okta.Client.RequestTimeout > 0 {
@@ -947,15 +948,15 @@ func (a *HookKeyAPIService) ListHookKeysExecute(r ApiListHookKeysRequest) ([]Hoo
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
 		return localVarReturnValue, localAPIResponse, newErr
 	}
-	
+
 	localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
 	return localVarReturnValue, localAPIResponse, nil
 }
 
 type ApiReplaceHookKeyRequest struct {
-	ctx context.Context
+	ctx        context.Context
 	ApiService HookKeyAPI
-	hookKeyId string
+	hookKeyId  string
 	keyRequest *KeyRequest
 	retryCount int32
 }
@@ -978,22 +979,22 @@ This request replaces existing properties after passing validation.
 
 Note: The only parameter that you can update is the name of the key, which must be unique at all times.
 
-
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @param hookKeyId `id` of the Hook Key
- @return ApiReplaceHookKeyRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param hookKeyId `id` of the Hook Key
+	@return ApiReplaceHookKeyRequest
 */
 func (a *HookKeyAPIService) ReplaceHookKey(ctx context.Context, hookKeyId string) ApiReplaceHookKeyRequest {
 	return ApiReplaceHookKeyRequest{
 		ApiService: a,
-		ctx: ctx,
-		hookKeyId: hookKeyId,
+		ctx:        ctx,
+		hookKeyId:  hookKeyId,
 		retryCount: 0,
 	}
 }
 
 // Execute executes the request
-//  @return HookKey
+//
+//	@return HookKey
 func (a *HookKeyAPIService) ReplaceHookKeyExecute(r ApiReplaceHookKeyRequest) (*HookKey, *APIResponse, error) {
 	var (
 		localVarHTTPMethod   = http.MethodPut
@@ -1002,7 +1003,7 @@ func (a *HookKeyAPIService) ReplaceHookKeyExecute(r ApiReplaceHookKeyRequest) (*
 		localVarReturnValue  *HookKey
 		localVarHTTPResponse *http.Response
 		localAPIResponse     *APIResponse
-		err 				 error
+		err                  error
 	)
 
 	if a.client.cfg.Okta.Client.RequestTimeout > 0 {
@@ -1140,7 +1141,7 @@ func (a *HookKeyAPIService) ReplaceHookKeyExecute(r ApiReplaceHookKeyRequest) (*
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
 		return localVarReturnValue, localAPIResponse, newErr
 	}
-	
+
 	localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
 	return localVarReturnValue, localAPIResponse, nil
 }

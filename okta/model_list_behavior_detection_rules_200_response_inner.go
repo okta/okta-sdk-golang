@@ -28,14 +28,13 @@ import (
 	"fmt"
 )
 
-
-//model_oneof.mustache
+// model_oneof.mustache
 // ListBehaviorDetectionRules200ResponseInner - struct for ListBehaviorDetectionRules200ResponseInner
 type ListBehaviorDetectionRules200ResponseInner struct {
-	BehaviorRuleAnomalousDevice *BehaviorRuleAnomalousDevice
-	BehaviorRuleAnomalousIP *BehaviorRuleAnomalousIP
+	BehaviorRuleAnomalousDevice   *BehaviorRuleAnomalousDevice
+	BehaviorRuleAnomalousIP       *BehaviorRuleAnomalousIP
 	BehaviorRuleAnomalousLocation *BehaviorRuleAnomalousLocation
-	BehaviorRuleVelocity *BehaviorRuleVelocity
+	BehaviorRuleVelocity          *BehaviorRuleVelocity
 }
 
 // BehaviorRuleAnomalousDeviceAsListBehaviorDetectionRules200ResponseInner is a convenience function that returns BehaviorRuleAnomalousDevice wrapped in ListBehaviorDetectionRules200ResponseInner
@@ -65,7 +64,6 @@ func BehaviorRuleVelocityAsListBehaviorDetectionRules200ResponseInner(v *Behavio
 		BehaviorRuleVelocity: v,
 	}
 }
-
 
 // Unmarshal JSON data into one of the pointers in the struct  CUSTOM
 func (dst *ListBehaviorDetectionRules200ResponseInner) UnmarshalJSON(data []byte) error {
@@ -198,7 +196,7 @@ func (src ListBehaviorDetectionRules200ResponseInner) MarshalJSON() ([]byte, err
 }
 
 // Get the actual instance
-func (obj *ListBehaviorDetectionRules200ResponseInner) GetActualInstance() (interface{}) {
+func (obj *ListBehaviorDetectionRules200ResponseInner) GetActualInstance() interface{} {
 	if obj == nil {
 		return nil
 	}
@@ -257,5 +255,3 @@ func (v *NullableListBehaviorDetectionRules200ResponseInner) UnmarshalJSON(src [
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-
-

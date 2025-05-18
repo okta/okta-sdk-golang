@@ -29,11 +29,11 @@ import (
 
 // PasswordPolicyPasswordSettingsLockout struct for PasswordPolicyPasswordSettingsLockout
 type PasswordPolicyPasswordSettingsLockout struct {
-	AutoUnlockMinutes *int32 `json:"autoUnlockMinutes,omitempty"`
-	MaxAttempts *int32 `json:"maxAttempts,omitempty"`
-	ShowLockoutFailures *bool `json:"showLockoutFailures,omitempty"`
+	AutoUnlockMinutes               *int32   `json:"autoUnlockMinutes,omitempty"`
+	MaxAttempts                     *int32   `json:"maxAttempts,omitempty"`
+	ShowLockoutFailures             *bool    `json:"showLockoutFailures,omitempty"`
 	UserLockoutNotificationChannels []string `json:"userLockoutNotificationChannels,omitempty"`
-	AdditionalProperties map[string]interface{}
+	AdditionalProperties            map[string]interface{}
 }
 
 type _PasswordPolicyPasswordSettingsLockout PasswordPolicyPasswordSettingsLockout
@@ -266,4 +266,3 @@ func (v *NullablePasswordPolicyPasswordSettingsLockout) UnmarshalJSON(src []byte
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-

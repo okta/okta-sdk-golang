@@ -29,15 +29,15 @@ import (
 
 // DeviceAssurance struct for DeviceAssurance
 type DeviceAssurance struct {
-	CreatedBy *string `json:"createdBy,omitempty"`
-	CreatedDate *string `json:"createdDate,omitempty"`
-	Id *string `json:"id,omitempty"`
-	LastUpdate *string `json:"lastUpdate,omitempty"`
+	CreatedBy     *string `json:"createdBy,omitempty"`
+	CreatedDate   *string `json:"createdDate,omitempty"`
+	Id            *string `json:"id,omitempty"`
+	LastUpdate    *string `json:"lastUpdate,omitempty"`
 	LastUpdatedBy *string `json:"lastUpdatedBy,omitempty"`
 	// Display name of the Device Assurance Policy
-	Name *string `json:"name,omitempty"`
-	Platform *string `json:"platform,omitempty"`
-	Links *LinksSelf `json:"_links,omitempty"`
+	Name                 *string    `json:"name,omitempty"`
+	Platform             *string    `json:"platform,omitempty"`
+	Links                *LinksSelf `json:"_links,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -415,4 +415,3 @@ func (v *NullableDeviceAssurance) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-

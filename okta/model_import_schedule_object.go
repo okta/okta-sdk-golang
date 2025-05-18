@@ -29,10 +29,10 @@ import (
 
 // ImportScheduleObject Import schedule configuration
 type ImportScheduleObject struct {
-	FullImport *ImportScheduleObjectFullImport `json:"fullImport,omitempty"`
+	FullImport        *ImportScheduleObjectFullImport        `json:"fullImport,omitempty"`
 	IncrementalImport *ImportScheduleObjectIncrementalImport `json:"incrementalImport,omitempty"`
 	// Setting status
-	Status *string `json:"status,omitempty"`
+	Status               *string `json:"status,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -230,4 +230,3 @@ func (v *NullableImportScheduleObject) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-

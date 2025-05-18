@@ -29,8 +29,8 @@ import (
 
 // MultifactorEnrollmentPolicySettings struct for MultifactorEnrollmentPolicySettings
 type MultifactorEnrollmentPolicySettings struct {
-	Authenticators []MultifactorEnrollmentPolicyAuthenticatorSettings `json:"authenticators,omitempty"`
-	Type *string `json:"type,omitempty"`
+	Authenticators       []MultifactorEnrollmentPolicyAuthenticatorSettings `json:"authenticators,omitempty"`
+	Type                 *string                                            `json:"type,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -192,4 +192,3 @@ func (v *NullableMultifactorEnrollmentPolicySettings) UnmarshalJSON(src []byte) 
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-

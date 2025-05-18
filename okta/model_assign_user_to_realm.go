@@ -29,7 +29,7 @@ import (
 
 // AssignUserToRealm struct for AssignUserToRealm
 type AssignUserToRealm struct {
-	RealmId *string `json:"realmId,omitempty"`
+	RealmId              *string `json:"realmId,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -155,4 +155,3 @@ func (v *NullableAssignUserToRealm) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-

@@ -30,12 +30,12 @@ import (
 // BrandWithEmbedded struct for BrandWithEmbedded
 type BrandWithEmbedded struct {
 	Embedded *map[string]interface{} `json:"_embedded,omitempty"`
-	Links *LinksSelf `json:"_links,omitempty"`
+	Links    *LinksSelf              `json:"_links,omitempty"`
 	// Consent for updating the custom privacy URL. Not required when resetting the URL.
 	AgreeToCustomPrivacyPolicy *bool `json:"agreeToCustomPrivacyPolicy,omitempty"`
 	// Custom privacy policy URL
-	CustomPrivacyPolicyUrl *string `json:"customPrivacyPolicyUrl,omitempty"`
-	DefaultApp *DefaultApp `json:"defaultApp,omitempty"`
+	CustomPrivacyPolicyUrl *string     `json:"customPrivacyPolicyUrl,omitempty"`
+	DefaultApp             *DefaultApp `json:"defaultApp,omitempty"`
 	// The ID of the email domain
 	EmailDomainId *string `json:"emailDomainId,omitempty"`
 	// The Brand ID
@@ -47,7 +47,7 @@ type BrandWithEmbedded struct {
 	// The name of the Brand
 	Name *string `json:"name,omitempty"`
 	// Removes \"Powered by Okta\" from the sign-in page in redirect authentication deployments, and \"© [current year] Okta, Inc.\" from the Okta End-User Dashboard
-	RemovePoweredByOkta *bool `json:"removePoweredByOkta,omitempty"`
+	RemovePoweredByOkta  *bool `json:"removePoweredByOkta,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -537,4 +537,3 @@ func (v *NullableBrandWithEmbedded) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-

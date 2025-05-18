@@ -29,44 +29,44 @@ import (
 
 // SamlApplicationSettingsSignOn SAML sign-on attributes. > **Note:** Only for SAML 2.0, set either `destinationOverride` or `ssoAcsUrl` to configure any other SAML 2.0 attributes in this section.
 type SamlApplicationSettingsSignOn struct {
-	AcsEndpoints []AcsEndpoint `json:"acsEndpoints,omitempty"`
-	AllowMultipleAcsEndpoints *bool `json:"allowMultipleAcsEndpoints,omitempty"`
-	AssertionSigned *bool `json:"assertionSigned,omitempty"`
-	AttributeStatements []SamlAttributeStatement `json:"attributeStatements,omitempty"`
-	Audience *string `json:"audience,omitempty"`
+	AcsEndpoints              []AcsEndpoint            `json:"acsEndpoints,omitempty"`
+	AllowMultipleAcsEndpoints *bool                    `json:"allowMultipleAcsEndpoints,omitempty"`
+	AssertionSigned           *bool                    `json:"assertionSigned,omitempty"`
+	AttributeStatements       []SamlAttributeStatement `json:"attributeStatements,omitempty"`
+	Audience                  *string                  `json:"audience,omitempty"`
 	// Audience override for CASB configuration. See [CASB config guide](https://help.okta.com/en-us/Content/Topics/Apps/CASB-config-guide.htm).
-	AudienceOverride *string `json:"audienceOverride,omitempty"`
-	AuthnContextClassRef *string `json:"authnContextClassRef,omitempty"`
+	AudienceOverride              *string                  `json:"audienceOverride,omitempty"`
+	AuthnContextClassRef          *string                  `json:"authnContextClassRef,omitempty"`
 	ConfiguredAttributeStatements []SamlAttributeStatement `json:"configuredAttributeStatements,omitempty"`
 	// Identifies a specific application resource in an IdP-initiated SSO scenario
 	DefaultRelayState *string `json:"defaultRelayState,omitempty"`
-	Destination *string `json:"destination,omitempty"`
+	Destination       *string `json:"destination,omitempty"`
 	// Destination override for CASB configuration. See [CASB config guide](https://help.okta.com/en-us/Content/Topics/Apps/CASB-config-guide.htm).
 	DestinationOverride *string `json:"destinationOverride,omitempty"`
-	DigestAlgorithm *string `json:"digestAlgorithm,omitempty"`
+	DigestAlgorithm     *string `json:"digestAlgorithm,omitempty"`
 	// Set to `true` to prompt users for their credentials when a SAML request has the `ForceAuthn` attribute set to `true`
-	HonorForceAuthn *bool `json:"honorForceAuthn,omitempty"`
-	IdpIssuer *string `json:"idpIssuer,omitempty"`
-	InlineHooks []SignOnInlineHook `json:"inlineHooks,omitempty"`
-	ParticipateSlo *SloParticipate `json:"participateSlo,omitempty"`
-	Recipient *string `json:"recipient,omitempty"`
+	HonorForceAuthn *bool              `json:"honorForceAuthn,omitempty"`
+	IdpIssuer       *string            `json:"idpIssuer,omitempty"`
+	InlineHooks     []SignOnInlineHook `json:"inlineHooks,omitempty"`
+	ParticipateSlo  *SloParticipate    `json:"participateSlo,omitempty"`
+	Recipient       *string            `json:"recipient,omitempty"`
 	// Recipient override for CASB configuration. See [CASB config guide](https://help.okta.com/en-us/Content/Topics/Apps/CASB-config-guide.htm).
 	RecipientOverride *string `json:"recipientOverride,omitempty"`
-	RequestCompressed *bool `json:"requestCompressed,omitempty"`
-	ResponseSigned *bool `json:"responseSigned,omitempty"`
+	RequestCompressed *bool   `json:"requestCompressed,omitempty"`
+	ResponseSigned    *bool   `json:"responseSigned,omitempty"`
 	// For SAML 2.0 only.<br>Determines the SAML app session lifetimes with Okta
-	SamlAssertionLifetimeSeconds *int32 `json:"samlAssertionLifetimeSeconds,omitempty"`
-	SignatureAlgorithm *string `json:"signatureAlgorithm,omitempty"`
-	Slo *SingleLogout `json:"slo,omitempty"`
-	SpCertificate *SpCertificate `json:"spCertificate,omitempty"`
-	SpIssuer *string `json:"spIssuer,omitempty"`
+	SamlAssertionLifetimeSeconds *int32         `json:"samlAssertionLifetimeSeconds,omitempty"`
+	SignatureAlgorithm           *string        `json:"signatureAlgorithm,omitempty"`
+	Slo                          *SingleLogout  `json:"slo,omitempty"`
+	SpCertificate                *SpCertificate `json:"spCertificate,omitempty"`
+	SpIssuer                     *string        `json:"spIssuer,omitempty"`
 	// Single Sign-On Assertion Consumer Service (ACS) URL
 	SsoAcsUrl *string `json:"ssoAcsUrl,omitempty"`
 	// Assertion Consumer Service (ACS) URL override for CASB configuration. See [CASB config guide](https://help.okta.com/en-us/Content/Topics/Apps/CASB-config-guide.htm).
-	SsoAcsUrlOverride *string `json:"ssoAcsUrlOverride,omitempty"`
-	SubjectNameIdFormat *string `json:"subjectNameIdFormat,omitempty"`
+	SsoAcsUrlOverride     *string `json:"ssoAcsUrlOverride,omitempty"`
+	SubjectNameIdFormat   *string `json:"subjectNameIdFormat,omitempty"`
 	SubjectNameIdTemplate *string `json:"subjectNameIdTemplate,omitempty"`
-	AdditionalProperties map[string]interface{}
+	AdditionalProperties  map[string]interface{}
 }
 
 type _SamlApplicationSettingsSignOn SamlApplicationSettingsSignOn
@@ -1199,4 +1199,3 @@ func (v *NullableSamlApplicationSettingsSignOn) UnmarshalJSON(src []byte) error 
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-

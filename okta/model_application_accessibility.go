@@ -34,7 +34,7 @@ type ApplicationAccessibility struct {
 	// Custom login page URL for the app
 	LoginRedirectUrl *string `json:"loginRedirectUrl,omitempty"`
 	// Represents whether the app can be self-assignable by users
-	SelfService *bool `json:"selfService,omitempty"`
+	SelfService          *bool `json:"selfService,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -232,4 +232,3 @@ func (v *NullableApplicationAccessibility) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-

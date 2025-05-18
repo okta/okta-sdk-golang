@@ -34,7 +34,7 @@ type SecurityEventSubject struct {
 	// The tenant involved with the event
 	Tenant map[string]interface{} `json:"tenant,omitempty"`
 	// The user involved with the event
-	User map[string]interface{} `json:"user,omitempty"`
+	User                 map[string]interface{} `json:"user,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -232,4 +232,3 @@ func (v *NullableSecurityEventSubject) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-

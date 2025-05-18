@@ -29,13 +29,13 @@ import (
 
 // TrendMicroApexOneServiceApplicationSettings struct for TrendMicroApexOneServiceApplicationSettings
 type TrendMicroApexOneServiceApplicationSettings struct {
-	IdentityStoreId *string `json:"identityStoreId,omitempty"`
-	ImplicitAssignment *bool `json:"implicitAssignment,omitempty"`
-	InlineHookId *string `json:"inlineHookId,omitempty"`
-	Notes *ApplicationSettingsNotes `json:"notes,omitempty"`
-	Notifications *ApplicationSettingsNotifications `json:"notifications,omitempty"`
-	App TrendMicroApexOneServiceApplicationSettingsApplication `json:"app"`
-	SignOn *OINSaml20ApplicationSettingsSignOn `json:"signOn,omitempty"`
+	IdentityStoreId      *string                                                `json:"identityStoreId,omitempty"`
+	ImplicitAssignment   *bool                                                  `json:"implicitAssignment,omitempty"`
+	InlineHookId         *string                                                `json:"inlineHookId,omitempty"`
+	Notes                *ApplicationSettingsNotes                              `json:"notes,omitempty"`
+	Notifications        *ApplicationSettingsNotifications                      `json:"notifications,omitempty"`
+	App                  TrendMicroApexOneServiceApplicationSettingsApplication `json:"app"`
+	SignOn               *OINSaml20ApplicationSettingsSignOn                    `json:"signOn,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -370,4 +370,3 @@ func (v *NullableTrendMicroApexOneServiceApplicationSettings) UnmarshalJSON(src 
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-

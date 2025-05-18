@@ -29,8 +29,8 @@ import (
 
 // SsprRequirement Describes the initial and secondary authenticator requirements a user needs to reset their password
 type SsprRequirement struct {
-	Primary *SsprPrimaryRequirement `json:"primary,omitempty"`
-	StepUp *SsprStepUpRequirement `json:"stepUp,omitempty"`
+	Primary              *SsprPrimaryRequirement `json:"primary,omitempty"`
+	StepUp               *SsprStepUpRequirement  `json:"stepUp,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -192,4 +192,3 @@ func (v *NullableSsprRequirement) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-

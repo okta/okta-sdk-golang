@@ -29,8 +29,8 @@ import (
 
 // LogOutcome struct for LogOutcome
 type LogOutcome struct {
-	Reason *string `json:"reason,omitempty"`
-	Result *string `json:"result,omitempty"`
+	Reason               *string `json:"reason,omitempty"`
+	Result               *string `json:"result,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -192,4 +192,3 @@ func (v *NullableLogOutcome) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-

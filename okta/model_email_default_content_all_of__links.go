@@ -29,10 +29,10 @@ import (
 
 // EmailDefaultContentAllOfLinks struct for EmailDefaultContentAllOfLinks
 type EmailDefaultContentAllOfLinks struct {
-	Self *HrefObjectSelfLink `json:"self,omitempty"`
-	Template *HrefObject `json:"template,omitempty"`
-	Preview *HrefObject `json:"preview,omitempty"`
-	Test *HrefObject `json:"test,omitempty"`
+	Self                 *HrefObjectSelfLink `json:"self,omitempty"`
+	Template             *HrefObject         `json:"template,omitempty"`
+	Preview              *HrefObject         `json:"preview,omitempty"`
+	Test                 *HrefObject         `json:"test,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -266,4 +266,3 @@ func (v *NullableEmailDefaultContentAllOfLinks) UnmarshalJSON(src []byte) error 
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-

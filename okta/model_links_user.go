@@ -29,7 +29,7 @@ import (
 
 // LinksUser struct for LinksUser
 type LinksUser struct {
-	User *LinksUserUser `json:"user,omitempty"`
+	User                 *LinksUserUser `json:"user,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -155,4 +155,3 @@ func (v *NullableLinksUser) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-
