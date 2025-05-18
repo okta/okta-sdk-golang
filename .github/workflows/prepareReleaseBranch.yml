@@ -1,13 +1,13 @@
 name: Prepare a Release Branch
 on:
   workflow_dispatch:
-#    inputs:
-#      branch:
-#        description: 'The branch to release'
-#        required: true
-#      version:
-#        description: 'The version to release'
-#        required: true
+    inputs:
+      branch:
+        description: 'The branch to release'
+        required: true
+      version:
+        description: 'The version to release'
+        required: true
 jobs:
   prepareReleaseBranch:
     runs-on: ubuntu-latest
@@ -18,16 +18,16 @@ jobs:
         uses: actions/setup-go@v2
         with:
           go-version: 1.23.0
-#      - name: Create Branch
-#        uses: peterjgrainger/action-create-branch@v2.2.0
-#        env:
-#          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-#        with:
-#          branch: '${{ github.event.inputs.branch }}'
-#      - name: Checkout new branch
-#        uses: actions/checkout@v3
-#        with:
-#          ref: ${{ github.event.inputs.branch }}
+      - name: Create Branch
+        uses: peterjgrainger/action-create-branch@v2.2.0
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          branch: '${{ github.event.inputs.branch }}'
+      - name: Checkout new branch
+        uses: actions/checkout@v3
+        with:
+          ref: ${{ github.event.inputs.branch }}
       - name: Remove v2
         run: rm -rf okta openapi tests go.mod go.sum
       - name: Setup node
@@ -40,7 +40,7 @@ jobs:
         run: openapi-generator-cli version-manager set 7.0.1
       - name: Generate go client
         run: make generate
-#      - run: make fmt
+      - run: make fmt
       - run: make import
       - run: cd okta/v5 && mv go.mod go.sum ../../
       - run: cd okta && mv v5/* ./ && rm -rf v5
