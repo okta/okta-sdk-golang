@@ -56,6 +56,12 @@ const (
 	DpopAccessTokenPrivateKey = "DPOP_OKTA_ACCESS_TOKEN_PRIVATE_KEY"
 )
 
+type RateLimit struct {
+Limit     int
+Remaining int
+Reset     int64
+}
+
 // APIClient manages communication with the {{appName}} API v{{version}}
 // In most cases there should be only one, shared, APIClient.
 type APIClient struct {
@@ -64,6 +70,8 @@ type APIClient struct {
 	cache      Cache
 	tokenCache *goCache.Cache
 	freshcache bool
+  rateLimit     *RateLimit
+  rateLimitLock sync.Mutex
 
 	// API Services
 {{#apiInfo}}
@@ -1221,6 +1229,27 @@ func (c *APIClient) doWithRetries(ctx context.Context, req *http.Request) (*http
 	}
 	err = backoff.Retry(operation, bOff)
 	return resp, err
+}
+
+
+func (c *APIClient) parseLimitHeaders(resp *http.Response) (*RateLimit, error) {
+limit, err := strconv.Atoi(resp.Header.Get("X-Rate-Limit-Limit"))
+if err != nil {
+return nil, err
+}
+remaining, err := strconv.Atoi(resp.Header.Get("X-Rate-Limit-Remaining"))
+if err != nil {
+return nil, err
+}
+reset, err := Get429BackoffTime(resp)
+if err != nil {
+return nil, err
+}
+return &RateLimit{
+Limit:     limit,
+Remaining: remaining,
+Reset:     reset,
+}, nil
 }
 
 // Add a file to the multipart request
