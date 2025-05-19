@@ -6,9 +6,9 @@ on:
       branch:
         description: "The branch to release"
         required: true
-#      version:
-#        description: "The version to release"
-#        required: true
+      version:
+        description: "The version to release"
+        required: true
 
 jobs:
   prepareReleaseBranch:
@@ -20,7 +20,7 @@ jobs:
       - name: Set up Go
         uses: actions/setup-go@v2
         with:
-          go-version: "1.23.0"
+          go-version-file: "go.mod"
 
       - name: Create Branch
         uses: peterjgrainger/action-create-branch@v2.2.0
@@ -50,6 +50,8 @@ jobs:
 
       - name: Generate go client
         run: make generate
+
+      - run: make fmt
 
       - run: make import
 
