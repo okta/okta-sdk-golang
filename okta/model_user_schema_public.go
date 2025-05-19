@@ -29,10 +29,10 @@ import (
 
 // UserSchemaPublic struct for UserSchemaPublic
 type UserSchemaPublic struct {
-	Id *string `json:"id,omitempty"`
-	Properties *map[string]UserSchemaAttribute `json:"properties,omitempty"`
-	Required []string `json:"required,omitempty"`
-	Type *string `json:"type,omitempty"`
+	Id                   *string                          `json:"id,omitempty"`
+	Properties           *map[string]*UserSchemaAttribute `json:"properties,omitempty"`
+	Required             []string                         `json:"required,omitempty"`
+	Type                 *string                          `json:"type,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -88,9 +88,9 @@ func (o *UserSchemaPublic) SetId(v string) {
 }
 
 // GetProperties returns the Properties field value if set, zero value otherwise.
-func (o *UserSchemaPublic) GetProperties() map[string]UserSchemaAttribute {
+func (o *UserSchemaPublic) GetProperties() map[string]*UserSchemaAttribute {
 	if o == nil || o.Properties == nil {
-		var ret map[string]UserSchemaAttribute
+		var ret map[string]*UserSchemaAttribute
 		return ret
 	}
 	return *o.Properties
@@ -98,7 +98,7 @@ func (o *UserSchemaPublic) GetProperties() map[string]UserSchemaAttribute {
 
 // GetPropertiesOk returns a tuple with the Properties field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *UserSchemaPublic) GetPropertiesOk() (*map[string]UserSchemaAttribute, bool) {
+func (o *UserSchemaPublic) GetPropertiesOk() (*map[string]*UserSchemaAttribute, bool) {
 	if o == nil || o.Properties == nil {
 		return nil, false
 	}
@@ -115,7 +115,7 @@ func (o *UserSchemaPublic) HasProperties() bool {
 }
 
 // SetProperties gets a reference to the given map[string]UserSchemaAttribute and assigns it to the Properties field.
-func (o *UserSchemaPublic) SetProperties(v map[string]UserSchemaAttribute) {
+func (o *UserSchemaPublic) SetProperties(v map[string]*UserSchemaAttribute) {
 	o.Properties = &v
 }
 
@@ -266,4 +266,3 @@ func (v *NullableUserSchemaPublic) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-

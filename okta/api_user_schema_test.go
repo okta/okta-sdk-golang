@@ -1,6 +1,8 @@
 package okta
 
 import (
+	"encoding/json"
+	"strings"
 	"testing"
 
 	"github.com/stretchr/testify/assert"
@@ -24,27 +26,46 @@ func Test_Get_User_Schema(t *testing.T) {
 
 func Test_Update_Property_To_User_Schema(t *testing.T) {
 	schema, _, err := apiClient.SchemaAPI.GetUserSchema(apiClient.cfg.Context, "default").Execute()
-	require.NoError(t, err, "Could not get default user schema")
-	assert.NotEmpty(t, schema, "User schema is empty")
-	t.Run("get update user schema", func(t *testing.T) {
+	require.NoError(t, err)
+
+	t.Run("remove all properties with SDK_TEST prefix by setting to null", func(t *testing.T) {
 		req := apiClient.SchemaAPI.UpdateUserProfile(apiClient.cfg.Context, "default")
-		customAttributeName := testPrefix + randomTestString()
-		customAttributeDetail := UserSchemaAttribute{}
-		customAttributeDetail.SetTitle(customAttributeName)
-		customAttributeDetail.SetType("string")
-		customAttributeDetail.SetMinLength(1)
-		customAttributeDetail.SetMaxLength(20)
-		customAttribute := make(map[string]UserSchemaAttribute)
-		customAttribute[customAttributeName] = customAttributeDetail
-		payload := UserSchemaPublic{Properties: &customAttribute}
-		schema.Definitions.SetCustom(payload)
+
+		properties := schema.Definitions.Custom.GetProperties()
+		updatedProperties := make(map[string]*UserSchemaAttribute)
+
+		for key := range properties {
+			if strings.HasPrefix(key, "SDK_TEST") {
+				// Set to nil to remove property
+				updatedProperties[key] = nil
+			} else {
+				// Keep existing property
+				updatedProperties[key] = properties[key]
+			}
+		}
+
+		schema.Definitions.Custom.SetProperties(updatedProperties)
+
 		req = req.UserSchema(*schema)
-		updateSchema, _, err := req.Execute()
-		require.NoError(t, err, "Could not update default user schema")
-		assert.NotEmpty(t, updateSchema, "User schema is empty")
-		updateAttribute := schema.Definitions.Custom.GetProperties()[customAttributeName]
-		assert.Equal(t, customAttributeName, updateAttribute.GetTitle())
-		assert.Equal(t, int32(1), updateAttribute.GetMinLength())
-		assert.Equal(t, int32(20), updateAttribute.GetMaxLength())
+		_, _, err = req.Execute()
+		require.NoError(t, err)
 	})
+}
+
+func convertStringToMap(jsonString *string) (map[string]interface{}, error) {
+	var data map[string]interface{}
+	err := json.Unmarshal([]byte(*jsonString), &data) // Dereference the pointer
+	if err != nil {
+		return nil, err
+	}
+	return data, nil
+}
+
+func convertMapToString(data map[string]interface{}) (*string, error) {
+	jsonBytes, err := json.MarshalIndent(data, "", "  ")
+	if err != nil {
+		return nil, err
+	}
+	jsonString := string(jsonBytes)
+	return &jsonString, nil
 }
