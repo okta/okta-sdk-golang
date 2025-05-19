@@ -1539,21 +1539,21 @@ func StringToAsciiBytes(s string) []byte {
 }
 
 func (c *APIClient) parseLimitHeaders(resp *http.Response) (*RateLimit, error) {
-limit, err := strconv.Atoi(resp.Header.Get("X-Rate-Limit-Limit"))
-if err != nil {
-return nil, err
-}
-remaining, err := strconv.Atoi(resp.Header.Get("X-Rate-Limit-Remaining"))
-if err != nil {
-return nil, err
-}
-reset, err := Get429BackoffTime(resp)
-if err != nil {
-return nil, err
-}
-return &RateLimit{
-Limit:     limit,
-Remaining: remaining,
-Reset:     reset,
-}, nil
+  limit, err := strconv.Atoi(resp.Header.Get("X-Rate-Limit-Limit"))
+  if err != nil {
+    return nil, err
+  }
+  remaining, err := strconv.Atoi(resp.Header.Get("X-Rate-Limit-Remaining"))
+  if err != nil {
+    return nil, err
+  }
+  reset, err := Get429BackoffTime(resp)
+  if err != nil {
+    return nil, err
+  }
+  return &RateLimit{
+    Limit:     limit,
+    Remaining: remaining,
+    Reset:     reset,
+  }, nil
 }
