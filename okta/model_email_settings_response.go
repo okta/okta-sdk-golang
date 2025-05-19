@@ -29,8 +29,8 @@ import (
 
 // EmailSettingsResponse struct for EmailSettingsResponse
 type EmailSettingsResponse struct {
-	Recipients *string `json:"recipients,omitempty"`
-	Links *EmailSettingsResponseLinks `json:"_links,omitempty"`
+	Recipients           *string                     `json:"recipients,omitempty"`
+	Links                *EmailSettingsResponseLinks `json:"_links,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -192,4 +192,3 @@ func (v *NullableEmailSettingsResponse) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-

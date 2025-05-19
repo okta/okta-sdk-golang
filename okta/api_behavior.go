@@ -29,21 +29,19 @@ import (
 	"io/ioutil"
 	"net/http"
 	"net/url"
-	"time"
 	"strings"
+	"time"
 )
 
-
 type BehaviorAPI interface {
-
 	/*
-	ActivateBehaviorDetectionRule Activate a Behavior Detection Rule
+		ActivateBehaviorDetectionRule Activate a Behavior Detection Rule
 
-	Activates a behavior detection rule
+		Activates a behavior detection rule
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param behaviorId id of the Behavior Detection Rule
-	@return ApiActivateBehaviorDetectionRuleRequest
+		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+		@param behaviorId id of the Behavior Detection Rule
+		@return ApiActivateBehaviorDetectionRuleRequest
 	*/
 	ActivateBehaviorDetectionRule(ctx context.Context, behaviorId string) ApiActivateBehaviorDetectionRuleRequest
 
@@ -52,12 +50,12 @@ type BehaviorAPI interface {
 	ActivateBehaviorDetectionRuleExecute(r ApiActivateBehaviorDetectionRuleRequest) (*ListBehaviorDetectionRules200ResponseInner, *APIResponse, error)
 
 	/*
-	CreateBehaviorDetectionRule Create a Behavior Detection Rule
+		CreateBehaviorDetectionRule Create a Behavior Detection Rule
 
-	Creates a new behavior detection rule
+		Creates a new behavior detection rule
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@return ApiCreateBehaviorDetectionRuleRequest
+		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+		@return ApiCreateBehaviorDetectionRuleRequest
 	*/
 	CreateBehaviorDetectionRule(ctx context.Context) ApiCreateBehaviorDetectionRuleRequest
 
@@ -66,13 +64,13 @@ type BehaviorAPI interface {
 	CreateBehaviorDetectionRuleExecute(r ApiCreateBehaviorDetectionRuleRequest) (*BehaviorRule, *APIResponse, error)
 
 	/*
-	DeactivateBehaviorDetectionRule Deactivate a Behavior Detection Rule
+		DeactivateBehaviorDetectionRule Deactivate a Behavior Detection Rule
 
-	Deactivates a behavior detection rule
+		Deactivates a behavior detection rule
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param behaviorId id of the Behavior Detection Rule
-	@return ApiDeactivateBehaviorDetectionRuleRequest
+		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+		@param behaviorId id of the Behavior Detection Rule
+		@return ApiDeactivateBehaviorDetectionRuleRequest
 	*/
 	DeactivateBehaviorDetectionRule(ctx context.Context, behaviorId string) ApiDeactivateBehaviorDetectionRuleRequest
 
@@ -81,13 +79,13 @@ type BehaviorAPI interface {
 	DeactivateBehaviorDetectionRuleExecute(r ApiDeactivateBehaviorDetectionRuleRequest) (*ListBehaviorDetectionRules200ResponseInner, *APIResponse, error)
 
 	/*
-	DeleteBehaviorDetectionRule Delete a Behavior Detection Rule
+		DeleteBehaviorDetectionRule Delete a Behavior Detection Rule
 
-	Deletes a Behavior Detection Rule by `behaviorId`
+		Deletes a Behavior Detection Rule by `behaviorId`
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param behaviorId id of the Behavior Detection Rule
-	@return ApiDeleteBehaviorDetectionRuleRequest
+		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+		@param behaviorId id of the Behavior Detection Rule
+		@return ApiDeleteBehaviorDetectionRuleRequest
 	*/
 	DeleteBehaviorDetectionRule(ctx context.Context, behaviorId string) ApiDeleteBehaviorDetectionRuleRequest
 
@@ -95,13 +93,13 @@ type BehaviorAPI interface {
 	DeleteBehaviorDetectionRuleExecute(r ApiDeleteBehaviorDetectionRuleRequest) (*APIResponse, error)
 
 	/*
-	GetBehaviorDetectionRule Retrieve a Behavior Detection Rule
+		GetBehaviorDetectionRule Retrieve a Behavior Detection Rule
 
-	Retrieves a Behavior Detection Rule by `behaviorId`
+		Retrieves a Behavior Detection Rule by `behaviorId`
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param behaviorId id of the Behavior Detection Rule
-	@return ApiGetBehaviorDetectionRuleRequest
+		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+		@param behaviorId id of the Behavior Detection Rule
+		@return ApiGetBehaviorDetectionRuleRequest
 	*/
 	GetBehaviorDetectionRule(ctx context.Context, behaviorId string) ApiGetBehaviorDetectionRuleRequest
 
@@ -110,12 +108,12 @@ type BehaviorAPI interface {
 	GetBehaviorDetectionRuleExecute(r ApiGetBehaviorDetectionRuleRequest) (*ListBehaviorDetectionRules200ResponseInner, *APIResponse, error)
 
 	/*
-	ListBehaviorDetectionRules List all Behavior Detection Rules
+		ListBehaviorDetectionRules List all Behavior Detection Rules
 
-	Lists all behavior detection rules with pagination support
+		Lists all behavior detection rules with pagination support
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@return ApiListBehaviorDetectionRulesRequest
+		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+		@return ApiListBehaviorDetectionRulesRequest
 	*/
 	ListBehaviorDetectionRules(ctx context.Context) ApiListBehaviorDetectionRulesRequest
 
@@ -124,13 +122,13 @@ type BehaviorAPI interface {
 	ListBehaviorDetectionRulesExecute(r ApiListBehaviorDetectionRulesRequest) ([]ListBehaviorDetectionRules200ResponseInner, *APIResponse, error)
 
 	/*
-	ReplaceBehaviorDetectionRule Replace a Behavior Detection Rule
+		ReplaceBehaviorDetectionRule Replace a Behavior Detection Rule
 
-	Replaces a Behavior Detection Rule by `behaviorId`
+		Replaces a Behavior Detection Rule by `behaviorId`
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param behaviorId id of the Behavior Detection Rule
-	@return ApiReplaceBehaviorDetectionRuleRequest
+		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+		@param behaviorId id of the Behavior Detection Rule
+		@return ApiReplaceBehaviorDetectionRuleRequest
 	*/
 	ReplaceBehaviorDetectionRule(ctx context.Context, behaviorId string) ApiReplaceBehaviorDetectionRuleRequest
 
@@ -143,7 +141,7 @@ type BehaviorAPI interface {
 type BehaviorAPIService service
 
 type ApiActivateBehaviorDetectionRuleRequest struct {
-	ctx context.Context
+	ctx        context.Context
 	ApiService BehaviorAPI
 	behaviorId string
 	retryCount int32
@@ -158,21 +156,22 @@ ActivateBehaviorDetectionRule Activate a Behavior Detection Rule
 
 Activates a behavior detection rule
 
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @param behaviorId id of the Behavior Detection Rule
- @return ApiActivateBehaviorDetectionRuleRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param behaviorId id of the Behavior Detection Rule
+	@return ApiActivateBehaviorDetectionRuleRequest
 */
 func (a *BehaviorAPIService) ActivateBehaviorDetectionRule(ctx context.Context, behaviorId string) ApiActivateBehaviorDetectionRuleRequest {
 	return ApiActivateBehaviorDetectionRuleRequest{
 		ApiService: a,
-		ctx: ctx,
+		ctx:        ctx,
 		behaviorId: behaviorId,
 		retryCount: 0,
 	}
 }
 
 // Execute executes the request
-//  @return ListBehaviorDetectionRules200ResponseInner
+//
+//	@return ListBehaviorDetectionRules200ResponseInner
 func (a *BehaviorAPIService) ActivateBehaviorDetectionRuleExecute(r ApiActivateBehaviorDetectionRuleRequest) (*ListBehaviorDetectionRules200ResponseInner, *APIResponse, error) {
 	var (
 		localVarHTTPMethod   = http.MethodPost
@@ -181,7 +180,7 @@ func (a *BehaviorAPIService) ActivateBehaviorDetectionRuleExecute(r ApiActivateB
 		localVarReturnValue  *ListBehaviorDetectionRules200ResponseInner
 		localVarHTTPResponse *http.Response
 		localAPIResponse     *APIResponse
-		err 				 error
+		err                  error
 	)
 
 	if a.client.cfg.Okta.Client.RequestTimeout > 0 {
@@ -302,15 +301,15 @@ func (a *BehaviorAPIService) ActivateBehaviorDetectionRuleExecute(r ApiActivateB
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
 		return localVarReturnValue, localAPIResponse, newErr
 	}
-	
+
 	localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
 	return localVarReturnValue, localAPIResponse, nil
 }
 
 type ApiCreateBehaviorDetectionRuleRequest struct {
-	ctx context.Context
+	ctx        context.Context
 	ApiService BehaviorAPI
-	rule *ListBehaviorDetectionRules200ResponseInner
+	rule       *ListBehaviorDetectionRules200ResponseInner
 	retryCount int32
 }
 
@@ -328,19 +327,20 @@ CreateBehaviorDetectionRule Create a Behavior Detection Rule
 
 Creates a new behavior detection rule
 
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @return ApiCreateBehaviorDetectionRuleRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@return ApiCreateBehaviorDetectionRuleRequest
 */
 func (a *BehaviorAPIService) CreateBehaviorDetectionRule(ctx context.Context) ApiCreateBehaviorDetectionRuleRequest {
 	return ApiCreateBehaviorDetectionRuleRequest{
 		ApiService: a,
-		ctx: ctx,
+		ctx:        ctx,
 		retryCount: 0,
 	}
 }
 
 // Execute executes the request
-//  @return BehaviorRule
+//
+//	@return BehaviorRule
 func (a *BehaviorAPIService) CreateBehaviorDetectionRuleExecute(r ApiCreateBehaviorDetectionRuleRequest) (*BehaviorRule, *APIResponse, error) {
 	var (
 		localVarHTTPMethod   = http.MethodPost
@@ -349,7 +349,7 @@ func (a *BehaviorAPIService) CreateBehaviorDetectionRuleExecute(r ApiCreateBehav
 		localVarReturnValue  *BehaviorRule
 		localVarHTTPResponse *http.Response
 		localAPIResponse     *APIResponse
-		err 				 error
+		err                  error
 	)
 
 	if a.client.cfg.Okta.Client.RequestTimeout > 0 {
@@ -474,13 +474,13 @@ func (a *BehaviorAPIService) CreateBehaviorDetectionRuleExecute(r ApiCreateBehav
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
 		return localVarReturnValue, localAPIResponse, newErr
 	}
-	
+
 	localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
 	return localVarReturnValue, localAPIResponse, nil
 }
 
 type ApiDeactivateBehaviorDetectionRuleRequest struct {
-	ctx context.Context
+	ctx        context.Context
 	ApiService BehaviorAPI
 	behaviorId string
 	retryCount int32
@@ -495,21 +495,22 @@ DeactivateBehaviorDetectionRule Deactivate a Behavior Detection Rule
 
 Deactivates a behavior detection rule
 
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @param behaviorId id of the Behavior Detection Rule
- @return ApiDeactivateBehaviorDetectionRuleRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param behaviorId id of the Behavior Detection Rule
+	@return ApiDeactivateBehaviorDetectionRuleRequest
 */
 func (a *BehaviorAPIService) DeactivateBehaviorDetectionRule(ctx context.Context, behaviorId string) ApiDeactivateBehaviorDetectionRuleRequest {
 	return ApiDeactivateBehaviorDetectionRuleRequest{
 		ApiService: a,
-		ctx: ctx,
+		ctx:        ctx,
 		behaviorId: behaviorId,
 		retryCount: 0,
 	}
 }
 
 // Execute executes the request
-//  @return ListBehaviorDetectionRules200ResponseInner
+//
+//	@return ListBehaviorDetectionRules200ResponseInner
 func (a *BehaviorAPIService) DeactivateBehaviorDetectionRuleExecute(r ApiDeactivateBehaviorDetectionRuleRequest) (*ListBehaviorDetectionRules200ResponseInner, *APIResponse, error) {
 	var (
 		localVarHTTPMethod   = http.MethodPost
@@ -518,7 +519,7 @@ func (a *BehaviorAPIService) DeactivateBehaviorDetectionRuleExecute(r ApiDeactiv
 		localVarReturnValue  *ListBehaviorDetectionRules200ResponseInner
 		localVarHTTPResponse *http.Response
 		localAPIResponse     *APIResponse
-		err 				 error
+		err                  error
 	)
 
 	if a.client.cfg.Okta.Client.RequestTimeout > 0 {
@@ -639,13 +640,13 @@ func (a *BehaviorAPIService) DeactivateBehaviorDetectionRuleExecute(r ApiDeactiv
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
 		return localVarReturnValue, localAPIResponse, newErr
 	}
-	
+
 	localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
 	return localVarReturnValue, localAPIResponse, nil
 }
 
 type ApiDeleteBehaviorDetectionRuleRequest struct {
-	ctx context.Context
+	ctx        context.Context
 	ApiService BehaviorAPI
 	behaviorId string
 	retryCount int32
@@ -660,14 +661,14 @@ DeleteBehaviorDetectionRule Delete a Behavior Detection Rule
 
 Deletes a Behavior Detection Rule by `behaviorId`
 
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @param behaviorId id of the Behavior Detection Rule
- @return ApiDeleteBehaviorDetectionRuleRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param behaviorId id of the Behavior Detection Rule
+	@return ApiDeleteBehaviorDetectionRuleRequest
 */
 func (a *BehaviorAPIService) DeleteBehaviorDetectionRule(ctx context.Context, behaviorId string) ApiDeleteBehaviorDetectionRuleRequest {
 	return ApiDeleteBehaviorDetectionRuleRequest{
 		ApiService: a,
-		ctx: ctx,
+		ctx:        ctx,
 		behaviorId: behaviorId,
 		retryCount: 0,
 	}
@@ -681,7 +682,7 @@ func (a *BehaviorAPIService) DeleteBehaviorDetectionRuleExecute(r ApiDeleteBehav
 		formFiles            []formFile
 		localVarHTTPResponse *http.Response
 		localAPIResponse     *APIResponse
-		err 				 error
+		err                  error
 	)
 
 	if a.client.cfg.Okta.Client.RequestTimeout > 0 {
@@ -798,7 +799,7 @@ func (a *BehaviorAPIService) DeleteBehaviorDetectionRuleExecute(r ApiDeleteBehav
 }
 
 type ApiGetBehaviorDetectionRuleRequest struct {
-	ctx context.Context
+	ctx        context.Context
 	ApiService BehaviorAPI
 	behaviorId string
 	retryCount int32
@@ -813,21 +814,22 @@ GetBehaviorDetectionRule Retrieve a Behavior Detection Rule
 
 Retrieves a Behavior Detection Rule by `behaviorId`
 
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @param behaviorId id of the Behavior Detection Rule
- @return ApiGetBehaviorDetectionRuleRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param behaviorId id of the Behavior Detection Rule
+	@return ApiGetBehaviorDetectionRuleRequest
 */
 func (a *BehaviorAPIService) GetBehaviorDetectionRule(ctx context.Context, behaviorId string) ApiGetBehaviorDetectionRuleRequest {
 	return ApiGetBehaviorDetectionRuleRequest{
 		ApiService: a,
-		ctx: ctx,
+		ctx:        ctx,
 		behaviorId: behaviorId,
 		retryCount: 0,
 	}
 }
 
 // Execute executes the request
-//  @return ListBehaviorDetectionRules200ResponseInner
+//
+//	@return ListBehaviorDetectionRules200ResponseInner
 func (a *BehaviorAPIService) GetBehaviorDetectionRuleExecute(r ApiGetBehaviorDetectionRuleRequest) (*ListBehaviorDetectionRules200ResponseInner, *APIResponse, error) {
 	var (
 		localVarHTTPMethod   = http.MethodGet
@@ -836,7 +838,7 @@ func (a *BehaviorAPIService) GetBehaviorDetectionRuleExecute(r ApiGetBehaviorDet
 		localVarReturnValue  *ListBehaviorDetectionRules200ResponseInner
 		localVarHTTPResponse *http.Response
 		localAPIResponse     *APIResponse
-		err 				 error
+		err                  error
 	)
 
 	if a.client.cfg.Okta.Client.RequestTimeout > 0 {
@@ -957,13 +959,13 @@ func (a *BehaviorAPIService) GetBehaviorDetectionRuleExecute(r ApiGetBehaviorDet
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
 		return localVarReturnValue, localAPIResponse, newErr
 	}
-	
+
 	localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
 	return localVarReturnValue, localAPIResponse, nil
 }
 
 type ApiListBehaviorDetectionRulesRequest struct {
-	ctx context.Context
+	ctx        context.Context
 	ApiService BehaviorAPI
 	retryCount int32
 }
@@ -977,19 +979,20 @@ ListBehaviorDetectionRules List all Behavior Detection Rules
 
 Lists all behavior detection rules with pagination support
 
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @return ApiListBehaviorDetectionRulesRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@return ApiListBehaviorDetectionRulesRequest
 */
 func (a *BehaviorAPIService) ListBehaviorDetectionRules(ctx context.Context) ApiListBehaviorDetectionRulesRequest {
 	return ApiListBehaviorDetectionRulesRequest{
 		ApiService: a,
-		ctx: ctx,
+		ctx:        ctx,
 		retryCount: 0,
 	}
 }
 
 // Execute executes the request
-//  @return []ListBehaviorDetectionRules200ResponseInner
+//
+//	@return []ListBehaviorDetectionRules200ResponseInner
 func (a *BehaviorAPIService) ListBehaviorDetectionRulesExecute(r ApiListBehaviorDetectionRulesRequest) ([]ListBehaviorDetectionRules200ResponseInner, *APIResponse, error) {
 	var (
 		localVarHTTPMethod   = http.MethodGet
@@ -998,7 +1001,7 @@ func (a *BehaviorAPIService) ListBehaviorDetectionRulesExecute(r ApiListBehavior
 		localVarReturnValue  []ListBehaviorDetectionRules200ResponseInner
 		localVarHTTPResponse *http.Response
 		localAPIResponse     *APIResponse
-		err 				 error
+		err                  error
 	)
 
 	if a.client.cfg.Okta.Client.RequestTimeout > 0 {
@@ -1106,16 +1109,16 @@ func (a *BehaviorAPIService) ListBehaviorDetectionRulesExecute(r ApiListBehavior
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
 		return localVarReturnValue, localAPIResponse, newErr
 	}
-	
+
 	localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
 	return localVarReturnValue, localAPIResponse, nil
 }
 
 type ApiReplaceBehaviorDetectionRuleRequest struct {
-	ctx context.Context
+	ctx        context.Context
 	ApiService BehaviorAPI
 	behaviorId string
-	rule *ListBehaviorDetectionRules200ResponseInner
+	rule       *ListBehaviorDetectionRules200ResponseInner
 	retryCount int32
 }
 
@@ -1133,21 +1136,22 @@ ReplaceBehaviorDetectionRule Replace a Behavior Detection Rule
 
 Replaces a Behavior Detection Rule by `behaviorId`
 
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @param behaviorId id of the Behavior Detection Rule
- @return ApiReplaceBehaviorDetectionRuleRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param behaviorId id of the Behavior Detection Rule
+	@return ApiReplaceBehaviorDetectionRuleRequest
 */
 func (a *BehaviorAPIService) ReplaceBehaviorDetectionRule(ctx context.Context, behaviorId string) ApiReplaceBehaviorDetectionRuleRequest {
 	return ApiReplaceBehaviorDetectionRuleRequest{
 		ApiService: a,
-		ctx: ctx,
+		ctx:        ctx,
 		behaviorId: behaviorId,
 		retryCount: 0,
 	}
 }
 
 // Execute executes the request
-//  @return ListBehaviorDetectionRules200ResponseInner
+//
+//	@return ListBehaviorDetectionRules200ResponseInner
 func (a *BehaviorAPIService) ReplaceBehaviorDetectionRuleExecute(r ApiReplaceBehaviorDetectionRuleRequest) (*ListBehaviorDetectionRules200ResponseInner, *APIResponse, error) {
 	var (
 		localVarHTTPMethod   = http.MethodPut
@@ -1156,7 +1160,7 @@ func (a *BehaviorAPIService) ReplaceBehaviorDetectionRuleExecute(r ApiReplaceBeh
 		localVarReturnValue  *ListBehaviorDetectionRules200ResponseInner
 		localVarHTTPResponse *http.Response
 		localAPIResponse     *APIResponse
-		err 				 error
+		err                  error
 	)
 
 	if a.client.cfg.Okta.Client.RequestTimeout > 0 {
@@ -1294,7 +1298,7 @@ func (a *BehaviorAPIService) ReplaceBehaviorDetectionRuleExecute(r ApiReplaceBeh
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
 		return localVarReturnValue, localAPIResponse, newErr
 	}
-	
+
 	localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
 	return localVarReturnValue, localAPIResponse, nil
 }

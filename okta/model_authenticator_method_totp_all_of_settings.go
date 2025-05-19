@@ -36,7 +36,7 @@ type AuthenticatorMethodTotpAllOfSettings struct {
 	// HMAC algorithm
 	Algorithm *string `json:"algorithm,omitempty"`
 	// Number of digits in an OTP value
-	PassCodeLength *int32 `json:"passCodeLength,omitempty"`
+	PassCodeLength       *int32 `json:"passCodeLength,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -270,4 +270,3 @@ func (v *NullableAuthenticatorMethodTotpAllOfSettings) UnmarshalJSON(src []byte)
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-

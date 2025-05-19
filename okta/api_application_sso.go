@@ -29,21 +29,19 @@ import (
 	"io/ioutil"
 	"net/http"
 	"net/url"
-	"time"
 	"strings"
+	"time"
 )
 
-
 type ApplicationSSOAPI interface {
-
 	/*
-	PreviewSAMLmetadataForApplication Preview the application SAML metadata
+		PreviewSAMLmetadataForApplication Preview the application SAML metadata
 
-	Previews the SSO SAML metadata for an application
+		Previews the SSO SAML metadata for an application
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param appId Application ID
-	@return ApiPreviewSAMLmetadataForApplicationRequest
+		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+		@param appId Application ID
+		@return ApiPreviewSAMLmetadataForApplicationRequest
 	*/
 	PreviewSAMLmetadataForApplication(ctx context.Context, appId string) ApiPreviewSAMLmetadataForApplicationRequest
 
@@ -56,9 +54,9 @@ type ApplicationSSOAPI interface {
 type ApplicationSSOAPIService service
 
 type ApiPreviewSAMLmetadataForApplicationRequest struct {
-	ctx context.Context
+	ctx        context.Context
 	ApiService ApplicationSSOAPI
-	appId string
+	appId      string
 	retryCount int32
 }
 
@@ -71,21 +69,22 @@ PreviewSAMLmetadataForApplication Preview the application SAML metadata
 
 Previews the SSO SAML metadata for an application
 
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @param appId Application ID
- @return ApiPreviewSAMLmetadataForApplicationRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param appId Application ID
+	@return ApiPreviewSAMLmetadataForApplicationRequest
 */
 func (a *ApplicationSSOAPIService) PreviewSAMLmetadataForApplication(ctx context.Context, appId string) ApiPreviewSAMLmetadataForApplicationRequest {
 	return ApiPreviewSAMLmetadataForApplicationRequest{
 		ApiService: a,
-		ctx: ctx,
-		appId: appId,
+		ctx:        ctx,
+		appId:      appId,
 		retryCount: 0,
 	}
 }
 
 // Execute executes the request
-//  @return string
+//
+//	@return string
 func (a *ApplicationSSOAPIService) PreviewSAMLmetadataForApplicationExecute(r ApiPreviewSAMLmetadataForApplicationRequest) (string, *APIResponse, error) {
 	var (
 		localVarHTTPMethod   = http.MethodGet
@@ -94,7 +93,7 @@ func (a *ApplicationSSOAPIService) PreviewSAMLmetadataForApplicationExecute(r Ap
 		localVarReturnValue  string
 		localVarHTTPResponse *http.Response
 		localAPIResponse     *APIResponse
-		err 				 error
+		err                  error
 	)
 
 	if a.client.cfg.Okta.Client.RequestTimeout > 0 {
@@ -215,7 +214,7 @@ func (a *ApplicationSSOAPIService) PreviewSAMLmetadataForApplicationExecute(r Ap
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
 		return localVarReturnValue, localAPIResponse, newErr
 	}
-	
+
 	localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
 	return localVarReturnValue, localAPIResponse, nil
 }

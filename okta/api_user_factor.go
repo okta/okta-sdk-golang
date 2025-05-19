@@ -29,25 +29,23 @@ import (
 	"io/ioutil"
 	"net/http"
 	"net/url"
-	"time"
 	"strings"
+	"time"
 )
 
-
 type UserFactorAPI interface {
-
 	/*
-	ActivateFactor Activate a Factor
+			ActivateFactor Activate a Factor
 
-	Activates a Factor. Some Factors (`call`, `email`, `push`, `sms`, `token:software:totp`, `u2f`, and `webauthn`) require activation to complete the enrollment process.
+			Activates a Factor. Some Factors (`call`, `email`, `push`, `sms`, `token:software:totp`, `u2f`, and `webauthn`) require activation to complete the enrollment process.
 
-Okta enforces a rate limit of five activation attempts within five minutes.
-After a user exceeds the rate limit, Okta returns an error message.
+		Okta enforces a rate limit of five activation attempts within five minutes.
+		After a user exceeds the rate limit, Okta returns an error message.
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param userId ID of an existing Okta user
-	@param factorId ID of an existing user Factor
-	@return ApiActivateFactorRequest
+			@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+			@param userId ID of an existing Okta user
+			@param factorId ID of an existing user Factor
+			@return ApiActivateFactorRequest
 	*/
 	ActivateFactor(ctx context.Context, userId string, factorId string) ApiActivateFactorRequest
 
@@ -56,13 +54,13 @@ After a user exceeds the rate limit, Okta returns an error message.
 	ActivateFactorExecute(r ApiActivateFactorRequest) (*ListFactors200ResponseInner, *APIResponse, error)
 
 	/*
-	EnrollFactor Enroll a Factor
+		EnrollFactor Enroll a Factor
 
-	Enrolls a supported Factor for the specified user. Some Factor types require a seperate activation to complete the enrollment process. See [Activate a Factor](./#tag/UserFactor/operation/activateFactor).
+		Enrolls a supported Factor for the specified user. Some Factor types require a seperate activation to complete the enrollment process. See [Activate a Factor](./#tag/UserFactor/operation/activateFactor).
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param userId ID of an existing Okta user
-	@return ApiEnrollFactorRequest
+		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+		@param userId ID of an existing Okta user
+		@return ApiEnrollFactorRequest
 	*/
 	EnrollFactor(ctx context.Context, userId string) ApiEnrollFactorRequest
 
@@ -71,14 +69,14 @@ After a user exceeds the rate limit, Okta returns an error message.
 	EnrollFactorExecute(r ApiEnrollFactorRequest) (*ListFactors200ResponseInner, *APIResponse, error)
 
 	/*
-	GetFactor Retrieve a Factor
+		GetFactor Retrieve a Factor
 
-	Retrieves an existing Factor for the specified user
+		Retrieves an existing Factor for the specified user
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param userId ID of an existing Okta user
-	@param factorId ID of an existing user Factor
-	@return ApiGetFactorRequest
+		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+		@param userId ID of an existing Okta user
+		@param factorId ID of an existing user Factor
+		@return ApiGetFactorRequest
 	*/
 	GetFactor(ctx context.Context, userId string, factorId string) ApiGetFactorRequest
 
@@ -87,15 +85,15 @@ After a user exceeds the rate limit, Okta returns an error message.
 	GetFactorExecute(r ApiGetFactorRequest) (*ListFactors200ResponseInner, *APIResponse, error)
 
 	/*
-	GetFactorTransactionStatus Retrieve a Factor transaction status
+		GetFactorTransactionStatus Retrieve a Factor transaction status
 
-	Retrieves the status of a `push` Factor verification transaction
+		Retrieves the status of a `push` Factor verification transaction
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param userId ID of an existing Okta user
-	@param factorId ID of an existing user Factor
-	@param transactionId ID of an existing Factor verification transaction
-	@return ApiGetFactorTransactionStatusRequest
+		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+		@param userId ID of an existing Okta user
+		@param factorId ID of an existing user Factor
+		@param transactionId ID of an existing Factor verification transaction
+		@return ApiGetFactorTransactionStatusRequest
 	*/
 	GetFactorTransactionStatus(ctx context.Context, userId string, factorId string, transactionId string) ApiGetFactorTransactionStatusRequest
 
@@ -104,13 +102,13 @@ After a user exceeds the rate limit, Okta returns an error message.
 	GetFactorTransactionStatusExecute(r ApiGetFactorTransactionStatusRequest) (*GetFactorTransactionStatus200Response, *APIResponse, error)
 
 	/*
-	ListFactors List all enrolled Factors
+		ListFactors List all enrolled Factors
 
-	Lists all enrolled Factors for the specified user
+		Lists all enrolled Factors for the specified user
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param userId ID of an existing Okta user
-	@return ApiListFactorsRequest
+		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+		@param userId ID of an existing Okta user
+		@return ApiListFactorsRequest
 	*/
 	ListFactors(ctx context.Context, userId string) ApiListFactorsRequest
 
@@ -119,13 +117,13 @@ After a user exceeds the rate limit, Okta returns an error message.
 	ListFactorsExecute(r ApiListFactorsRequest) ([]ListFactors200ResponseInner, *APIResponse, error)
 
 	/*
-	ListSupportedFactors List all supported Factors
+		ListSupportedFactors List all supported Factors
 
-	Lists all the supported Factors that can be enrolled for the specified user
+		Lists all the supported Factors that can be enrolled for the specified user
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param userId ID of an existing Okta user
-	@return ApiListSupportedFactorsRequest
+		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+		@param userId ID of an existing Okta user
+		@return ApiListSupportedFactorsRequest
 	*/
 	ListSupportedFactors(ctx context.Context, userId string) ApiListSupportedFactorsRequest
 
@@ -134,13 +132,13 @@ After a user exceeds the rate limit, Okta returns an error message.
 	ListSupportedFactorsExecute(r ApiListSupportedFactorsRequest) ([]UserFactorSupported, *APIResponse, error)
 
 	/*
-	ListSupportedSecurityQuestions List all supported Security Questions
+		ListSupportedSecurityQuestions List all supported Security Questions
 
-	Lists all available Security Questions for the specified user
+		Lists all available Security Questions for the specified user
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param userId ID of an existing Okta user
-	@return ApiListSupportedSecurityQuestionsRequest
+		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+		@param userId ID of an existing Okta user
+		@return ApiListSupportedSecurityQuestionsRequest
 	*/
 	ListSupportedSecurityQuestions(ctx context.Context, userId string) ApiListSupportedSecurityQuestionsRequest
 
@@ -149,18 +147,18 @@ After a user exceeds the rate limit, Okta returns an error message.
 	ListSupportedSecurityQuestionsExecute(r ApiListSupportedSecurityQuestionsRequest) ([]UserFactorSecurityQuestionProfile, *APIResponse, error)
 
 	/*
-	ResendEnrollFactor Resend a Factor enrollment
+			ResendEnrollFactor Resend a Factor enrollment
 
-	Resends an `sms`, `call`, or `email` factor challenge as part of an enrollment flow.
+			Resends an `sms`, `call`, or `email` factor challenge as part of an enrollment flow.
 
-For `call` and `sms` factors, Okta enforces a rate limit of one OTP challenge per device every 30 seconds. You can configure your `sms` and `call` factors to use a third-party telephony provider. See the [Telephony inline hook reference](https://developer.okta.com/docs/reference/telephony-hook/). Okta round-robins between SMS providers with every resend request to help ensure delivery of an SMS and Call OTPs across different carriers.
+		For `call` and `sms` factors, Okta enforces a rate limit of one OTP challenge per device every 30 seconds. You can configure your `sms` and `call` factors to use a third-party telephony provider. See the [Telephony inline hook reference](https://developer.okta.com/docs/reference/telephony-hook/). Okta round-robins between SMS providers with every resend request to help ensure delivery of an SMS and Call OTPs across different carriers.
 
-> **Note**: Resend operations aren't allowed after a factor exceeds the activation rate limit. See [Activate a Factor](./#tag/UserFactor/operation/activateFactor).
+		> **Note**: Resend operations aren't allowed after a factor exceeds the activation rate limit. See [Activate a Factor](./#tag/UserFactor/operation/activateFactor).
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param userId ID of an existing Okta user
-	@param factorId ID of an existing user Factor
-	@return ApiResendEnrollFactorRequest
+			@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+			@param userId ID of an existing Okta user
+			@param factorId ID of an existing user Factor
+			@return ApiResendEnrollFactorRequest
 	*/
 	ResendEnrollFactor(ctx context.Context, userId string, factorId string) ApiResendEnrollFactorRequest
 
@@ -169,16 +167,16 @@ For `call` and `sms` factors, Okta enforces a rate limit of one OTP challenge pe
 	ResendEnrollFactorExecute(r ApiResendEnrollFactorRequest) (*ResendEnrollFactorRequest, *APIResponse, error)
 
 	/*
-	UnenrollFactor Unenroll a Factor
+			UnenrollFactor Unenroll a Factor
 
-	Unenrolls an existing Factor for the specified user. This allows the user to enroll a new Factor.
+			Unenrolls an existing Factor for the specified user. This allows the user to enroll a new Factor.
 
-> **Note**: If you unenroll the `push` or the `signed_nonce` Factors, Okta also unenrolls any other `totp`, `signed_nonce`, or Okta Verify `push` Factors associated with the user.
+		> **Note**: If you unenroll the `push` or the `signed_nonce` Factors, Okta also unenrolls any other `totp`, `signed_nonce`, or Okta Verify `push` Factors associated with the user.
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param userId ID of an existing Okta user
-	@param factorId ID of an existing user Factor
-	@return ApiUnenrollFactorRequest
+			@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+			@param userId ID of an existing Okta user
+			@param factorId ID of an existing user Factor
+			@return ApiUnenrollFactorRequest
 	*/
 	UnenrollFactor(ctx context.Context, userId string, factorId string) ApiUnenrollFactorRequest
 
@@ -186,16 +184,16 @@ For `call` and `sms` factors, Okta enforces a rate limit of one OTP challenge pe
 	UnenrollFactorExecute(r ApiUnenrollFactorRequest) (*APIResponse, error)
 
 	/*
-	VerifyFactor Verify a Factor
+			VerifyFactor Verify a Factor
 
-	Verifies an OTP for a Factor. Some Factors (`call`, `email`, `push`, `sms`, `u2f`, and `webauthn`) must first issue a challenge before you can verify the Factor. Do this by making a request without a body. After a challenge is issued, make another request to verify the Factor.
+			Verifies an OTP for a Factor. Some Factors (`call`, `email`, `push`, `sms`, `u2f`, and `webauthn`) must first issue a challenge before you can verify the Factor. Do this by making a request without a body. After a challenge is issued, make another request to verify the Factor.
 
-**Note**: To verify a `push` factor, use the **poll** link returned when you issue the challenge. See [Retrieve a Factor Transaction Status](/openapi/okta-management/management/tag/UserFactor/#tag/UserFactor/operation/getFactorTransactionStatus).
+		**Note**: To verify a `push` factor, use the **poll** link returned when you issue the challenge. See [Retrieve a Factor Transaction Status](/openapi/okta-management/management/tag/UserFactor/#tag/UserFactor/operation/getFactorTransactionStatus).
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param userId ID of an existing Okta user
-	@param factorId ID of an existing user Factor
-	@return ApiVerifyFactorRequest
+			@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+			@param userId ID of an existing Okta user
+			@param factorId ID of an existing user Factor
+			@return ApiVerifyFactorRequest
 	*/
 	VerifyFactor(ctx context.Context, userId string, factorId string) ApiVerifyFactorRequest
 
@@ -208,11 +206,11 @@ For `call` and `sms` factors, Okta enforces a rate limit of one OTP challenge pe
 type UserFactorAPIService service
 
 type ApiActivateFactorRequest struct {
-	ctx context.Context
+	ctx        context.Context
 	ApiService UserFactorAPI
-	userId string
-	factorId string
-	body *map[string]interface{}
+	userId     string
+	factorId   string
+	body       *map[string]interface{}
 	retryCount int32
 }
 
@@ -233,23 +231,24 @@ Activates a Factor. Some Factors (`call`, `email`, `push`, `sms`, `token:softwar
 Okta enforces a rate limit of five activation attempts within five minutes.
 After a user exceeds the rate limit, Okta returns an error message.
 
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @param userId ID of an existing Okta user
- @param factorId ID of an existing user Factor
- @return ApiActivateFactorRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param userId ID of an existing Okta user
+	@param factorId ID of an existing user Factor
+	@return ApiActivateFactorRequest
 */
 func (a *UserFactorAPIService) ActivateFactor(ctx context.Context, userId string, factorId string) ApiActivateFactorRequest {
 	return ApiActivateFactorRequest{
 		ApiService: a,
-		ctx: ctx,
-		userId: userId,
-		factorId: factorId,
+		ctx:        ctx,
+		userId:     userId,
+		factorId:   factorId,
 		retryCount: 0,
 	}
 }
 
 // Execute executes the request
-//  @return ListFactors200ResponseInner
+//
+//	@return ListFactors200ResponseInner
 func (a *UserFactorAPIService) ActivateFactorExecute(r ApiActivateFactorRequest) (*ListFactors200ResponseInner, *APIResponse, error) {
 	var (
 		localVarHTTPMethod   = http.MethodPost
@@ -258,7 +257,7 @@ func (a *UserFactorAPIService) ActivateFactorExecute(r ApiActivateFactorRequest)
 		localVarReturnValue  *ListFactors200ResponseInner
 		localVarHTTPResponse *http.Response
 		localAPIResponse     *APIResponse
-		err 				 error
+		err                  error
 	)
 
 	if a.client.cfg.Okta.Client.RequestTimeout > 0 {
@@ -394,22 +393,22 @@ func (a *UserFactorAPIService) ActivateFactorExecute(r ApiActivateFactorRequest)
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
 		return localVarReturnValue, localAPIResponse, newErr
 	}
-	
+
 	localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
 	return localVarReturnValue, localAPIResponse, nil
 }
 
 type ApiEnrollFactorRequest struct {
-	ctx context.Context
-	ApiService UserFactorAPI
-	userId string
-	body *ListFactors200ResponseInner
-	updatePhone *bool
-	templateId *string
+	ctx                  context.Context
+	ApiService           UserFactorAPI
+	userId               string
+	body                 *ListFactors200ResponseInner
+	updatePhone          *bool
+	templateId           *string
 	tokenLifetimeSeconds *int32
-	activate *bool
-	acceptLanguage *string
-	retryCount int32
+	activate             *bool
+	acceptLanguage       *string
+	retryCount           int32
 }
 
 // Factor
@@ -457,21 +456,22 @@ EnrollFactor Enroll a Factor
 
 Enrolls a supported Factor for the specified user. Some Factor types require a seperate activation to complete the enrollment process. See [Activate a Factor](./#tag/UserFactor/operation/activateFactor).
 
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @param userId ID of an existing Okta user
- @return ApiEnrollFactorRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param userId ID of an existing Okta user
+	@return ApiEnrollFactorRequest
 */
 func (a *UserFactorAPIService) EnrollFactor(ctx context.Context, userId string) ApiEnrollFactorRequest {
 	return ApiEnrollFactorRequest{
 		ApiService: a,
-		ctx: ctx,
-		userId: userId,
+		ctx:        ctx,
+		userId:     userId,
 		retryCount: 0,
 	}
 }
 
 // Execute executes the request
-//  @return ListFactors200ResponseInner
+//
+//	@return ListFactors200ResponseInner
 func (a *UserFactorAPIService) EnrollFactorExecute(r ApiEnrollFactorRequest) (*ListFactors200ResponseInner, *APIResponse, error) {
 	var (
 		localVarHTTPMethod   = http.MethodPost
@@ -480,7 +480,7 @@ func (a *UserFactorAPIService) EnrollFactorExecute(r ApiEnrollFactorRequest) (*L
 		localVarReturnValue  *ListFactors200ResponseInner
 		localVarHTTPResponse *http.Response
 		localAPIResponse     *APIResponse
-		err 				 error
+		err                  error
 	)
 
 	if a.client.cfg.Okta.Client.RequestTimeout > 0 {
@@ -633,16 +633,16 @@ func (a *UserFactorAPIService) EnrollFactorExecute(r ApiEnrollFactorRequest) (*L
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
 		return localVarReturnValue, localAPIResponse, newErr
 	}
-	
+
 	localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
 	return localVarReturnValue, localAPIResponse, nil
 }
 
 type ApiGetFactorRequest struct {
-	ctx context.Context
+	ctx        context.Context
 	ApiService UserFactorAPI
-	userId string
-	factorId string
+	userId     string
+	factorId   string
 	retryCount int32
 }
 
@@ -655,23 +655,24 @@ GetFactor Retrieve a Factor
 
 Retrieves an existing Factor for the specified user
 
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @param userId ID of an existing Okta user
- @param factorId ID of an existing user Factor
- @return ApiGetFactorRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param userId ID of an existing Okta user
+	@param factorId ID of an existing user Factor
+	@return ApiGetFactorRequest
 */
 func (a *UserFactorAPIService) GetFactor(ctx context.Context, userId string, factorId string) ApiGetFactorRequest {
 	return ApiGetFactorRequest{
 		ApiService: a,
-		ctx: ctx,
-		userId: userId,
-		factorId: factorId,
+		ctx:        ctx,
+		userId:     userId,
+		factorId:   factorId,
 		retryCount: 0,
 	}
 }
 
 // Execute executes the request
-//  @return ListFactors200ResponseInner
+//
+//	@return ListFactors200ResponseInner
 func (a *UserFactorAPIService) GetFactorExecute(r ApiGetFactorRequest) (*ListFactors200ResponseInner, *APIResponse, error) {
 	var (
 		localVarHTTPMethod   = http.MethodGet
@@ -680,7 +681,7 @@ func (a *UserFactorAPIService) GetFactorExecute(r ApiGetFactorRequest) (*ListFac
 		localVarReturnValue  *ListFactors200ResponseInner
 		localVarHTTPResponse *http.Response
 		localAPIResponse     *APIResponse
-		err 				 error
+		err                  error
 	)
 
 	if a.client.cfg.Okta.Client.RequestTimeout > 0 {
@@ -802,18 +803,18 @@ func (a *UserFactorAPIService) GetFactorExecute(r ApiGetFactorRequest) (*ListFac
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
 		return localVarReturnValue, localAPIResponse, newErr
 	}
-	
+
 	localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
 	return localVarReturnValue, localAPIResponse, nil
 }
 
 type ApiGetFactorTransactionStatusRequest struct {
-	ctx context.Context
-	ApiService UserFactorAPI
-	userId string
-	factorId string
+	ctx           context.Context
+	ApiService    UserFactorAPI
+	userId        string
+	factorId      string
 	transactionId string
-	retryCount int32
+	retryCount    int32
 }
 
 func (r ApiGetFactorTransactionStatusRequest) Execute() (*GetFactorTransactionStatus200Response, *APIResponse, error) {
@@ -825,25 +826,26 @@ GetFactorTransactionStatus Retrieve a Factor transaction status
 
 Retrieves the status of a `push` Factor verification transaction
 
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @param userId ID of an existing Okta user
- @param factorId ID of an existing user Factor
- @param transactionId ID of an existing Factor verification transaction
- @return ApiGetFactorTransactionStatusRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param userId ID of an existing Okta user
+	@param factorId ID of an existing user Factor
+	@param transactionId ID of an existing Factor verification transaction
+	@return ApiGetFactorTransactionStatusRequest
 */
 func (a *UserFactorAPIService) GetFactorTransactionStatus(ctx context.Context, userId string, factorId string, transactionId string) ApiGetFactorTransactionStatusRequest {
 	return ApiGetFactorTransactionStatusRequest{
-		ApiService: a,
-		ctx: ctx,
-		userId: userId,
-		factorId: factorId,
+		ApiService:    a,
+		ctx:           ctx,
+		userId:        userId,
+		factorId:      factorId,
 		transactionId: transactionId,
-		retryCount: 0,
+		retryCount:    0,
 	}
 }
 
 // Execute executes the request
-//  @return GetFactorTransactionStatus200Response
+//
+//	@return GetFactorTransactionStatus200Response
 func (a *UserFactorAPIService) GetFactorTransactionStatusExecute(r ApiGetFactorTransactionStatusRequest) (*GetFactorTransactionStatus200Response, *APIResponse, error) {
 	var (
 		localVarHTTPMethod   = http.MethodGet
@@ -852,7 +854,7 @@ func (a *UserFactorAPIService) GetFactorTransactionStatusExecute(r ApiGetFactorT
 		localVarReturnValue  *GetFactorTransactionStatus200Response
 		localVarHTTPResponse *http.Response
 		localAPIResponse     *APIResponse
-		err 				 error
+		err                  error
 	)
 
 	if a.client.cfg.Okta.Client.RequestTimeout > 0 {
@@ -975,15 +977,15 @@ func (a *UserFactorAPIService) GetFactorTransactionStatusExecute(r ApiGetFactorT
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
 		return localVarReturnValue, localAPIResponse, newErr
 	}
-	
+
 	localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
 	return localVarReturnValue, localAPIResponse, nil
 }
 
 type ApiListFactorsRequest struct {
-	ctx context.Context
+	ctx        context.Context
 	ApiService UserFactorAPI
-	userId string
+	userId     string
 	retryCount int32
 }
 
@@ -996,21 +998,22 @@ ListFactors List all enrolled Factors
 
 Lists all enrolled Factors for the specified user
 
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @param userId ID of an existing Okta user
- @return ApiListFactorsRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param userId ID of an existing Okta user
+	@return ApiListFactorsRequest
 */
 func (a *UserFactorAPIService) ListFactors(ctx context.Context, userId string) ApiListFactorsRequest {
 	return ApiListFactorsRequest{
 		ApiService: a,
-		ctx: ctx,
-		userId: userId,
+		ctx:        ctx,
+		userId:     userId,
 		retryCount: 0,
 	}
 }
 
 // Execute executes the request
-//  @return []ListFactors200ResponseInner
+//
+//	@return []ListFactors200ResponseInner
 func (a *UserFactorAPIService) ListFactorsExecute(r ApiListFactorsRequest) ([]ListFactors200ResponseInner, *APIResponse, error) {
 	var (
 		localVarHTTPMethod   = http.MethodGet
@@ -1019,7 +1022,7 @@ func (a *UserFactorAPIService) ListFactorsExecute(r ApiListFactorsRequest) ([]Li
 		localVarReturnValue  []ListFactors200ResponseInner
 		localVarHTTPResponse *http.Response
 		localAPIResponse     *APIResponse
-		err 				 error
+		err                  error
 	)
 
 	if a.client.cfg.Okta.Client.RequestTimeout > 0 {
@@ -1140,15 +1143,15 @@ func (a *UserFactorAPIService) ListFactorsExecute(r ApiListFactorsRequest) ([]Li
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
 		return localVarReturnValue, localAPIResponse, newErr
 	}
-	
+
 	localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
 	return localVarReturnValue, localAPIResponse, nil
 }
 
 type ApiListSupportedFactorsRequest struct {
-	ctx context.Context
+	ctx        context.Context
 	ApiService UserFactorAPI
-	userId string
+	userId     string
 	retryCount int32
 }
 
@@ -1161,21 +1164,22 @@ ListSupportedFactors List all supported Factors
 
 Lists all the supported Factors that can be enrolled for the specified user
 
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @param userId ID of an existing Okta user
- @return ApiListSupportedFactorsRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param userId ID of an existing Okta user
+	@return ApiListSupportedFactorsRequest
 */
 func (a *UserFactorAPIService) ListSupportedFactors(ctx context.Context, userId string) ApiListSupportedFactorsRequest {
 	return ApiListSupportedFactorsRequest{
 		ApiService: a,
-		ctx: ctx,
-		userId: userId,
+		ctx:        ctx,
+		userId:     userId,
 		retryCount: 0,
 	}
 }
 
 // Execute executes the request
-//  @return []UserFactorSupported
+//
+//	@return []UserFactorSupported
 func (a *UserFactorAPIService) ListSupportedFactorsExecute(r ApiListSupportedFactorsRequest) ([]UserFactorSupported, *APIResponse, error) {
 	var (
 		localVarHTTPMethod   = http.MethodGet
@@ -1184,7 +1188,7 @@ func (a *UserFactorAPIService) ListSupportedFactorsExecute(r ApiListSupportedFac
 		localVarReturnValue  []UserFactorSupported
 		localVarHTTPResponse *http.Response
 		localAPIResponse     *APIResponse
-		err 				 error
+		err                  error
 	)
 
 	if a.client.cfg.Okta.Client.RequestTimeout > 0 {
@@ -1305,15 +1309,15 @@ func (a *UserFactorAPIService) ListSupportedFactorsExecute(r ApiListSupportedFac
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
 		return localVarReturnValue, localAPIResponse, newErr
 	}
-	
+
 	localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
 	return localVarReturnValue, localAPIResponse, nil
 }
 
 type ApiListSupportedSecurityQuestionsRequest struct {
-	ctx context.Context
+	ctx        context.Context
 	ApiService UserFactorAPI
-	userId string
+	userId     string
 	retryCount int32
 }
 
@@ -1326,21 +1330,22 @@ ListSupportedSecurityQuestions List all supported Security Questions
 
 Lists all available Security Questions for the specified user
 
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @param userId ID of an existing Okta user
- @return ApiListSupportedSecurityQuestionsRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param userId ID of an existing Okta user
+	@return ApiListSupportedSecurityQuestionsRequest
 */
 func (a *UserFactorAPIService) ListSupportedSecurityQuestions(ctx context.Context, userId string) ApiListSupportedSecurityQuestionsRequest {
 	return ApiListSupportedSecurityQuestionsRequest{
 		ApiService: a,
-		ctx: ctx,
-		userId: userId,
+		ctx:        ctx,
+		userId:     userId,
 		retryCount: 0,
 	}
 }
 
 // Execute executes the request
-//  @return []UserFactorSecurityQuestionProfile
+//
+//	@return []UserFactorSecurityQuestionProfile
 func (a *UserFactorAPIService) ListSupportedSecurityQuestionsExecute(r ApiListSupportedSecurityQuestionsRequest) ([]UserFactorSecurityQuestionProfile, *APIResponse, error) {
 	var (
 		localVarHTTPMethod   = http.MethodGet
@@ -1349,7 +1354,7 @@ func (a *UserFactorAPIService) ListSupportedSecurityQuestionsExecute(r ApiListSu
 		localVarReturnValue  []UserFactorSecurityQuestionProfile
 		localVarHTTPResponse *http.Response
 		localAPIResponse     *APIResponse
-		err 				 error
+		err                  error
 	)
 
 	if a.client.cfg.Okta.Client.RequestTimeout > 0 {
@@ -1470,19 +1475,19 @@ func (a *UserFactorAPIService) ListSupportedSecurityQuestionsExecute(r ApiListSu
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
 		return localVarReturnValue, localAPIResponse, newErr
 	}
-	
+
 	localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
 	return localVarReturnValue, localAPIResponse, nil
 }
 
 type ApiResendEnrollFactorRequest struct {
-	ctx context.Context
-	ApiService UserFactorAPI
-	userId string
-	factorId string
+	ctx                       context.Context
+	ApiService                UserFactorAPI
+	userId                    string
+	factorId                  string
 	resendEnrollFactorRequest *ResendEnrollFactorRequest
-	templateId *string
-	retryCount int32
+	templateId                *string
+	retryCount                int32
 }
 
 func (r ApiResendEnrollFactorRequest) ResendEnrollFactorRequest(resendEnrollFactorRequest ResendEnrollFactorRequest) ApiResendEnrollFactorRequest {
@@ -1509,23 +1514,24 @@ For `call` and `sms` factors, Okta enforces a rate limit of one OTP challenge pe
 
 > **Note**: Resend operations aren't allowed after a factor exceeds the activation rate limit. See [Activate a Factor](./#tag/UserFactor/operation/activateFactor).
 
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @param userId ID of an existing Okta user
- @param factorId ID of an existing user Factor
- @return ApiResendEnrollFactorRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param userId ID of an existing Okta user
+	@param factorId ID of an existing user Factor
+	@return ApiResendEnrollFactorRequest
 */
 func (a *UserFactorAPIService) ResendEnrollFactor(ctx context.Context, userId string, factorId string) ApiResendEnrollFactorRequest {
 	return ApiResendEnrollFactorRequest{
 		ApiService: a,
-		ctx: ctx,
-		userId: userId,
-		factorId: factorId,
+		ctx:        ctx,
+		userId:     userId,
+		factorId:   factorId,
 		retryCount: 0,
 	}
 }
 
 // Execute executes the request
-//  @return ResendEnrollFactorRequest
+//
+//	@return ResendEnrollFactorRequest
 func (a *UserFactorAPIService) ResendEnrollFactorExecute(r ApiResendEnrollFactorRequest) (*ResendEnrollFactorRequest, *APIResponse, error) {
 	var (
 		localVarHTTPMethod   = http.MethodPost
@@ -1534,7 +1540,7 @@ func (a *UserFactorAPIService) ResendEnrollFactorExecute(r ApiResendEnrollFactor
 		localVarReturnValue  *ResendEnrollFactorRequest
 		localVarHTTPResponse *http.Response
 		localAPIResponse     *APIResponse
-		err 				 error
+		err                  error
 	)
 
 	if a.client.cfg.Okta.Client.RequestTimeout > 0 {
@@ -1676,18 +1682,18 @@ func (a *UserFactorAPIService) ResendEnrollFactorExecute(r ApiResendEnrollFactor
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
 		return localVarReturnValue, localAPIResponse, newErr
 	}
-	
+
 	localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
 	return localVarReturnValue, localAPIResponse, nil
 }
 
 type ApiUnenrollFactorRequest struct {
-	ctx context.Context
-	ApiService UserFactorAPI
-	userId string
-	factorId string
+	ctx                      context.Context
+	ApiService               UserFactorAPI
+	userId                   string
+	factorId                 string
 	removeRecoveryEnrollment *bool
-	retryCount int32
+	retryCount               int32
 }
 
 // If &#x60;true&#x60;, removes the the phone number as both a recovery method and a Factor. Only used for &#x60;sms&#x60; and &#x60;call&#x60; Factors.
@@ -1707,17 +1713,17 @@ Unenrolls an existing Factor for the specified user. This allows the user to enr
 
 > **Note**: If you unenroll the `push` or the `signed_nonce` Factors, Okta also unenrolls any other `totp`, `signed_nonce`, or Okta Verify `push` Factors associated with the user.
 
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @param userId ID of an existing Okta user
- @param factorId ID of an existing user Factor
- @return ApiUnenrollFactorRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param userId ID of an existing Okta user
+	@param factorId ID of an existing user Factor
+	@return ApiUnenrollFactorRequest
 */
 func (a *UserFactorAPIService) UnenrollFactor(ctx context.Context, userId string, factorId string) ApiUnenrollFactorRequest {
 	return ApiUnenrollFactorRequest{
 		ApiService: a,
-		ctx: ctx,
-		userId: userId,
-		factorId: factorId,
+		ctx:        ctx,
+		userId:     userId,
+		factorId:   factorId,
 		retryCount: 0,
 	}
 }
@@ -1730,7 +1736,7 @@ func (a *UserFactorAPIService) UnenrollFactorExecute(r ApiUnenrollFactorRequest)
 		formFiles            []formFile
 		localVarHTTPResponse *http.Response
 		localAPIResponse     *APIResponse
-		err 				 error
+		err                  error
 	)
 
 	if a.client.cfg.Okta.Client.RequestTimeout > 0 {
@@ -1851,17 +1857,17 @@ func (a *UserFactorAPIService) UnenrollFactorExecute(r ApiUnenrollFactorRequest)
 }
 
 type ApiVerifyFactorRequest struct {
-	ctx context.Context
-	ApiService UserFactorAPI
-	userId string
-	factorId string
-	templateId *string
+	ctx                  context.Context
+	ApiService           UserFactorAPI
+	userId               string
+	factorId             string
+	templateId           *string
 	tokenLifetimeSeconds *int32
-	xForwardedFor *string
-	userAgent *string
-	acceptLanguage *string
-	body *map[string]interface{}
-	retryCount int32
+	xForwardedFor        *string
+	userAgent            *string
+	acceptLanguage       *string
+	body                 *map[string]interface{}
+	retryCount           int32
 }
 
 // ID of an existing custom SMS template. See the [SMS Templates API](../Template). Only used by &#x60;sms&#x60; Factors.
@@ -1911,23 +1917,24 @@ Verifies an OTP for a Factor. Some Factors (`call`, `email`, `push`, `sms`, `u2f
 
 **Note**: To verify a `push` factor, use the **poll** link returned when you issue the challenge. See [Retrieve a Factor Transaction Status](/openapi/okta-management/management/tag/UserFactor/#tag/UserFactor/operation/getFactorTransactionStatus).
 
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @param userId ID of an existing Okta user
- @param factorId ID of an existing user Factor
- @return ApiVerifyFactorRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param userId ID of an existing Okta user
+	@param factorId ID of an existing user Factor
+	@return ApiVerifyFactorRequest
 */
 func (a *UserFactorAPIService) VerifyFactor(ctx context.Context, userId string, factorId string) ApiVerifyFactorRequest {
 	return ApiVerifyFactorRequest{
 		ApiService: a,
-		ctx: ctx,
-		userId: userId,
-		factorId: factorId,
+		ctx:        ctx,
+		userId:     userId,
+		factorId:   factorId,
 		retryCount: 0,
 	}
 }
 
 // Execute executes the request
-//  @return UserFactorVerifyResponse
+//
+//	@return UserFactorVerifyResponse
 func (a *UserFactorAPIService) VerifyFactorExecute(r ApiVerifyFactorRequest) (*UserFactorVerifyResponse, *APIResponse, error) {
 	var (
 		localVarHTTPMethod   = http.MethodPost
@@ -1936,7 +1943,7 @@ func (a *UserFactorAPIService) VerifyFactorExecute(r ApiVerifyFactorRequest) (*U
 		localVarReturnValue  *UserFactorVerifyResponse
 		localVarHTTPResponse *http.Response
 		localAPIResponse     *APIResponse
-		err 				 error
+		err                  error
 	)
 
 	if a.client.cfg.Okta.Client.RequestTimeout > 0 {
@@ -2087,7 +2094,7 @@ func (a *UserFactorAPIService) VerifyFactorExecute(r ApiVerifyFactorRequest) (*U
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
 		return localVarReturnValue, localAPIResponse, newErr
 	}
-	
+
 	localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
 	return localVarReturnValue, localAPIResponse, nil
 }

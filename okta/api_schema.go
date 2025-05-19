@@ -29,21 +29,19 @@ import (
 	"io/ioutil"
 	"net/http"
 	"net/url"
-	"time"
 	"strings"
+	"time"
 )
 
-
 type SchemaAPI interface {
-
 	/*
-	GetApplicationUserSchema Retrieve the default Application User Schema for an Application
+		GetApplicationUserSchema Retrieve the default Application User Schema for an Application
 
-	Retrieves the Schema for an App User
+		Retrieves the Schema for an App User
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param appId Application ID
-	@return ApiGetApplicationUserSchemaRequest
+		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+		@param appId Application ID
+		@return ApiGetApplicationUserSchemaRequest
 	*/
 	GetApplicationUserSchema(ctx context.Context, appId string) ApiGetApplicationUserSchemaRequest
 
@@ -52,12 +50,12 @@ type SchemaAPI interface {
 	GetApplicationUserSchemaExecute(r ApiGetApplicationUserSchemaRequest) (*UserSchema, *APIResponse, error)
 
 	/*
-	GetGroupSchema Retrieve the default Group Schema
+		GetGroupSchema Retrieve the default Group Schema
 
-	Retrieves the group schema
+		Retrieves the group schema
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@return ApiGetGroupSchemaRequest
+		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+		@return ApiGetGroupSchemaRequest
 	*/
 	GetGroupSchema(ctx context.Context) ApiGetGroupSchemaRequest
 
@@ -66,13 +64,13 @@ type SchemaAPI interface {
 	GetGroupSchemaExecute(r ApiGetGroupSchemaRequest) (*GroupSchema, *APIResponse, error)
 
 	/*
-	GetLogStreamSchema Retrieve the Log Stream Schema for the schema type
+		GetLogStreamSchema Retrieve the Log Stream Schema for the schema type
 
-	Retrieves the schema for a Log Stream type. The `logStreamType` element in the URL specifies the Log Stream type, which is either `aws_eventbridge` or `splunk_cloud_logstreaming`. Use the `aws_eventbridge` literal to retrieve the AWS EventBridge type schema, and use the `splunk_cloud_logstreaming` literal retrieve the Splunk Cloud type schema.
+		Retrieves the schema for a Log Stream type. The `logStreamType` element in the URL specifies the Log Stream type, which is either `aws_eventbridge` or `splunk_cloud_logstreaming`. Use the `aws_eventbridge` literal to retrieve the AWS EventBridge type schema, and use the `splunk_cloud_logstreaming` literal retrieve the Splunk Cloud type schema.
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param logStreamType
-	@return ApiGetLogStreamSchemaRequest
+		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+		@param logStreamType
+		@return ApiGetLogStreamSchemaRequest
 	*/
 	GetLogStreamSchema(ctx context.Context, logStreamType string) ApiGetLogStreamSchemaRequest
 
@@ -81,13 +79,13 @@ type SchemaAPI interface {
 	GetLogStreamSchemaExecute(r ApiGetLogStreamSchemaRequest) (*LogStreamSchema, *APIResponse, error)
 
 	/*
-	GetUserSchema Retrieve a User Schema
+		GetUserSchema Retrieve a User Schema
 
-	Retrieves the schema for a Schema Id
+		Retrieves the schema for a Schema Id
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param schemaId
-	@return ApiGetUserSchemaRequest
+		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+		@param schemaId
+		@return ApiGetUserSchemaRequest
 	*/
 	GetUserSchema(ctx context.Context, schemaId string) ApiGetUserSchemaRequest
 
@@ -96,12 +94,12 @@ type SchemaAPI interface {
 	GetUserSchemaExecute(r ApiGetUserSchemaRequest) (*UserSchema, *APIResponse, error)
 
 	/*
-	ListLogStreamSchemas List the Log Stream Schemas
+		ListLogStreamSchemas List the Log Stream Schemas
 
-	Lists the schema for all log stream types visible for this org
+		Lists the schema for all log stream types visible for this org
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@return ApiListLogStreamSchemasRequest
+		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+		@return ApiListLogStreamSchemasRequest
 	*/
 	ListLogStreamSchemas(ctx context.Context) ApiListLogStreamSchemasRequest
 
@@ -110,13 +108,13 @@ type SchemaAPI interface {
 	ListLogStreamSchemasExecute(r ApiListLogStreamSchemasRequest) ([]LogStreamSchema, *APIResponse, error)
 
 	/*
-	UpdateApplicationUserProfile Update the default Application User Schema for an Application
+		UpdateApplicationUserProfile Update the default Application User Schema for an Application
 
-	Partially updates on the User Profile properties of the Application User Schema
+		Partially updates on the User Profile properties of the Application User Schema
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param appId Application ID
-	@return ApiUpdateApplicationUserProfileRequest
+		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+		@param appId Application ID
+		@return ApiUpdateApplicationUserProfileRequest
 	*/
 	UpdateApplicationUserProfile(ctx context.Context, appId string) ApiUpdateApplicationUserProfileRequest
 
@@ -125,12 +123,12 @@ type SchemaAPI interface {
 	UpdateApplicationUserProfileExecute(r ApiUpdateApplicationUserProfileRequest) (*UserSchema, *APIResponse, error)
 
 	/*
-	UpdateGroupSchema Update the default Group Schema
+		UpdateGroupSchema Update the default Group Schema
 
-	Updates the default group schema. This updates, adds, or removes one or more custom Group Profile properties in the schema.
+		Updates the default group schema. This updates, adds, or removes one or more custom Group Profile properties in the schema.
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@return ApiUpdateGroupSchemaRequest
+		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+		@return ApiUpdateGroupSchemaRequest
 	*/
 	UpdateGroupSchema(ctx context.Context) ApiUpdateGroupSchemaRequest
 
@@ -139,13 +137,13 @@ type SchemaAPI interface {
 	UpdateGroupSchemaExecute(r ApiUpdateGroupSchemaRequest) (*GroupSchema, *APIResponse, error)
 
 	/*
-	UpdateUserProfile Update a User Schema
+		UpdateUserProfile Update a User Schema
 
-	Partially updates on the User Profile properties of the user schema
+		Partially updates on the User Profile properties of the user schema
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param schemaId
-	@return ApiUpdateUserProfileRequest
+		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+		@param schemaId
+		@return ApiUpdateUserProfileRequest
 	*/
 	UpdateUserProfile(ctx context.Context, schemaId string) ApiUpdateUserProfileRequest
 
@@ -158,9 +156,9 @@ type SchemaAPI interface {
 type SchemaAPIService service
 
 type ApiGetApplicationUserSchemaRequest struct {
-	ctx context.Context
+	ctx        context.Context
 	ApiService SchemaAPI
-	appId string
+	appId      string
 	retryCount int32
 }
 
@@ -173,21 +171,22 @@ GetApplicationUserSchema Retrieve the default Application User Schema for an App
 
 Retrieves the Schema for an App User
 
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @param appId Application ID
- @return ApiGetApplicationUserSchemaRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param appId Application ID
+	@return ApiGetApplicationUserSchemaRequest
 */
 func (a *SchemaAPIService) GetApplicationUserSchema(ctx context.Context, appId string) ApiGetApplicationUserSchemaRequest {
 	return ApiGetApplicationUserSchemaRequest{
 		ApiService: a,
-		ctx: ctx,
-		appId: appId,
+		ctx:        ctx,
+		appId:      appId,
 		retryCount: 0,
 	}
 }
 
 // Execute executes the request
-//  @return UserSchema
+//
+//	@return UserSchema
 func (a *SchemaAPIService) GetApplicationUserSchemaExecute(r ApiGetApplicationUserSchemaRequest) (*UserSchema, *APIResponse, error) {
 	var (
 		localVarHTTPMethod   = http.MethodGet
@@ -196,7 +195,7 @@ func (a *SchemaAPIService) GetApplicationUserSchemaExecute(r ApiGetApplicationUs
 		localVarReturnValue  *UserSchema
 		localVarHTTPResponse *http.Response
 		localAPIResponse     *APIResponse
-		err 				 error
+		err                  error
 	)
 
 	if a.client.cfg.Okta.Client.RequestTimeout > 0 {
@@ -317,13 +316,13 @@ func (a *SchemaAPIService) GetApplicationUserSchemaExecute(r ApiGetApplicationUs
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
 		return localVarReturnValue, localAPIResponse, newErr
 	}
-	
+
 	localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
 	return localVarReturnValue, localAPIResponse, nil
 }
 
 type ApiGetGroupSchemaRequest struct {
-	ctx context.Context
+	ctx        context.Context
 	ApiService SchemaAPI
 	retryCount int32
 }
@@ -337,19 +336,20 @@ GetGroupSchema Retrieve the default Group Schema
 
 Retrieves the group schema
 
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @return ApiGetGroupSchemaRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@return ApiGetGroupSchemaRequest
 */
 func (a *SchemaAPIService) GetGroupSchema(ctx context.Context) ApiGetGroupSchemaRequest {
 	return ApiGetGroupSchemaRequest{
 		ApiService: a,
-		ctx: ctx,
+		ctx:        ctx,
 		retryCount: 0,
 	}
 }
 
 // Execute executes the request
-//  @return GroupSchema
+//
+//	@return GroupSchema
 func (a *SchemaAPIService) GetGroupSchemaExecute(r ApiGetGroupSchemaRequest) (*GroupSchema, *APIResponse, error) {
 	var (
 		localVarHTTPMethod   = http.MethodGet
@@ -358,7 +358,7 @@ func (a *SchemaAPIService) GetGroupSchemaExecute(r ApiGetGroupSchemaRequest) (*G
 		localVarReturnValue  *GroupSchema
 		localVarHTTPResponse *http.Response
 		localAPIResponse     *APIResponse
-		err 				 error
+		err                  error
 	)
 
 	if a.client.cfg.Okta.Client.RequestTimeout > 0 {
@@ -466,16 +466,16 @@ func (a *SchemaAPIService) GetGroupSchemaExecute(r ApiGetGroupSchemaRequest) (*G
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
 		return localVarReturnValue, localAPIResponse, newErr
 	}
-	
+
 	localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
 	return localVarReturnValue, localAPIResponse, nil
 }
 
 type ApiGetLogStreamSchemaRequest struct {
-	ctx context.Context
-	ApiService SchemaAPI
+	ctx           context.Context
+	ApiService    SchemaAPI
 	logStreamType string
-	retryCount int32
+	retryCount    int32
 }
 
 func (r ApiGetLogStreamSchemaRequest) Execute() (*LogStreamSchema, *APIResponse, error) {
@@ -487,21 +487,22 @@ GetLogStreamSchema Retrieve the Log Stream Schema for the schema type
 
 Retrieves the schema for a Log Stream type. The `logStreamType` element in the URL specifies the Log Stream type, which is either `aws_eventbridge` or `splunk_cloud_logstreaming`. Use the `aws_eventbridge` literal to retrieve the AWS EventBridge type schema, and use the `splunk_cloud_logstreaming` literal retrieve the Splunk Cloud type schema.
 
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @param logStreamType
- @return ApiGetLogStreamSchemaRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param logStreamType
+	@return ApiGetLogStreamSchemaRequest
 */
 func (a *SchemaAPIService) GetLogStreamSchema(ctx context.Context, logStreamType string) ApiGetLogStreamSchemaRequest {
 	return ApiGetLogStreamSchemaRequest{
-		ApiService: a,
-		ctx: ctx,
+		ApiService:    a,
+		ctx:           ctx,
 		logStreamType: logStreamType,
-		retryCount: 0,
+		retryCount:    0,
 	}
 }
 
 // Execute executes the request
-//  @return LogStreamSchema
+//
+//	@return LogStreamSchema
 func (a *SchemaAPIService) GetLogStreamSchemaExecute(r ApiGetLogStreamSchemaRequest) (*LogStreamSchema, *APIResponse, error) {
 	var (
 		localVarHTTPMethod   = http.MethodGet
@@ -510,7 +511,7 @@ func (a *SchemaAPIService) GetLogStreamSchemaExecute(r ApiGetLogStreamSchemaRequ
 		localVarReturnValue  *LogStreamSchema
 		localVarHTTPResponse *http.Response
 		localAPIResponse     *APIResponse
-		err 				 error
+		err                  error
 	)
 
 	if a.client.cfg.Okta.Client.RequestTimeout > 0 {
@@ -631,15 +632,15 @@ func (a *SchemaAPIService) GetLogStreamSchemaExecute(r ApiGetLogStreamSchemaRequ
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
 		return localVarReturnValue, localAPIResponse, newErr
 	}
-	
+
 	localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
 	return localVarReturnValue, localAPIResponse, nil
 }
 
 type ApiGetUserSchemaRequest struct {
-	ctx context.Context
+	ctx        context.Context
 	ApiService SchemaAPI
-	schemaId string
+	schemaId   string
 	retryCount int32
 }
 
@@ -652,21 +653,22 @@ GetUserSchema Retrieve a User Schema
 
 Retrieves the schema for a Schema Id
 
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @param schemaId
- @return ApiGetUserSchemaRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param schemaId
+	@return ApiGetUserSchemaRequest
 */
 func (a *SchemaAPIService) GetUserSchema(ctx context.Context, schemaId string) ApiGetUserSchemaRequest {
 	return ApiGetUserSchemaRequest{
 		ApiService: a,
-		ctx: ctx,
-		schemaId: schemaId,
+		ctx:        ctx,
+		schemaId:   schemaId,
 		retryCount: 0,
 	}
 }
 
 // Execute executes the request
-//  @return UserSchema
+//
+//	@return UserSchema
 func (a *SchemaAPIService) GetUserSchemaExecute(r ApiGetUserSchemaRequest) (*UserSchema, *APIResponse, error) {
 	var (
 		localVarHTTPMethod   = http.MethodGet
@@ -675,7 +677,7 @@ func (a *SchemaAPIService) GetUserSchemaExecute(r ApiGetUserSchemaRequest) (*Use
 		localVarReturnValue  *UserSchema
 		localVarHTTPResponse *http.Response
 		localAPIResponse     *APIResponse
-		err 				 error
+		err                  error
 	)
 
 	if a.client.cfg.Okta.Client.RequestTimeout > 0 {
@@ -796,13 +798,13 @@ func (a *SchemaAPIService) GetUserSchemaExecute(r ApiGetUserSchemaRequest) (*Use
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
 		return localVarReturnValue, localAPIResponse, newErr
 	}
-	
+
 	localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
 	return localVarReturnValue, localAPIResponse, nil
 }
 
 type ApiListLogStreamSchemasRequest struct {
-	ctx context.Context
+	ctx        context.Context
 	ApiService SchemaAPI
 	retryCount int32
 }
@@ -816,19 +818,20 @@ ListLogStreamSchemas List the Log Stream Schemas
 
 Lists the schema for all log stream types visible for this org
 
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @return ApiListLogStreamSchemasRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@return ApiListLogStreamSchemasRequest
 */
 func (a *SchemaAPIService) ListLogStreamSchemas(ctx context.Context) ApiListLogStreamSchemasRequest {
 	return ApiListLogStreamSchemasRequest{
 		ApiService: a,
-		ctx: ctx,
+		ctx:        ctx,
 		retryCount: 0,
 	}
 }
 
 // Execute executes the request
-//  @return []LogStreamSchema
+//
+//	@return []LogStreamSchema
 func (a *SchemaAPIService) ListLogStreamSchemasExecute(r ApiListLogStreamSchemasRequest) ([]LogStreamSchema, *APIResponse, error) {
 	var (
 		localVarHTTPMethod   = http.MethodGet
@@ -837,7 +840,7 @@ func (a *SchemaAPIService) ListLogStreamSchemasExecute(r ApiListLogStreamSchemas
 		localVarReturnValue  []LogStreamSchema
 		localVarHTTPResponse *http.Response
 		localAPIResponse     *APIResponse
-		err 				 error
+		err                  error
 	)
 
 	if a.client.cfg.Okta.Client.RequestTimeout > 0 {
@@ -945,16 +948,16 @@ func (a *SchemaAPIService) ListLogStreamSchemasExecute(r ApiListLogStreamSchemas
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
 		return localVarReturnValue, localAPIResponse, newErr
 	}
-	
+
 	localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
 	return localVarReturnValue, localAPIResponse, nil
 }
 
 type ApiUpdateApplicationUserProfileRequest struct {
-	ctx context.Context
+	ctx        context.Context
 	ApiService SchemaAPI
-	appId string
-	body *UserSchema
+	appId      string
+	body       *UserSchema
 	retryCount int32
 }
 
@@ -972,21 +975,22 @@ UpdateApplicationUserProfile Update the default Application User Schema for an A
 
 Partially updates on the User Profile properties of the Application User Schema
 
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @param appId Application ID
- @return ApiUpdateApplicationUserProfileRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param appId Application ID
+	@return ApiUpdateApplicationUserProfileRequest
 */
 func (a *SchemaAPIService) UpdateApplicationUserProfile(ctx context.Context, appId string) ApiUpdateApplicationUserProfileRequest {
 	return ApiUpdateApplicationUserProfileRequest{
 		ApiService: a,
-		ctx: ctx,
-		appId: appId,
+		ctx:        ctx,
+		appId:      appId,
 		retryCount: 0,
 	}
 }
 
 // Execute executes the request
-//  @return UserSchema
+//
+//	@return UserSchema
 func (a *SchemaAPIService) UpdateApplicationUserProfileExecute(r ApiUpdateApplicationUserProfileRequest) (*UserSchema, *APIResponse, error) {
 	var (
 		localVarHTTPMethod   = http.MethodPost
@@ -995,7 +999,7 @@ func (a *SchemaAPIService) UpdateApplicationUserProfileExecute(r ApiUpdateApplic
 		localVarReturnValue  *UserSchema
 		localVarHTTPResponse *http.Response
 		localAPIResponse     *APIResponse
-		err 				 error
+		err                  error
 	)
 
 	if a.client.cfg.Okta.Client.RequestTimeout > 0 {
@@ -1130,16 +1134,16 @@ func (a *SchemaAPIService) UpdateApplicationUserProfileExecute(r ApiUpdateApplic
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
 		return localVarReturnValue, localAPIResponse, newErr
 	}
-	
+
 	localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
 	return localVarReturnValue, localAPIResponse, nil
 }
 
 type ApiUpdateGroupSchemaRequest struct {
-	ctx context.Context
-	ApiService SchemaAPI
+	ctx         context.Context
+	ApiService  SchemaAPI
 	groupSchema *GroupSchema
-	retryCount int32
+	retryCount  int32
 }
 
 func (r ApiUpdateGroupSchemaRequest) GroupSchema(groupSchema GroupSchema) ApiUpdateGroupSchemaRequest {
@@ -1156,19 +1160,20 @@ UpdateGroupSchema Update the default Group Schema
 
 Updates the default group schema. This updates, adds, or removes one or more custom Group Profile properties in the schema.
 
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @return ApiUpdateGroupSchemaRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@return ApiUpdateGroupSchemaRequest
 */
 func (a *SchemaAPIService) UpdateGroupSchema(ctx context.Context) ApiUpdateGroupSchemaRequest {
 	return ApiUpdateGroupSchemaRequest{
 		ApiService: a,
-		ctx: ctx,
+		ctx:        ctx,
 		retryCount: 0,
 	}
 }
 
 // Execute executes the request
-//  @return GroupSchema
+//
+//	@return GroupSchema
 func (a *SchemaAPIService) UpdateGroupSchemaExecute(r ApiUpdateGroupSchemaRequest) (*GroupSchema, *APIResponse, error) {
 	var (
 		localVarHTTPMethod   = http.MethodPost
@@ -1177,7 +1182,7 @@ func (a *SchemaAPIService) UpdateGroupSchemaExecute(r ApiUpdateGroupSchemaReques
 		localVarReturnValue  *GroupSchema
 		localVarHTTPResponse *http.Response
 		localAPIResponse     *APIResponse
-		err 				 error
+		err                  error
 	)
 
 	if a.client.cfg.Okta.Client.RequestTimeout > 0 {
@@ -1299,15 +1304,15 @@ func (a *SchemaAPIService) UpdateGroupSchemaExecute(r ApiUpdateGroupSchemaReques
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
 		return localVarReturnValue, localAPIResponse, newErr
 	}
-	
+
 	localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
 	return localVarReturnValue, localAPIResponse, nil
 }
 
 type ApiUpdateUserProfileRequest struct {
-	ctx context.Context
+	ctx        context.Context
 	ApiService SchemaAPI
-	schemaId string
+	schemaId   string
 	userSchema *UserSchema
 	retryCount int32
 }
@@ -1326,21 +1331,22 @@ UpdateUserProfile Update a User Schema
 
 Partially updates on the User Profile properties of the user schema
 
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @param schemaId
- @return ApiUpdateUserProfileRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param schemaId
+	@return ApiUpdateUserProfileRequest
 */
 func (a *SchemaAPIService) UpdateUserProfile(ctx context.Context, schemaId string) ApiUpdateUserProfileRequest {
 	return ApiUpdateUserProfileRequest{
 		ApiService: a,
-		ctx: ctx,
-		schemaId: schemaId,
+		ctx:        ctx,
+		schemaId:   schemaId,
 		retryCount: 0,
 	}
 }
 
 // Execute executes the request
-//  @return UserSchema
+//
+//	@return UserSchema
 func (a *SchemaAPIService) UpdateUserProfileExecute(r ApiUpdateUserProfileRequest) (*UserSchema, *APIResponse, error) {
 	var (
 		localVarHTTPMethod   = http.MethodPost
@@ -1349,7 +1355,7 @@ func (a *SchemaAPIService) UpdateUserProfileExecute(r ApiUpdateUserProfileReques
 		localVarReturnValue  *UserSchema
 		localVarHTTPResponse *http.Response
 		localAPIResponse     *APIResponse
-		err 				 error
+		err                  error
 	)
 
 	if a.client.cfg.Okta.Client.RequestTimeout > 0 {
@@ -1487,7 +1493,7 @@ func (a *SchemaAPIService) UpdateUserProfileExecute(r ApiUpdateUserProfileReques
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
 		return localVarReturnValue, localAPIResponse, newErr
 	}
-	
+
 	localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
 	return localVarReturnValue, localAPIResponse, nil
 }

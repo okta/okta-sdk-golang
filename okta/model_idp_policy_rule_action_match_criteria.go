@@ -31,8 +31,8 @@ import (
 type IdpPolicyRuleActionMatchCriteria struct {
 	// The IdP property that the evaluated string should match to
 	PropertyName *string `json:"propertyName,omitempty"`
-	// You can provide an Okta Expression Language expression with the Login Context that's evaluated with the IdP. For example, the value `login.identifier` refers to the user's username. If the user is signing in with the username `john.doe@mycompany.com`, the expression `login.identifier.substringAfter(@))` is evaluated to the domain name of the user, for example: `mycompany.com`. 
-	ProviderExpression *string `json:"providerExpression,omitempty"`
+	// You can provide an Okta Expression Language expression with the Login Context that's evaluated with the IdP. For example, the value `login.identifier` refers to the user's username. If the user is signing in with the username `john.doe@mycompany.com`, the expression `login.identifier.substringAfter(@))` is evaluated to the domain name of the user, for example: `mycompany.com`.
+	ProviderExpression   *string `json:"providerExpression,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -194,4 +194,3 @@ func (v *NullableIdpPolicyRuleActionMatchCriteria) UnmarshalJSON(src []byte) err
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-

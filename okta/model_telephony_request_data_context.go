@@ -29,7 +29,7 @@ import (
 
 // TelephonyRequestDataContext struct for TelephonyRequestDataContext
 type TelephonyRequestDataContext struct {
-	Request *InlineHookRequestObject `json:"request,omitempty"`
+	Request              *InlineHookRequestObject `json:"request,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -155,4 +155,3 @@ func (v *NullableTelephonyRequestDataContext) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-

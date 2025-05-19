@@ -32,8 +32,8 @@ import (
 // OktaSignOnPolicyRule struct for OktaSignOnPolicyRule
 type OktaSignOnPolicyRule struct {
 	PolicyRule
-	Actions *OktaSignOnPolicyRuleActions `json:"actions,omitempty"`
-	Conditions *OktaSignOnPolicyRuleConditions `json:"conditions,omitempty"`
+	Actions              *OktaSignOnPolicyRuleActions    `json:"actions,omitempty"`
+	Conditions           *OktaSignOnPolicyRuleConditions `json:"conditions,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -148,7 +148,7 @@ func (o OktaSignOnPolicyRule) MarshalJSON() ([]byte, error) {
 
 func (o *OktaSignOnPolicyRule) UnmarshalJSON(bytes []byte) (err error) {
 	type OktaSignOnPolicyRuleWithoutEmbeddedStruct struct {
-		Actions *OktaSignOnPolicyRuleActions `json:"actions,omitempty"`
+		Actions    *OktaSignOnPolicyRuleActions    `json:"actions,omitempty"`
 		Conditions *OktaSignOnPolicyRuleConditions `json:"conditions,omitempty"`
 	}
 
@@ -241,4 +241,3 @@ func (v *NullableOktaSignOnPolicyRule) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-

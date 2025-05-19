@@ -73,8 +73,7 @@ func (o AuthenticatorKeyExternalIdp) MarshalJSON() ([]byte, error) {
 }
 
 func (o *AuthenticatorKeyExternalIdp) UnmarshalJSON(bytes []byte) (err error) {
-	type AuthenticatorKeyExternalIdpWithoutEmbeddedStruct struct {
-	}
+	type AuthenticatorKeyExternalIdpWithoutEmbeddedStruct struct{}
 
 	varAuthenticatorKeyExternalIdpWithoutEmbeddedStruct := AuthenticatorKeyExternalIdpWithoutEmbeddedStruct{}
 
@@ -161,4 +160,3 @@ func (v *NullableAuthenticatorKeyExternalIdp) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-

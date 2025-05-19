@@ -35,7 +35,7 @@ type JsonWebKeyEC struct {
 	// The public x coordinate for the elliptic curve point
 	X *string `json:"x,omitempty"`
 	// The public y coordinate for the elliptic curve point
-	Y *string `json:"y,omitempty"`
+	Y                    *string `json:"y,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -243,4 +243,3 @@ func (v *NullableJsonWebKeyEC) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-

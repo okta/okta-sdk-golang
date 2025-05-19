@@ -29,7 +29,7 @@ import (
 
 // MultifactorEnrollmentPolicyAuthenticatorSettingsConstraints struct for MultifactorEnrollmentPolicyAuthenticatorSettingsConstraints
 type MultifactorEnrollmentPolicyAuthenticatorSettingsConstraints struct {
-	AaguidGroups []string `json:"aaguidGroups,omitempty"`
+	AaguidGroups         []string `json:"aaguidGroups,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -155,4 +155,3 @@ func (v *NullableMultifactorEnrollmentPolicyAuthenticatorSettingsConstraints) Un
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-

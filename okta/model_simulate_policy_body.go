@@ -30,10 +30,10 @@ import (
 // SimulatePolicyBody The request body required for a simulate policy operation.
 type SimulatePolicyBody struct {
 	// The application instance ID for a simulate operation
-	AppInstance string `json:"appInstance"`
+	AppInstance   string         `json:"appInstance"`
 	PolicyContext *PolicyContext `json:"policyContext,omitempty"`
 	// Supported policy types for a simulate operation. The default value, `null`, returns all types.
-	PolicyTypes []string `json:"policyTypes,omitempty"`
+	PolicyTypes          []string `json:"policyTypes,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -224,4 +224,3 @@ func (v *NullableSimulatePolicyBody) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-

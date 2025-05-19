@@ -43,7 +43,7 @@ func (dst *BundleEntitlementsResponseLinks) UnmarshalJSON(data []byte) error {
 	}
 
 	// try to unmarshal JSON data into LinksNext
-	err = json.Unmarshal(data, &dst.LinksNext);
+	err = json.Unmarshal(data, &dst.LinksNext)
 	if err == nil {
 		jsonLinksNext, _ := json.Marshal(dst.LinksNext)
 		if string(jsonLinksNext) == "{}" { // empty struct
@@ -56,7 +56,7 @@ func (dst *BundleEntitlementsResponseLinks) UnmarshalJSON(data []byte) error {
 	}
 
 	// try to unmarshal JSON data into LinksSelf
-	err = json.Unmarshal(data, &dst.LinksSelf);
+	err = json.Unmarshal(data, &dst.LinksSelf)
 	if err == nil {
 		jsonLinksSelf, _ := json.Marshal(dst.LinksSelf)
 		if string(jsonLinksSelf) == "{}" { // empty struct
@@ -119,5 +119,3 @@ func (v *NullableBundleEntitlementsResponseLinks) UnmarshalJSON(src []byte) erro
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-
-

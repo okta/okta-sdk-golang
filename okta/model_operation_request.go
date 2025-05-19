@@ -29,7 +29,7 @@ import (
 
 // OperationRequest struct for OperationRequest
 type OperationRequest struct {
-	AssignmentId *string `json:"assignmentId,omitempty"`
+	AssignmentId         *string `json:"assignmentId,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -155,4 +155,3 @@ func (v *NullableOperationRequest) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-

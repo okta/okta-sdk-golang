@@ -29,9 +29,9 @@ import (
 
 // LinkedObject struct for LinkedObject
 type LinkedObject struct {
-	Associated *LinkedObjectDetails `json:"associated,omitempty"`
-	Primary *LinkedObjectDetails `json:"primary,omitempty"`
-	Links *LinkedObjectLinksSelf `json:"_links,omitempty"`
+	Associated           *LinkedObjectDetails   `json:"associated,omitempty"`
+	Primary              *LinkedObjectDetails   `json:"primary,omitempty"`
+	Links                *LinkedObjectLinksSelf `json:"_links,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -229,4 +229,3 @@ func (v *NullableLinkedObject) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-

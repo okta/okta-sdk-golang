@@ -32,9 +32,9 @@ import (
 // UserFactorCall struct for UserFactorCall
 type UserFactorCall struct {
 	UserFactor
-	FactorType interface{} `json:"factorType,omitempty"`
-	Profile *UserFactorCallProfile `json:"profile,omitempty"`
-	Provider *string `json:"provider,omitempty"`
+	FactorType           interface{}            `json:"factorType,omitempty"`
+	Profile              *UserFactorCallProfile `json:"profile,omitempty"`
+	Provider             *string                `json:"provider,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -183,9 +183,9 @@ func (o UserFactorCall) MarshalJSON() ([]byte, error) {
 
 func (o *UserFactorCall) UnmarshalJSON(bytes []byte) (err error) {
 	type UserFactorCallWithoutEmbeddedStruct struct {
-		FactorType interface{} `json:"factorType,omitempty"`
-		Profile *UserFactorCallProfile `json:"profile,omitempty"`
-		Provider *string `json:"provider,omitempty"`
+		FactorType interface{}            `json:"factorType,omitempty"`
+		Profile    *UserFactorCallProfile `json:"profile,omitempty"`
+		Provider   *string                `json:"provider,omitempty"`
 	}
 
 	varUserFactorCallWithoutEmbeddedStruct := UserFactorCallWithoutEmbeddedStruct{}
@@ -279,4 +279,3 @@ func (v *NullableUserFactorCall) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-

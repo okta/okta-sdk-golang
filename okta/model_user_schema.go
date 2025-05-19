@@ -29,16 +29,16 @@ import (
 
 // UserSchema struct for UserSchema
 type UserSchema struct {
-	Schema *string `json:"$schema,omitempty"`
-	Created *string `json:"created,omitempty"`
-	Definitions *UserSchemaDefinitions `json:"definitions,omitempty"`
-	Id *string `json:"id,omitempty"`
-	LastUpdated *string `json:"lastUpdated,omitempty"`
-	Name *string `json:"name,omitempty"`
-	Properties *UserSchemaProperties `json:"properties,omitempty"`
-	Title *string `json:"title,omitempty"`
-	Type *string `json:"type,omitempty"`
-	Links *LinksSelf `json:"_links,omitempty"`
+	Schema               *string                `json:"$schema,omitempty"`
+	Created              *string                `json:"created,omitempty"`
+	Definitions          *UserSchemaDefinitions `json:"definitions,omitempty"`
+	Id                   *string                `json:"id,omitempty"`
+	LastUpdated          *string                `json:"lastUpdated,omitempty"`
+	Name                 *string                `json:"name,omitempty"`
+	Properties           *UserSchemaProperties  `json:"properties,omitempty"`
+	Title                *string                `json:"title,omitempty"`
+	Type                 *string                `json:"type,omitempty"`
+	Links                *LinksSelf             `json:"_links,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -488,4 +488,3 @@ func (v *NullableUserSchema) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-

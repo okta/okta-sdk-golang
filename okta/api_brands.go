@@ -29,20 +29,18 @@ import (
 	"io/ioutil"
 	"net/http"
 	"net/url"
-	"time"
 	"strings"
+	"time"
 )
 
-
 type BrandsAPI interface {
-
 	/*
-	CreateBrand Create a Brand
+		CreateBrand Create a Brand
 
-	Creates a new brand in your org
+		Creates a new brand in your org
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@return ApiCreateBrandRequest
+		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+		@return ApiCreateBrandRequest
 	*/
 	CreateBrand(ctx context.Context) ApiCreateBrandRequest
 
@@ -51,13 +49,13 @@ type BrandsAPI interface {
 	CreateBrandExecute(r ApiCreateBrandRequest) (*Brand, *APIResponse, error)
 
 	/*
-	DeleteBrand Delete a brand
+		DeleteBrand Delete a brand
 
-	Deletes a brand by `brandId`
+		Deletes a brand by `brandId`
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param brandId The ID of the brand
-	@return ApiDeleteBrandRequest
+		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+		@param brandId The ID of the brand
+		@return ApiDeleteBrandRequest
 	*/
 	DeleteBrand(ctx context.Context, brandId string) ApiDeleteBrandRequest
 
@@ -65,13 +63,13 @@ type BrandsAPI interface {
 	DeleteBrandExecute(r ApiDeleteBrandRequest) (*APIResponse, error)
 
 	/*
-	GetBrand Retrieve a Brand
+		GetBrand Retrieve a Brand
 
-	Retrieves a brand by `brandId`
+		Retrieves a brand by `brandId`
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param brandId The ID of the brand
-	@return ApiGetBrandRequest
+		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+		@param brandId The ID of the brand
+		@return ApiGetBrandRequest
 	*/
 	GetBrand(ctx context.Context, brandId string) ApiGetBrandRequest
 
@@ -80,13 +78,13 @@ type BrandsAPI interface {
 	GetBrandExecute(r ApiGetBrandRequest) (*BrandWithEmbedded, *APIResponse, error)
 
 	/*
-	ListBrandDomains List all Domains associated with a Brand
+		ListBrandDomains List all Domains associated with a Brand
 
-	Lists all domains associated with a brand by `brandId`
+		Lists all domains associated with a brand by `brandId`
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param brandId The ID of the brand
-	@return ApiListBrandDomainsRequest
+		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+		@param brandId The ID of the brand
+		@return ApiListBrandDomainsRequest
 	*/
 	ListBrandDomains(ctx context.Context, brandId string) ApiListBrandDomainsRequest
 
@@ -95,12 +93,12 @@ type BrandsAPI interface {
 	ListBrandDomainsExecute(r ApiListBrandDomainsRequest) ([]DomainResponse, *APIResponse, error)
 
 	/*
-	ListBrands List all Brands
+		ListBrands List all Brands
 
-	Lists all the brands in your org
+		Lists all the brands in your org
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@return ApiListBrandsRequest
+		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+		@return ApiListBrandsRequest
 	*/
 	ListBrands(ctx context.Context) ApiListBrandsRequest
 
@@ -109,19 +107,19 @@ type BrandsAPI interface {
 	ListBrandsExecute(r ApiListBrandsRequest) ([]BrandWithEmbedded, *APIResponse, error)
 
 	/*
-	ReplaceBrand Replace a Brand
+			ReplaceBrand Replace a Brand
 
-	Replaces a brand by `brandId`
+			Replaces a brand by `brandId`
 
-Passing an invalid `brandId` returns a `404 Not Found` status code with the error code `E0000007`.
+		Passing an invalid `brandId` returns a `404 Not Found` status code with the error code `E0000007`.
 
-Not providing `agreeToCustomPrivacyPolicy` with `customPrivacyPolicyUrl` returns a `400 Bad Request` status code with the error code `E0000001`.
+		Not providing `agreeToCustomPrivacyPolicy` with `customPrivacyPolicyUrl` returns a `400 Bad Request` status code with the error code `E0000001`.
 
 
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param brandId The ID of the brand
-	@return ApiReplaceBrandRequest
+			@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+			@param brandId The ID of the brand
+			@return ApiReplaceBrandRequest
 	*/
 	ReplaceBrand(ctx context.Context, brandId string) ApiReplaceBrandRequest
 
@@ -134,10 +132,10 @@ Not providing `agreeToCustomPrivacyPolicy` with `customPrivacyPolicyUrl` returns
 type BrandsAPIService service
 
 type ApiCreateBrandRequest struct {
-	ctx context.Context
-	ApiService BrandsAPI
+	ctx                context.Context
+	ApiService         BrandsAPI
 	createBrandRequest *CreateBrandRequest
-	retryCount int32
+	retryCount         int32
 }
 
 func (r ApiCreateBrandRequest) CreateBrandRequest(createBrandRequest CreateBrandRequest) ApiCreateBrandRequest {
@@ -154,19 +152,20 @@ CreateBrand Create a Brand
 
 Creates a new brand in your org
 
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @return ApiCreateBrandRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@return ApiCreateBrandRequest
 */
 func (a *BrandsAPIService) CreateBrand(ctx context.Context) ApiCreateBrandRequest {
 	return ApiCreateBrandRequest{
 		ApiService: a,
-		ctx: ctx,
+		ctx:        ctx,
 		retryCount: 0,
 	}
 }
 
 // Execute executes the request
-//  @return Brand
+//
+//	@return Brand
 func (a *BrandsAPIService) CreateBrandExecute(r ApiCreateBrandRequest) (*Brand, *APIResponse, error) {
 	var (
 		localVarHTTPMethod   = http.MethodPost
@@ -175,7 +174,7 @@ func (a *BrandsAPIService) CreateBrandExecute(r ApiCreateBrandRequest) (*Brand, 
 		localVarReturnValue  *Brand
 		localVarHTTPResponse *http.Response
 		localAPIResponse     *APIResponse
-		err 				 error
+		err                  error
 	)
 
 	if a.client.cfg.Okta.Client.RequestTimeout > 0 {
@@ -309,15 +308,15 @@ func (a *BrandsAPIService) CreateBrandExecute(r ApiCreateBrandRequest) (*Brand, 
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
 		return localVarReturnValue, localAPIResponse, newErr
 	}
-	
+
 	localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
 	return localVarReturnValue, localAPIResponse, nil
 }
 
 type ApiDeleteBrandRequest struct {
-	ctx context.Context
+	ctx        context.Context
 	ApiService BrandsAPI
-	brandId string
+	brandId    string
 	retryCount int32
 }
 
@@ -330,15 +329,15 @@ DeleteBrand Delete a brand
 
 Deletes a brand by `brandId`
 
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @param brandId The ID of the brand
- @return ApiDeleteBrandRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param brandId The ID of the brand
+	@return ApiDeleteBrandRequest
 */
 func (a *BrandsAPIService) DeleteBrand(ctx context.Context, brandId string) ApiDeleteBrandRequest {
 	return ApiDeleteBrandRequest{
 		ApiService: a,
-		ctx: ctx,
-		brandId: brandId,
+		ctx:        ctx,
+		brandId:    brandId,
 		retryCount: 0,
 	}
 }
@@ -351,7 +350,7 @@ func (a *BrandsAPIService) DeleteBrandExecute(r ApiDeleteBrandRequest) (*APIResp
 		formFiles            []formFile
 		localVarHTTPResponse *http.Response
 		localAPIResponse     *APIResponse
-		err 				 error
+		err                  error
 	)
 
 	if a.client.cfg.Okta.Client.RequestTimeout > 0 {
@@ -480,10 +479,10 @@ func (a *BrandsAPIService) DeleteBrandExecute(r ApiDeleteBrandRequest) (*APIResp
 }
 
 type ApiGetBrandRequest struct {
-	ctx context.Context
+	ctx        context.Context
 	ApiService BrandsAPI
-	brandId string
-	expand *[]string
+	brandId    string
+	expand     *[]string
 	retryCount int32
 }
 
@@ -502,21 +501,22 @@ GetBrand Retrieve a Brand
 
 Retrieves a brand by `brandId`
 
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @param brandId The ID of the brand
- @return ApiGetBrandRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param brandId The ID of the brand
+	@return ApiGetBrandRequest
 */
 func (a *BrandsAPIService) GetBrand(ctx context.Context, brandId string) ApiGetBrandRequest {
 	return ApiGetBrandRequest{
 		ApiService: a,
-		ctx: ctx,
-		brandId: brandId,
+		ctx:        ctx,
+		brandId:    brandId,
 		retryCount: 0,
 	}
 }
 
 // Execute executes the request
-//  @return BrandWithEmbedded
+//
+//	@return BrandWithEmbedded
 func (a *BrandsAPIService) GetBrandExecute(r ApiGetBrandRequest) (*BrandWithEmbedded, *APIResponse, error) {
 	var (
 		localVarHTTPMethod   = http.MethodGet
@@ -525,7 +525,7 @@ func (a *BrandsAPIService) GetBrandExecute(r ApiGetBrandRequest) (*BrandWithEmbe
 		localVarReturnValue  *BrandWithEmbedded
 		localVarHTTPResponse *http.Response
 		localAPIResponse     *APIResponse
-		err 				 error
+		err                  error
 	)
 
 	if a.client.cfg.Okta.Client.RequestTimeout > 0 {
@@ -649,15 +649,15 @@ func (a *BrandsAPIService) GetBrandExecute(r ApiGetBrandRequest) (*BrandWithEmbe
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
 		return localVarReturnValue, localAPIResponse, newErr
 	}
-	
+
 	localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
 	return localVarReturnValue, localAPIResponse, nil
 }
 
 type ApiListBrandDomainsRequest struct {
-	ctx context.Context
+	ctx        context.Context
 	ApiService BrandsAPI
-	brandId string
+	brandId    string
 	retryCount int32
 }
 
@@ -670,21 +670,22 @@ ListBrandDomains List all Domains associated with a Brand
 
 Lists all domains associated with a brand by `brandId`
 
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @param brandId The ID of the brand
- @return ApiListBrandDomainsRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param brandId The ID of the brand
+	@return ApiListBrandDomainsRequest
 */
 func (a *BrandsAPIService) ListBrandDomains(ctx context.Context, brandId string) ApiListBrandDomainsRequest {
 	return ApiListBrandDomainsRequest{
 		ApiService: a,
-		ctx: ctx,
-		brandId: brandId,
+		ctx:        ctx,
+		brandId:    brandId,
 		retryCount: 0,
 	}
 }
 
 // Execute executes the request
-//  @return []DomainResponse
+//
+//	@return []DomainResponse
 func (a *BrandsAPIService) ListBrandDomainsExecute(r ApiListBrandDomainsRequest) ([]DomainResponse, *APIResponse, error) {
 	var (
 		localVarHTTPMethod   = http.MethodGet
@@ -693,7 +694,7 @@ func (a *BrandsAPIService) ListBrandDomainsExecute(r ApiListBrandDomainsRequest)
 		localVarReturnValue  []DomainResponse
 		localVarHTTPResponse *http.Response
 		localAPIResponse     *APIResponse
-		err 				 error
+		err                  error
 	)
 
 	if a.client.cfg.Okta.Client.RequestTimeout > 0 {
@@ -814,18 +815,18 @@ func (a *BrandsAPIService) ListBrandDomainsExecute(r ApiListBrandDomainsRequest)
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
 		return localVarReturnValue, localAPIResponse, newErr
 	}
-	
+
 	localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
 	return localVarReturnValue, localAPIResponse, nil
 }
 
 type ApiListBrandsRequest struct {
-	ctx context.Context
+	ctx        context.Context
 	ApiService BrandsAPI
-	expand *[]string
-	after *string
-	limit *int32
-	q *string
+	expand     *[]string
+	after      *string
+	limit      *int32
+	q          *string
 	retryCount int32
 }
 
@@ -862,19 +863,20 @@ ListBrands List all Brands
 
 Lists all the brands in your org
 
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @return ApiListBrandsRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@return ApiListBrandsRequest
 */
 func (a *BrandsAPIService) ListBrands(ctx context.Context) ApiListBrandsRequest {
 	return ApiListBrandsRequest{
 		ApiService: a,
-		ctx: ctx,
+		ctx:        ctx,
 		retryCount: 0,
 	}
 }
 
 // Execute executes the request
-//  @return []BrandWithEmbedded
+//
+//	@return []BrandWithEmbedded
 func (a *BrandsAPIService) ListBrandsExecute(r ApiListBrandsRequest) ([]BrandWithEmbedded, *APIResponse, error) {
 	var (
 		localVarHTTPMethod   = http.MethodGet
@@ -883,7 +885,7 @@ func (a *BrandsAPIService) ListBrandsExecute(r ApiListBrandsRequest) ([]BrandWit
 		localVarReturnValue  []BrandWithEmbedded
 		localVarHTTPResponse *http.Response
 		localAPIResponse     *APIResponse
-		err 				 error
+		err                  error
 	)
 
 	if a.client.cfg.Okta.Client.RequestTimeout > 0 {
@@ -1003,16 +1005,16 @@ func (a *BrandsAPIService) ListBrandsExecute(r ApiListBrandsRequest) ([]BrandWit
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
 		return localVarReturnValue, localAPIResponse, newErr
 	}
-	
+
 	localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
 	return localVarReturnValue, localAPIResponse, nil
 }
 
 type ApiReplaceBrandRequest struct {
-	ctx context.Context
+	ctx        context.Context
 	ApiService BrandsAPI
-	brandId string
-	brand *BrandRequest
+	brandId    string
+	brand      *BrandRequest
 	retryCount int32
 }
 
@@ -1034,23 +1036,22 @@ Passing an invalid `brandId` returns a `404 Not Found` status code with the erro
 
 Not providing `agreeToCustomPrivacyPolicy` with `customPrivacyPolicyUrl` returns a `400 Bad Request` status code with the error code `E0000001`.
 
-
-
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @param brandId The ID of the brand
- @return ApiReplaceBrandRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param brandId The ID of the brand
+	@return ApiReplaceBrandRequest
 */
 func (a *BrandsAPIService) ReplaceBrand(ctx context.Context, brandId string) ApiReplaceBrandRequest {
 	return ApiReplaceBrandRequest{
 		ApiService: a,
-		ctx: ctx,
-		brandId: brandId,
+		ctx:        ctx,
+		brandId:    brandId,
 		retryCount: 0,
 	}
 }
 
 // Execute executes the request
-//  @return Brand
+//
+//	@return Brand
 func (a *BrandsAPIService) ReplaceBrandExecute(r ApiReplaceBrandRequest) (*Brand, *APIResponse, error) {
 	var (
 		localVarHTTPMethod   = http.MethodPut
@@ -1059,7 +1060,7 @@ func (a *BrandsAPIService) ReplaceBrandExecute(r ApiReplaceBrandRequest) (*Brand
 		localVarReturnValue  *Brand
 		localVarHTTPResponse *http.Response
 		localAPIResponse     *APIResponse
-		err 				 error
+		err                  error
 	)
 
 	if a.client.cfg.Okta.Client.RequestTimeout > 0 {
@@ -1197,7 +1198,7 @@ func (a *BrandsAPIService) ReplaceBrandExecute(r ApiReplaceBrandRequest) (*Brand
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
 		return localVarReturnValue, localAPIResponse, newErr
 	}
-	
+
 	localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
 	return localVarReturnValue, localAPIResponse, nil
 }

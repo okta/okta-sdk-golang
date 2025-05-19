@@ -32,9 +32,9 @@ import (
 // EnhancedDynamicNetworkZone struct for EnhancedDynamicNetworkZone
 type EnhancedDynamicNetworkZone struct {
 	NetworkZone
-	Asns *EnhancedDynamicNetworkZoneAllOfAsns `json:"asns,omitempty"`
-	Locations *EnhancedDynamicNetworkZoneAllOfLocations `json:"locations,omitempty"`
-	IpServiceCategories *EnhancedDynamicNetworkZoneAllOfIpServiceCategories `json:"ipServiceCategories,omitempty"`
+	Asns                 *EnhancedDynamicNetworkZoneAllOfAsns                `json:"asns,omitempty"`
+	Locations            *EnhancedDynamicNetworkZoneAllOfLocations           `json:"locations,omitempty"`
+	IpServiceCategories  *EnhancedDynamicNetworkZoneAllOfIpServiceCategories `json:"ipServiceCategories,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -184,8 +184,8 @@ func (o EnhancedDynamicNetworkZone) MarshalJSON() ([]byte, error) {
 
 func (o *EnhancedDynamicNetworkZone) UnmarshalJSON(bytes []byte) (err error) {
 	type EnhancedDynamicNetworkZoneWithoutEmbeddedStruct struct {
-		Asns *EnhancedDynamicNetworkZoneAllOfAsns `json:"asns,omitempty"`
-		Locations *EnhancedDynamicNetworkZoneAllOfLocations `json:"locations,omitempty"`
+		Asns                *EnhancedDynamicNetworkZoneAllOfAsns                `json:"asns,omitempty"`
+		Locations           *EnhancedDynamicNetworkZoneAllOfLocations           `json:"locations,omitempty"`
 		IpServiceCategories *EnhancedDynamicNetworkZoneAllOfIpServiceCategories `json:"ipServiceCategories,omitempty"`
 	}
 
@@ -280,4 +280,3 @@ func (v *NullableEnhancedDynamicNetworkZone) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-

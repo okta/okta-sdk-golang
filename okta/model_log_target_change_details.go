@@ -32,7 +32,7 @@ type LogTargetChangeDetails struct {
 	// The original properties of the target
 	From map[string]interface{} `json:"from,omitempty"`
 	// The updated properties of the target
-	To map[string]interface{} `json:"to,omitempty"`
+	To                   map[string]interface{} `json:"to,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -194,4 +194,3 @@ func (v *NullableLogTargetChangeDetails) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-

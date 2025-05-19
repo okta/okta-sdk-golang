@@ -30,7 +30,7 @@ import (
 // CaepDeviceComplianceChangeEventReasonAdmin struct for CaepDeviceComplianceChangeEventReasonAdmin
 type CaepDeviceComplianceChangeEventReasonAdmin struct {
 	// The event reason in English
-	En string `json:"en"`
+	En                   string `json:"en"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -149,4 +149,3 @@ func (v *NullableCaepDeviceComplianceChangeEventReasonAdmin) UnmarshalJSON(src [
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-

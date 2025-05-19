@@ -29,21 +29,19 @@ import (
 	"io/ioutil"
 	"net/http"
 	"net/url"
-	"time"
 	"strings"
+	"time"
 )
 
-
 type ApiTokenAPI interface {
-
 	/*
-	GetApiToken Retrieve an API Token's Metadata
+		GetApiToken Retrieve an API Token's Metadata
 
-	Retrieves the metadata for an active API token by `apiTokenId`
+		Retrieves the metadata for an active API token by `apiTokenId`
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param apiTokenId id of the API Token
-	@return ApiGetApiTokenRequest
+		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+		@param apiTokenId id of the API Token
+		@return ApiGetApiTokenRequest
 	*/
 	GetApiToken(ctx context.Context, apiTokenId string) ApiGetApiTokenRequest
 
@@ -52,12 +50,12 @@ type ApiTokenAPI interface {
 	GetApiTokenExecute(r ApiGetApiTokenRequest) (*ApiToken, *APIResponse, error)
 
 	/*
-	ListApiTokens List all API Token Metadata
+		ListApiTokens List all API Token Metadata
 
-	Lists all the metadata of the active API tokens
+		Lists all the metadata of the active API tokens
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@return ApiListApiTokensRequest
+		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+		@return ApiListApiTokensRequest
 	*/
 	ListApiTokens(ctx context.Context) ApiListApiTokensRequest
 
@@ -66,13 +64,13 @@ type ApiTokenAPI interface {
 	ListApiTokensExecute(r ApiListApiTokensRequest) ([]ApiToken, *APIResponse, error)
 
 	/*
-	RevokeApiToken Revoke an API Token
+		RevokeApiToken Revoke an API Token
 
-	Revokes an API token by `apiTokenId`
+		Revokes an API token by `apiTokenId`
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param apiTokenId id of the API Token
-	@return ApiRevokeApiTokenRequest
+		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+		@param apiTokenId id of the API Token
+		@return ApiRevokeApiTokenRequest
 	*/
 	RevokeApiToken(ctx context.Context, apiTokenId string) ApiRevokeApiTokenRequest
 
@@ -80,12 +78,12 @@ type ApiTokenAPI interface {
 	RevokeApiTokenExecute(r ApiRevokeApiTokenRequest) (*APIResponse, error)
 
 	/*
-	RevokeCurrentApiToken Revoke the Current API Token
+		RevokeCurrentApiToken Revoke the Current API Token
 
-	Revokes the API token provided in the Authorization header
+		Revokes the API token provided in the Authorization header
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@return ApiRevokeCurrentApiTokenRequest
+		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+		@return ApiRevokeCurrentApiTokenRequest
 	*/
 	RevokeCurrentApiToken(ctx context.Context) ApiRevokeCurrentApiTokenRequest
 
@@ -93,13 +91,13 @@ type ApiTokenAPI interface {
 	RevokeCurrentApiTokenExecute(r ApiRevokeCurrentApiTokenRequest) (*APIResponse, error)
 
 	/*
-	UpsertApiToken Upsert an API Token Network Condition
+		UpsertApiToken Upsert an API Token Network Condition
 
-	Upserts an API Token Network Condition by `apiTokenId`
+		Upserts an API Token Network Condition by `apiTokenId`
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param apiTokenId id of the API Token
-	@return ApiUpsertApiTokenRequest
+		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+		@param apiTokenId id of the API Token
+		@return ApiUpsertApiTokenRequest
 	*/
 	UpsertApiToken(ctx context.Context, apiTokenId string) ApiUpsertApiTokenRequest
 
@@ -112,7 +110,7 @@ type ApiTokenAPI interface {
 type ApiTokenAPIService service
 
 type ApiGetApiTokenRequest struct {
-	ctx context.Context
+	ctx        context.Context
 	ApiService ApiTokenAPI
 	apiTokenId string
 	retryCount int32
@@ -127,21 +125,22 @@ GetApiToken Retrieve an API Token's Metadata
 
 Retrieves the metadata for an active API token by `apiTokenId`
 
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @param apiTokenId id of the API Token
- @return ApiGetApiTokenRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param apiTokenId id of the API Token
+	@return ApiGetApiTokenRequest
 */
 func (a *ApiTokenAPIService) GetApiToken(ctx context.Context, apiTokenId string) ApiGetApiTokenRequest {
 	return ApiGetApiTokenRequest{
 		ApiService: a,
-		ctx: ctx,
+		ctx:        ctx,
 		apiTokenId: apiTokenId,
 		retryCount: 0,
 	}
 }
 
 // Execute executes the request
-//  @return ApiToken
+//
+//	@return ApiToken
 func (a *ApiTokenAPIService) GetApiTokenExecute(r ApiGetApiTokenRequest) (*ApiToken, *APIResponse, error) {
 	var (
 		localVarHTTPMethod   = http.MethodGet
@@ -150,7 +149,7 @@ func (a *ApiTokenAPIService) GetApiTokenExecute(r ApiGetApiTokenRequest) (*ApiTo
 		localVarReturnValue  *ApiToken
 		localVarHTTPResponse *http.Response
 		localAPIResponse     *APIResponse
-		err 				 error
+		err                  error
 	)
 
 	if a.client.cfg.Okta.Client.RequestTimeout > 0 {
@@ -271,13 +270,13 @@ func (a *ApiTokenAPIService) GetApiTokenExecute(r ApiGetApiTokenRequest) (*ApiTo
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
 		return localVarReturnValue, localAPIResponse, newErr
 	}
-	
+
 	localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
 	return localVarReturnValue, localAPIResponse, nil
 }
 
 type ApiListApiTokensRequest struct {
-	ctx context.Context
+	ctx        context.Context
 	ApiService ApiTokenAPI
 	retryCount int32
 }
@@ -291,19 +290,20 @@ ListApiTokens List all API Token Metadata
 
 Lists all the metadata of the active API tokens
 
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @return ApiListApiTokensRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@return ApiListApiTokensRequest
 */
 func (a *ApiTokenAPIService) ListApiTokens(ctx context.Context) ApiListApiTokensRequest {
 	return ApiListApiTokensRequest{
 		ApiService: a,
-		ctx: ctx,
+		ctx:        ctx,
 		retryCount: 0,
 	}
 }
 
 // Execute executes the request
-//  @return []ApiToken
+//
+//	@return []ApiToken
 func (a *ApiTokenAPIService) ListApiTokensExecute(r ApiListApiTokensRequest) ([]ApiToken, *APIResponse, error) {
 	var (
 		localVarHTTPMethod   = http.MethodGet
@@ -312,7 +312,7 @@ func (a *ApiTokenAPIService) ListApiTokensExecute(r ApiListApiTokensRequest) ([]
 		localVarReturnValue  []ApiToken
 		localVarHTTPResponse *http.Response
 		localAPIResponse     *APIResponse
-		err 				 error
+		err                  error
 	)
 
 	if a.client.cfg.Okta.Client.RequestTimeout > 0 {
@@ -420,13 +420,13 @@ func (a *ApiTokenAPIService) ListApiTokensExecute(r ApiListApiTokensRequest) ([]
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
 		return localVarReturnValue, localAPIResponse, newErr
 	}
-	
+
 	localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
 	return localVarReturnValue, localAPIResponse, nil
 }
 
 type ApiRevokeApiTokenRequest struct {
-	ctx context.Context
+	ctx        context.Context
 	ApiService ApiTokenAPI
 	apiTokenId string
 	retryCount int32
@@ -441,14 +441,14 @@ RevokeApiToken Revoke an API Token
 
 Revokes an API token by `apiTokenId`
 
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @param apiTokenId id of the API Token
- @return ApiRevokeApiTokenRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param apiTokenId id of the API Token
+	@return ApiRevokeApiTokenRequest
 */
 func (a *ApiTokenAPIService) RevokeApiToken(ctx context.Context, apiTokenId string) ApiRevokeApiTokenRequest {
 	return ApiRevokeApiTokenRequest{
 		ApiService: a,
-		ctx: ctx,
+		ctx:        ctx,
 		apiTokenId: apiTokenId,
 		retryCount: 0,
 	}
@@ -462,7 +462,7 @@ func (a *ApiTokenAPIService) RevokeApiTokenExecute(r ApiRevokeApiTokenRequest) (
 		formFiles            []formFile
 		localVarHTTPResponse *http.Response
 		localAPIResponse     *APIResponse
-		err 				 error
+		err                  error
 	)
 
 	if a.client.cfg.Okta.Client.RequestTimeout > 0 {
@@ -579,7 +579,7 @@ func (a *ApiTokenAPIService) RevokeApiTokenExecute(r ApiRevokeApiTokenRequest) (
 }
 
 type ApiRevokeCurrentApiTokenRequest struct {
-	ctx context.Context
+	ctx        context.Context
 	ApiService ApiTokenAPI
 	retryCount int32
 }
@@ -593,13 +593,13 @@ RevokeCurrentApiToken Revoke the Current API Token
 
 Revokes the API token provided in the Authorization header
 
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @return ApiRevokeCurrentApiTokenRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@return ApiRevokeCurrentApiTokenRequest
 */
 func (a *ApiTokenAPIService) RevokeCurrentApiToken(ctx context.Context) ApiRevokeCurrentApiTokenRequest {
 	return ApiRevokeCurrentApiTokenRequest{
 		ApiService: a,
-		ctx: ctx,
+		ctx:        ctx,
 		retryCount: 0,
 	}
 }
@@ -612,7 +612,7 @@ func (a *ApiTokenAPIService) RevokeCurrentApiTokenExecute(r ApiRevokeCurrentApiT
 		formFiles            []formFile
 		localVarHTTPResponse *http.Response
 		localAPIResponse     *APIResponse
-		err 				 error
+		err                  error
 	)
 
 	if a.client.cfg.Okta.Client.RequestTimeout > 0 {
@@ -716,11 +716,11 @@ func (a *ApiTokenAPIService) RevokeCurrentApiTokenExecute(r ApiRevokeCurrentApiT
 }
 
 type ApiUpsertApiTokenRequest struct {
-	ctx context.Context
-	ApiService ApiTokenAPI
-	apiTokenId string
+	ctx            context.Context
+	ApiService     ApiTokenAPI
+	apiTokenId     string
 	apiTokenUpdate *ApiTokenUpdate
-	retryCount int32
+	retryCount     int32
 }
 
 func (r ApiUpsertApiTokenRequest) ApiTokenUpdate(apiTokenUpdate ApiTokenUpdate) ApiUpsertApiTokenRequest {
@@ -737,21 +737,22 @@ UpsertApiToken Upsert an API Token Network Condition
 
 Upserts an API Token Network Condition by `apiTokenId`
 
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @param apiTokenId id of the API Token
- @return ApiUpsertApiTokenRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param apiTokenId id of the API Token
+	@return ApiUpsertApiTokenRequest
 */
 func (a *ApiTokenAPIService) UpsertApiToken(ctx context.Context, apiTokenId string) ApiUpsertApiTokenRequest {
 	return ApiUpsertApiTokenRequest{
 		ApiService: a,
-		ctx: ctx,
+		ctx:        ctx,
 		apiTokenId: apiTokenId,
 		retryCount: 0,
 	}
 }
 
 // Execute executes the request
-//  @return ApiToken
+//
+//	@return ApiToken
 func (a *ApiTokenAPIService) UpsertApiTokenExecute(r ApiUpsertApiTokenRequest) (*ApiToken, *APIResponse, error) {
 	var (
 		localVarHTTPMethod   = http.MethodPut
@@ -760,7 +761,7 @@ func (a *ApiTokenAPIService) UpsertApiTokenExecute(r ApiUpsertApiTokenRequest) (
 		localVarReturnValue  *ApiToken
 		localVarHTTPResponse *http.Response
 		localAPIResponse     *APIResponse
-		err 				 error
+		err                  error
 	)
 
 	if a.client.cfg.Okta.Client.RequestTimeout > 0 {
@@ -898,7 +899,7 @@ func (a *ApiTokenAPIService) UpsertApiTokenExecute(r ApiUpsertApiTokenRequest) (
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
 		return localVarReturnValue, localAPIResponse, newErr
 	}
-	
+
 	localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
 	return localVarReturnValue, localAPIResponse, nil
 }

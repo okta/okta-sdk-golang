@@ -32,7 +32,7 @@ import (
 // FCMPushProvider struct for FCMPushProvider
 type FCMPushProvider struct {
 	PushProvider
-	Configuration *FCMConfiguration `json:"configuration,omitempty"`
+	Configuration        *FCMConfiguration `json:"configuration,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -200,4 +200,3 @@ func (v *NullableFCMPushProvider) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-

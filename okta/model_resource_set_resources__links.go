@@ -29,8 +29,8 @@ import (
 
 // ResourceSetResourcesLinks struct for ResourceSetResourcesLinks
 type ResourceSetResourcesLinks struct {
-	Next *HrefObject `json:"next,omitempty"`
-	ResourceSet *HrefObject `json:"resource-set,omitempty"`
+	Next                 *HrefObject `json:"next,omitempty"`
+	ResourceSet          *HrefObject `json:"resource-set,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -192,4 +192,3 @@ func (v *NullableResourceSetResourcesLinks) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-

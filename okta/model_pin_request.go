@@ -34,7 +34,7 @@ type PinRequest struct {
 	// Name of the fulfillment provider for the WebAuthn Preregistration Factor
 	FulfillmentProvider *string `json:"fulfillmentProvider,omitempty"`
 	// ID of an existing Okta user
-	UserId *string `json:"userId,omitempty"`
+	UserId               *string `json:"userId,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -232,4 +232,3 @@ func (v *NullablePinRequest) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-

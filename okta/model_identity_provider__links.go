@@ -29,15 +29,15 @@ import (
 
 // IdentityProviderLinks struct for IdentityProviderLinks
 type IdentityProviderLinks struct {
-	Self *HrefObjectSelfLink `json:"self,omitempty"`
-	Acs *HrefObject `json:"acs,omitempty"`
-	Authorize *HrefObject `json:"authorize,omitempty"`
-	ClientRedirectUri *HrefObject `json:"clientRedirectUri,omitempty"`
-	Metadata *HrefObject `json:"metadata,omitempty"`
-	Users *HrefObject `json:"users,omitempty"`
-	Deactivate *HrefObject `json:"deactivate,omitempty"`
-	Activate *HrefObject `json:"activate,omitempty"`
-	Keys *HrefObject `json:"keys,omitempty"`
+	Self                 *HrefObjectSelfLink `json:"self,omitempty"`
+	Acs                  *HrefObject         `json:"acs,omitempty"`
+	Authorize            *HrefObject         `json:"authorize,omitempty"`
+	ClientRedirectUri    *HrefObject         `json:"clientRedirectUri,omitempty"`
+	Metadata             *HrefObject         `json:"metadata,omitempty"`
+	Users                *HrefObject         `json:"users,omitempty"`
+	Deactivate           *HrefObject         `json:"deactivate,omitempty"`
+	Activate             *HrefObject         `json:"activate,omitempty"`
+	Keys                 *HrefObject         `json:"keys,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -451,4 +451,3 @@ func (v *NullableIdentityProviderLinks) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-

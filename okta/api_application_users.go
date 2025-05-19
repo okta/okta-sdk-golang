@@ -29,32 +29,30 @@ import (
 	"io/ioutil"
 	"net/http"
 	"net/url"
-	"time"
 	"strings"
+	"time"
 )
 
-
 type ApplicationUsersAPI interface {
-
 	/*
-	AssignUserToApplication Assign an Application User
+			AssignUserToApplication Assign an Application User
 
-	Assigns a user to an app for:
+			Assigns a user to an app for:
 
-  * SSO only<br>
-    Assignments to SSO apps typically don't include a user profile.
-    However, if your SSO app requires a profile but doesn't have provisioning enabled, you can add profile attributes in the request body.
+		  * SSO only<br>
+		    Assignments to SSO apps typically don't include a user profile.
+		    However, if your SSO app requires a profile but doesn't have provisioning enabled, you can add profile attributes in the request body.
 
-  * SSO and provisioning<br>
-    Assignments to SSO and provisioning apps typically include credentials and an app-specific profile.
-    Profile mappings defined for the app are applied first before applying any profile properties that are specified in the request body.
-    > **Notes:**
-    > * When Universal Directory is enabled, you can only specify profile properties that aren't defined in profile mappings.
-    > * Omit mapped properties during assignment to minimize assignment errors.
+		  * SSO and provisioning<br>
+		    Assignments to SSO and provisioning apps typically include credentials and an app-specific profile.
+		    Profile mappings defined for the app are applied first before applying any profile properties that are specified in the request body.
+		    > **Notes:**
+		    > * When Universal Directory is enabled, you can only specify profile properties that aren't defined in profile mappings.
+		    > * Omit mapped properties during assignment to minimize assignment errors.
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param appId Application ID
-	@return ApiAssignUserToApplicationRequest
+			@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+			@param appId Application ID
+			@return ApiAssignUserToApplicationRequest
 	*/
 	AssignUserToApplication(ctx context.Context, appId string) ApiAssignUserToApplicationRequest
 
@@ -63,14 +61,14 @@ type ApplicationUsersAPI interface {
 	AssignUserToApplicationExecute(r ApiAssignUserToApplicationRequest) (*AppUser, *APIResponse, error)
 
 	/*
-	GetApplicationUser Retrieve an Application User
+		GetApplicationUser Retrieve an Application User
 
-	Retrieves a specific user assignment for a specific app
+		Retrieves a specific user assignment for a specific app
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param appId Application ID
-	@param userId ID of an existing Okta user
-	@return ApiGetApplicationUserRequest
+		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+		@param appId Application ID
+		@param userId ID of an existing Okta user
+		@return ApiGetApplicationUserRequest
 	*/
 	GetApplicationUser(ctx context.Context, appId string, userId string) ApiGetApplicationUserRequest
 
@@ -79,13 +77,13 @@ type ApplicationUsersAPI interface {
 	GetApplicationUserExecute(r ApiGetApplicationUserRequest) (*AppUser, *APIResponse, error)
 
 	/*
-	ListApplicationUsers List all Application Users
+		ListApplicationUsers List all Application Users
 
-	Lists all assigned users for an app
+		Lists all assigned users for an app
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param appId Application ID
-	@return ApiListApplicationUsersRequest
+		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+		@param appId Application ID
+		@return ApiListApplicationUsersRequest
 	*/
 	ListApplicationUsers(ctx context.Context, appId string) ApiListApplicationUsersRequest
 
@@ -94,19 +92,19 @@ type ApplicationUsersAPI interface {
 	ListApplicationUsersExecute(r ApiListApplicationUsersRequest) ([]AppUser, *APIResponse, error)
 
 	/*
-	UnassignUserFromApplication Unassign an Application User
+			UnassignUserFromApplication Unassign an Application User
 
-	Unassigns a user from an app
+			Unassigns a user from an app
 
-For directories like Active Directory and LDAP, they act as the owner of the user's credential with Okta delegating authentication (DelAuth) to that directory.
-If this request is successful for a user when DelAuth is enabled, then the user is in a state with no password. You can then reset the user's password.
+		For directories like Active Directory and LDAP, they act as the owner of the user's credential with Okta delegating authentication (DelAuth) to that directory.
+		If this request is successful for a user when DelAuth is enabled, then the user is in a state with no password. You can then reset the user's password.
 
-> **Important:** This is a destructive operation. You can't recover the user's app profile. If the app is enabled for provisioning and configured to deactivate users, the user is also deactivated in the target app.
+		> **Important:** This is a destructive operation. You can't recover the user's app profile. If the app is enabled for provisioning and configured to deactivate users, the user is also deactivated in the target app.
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param appId Application ID
-	@param userId ID of an existing Okta user
-	@return ApiUnassignUserFromApplicationRequest
+			@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+			@param appId Application ID
+			@param userId ID of an existing Okta user
+			@return ApiUnassignUserFromApplicationRequest
 	*/
 	UnassignUserFromApplication(ctx context.Context, appId string, userId string) ApiUnassignUserFromApplicationRequest
 
@@ -114,14 +112,14 @@ If this request is successful for a user when DelAuth is enabled, then the user 
 	UnassignUserFromApplicationExecute(r ApiUnassignUserFromApplicationRequest) (*APIResponse, error)
 
 	/*
-	UpdateApplicationUser Update an Application User
+		UpdateApplicationUser Update an Application User
 
-	Updates the profile or credentials of a user assigned to an app
+		Updates the profile or credentials of a user assigned to an app
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param appId Application ID
-	@param userId ID of an existing Okta user
-	@return ApiUpdateApplicationUserRequest
+		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+		@param appId Application ID
+		@param userId ID of an existing Okta user
+		@return ApiUpdateApplicationUserRequest
 	*/
 	UpdateApplicationUser(ctx context.Context, appId string, userId string) ApiUpdateApplicationUserRequest
 
@@ -134,10 +132,10 @@ If this request is successful for a user when DelAuth is enabled, then the user 
 type ApplicationUsersAPIService service
 
 type ApiAssignUserToApplicationRequest struct {
-	ctx context.Context
+	ctx        context.Context
 	ApiService ApplicationUsersAPI
-	appId string
-	appUser *AppUserAssignRequest
+	appId      string
+	appUser    *AppUserAssignRequest
 	retryCount int32
 }
 
@@ -155,32 +153,33 @@ AssignUserToApplication Assign an Application User
 
 Assigns a user to an app for:
 
-  * SSO only<br>
+  - SSO only<br>
     Assignments to SSO apps typically don't include a user profile.
     However, if your SSO app requires a profile but doesn't have provisioning enabled, you can add profile attributes in the request body.
 
-  * SSO and provisioning<br>
+  - SSO and provisioning<br>
     Assignments to SSO and provisioning apps typically include credentials and an app-specific profile.
     Profile mappings defined for the app are applied first before applying any profile properties that are specified in the request body.
     > **Notes:**
     > * When Universal Directory is enabled, you can only specify profile properties that aren't defined in profile mappings.
     > * Omit mapped properties during assignment to minimize assignment errors.
 
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @param appId Application ID
- @return ApiAssignUserToApplicationRequest
+    @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+    @param appId Application ID
+    @return ApiAssignUserToApplicationRequest
 */
 func (a *ApplicationUsersAPIService) AssignUserToApplication(ctx context.Context, appId string) ApiAssignUserToApplicationRequest {
 	return ApiAssignUserToApplicationRequest{
 		ApiService: a,
-		ctx: ctx,
-		appId: appId,
+		ctx:        ctx,
+		appId:      appId,
 		retryCount: 0,
 	}
 }
 
 // Execute executes the request
-//  @return AppUser
+//
+//	@return AppUser
 func (a *ApplicationUsersAPIService) AssignUserToApplicationExecute(r ApiAssignUserToApplicationRequest) (*AppUser, *APIResponse, error) {
 	var (
 		localVarHTTPMethod   = http.MethodPost
@@ -189,7 +188,7 @@ func (a *ApplicationUsersAPIService) AssignUserToApplicationExecute(r ApiAssignU
 		localVarReturnValue  *AppUser
 		localVarHTTPResponse *http.Response
 		localAPIResponse     *APIResponse
-		err 				 error
+		err                  error
 	)
 
 	if a.client.cfg.Okta.Client.RequestTimeout > 0 {
@@ -327,17 +326,17 @@ func (a *ApplicationUsersAPIService) AssignUserToApplicationExecute(r ApiAssignU
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
 		return localVarReturnValue, localAPIResponse, newErr
 	}
-	
+
 	localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
 	return localVarReturnValue, localAPIResponse, nil
 }
 
 type ApiGetApplicationUserRequest struct {
-	ctx context.Context
+	ctx        context.Context
 	ApiService ApplicationUsersAPI
-	appId string
-	userId string
-	expand *string
+	appId      string
+	userId     string
+	expand     *string
 	retryCount int32
 }
 
@@ -356,23 +355,24 @@ GetApplicationUser Retrieve an Application User
 
 Retrieves a specific user assignment for a specific app
 
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @param appId Application ID
- @param userId ID of an existing Okta user
- @return ApiGetApplicationUserRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param appId Application ID
+	@param userId ID of an existing Okta user
+	@return ApiGetApplicationUserRequest
 */
 func (a *ApplicationUsersAPIService) GetApplicationUser(ctx context.Context, appId string, userId string) ApiGetApplicationUserRequest {
 	return ApiGetApplicationUserRequest{
 		ApiService: a,
-		ctx: ctx,
-		appId: appId,
-		userId: userId,
+		ctx:        ctx,
+		appId:      appId,
+		userId:     userId,
 		retryCount: 0,
 	}
 }
 
 // Execute executes the request
-//  @return AppUser
+//
+//	@return AppUser
 func (a *ApplicationUsersAPIService) GetApplicationUserExecute(r ApiGetApplicationUserRequest) (*AppUser, *APIResponse, error) {
 	var (
 		localVarHTTPMethod   = http.MethodGet
@@ -381,7 +381,7 @@ func (a *ApplicationUsersAPIService) GetApplicationUserExecute(r ApiGetApplicati
 		localVarReturnValue  *AppUser
 		localVarHTTPResponse *http.Response
 		localAPIResponse     *APIResponse
-		err 				 error
+		err                  error
 	)
 
 	if a.client.cfg.Okta.Client.RequestTimeout > 0 {
@@ -506,19 +506,19 @@ func (a *ApplicationUsersAPIService) GetApplicationUserExecute(r ApiGetApplicati
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
 		return localVarReturnValue, localAPIResponse, newErr
 	}
-	
+
 	localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
 	return localVarReturnValue, localAPIResponse, nil
 }
 
 type ApiListApplicationUsersRequest struct {
-	ctx context.Context
+	ctx        context.Context
 	ApiService ApplicationUsersAPI
-	appId string
-	after *string
-	limit *int32
-	q *string
-	expand *string
+	appId      string
+	after      *string
+	limit      *int32
+	q          *string
+	expand     *string
 	retryCount int32
 }
 
@@ -528,13 +528,13 @@ func (r ApiListApplicationUsersRequest) After(after string) ApiListApplicationUs
 	return r
 }
 
-// Specifies the number of objects to return per page. If there are multiple pages of results, the Link header contains a &#x60;next&#x60; link that you need to use as an opaque value (follow it, don&#39;t parse it). See [Pagination](/#pagination). 
+// Specifies the number of objects to return per page. If there are multiple pages of results, the Link header contains a &#x60;next&#x60; link that you need to use as an opaque value (follow it, don&#39;t parse it). See [Pagination](/#pagination).
 func (r ApiListApplicationUsersRequest) Limit(limit int32) ApiListApplicationUsersRequest {
 	r.limit = &limit
 	return r
 }
 
-// Specifies a filter for the list of Application Users returned based on their profile attributes. The value of &#x60;q&#x60; is matched against the beginning of the following profile attributes: &#x60;userName&#x60;, &#x60;firstName&#x60;, &#x60;lastName&#x60;, and &#x60;email&#x60;. This filter only supports the &#x60;startsWith&#x60; operation that matches the &#x60;q&#x60; string against the beginning of the attribute values. &gt; **Note:** For OIDC apps, user profiles don&#39;t contain the &#x60;firstName&#x60; or &#x60;lastName&#x60; attributes. Therefore, the query only matches against the &#x60;userName&#x60; or &#x60;email&#x60; attributes. 
+// Specifies a filter for the list of Application Users returned based on their profile attributes. The value of &#x60;q&#x60; is matched against the beginning of the following profile attributes: &#x60;userName&#x60;, &#x60;firstName&#x60;, &#x60;lastName&#x60;, and &#x60;email&#x60;. This filter only supports the &#x60;startsWith&#x60; operation that matches the &#x60;q&#x60; string against the beginning of the attribute values. &gt; **Note:** For OIDC apps, user profiles don&#39;t contain the &#x60;firstName&#x60; or &#x60;lastName&#x60; attributes. Therefore, the query only matches against the &#x60;userName&#x60; or &#x60;email&#x60; attributes.
 func (r ApiListApplicationUsersRequest) Q(q string) ApiListApplicationUsersRequest {
 	r.q = &q
 	return r
@@ -555,21 +555,22 @@ ListApplicationUsers List all Application Users
 
 Lists all assigned users for an app
 
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @param appId Application ID
- @return ApiListApplicationUsersRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param appId Application ID
+	@return ApiListApplicationUsersRequest
 */
 func (a *ApplicationUsersAPIService) ListApplicationUsers(ctx context.Context, appId string) ApiListApplicationUsersRequest {
 	return ApiListApplicationUsersRequest{
 		ApiService: a,
-		ctx: ctx,
-		appId: appId,
+		ctx:        ctx,
+		appId:      appId,
 		retryCount: 0,
 	}
 }
 
 // Execute executes the request
-//  @return []AppUser
+//
+//	@return []AppUser
 func (a *ApplicationUsersAPIService) ListApplicationUsersExecute(r ApiListApplicationUsersRequest) ([]AppUser, *APIResponse, error) {
 	var (
 		localVarHTTPMethod   = http.MethodGet
@@ -578,7 +579,7 @@ func (a *ApplicationUsersAPIService) ListApplicationUsersExecute(r ApiListApplic
 		localVarReturnValue  []AppUser
 		localVarHTTPResponse *http.Response
 		localAPIResponse     *APIResponse
-		err 				 error
+		err                  error
 	)
 
 	if a.client.cfg.Okta.Client.RequestTimeout > 0 {
@@ -711,17 +712,17 @@ func (a *ApplicationUsersAPIService) ListApplicationUsersExecute(r ApiListApplic
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
 		return localVarReturnValue, localAPIResponse, newErr
 	}
-	
+
 	localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
 	return localVarReturnValue, localAPIResponse, nil
 }
 
 type ApiUnassignUserFromApplicationRequest struct {
-	ctx context.Context
+	ctx        context.Context
 	ApiService ApplicationUsersAPI
-	appId string
-	userId string
-	sendEmail *bool
+	appId      string
+	userId     string
+	sendEmail  *bool
 	retryCount int32
 }
 
@@ -738,24 +739,24 @@ func (r ApiUnassignUserFromApplicationRequest) Execute() (*APIResponse, error) {
 /*
 UnassignUserFromApplication Unassign an Application User
 
-Unassigns a user from an app
+# Unassigns a user from an app
 
 For directories like Active Directory and LDAP, they act as the owner of the user's credential with Okta delegating authentication (DelAuth) to that directory.
 If this request is successful for a user when DelAuth is enabled, then the user is in a state with no password. You can then reset the user's password.
 
 > **Important:** This is a destructive operation. You can't recover the user's app profile. If the app is enabled for provisioning and configured to deactivate users, the user is also deactivated in the target app.
 
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @param appId Application ID
- @param userId ID of an existing Okta user
- @return ApiUnassignUserFromApplicationRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param appId Application ID
+	@param userId ID of an existing Okta user
+	@return ApiUnassignUserFromApplicationRequest
 */
 func (a *ApplicationUsersAPIService) UnassignUserFromApplication(ctx context.Context, appId string, userId string) ApiUnassignUserFromApplicationRequest {
 	return ApiUnassignUserFromApplicationRequest{
 		ApiService: a,
-		ctx: ctx,
-		appId: appId,
-		userId: userId,
+		ctx:        ctx,
+		appId:      appId,
+		userId:     userId,
 		retryCount: 0,
 	}
 }
@@ -768,7 +769,7 @@ func (a *ApplicationUsersAPIService) UnassignUserFromApplicationExecute(r ApiUna
 		formFiles            []formFile
 		localVarHTTPResponse *http.Response
 		localAPIResponse     *APIResponse
-		err 				 error
+		err                  error
 	)
 
 	if a.client.cfg.Okta.Client.RequestTimeout > 0 {
@@ -889,11 +890,11 @@ func (a *ApplicationUsersAPIService) UnassignUserFromApplicationExecute(r ApiUna
 }
 
 type ApiUpdateApplicationUserRequest struct {
-	ctx context.Context
+	ctx        context.Context
 	ApiService ApplicationUsersAPI
-	appId string
-	userId string
-	appUser *AppUserUpdateRequest
+	appId      string
+	userId     string
+	appUser    *AppUserUpdateRequest
 	retryCount int32
 }
 
@@ -911,23 +912,24 @@ UpdateApplicationUser Update an Application User
 
 Updates the profile or credentials of a user assigned to an app
 
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @param appId Application ID
- @param userId ID of an existing Okta user
- @return ApiUpdateApplicationUserRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param appId Application ID
+	@param userId ID of an existing Okta user
+	@return ApiUpdateApplicationUserRequest
 */
 func (a *ApplicationUsersAPIService) UpdateApplicationUser(ctx context.Context, appId string, userId string) ApiUpdateApplicationUserRequest {
 	return ApiUpdateApplicationUserRequest{
 		ApiService: a,
-		ctx: ctx,
-		appId: appId,
-		userId: userId,
+		ctx:        ctx,
+		appId:      appId,
+		userId:     userId,
 		retryCount: 0,
 	}
 }
 
 // Execute executes the request
-//  @return AppUser
+//
+//	@return AppUser
 func (a *ApplicationUsersAPIService) UpdateApplicationUserExecute(r ApiUpdateApplicationUserRequest) (*AppUser, *APIResponse, error) {
 	var (
 		localVarHTTPMethod   = http.MethodPost
@@ -936,7 +938,7 @@ func (a *ApplicationUsersAPIService) UpdateApplicationUserExecute(r ApiUpdateApp
 		localVarReturnValue  *AppUser
 		localVarHTTPResponse *http.Response
 		localAPIResponse     *APIResponse
-		err 				 error
+		err                  error
 	)
 
 	if a.client.cfg.Okta.Client.RequestTimeout > 0 {
@@ -1075,7 +1077,7 @@ func (a *ApplicationUsersAPIService) UpdateApplicationUserExecute(r ApiUpdateApp
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
 		return localVarReturnValue, localAPIResponse, newErr
 	}
-	
+
 	localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
 	return localVarReturnValue, localAPIResponse, nil
 }

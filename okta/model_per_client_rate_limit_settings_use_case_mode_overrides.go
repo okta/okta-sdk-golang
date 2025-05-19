@@ -29,9 +29,9 @@ import (
 
 // PerClientRateLimitSettingsUseCaseModeOverrides A map of Per-Client Rate Limit Use Case to the applicable PerClientRateLimitMode. Overrides the `defaultMode` property for the specified use cases.
 type PerClientRateLimitSettingsUseCaseModeOverrides struct {
-	LOGIN_PAGE *string `json:"LOGIN_PAGE,omitempty"`
-	OAUTH2AUTHORIZE *string `json:"OAUTH2_AUTHORIZE,omitempty"`
-	OIE_APP_INTENT *string `json:"OIE_APP_INTENT,omitempty"`
+	LOGIN_PAGE           *string `json:"LOGIN_PAGE,omitempty"`
+	OAUTH2AUTHORIZE      *string `json:"OAUTH2_AUTHORIZE,omitempty"`
+	OIE_APP_INTENT       *string `json:"OIE_APP_INTENT,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -229,4 +229,3 @@ func (v *NullablePerClientRateLimitSettingsUseCaseModeOverrides) UnmarshalJSON(s
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-

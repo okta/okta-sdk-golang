@@ -29,21 +29,19 @@ import (
 	"io/ioutil"
 	"net/http"
 	"net/url"
-	"time"
 	"strings"
+	"time"
 )
 
-
 type AuthorizationServerAPI interface {
-
 	/*
-	ActivateAuthorizationServer Activate an Authorization Server
+		ActivateAuthorizationServer Activate an Authorization Server
 
-	Activates an authorization server
+		Activates an authorization server
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param authServerId `id` of the Authorization Server
-	@return ApiActivateAuthorizationServerRequest
+		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+		@param authServerId `id` of the Authorization Server
+		@return ApiActivateAuthorizationServerRequest
 	*/
 	ActivateAuthorizationServer(ctx context.Context, authServerId string) ApiActivateAuthorizationServerRequest
 
@@ -51,12 +49,12 @@ type AuthorizationServerAPI interface {
 	ActivateAuthorizationServerExecute(r ApiActivateAuthorizationServerRequest) (*APIResponse, error)
 
 	/*
-	CreateAuthorizationServer Create an Authorization Server
+		CreateAuthorizationServer Create an Authorization Server
 
-	Creates an authorization server
+		Creates an authorization server
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@return ApiCreateAuthorizationServerRequest
+		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+		@return ApiCreateAuthorizationServerRequest
 	*/
 	CreateAuthorizationServer(ctx context.Context) ApiCreateAuthorizationServerRequest
 
@@ -65,13 +63,13 @@ type AuthorizationServerAPI interface {
 	CreateAuthorizationServerExecute(r ApiCreateAuthorizationServerRequest) (*AuthorizationServer, *APIResponse, error)
 
 	/*
-	DeactivateAuthorizationServer Deactivate an Authorization Server
+		DeactivateAuthorizationServer Deactivate an Authorization Server
 
-	Deactivates an authorization server
+		Deactivates an authorization server
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param authServerId `id` of the Authorization Server
-	@return ApiDeactivateAuthorizationServerRequest
+		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+		@param authServerId `id` of the Authorization Server
+		@return ApiDeactivateAuthorizationServerRequest
 	*/
 	DeactivateAuthorizationServer(ctx context.Context, authServerId string) ApiDeactivateAuthorizationServerRequest
 
@@ -79,13 +77,13 @@ type AuthorizationServerAPI interface {
 	DeactivateAuthorizationServerExecute(r ApiDeactivateAuthorizationServerRequest) (*APIResponse, error)
 
 	/*
-	DeleteAuthorizationServer Delete an Authorization Server
+		DeleteAuthorizationServer Delete an Authorization Server
 
-	Deletes an authorization server
+		Deletes an authorization server
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param authServerId `id` of the Authorization Server
-	@return ApiDeleteAuthorizationServerRequest
+		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+		@param authServerId `id` of the Authorization Server
+		@return ApiDeleteAuthorizationServerRequest
 	*/
 	DeleteAuthorizationServer(ctx context.Context, authServerId string) ApiDeleteAuthorizationServerRequest
 
@@ -93,13 +91,13 @@ type AuthorizationServerAPI interface {
 	DeleteAuthorizationServerExecute(r ApiDeleteAuthorizationServerRequest) (*APIResponse, error)
 
 	/*
-	GetAuthorizationServer Retrieve an Authorization Server
+		GetAuthorizationServer Retrieve an Authorization Server
 
-	Retrieves an authorization server
+		Retrieves an authorization server
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param authServerId `id` of the Authorization Server
-	@return ApiGetAuthorizationServerRequest
+		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+		@param authServerId `id` of the Authorization Server
+		@return ApiGetAuthorizationServerRequest
 	*/
 	GetAuthorizationServer(ctx context.Context, authServerId string) ApiGetAuthorizationServerRequest
 
@@ -108,12 +106,12 @@ type AuthorizationServerAPI interface {
 	GetAuthorizationServerExecute(r ApiGetAuthorizationServerRequest) (*AuthorizationServer, *APIResponse, error)
 
 	/*
-	ListAuthorizationServers List all Authorization Servers
+		ListAuthorizationServers List all Authorization Servers
 
-	Lists all custom authorization servers in the org
+		Lists all custom authorization servers in the org
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@return ApiListAuthorizationServersRequest
+		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+		@return ApiListAuthorizationServersRequest
 	*/
 	ListAuthorizationServers(ctx context.Context) ApiListAuthorizationServersRequest
 
@@ -122,13 +120,13 @@ type AuthorizationServerAPI interface {
 	ListAuthorizationServersExecute(r ApiListAuthorizationServersRequest) ([]AuthorizationServer, *APIResponse, error)
 
 	/*
-	ReplaceAuthorizationServer Replace an Authorization Server
+		ReplaceAuthorizationServer Replace an Authorization Server
 
-	Replaces an authorization server
+		Replaces an authorization server
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param authServerId `id` of the Authorization Server
-	@return ApiReplaceAuthorizationServerRequest
+		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+		@param authServerId `id` of the Authorization Server
+		@return ApiReplaceAuthorizationServerRequest
 	*/
 	ReplaceAuthorizationServer(ctx context.Context, authServerId string) ApiReplaceAuthorizationServerRequest
 
@@ -141,10 +139,10 @@ type AuthorizationServerAPI interface {
 type AuthorizationServerAPIService service
 
 type ApiActivateAuthorizationServerRequest struct {
-	ctx context.Context
-	ApiService AuthorizationServerAPI
+	ctx          context.Context
+	ApiService   AuthorizationServerAPI
 	authServerId string
-	retryCount int32
+	retryCount   int32
 }
 
 func (r ApiActivateAuthorizationServerRequest) Execute() (*APIResponse, error) {
@@ -156,16 +154,16 @@ ActivateAuthorizationServer Activate an Authorization Server
 
 Activates an authorization server
 
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @param authServerId `id` of the Authorization Server
- @return ApiActivateAuthorizationServerRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param authServerId `id` of the Authorization Server
+	@return ApiActivateAuthorizationServerRequest
 */
 func (a *AuthorizationServerAPIService) ActivateAuthorizationServer(ctx context.Context, authServerId string) ApiActivateAuthorizationServerRequest {
 	return ApiActivateAuthorizationServerRequest{
-		ApiService: a,
-		ctx: ctx,
+		ApiService:   a,
+		ctx:          ctx,
 		authServerId: authServerId,
-		retryCount: 0,
+		retryCount:   0,
 	}
 }
 
@@ -177,7 +175,7 @@ func (a *AuthorizationServerAPIService) ActivateAuthorizationServerExecute(r Api
 		formFiles            []formFile
 		localVarHTTPResponse *http.Response
 		localAPIResponse     *APIResponse
-		err 				 error
+		err                  error
 	)
 
 	if a.client.cfg.Okta.Client.RequestTimeout > 0 {
@@ -294,10 +292,10 @@ func (a *AuthorizationServerAPIService) ActivateAuthorizationServerExecute(r Api
 }
 
 type ApiCreateAuthorizationServerRequest struct {
-	ctx context.Context
-	ApiService AuthorizationServerAPI
+	ctx                 context.Context
+	ApiService          AuthorizationServerAPI
 	authorizationServer *AuthorizationServer
-	retryCount int32
+	retryCount          int32
 }
 
 func (r ApiCreateAuthorizationServerRequest) AuthorizationServer(authorizationServer AuthorizationServer) ApiCreateAuthorizationServerRequest {
@@ -314,19 +312,20 @@ CreateAuthorizationServer Create an Authorization Server
 
 Creates an authorization server
 
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @return ApiCreateAuthorizationServerRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@return ApiCreateAuthorizationServerRequest
 */
 func (a *AuthorizationServerAPIService) CreateAuthorizationServer(ctx context.Context) ApiCreateAuthorizationServerRequest {
 	return ApiCreateAuthorizationServerRequest{
 		ApiService: a,
-		ctx: ctx,
+		ctx:        ctx,
 		retryCount: 0,
 	}
 }
 
 // Execute executes the request
-//  @return AuthorizationServer
+//
+//	@return AuthorizationServer
 func (a *AuthorizationServerAPIService) CreateAuthorizationServerExecute(r ApiCreateAuthorizationServerRequest) (*AuthorizationServer, *APIResponse, error) {
 	var (
 		localVarHTTPMethod   = http.MethodPost
@@ -335,7 +334,7 @@ func (a *AuthorizationServerAPIService) CreateAuthorizationServerExecute(r ApiCr
 		localVarReturnValue  *AuthorizationServer
 		localVarHTTPResponse *http.Response
 		localAPIResponse     *APIResponse
-		err 				 error
+		err                  error
 	)
 
 	if a.client.cfg.Okta.Client.RequestTimeout > 0 {
@@ -460,16 +459,16 @@ func (a *AuthorizationServerAPIService) CreateAuthorizationServerExecute(r ApiCr
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
 		return localVarReturnValue, localAPIResponse, newErr
 	}
-	
+
 	localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
 	return localVarReturnValue, localAPIResponse, nil
 }
 
 type ApiDeactivateAuthorizationServerRequest struct {
-	ctx context.Context
-	ApiService AuthorizationServerAPI
+	ctx          context.Context
+	ApiService   AuthorizationServerAPI
 	authServerId string
-	retryCount int32
+	retryCount   int32
 }
 
 func (r ApiDeactivateAuthorizationServerRequest) Execute() (*APIResponse, error) {
@@ -481,16 +480,16 @@ DeactivateAuthorizationServer Deactivate an Authorization Server
 
 Deactivates an authorization server
 
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @param authServerId `id` of the Authorization Server
- @return ApiDeactivateAuthorizationServerRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param authServerId `id` of the Authorization Server
+	@return ApiDeactivateAuthorizationServerRequest
 */
 func (a *AuthorizationServerAPIService) DeactivateAuthorizationServer(ctx context.Context, authServerId string) ApiDeactivateAuthorizationServerRequest {
 	return ApiDeactivateAuthorizationServerRequest{
-		ApiService: a,
-		ctx: ctx,
+		ApiService:   a,
+		ctx:          ctx,
 		authServerId: authServerId,
-		retryCount: 0,
+		retryCount:   0,
 	}
 }
 
@@ -502,7 +501,7 @@ func (a *AuthorizationServerAPIService) DeactivateAuthorizationServerExecute(r A
 		formFiles            []formFile
 		localVarHTTPResponse *http.Response
 		localAPIResponse     *APIResponse
-		err 				 error
+		err                  error
 	)
 
 	if a.client.cfg.Okta.Client.RequestTimeout > 0 {
@@ -619,10 +618,10 @@ func (a *AuthorizationServerAPIService) DeactivateAuthorizationServerExecute(r A
 }
 
 type ApiDeleteAuthorizationServerRequest struct {
-	ctx context.Context
-	ApiService AuthorizationServerAPI
+	ctx          context.Context
+	ApiService   AuthorizationServerAPI
 	authServerId string
-	retryCount int32
+	retryCount   int32
 }
 
 func (r ApiDeleteAuthorizationServerRequest) Execute() (*APIResponse, error) {
@@ -634,16 +633,16 @@ DeleteAuthorizationServer Delete an Authorization Server
 
 Deletes an authorization server
 
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @param authServerId `id` of the Authorization Server
- @return ApiDeleteAuthorizationServerRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param authServerId `id` of the Authorization Server
+	@return ApiDeleteAuthorizationServerRequest
 */
 func (a *AuthorizationServerAPIService) DeleteAuthorizationServer(ctx context.Context, authServerId string) ApiDeleteAuthorizationServerRequest {
 	return ApiDeleteAuthorizationServerRequest{
-		ApiService: a,
-		ctx: ctx,
+		ApiService:   a,
+		ctx:          ctx,
 		authServerId: authServerId,
-		retryCount: 0,
+		retryCount:   0,
 	}
 }
 
@@ -655,7 +654,7 @@ func (a *AuthorizationServerAPIService) DeleteAuthorizationServerExecute(r ApiDe
 		formFiles            []formFile
 		localVarHTTPResponse *http.Response
 		localAPIResponse     *APIResponse
-		err 				 error
+		err                  error
 	)
 
 	if a.client.cfg.Okta.Client.RequestTimeout > 0 {
@@ -772,10 +771,10 @@ func (a *AuthorizationServerAPIService) DeleteAuthorizationServerExecute(r ApiDe
 }
 
 type ApiGetAuthorizationServerRequest struct {
-	ctx context.Context
-	ApiService AuthorizationServerAPI
+	ctx          context.Context
+	ApiService   AuthorizationServerAPI
 	authServerId string
-	retryCount int32
+	retryCount   int32
 }
 
 func (r ApiGetAuthorizationServerRequest) Execute() (*AuthorizationServer, *APIResponse, error) {
@@ -787,21 +786,22 @@ GetAuthorizationServer Retrieve an Authorization Server
 
 Retrieves an authorization server
 
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @param authServerId `id` of the Authorization Server
- @return ApiGetAuthorizationServerRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param authServerId `id` of the Authorization Server
+	@return ApiGetAuthorizationServerRequest
 */
 func (a *AuthorizationServerAPIService) GetAuthorizationServer(ctx context.Context, authServerId string) ApiGetAuthorizationServerRequest {
 	return ApiGetAuthorizationServerRequest{
-		ApiService: a,
-		ctx: ctx,
+		ApiService:   a,
+		ctx:          ctx,
 		authServerId: authServerId,
-		retryCount: 0,
+		retryCount:   0,
 	}
 }
 
 // Execute executes the request
-//  @return AuthorizationServer
+//
+//	@return AuthorizationServer
 func (a *AuthorizationServerAPIService) GetAuthorizationServerExecute(r ApiGetAuthorizationServerRequest) (*AuthorizationServer, *APIResponse, error) {
 	var (
 		localVarHTTPMethod   = http.MethodGet
@@ -810,7 +810,7 @@ func (a *AuthorizationServerAPIService) GetAuthorizationServerExecute(r ApiGetAu
 		localVarReturnValue  *AuthorizationServer
 		localVarHTTPResponse *http.Response
 		localAPIResponse     *APIResponse
-		err 				 error
+		err                  error
 	)
 
 	if a.client.cfg.Okta.Client.RequestTimeout > 0 {
@@ -931,17 +931,17 @@ func (a *AuthorizationServerAPIService) GetAuthorizationServerExecute(r ApiGetAu
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
 		return localVarReturnValue, localAPIResponse, newErr
 	}
-	
+
 	localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
 	return localVarReturnValue, localAPIResponse, nil
 }
 
 type ApiListAuthorizationServersRequest struct {
-	ctx context.Context
+	ctx        context.Context
 	ApiService AuthorizationServerAPI
-	q *string
-	limit *int32
-	after *string
+	q          *string
+	limit      *int32
+	after      *string
 	retryCount int32
 }
 
@@ -972,19 +972,20 @@ ListAuthorizationServers List all Authorization Servers
 
 Lists all custom authorization servers in the org
 
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @return ApiListAuthorizationServersRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@return ApiListAuthorizationServersRequest
 */
 func (a *AuthorizationServerAPIService) ListAuthorizationServers(ctx context.Context) ApiListAuthorizationServersRequest {
 	return ApiListAuthorizationServersRequest{
 		ApiService: a,
-		ctx: ctx,
+		ctx:        ctx,
 		retryCount: 0,
 	}
 }
 
 // Execute executes the request
-//  @return []AuthorizationServer
+//
+//	@return []AuthorizationServer
 func (a *AuthorizationServerAPIService) ListAuthorizationServersExecute(r ApiListAuthorizationServersRequest) ([]AuthorizationServer, *APIResponse, error) {
 	var (
 		localVarHTTPMethod   = http.MethodGet
@@ -993,7 +994,7 @@ func (a *AuthorizationServerAPIService) ListAuthorizationServersExecute(r ApiLis
 		localVarReturnValue  []AuthorizationServer
 		localVarHTTPResponse *http.Response
 		localAPIResponse     *APIResponse
-		err 				 error
+		err                  error
 	)
 
 	if a.client.cfg.Okta.Client.RequestTimeout > 0 {
@@ -1110,17 +1111,17 @@ func (a *AuthorizationServerAPIService) ListAuthorizationServersExecute(r ApiLis
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
 		return localVarReturnValue, localAPIResponse, newErr
 	}
-	
+
 	localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
 	return localVarReturnValue, localAPIResponse, nil
 }
 
 type ApiReplaceAuthorizationServerRequest struct {
-	ctx context.Context
-	ApiService AuthorizationServerAPI
-	authServerId string
+	ctx                 context.Context
+	ApiService          AuthorizationServerAPI
+	authServerId        string
 	authorizationServer *AuthorizationServer
-	retryCount int32
+	retryCount          int32
 }
 
 func (r ApiReplaceAuthorizationServerRequest) AuthorizationServer(authorizationServer AuthorizationServer) ApiReplaceAuthorizationServerRequest {
@@ -1137,21 +1138,22 @@ ReplaceAuthorizationServer Replace an Authorization Server
 
 Replaces an authorization server
 
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @param authServerId `id` of the Authorization Server
- @return ApiReplaceAuthorizationServerRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param authServerId `id` of the Authorization Server
+	@return ApiReplaceAuthorizationServerRequest
 */
 func (a *AuthorizationServerAPIService) ReplaceAuthorizationServer(ctx context.Context, authServerId string) ApiReplaceAuthorizationServerRequest {
 	return ApiReplaceAuthorizationServerRequest{
-		ApiService: a,
-		ctx: ctx,
+		ApiService:   a,
+		ctx:          ctx,
 		authServerId: authServerId,
-		retryCount: 0,
+		retryCount:   0,
 	}
 }
 
 // Execute executes the request
-//  @return AuthorizationServer
+//
+//	@return AuthorizationServer
 func (a *AuthorizationServerAPIService) ReplaceAuthorizationServerExecute(r ApiReplaceAuthorizationServerRequest) (*AuthorizationServer, *APIResponse, error) {
 	var (
 		localVarHTTPMethod   = http.MethodPut
@@ -1160,7 +1162,7 @@ func (a *AuthorizationServerAPIService) ReplaceAuthorizationServerExecute(r ApiR
 		localVarReturnValue  *AuthorizationServer
 		localVarHTTPResponse *http.Response
 		localAPIResponse     *APIResponse
-		err 				 error
+		err                  error
 	)
 
 	if a.client.cfg.Okta.Client.RequestTimeout > 0 {
@@ -1298,7 +1300,7 @@ func (a *AuthorizationServerAPIService) ReplaceAuthorizationServerExecute(r ApiR
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
 		return localVarReturnValue, localAPIResponse, newErr
 	}
-	
+
 	localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
 	return localVarReturnValue, localAPIResponse, nil
 }

@@ -29,20 +29,18 @@ import (
 	"io/ioutil"
 	"net/http"
 	"net/url"
-	"time"
 	"strings"
+	"time"
 )
 
-
 type CAPTCHAAPI interface {
-
 	/*
-	CreateCaptchaInstance Create a CAPTCHA instance
+		CreateCaptchaInstance Create a CAPTCHA instance
 
-	Creates a new CAPTCHA instance. Currently, an org can only configure a single CAPTCHA instance.
+		Creates a new CAPTCHA instance. Currently, an org can only configure a single CAPTCHA instance.
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@return ApiCreateCaptchaInstanceRequest
+		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+		@return ApiCreateCaptchaInstanceRequest
 	*/
 	CreateCaptchaInstance(ctx context.Context) ApiCreateCaptchaInstanceRequest
 
@@ -51,14 +49,14 @@ type CAPTCHAAPI interface {
 	CreateCaptchaInstanceExecute(r ApiCreateCaptchaInstanceRequest) (*CAPTCHAInstance, *APIResponse, error)
 
 	/*
-	DeleteCaptchaInstance Delete a CAPTCHA Instance
+			DeleteCaptchaInstance Delete a CAPTCHA Instance
 
-	Deletes a specified CAPTCHA instance
-> **Note:** If your CAPTCHA instance is still associated with your org, the request fails. You must first update your Org-wide CAPTCHA settings to remove the CAPTCHA instance.
+			Deletes a specified CAPTCHA instance
+		> **Note:** If your CAPTCHA instance is still associated with your org, the request fails. You must first update your Org-wide CAPTCHA settings to remove the CAPTCHA instance.
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param captchaId The unique key used to identify your CAPTCHA instance
-	@return ApiDeleteCaptchaInstanceRequest
+			@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+			@param captchaId The unique key used to identify your CAPTCHA instance
+			@return ApiDeleteCaptchaInstanceRequest
 	*/
 	DeleteCaptchaInstance(ctx context.Context, captchaId string) ApiDeleteCaptchaInstanceRequest
 
@@ -66,12 +64,12 @@ type CAPTCHAAPI interface {
 	DeleteCaptchaInstanceExecute(r ApiDeleteCaptchaInstanceRequest) (*APIResponse, error)
 
 	/*
-	DeleteOrgCaptchaSettings Delete the Org-wide CAPTCHA Settings
+		DeleteOrgCaptchaSettings Delete the Org-wide CAPTCHA Settings
 
-	Deletes the CAPTCHA settings object for your organization
+		Deletes the CAPTCHA settings object for your organization
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@return ApiDeleteOrgCaptchaSettingsRequest
+		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+		@return ApiDeleteOrgCaptchaSettingsRequest
 	*/
 	DeleteOrgCaptchaSettings(ctx context.Context) ApiDeleteOrgCaptchaSettingsRequest
 
@@ -79,13 +77,13 @@ type CAPTCHAAPI interface {
 	DeleteOrgCaptchaSettingsExecute(r ApiDeleteOrgCaptchaSettingsRequest) (*APIResponse, error)
 
 	/*
-	GetCaptchaInstance Retrieve a CAPTCHA Instance
+		GetCaptchaInstance Retrieve a CAPTCHA Instance
 
-	Retrieves the properties of a specified CAPTCHA instance
+		Retrieves the properties of a specified CAPTCHA instance
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param captchaId The unique key used to identify your CAPTCHA instance
-	@return ApiGetCaptchaInstanceRequest
+		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+		@param captchaId The unique key used to identify your CAPTCHA instance
+		@return ApiGetCaptchaInstanceRequest
 	*/
 	GetCaptchaInstance(ctx context.Context, captchaId string) ApiGetCaptchaInstanceRequest
 
@@ -94,13 +92,13 @@ type CAPTCHAAPI interface {
 	GetCaptchaInstanceExecute(r ApiGetCaptchaInstanceRequest) (*CAPTCHAInstance, *APIResponse, error)
 
 	/*
-	GetOrgCaptchaSettings Retrieve the Org-wide CAPTCHA Settings
+			GetOrgCaptchaSettings Retrieve the Org-wide CAPTCHA Settings
 
-	Retrieves the CAPTCHA settings object for your organization.
-> **Note**: If the current organization hasn't configured CAPTCHA Settings, the request returns an empty object.
+			Retrieves the CAPTCHA settings object for your organization.
+		> **Note**: If the current organization hasn't configured CAPTCHA Settings, the request returns an empty object.
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@return ApiGetOrgCaptchaSettingsRequest
+			@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+			@return ApiGetOrgCaptchaSettingsRequest
 	*/
 	GetOrgCaptchaSettings(ctx context.Context) ApiGetOrgCaptchaSettingsRequest
 
@@ -109,12 +107,12 @@ type CAPTCHAAPI interface {
 	GetOrgCaptchaSettingsExecute(r ApiGetOrgCaptchaSettingsRequest) (*OrgCAPTCHASettings, *APIResponse, error)
 
 	/*
-	ListCaptchaInstances List all CAPTCHA Instances
+		ListCaptchaInstances List all CAPTCHA Instances
 
-	Lists all CAPTCHA instances with pagination support. A subset of CAPTCHA instances can be returned that match a supported filter expression or query.
+		Lists all CAPTCHA instances with pagination support. A subset of CAPTCHA instances can be returned that match a supported filter expression or query.
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@return ApiListCaptchaInstancesRequest
+		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+		@return ApiListCaptchaInstancesRequest
 	*/
 	ListCaptchaInstances(ctx context.Context) ApiListCaptchaInstancesRequest
 
@@ -123,13 +121,13 @@ type CAPTCHAAPI interface {
 	ListCaptchaInstancesExecute(r ApiListCaptchaInstancesRequest) ([]CAPTCHAInstance, *APIResponse, error)
 
 	/*
-	ReplaceCaptchaInstance Replace a CAPTCHA Instance
+		ReplaceCaptchaInstance Replace a CAPTCHA Instance
 
-	Replaces the properties for a specified CAPTCHA instance
+		Replaces the properties for a specified CAPTCHA instance
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param captchaId The unique key used to identify your CAPTCHA instance
-	@return ApiReplaceCaptchaInstanceRequest
+		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+		@param captchaId The unique key used to identify your CAPTCHA instance
+		@return ApiReplaceCaptchaInstanceRequest
 	*/
 	ReplaceCaptchaInstance(ctx context.Context, captchaId string) ApiReplaceCaptchaInstanceRequest
 
@@ -138,13 +136,13 @@ type CAPTCHAAPI interface {
 	ReplaceCaptchaInstanceExecute(r ApiReplaceCaptchaInstanceRequest) (*CAPTCHAInstance, *APIResponse, error)
 
 	/*
-	ReplacesOrgCaptchaSettings Replace the Org-wide CAPTCHA Settings
+			ReplacesOrgCaptchaSettings Replace the Org-wide CAPTCHA Settings
 
-	Replaces the CAPTCHA settings object for your organization.
-> **Note**: You can disable CAPTCHA for your organization by setting `captchaId` and `enabledPages` to `null`.
+			Replaces the CAPTCHA settings object for your organization.
+		> **Note**: You can disable CAPTCHA for your organization by setting `captchaId` and `enabledPages` to `null`.
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@return ApiReplacesOrgCaptchaSettingsRequest
+			@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+			@return ApiReplacesOrgCaptchaSettingsRequest
 	*/
 	ReplacesOrgCaptchaSettings(ctx context.Context) ApiReplacesOrgCaptchaSettingsRequest
 
@@ -153,13 +151,13 @@ type CAPTCHAAPI interface {
 	ReplacesOrgCaptchaSettingsExecute(r ApiReplacesOrgCaptchaSettingsRequest) (*OrgCAPTCHASettings, *APIResponse, error)
 
 	/*
-	UpdateCaptchaInstance Update a CAPTCHA Instance
+		UpdateCaptchaInstance Update a CAPTCHA Instance
 
-	Partially updates the properties of a specified CAPTCHA instance
+		Partially updates the properties of a specified CAPTCHA instance
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param captchaId The unique key used to identify your CAPTCHA instance
-	@return ApiUpdateCaptchaInstanceRequest
+		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+		@param captchaId The unique key used to identify your CAPTCHA instance
+		@return ApiUpdateCaptchaInstanceRequest
 	*/
 	UpdateCaptchaInstance(ctx context.Context, captchaId string) ApiUpdateCaptchaInstanceRequest
 
@@ -172,9 +170,9 @@ type CAPTCHAAPI interface {
 type CAPTCHAAPIService service
 
 type ApiCreateCaptchaInstanceRequest struct {
-	ctx context.Context
+	ctx        context.Context
 	ApiService CAPTCHAAPI
-	instance *CAPTCHAInstance
+	instance   *CAPTCHAInstance
 	retryCount int32
 }
 
@@ -192,19 +190,20 @@ CreateCaptchaInstance Create a CAPTCHA instance
 
 Creates a new CAPTCHA instance. Currently, an org can only configure a single CAPTCHA instance.
 
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @return ApiCreateCaptchaInstanceRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@return ApiCreateCaptchaInstanceRequest
 */
 func (a *CAPTCHAAPIService) CreateCaptchaInstance(ctx context.Context) ApiCreateCaptchaInstanceRequest {
 	return ApiCreateCaptchaInstanceRequest{
 		ApiService: a,
-		ctx: ctx,
+		ctx:        ctx,
 		retryCount: 0,
 	}
 }
 
 // Execute executes the request
-//  @return CAPTCHAInstance
+//
+//	@return CAPTCHAInstance
 func (a *CAPTCHAAPIService) CreateCaptchaInstanceExecute(r ApiCreateCaptchaInstanceRequest) (*CAPTCHAInstance, *APIResponse, error) {
 	var (
 		localVarHTTPMethod   = http.MethodPost
@@ -213,7 +212,7 @@ func (a *CAPTCHAAPIService) CreateCaptchaInstanceExecute(r ApiCreateCaptchaInsta
 		localVarReturnValue  *CAPTCHAInstance
 		localVarHTTPResponse *http.Response
 		localAPIResponse     *APIResponse
-		err 				 error
+		err                  error
 	)
 
 	if a.client.cfg.Okta.Client.RequestTimeout > 0 {
@@ -338,15 +337,15 @@ func (a *CAPTCHAAPIService) CreateCaptchaInstanceExecute(r ApiCreateCaptchaInsta
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
 		return localVarReturnValue, localAPIResponse, newErr
 	}
-	
+
 	localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
 	return localVarReturnValue, localAPIResponse, nil
 }
 
 type ApiDeleteCaptchaInstanceRequest struct {
-	ctx context.Context
+	ctx        context.Context
 	ApiService CAPTCHAAPI
-	captchaId string
+	captchaId  string
 	retryCount int32
 }
 
@@ -360,15 +359,15 @@ DeleteCaptchaInstance Delete a CAPTCHA Instance
 Deletes a specified CAPTCHA instance
 > **Note:** If your CAPTCHA instance is still associated with your org, the request fails. You must first update your Org-wide CAPTCHA settings to remove the CAPTCHA instance.
 
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @param captchaId The unique key used to identify your CAPTCHA instance
- @return ApiDeleteCaptchaInstanceRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param captchaId The unique key used to identify your CAPTCHA instance
+	@return ApiDeleteCaptchaInstanceRequest
 */
 func (a *CAPTCHAAPIService) DeleteCaptchaInstance(ctx context.Context, captchaId string) ApiDeleteCaptchaInstanceRequest {
 	return ApiDeleteCaptchaInstanceRequest{
 		ApiService: a,
-		ctx: ctx,
-		captchaId: captchaId,
+		ctx:        ctx,
+		captchaId:  captchaId,
 		retryCount: 0,
 	}
 }
@@ -381,7 +380,7 @@ func (a *CAPTCHAAPIService) DeleteCaptchaInstanceExecute(r ApiDeleteCaptchaInsta
 		formFiles            []formFile
 		localVarHTTPResponse *http.Response
 		localAPIResponse     *APIResponse
-		err 				 error
+		err                  error
 	)
 
 	if a.client.cfg.Okta.Client.RequestTimeout > 0 {
@@ -498,7 +497,7 @@ func (a *CAPTCHAAPIService) DeleteCaptchaInstanceExecute(r ApiDeleteCaptchaInsta
 }
 
 type ApiDeleteOrgCaptchaSettingsRequest struct {
-	ctx context.Context
+	ctx        context.Context
 	ApiService CAPTCHAAPI
 	retryCount int32
 }
@@ -512,13 +511,13 @@ DeleteOrgCaptchaSettings Delete the Org-wide CAPTCHA Settings
 
 Deletes the CAPTCHA settings object for your organization
 
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @return ApiDeleteOrgCaptchaSettingsRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@return ApiDeleteOrgCaptchaSettingsRequest
 */
 func (a *CAPTCHAAPIService) DeleteOrgCaptchaSettings(ctx context.Context) ApiDeleteOrgCaptchaSettingsRequest {
 	return ApiDeleteOrgCaptchaSettingsRequest{
 		ApiService: a,
-		ctx: ctx,
+		ctx:        ctx,
 		retryCount: 0,
 	}
 }
@@ -531,7 +530,7 @@ func (a *CAPTCHAAPIService) DeleteOrgCaptchaSettingsExecute(r ApiDeleteOrgCaptch
 		formFiles            []formFile
 		localVarHTTPResponse *http.Response
 		localAPIResponse     *APIResponse
-		err 				 error
+		err                  error
 	)
 
 	if a.client.cfg.Okta.Client.RequestTimeout > 0 {
@@ -647,9 +646,9 @@ func (a *CAPTCHAAPIService) DeleteOrgCaptchaSettingsExecute(r ApiDeleteOrgCaptch
 }
 
 type ApiGetCaptchaInstanceRequest struct {
-	ctx context.Context
+	ctx        context.Context
 	ApiService CAPTCHAAPI
-	captchaId string
+	captchaId  string
 	retryCount int32
 }
 
@@ -662,21 +661,22 @@ GetCaptchaInstance Retrieve a CAPTCHA Instance
 
 Retrieves the properties of a specified CAPTCHA instance
 
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @param captchaId The unique key used to identify your CAPTCHA instance
- @return ApiGetCaptchaInstanceRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param captchaId The unique key used to identify your CAPTCHA instance
+	@return ApiGetCaptchaInstanceRequest
 */
 func (a *CAPTCHAAPIService) GetCaptchaInstance(ctx context.Context, captchaId string) ApiGetCaptchaInstanceRequest {
 	return ApiGetCaptchaInstanceRequest{
 		ApiService: a,
-		ctx: ctx,
-		captchaId: captchaId,
+		ctx:        ctx,
+		captchaId:  captchaId,
 		retryCount: 0,
 	}
 }
 
 // Execute executes the request
-//  @return CAPTCHAInstance
+//
+//	@return CAPTCHAInstance
 func (a *CAPTCHAAPIService) GetCaptchaInstanceExecute(r ApiGetCaptchaInstanceRequest) (*CAPTCHAInstance, *APIResponse, error) {
 	var (
 		localVarHTTPMethod   = http.MethodGet
@@ -685,7 +685,7 @@ func (a *CAPTCHAAPIService) GetCaptchaInstanceExecute(r ApiGetCaptchaInstanceReq
 		localVarReturnValue  *CAPTCHAInstance
 		localVarHTTPResponse *http.Response
 		localAPIResponse     *APIResponse
-		err 				 error
+		err                  error
 	)
 
 	if a.client.cfg.Okta.Client.RequestTimeout > 0 {
@@ -806,13 +806,13 @@ func (a *CAPTCHAAPIService) GetCaptchaInstanceExecute(r ApiGetCaptchaInstanceReq
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
 		return localVarReturnValue, localAPIResponse, newErr
 	}
-	
+
 	localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
 	return localVarReturnValue, localAPIResponse, nil
 }
 
 type ApiGetOrgCaptchaSettingsRequest struct {
-	ctx context.Context
+	ctx        context.Context
 	ApiService CAPTCHAAPI
 	retryCount int32
 }
@@ -827,19 +827,20 @@ GetOrgCaptchaSettings Retrieve the Org-wide CAPTCHA Settings
 Retrieves the CAPTCHA settings object for your organization.
 > **Note**: If the current organization hasn't configured CAPTCHA Settings, the request returns an empty object.
 
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @return ApiGetOrgCaptchaSettingsRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@return ApiGetOrgCaptchaSettingsRequest
 */
 func (a *CAPTCHAAPIService) GetOrgCaptchaSettings(ctx context.Context) ApiGetOrgCaptchaSettingsRequest {
 	return ApiGetOrgCaptchaSettingsRequest{
 		ApiService: a,
-		ctx: ctx,
+		ctx:        ctx,
 		retryCount: 0,
 	}
 }
 
 // Execute executes the request
-//  @return OrgCAPTCHASettings
+//
+//	@return OrgCAPTCHASettings
 func (a *CAPTCHAAPIService) GetOrgCaptchaSettingsExecute(r ApiGetOrgCaptchaSettingsRequest) (*OrgCAPTCHASettings, *APIResponse, error) {
 	var (
 		localVarHTTPMethod   = http.MethodGet
@@ -848,7 +849,7 @@ func (a *CAPTCHAAPIService) GetOrgCaptchaSettingsExecute(r ApiGetOrgCaptchaSetti
 		localVarReturnValue  *OrgCAPTCHASettings
 		localVarHTTPResponse *http.Response
 		localAPIResponse     *APIResponse
-		err 				 error
+		err                  error
 	)
 
 	if a.client.cfg.Okta.Client.RequestTimeout > 0 {
@@ -956,13 +957,13 @@ func (a *CAPTCHAAPIService) GetOrgCaptchaSettingsExecute(r ApiGetOrgCaptchaSetti
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
 		return localVarReturnValue, localAPIResponse, newErr
 	}
-	
+
 	localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
 	return localVarReturnValue, localAPIResponse, nil
 }
 
 type ApiListCaptchaInstancesRequest struct {
-	ctx context.Context
+	ctx        context.Context
 	ApiService CAPTCHAAPI
 	retryCount int32
 }
@@ -976,19 +977,20 @@ ListCaptchaInstances List all CAPTCHA Instances
 
 Lists all CAPTCHA instances with pagination support. A subset of CAPTCHA instances can be returned that match a supported filter expression or query.
 
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @return ApiListCaptchaInstancesRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@return ApiListCaptchaInstancesRequest
 */
 func (a *CAPTCHAAPIService) ListCaptchaInstances(ctx context.Context) ApiListCaptchaInstancesRequest {
 	return ApiListCaptchaInstancesRequest{
 		ApiService: a,
-		ctx: ctx,
+		ctx:        ctx,
 		retryCount: 0,
 	}
 }
 
 // Execute executes the request
-//  @return []CAPTCHAInstance
+//
+//	@return []CAPTCHAInstance
 func (a *CAPTCHAAPIService) ListCaptchaInstancesExecute(r ApiListCaptchaInstancesRequest) ([]CAPTCHAInstance, *APIResponse, error) {
 	var (
 		localVarHTTPMethod   = http.MethodGet
@@ -997,7 +999,7 @@ func (a *CAPTCHAAPIService) ListCaptchaInstancesExecute(r ApiListCaptchaInstance
 		localVarReturnValue  []CAPTCHAInstance
 		localVarHTTPResponse *http.Response
 		localAPIResponse     *APIResponse
-		err 				 error
+		err                  error
 	)
 
 	if a.client.cfg.Okta.Client.RequestTimeout > 0 {
@@ -1105,16 +1107,16 @@ func (a *CAPTCHAAPIService) ListCaptchaInstancesExecute(r ApiListCaptchaInstance
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
 		return localVarReturnValue, localAPIResponse, newErr
 	}
-	
+
 	localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
 	return localVarReturnValue, localAPIResponse, nil
 }
 
 type ApiReplaceCaptchaInstanceRequest struct {
-	ctx context.Context
+	ctx        context.Context
 	ApiService CAPTCHAAPI
-	captchaId string
-	instance *CAPTCHAInstance
+	captchaId  string
+	instance   *CAPTCHAInstance
 	retryCount int32
 }
 
@@ -1132,21 +1134,22 @@ ReplaceCaptchaInstance Replace a CAPTCHA Instance
 
 Replaces the properties for a specified CAPTCHA instance
 
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @param captchaId The unique key used to identify your CAPTCHA instance
- @return ApiReplaceCaptchaInstanceRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param captchaId The unique key used to identify your CAPTCHA instance
+	@return ApiReplaceCaptchaInstanceRequest
 */
 func (a *CAPTCHAAPIService) ReplaceCaptchaInstance(ctx context.Context, captchaId string) ApiReplaceCaptchaInstanceRequest {
 	return ApiReplaceCaptchaInstanceRequest{
 		ApiService: a,
-		ctx: ctx,
-		captchaId: captchaId,
+		ctx:        ctx,
+		captchaId:  captchaId,
 		retryCount: 0,
 	}
 }
 
 // Execute executes the request
-//  @return CAPTCHAInstance
+//
+//	@return CAPTCHAInstance
 func (a *CAPTCHAAPIService) ReplaceCaptchaInstanceExecute(r ApiReplaceCaptchaInstanceRequest) (*CAPTCHAInstance, *APIResponse, error) {
 	var (
 		localVarHTTPMethod   = http.MethodPut
@@ -1155,7 +1158,7 @@ func (a *CAPTCHAAPIService) ReplaceCaptchaInstanceExecute(r ApiReplaceCaptchaIns
 		localVarReturnValue  *CAPTCHAInstance
 		localVarHTTPResponse *http.Response
 		localAPIResponse     *APIResponse
-		err 				 error
+		err                  error
 	)
 
 	if a.client.cfg.Okta.Client.RequestTimeout > 0 {
@@ -1293,16 +1296,16 @@ func (a *CAPTCHAAPIService) ReplaceCaptchaInstanceExecute(r ApiReplaceCaptchaIns
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
 		return localVarReturnValue, localAPIResponse, newErr
 	}
-	
+
 	localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
 	return localVarReturnValue, localAPIResponse, nil
 }
 
 type ApiReplacesOrgCaptchaSettingsRequest struct {
-	ctx context.Context
-	ApiService CAPTCHAAPI
+	ctx                context.Context
+	ApiService         CAPTCHAAPI
 	orgCAPTCHASettings *OrgCAPTCHASettings
-	retryCount int32
+	retryCount         int32
 }
 
 func (r ApiReplacesOrgCaptchaSettingsRequest) OrgCAPTCHASettings(orgCAPTCHASettings OrgCAPTCHASettings) ApiReplacesOrgCaptchaSettingsRequest {
@@ -1320,19 +1323,20 @@ ReplacesOrgCaptchaSettings Replace the Org-wide CAPTCHA Settings
 Replaces the CAPTCHA settings object for your organization.
 > **Note**: You can disable CAPTCHA for your organization by setting `captchaId` and `enabledPages` to `null`.
 
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @return ApiReplacesOrgCaptchaSettingsRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@return ApiReplacesOrgCaptchaSettingsRequest
 */
 func (a *CAPTCHAAPIService) ReplacesOrgCaptchaSettings(ctx context.Context) ApiReplacesOrgCaptchaSettingsRequest {
 	return ApiReplacesOrgCaptchaSettingsRequest{
 		ApiService: a,
-		ctx: ctx,
+		ctx:        ctx,
 		retryCount: 0,
 	}
 }
 
 // Execute executes the request
-//  @return OrgCAPTCHASettings
+//
+//	@return OrgCAPTCHASettings
 func (a *CAPTCHAAPIService) ReplacesOrgCaptchaSettingsExecute(r ApiReplacesOrgCaptchaSettingsRequest) (*OrgCAPTCHASettings, *APIResponse, error) {
 	var (
 		localVarHTTPMethod   = http.MethodPut
@@ -1341,7 +1345,7 @@ func (a *CAPTCHAAPIService) ReplacesOrgCaptchaSettingsExecute(r ApiReplacesOrgCa
 		localVarReturnValue  *OrgCAPTCHASettings
 		localVarHTTPResponse *http.Response
 		localAPIResponse     *APIResponse
-		err 				 error
+		err                  error
 	)
 
 	if a.client.cfg.Okta.Client.RequestTimeout > 0 {
@@ -1466,16 +1470,16 @@ func (a *CAPTCHAAPIService) ReplacesOrgCaptchaSettingsExecute(r ApiReplacesOrgCa
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
 		return localVarReturnValue, localAPIResponse, newErr
 	}
-	
+
 	localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
 	return localVarReturnValue, localAPIResponse, nil
 }
 
 type ApiUpdateCaptchaInstanceRequest struct {
-	ctx context.Context
+	ctx        context.Context
 	ApiService CAPTCHAAPI
-	captchaId string
-	instance *CAPTCHAInstance
+	captchaId  string
+	instance   *CAPTCHAInstance
 	retryCount int32
 }
 
@@ -1493,21 +1497,22 @@ UpdateCaptchaInstance Update a CAPTCHA Instance
 
 Partially updates the properties of a specified CAPTCHA instance
 
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @param captchaId The unique key used to identify your CAPTCHA instance
- @return ApiUpdateCaptchaInstanceRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param captchaId The unique key used to identify your CAPTCHA instance
+	@return ApiUpdateCaptchaInstanceRequest
 */
 func (a *CAPTCHAAPIService) UpdateCaptchaInstance(ctx context.Context, captchaId string) ApiUpdateCaptchaInstanceRequest {
 	return ApiUpdateCaptchaInstanceRequest{
 		ApiService: a,
-		ctx: ctx,
-		captchaId: captchaId,
+		ctx:        ctx,
+		captchaId:  captchaId,
 		retryCount: 0,
 	}
 }
 
 // Execute executes the request
-//  @return CAPTCHAInstance
+//
+//	@return CAPTCHAInstance
 func (a *CAPTCHAAPIService) UpdateCaptchaInstanceExecute(r ApiUpdateCaptchaInstanceRequest) (*CAPTCHAInstance, *APIResponse, error) {
 	var (
 		localVarHTTPMethod   = http.MethodPost
@@ -1516,7 +1521,7 @@ func (a *CAPTCHAAPIService) UpdateCaptchaInstanceExecute(r ApiUpdateCaptchaInsta
 		localVarReturnValue  *CAPTCHAInstance
 		localVarHTTPResponse *http.Response
 		localAPIResponse     *APIResponse
-		err 				 error
+		err                  error
 	)
 
 	if a.client.cfg.Okta.Client.RequestTimeout > 0 {
@@ -1654,7 +1659,7 @@ func (a *CAPTCHAAPIService) UpdateCaptchaInstanceExecute(r ApiUpdateCaptchaInsta
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
 		return localVarReturnValue, localAPIResponse, newErr
 	}
-	
+
 	localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
 	return localVarReturnValue, localAPIResponse, nil
 }

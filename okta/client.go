@@ -56,10 +56,10 @@ import (
 	"github.com/cenkalti/backoff/v4"
 	"github.com/go-jose/go-jose/v3"
 	"github.com/go-jose/go-jose/v3/jwt"
-	"golang.org/x/oauth2"
 	"github.com/google/uuid"
 	"github.com/lestrrat-go/jwx/jwk"
 	goCache "github.com/patrickmn/go-cache"
+	"golang.org/x/oauth2"
 )
 
 var (
@@ -282,7 +282,7 @@ type PrivateKeyAuth struct {
 	privateKeyId     string
 	clientId         string
 	orgURL           string
-	userAgent 		 string
+	userAgent        string
 	scopes           []string
 	maxRetries       int32
 	maxBackoff       int64
@@ -297,7 +297,7 @@ type PrivateKeyAuthConfig struct {
 	PrivateKeyId     string
 	ClientId         string
 	OrgURL           string
-	UserAgent 		 string
+	UserAgent        string
 	Scopes           []string
 	MaxRetries       int32
 	MaxBackoff       int64
@@ -391,7 +391,7 @@ type JWTAuth struct {
 	tokenCache      *goCache.Cache
 	httpClient      *http.Client
 	orgURL          string
-	userAgent 		string
+	userAgent       string
 	scopes          []string
 	clientAssertion string
 	maxRetries      int32
@@ -403,7 +403,7 @@ type JWTAuthConfig struct {
 	TokenCache      *goCache.Cache
 	HttpClient      *http.Client
 	OrgURL          string
-	UserAgent 		string
+	UserAgent       string
 	Scopes          []string
 	ClientAssertion string
 	MaxRetries      int32
@@ -416,7 +416,7 @@ func NewJWTAuth(config JWTAuthConfig) *JWTAuth {
 		tokenCache:      config.TokenCache,
 		httpClient:      config.HttpClient,
 		orgURL:          config.OrgURL,
-		userAgent: 		 config.UserAgent,
+		userAgent:       config.UserAgent,
 		scopes:          config.Scopes,
 		clientAssertion: config.ClientAssertion,
 		maxRetries:      config.MaxRetries,
@@ -498,7 +498,7 @@ type JWKAuth struct {
 type JWKAuthConfig struct {
 	TokenCache       *goCache.Cache
 	HttpClient       *http.Client
-	JWK 			 string
+	JWK              string
 	EncryptionType   string
 	PrivateKeySigner jose.Signer
 	PrivateKeyId     string
@@ -515,8 +515,8 @@ func NewJWKAuth(config JWKAuthConfig) *JWKAuth {
 	return &JWKAuth{
 		tokenCache:       config.TokenCache,
 		httpClient:       config.HttpClient,
-		jwk: 		      config.JWK,
-		encryptionType: config.EncryptionType,
+		jwk:              config.JWK,
+		encryptionType:   config.EncryptionType,
 		privateKeySigner: config.PrivateKeySigner,
 		privateKeyId:     config.PrivateKeyId,
 		clientId:         config.ClientId,
@@ -1041,8 +1041,8 @@ func (c *APIClient) prepareRequest(
 	headerParams map[string]string,
 	queryParams url.Values,
 	formParams url.Values,
-	formFiles []formFile) (localVarRequest *http.Request, err error) {
-
+	formFiles []formFile,
+) (localVarRequest *http.Request, err error) {
 	var body *bytes.Buffer
 
 	// Detect postBody type and post.

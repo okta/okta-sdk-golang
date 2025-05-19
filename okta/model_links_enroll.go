@@ -29,7 +29,7 @@ import (
 
 // LinksEnroll struct for LinksEnroll
 type LinksEnroll struct {
-	Enroll *LinksEnrollEnroll `json:"enroll,omitempty"`
+	Enroll               *LinksEnrollEnroll `json:"enroll,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -155,4 +155,3 @@ func (v *NullableLinksEnroll) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-

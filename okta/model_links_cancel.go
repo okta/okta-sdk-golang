@@ -29,7 +29,7 @@ import (
 
 // LinksCancel struct for LinksCancel
 type LinksCancel struct {
-	Cancel *LinksCancelCancel `json:"cancel,omitempty"`
+	Cancel               *LinksCancelCancel `json:"cancel,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -155,4 +155,3 @@ func (v *NullableLinksCancel) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-

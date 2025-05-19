@@ -29,8 +29,8 @@ import (
 
 // IamRoles struct for IamRoles
 type IamRoles struct {
-	Roles []IamRole `json:"roles,omitempty"`
-	Links *LinksNext `json:"_links,omitempty"`
+	Roles                []IamRole  `json:"roles,omitempty"`
+	Links                *LinksNext `json:"_links,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -192,4 +192,3 @@ func (v *NullableIamRoles) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-

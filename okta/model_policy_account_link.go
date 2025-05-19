@@ -29,8 +29,8 @@ import (
 
 // PolicyAccountLink struct for PolicyAccountLink
 type PolicyAccountLink struct {
-	Action *string `json:"action,omitempty"`
-	Filter *PolicyAccountLinkFilter `json:"filter,omitempty"`
+	Action               *string                  `json:"action,omitempty"`
+	Filter               *PolicyAccountLinkFilter `json:"filter,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -192,4 +192,3 @@ func (v *NullablePolicyAccountLink) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-

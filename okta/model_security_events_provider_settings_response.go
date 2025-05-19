@@ -34,7 +34,7 @@ type SecurityEventsProviderSettingsResponse struct {
 	// The public URL where the JWKS public key is uploaded
 	JwksUrl *string `json:"jwks_url,omitempty"`
 	// The well-known URL of the Security Events Provider (the SSF transmitter)
-	WellKnownUrl NullableString `json:"well_known_url,omitempty"`
+	WellKnownUrl         NullableString `json:"well_known_url,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -153,6 +153,7 @@ func (o *SecurityEventsProviderSettingsResponse) HasWellKnownUrl() bool {
 func (o *SecurityEventsProviderSettingsResponse) SetWellKnownUrl(v string) {
 	o.WellKnownUrl.Set(&v)
 }
+
 // SetWellKnownUrlNil sets the value for WellKnownUrl to be an explicit nil
 func (o *SecurityEventsProviderSettingsResponse) SetWellKnownUrlNil() {
 	o.WellKnownUrl.Set(nil)
@@ -242,4 +243,3 @@ func (v *NullableSecurityEventsProviderSettingsResponse) UnmarshalJSON(src []byt
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-

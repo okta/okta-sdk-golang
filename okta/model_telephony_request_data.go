@@ -29,9 +29,9 @@ import (
 
 // TelephonyRequestData struct for TelephonyRequestData
 type TelephonyRequestData struct {
-	Context *TelephonyRequestDataContext `json:"context,omitempty"`
-	MessageProfile *TelephonyRequestDataMessageProfile `json:"messageProfile,omitempty"`
-	UserProfile *TelephonyRequestDataUserProfile `json:"userProfile,omitempty"`
+	Context              *TelephonyRequestDataContext        `json:"context,omitempty"`
+	MessageProfile       *TelephonyRequestDataMessageProfile `json:"messageProfile,omitempty"`
+	UserProfile          *TelephonyRequestDataUserProfile    `json:"userProfile,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -229,4 +229,3 @@ func (v *NullableTelephonyRequestData) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-

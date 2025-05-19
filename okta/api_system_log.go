@@ -33,7 +33,6 @@ import (
 )
 
 type SystemLogAPI interface {
-
 	/*
 		ListLogEvents List all System Log Events
 

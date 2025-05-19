@@ -29,7 +29,7 @@ import (
 
 // ProvisioningSuspendedCondition Not supported with OIDC IdPs
 type ProvisioningSuspendedCondition struct {
-	Action *string `json:"action,omitempty"`
+	Action               *string `json:"action,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -155,4 +155,3 @@ func (v *NullableProvisioningSuspendedCondition) UnmarshalJSON(src []byte) error
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-

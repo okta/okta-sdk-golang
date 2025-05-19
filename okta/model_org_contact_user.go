@@ -29,8 +29,8 @@ import (
 
 // OrgContactUser struct for OrgContactUser
 type OrgContactUser struct {
-	UserId *string `json:"userId,omitempty"`
-	Links *LinksSelf `json:"_links,omitempty"`
+	UserId               *string    `json:"userId,omitempty"`
+	Links                *LinksSelf `json:"_links,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -192,4 +192,3 @@ func (v *NullableOrgContactUser) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-

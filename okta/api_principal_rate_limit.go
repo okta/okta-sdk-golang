@@ -29,20 +29,18 @@ import (
 	"io/ioutil"
 	"net/http"
 	"net/url"
-	"time"
 	"strings"
+	"time"
 )
 
-
 type PrincipalRateLimitAPI interface {
-
 	/*
-	CreatePrincipalRateLimitEntity Create a Principal Rate Limit
+		CreatePrincipalRateLimitEntity Create a Principal Rate Limit
 
-	Creates a new Principal Rate Limit entity. In the current release, we only allow one Principal Rate Limit entity per org and principal.
+		Creates a new Principal Rate Limit entity. In the current release, we only allow one Principal Rate Limit entity per org and principal.
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@return ApiCreatePrincipalRateLimitEntityRequest
+		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+		@return ApiCreatePrincipalRateLimitEntityRequest
 	*/
 	CreatePrincipalRateLimitEntity(ctx context.Context) ApiCreatePrincipalRateLimitEntityRequest
 
@@ -51,13 +49,13 @@ type PrincipalRateLimitAPI interface {
 	CreatePrincipalRateLimitEntityExecute(r ApiCreatePrincipalRateLimitEntityRequest) (*PrincipalRateLimitEntity, *APIResponse, error)
 
 	/*
-	GetPrincipalRateLimitEntity Retrieve a Principal Rate Limit
+		GetPrincipalRateLimitEntity Retrieve a Principal Rate Limit
 
-	Retrieves a Principal Rate Limit entity by `principalRateLimitId`
+		Retrieves a Principal Rate Limit entity by `principalRateLimitId`
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param principalRateLimitId id of the Principal Rate Limit
-	@return ApiGetPrincipalRateLimitEntityRequest
+		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+		@param principalRateLimitId id of the Principal Rate Limit
+		@return ApiGetPrincipalRateLimitEntityRequest
 	*/
 	GetPrincipalRateLimitEntity(ctx context.Context, principalRateLimitId string) ApiGetPrincipalRateLimitEntityRequest
 
@@ -66,12 +64,12 @@ type PrincipalRateLimitAPI interface {
 	GetPrincipalRateLimitEntityExecute(r ApiGetPrincipalRateLimitEntityRequest) (*PrincipalRateLimitEntity, *APIResponse, error)
 
 	/*
-	ListPrincipalRateLimitEntities List all Principal Rate Limits
+		ListPrincipalRateLimitEntities List all Principal Rate Limits
 
-	Lists all Principal Rate Limit entities considering the provided parameters
+		Lists all Principal Rate Limit entities considering the provided parameters
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@return ApiListPrincipalRateLimitEntitiesRequest
+		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+		@return ApiListPrincipalRateLimitEntitiesRequest
 	*/
 	ListPrincipalRateLimitEntities(ctx context.Context) ApiListPrincipalRateLimitEntitiesRequest
 
@@ -80,13 +78,13 @@ type PrincipalRateLimitAPI interface {
 	ListPrincipalRateLimitEntitiesExecute(r ApiListPrincipalRateLimitEntitiesRequest) ([]PrincipalRateLimitEntity, *APIResponse, error)
 
 	/*
-	ReplacePrincipalRateLimitEntity Replace a Principal Rate Limit
+		ReplacePrincipalRateLimitEntity Replace a Principal Rate Limit
 
-	Replaces a principal rate limit entity by `principalRateLimitId`
+		Replaces a principal rate limit entity by `principalRateLimitId`
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param principalRateLimitId id of the Principal Rate Limit
-	@return ApiReplacePrincipalRateLimitEntityRequest
+		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+		@param principalRateLimitId id of the Principal Rate Limit
+		@return ApiReplacePrincipalRateLimitEntityRequest
 	*/
 	ReplacePrincipalRateLimitEntity(ctx context.Context, principalRateLimitId string) ApiReplacePrincipalRateLimitEntityRequest
 
@@ -99,9 +97,9 @@ type PrincipalRateLimitAPI interface {
 type PrincipalRateLimitAPIService service
 
 type ApiCreatePrincipalRateLimitEntityRequest struct {
-	ctx context.Context
+	ctx        context.Context
 	ApiService PrincipalRateLimitAPI
-	entity *PrincipalRateLimitEntity
+	entity     *PrincipalRateLimitEntity
 	retryCount int32
 }
 
@@ -119,19 +117,20 @@ CreatePrincipalRateLimitEntity Create a Principal Rate Limit
 
 Creates a new Principal Rate Limit entity. In the current release, we only allow one Principal Rate Limit entity per org and principal.
 
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @return ApiCreatePrincipalRateLimitEntityRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@return ApiCreatePrincipalRateLimitEntityRequest
 */
 func (a *PrincipalRateLimitAPIService) CreatePrincipalRateLimitEntity(ctx context.Context) ApiCreatePrincipalRateLimitEntityRequest {
 	return ApiCreatePrincipalRateLimitEntityRequest{
 		ApiService: a,
-		ctx: ctx,
+		ctx:        ctx,
 		retryCount: 0,
 	}
 }
 
 // Execute executes the request
-//  @return PrincipalRateLimitEntity
+//
+//	@return PrincipalRateLimitEntity
 func (a *PrincipalRateLimitAPIService) CreatePrincipalRateLimitEntityExecute(r ApiCreatePrincipalRateLimitEntityRequest) (*PrincipalRateLimitEntity, *APIResponse, error) {
 	var (
 		localVarHTTPMethod   = http.MethodPost
@@ -140,7 +139,7 @@ func (a *PrincipalRateLimitAPIService) CreatePrincipalRateLimitEntityExecute(r A
 		localVarReturnValue  *PrincipalRateLimitEntity
 		localVarHTTPResponse *http.Response
 		localAPIResponse     *APIResponse
-		err 				 error
+		err                  error
 	)
 
 	if a.client.cfg.Okta.Client.RequestTimeout > 0 {
@@ -277,16 +276,16 @@ func (a *PrincipalRateLimitAPIService) CreatePrincipalRateLimitEntityExecute(r A
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
 		return localVarReturnValue, localAPIResponse, newErr
 	}
-	
+
 	localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
 	return localVarReturnValue, localAPIResponse, nil
 }
 
 type ApiGetPrincipalRateLimitEntityRequest struct {
-	ctx context.Context
-	ApiService PrincipalRateLimitAPI
+	ctx                  context.Context
+	ApiService           PrincipalRateLimitAPI
 	principalRateLimitId string
-	retryCount int32
+	retryCount           int32
 }
 
 func (r ApiGetPrincipalRateLimitEntityRequest) Execute() (*PrincipalRateLimitEntity, *APIResponse, error) {
@@ -298,21 +297,22 @@ GetPrincipalRateLimitEntity Retrieve a Principal Rate Limit
 
 Retrieves a Principal Rate Limit entity by `principalRateLimitId`
 
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @param principalRateLimitId id of the Principal Rate Limit
- @return ApiGetPrincipalRateLimitEntityRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param principalRateLimitId id of the Principal Rate Limit
+	@return ApiGetPrincipalRateLimitEntityRequest
 */
 func (a *PrincipalRateLimitAPIService) GetPrincipalRateLimitEntity(ctx context.Context, principalRateLimitId string) ApiGetPrincipalRateLimitEntityRequest {
 	return ApiGetPrincipalRateLimitEntityRequest{
-		ApiService: a,
-		ctx: ctx,
+		ApiService:           a,
+		ctx:                  ctx,
 		principalRateLimitId: principalRateLimitId,
-		retryCount: 0,
+		retryCount:           0,
 	}
 }
 
 // Execute executes the request
-//  @return PrincipalRateLimitEntity
+//
+//	@return PrincipalRateLimitEntity
 func (a *PrincipalRateLimitAPIService) GetPrincipalRateLimitEntityExecute(r ApiGetPrincipalRateLimitEntityRequest) (*PrincipalRateLimitEntity, *APIResponse, error) {
 	var (
 		localVarHTTPMethod   = http.MethodGet
@@ -321,7 +321,7 @@ func (a *PrincipalRateLimitAPIService) GetPrincipalRateLimitEntityExecute(r ApiG
 		localVarReturnValue  *PrincipalRateLimitEntity
 		localVarHTTPResponse *http.Response
 		localAPIResponse     *APIResponse
-		err 				 error
+		err                  error
 	)
 
 	if a.client.cfg.Okta.Client.RequestTimeout > 0 {
@@ -442,17 +442,17 @@ func (a *PrincipalRateLimitAPIService) GetPrincipalRateLimitEntityExecute(r ApiG
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
 		return localVarReturnValue, localAPIResponse, newErr
 	}
-	
+
 	localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
 	return localVarReturnValue, localAPIResponse, nil
 }
 
 type ApiListPrincipalRateLimitEntitiesRequest struct {
-	ctx context.Context
+	ctx        context.Context
 	ApiService PrincipalRateLimitAPI
-	filter *string
-	after *string
-	limit *int32
+	filter     *string
+	after      *string
+	limit      *int32
 	retryCount int32
 }
 
@@ -480,19 +480,20 @@ ListPrincipalRateLimitEntities List all Principal Rate Limits
 
 Lists all Principal Rate Limit entities considering the provided parameters
 
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @return ApiListPrincipalRateLimitEntitiesRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@return ApiListPrincipalRateLimitEntitiesRequest
 */
 func (a *PrincipalRateLimitAPIService) ListPrincipalRateLimitEntities(ctx context.Context) ApiListPrincipalRateLimitEntitiesRequest {
 	return ApiListPrincipalRateLimitEntitiesRequest{
 		ApiService: a,
-		ctx: ctx,
+		ctx:        ctx,
 		retryCount: 0,
 	}
 }
 
 // Execute executes the request
-//  @return []PrincipalRateLimitEntity
+//
+//	@return []PrincipalRateLimitEntity
 func (a *PrincipalRateLimitAPIService) ListPrincipalRateLimitEntitiesExecute(r ApiListPrincipalRateLimitEntitiesRequest) ([]PrincipalRateLimitEntity, *APIResponse, error) {
 	var (
 		localVarHTTPMethod   = http.MethodGet
@@ -501,7 +502,7 @@ func (a *PrincipalRateLimitAPIService) ListPrincipalRateLimitEntitiesExecute(r A
 		localVarReturnValue  []PrincipalRateLimitEntity
 		localVarHTTPResponse *http.Response
 		localAPIResponse     *APIResponse
-		err 				 error
+		err                  error
 	)
 
 	if a.client.cfg.Okta.Client.RequestTimeout > 0 {
@@ -630,17 +631,17 @@ func (a *PrincipalRateLimitAPIService) ListPrincipalRateLimitEntitiesExecute(r A
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
 		return localVarReturnValue, localAPIResponse, newErr
 	}
-	
+
 	localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
 	return localVarReturnValue, localAPIResponse, nil
 }
 
 type ApiReplacePrincipalRateLimitEntityRequest struct {
-	ctx context.Context
-	ApiService PrincipalRateLimitAPI
+	ctx                  context.Context
+	ApiService           PrincipalRateLimitAPI
 	principalRateLimitId string
-	entity *PrincipalRateLimitEntity
-	retryCount int32
+	entity               *PrincipalRateLimitEntity
+	retryCount           int32
 }
 
 func (r ApiReplacePrincipalRateLimitEntityRequest) Entity(entity PrincipalRateLimitEntity) ApiReplacePrincipalRateLimitEntityRequest {
@@ -657,21 +658,22 @@ ReplacePrincipalRateLimitEntity Replace a Principal Rate Limit
 
 Replaces a principal rate limit entity by `principalRateLimitId`
 
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @param principalRateLimitId id of the Principal Rate Limit
- @return ApiReplacePrincipalRateLimitEntityRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param principalRateLimitId id of the Principal Rate Limit
+	@return ApiReplacePrincipalRateLimitEntityRequest
 */
 func (a *PrincipalRateLimitAPIService) ReplacePrincipalRateLimitEntity(ctx context.Context, principalRateLimitId string) ApiReplacePrincipalRateLimitEntityRequest {
 	return ApiReplacePrincipalRateLimitEntityRequest{
-		ApiService: a,
-		ctx: ctx,
+		ApiService:           a,
+		ctx:                  ctx,
 		principalRateLimitId: principalRateLimitId,
-		retryCount: 0,
+		retryCount:           0,
 	}
 }
 
 // Execute executes the request
-//  @return PrincipalRateLimitEntity
+//
+//	@return PrincipalRateLimitEntity
 func (a *PrincipalRateLimitAPIService) ReplacePrincipalRateLimitEntityExecute(r ApiReplacePrincipalRateLimitEntityRequest) (*PrincipalRateLimitEntity, *APIResponse, error) {
 	var (
 		localVarHTTPMethod   = http.MethodPut
@@ -680,7 +682,7 @@ func (a *PrincipalRateLimitAPIService) ReplacePrincipalRateLimitEntityExecute(r 
 		localVarReturnValue  *PrincipalRateLimitEntity
 		localVarHTTPResponse *http.Response
 		localAPIResponse     *APIResponse
-		err 				 error
+		err                  error
 	)
 
 	if a.client.cfg.Okta.Client.RequestTimeout > 0 {
@@ -818,7 +820,7 @@ func (a *PrincipalRateLimitAPIService) ReplacePrincipalRateLimitEntityExecute(r 
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
 		return localVarReturnValue, localAPIResponse, newErr
 	}
-	
+
 	localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
 	return localVarReturnValue, localAPIResponse, nil
 }

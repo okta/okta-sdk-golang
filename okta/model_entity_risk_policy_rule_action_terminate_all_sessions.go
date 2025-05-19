@@ -30,7 +30,7 @@ import (
 // EntityRiskPolicyRuleActionTerminateAllSessions struct for EntityRiskPolicyRuleActionTerminateAllSessions
 type EntityRiskPolicyRuleActionTerminateAllSessions struct {
 	// This action revokes or terminates all of the user's active sessions.
-	Action *string `json:"action,omitempty"`
+	Action               *string `json:"action,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -156,4 +156,3 @@ func (v *NullableEntityRiskPolicyRuleActionTerminateAllSessions) UnmarshalJSON(s
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-

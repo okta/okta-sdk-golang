@@ -30,7 +30,7 @@ import (
 // ContinuousAccessPolicyRuleAllOfActionsContinuousAccess This object contains a `failureActions` array that defines the specific action to take when Continuous Access evaluation detects a failure.
 type ContinuousAccessPolicyRuleAllOfActionsContinuousAccess struct {
 	// An array of objects that define the action. It can be empty or contain two `action` value pairs.
-	FailureActions []ContinuousAccessFailureActionsObject `json:"failureActions,omitempty"`
+	FailureActions       []ContinuousAccessFailureActionsObject `json:"failureActions,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -156,4 +156,3 @@ func (v *NullableContinuousAccessPolicyRuleAllOfActionsContinuousAccess) Unmarsh
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-

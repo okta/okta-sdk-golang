@@ -29,7 +29,7 @@ import (
 
 // ProtocolAlgorithmType struct for ProtocolAlgorithmType
 type ProtocolAlgorithmType struct {
-	Signature *ProtocolAlgorithmTypeSignature `json:"signature,omitempty"`
+	Signature            *ProtocolAlgorithmTypeSignature `json:"signature,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -155,4 +155,3 @@ func (v *NullableProtocolAlgorithmType) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-

@@ -32,8 +32,8 @@ type IdpPolicyRuleActionProvider struct {
 	// IdP types of `OKTA`, `AgentlessDSSO`, and `IWA` don't require an ID.
 	Id *string `json:"id,omitempty"`
 	// Provider `name` in Okta. Optional. Supported in `IDENTITY ENGINE`.
-	Name *string `json:"name,omitempty"`
-	Type *string `json:"type,omitempty"`
+	Name                 *string `json:"name,omitempty"`
+	Type                 *string `json:"type,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -231,4 +231,3 @@ func (v *NullableIdpPolicyRuleActionProvider) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-

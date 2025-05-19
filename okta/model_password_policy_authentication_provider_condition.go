@@ -29,8 +29,8 @@ import (
 
 // PasswordPolicyAuthenticationProviderCondition struct for PasswordPolicyAuthenticationProviderCondition
 type PasswordPolicyAuthenticationProviderCondition struct {
-	Include []string `json:"include,omitempty"`
-	Provider *string `json:"provider,omitempty"`
+	Include              []string `json:"include,omitempty"`
+	Provider             *string  `json:"provider,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -192,4 +192,3 @@ func (v *NullablePasswordPolicyAuthenticationProviderCondition) UnmarshalJSON(sr
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-

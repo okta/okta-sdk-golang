@@ -29,8 +29,8 @@ import (
 
 // AppAndInstancePolicyRuleCondition struct for AppAndInstancePolicyRuleCondition
 type AppAndInstancePolicyRuleCondition struct {
-	Exclude []AppAndInstanceConditionEvaluatorAppOrInstance `json:"exclude,omitempty"`
-	Include []AppAndInstanceConditionEvaluatorAppOrInstance `json:"include,omitempty"`
+	Exclude              []AppAndInstanceConditionEvaluatorAppOrInstance `json:"exclude,omitempty"`
+	Include              []AppAndInstanceConditionEvaluatorAppOrInstance `json:"include,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -192,4 +192,3 @@ func (v *NullableAppAndInstancePolicyRuleCondition) UnmarshalJSON(src []byte) er
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-

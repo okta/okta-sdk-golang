@@ -32,7 +32,7 @@ type UserFactorCallProfile struct {
 	// Extension of the associated `phoneNumber`
 	PhoneExtension NullableString `json:"phoneExtension,omitempty"`
 	// Phone number of the Factor. You should format phone numbers to use the [E.164 standard](https://www.itu.int/rec/T-REC-E.164/).
-	PhoneNumber *string `json:"phoneNumber,omitempty"`
+	PhoneNumber          *string `json:"phoneNumber,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -87,6 +87,7 @@ func (o *UserFactorCallProfile) HasPhoneExtension() bool {
 func (o *UserFactorCallProfile) SetPhoneExtension(v string) {
 	o.PhoneExtension.Set(&v)
 }
+
 // SetPhoneExtensionNil sets the value for PhoneExtension to be an explicit nil
 func (o *UserFactorCallProfile) SetPhoneExtensionNil() {
 	o.PhoneExtension.Set(nil)
@@ -204,4 +205,3 @@ func (v *NullableUserFactorCallProfile) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-

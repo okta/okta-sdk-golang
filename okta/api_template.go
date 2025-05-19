@@ -29,20 +29,18 @@ import (
 	"io/ioutil"
 	"net/http"
 	"net/url"
-	"time"
 	"strings"
+	"time"
 )
 
-
 type TemplateAPI interface {
-
 	/*
-	CreateSmsTemplate Create an SMS Template
+		CreateSmsTemplate Create an SMS Template
 
-	Creates a new custom SMS template
+		Creates a new custom SMS template
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@return ApiCreateSmsTemplateRequest
+		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+		@return ApiCreateSmsTemplateRequest
 	*/
 	CreateSmsTemplate(ctx context.Context) ApiCreateSmsTemplateRequest
 
@@ -51,13 +49,13 @@ type TemplateAPI interface {
 	CreateSmsTemplateExecute(r ApiCreateSmsTemplateRequest) (*SmsTemplate, *APIResponse, error)
 
 	/*
-	DeleteSmsTemplate Delete an SMS Template
+		DeleteSmsTemplate Delete an SMS Template
 
-	Deletes an SMS template
+		Deletes an SMS template
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param templateId `id` of the Template
-	@return ApiDeleteSmsTemplateRequest
+		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+		@param templateId `id` of the Template
+		@return ApiDeleteSmsTemplateRequest
 	*/
 	DeleteSmsTemplate(ctx context.Context, templateId string) ApiDeleteSmsTemplateRequest
 
@@ -65,13 +63,13 @@ type TemplateAPI interface {
 	DeleteSmsTemplateExecute(r ApiDeleteSmsTemplateRequest) (*APIResponse, error)
 
 	/*
-	GetSmsTemplate Retrieve an SMS Template
+		GetSmsTemplate Retrieve an SMS Template
 
-	Retrieves a specific template by `id`
+		Retrieves a specific template by `id`
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param templateId `id` of the Template
-	@return ApiGetSmsTemplateRequest
+		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+		@param templateId `id` of the Template
+		@return ApiGetSmsTemplateRequest
 	*/
 	GetSmsTemplate(ctx context.Context, templateId string) ApiGetSmsTemplateRequest
 
@@ -80,12 +78,12 @@ type TemplateAPI interface {
 	GetSmsTemplateExecute(r ApiGetSmsTemplateRequest) (*SmsTemplate, *APIResponse, error)
 
 	/*
-	ListSmsTemplates List all SMS Templates
+		ListSmsTemplates List all SMS Templates
 
-	Lists all custom SMS templates. A subset of templates can be returned that match a template type.
+		Lists all custom SMS templates. A subset of templates can be returned that match a template type.
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@return ApiListSmsTemplatesRequest
+		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+		@return ApiListSmsTemplatesRequest
 	*/
 	ListSmsTemplates(ctx context.Context) ApiListSmsTemplatesRequest
 
@@ -94,15 +92,15 @@ type TemplateAPI interface {
 	ListSmsTemplatesExecute(r ApiListSmsTemplatesRequest) ([]SmsTemplate, *APIResponse, error)
 
 	/*
-	ReplaceSmsTemplate Replace an SMS Template
+			ReplaceSmsTemplate Replace an SMS Template
 
-	Replaces the SMS Template
-> **Notes:** You can't update the default SMS Template.
+			Replaces the SMS Template
+		> **Notes:** You can't update the default SMS Template.
 
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param templateId `id` of the Template
-	@return ApiReplaceSmsTemplateRequest
+			@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+			@param templateId `id` of the Template
+			@return ApiReplaceSmsTemplateRequest
 	*/
 	ReplaceSmsTemplate(ctx context.Context, templateId string) ApiReplaceSmsTemplateRequest
 
@@ -111,18 +109,18 @@ type TemplateAPI interface {
 	ReplaceSmsTemplateExecute(r ApiReplaceSmsTemplateRequest) (*SmsTemplate, *APIResponse, error)
 
 	/*
-	UpdateSmsTemplate Update an SMS Template
+			UpdateSmsTemplate Update an SMS Template
 
-	Updates only some of the SMS Template properties:
-  * All properties within the custom SMS Template that have values are updated.
-  * Any translation that doesn't exist is added.
-  * Any translation with a null or empty value is removed.
-  * Any translation with non-empty/null value is updated.
+			Updates only some of the SMS Template properties:
+		  * All properties within the custom SMS Template that have values are updated.
+		  * Any translation that doesn't exist is added.
+		  * Any translation with a null or empty value is removed.
+		  * Any translation with non-empty/null value is updated.
 
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param templateId `id` of the Template
-	@return ApiUpdateSmsTemplateRequest
+			@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+			@param templateId `id` of the Template
+			@return ApiUpdateSmsTemplateRequest
 	*/
 	UpdateSmsTemplate(ctx context.Context, templateId string) ApiUpdateSmsTemplateRequest
 
@@ -135,10 +133,10 @@ type TemplateAPI interface {
 type TemplateAPIService service
 
 type ApiCreateSmsTemplateRequest struct {
-	ctx context.Context
-	ApiService TemplateAPI
+	ctx         context.Context
+	ApiService  TemplateAPI
 	smsTemplate *SmsTemplate
-	retryCount int32
+	retryCount  int32
 }
 
 func (r ApiCreateSmsTemplateRequest) SmsTemplate(smsTemplate SmsTemplate) ApiCreateSmsTemplateRequest {
@@ -155,19 +153,20 @@ CreateSmsTemplate Create an SMS Template
 
 Creates a new custom SMS template
 
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @return ApiCreateSmsTemplateRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@return ApiCreateSmsTemplateRequest
 */
 func (a *TemplateAPIService) CreateSmsTemplate(ctx context.Context) ApiCreateSmsTemplateRequest {
 	return ApiCreateSmsTemplateRequest{
 		ApiService: a,
-		ctx: ctx,
+		ctx:        ctx,
 		retryCount: 0,
 	}
 }
 
 // Execute executes the request
-//  @return SmsTemplate
+//
+//	@return SmsTemplate
 func (a *TemplateAPIService) CreateSmsTemplateExecute(r ApiCreateSmsTemplateRequest) (*SmsTemplate, *APIResponse, error) {
 	var (
 		localVarHTTPMethod   = http.MethodPost
@@ -176,7 +175,7 @@ func (a *TemplateAPIService) CreateSmsTemplateExecute(r ApiCreateSmsTemplateRequ
 		localVarReturnValue  *SmsTemplate
 		localVarHTTPResponse *http.Response
 		localAPIResponse     *APIResponse
-		err 				 error
+		err                  error
 	)
 
 	if a.client.cfg.Okta.Client.RequestTimeout > 0 {
@@ -301,13 +300,13 @@ func (a *TemplateAPIService) CreateSmsTemplateExecute(r ApiCreateSmsTemplateRequ
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
 		return localVarReturnValue, localAPIResponse, newErr
 	}
-	
+
 	localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
 	return localVarReturnValue, localAPIResponse, nil
 }
 
 type ApiDeleteSmsTemplateRequest struct {
-	ctx context.Context
+	ctx        context.Context
 	ApiService TemplateAPI
 	templateId string
 	retryCount int32
@@ -322,14 +321,14 @@ DeleteSmsTemplate Delete an SMS Template
 
 Deletes an SMS template
 
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @param templateId `id` of the Template
- @return ApiDeleteSmsTemplateRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param templateId `id` of the Template
+	@return ApiDeleteSmsTemplateRequest
 */
 func (a *TemplateAPIService) DeleteSmsTemplate(ctx context.Context, templateId string) ApiDeleteSmsTemplateRequest {
 	return ApiDeleteSmsTemplateRequest{
 		ApiService: a,
-		ctx: ctx,
+		ctx:        ctx,
 		templateId: templateId,
 		retryCount: 0,
 	}
@@ -343,7 +342,7 @@ func (a *TemplateAPIService) DeleteSmsTemplateExecute(r ApiDeleteSmsTemplateRequ
 		formFiles            []formFile
 		localVarHTTPResponse *http.Response
 		localAPIResponse     *APIResponse
-		err 				 error
+		err                  error
 	)
 
 	if a.client.cfg.Okta.Client.RequestTimeout > 0 {
@@ -460,7 +459,7 @@ func (a *TemplateAPIService) DeleteSmsTemplateExecute(r ApiDeleteSmsTemplateRequ
 }
 
 type ApiGetSmsTemplateRequest struct {
-	ctx context.Context
+	ctx        context.Context
 	ApiService TemplateAPI
 	templateId string
 	retryCount int32
@@ -475,21 +474,22 @@ GetSmsTemplate Retrieve an SMS Template
 
 Retrieves a specific template by `id`
 
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @param templateId `id` of the Template
- @return ApiGetSmsTemplateRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param templateId `id` of the Template
+	@return ApiGetSmsTemplateRequest
 */
 func (a *TemplateAPIService) GetSmsTemplate(ctx context.Context, templateId string) ApiGetSmsTemplateRequest {
 	return ApiGetSmsTemplateRequest{
 		ApiService: a,
-		ctx: ctx,
+		ctx:        ctx,
 		templateId: templateId,
 		retryCount: 0,
 	}
 }
 
 // Execute executes the request
-//  @return SmsTemplate
+//
+//	@return SmsTemplate
 func (a *TemplateAPIService) GetSmsTemplateExecute(r ApiGetSmsTemplateRequest) (*SmsTemplate, *APIResponse, error) {
 	var (
 		localVarHTTPMethod   = http.MethodGet
@@ -498,7 +498,7 @@ func (a *TemplateAPIService) GetSmsTemplateExecute(r ApiGetSmsTemplateRequest) (
 		localVarReturnValue  *SmsTemplate
 		localVarHTTPResponse *http.Response
 		localAPIResponse     *APIResponse
-		err 				 error
+		err                  error
 	)
 
 	if a.client.cfg.Okta.Client.RequestTimeout > 0 {
@@ -619,16 +619,16 @@ func (a *TemplateAPIService) GetSmsTemplateExecute(r ApiGetSmsTemplateRequest) (
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
 		return localVarReturnValue, localAPIResponse, newErr
 	}
-	
+
 	localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
 	return localVarReturnValue, localAPIResponse, nil
 }
 
 type ApiListSmsTemplatesRequest struct {
-	ctx context.Context
-	ApiService TemplateAPI
+	ctx          context.Context
+	ApiService   TemplateAPI
 	templateType *string
-	retryCount int32
+	retryCount   int32
 }
 
 func (r ApiListSmsTemplatesRequest) TemplateType(templateType string) ApiListSmsTemplatesRequest {
@@ -645,19 +645,20 @@ ListSmsTemplates List all SMS Templates
 
 Lists all custom SMS templates. A subset of templates can be returned that match a template type.
 
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @return ApiListSmsTemplatesRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@return ApiListSmsTemplatesRequest
 */
 func (a *TemplateAPIService) ListSmsTemplates(ctx context.Context) ApiListSmsTemplatesRequest {
 	return ApiListSmsTemplatesRequest{
 		ApiService: a,
-		ctx: ctx,
+		ctx:        ctx,
 		retryCount: 0,
 	}
 }
 
 // Execute executes the request
-//  @return []SmsTemplate
+//
+//	@return []SmsTemplate
 func (a *TemplateAPIService) ListSmsTemplatesExecute(r ApiListSmsTemplatesRequest) ([]SmsTemplate, *APIResponse, error) {
 	var (
 		localVarHTTPMethod   = http.MethodGet
@@ -666,7 +667,7 @@ func (a *TemplateAPIService) ListSmsTemplatesExecute(r ApiListSmsTemplatesReques
 		localVarReturnValue  []SmsTemplate
 		localVarHTTPResponse *http.Response
 		localAPIResponse     *APIResponse
-		err 				 error
+		err                  error
 	)
 
 	if a.client.cfg.Okta.Client.RequestTimeout > 0 {
@@ -777,17 +778,17 @@ func (a *TemplateAPIService) ListSmsTemplatesExecute(r ApiListSmsTemplatesReques
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
 		return localVarReturnValue, localAPIResponse, newErr
 	}
-	
+
 	localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
 	return localVarReturnValue, localAPIResponse, nil
 }
 
 type ApiReplaceSmsTemplateRequest struct {
-	ctx context.Context
-	ApiService TemplateAPI
-	templateId string
+	ctx         context.Context
+	ApiService  TemplateAPI
+	templateId  string
 	smsTemplate *SmsTemplate
-	retryCount int32
+	retryCount  int32
 }
 
 func (r ApiReplaceSmsTemplateRequest) SmsTemplate(smsTemplate SmsTemplate) ApiReplaceSmsTemplateRequest {
@@ -805,22 +806,22 @@ ReplaceSmsTemplate Replace an SMS Template
 Replaces the SMS Template
 > **Notes:** You can't update the default SMS Template.
 
-
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @param templateId `id` of the Template
- @return ApiReplaceSmsTemplateRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param templateId `id` of the Template
+	@return ApiReplaceSmsTemplateRequest
 */
 func (a *TemplateAPIService) ReplaceSmsTemplate(ctx context.Context, templateId string) ApiReplaceSmsTemplateRequest {
 	return ApiReplaceSmsTemplateRequest{
 		ApiService: a,
-		ctx: ctx,
+		ctx:        ctx,
 		templateId: templateId,
 		retryCount: 0,
 	}
 }
 
 // Execute executes the request
-//  @return SmsTemplate
+//
+//	@return SmsTemplate
 func (a *TemplateAPIService) ReplaceSmsTemplateExecute(r ApiReplaceSmsTemplateRequest) (*SmsTemplate, *APIResponse, error) {
 	var (
 		localVarHTTPMethod   = http.MethodPut
@@ -829,7 +830,7 @@ func (a *TemplateAPIService) ReplaceSmsTemplateExecute(r ApiReplaceSmsTemplateRe
 		localVarReturnValue  *SmsTemplate
 		localVarHTTPResponse *http.Response
 		localAPIResponse     *APIResponse
-		err 				 error
+		err                  error
 	)
 
 	if a.client.cfg.Okta.Client.RequestTimeout > 0 {
@@ -967,17 +968,17 @@ func (a *TemplateAPIService) ReplaceSmsTemplateExecute(r ApiReplaceSmsTemplateRe
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
 		return localVarReturnValue, localAPIResponse, newErr
 	}
-	
+
 	localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
 	return localVarReturnValue, localAPIResponse, nil
 }
 
 type ApiUpdateSmsTemplateRequest struct {
-	ctx context.Context
-	ApiService TemplateAPI
-	templateId string
+	ctx         context.Context
+	ApiService  TemplateAPI
+	templateId  string
 	smsTemplate *SmsTemplate
-	retryCount int32
+	retryCount  int32
 }
 
 func (r ApiUpdateSmsTemplateRequest) SmsTemplate(smsTemplate SmsTemplate) ApiUpdateSmsTemplateRequest {
@@ -993,27 +994,31 @@ func (r ApiUpdateSmsTemplateRequest) Execute() (*SmsTemplate, *APIResponse, erro
 UpdateSmsTemplate Update an SMS Template
 
 Updates only some of the SMS Template properties:
-  * All properties within the custom SMS Template that have values are updated.
-  * Any translation that doesn't exist is added.
-  * Any translation with a null or empty value is removed.
-  * Any translation with non-empty/null value is updated.
 
+  - All properties within the custom SMS Template that have values are updated.
 
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @param templateId `id` of the Template
- @return ApiUpdateSmsTemplateRequest
+  - Any translation that doesn't exist is added.
+
+  - Any translation with a null or empty value is removed.
+
+  - Any translation with non-empty/null value is updated.
+
+    @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+    @param templateId `id` of the Template
+    @return ApiUpdateSmsTemplateRequest
 */
 func (a *TemplateAPIService) UpdateSmsTemplate(ctx context.Context, templateId string) ApiUpdateSmsTemplateRequest {
 	return ApiUpdateSmsTemplateRequest{
 		ApiService: a,
-		ctx: ctx,
+		ctx:        ctx,
 		templateId: templateId,
 		retryCount: 0,
 	}
 }
 
 // Execute executes the request
-//  @return SmsTemplate
+//
+//	@return SmsTemplate
 func (a *TemplateAPIService) UpdateSmsTemplateExecute(r ApiUpdateSmsTemplateRequest) (*SmsTemplate, *APIResponse, error) {
 	var (
 		localVarHTTPMethod   = http.MethodPost
@@ -1022,7 +1027,7 @@ func (a *TemplateAPIService) UpdateSmsTemplateExecute(r ApiUpdateSmsTemplateRequ
 		localVarReturnValue  *SmsTemplate
 		localVarHTTPResponse *http.Response
 		localAPIResponse     *APIResponse
-		err 				 error
+		err                  error
 	)
 
 	if a.client.cfg.Okta.Client.RequestTimeout > 0 {
@@ -1160,7 +1165,7 @@ func (a *TemplateAPIService) UpdateSmsTemplateExecute(r ApiUpdateSmsTemplateRequ
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
 		return localVarReturnValue, localAPIResponse, newErr
 	}
-	
+
 	localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
 	return localVarReturnValue, localAPIResponse, nil
 }

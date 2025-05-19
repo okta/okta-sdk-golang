@@ -28,12 +28,11 @@ import (
 	"fmt"
 )
 
-
-//model_oneof.mustache
+// model_oneof.mustache
 // ListFeaturesForApplication200ResponseInner - struct for ListFeaturesForApplication200ResponseInner
 type ListFeaturesForApplication200ResponseInner struct {
 	InboundProvisioningApplicationFeature *InboundProvisioningApplicationFeature
-	UserProvisioningApplicationFeature *UserProvisioningApplicationFeature
+	UserProvisioningApplicationFeature    *UserProvisioningApplicationFeature
 }
 
 // InboundProvisioningApplicationFeatureAsListFeaturesForApplication200ResponseInner is a convenience function that returns InboundProvisioningApplicationFeature wrapped in ListFeaturesForApplication200ResponseInner
@@ -49,7 +48,6 @@ func UserProvisioningApplicationFeatureAsListFeaturesForApplication200ResponseIn
 		UserProvisioningApplicationFeature: v,
 	}
 }
-
 
 // Unmarshal JSON data into one of the pointers in the struct  CUSTOM
 func (dst *ListFeaturesForApplication200ResponseInner) UnmarshalJSON(data []byte) error {
@@ -126,7 +124,7 @@ func (src ListFeaturesForApplication200ResponseInner) MarshalJSON() ([]byte, err
 }
 
 // Get the actual instance
-func (obj *ListFeaturesForApplication200ResponseInner) GetActualInstance() (interface{}) {
+func (obj *ListFeaturesForApplication200ResponseInner) GetActualInstance() interface{} {
 	if obj == nil {
 		return nil
 	}
@@ -177,5 +175,3 @@ func (v *NullableListFeaturesForApplication200ResponseInner) UnmarshalJSON(src [
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-
-

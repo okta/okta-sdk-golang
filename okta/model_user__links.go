@@ -29,22 +29,22 @@ import (
 
 // UserLinks Specifies link relations (see [Web Linking](https://datatracker.ietf.org/doc/html/rfc8288) available for the current status of a user. The Links object is used for dynamic discovery of related resources, lifecycle operations, and credential operations. The Links object is read-only.  For an individual user result, the Links object contains a full set of link relations available for that user as determined by your policies. For a collection of users, the Links object contains only the `self` link. Operations that return a collection of Users include List Users and List Group Members.
 type UserLinks struct {
-	Self *HrefObject `json:"self,omitempty"`
-	Activate *HrefObject `json:"activate,omitempty"`
-	ResetPassword *HrefObject `json:"resetPassword,omitempty"`
-	ResetFactors *HrefObject `json:"resetFactors,omitempty"`
-	ExpirePassword *HrefObject `json:"expirePassword,omitempty"`
-	ForgotPassword *HrefObject `json:"forgotPassword,omitempty"`
+	Self                   *HrefObject `json:"self,omitempty"`
+	Activate               *HrefObject `json:"activate,omitempty"`
+	ResetPassword          *HrefObject `json:"resetPassword,omitempty"`
+	ResetFactors           *HrefObject `json:"resetFactors,omitempty"`
+	ExpirePassword         *HrefObject `json:"expirePassword,omitempty"`
+	ForgotPassword         *HrefObject `json:"forgotPassword,omitempty"`
 	ChangeRecoveryQuestion *HrefObject `json:"changeRecoveryQuestion,omitempty"`
-	Deactivate *HrefObject `json:"deactivate,omitempty"`
-	Reactivate *HrefObject `json:"reactivate,omitempty"`
-	ChangePassword *HrefObject `json:"changePassword,omitempty"`
-	Schema *HrefObject `json:"schema,omitempty"`
-	Suspend *HrefObject `json:"suspend,omitempty"`
-	Unsuspend *HrefObject `json:"unsuspend,omitempty"`
-	Unlock *HrefObject `json:"unlock,omitempty"`
-	Type *HrefObject `json:"type,omitempty"`
-	AdditionalProperties map[string]interface{}
+	Deactivate             *HrefObject `json:"deactivate,omitempty"`
+	Reactivate             *HrefObject `json:"reactivate,omitempty"`
+	ChangePassword         *HrefObject `json:"changePassword,omitempty"`
+	Schema                 *HrefObject `json:"schema,omitempty"`
+	Suspend                *HrefObject `json:"suspend,omitempty"`
+	Unsuspend              *HrefObject `json:"unsuspend,omitempty"`
+	Unlock                 *HrefObject `json:"unlock,omitempty"`
+	Type                   *HrefObject `json:"type,omitempty"`
+	AdditionalProperties   map[string]interface{}
 }
 
 type _UserLinks UserLinks
@@ -673,4 +673,3 @@ func (v *NullableUserLinks) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-

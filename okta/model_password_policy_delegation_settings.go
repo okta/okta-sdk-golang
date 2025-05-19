@@ -29,7 +29,7 @@ import (
 
 // PasswordPolicyDelegationSettings struct for PasswordPolicyDelegationSettings
 type PasswordPolicyDelegationSettings struct {
-	Options *PasswordPolicyDelegationSettingsOptions `json:"options,omitempty"`
+	Options              *PasswordPolicyDelegationSettingsOptions `json:"options,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -155,4 +155,3 @@ func (v *NullablePasswordPolicyDelegationSettings) UnmarshalJSON(src []byte) err
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-

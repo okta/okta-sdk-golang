@@ -73,8 +73,7 @@ func (o AuthenticatorKeyOnprem) MarshalJSON() ([]byte, error) {
 }
 
 func (o *AuthenticatorKeyOnprem) UnmarshalJSON(bytes []byte) (err error) {
-	type AuthenticatorKeyOnpremWithoutEmbeddedStruct struct {
-	}
+	type AuthenticatorKeyOnpremWithoutEmbeddedStruct struct{}
 
 	varAuthenticatorKeyOnpremWithoutEmbeddedStruct := AuthenticatorKeyOnpremWithoutEmbeddedStruct{}
 
@@ -161,4 +160,3 @@ func (v *NullableAuthenticatorKeyOnprem) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-

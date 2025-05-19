@@ -33,7 +33,7 @@ type OAuth2ScopeConsentGrant struct {
 	// Client ID of the app integration
 	ClientId *string `json:"clientId,omitempty"`
 	// Timestamp when the object was created
-	Created *time.Time `json:"created,omitempty"`
+	Created   *time.Time   `json:"created,omitempty"`
 	CreatedBy *OAuth2Actor `json:"createdBy,omitempty"`
 	// ID of the Grant object
 	Id *string `json:"id,omitempty"`
@@ -48,9 +48,9 @@ type OAuth2ScopeConsentGrant struct {
 	// Status
 	Status *string `json:"status,omitempty"`
 	// User ID that granted consent (if `source` is `END_USER`)
-	UserId *string `json:"userId,omitempty"`
-	Embedded *OAuth2ScopeConsentGrantEmbedded `json:"_embedded,omitempty"`
-	Links *OAuth2ScopeConsentGrantLinks `json:"_links,omitempty"`
+	UserId               *string                          `json:"userId,omitempty"`
+	Embedded             *OAuth2ScopeConsentGrantEmbedded `json:"_embedded,omitempty"`
+	Links                *OAuth2ScopeConsentGrantLinks    `json:"_links,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -558,4 +558,3 @@ func (v *NullableOAuth2ScopeConsentGrant) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-

@@ -29,21 +29,19 @@ import (
 	"io/ioutil"
 	"net/http"
 	"net/url"
-	"time"
 	"strings"
+	"time"
 )
 
-
 type RealmAssignmentAPI interface {
-
 	/*
-	ActivateRealmAssignment Activate a Realm Assignment
+		ActivateRealmAssignment Activate a Realm Assignment
 
-	Activates a Realm Assignment
+		Activates a Realm Assignment
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param assignmentId `id` of the Realm Assignment
-	@return ApiActivateRealmAssignmentRequest
+		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+		@param assignmentId `id` of the Realm Assignment
+		@return ApiActivateRealmAssignmentRequest
 	*/
 	ActivateRealmAssignment(ctx context.Context, assignmentId string) ApiActivateRealmAssignmentRequest
 
@@ -51,12 +49,12 @@ type RealmAssignmentAPI interface {
 	ActivateRealmAssignmentExecute(r ApiActivateRealmAssignmentRequest) (*APIResponse, error)
 
 	/*
-	CreateRealmAssignment Create a Realm Assignment
+		CreateRealmAssignment Create a Realm Assignment
 
-	Creates a new Realm Assignment
+		Creates a new Realm Assignment
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@return ApiCreateRealmAssignmentRequest
+		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+		@return ApiCreateRealmAssignmentRequest
 	*/
 	CreateRealmAssignment(ctx context.Context) ApiCreateRealmAssignmentRequest
 
@@ -65,13 +63,13 @@ type RealmAssignmentAPI interface {
 	CreateRealmAssignmentExecute(r ApiCreateRealmAssignmentRequest) (*RealmAssignment, *APIResponse, error)
 
 	/*
-	DeactivateRealmAssignment Deactivate a Realm Assignment
+		DeactivateRealmAssignment Deactivate a Realm Assignment
 
-	Deactivates a Realm Assignment
+		Deactivates a Realm Assignment
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param assignmentId `id` of the Realm Assignment
-	@return ApiDeactivateRealmAssignmentRequest
+		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+		@param assignmentId `id` of the Realm Assignment
+		@return ApiDeactivateRealmAssignmentRequest
 	*/
 	DeactivateRealmAssignment(ctx context.Context, assignmentId string) ApiDeactivateRealmAssignmentRequest
 
@@ -79,13 +77,13 @@ type RealmAssignmentAPI interface {
 	DeactivateRealmAssignmentExecute(r ApiDeactivateRealmAssignmentRequest) (*APIResponse, error)
 
 	/*
-	DeleteRealmAssignment Delete a Realm Assignment
+		DeleteRealmAssignment Delete a Realm Assignment
 
-	Deletes a Realm Assignment
+		Deletes a Realm Assignment
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param assignmentId `id` of the Realm Assignment
-	@return ApiDeleteRealmAssignmentRequest
+		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+		@param assignmentId `id` of the Realm Assignment
+		@return ApiDeleteRealmAssignmentRequest
 	*/
 	DeleteRealmAssignment(ctx context.Context, assignmentId string) ApiDeleteRealmAssignmentRequest
 
@@ -93,12 +91,12 @@ type RealmAssignmentAPI interface {
 	DeleteRealmAssignmentExecute(r ApiDeleteRealmAssignmentRequest) (*APIResponse, error)
 
 	/*
-	ExecuteRealmAssignment Execute a Realm Assignment
+		ExecuteRealmAssignment Execute a Realm Assignment
 
-	Executes a Realm Assignment
+		Executes a Realm Assignment
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@return ApiExecuteRealmAssignmentRequest
+		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+		@return ApiExecuteRealmAssignmentRequest
 	*/
 	ExecuteRealmAssignment(ctx context.Context) ApiExecuteRealmAssignmentRequest
 
@@ -107,13 +105,13 @@ type RealmAssignmentAPI interface {
 	ExecuteRealmAssignmentExecute(r ApiExecuteRealmAssignmentRequest) (*OperationResponse, *APIResponse, error)
 
 	/*
-	GetRealmAssignment Retrieve a Realm Assignment
+		GetRealmAssignment Retrieve a Realm Assignment
 
-	Retrieves a Realm Assignment
+		Retrieves a Realm Assignment
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param assignmentId `id` of the Realm Assignment
-	@return ApiGetRealmAssignmentRequest
+		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+		@param assignmentId `id` of the Realm Assignment
+		@return ApiGetRealmAssignmentRequest
 	*/
 	GetRealmAssignment(ctx context.Context, assignmentId string) ApiGetRealmAssignmentRequest
 
@@ -122,12 +120,12 @@ type RealmAssignmentAPI interface {
 	GetRealmAssignmentExecute(r ApiGetRealmAssignmentRequest) (*RealmAssignment, *APIResponse, error)
 
 	/*
-	ListRealmAssignmentOperations List all Realm Assignment operations
+		ListRealmAssignmentOperations List all Realm Assignment operations
 
-	Lists all Realm Assignment operations. The upper limit is 200 and operations are sorted in descending order from most recent to oldest by id
+		Lists all Realm Assignment operations. The upper limit is 200 and operations are sorted in descending order from most recent to oldest by id
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@return ApiListRealmAssignmentOperationsRequest
+		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+		@return ApiListRealmAssignmentOperationsRequest
 	*/
 	ListRealmAssignmentOperations(ctx context.Context) ApiListRealmAssignmentOperationsRequest
 
@@ -136,12 +134,12 @@ type RealmAssignmentAPI interface {
 	ListRealmAssignmentOperationsExecute(r ApiListRealmAssignmentOperationsRequest) ([]OperationResponse, *APIResponse, error)
 
 	/*
-	ListRealmAssignments List all Realm Assignments
+		ListRealmAssignments List all Realm Assignments
 
-	Lists all Realm Assignments
+		Lists all Realm Assignments
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@return ApiListRealmAssignmentsRequest
+		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+		@return ApiListRealmAssignmentsRequest
 	*/
 	ListRealmAssignments(ctx context.Context) ApiListRealmAssignmentsRequest
 
@@ -150,13 +148,13 @@ type RealmAssignmentAPI interface {
 	ListRealmAssignmentsExecute(r ApiListRealmAssignmentsRequest) ([]RealmAssignment, *APIResponse, error)
 
 	/*
-	ReplaceRealmAssignment Replace a Realm Assignment
+		ReplaceRealmAssignment Replace a Realm Assignment
 
-	Replaces a Realm Assignment
+		Replaces a Realm Assignment
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param assignmentId `id` of the Realm Assignment
-	@return ApiReplaceRealmAssignmentRequest
+		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+		@param assignmentId `id` of the Realm Assignment
+		@return ApiReplaceRealmAssignmentRequest
 	*/
 	ReplaceRealmAssignment(ctx context.Context, assignmentId string) ApiReplaceRealmAssignmentRequest
 
@@ -169,10 +167,10 @@ type RealmAssignmentAPI interface {
 type RealmAssignmentAPIService service
 
 type ApiActivateRealmAssignmentRequest struct {
-	ctx context.Context
-	ApiService RealmAssignmentAPI
+	ctx          context.Context
+	ApiService   RealmAssignmentAPI
 	assignmentId string
-	retryCount int32
+	retryCount   int32
 }
 
 func (r ApiActivateRealmAssignmentRequest) Execute() (*APIResponse, error) {
@@ -184,16 +182,16 @@ ActivateRealmAssignment Activate a Realm Assignment
 
 Activates a Realm Assignment
 
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @param assignmentId `id` of the Realm Assignment
- @return ApiActivateRealmAssignmentRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param assignmentId `id` of the Realm Assignment
+	@return ApiActivateRealmAssignmentRequest
 */
 func (a *RealmAssignmentAPIService) ActivateRealmAssignment(ctx context.Context, assignmentId string) ApiActivateRealmAssignmentRequest {
 	return ApiActivateRealmAssignmentRequest{
-		ApiService: a,
-		ctx: ctx,
+		ApiService:   a,
+		ctx:          ctx,
 		assignmentId: assignmentId,
-		retryCount: 0,
+		retryCount:   0,
 	}
 }
 
@@ -205,7 +203,7 @@ func (a *RealmAssignmentAPIService) ActivateRealmAssignmentExecute(r ApiActivate
 		formFiles            []formFile
 		localVarHTTPResponse *http.Response
 		localAPIResponse     *APIResponse
-		err 				 error
+		err                  error
 	)
 
 	if a.client.cfg.Okta.Client.RequestTimeout > 0 {
@@ -334,9 +332,9 @@ func (a *RealmAssignmentAPIService) ActivateRealmAssignmentExecute(r ApiActivate
 }
 
 type ApiCreateRealmAssignmentRequest struct {
-	ctx context.Context
+	ctx        context.Context
 	ApiService RealmAssignmentAPI
-	body *CreateRealmAssignmentRequest
+	body       *CreateRealmAssignmentRequest
 	retryCount int32
 }
 
@@ -354,19 +352,20 @@ CreateRealmAssignment Create a Realm Assignment
 
 Creates a new Realm Assignment
 
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @return ApiCreateRealmAssignmentRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@return ApiCreateRealmAssignmentRequest
 */
 func (a *RealmAssignmentAPIService) CreateRealmAssignment(ctx context.Context) ApiCreateRealmAssignmentRequest {
 	return ApiCreateRealmAssignmentRequest{
 		ApiService: a,
-		ctx: ctx,
+		ctx:        ctx,
 		retryCount: 0,
 	}
 }
 
 // Execute executes the request
-//  @return RealmAssignment
+//
+//	@return RealmAssignment
 func (a *RealmAssignmentAPIService) CreateRealmAssignmentExecute(r ApiCreateRealmAssignmentRequest) (*RealmAssignment, *APIResponse, error) {
 	var (
 		localVarHTTPMethod   = http.MethodPost
@@ -375,7 +374,7 @@ func (a *RealmAssignmentAPIService) CreateRealmAssignmentExecute(r ApiCreateReal
 		localVarReturnValue  *RealmAssignment
 		localVarHTTPResponse *http.Response
 		localAPIResponse     *APIResponse
-		err 				 error
+		err                  error
 	)
 
 	if a.client.cfg.Okta.Client.RequestTimeout > 0 {
@@ -500,16 +499,16 @@ func (a *RealmAssignmentAPIService) CreateRealmAssignmentExecute(r ApiCreateReal
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
 		return localVarReturnValue, localAPIResponse, newErr
 	}
-	
+
 	localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
 	return localVarReturnValue, localAPIResponse, nil
 }
 
 type ApiDeactivateRealmAssignmentRequest struct {
-	ctx context.Context
-	ApiService RealmAssignmentAPI
+	ctx          context.Context
+	ApiService   RealmAssignmentAPI
 	assignmentId string
-	retryCount int32
+	retryCount   int32
 }
 
 func (r ApiDeactivateRealmAssignmentRequest) Execute() (*APIResponse, error) {
@@ -521,16 +520,16 @@ DeactivateRealmAssignment Deactivate a Realm Assignment
 
 Deactivates a Realm Assignment
 
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @param assignmentId `id` of the Realm Assignment
- @return ApiDeactivateRealmAssignmentRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param assignmentId `id` of the Realm Assignment
+	@return ApiDeactivateRealmAssignmentRequest
 */
 func (a *RealmAssignmentAPIService) DeactivateRealmAssignment(ctx context.Context, assignmentId string) ApiDeactivateRealmAssignmentRequest {
 	return ApiDeactivateRealmAssignmentRequest{
-		ApiService: a,
-		ctx: ctx,
+		ApiService:   a,
+		ctx:          ctx,
 		assignmentId: assignmentId,
-		retryCount: 0,
+		retryCount:   0,
 	}
 }
 
@@ -542,7 +541,7 @@ func (a *RealmAssignmentAPIService) DeactivateRealmAssignmentExecute(r ApiDeacti
 		formFiles            []formFile
 		localVarHTTPResponse *http.Response
 		localAPIResponse     *APIResponse
-		err 				 error
+		err                  error
 	)
 
 	if a.client.cfg.Okta.Client.RequestTimeout > 0 {
@@ -671,10 +670,10 @@ func (a *RealmAssignmentAPIService) DeactivateRealmAssignmentExecute(r ApiDeacti
 }
 
 type ApiDeleteRealmAssignmentRequest struct {
-	ctx context.Context
-	ApiService RealmAssignmentAPI
+	ctx          context.Context
+	ApiService   RealmAssignmentAPI
 	assignmentId string
-	retryCount int32
+	retryCount   int32
 }
 
 func (r ApiDeleteRealmAssignmentRequest) Execute() (*APIResponse, error) {
@@ -686,16 +685,16 @@ DeleteRealmAssignment Delete a Realm Assignment
 
 Deletes a Realm Assignment
 
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @param assignmentId `id` of the Realm Assignment
- @return ApiDeleteRealmAssignmentRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param assignmentId `id` of the Realm Assignment
+	@return ApiDeleteRealmAssignmentRequest
 */
 func (a *RealmAssignmentAPIService) DeleteRealmAssignment(ctx context.Context, assignmentId string) ApiDeleteRealmAssignmentRequest {
 	return ApiDeleteRealmAssignmentRequest{
-		ApiService: a,
-		ctx: ctx,
+		ApiService:   a,
+		ctx:          ctx,
 		assignmentId: assignmentId,
-		retryCount: 0,
+		retryCount:   0,
 	}
 }
 
@@ -707,7 +706,7 @@ func (a *RealmAssignmentAPIService) DeleteRealmAssignmentExecute(r ApiDeleteReal
 		formFiles            []formFile
 		localVarHTTPResponse *http.Response
 		localAPIResponse     *APIResponse
-		err 				 error
+		err                  error
 	)
 
 	if a.client.cfg.Okta.Client.RequestTimeout > 0 {
@@ -836,9 +835,9 @@ func (a *RealmAssignmentAPIService) DeleteRealmAssignmentExecute(r ApiDeleteReal
 }
 
 type ApiExecuteRealmAssignmentRequest struct {
-	ctx context.Context
+	ctx        context.Context
 	ApiService RealmAssignmentAPI
-	body *OperationRequest
+	body       *OperationRequest
 	retryCount int32
 }
 
@@ -856,19 +855,20 @@ ExecuteRealmAssignment Execute a Realm Assignment
 
 Executes a Realm Assignment
 
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @return ApiExecuteRealmAssignmentRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@return ApiExecuteRealmAssignmentRequest
 */
 func (a *RealmAssignmentAPIService) ExecuteRealmAssignment(ctx context.Context) ApiExecuteRealmAssignmentRequest {
 	return ApiExecuteRealmAssignmentRequest{
 		ApiService: a,
-		ctx: ctx,
+		ctx:        ctx,
 		retryCount: 0,
 	}
 }
 
 // Execute executes the request
-//  @return OperationResponse
+//
+//	@return OperationResponse
 func (a *RealmAssignmentAPIService) ExecuteRealmAssignmentExecute(r ApiExecuteRealmAssignmentRequest) (*OperationResponse, *APIResponse, error) {
 	var (
 		localVarHTTPMethod   = http.MethodPost
@@ -877,7 +877,7 @@ func (a *RealmAssignmentAPIService) ExecuteRealmAssignmentExecute(r ApiExecuteRe
 		localVarReturnValue  *OperationResponse
 		localVarHTTPResponse *http.Response
 		localAPIResponse     *APIResponse
-		err 				 error
+		err                  error
 	)
 
 	if a.client.cfg.Okta.Client.RequestTimeout > 0 {
@@ -1002,16 +1002,16 @@ func (a *RealmAssignmentAPIService) ExecuteRealmAssignmentExecute(r ApiExecuteRe
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
 		return localVarReturnValue, localAPIResponse, newErr
 	}
-	
+
 	localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
 	return localVarReturnValue, localAPIResponse, nil
 }
 
 type ApiGetRealmAssignmentRequest struct {
-	ctx context.Context
-	ApiService RealmAssignmentAPI
+	ctx          context.Context
+	ApiService   RealmAssignmentAPI
 	assignmentId string
-	retryCount int32
+	retryCount   int32
 }
 
 func (r ApiGetRealmAssignmentRequest) Execute() (*RealmAssignment, *APIResponse, error) {
@@ -1023,21 +1023,22 @@ GetRealmAssignment Retrieve a Realm Assignment
 
 Retrieves a Realm Assignment
 
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @param assignmentId `id` of the Realm Assignment
- @return ApiGetRealmAssignmentRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param assignmentId `id` of the Realm Assignment
+	@return ApiGetRealmAssignmentRequest
 */
 func (a *RealmAssignmentAPIService) GetRealmAssignment(ctx context.Context, assignmentId string) ApiGetRealmAssignmentRequest {
 	return ApiGetRealmAssignmentRequest{
-		ApiService: a,
-		ctx: ctx,
+		ApiService:   a,
+		ctx:          ctx,
 		assignmentId: assignmentId,
-		retryCount: 0,
+		retryCount:   0,
 	}
 }
 
 // Execute executes the request
-//  @return RealmAssignment
+//
+//	@return RealmAssignment
 func (a *RealmAssignmentAPIService) GetRealmAssignmentExecute(r ApiGetRealmAssignmentRequest) (*RealmAssignment, *APIResponse, error) {
 	var (
 		localVarHTTPMethod   = http.MethodGet
@@ -1046,7 +1047,7 @@ func (a *RealmAssignmentAPIService) GetRealmAssignmentExecute(r ApiGetRealmAssig
 		localVarReturnValue  *RealmAssignment
 		localVarHTTPResponse *http.Response
 		localAPIResponse     *APIResponse
-		err 				 error
+		err                  error
 	)
 
 	if a.client.cfg.Okta.Client.RequestTimeout > 0 {
@@ -1179,16 +1180,16 @@ func (a *RealmAssignmentAPIService) GetRealmAssignmentExecute(r ApiGetRealmAssig
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
 		return localVarReturnValue, localAPIResponse, newErr
 	}
-	
+
 	localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
 	return localVarReturnValue, localAPIResponse, nil
 }
 
 type ApiListRealmAssignmentOperationsRequest struct {
-	ctx context.Context
+	ctx        context.Context
 	ApiService RealmAssignmentAPI
-	limit *int32
-	after *string
+	limit      *int32
+	after      *string
 	retryCount int32
 }
 
@@ -1213,19 +1214,20 @@ ListRealmAssignmentOperations List all Realm Assignment operations
 
 Lists all Realm Assignment operations. The upper limit is 200 and operations are sorted in descending order from most recent to oldest by id
 
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @return ApiListRealmAssignmentOperationsRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@return ApiListRealmAssignmentOperationsRequest
 */
 func (a *RealmAssignmentAPIService) ListRealmAssignmentOperations(ctx context.Context) ApiListRealmAssignmentOperationsRequest {
 	return ApiListRealmAssignmentOperationsRequest{
 		ApiService: a,
-		ctx: ctx,
+		ctx:        ctx,
 		retryCount: 0,
 	}
 }
 
 // Execute executes the request
-//  @return []OperationResponse
+//
+//	@return []OperationResponse
 func (a *RealmAssignmentAPIService) ListRealmAssignmentOperationsExecute(r ApiListRealmAssignmentOperationsRequest) ([]OperationResponse, *APIResponse, error) {
 	var (
 		localVarHTTPMethod   = http.MethodGet
@@ -1234,7 +1236,7 @@ func (a *RealmAssignmentAPIService) ListRealmAssignmentOperationsExecute(r ApiLi
 		localVarReturnValue  []OperationResponse
 		localVarHTTPResponse *http.Response
 		localAPIResponse     *APIResponse
-		err 				 error
+		err                  error
 	)
 
 	if a.client.cfg.Okta.Client.RequestTimeout > 0 {
@@ -1348,16 +1350,16 @@ func (a *RealmAssignmentAPIService) ListRealmAssignmentOperationsExecute(r ApiLi
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
 		return localVarReturnValue, localAPIResponse, newErr
 	}
-	
+
 	localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
 	return localVarReturnValue, localAPIResponse, nil
 }
 
 type ApiListRealmAssignmentsRequest struct {
-	ctx context.Context
+	ctx        context.Context
 	ApiService RealmAssignmentAPI
-	limit *int32
-	after *string
+	limit      *int32
+	after      *string
 	retryCount int32
 }
 
@@ -1382,19 +1384,20 @@ ListRealmAssignments List all Realm Assignments
 
 Lists all Realm Assignments
 
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @return ApiListRealmAssignmentsRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@return ApiListRealmAssignmentsRequest
 */
 func (a *RealmAssignmentAPIService) ListRealmAssignments(ctx context.Context) ApiListRealmAssignmentsRequest {
 	return ApiListRealmAssignmentsRequest{
 		ApiService: a,
-		ctx: ctx,
+		ctx:        ctx,
 		retryCount: 0,
 	}
 }
 
 // Execute executes the request
-//  @return []RealmAssignment
+//
+//	@return []RealmAssignment
 func (a *RealmAssignmentAPIService) ListRealmAssignmentsExecute(r ApiListRealmAssignmentsRequest) ([]RealmAssignment, *APIResponse, error) {
 	var (
 		localVarHTTPMethod   = http.MethodGet
@@ -1403,7 +1406,7 @@ func (a *RealmAssignmentAPIService) ListRealmAssignmentsExecute(r ApiListRealmAs
 		localVarReturnValue  []RealmAssignment
 		localVarHTTPResponse *http.Response
 		localAPIResponse     *APIResponse
-		err 				 error
+		err                  error
 	)
 
 	if a.client.cfg.Okta.Client.RequestTimeout > 0 {
@@ -1517,17 +1520,17 @@ func (a *RealmAssignmentAPIService) ListRealmAssignmentsExecute(r ApiListRealmAs
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
 		return localVarReturnValue, localAPIResponse, newErr
 	}
-	
+
 	localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
 	return localVarReturnValue, localAPIResponse, nil
 }
 
 type ApiReplaceRealmAssignmentRequest struct {
-	ctx context.Context
-	ApiService RealmAssignmentAPI
+	ctx          context.Context
+	ApiService   RealmAssignmentAPI
 	assignmentId string
-	body *UpdateRealmAssignmentRequest
-	retryCount int32
+	body         *UpdateRealmAssignmentRequest
+	retryCount   int32
 }
 
 func (r ApiReplaceRealmAssignmentRequest) Body(body UpdateRealmAssignmentRequest) ApiReplaceRealmAssignmentRequest {
@@ -1544,21 +1547,22 @@ ReplaceRealmAssignment Replace a Realm Assignment
 
 Replaces a Realm Assignment
 
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @param assignmentId `id` of the Realm Assignment
- @return ApiReplaceRealmAssignmentRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param assignmentId `id` of the Realm Assignment
+	@return ApiReplaceRealmAssignmentRequest
 */
 func (a *RealmAssignmentAPIService) ReplaceRealmAssignment(ctx context.Context, assignmentId string) ApiReplaceRealmAssignmentRequest {
 	return ApiReplaceRealmAssignmentRequest{
-		ApiService: a,
-		ctx: ctx,
+		ApiService:   a,
+		ctx:          ctx,
 		assignmentId: assignmentId,
-		retryCount: 0,
+		retryCount:   0,
 	}
 }
 
 // Execute executes the request
-//  @return RealmAssignment
+//
+//	@return RealmAssignment
 func (a *RealmAssignmentAPIService) ReplaceRealmAssignmentExecute(r ApiReplaceRealmAssignmentRequest) (*RealmAssignment, *APIResponse, error) {
 	var (
 		localVarHTTPMethod   = http.MethodPut
@@ -1567,7 +1571,7 @@ func (a *RealmAssignmentAPIService) ReplaceRealmAssignmentExecute(r ApiReplaceRe
 		localVarReturnValue  *RealmAssignment
 		localVarHTTPResponse *http.Response
 		localAPIResponse     *APIResponse
-		err 				 error
+		err                  error
 	)
 
 	if a.client.cfg.Okta.Client.RequestTimeout > 0 {
@@ -1705,7 +1709,7 @@ func (a *RealmAssignmentAPIService) ReplaceRealmAssignmentExecute(r ApiReplaceRe
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
 		return localVarReturnValue, localAPIResponse, newErr
 	}
-	
+
 	localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
 	return localVarReturnValue, localAPIResponse, nil
 }

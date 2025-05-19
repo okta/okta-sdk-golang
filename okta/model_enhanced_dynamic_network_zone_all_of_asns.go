@@ -30,7 +30,7 @@ import (
 // EnhancedDynamicNetworkZoneAllOfAsns <div class=\"x-lifecycle-container\"><x-lifecycle class=\"ea\"></x-lifecycle></div>The list of ASNs associated with an Enhanced Dynamic Network Zone
 type EnhancedDynamicNetworkZoneAllOfAsns struct {
 	// An array of ASNs to include for an Enhanced Dynamic Network Zone
-	Include []string `json:"include,omitempty"`
+	Include              []string `json:"include,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -156,4 +156,3 @@ func (v *NullableEnhancedDynamicNetworkZoneAllOfAsns) UnmarshalJSON(src []byte) 
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-

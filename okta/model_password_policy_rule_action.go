@@ -29,7 +29,7 @@ import (
 
 // PasswordPolicyRuleAction struct for PasswordPolicyRuleAction
 type PasswordPolicyRuleAction struct {
-	Access *string `json:"access,omitempty"`
+	Access               *string `json:"access,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -155,4 +155,3 @@ func (v *NullablePasswordPolicyRuleAction) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-

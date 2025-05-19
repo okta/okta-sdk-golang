@@ -29,7 +29,7 @@ import (
 
 // UpdateUISchema The updated request body properties
 type UpdateUISchema struct {
-	UiSchema *UISchemaObject `json:"uiSchema,omitempty"`
+	UiSchema             *UISchemaObject `json:"uiSchema,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -155,4 +155,3 @@ func (v *NullableUpdateUISchema) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-

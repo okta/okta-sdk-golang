@@ -32,9 +32,9 @@ import (
 // UserFactorSMS struct for UserFactorSMS
 type UserFactorSMS struct {
 	UserFactor
-	FactorType interface{} `json:"factorType,omitempty"`
-	Profile *UserFactorSMSProfile `json:"profile,omitempty"`
-	Provider *string `json:"provider,omitempty"`
+	FactorType           interface{}           `json:"factorType,omitempty"`
+	Profile              *UserFactorSMSProfile `json:"profile,omitempty"`
+	Provider             *string               `json:"provider,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -183,9 +183,9 @@ func (o UserFactorSMS) MarshalJSON() ([]byte, error) {
 
 func (o *UserFactorSMS) UnmarshalJSON(bytes []byte) (err error) {
 	type UserFactorSMSWithoutEmbeddedStruct struct {
-		FactorType interface{} `json:"factorType,omitempty"`
-		Profile *UserFactorSMSProfile `json:"profile,omitempty"`
-		Provider *string `json:"provider,omitempty"`
+		FactorType interface{}           `json:"factorType,omitempty"`
+		Profile    *UserFactorSMSProfile `json:"profile,omitempty"`
+		Provider   *string               `json:"provider,omitempty"`
 	}
 
 	varUserFactorSMSWithoutEmbeddedStruct := UserFactorSMSWithoutEmbeddedStruct{}
@@ -279,4 +279,3 @@ func (v *NullableUserFactorSMS) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-

@@ -32,7 +32,7 @@ type Subject struct {
 	// The user identifier
 	Format *string `json:"format,omitempty"`
 	// ID of the user
-	Id *string `json:"id,omitempty"`
+	Id                   *string `json:"id,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -194,4 +194,3 @@ func (v *NullableSubject) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-

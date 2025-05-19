@@ -29,37 +29,37 @@ import (
 
 // UserSchemaBaseProperties struct for UserSchemaBaseProperties
 type UserSchemaBaseProperties struct {
-	City *UserSchemaAttribute `json:"city,omitempty"`
-	CostCenter *UserSchemaAttribute `json:"costCenter,omitempty"`
-	CountryCode *UserSchemaAttribute `json:"countryCode,omitempty"`
-	Department *UserSchemaAttribute `json:"department,omitempty"`
-	DisplayName *UserSchemaAttribute `json:"displayName,omitempty"`
-	Division *UserSchemaAttribute `json:"division,omitempty"`
-	Email *UserSchemaAttribute `json:"email,omitempty"`
-	EmployeeNumber *UserSchemaAttribute `json:"employeeNumber,omitempty"`
-	FirstName *UserSchemaAttribute `json:"firstName,omitempty"`
-	HonorificPrefix *UserSchemaAttribute `json:"honorificPrefix,omitempty"`
-	HonorificSuffix *UserSchemaAttribute `json:"honorificSuffix,omitempty"`
-	LastName *UserSchemaAttribute `json:"lastName,omitempty"`
-	Locale *UserSchemaAttribute `json:"locale,omitempty"`
-	Login *UserSchemaAttribute `json:"login,omitempty"`
-	Manager *UserSchemaAttribute `json:"manager,omitempty"`
-	ManagerId *UserSchemaAttribute `json:"managerId,omitempty"`
-	MiddleName *UserSchemaAttribute `json:"middleName,omitempty"`
-	MobilePhone *UserSchemaAttribute `json:"mobilePhone,omitempty"`
-	NickName *UserSchemaAttribute `json:"nickName,omitempty"`
-	Organization *UserSchemaAttribute `json:"organization,omitempty"`
-	PostalAddress *UserSchemaAttribute `json:"postalAddress,omitempty"`
-	PreferredLanguage *UserSchemaAttribute `json:"preferredLanguage,omitempty"`
-	PrimaryPhone *UserSchemaAttribute `json:"primaryPhone,omitempty"`
-	ProfileUrl *UserSchemaAttribute `json:"profileUrl,omitempty"`
-	SecondEmail *UserSchemaAttribute `json:"secondEmail,omitempty"`
-	State *UserSchemaAttribute `json:"state,omitempty"`
-	StreetAddress *UserSchemaAttribute `json:"streetAddress,omitempty"`
-	Timezone *UserSchemaAttribute `json:"timezone,omitempty"`
-	Title *UserSchemaAttribute `json:"title,omitempty"`
-	UserType *UserSchemaAttribute `json:"userType,omitempty"`
-	ZipCode *UserSchemaAttribute `json:"zipCode,omitempty"`
+	City                 *UserSchemaAttribute `json:"city,omitempty"`
+	CostCenter           *UserSchemaAttribute `json:"costCenter,omitempty"`
+	CountryCode          *UserSchemaAttribute `json:"countryCode,omitempty"`
+	Department           *UserSchemaAttribute `json:"department,omitempty"`
+	DisplayName          *UserSchemaAttribute `json:"displayName,omitempty"`
+	Division             *UserSchemaAttribute `json:"division,omitempty"`
+	Email                *UserSchemaAttribute `json:"email,omitempty"`
+	EmployeeNumber       *UserSchemaAttribute `json:"employeeNumber,omitempty"`
+	FirstName            *UserSchemaAttribute `json:"firstName,omitempty"`
+	HonorificPrefix      *UserSchemaAttribute `json:"honorificPrefix,omitempty"`
+	HonorificSuffix      *UserSchemaAttribute `json:"honorificSuffix,omitempty"`
+	LastName             *UserSchemaAttribute `json:"lastName,omitempty"`
+	Locale               *UserSchemaAttribute `json:"locale,omitempty"`
+	Login                *UserSchemaAttribute `json:"login,omitempty"`
+	Manager              *UserSchemaAttribute `json:"manager,omitempty"`
+	ManagerId            *UserSchemaAttribute `json:"managerId,omitempty"`
+	MiddleName           *UserSchemaAttribute `json:"middleName,omitempty"`
+	MobilePhone          *UserSchemaAttribute `json:"mobilePhone,omitempty"`
+	NickName             *UserSchemaAttribute `json:"nickName,omitempty"`
+	Organization         *UserSchemaAttribute `json:"organization,omitempty"`
+	PostalAddress        *UserSchemaAttribute `json:"postalAddress,omitempty"`
+	PreferredLanguage    *UserSchemaAttribute `json:"preferredLanguage,omitempty"`
+	PrimaryPhone         *UserSchemaAttribute `json:"primaryPhone,omitempty"`
+	ProfileUrl           *UserSchemaAttribute `json:"profileUrl,omitempty"`
+	SecondEmail          *UserSchemaAttribute `json:"secondEmail,omitempty"`
+	State                *UserSchemaAttribute `json:"state,omitempty"`
+	StreetAddress        *UserSchemaAttribute `json:"streetAddress,omitempty"`
+	Timezone             *UserSchemaAttribute `json:"timezone,omitempty"`
+	Title                *UserSchemaAttribute `json:"title,omitempty"`
+	UserType             *UserSchemaAttribute `json:"userType,omitempty"`
+	ZipCode              *UserSchemaAttribute `json:"zipCode,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -1265,4 +1265,3 @@ func (v *NullableUserSchemaBaseProperties) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-
