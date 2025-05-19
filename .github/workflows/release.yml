@@ -12,26 +12,26 @@
 name: release
 on:
   push:
-    branches: [ master ]
+    branches: [master]
     tags:
-      - 'v*'
+      - "v*"
+
 jobs:
   goreleaser:
     runs-on: ubuntu-latest
     steps:
-      -
-        name: Checkout
+      - name: Checkout
         uses: actions/checkout@v2.4.0
-      -
-        name: Unshallow
+
+      - name: Unshallow
         run: git fetch --prune --unshallow
-      -
-        name: Set up Go
+
+      - name: Set up Go
         uses: actions/setup-go@v2
         with:
-          go-version: 1.19
-      -
-        name: Run GoReleaser
+          go-version-file: "go.mod"
+
+      - name: Run GoReleaser
         uses: goreleaser/goreleaser-action@v2.8.1
         with:
           version: "v1.25.1"
@@ -40,4 +40,3 @@ jobs:
           GPG_FINGERPRINT: ${{ steps.import_gpg.outputs.fingerprint }}
           # GitHub sets this automatically
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-
