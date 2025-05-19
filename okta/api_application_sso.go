@@ -34,7 +34,6 @@ import (
 )
 
 type ApplicationSSOAPI interface {
-
 	/*
 		PreviewSAMLmetadataForApplication Preview the application SAML metadata
 

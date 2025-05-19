@@ -34,7 +34,6 @@ import (
 )
 
 type ApplicationPoliciesAPI interface {
-
 	/*
 			AssignApplicationPolicy Assign an application to a Policy
 

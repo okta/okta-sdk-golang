@@ -34,7 +34,6 @@ import (
 )
 
 type TemplateAPI interface {
-
 	/*
 		CreateSmsTemplate Create an SMS Template
 

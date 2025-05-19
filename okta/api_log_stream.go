@@ -34,7 +34,6 @@ import (
 )
 
 type LogStreamAPI interface {
-
 	/*
 		ActivateLogStream Activate a Log Stream
 

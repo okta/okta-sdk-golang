@@ -33,7 +33,6 @@ import (
 )
 
 type SSFSecurityEventTokenAPI interface {
-
 	/*
 		PublishSecurityEventTokens Publish a Security Event Token
 

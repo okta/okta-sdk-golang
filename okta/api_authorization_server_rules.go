@@ -34,7 +34,6 @@ import (
 )
 
 type AuthorizationServerRulesAPI interface {
-
 	/*
 		ActivateAuthorizationServerPolicyRule Activate a Policy Rule
 

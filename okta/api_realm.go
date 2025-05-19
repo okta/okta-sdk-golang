@@ -34,7 +34,6 @@ import (
 )
 
 type RealmAPI interface {
-
 	/*
 		CreateRealm Create a Realm
 

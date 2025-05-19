@@ -34,7 +34,6 @@ import (
 )
 
 type DeviceAssuranceAPI interface {
-
 	/*
 		CreateDeviceAssurancePolicy Create a Device Assurance Policy
 

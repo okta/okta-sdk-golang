@@ -34,7 +34,6 @@ import (
 )
 
 type BehaviorAPI interface {
-
 	/*
 		ActivateBehaviorDetectionRule Activate a Behavior Detection Rule
 

@@ -34,7 +34,6 @@ import (
 )
 
 type ApplicationConnectionsAPI interface {
-
 	/*
 		ActivateDefaultProvisioningConnectionForApplication Activate the default Provisioning Connection
 

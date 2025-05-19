@@ -34,7 +34,6 @@ import (
 )
 
 type SessionAPI interface {
-
 	/*
 			CloseCurrentSession Close the current Session
 

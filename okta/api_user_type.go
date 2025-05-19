@@ -34,7 +34,6 @@ import (
 )
 
 type UserTypeAPI interface {
-
 	/*
 			CreateUserType Create a User Type
 

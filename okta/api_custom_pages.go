@@ -34,7 +34,6 @@ import (
 )
 
 type CustomPagesAPI interface {
-
 	/*
 		DeleteCustomizedErrorPage Delete the Customized Error Page
 

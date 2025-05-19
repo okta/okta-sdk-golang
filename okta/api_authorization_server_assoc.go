@@ -34,7 +34,6 @@ import (
 )
 
 type AuthorizationServerAssocAPI interface {
-
 	/*
 		CreateAssociatedServers Create an associated Authorization Server
 

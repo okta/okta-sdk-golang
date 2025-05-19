@@ -34,7 +34,6 @@ import (
 )
 
 type AuthorizationServerAPI interface {
-
 	/*
 		ActivateAuthorizationServer Activate an Authorization Server
 

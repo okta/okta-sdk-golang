@@ -173,7 +173,7 @@ func NewConfiguration(conf ...ConfigSetter) (*Configuration, error) {
 				URL:         "https://{yourOktaDomain}",
 				Description: "No description provided",
 				Variables: map[string]ServerVariable{
-					"yourOktaDomain": ServerVariable{
+					"yourOktaDomain": {
 						Description:  "The domain of your organization. This can be a provided subdomain of an official okta domain (okta.com, oktapreview.com, etc) or one of your configured custom domains.",
 						DefaultValue: "subdomain.okta.com",
 					},

@@ -34,7 +34,6 @@ import (
 )
 
 type IdentitySourceAPI interface {
-
 	/*
 		CreateIdentitySourceSession Create an Identity Source Session
 

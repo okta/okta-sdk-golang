@@ -34,7 +34,6 @@ import (
 )
 
 type ProfileMappingAPI interface {
-
 	/*
 		GetProfileMapping Retrieve a Profile Mapping
 

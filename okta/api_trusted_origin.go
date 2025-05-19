@@ -34,7 +34,6 @@ import (
 )
 
 type TrustedOriginAPI interface {
-
 	/*
 		ActivateTrustedOrigin Activate a Trusted Origin
 

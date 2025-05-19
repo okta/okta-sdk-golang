@@ -33,7 +33,6 @@ import (
 )
 
 type AttackProtectionAPI interface {
-
 	/*
 		GetAuthenticatorSettings Retrieve the Authenticator Settings
 

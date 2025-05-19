@@ -34,7 +34,6 @@ import (
 )
 
 type AgentPoolsAPI interface {
-
 	/*
 		ActivateAgentPoolsUpdate Activate an Agent Pool update
 

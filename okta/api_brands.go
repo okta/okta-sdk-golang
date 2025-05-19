@@ -34,7 +34,6 @@ import (
 )
 
 type BrandsAPI interface {
-
 	/*
 		CreateBrand Create a Brand
 

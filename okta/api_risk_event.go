@@ -33,7 +33,6 @@ import (
 )
 
 type RiskEventAPI interface {
-
 	/*
 			SendRiskEvents Send multiple Risk Events
 

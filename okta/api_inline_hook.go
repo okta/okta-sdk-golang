@@ -34,7 +34,6 @@ import (
 )
 
 type InlineHookAPI interface {
-
 	/*
 		ActivateInlineHook Activate an Inline Hook
 

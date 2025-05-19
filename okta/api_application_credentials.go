@@ -35,7 +35,6 @@ import (
 )
 
 type ApplicationCredentialsAPI interface {
-
 	/*
 		CloneApplicationKey Clone a Key Credential
 

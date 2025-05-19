@@ -34,7 +34,6 @@ import (
 )
 
 type GroupAPI interface {
-
 	/*
 		ActivateGroupRule Activate a Group Rule
 

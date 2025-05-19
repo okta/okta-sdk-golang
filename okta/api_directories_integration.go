@@ -34,7 +34,6 @@ import (
 )
 
 type DirectoriesIntegrationAPI interface {
-
 	/*
 		UpdateADGroupMembership Update an AD Group membership
 

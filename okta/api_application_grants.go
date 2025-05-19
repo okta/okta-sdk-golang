@@ -34,7 +34,6 @@ import (
 )
 
 type ApplicationGrantsAPI interface {
-
 	/*
 		GetScopeConsentGrant Retrieve an app Grant
 

@@ -34,7 +34,6 @@ import (
 )
 
 type ApplicationAPI interface {
-
 	/*
 		ActivateApplication Activate an Application
 

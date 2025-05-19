@@ -34,7 +34,6 @@ import (
 )
 
 type ApiServiceIntegrationsAPI interface {
-
 	/*
 		ActivateApiServiceIntegrationInstanceSecret Activate an API Service Integration instance Secret
 

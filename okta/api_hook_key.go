@@ -34,7 +34,6 @@ import (
 )
 
 type HookKeyAPI interface {
-
 	/*
 			CreateHookKey Create a key
 

@@ -33,7 +33,6 @@ import (
 )
 
 type ThreatInsightAPI interface {
-
 	/*
 		GetCurrentConfiguration Retrieve the ThreatInsight Configuration
 

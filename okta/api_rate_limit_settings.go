@@ -33,7 +33,6 @@ import (
 )
 
 type RateLimitSettingsAPI interface {
-
 	/*
 		GetRateLimitSettingsAdminNotifications Retrieve the Rate Limit Admin Notification Settings
 

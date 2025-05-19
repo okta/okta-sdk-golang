@@ -33,7 +33,6 @@ import (
 )
 
 type SSFTransmitterAPI interface {
-
 	/*
 			CreateSsfStream Create an SSF Stream
 

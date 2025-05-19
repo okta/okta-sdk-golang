@@ -34,7 +34,6 @@ import (
 )
 
 type UserAPI interface {
-
 	/*
 			ActivateUser Activate a User
 

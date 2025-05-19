@@ -73,8 +73,7 @@ func (o AuthenticatorKeyExternalIdp) MarshalJSON() ([]byte, error) {
 }
 
 func (o *AuthenticatorKeyExternalIdp) UnmarshalJSON(bytes []byte) (err error) {
-	type AuthenticatorKeyExternalIdpWithoutEmbeddedStruct struct {
-	}
+	type AuthenticatorKeyExternalIdpWithoutEmbeddedStruct struct{}
 
 	varAuthenticatorKeyExternalIdpWithoutEmbeddedStruct := AuthenticatorKeyExternalIdpWithoutEmbeddedStruct{}
 

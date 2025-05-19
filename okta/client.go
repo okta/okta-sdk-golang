@@ -1050,8 +1050,8 @@ func (c *APIClient) prepareRequest(
 	headerParams map[string]string,
 	queryParams url.Values,
 	formParams url.Values,
-	formFiles []formFile) (localVarRequest *http.Request, err error) {
-
+	formFiles []formFile,
+) (localVarRequest *http.Request, err error) {
 	var body *bytes.Buffer
 
 	// Detect postBody type and post.

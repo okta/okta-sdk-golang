@@ -34,7 +34,6 @@ import (
 )
 
 type EmailServerAPI interface {
-
 	/*
 		CreateEmailServer Create a custom SMTP server
 

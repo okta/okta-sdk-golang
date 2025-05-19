@@ -35,7 +35,6 @@ import (
 )
 
 type ThemesAPI interface {
-
 	/*
 		DeleteBrandThemeBackgroundImage Delete the Background Image
 

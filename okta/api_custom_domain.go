@@ -34,7 +34,6 @@ import (
 )
 
 type CustomDomainAPI interface {
-
 	/*
 		CreateCustomDomain Create a Custom Domain
 

@@ -34,7 +34,6 @@ import (
 )
 
 type EmailDomainAPI interface {
-
 	/*
 		CreateEmailDomain Create an Email Domain
 
