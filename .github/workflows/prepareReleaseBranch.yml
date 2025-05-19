@@ -20,7 +20,7 @@ jobs:
       - name: Set up Go
         uses: actions/setup-go@v2
         with:
-          go-version-file: "go.mod"
+          go-version: "1.23.0"
 
       - name: Create Branch
         uses: peterjgrainger/action-create-branch@v2.2.0
