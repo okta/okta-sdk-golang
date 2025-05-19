@@ -29,7 +29,7 @@ import (
 
 // BouncesRemoveListResult struct for BouncesRemoveListResult
 type BouncesRemoveListResult struct {
-	Errors []BouncesRemoveListError `json:"errors,omitempty"`
+	Errors               []BouncesRemoveListError `json:"errors,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -155,4 +155,3 @@ func (v *NullableBouncesRemoveListResult) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-

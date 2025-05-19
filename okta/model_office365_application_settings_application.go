@@ -32,7 +32,7 @@ type Office365ApplicationSettingsApplication struct {
 	// The domain for your Office 365 account
 	Domain string `json:"domain"`
 	// Microsoft tenant name
-	MsftTenant string `json:"msftTenant"`
+	MsftTenant           string `json:"msftTenant"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -180,4 +180,3 @@ func (v *NullableOffice365ApplicationSettingsApplication) UnmarshalJSON(src []by
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-

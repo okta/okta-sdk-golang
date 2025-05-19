@@ -29,8 +29,8 @@ import (
 
 // ProtocolAlgorithms struct for ProtocolAlgorithms
 type ProtocolAlgorithms struct {
-	Request *ProtocolAlgorithmType `json:"request,omitempty"`
-	Response *ProtocolAlgorithmType `json:"response,omitempty"`
+	Request              *ProtocolAlgorithmType `json:"request,omitempty"`
+	Response             *ProtocolAlgorithmType `json:"response,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -192,4 +192,3 @@ func (v *NullableProtocolAlgorithms) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-

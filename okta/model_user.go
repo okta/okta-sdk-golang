@@ -33,7 +33,7 @@ type User struct {
 	// The timestamp when the user status transitioned to `ACTIVE`
 	Activated NullableTime `json:"activated,omitempty"`
 	// The timestamp when the user was created
-	Created *time.Time `json:"created,omitempty"`
+	Created     *time.Time       `json:"created,omitempty"`
 	Credentials *UserCredentials `json:"credentials,omitempty"`
 	// The unique key for the user
 	Id *string `json:"id,omitempty"`
@@ -43,7 +43,7 @@ type User struct {
 	LastUpdated *time.Time `json:"lastUpdated,omitempty"`
 	// The timestamp when the user's password was last updated
 	PasswordChanged NullableTime `json:"passwordChanged,omitempty"`
-	Profile *UserProfile `json:"profile,omitempty"`
+	Profile         *UserProfile `json:"profile,omitempty"`
 	// <div class=\"x-lifecycle-container\"><x-lifecycle class=\"ea\"></x-lifecycle></div>The ID of the Realm in which the user is residing
 	RealmId *string `json:"realmId,omitempty"`
 	// The current status of the user
@@ -52,10 +52,10 @@ type User struct {
 	StatusChanged NullableTime `json:"statusChanged,omitempty"`
 	// The target status of an in-progress asynchronous status transition. This property is only returned if the user's state is transitioning.
 	TransitioningToStatus NullableString `json:"transitioningToStatus,omitempty"`
-	Type *UserType `json:"type,omitempty"`
+	Type                  *UserType      `json:"type,omitempty"`
 	// If specified, includes embedded resources related to the user
-	Embedded map[string]map[string]interface{} `json:"_embedded,omitempty"`
-	Links *UserLinks `json:"_links,omitempty"`
+	Embedded             map[string]map[string]interface{} `json:"_embedded,omitempty"`
+	Links                *UserLinks                        `json:"_links,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -110,6 +110,7 @@ func (o *User) HasActivated() bool {
 func (o *User) SetActivated(v time.Time) {
 	o.Activated.Set(&v)
 }
+
 // SetActivatedNil sets the value for Activated to be an explicit nil
 func (o *User) SetActivatedNil() {
 	o.Activated.Set(nil)
@@ -248,6 +249,7 @@ func (o *User) HasLastLogin() bool {
 func (o *User) SetLastLogin(v time.Time) {
 	o.LastLogin.Set(&v)
 }
+
 // SetLastLoginNil sets the value for LastLogin to be an explicit nil
 func (o *User) SetLastLoginNil() {
 	o.LastLogin.Set(nil)
@@ -322,6 +324,7 @@ func (o *User) HasPasswordChanged() bool {
 func (o *User) SetPasswordChanged(v time.Time) {
 	o.PasswordChanged.Set(&v)
 }
+
 // SetPasswordChangedNil sets the value for PasswordChanged to be an explicit nil
 func (o *User) SetPasswordChangedNil() {
 	o.PasswordChanged.Set(nil)
@@ -460,6 +463,7 @@ func (o *User) HasStatusChanged() bool {
 func (o *User) SetStatusChanged(v time.Time) {
 	o.StatusChanged.Set(&v)
 }
+
 // SetStatusChangedNil sets the value for StatusChanged to be an explicit nil
 func (o *User) SetStatusChangedNil() {
 	o.StatusChanged.Set(nil)
@@ -502,6 +506,7 @@ func (o *User) HasTransitioningToStatus() bool {
 func (o *User) SetTransitioningToStatus(v string) {
 	o.TransitioningToStatus.Set(&v)
 }
+
 // SetTransitioningToStatusNil sets the value for TransitioningToStatus to be an explicit nil
 func (o *User) SetTransitioningToStatusNil() {
 	o.TransitioningToStatus.Set(nil)
@@ -735,4 +740,3 @@ func (v *NullableUser) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-

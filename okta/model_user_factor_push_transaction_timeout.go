@@ -32,8 +32,8 @@ import (
 // UserFactorPushTransactionTimeout struct for UserFactorPushTransactionTimeout
 type UserFactorPushTransactionTimeout struct {
 	UserFactorPushTransaction
-	Profile *UserFactorPushTransactionRejectedAllOfProfile `json:"profile,omitempty"`
-	Links *UserFactorPushTransactionRejectedAllOfLinks `json:"_links,omitempty"`
+	Profile              *UserFactorPushTransactionRejectedAllOfProfile `json:"profile,omitempty"`
+	Links                *UserFactorPushTransactionRejectedAllOfLinks   `json:"_links,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -147,7 +147,7 @@ func (o UserFactorPushTransactionTimeout) MarshalJSON() ([]byte, error) {
 func (o *UserFactorPushTransactionTimeout) UnmarshalJSON(bytes []byte) (err error) {
 	type UserFactorPushTransactionTimeoutWithoutEmbeddedStruct struct {
 		Profile *UserFactorPushTransactionRejectedAllOfProfile `json:"profile,omitempty"`
-		Links *UserFactorPushTransactionRejectedAllOfLinks `json:"_links,omitempty"`
+		Links   *UserFactorPushTransactionRejectedAllOfLinks   `json:"_links,omitempty"`
 	}
 
 	varUserFactorPushTransactionTimeoutWithoutEmbeddedStruct := UserFactorPushTransactionTimeoutWithoutEmbeddedStruct{}
@@ -239,4 +239,3 @@ func (v *NullableUserFactorPushTransactionTimeout) UnmarshalJSON(src []byte) err
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-

@@ -32,22 +32,22 @@ type OAuth2Claim struct {
 	// Specifies whether to include Claims in the token. The value is always `TRUE` for access token Claims. If the value is set to `FALSE` for an ID token claim, the Claim isn't included in the ID token when the token is requested with the access token or with the `authorization_code`. The client instead uses the access token to get Claims from the `/userinfo` endpoint.
 	AlwaysIncludeInToken *bool `json:"alwaysIncludeInToken,omitempty"`
 	// Specifies whether the Claim is for an access token (`RESOURCE`) or an ID token (`IDENTITY`)
-	ClaimType *string `json:"claimType,omitempty"`
+	ClaimType  *string                `json:"claimType,omitempty"`
 	Conditions *OAuth2ClaimConditions `json:"conditions,omitempty"`
 	// Specifies the type of group filter if `valueType` is `GROUPS`  If `valueType` is `GROUPS`, then the groups returned are filtered according to the value of `group_filter_type`.  If you have complex filters for Groups, you can [create a Groups allowlist](https://developer.okta.com/docs/guides/customize-tokens-groups-claim/main/) to put them all in a Claim.
 	GroupFilterType *string `json:"group_filter_type,omitempty"`
 	// ID of the Claim
 	Id *string `json:"id,omitempty"`
 	// Name of the Claim
-	Name *string `json:"name,omitempty"`
+	Name   *string `json:"name,omitempty"`
 	Status *string `json:"status,omitempty"`
 	// When `true`, indicates that Okta created the Claim
 	System *bool `json:"system,omitempty"`
 	// Specifies the value of the Claim. This value must be a string literal if `valueType` is `GROUPS`, and the string literal is matched with the selected `group_filter_type`. The value must be an Okta EL expression if `valueType` is `EXPRESSION`.
 	Value *string `json:"value,omitempty"`
 	// Specifies whether the Claim is an Okta Expression Language (EL) expression (`EXPRESSION`), a set of groups (`GROUPS`), or a system claim (`SYSTEM`)
-	ValueType *string `json:"valueType,omitempty"`
-	Links *LinksSelf `json:"_links,omitempty"`
+	ValueType            *string    `json:"valueType,omitempty"`
+	Links                *LinksSelf `json:"_links,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -533,4 +533,3 @@ func (v *NullableOAuth2Claim) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-

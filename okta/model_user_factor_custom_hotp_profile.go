@@ -30,7 +30,7 @@ import (
 // UserFactorCustomHOTPProfile struct for UserFactorCustomHOTPProfile
 type UserFactorCustomHOTPProfile struct {
 	// Unique secret key used to generate the OTP
-	SharedSecret *string `json:"sharedSecret,omitempty"`
+	SharedSecret         *string `json:"sharedSecret,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -156,4 +156,3 @@ func (v *NullableUserFactorCustomHOTPProfile) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-

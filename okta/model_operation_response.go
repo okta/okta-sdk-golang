@@ -30,17 +30,17 @@ import (
 
 // OperationResponse struct for OperationResponse
 type OperationResponse struct {
-	AssignmentOperation *OperationResponseAssignmentOperation `json:"assignmentOperation,omitempty"`
-	Completed *time.Time `json:"completed,omitempty"`
-	Created *time.Time `json:"created,omitempty"`
-	Id *string `json:"id,omitempty"`
-	NumUserMoved *float32 `json:"numUserMoved,omitempty"`
-	RealmId *string `json:"realmId,omitempty"`
-	RealmName *string `json:"realmName,omitempty"`
-	Started *time.Time `json:"started,omitempty"`
-	Status *string `json:"status,omitempty"`
-	Type *string `json:"type,omitempty"`
-	Links *LinksSelf `json:"_links,omitempty"`
+	AssignmentOperation  *OperationResponseAssignmentOperation `json:"assignmentOperation,omitempty"`
+	Completed            *time.Time                            `json:"completed,omitempty"`
+	Created              *time.Time                            `json:"created,omitempty"`
+	Id                   *string                               `json:"id,omitempty"`
+	NumUserMoved         *float32                              `json:"numUserMoved,omitempty"`
+	RealmId              *string                               `json:"realmId,omitempty"`
+	RealmName            *string                               `json:"realmName,omitempty"`
+	Started              *time.Time                            `json:"started,omitempty"`
+	Status               *string                               `json:"status,omitempty"`
+	Type                 *string                               `json:"type,omitempty"`
+	Links                *LinksSelf                            `json:"_links,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -526,4 +526,3 @@ func (v *NullableOperationResponse) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-

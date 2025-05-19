@@ -29,9 +29,9 @@ import (
 
 // ApplicationGroupAssignmentLinks struct for ApplicationGroupAssignmentLinks
 type ApplicationGroupAssignmentLinks struct {
-	Self *HrefObjectSelfLink `json:"self,omitempty"`
-	App *HrefObjectAppLink `json:"app,omitempty"`
-	Group *HrefObjectGroupLink `json:"group,omitempty"`
+	Self                 *HrefObjectSelfLink  `json:"self,omitempty"`
+	App                  *HrefObjectAppLink   `json:"app,omitempty"`
+	Group                *HrefObjectGroupLink `json:"group,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -229,4 +229,3 @@ func (v *NullableApplicationGroupAssignmentLinks) UnmarshalJSON(src []byte) erro
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-

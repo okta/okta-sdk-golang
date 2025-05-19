@@ -29,8 +29,8 @@ import (
 
 // PasswordImportRequestDataContext struct for PasswordImportRequestDataContext
 type PasswordImportRequestDataContext struct {
-	Request *InlineHookRequestObject `json:"request,omitempty"`
-	Credential *PasswordImportRequestDataContextCredential `json:"credential,omitempty"`
+	Request              *InlineHookRequestObject                    `json:"request,omitempty"`
+	Credential           *PasswordImportRequestDataContextCredential `json:"credential,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -192,4 +192,3 @@ func (v *NullablePasswordImportRequestDataContext) UnmarshalJSON(src []byte) err
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-

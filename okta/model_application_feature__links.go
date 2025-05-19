@@ -29,7 +29,7 @@ import (
 
 // ApplicationFeatureLinks struct for ApplicationFeatureLinks
 type ApplicationFeatureLinks struct {
-	Self *HrefObjectSelfLink `json:"self,omitempty"`
+	Self                 *HrefObjectSelfLink `json:"self,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -155,4 +155,3 @@ func (v *NullableApplicationFeatureLinks) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-

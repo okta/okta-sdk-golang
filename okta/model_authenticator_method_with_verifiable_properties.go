@@ -200,4 +200,3 @@ func (v *NullableAuthenticatorMethodWithVerifiableProperties) UnmarshalJSON(src 
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-

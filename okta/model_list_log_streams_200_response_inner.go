@@ -28,11 +28,10 @@ import (
 	"fmt"
 )
 
-
-//model_oneof.mustache
+// model_oneof.mustache
 // ListLogStreams200ResponseInner - struct for ListLogStreams200ResponseInner
 type ListLogStreams200ResponseInner struct {
-	LogStreamAws *LogStreamAws
+	LogStreamAws    *LogStreamAws
 	LogStreamSplunk *LogStreamSplunk
 }
 
@@ -49,7 +48,6 @@ func LogStreamSplunkAsListLogStreams200ResponseInner(v *LogStreamSplunk) ListLog
 		LogStreamSplunk: v,
 	}
 }
-
 
 // Unmarshal JSON data into one of the pointers in the struct  CUSTOM
 func (dst *ListLogStreams200ResponseInner) UnmarshalJSON(data []byte) error {
@@ -126,7 +124,7 @@ func (src ListLogStreams200ResponseInner) MarshalJSON() ([]byte, error) {
 }
 
 // Get the actual instance
-func (obj *ListLogStreams200ResponseInner) GetActualInstance() (interface{}) {
+func (obj *ListLogStreams200ResponseInner) GetActualInstance() interface{} {
 	if obj == nil {
 		return nil
 	}
@@ -177,5 +175,3 @@ func (v *NullableListLogStreams200ResponseInner) UnmarshalJSON(src []byte) error
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-
-

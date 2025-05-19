@@ -42,8 +42,8 @@ type AuthorizationServerJsonWebKey struct {
 	// An `ACTIVE` Key is used to sign tokens issued by the authorization server. Supported values: `ACTIVE`, `NEXT`, or `EXPIRED`<br> A `NEXT` Key is the next Key that the authorization server uses to sign tokens when Keys are rotated. The `NEXT` Key might not be listed if it hasn't been generated. An `EXPIRED` Key is the previous Key that the authorization server used to sign tokens. The `EXPIRED` Key might not be listed if no Key has expired or the expired Key was deleted.
 	Status *string `json:"status,omitempty"`
 	// Acceptable use of the key. Valid value: `sig`
-	Use *string `json:"use,omitempty"`
-	Links *LinksSelf `json:"_links,omitempty"`
+	Use                  *string    `json:"use,omitempty"`
+	Links                *LinksSelf `json:"_links,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -421,4 +421,3 @@ func (v *NullableAuthorizationServerJsonWebKey) UnmarshalJSON(src []byte) error 
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-

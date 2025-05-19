@@ -34,7 +34,7 @@ type SupportedMethodsSettings struct {
 	// The encryption algorithm for this authenticator method
 	Algorithms []string `json:"algorithms,omitempty"`
 	// The transaction type for this authenticator method
-	TransactionTypes []string `json:"transactionTypes,omitempty"`
+	TransactionTypes     []string `json:"transactionTypes,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -232,4 +232,3 @@ func (v *NullableSupportedMethodsSettings) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-

@@ -32,8 +32,8 @@ import (
 // PasswordPolicy struct for PasswordPolicy
 type PasswordPolicy struct {
 	Policy
-	Conditions *PasswordPolicyConditions `json:"conditions,omitempty"`
-	Settings *PasswordPolicySettings `json:"settings,omitempty"`
+	Conditions           *PasswordPolicyConditions `json:"conditions,omitempty"`
+	Settings             *PasswordPolicySettings   `json:"settings,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -147,7 +147,7 @@ func (o PasswordPolicy) MarshalJSON() ([]byte, error) {
 func (o *PasswordPolicy) UnmarshalJSON(bytes []byte) (err error) {
 	type PasswordPolicyWithoutEmbeddedStruct struct {
 		Conditions *PasswordPolicyConditions `json:"conditions,omitempty"`
-		Settings *PasswordPolicySettings `json:"settings,omitempty"`
+		Settings   *PasswordPolicySettings   `json:"settings,omitempty"`
 	}
 
 	varPasswordPolicyWithoutEmbeddedStruct := PasswordPolicyWithoutEmbeddedStruct{}
@@ -239,4 +239,3 @@ func (v *NullablePasswordPolicy) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-

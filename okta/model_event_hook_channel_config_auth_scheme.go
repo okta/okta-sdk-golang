@@ -34,7 +34,7 @@ type EventHookChannelConfigAuthScheme struct {
 	// The authentication scheme type. Currently only supports `HEADER`.
 	Type *string `json:"type,omitempty"`
 	// The header value. This secret key is passed to your external service endpoint for security verification. This property is not returned in the response.
-	Value *string `json:"value,omitempty"`
+	Value                *string `json:"value,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -232,4 +232,3 @@ func (v *NullableEventHookChannelConfigAuthScheme) UnmarshalJSON(src []byte) err
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-

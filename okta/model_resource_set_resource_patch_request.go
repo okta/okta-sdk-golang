@@ -29,7 +29,7 @@ import (
 
 // ResourceSetResourcePatchRequest struct for ResourceSetResourcePatchRequest
 type ResourceSetResourcePatchRequest struct {
-	Additions []string `json:"additions,omitempty"`
+	Additions            []string `json:"additions,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -155,4 +155,3 @@ func (v *NullableResourceSetResourcePatchRequest) UnmarshalJSON(src []byte) erro
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-

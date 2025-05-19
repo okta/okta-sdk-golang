@@ -34,7 +34,7 @@ type LogStreamSettingsAws struct {
 	// An alphanumeric name (no spaces) to identify this event source in AWS EventBridge
 	EventSourceName string `json:"eventSourceName"`
 	// The destination AWS region where your event source is located
-	Region string `json:"region"`
+	Region               string `json:"region"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -211,4 +211,3 @@ func (v *NullableLogStreamSettingsAws) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-

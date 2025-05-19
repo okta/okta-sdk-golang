@@ -30,17 +30,17 @@ import (
 
 // Role struct for Role
 type Role struct {
-	AssignmentType *string `json:"assignmentType,omitempty"`
-	Created *time.Time `json:"created,omitempty"`
-	Description *string `json:"description,omitempty"`
-	Id *string `json:"id,omitempty"`
-	Label *string `json:"label,omitempty"`
-	LastUpdated *time.Time `json:"lastUpdated,omitempty"`
-	Status *string `json:"status,omitempty"`
+	AssignmentType *string    `json:"assignmentType,omitempty"`
+	Created        *time.Time `json:"created,omitempty"`
+	Description    *string    `json:"description,omitempty"`
+	Id             *string    `json:"id,omitempty"`
+	Label          *string    `json:"label,omitempty"`
+	LastUpdated    *time.Time `json:"lastUpdated,omitempty"`
+	Status         *string    `json:"status,omitempty"`
 	// Standard role type
-	Type *string `json:"type,omitempty"`
-	Embedded map[string]map[string]interface{} `json:"_embedded,omitempty"`
-	Links *LinksSelf `json:"_links,omitempty"`
+	Type                 *string                           `json:"type,omitempty"`
+	Embedded             map[string]map[string]interface{} `json:"_embedded,omitempty"`
+	Links                *LinksSelf                        `json:"_links,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -490,4 +490,3 @@ func (v *NullableRole) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-

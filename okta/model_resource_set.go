@@ -39,8 +39,8 @@ type ResourceSet struct {
 	// Unique label for the Resource Set
 	Label *string `json:"label,omitempty"`
 	// Timestamp when the role was last updated
-	LastUpdated *time.Time `json:"lastUpdated,omitempty"`
-	Links *ResourceSetLinks `json:"_links,omitempty"`
+	LastUpdated          *time.Time        `json:"lastUpdated,omitempty"`
+	Links                *ResourceSetLinks `json:"_links,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -346,4 +346,3 @@ func (v *NullableResourceSet) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-

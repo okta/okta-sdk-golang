@@ -29,7 +29,7 @@ import (
 
 // ContinuousAccessPolicyRuleAllOfActions The action to take in response to a failure of the reevaluated global session policy or authentication polices.
 type ContinuousAccessPolicyRuleAllOfActions struct {
-	ContinuousAccess *ContinuousAccessPolicyRuleAllOfActionsContinuousAccess `json:"continuousAccess,omitempty"`
+	ContinuousAccess     *ContinuousAccessPolicyRuleAllOfActionsContinuousAccess `json:"continuousAccess,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -155,4 +155,3 @@ func (v *NullableContinuousAccessPolicyRuleAllOfActions) UnmarshalJSON(src []byt
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-

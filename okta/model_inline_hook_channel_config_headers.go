@@ -29,8 +29,8 @@ import (
 
 // InlineHookChannelConfigHeaders struct for InlineHookChannelConfigHeaders
 type InlineHookChannelConfigHeaders struct {
-	Key *string `json:"key,omitempty"`
-	Value *string `json:"value,omitempty"`
+	Key                  *string `json:"key,omitempty"`
+	Value                *string `json:"value,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -192,4 +192,3 @@ func (v *NullableInlineHookChannelConfigHeaders) UnmarshalJSON(src []byte) error
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-

@@ -29,7 +29,7 @@ import (
 
 // JwkUse struct for JwkUse
 type JwkUse struct {
-	Use *string `json:"use,omitempty"`
+	Use                  *string `json:"use,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -155,4 +155,3 @@ func (v *NullableJwkUse) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-

@@ -31,8 +31,8 @@ import (
 type AuthenticatorMethodPushAllOfSettings struct {
 	Algorithms []string `json:"algorithms,omitempty"`
 	// Indicates whether you must use a hardware key store
-	KeyProtection *string `json:"keyProtection,omitempty"`
-	TransactionTypes []string `json:"transactionTypes,omitempty"`
+	KeyProtection        *string  `json:"keyProtection,omitempty"`
+	TransactionTypes     []string `json:"transactionTypes,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -230,4 +230,3 @@ func (v *NullableAuthenticatorMethodPushAllOfSettings) UnmarshalJSON(src []byte)
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-

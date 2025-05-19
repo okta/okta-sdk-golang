@@ -30,7 +30,7 @@ import (
 // ClientPrivilegesSetting The org setting that assigns the super admin role by default to a public client app
 type ClientPrivilegesSetting struct {
 	ClientPrivilegesSetting *bool `json:"clientPrivilegesSetting,omitempty"`
-	AdditionalProperties map[string]interface{}
+	AdditionalProperties    map[string]interface{}
 }
 
 type _ClientPrivilegesSetting ClientPrivilegesSetting
@@ -155,4 +155,3 @@ func (v *NullableClientPrivilegesSetting) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-

@@ -29,7 +29,7 @@ import (
 
 // ScheduledUserLifecycleAction struct for ScheduledUserLifecycleAction
 type ScheduledUserLifecycleAction struct {
-	Status *string `json:"status,omitempty"`
+	Status               *string `json:"status,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -155,4 +155,3 @@ func (v *NullableScheduledUserLifecycleAction) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-

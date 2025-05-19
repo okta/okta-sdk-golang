@@ -29,8 +29,8 @@ import (
 
 // ChannelBinding struct for ChannelBinding
 type ChannelBinding struct {
-	Required *string `json:"required,omitempty"`
-	Style *string `json:"style,omitempty"`
+	Required             *string `json:"required,omitempty"`
+	Style                *string `json:"style,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -192,4 +192,3 @@ func (v *NullableChannelBinding) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-

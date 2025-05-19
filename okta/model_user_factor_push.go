@@ -25,9 +25,9 @@ package okta
 
 import (
 	"encoding/json"
-	"time"
 	"reflect"
 	"strings"
+	"time"
 )
 
 // UserFactorPush struct for UserFactorPush
@@ -36,10 +36,10 @@ type UserFactorPush struct {
 	// Timestamp when the Factor verification attempt expires
 	ExpiresAt *time.Time `json:"expiresAt,omitempty"`
 	// Result of a Factor verification attempt
-	FactorResult *string `json:"factorResult,omitempty"`
-	FactorType interface{} `json:"factorType,omitempty"`
-	Profile *UserFactorPushProfile `json:"profile,omitempty"`
-	Provider *string `json:"provider,omitempty"`
+	FactorResult         *string                `json:"factorResult,omitempty"`
+	FactorType           interface{}            `json:"factorType,omitempty"`
+	Profile              *UserFactorPushProfile `json:"profile,omitempty"`
+	Provider             *string                `json:"provider,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -261,10 +261,10 @@ func (o *UserFactorPush) UnmarshalJSON(bytes []byte) (err error) {
 		// Timestamp when the Factor verification attempt expires
 		ExpiresAt *time.Time `json:"expiresAt,omitempty"`
 		// Result of a Factor verification attempt
-		FactorResult *string `json:"factorResult,omitempty"`
-		FactorType interface{} `json:"factorType,omitempty"`
-		Profile *UserFactorPushProfile `json:"profile,omitempty"`
-		Provider *string `json:"provider,omitempty"`
+		FactorResult *string                `json:"factorResult,omitempty"`
+		FactorType   interface{}            `json:"factorType,omitempty"`
+		Profile      *UserFactorPushProfile `json:"profile,omitempty"`
+		Provider     *string                `json:"provider,omitempty"`
 	}
 
 	varUserFactorPushWithoutEmbeddedStruct := UserFactorPushWithoutEmbeddedStruct{}
@@ -362,4 +362,3 @@ func (v *NullableUserFactorPush) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-

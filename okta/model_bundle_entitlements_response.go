@@ -29,8 +29,8 @@ import (
 
 // BundleEntitlementsResponse struct for BundleEntitlementsResponse
 type BundleEntitlementsResponse struct {
-	Entitlements []BundleEntitlement `json:"entitlements,omitempty"`
-	Links NullableBundleEntitlementsResponseLinks `json:"_links,omitempty"`
+	Entitlements         []BundleEntitlement                     `json:"entitlements,omitempty"`
+	Links                NullableBundleEntitlementsResponseLinks `json:"_links,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -117,6 +117,7 @@ func (o *BundleEntitlementsResponse) HasLinks() bool {
 func (o *BundleEntitlementsResponse) SetLinks(v BundleEntitlementsResponseLinks) {
 	o.Links.Set(&v)
 }
+
 // SetLinksNil sets the value for Links to be an explicit nil
 func (o *BundleEntitlementsResponse) SetLinksNil() {
 	o.Links.Set(nil)
@@ -202,4 +203,3 @@ func (v *NullableBundleEntitlementsResponse) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-

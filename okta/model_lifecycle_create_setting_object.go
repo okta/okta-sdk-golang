@@ -29,7 +29,7 @@ import (
 
 // LifecycleCreateSettingObject Determines whether to update a user in the application when a user in Okta is updated
 type LifecycleCreateSettingObject struct {
-	Status *string `json:"status,omitempty"`
+	Status               *string `json:"status,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -155,4 +155,3 @@ func (v *NullableLifecycleCreateSettingObject) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-

@@ -29,7 +29,7 @@ import (
 
 // PasswordDictionary struct for PasswordDictionary
 type PasswordDictionary struct {
-	Common *PasswordDictionaryCommon `json:"common,omitempty"`
+	Common               *PasswordDictionaryCommon `json:"common,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -155,4 +155,3 @@ func (v *NullablePasswordDictionary) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-

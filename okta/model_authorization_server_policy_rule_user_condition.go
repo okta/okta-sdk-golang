@@ -30,7 +30,7 @@ import (
 // AuthorizationServerPolicyRuleUserCondition Specifies a set of Users to be included
 type AuthorizationServerPolicyRuleUserCondition struct {
 	// Users to be included
-	Include []string `json:"include,omitempty"`
+	Include              []string `json:"include,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -156,4 +156,3 @@ func (v *NullableAuthorizationServerPolicyRuleUserCondition) UnmarshalJSON(src [
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-

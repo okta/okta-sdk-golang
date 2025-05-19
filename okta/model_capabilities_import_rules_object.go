@@ -29,7 +29,7 @@ import (
 
 // CapabilitiesImportRulesObject Defines user import rules
 type CapabilitiesImportRulesObject struct {
-	UserCreateAndMatch *CapabilitiesImportRulesUserCreateAndMatchObject `json:"userCreateAndMatch,omitempty"`
+	UserCreateAndMatch   *CapabilitiesImportRulesUserCreateAndMatchObject `json:"userCreateAndMatch,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -155,4 +155,3 @@ func (v *NullableCapabilitiesImportRulesObject) UnmarshalJSON(src []byte) error 
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-

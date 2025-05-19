@@ -37,7 +37,7 @@ type Error struct {
 	// An Okta code for this type of error
 	ErrorLink *string `json:"errorLink,omitempty"`
 	// A short description of what caused this error. Sometimes this contains dynamically-generated information about your specific error.
-	ErrorSummary *string `json:"errorSummary,omitempty"`
+	ErrorSummary         *string `json:"errorSummary,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -307,4 +307,3 @@ func (v *NullableError) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-

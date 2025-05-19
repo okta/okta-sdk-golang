@@ -30,7 +30,7 @@ import (
 // GrantTypePolicyRuleCondition Array of grant types that this condition includes. Determines the mechanism that Okta uses to authorize the creation of the tokens.
 type GrantTypePolicyRuleCondition struct {
 	// Array of grant types that this condition includes.
-	Include []string `json:"include,omitempty"`
+	Include              []string `json:"include,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -156,4 +156,3 @@ func (v *NullableGrantTypePolicyRuleCondition) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-

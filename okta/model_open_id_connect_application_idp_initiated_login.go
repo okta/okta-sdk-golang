@@ -29,8 +29,8 @@ import (
 
 // OpenIdConnectApplicationIdpInitiatedLogin struct for OpenIdConnectApplicationIdpInitiatedLogin
 type OpenIdConnectApplicationIdpInitiatedLogin struct {
-	DefaultScope []string `json:"default_scope,omitempty"`
-	Mode *string `json:"mode,omitempty"`
+	DefaultScope         []string `json:"default_scope,omitempty"`
+	Mode                 *string  `json:"mode,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -192,4 +192,3 @@ func (v *NullableOpenIdConnectApplicationIdpInitiatedLogin) UnmarshalJSON(src []
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-

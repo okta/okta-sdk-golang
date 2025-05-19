@@ -33,7 +33,7 @@ type StreamConfigurationCreateRequest struct {
 	// The events (mapped by the array of event type URIs) that the receiver wants to receive
 	EventsRequested []string `json:"events_requested"`
 	// The Subject Identifier format expected for any SET transmitted.
-	Format *string `json:"format,omitempty"`
+	Format               *string `json:"format,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -217,4 +217,3 @@ func (v *NullableStreamConfigurationCreateRequest) UnmarshalJSON(src []byte) err
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-

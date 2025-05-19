@@ -29,7 +29,7 @@ import (
 
 // LinksQrcode struct for LinksQrcode
 type LinksQrcode struct {
-	Qrcode *LinksQrcodeQrcode `json:"qrcode,omitempty"`
+	Qrcode               *LinksQrcodeQrcode `json:"qrcode,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -155,4 +155,3 @@ func (v *NullableLinksQrcode) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-

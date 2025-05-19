@@ -34,7 +34,7 @@ type ApiTokenNetwork struct {
 	// List of included IP network zones
 	Include []string `json:"include,omitempty"`
 	// List of excluded IP network zones
-	Exclude []string `json:"exclude,omitempty"`
+	Exclude              []string `json:"exclude,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -232,4 +232,3 @@ func (v *NullableApiTokenNetwork) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-

@@ -29,7 +29,7 @@ import (
 
 // EntityRiskPolicyRuleActionsObject struct for EntityRiskPolicyRuleActionsObject
 type EntityRiskPolicyRuleActionsObject struct {
-	Action *string `json:"action,omitempty"`
+	Action               *string `json:"action,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -155,4 +155,3 @@ func (v *NullableEntityRiskPolicyRuleActionsObject) UnmarshalJSON(src []byte) er
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-

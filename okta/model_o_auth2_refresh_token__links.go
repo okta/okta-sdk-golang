@@ -29,12 +29,12 @@ import (
 
 // OAuth2RefreshTokenLinks struct for OAuth2RefreshTokenLinks
 type OAuth2RefreshTokenLinks struct {
-	Self *HrefObjectSelfLink `json:"self,omitempty"`
-	App *AppCustomHrefObject `json:"app,omitempty"`
-	Revoke *OAuth2RefreshTokenLinksAllOfRevoke `json:"revoke,omitempty"`
-	Client *AppCustomHrefObject `json:"client,omitempty"`
-	User *AppCustomHrefObject `json:"user,omitempty"`
-	AuthorizationServer *AppCustomHrefObject `json:"authorizationServer,omitempty"`
+	Self                 *HrefObjectSelfLink                 `json:"self,omitempty"`
+	App                  *AppCustomHrefObject                `json:"app,omitempty"`
+	Revoke               *OAuth2RefreshTokenLinksAllOfRevoke `json:"revoke,omitempty"`
+	Client               *AppCustomHrefObject                `json:"client,omitempty"`
+	User                 *AppCustomHrefObject                `json:"user,omitempty"`
+	AuthorizationServer  *AppCustomHrefObject                `json:"authorizationServer,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -340,4 +340,3 @@ func (v *NullableOAuth2RefreshTokenLinks) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-

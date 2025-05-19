@@ -36,7 +36,7 @@ type TelephonyRequestDataUserProfile struct {
 	// The user's Okta login
 	Login *string `json:"login,omitempty"`
 	// The user's Okta user ID
-	UserId *string `json:"userId,omitempty"`
+	UserId               *string `json:"userId,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -270,4 +270,3 @@ func (v *NullableTelephonyRequestDataUserProfile) UnmarshalJSON(src []byte) erro
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-

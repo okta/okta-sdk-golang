@@ -32,7 +32,7 @@ type PasswordCredential struct {
 	Hash *PasswordCredentialHash `json:"hash,omitempty"`
 	Hook *PasswordCredentialHook `json:"hook,omitempty"`
 	// Specifies the password for a user. The Password Policy validates this password.
-	Value *string `json:"value,omitempty"`
+	Value                *string `json:"value,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -230,4 +230,3 @@ func (v *NullablePasswordCredential) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-

@@ -29,9 +29,9 @@ import (
 
 // EmailDomainDNSRecord struct for EmailDomainDNSRecord
 type EmailDomainDNSRecord struct {
-	Fqdn *string `json:"fqdn,omitempty"`
-	RecordType *string `json:"recordType,omitempty"`
-	VerificationValue *string `json:"verificationValue,omitempty"`
+	Fqdn                 *string `json:"fqdn,omitempty"`
+	RecordType           *string `json:"recordType,omitempty"`
+	VerificationValue    *string `json:"verificationValue,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -229,4 +229,3 @@ func (v *NullableEmailDomainDNSRecord) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-

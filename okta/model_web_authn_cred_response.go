@@ -32,7 +32,7 @@ type WebAuthnCredResponse struct {
 	// ID for a WebAuthn Preregistration Factor in Okta
 	AuthenticatorEnrollmentId *string `json:"authenticatorEnrollmentId,omitempty"`
 	// Encrypted JWE of credential response from the fulfillment provider
-	CredResponseJWE *string `json:"credResponseJWE,omitempty"`
+	CredResponseJWE      *string `json:"credResponseJWE,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -194,4 +194,3 @@ func (v *NullableWebAuthnCredResponse) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-
