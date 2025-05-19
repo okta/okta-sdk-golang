@@ -6,9 +6,9 @@ on:
       branch:
         description: "The branch to release"
         required: true
-      version:
-        description: "The version to release"
-        required: true
+#      version:
+#        description: "The version to release"
+#        required: true
 
 jobs:
   prepareReleaseBranch:
@@ -50,8 +50,6 @@ jobs:
 
       - name: Generate go client
         run: make generate
-
-      - run: make fmt
 
       - run: make import
 
