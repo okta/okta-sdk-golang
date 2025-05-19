@@ -1140,38 +1140,38 @@ func (c *APIClient) do(ctx context.Context, req *http.Request) (*http.Response, 
 		c.freshcache = false
 	}
 	if !inCache {
-if c.cfg.Okta.Client.RateLimit.Enable {
-c.rateLimitLock.Lock()
-limit := c.rateLimit
-c.rateLimitLock.Unlock()
-if limit != nil && limit.Remaining <= 0 {
-timer := time.NewTimer(time.Second * time.Duration(limit.Reset))
-select {
-case <-ctx.Done():
-if !timer.Stop() {
-<-timer.C
-}
-return nil, ctx.Err()
-case <-timer.C:
-}
-}
-}
-resp, err := c.doWithRetries(ctx, req)
-if err != nil {
-return nil, err
-}
-if resp.StatusCode >= 200 && resp.StatusCode <= 299 && req.Method == http.MethodGet {
-if c.cfg.Okta.Client.RateLimit.Enable {
-c.rateLimitLock.Lock()
-newLimit, err := c.parseLimitHeaders(resp)
-if err == nil {
-c.rateLimit = newLimit
-}
-c.rateLimitLock.Unlock()
-}
-c.cache.Set(cacheKey, resp)
-}
-return resp, err
+  if c.cfg.Okta.Client.RateLimit.Enable {
+    c.rateLimitLock.Lock()
+    limit := c.rateLimit
+    c.rateLimitLock.Unlock()
+    if limit != nil && limit.Remaining <= 0 {
+      timer := time.NewTimer(time.Second * time.Duration(limit.Reset))
+      select {
+        case <-ctx.Done():
+          if !timer.Stop() {
+            <-timer.C
+          }
+        return nil, ctx.Err()
+        case <-timer.C:
+      }
+    }
+  }
+  resp, err := c.doWithRetries(ctx, req)
+  if err != nil {
+    return nil, err
+  }
+  if resp.StatusCode >= 200 && resp.StatusCode <= 299 && req.Method == http.MethodGet {
+    if c.cfg.Okta.Client.RateLimit.Enable {
+      c.rateLimitLock.Lock()
+      newLimit, err := c.parseLimitHeaders(resp)
+      if err == nil {
+        c.rateLimit = newLimit
+      }
+      c.rateLimitLock.Unlock()
+    }
+    c.cache.Set(cacheKey, resp)
+  }
+  return resp, err
 	}
 	return c.cache.Get(cacheKey), nil
 }
