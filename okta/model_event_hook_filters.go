@@ -32,7 +32,7 @@ type EventHookFilters struct {
 	// The object that maps the filter to the event type
 	EventFilterMap []EventHookFilterMapObject `json:"eventFilterMap,omitempty"`
 	// The type of filter. Currently only supports `EXPRESSION_LANGUAGE`
-	Type *string `json:"type,omitempty"`
+	Type                 *string `json:"type,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -194,4 +194,3 @@ func (v *NullableEventHookFilters) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-

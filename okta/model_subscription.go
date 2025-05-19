@@ -34,8 +34,8 @@ type Subscription struct {
 	// The type of notification
 	NotificationType *string `json:"notificationType,omitempty"`
 	// The status of the subscription
-	Status *string `json:"status,omitempty"`
-	Links *SubscriptionLinks `json:"_links,omitempty"`
+	Status               *string            `json:"status,omitempty"`
+	Links                *SubscriptionLinks `json:"_links,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -269,4 +269,3 @@ func (v *NullableSubscription) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-

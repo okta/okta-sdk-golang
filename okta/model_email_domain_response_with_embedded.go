@@ -29,15 +29,15 @@ import (
 
 // EmailDomainResponseWithEmbedded struct for EmailDomainResponseWithEmbedded
 type EmailDomainResponseWithEmbedded struct {
-	DisplayName *string `json:"displayName,omitempty"`
-	UserName *string `json:"userName,omitempty"`
+	DisplayName          *string                `json:"displayName,omitempty"`
+	UserName             *string                `json:"userName,omitempty"`
 	DnsValidationRecords []EmailDomainDNSRecord `json:"dnsValidationRecords,omitempty"`
-	Domain *string `json:"domain,omitempty"`
-	Id *string `json:"id,omitempty"`
-	ValidationStatus *string `json:"validationStatus,omitempty"`
+	Domain               *string                `json:"domain,omitempty"`
+	Id                   *string                `json:"id,omitempty"`
+	ValidationStatus     *string                `json:"validationStatus,omitempty"`
 	// The subdomain for the email sender's custom mail domain
-	ValidationSubdomain *string `json:"validationSubdomain,omitempty"`
-	Embedded *EmailDomainResponseWithEmbeddedEmbedded `json:"_embedded,omitempty"`
+	ValidationSubdomain  *string                                  `json:"validationSubdomain,omitempty"`
+	Embedded             *EmailDomainResponseWithEmbeddedEmbedded `json:"_embedded,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -419,4 +419,3 @@ func (v *NullableEmailDomainResponseWithEmbedded) UnmarshalJSON(src []byte) erro
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-

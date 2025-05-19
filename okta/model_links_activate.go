@@ -29,7 +29,7 @@ import (
 
 // LinksActivate struct for LinksActivate
 type LinksActivate struct {
-	Activate *LinksActivateActivate `json:"activate,omitempty"`
+	Activate             *LinksActivateActivate `json:"activate,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -155,4 +155,3 @@ func (v *NullableLinksActivate) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-

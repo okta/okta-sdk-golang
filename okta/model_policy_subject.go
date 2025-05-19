@@ -29,11 +29,11 @@ import (
 
 // PolicySubject struct for PolicySubject
 type PolicySubject struct {
-	Filter *string `json:"filter,omitempty"`
-	Format []string `json:"format,omitempty"`
-	MatchAttribute *string `json:"matchAttribute,omitempty"`
-	MatchType *string `json:"matchType,omitempty"`
-	UserNameTemplate *PolicyUserNameTemplate `json:"userNameTemplate,omitempty"`
+	Filter               *string                 `json:"filter,omitempty"`
+	Format               []string                `json:"format,omitempty"`
+	MatchAttribute       *string                 `json:"matchAttribute,omitempty"`
+	MatchType            *string                 `json:"matchType,omitempty"`
+	UserNameTemplate     *PolicyUserNameTemplate `json:"userNameTemplate,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -303,4 +303,3 @@ func (v *NullablePolicySubject) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-

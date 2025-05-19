@@ -32,7 +32,7 @@ type RecoveryQuestionCredential struct {
 	// The recovery question answer
 	Answer *string `json:"answer,omitempty"`
 	// The recovery question
-	Question *string `json:"question,omitempty"`
+	Question             *string `json:"question,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -194,4 +194,3 @@ func (v *NullableRecoveryQuestionCredential) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-

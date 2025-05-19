@@ -29,9 +29,9 @@ import (
 
 // ContentSecurityPolicySetting struct for ContentSecurityPolicySetting
 type ContentSecurityPolicySetting struct {
-	Mode *string `json:"mode,omitempty"`
-	ReportUri *string `json:"reportUri,omitempty"`
-	SrcList []string `json:"srcList,omitempty"`
+	Mode                 *string  `json:"mode,omitempty"`
+	ReportUri            *string  `json:"reportUri,omitempty"`
+	SrcList              []string `json:"srcList,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -229,4 +229,3 @@ func (v *NullableContentSecurityPolicySetting) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-

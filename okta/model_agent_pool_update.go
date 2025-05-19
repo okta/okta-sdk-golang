@@ -31,18 +31,18 @@ import (
 type AgentPoolUpdate struct {
 	Agents []Agent `json:"agents,omitempty"`
 	// Agent types that are being monitored
-	AgentType *string `json:"agentType,omitempty"`
-	Enabled *bool `json:"enabled,omitempty"`
-	Id *string `json:"id,omitempty"`
-	Name *string `json:"name,omitempty"`
-	NotifyAdmin *bool `json:"notifyAdmin,omitempty"`
-	Reason *string `json:"reason,omitempty"`
-	Schedule *AutoUpdateSchedule `json:"schedule,omitempty"`
-	SortOrder *int32 `json:"sortOrder,omitempty"`
+	AgentType   *string             `json:"agentType,omitempty"`
+	Enabled     *bool               `json:"enabled,omitempty"`
+	Id          *string             `json:"id,omitempty"`
+	Name        *string             `json:"name,omitempty"`
+	NotifyAdmin *bool               `json:"notifyAdmin,omitempty"`
+	Reason      *string             `json:"reason,omitempty"`
+	Schedule    *AutoUpdateSchedule `json:"schedule,omitempty"`
+	SortOrder   *int32              `json:"sortOrder,omitempty"`
 	// Overall state for the auto-update job from admin perspective
-	Status *string `json:"status,omitempty"`
-	TargetVersion *string `json:"targetVersion,omitempty"`
-	Links *LinksSelf `json:"_links,omitempty"`
+	Status               *string    `json:"status,omitempty"`
+	TargetVersion        *string    `json:"targetVersion,omitempty"`
+	Links                *LinksSelf `json:"_links,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -564,4 +564,3 @@ func (v *NullableAgentPoolUpdate) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-

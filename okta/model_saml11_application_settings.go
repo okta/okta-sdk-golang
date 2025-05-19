@@ -29,13 +29,13 @@ import (
 
 // Saml11ApplicationSettings struct for Saml11ApplicationSettings
 type Saml11ApplicationSettings struct {
-	IdentityStoreId *string `json:"identityStoreId,omitempty"`
-	ImplicitAssignment *bool `json:"implicitAssignment,omitempty"`
-	InlineHookId *string `json:"inlineHookId,omitempty"`
-	Notes *ApplicationSettingsNotes `json:"notes,omitempty"`
-	Notifications *ApplicationSettingsNotifications `json:"notifications,omitempty"`
-	App map[string]interface{} `json:"app,omitempty"`
-	SignOn *Saml11ApplicationSettingsSignOn `json:"signOn,omitempty"`
+	IdentityStoreId      *string                           `json:"identityStoreId,omitempty"`
+	ImplicitAssignment   *bool                             `json:"implicitAssignment,omitempty"`
+	InlineHookId         *string                           `json:"inlineHookId,omitempty"`
+	Notes                *ApplicationSettingsNotes         `json:"notes,omitempty"`
+	Notifications        *ApplicationSettingsNotifications `json:"notifications,omitempty"`
+	App                  map[string]interface{}            `json:"app,omitempty"`
+	SignOn               *Saml11ApplicationSettingsSignOn  `json:"signOn,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -377,4 +377,3 @@ func (v *NullableSaml11ApplicationSettings) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-

@@ -29,10 +29,10 @@ import (
 
 // ApplicationCredentialsUsernameTemplate struct for ApplicationCredentialsUsernameTemplate
 type ApplicationCredentialsUsernameTemplate struct {
-	PushStatus *string `json:"pushStatus,omitempty"`
-	Template *string `json:"template,omitempty"`
-	Type *string `json:"type,omitempty"`
-	UserSuffix *string `json:"userSuffix,omitempty"`
+	PushStatus           *string `json:"pushStatus,omitempty"`
+	Template             *string `json:"template,omitempty"`
+	Type                 *string `json:"type,omitempty"`
+	UserSuffix           *string `json:"userSuffix,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -266,4 +266,3 @@ func (v *NullableApplicationCredentialsUsernameTemplate) UnmarshalJSON(src []byt
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-

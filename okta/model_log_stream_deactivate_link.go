@@ -32,7 +32,7 @@ type LogStreamDeactivateLink struct {
 	// The URI of the resource
 	Href string `json:"href"`
 	// HTTP method allowed for the resource
-	Method *string `json:"method,omitempty"`
+	Method               *string `json:"method,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -187,4 +187,3 @@ func (v *NullableLogStreamDeactivateLink) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-

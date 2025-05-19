@@ -29,14 +29,14 @@ import (
 
 // ApplicationLinks Discoverable resources related to the app
 type ApplicationLinks struct {
-	AccessPolicy *HrefObject `json:"accessPolicy,omitempty"`
-	Activate *HrefObjectActivateLink `json:"activate,omitempty"`
-	Deactivate *HrefObjectDeactivateLink `json:"deactivate,omitempty"`
-	Groups *HrefObject `json:"groups,omitempty"`
-	Logo []HrefObject `json:"logo,omitempty"`
-	Metadata *HrefObject `json:"metadata,omitempty"`
-	Self *HrefObjectSelfLink `json:"self,omitempty"`
-	Users *HrefObject `json:"users,omitempty"`
+	AccessPolicy         *HrefObject               `json:"accessPolicy,omitempty"`
+	Activate             *HrefObjectActivateLink   `json:"activate,omitempty"`
+	Deactivate           *HrefObjectDeactivateLink `json:"deactivate,omitempty"`
+	Groups               *HrefObject               `json:"groups,omitempty"`
+	Logo                 []HrefObject              `json:"logo,omitempty"`
+	Metadata             *HrefObject               `json:"metadata,omitempty"`
+	Self                 *HrefObjectSelfLink       `json:"self,omitempty"`
+	Users                *HrefObject               `json:"users,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -414,4 +414,3 @@ func (v *NullableApplicationLinks) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-

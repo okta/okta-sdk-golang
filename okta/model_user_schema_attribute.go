@@ -29,24 +29,24 @@ import (
 
 // UserSchemaAttribute struct for UserSchemaAttribute
 type UserSchemaAttribute struct {
-	Description *string `json:"description,omitempty"`
-	Enum []string `json:"enum,omitempty"`
-	ExternalName *string `json:"externalName,omitempty"`
-	ExternalNamespace *string `json:"externalNamespace,omitempty"`
-	Items *UserSchemaAttributeItems `json:"items,omitempty"`
-	Master *UserSchemaAttributeMaster `json:"master,omitempty"`
-	MaxLength NullableInt32 `json:"maxLength,omitempty"`
-	MinLength NullableInt32 `json:"minLength,omitempty"`
-	Mutability *string `json:"mutability,omitempty"`
-	OneOf []UserSchemaAttributeEnum `json:"oneOf,omitempty"`
-	Pattern *string `json:"pattern,omitempty"`
-	Permissions []UserSchemaAttributePermission `json:"permissions,omitempty"`
-	Required *bool `json:"required,omitempty"`
-	Scope *string `json:"scope,omitempty"`
-	Title *string `json:"title,omitempty"`
-	Type *string `json:"type,omitempty"`
-	Union *string `json:"union,omitempty"`
-	Unique *string `json:"unique,omitempty"`
+	Description          *string                         `json:"description,omitempty"`
+	Enum                 []string                        `json:"enum,omitempty"`
+	ExternalName         *string                         `json:"externalName,omitempty"`
+	ExternalNamespace    *string                         `json:"externalNamespace,omitempty"`
+	Items                *UserSchemaAttributeItems       `json:"items,omitempty"`
+	Master               *UserSchemaAttributeMaster      `json:"master,omitempty"`
+	MaxLength            NullableInt32                   `json:"maxLength,omitempty"`
+	MinLength            NullableInt32                   `json:"minLength,omitempty"`
+	Mutability           *string                         `json:"mutability,omitempty"`
+	OneOf                []UserSchemaAttributeEnum       `json:"oneOf,omitempty"`
+	Pattern              *string                         `json:"pattern,omitempty"`
+	Permissions          []UserSchemaAttributePermission `json:"permissions,omitempty"`
+	Required             *bool                           `json:"required,omitempty"`
+	Scope                *string                         `json:"scope,omitempty"`
+	Title                *string                         `json:"title,omitempty"`
+	Type                 *string                         `json:"type,omitempty"`
+	Union                *string                         `json:"union,omitempty"`
+	Unique               *string                         `json:"unique,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -293,6 +293,7 @@ func (o *UserSchemaAttribute) HasMaxLength() bool {
 func (o *UserSchemaAttribute) SetMaxLength(v int32) {
 	o.MaxLength.Set(&v)
 }
+
 // SetMaxLengthNil sets the value for MaxLength to be an explicit nil
 func (o *UserSchemaAttribute) SetMaxLengthNil() {
 	o.MaxLength.Set(nil)
@@ -335,6 +336,7 @@ func (o *UserSchemaAttribute) HasMinLength() bool {
 func (o *UserSchemaAttribute) SetMinLength(v int32) {
 	o.MinLength.Set(&v)
 }
+
 // SetMinLengthNil sets the value for MinLength to be an explicit nil
 func (o *UserSchemaAttribute) SetMinLengthNil() {
 	o.MinLength.Set(nil)
@@ -804,4 +806,3 @@ func (v *NullableUserSchemaAttribute) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-

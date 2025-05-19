@@ -29,8 +29,8 @@ import (
 
 // UserSchemaAttributeMasterPriority struct for UserSchemaAttributeMasterPriority
 type UserSchemaAttributeMasterPriority struct {
-	Type *string `json:"type,omitempty"`
-	Value *string `json:"value,omitempty"`
+	Type                 *string `json:"type,omitempty"`
+	Value                *string `json:"value,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -192,4 +192,3 @@ func (v *NullableUserSchemaAttributeMasterPriority) UnmarshalJSON(src []byte) er
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-

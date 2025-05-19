@@ -33,9 +33,9 @@ import (
 type AuthenticatorKeyCustomApp struct {
 	AuthenticatorSimple
 	// A value of `true` indicates that the administrator accepts the [terms](https://www.okta.com/privacy-policy/)for creating a new authenticator. Okta requires that you accept the terms when creating a new `custom_app` authenticator. Other authenticators don't require this field.
-	AgreeToTerms *bool `json:"agreeToTerms,omitempty"`
-	Provider *AuthenticatorKeyCustomAppAllOfProvider `json:"provider,omitempty"`
-	Settings *AuthenticatorKeyCustomAppAllOfSettings `json:"settings,omitempty"`
+	AgreeToTerms         *bool                                   `json:"agreeToTerms,omitempty"`
+	Provider             *AuthenticatorKeyCustomAppAllOfProvider `json:"provider,omitempty"`
+	Settings             *AuthenticatorKeyCustomAppAllOfSettings `json:"settings,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -184,9 +184,9 @@ func (o AuthenticatorKeyCustomApp) MarshalJSON() ([]byte, error) {
 func (o *AuthenticatorKeyCustomApp) UnmarshalJSON(bytes []byte) (err error) {
 	type AuthenticatorKeyCustomAppWithoutEmbeddedStruct struct {
 		// A value of `true` indicates that the administrator accepts the [terms](https://www.okta.com/privacy-policy/)for creating a new authenticator. Okta requires that you accept the terms when creating a new `custom_app` authenticator. Other authenticators don't require this field.
-		AgreeToTerms *bool `json:"agreeToTerms,omitempty"`
-		Provider *AuthenticatorKeyCustomAppAllOfProvider `json:"provider,omitempty"`
-		Settings *AuthenticatorKeyCustomAppAllOfSettings `json:"settings,omitempty"`
+		AgreeToTerms *bool                                   `json:"agreeToTerms,omitempty"`
+		Provider     *AuthenticatorKeyCustomAppAllOfProvider `json:"provider,omitempty"`
+		Settings     *AuthenticatorKeyCustomAppAllOfSettings `json:"settings,omitempty"`
 	}
 
 	varAuthenticatorKeyCustomAppWithoutEmbeddedStruct := AuthenticatorKeyCustomAppWithoutEmbeddedStruct{}
@@ -280,4 +280,3 @@ func (v *NullableAuthenticatorKeyCustomApp) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-

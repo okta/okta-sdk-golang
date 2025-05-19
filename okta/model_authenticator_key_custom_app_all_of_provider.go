@@ -30,8 +30,8 @@ import (
 // AuthenticatorKeyCustomAppAllOfProvider struct for AuthenticatorKeyCustomAppAllOfProvider
 type AuthenticatorKeyCustomAppAllOfProvider struct {
 	// Provider type
-	Type *string `json:"type,omitempty"`
-	Configuration *AuthenticatorKeyCustomAppAllOfProviderConfiguration `json:"configuration,omitempty"`
+	Type                 *string                                              `json:"type,omitempty"`
+	Configuration        *AuthenticatorKeyCustomAppAllOfProviderConfiguration `json:"configuration,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -193,4 +193,3 @@ func (v *NullableAuthenticatorKeyCustomAppAllOfProvider) UnmarshalJSON(src []byt
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-

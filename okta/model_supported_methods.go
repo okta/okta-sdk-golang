@@ -30,9 +30,9 @@ import (
 // SupportedMethods The supported methods of an Authenticator
 type SupportedMethods struct {
 	Settings *SupportedMethodsSettings `json:"settings,omitempty"`
-	Status *string `json:"status,omitempty"`
+	Status   *string                   `json:"status,omitempty"`
 	// The type of authenticator method
-	Type *string `json:"type,omitempty"`
+	Type                 *string `json:"type,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -230,4 +230,3 @@ func (v *NullableSupportedMethods) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-

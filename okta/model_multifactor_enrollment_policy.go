@@ -32,8 +32,8 @@ import (
 // MultifactorEnrollmentPolicy struct for MultifactorEnrollmentPolicy
 type MultifactorEnrollmentPolicy struct {
 	Policy
-	Conditions *PolicyRuleConditions `json:"conditions,omitempty"`
-	Settings *MultifactorEnrollmentPolicySettings `json:"settings,omitempty"`
+	Conditions           *PolicyRuleConditions                `json:"conditions,omitempty"`
+	Settings             *MultifactorEnrollmentPolicySettings `json:"settings,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -146,8 +146,8 @@ func (o MultifactorEnrollmentPolicy) MarshalJSON() ([]byte, error) {
 
 func (o *MultifactorEnrollmentPolicy) UnmarshalJSON(bytes []byte) (err error) {
 	type MultifactorEnrollmentPolicyWithoutEmbeddedStruct struct {
-		Conditions *PolicyRuleConditions `json:"conditions,omitempty"`
-		Settings *MultifactorEnrollmentPolicySettings `json:"settings,omitempty"`
+		Conditions *PolicyRuleConditions                `json:"conditions,omitempty"`
+		Settings   *MultifactorEnrollmentPolicySettings `json:"settings,omitempty"`
 	}
 
 	varMultifactorEnrollmentPolicyWithoutEmbeddedStruct := MultifactorEnrollmentPolicyWithoutEmbeddedStruct{}
@@ -239,4 +239,3 @@ func (v *NullableMultifactorEnrollmentPolicy) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-

@@ -29,8 +29,8 @@ import (
 
 // UserActivationToken struct for UserActivationToken
 type UserActivationToken struct {
-	ActivationToken *string `json:"activationToken,omitempty"`
-	ActivationUrl *string `json:"activationUrl,omitempty"`
+	ActivationToken      *string `json:"activationToken,omitempty"`
+	ActivationUrl        *string `json:"activationUrl,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -192,4 +192,3 @@ func (v *NullableUserActivationToken) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-

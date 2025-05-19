@@ -30,7 +30,7 @@ import (
 // OAuth2ScopeConsentGrantEmbeddedScope struct for OAuth2ScopeConsentGrantEmbeddedScope
 type OAuth2ScopeConsentGrantEmbeddedScope struct {
 	// The name of the Okta scope for which consent is granted
-	Id *string `json:"id,omitempty"`
+	Id                   *string `json:"id,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -156,4 +156,3 @@ func (v *NullableOAuth2ScopeConsentGrantEmbeddedScope) UnmarshalJSON(src []byte)
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-

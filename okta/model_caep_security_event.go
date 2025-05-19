@@ -32,10 +32,10 @@ type CaepSecurityEvent struct {
 	// The time of the event (UNIX timestamp)
 	EventTimestamp int64 `json:"event_timestamp"`
 	// The entity that initiated the event
-	InitiatingEntity *string `json:"initiating_entity,omitempty"`
-	ReasonAdmin *CaepDeviceComplianceChangeEventReasonAdmin `json:"reason_admin,omitempty"`
-	ReasonUser *CaepDeviceComplianceChangeEventReasonUser `json:"reason_user,omitempty"`
-	Subjects SecurityEventSubject `json:"subjects"`
+	InitiatingEntity     *string                                     `json:"initiating_entity,omitempty"`
+	ReasonAdmin          *CaepDeviceComplianceChangeEventReasonAdmin `json:"reason_admin,omitempty"`
+	ReasonUser           *CaepDeviceComplianceChangeEventReasonUser  `json:"reason_user,omitempty"`
+	Subjects             SecurityEventSubject                        `json:"subjects"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -291,4 +291,3 @@ func (v *NullableCaepSecurityEvent) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-

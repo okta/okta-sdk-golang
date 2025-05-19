@@ -30,7 +30,7 @@ import (
 // UserFactorPushTransaction struct for UserFactorPushTransaction
 type UserFactorPushTransaction struct {
 	// Result of the verification transaction
-	FactorResult *string `json:"factorResult,omitempty"`
+	FactorResult         *string `json:"factorResult,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -156,4 +156,3 @@ func (v *NullableUserFactorPushTransaction) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-

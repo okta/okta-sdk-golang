@@ -30,7 +30,7 @@ import (
 // ResendUserFactor struct for ResendUserFactor
 type ResendUserFactor struct {
 	// Type of the Factor
-	FactorType *string `json:"factorType,omitempty"`
+	FactorType           *string `json:"factorType,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -156,4 +156,3 @@ func (v *NullableResendUserFactor) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-

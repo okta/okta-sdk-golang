@@ -29,7 +29,7 @@ import (
 
 // PolicyAccountLinkFilter struct for PolicyAccountLinkFilter
 type PolicyAccountLinkFilter struct {
-	Groups *PolicyAccountLinkFilterGroups `json:"groups,omitempty"`
+	Groups               *PolicyAccountLinkFilterGroups `json:"groups,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -155,4 +155,3 @@ func (v *NullablePolicyAccountLinkFilter) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-

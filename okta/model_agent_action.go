@@ -30,8 +30,8 @@ import (
 // AgentAction Details about the AD Group membership update
 type AgentAction struct {
 	// ID of the AD group to update
-	Id *string `json:"id,omitempty"`
-	Parameters *Parameters `json:"parameters,omitempty"`
+	Id                   *string     `json:"id,omitempty"`
+	Parameters           *Parameters `json:"parameters,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -193,4 +193,3 @@ func (v *NullableAgentAction) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-

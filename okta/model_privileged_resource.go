@@ -43,7 +43,7 @@ type PrivilegedResource struct {
 	// The type of the resource
 	ResourceType *string `json:"resourceType,omitempty"`
 	// Current status of the privileged resource
-	Status *string `json:"status,omitempty"`
+	Status               *string `json:"status,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -385,4 +385,3 @@ func (v *NullablePrivilegedResource) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-

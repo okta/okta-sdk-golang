@@ -34,7 +34,7 @@ type AppAndInstanceConditionEvaluatorAppOrInstance struct {
 	// Name of the app type
 	Name *string `json:"name,omitempty"`
 	// Type of app
-	Type *string `json:"type,omitempty"`
+	Type                 *string `json:"type,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -232,4 +232,3 @@ func (v *NullableAppAndInstanceConditionEvaluatorAppOrInstance) UnmarshalJSON(sr
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-

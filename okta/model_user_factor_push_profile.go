@@ -40,7 +40,7 @@ type UserFactorPushProfile struct {
 	// OS version of the associated device
 	Platform *string `json:"platform,omitempty"`
 	// Installed version of Okta Verify
-	Version *string `json:"version,omitempty"`
+	Version              *string `json:"version,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -346,4 +346,3 @@ func (v *NullableUserFactorPushProfile) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-

@@ -32,10 +32,10 @@ type DNSRecord struct {
 	// DNS TXT record expiration
 	Expiration *string `json:"expiration,omitempty"`
 	// DNS record name
-	Fqdn *string `json:"fqdn,omitempty"`
+	Fqdn       *string `json:"fqdn,omitempty"`
 	RecordType *string `json:"recordType,omitempty"`
 	// DNS record value
-	Values []string `json:"values,omitempty"`
+	Values               []string `json:"values,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -269,4 +269,3 @@ func (v *NullableDNSRecord) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-

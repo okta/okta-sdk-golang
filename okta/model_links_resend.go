@@ -29,7 +29,7 @@ import (
 
 // LinksResend struct for LinksResend
 type LinksResend struct {
-	Resend *LinksResendResend `json:"resend,omitempty"`
+	Resend               *LinksResendResend `json:"resend,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -155,4 +155,3 @@ func (v *NullableLinksResend) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-

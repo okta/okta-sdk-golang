@@ -29,8 +29,8 @@ import (
 
 // GroupRuleExpression struct for GroupRuleExpression
 type GroupRuleExpression struct {
-	Type *string `json:"type,omitempty"`
-	Value *string `json:"value,omitempty"`
+	Type                 *string `json:"type,omitempty"`
+	Value                *string `json:"value,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -192,4 +192,3 @@ func (v *NullableGroupRuleExpression) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-

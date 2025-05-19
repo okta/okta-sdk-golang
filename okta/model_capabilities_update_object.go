@@ -29,9 +29,9 @@ import (
 
 // CapabilitiesUpdateObject Determines whether updates to a user's profile are pushed to the application
 type CapabilitiesUpdateObject struct {
-	LifecycleDeactivate *LifecycleDeactivateSettingObject `json:"lifecycleDeactivate,omitempty"`
-	Password *PasswordSettingObject `json:"password,omitempty"`
-	Profile *ProfileSettingObject `json:"profile,omitempty"`
+	LifecycleDeactivate  *LifecycleDeactivateSettingObject `json:"lifecycleDeactivate,omitempty"`
+	Password             *PasswordSettingObject            `json:"password,omitempty"`
+	Profile              *ProfileSettingObject             `json:"profile,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -229,4 +229,3 @@ func (v *NullableCapabilitiesUpdateObject) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-

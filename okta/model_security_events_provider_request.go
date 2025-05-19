@@ -30,10 +30,10 @@ import (
 // SecurityEventsProviderRequest The request schema for creating or updating a Security Events Provider. The `settings` must match one of the schemas.
 type SecurityEventsProviderRequest struct {
 	// The name of the Security Events Provider instance
-	Name string `json:"name"`
+	Name     string                                `json:"name"`
 	Settings SecurityEventsProviderRequestSettings `json:"settings"`
 	// The application type of the Security Events Provider
-	Type string `json:"type"`
+	Type                 string `json:"type"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -210,4 +210,3 @@ func (v *NullableSecurityEventsProviderRequest) UnmarshalJSON(src []byte) error 
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-

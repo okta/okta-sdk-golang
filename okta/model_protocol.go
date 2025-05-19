@@ -29,14 +29,14 @@ import (
 
 // Protocol struct for Protocol
 type Protocol struct {
-	Algorithms *ProtocolAlgorithms `json:"algorithms,omitempty"`
-	Credentials *IdentityProviderCredentials `json:"credentials,omitempty"`
-	Endpoints *ProtocolEndpoints `json:"endpoints,omitempty"`
-	Issuer *ProtocolEndpoint `json:"issuer,omitempty"`
-	RelayState *ProtocolRelayState `json:"relayState,omitempty"`
-	Scopes []string `json:"scopes,omitempty"`
-	Settings *ProtocolSettings `json:"settings,omitempty"`
-	Type *string `json:"type,omitempty"`
+	Algorithms           *ProtocolAlgorithms          `json:"algorithms,omitempty"`
+	Credentials          *IdentityProviderCredentials `json:"credentials,omitempty"`
+	Endpoints            *ProtocolEndpoints           `json:"endpoints,omitempty"`
+	Issuer               *ProtocolEndpoint            `json:"issuer,omitempty"`
+	RelayState           *ProtocolRelayState          `json:"relayState,omitempty"`
+	Scopes               []string                     `json:"scopes,omitempty"`
+	Settings             *ProtocolSettings            `json:"settings,omitempty"`
+	Type                 *string                      `json:"type,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -414,4 +414,3 @@ func (v *NullableProtocol) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-

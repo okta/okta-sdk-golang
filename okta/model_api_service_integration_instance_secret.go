@@ -40,8 +40,8 @@ type APIServiceIntegrationInstanceSecret struct {
 	// OAuth 2.0 client secret string hash
 	SecretHash string `json:"secret_hash"`
 	// Status of the API Service Integration instance Secret
-	Status string `json:"status"`
-	Links APIServiceIntegrationSecretLinks `json:"_links"`
+	Status               string                           `json:"status"`
+	Links                APIServiceIntegrationSecretLinks `json:"_links"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -334,4 +334,3 @@ func (v *NullableAPIServiceIntegrationInstanceSecret) UnmarshalJSON(src []byte) 
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-

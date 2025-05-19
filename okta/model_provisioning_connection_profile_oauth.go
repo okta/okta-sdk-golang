@@ -27,11 +27,11 @@ import (
 	"encoding/json"
 )
 
-// ProvisioningConnectionProfileOauth The app provisioning connection profile used to configure the method of authentication and the credentials. Currently, token-based and OAuth 2.0-based authentication are supported. 
+// ProvisioningConnectionProfileOauth The app provisioning connection profile used to configure the method of authentication and the credentials. Currently, token-based and OAuth 2.0-based authentication are supported.
 type ProvisioningConnectionProfileOauth struct {
 	// OAuth 2.0 is used to authenticate with the app.
-	AuthScheme string `json:"authScheme"`
-	ClientId *string `json:"clientId,omitempty"`
+	AuthScheme           string  `json:"authScheme"`
+	ClientId             *string `json:"clientId,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -186,4 +186,3 @@ func (v *NullableProvisioningConnectionProfileOauth) UnmarshalJSON(src []byte) e
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-

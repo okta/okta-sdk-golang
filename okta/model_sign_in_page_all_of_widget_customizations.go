@@ -29,28 +29,28 @@ import (
 
 // SignInPageAllOfWidgetCustomizations struct for SignInPageAllOfWidgetCustomizations
 type SignInPageAllOfWidgetCustomizations struct {
-	SignInLabel *string `json:"signInLabel,omitempty"`
-	UsernameLabel *string `json:"usernameLabel,omitempty"`
-	UsernameInfoTip *string `json:"usernameInfoTip,omitempty"`
-	PasswordLabel *string `json:"passwordLabel,omitempty"`
-	PasswordInfoTip *string `json:"passwordInfoTip,omitempty"`
-	ShowPasswordVisibilityToggle *bool `json:"showPasswordVisibilityToggle,omitempty"`
-	ShowUserIdentifier *bool `json:"showUserIdentifier,omitempty"`
-	ForgotPasswordLabel *string `json:"forgotPasswordLabel,omitempty"`
-	ForgotPasswordUrl *string `json:"forgotPasswordUrl,omitempty"`
-	UnlockAccountLabel *string `json:"unlockAccountLabel,omitempty"`
-	UnlockAccountUrl *string `json:"unlockAccountUrl,omitempty"`
-	HelpLabel *string `json:"helpLabel,omitempty"`
-	HelpUrl *string `json:"helpUrl,omitempty"`
-	CustomLink1Label *string `json:"customLink1Label,omitempty"`
-	CustomLink1Url *string `json:"customLink1Url,omitempty"`
-	CustomLink2Label *string `json:"customLink2Label,omitempty"`
-	CustomLink2Url *string `json:"customLink2Url,omitempty"`
-	AuthenticatorPageCustomLinkLabel *string `json:"authenticatorPageCustomLinkLabel,omitempty"`
-	AuthenticatorPageCustomLinkUrl *string `json:"authenticatorPageCustomLinkUrl,omitempty"`
+	SignInLabel                             *string `json:"signInLabel,omitempty"`
+	UsernameLabel                           *string `json:"usernameLabel,omitempty"`
+	UsernameInfoTip                         *string `json:"usernameInfoTip,omitempty"`
+	PasswordLabel                           *string `json:"passwordLabel,omitempty"`
+	PasswordInfoTip                         *string `json:"passwordInfoTip,omitempty"`
+	ShowPasswordVisibilityToggle            *bool   `json:"showPasswordVisibilityToggle,omitempty"`
+	ShowUserIdentifier                      *bool   `json:"showUserIdentifier,omitempty"`
+	ForgotPasswordLabel                     *string `json:"forgotPasswordLabel,omitempty"`
+	ForgotPasswordUrl                       *string `json:"forgotPasswordUrl,omitempty"`
+	UnlockAccountLabel                      *string `json:"unlockAccountLabel,omitempty"`
+	UnlockAccountUrl                        *string `json:"unlockAccountUrl,omitempty"`
+	HelpLabel                               *string `json:"helpLabel,omitempty"`
+	HelpUrl                                 *string `json:"helpUrl,omitempty"`
+	CustomLink1Label                        *string `json:"customLink1Label,omitempty"`
+	CustomLink1Url                          *string `json:"customLink1Url,omitempty"`
+	CustomLink2Label                        *string `json:"customLink2Label,omitempty"`
+	CustomLink2Url                          *string `json:"customLink2Url,omitempty"`
+	AuthenticatorPageCustomLinkLabel        *string `json:"authenticatorPageCustomLinkLabel,omitempty"`
+	AuthenticatorPageCustomLinkUrl          *string `json:"authenticatorPageCustomLinkUrl,omitempty"`
 	ClassicRecoveryFlowEmailOrUsernameLabel *string `json:"classicRecoveryFlowEmailOrUsernameLabel,omitempty"`
-	WidgetGeneration *string `json:"widgetGeneration,omitempty"`
-	AdditionalProperties map[string]interface{}
+	WidgetGeneration                        *string `json:"widgetGeneration,omitempty"`
+	AdditionalProperties                    map[string]interface{}
 }
 
 type _SignInPageAllOfWidgetCustomizations SignInPageAllOfWidgetCustomizations
@@ -895,4 +895,3 @@ func (v *NullableSignInPageAllOfWidgetCustomizations) UnmarshalJSON(src []byte) 
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-

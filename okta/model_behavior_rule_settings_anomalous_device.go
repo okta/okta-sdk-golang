@@ -29,9 +29,9 @@ import (
 
 // BehaviorRuleSettingsAnomalousDevice struct for BehaviorRuleSettingsAnomalousDevice
 type BehaviorRuleSettingsAnomalousDevice struct {
-	MaxEventsUsedForEvaluation *int32 `json:"maxEventsUsedForEvaluation,omitempty"`
+	MaxEventsUsedForEvaluation   *int32 `json:"maxEventsUsedForEvaluation,omitempty"`
 	MinEventsNeededForEvaluation *int32 `json:"minEventsNeededForEvaluation,omitempty"`
-	AdditionalProperties map[string]interface{}
+	AdditionalProperties         map[string]interface{}
 }
 
 type _BehaviorRuleSettingsAnomalousDevice BehaviorRuleSettingsAnomalousDevice
@@ -200,4 +200,3 @@ func (v *NullableBehaviorRuleSettingsAnomalousDevice) UnmarshalJSON(src []byte) 
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-

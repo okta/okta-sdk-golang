@@ -30,9 +30,9 @@ import (
 // UpdateUserRequest struct for UpdateUserRequest
 type UpdateUserRequest struct {
 	Credentials *UserCredentials `json:"credentials,omitempty"`
-	Profile *UserProfile `json:"profile,omitempty"`
+	Profile     *UserProfile     `json:"profile,omitempty"`
 	// <div class=\"x-lifecycle-container\"><x-lifecycle class=\"ea\"></x-lifecycle></div>The ID of the Realm in which the user is residing
-	RealmId *string `json:"realmId,omitempty"`
+	RealmId              *string `json:"realmId,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -230,4 +230,3 @@ func (v *NullableUpdateUserRequest) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-

@@ -30,32 +30,32 @@ import (
 // OpenIdConnectApplicationSettingsClient struct for OpenIdConnectApplicationSettingsClient
 type OpenIdConnectApplicationSettingsClient struct {
 	ApplicationType *string `json:"application_type,omitempty"`
-	ClientUri *string `json:"client_uri,omitempty"`
-	ConsentMethod *string `json:"consent_method,omitempty"`
+	ClientUri       *string `json:"client_uri,omitempty"`
+	ConsentMethod   *string `json:"consent_method,omitempty"`
 	// Indicates that the client application uses Demonstrating Proof-of-Possession (DPoP) for token requests. If `true`, the authorization server rejects token requests from this client that don't contain the DPoP header.
 	DpopBoundAccessTokens *bool `json:"dpop_bound_access_tokens,omitempty"`
 	// Include user session details.
 	FrontchannelLogoutSessionRequired *bool `json:"frontchannel_logout_session_required,omitempty"`
 	// URL where Okta sends the logout request.
-	FrontchannelLogoutUri *string `json:"frontchannel_logout_uri,omitempty"`
-	GrantTypes []string `json:"grant_types,omitempty"`
-	IdpInitiatedLogin *OpenIdConnectApplicationIdpInitiatedLogin `json:"idp_initiated_login,omitempty"`
-	InitiateLoginUri *string `json:"initiate_login_uri,omitempty"`
-	IssuerMode *string `json:"issuer_mode,omitempty"`
-	Jwks *OpenIdConnectApplicationSettingsClientKeys `json:"jwks,omitempty"`
+	FrontchannelLogoutUri *string                                     `json:"frontchannel_logout_uri,omitempty"`
+	GrantTypes            []string                                    `json:"grant_types,omitempty"`
+	IdpInitiatedLogin     *OpenIdConnectApplicationIdpInitiatedLogin  `json:"idp_initiated_login,omitempty"`
+	InitiateLoginUri      *string                                     `json:"initiate_login_uri,omitempty"`
+	IssuerMode            *string                                     `json:"issuer_mode,omitempty"`
+	Jwks                  *OpenIdConnectApplicationSettingsClientKeys `json:"jwks,omitempty"`
 	// URL string that references a JSON Web Key Set for validating JWTs presented to Okta.
 	JwksUri *string `json:"jwks_uri,omitempty"`
 	LogoUri *string `json:"logo_uri,omitempty"`
 	// Allows the app to participate in front-channel single logout.
-	ParticipateSlo *bool `json:"participate_slo,omitempty"`
-	PolicyUri *string `json:"policy_uri,omitempty"`
-	PostLogoutRedirectUris []string `json:"post_logout_redirect_uris,omitempty"`
-	RedirectUris []string `json:"redirect_uris,omitempty"`
-	RefreshToken *OpenIdConnectApplicationSettingsRefreshToken `json:"refresh_token,omitempty"`
-	ResponseTypes []string `json:"response_types,omitempty"`
-	TosUri *string `json:"tos_uri,omitempty"`
-	WildcardRedirect *string `json:"wildcard_redirect,omitempty"`
-	AdditionalProperties map[string]interface{}
+	ParticipateSlo         *bool                                         `json:"participate_slo,omitempty"`
+	PolicyUri              *string                                       `json:"policy_uri,omitempty"`
+	PostLogoutRedirectUris []string                                      `json:"post_logout_redirect_uris,omitempty"`
+	RedirectUris           []string                                      `json:"redirect_uris,omitempty"`
+	RefreshToken           *OpenIdConnectApplicationSettingsRefreshToken `json:"refresh_token,omitempty"`
+	ResponseTypes          []string                                      `json:"response_types,omitempty"`
+	TosUri                 *string                                       `json:"tos_uri,omitempty"`
+	WildcardRedirect       *string                                       `json:"wildcard_redirect,omitempty"`
+	AdditionalProperties   map[string]interface{}
 }
 
 type _OpenIdConnectApplicationSettingsClient OpenIdConnectApplicationSettingsClient
@@ -904,4 +904,3 @@ func (v *NullableOpenIdConnectApplicationSettingsClient) UnmarshalJSON(src []byt
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-

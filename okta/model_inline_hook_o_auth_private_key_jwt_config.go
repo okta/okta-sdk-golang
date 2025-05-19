@@ -29,11 +29,11 @@ import (
 
 // InlineHookOAuthPrivateKeyJwtConfig struct for InlineHookOAuthPrivateKeyJwtConfig
 type InlineHookOAuthPrivateKeyJwtConfig struct {
-	HookKeyId *string `json:"hookKeyId,omitempty"`
-	AuthScheme *InlineHookChannelConfigAuthScheme `json:"authScheme,omitempty"`
-	Headers []InlineHookChannelConfigHeaders `json:"headers,omitempty"`
-	Method *string `json:"method,omitempty"`
-	Uri *string `json:"uri,omitempty"`
+	HookKeyId            *string                            `json:"hookKeyId,omitempty"`
+	AuthScheme           *InlineHookChannelConfigAuthScheme `json:"authScheme,omitempty"`
+	Headers              []InlineHookChannelConfigHeaders   `json:"headers,omitempty"`
+	Method               *string                            `json:"method,omitempty"`
+	Uri                  *string                            `json:"uri,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -303,4 +303,3 @@ func (v *NullableInlineHookOAuthPrivateKeyJwtConfig) UnmarshalJSON(src []byte) e
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-

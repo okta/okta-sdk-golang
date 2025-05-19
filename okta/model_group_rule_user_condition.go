@@ -29,8 +29,8 @@ import (
 
 // GroupRuleUserCondition struct for GroupRuleUserCondition
 type GroupRuleUserCondition struct {
-	Exclude []string `json:"exclude,omitempty"`
-	Include []string `json:"include,omitempty"`
+	Exclude              []string `json:"exclude,omitempty"`
+	Include              []string `json:"include,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -192,4 +192,3 @@ func (v *NullableGroupRuleUserCondition) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-

@@ -30,7 +30,7 @@ import (
 // PolicyContextUser The user ID for the simulate operation. Only user IDs or Group IDs are allowed, not both.
 type PolicyContextUser struct {
 	// The unique ID number for the user.
-	Id string `json:"id"`
+	Id                   string `json:"id"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -149,4 +149,3 @@ func (v *NullablePolicyContextUser) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-

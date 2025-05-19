@@ -29,7 +29,7 @@ import (
 
 // OpenIdConnectApplicationSettingsClientKeys struct for OpenIdConnectApplicationSettingsClientKeys
 type OpenIdConnectApplicationSettingsClientKeys struct {
-	Keys []SchemasJsonWebKey `json:"keys,omitempty"`
+	Keys                 []SchemasJsonWebKey `json:"keys,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -155,4 +155,3 @@ func (v *NullableOpenIdConnectApplicationSettingsClientKeys) UnmarshalJSON(src [
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-

@@ -29,7 +29,7 @@ import (
 
 // OAuth2RefreshTokenLinksAllOfRevokeAllOfHints struct for OAuth2RefreshTokenLinksAllOfRevokeAllOfHints
 type OAuth2RefreshTokenLinksAllOfRevokeAllOfHints struct {
-	Allow []string `json:"allow,omitempty"`
+	Allow                []string `json:"allow,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -155,4 +155,3 @@ func (v *NullableOAuth2RefreshTokenLinksAllOfRevokeAllOfHints) UnmarshalJSON(src
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-

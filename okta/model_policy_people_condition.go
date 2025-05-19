@@ -29,8 +29,8 @@ import (
 
 // PolicyPeopleCondition Identifies Users and Groups that are used together
 type PolicyPeopleCondition struct {
-	Groups *GroupCondition `json:"groups,omitempty"`
-	Users *UserCondition `json:"users,omitempty"`
+	Groups               *GroupCondition `json:"groups,omitempty"`
+	Users                *UserCondition  `json:"users,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -192,4 +192,3 @@ func (v *NullablePolicyPeopleCondition) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-

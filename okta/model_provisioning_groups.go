@@ -29,10 +29,10 @@ import (
 
 // ProvisioningGroups struct for ProvisioningGroups
 type ProvisioningGroups struct {
-	Action *string `json:"action,omitempty"`
-	Assignments []string `json:"assignments,omitempty"`
-	Filter []string `json:"filter,omitempty"`
-	SourceAttributeName *string `json:"sourceAttributeName,omitempty"`
+	Action               *string  `json:"action,omitempty"`
+	Assignments          []string `json:"assignments,omitempty"`
+	Filter               []string `json:"filter,omitempty"`
+	SourceAttributeName  *string  `json:"sourceAttributeName,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -266,4 +266,3 @@ func (v *NullableProvisioningGroups) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-

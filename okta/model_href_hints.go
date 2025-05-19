@@ -29,7 +29,7 @@ import (
 
 // HrefHints Describes allowed HTTP verbs for the `href`
 type HrefHints struct {
-	Allow []string `json:"allow,omitempty"`
+	Allow                []string `json:"allow,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -155,4 +155,3 @@ func (v *NullableHrefHints) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-

@@ -30,17 +30,17 @@ import (
 // ThemeResponse struct for ThemeResponse
 type ThemeResponse struct {
 	BackgroundImage *string `json:"backgroundImage,omitempty"`
-	// Variant for email templates. You can publish a theme for email templates with different combinations of assets. Variants are preset combinations of those assets. 
+	// Variant for email templates. You can publish a theme for email templates with different combinations of assets. Variants are preset combinations of those assets.
 	EmailTemplateTouchPointVariant *string `json:"emailTemplateTouchPointVariant,omitempty"`
-	// Variant for the Okta End-User Dashboard. You can publish a theme for end-user dashboard with different combinations of assets. Variants are preset combinations of those assets. 
+	// Variant for the Okta End-User Dashboard. You can publish a theme for end-user dashboard with different combinations of assets. Variants are preset combinations of those assets.
 	EndUserDashboardTouchPointVariant *string `json:"endUserDashboardTouchPointVariant,omitempty"`
-	// Variant for the error page. You can publish a theme for error page with different combinations of assets. Variants are preset combinations of those assets. 
+	// Variant for the error page. You can publish a theme for error page with different combinations of assets. Variants are preset combinations of those assets.
 	ErrorPageTouchPointVariant *string `json:"errorPageTouchPointVariant,omitempty"`
-	Favicon *string `json:"favicon,omitempty"`
-	Id *string `json:"id,omitempty"`
-	// Variant for the Okta loading page. You can publish a theme for Okta loading page with different combinations of assets. Variants are preset combinations of those assets. 
+	Favicon                    *string `json:"favicon,omitempty"`
+	Id                         *string `json:"id,omitempty"`
+	// Variant for the Okta loading page. You can publish a theme for Okta loading page with different combinations of assets. Variants are preset combinations of those assets.
 	LoadingPageTouchPointVariant *string `json:"loadingPageTouchPointVariant,omitempty"`
-	Logo *string `json:"logo,omitempty"`
+	Logo                         *string `json:"logo,omitempty"`
 	// Primary color contrast hex code
 	PrimaryColorContrastHex *string `json:"primaryColorContrastHex,omitempty"`
 	// Primary color hex code
@@ -49,10 +49,10 @@ type ThemeResponse struct {
 	SecondaryColorContrastHex *string `json:"secondaryColorContrastHex,omitempty"`
 	// Secondary color hex code
 	SecondaryColorHex *string `json:"secondaryColorHex,omitempty"`
-	// Variant for the Okta sign-in page. You can publish a theme for sign-in page with different combinations of assets. Variants are preset combinations of those assets. > **Note:**  For a non-`OKTA_DEFAULT` variant, `primaryColorHex` is used for button background color and `primaryColorContrastHex` is used to optimize the opacity for button text. 
-	SignInPageTouchPointVariant *string `json:"signInPageTouchPointVariant,omitempty"`
-	Links *LinksSelf `json:"_links,omitempty"`
-	AdditionalProperties map[string]interface{}
+	// Variant for the Okta sign-in page. You can publish a theme for sign-in page with different combinations of assets. Variants are preset combinations of those assets. > **Note:**  For a non-`OKTA_DEFAULT` variant, `primaryColorHex` is used for button background color and `primaryColorContrastHex` is used to optimize the opacity for button text.
+	SignInPageTouchPointVariant *string    `json:"signInPageTouchPointVariant,omitempty"`
+	Links                       *LinksSelf `json:"_links,omitempty"`
+	AdditionalProperties        map[string]interface{}
 }
 
 type _ThemeResponse ThemeResponse
@@ -661,4 +661,3 @@ func (v *NullableThemeResponse) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-

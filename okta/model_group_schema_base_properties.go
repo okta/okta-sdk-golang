@@ -29,8 +29,8 @@ import (
 
 // GroupSchemaBaseProperties struct for GroupSchemaBaseProperties
 type GroupSchemaBaseProperties struct {
-	Description *GroupSchemaAttribute `json:"description,omitempty"`
-	Name *GroupSchemaAttribute `json:"name,omitempty"`
+	Description          *GroupSchemaAttribute `json:"description,omitempty"`
+	Name                 *GroupSchemaAttribute `json:"name,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -192,4 +192,3 @@ func (v *NullableGroupSchemaBaseProperties) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-

@@ -29,7 +29,7 @@ import (
 
 // OptInStatusResponseLinks struct for OptInStatusResponseLinks
 type OptInStatusResponseLinks struct {
-	OptInStatus *HrefObject `json:"optInStatus,omitempty"`
+	OptInStatus          *HrefObject `json:"optInStatus,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -155,4 +155,3 @@ func (v *NullableOptInStatusResponseLinks) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-

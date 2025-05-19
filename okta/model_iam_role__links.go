@@ -29,8 +29,8 @@ import (
 
 // IamRoleLinks struct for IamRoleLinks
 type IamRoleLinks struct {
-	Self *HrefObjectSelfLink `json:"self,omitempty"`
-	Permissions *HrefObject `json:"permissions,omitempty"`
+	Self                 *HrefObjectSelfLink `json:"self,omitempty"`
+	Permissions          *HrefObject         `json:"permissions,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -192,4 +192,3 @@ func (v *NullableIamRoleLinks) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-

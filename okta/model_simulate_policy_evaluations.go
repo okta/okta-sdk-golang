@@ -31,11 +31,11 @@ import (
 type SimulatePolicyEvaluations struct {
 	Evaluated *SimulatePolicyEvaluationsEvaluated `json:"evaluated,omitempty"`
 	// The policy type of the simulate operation
-	PolicyType []string `json:"policyType,omitempty"`
-	Result *SimulatePolicyResult `json:"result,omitempty"`
+	PolicyType []string              `json:"policyType,omitempty"`
+	Result     *SimulatePolicyResult `json:"result,omitempty"`
 	// The result of this entity evaluation
-	Status *string `json:"status,omitempty"`
-	Undefined *SimulatePolicyEvaluationsUndefined `json:"undefined,omitempty"`
+	Status               *string                             `json:"status,omitempty"`
+	Undefined            *SimulatePolicyEvaluationsUndefined `json:"undefined,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -305,4 +305,3 @@ func (v *NullableSimulatePolicyEvaluations) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-

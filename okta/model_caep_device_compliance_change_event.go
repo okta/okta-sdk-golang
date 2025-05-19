@@ -36,10 +36,10 @@ type CaepDeviceComplianceChangeEvent struct {
 	// The entity that initiated the event
 	InitiatingEntity *string `json:"initiating_entity,omitempty"`
 	// Previous device compliance status
-	PreviousStatus string `json:"previous_status"`
-	ReasonAdmin *CaepDeviceComplianceChangeEventReasonAdmin `json:"reason_admin,omitempty"`
-	ReasonUser *CaepDeviceComplianceChangeEventReasonUser `json:"reason_user,omitempty"`
-	Subjects SecurityEventSubject `json:"subjects"`
+	PreviousStatus       string                                      `json:"previous_status"`
+	ReasonAdmin          *CaepDeviceComplianceChangeEventReasonAdmin `json:"reason_admin,omitempty"`
+	ReasonUser           *CaepDeviceComplianceChangeEventReasonUser  `json:"reason_user,omitempty"`
+	Subjects             SecurityEventSubject                        `json:"subjects"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -353,4 +353,3 @@ func (v *NullableCaepDeviceComplianceChangeEvent) UnmarshalJSON(src []byte) erro
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-

@@ -29,12 +29,12 @@ import (
 
 // GovernanceBundle struct for GovernanceBundle
 type GovernanceBundle struct {
-	Description *string `json:"description,omitempty"`
-	Id *string `json:"id,omitempty"`
-	Name *string `json:"name,omitempty"`
-	Orn *string `json:"orn,omitempty"`
-	Status *string `json:"status,omitempty"`
-	Links *GovernanceBundleLinks `json:"_links,omitempty"`
+	Description          *string                `json:"description,omitempty"`
+	Id                   *string                `json:"id,omitempty"`
+	Name                 *string                `json:"name,omitempty"`
+	Orn                  *string                `json:"orn,omitempty"`
+	Status               *string                `json:"status,omitempty"`
+	Links                *GovernanceBundleLinks `json:"_links,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -340,4 +340,3 @@ func (v *NullableGovernanceBundle) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-

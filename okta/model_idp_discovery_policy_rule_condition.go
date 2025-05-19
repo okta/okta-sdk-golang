@@ -29,10 +29,10 @@ import (
 
 // IdpDiscoveryPolicyRuleCondition struct for IdpDiscoveryPolicyRuleCondition
 type IdpDiscoveryPolicyRuleCondition struct {
-	App *AppAndInstancePolicyRuleCondition `json:"app,omitempty"`
-	Network *PolicyNetworkCondition `json:"network,omitempty"`
-	UserIdentifier *UserIdentifierPolicyRuleCondition `json:"userIdentifier,omitempty"`
-	Platform *PlatformPolicyRuleCondition `json:"platform,omitempty"`
+	App                  *AppAndInstancePolicyRuleCondition `json:"app,omitempty"`
+	Network              *PolicyNetworkCondition            `json:"network,omitempty"`
+	UserIdentifier       *UserIdentifierPolicyRuleCondition `json:"userIdentifier,omitempty"`
+	Platform             *PlatformPolicyRuleCondition       `json:"platform,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -266,4 +266,3 @@ func (v *NullableIdpDiscoveryPolicyRuleCondition) UnmarshalJSON(src []byte) erro
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-

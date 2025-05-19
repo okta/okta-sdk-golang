@@ -33,10 +33,10 @@ import (
 type UserFactorCustomHOTP struct {
 	UserFactor
 	// ID of an existing Custom TOTP Factor profile. To create this, see [Custom TOTP Factor](https://help.okta.com/okta_help.htm?id=ext-mfa-totp).
-	FactorProfileId *string `json:"factorProfileId,omitempty"`
-	FactorType interface{} `json:"factorType,omitempty"`
-	Profile *UserFactorCustomHOTPProfile `json:"profile,omitempty"`
-	Provider *string `json:"provider,omitempty"`
+	FactorProfileId      *string                      `json:"factorProfileId,omitempty"`
+	FactorType           interface{}                  `json:"factorType,omitempty"`
+	Profile              *UserFactorCustomHOTPProfile `json:"profile,omitempty"`
+	Provider             *string                      `json:"provider,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -221,10 +221,10 @@ func (o UserFactorCustomHOTP) MarshalJSON() ([]byte, error) {
 func (o *UserFactorCustomHOTP) UnmarshalJSON(bytes []byte) (err error) {
 	type UserFactorCustomHOTPWithoutEmbeddedStruct struct {
 		// ID of an existing Custom TOTP Factor profile. To create this, see [Custom TOTP Factor](https://help.okta.com/okta_help.htm?id=ext-mfa-totp).
-		FactorProfileId *string `json:"factorProfileId,omitempty"`
-		FactorType interface{} `json:"factorType,omitempty"`
-		Profile *UserFactorCustomHOTPProfile `json:"profile,omitempty"`
-		Provider *string `json:"provider,omitempty"`
+		FactorProfileId *string                      `json:"factorProfileId,omitempty"`
+		FactorType      interface{}                  `json:"factorType,omitempty"`
+		Profile         *UserFactorCustomHOTPProfile `json:"profile,omitempty"`
+		Provider        *string                      `json:"provider,omitempty"`
 	}
 
 	varUserFactorCustomHOTPWithoutEmbeddedStruct := UserFactorCustomHOTPWithoutEmbeddedStruct{}
@@ -320,4 +320,3 @@ func (v *NullableUserFactorCustomHOTP) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-

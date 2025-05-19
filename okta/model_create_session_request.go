@@ -30,7 +30,7 @@ import (
 // CreateSessionRequest struct for CreateSessionRequest
 type CreateSessionRequest struct {
 	// The session token obtained during authentication
-	SessionToken *string `json:"sessionToken,omitempty"`
+	SessionToken         *string `json:"sessionToken,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -156,4 +156,3 @@ func (v *NullableCreateSessionRequest) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-

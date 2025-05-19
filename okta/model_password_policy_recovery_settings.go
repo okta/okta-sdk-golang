@@ -29,7 +29,7 @@ import (
 
 // PasswordPolicyRecoverySettings struct for PasswordPolicyRecoverySettings
 type PasswordPolicyRecoverySettings struct {
-	Factors *PasswordPolicyRecoveryFactors `json:"factors,omitempty"`
+	Factors              *PasswordPolicyRecoveryFactors `json:"factors,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -155,4 +155,3 @@ func (v *NullablePasswordPolicyRecoverySettings) UnmarshalJSON(src []byte) error
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-
