@@ -144,7 +144,7 @@ type Configuration struct {
 			RateLimit         struct {
 				MaxRetries int32 `yaml:"maxRetries" envconfig:"OKTA_CLIENT_RATE_LIMIT_MAX_RETRIES"`
 				MaxBackoff int64 `yaml:"maxBackoff" envconfig:"OKTA_CLIENT_RATE_LIMIT_MAX_BACKOFF"`
-        Enable     bool  `yaml:"enable" envconfig:"OKTA_CLIENT_RATE_LIMIT_ENABLE"`
+				Enable     bool  `yaml:"enable" envconfig:"OKTA_CLIENT_RATE_LIMIT_ENABLE"`
 			} `yaml:"rateLimit"`
 			OrgUrl            string   `yaml:"orgUrl" envconfig:"OKTA_CLIENT_ORGURL"`
 			Token             string   `yaml:"token" envconfig:"OKTA_CLIENT_TOKEN"`
