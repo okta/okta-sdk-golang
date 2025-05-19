@@ -34,7 +34,6 @@ import (
 )
 
 type DeviceAPI interface {
-
 	/*
 			ActivateDevice Activate a Device
 

@@ -34,7 +34,6 @@ import (
 )
 
 type ApplicationFeaturesAPI interface {
-
 	/*
 		GetFeatureForApplication Retrieve a Feature
 

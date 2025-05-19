@@ -35,7 +35,6 @@ import (
 )
 
 type IdentityProviderAPI interface {
-
 	/*
 		ActivateIdentityProvider Activate an Identity Provider
 

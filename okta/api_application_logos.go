@@ -35,7 +35,6 @@ import (
 )
 
 type ApplicationLogosAPI interface {
-
 	/*
 			UploadApplicationLogo Upload an application Logo
 

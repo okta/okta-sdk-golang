@@ -34,7 +34,6 @@ import (
 )
 
 type SSFReceiverAPI interface {
-
 	/*
 			ActivateSecurityEventsProviderInstance Activate a Security Events Provider
 

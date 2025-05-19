@@ -34,7 +34,6 @@ import (
 )
 
 type UISchemaAPI interface {
-
 	/*
 		CreateUISchema Create a UI Schema
 

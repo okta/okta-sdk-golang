@@ -34,7 +34,6 @@ import (
 )
 
 type PolicyAPI interface {
-
 	/*
 		ActivatePolicy Activate a Policy
 

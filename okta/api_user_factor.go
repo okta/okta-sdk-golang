@@ -34,7 +34,6 @@ import (
 )
 
 type UserFactorAPI interface {
-
 	/*
 			ActivateFactor Activate a Factor
 

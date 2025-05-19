@@ -34,7 +34,6 @@ import (
 )
 
 type SchemaAPI interface {
-
 	/*
 		GetApplicationUserSchema Retrieve the default Application User Schema for an Application
 

@@ -34,7 +34,6 @@ import (
 )
 
 type RoleTargetAPI interface {
-
 	/*
 		AssignAllAppsAsTargetToRoleForUser Assign all Apps as Target to Role
 

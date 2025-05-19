@@ -34,7 +34,6 @@ import (
 )
 
 type PrincipalRateLimitAPI interface {
-
 	/*
 		CreatePrincipalRateLimitEntity Create a Principal Rate Limit
 

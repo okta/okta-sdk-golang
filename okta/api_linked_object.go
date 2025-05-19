@@ -34,7 +34,6 @@ import (
 )
 
 type LinkedObjectAPI interface {
-
 	/*
 		CreateLinkedObjectDefinition Create a Linked Object Definition
 

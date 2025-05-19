@@ -34,7 +34,6 @@ import (
 )
 
 type AuthorizationServerClaimsAPI interface {
-
 	/*
 		CreateOAuth2Claim Create a custom token Claim
 

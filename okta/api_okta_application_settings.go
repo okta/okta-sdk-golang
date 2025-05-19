@@ -34,7 +34,6 @@ import (
 )
 
 type OktaApplicationSettingsAPI interface {
-
 	/*
 		GetFirstPartyAppSettings Retrieve the Okta Application Settings
 

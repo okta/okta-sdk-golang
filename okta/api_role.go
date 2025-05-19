@@ -34,7 +34,6 @@ import (
 )
 
 type RoleAPI interface {
-
 	/*
 		CreateRole Create a Role
 

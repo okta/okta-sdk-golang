@@ -34,7 +34,6 @@ import (
 )
 
 type AuthorizationServerKeysAPI interface {
-
 	/*
 		ListAuthorizationServerKeys List all Credential Keys
 

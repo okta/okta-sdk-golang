@@ -34,7 +34,6 @@ import (
 )
 
 type AuthenticatorAPI interface {
-
 	/*
 		ActivateAuthenticator Activate an Authenticator
 

@@ -34,7 +34,6 @@ import (
 )
 
 type RiskProviderAPI interface {
-
 	/*
 		CreateRiskProvider Create a Risk Provider
 

@@ -34,7 +34,6 @@ import (
 )
 
 type ApiTokenAPI interface {
-
 	/*
 		GetApiToken Retrieve an API Token's Metadata
 

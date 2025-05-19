@@ -35,7 +35,6 @@ import (
 )
 
 type OrgSettingAPI interface {
-
 	/*
 		AssignClientPrivilegesSetting Assign the Super Admin role to a public client app
 

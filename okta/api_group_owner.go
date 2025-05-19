@@ -34,7 +34,6 @@ import (
 )
 
 type GroupOwnerAPI interface {
-
 	/*
 		AssignGroupOwner Assign a Group Owner
 

@@ -34,7 +34,6 @@ import (
 )
 
 type AuthorizationServerScopesAPI interface {
-
 	/*
 		CreateOAuth2Scope Create a Custom Token Scope
 

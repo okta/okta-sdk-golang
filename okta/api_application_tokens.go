@@ -34,7 +34,6 @@ import (
 )
 
 type ApplicationTokensAPI interface {
-
 	/*
 		GetOAuth2TokenForApplication Retrieve an application Token
 

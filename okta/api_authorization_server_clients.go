@@ -34,7 +34,6 @@ import (
 )
 
 type AuthorizationServerClientsAPI interface {
-
 	/*
 		GetRefreshTokenForAuthorizationServerAndClient Retrieve a refresh token for a Client
 

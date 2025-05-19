@@ -34,7 +34,6 @@ import (
 )
 
 type RoleAssignmentAPI interface {
-
 	/*
 		AssignRoleToClient Assign Role to Client
 

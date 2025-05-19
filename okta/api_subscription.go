@@ -34,7 +34,6 @@ import (
 )
 
 type SubscriptionAPI interface {
-
 	/*
 		GetSubscriptionsNotificationTypeRole Retrieve a Subscription for a Role
 

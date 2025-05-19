@@ -34,7 +34,6 @@ import (
 )
 
 type ResourceSetAPI interface {
-
 	/*
 		AddMembersToBinding Add more Members to a binding
 

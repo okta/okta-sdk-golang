@@ -34,7 +34,6 @@ import (
 )
 
 type ApplicationUsersAPI interface {
-
 	/*
 			AssignUserToApplication Assign an Application User
 

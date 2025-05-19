@@ -34,7 +34,6 @@ import (
 )
 
 type CAPTCHAAPI interface {
-
 	/*
 		CreateCaptchaInstance Create a CAPTCHA instance
 

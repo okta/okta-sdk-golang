@@ -34,7 +34,6 @@ import (
 )
 
 type EventHookAPI interface {
-
 	/*
 		ActivateEventHook Activate an Event Hook
 

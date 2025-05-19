@@ -73,8 +73,7 @@ func (o AuthenticatorKeySymantecVip) MarshalJSON() ([]byte, error) {
 }
 
 func (o *AuthenticatorKeySymantecVip) UnmarshalJSON(bytes []byte) (err error) {
-	type AuthenticatorKeySymantecVipWithoutEmbeddedStruct struct {
-	}
+	type AuthenticatorKeySymantecVipWithoutEmbeddedStruct struct{}
 
 	varAuthenticatorKeySymantecVipWithoutEmbeddedStruct := AuthenticatorKeySymantecVipWithoutEmbeddedStruct{}
 

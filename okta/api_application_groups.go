@@ -34,7 +34,6 @@ import (
 )
 
 type ApplicationGroupsAPI interface {
-
 	/*
 			AssignGroupToApplication Assign an Application Group
 

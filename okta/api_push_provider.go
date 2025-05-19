@@ -34,7 +34,6 @@ import (
 )
 
 type PushProviderAPI interface {
-
 	/*
 		CreatePushProvider Create a Push Provider
 

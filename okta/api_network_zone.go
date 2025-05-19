@@ -34,7 +34,6 @@ import (
 )
 
 type NetworkZoneAPI interface {
-
 	/*
 		ActivateNetworkZone Activate a Network Zone
 

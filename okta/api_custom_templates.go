@@ -34,7 +34,6 @@ import (
 )
 
 type CustomTemplatesAPI interface {
-
 	/*
 			CreateEmailCustomization Create an Email Customization
 

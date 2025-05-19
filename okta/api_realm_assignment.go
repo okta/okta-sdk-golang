@@ -34,7 +34,6 @@ import (
 )
 
 type RealmAssignmentAPI interface {
-
 	/*
 		ActivateRealmAssignment Activate a Realm Assignment
 
