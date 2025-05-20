@@ -1,6 +1,9 @@
 # Changelog
 Running changelog of releases since `2.0.0-rc.4`
 
+## v5.0.6
+- Add option to prevent 429 by enabling api throttling [#526](https://github.com/okta/okta-sdk-golang/pull/526). Thanks [@erezrokah](https://github.com/erezrokah) and [@aditya-okta](https://github.com/aditya-okta)
+
 ## v5.0.5
  - Fix the Go Documentation spam [#512](https://github.com/okta/okta-sdk-golang/pull/511). Thanks [@aditya-okta](https://github.com/aditya-okta)
  - Fix the support for signed nonce factor [#512](https://github.com/okta/okta-sdk-golang/pull/512). Thanks [@aditya-okta](https://github.com/aditya-okta)
