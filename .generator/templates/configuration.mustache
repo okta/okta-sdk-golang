@@ -627,8 +627,8 @@ func fileExists(filename string) bool {
 }
 
 func WithRateLimitPrevent(enable bool) ConfigSetter {
-  return func(c *Configuration) {
-    c.Okta.Client.RateLimit.Enable = enable
-  }
+	return func(c *Configuration) {
+		c.Okta.Client.RateLimit.Enable = enable
+	}
 }
 
