@@ -1,7 +1,6 @@
 package okta
 
 import (
-	"encoding/json"
 	"testing"
 
 	"github.com/stretchr/testify/assert"
@@ -48,22 +47,4 @@ func Test_Update_Property_To_User_Schema(t *testing.T) {
 		assert.Equal(t, int32(1), updateAttribute.GetMinLength())
 		assert.Equal(t, int32(20), updateAttribute.GetMaxLength())
 	})
-}
-
-func convertStringToMap(jsonString *string) (map[string]interface{}, error) {
-	var data map[string]interface{}
-	err := json.Unmarshal([]byte(*jsonString), &data) // Dereference the pointer
-	if err != nil {
-		return nil, err
-	}
-	return data, nil
-}
-
-func convertMapToString(data map[string]interface{}) (*string, error) {
-	jsonBytes, err := json.MarshalIndent(data, "", "  ")
-	if err != nil {
-		return nil, err
-	}
-	jsonString := string(jsonBytes)
-	return &jsonString, nil
 }
