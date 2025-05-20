@@ -50,16 +50,17 @@ import (
 	"regexp"
 	"strconv"
 	"strings"
+	"sync"
 	"time"
 	"unicode/utf8"
 
 	"github.com/cenkalti/backoff/v4"
 	"github.com/go-jose/go-jose/v3"
 	"github.com/go-jose/go-jose/v3/jwt"
-	"golang.org/x/oauth2"
 	"github.com/google/uuid"
 	"github.com/lestrrat-go/jwx/jwk"
 	goCache "github.com/patrickmn/go-cache"
+	"golang.org/x/oauth2"
 )
 
 var (
@@ -74,14 +75,22 @@ const (
 	DpopAccessTokenPrivateKey = "DPOP_OKTA_ACCESS_TOKEN_PRIVATE_KEY"
 )
 
+type RateLimit struct {
+	Limit     int
+	Remaining int
+	Reset     int64
+}
+
 // APIClient manages communication with the Okta Admin Management API v2024.06.1
 // In most cases there should be only one, shared, APIClient.
 type APIClient struct {
-	cfg        *Configuration
-	common     service // Reuse a single struct instead of allocating one for each service on the heap.
-	cache      Cache
-	tokenCache *goCache.Cache
-	freshcache bool
+	cfg           *Configuration
+	common        service // Reuse a single struct instead of allocating one for each service on the heap.
+	cache         Cache
+	tokenCache    *goCache.Cache
+	freshcache    bool
+	rateLimit     *RateLimit
+	rateLimitLock sync.Mutex
 
 	// API Services
 
@@ -282,7 +291,7 @@ type PrivateKeyAuth struct {
 	privateKeyId     string
 	clientId         string
 	orgURL           string
-	userAgent 		 string
+	userAgent        string
 	scopes           []string
 	maxRetries       int32
 	maxBackoff       int64
@@ -297,7 +306,7 @@ type PrivateKeyAuthConfig struct {
 	PrivateKeyId     string
 	ClientId         string
 	OrgURL           string
-	UserAgent 		 string
+	UserAgent        string
 	Scopes           []string
 	MaxRetries       int32
 	MaxBackoff       int64
@@ -391,7 +400,7 @@ type JWTAuth struct {
 	tokenCache      *goCache.Cache
 	httpClient      *http.Client
 	orgURL          string
-	userAgent 		string
+	userAgent       string
 	scopes          []string
 	clientAssertion string
 	maxRetries      int32
@@ -403,7 +412,7 @@ type JWTAuthConfig struct {
 	TokenCache      *goCache.Cache
 	HttpClient      *http.Client
 	OrgURL          string
-	UserAgent 		string
+	UserAgent       string
 	Scopes          []string
 	ClientAssertion string
 	MaxRetries      int32
@@ -416,7 +425,7 @@ func NewJWTAuth(config JWTAuthConfig) *JWTAuth {
 		tokenCache:      config.TokenCache,
 		httpClient:      config.HttpClient,
 		orgURL:          config.OrgURL,
-		userAgent: 		 config.UserAgent,
+		userAgent:       config.UserAgent,
 		scopes:          config.Scopes,
 		clientAssertion: config.ClientAssertion,
 		maxRetries:      config.MaxRetries,
@@ -498,7 +507,7 @@ type JWKAuth struct {
 type JWKAuthConfig struct {
 	TokenCache       *goCache.Cache
 	HttpClient       *http.Client
-	JWK 			 string
+	JWK              string
 	EncryptionType   string
 	PrivateKeySigner jose.Signer
 	PrivateKeyId     string
@@ -515,8 +524,8 @@ func NewJWKAuth(config JWKAuthConfig) *JWKAuth {
 	return &JWKAuth{
 		tokenCache:       config.TokenCache,
 		httpClient:       config.HttpClient,
-		jwk: 		      config.JWK,
-		encryptionType: config.EncryptionType,
+		jwk:              config.JWK,
+		encryptionType:   config.EncryptionType,
 		privateKeySigner: config.PrivateKeySigner,
 		privateKeyId:     config.PrivateKeyId,
 		clientId:         config.ClientId,
@@ -1315,11 +1324,35 @@ func (c *APIClient) do(ctx context.Context, req *http.Request) (*http.Response, 
 		c.freshcache = false
 	}
 	if !inCache {
+		if c.cfg.Okta.Client.RateLimit.Enable {
+			c.rateLimitLock.Lock()
+			limit := c.rateLimit
+			c.rateLimitLock.Unlock()
+			if limit != nil && limit.Remaining <= 0 {
+				timer := time.NewTimer(time.Second * time.Duration(limit.Reset))
+				select {
+				case <-ctx.Done():
+					if !timer.Stop() {
+						<-timer.C
+					}
+					return nil, ctx.Err()
+				case <-timer.C:
+				}
+			}
+		}
 		resp, err := c.doWithRetries(ctx, req)
 		if err != nil {
 			return nil, err
 		}
 		if resp.StatusCode >= 200 && resp.StatusCode <= 299 && req.Method == http.MethodGet {
+			if c.cfg.Okta.Client.RateLimit.Enable {
+				c.rateLimitLock.Lock()
+				newLimit, err := c.parseLimitHeaders(resp)
+				if err == nil {
+					c.rateLimit = newLimit
+				}
+				c.rateLimitLock.Unlock()
+			}
 			c.cache.Set(cacheKey, resp)
 		}
 		return resp, err
@@ -1687,4 +1720,24 @@ func StringToAsciiBytes(s string) []byte {
 		i++
 	}
 	return t
+}
+
+func (c *APIClient) parseLimitHeaders(resp *http.Response) (*RateLimit, error) {
+	limit, err := strconv.Atoi(resp.Header.Get("X-Rate-Limit-Limit"))
+	if err != nil {
+		return nil, err
+	}
+	remaining, err := strconv.Atoi(resp.Header.Get("X-Rate-Limit-Remaining"))
+	if err != nil {
+		return nil, err
+	}
+	reset, err := Get429BackoffTime(resp)
+	if err != nil {
+		return nil, err
+	}
+	return &RateLimit{
+		Limit:     limit,
+		Remaining: remaining,
+		Reset:     reset,
+	}, nil
 }
