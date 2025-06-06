@@ -58,7 +58,7 @@ import (
 	"github.com/go-jose/go-jose/v3"
 	"github.com/go-jose/go-jose/v3/jwt"
 	"github.com/google/uuid"
-	"github.com/lestrrat-go/jwx/jwk"
+	"github.com/lestrrat-go/jwx/v3/jwk"
 	goCache "github.com/patrickmn/go-cache"
 	"golang.org/x/oauth2"
 )
@@ -613,11 +613,14 @@ func convertJWKToPrivateKey(jwks, encryptionType string) (string, error) {
 	if err != nil {
 		return "", err
 	}
-	for it := set.Iterate(context.Background()); it.Next(context.Background()); {
-		pair := it.Pair()
-		key := pair.Value.(jwk.Key)
+
+	for i := range set.Keys() {
+		key, ok := set.Key(i)
+		if !ok {
+			return "", fmt.Errorf("failed to get key at index %d", i)
+		}
 		var rawkey interface{} // This is the raw key, like *rsa.PrivateKey or *ecdsa.PrivateKey
-		err := key.Raw(&rawkey)
+		err := jwk.Export(key, &rawkey)
 		if err != nil {
 			return "", err
 		}
@@ -1680,7 +1683,7 @@ type DpopClaims struct {
 }
 
 func generateDpopJWT(privateKey *rsa.PrivateKey, httpMethod, URL, nonce, accessToken string) (string, error) {
-	set, err := jwk.New(privateKey.PublicKey)
+	set, err := jwk.Import(privateKey.PublicKey)
 	if err != nil {
 		return "", err
 	}
