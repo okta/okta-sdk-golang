@@ -579,7 +579,7 @@ func (a *JWKAuth) Authorize(method, URL string) error {
 			return err
 		}
 
-		accessToken, nonce, dpopPrivateKey, err := getAccessTokenForPrivateKey(a.httpClient, a.orgURL, clientAssertion, a.userAgent, a.scopes, a.maxRetries, a.maxBackoff, "", nil)
+		accessToken, nonce, dpopPrivateKey, err := getAccessTokenForPrivateKey(a.httpClient, a.orgURL, clientAssertion, a.userAgent, a.scopes, a.maxRetries, a.maxBackoff, a.clientId, a.privateKeySigner)
 		if err != nil {
 			return err
 		}
@@ -941,9 +941,9 @@ func selectHeaderAccept(accepts []string) string {
 		return ""
 	}
 
-	//if contains(accepts, "application/json") {
+	// if contains(accepts, "application/json") {
 	//	return "application/json"
-	//}
+	// }
 
 	return strings.Join(accepts, ",")
 }
