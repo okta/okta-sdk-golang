@@ -5,7 +5,7 @@
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **AllowedOktaApps** | Pointer to **[]string** | The allowed Okta apps for the Trusted Origin scope | [optional] 
-**Type** | Pointer to **string** | The scope type. Supported values: When you use &#x60;IFRAME_EMBED&#x60; as the scope type, leave the allowedOktaApps property  empty to allow iFrame embedding of only Okta sign-in pages. Include &#x60;OKTA_ENDUSER&#x60; as a value for the allowedOktaApps  property to allow iFrame embedding of both Okta sign-in pages and the Okta End-User Dashboard.  | [optional] 
+**Type** | Pointer to **string** | The scope type. Supported values: When you use &#x60;IFRAME_EMBED&#x60; as the scope type, leave the allowedOktaApps property empty to allow iFrame embedding of only Okta sign-in pages. Include &#x60;OKTA_ENDUSER&#x60; as a value for the allowedOktaApps property to allow iFrame embedding of both Okta sign-in pages and the Okta End-User Dashboard.  | [optional] 
 
 ## Methods
 

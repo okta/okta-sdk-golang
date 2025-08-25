@@ -8,12 +8,13 @@ additionalProperties:
   enumClassPrefix: true
   generateInterfaces: true
   packageName: okta
-  packageVersion: 5.0.0
+  packageVersion: 5.0.6
   useOneOfDiscriminatorLookup: true
   disallowAdditionalPropertiesIfNotPresent: false
 files:
   asset/logo.png: {}
   api_application_test.go: {}
+  api_factors_test.go: {}
   api_group_test.go: {}
   api_idp_test.go: {}
   api_policy_test.go: {}

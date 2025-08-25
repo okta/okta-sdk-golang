@@ -28,7 +28,7 @@ func Test_Update_Property_To_User_Schema(t *testing.T) {
 	assert.NotEmpty(t, schema, "User schema is empty")
 	t.Run("get update user schema", func(t *testing.T) {
 		req := apiClient.SchemaAPI.UpdateUserProfile(apiClient.cfg.Context, "default")
-		customAttributeName := testPrefix + randomTestString()
+		customAttributeName := testPrefix + "custom_attribute"
 		customAttributeDetail := UserSchemaAttribute{}
 		customAttributeDetail.SetTitle(customAttributeName)
 		customAttributeDetail.SetType("string")

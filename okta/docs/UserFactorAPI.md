@@ -114,7 +114,7 @@ import (
 
 func main() {
     userId := "userId_example" // string | ID of an existing Okta user
-    body := openapiclient.listFactors_200_response_inner{UserFactorCall: openapiclient.NewUserFactorCall()} // ListFactors200ResponseInner | Factor
+    body := openapiclient.listFactors_200_response_inner{AuthenticatorMethodSignedNonce: openapiclient.NewAuthenticatorMethodSignedNonce()} // ListFactors200ResponseInner | Factor
     updatePhone := true // bool | If `true`, indicates you are replacing the currently registered phone number for the specified user. This parameter is ignored if the existing phone number is used by an activated Factor. (optional) (default to false)
     templateId := "cstk2flOtuCMDJK4b0g3" // string | ID of an existing custom SMS template. See the [SMS Templates API](../Template). Only used by `sms` Factors. If the provided ID doesn't exist, the default template is used instead. (optional)
     tokenLifetimeSeconds := int32(56) // int32 | Defines how long the token remains valid (optional) (default to 300)
