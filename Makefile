@@ -70,6 +70,5 @@ test:
 	go test -failfast -race ./okta -test.v
 
 generate:
-	@echo "hell0, world"
 	npx @openapitools/openapi-generator-cli generate -c ./.generator/config.yaml -i .generator/okta-management-APIs-oasv3-noEnums-inheritance.yaml --skip-validate-spec
 
