@@ -1,0 +1,160 @@
+# TokenPayLoadDataContext
+
+## Properties
+
+Name | Type | Description | Notes
+------------ | ------------- | ------------- | -------------
+**Request** | Pointer to [**InlineHookRequestObject**](InlineHookRequestObject.md) |  | [optional] 
+**Session** | Pointer to [**BaseContextSession**](BaseContextSession.md) |  | [optional] 
+**User** | Pointer to [**BaseContextUser**](BaseContextUser.md) |  | [optional] 
+**Protocol** | Pointer to [**TokenPayLoadDataContextAllOfProtocol**](TokenPayLoadDataContextAllOfProtocol.md) |  | [optional] 
+**Policy** | Pointer to [**TokenPayLoadDataContextAllOfPolicy**](TokenPayLoadDataContextAllOfPolicy.md) |  | [optional] 
+
+## Methods
+
+### NewTokenPayLoadDataContext
+
+`func NewTokenPayLoadDataContext() *TokenPayLoadDataContext`
+
+NewTokenPayLoadDataContext instantiates a new TokenPayLoadDataContext object
+This constructor will assign default values to properties that have it defined,
+and makes sure properties required by API are set, but the set of arguments
+will change when the set of required properties is changed
+
+### NewTokenPayLoadDataContextWithDefaults
+
+`func NewTokenPayLoadDataContextWithDefaults() *TokenPayLoadDataContext`
+
+NewTokenPayLoadDataContextWithDefaults instantiates a new TokenPayLoadDataContext object
+This constructor will only assign default values to properties that have it defined,
+but it doesn't guarantee that properties required by API are set
+
+### GetRequest
+
+`func (o *TokenPayLoadDataContext) GetRequest() InlineHookRequestObject`
+
+GetRequest returns the Request field if non-nil, zero value otherwise.
+
+### GetRequestOk
+
+`func (o *TokenPayLoadDataContext) GetRequestOk() (*InlineHookRequestObject, bool)`
+
+GetRequestOk returns a tuple with the Request field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetRequest
+
+`func (o *TokenPayLoadDataContext) SetRequest(v InlineHookRequestObject)`
+
+SetRequest sets Request field to given value.
+
+### HasRequest
+
+`func (o *TokenPayLoadDataContext) HasRequest() bool`
+
+HasRequest returns a boolean if a field has been set.
+
+### GetSession
+
+`func (o *TokenPayLoadDataContext) GetSession() BaseContextSession`
+
+GetSession returns the Session field if non-nil, zero value otherwise.
+
+### GetSessionOk
+
+`func (o *TokenPayLoadDataContext) GetSessionOk() (*BaseContextSession, bool)`
+
+GetSessionOk returns a tuple with the Session field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetSession
+
+`func (o *TokenPayLoadDataContext) SetSession(v BaseContextSession)`
+
+SetSession sets Session field to given value.
+
+### HasSession
+
+`func (o *TokenPayLoadDataContext) HasSession() bool`
+
+HasSession returns a boolean if a field has been set.
+
+### GetUser
+
+`func (o *TokenPayLoadDataContext) GetUser() BaseContextUser`
+
+GetUser returns the User field if non-nil, zero value otherwise.
+
+### GetUserOk
+
+`func (o *TokenPayLoadDataContext) GetUserOk() (*BaseContextUser, bool)`
+
+GetUserOk returns a tuple with the User field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetUser
+
+`func (o *TokenPayLoadDataContext) SetUser(v BaseContextUser)`
+
+SetUser sets User field to given value.
+
+### HasUser
+
+`func (o *TokenPayLoadDataContext) HasUser() bool`
+
+HasUser returns a boolean if a field has been set.
+
+### GetProtocol
+
+`func (o *TokenPayLoadDataContext) GetProtocol() TokenPayLoadDataContextAllOfProtocol`
+
+GetProtocol returns the Protocol field if non-nil, zero value otherwise.
+
+### GetProtocolOk
+
+`func (o *TokenPayLoadDataContext) GetProtocolOk() (*TokenPayLoadDataContextAllOfProtocol, bool)`
+
+GetProtocolOk returns a tuple with the Protocol field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetProtocol
+
+`func (o *TokenPayLoadDataContext) SetProtocol(v TokenPayLoadDataContextAllOfProtocol)`
+
+SetProtocol sets Protocol field to given value.
+
+### HasProtocol
+
+`func (o *TokenPayLoadDataContext) HasProtocol() bool`
+
+HasProtocol returns a boolean if a field has been set.
+
+### GetPolicy
+
+`func (o *TokenPayLoadDataContext) GetPolicy() TokenPayLoadDataContextAllOfPolicy`
+
+GetPolicy returns the Policy field if non-nil, zero value otherwise.
+
+### GetPolicyOk
+
+`func (o *TokenPayLoadDataContext) GetPolicyOk() (*TokenPayLoadDataContextAllOfPolicy, bool)`
+
+GetPolicyOk returns a tuple with the Policy field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetPolicy
+
+`func (o *TokenPayLoadDataContext) SetPolicy(v TokenPayLoadDataContextAllOfPolicy)`
+
+SetPolicy sets Policy field to given value.
+
+### HasPolicy
+
+`func (o *TokenPayLoadDataContext) HasPolicy() bool`
+
+HasPolicy returns a boolean if a field has been set.
+
+
+[[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
+
+
