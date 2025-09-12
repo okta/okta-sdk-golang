@@ -1329,7 +1329,7 @@ func (c *APIClient) do(ctx context.Context, req *http.Request) (*http.Response, 
 			limit := c.rateLimit
 			c.rateLimitLock.Unlock()
 			// If the remaining requests are less than the threshold percentage of the limit, wait for the MaxBackoff
-			if limit != nil && limit.Remaining <= int(c.cfg.Okta.Client.RateLimit.Threshold)*limit.Limit/100 {
+			if limit != nil && limit.Remaining <= limit.Limit-int(c.cfg.Okta.Client.RateLimit.Threshold)*limit.Limit/100 { // less than threshold
 				timer := time.NewTimer(time.Second * time.Duration(c.cfg.Okta.Client.RateLimit.MaxBackoff))
 				select {
 				case <-ctx.Done():
