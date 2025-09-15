@@ -71861,9 +71861,8 @@ components:
     PublicAssetLinksWellKnownURI:
       description: The well-known URI content in a JSON array of objects format
       type: array
-      properties:
-        items:
-          type: object
+      items:
+        type: object
     PublicWebauthnSiteWellKnownURI:
       description: The well-known URI content in JSON object format
       type: object
