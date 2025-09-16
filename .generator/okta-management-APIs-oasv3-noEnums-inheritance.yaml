@@ -56425,6 +56425,8 @@ components:
         type:
           type: string
           $ref: '#/components/schemas/AppConfigType'
+      required:
+        - type
       discriminator:
         propertyName: type
         mapping:
@@ -63238,8 +63240,8 @@ components:
       properties:
         expiry:
           oneOf:
-            - $ref: '#/components/schemas/ByDateTimeExpiry'
-            - $ref: '#/components/schemas/ByDurationExpiry'
+            - $ref: '#/components/schemas/DateTime'
+            - $ref: '#/components/schemas/TimeDuration'
         type:
           description: Represents the type of Grace Period configured for the device assurance policy
           type: string
