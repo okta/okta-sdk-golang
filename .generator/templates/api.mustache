@@ -5,7 +5,7 @@ package {{packageName}}
 import (
 	"bytes"
 	"context"
-	"io/ioutil"
+	"io"
 	"net/http"
 	"net/url"
 	"time"
@@ -279,7 +279,7 @@ func (a *{{{classname}}}Service) {{nickname}}Execute(r {{#structPrefix}}{{&class
 	}
 {{/required}}
 	if {{paramName}}LocalVarFile != nil {
-		fbs, _ := ioutil.ReadAll({{paramName}}LocalVarFile)
+		fbs, _ := io.ReadAll({{paramName}}LocalVarFile)
 		{{paramName}}LocalVarFileBytes = fbs
 		{{paramName}}LocalVarFileName = {{paramName}}LocalVarFile.Name()
 		{{paramName}}LocalVarFile.Close()
@@ -363,9 +363,9 @@ func (a *{{{classname}}}Service) {{nickname}}Execute(r {{#structPrefix}}{{&class
 		return {{#returnType}}localVarReturnValue, {{/returnType}}localAPIResponse, &GenericOpenAPIError{error: err.Error()}
 	}
 
-	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		{{#returnType}}
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, {{#returnType}}localVarReturnValue{{/returnType}})
@@ -454,7 +454,7 @@ func (a *{{{classname}}}Service) {{nickname}}Execute(r {{#structPrefix}}{{&class
 		{{/returnType}}
 		return {{#returnType}}localVarReturnValue, {{/returnType}}localAPIResponse, newErr
 	}
-	
+
 	{{/returnType}}
 	{{#returnType}}
 	localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, {{#returnType}}localVarReturnValue{{/returnType}})

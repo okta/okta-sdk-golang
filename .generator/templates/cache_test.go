@@ -2,7 +2,6 @@ package okta
 
 import (
 	"io"
-	"io/ioutil"
 	"net/http"
 	"net/http/httptest"
 	"testing"
@@ -34,7 +33,7 @@ func Test_Item_Stored_Successful(t *testing.T) {
 	assert.True(t, found, "item does not exist in cache")
 	pulledFromCache := myCache.Get(cacheKey)
 	assert.NotEqual(t, result, pulledFromCache, "Item pulled from cache was not a copy")
-	cachedBody, _ := ioutil.ReadAll(pulledFromCache.Body)
+	cachedBody, _ := io.ReadAll(pulledFromCache.Body)
 	assert.Equal(t, toCache, string(cachedBody), "Item pulled from cache was not correct")
 }
 

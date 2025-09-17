@@ -5,7 +5,6 @@ import (
 	"context"
 	"errors"
 	"fmt"
-	"io/ioutil"
 	"net/http"
 	"net/url"
 	"os"
@@ -288,7 +287,7 @@ func NewConfiguration(conf ...ConfigSetter) (*Configuration, error) {
 }
 
 func readConfigFromFile(location string, c Configuration) (*Configuration, error) {
-	yamlConfig, err := ioutil.ReadFile(location)
+	yamlConfig, err := os.ReadFile(location)
 	if err != nil {
 		return nil, err
 	}
@@ -591,7 +590,7 @@ func WithEncryptionType(etype string) ConfigSetter {
 func WithPrivateKey(privateKey string) ConfigSetter {
 	return func(c *Configuration) {
 		if fileExists(privateKey) {
-			content, err := ioutil.ReadFile(privateKey)
+			content, err := os.ReadFile(privateKey)
 			if err != nil {
 				fmt.Printf("failed to read from provided private key file path: %v", err)
 			}
